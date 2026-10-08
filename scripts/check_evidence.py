@@ -13,7 +13,6 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import shlex
 import sys
 
 if __package__:
@@ -48,7 +47,7 @@ TRUSTED_IMPORT_ENTITIES = {
 PROOF_LIMITATION_NOTES = {"contracts-recursive", "numeric-variant"}
 PROOF_OPTIONS = ["--mode=all", "--report=all", "--warnings=error",
                  "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo",
-                 "--timeout=30", "-j", "4", "-f"]
+                 "--timeout=30"]
 TRUSTED_RUNTIME_CALLEES = {
     "Interfaces.C.To_C": "i-c.ads", "Interfaces.C.To_Ada": "i-c.ads",
     "Ada.Text_IO.Put": "a-textio.ads", "Ada.Text_IO.Put_Line": "a-textio.ads",
@@ -126,7 +125,8 @@ def source_tokens(source: Path) -> list[str]:
 
 
 def audit_reports(report_dir: Path, expected_units: set[str],
-                  trusted_import_units: set[str] | None = None) -> dict[str, int]:
+                  trusted_import_units: set[str] | None = None, *,
+                  effective_command: list[str] | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
@@ -240,8 +240,20 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     invocation = invocations[0]
     require(invocation.get("executionSuccessful") is True and invocation.get("exitCode") == 0,
             "GNATprove invocation failed")
-    command = invocation.get("commandLine", "")
-    arguments = shlex.split(command)
+    command_line = invocation.get("commandLine", "")
+    require(isinstance(command_line, str), "missing GNATprove command line")
+    if effective_command is not None:
+        # GNATprove 16.1 records argv joined by spaces, without shell quoting.
+        # Its lossy string cannot recover boundaries in paths containing spaces
+        # or quotes. Full audits use the actual captured argv and check this
+        # producer representation exactly before inspecting the options.
+        require(command_line == " ".join(effective_command),
+                "recorded GNATprove invocation differs from the effective command")
+        arguments = effective_command
+    else:
+        # Standalone report audits have no captured argv. Inspect literal
+        # producer tokens conservatively; do not interpret quotes as shell code.
+        arguments = command_line.split()
     require("--mode=all" in arguments and "--report=all" in arguments,
             "GNATprove did not record full flow/proof analysis and reporting")
     # A later repeated switch wins in GNATprove; membership alone is insufficient.
@@ -283,7 +295,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
 
 
 def audit_sources(source_dir: Path, report_dir: Path,
-                  generated_dir: Path | None = None) -> dict[str, int]:
+                  generated_dir: Path | None = None, *,
+                  effective_command: list[str] | None = None) -> dict[str, int]:
     require(source_dir.is_dir(), f"missing source directory: {source_dir}")
     sources = sorted(path for path in source_dir.rglob("*") if path.suffix in (".ads", ".adb"))
     if generated_dir is not None:
@@ -297,7 +310,8 @@ def audit_sources(source_dir: Path, report_dir: Path,
             audit_import_spec(source)
     expected_units = {path.stem for path in sources}
     trusted_units = {path.stem for path in sources if path.name in TRUSTED_IMPORT_SPECS}
-    stats = audit_reports(report_dir, expected_units, trusted_units)
+    stats = audit_reports(report_dir, expected_units, trusted_units,
+                          effective_command=effective_command)
     for source in sources:
         report = report_dir / f"{source.stem}.spark"
         require(report.stat().st_mtime_ns >= source.stat().st_mtime_ns,
@@ -347,8 +361,9 @@ def main() -> None:
     require(args.source_dir.resolve() == (host.root / "src").resolve()
             and args.generated_dir.resolve() == host.generated.resolve(),
             "audited source directories must match the native proof provenance")
-    validate_provenance(host, args.report_dir)
-    stats = audit_sources(args.source_dir, args.report_dir, args.generated_dir)
+    manifest = validate_provenance(host, args.report_dir)
+    stats = audit_sources(args.source_dir, args.report_dir, args.generated_dir,
+                          effective_command=manifest["command"])
     print("Complete GNATprove evidence: " + ", ".join(f"{count} {name}" for name, count in stats.items()))
 
 

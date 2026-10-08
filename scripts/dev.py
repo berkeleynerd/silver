@@ -8,18 +8,22 @@ this helper builds and verifies that compiler and runs its development tests.
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass, field
 import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 
 if __package__:
     from .check_evidence import PROOF_OPTIONS, audit_sources
-    from .proof_provenance import begin_proof, complete_proof
+    from .proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
+                                   selected_proof_cache, validate_project)
     from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 else:
     from check_evidence import PROOF_OPTIONS, audit_sources
-    from proof_provenance import begin_proof, complete_proof
+    from proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
+                                  selected_proof_cache, validate_project)
     from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 
 
@@ -66,25 +70,99 @@ def project_reports(host: HostLayout, arguments: list[str]) -> Path:
     return reports
 
 
-def proof_arguments(arguments: list[str]) -> list[str]:
-    """The audited path has one full-analysis regime; custom runs use `tool`."""
-    result: list[str] = []
+@dataclass
+class ProofRun:
+    full: bool = False
+    cold: bool = False
+    jobs: int = 0
+    arguments: list[str] = field(default_factory=list)
+
+
+def worker_count(value: str) -> int:
+    if not value.isascii() or not value.isdecimal():
+        raise ValueError("jobs must be a nonnegative integer (0 uses all cores)")
+    return int(value)
+
+
+def proof_arguments(arguments: list[str], *, full: bool = False, cold: bool = False,
+                    jobs: int = 0) -> ProofRun:
+    """Allow scheduling/output controls while preserving the proof regime."""
+    result = ProofRun(full=full, cold=cold, jobs=jobs)
     index = 0
     while index < len(arguments):
         argument = arguments[index]
-        if argument == "-f":
-            pass  # Fresh verification is already mandatory.
+        if argument in ("--full", "-f"):
+            result.full = True
+        elif argument == "--cold":
+            result.cold = True
+        elif argument in ("--jobs", "-j"):
+            if index + 1 == len(arguments):
+                raise RuntimeError("--jobs requires a nonnegative integer")
+            index += 1
+            result.jobs = worker_count(arguments[index])
+        elif argument.startswith("--jobs="):
+            result.jobs = worker_count(argument.split("=", 1)[1])
+        elif argument.startswith("-j"):
+            result.jobs = worker_count(argument[2:])
         elif argument == "--subdirs":
             if index + 1 == len(arguments):
                 raise RuntimeError("--subdirs requires a relative directory")
             index += 1
-            result.extend([argument, arguments[index]])
+            value = arguments[index]
+            result.arguments.extend([argument, value])
         elif argument.startswith("--subdirs="):
-            result.append(argument)
+            value = argument.split("=", 1)[1]
+            result.arguments.append(argument)
         else:
-            raise RuntimeError(f"audited proof configuration cannot be overridden: {argument}; use tool for exploratory runs")
+            raise RuntimeError(f"proof configuration cannot be overridden: {argument}; use tool for exploratory runs")
+        if argument == "--subdirs" or argument.startswith("--subdirs="):
+            path = Path(value)
+            if path.parts and (path.parts[0] == "explore" or path.parts[0].startswith("cold-")):
+                raise RuntimeError("explore and cold-* subdirectories are reserved; use tool or prove --cold")
         index += 1
+    if result.cold:
+        if result.arguments:
+            raise RuntimeError("--cold selects its own fresh output subdirectory; omit --subdirs")
+        result.full = True
     return result
+
+
+def exploratory_tool(host: HostLayout, command: list[str]) -> None:
+    """Prevent accidental sharing by direct GNATprove experiments, not wrappers."""
+    if Path(command[0]).name != "gnatprove":
+        return
+    arguments = command[1:]
+    if arguments in (["--help"], ["--version"], ["-h"]):
+        return
+    subdirectories = []
+    for index, argument in enumerate(arguments):
+        for option in ("--subdirs", "--memcached-server"):
+            if argument == option:
+                if index + 1 == len(arguments):
+                    raise RuntimeError(f"{option} requires a value")
+                value = arguments[index + 1]
+            elif argument.startswith(option + "="):
+                value = argument.split("=", 1)[1]
+            else:
+                continue
+            if option == "--subdirs":
+                subdirectories.append(value)
+            elif value.startswith("file:"):
+                cache = Path(value[5:])
+                cache = (host.context / cache).resolve()
+                managed = (host.artifacts / "proof-cache").resolve()
+                objects = (host.compiler / "obj").resolve()
+                cold_cache = False
+                if cache.is_relative_to(objects):
+                    parts = cache.relative_to(objects).parts
+                    cold_cache = len(parts) >= 2 and parts[0].startswith("cold-") and parts[1] == "cache"
+                if cache.is_relative_to(managed) or cold_cache:
+                    raise RuntimeError("exploratory GNATprove must use its own cache, outside audited proof caches")
+    if len(subdirectories) != 1:
+        raise RuntimeError("exploratory GNATprove requires --subdirs=explore or --subdirs=explore/<name>")
+    path = Path(subdirectories[0])
+    if path.is_absolute() or not path.parts or path.parts[0] != "explore" or ".." in path.parts:
+        raise RuntimeError("exploratory GNATprove requires --subdirs=explore or --subdirs=explore/<name>")
 
 
 def main(arguments: list[str] | None = None) -> None:
@@ -92,6 +170,13 @@ def main(arguments: list[str] | None = None) -> None:
     commands = parser.add_subparsers(dest="action", required=True)
     for action in ("prove", "build", "test", "tool"):
         child = commands.add_parser(action)
+        if action == "prove":
+            child.add_argument("--full", "-f", action="store_true",
+                               help="force all units and audit complete proof evidence")
+            child.add_argument("--cold", action="store_true",
+                               help="full audit with fresh isolated objects, sessions and solver cache")
+            child.add_argument("--jobs", "-j", type=worker_count, default=0,
+                               help="parallel workers; 0 uses all cores (default)")
         child.add_argument("arguments", nargs=argparse.REMAINDER)
     path_parser = commands.add_parser("paths")
     path_parser.add_argument("--field", help="print one path instead of JSON")
@@ -115,27 +200,61 @@ def main(arguments: list[str] | None = None) -> None:
     if not host.alr.is_file() or not (host.context / "alire.toml").is_file():
         raise RuntimeError("native toolchain is not set up; run python3 scripts/bootstrap.py")
     reports = host.compiler / "obj/gnatprove"
+    proof_run = None
     if args.action in ("prove", "build"):
         reports = project_reports(host, extra)
         tool = "gnatprove" if args.action == "prove" else "gprbuild"
         if args.action == "prove":
-            extra = proof_arguments(extra)
-        options = PROOF_OPTIONS if args.action == "prove" else ["-p"]
+            proof_run = proof_arguments(extra, full=args.full, cold=args.cold, jobs=args.jobs)
+            extra = proof_run.arguments
+            validate_project(host)
+            if proof_run.cold:
+                objects = host.compiler / "obj"
+                objects.mkdir(parents=True, exist_ok=True)
+                workspace = Path(tempfile.mkdtemp(prefix="cold-", dir=objects))
+                extra = [f"--subdirs={workspace.name}"]
+                reports = workspace / "gnatprove"
+            cache = selected_proof_cache(host, reports, cold=proof_run.cold)
+            cache.mkdir(parents=True, exist_ok=True)
+            options = [*PROOF_OPTIONS, "-j", str(proof_run.jobs),
+                       f"--memcached-server=file:{cache}"]
+            if proof_run.full:
+                options.append("-f")
+        else:
+            options = ["-p"]
         command = [tool, "-P", "../../../silver.gpr", *options, *extra,
                    f"-XSILVER_HOST={host.key}"]
     else:
         if not extra:
             parser.error("tool requires a command; for example: tool -- gnatls --version")
         command = extra
-    snapshot = begin_proof(host, command, reports) if args.action == "prove" else None
+        exploratory_tool(host, command)
+    snapshot = None
+    if proof_run is not None:
+        workers = "all cores" if proof_run.jobs == 0 else f"{proof_run.jobs} workers"
+        if proof_run.full:
+            mode = "Cold" if proof_run.cold else "Full"
+            print(f"{mode} GNATprove validation ({workers}); native solver cache enabled.", flush=True)
+            print(f"Proof evidence: {reports / MANIFEST}", flush=True)
+            if proof_run.cold:
+                snapshot = begin_proof(host, command, reports, cold=True)
+            else:
+                snapshot = begin_proof(host, command, reports)
+        else:
+            invalidate_proof(reports)
+            print(f"Incremental GNATprove ({workers}); native solver cache enabled. "
+                  "Use prove --full for complete validation.", flush=True)
     invoke(host, alire_command(host, "exec", "--", *command), cwd=host.context)
-    if args.action == "prove":
-        audit_sources(host.root / "src", reports, host.generated)
+    if proof_run is not None and proof_run.full:
+        audit_sources(host.root / "src", reports, host.generated,
+                      effective_command=command)
         complete_proof(host, reports, snapshot)
         invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
                       "--source-dir", str(host.root / "src"),
                       "--generated-dir", str(host.generated),
                       "--report-dir", str(reports)])
+    elif proof_run is not None:
+        print("Incremental GNATprove completed.", flush=True)
 
 
 if __name__ == "__main__":

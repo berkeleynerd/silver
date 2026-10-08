@@ -4,7 +4,6 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-import shlex
 import subprocess
 import sys
 
@@ -25,6 +24,33 @@ REVIEWED_PROJECT_SHA256 = "0c3200cd7a057a7cfb0b8a622c693c17e56d7c0c4d6542be9fe45
 def digest(path: Path) -> str:
     with path.open("rb") as stream:
         return hashlib.file_digest(stream, "sha256").hexdigest()
+
+
+def proof_cache(host: HostLayout) -> Path:
+    """Native GNATprove cache, separated when Alire selects new releases.
+
+    GNATprove owns cache matching and validity. The lock digest supplies only
+    a local namespace; it is not an attestation of cached proof results.
+    """
+    lock = host.context / "alire/alire.lock"
+    require(lock.is_file(), "missing native toolchain lock; run scripts/bootstrap.py")
+    return host.artifacts / "proof-cache/gnatprove" / digest(lock)
+
+
+def selected_proof_cache(host: HostLayout, report_dir: Path, *, cold: bool) -> Path:
+    """A cold run owns a fresh object directory and a private sibling cache."""
+    if not cold:
+        return proof_cache(host)
+    workspace = report_dir.parent
+    require(report_dir.name == "gnatprove" and workspace.parent == host.compiler / "obj"
+            and workspace.name.startswith("cold-") and len(workspace.name) > len("cold-"),
+            "cold proof must use an isolated native object directory")
+    return workspace / "cache"
+
+
+def invalidate_proof(report_dir: Path) -> None:
+    """A development run must not leave an earlier full-success claim behind."""
+    (report_dir / MANIFEST).unlink(missing_ok=True)
 
 
 def input_hashes(host: HostLayout) -> dict[str, str]:
@@ -88,14 +114,22 @@ def validate_project(host: HostLayout) -> None:
             "project differs from the reviewed source selection and check configuration")
 
 
-def begin_proof(host: HostLayout, command: list[str], report_dir: Path) -> dict:
+def begin_proof(host: HostLayout, command: list[str], report_dir: Path, *, cold: bool = False) -> dict:
     validate_project(host)
+    cache = selected_proof_cache(host, report_dir, cold=cold)
+    initial_state = {
+        "sessions_present": any(report_dir.rglob("why3session.xml")),
+        "cache_entries_present": cache.exists() and any(cache.iterdir()),
+    }
+    if cold:
+        require(not any(initial_state.values()), "cold proof must start without sessions or cached results")
     report_dir.mkdir(parents=True, exist_ok=True)
-    (report_dir / MANIFEST).unlink(missing_ok=True)
+    invalidate_proof(report_dir)
     # No earlier unit summary may fill a hole left by this invocation.
     for path in [*report_dir.glob("*.spark"), report_dir / "gnatprove.sarif", report_dir / "gnatprove.out"]:
         path.unlink(missing_ok=True)
     snapshot = {"schema": 1, "host": host.key, "command": command,
+                "mode": "cold" if cold else "full", "initial_state": initial_state,
                 "inputs_sha256": input_hashes(host), "tools": tool_identities(host)}
     (report_dir / "proof-inputs.json").write_text(json.dumps(snapshot, indent=2) + "\n")
     return snapshot
@@ -115,10 +149,20 @@ def complete_proof(host: HostLayout, report_dir: Path, snapshot: dict) -> None:
 
 
 def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | None = None) -> dict:
+    report_dir = report_dir.resolve()
     manifest = read_json(report_dir / MANIFEST) if manifest is None else manifest
     require(manifest.get("schema") == 1 and manifest.get("complete") is True,
             "missing completed content-bound proof provenance")
     require(manifest.get("host") == host.key, "proof provenance belongs to a different host")
+    mode = manifest.get("mode")
+    require(mode in ("full", "cold"), "missing proof validation mode")
+    initial_state = manifest.get("initial_state", {})
+    require(isinstance(initial_state, dict)
+            and initial_state.keys() == {"sessions_present", "cache_entries_present"}
+            and all(type(value) is bool for value in initial_state.values()),
+            "missing initial proof session/cache state")
+    require(mode != "cold" or not any(initial_state.values()),
+            "cold proof did not start without sessions or cached results")
     validate_project(host)
     require(manifest.get("inputs_sha256") == input_hashes(host), "proof input hashes changed; rerun GNATprove")
     require(manifest.get("reports_sha256") == report_hashes(report_dir), "proof report hashes changed")
@@ -139,8 +183,19 @@ def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | Non
             "unexpected proof project/command")
     require(command[3:3 + len(PROOF_OPTIONS)] == PROOF_OPTIONS, "unreviewed effective proof options")
     require(command[-1:] == [f"-XSILVER_HOST={host.key}"], "proof invocation host mismatch")
-    # Only output subdirectories may follow the pinned proof switches.
+    # Scheduling and native result caching do not change the obligation policy.
+    # Full evidence must still force analysis of every unit and cover all reports.
     remaining = command[3 + len(PROOF_OPTIONS):-1]
+    require(len(remaining) >= 4 and remaining[0] == "-j"
+            and isinstance(remaining[1], str) and remaining[1].isascii()
+            and remaining[1].isdecimal(), "invalid full-proof worker count")
+    cache = selected_proof_cache(host, report_dir, cold=mode == "cold")
+    require(remaining[2] == f"--memcached-server=file:{cache}",
+            "full proof must use the selected native cache")
+    require(remaining[3] == "-f", "full proof must force analysis of every unit")
+    remaining = remaining[4:]
+    # Only output subdirectories may follow the full-proof controls.
+    selected_reports = host.compiler / "obj/gnatprove"
     while remaining:
         argument = remaining.pop(0)
         if argument == "--subdirs":
@@ -151,7 +206,16 @@ def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | Non
             value = argument.split("=", 1)[1]
         require(value and not Path(value).is_absolute() and ".." not in Path(value).parts,
                 "invalid proof output subdirectory")
+        parts = Path(value).parts
+        require(not parts or (parts[0] != "explore"
+                and (mode == "cold" or not parts[0].startswith("cold-"))),
+                "reserved proof output subdirectory")
+        selected_reports = host.compiler / "obj" / value / "gnatprove"
+    require(selected_reports == report_dir, "proof report directory differs from the selected output")
     invocation = read_json(report_dir / "gnatprove.sarif")["runs"][0]["invocations"][0]
-    require(shlex.split(invocation["commandLine"]) == command,
+    # GNATprove's SARIF field is a literal space join, not a shell command.
+    # Compare to the captured argv's producer representation rather than
+    # attempting to parse ambiguous quoting/whitespace in installation paths.
+    require(invocation["commandLine"] == " ".join(command),
             "recorded GNATprove invocation differs from the approved effective configuration")
     return manifest

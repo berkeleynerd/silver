@@ -5,6 +5,20 @@ and Silver assurance a property of language membership. Developers write
 ordinary Ada/SPARK source without contracts or proof annotations. The governing
 requirements are in [oracle.md](oracle.md).
 
+Before 1.0, Silver is one evolving language. We prioritize foundational
+correctness, useful capabilities and a fast proof loop. Intentional language
+changes are documented together with their proofs and examples; historical
+language editions are not maintained. Independently addable release hardening
+is deferred until needed. See [the development policy](development.md).
+
+The root documents provide the main review entry points:
+
+- [oracle.md](oracle.md): governing requirements and assurance guarantees.
+- [language.md](language.md): the currently admitted language.
+- [roadmap.md](roadmap.md): proposed capabilities and their dependencies.
+- [development.md](development.md): the workflow for admitting a capability.
+- [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
+
 The initial compiler admits, proves, builds, and runs this program shape:
 
 ```ada
@@ -21,7 +35,7 @@ return, or line feed. Comments begin with `--`, end at carriage return, line fee
 or EOF, and contain printable ASCII or horizontal tabs. Word tokens retain their
 Ada lexical boundaries. All other constructs and compositions are excluded.
 
-This first profile, `silver-null-0`, specializes the guarantee to one procedure
+The current catalogue label, `silver-null-0`, describes one procedure
 with no parameters or calls and one null statement. Every admitted program has
 zero user-program proof obligations. Extending it to constructs that generate
 checks requires new admission, composition, and automatic-discharge proofs.
@@ -62,13 +76,23 @@ needed. `python3 scripts/dev.py paths` displays the selected paths.
 The wrapper supplies `SILVER_HOST`; invoking `silver.gpr` without that setting
 fails instead of selecting a default output directory.
 
-`dev.py prove` fixes the solver and proof configuration, forces analysis, and
-runs the proof audit before succeeding. The audit checks
+`dev.py prove` runs incremental flow/proof checking with GNATprove's native
+filesystem result cache. It uses all detected cores by default; `--jobs N`
+limits workers when memory or other work requires it. This is development
+feedback, not a completed full-audit record. `dev.py prove --full` forces unit
+analysis and runs the complete proof audit, while retaining native sessions and
+solver-cache reuse. It does not demonstrate uncached proof performance.
+`dev.py prove --cold` adds an optional full audit in a unique fresh output,
+session and cache workspace. It preserves warm state and other hosts' artifacts;
+custom `--subdirs` cannot be combined with `--cold`. The audit checks
 unit/entity coverage, proof completion, individual obligations, skipped checks,
 assumptions, diagnostics, and matching report formats. A completed provenance
 record binds the selected host, source/configuration/script bytes, tool binaries,
 and reports. A successful GNATprove process exit alone is insufficient. Reports
-remain in `.silver/<host>/compiler/obj/gnatprove/`.
+normally remain in `.silver/<host>/compiler/obj/gnatprove/`; a cold run prints its
+separate evidence path. An incremental invocation
+invalidates that directory's previous completed full-audit manifest. Ordinary
+builds remain available without a proof gate or binary attestation.
 
 Bootstrap installs Alire 2.1.1 with pinned upstream SHA256 hashes. Alire manages
 GNAT 16.1, GNATprove 16.1, and GPRbuild 26.0; patch updates are permitted within
@@ -109,7 +133,7 @@ the actual compiler. Recognition and JSON export share SPARK token and character
 rules. It also lists the admitted procedure, required pragma, null statement,
 their conditions and token spans, and their sole permitted composition. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
-intentional profile change:
+intentional language change:
 
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
@@ -118,8 +142,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-Current validation results and exact counts are recorded in
-[the review repair record](docs/review-repairs.md). Regression coverage includes
+Validation of the incremental workflows is recorded in
+[the proof workflow record](docs/proof-workflow.md); the earlier implementation
+baseline is in [the review repair record](docs/review-repairs.md). Regression coverage includes
 real proof/build/run cases, simulated tool failures, source changes, report-size
 stress, foreign working directories, and simulated cross-host artifact routing.
 
@@ -144,11 +169,32 @@ A per-host source link points directly to the authoritative `src/` directory.
 Lean subprocesses use explicit native tool paths and isolated config/cache paths;
 inherited Lean, Lake, and Elan overrides cannot select another installation.
 
+The default Lean check retains Lake's native build cache and freshly runs the
+module/axiom audit even on a cache hit. `--full` adds the independent kernel
+recheck; `--clean` also discards this host's proof workspace. The embedded
+recognizer Ada files are dependencies
+of the whole Silver Lean library: editing either invalidates that entire
+library's cached build. For a capability-validation checkpoint, run:
+
+```sh
+python3 scripts/dev.py prove --full
+python3 scripts/dev.py build
+python3 scripts/dev.py test
+python3 scripts/check_lean.py --full
+```
+
+Lake schedules independent modules. Lean declaration checking defaults to one
+thread per process as a conservative memory setting for large certificates;
+`--threads N` lets developers tune it. This default has not been benchmarked
+against higher thread counts. Caching and worker counts do not change the
+required proof obligations.
+
 The source bridge embeds the authoritative `silver_profile.ads` and `.adb`,
 checks restricted source bytes and declaration shapes, and matches typed
-expressions with checked Ada precedence. Its semantic scope is described in the trusted boundary. Clean
-replay audits actual imported modules and every declaration's transitive axioms,
-then runs a fresh `leanchecker` kernel check. Only Lean's standard logical
+expressions with checked Ada precedence. Its semantic scope is described in the
+trusted boundary. Every mode audits actual imported modules and every
+declaration's transitive axioms; full validation also runs a fresh `leanchecker`
+kernel check. Only Lean's standard logical
 foundations are allowed. The separate external-tool theorem proves completion
 and preservation under its documented tool and operational contracts.
 
@@ -157,10 +203,13 @@ See [the assurance argument](docs/assurance.md) for the exact proved claims, and
 assumptions, report-format assumptions, and supported execution conditions.
 
 [CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
-x86-64/ARM64, plus Lean checks. Repairs are validated locally on Linux ARM64.
-Retained pre-repair macOS ARM64 reports passed a re-audit under the baseline
-rules; they do not validate these repairs or the new provenance requirements.
-Native macOS repair validation and x86-64 validation remain pending. Linux is
-primary and macOS validation is independent under the Oracle. This work remains
+x86-64/ARM64, plus Lean checks. The latest external review validated the staged
+incremental workflows on macOS ARM64 before the cold-proof and exploratory-tool
+guard changes. It reported passing proofs, tests under the default symlinked
+temporary directory, and all Lean modes. Retained compiler and final clean Lean
+artifacts were independently corroborated on Linux. The subsequent cold-proof
+and guard changes still await native macOS validation. Evidence, exact scope and
+remaining platform checks are recorded in [the workflow record](docs/proof-workflow.md).
+Linux is primary and macOS validation is independent under the Oracle. This work remains
 local as requested: the repository has no Git remote, and the configured CI
 workflow has not been executed.

@@ -74,16 +74,36 @@ class ProofEvidenceTests(unittest.TestCase):
                     result.setdefault(key, diagnostic[key])
         (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
 
-    def audit(self) -> dict[str, int]:
+    def audit(self, effective_command: list[str] | None = None) -> dict[str, int]:
         (self.path / "main.spark").write_text(json.dumps(self.report))
         self.refresh_reports()
-        return audit_reports(self.path, {"main"})
+        return audit_reports(self.path, {"main"}, effective_command=effective_command)
 
     def test_success_with_zero_obligations_requires_coverage(self) -> None:
         self.assertEqual(self.audit()["proof_checks"], 0)
         self.report["spark"] = {}
         with self.assertRaises(EvidenceError):
             self.audit()
+
+    def test_captured_arguments_handle_lossy_producer_paths_without_shell_parsing(self) -> None:
+        command = ["gnatprove", "-P", "/tmp/checkout ' --mode=flow/project.gpr",
+                   "--mode=all", "--report=all",
+                   "--memcached-server=file:/tmp/solver cache ' quoted"]
+        invocation = self.sarif["runs"][0]["invocations"][0]
+        invocation["commandLine"] = " ".join(command)
+        self.assertEqual(self.audit(command)["units"], 1)
+        invocation["commandLine"] += " --mode=flow"
+        with self.assertRaisesRegex(EvidenceError, "effective command"):
+            self.audit(command)
+        command.append("--mode=flow")
+        with self.assertRaisesRegex(EvidenceError, "conflicting/repeated --mode"):
+            self.audit(command)
+
+    def test_standalone_report_does_not_treat_path_apostrophe_as_shell_quoting(self) -> None:
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = (
+            "gnatprove -P /tmp/project.gpr --mode=all --report=all "
+            "--memcached-server=file:/tmp/solver cache ' quoted")
+        self.assertEqual(self.audit()["units"], 1)
 
     def test_missing_unit_report(self) -> None:
         self.audit()

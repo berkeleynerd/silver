@@ -32,7 +32,7 @@ jobs:
       - name: Bootstrap the pinned Alire toolchain
         run: python3 scripts/bootstrap.py
       - name: Verify all compiler units and audit complete proof evidence
-        run: python3 scripts/dev.py prove
+        run: python3 scripts/dev.py prove --full
       - name: Build the verified SPARK compiler
         run: python3 scripts/dev.py build
       - name: Test admission, evidence rejection, source identity and execution
@@ -69,10 +69,12 @@ jobs:
           python-version: '3.12'
       - name: Install the pinned Lean release
         run: python3 scripts/bootstrap_lean.py
+      - name: Test incremental dependencies and temporary-path handling
+        run: python3 -m unittest discover -s tests -p test_lean_evidence.py -v
       - name: Replay all Lean proofs and audit logical assumptions
         # The script builds a clean host-local proof workspace, embeds actual
         # authoritative Ada source, and checks the full project import closure.
-        run: python3 scripts/check_lean.py
+        run: python3 scripts/check_lean.py --clean
       - name: Retain Lean proof evidence
         if: always()
         uses: actions/upload-artifact@v4

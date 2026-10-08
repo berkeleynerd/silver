@@ -1,9 +1,13 @@
 # Assurance review repairs
 
-This records the repairs to the initial null-profile compiler following the
-independent review on 2026-10-08. The Oracle and admitted Silver language are
-unchanged. Compiler implementation remains SPARK; Python is setup, proof
-orchestration, evidence auditing, and test code.
+This is the historical repair record for commit `8b8619f`, following the
+independent review on 2026-10-08. That commit did not change the then-current
+Oracle or admitted Silver language. The Oracle has since been amended with the
+owner's approval; current requirements are in [oracle.md](../oracle.md), and
+current workflows and platform evidence are in [proof-workflow.md](proof-workflow.md).
+The commands, counts and artifact hashes below describe the repair baseline,
+not the later proof workflows. Compiler implementation remains SPARK; Python is
+setup, proof orchestration, evidence auditing, and test code.
 
 ## Source correspondence
 
@@ -32,9 +36,11 @@ general Ada front end; see [assurance.md](assurance.md).
 
 ## Evidence and runtime behavior
 
-The audited compiler proof uses a fixed complete-analysis configuration and a
-fresh run. A content manifest binds compiler sources, generated configuration,
-project files, orchestration scripts, Alire resolution/configuration, concrete
+The audited compiler proof used a fixed complete-analysis configuration and
+forced unit analysis. This regenerated reports while allowing native session
+reuse; it did not establish an uncached runtime bound. A content manifest binds
+compiler sources, generated configuration, project files, orchestration scripts,
+Alire resolution/configuration, concrete
 tools/versions, and final reports. Changes during verification invalidate the
 run. The project itself must match its reviewed token shape, preventing a new
 configuration-pragma file or source-selection override from approving itself.
@@ -120,12 +126,14 @@ corresponding evidence when the remote repository is available.
 
 ## Remaining platform and extension work
 
-The user requested local work because `github.com/berkeleynerd/silver` does not
-yet exist. The CI workflow is configured but has not run remotely. No repository
-was created or published. Native macOS validation of these repairs remains
-independent and nonblocking; older retained macOS reports are historical evidence,
-not validation of the repaired sources. Linux x86-64 execution also remains
-unmeasured here.
+At this baseline, the user requested local work because
+`github.com/berkeleynerd/silver` did not yet exist. CI was configured but had not
+run remotely; no repository was created or published. Native macOS validation
+was then pending and nonblocking. Subsequent external reviews validated this
+repair baseline and the later staged incremental workflows on macOS ARM64.
+See [proof-workflow.md](proof-workflow.md) for the corroborated artifacts,
+reviewer-reported results and remaining platform scope. Linux x86-64 execution
+remains unmeasured here.
 
 The semantics are a valid specialization for the null-only language, whose
 user-program obligations are empty. Before admitting a construct that generates

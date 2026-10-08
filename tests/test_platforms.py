@@ -56,7 +56,8 @@ def mock_lockfile(host: platforms.HostLayout) -> None:
 
 
 def setup_worker(root: Path, key: str, concurrent: bool = False,
-                 fail_proof: bool = False) -> None:
+                 fail_proof: bool = False, lean_mode: str = "incremental",
+                 omit_fresh_audit: bool = False) -> None:
     """Run real setup code while replacing only network/external tool effects."""
     host = platforms.HostLayout(root, key)
     root = host.root
@@ -178,30 +179,41 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         elif executable == host.lean / "bin/lake":
             environment = check_lean_environment(kwargs)
             assert Path(str(kwargs["cwd"])) == host.proof
-            if args[1:] == ["clean"]:
-                shutil.rmtree(host.proof / ".lake", ignore_errors=True)
-            elif args[1:] == ["build", "Silver.Audit"]:
+            options = args[1:]
+            if options and options[0] == "--rehash":
+                options = options[1:]
+            assert options[:2] == ["-K", "silverThreads=1"]
+            options = options[2:]
+            if options == ["build", "Silver.Audit"]:
                 if fail_proof:
                     return subprocess.CompletedProcess(args, 1, "simulated Lean failure\n")
-                (host.proof / ".lake/build").mkdir(parents=True)
+                (host.proof / ".lake/build").mkdir(parents=True, exist_ok=True)
                 (host.proof / ".lake/build/routing.olean").write_text(key)
                 cache = Path(environment["LAKE_CACHE_DIR"])
-                cache.mkdir(parents=True)
+                cache.mkdir(parents=True, exist_ok=True)
                 (cache / "routing.json").write_text(json.dumps({"host": key}))
                 Path(environment["LAKE_CONFIG"]).write_text(f'host = "{key}"\n')
                 (host.proof / "lake-manifest.json").write_text(json.dumps({"test_host": key}))
-                output = "Silver axiom audit passed: MOCKED routing test only\n"
+                # Cached build messages must never substitute for fresh audit
+                # execution, even if they claim all modules were checked.
+                output = "Silver axiom audit passed: CACHED routing message only\n"
                 output += "".join(f"SILVER_MODULE {module}\n"
                                   for module in sorted(check_lean.project_sources(host.proof)))
-            elif args[1:] == ["env", str(host.lean / "bin/leanchecker"),
-                              "--fresh", "Silver.Audit"]:
+            elif options == ["env", str(host.lean / "bin/lean"), "-DwarningAsError=true",
+                             "-j1", "Silver/Audit.lean"]:
+                if not omit_fresh_audit:
+                    output = "Silver axiom audit passed: FRESH MOCKED routing test only\n"
+                    output += "".join(f"SILVER_MODULE {module}\n"
+                                      for module in sorted(check_lean.project_sources(host.proof)))
+            elif options == ["env", str(host.lean / "bin/leanchecker"),
+                             "--fresh", "Silver.Audit"]:
                 output = "Mocked kernel recheck: routing test only\n"
             else:
                 raise AssertionError(f"unexpected Lake command: {args}")
         elif executable == Path(sys.executable):
             # The real native Python generator must write the isolated output.
             assert Path(args[1]) == root / "proof/generate_source_certificate.py"
-            assert args[2:] == ["--output", str(host.proof / check_lean.CANDIDATE)]
+            assert args[2:] == ["--output", str((host.proof / check_lean.CANDIDATE).with_suffix(".lean.pending"))]
             return real_run(args, **kwargs)
         else:
             raise AssertionError(f"unexpected external executable: {args}")
@@ -243,12 +255,13 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         bootstrap.main()
         bootstrap_lean.main()
         try:
-            check_lean.main()
+            check_lean.main([] if lean_mode == "incremental" else ["--" + lean_mode])
         except RuntimeError as error:
-            if not fail_proof or "Lean check failed" not in str(error):
+            expected = "freshly executed axiom audit" if omit_fresh_audit else "Lean check failed"
+            if not (fail_proof or omit_fresh_audit) or expected not in str(error):
                 raise
         else:
-            if fail_proof:
+            if fail_proof or omit_fresh_audit:
                 raise AssertionError("simulated proof failure was accepted")
         assert settings == {"cache.dir": str(host.alire_cache),
                             "toolchain.dir": str(host.alire_toolchains)}
@@ -260,11 +273,16 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         assert (host.artifacts / "src").resolve() == (root / "src").resolve()
         assert (host.context / "alire.toml").read_bytes() == (root / "alire.toml").read_bytes()
         evidence = host.artifacts / "lean-evidence.json"
-        assert evidence.exists() != fail_proof
+        assert evidence.exists() != (fail_proof or omit_fresh_audit)
         if evidence.exists():
             data = json.loads(evidence.read_text())
             assert data["host"] == key
             assert data["workspace"] == str(host.proof.relative_to(root))
+            assert data["mode"] == lean_mode
+            assert data["clean_replay"] == (lean_mode == "clean")
+            assert bool(data["kernel_recheck"]) == (lean_mode != "incremental")
+            assert any(command[-1] == "Silver/Audit.lean" for command in commands)
+            assert any("--fresh" in command for command in commands) == (lean_mode != "incremental")
         (host.artifacts / "setup-routing-test.json").write_text(
             json.dumps({"host": key, "downloads": fetched, "commands": commands,
                         "mocked_tools": True, "failed_proof": fail_proof}, indent=2))
@@ -420,6 +438,21 @@ class PlatformIsolationTests(unittest.TestCase):
         self.assertFalse((platforms.HostLayout(self.root, key).artifacts / "lean-evidence.json").exists())
         self.assertEqual(self.snapshot((key,)), before)
 
+    def test_lean_full_and_clean_modes_record_their_actual_checks(self) -> None:
+        key = platforms.host_key()
+        for mode in ("full", "clean"):
+            with self.subTest(mode=mode):
+                before = self.snapshot((key,))
+                self.run_worker(key, "--lean-mode=" + mode)
+                self.assertEqual(self.snapshot((key,)), before)
+
+    def test_cached_build_log_cannot_replace_fresh_lean_audit(self) -> None:
+        key = platforms.host_key()
+        before = self.snapshot((key,))
+        self.run_worker(key, "--omit-fresh-audit")
+        self.assertFalse((platforms.HostLayout(self.root, key).artifacts / "lean-evidence.json").exists())
+        self.assertEqual(self.snapshot((key,)), before)
+
     def test_legacy_archives_are_read_only_inputs(self) -> None:
         key = "macos-x86_64"
         os_name, architecture = key.split("-", 1)
@@ -442,13 +475,15 @@ class PlatformIsolationTests(unittest.TestCase):
     def test_development_commands_keep_project_outputs_and_audit_in_native_host(self) -> None:
         host = platforms.HostLayout(self.root, platforms.host_key())
         bootstrap.prepare_context(host)
+        mock_lockfile(host)
         with mock.patch.object(dev, "native_layout", return_value=host), \
                 mock.patch.object(dev, "begin_proof") as begin, \
                 mock.patch.object(dev, "audit_sources") as audit_reports, \
                 mock.patch.object(dev, "complete_proof") as complete:
             for action in ("build", "prove"):
                 with self.subTest(action=action), mock.patch.object(subprocess, "run") as run:
-                    dev.main([action, "--", "--subdirs", "verification"])
+                    dev.main([action, *(["--full"] if action == "prove" else []),
+                              "--", "--subdirs", "verification"])
                     command = run.call_args_list[0].args[0]
                     invocation = run.call_args_list[0].kwargs
                     self.assertEqual(Path(command[0]), host.alr)
@@ -465,7 +500,7 @@ class PlatformIsolationTests(unittest.TestCase):
                             host.compiler / "obj/verification/gnatprove")
                         audit_reports.assert_called_once_with(
                             host.root / "src", host.compiler / "obj/verification/gnatprove",
-                            host.generated)
+                            host.generated, effective_command=command[command.index("--") + 1:])
                         complete.assert_called_once_with(
                             host, host.compiler / "obj/verification/gnatprove", begin.return_value)
                         self.assertEqual(run.call_count, 2)
@@ -566,6 +601,8 @@ class InstallationEnvironmentTests(unittest.TestCase):
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--setup-worker":
         setup_worker(Path(sys.argv[2]), sys.argv[3], "--concurrent" in sys.argv,
-                     "--fail-proof" in sys.argv)
+                     "--fail-proof" in sys.argv,
+                     next((arg.split("=", 1)[1] for arg in sys.argv if arg.startswith("--lean-mode=")),
+                          "incremental"), "--omit-fresh-audit" in sys.argv)
     else:
         unittest.main()

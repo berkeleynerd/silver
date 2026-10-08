@@ -7,9 +7,15 @@ admitted by explicit, decidable rules must automatically discharge every require
 Bronze and Silver obligation. Prover success does not define membership. A proof
 failure on admitted source is a toolchain or implementation defect.
 
+The current [language specification](../language.md) states the admitted syntax,
+restrictions and behavior. This document records its assurance argument and
+evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
+complete the [admission workflow](../development.md).
+
 The initial SPARK compiler and native proof/build/run pipeline support the
-null-only production below. Current validation and the review repairs are
-recorded in [review-repairs.md](review-repairs.md). Pinned Lean 4.34.1 proves
+null-only production below. Current validation is recorded in
+[proof-workflow.md](proof-workflow.md); the earlier repair baseline is in
+[review-repairs.md](review-repairs.md). Pinned Lean 4.34.1 proves
 membership, safety of the permitted composition, and discharge of its empty
 obligation set. The compiler bridge checks authoritative bytes and the complete
 reviewed source token shape, then proves membership equivalence for every
@@ -140,7 +146,7 @@ to represent zero. This is positional decimal identity, without a saturating or
 overflowing parser. The postcondition additionally forbids leading zeroes except
 for a one-character result and retains the original length/digit bounds. The
 full `Natural` input domain and the fixed-width reverse algorithm are preserved;
-GNATprove unrolls its bounded loop and proves all eighteen unit checks.
+GNATprove unrolls its bounded loop and proves all unit checks.
 
 `Silver_Reports.Complete_Null_Proof` has an exact functional postcondition:
 its result equals the independent ghost predicate `Recognizes_Null_Report`.
@@ -170,7 +176,7 @@ The regression suite passes maximum-sized positive/negative reports through the
 real CLI and verifies that GNATprove rejects a deliberately false static
 postcondition. This is ghost erasure, not removal of proof obligations.
 
-Twelve optional diagnostics describe limitations on using recursive contracts and
+Optional diagnostics describe limitations on using recursive contracts and
 numeric-variant expression bodies inside proofs. They withhold information; no
 obligation is waived. The evidence auditor counts exactly those documented
 limitation codes and rejects failed checks, incomplete coverage, source
@@ -182,11 +188,11 @@ contracts, report assumptions, and diagnostic classification.
 Reproduce the compiler evidence from the repository root:
 
 ```sh
-python3 scripts/dev.py prove
+python3 scripts/dev.py prove --full
 ```
 
-The native development command supplies the required `SILVER_HOST`, forces a
-fresh complete proof, pins prover order and parallelism, and audits the result.
+The full validation command supplies the required `SILVER_HOST`, forces unit
+analysis, fixes semantic proof options, records parallelism, and audits the result.
 A manifest binds all compiler/project/generated inputs, driver scripts, Alire
 resolution/configuration, tool identities, and final reports by content hashes.
 Before/after fingerprints must agree. SARIF and `.spark` diagnostics must agree
@@ -200,14 +206,33 @@ configuration, Alire state, and compiler outputs belong to that host alone.
 
 The audited regime explicitly selects `--mode=all --report=all
 --warnings=error --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo
---timeout=30 -j 4 -f`; exploratory flags belong to `dev.py tool` and do not create
+--timeout=30`, a selected worker count (`-j 0` by default), a native filesystem
+solver cache and `-f`. The cache is scoped by host and Alire lock identity;
+GNATprove determines reuse for its proof tasks. Existing sessions are also
+retained. A full audit therefore does not establish an uncached runtime bound.
+Optional `dev.py prove --cold` implies the same full audit with fresh native
+output, sessions and solver cache in a unique host-local workspace, preserving
+ordinary warm state. It rejects custom `--subdirs` and prints its evidence path.
+`--jobs N` controls resource usage. Other exploratory flags belong to
+`dev.py tool`; direct exploratory GNATprove calls require an `explore` output
+subdirectory and cannot select an audit-managed cache. This catches routine
+command mistakes, not arbitrary wrapper behavior. Such runs do not create
 audited success evidence. The wall-clock timeout remains machine-dependent;
 passing evidence is not a performance guarantee on every host. Before admitting
 nonempty user-program obligations, their prover configuration and complete
-automatic-discharge argument must be specified together. The report directory is `.silver/<host>/compiler/obj/gnatprove/`.
+automatic-discharge argument must be specified together. The normal report
+directory is `.silver/<host>/compiler/obj/gnatprove/`; cold runs use the printed
+path under `.silver/<host>/compiler/obj/cold-<random>/gnatprove/`.
 `gnatprove.out` provides the readable summary; `.spark` and SARIF supply the
 machine-audited coverage and individual results. A process exit status alone is
 not sufficient evidence.
+
+Without `--full`, `dev.py prove` preserves sessions/reports and allows GNATprove
+to skip unchanged units. The same logical options apply, but this incremental
+feedback does not establish a newly audited complete report set. Before that
+invocation, the selected directory's previous completed proof manifest is
+invalidated. Development builds remain independent of proof state; compiler
+binary attestation is deferred under the [pre-1.0 policy](../development.md).
 
 ## Source identity and automatic program verification
 
@@ -255,9 +280,11 @@ punctuation and Unicode, and invocation from another working directory.
 
 Lean 4.34.1 is installed by `scripts/bootstrap_lean.py` from a release archive
 whose upstream SHA256 is pinned for each supported platform. The version is also
-recorded in `proof/lean-toolchain`. The Lake project treats warnings as errors,
-checks declarations sequentially to bound peak memory, and has no Mathlib
-dependency.
+recorded in `proof/lean-toolchain`. The Lake project treats warnings as errors
+and has no Mathlib dependency. Declaration checking defaults to one thread per
+Lean process as a conservative memory setting; `--threads N` can adjust it.
+This default has not been benchmarked against higher thread counts. Lake retains
+its native scheduling of independent modules.
 
 Each native host uses its own `.tools/<host>/lean` installation and
 `.silver/<host>/proof` replay workspace. The checker copies shared proof inputs
@@ -270,14 +297,17 @@ source symlink and verifies that it resolves to the authoritative directory. No 
 host selector is used, and other-host or legacy flat artifacts are preserved.
 Lean subprocesses discard inherited Lean/Lake/Elan overrides, bind the pinned
 native installation explicitly, and use host-local system-config/cache paths.
-Artifact restoration is disabled for the clean replay. A real Lake probe with
+External artifact restoration is disabled. Local Lake artifacts are preserved
+unless `--clean` is requested. A real Lake probe with
 poisoned inherited settings selected the same native tools and search paths as
 the clean environment and left the foreign-host sentinel unchanged.
 
-`scripts/check_lean.py` checks the pinned version, regenerates candidate source
-certificates, requires every project module in the audit import closure, cleans
-before rebuilding, runs `Silver.Audit`, and independently rechecks exported
-objects with the pinned `leanchecker --fresh Silver.Audit`. The imported-module
+`scripts/check_lean.py` checks the pinned version, synchronizes proof inputs,
+regenerates candidate source certificates and builds incrementally. It executes
+`Silver.Audit` afresh after building, even on a cache hit, and requires every
+project module in that audit's actual import closure. `--full` additionally
+rechecks exported objects with the pinned `leanchecker --fresh Silver.Audit`;
+`--clean` first discards the host workspace and implies `--full`. The imported-module
 inventory comes from Lean's actual environment rather than source-text regexes. That audit inspects the transitive
 axioms of every declaration originating in a Silver proof module, including
 private and generated declarations. It permits only Lean's standard `propext`,
@@ -285,17 +315,19 @@ private and generated declarations. It permits only Lean's standard `propext`,
 project-specific axioms, and native-evaluation trust axioms fail the audit.
 A successful replay writes `.silver/<host>/lean-proof.log` and
 `.silver/<host>/lean-evidence.json`, recording the version, modules, duration, and input
-fingerprints for both shared inputs and the exact replay copies. Input changes
+fingerprints for both shared inputs and the exact workspace copies, together
+with the mode and whether a separate kernel recheck ran. Input changes
 during replay are rejected; the current host's stale success evidence is removed
 before setup or generation begins. Other hosts' evidence is untouched.
 
-The current clean replay, kernel recheck, module/declaration totals, and duration
-are recorded in [review-repairs.md](review-repairs.md). Evidence hashes include
+The earlier clean replay is recorded in [review-repairs.md](review-repairs.md);
+incremental/full workflow validation is in [proof-workflow.md](proof-workflow.md).
+Evidence hashes include
 the orchestration scripts and verification tools as well as proof/source inputs.
 
 ```sh
 python3 scripts/bootstrap_lean.py
-python3 scripts/check_lean.py
+python3 scripts/check_lean.py --full
 ```
 
 The proof chain has distinct checked components:
@@ -337,8 +369,11 @@ The proof chain has distinct checked components:
    yields zero obligations, and a total checker has an explicit one-step
    discharge certificate for them.
 
-A clean build is required because the source bridge reads Ada files outside the
-Lake tree. A cached Lean object is not evidence for changed Ada source. Kernel
+The two embedded Ada files are declared as binary Lake input dependencies of
+the whole Silver Lean library. Editing either invalidates that entire library's
+cached build. Content rehashing detects changed source even if
+timestamps are restored; line-ending differences remain significant. A cached
+Lean object for different Ada source is not accepted as current evidence. Kernel
 regression theorems reject unsupported comment/literal forms and prove
 that inserted declarations or a changed size constant alter the complete
 reviewed token shape. Python tests reject unsupported bytes before generation
@@ -387,7 +422,7 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, report recognition, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
 | Automatic discharge | Lean empty-obligation certificate; conditional external-tool theorem; real report checks | All admitted null-program sources. No claim of a solver complete for arbitrary SPARK or future nonempty obligations. |
-| Native support | Native build/proof/tests plus simulated routing tests | Current Linux evidence is recorded separately from historical macOS evidence. CI is configured; no remote run exists yet. |
+| Native support | Native build/proof/tests plus simulated routing tests | Linux results and independently reviewed macOS workflow results have explicit input/mode scope in the workflow record; the newest cold/guard changes await native macOS validation. CI is configured; no remote run exists yet. |
 
 These boundaries do not change membership or waive any obligation. Failure on an
 admitted source remains an implementation or toolchain defect. Any extension of

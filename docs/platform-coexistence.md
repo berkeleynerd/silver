@@ -15,10 +15,15 @@ and no cleanup or migration of another host's artifacts.
 - `.silver/<host>/compiler/` owns compiler objects, the executable, GNATprove
   intermediates, and content-bound proof provenance. The GPR project requires a
   supported `SILVER_HOST`; development tooling supplies the native value.
+- `.silver/<host>/proof-cache/gnatprove/<lock-digest>/` holds the native solver
+  cache for normal development and full-audit runs. Optional `prove --cold`
+  instead allocates `compiler/obj/cold-<random>/` with fresh `gnatprove/` reports
+  and sessions plus a separate `cache/`. It preserves normal warm state and
+  every other host's artifacts, and prints its evidence path.
 - `.silver/<host>/program-XXXXXX/` holds each byte-identical program snapshot,
   generated project, proof report and executable. The workspace contract checks
   the absolute installation prefix and an alphanumeric six-character suffix.
-- `.silver/<host>/proof/` holds clean Lean replay inputs, generated certificates,
+- `.silver/<host>/proof/` holds Lean verification inputs, generated certificates,
   Lake objects, and its manifest. The adjacent source link resolves to
   authoritative `src/`. Replay fingerprints shared inputs, scripts, tools,
   compiled artifacts and logs; shared inputs must remain unchanged.
@@ -52,12 +57,13 @@ These controls isolate known configuration and search-path overrides. Native
 libraries, build utilities, loader state and general environment integrity remain
 external assumptions; see the [trusted computing base](trusted-boundary.md).
 Python remains development/bootstrap/evidence tooling. Admission and compilation
-remain in SPARK, and the Oracle is unchanged.
+remain in SPARK.
 
 ## Validation scope
 
-Current repair results and exact counts are maintained in
-[the review repair record](review-repairs.md). Platform regressions cover
+Current workflow results are maintained in [proof-workflow.md](proof-workflow.md);
+[the review repair record](review-repairs.md) records the earlier baseline.
+Platform regressions cover
 canonical paths under symlinked `TMPDIR`, concurrent simulated setup for all four
 host keys, preservation of other-host/shared/legacy files, inherited environment
 overrides, and generated shell invocation from a foreign working directory.
@@ -73,14 +79,20 @@ and the complete repaired validation are linked from the repair record.
 The initial coexistence checkpoint was produced on **2026-10-08**, before the
 review repairs, at baseline commit `32d50d6`. Its proof, test and Lean totals are
 historical evidence and must not be substituted for current validation.
-Retained native macOS ARM64 reports under
-`.silver/macos-aarch64/compiler/obj/gnatprove/` passed re-auditing under the
-baseline rules. They establish neither a repaired native macOS run nor compliance
-with the new content-bound provenance requirements. The
-[initial implementation checkpoint](implementation-checkpoint.md) is likewise a
-historical baseline.
+The [initial implementation checkpoint](implementation-checkpoint.md) is likewise
+a historical baseline. A later external review ran the repaired `8b8619f` tree
+natively on macOS ARM64: compiler proof, build and Lean/kernel checks passed;
+three tests exposed another symlinked-temporary-directory fixture error. The
+retained proof and Lean artifacts were subsequently checked read-only on Linux.
+See [proof-workflow.md](proof-workflow.md) for evidence and scope.
 
-Native macOS repair validation and Linux/macOS x86-64 validation remain pending.
+The latest external review also validated the staged incremental workflows on
+macOS ARM64 before the cold-proof and direct-tool guard additions. It reported
+passing compiler proofs, all tests under symlinked `TMPDIR`, and all Lean modes.
+The retained compiler and final clean Lean artifacts were independently
+corroborated on Linux; intermediate timings and test results remain reviewer
+reports. The new cold/guard additions still await native macOS validation.
+Linux/macOS x86-64 validation also remains pending.
 CI is configured for all four supported host keys, including a fresh Lean kernel
 recheck, but has not executed. This work remains local as requested and the
 repository has no Git remote. Linux is the primary validation platform; native

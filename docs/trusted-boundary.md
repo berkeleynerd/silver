@@ -119,12 +119,32 @@ distinguishes qualified expressions from character literals. It pins the
 reviewed GPR token shape and checks permitted assumption edges to owned or
 explicitly trusted callees.
 
-The effective development proof configuration is explicit: full flow/proof,
-all reports, warnings/checks as errors, level 2, bundled `cvc5,z3,altergo`, a
-30-second timeout, four workers, and forced analysis. Only a validated output
-subdirectory may be added. Old report outputs are removed before the forced
-run. The audit cross-checks `.spark` obligations and diagnostics against SARIF
+The logical proof configuration is explicit: full flow/proof, all reports,
+warnings/checks as errors, level 2, bundled `cvc5,z3,altergo`, and a 30-second
+timeout. Worker count is configurable and defaults to all detected cores.
+GNATprove's native filesystem solver cache is host-local and keyed by the Alire
+lock. Native tool caching, including correct matching of proof tasks and results,
+remains part of the trusted GNATprove dependency. Managed warm sessions and
+caches are intended for the fixed logical configuration; arbitrary exploratory
+commands use separate output and cache paths.
+
+`dev.py prove --full` forces unit analysis and removes old report outputs before
+the run, while retaining solver/session caches. Only scheduling, the managed
+cache and validated output subdirectory vary; semantic proof flags remain fixed.
+The audit cross-checks `.spark` obligations and diagnostics against SARIF
 and the text summary; a zero process status or empty SARIF results is insufficient.
+This complete audit permits native proof-result reuse and does not demonstrate
+uncached performance. Optional `dev.py prove --cold` implies full validation in
+a unique fresh output/session/cache workspace. It preserves ordinary warm state
+and other hosts' artifacts, rejects custom `--subdirs`, and prints the separate
+evidence path.
+
+Direct exploratory `gnatprove` invocations through `dev.py tool` require
+`--subdirs=explore` or `explore/<name>` and cannot write to audit-managed solver
+caches. Help and version queries are exempt. This guard prevents ordinary
+command mistakes; it does not inspect arbitrary wrapper commands or authenticate
+against a hostile process with filesystem access. It introduces no proof gate
+for ordinary builds.
 
 `scripts/proof_provenance.py` records the host, effective command, source and
 project bytes, generated configuration, Python scripts, Alire settings/lock, and
@@ -132,7 +152,12 @@ selected tool identities before proving. After successful coverage auditing it
 requires unchanged inputs/tools and binds report hashes in a completed manifest.
 The command-line auditor requires this manifest. This distinguishes current
 native evidence from retained reports for another tree, configuration, or host;
-it is local provenance, not an authenticated build attestation.
+it is local provenance, not an authenticated build attestation. Default
+incremental `dev.py prove` keeps sessions/reports and invalidates the prior
+completed full-audit manifest. It supplies developer feedback without claiming
+a new full audit. Build commands do not require this evidence; binary and
+comprehensive per-program attestations are deferred under the
+[development policy](../development.md).
 
 Two optional limitation diagnostic codes are explicitly classified:
 `contracts-recursive` and `numeric-variant`. The authoritative
@@ -144,7 +169,7 @@ GNATprove marks these disabled-by-default notes as externally suppressed in
 SARIF; the auditor permits that exact representation for these two codes and
 counts them. It permits no source suppression or failed obligation through this
 exception. Current diagnostic and check counts are recorded in
-[the review repair record](review-repairs.md).
+[the workflow record](proof-workflow.md).
 
 ## Source identity and program proof evidence
 
@@ -186,7 +211,7 @@ depends on the genuine producer described below.
 The recursive mathematical report specifications and the assertions that refer
 to them use `Ghost => Static` and the `Static` assertion level. GNAT erases those
 proof-only computations, preventing recursive stack growth during report
-processing. GNATprove still verifies all 256 obligations of this report unit,
+processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks, report domain of
 262,144 bytes, and global `-gnata`/`-gnato` switches are retained. A native
 negative experiment with a deliberately false static contract fails verification
@@ -271,11 +296,16 @@ through a checked link. Generated source certificates, Lake artifacts, and
 manifests are written there. Shared proof inputs are fingerprinted and must
 remain unchanged throughout replay. Script inputs, Lean/Lake/kernel-checker
 binaries, compiled artifacts and the replay log are also hashed. The imported
-module inventory comes from the actual Lean environment, followed by transitive
-axiom auditing and a fresh kernel recheck. Lean/Lake startup also receives explicit
-native tool, sysroot, configuration, and cache paths; inherited Lean/Elan search
+module inventory and transitive axiom audit come from a fresh execution of the
+audit module after every build, including cache hits. Full/clean modes also
+perform a fresh independent kernel recheck. Local cached Lean objects rely on
+Lake's dependency tracking and the pinned Lean toolchain; both external Ada
+files are binary input dependencies, rehashed on each invocation. A change to
+either invalidates the whole Silver Lean library's cached build. Lean/Lake
+startup receives explicit native tool, sysroot, configuration, and cache paths;
+inherited Lean/Elan search
 paths and tool selections cannot redirect it. Artifact restoration is disabled
-for clean proof replay.
+for proof replay; this does not disable the local Lake build cache.
 
 After generation and again after replay, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
@@ -288,11 +318,15 @@ and macOS on ARM64 and x86-64. Alire checks the indexed binary origins for GNAT
 16.1, GNATprove 16.1, and GPRbuild 26.0. The approved patch-level variation does
 not remove the requirement to verify the implementation on each platform.
 
-Current Linux ARM64 validation is recorded in [the repair record](review-repairs.md).
-Retained native macOS ARM64 reports from the pre-repair baseline passed a
-re-audit under the baseline rules. Those files do not establish native validation
-of the repairs or satisfy the new content-bound provenance requirements.
-Native macOS repair validation and Linux/macOS x86-64 validation remain pending.
+The earlier Linux ARM64 validation is recorded in [the repair record](review-repairs.md).
+The latest external macOS ARM64 review validated the staged incremental
+workflows before the cold-proof and direct-tool guard additions. It reported
+passing compiler proofs, all tests under symlinked `TMPDIR`, and every Lean
+mode. Retained compiler and final clean Lean artifacts were independently
+corroborated on Linux. These artifacts cover that reviewed workflow, not the
+subsequent cold/guard changes. Exact evidence and scope are in
+[the workflow record](proof-workflow.md). Native macOS validation of those
+additions and Linux/macOS x86-64 validation remain pending.
 CI is prepared for
 `ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
 The work is local-only as requested, the repository has no remote, and no CI job
