@@ -62,6 +62,6 @@ is
      with Global => (In_Out => Ada.Text_IO.File_System),
           Post => (if Success then Valid_Path (Name)
                    and then Name (1 .. Workspace_Prefix'Length) = Workspace_Prefix
-                   and then (for all Item of Name =>
-                     Item in 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '.' | '/' | '-' | '_'));
+                   and then (for all Index in Workspace_Prefix'Last + 1 .. Name'Last =>
+                     Name (Index) in 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9'));
 end Silver_Platform;

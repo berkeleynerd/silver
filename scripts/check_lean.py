@@ -43,10 +43,13 @@ def prepare_workspace(host: HostLayout, inputs: dict[Path, bytes]) -> None:
     source_link = host.artifacts / "src"
     authoritative = (host.root / "src").resolve()
     if source_link.exists() or source_link.is_symlink():
-        if not source_link.is_symlink() or source_link.resolve() != authoritative:
+        if not source_link.is_symlink():
             raise RuntimeError(f"{source_link} must link to authoritative {authoritative}")
+        if source_link.resolve() != authoritative:
+            source_link.unlink()
+            source_link.symlink_to(Path("../../src"), target_is_directory=True)
     else:
-        source_link.symlink_to(authoritative, target_is_directory=True)
+        source_link.symlink_to(Path("../../src"), target_is_directory=True)
     if host.proof.exists():
         shutil.rmtree(host.proof)
     host.proof.mkdir()
@@ -59,19 +62,42 @@ def prepare_workspace(host: HostLayout, inputs: dict[Path, bytes]) -> None:
             destination.write_bytes(contents)
 
 
-def audit_import_closure(sources: dict[str, Path]) -> set[str]:
-    pending = ["Silver.Audit"]
-    visited: set[str] = set()
-    while pending:
-        module = pending.pop()
-        if module in visited or module not in sources:
+def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None:
+    """Only the candidate certificate may differ from captured shared inputs.
+
+    Run this before establishing the workspace hash baseline: a generator must
+    not redefine the handwritten source binding or bridge and then have those
+    changes mistaken for the inputs we intended to check.
+    """
+    shared_proof = host.root / "proof"
+    for source, expected in inputs.items():
+        if not source.is_relative_to(shared_proof):
             continue
-        visited.add(module)
-        text = sources[module].read_text()
-        pending.extend(re.findall(r"(?m)^\s*(?:public\s+)?import\s+([\w.]+)", text))
-    missing = sources.keys() - visited
-    if missing:
-        raise RuntimeError("proof modules missing from audit imports: " + ", ".join(sorted(missing)))
+        relative = source.relative_to(shared_proof)
+        if relative == CANDIDATE or not (source.suffix == ".lean" or source.name == "lean-toolchain"):
+            continue
+        destination = host.proof / relative
+        for depth in range(len(relative.parts) + 1):
+            if host.proof.joinpath(*relative.parts[:depth]).is_symlink():
+                raise RuntimeError(f"handwritten proof input is a symbolic link: {destination}")
+        if not destination.is_file() or destination.read_bytes() != expected:
+            raise RuntimeError(f"candidate generation changed handwritten proof input: {relative}")
+    candidate = host.proof / CANDIDATE
+    for depth in range(len(CANDIDATE.parts) + 1):
+        if host.proof.joinpath(*CANDIDATE.parts[:depth]).is_symlink():
+            raise RuntimeError("candidate certificate must not be a symbolic link")
+    if not candidate.is_file():
+        raise RuntimeError("candidate generator did not produce a regular certificate file")
+
+
+def audit_import_closure(sources: dict[str, Path], output: str) -> set[str]:
+    # Emitted by the actual imported Lean environment. Text inside a comment,
+    # unused conditional syntax, or an unbuilt module cannot count as an import.
+    visited = set(re.findall(r"(?:^|: )SILVER_MODULE ([A-Za-z0-9_.]+)\s*$", output, re.MULTILINE))
+    if sources.keys() != visited:
+        raise RuntimeError("actual Lean audit imports differ from project modules: missing=" +
+                           ", ".join(sorted(sources.keys() - visited)) + "; unexpected=" +
+                           ", ".join(sorted(visited - sources.keys())))
     return visited
 
 
@@ -93,7 +119,8 @@ def main() -> None:
     paths = [*(path for path in sources.values() if path != PROOF / CANDIDATE),
              PROOF / "lakefile.lean", PROOF / "lean-toolchain",
              PROOF / "generate_source_certificate.py",
-             ROOT / "src" / "silver_profile.ads", ROOT / "src" / "silver_profile.adb"]
+             *sorted((ROOT / "src").glob("*.ads")), *sorted((ROOT / "src").glob("*.adb")),
+             *sorted((ROOT / "scripts").glob("*.py"))]
     inputs = {path: path.read_bytes() for path in sorted(paths)}
     checked_inputs = {str(path.relative_to(ROOT)): hashlib.sha256(data).hexdigest()
                       for path, data in inputs.items()}
@@ -104,6 +131,10 @@ def main() -> None:
         raise RuntimeError("proof/lean-toolchain must pin a concrete Lean version")
     lean = host.lean / "bin" / "lean"
     lake = lean.with_name("lake")
+    checker = lean.with_name("leanchecker")
+    tool_paths = [lean, lake, checker]
+    tool_hashes = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                   for path in tool_paths}
     environment = lean_environment(host)
     version = subprocess.run([str(lean), "--short-version"], check=True,
                              text=True, capture_output=True, env=environment,
@@ -117,18 +148,26 @@ def main() -> None:
     # line and reconstruction of the exact authoritative source bytes.
     subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
                     "--output", str(candidate)], cwd=ROOT, check=True)
+    verify_workspace_inputs(host, inputs)
     workspace_sources = project_sources(host.proof)
     if workspace_sources.keys() != sources.keys():
         raise RuntimeError("host proof workspace does not contain exactly the shared project modules")
-    visited = audit_import_closure(workspace_sources)
     workspace_inputs = [*workspace_sources.values(), host.proof / "lakefile.lean",
                         host.proof / "lean-toolchain"]
     workspace_hashes = {str(path.relative_to(host.proof)):
                         hashlib.sha256(path.read_bytes()).hexdigest()
                         for path in sorted(workspace_inputs)}
 
+    compiled_hashes = None
     with log.open("w") as destination:
-        for arguments in ([str(lake), "clean"], [str(lake), "build", "Silver.Audit"]):
+        for arguments in ([str(lake), "clean"], [str(lake), "build", "Silver.Audit"],
+                          [str(lake), "env", str(checker), "--fresh", "Silver.Audit"]):
+            if "--fresh" in arguments:
+                compiled_hashes = {
+                    str(path.relative_to(host.proof)): hashlib.sha256(path.read_bytes()).hexdigest()
+                    for path in sorted((host.proof / ".lake/build").rglob("*.olean*")) if path.is_file()}
+                if not compiled_hashes:
+                    raise RuntimeError("Lean build produced no compiled artifacts to recheck")
             print("+ " + " ".join(arguments), flush=True)
             result = subprocess.run(arguments, cwd=host.proof, text=True,
                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -140,6 +179,13 @@ def main() -> None:
                 raise RuntimeError(f"Lean check failed; see {log}")
     if "Silver axiom audit passed:" not in log.read_text():
         raise RuntimeError("Lean build completed without the required axiom audit")
+    verify_workspace_inputs(host, inputs)
+    visited = audit_import_closure(workspace_sources, log.read_text())
+    current_artifacts = {
+        str(path.relative_to(host.proof)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted((host.proof / ".lake/build").rglob("*.olean*")) if path.is_file()}
+    if compiled_hashes != current_artifacts:
+        raise RuntimeError("compiled Lean artifacts changed during the kernel recheck")
     current_inputs = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
                       for path in inputs}
     current_workspace = {str(path.relative_to(host.proof)):
@@ -147,17 +193,24 @@ def main() -> None:
                          for path in workspace_inputs}
     if current_inputs != checked_inputs or current_workspace != workspace_hashes:
         raise RuntimeError("proof inputs changed during the clean replay")
+    if tool_hashes != {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+                       for path in tool_paths}:
+        raise RuntimeError("Lean verification tools changed during replay")
     if (host.artifacts / "src").resolve() != (ROOT / "src").resolve():
         raise RuntimeError("authoritative source link changed during replay")
     evidence.write_text(json.dumps({"host": host.key, "lean_version": version,
                                     "clean_replay": True, "axiom_audit": "passed",
+                                    "kernel_recheck": "leanchecker --fresh Silver.Audit",
+                                    "tools_sha256": tool_hashes,
+                                    "artifacts_sha256": current_artifacts,
                                     "modules": sorted(visited),
                                     "elapsed_seconds": round(time.monotonic() - started, 3),
                                     "inputs_sha256": checked_inputs,
                                     "workspace_inputs_sha256": workspace_hashes,
                                     "workspace": str(host.proof.relative_to(ROOT)),
                                     "authoritative_source": "src",
-                                    "log": str(log.relative_to(ROOT))}, indent=2) + "\n")
+                                    "log": str(log.relative_to(ROOT)),
+                                    "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()}, indent=2) + "\n")
     print(f"Lean proof replay and axiom audit passed for {host.key}: {log}")
 
 

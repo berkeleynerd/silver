@@ -1,4 +1,57 @@
 {
+  "schema_version": 1,
+  "constructs": [
+    {
+      "id": "main_procedure",
+      "ada_kind": "library_level_procedure_body",
+      "token_span": [
+        1,
+        15
+      ],
+      "conditions": {
+        "name": "Main",
+        "parameters": [],
+        "end_name": "Main",
+        "context_clauses": [],
+        "additional_declarations": false,
+        "exception_handlers": false
+      }
+    },
+    {
+      "id": "spark_mode_on",
+      "ada_kind": "pragma",
+      "token_span": [
+        4,
+        9
+      ],
+      "conditions": {
+        "name": "SPARK_Mode",
+        "argument": "On",
+        "required": true
+      }
+    },
+    {
+      "id": "null_statement",
+      "ada_kind": "null_statement",
+      "token_span": [
+        11,
+        12
+      ],
+      "conditions": {
+        "count": 1
+      }
+    }
+  ],
+  "composition": {
+    "root": "main_procedure",
+    "declarative_items": [
+      "spark_mode_on"
+    ],
+    "statements": [
+      "null_statement"
+    ],
+    "additional_units": false
+  },
   "profile": "silver-null-0",
   "max_source_bytes":4096,
   "procedure_name": "Main",

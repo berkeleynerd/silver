@@ -12,6 +12,7 @@ import io
 import json
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import sys
@@ -58,6 +59,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
                  fail_proof: bool = False) -> None:
     """Run real setup code while replacing only network/external tool effects."""
     host = platforms.HostLayout(root, key)
+    root = host.root
     os_name, architecture = key.split("-", 1)
     system = "Linux" if os_name == "linux" else "Darwin"
     alire_name = f"alr-{bootstrap.ALIRE_VERSION}-bin-{architecture}-{os_name}.zip"
@@ -67,7 +69,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
     lean_prefix = f"lean-{bootstrap_lean.LEAN_VERSION}-{suffix}"
     lean_data = archive_bytes({f"{lean_prefix}/bin/{tool}":
                                f"mock {tool} for {key}".encode()
-                               for tool in ("lean", "lake")})
+                               for tool in ("lean", "lake", "leanchecker")})
     downloads = {alire_name: alire_data, f"{lean_prefix}.zip": lean_data}
     fetched: list[str] = []
     commands: list[list[str]] = []
@@ -133,7 +135,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             environment = kwargs.get("env")
             assert isinstance(environment, dict), "Alire must receive an isolated environment"
             assert environment.get("ALIRE_SETTINGS_DIR") == str(host.alire_settings)
-            assert "ALR_CONFIG" not in environment
+            assert not any(name in environment for name in platforms.TOOL_ENVIRONMENT_OVERRIDES)
             assert environment.get("SILVER_PLATFORM_TEST_UNRELATED") == "preserve"
             assert Path(str(kwargs["cwd"])) == host.context
             assert host.alire_settings.is_dir(), "settings must exist before the initial version check"
@@ -189,6 +191,11 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
                 Path(environment["LAKE_CONFIG"]).write_text(f'host = "{key}"\n')
                 (host.proof / "lake-manifest.json").write_text(json.dumps({"test_host": key}))
                 output = "Silver axiom audit passed: MOCKED routing test only\n"
+                output += "".join(f"SILVER_MODULE {module}\n"
+                                  for module in sorted(check_lean.project_sources(host.proof)))
+            elif args[1:] == ["env", str(host.lean / "bin/leanchecker"),
+                              "--fresh", "Silver.Audit"]:
+                output = "Mocked kernel recheck: routing test only\n"
             else:
                 raise AssertionError(f"unexpected Lake command: {args}")
         elif executable == Path(sys.executable):
@@ -205,6 +212,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         inherited_legacy = str(root / ".old-alire-settings")
         stack.enter_context(mock.patch.dict(os.environ, {
             **poisoned_lean,
+            **{name: str(root / "foreign-project-configuration")
+               for name in platforms.TOOL_ENVIRONMENT_OVERRIDES},
             "ALIRE_SETTINGS_DIR": inherited_settings,
             "ALR_CONFIG": inherited_legacy,
             "SILVER_PLATFORM_TEST_UNRELATED": "preserve",
@@ -265,7 +274,7 @@ class PlatformIsolationTests(unittest.TestCase):
     def setUp(self) -> None:
         temporary = tempfile.TemporaryDirectory(prefix="silver platform tests-")
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         for relative in ("alire.toml", "silver.gpr", "proof/lean-toolchain",
                          "proof/lakefile.lean", "proof/generate_source_certificate.py",
                          "src/silver_profile.ads", "src/silver_profile.adb"):
@@ -396,7 +405,7 @@ class PlatformIsolationTests(unittest.TestCase):
             for process in workers:
                 if process.poll() is None:
                     process.kill()
-                process.wait()
+                process.communicate()
         self.assertEqual(self.snapshot(platforms.HOST_KEYS), before)
         for key in platforms.HOST_KEYS:
             host = platforms.HostLayout(self.root, key)
@@ -419,7 +428,7 @@ class PlatformIsolationTests(unittest.TestCase):
         suffix = bootstrap_lean.ARCHIVES[key][0]
         prefix = f"lean-{bootstrap_lean.LEAN_VERSION}-{suffix}"
         lean = archive_bytes({f"{prefix}/bin/{tool}": f"mock {tool} for {key}".encode()
-                              for tool in ("lean", "lake")})
+                              for tool in ("lean", "lake", "leanchecker")})
         for name, contents in ((f"alr-{bootstrap.ALIRE_VERSION}-bin-{architecture}-{os_name}.zip", alire),
                                (f"{prefix}.zip", lean)):
             (self.root / ".tools" / name).write_bytes(contents)
@@ -433,7 +442,10 @@ class PlatformIsolationTests(unittest.TestCase):
     def test_development_commands_keep_project_outputs_and_audit_in_native_host(self) -> None:
         host = platforms.HostLayout(self.root, platforms.host_key())
         bootstrap.prepare_context(host)
-        with mock.patch.object(dev, "native_layout", return_value=host):
+        with mock.patch.object(dev, "native_layout", return_value=host), \
+                mock.patch.object(dev, "begin_proof") as begin, \
+                mock.patch.object(dev, "audit_sources") as audit_reports, \
+                mock.patch.object(dev, "complete_proof") as complete:
             for action in ("build", "prove"):
                 with self.subTest(action=action), mock.patch.object(subprocess, "run") as run:
                     dev.main([action, "--", "--subdirs", "verification"])
@@ -448,6 +460,14 @@ class PlatformIsolationTests(unittest.TestCase):
                     self.assertEqual((context / project).resolve(), self.root / "silver.gpr")
                     self.assertEqual(command[-1], f"-XSILVER_HOST={host.key}")
                     if action == "prove":
+                        begin.assert_called_once_with(
+                            host, command[command.index("--") + 1:],
+                            host.compiler / "obj/verification/gnatprove")
+                        audit_reports.assert_called_once_with(
+                            host.root / "src", host.compiler / "obj/verification/gnatprove",
+                            host.generated)
+                        complete.assert_called_once_with(
+                            host, host.compiler / "obj/verification/gnatprove", begin.return_value)
                         self.assertEqual(run.call_count, 2)
                         audit = run.call_args_list[1].args[0]
                         self.assertEqual(Path(audit[audit.index("--generated-dir") + 1]), host.generated)
@@ -480,6 +500,67 @@ class PlatformIsolationTests(unittest.TestCase):
         before = self.snapshot()
         bootstrap.prepare_context(host)
         self.assertEqual(self.snapshot(), before)
+
+
+class InstallationEnvironmentTests(unittest.TestCase):
+    def test_symlinked_tmpdir_preserves_platform_setup_and_routing(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="silver tmpdir regression-") as temporary:
+            parent = Path(temporary).resolve()
+            physical = parent / "physical"
+            physical.mkdir()
+            alias = parent / "alias"
+            alias.symlink_to(physical, target_is_directory=True)
+            environment = dict(os.environ, TMPDIR=str(alias), TEMP=str(alias), TMP=str(alias))
+            # Select just the fixture suite to avoid recursively spawning this
+            # regression. Its subprocesses inherit the symlinked TMPDIR too.
+            result = subprocess.run(
+                [sys.executable, str(Path(__file__).resolve()), "PlatformIsolationTests", "-v"],
+                cwd=ROOT, env=environment, text=True, capture_output=True, timeout=60)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_generated_tool_command_anchors_and_quotes_installation(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="silver command regression-") as temporary:
+            parent = Path(temporary).resolve()
+            root = parent / "installation 'quote\" $dollar `tick` ;semi café"
+            root.mkdir()
+            shutil.copy2(ROOT / "alire.toml", root / "alire.toml")
+            host = platforms.HostLayout(root, platforms.host_key())
+            bootstrap.prepare_context(host)
+            configuration = bootstrap.build_configuration(host)
+            probe = root / "record invocation.py"
+            probe.write_text(
+                "import json, os, sys\n"
+                "print(json.dumps({'cwd': os.getcwd(), 'args': sys.argv[1:], "
+                "'environment': dict(os.environ)}))\n")
+            host.alr.parent.mkdir(parents=True, exist_ok=True)
+            host.alr.write_text(
+                "#!/bin/sh\nexec " + shlex.quote(sys.executable) + " "
+                + shlex.quote(str(probe)) + ' "$@"\n')
+            host.alr.chmod(0o755)
+            caller = parent / "other working directory"
+            caller.mkdir()
+            project = host.artifacts / "program-Ab12cd/program.gpr"
+            command = (configuration["Alire_Exec"] + "gnatprove -P "
+                       + configuration["Quoted_Root_Directory"]
+                       + "/program-Ab12cd/program.gpr --mode=all")
+            environment = dict(os.environ,
+                               ALIRE_SETTINGS_DIR=str(parent / "foreign-settings"),
+                               SILVER_PLATFORM_TEST_UNRELATED="preserve")
+            environment.update({name: "foreign-configuration"
+                                for name in platforms.TOOL_ENVIRONMENT_OVERRIDES})
+            result = subprocess.run(command, shell=True, cwd=caller, env=environment,
+                                    text=True, capture_output=True, timeout=15)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            observation = json.loads(result.stdout)
+            self.assertEqual(observation["cwd"], str(host.context))
+            self.assertEqual(observation["args"],
+                             ["-n", "exec", "--", "gnatprove", "-P", str(project), "--mode=all"])
+            actual_environment = observation["environment"]
+            self.assertEqual(actual_environment["ALIRE_SETTINGS_DIR"], str(host.alire_settings))
+            self.assertEqual(actual_environment["SILVER_PLATFORM_TEST_UNRELATED"], "preserve")
+            for name in platforms.TOOL_ENVIRONMENT_OVERRIDES:
+                self.assertNotIn(name, actual_environment)
+            self.assertEqual(list(caller.iterdir()), [])
 
 
 if __name__ == "__main__":

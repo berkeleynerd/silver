@@ -1,73 +1,87 @@
-# Platform coexistence checkpoint
+# Platform coexistence
 
-The follow-up requested on 2026-10-08 isolates Linux and macOS builds in a shared
-checkout. Native OS and architecture select one of `linux-aarch64`,
-`linux-x86_64`, `macos-aarch64`, and `macos-x86_64`. There is no mutable shared
-host selector and no cleanup or migration of older artifacts.
+Native OS and architecture select one of `linux-aarch64`, `linux-x86_64`,
+`macos-aarch64`, and `macos-x86_64`. A shared checkout has no mutable host selector
+and no cleanup or migration of another host's artifacts.
 
-## Implementation
+## Installation and output layout
 
 - `.tools/<host>/` owns Alire, Lean, and Alire settings/cache/toolchains.
 - `.silver/<host>/toolchain/` owns the Alire manifest copy, lock, and local settings.
-- `.silver/<host>/generated/silver_build.ads` contains SPARK constants used by
-  the actual compiler. The proof audit includes this generated unit.
-- `.silver/<host>/compiler/` owns compiler objects, executable, and GNATprove
-  intermediates. The GPR project requires a supported `SILVER_HOST`; the
-  development helper supplies the native value automatically.
+- `.silver/<host>/generated/silver_build.ads` contains installation paths and the
+  shell command prefix used by the actual compiler. SPARK verification includes
+  this generated specification; external-tool selection remains reviewed setup
+  configuration.
+- `.silver/<host>/compiler/` owns compiler objects, the executable, GNATprove
+  intermediates, and content-bound proof provenance. The GPR project requires a
+  supported `SILVER_HOST`; development tooling supplies the native value.
 - `.silver/<host>/program-XXXXXX/` holds each byte-identical program snapshot,
-  generated project, proof evidence, and executable. A proved workspace
-  postcondition requires the host prefix.
+  generated project, proof report and executable. The workspace contract checks
+  the absolute installation prefix and an alphanumeric six-character suffix.
 - `.silver/<host>/proof/` holds clean Lean replay inputs, generated certificates,
-  Lake objects, and the manifest. Its adjacent source link resolves directly to
-  authoritative `src/`. Shared proof inputs must remain unchanged during replay.
+  Lake objects, and its manifest. The adjacent source link resolves to
+  authoritative `src/`. Replay fingerprints shared inputs, scripts, tools,
+  compiled artifacts and logs; shared inputs must remain unchanged.
 
-Alire 2.1.1 loads and can migrate settings before applying `-s` and `-C`.
-Every invocation therefore starts in the host context, sets
-`ALIRE_SETTINGS_DIR` to that host's settings, and removes deprecated
-`ALR_CONFIG`. Development tooling also supplies absolute switch arguments.
-The SPARK command changes its shell working directory to the host context
-before starting Alire and uses the quoted `$PWD` to form the absolute settings
-path. Project arguments are prefixed with `../../../` to reach
-repository-relative projects. The CLI itself still runs from the repository
-root as documented in the README.
+Legacy flat-layout artifacts are retained. Authenticated release archives can be
+copied from the old cache without modifying it. Foreign-host setup and execution
+are rejected before invoking tools.
 
-Python remains development/bootstrap/proof tooling. Admission and compilation
-are still implemented in verified SPARK. The Oracle is unchanged.
+## Working directories and environment
 
-## Final validation
+The compiled SPARK executable accepts invocation from another working directory.
+Relative source paths refer to the caller's directory. Tool invocations and
+private workspaces use absolute paths recorded during bootstrap, so the caller's
+directory does not become a second installation. Moving the checkout requires
+rerunning bootstrap and rebuilding its compiler.
 
-Native Linux ARM64 validation passed:
+Bootstrap shell-quotes installation paths, including spaces and quotes, before
+emitting byte-preserving Ada constants. The driver combines the fixed quoted
+prefix with the checked workspace suffix for shell command arguments. Raw
+absolute paths are used for file operations. Setup checks the existing path and
+command-length bounds.
 
-- All **655 SPARK checks** discharged: 124 flow and 531 proof, across eight
-  units and 73 entities. The audit includes generated `Silver_Build`, eleven
-  reviewed external imports, and twelve documented optional limitation notes.
-  A proved intermediate assertion in the existing report congruence helper
-  avoids a solver timeout without changing its contract or the 30-second policy.
-- All **32 regression tests** passed in 26.401 seconds. These include four-host
-  concurrent setup, preservation of other-host/shared/legacy files, poisoned
-  Alire and Lean environments, missing/stale generated proof evidence, actual
-  SPARK command invocation from a path with shell punctuation, and real program
-  proof/build/run cases. Foreign-platform tool execution is simulated.
-- Clean **Lean 4.34.1 replay** passed in 1305.561 seconds: fourteen proof modules,
-  3,616 declarations, full import closure and axiom audit. All shared and replay
-  input hashes remained stable. A real Lake probe confirmed that controlled
-  settings select the same native kernel and imports under a poisoned inherited
-  environment while isolating config/cache paths. The completed clean replay
-  wrote no global Lean/Lake cache state.
-- The final rebuilt compiler proved, compiled, and ran the original `null.adb`
-  unchanged in `.silver/linux-aarch64/program-72YCWD/`. Its SHA256 remains
-  `7b448e583d98d9f037b90d1379fe6afa1a16a93be16a7270c85aed30161a5021`.
-- The native GPR tool rejects a missing host selection before building.
-  A preservation audit checked 19,251 legacy/shared file entries and found no
-  changed legacy tool/build/source artifacts. Only three intentional handoff
-  notes in the old checkpoint directory changed; new notes are host-local.
+Alire 2.1.1 loads settings before applying `-s` and `-C`. Every invocation starts
+in the selected host context, sets `ALIRE_SETTINGS_DIR` to that host's settings,
+and removes `ALR_CONFIG`, `GPR_CONFIG`, `GPR_PROJECT_PATH`,
+`GPR_PROJECT_PATH_FILE`, and `ADA_PROJECT_PATH`. Development tools pass explicit
+native paths; the compiler's generated shell prefix does the same before Alire
+starts. The compiler process retains the caller's working directory.
 
-Evidence is under `.silver/linux-aarch64/`: `compiler-proof.log`,
-`compiler-build.log`, `tests.log`, `null-program.log`, `lean-proof.log`,
-`lean-evidence.json`, `isolation-evidence.json`, and `compiler-inputs.json`.
-Machine-readable compiler reports are in `compiler/obj/gnatprove/`.
+These controls isolate known configuration and search-path overrides. Native
+libraries, build utilities, loader state and general environment integrity remain
+external assumptions; see the [trusted computing base](trusted-boundary.md).
+Python remains development/bootstrap/evidence tooling. Admission and compilation
+remain in SPARK, and the Oracle is unchanged.
 
-Native macOS and Linux x86-64 execution have not run here. CI is configured for
-all four supported host keys; native macOS validation remains independent and
-nonblocking under the Oracle. The original compiler milestone checkpoint is
-historical; use the README's host-selecting commands for all current work.
+## Validation scope
+
+Current repair results and exact counts are maintained in
+[the review repair record](review-repairs.md). Platform regressions cover
+canonical paths under symlinked `TMPDIR`, concurrent simulated setup for all four
+host keys, preservation of other-host/shared/legacy files, inherited environment
+overrides, and generated shell invocation from a foreign working directory.
+Cross-host routing tests mock foreign downloads and executables; they do not
+establish native ABI or proof behavior on those hosts.
+
+A native Linux ARM64 probe also builds the actual generated Ada configuration
+for an installation containing spaces, both quote types, shell punctuation and
+Unicode, then exercises workspace creation and shell invocation from another
+working directory with runtime assertions enabled. Its focused SPARK evidence
+and the complete repaired validation are linked from the repair record.
+
+The initial coexistence checkpoint was produced on **2026-10-08**, before the
+review repairs, at baseline commit `32d50d6`. Its proof, test and Lean totals are
+historical evidence and must not be substituted for current validation.
+Retained native macOS ARM64 reports under
+`.silver/macos-aarch64/compiler/obj/gnatprove/` passed re-auditing under the
+baseline rules. They establish neither a repaired native macOS run nor compliance
+with the new content-bound provenance requirements. The
+[initial implementation checkpoint](implementation-checkpoint.md) is likewise a
+historical baseline.
+
+Native macOS repair validation and Linux/macOS x86-64 validation remain pending.
+CI is configured for all four supported host keys, including a fresh Lean kernel
+recheck, but has not executed. This work remains local as requested and the
+repository has no Git remote. Linux is the primary validation platform; native
+macOS validation remains independent and nonblocking under the Oracle.

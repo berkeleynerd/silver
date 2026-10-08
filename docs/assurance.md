@@ -7,14 +7,16 @@ admitted by explicit, decidable rules must automatically discharge every require
 Bronze and Silver obligation. Prover success does not define membership. A proof
 failure on admitted source is a toolchain or implementation defect.
 
-The initial SPARK compiler and native proof/build/run pipeline work on Linux
-ARM64. The host-isolated build discharged all 655 compiler checks, and the source
-recognizer has a proved functional postcondition. The structural argument below covers the
-whole initial language. Pinned Lean 4.34.1 proofs establish decidable membership,
-composition safety, exact correspondence with the authoritative recognizer
-expressions, and automatic discharge of the generated empty obligation set.
-A separate conditional theorem covers completion and preservation through
-approved external tools. Its tool and operational premises are stated explicitly.
+The initial SPARK compiler and native proof/build/run pipeline support the
+null-only production below. Current validation and the review repairs are
+recorded in [review-repairs.md](review-repairs.md). Pinned Lean 4.34.1 proves
+membership, safety of the permitted composition, and discharge of its empty
+obligation set. The compiler bridge checks authoritative bytes and the complete
+reviewed source token shape, then proves membership equivalence for every
+interpretation satisfying the checked definition equations. Interpreting those
+equations as SPARK uses the approved front end and GNATprove's checked machine
+bounds and contracts. A separate conditional theorem composes the external tool
+contracts; it does not verify GNAT, the OS, or an arbitrary Ada front end.
 
 Inherited meanings come from the checked-in
 [Ada 2022 Reference Manual](../references/ada/2022/RM-TOC.html) and
@@ -28,14 +30,15 @@ The assurance targets are the SPARK User's Guide definitions of
 Let a source be a finite sequence of bytes. It belongs to the initial profile
 exactly when all of the following conditions hold:
 
-1. It contains at most 4096 bytes.
+1. It contains between 1 and 4096 bytes, inclusive.
 2. Its non-comment whitespace consists only of space, horizontal tab, carriage
    return, and line feed.
 3. Comments have Ada's `--` introducer and continue to carriage return, line
    feed, or end of file. Their contents consist only of printable ASCII bytes
    or horizontal tabs.
-4. After Ada tokenization and removal of comments and whitespace, its entire
-   token sequence, compared with ASCII case-insensitive word equality, is:
+4. The explicit trivia/token grammar removes the permitted comments and
+   whitespace and matches the entire following sequence with ASCII
+   case-insensitive word equality and whole-word boundaries:
 
    ```text
    procedure Main is pragma SPARK_Mode ( On ) ; begin null ; end Main ;
@@ -59,8 +62,12 @@ compiler output by the integration suite. The SPARK recognizer has a proved
 postcondition equating its result with the independent ghost `Is_Member`
 specification. The Lean source bridge checks the authoritative specification and
 expression bodies, their typed syntax and precedence, and the denotation of
-those expressions. Recursive-equation uniqueness and cursor/grammar equivalence
-connect the SPARK specification to independent mathematical membership.
+those expressions. `RecursiveBridge` interprets recursive calls parametrically,
+applies the three uniqueness lemmas, and composes the resulting equivalences
+with cursor/grammar equivalence in the final source theorem. A complete reviewed
+token shape fixes surrounding declarations and binding scopes as well as the
+selected bodies. The JSON also names the three admitted constructs, their
+conditions, token spans, and the sole permitted composition.
 
 ## Structural language proof
 
@@ -69,7 +76,10 @@ toolchain/runtime boundary, every source satisfying the membership rule has the
 same user-program behavior as the displayed null procedure and satisfies the
 required Bronze and Silver safety properties.
 
-**Lexical step.** By membership condition 4, every admitted source has exactly
+**Lexical step (reviewed Ada correspondence).** Lean proves the custom grammar
+and scanner equivalent. Agreement of that restricted grammar with Ada's lexical
+rules is the following reviewed argument, not a theorem about a complete Ada
+lexer. By membership condition 4, every admitted source has exactly
 the displayed token sequence. The other conditions permit only Ada whitespace,
 comments, and ASCII case variations, which do not change the meaning of those
 tokens. Therefore each admitted source parses as the same single library
@@ -141,20 +151,31 @@ bounded scanner. This is exact report-pattern recognition; the genuine pinned
 GNATprove producer and its report schema remain trusted. It does not authenticate
 arbitrary JSON or establish report provenance by text matching.
 
-The host-isolated compiler proof discharged 655 checks: 124 through flow
-analysis and 531 through automated proof. This includes bounds, overflow,
-initialization, preconditions, postconditions, invariants, and applicable
-termination checks. The eight audited units comprise five implementation units,
-two bodyless trusted import specifications, and the generated `Silver_Build`
-specification. Of 73 reported entities, eleven
-are explicitly reviewed OS/runtime imports with specification-only coverage;
-their implementation bodies are outside the approved compiler boundary.
+The compiler proof covers bounds, overflow, initialization, preconditions,
+postconditions, invariants, and applicable termination checks. All owned entities
+must have full SPARK coverage. The eight audited units comprise five
+implementation units, two bodyless trusted import specifications, and generated
+`Silver_Build`. Eleven reviewed imports have specification-only coverage; their
+existing implementation bodies are outside the approved compiler boundary.
+See the current [validation record](review-repairs.md) for totals.
+
+The report model and its refinement assertions use SPARK's predefined `Static`
+level. GNATprove still verifies their bodies, recursive termination, contracts,
+and loop invariants; GNAT omits those mathematical computations from the
+executable. The actual bounded report scan and `-gnata`/`-gnato` remain enabled.
+The driver checks the report once, retains its Boolean result as a runtime
+guard, and has a separate static precondition requiring the semantic report
+predicate before build/publication. The report domain remains 262,144 bytes.
+The regression suite passes maximum-sized positive/negative reports through the
+real CLI and verifies that GNATprove rejects a deliberately false static
+postcondition. This is ghost erasure, not removal of proof obligations.
 
 Twelve optional diagnostics describe limitations on using recursive contracts and
 numeric-variant expression bodies inside proofs. They withhold information; no
 obligation is waived. The evidence auditor counts exactly those documented
 limitation codes and rejects failed checks, incomplete coverage, source
-suppressions, assumptions, justified obligations, and other warnings. The
+suppressions, `pragma Assume`, unapproved external assumption dependencies,
+justified obligations, and other warnings. The
 [trusted-boundary document](trusted-boundary.md) specifies the exact imports,
 contracts, report assumptions, and diagnostic classification.
 
@@ -164,16 +185,26 @@ Reproduce the compiler evidence from the repository root:
 python3 scripts/dev.py prove
 ```
 
-The native development command supplies the required `SILVER_HOST` scenario
-value and runs the strict evidence auditor after GNATprove. The project has no
+The native development command supplies the required `SILVER_HOST`, forces a
+fresh complete proof, pins prover order and parallelism, and audits the result.
+A manifest binds all compiler/project/generated inputs, driver scripts, Alire
+resolution/configuration, tool identities, and final reports by content hashes.
+Before/after fingerprints must agree. SARIF and `.spark` diagnostics must agree
+by rule, location and message; the summary must agree with check/entity counts.
+No fixed historical check count is used as an acceptance criterion. The project has no
 fallback output directory when that host setting is omitted.
 The selected host's generated `Silver_Build` specification is included in the
 same source-policy and proof-coverage audits as the shared compiler units. Its
 constants select native tool/settings/context and output paths. Generated
 configuration, Alire state, and compiler outputs belong to that host alone.
 
-The project enables `--warnings=error`, `--level=2`, and `--timeout=30`; no checks
-are suppressed. The report directory is `.silver/<host>/compiler/obj/gnatprove/`.
+The audited regime explicitly selects `--mode=all --report=all
+--warnings=error --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo
+--timeout=30 -j 4 -f`; exploratory flags belong to `dev.py tool` and do not create
+audited success evidence. The wall-clock timeout remains machine-dependent;
+passing evidence is not a performance guarantee on every host. Before admitting
+nonempty user-program obligations, their prover configuration and complete
+automatic-discharge argument must be specified together. The report directory is `.silver/<host>/compiler/obj/gnatprove/`.
 `gnatprove.out` provides the readable summary; `.spark` and SARIF supply the
 machine-audited coverage and individual results. A process exit status alone is
 not sufficient evidence.
@@ -213,11 +244,12 @@ Additional cases simulate external tool failure, incomplete proof reports,
 skipped/assumed obligations, and source changes during proof or compilation.
 These tests are implementation evidence, not a universal language theorem.
 
-The final native regression run passed all 32 tests in 26.401 seconds with the
-rebuilt host-isolated compiler and runtime assertion checking enabled. Platform
-workers also exercised hostile inherited Alire/Lean settings, native path
-selection, and preservation of other-host artifacts. The original `null.adb`
-was proved, built, and run successfully; its source bytes remained unchanged.
+Current regression results are recorded in [review-repairs.md](review-repairs.md).
+Platform workers exercise hostile inherited tool settings, symlinked temporary
+paths, and preservation of other-host artifacts. Those workers simulate foreign
+hosts; only native execution establishes a platform's ABI compatibility. Actual
+CLI tests also exercise installation paths containing spaces, quotes, shell
+punctuation and Unicode, and invocation from another working directory.
 
 ## Mechanical proofs and their correspondence
 
@@ -233,7 +265,8 @@ without modifying them and writes the generated candidate certificate only in
 that host's workspace. Lake's manifest and objects are isolated there too.
 The workspace's sibling `src` link resolves directly to the authoritative
 repository `src`, so `include_str` continues to bind the actual SPARK files.
-An existing divergent source directory or link is rejected. No global mutable
+A non-link source directory is rejected; the runner repairs its own outdated
+source symlink and verifies that it resolves to the authoritative directory. No global mutable
 host selector is used, and other-host or legacy flat artifacts are preserved.
 Lean subprocesses discard inherited Lean/Lake/Elan overrides, bind the pinned
 native installation explicitly, and use host-local system-config/cache paths.
@@ -243,7 +276,9 @@ the clean environment and left the foreign-host sentinel unchanged.
 
 `scripts/check_lean.py` checks the pinned version, regenerates candidate source
 certificates, requires every project module in the audit import closure, cleans
-before rebuilding, and runs `Silver.Audit`. That audit inspects the transitive
+before rebuilding, runs `Silver.Audit`, and independently rechecks exported
+objects with the pinned `leanchecker --fresh Silver.Audit`. The imported-module
+inventory comes from Lean's actual environment rather than source-text regexes. That audit inspects the transitive
 axioms of every declaration originating in a Silver proof module, including
 private and generated declarations. It permits only Lean's standard `propext`,
 `Quot.sound`, and `Classical.choice` foundations. Unfinished proofs,
@@ -254,12 +289,9 @@ fingerprints for both shared inputs and the exact replay copies. Input changes
 during replay are rejected; the current host's stale success evidence is removed
 before setup or generation begins. Other hosts' evidence is untouched.
 
-The isolated Linux ARM64 clean replay passed in 1305.561 seconds. It checked all
-14 project proof modules and audited 3,616 declarations. Only the three standard foundations
-listed above occurred, including in the actual-source membership, catalogue,
-universal assurance, and conditional pipeline theorems. All 136 recorded shared
-and legacy proof artifacts, including the shared Lake outputs and checked-in
-candidate certificate, retained their exact contents and file set.
+The current clean replay, kernel recheck, module/declaration totals, and duration
+are recorded in [review-repairs.md](review-repairs.md). Evidence hashes include
+the orchestration scripts and verification tools as well as proof/source inputs.
 
 ```sh
 python3 scripts/bootstrap_lean.py
@@ -275,24 +307,30 @@ The proof chain has distinct checked components:
    grammar (`Cursor.isMember_iff`). `Uniqueness` proves that the recursive
    comment/trivia/suffix equations uniquely determine their meanings on the
    verified domains.
-3. `SourceLexer` and generated `SourceCertificates` embed the actual
-   `src/silver_profile.ads` and `.adb` files. The kernel checks every candidate
-   line tokenization, including quoted literals and comments, and a balanced
-   composition certificate reconstructs every original byte and final newline.
-   The Python generator is untrusted: incorrect candidates fail these proofs.
-4. `SourceBridge` matches the uniquely named actual expression bodies to typed
-   syntax trees. `Precedence` checks Ada grouping and operator precedence;
-   `Expressions` proves the trees' denotations, including the signed arithmetic
-   needed for cursor bounds. The bridge also checks exact function headers,
-   token enumeration/order/spellings, required tokens, source-size and comment
-   constants, the `Accepts` postcondition, and `Normalized`'s byte/length/index
-   contract. `authoritative_source_member_iff` includes both complete source
-   token certificates and the membership equivalence.
-5. GNATprove proves the actual imperative `Accepts` result equals `Is_Member`,
-   with no caller precondition. Its checked normalization and numeric helper
-   contracts supply the implementation side of the preceding correspondence.
-   The approved Ada/SPARK front end supplies the enclosing declaration, type,
-   machine-bound, and inherited-language interpretation.
+3. Handwritten `AuthoritativeSource` fixes the two `include_str` paths to the
+   real `silver_profile.ads/.adb`. `SourceLexer` rejects bytes outside HT/LF/CR
+   and printable ASCII, including inside comments, and rejects unsupported
+   lexical syntax. Generated certificates check each line and reconstruct the
+   exact included source. The generator supplies candidates; it cannot choose
+   the authoritative binding. Python and Lean enforce the source alphabet.
+4. `SourceBridge.CheckedSource` combines lexical certificates, all body/header
+   checks, catalogue constants and refinement contracts, and equality with the
+   complete checked-in `ReviewedSourceShape`. An added operator, helper,
+   context clause, or changed scope cannot hide behind unchanged selected
+   bodies. `Precedence` checks grouping; the typed expression model records the
+   predefined operator interpretation for the reviewed fragment.
+5. `RecursiveBridge` defines `Expressions.DefinitionEquations`, describing the
+   checked expressions with
+   arbitrary recursive callees. All three uniqueness lemmas are applied to
+   derive their cursor meanings and membership equivalence. The final theorem
+   quantifies over every interpretation satisfying these equations and retains
+   every `CheckedSource` fact. An explicit model witness establishes consistency
+   of the equation interface. GNATprove separately proves actual `Accepts =
+   Is_Member`, normalization, primitive predicates and machine-bound safety.
+   Reading the fixed fragment as these equations uses the trusted Ada/SPARK
+   front end and inherited predefined semantics; Lean does not verify GNAT's
+   implementation or perform general Ada overload resolution.
+
 6. `Semantics.admitted_assurance` covers every admitted source, every initial
    state, and every execution of its permitted composition. All runs return
    normally with unchanged state and an empty trace. Syntax-directed generation
@@ -300,11 +338,15 @@ The proof chain has distinct checked components:
    discharge certificate for them.
 
 A clean build is required because the source bridge reads Ada files outside the
-Lake tree. A cached Lean object is not evidence for changed Ada source. An
-isolated negative check changed the actual specification's size literal from
-`4_096` to `4_095` while retaining its original candidate certificate. Lean
-rejected the exact source-reconstruction theorem. The shared authoritative files
-were untouched. Fingerprints record provenance; source equality is established
+Lake tree. A cached Lean object is not evidence for changed Ada source. Kernel
+regression theorems reject unsupported comment/literal forms and prove
+that inserted declarations or a changed size constant alter the complete
+reviewed token shape. Python tests reject unsupported bytes before generation
+and check that the generator cannot supply authoritative bindings. Candidate
+parity is checked separately. These are kernel/source-policy checks, not a
+claim that every mutation has been replayed through a full altered-source build.
+The shared authoritative files remain untouched by these tests. Fingerprints
+record provenance; source equality is established
 by the checked certificates themselves.
 
 ## Automatic completion and the external boundary
@@ -318,7 +360,8 @@ preservation of the source semantics. The parse-completion premise includes
 allowed ASCII bytes. Parsing and compilation use the same source parameter.
 
 `admitted_pipeline_completes` derives completion for every member from these
-general tool laws and the proved empty-obligation result. It does not assume
+contracts for this restricted null-program pipeline and the proved
+empty-obligation result. It does not assume
 that Silver membership directly implies tool success or require a solver
 complete for arbitrary SPARK. `supported_pipeline_preserves` and
 `supported_pipeline_executes` establish safety and realization of the permitted
@@ -331,22 +374,32 @@ accessible immutable source/project files, sufficient resources, successful I/O,
 and completion of the invoked processes. Runtime startup, linking, libc, and
 the OS remain within the explicit trust boundary. The theorem does not establish
 those implementations or assert infallibility under tool crashes or resource
-exhaustion. Real GNATprove evidence checks positive coverage and the exact empty
-obligation set; the driver's proved guards connect observed success to artifact
+exhaustion. Real GNATprove evidence checks positive coverage and empty flow/proof lists;
+identifying those records with semantic obligations uses the external tool contract; the driver's proved guards connect observed success to artifact
 publication. There is no separate single theorem modeling the entire CLI and OS.
 
-| Claim | Checked evidence and explicit scope |
-| --- | --- |
-| Decidable source membership | Independent grammar/scanner equivalence, cursor equivalence and recursive uniqueness, exact authoritative-source expression checks, and the actual GNATprove `Accepts = Is_Member` refinement. |
-| Construct/composition safety | Universal state/execution safety and finite execution for the source production selected by the checked grammar; semantic clauses are the inherited Ada/SPARK clauses identified above. |
-| Catalogue correspondence | The finite, no-input catalogue exports shared source-checked token/byte/case rules. Every exported table and the checked-in JSON are compared exactly; decimal rendering has a proved exact-value contract. This covers the current finite catalogue without claiming a general JSON-serializer theorem. |
-| Compiler Bronze/Silver assurance | All 655 checks discharged in the host-isolated build; full coverage audited with eleven explicitly trusted imported entry points. Native results presently cover Linux ARM64. |
-| Compiler functional correctness | Recognition and normalization refinements, exact decimal rendering, exact report-pattern recognition, observed I/O/command transcripts, and ordered proof/build/publication guards. These are component contracts for the actual implementation, composed with the stated external-tool laws. |
-| Source preservation | Proved snapshot equality and read/write transcripts bracket proof/build; publication requires the successful ordered guards and the same source. Physical file persistence and faithful tool use of the named immutable project remain external premises. |
-| Automatic discharge | Zero generated obligations and a terminating discharge certificate for every member; conditional completion/preservation through supported external tools; real positive-coverage GNATprove reports check the same zero obligations. |
-| Native platform support | Portable Alire setup and CI cover Linux/macOS, ARM64/x86-64. Linux ARM64 has run locally. Linux x86-64 and native macOS remain unrun configurations; macOS validation is independent and does not block the Linux milestone under the Oracle. |
+| Claim | How established | Scope and premises |
+| --- | --- | --- |
+| Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
+| Construct/composition safety | Lean universal execution theorem; reviewed Ada lexical/semantic argument | One null-only composition, unchanged state, no user-level faults. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, exact JSON integration comparison | Explicit construct metadata and token/byte tables for the sole production; no general serializer theorem. |
+| Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; eleven pinned external imports and the documented runtime assumptions. |
+| Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, report recognition, I/O observations and ordered driver guards. |
+| Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
+| Automatic discharge | Lean empty-obligation certificate; conditional external-tool theorem; real report checks | All admitted null-program sources. No claim of a solver complete for arbitrary SPARK or future nonempty obligations. |
+| Native support | Native build/proof/tests plus simulated routing tests | Current Linux evidence is recorded separately from historical macOS evidence. CI is configured; no remote run exists yet. |
 
 These boundaries do not change membership or waive any obligation. Failure on an
 admitted source remains an implementation or toolchain defect. Any extension of
 the initial language must extend the catalogue, source correspondence, and
 universal composition/discharge arguments before it is admitted.
+
+For a language extension, first specify its constructs, decidable admission and
+composition rules, inherited semantics, and generated obligation classes. Select
+a decidable obligation language or checked certificate discipline, then prove
+generation soundness and complete automatic discharge over the entire admitted
+fragment. Update the source bridge and report checker before admitting the new
+syntax. Empty-obligation arguments remain valid for the null specialization;
+they do not establish anything about future checks. Solver steps/parallelism,
+warning policy, supported report schemas and capacity tests belong to that
+extension's validation. See [review-repairs.md](review-repairs.md).

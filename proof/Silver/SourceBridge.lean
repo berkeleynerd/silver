@@ -2,6 +2,8 @@ import Silver.Source
 import Silver.Precedence
 import Silver.Uniqueness
 import Silver.SupportedTools
+import Silver.ReviewedSourceShape
+import Silver.RecursiveBridge
 
 /-!
 Checked translation of the actual SPARK recognizer specification. The source
@@ -132,7 +134,7 @@ theorem actual_lineEnd : BooleanTranslation "is_comment_end" lineEndBody := by d
 theorem actual_identifier : BooleanTranslation "is_identifier_character" identifierBody := by decide +kernel
 theorem actual_lowercase : NumericTranslation "lowercase" lowercaseBody := by decide +kernel
 
-theorem actual_catalogue :
+abbrev CatalogueTranslation : Prop :=
     typeDeclaration "token_kind" Source.specTokens = some enumDeclaration ∧
     Source.declaration "required_tokens" Source.specTokens = some requiredDeclaration ∧
     Source.expressionBody "spelling" Source.bodyTokens = some spellingExpression ∧
@@ -141,9 +143,11 @@ theorem actual_catalogue :
     Source.declaration "max_source_length" Source.specTokens =
       some ["constant", "positive", ":=", "4_096"] ∧
     Source.declaration "comment_introducer" Source.specTokens =
-      some ["constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\""] := by decide +kernel
+      some ["constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\""]
 
-theorem actual_ghost_headers :
+theorem actual_catalogue : CatalogueTranslation := by decide +kernel
+
+abbrev GhostHeaders : Prop :=
     functionHeader "comment_end" "is" Source.bodyTokens =
       some (expectedTokens "(Text : String; Position : Cursor) return Cursor") ∧
     functionHeader "trivia_end" "is" Source.bodyTokens =
@@ -153,9 +157,11 @@ theorem actual_ghost_headers :
     functionHeader "suffix_matches" "is" Source.bodyTokens =
       some (expectedTokens "(Text : String; Position : Cursor; Next_Token : Token_Index) return Boolean") ∧
     functionHeader "is_member" "is" Source.bodyTokens =
-      some (expectedTokens "(Source : String) return Boolean") := by decide +kernel
+      some (expectedTokens "(Source : String) return Boolean")
 
-theorem actual_primitive_headers :
+theorem actual_ghost_headers : GhostHeaders := by decide +kernel
+
+abbrev PrimitiveHeaders : Prop :=
     functionHeader "is_whitespace" "is" Source.bodyTokens =
       some (expectedTokens "(Item : Character) return Boolean") ∧
     functionHeader "is_allowed_character" "is" Source.bodyTokens =
@@ -171,13 +177,17 @@ theorem actual_primitive_headers :
     functionHeader "spelling" "is" Source.bodyTokens =
       some (expectedTokens "(Token : Token_Kind) return String") ∧
     functionHeader "allowed_source" "is" Source.bodyTokens =
-      some (expectedTokens "(Text : String) return Boolean") := by decide +kernel
+      some (expectedTokens "(Text : String) return Boolean")
 
-theorem actual_refinement_contract :
+theorem actual_primitive_headers : PrimitiveHeaders := by decide +kernel
+
+abbrev RefinementContract : Prop :=
     functionHeader "accepts" ";" Source.specTokens = some (expectedTokens
       "(Source : String) return Boolean with Global => null, Post => Accepts'Result = Is_Member (Source)") ∧
     functionHeader "normalized" "is" Source.bodyTokens = some (expectedTokens
-      "(Source : String) return String with Global => null, Pre => Source'Length <= Max_Source_Length, Post => Normalized'Result'First = 1 and then Normalized'Result'Length = Source'Length and then Normalized'Result = Source") := by decide +kernel
+      "(Source : String) return String with Global => null, Pre => Source'Length <= Max_Source_Length, Post => Normalized'Result'First = 1 and then Normalized'Result'Length = Source'Length and then Normalized'Result = Source")
+
+theorem actual_refinement_contract : RefinementContract := by decide +kernel
 
 /-- The source-checked membership expression denotes exactly the independent language. -/
 theorem source_member_iff (context : Context) :
@@ -187,21 +197,87 @@ theorem source_member_iff (context : Context) :
   rw [memberBody_denotation]
   exact Cursor.isMember_iff context.text
 
-/-- Includes the exact authoritative-source certificates in the final statement. -/
-theorem authoritative_source_member_iff (context : Context) :
-    Source.lex Source.profileSpec = some Source.specTokens ∧
-    Source.lex Source.profileBody = some Source.bodyTokens ∧
-    BooleanTranslation "is_member" memberBody ∧
-    (memberBody.eval context = true ↔ Member context.text) :=
-  ⟨Source.specTokens_correct, Source.bodyTokens_correct, source_member_iff context⟩
+/-- Every compiler byte is covered, including comment and literal contents. -/
+theorem actual_source_alphabet :
+    Source.compilerSource Source.profileSpec = true ∧
+    Source.compilerSource Source.profileBody = true := by
+  constructor
+  · rw [← Source.specTokens_source]
+    exact Source.certified_source_supported _
+  · rw [← Source.bodyTokens_source]
+    exact Source.certified_source_supported _
 
-/-- Actual-source membership implies completion under the explicit external contracts. -/
+/-- Complete scopes and declarations, not just selected expression lookups.
+Any extra operator, helper, rename, context clause, aspect, or syntax form changes
+this checked shape and is rejected even if all selected expression text agrees. -/
+theorem actual_source_shape :
+    Source.specTokens = SourceShape.specification ∧
+    Source.bodyTokens = SourceShape.implementation := ⟨rfl, rfl⟩
+
+structure CheckedSource : Prop where
+  specification : Source.lex Source.profileSpec = some Source.specTokens
+  implementation : Source.lex Source.profileBody = some Source.bodyTokens
+  alphabet : Source.compilerSource Source.profileSpec = true ∧
+    Source.compilerSource Source.profileBody = true
+  shape : Source.specTokens = SourceShape.specification ∧
+    Source.bodyTokens = SourceShape.implementation
+  catalogue : CatalogueTranslation
+  ghostHeaders : GhostHeaders
+  primitiveHeaders : PrimitiveHeaders
+  refinement : RefinementContract
+  comment : NumericTranslation "comment_end" commentBody
+  trivia : NumericTranslation "trivia_end" triviaBody
+  token : BooleanTranslation "token_at" tokenBody
+  suffix : BooleanTranslation "suffix_matches" suffixBody
+  member : BooleanTranslation "is_member" memberBody
+  allowed : BooleanTranslation "allowed_source" allowedBody
+  whitespace : BooleanTranslation "is_whitespace" whitespaceBody
+  allowedCharacter : BooleanTranslation "is_allowed_character" allowedCharacterBody
+  lineEnd : BooleanTranslation "is_comment_end" lineEndBody
+  identifier : BooleanTranslation "is_identifier_character" identifierBody
+  lowercase : NumericTranslation "lowercase" lowercaseBody
+
+theorem checked_source : CheckedSource where
+  specification := Source.specTokens_correct
+  implementation := Source.bodyTokens_correct
+  alphabet := actual_source_alphabet
+  shape := actual_source_shape
+  catalogue := actual_catalogue
+  ghostHeaders := actual_ghost_headers
+  primitiveHeaders := actual_primitive_headers
+  refinement := actual_refinement_contract
+  comment := actual_comment
+  trivia := actual_trivia
+  token := actual_token
+  suffix := actual_suffix
+  member := actual_member
+  allowed := actual_allowed
+  whitespace := actual_whitespace
+  allowedCharacter := actual_allowedCharacter
+  lineEnd := actual_lineEnd
+  identifier := actual_identifier
+  lowercase := actual_lowercase
+
+/-- The complete authoritative source is checked, and EVERY interpretation of
+its checked definition equations recognizes exactly the independent language.
+The recursive equality follows from uniqueness, not from hard-wiring callees.
+The equations use the documented approved-front-end meaning of the fixed source
+fragment and GNATprove's machine-bound and normalization contracts. -/
+theorem authoritative_source_member_iff (calls : Calls)
+    (equations : DefinitionEquations calls) (context : Context) :
+    CheckedSource ∧ (calls.member context.text = true ↔ Member context.text) :=
+  ⟨checked_source, member_implementation_iff calls equations context.text⟩
+
+/-- Actual-source membership implies completion under the explicit external
+contracts; source and recursive-interpretation checks are retained. -/
 theorem checked_membership_supported_pipeline {Artifact : Type}
     {tools : SupportedTools.Operations Artifact} (contract : SupportedTools.Contract tools)
-    (context : Context) (accepted : memberBody.eval context = true) :
-    BooleanTranslation "is_member" memberBody ∧
+    (calls : Calls) (equations : DefinitionEquations calls)
+    (context : Context) (accepted : calls.member context.text = true) :
+    CheckedSource ∧
     ∃ artifact steps, SupportedTools.Pipeline tools context.text artifact steps := by
-  refine ⟨actual_member, ?_⟩
-  exact SupportedTools.admitted_pipeline_completes contract ((source_member_iff context).2.mp accepted)
+  refine ⟨checked_source, ?_⟩
+  exact SupportedTools.admitted_pipeline_completes contract
+    ((authoritative_source_member_iff calls equations context).2.mp accepted)
 
 end Silver.SourceBridge

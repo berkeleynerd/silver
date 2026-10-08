@@ -26,6 +26,13 @@ namespace Silver.Source
 
 abbrev Tokens := List String
 
+/-- Compiler-source alphabet, including comments and quoted literals. Unsupported
+Ada format effectors and alternate Unicode encodings cannot hide declarations. -/
+def compilerCharacter (c : Char) : Bool :=
+  c == '\t' || c == '\n' || c == '\r' || decide (32 ≤ c.toNat ∧ c.toNat ≤ 126)
+
+def compilerSource (source : String) : Bool := source.toList.all compilerCharacter
+
 def identifierChar (c : Char) : Bool :=
   c.isAlpha || c.isDigit || c == '_'
 
@@ -58,6 +65,7 @@ def lexer : Nat → List Char → Option Tokens
   | 0, _ :: _ => none
   | fuel + 1, chars@(c :: cs) =>
     if c == ' ' || c == '\t' || c == '\n' || c == '\r' then lexer fuel cs
+    else if c == '%' then none
     else match chars with
     | '-' :: '-' :: tail => lexer fuel (readComment tail)
     | '"' :: tail => do
@@ -65,7 +73,10 @@ def lexer : Nat → List Char → Option Tokens
       let tokens ← lexer fuel rest
       pure (String.ofList ('"' :: literal) :: tokens)
     | '\'' :: value :: '\'' :: tail => do
-      if value == '\n' || value == '\r' then none else pure ()
+      -- The fixed compiler fragment has no '(' character literal or qualified
+      -- character expression. Reject their shared prefix rather than guessing
+      -- whether an apostrophe belongs to a literal or a qualification.
+      if value == '\n' || value == '\r' || value == '(' then none else pure ()
       let tokens ← lexer fuel tail
       pure (String.ofList ['\'', value, '\''] :: tokens)
     | _ =>
@@ -87,7 +98,28 @@ def lexer : Nat → List Char → Option Tokens
       | [] => some [String.singleton c]
 
 def lexLine (source : String) : Option Tokens :=
-  lexer (source.toList.length + 1) source.toList
+  if compilerSource source then lexer (source.toList.length + 1) source.toList else none
+
+theorem lexLine_supported {source : String} {tokens : Tokens}
+    (checked : lexLine source = some tokens) : compilerSource source = true := by
+  unfold lexLine at checked
+  split at checked
+  · assumption
+  · contradiction
+
+/-- Regression: Ada treats these bytes as line endings, so they must never be
+silently consumed inside a compiler-source comment by the restricted reader. -/
+theorem hidden_declaration_rejected :
+    lexLine "-- hidden\u000bfunction \"=\" (L, R : Character) return Boolean is (True);" = none ∧
+    lexLine "-- hidden\u000cfunction \"=\" (L, R : Character) return Boolean is (True);" = none ∧
+    lexLine "-- hidden\u0085function Hidden return Boolean is (True);" = none ∧
+    lexLine "-- hidden\u2028function Hidden return Boolean is (True);" = none := by decide +kernel
+
+/-- Alternate string delimiters and the ambiguous qualified-character prefix
+are outside this compiler fragment, even though their bytes are ASCII. -/
+theorem unsupported_literal_syntax_rejected :
+    lexLine "S : String := %--%; function Hidden return Boolean is (True);" = none ∧
+    lexLine "C : Character := Character'('\"'); function Hidden return Boolean is (True);" = none := by decide +kernel
 
 def lexLines : List String → Option Tokens
   | [] => some []
@@ -116,6 +148,25 @@ theorem certified_lines_no_newline (lines : List LineCertificate) :
   intro text h
   obtain ⟨line, _, rfl⟩ := List.mem_map.mp h
   exact line.noNewline
+
+theorem compilerSource_append (left right : String) :
+    compilerSource (left ++ right) = (compilerSource left && compilerSource right) := by
+  simp [compilerSource, String.toList_append]
+
+/-- Compose the checked alphabet without reducing the entire file's UTF-8
+representation in one kernel evaluation. Each leaf has already been checked. -/
+theorem certified_source_supported (lines : List LineCertificate) :
+    compilerSource (String.intercalate "\n" (lines.map (·.text))) = true := by
+  induction lines with
+  | nil => rfl
+  | cons line lines ih =>
+    cases lines with
+    | nil => simpa using lexLine_supported line.correct
+    | cons next rest =>
+      simp only [List.map_cons] at ih
+      simp only [List.map_cons, String.intercalate_cons_cons, compilerSource_append]
+      rw [lexLine_supported line.correct, ih]
+      rfl
 
 theorem reconstructed_source_lex (lines : List LineCertificate) (hne : lines ≠ []) :
     lex (String.intercalate "\n" (lines.map (·.text))) =

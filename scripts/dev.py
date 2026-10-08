@@ -14,8 +14,12 @@ import subprocess
 import sys
 
 if __package__:
+    from .check_evidence import PROOF_OPTIONS, audit_sources
+    from .proof_provenance import begin_proof, complete_proof
     from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 else:
+    from check_evidence import PROOF_OPTIONS, audit_sources
+    from proof_provenance import begin_proof, complete_proof
     from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 
 
@@ -62,6 +66,27 @@ def project_reports(host: HostLayout, arguments: list[str]) -> Path:
     return reports
 
 
+def proof_arguments(arguments: list[str]) -> list[str]:
+    """The audited path has one full-analysis regime; custom runs use `tool`."""
+    result: list[str] = []
+    index = 0
+    while index < len(arguments):
+        argument = arguments[index]
+        if argument == "-f":
+            pass  # Fresh verification is already mandatory.
+        elif argument == "--subdirs":
+            if index + 1 == len(arguments):
+                raise RuntimeError("--subdirs requires a relative directory")
+            index += 1
+            result.extend([argument, arguments[index]])
+        elif argument.startswith("--subdirs="):
+            result.append(argument)
+        else:
+            raise RuntimeError(f"audited proof configuration cannot be overridden: {argument}; use tool for exploratory runs")
+        index += 1
+    return result
+
+
 def main(arguments: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="action", required=True)
@@ -93,15 +118,20 @@ def main(arguments: list[str] | None = None) -> None:
     if args.action in ("prove", "build"):
         reports = project_reports(host, extra)
         tool = "gnatprove" if args.action == "prove" else "gprbuild"
-        options = ["--mode=all", "--report=all"] if args.action == "prove" else ["-p"]
+        if args.action == "prove":
+            extra = proof_arguments(extra)
+        options = PROOF_OPTIONS if args.action == "prove" else ["-p"]
         command = [tool, "-P", "../../../silver.gpr", *options, *extra,
                    f"-XSILVER_HOST={host.key}"]
     else:
         if not extra:
             parser.error("tool requires a command; for example: tool -- gnatls --version")
         command = extra
+    snapshot = begin_proof(host, command, reports) if args.action == "prove" else None
     invoke(host, alire_command(host, "exec", "--", *command), cwd=host.context)
     if args.action == "prove":
+        audit_sources(host.root / "src", reports, host.generated)
+        complete_proof(host, reports, snapshot)
         invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
                       "--source-dir", str(host.root / "src"),
                       "--generated-dir", str(host.generated),
@@ -111,5 +141,5 @@ def main(arguments: list[str] | None = None) -> None:
 if __name__ == "__main__":
     try:
         main()
-    except (OSError, RuntimeError, subprocess.CalledProcessError) as error:
+    except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as error:
         raise SystemExit(f"development command: {error}") from error

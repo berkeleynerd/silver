@@ -13,6 +13,12 @@ import platform
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST_KEYS = ("linux-aarch64", "linux-x86_64", "macos-aarch64", "macos-x86_64")
+# These inherited settings can select another GPR configuration or project
+# tree before the explicitly selected native project/toolchain is loaded.
+TOOL_ENVIRONMENT_OVERRIDES = (
+    "ALR_CONFIG", "GPR_CONFIG", "GPR_PROJECT_PATH", "GPR_PROJECT_PATH_FILE",
+    "ADA_PROJECT_PATH",
+)
 
 
 def host_key(system: str | None = None, machine: str | None = None) -> str:
@@ -109,5 +115,6 @@ def tool_environment(host: HostLayout) -> dict[str, str]:
     # Set this even for --version, and discard its deprecated alternative.
     environment = dict(os.environ)
     environment["ALIRE_SETTINGS_DIR"] = str(host.alire_settings)
-    environment.pop("ALR_CONFIG", None)
+    for variable in TOOL_ENVIRONMENT_OVERRIDES:
+        environment.pop(variable, None)
     return environment

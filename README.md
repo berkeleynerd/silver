@@ -21,20 +21,28 @@ return, or line feed. Comments begin with `--`, end at carriage return, line fee
 or EOF, and contain printable ASCII or horizontal tabs. Word tokens retain their
 Ada lexical boundaries. All other constructs and compositions are excluded.
 
+This first profile, `silver-null-0`, specializes the guarantee to one procedure
+with no parameters or calls and one null statement. Every admitted program has
+zero user-program proof obligations. Extending it to constructs that generate
+checks requires new admission, composition, and automatic-discharge proofs.
+
 The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
-are development setup, evidence auditing, and tests. GNAT, GNATprove, Alire, and
-OS/runtime services are trusted external dependencies. GNATprove verifies the
-compiler implementation; Lean connects its actual recognition rules to the
-independent language and proves universal source safety. Completion and semantic
-preservation through the external tools have explicit supported-environment
-premises; see [the assurance argument](docs/assurance.md).
+are development setup, evidence auditing, and tests. GNATprove verifies the
+compiler implementation. Lean connects the restricted recognizer source to its
+language model and proves safety for every member of this null-only profile.
+The external tools, runtime, generated configuration, evidence tooling, and
+source-semantics assumptions are listed in the
+[trusted boundary](docs/trusted-boundary.md). Completion and semantic preservation
+have explicit tool and operational premises; see
+[the assurance argument](docs/assurance.md).
 
 ## Set up, verify, and build
 
-Run commands from the repository root. Development requires Python 3.11+ and
-native development libraries: libc development files on Linux, or Xcode Command
-Line Tools on macOS. On Debian/Ubuntu, the required native package is `libc6-dev`.
+The following development examples run from the repository root. Development
+requires Python 3.11+ and native development libraries: libc development files
+on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
+native package is `libc6-dev`.
 
 ```sh
 python3 scripts/bootstrap.py
@@ -54,10 +62,13 @@ needed. `python3 scripts/dev.py paths` displays the selected paths.
 The wrapper supplies `SILVER_HOST`; invoking `silver.gpr` without that setting
 fails instead of selecting a default output directory.
 
-`dev.py prove` runs the proof audit before succeeding. The audit checks
+`dev.py prove` fixes the solver and proof configuration, forces analysis, and
+runs the proof audit before succeeding. The audit checks
 unit/entity coverage, proof completion, individual obligations, skipped checks,
-assumptions, and diagnostics. A successful GNATprove process exit alone is
-insufficient. Reports remain in `.silver/<host>/compiler/obj/gnatprove/`.
+assumptions, diagnostics, and matching report formats. A completed provenance
+record binds the selected host, source/configuration/script bytes, tool binaries,
+and reports. A successful GNATprove process exit alone is insufficient. Reports
+remain in `.silver/<host>/compiler/obj/gnatprove/`.
 
 Bootstrap installs Alire 2.1.1 with pinned upstream SHA256 hashes. Alire manages
 GNAT 16.1, GNATprove 16.1, and GPRbuild 26.0; patch updates are permitted within
@@ -81,6 +92,13 @@ its byte-identical `main.adb` snapshot, checks the proof report, and builds that
 same snapshot. It prints the snapshot, proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
 
+The executable can be invoked from another working directory. Relative input
+paths refer to that directory; tools and output workspaces stay anchored to the
+installation recorded during bootstrap. Installation paths are shell-quoted,
+and inherited GPR configuration/search-path overrides are removed before Alire
+runs. Moving the installation requires bootstrap and rebuild. These controls do
+not make the entire operating-system environment hermetic.
+
 Exit status is 0 for success, 2 for excluded source or incorrect CLI usage, and 3
 for an infrastructure, verification, compilation, or execution failure. Failure
 on an admitted program is reported as a toolchain or implementation defect;
@@ -88,8 +106,10 @@ prover results never redefine membership.
 
 The [machine-readable catalogue](catalogue/silver-null-0.json) is generated from
 the actual compiler. Recognition and JSON export share SPARK token and character
-rules, and tests compare the exported JSON with the checked-in file. Regenerate
-it after an intentional profile change:
+rules. It also lists the admitted procedure, required pragma, null statement,
+their conditions and token spans, and their sole permitted composition. Tests
+compare the exported JSON with the checked-in file. Regenerate it after an
+intentional profile change:
 
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
@@ -98,16 +118,17 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-The host-isolated Linux ARM64 build discharged all 655 compiler checks
-(124 by flow analysis, 531 by proof). Eight units are audited, with 73 reported
-entities including 11 explicitly trusted imported OS/runtime declarations.
-The reports also contain twelve documented optional recursive-proof limitation
-notes; these withhold proof information and do not waive obligations. The audit
-counts them and rejects other warnings, failed checks, and source suppressions.
-All 32 regression tests passed with the rebuilt compiler. They cover real
-proof/build/run cases, simulated tool failures, source changes, and cross-platform
-artifact isolation. The original, unchanged `null.adb` also proved, built, and
-ran successfully with the rebuilt compiler.
+Current validation results and exact counts are recorded in
+[the review repair record](docs/review-repairs.md). Regression coverage includes
+real proof/build/run cases, simulated tool failures, source changes, report-size
+stress, foreign working directories, and simulated cross-host artifact routing.
+
+Recursive report specifications use the narrow `Ghost => Static` assertion level
+so GNAT erases their runtime evaluation while GNATprove still verifies every
+report-checker obligation. Compiler assertion and overflow checking remain
+enabled with `-gnata` and `-gnato`; the report input bound and executable checks
+are unchanged. The validation record includes a deliberately false static
+contract that GNATprove rejects.
 
 Lean 4.34.1 is pinned for the language and compiler-correspondence proofs:
 
@@ -123,24 +144,23 @@ A per-host source link points directly to the authoritative `src/` directory.
 Lean subprocesses use explicit native tool paths and isolated config/cache paths;
 inherited Lean, Lake, and Elan overrides cannot select another installation.
 
-The source bridge embeds the authoritative SPARK files, checks their lexical
-certificates, and matches typed expressions with checked Ada precedence. The
-clean replay checks every proof module and audits every declaration's transitive
-axioms. Only Lean's standard logical foundations are allowed. The separate
-external-tool theorem proves completion and preservation under its documented
-tool and operational contracts.
-
-The isolated Linux ARM64 clean replay passed, checking all 14 proof modules
-and auditing 3,616 declarations. An isolated change to an authoritative
-source constant was rejected by the source-reconstruction proof.
+The source bridge embeds the authoritative `silver_profile.ads` and `.adb`,
+checks restricted source bytes and declaration shapes, and matches typed
+expressions with checked Ada precedence. Its semantic scope is described in the trusted boundary. Clean
+replay audits actual imported modules and every declaration's transitive axioms,
+then runs a fresh `leanchecker` kernel check. Only Lean's standard logical
+foundations are allowed. The separate external-tool theorem proves completion
+and preservation under its documented tool and operational contracts.
 
 See [the assurance argument](docs/assurance.md) for the exact proved claims, and
 [the trusted boundary](docs/trusted-boundary.md) for external symbols, ABI
 assumptions, report-format assumptions, and supported execution conditions.
 
 [CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
-x86-64/ARM64, plus Lean checks. Only Linux ARM64 has been executed in this
-workspace. Linux is the primary validation platform; native macOS validation is
-a separate secondary task and does not block the Linux milestone, as the Oracle
-requires. Native macOS and Linux x86-64 results remain unverified. The repository
-currently has no Git remote through which to run the prepared workflow.
+x86-64/ARM64, plus Lean checks. Repairs are validated locally on Linux ARM64.
+Retained pre-repair macOS ARM64 reports passed a re-audit under the baseline
+rules; they do not validate these repairs or the new provenance requirements.
+Native macOS repair validation and x86-64 validation remain pending. Linux is
+primary and macOS validation is independent under the Oracle. This work remains
+local as requested: the repository has no Git remote, and the configured CI
+workflow has not been executed.

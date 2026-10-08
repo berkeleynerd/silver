@@ -154,7 +154,7 @@ is
    begin
       Name := (others => ' ');
       Success := False;
-      Status := C_Mkdir (Interfaces.C.To_C (".silver"), 8#700#);
+      Status := C_Mkdir (Interfaces.C.To_C (Silver_Build.Artifacts_Directory), 8#700#);
       --  An existing parent is normal. mkdtemp will report failure if the
       --  parent is inaccessible or is not a directory.
       if Status /= 0 and then Status /= -1 then
@@ -171,12 +171,14 @@ is
          return;
       end if;
       for Index in Name'Range loop
+         pragma Loop_Invariant
+           (Template'First = 0
+            and then Template'Last = Interfaces.C.size_t (Name'Last));
          Name (Index) := Interfaces.C.To_Ada (Template (Interfaces.C.size_t (Index - 1)));
       end loop;
-      --  Check the returned path before it can be used in any command.
-      Success := Name (1 .. Prefix'Last) = Prefix
-        and then (for all Item of Name =>
-          Item in 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '.' | '/' | '-' | '_')
+      --  The installation prefix is fixed and shell-quoted during setup.
+      --  Only the mkdtemp-generated suffix is appended to that shell word.
+      Success := Valid_Path (Name) and then Name (1 .. Prefix'Last) = Prefix
         and then (for all Index in Prefix'Last + 1 .. Name'Last =>
           Name (Index) in 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9');
    end Create_Workspace;

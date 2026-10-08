@@ -9,8 +9,10 @@ separately (libc development files on Linux; Command Line Tools on macOS).
 from __future__ import annotations
 
 import hashlib
+import os
 from pathlib import Path
 import re
+import shlex
 import shutil
 import tempfile
 import subprocess
@@ -24,11 +26,11 @@ if sys.version_info < (3, 11):
 import tomllib
 
 if __package__:
-    from .platforms import (ROOT, HostLayout, alire_command, native_layout,
-                            require_native, tool_environment)
+    from .platforms import (ROOT, TOOL_ENVIRONMENT_OVERRIDES, HostLayout,
+                            alire_command, native_layout, require_native, tool_environment)
 else:
-    from platforms import (ROOT, HostLayout, alire_command, native_layout,
-                           require_native, tool_environment)
+    from platforms import (ROOT, TOOL_ENVIRONMENT_OVERRIDES, HostLayout,
+                           alire_command, native_layout, require_native, tool_environment)
 
 ALIRE_VERSION = "2.1.1"
 # SHA256 digests published in the upstream v2.1.1 release API on 2026-10-08:
@@ -141,23 +143,57 @@ def write_if_changed(destination: Path, contents: str) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def build_configuration(host: HostLayout) -> dict[str, str]:
+    """Anchor runtime paths to this installation, with shell quoting at setup."""
+    # Alire loads/migrates settings before -s/-C are parsed. Establish its
+    # environment and working directory in the shell before starting it.
+    prefix = (f"cd {shlex.quote(str(host.context))} && "
+              f"unset {' '.join(TOOL_ENVIRONMENT_OVERRIDES)} && "
+              f"ALIRE_SETTINGS_DIR={shlex.quote(str(host.alire_settings))} "
+              f"{shlex.quote(str(host.alr))} -n exec -- ")
+    fields = {"Host": host.key,
+              "Artifacts_Directory": str(host.root / ".silver"),
+              "Root_Directory": str(host.artifacts),
+              "Quoted_Root_Directory": shlex.quote(str(host.artifacts)),
+              "Alire_Exec": prefix}
+    if any(b"\0" in os.fsencode(value) for value in fields.values()):
+        raise RuntimeError("installation paths must not contain NUL bytes")
+    # Match the SPARK path/command bounds before generating compiler constants.
+    # Reserve the longest filesystem suffix and ample fixed driver command text;
+    # shell quoting can make the command longer than the raw installation path.
+    report = fields["Root_Directory"] + "/program-XXXXXX/obj/gnatprove/main.spark"
+    if len(os.fsencode(report)) > 4096:
+        raise RuntimeError("installation path exceeds the compiler's 4096-byte path bound")
+    if len(os.fsencode(prefix + fields["Quoted_Root_Directory"])) + 512 > 16384:
+        raise RuntimeError("quoted installation paths exceed the compiler's command bound")
+    return fields
+
+
+def ada_string(value: str) -> str:
+    """Encode filesystem bytes exactly, without relying on Ada source encoding."""
+    pieces: list[str] = []
+    literal = ""
+    for byte in os.fsencode(value):
+        if 32 <= byte <= 126:
+            literal += chr(byte).replace('"', '""')
+        else:
+            pieces.append(f'"{literal}"')
+            pieces.append(f"Character'Val ({byte})")
+            literal = ""
+    pieces.append(f'"{literal}"')
+    return " & ".join(pieces)
+
+
 def prepare_context(host: HostLayout) -> Path:
     """Generate only this host's manifest and verified-SPARK constants."""
+    fields = build_configuration(host)
     write_if_changed(host.context / "alire.toml",
                      (host.root / "alire.toml").read_text())
     host.alire_settings.mkdir(parents=True, exist_ok=True)
     host.alire_cache.mkdir(parents=True, exist_ok=True)
     host.alire_toolchains.mkdir(parents=True, exist_ok=True)
-    root_directory = f".silver/{host.key}"
-    # Alire loads/migrates settings before -s/-C are parsed. Establish its
-    # environment and working directory in the shell before starting it.
-    prefix = (f'cd {root_directory}/toolchain && unset ALR_CONFIG && '
-              f'ALIRE_SETTINGS_DIR="$PWD/../../../.tools/{host.key}/alire/settings" '
-              f'../../../.tools/{host.key}/alr/bin/alr -n exec -- ')
-    fields = {"Host": host.key, "Root_Directory": root_directory,
-              "Alire_Exec": prefix, "Project_Prefix": "../../../"}
     declarations = "".join(
-        f'   {name} : constant String := "{value.replace(chr(34), chr(34) * 2)}";\n'
+        f"   {name} : constant String := {ada_string(value)};\n"
         for name, value in fields.items())
     generated = host.generated / "silver_build.ads"
     write_if_changed(generated,

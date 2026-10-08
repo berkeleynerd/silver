@@ -1,6 +1,7 @@
-# Implementation checkpoint
+# Historical implementation checkpoint
 
-This is the historical checkpoint for the initial compiler milestone. Its flat
+This is the historical checkpoint for the initial compiler milestone. It does
+not describe the current assurance repairs; see [review-repairs.md](review-repairs.md). Its flat
 artifact paths and command examples predate native host isolation. Use the
 [README](../README.md) for current commands and the
 [platform coexistence checkpoint](platform-coexistence.md) for the follow-up.

@@ -1,4 +1,8 @@
 package body Silver_Reports with SPARK_Mode => On is
+   --  Static ghost computations are verified by GNATprove but erased by
+   --  GNAT. Their recursive mathematical definitions must not consume stack
+   --  or be recomputed for every byte by executable loop assertions. All
+   --  executable checks remain enabled by -gnata/-gnato.
    Prefix : constant String := """spark"":{""";
    Suffix : constant String := """:""all""}";
    Progress_Field : constant String := """progress"":""PROGRESS_PROOF""";
@@ -16,7 +20,7 @@ package body Silver_Reports with SPARK_Mode => On is
       or else Item = Character'Val (10) or else Item = Character'Val (13));
 
    function Filtered_Prefix (Report : String; Count : Natural) return String
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Report'Length <= Max_Report_Length and then Count <= Report'Length,
           Post => Filtered_Prefix'Result'First = 1
             and then Filtered_Prefix'Result'Length <= Count,
@@ -30,7 +34,7 @@ package body Silver_Reports with SPARK_Mode => On is
         & Report (Report'First + (Count - 1)));
 
    function Has_Substring (Text, Pattern : String) return Boolean
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Pattern'First = 1
             and then Text'Length <= Max_Report_Length
             and then Pattern'Length in 1 .. Max_Report_Length;
@@ -41,7 +45,7 @@ package body Silver_Reports with SPARK_Mode => On is
         Text (Start .. Start + (Pattern'Length - 1)) = Pattern));
 
    function First_Prefix (Text : String; Position : Cursor) return Cursor
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
             and then Position <= Text'Length + 1,
           Post => First_Prefix'Result in Position .. Text'Length + 1,
@@ -54,7 +58,7 @@ package body Silver_Reports with SPARK_Mode => On is
       else First_Prefix (Text, Position + 1));
 
    function Digits_End (Text : String; Position : Cursor) return Cursor
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
             and then Position <= Text'Length + 1,
           Post => Digits_End'Result in Position .. Text'Length + 1,
@@ -65,7 +69,7 @@ package body Silver_Reports with SPARK_Mode => On is
       then Position else Digits_End (Text, Position + 1));
 
    function Entity_From (Text : String; Start : Cursor) return Boolean
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
             and then Start <= Text'Length + 1;
 
@@ -78,7 +82,7 @@ package body Silver_Reports with SPARK_Mode => On is
         Digits_End (Text, Start + Prefix'Length) + (Suffix'Length - 1)) = Suffix);
 
    function One_Entity_Spec (Text : String) return Boolean
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function One_Entity_Spec (Text : String) return Boolean is
@@ -86,7 +90,7 @@ package body Silver_Reports with SPARK_Mode => On is
       and then Entity_From (Text, First_Prefix (Text, 1)));
 
    function Compact_Spec (Text : String) return Boolean
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Compact_Spec (Text : String) return Boolean is
@@ -105,7 +109,7 @@ package body Silver_Reports with SPARK_Mode => On is
       and then Compact_Spec (Filtered_Prefix (Report, Report'Length)));
 
    procedure Equal_Substring (Left, Right, Pattern : String)
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Left'First = 1 and then Right'First = 1
             and then Left'Length <= Max_Report_Length
             and then Right'Length <= Max_Report_Length and then Left = Right
@@ -118,7 +122,7 @@ package body Silver_Reports with SPARK_Mode => On is
    end Equal_Substring;
 
    procedure Equal_First (Left, Right : String; Position : Cursor)
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Left'First = 1 and then Right'First = 1
             and then Left'Length <= Max_Report_Length
             and then Right'Length <= Max_Report_Length and then Left = Right
@@ -135,7 +139,7 @@ package body Silver_Reports with SPARK_Mode => On is
    end Equal_First;
 
    procedure Equal_Digits (Left, Right : String; Position : Cursor)
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Left'First = 1 and then Right'First = 1
             and then Left'Length <= Max_Report_Length
             and then Right'Length <= Max_Report_Length and then Left = Right
@@ -150,7 +154,7 @@ package body Silver_Reports with SPARK_Mode => On is
    end Equal_Digits;
 
    procedure Equal_Compact (Left, Right : String)
-     with Ghost, Global => null,
+     with Ghost => Static, Global => null,
           Pre => Left'First = 1 and then Right'First = 1
             and then Left'Length <= Max_Report_Length
             and then Right'Length <= Max_Report_Length and then Left = Right,
@@ -179,7 +183,7 @@ package body Silver_Reports with SPARK_Mode => On is
      with Pre => Text'First = 1 and then Pattern'First = 1
        and then Text'Length <= Max_Report_Length
        and then Pattern'Length in 1 .. Max_Report_Length,
-       Post => Contains'Result = Has_Substring (Text, Pattern)
+       Post => (Static => Contains'Result = Has_Substring (Text, Pattern))
    is
    begin
       if Pattern'Length > Text'Length then
@@ -187,8 +191,8 @@ package body Silver_Reports with SPARK_Mode => On is
       end if;
       for Start in 1 .. (Text'Length - Pattern'Length) + 1 loop
          pragma Loop_Invariant
-           (for all Earlier in 1 .. Start - 1 =>
-              Text (Earlier .. Earlier + (Pattern'Length - 1)) /= Pattern);
+           (Static => (for all Earlier in 1 .. Start - 1 =>
+              Text (Earlier .. Earlier + (Pattern'Length - 1)) /= Pattern));
          if Text (Start .. Start + (Pattern'Length - 1)) = Pattern then
             return True;
          end if;
@@ -198,7 +202,7 @@ package body Silver_Reports with SPARK_Mode => On is
 
    function One_Entity (Text : String) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-          Post => One_Entity'Result = One_Entity_Spec (Text)
+          Post => (Static => One_Entity'Result = One_Entity_Spec (Text))
    is
       Start : Cursor := 1;
       Position : Cursor;
@@ -210,7 +214,7 @@ package body Silver_Reports with SPARK_Mode => On is
          pragma Loop_Invariant
            (Start in 1 .. (Text'Length - Prefix'Length) + 2);
          pragma Loop_Invariant
-           (First_Prefix (Text, 1) = First_Prefix (Text, Start));
+           (Static => First_Prefix (Text, 1) = First_Prefix (Text, Start));
          pragma Loop_Variant (Increases => Start);
          if Text (Start .. Start + (Prefix'Length - 1)) = Prefix then
             Position := Start + Prefix'Length;
@@ -225,7 +229,7 @@ package body Silver_Reports with SPARK_Mode => On is
                pragma Loop_Invariant
                  (Position in Start + Prefix'Length .. Text'Length + 1);
                pragma Loop_Invariant
-                 (Digits_End (Text, Start + Prefix'Length)
+                 (Static => Digits_End (Text, Start + Prefix'Length)
                   = Digits_End (Text, Position));
                pragma Loop_Variant (Increases => Position);
                Position := Position + 1;
@@ -240,7 +244,7 @@ package body Silver_Reports with SPARK_Mode => On is
 
    function Matches_Compact (Text : String) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-          Post => Matches_Compact'Result = Compact_Spec (Text)
+          Post => (Static => Matches_Compact'Result = Compact_Spec (Text))
    is
    begin
       return Contains (Text, Progress_Field)
@@ -266,16 +270,16 @@ package body Silver_Reports with SPARK_Mode => On is
          for Index in Report'Range loop
             pragma Loop_Invariant (Last <= Index - Report'First);
             pragma Loop_Invariant
-              (Compact (1 .. Last) = Filtered_Prefix (Report, Index - Report'First));
+              (Static => Compact (1 .. Last) = Filtered_Prefix (Report, Index - Report'First));
             if not Removed (Report (Index)) then
                Last := Last + 1;
                Compact (Last) := Report (Index);
             end if;
             pragma Assert
-              (Compact (1 .. Last) = Filtered_Prefix (Report, (Index - Report'First) + 1));
+              (Static => Compact (1 .. Last) = Filtered_Prefix (Report, (Index - Report'First) + 1));
          end loop;
          pragma Assert
-           (Compact (1 .. Last) = Filtered_Prefix (Report, Report'Length));
+           (Static => Compact (1 .. Last) = Filtered_Prefix (Report, Report'Length));
          declare
             Text : constant String := Compact (1 .. Last);
          begin

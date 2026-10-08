@@ -6,13 +6,15 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 import textwrap
 import unittest
 
-from scripts.platforms import native_layout
+from scripts.bootstrap import prepare_context
+from scripts.platforms import HostLayout, alire_command, native_layout, tool_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST = native_layout(ROOT)
@@ -20,8 +22,8 @@ SILVER = HOST.compiler / "bin" / "silver"
 CANONICAL = b"procedure Main is pragma SPARK_Mode (On); begin null; end Main;"
 
 
-def invoke(*args: str | Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run([str(SILVER), *(str(arg) for arg in args)], cwd=ROOT,
+def invoke(*args: str | Path, cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
+    return subprocess.run([str(SILVER), *(str(arg) for arg in args)], cwd=cwd,
                           text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                           timeout=120)
 
@@ -39,9 +41,12 @@ class SilverIntegrationTests(unittest.TestCase):
 
     def check_source(self, data: bytes, expected: int) -> None:
         self.source.write_bytes(data)
+        before = set(HOST.artifacts.glob("program-*"))
         result = invoke("check", self.source)
         self.assertEqual(result.returncode, expected, result.stdout)
         self.assertEqual(self.source.read_bytes(), data, "checking modified author source")
+        self.assertEqual(set(HOST.artifacts.glob("program-*")), before,
+                         "membership checking created a build workspace")
 
     def test_catalogue_is_json(self) -> None:
         result = invoke("catalogue")
@@ -65,6 +70,16 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["identifier_bytes"], sorted(b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz"))
         self.assertEqual(catalogue["casefold_bytes"], list(bytes(range(256)).lower()))
         self.assertIs(catalogue["additional_constructs"], False)
+        self.assertEqual(catalogue["schema_version"], 1)
+        constructs = {item["id"]: item for item in catalogue["constructs"]}
+        self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement"})
+        self.assertEqual(catalogue["composition"], {
+            "root": "main_procedure", "declarative_items": ["spark_mode_on"],
+            "statements": ["null_statement"], "additional_units": False})
+        for name, expected in (("spark_mode_on", ["pragma", "spark_mode", "(", "on", ")", ";"]),
+                               ("null_statement", ["null", ";"])):
+            first, last = constructs[name]["token_span"]
+            self.assertEqual(catalogue["tokens"][first - 1:last], expected)
         self.assertEqual(catalogue["tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",
                          ";", "end", "main", ";"])
@@ -148,6 +163,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2, result.stdout)
         self.assertNotIn("Executable:", result.stdout)
         created = set(HOST.artifacts.glob("program-*")) - before
+        self.assertEqual(created, set(), "excluded source created a workspace")
         for workspace in created:
             self.assertFalse(list(workspace.rglob("*.spark")), "excluded source reached proof")
             self.assertFalse((workspace / "bin/main").exists(), "excluded source was compiled")
@@ -164,8 +180,18 @@ class SilverIntegrationTests(unittest.TestCase):
                 source = Path(self.directory.name) / "input ' with spaces.adb"
                 source.write_bytes(data)
                 before = set(HOST.artifacts.glob("program-*"))
-                result = invoke(command, source)
+                # Paths are anchored to the compiled installation, even when
+                # the caller has a separate tree resembling that installation.
+                foreign = Path(self.directory.name) / "foreign"
+                foreign.mkdir(exist_ok=True)
+                planted = foreign / HOST.alr.relative_to(ROOT)
+                planted.parent.mkdir(parents=True, exist_ok=True)
+                planted.write_text("#!/bin/sh\nexit 99\n")
+                planted.chmod(0o755)
+                result = invoke(command, source, cwd=foreign)
                 self.assertEqual(result.returncode, 0, result.stdout)
+                self.assertEqual("Execution completed successfully." in result.stdout, command == "run")
+                self.assertFalse((foreign / ".silver").exists())
                 match = re.search(r"^Executable: (.+)$", result.stdout, re.MULTILINE)
                 self.assertIsNotNone(match, result.stdout)
                 executable = Path(match.group(1))
@@ -191,19 +217,33 @@ class SilverIntegrationTests(unittest.TestCase):
                 statistics = audit_reports(reports[0].parent, {snapshots[0].stem})
                 self.assertEqual(statistics["units"], 1)
                 self.assertEqual(statistics["proof_checks"], 0)
+                shutil.rmtree(workspace)
         self.assertEqual(hashlib.sha256(original.read_bytes()).digest(), original_digest)
 
     def test_tool_failures_and_source_changes_do_not_report_success(self) -> None:
         # Only the external tool is replaced. The real SPARK CLI executes all
         # admission, snapshot, error-handling and evidence-validation code.
-        sandbox = (Path(self.directory.name) / "checkout ' $literal;").resolve()
+        sandbox = (Path(self.directory.name) / "checkout ' \" $literal; `x` café").resolve()
         sandbox.mkdir()
+        fixture_host = HostLayout(sandbox, HOST.key)
+        (sandbox / "src").symlink_to(ROOT / "src", target_is_directory=True)
+        shutil.copyfile(ROOT / "silver.gpr", sandbox / "silver.gpr")
+        shutil.copyfile(ROOT / "alire.toml", sandbox / "alire.toml")
+        prepare_context(fixture_host)
+        # Compile the unchanged implementation with fixture-specific paths.
+        # The production binary has no caller-controlled tool override.
+        build = subprocess.run(alire_command(HOST, "exec", "--", "gprbuild", "-P",
+                               sandbox / "silver.gpr", "-XSILVER_HOST=" + HOST.key, "-p"),
+                               cwd=HOST.context, env=tool_environment(HOST),
+                               capture_output=True, text=True, timeout=120)
+        self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
+        fixture_silver = fixture_host.compiler / "bin/silver"
         alr = sandbox / HOST.alr.relative_to(ROOT)
         alr.parent.mkdir(parents=True)
         context = sandbox / HOST.context.relative_to(ROOT)
-        context.mkdir(parents=True)
+        context.mkdir(parents=True, exist_ok=True)
         settings = sandbox / HOST.alire_settings.relative_to(ROOT)
-        settings.mkdir(parents=True)
+        settings.mkdir(parents=True, exist_ok=True)
         protected_settings = [sandbox / relative for relative in (
             "inherited-settings/config.toml", "inherited-legacy-settings/config.toml",
             "alire/config.toml")]
@@ -225,8 +265,9 @@ class SilverIntegrationTests(unittest.TestCase):
             settings = Path(os.environ.get("ALIRE_SETTINGS_DIR", "."))
             if not settings.is_absolute() or settings.resolve() != expected_settings or not settings.is_dir():
                 raise SystemExit("Alire startup settings did not preserve the exact sandbox path")
-            if "ALR_CONFIG" in os.environ:
-                raise SystemExit("Alire inherited deprecated global settings")
+            overrides = {"ALR_CONFIG", "GPR_CONFIG", "GPR_PROJECT_PATH", "GPR_PROJECT_PATH_FILE", "ADA_PROJECT_PATH"}
+            if overrides.intersection(os.environ):
+                raise SystemExit("Alire inherited tool configuration overrides")
             if Path.cwd() != expected_context:
                 raise SystemExit("Alire started outside the isolated host context")
             if "-s" in sys.argv:
@@ -260,6 +301,10 @@ class SilverIntegrationTests(unittest.TestCase):
                     report["spark"][" 2"] = "all"
                 if mode == "unproved":
                     report["proof"] = [{"severity": "medium", "how_proved": "unproved"}]
+                if mode == "nonempty_flow":
+                    report["flow"] = [{"severity": "medium", "how_proved": "flow"}]
+                if mode == "skipped_flow":
+                    report["skip_flow_proof"] = [1]
                 if mode == "stopped":
                     report["stop_reason"] = "STOP_REASON_ERROR"
                 if mode == "skipped":
@@ -270,6 +315,16 @@ class SilverIntegrationTests(unittest.TestCase):
                     report["warn_error"] = [{"severity": "warning"}]
                 target = project.parent / "obj/gnatprove/main.spark"
                 target.parent.mkdir(parents=True)
+                if mode in ("large_report", "maximum_report", "oversized_report", "large_rejected"):
+                    # Non-whitespace padding BEFORE the recognized fields
+                    # exercises both compaction and the entire prefix scan.
+                    size = 20000 if mode == "large_report" else 262144
+                    if mode == "oversized_report":
+                        size += 1
+                    if mode == "large_rejected":
+                        report["skip_flow_proof"] = [1]
+                    report = {"padding": "", **report}
+                    report["padding"] = "x" * (size - len(json.dumps(report)))
                 target.write_text(json.dumps(report))
                 if mode == "source_changed_during_proof":
                     snapshot.write_text("source changed by external tool")
@@ -279,33 +334,54 @@ class SilverIntegrationTests(unittest.TestCase):
                     raise SystemExit(1)
                 if mode == "source_changed_during_build":
                     snapshot.write_text("source changed by external tool")
+                executable = project.parent / "bin/main"
+                executable.parent.mkdir(parents=True, exist_ok=True)
+                executable.write_text("#!/bin/sh\\nexit " + ("9" if mode == "run_failure" else "0") + "\\n")
+                executable.chmod(0o755)
             '''))
         alr.chmod(0o755)
         self.source.write_bytes(CANONICAL)
         for mode in ("tool_failure", "missing_report", "flow_only", "outside_spark", "extra_entity",
-                     "unproved", "stopped", "skipped", "assumption", "warning",
-                     "source_changed_during_proof", "build_failure", "source_changed_during_build"):
+                     "unproved", "nonempty_flow", "skipped_flow", "stopped", "skipped", "assumption", "warning",
+                     "source_changed_during_proof", "build_failure", "source_changed_during_build",
+                     "success", "run_failure", "large_report", "maximum_report", "oversized_report", "large_rejected"):
             with self.subTest(mode=mode):
                 (sandbox / "scenario").write_text(mode)
                 (sandbox / "build_invoked").unlink(missing_ok=True)
                 (sandbox / "routing_checked").unlink(missing_ok=True)
-                result = subprocess.run([str(SILVER), "compile", str(self.source)], cwd=sandbox,
+                command = "run" if mode in ("success", "run_failure") else "compile"
+                result = subprocess.run([str(fixture_silver), command, str(self.source)], cwd=self.directory.name,
                                         text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                         env={**os.environ,
                                              "ALIRE_SETTINGS_DIR": str(sandbox / "inherited-settings"),
-                                             "ALR_CONFIG": str(sandbox / "inherited-legacy-settings")},
+                                             "ALR_CONFIG": str(sandbox / "inherited-legacy-settings"),
+                                             "GPR_CONFIG": "untrusted.cgpr",
+                                             "GPR_PROJECT_PATH": "untrusted-projects",
+                                             "GPR_PROJECT_PATH_FILE": "untrusted-list",
+                                             "ADA_PROJECT_PATH": "untrusted-ada"},
                                         timeout=30)
-                self.assertEqual(result.returncode, 3, result.stdout)
+                successful = mode in ("success", "large_report", "maximum_report")
+                self.assertEqual(result.returncode, 0 if successful else 3, result.stdout)
                 self.assertTrue((sandbox / "routing_checked").is_file(), result.stdout)
                 project = Path((sandbox / "routing_checked").read_text())
                 self.assertTrue(project.is_relative_to(sandbox / HOST.artifacts.relative_to(ROOT)))
-                self.assertNotIn("Executable:", result.stdout)
+                published = successful or mode == "run_failure"
+                self.assertEqual("Executable:" in result.stdout, published, result.stdout)
+                self.assertEqual("Execution completed successfully." in result.stdout, mode == "success")
                 self.assertEqual((sandbox / "build_invoked").exists(),
-                                 mode in ("build_failure", "source_changed_during_build"))
+                                 mode in ("build_failure", "source_changed_during_build", "run_failure") or successful)
                 for path in protected_settings:
                     self.assertEqual(path.read_bytes(),
                                      b"settings outside the selected host must remain unchanged")
                 self.assertEqual(self.source.read_bytes(), CANONICAL)
+        # Checking alone never invokes the fixture tools or creates a workspace.
+        before = set(fixture_host.artifacts.glob("program-*"))
+        (sandbox / "routing_checked").unlink(missing_ok=True)
+        checked = subprocess.run([str(fixture_silver), "check", str(self.source)],
+                                 cwd=self.directory.name, capture_output=True, text=True, timeout=10)
+        self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+        self.assertFalse((sandbox / "routing_checked").exists())
+        self.assertEqual(set(fixture_host.artifacts.glob("program-*")), before)
 
 
 if __name__ == "__main__":

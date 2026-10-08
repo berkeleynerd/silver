@@ -5,12 +5,13 @@ package Silver_Reports with SPARK_Mode => On is
    --  It removes space/HT/LF/CR (also inside strings), then checks the required
    --  field patterns and the first spark-map prefix's single-entity shape.
    function Recognizes_Null_Report (Report : String) return Boolean
-     with Ghost, Global => null;
+     with Ghost => Static, Global => null;
 
    --  The null-only profile generates no source-level checks. Require the
    --  trusted GNATprove 16.1 report to confirm completed analysis of its sole
    --  entity, with no failed, skipped, assumed, or outstanding obligations.
    function Complete_Null_Proof (Report : String) return Boolean
      with Global => null,
-          Post => Complete_Null_Proof'Result = Recognizes_Null_Report (Report);
+          Post => (Static =>
+            Complete_Null_Proof'Result = Recognizes_Null_Report (Report));
 end Silver_Reports;

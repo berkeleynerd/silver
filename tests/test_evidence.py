@@ -6,10 +6,14 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 from scripts.check_evidence import (EvidenceError, TRUSTED_IMPORT_ENTITIES,
                                     audit_import_spec, audit_reports, audit_source_policy,
                                     audit_sources)
+from scripts import proof_provenance
+from scripts.check_evidence import PROOF_OPTIONS
+from scripts.platforms import HostLayout
 
 
 class ProofEvidenceTests(unittest.TestCase):
@@ -23,6 +27,7 @@ class ProofEvidenceTests(unittest.TestCase):
             "spark": {" 1": "all"}, "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
             "flow": [], "proof": [], "pragma_assume": [], "skip_flow_proof": [],
             "skip_proof": [], "warn_error": [],
+            "assumptions": [{"claim": {"arg": 1, "predicate": "CLAIM_EFFECTS"}, "assumptions": []}],
         }
         self.sarif = {
             "version": "2.1.0", "runs": [{
@@ -32,11 +37,46 @@ class ProofEvidenceTests(unittest.TestCase):
                 "results": [],
             }],
         }
-        (self.path / "gnatprove.out").write_text("Analyzed 1 unit\n")
+        (self.path / "gnatprove.out").write_text("Total . . . . .\nin unit main, 1 subprograms and packages out of 1 analyzed\n")
+
+    def refresh_reports(self) -> None:
+        """Build mutually consistent producer reports; mutations happen after this."""
+        summary = []
+        diagnostics = []
+        flow = proof = 0
+        for path in self.path.glob("*.spark"):
+            report = json.loads(path.read_text())
+            own = {key for key, entity in report["entities"].items()
+                   if any(Path(location["file"]).stem == path.stem for location in entity["sloc"])}
+            count = sum(report["spark"].get(key) == "all" for key in own)
+            summary.append(f"in unit {path.stem}, {count} subprograms and packages out of {len(own)} analyzed")
+            flow += len(report["flow"])
+            proof += len(report["proof"])
+            for kind in ("flow", "proof", "warn_error"):
+                for record in report[kind]:
+                    for key, value in {"file": path.stem + ".adb", "line": 1, "col": 1,
+                                       "rule": "VC_ASSERT", "entity": 1,
+                                       "message": {"text": "assertion proved"}}.items():
+                        record.setdefault(key, value)
+                    diagnostics.append({"ruleId": record["rule"], "kind": "pass", "level": "none",
+                                        "message": record["message"], "locations": [{"physicalLocation": {
+                                            "artifactLocation": {"uri": record["file"]},
+                                            "region": {"startLine": record["line"], "startColumn": record["col"]}}}]})
+            path.write_text(json.dumps(report))
+        summary.insert(0, f"Total {flow + proof} {flow} {proof} . .")
+        (self.path / "gnatprove.out").write_text("\n".join(summary) + "\n")
+        sarif = json.loads(json.dumps(self.sarif))
+        if not sarif["runs"][0]["results"]:
+            sarif["runs"][0]["results"] = diagnostics
+        else:
+            for result, diagnostic in zip(sarif["runs"][0]["results"], diagnostics):
+                for key in ("locations", "message"):
+                    result.setdefault(key, diagnostic[key])
+        (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
 
     def audit(self) -> dict[str, int]:
         (self.path / "main.spark").write_text(json.dumps(self.report))
-        (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+        self.refresh_reports()
         return audit_reports(self.path, {"main"})
 
     def test_success_with_zero_obligations_requires_coverage(self) -> None:
@@ -71,6 +111,7 @@ class ProofEvidenceTests(unittest.TestCase):
         report["entities"] = {" 1": {"name": "Silver_Build", "sloc": [{"file": "silver_build.ads"}]}}
         report_path = self.path / "silver_build.spark"
         report_path.write_text(json.dumps(report))
+        self.refresh_reports()
         self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 2)
 
         # A proof for yesterday's host configuration cannot verify today's.
@@ -174,12 +215,58 @@ class ProofEvidenceTests(unittest.TestCase):
                                 for index in range(len(names))}
         target = self.path / "silver_libc.spark"
         target.write_text(json.dumps(self.report))
+        (self.path / "main.spark").unlink()
+        self.refresh_reports()
         stats = audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
         self.assertEqual(stats["imported_entities"], len(names) - 1)
         self.report["flow"] = [{"severity": "high", "rule": "UNINITIALIZED", "how_proved": "flow"}]
         target.write_text(json.dumps(self.report))
         with self.assertRaises(EvidenceError):
             audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
+
+    def test_deleted_diagnostic_is_detected_without_fixed_check_count(self) -> None:
+        self.report["proof"] = [{"severity": "info", "how_proved": "prover"}]
+        self.audit()
+        report = json.loads((self.path / "main.spark").read_text())
+        report["proof"] = []
+        (self.path / "main.spark").write_text(json.dumps(report))
+        with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
+            audit_reports(self.path, {"main"})
+
+    def test_real_suppression_schema_is_rejected(self) -> None:
+        self.report["proof"] = [{"severity": "info", "how_proved": "prover", "suppressed": "reviewed"}]
+        with self.assertRaisesRegex(EvidenceError, "suppressed result"):
+            self.audit()
+
+    def test_unknown_external_assumption_is_rejected(self) -> None:
+        self.report["entities"][" 2"] = {"name": "Runtime.Unreviewed", "sloc": [{"file": "runtime.ads"}]}
+        self.report["assumptions"][0]["assumptions"] = [{"arg": 2, "predicate": "CLAIM_POST"}]
+        with self.assertRaisesRegex(EvidenceError, "unapproved external assumption"):
+            self.audit()
+
+    def test_later_mode_override_is_rejected(self) -> None:
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] += " --mode=flow"
+        with self.assertRaisesRegex(EvidenceError, "conflicting/repeated"):
+            self.audit()
+
+    def test_comment_format_effectors_and_qualified_expression_cannot_hide_pragma(self) -> None:
+        target = self.path / "attack.adb"
+        for byte in (11, 12, 133, 255):
+            target.write_bytes(b"-- comment" + bytes([byte]) + b" pragma Assume (False);\n")
+            with self.subTest(byte=byte), self.assertRaises(EvidenceError):
+                audit_source_policy(target)
+        target.write_text("procedure Main is C : Character := Character'('P'); "
+                          "pragma Check (Assume, False); begin null; end Main;")
+        with self.assertRaisesRegex(EvidenceError, "forbidden"):
+            audit_source_policy(target)
+        target.write_text('procedure Main is Text : String := %"--%; pragma Suppress (All_Checks); begin null; end Main;')
+        with self.assertRaisesRegex(EvidenceError, "percent-delimited"):
+            audit_source_policy(target)
+
+    def test_static_assertion_level_is_not_a_suppression(self) -> None:
+        target = self.path / "model.ads"
+        target.write_text("function Model return Boolean with Ghost => Static, Post => True;\n")
+        audit_source_policy(target)
 
     def test_unsuccessful_invocation_or_suppressed_diagnostic(self) -> None:
         invocation = self.sarif["runs"][0]["invocations"][0]

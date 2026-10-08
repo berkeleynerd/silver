@@ -50,6 +50,8 @@ jobs:
             .silver/*/program-*/obj/gnatprove/
             .silver/*/program-*/program.gpr
             .silver/*/program-*/main.adb
+            .silver/*/toolchain/alire/alire.lock
+            .silver/*/toolchain/alire.toml
 
   lean:
     name: Lean kernel proofs and trust audit (${{ matrix.runner }})
@@ -58,7 +60,8 @@ jobs:
       matrix:
         runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15-intel, macos-15]
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 30
+    # Include the separate fresh kernel recheck after elaboration/axiom audit.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6

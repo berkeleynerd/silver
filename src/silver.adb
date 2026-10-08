@@ -50,6 +50,59 @@ procedure Silver with SPARK_Mode => On is
       end Bytes;
    begin
       Put_Line ("{");
+      Put_Line ("  ""schema_version"": 1,");
+      Put_Line ("  ""constructs"": [");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""main_procedure"",");
+      Put_Line ("      ""ada_kind"": ""library_level_procedure_body"",");
+      Put_Line ("      ""token_span"": [");
+      Put_Line ("        1,");
+      Put_Line ("        15");
+      Put_Line ("      ],");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""name"": ""Main"",");
+      Put_Line ("        ""parameters"": [],");
+      Put_Line ("        ""end_name"": ""Main"",");
+      Put_Line ("        ""context_clauses"": [],");
+      Put_Line ("        ""additional_declarations"": false,");
+      Put_Line ("        ""exception_handlers"": false");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""spark_mode_on"",");
+      Put_Line ("      ""ada_kind"": ""pragma"",");
+      Put_Line ("      ""token_span"": [");
+      Put_Line ("        4,");
+      Put_Line ("        9");
+      Put_Line ("      ],");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""name"": ""SPARK_Mode"",");
+      Put_Line ("        ""argument"": ""On"",");
+      Put_Line ("        ""required"": true");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""null_statement"",");
+      Put_Line ("      ""ada_kind"": ""null_statement"",");
+      Put_Line ("      ""token_span"": [");
+      Put_Line ("        11,");
+      Put_Line ("        12");
+      Put_Line ("      ],");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
+      Put_Line ("    }");
+      Put_Line ("  ],");
+      Put_Line ("  ""composition"": {");
+      Put_Line ("    ""root"": ""main_procedure"",");
+      Put_Line ("    ""declarative_items"": [");
+      Put_Line ("      ""spark_mode_on""");
+      Put_Line ("    ],");
+      Put_Line ("    ""statements"": [");
+      Put_Line ("      ""null_statement""");
+      Put_Line ("    ],");
+      Put_Line ("    ""additional_units"": false");
+      Put_Line ("  },");
       Put_Line ("  ""profile"": ""silver-null-0"",");
       Put_Line ("  ""max_source_bytes"":" & Decimal (Silver_Profile.Max_Source_Length) & ",");
       Put_Line ("  ""procedure_name"": ""Main"",");
@@ -152,6 +205,12 @@ procedure Silver with SPARK_Mode => On is
          Project : constant String := Directory & "/program.gpr";
          Report_Name : constant String := Directory & "/obj/gnatprove/main.spark";
          Executable : constant String := Directory & "/bin/main";
+         --  Bootstrap quotes the fixed installation path. mkdtemp supplies
+         --  only the checked six-character alphanumeric suffix below.
+         Shell_Directory : constant String :=
+           Silver_Build.Quoted_Root_Directory & "/program-"
+           & Directory (Directory'Last - 5 .. Directory'Last);
+         Executable_Command : constant String := Shell_Directory & "/bin/main";
          LF : constant Character := Character'Val (10);
          Project_Text : constant String :=
            "project Program is" & LF &
@@ -166,10 +225,10 @@ procedure Silver with SPARK_Mode => On is
            "   end Compiler;" & LF &
            "end Program;" & LF;
          Proof_Command : constant String :=
-           Silver_Build.Alire_Exec & "gnatprove -P " & Silver_Build.Project_Prefix & Project &
+           Silver_Build.Alire_Exec & "gnatprove -P " & Shell_Directory & "/program.gpr" &
            " --mode=all --report=all --warnings=error";
          Build_Command : constant String :=
-           Silver_Build.Alire_Exec & "gprbuild -P " & Silver_Build.Project_Prefix & Project & " -p";
+           Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p";
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
            (others => Character'Val (0));
          Observed_Last : Natural := 0;
@@ -177,6 +236,7 @@ procedure Silver with SPARK_Mode => On is
          Report_Last : Natural;
          Report_Read : Boolean;
          Report_Too_Long : Boolean;
+         Report_Complete : Boolean;
 
          --  Past observations are recorded from actual return values and
          --  returned bytes. They never decide executable control flow.
@@ -204,14 +264,17 @@ procedure Silver with SPARK_Mode => On is
          end Prove;
 
          procedure Build
-           with Pre => Source_Written and then Valid_Command (Build_Command)
+           with Pre => (Runtime =>
+             Source_Written and then Valid_Command (Build_Command)
              and then Initial_Source_Matched and then Project_Written
              and then Proof_Returned_Success and then Proof_Command_Matched
              and then Proof_Source_Matched
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
-             and then Silver_Reports.Complete_Null_Proof
-               (Report (1 .. Report_Last)),
+             and then Report_Complete,
+             Static => Report_Last <= Report'Length
+               and then Silver_Reports.Recognizes_Null_Report
+                 (Report (1 .. Report_Last))),
              Post => Build_Returned_Success = Success
                and then (if Success then Build_Command_Matched)
          is
@@ -224,19 +287,22 @@ procedure Silver with SPARK_Mode => On is
          end Build;
 
          procedure Publish
-           with Pre => Silver_Profile.Is_Member (Source) and then Source_Written
+           with Pre => (Runtime =>
+             Silver_Profile.Is_Member (Source) and then Source_Written
              and then Valid_Path (Snapshot) and then Valid_Path (Report_Name)
-             and then Valid_Path (Executable) and then Valid_Command (Executable)
+             and then Valid_Path (Executable) and then Valid_Command (Executable_Command)
              and then Initial_Source_Matched and then Project_Written
              and then Proof_Returned_Success and then Proof_Command_Matched
              and then Proof_Source_Matched
              and then Build_Returned_Success and then Build_Command_Matched
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
-             and then Silver_Reports.Complete_Null_Proof
-               (Report (1 .. Report_Last))
+             and then Report_Complete
              and then Success and then Observed_Last <= Observed'Length
-             and then Observed (1 .. Observed_Last) = Source
+             and then Observed (1 .. Observed_Last) = Source,
+             Static => Report_Last <= Report'Length
+               and then Silver_Reports.Recognizes_Null_Report
+                 (Report (1 .. Report_Last)))
          is
             Ran : Boolean;
          begin
@@ -244,7 +310,7 @@ procedure Silver with SPARK_Mode => On is
             Put_Line ("Proof: " & Report_Name);
             Put_Line ("Executable: " & Executable);
             if Run_After then
-               Execute (Executable, Ran);
+               Execute (Executable_Command, Ran);
                if not Ran then
                   Failure ("Execution failure for admitted Silver: toolchain or implementation defect.");
                   return;
@@ -294,9 +360,12 @@ procedure Silver with SPARK_Mode => On is
             return;
          end if;
          Read_File (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
-         if not Report_Read or else Report_Too_Long
-           or else not Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last))
-         then
+         if not Report_Read or else Report_Too_Long then
+            Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
+            return;
+         end if;
+         Report_Complete := Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last));
+         if not Report_Complete then
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;
          end if;
