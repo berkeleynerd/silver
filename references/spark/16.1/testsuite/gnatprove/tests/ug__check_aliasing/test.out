@@ -1,0 +1,39 @@
+ warning: initialization of "Z" has no effect
+--> check_aliasing.adb:6:04
+    6 |       X, Y, Z : Integer := 0;
+      |       ^~~~~~~~~~~~~~~~~~~~~~
+
+ high: formal parameter "Out_2" and global "Glob" are aliased (SPARK RM 6.4.2)
+--> check_aliasing.adb:8:57
+    8 |       Whatever (In_1 => X, In_2 => X, Out_1 => X, Out_2 => Glob);     --  incorrect
+      |                                                            ^~~~
+
+ medium: "Glob" might not be initialized after elaboration of main program "Check_Aliasing"
+--> check_aliasing.adb:8:57
+    8 |       Whatever (In_1 => X, In_2 => X, Out_1 => X, Out_2 => Glob);     --  incorrect
+      |                                                            ^~~~
+
+ warning: "Z" is set by "Whatever" but not used after the call
+--> check_aliasing.adb:9:45
+    9 |       Whatever (In_1 => X, In_2 => Y, Out_1 => Z, Out_2 => Glob);     --  incorrect
+      |                                                ^
+
+ high: formal parameter "Out_2" and global "Glob" are aliased (SPARK RM 6.4.2)
+--> check_aliasing.adb:9:57
+    9 |       Whatever (In_1 => X, In_2 => Y, Out_1 => Z, Out_2 => Glob);     --  incorrect
+      |                                                            ^~~~
+
+ warning: statement has no effect
+--> check_aliasing.adb:10:04
+   10 |       Whatever (In_1 => Glob, In_2 => Glob, Out_1 => X, Out_2 => Y);  --  correct
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ warning: "X" is set by "Whatever" but not used after the call
+--> check_aliasing.adb:10:51
+   10 |       Whatever (In_1 => Glob, In_2 => Glob, Out_1 => X, Out_2 => Y);  --  correct
+      |                                                      ^
+
+ warning: "Y" is set by "Whatever" but not used after the call
+--> check_aliasing.adb:10:63
+   10 |       Whatever (In_1 => Glob, In_2 => Glob, Out_1 => X, Out_2 => Y);  --  correct
+      |                                                                  ^

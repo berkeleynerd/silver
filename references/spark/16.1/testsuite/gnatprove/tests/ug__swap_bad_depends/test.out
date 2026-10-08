@@ -1,0 +1,19 @@
+ warning: unused initial value of "X"
+--> swap_bad_depends.adb:1:29
+    1 |    procedure Swap_Bad_Depends (X, Y : in out Integer) with
+      |                                ^
+
+ medium: missing dependency "null => X"
+--> swap_bad_depends.adb:3:03
+    3 |      Depends => (X => Y, Y => X)
+      |      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ medium: missing self-dependency "Y => Y"
+--> swap_bad_depends.adb:3:23
+    3 |      Depends => (X => Y, Y => X)
+      |                          ^
+
+ medium: incorrect dependency "Y => X"
+--> swap_bad_depends.adb:3:28
+    3 |      Depends => (X => Y, Y => X)
+      |                               ^

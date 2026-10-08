@@ -1,0 +1,83 @@
+name: Verify Silver
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: SPARK and integration (${{ matrix.runner }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # Explicit architecture labels from actions/runner-images; macos-15
+        # is ARM64, while macos-15-intel is x86-64.
+        runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15-intel, macos-15]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    env:
+      NO_COLOR: '1'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Linux development libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update -qq && sudo apt-get install -y libc6-dev
+      - name: Bootstrap the pinned Alire toolchain
+        run: python3 scripts/bootstrap.py
+      - name: Verify all compiler units and audit complete proof evidence
+        run: python3 scripts/dev.py prove
+      - name: Build the verified SPARK compiler
+        run: python3 scripts/dev.py build
+      - name: Test admission, evidence rejection, source identity and execution
+        run: python3 scripts/dev.py test
+      - name: Retain native proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-evidence-${{ matrix.runner }}
+          include-hidden-files: true
+          if-no-files-found: warn
+          path: |
+            .silver/*/compiler/obj/gnatprove/
+            .silver/*/generated/
+            .silver/*/program-*/obj/gnatprove/
+            .silver/*/program-*/program.gpr
+            .silver/*/program-*/main.adb
+
+  lean:
+    name: Lean kernel proofs and trust audit (${{ matrix.runner }})
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15-intel, macos-15]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install the pinned Lean release
+        run: python3 scripts/bootstrap_lean.py
+      - name: Replay all Lean proofs and audit logical assumptions
+        # The script builds a clean host-local proof workspace, embeds actual
+        # authoritative Ada source, and checks the full project import closure.
+        run: python3 scripts/check_lean.py
+      - name: Retain Lean proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean-evidence-${{ matrix.runner }}
+          include-hidden-files: true
+          if-no-files-found: warn
+          path: |
+            .silver/*/lean-proof.log
+            .silver/*/lean-evidence.json
+            .silver/*/proof/Silver/SourceCertificates.lean

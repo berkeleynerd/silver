@@ -1,0 +1,5 @@
+ info: flow dependencies proved
+--> swap.adb:3:03
+
+ info: postcondition proved
+--> swap.adb:4:14

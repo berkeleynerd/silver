@@ -1,0 +1,196 @@
+"""The evidence gate must fail closed even if GNATprove exits successfully."""
+from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
+import tempfile
+import unittest
+
+from scripts.check_evidence import (EvidenceError, TRUSTED_IMPORT_ENTITIES,
+                                    audit_import_spec, audit_reports, audit_source_policy,
+                                    audit_sources)
+
+
+class ProofEvidenceTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.directory = tempfile.TemporaryDirectory(prefix="silver-evidence-")
+        self.addCleanup(self.directory.cleanup)
+        self.path = Path(self.directory.name)
+        # Minimum real GNATprove 16.1 schema for the zero-VC null program.
+        self.report = {
+            "entities": {" 1": {"name": "Main", "sloc": [{"file": "main.adb", "line": 1, "column": 11}]}},
+            "spark": {" 1": "all"}, "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
+            "flow": [], "proof": [], "pragma_assume": [], "skip_flow_proof": [],
+            "skip_proof": [], "warn_error": [],
+        }
+        self.sarif = {
+            "version": "2.1.0", "runs": [{
+                "tool": {"driver": {"name": "GNATProve", "version": "FSF 16.1.0"}},
+                "invocations": [{"commandLine": "gnatprove -P test.gpr --mode=all --report=all",
+                                 "executionSuccessful": True, "exitCode": 0}],
+                "results": [],
+            }],
+        }
+        (self.path / "gnatprove.out").write_text("Analyzed 1 unit\n")
+
+    def audit(self) -> dict[str, int]:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        (self.path / "gnatprove.sarif").write_text(json.dumps(self.sarif))
+        return audit_reports(self.path, {"main"})
+
+    def test_success_with_zero_obligations_requires_coverage(self) -> None:
+        self.assertEqual(self.audit()["proof_checks"], 0)
+        self.report["spark"] = {}
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+    def test_missing_unit_report(self) -> None:
+        self.audit()
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main", "omitted"})
+
+    def test_generated_configuration_requires_current_proof_coverage(self) -> None:
+        source_dir = self.path / "src"
+        generated_dir = self.path / "generated"
+        source_dir.mkdir()
+        generated_dir.mkdir()
+        (source_dir / "main.adb").write_text("procedure Main is begin null; end Main;\n")
+        self.audit()
+        with self.assertRaisesRegex(EvidenceError, "missing platform configuration"):
+            audit_sources(source_dir, self.path, generated_dir)
+
+        generated = generated_dir / "silver_build.ads"
+        generated.write_text('package Silver_Build with SPARK_Mode => On is\n'
+                             '   Host : constant String := "linux-aarch64";\n'
+                             'end Silver_Build;\n')
+        with self.assertRaisesRegex(EvidenceError, "missing report"):
+            audit_sources(source_dir, self.path, generated_dir)
+
+        report = dict(self.report)
+        report["entities"] = {" 1": {"name": "Silver_Build", "sloc": [{"file": "silver_build.ads"}]}}
+        report_path = self.path / "silver_build.spark"
+        report_path.write_text(json.dumps(report))
+        self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 2)
+
+        # A proof for yesterday's host configuration cannot verify today's.
+        old = report_path.stat().st_mtime_ns
+        os.utime(generated, ns=(old + 1_000_000_000, old + 1_000_000_000))
+        with self.assertRaisesRegex(EvidenceError, "proof evidence predates source"):
+            audit_sources(source_dir, self.path, generated_dir)
+
+    def test_missing_owned_entity(self) -> None:
+        self.report["entities"][" 2"] = {"name": "Hidden", "sloc": [{"file": "main.adb"}]}
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+    def test_trusted_external_callee_is_not_owned_coverage(self) -> None:
+        self.report["entities"][" 2"] = {"name": "Runtime.Read", "sloc": [{"file": "runtime.ads"}]}
+        self.assertEqual(self.audit()["entities"], 1)
+
+    def test_analysis_stopped_or_skipped(self) -> None:
+        for key, value in (("progress", "PROGRESS_FLOW"), ("stop_reason", "STOP_REASON_ERROR"),
+                           ("spark", {" 1": "spec"}), ("skip_proof", [1]),
+                           ("skip_flow_proof", [1]), ("pragma_assume", [1])):
+            with self.subTest(key=key):
+                original = self.report[key]
+                self.report[key] = value
+                with self.assertRaises(EvidenceError):
+                    self.audit()
+                self.report[key] = original
+
+    def test_unproved_or_justified_check(self) -> None:
+        for record in ({"severity": "medium", "how_proved": "unproved"},
+                       {"severity": "info", "how_proved": "justified"},
+                       {"severity": "info", "how_proved": "prover", "justification": "ignored"}):
+            with self.subTest(record=record):
+                self.report["proof"] = [record]
+                with self.assertRaises(EvidenceError):
+                    self.audit()
+
+    def test_warning_rejected_but_informational_unrolling_note_allowed(self) -> None:
+        self.report["warn_error"] = [{"severity": "info", "how_proved": "trivial",
+                                      "message": {"text": "cannot unroll loop (too many loop iterations)"}}]
+        self.audit()
+        self.report["warn_error"][0]["severity"] = "warning"
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+    def test_flow_only_invocation_is_insufficient(self) -> None:
+        self.sarif["runs"][0]["invocations"][0]["commandLine"] = "gnatprove --mode=flow --report=all"
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+    def test_documented_proof_limitation_is_counted_but_cannot_hide_a_failed_check(self) -> None:
+        self.report["warn_error"] = [{"rule": "numeric-variant", "severity": "warning",
+                                      "how_proved": "trivial"}]
+        self.sarif["runs"][0]["results"] = [{"ruleId": "numeric-variant", "kind": "open",
+                                            "level": "warning", "suppressions": [{"kind": "external"}]}]
+        self.assertEqual(self.audit()["limitation_notes"], 1)
+        self.report["proof"] = [{"severity": "medium", "how_proved": "unproved"}]
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+    def test_trusted_import_allowance_pins_symbols_and_contracts(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        target = self.path / "silver_libc.ads"
+        original = (root / "src/silver_libc.ads").read_text()
+        target.write_text(original)
+        audit_import_spec(target)
+        for external_name in ('"unreviewed_wrapper"', '"f open"', '"f--comment\nopen"'):
+            target.write_text(original.replace('"fopen"', external_name))
+            with self.assertRaises(EvidenceError):
+                audit_import_spec(target)
+        target.write_text(original)
+        target.with_suffix(".adb").write_text("package body Silver_Libc is end Silver_Libc;")
+        with self.assertRaises(EvidenceError):
+            audit_import_spec(target)
+
+    def test_source_cannot_hide_checks_before_report_generation(self) -> None:
+        target = self.path / "main.adb"
+        target.write_text('''procedure Main is
+          -- pragma Suppress (All_Checks);
+          Text : constant String := "pragma Assume (False);";
+          Dash : constant Character := '-';
+        begin null; end Main;
+        ''')
+        audit_source_policy(target)
+        for directive in ("Assume (False)", "Suppress (All_Checks)",
+                          "Assertion_Policy (Ignore)", "Check_Policy (Assert, Ignore)"):
+            with self.subTest(directive=directive):
+                target.write_text("procedure Main is PrAgMa -- layout\n" + directive
+                                  + "; begin null; end Main;")
+                with self.assertRaises(EvidenceError):
+                    audit_source_policy(target)
+
+    def test_import_declaration_checks_cannot_be_waived(self) -> None:
+        self.audit()
+        names = ["Silver_Libc", *sorted(TRUSTED_IMPORT_ENTITIES["silver_libc"])]
+        self.report["entities"] = {
+            str(index): {"name": name, "sloc": [{"file": "silver_libc.ads"}]}
+            for index, name in enumerate(names)
+        }
+        self.report["spark"] = {str(index): "all" if index == 0 else "spec"
+                                for index in range(len(names))}
+        target = self.path / "silver_libc.spark"
+        target.write_text(json.dumps(self.report))
+        stats = audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
+        self.assertEqual(stats["imported_entities"], len(names) - 1)
+        self.report["flow"] = [{"severity": "high", "rule": "UNINITIALIZED", "how_proved": "flow"}]
+        target.write_text(json.dumps(self.report))
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
+
+    def test_unsuccessful_invocation_or_suppressed_diagnostic(self) -> None:
+        invocation = self.sarif["runs"][0]["invocations"][0]
+        invocation["executionSuccessful"] = False
+        with self.assertRaises(EvidenceError):
+            self.audit()
+        invocation["executionSuccessful"] = True
+        self.sarif["runs"][0]["results"] = [{"kind": "pass", "level": "none", "suppressions": [{"kind": "inSource"}]}]
+        with self.assertRaises(EvidenceError):
+            self.audit()
+
+
+if __name__ == "__main__":
+    unittest.main()

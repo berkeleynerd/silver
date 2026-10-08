@@ -1,0 +1,9 @@
+ medium: assertion might fail, cannot prove A (Index) /= I
+--> binary_search.adb:37:50
+   37 |          pragma Assert (for all Index in A'Range => A (Index) /= I);
+      |                                                     ^~~~~~~~~~~~~~
+      + possible fix: precondition of subprogram at binary_search.ads:18 should mention I
+      --> binary_search.ads:18:04
+   18 |       function Search (A : Ar; I : Integer) return Opt_Index with
+      |       ^
+      + provers reached step limit before completing the proof

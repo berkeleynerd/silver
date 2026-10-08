@@ -1,0 +1,5 @@
+ medium: postcondition might fail
+--> nonlinear.adb:4:11
+    4 |      Post => R1 <= R2
+      |              ^~~~~~~~
+      + provers reached step limit before completing the proof

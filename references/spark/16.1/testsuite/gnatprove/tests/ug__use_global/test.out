@@ -1,0 +1,9 @@
+ warning: statement has no effect
+--> gen_global.adb:18:07
+   18 |          Set_Global;
+      |          ^~~~~~~~~~
+
+ warning: "V" is set by "Set_Global" but not used after the call
+--> gen_global.adb:18:07
+   18 |          Set_Global;
+      |          ^~~~~~~~~~

@@ -1,0 +1,16 @@
+project Silver is
+   type Host_Kind is ("linux-aarch64", "linux-x86_64", "macos-aarch64", "macos-x86_64");
+   Host : Host_Kind := external ("SILVER_HOST", "");
+   Host_Directory := ".silver/" & Host;
+   for Source_Dirs use ("src", Host_Directory & "/generated");
+   for Object_Dir use Host_Directory & "/compiler/obj";
+   for Exec_Dir use Host_Directory & "/compiler/bin";
+   for Main use ("silver.adb");
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato", "-g");
+   end Compiler;
+   package Prove is
+      for Proof_Switches ("Ada") use
+        ("--mode=all", "--report=all", "--warnings=error", "--level=2", "--timeout=30");
+   end Prove;
+end Silver;

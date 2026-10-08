@@ -1,0 +1,10 @@
+# Native tools and build/proof artifacts are keyed by OS and architecture.
+.tools/
+.silver/
+# Preserve compatibility with ignored legacy state; new commands do not use it.
+alire/
+config/
+__pycache__/
+*.py[cod]
+proof/.lake/
+proof/lake-manifest.json

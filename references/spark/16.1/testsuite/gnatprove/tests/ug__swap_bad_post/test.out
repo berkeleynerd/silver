@@ -1,0 +1,12 @@
+ warning: unused initial value of "X"
+--> swap_bad_post.adb:1:26
+    1 |    procedure Swap_Bad_Post (X, Y : in out Integer) with
+      |                             ^
+
+ high: postcondition might fail, cannot prove Y = X'Old
+--> swap_bad_post.adb:3:30
+    3 |      Post => X = Y'Old and then Y = X'Old
+      |                                 ^~~~~~~~~
+      + e.g. when X'Old = -1
+      and Y = 0
+      + provers gave up before completing the proof

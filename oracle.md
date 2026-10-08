@@ -1,0 +1,25 @@
+- A program expressed as valid Silver can never be rejected. If it compiles, it proves.
+- “Proves” means automatic discharge of every required Bronze and Silver obligation, without developer intervention.
+- Silver is a subtractive profile of SPARK: it removes or restricts constructs without adding syntax or changing their meaning.
+- Developers write actual Ada/SPARK source. No alternative authoring representation constitutes Silver source.
+- Developers never write preconditions, postconditions or proof annotations.
+- The only permitted pragma is `pragma SPARK_Mode (On);`.
+- All assurance facts must be inferred from declarations, types, expressions and executable control flow.
+- Safety conditions must be established throughout the complete call chain, using executable guards wherever necessary.
+- Guarantees must cover every permitted input, execution path and combination of admitted constructs.
+- Language membership is determined by explicit, decidable rules—not by whether a particular prover run succeeds.
+- The source admitted, proved and compiled must be the same source. Hidden annotated replacements are forbidden.
+- The assurance guarantee must be proved for the language and its composition rules. Passing examples is insufficient.
+- Proof success must never be obtained by silently changing behavior, narrowing declared input domains or suppressing obligations.
+- Rejection or proof failure of a valid Silver program is an implementation defect, not permission to weaken the guarantee.
+- Fixed editions of the Ada and SPARK specifications define inherited language meaning; this Oracle defines the additional restrictions and guarantees.
+- Changes to this Oracle require the human owner’s explicit approval. No implementation decision can override it.
+- Maintain a machine-readable catalogue of admitted SPARK constructs, their conditions and permitted compositions, enforced by the compiler; everything not explicitly admitted is excluded.
+- Both MacOS and Linux will be supported with patch-level version differences allowed. (Same major and minor version) Alire is used to manage the toolchain.
+- Linux is the primary implementation and validation platform. macOS support is secondary; native macOS validation is handled independently and does not block completion of the work performed in the Linux environment.
+- The Silver compiler must be implemented exclusively in SPARK, with all compiler implementation code verified to both Bronze and Silver levels.
+- GNAT, GNATprove, Alire, and the operating-system/runtime libraries remain trusted external dependencies; the verified-SPARK implementation requirement applies to all Silver compiler implementation code.
+- Lean 4 is approved for machine-checked proofs of Silver's admission and composition rules, decidable language membership, universal safety guarantees, termination and completeness of automatic obligation discharge, and functional correctness and semantic preservation of the Silver compiler's own implementation.
+- Lean proofs must establish correspondence between their formal models, the actual SPARK compiler implementation, and the authoritative Ada/SPARK source. Proving a separate model alone does not establish compiler correctness; proving safety alone does not establish automatic proof success.
+- Lean supplements GNATprove and does not replace the requirement to verify all compiler implementation code to Bronze and Silver levels. Lean proof artifacts are neither compiler implementation code nor an alternative representation for authoring Silver programs.
+- The Lean version must be pinned and trusted assumptions explicitly documented. Lean proofs must contain no unfinished proofs or unproved project-specific axioms and must be checked automatically in CI. Compiler authors may develop proofs interactively; Silver program authors must never need to intervene in proof.

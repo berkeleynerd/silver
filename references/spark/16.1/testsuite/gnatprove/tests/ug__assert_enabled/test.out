@@ -1,0 +1,15 @@
+ high: postcondition might fail
+--> assert_enabled.adb:6:11
+    6 |      Post => X > 2   --  ignored at run time
+      |              ^~~~~
+      + e.g. when X = 0
+      + provers gave up before completing the proof
+
+ info: assertion proved
+--> assert_enabled.adb:9:19
+
+ info: assertion proved
+--> assert_enabled.adb:12:19
+
+ info: overflow check proved
+--> assert_enabled.adb:14:11

@@ -1,0 +1,7 @@
+ medium: postcondition might fail, cannot prove Max_Value_Seen /= Second_Max_Value_Seen
+--> functional.ads:31:14
+   31 |                 Max_Value_Seen /= Second_Max_Value_Seen;
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      + e.g. when Max1 = 2
+      and Max2 = 2
+      + provers reached step limit before completing the proof

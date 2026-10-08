@@ -1,0 +1,12 @@
+ high: assertion might fail
+--> assert_twice.adb:5:19
+    5 |       pragma Assert (X > 0);
+      |                      ^~~~~
+      + e.g. when X = 0
+      + possible fix: subprogram at line 1 should mention X in a precondition
+    1 |    procedure Assert_Twice (X : Integer) with
+      |    ^
+      + provers gave up before completing the proof
+
+ info: assertion proved
+--> assert_twice.adb:6:19

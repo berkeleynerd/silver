@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""Run native development tools in the current host's isolated workspace.
+
+Silver source admission, compilation, and execution belong to the SPARK binary;
+this helper builds and verifies that compiler and runs its development tests.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+if __package__:
+    from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
+else:
+    from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
+
+
+def paths(host: HostLayout) -> dict[str, str]:
+    return {"host": host.key, "root": str(host.root), "tools": str(host.tools),
+            "alr": str(host.alr), "settings": str(host.alire_settings),
+            "cache": str(host.alire_cache), "toolchains": str(host.alire_toolchains),
+            "artifacts": str(host.artifacts), "context": str(host.context),
+            "generated": str(host.generated), "compiler": str(host.compiler),
+            "executable": str(host.compiler / "bin/silver"),
+            "reports": str(host.compiler / "obj/gnatprove"),
+            "lean": str(host.lean), "proof": str(host.proof)}
+
+
+def invoke(host: HostLayout, command: list[str], *, cwd: Path | None = None) -> None:
+    require_native(host)
+    subprocess.run(command, cwd=host.root if cwd is None else cwd,
+                   env=tool_environment(host) if cwd == host.context else None,
+                   check=True)
+
+
+def project_reports(host: HostLayout, arguments: list[str]) -> Path:
+    """Validate optional native build flags before a tool can write anything."""
+    reports = host.compiler / "obj/gnatprove"
+    redirects = ("-P", "--project", "--relocate-build-tree", "--root-dir",
+                 "--object-dir", "--exec-dir", "--src-subdirs", "--config",
+                 "--autoconf", "--db", "--target", "-cargs", "-bargs", "-largs")
+    for index, argument in enumerate(arguments):
+        if "SILVER_HOST" in argument or argument.startswith(redirects):
+            raise RuntimeError("prove/build select the native project and output paths; "
+                               "use tool for custom tool invocations")
+        subdirectory = None
+        if argument.startswith("--subdirs="):
+            subdirectory = argument.split("=", 1)[1]
+        elif argument == "--subdirs":
+            if index + 1 == len(arguments):
+                raise RuntimeError("--subdirs requires a relative directory")
+            subdirectory = arguments[index + 1]
+        if subdirectory is not None:
+            path = Path(subdirectory)
+            if not subdirectory or path.is_absolute() or ".." in path.parts:
+                raise RuntimeError("build subdirectory must remain inside this host's workspace")
+            reports = host.compiler / "obj" / path / "gnatprove"
+    return reports
+
+
+def main(arguments: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    commands = parser.add_subparsers(dest="action", required=True)
+    for action in ("prove", "build", "test", "tool"):
+        child = commands.add_parser(action)
+        child.add_argument("arguments", nargs=argparse.REMAINDER)
+    path_parser = commands.add_parser("paths")
+    path_parser.add_argument("--field", help="print one path instead of JSON")
+    args = parser.parse_args(arguments)
+    host = native_layout()
+    if args.action == "paths":
+        values = paths(host)
+        if args.field:
+            if args.field not in values:
+                parser.error(f"unknown path field: {args.field}")
+            print(values[args.field])
+        else:
+            print(json.dumps(values, indent=2))
+        return
+    extra = args.arguments
+    if extra[:1] == ["--"]:
+        extra = extra[1:]
+    if args.action == "test":
+        invoke(host, [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v", *extra])
+        return
+    if not host.alr.is_file() or not (host.context / "alire.toml").is_file():
+        raise RuntimeError("native toolchain is not set up; run python3 scripts/bootstrap.py")
+    reports = host.compiler / "obj/gnatprove"
+    if args.action in ("prove", "build"):
+        reports = project_reports(host, extra)
+        tool = "gnatprove" if args.action == "prove" else "gprbuild"
+        options = ["--mode=all", "--report=all"] if args.action == "prove" else ["-p"]
+        command = [tool, "-P", "../../../silver.gpr", *options, *extra,
+                   f"-XSILVER_HOST={host.key}"]
+    else:
+        if not extra:
+            parser.error("tool requires a command; for example: tool -- gnatls --version")
+        command = extra
+    invoke(host, alire_command(host, "exec", "--", *command), cwd=host.context)
+    if args.action == "prove":
+        invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
+                      "--source-dir", str(host.root / "src"),
+                      "--generated-dir", str(host.generated),
+                      "--report-dir", str(reports)])
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, RuntimeError, subprocess.CalledProcessError) as error:
+        raise SystemExit(f"development command: {error}") from error
