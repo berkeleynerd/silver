@@ -49,3 +49,13 @@ run_cmd do
 #print axioms Silver.SourceBridge.checked_source
 #print axioms Silver.Source.hidden_declaration_rejected
 #print axioms Silver.Source.unsupported_literal_syntax_rejected
+#print axioms Silver.Output.accepts_iff_member
+#print axioms Silver.Output.source_implementation_member_iff
+#print axioms Silver.Output.SourceBridge.authoritative_current_member_iff
+#print axioms Silver.Output.SourceBridge.authoritative_runtime_correct
+#print axioms Silver.Output.Runtime.healthy_output
+#print axioms Silver.Current.every_meaning_assured
+#print axioms Silver.Current.automatic_pipeline
+#print axioms Silver.Current.pipeline_preserves
+#print axioms Silver.Current.pipeline_realizes
+#print axioms Silver.Output.SourceBridge.checked_current_pipeline

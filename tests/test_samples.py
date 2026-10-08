@@ -23,7 +23,7 @@ class SupportedSampleTests(unittest.TestCase):
         self.assertEqual(len(sources), len(set(sources)))
         self.assertEqual(set(sources), {str(path.relative_to(directory))
                                         for path in directory.rglob("*.adb")})
-        catalogue = json.loads((ROOT / "catalogue/silver-null-0.json").read_text())
+        catalogue = json.loads((ROOT / "catalogue/silver.json").read_text())
         capabilities = {item["id"] for item in catalogue["constructs"]}
         for sample in manifest["samples"]:
             with self.subTest(source=sample["source"]):
@@ -37,27 +37,32 @@ class SupportedSampleTests(unittest.TestCase):
                 data = source.read_bytes()
                 admission = invoke("check", source)
                 self.assertEqual(admission.returncode, 0, admission.stdout)
-                before = set(HOST.artifacts.glob("program-*"))
                 compilation = invoke("compile", source)
-                created = set(HOST.artifacts.glob("program-*")) - before
-                for workspace in created:
-                    self.addCleanup(shutil.rmtree, workspace)
                 self.assertEqual(compilation.returncode, 0, compilation.stdout)
-                self.assertEqual(len(created), 1, compilation.stdout)
-                workspace = created.pop()
-                snapshots = [path for path in workspace.rglob("*.adb")
-                             if path.read_bytes() == data]
-                self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
-                reports = list(workspace.rglob("gnatprove.sarif"))
-                self.assertEqual(len(reports), 1)
-                statistics = audit_reports(reports[0].parent, {snapshots[0].stem})
-                self.assertEqual(statistics["units"], 1)
-                self.assertEqual(statistics["proof_checks"], 0)
                 match = re.search(r"^Executable: (.+)$", compilation.stdout, re.MULTILINE)
                 self.assertIsNotNone(match, compilation.stdout)
                 executable = Path(match.group(1))
                 if not executable.is_absolute():
                     executable = ROOT / executable
+                workspace = executable.parent.parent
+                self.assertEqual(workspace.parent, HOST.artifacts)
+                self.addCleanup(shutil.rmtree, workspace)
+                snapshots = [path for path in workspace.rglob("*.adb")
+                             if path.read_bytes() == data]
+                self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
+                reports = list(workspace.rglob("gnatprove.sarif"))
+                self.assertEqual(len(reports), 1)
+                output = "literal_output" in sample["capabilities"]
+                units = {snapshots[0].stem}
+                if output:
+                    units |= {"silver_io", "silver_output_libc"}
+                statistics = audit_reports(reports[0].parent, units,
+                                           {"silver_output_libc"} if output else set())
+                self.assertEqual(statistics["units"], len(units))
+                if output:
+                    self.assertGreater(statistics["proof_checks"], 0)
+                else:
+                    self.assertEqual(statistics["proof_checks"], 0)
                 self.assertTrue(executable.is_file(), compilation.stdout)
                 # Compiler diagnostics are not application output. Execute the
                 # published binary directly and compare each stream as bytes.

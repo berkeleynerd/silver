@@ -41,9 +41,10 @@ For each authorized increment:
    composition, correspondence and automatic-discharge arguments over the entire
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
-3. Audit all required obligations and coverage. Extend the current empty-report
-   recognizer before admitting constructs that generate nonempty obligation
-   sets. Keep [assurance claims](docs/assurance.md) and
+3. Audit all required obligations and coverage. The application-unit report
+   remains empty for the two current productions; output additionally requires
+   the complete nonempty library reports. Extend report handling when new
+   obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.
 4. Update the specification, catalogue and motivating sample together. Exercise
    boundaries, nearby rejected forms and interactions with existing constructs.
@@ -54,7 +55,8 @@ For each authorized increment:
 
 The fixed Ada/SPARK editions define inherited meaning. Changes to the Oracle
 need explicit human approval; routine authorized implementation does not need
-repeated approval. Source-pin updates in `ReviewedSourceShape.lean` receive
+repeated approval. Source-pin updates in `ReviewedSourceShape.lean` and
+`ReviewedOutputShape.lean` receive
 ordinary semantic review with the source diff: examine declarations, bindings,
 operators and the modeled equations. Regenerating a matching pin alone does not
 establish correspondence.
@@ -78,15 +80,15 @@ memory or concurrent work calls for a limit. Incremental runs preserve sessions
 and reports but invalidate the previous completed full-audit manifest. They
 provide development feedback, not a new full assurance record.
 
-Lean retains Lake artifacts and rebuilds changed dependencies. Either embedded
-recognizer Ada file changing invalidates the whole Silver Lean library.
+Lean retains Lake artifacts and rebuilds changed dependencies. Changing an embedded
+recognizer or output-library Ada file invalidates the whole Silver Lean library.
 Its module/axiom audit executes on
 every invocation, including cache hits. Lake schedules independent modules;
 `--threads N` controls declaration threads within each Lean process. The default
 remains one because generated
 certificates have high peak memory use. This is a conservative starting point,
-not a measured optimum; the dominant certificate module remains serial at this
-setting. Measure time and memory when tuning it, and avoid multiplying all-core
+not a measured optimum. The seven source-certificate modules are independent
+so Lake can check them concurrently; each module remains serial at this setting. Measure time and memory when tuning it, and avoid multiplying all-core
 thread pools across concurrent modules.
 
 At capability-validation checkpoints:
@@ -134,7 +136,9 @@ recorded `DOC_END` diagnostic identifies an unexpected end of JSON input. A
 parallel-write race has not been established. `--jobs 1` is a diagnostic
 comparison, not a verified workaround; the default remains all cores. Preserve
 a recurrence's logs and inputs before another run replaces them. See
-[the workflow record](docs/proof-workflow.md) for the observed failure and reruns.
+[the workflow record](docs/proof-workflow.md) and
+[Hello World evidence](docs/hello-world.md) for observed failures and subsequent
+validation. Cold success does not establish that the warm-state defect is fixed.
 
 Use the symlinked-TMPDIR regression to exercise path portability on Linux.
 For Markdown-only changes, check links, current-language consistency and

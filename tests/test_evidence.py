@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import copy
 import os
 from pathlib import Path
 import tempfile
@@ -194,18 +195,21 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_trusted_import_allowance_pins_symbols_and_contracts(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        target = self.path / "silver_libc.ads"
-        original = (root / "src/silver_libc.ads").read_text()
-        target.write_text(original)
-        audit_import_spec(target)
-        for external_name in ('"unreviewed_wrapper"', '"f open"', '"f--comment\nopen"'):
-            target.write_text(original.replace('"fopen"', external_name))
-            with self.assertRaises(EvidenceError):
-                audit_import_spec(target)
-        target.write_text(original)
-        target.with_suffix(".adb").write_text("package body Silver_Libc is end Silver_Libc;")
-        with self.assertRaises(EvidenceError):
+        for unit, symbol in (("silver_libc", "fopen"), ("silver_runtime", "__gnat_set_exit_status"),
+                             ("silver_output_libc", "putchar")):
+            target = self.path / (unit + ".ads")
+            original = (root / "src" / target.name).read_text()
+            target.write_text(original)
             audit_import_spec(target)
+            for external_name in ('"unreviewed_wrapper"', '"f open"', '"f--comment\nopen"'):
+                with self.subTest(unit=unit, external_name=external_name):
+                    target.write_text(original.replace('"' + symbol + '"', external_name))
+                    with self.assertRaises(EvidenceError):
+                        audit_import_spec(target)
+            target.write_text(original)
+            target.with_suffix(".adb").write_text("package body Unreviewed is end Unreviewed;")
+            with self.subTest(unit=unit, body=True), self.assertRaises(EvidenceError):
+                audit_import_spec(target)
 
     def test_source_cannot_hide_checks_before_report_generation(self) -> None:
         target = self.path / "main.adb"
@@ -225,24 +229,72 @@ class ProofEvidenceTests(unittest.TestCase):
                     audit_source_policy(target)
 
     def test_import_declaration_checks_cannot_be_waived(self) -> None:
-        self.audit()
-        names = ["Silver_Libc", *sorted(TRUSTED_IMPORT_ENTITIES["silver_libc"])]
-        self.report["entities"] = {
-            str(index): {"name": name, "sloc": [{"file": "silver_libc.ads"}]}
-            for index, name in enumerate(names)
+        for unit, package in (("silver_libc", "Silver_Libc"),
+                              ("silver_output_libc", "Silver_Output_Libc")):
+            with self.subTest(unit=unit):
+                report = copy.deepcopy(self.report)
+                names = [package, *sorted(TRUSTED_IMPORT_ENTITIES[unit])]
+                report["entities"] = {
+                    str(index): {"name": name, "sloc": [{"file": unit + ".ads"}]}
+                    for index, name in enumerate(names, 1)
+                }
+                report["spark"] = {str(index): "all" if index == 1 else "spec"
+                                   for index in range(1, len(names) + 1)}
+                target = self.path / (unit + ".spark")
+                target.write_text(json.dumps(report))
+                self.refresh_reports()
+                stats = audit_reports(self.path, {unit}, {unit})
+                self.assertEqual(stats["imported_entities"], len(names) - 1)
+                report["flow"] = [{"severity": "high", "rule": "UNINITIALIZED", "how_proved": "flow"}]
+                target.write_text(json.dumps(report))
+                with self.assertRaises(EvidenceError):
+                    audit_reports(self.path, {unit}, {unit})
+                target.unlink()
+
+    def test_output_call_requires_owned_runtime_and_reviewed_import_reports(self) -> None:
+        source_dir = self.path / "src"
+        source_dir.mkdir()
+        root = Path(__file__).resolve().parents[1]
+        for name in ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads"):
+            (source_dir / name).write_bytes((root / "src" / name).read_bytes())
+        (source_dir / "main.adb").write_text(
+            'with Silver_IO; procedure Main is begin Silver_IO.Put_Line ("Hello"); end Main;')
+        self.report["entities"][" 2"] = {
+            "name": "Silver_IO.Put_Line", "sloc": [{"file": "silver_io.ads"}]}
+        self.report["assumptions"][0]["assumptions"] = [{"arg": 2, "predicate": "CLAIM_EFFECTS"}]
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        library = copy.deepcopy(self.report)
+        library["entities"] = {
+            " 1": {"name": "Silver_IO", "sloc": [{"file": "silver_io.ads"}]},
+            " 2": {"name": "Silver_IO.Put_Line", "sloc": [{"file": "silver_io.ads"}]},
+            " 3": {"name": "Silver_Output_Libc.Put_Byte", "sloc": [{"file": "silver_output_libc.ads"}]},
         }
-        self.report["spark"] = {str(index): "all" if index == 0 else "spec"
-                                for index in range(len(names))}
-        target = self.path / "silver_libc.spark"
-        target.write_text(json.dumps(self.report))
-        (self.path / "main.spark").unlink()
+        library["spark"] = {" 1": "all", " 2": "all"}
+        library["assumptions"] = [{"claim": {"arg": 2, "predicate": "CLAIM_AORTE"},
+                                   "assumptions": [{"arg": 3, "predicate": "CLAIM_AORTE"}]}]
+        library["proof"] = [{"severity": "info", "how_proved": "prover", "entity": 2}]
+        (self.path / "silver_io.spark").write_text(json.dumps(library))
+        imports = copy.deepcopy(self.report)
+        names = ["Silver_Output_Libc", *sorted(TRUSTED_IMPORT_ENTITIES["silver_output_libc"])]
+        imports["entities"] = {
+            str(index): {"name": name, "sloc": [{"file": "silver_output_libc.ads"}]}
+            for index, name in enumerate(names, 1)
+        }
+        imports["spark"] = {str(index): "all" if index == 1 else "spec"
+                            for index in range(1, len(names) + 1)}
+        imports["assumptions"] = []
+        (self.path / "silver_output_libc.spark").write_text(json.dumps(imports))
         self.refresh_reports()
-        stats = audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
-        self.assertEqual(stats["imported_entities"], len(names) - 1)
-        self.report["flow"] = [{"severity": "high", "rule": "UNINITIALIZED", "how_proved": "flow"}]
-        target.write_text(json.dumps(self.report))
-        with self.assertRaises(EvidenceError):
-            audit_reports(self.path, {"silver_libc"}, {"silver_libc"})
+        stats = audit_sources(source_dir, self.path)
+        self.assertEqual((stats["units"], stats["proof_checks"], stats["imported_entities"]), (3, 1, 3))
+
+        # A zero-check Main report cannot stand in for its owned call chain.
+        (self.path / "silver_io.spark").unlink()
+        with self.assertRaisesRegex(EvidenceError, "missing report"):
+            audit_sources(source_dir, self.path)
+        self.refresh_reports()
+        with self.assertRaisesRegex(EvidenceError, "unapproved external assumption"):
+            audit_reports(self.path, {"main", "silver_output_libc"}, {"silver_output_libc"})
 
     def test_deleted_diagnostic_is_detected_without_fixed_check_count(self) -> None:
         self.report["proof"] = [{"severity": "info", "how_proved": "prover"}]

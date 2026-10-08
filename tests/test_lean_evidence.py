@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 from scripts.bootstrap_lean import lean_environment
-from scripts.check_lean import (CANDIDATE, audit_import_closure, prepare_tool_cache, prepare_workspace,
+from scripts.check_lean import (CANDIDATES, audit_import_closure, prepare_tool_cache, prepare_workspace,
                                verify_workspace_inputs)
 from scripts.platforms import HostLayout, native_layout
 
@@ -40,10 +40,12 @@ class LeanEvidenceTests(unittest.TestCase):
         inputs = {root / "proof" / path: contents for path, contents in (
             ("Silver/AuthoritativeSource.lean", b'def source := include_str "../../../src/main.adb"\n'),
             ("Silver/SourceBridge.lean", b"import Silver.AuthoritativeSource\n"),
+            ("Silver/SourceCertificates.lean", b"-- protected import facade\n"),
             ("lakefile.lean", b"import Lake\n"),
             ("lean-toolchain", b"leanprover/lean4:v4.34.1\n"))}
         prepare_workspace(host, inputs)
-        (host.proof / CANDIDATE).write_text("-- untrusted candidate output\n")
+        for candidate in CANDIDATES:
+            (host.proof / candidate).write_text("-- untrusted candidate output\n")
         verify_workspace_inputs(host, inputs)
         return host, inputs
 
@@ -100,6 +102,24 @@ class LeanEvidenceTests(unittest.TestCase):
                 destination.write_bytes(expected)
         verify_workspace_inputs(host, inputs)
 
+    def test_each_generated_certificate_must_be_regular_and_present(self) -> None:
+        host, inputs = self.workspace()
+        for relative in CANDIDATES:
+            with self.subTest(candidate=relative):
+                candidate = host.proof / relative
+                contents = candidate.read_bytes()
+                candidate.unlink()
+                with self.assertRaisesRegex(RuntimeError, "regular certificate"):
+                    verify_workspace_inputs(host, inputs)
+                outside = host.root / "candidate.lean"
+                outside.write_bytes(contents)
+                candidate.symlink_to(outside)
+                with self.assertRaisesRegex(RuntimeError, "symbolic link"):
+                    verify_workspace_inputs(host, inputs)
+                candidate.unlink()
+                candidate.write_bytes(contents)
+        verify_workspace_inputs(host, inputs)
+
     def test_generator_cannot_replace_input_with_same_content_symlink(self) -> None:
         host, inputs = self.workspace()
         destination = host.proof / "Silver/AuthoritativeSource.lean"
@@ -150,18 +170,21 @@ class LeanNativeDependencyTests(unittest.TestCase):
             host.lean.parent.mkdir(parents=True)
             host.lean.symlink_to(native.lean, target_is_directory=True)
             (root / "src").mkdir()
-            spec = root / "src/silver_profile.ads"
-            body = root / "src/silver_profile.adb"
-            spec.write_bytes(b"spec\n")
-            body.write_bytes(b"body\n")
+            filenames = (
+                "silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
+                "silver_output_profile.adb", "silver_io.ads", "silver_io.adb",
+                "silver_output_libc.ads")
+            sources = [root / "src" / name for name in filenames]
+            for source in sources:
+                source.write_bytes(b"original\n")
+            declarations = "\n".join(
+                f'def source{i} : String := include_str "../src/{source.name}"\n'
+                f'example : source{i} = "original\\n" := by decide'
+                for i, source in enumerate(sources)).encode()
             inputs = {
                 root / "proof/lakefile.lean": (ROOT / "proof/lakefile.lean").read_bytes(),
                 root / "proof/lean-toolchain": (ROOT / "proof/lean-toolchain").read_bytes(),
-                root / "proof/Silver.lean": b'''def specText : String := include_str "../src/silver_profile.ads"
-def bodyText : String := include_str "../src/silver_profile.adb"
-example : specText = "spec\\n" := by decide
-example : bodyText = "body\\n" := by decide
-''',
+                root / "proof/Silver.lean": declarations,
             }
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
@@ -170,7 +193,7 @@ example : bodyText = "body\\n" := by decide
 
             def build() -> subprocess.CompletedProcess[str]:
                 return subprocess.run(command, cwd=host.proof, env=environment, text=True,
-                                      capture_output=True, timeout=60)
+                                      capture_output=True, timeout=180)
 
             result = build()
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -179,7 +202,7 @@ example : bodyText = "body\\n" := by decide
             result = build()
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
-            for source in (spec, body):
+            for source in sources:
                 with self.subTest(source=source.name):
                     original = source.read_bytes()
                     stat = source.stat()

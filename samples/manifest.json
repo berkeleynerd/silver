@@ -6,6 +6,12 @@
       "capabilities": ["main_procedure", "spark_mode_on", "null_statement"],
       "specification": "../language.md#grammar-and-capabilities",
       "expected": {"stdout": "", "stderr": "", "exit_status": 0}
+    },
+    {
+      "source": "hello_world.adb",
+      "capabilities": ["main_procedure", "spark_mode_on", "runtime_context", "literal_output", "string_literal"],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {"stdout": "Hello, world!\n", "stderr": "", "exit_status": 0}
     }
   ]
 }

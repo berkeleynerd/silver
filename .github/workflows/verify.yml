@@ -50,6 +50,9 @@ jobs:
             .silver/*/program-*/obj/gnatprove/
             .silver/*/program-*/program.gpr
             .silver/*/program-*/main.adb
+            .silver/*/program-*/silver_io.ads
+            .silver/*/program-*/silver_io.adb
+            .silver/*/program-*/silver_output_libc.ads
             .silver/*/toolchain/alire/alire.lock
             .silver/*/toolchain/alire.toml
 
@@ -86,3 +89,4 @@ jobs:
             .silver/*/lean-proof.log
             .silver/*/lean-evidence.json
             .silver/*/proof/Silver/SourceCertificates.lean
+            .silver/*/proof/Silver/*Certificate.lean

@@ -213,7 +213,11 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         elif executable == Path(sys.executable):
             # The real native Python generator must write the isolated output.
             assert Path(args[1]) == root / "proof/generate_source_certificate.py"
-            assert args[2:] == ["--output", str((host.proof / check_lean.CANDIDATE).with_suffix(".lean.pending"))]
+            source = args[args.index("--source") + 1]
+            candidates = {name: path for path, name in check_lean.CANDIDATES.items()}
+            assert source in candidates
+            assert args[2:] == ["--source", source, "--output",
+                               str((host.proof / candidates[source]).with_suffix(".lean.pending"))]
             return real_run(args, **kwargs)
         else:
             raise AssertionError(f"unexpected external executable: {args}")
@@ -295,7 +299,7 @@ class PlatformIsolationTests(unittest.TestCase):
         self.root = Path(temporary.name).resolve()
         for relative in ("alire.toml", "silver.gpr", "proof/lean-toolchain",
                          "proof/lakefile.lean", "proof/generate_source_certificate.py",
-                         "src/silver_profile.ads", "src/silver_profile.adb"):
+                         *("src/" + source for source in check_lean.CANDIDATES.values())):
             destination = self.root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / relative, destination)
@@ -407,6 +411,11 @@ class PlatformIsolationTests(unittest.TestCase):
                 host = platforms.HostLayout(self.root, key)
                 routing = json.loads((host.artifacts / "setup-routing-test.json").read_text())
                 self.assertEqual(len(routing["downloads"]), 2)
+                generation = [command for command in routing["commands"]
+                              if Path(command[0]) == Path(sys.executable)]
+                self.assertEqual(len(generation), len(check_lean.CANDIDATES))
+                self.assertEqual({command[command.index("--source") + 1] for command in generation},
+                                 set(check_lean.CANDIDATES.values()))
                 self.assertIn(key, (host.generated / "silver_build.ads").read_text())
                 self.assertEqual((host.proof / ".lake/build/routing.olean").read_text(), key)
 
@@ -550,7 +559,7 @@ class InstallationEnvironmentTests(unittest.TestCase):
             # regression. Its subprocesses inherit the symlinked TMPDIR too.
             result = subprocess.run(
                 [sys.executable, str(Path(__file__).resolve()), "PlatformIsolationTests", "-v"],
-                cwd=ROOT, env=environment, text=True, capture_output=True, timeout=60)
+                cwd=ROOT, env=environment, text=True, capture_output=True, timeout=180)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_generated_tool_command_anchors_and_quotes_installation(self) -> None:

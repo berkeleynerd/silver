@@ -32,6 +32,38 @@ baseline's admission/proof/build/run test and separates actual application
 output from compiler diagnostics. Focused native tests passed. Earlier entries
 describing the root sample location are historical.
 
+The output implementation now selects `Silver_IO.Put_Line` over existing libc
+`putchar`, `fflush(NULL)` and `exit`, with no Silver-owned C or SPARK-off bodies.
+Its exact source domain is printable ASCII literals (empty and doubled quotes
+included) within the 4096-byte complete-source bound. Context, literal and one
+qualified call arrive together; context-only null and repeated calls are excluded.
+Library source snapshots and complete nonempty library-report checks are required.
+External byte/status meaning, physical delivery and progress remain explicit in
+[the trusted boundary](trusted-boundary.md#literal-output-boundary).
+
+Seven independent Lean source-certificate modules replace the monolith so Lake
+can schedule them concurrently. Authoritative source bindings and the import
+facade remain handwritten protected inputs; only reconstruction candidates are
+generated. Keep cached incremental feedback and full independent kernel checks.
+The independent source review found no blocking correctness issue. The capability
+is complete: native Linux compiler verification/audit, build, complete suite,
+Lean replay/axiom audit and independent fresh kernel recheck passed, followed by
+a fresh Hello World compilation/execution. The local capability commit contains
+the implementation, proofs, specification, catalogue and motivating sample.
+Consult [hello-world.md](hello-world.md) for exact evidence and input/mode scope.
+
+The successful compiler audit used the existing cold mode with four workers.
+Warm all-core and four-worker audits encountered the pre-existing temporary-result
+JSON failure; a serial comparison was deliberately stopped for excessive proof
+cost. The failures and partial diagnostic state are retained, and the cause is
+unresolved. Cold success is not a demonstrated warm-cache repair. The successful
+complete provenance lives in the cold report directory linked by the capability
+record, not the canonical directory containing the failed warm run. No automatic
+retry, obligation suppression or default-worker change was introduced. Do not
+reopen completed capability work merely to add deferred hardening; diagnose the
+tool issue separately when needed. Native macOS and hosted CI remain pending and
+nonblocking. Oracle bytes are unchanged; publication remains unauthorized.
+
 ## 2026-10-08 — Pre-1.0 direction and completed workflow changes
 
 The owner chose **one evolving language before 1.0**. Git records its history;

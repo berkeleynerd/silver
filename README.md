@@ -19,13 +19,14 @@ The root documents provide the main review entry points:
 - [development.md](development.md): the workflow for admitting a capability.
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
 
-The initial compiler admits, proves, builds, and runs this program shape:
+The compiler admits, proves, builds, and runs this program shape:
 
 ```ada
+with Silver_IO;
 procedure Main is
    pragma SPARK_Mode (On);
 begin
-   null;
+   Silver_IO.Put_Line ("Hello, world!");
 end Main;
 ```
 
@@ -33,18 +34,24 @@ ASCII letter case, permitted whitespace, and comments may vary. Source is limite
 to 4096 bytes, including comments. Whitespace is space, horizontal tab, carriage
 return, or line feed. Comments begin with `--`, end at carriage return, line feed,
 or EOF, and contain printable ASCII or horizontal tabs. Word tokens retain their
-Ada lexical boundaries. All other constructs and compositions are excluded.
+Ada lexical boundaries. Literal contents preserve case, may be empty, and may
+contain any printable ASCII character, with quotes doubled as in Ada.
+The original [null program](samples/null.adb) is also supported.
 
-The current catalogue label, `silver-null-0`, describes one procedure
-with no parameters or calls and one null statement. Every admitted program has
-zero user-program proof obligations. Extending it to constructs that generate
-checks requires new admission, composition, and automatic-discharge proofs.
+These are the two complete forms: one null statement without a context clause,
+or one qualified literal-output call with `with Silver_IO;`. Variables, repeated
+calls, concatenation and other APIs remain excluded. See [language.md](language.md)
+for the exact rules. Normal output is the literal bytes followed by LF, with a
+successful flush. Detected output failure exits unsuccessfully and may leave
+partial output; blocking and host failures have documented environmental limits.
 
 The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
 are development setup, evidence auditing, and tests. GNATprove verifies the
 compiler implementation. Lean connects the restricted recognizer source to its
-language model and proves safety for every member of this null-only profile.
+language model and the output wrapper to its effect model. Both application
+forms have no caller obligations; the output library's nonempty obligations
+must also be proved and checked before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
 source-semantics assumptions are listed in the
 [trusted boundary](docs/trusted-boundary.md). Completion and semantic preservation
@@ -105,15 +112,16 @@ as version 26.0.0. Downloads and generated files are ignored by Git.
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
 "$silver_executable" catalogue
-"$silver_executable" check samples/null.adb
-"$silver_executable" compile samples/null.adb
-"$silver_executable" run samples/null.adb
+"$silver_executable" check samples/hello_world.adb
+"$silver_executable" compile samples/hello_world.adb
+"$silver_executable" run samples/hello_world.adb
 ```
 
 `check` decides membership without invoking a prover. `compile` first admits the
 source, then creates a fresh private `.silver/<host>/program-XXXXXX/` workspace, proves
-its byte-identical `main.adb` snapshot, checks the proof report, and builds that
-same snapshot. It prints the snapshot, proof-report, and executable paths.
+its byte-identical `main.adb` snapshot and selected library sources, checks their
+proof reports, and builds those same snapshots. It prints the snapshot,
+proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
 
 The executable can be invoked from another working directory. Relative input
@@ -124,25 +132,31 @@ runs. Moving the installation requires bootstrap and rebuild. These controls do
 not make the entire operating-system environment hermetic.
 
 Exit status is 0 for success, 2 for excluded source or incorrect CLI usage, and 3
-for an infrastructure, verification, compilation, or execution failure. Failure
-on an admitted program is reported as a toolchain or implementation defect;
-prover results never redefine membership.
+for an infrastructure, verification, compilation, or execution failure. Verification or compilation failure on an admitted program is a toolchain or
+implementation defect; prover results never redefine membership. Specified
+application output failures are reported separately. The executable's own exit
+status is distinct from the compiler CLI's status.
 
-The [machine-readable catalogue](catalogue/silver-null-0.json) is generated from
+The [machine-readable catalogue](catalogue/silver.json) is exported by
 the actual compiler. Recognition and JSON export share SPARK token and character
-rules. It also lists the admitted procedure, required pragma, null statement,
-their conditions and token spans, and their sole permitted composition. Tests
+rules. It also lists admitted constructs, the output operation, literal domain,
+and both permitted compositions. Structural metadata is written explicitly in
+SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
 
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
-"$silver_executable" catalogue > catalogue/silver-null-0.json
+"$silver_executable" catalogue > catalogue/silver.json
 ```
 
 ## Proofs and platform evidence
 
-Validation of the incremental workflows is recorded in
+Hello World validation is recorded in [the capability record](docs/hello-world.md).
+Its compiler audit passed with fresh cold state. An intermittent GNATprove
+temporary-result JSON failure in warm runs remains unresolved; the record
+distinguishes those failures from successful evidence.
+Validation of the earlier incremental workflows is recorded in
 [the proof workflow record](docs/proof-workflow.md); the earlier implementation
 baseline is in [the review repair record](docs/review-repairs.md). Regression coverage includes
 real proof/build/run cases, simulated tool failures, source changes, report-size
@@ -172,8 +186,8 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 The default Lean check retains Lake's native build cache and freshly runs the
 module/axiom audit even on a cache hit. `--full` adds the independent kernel
 recheck; `--clean` also discards this host's proof workspace. The embedded
-recognizer Ada files are dependencies
-of the whole Silver Lean library: editing either invalidates that entire
+recognizer and output-library Ada files are dependencies
+of the whole Silver Lean library: editing any of them invalidates that entire
 library's cached build. For a capability-validation checkpoint, run:
 
 ```sh
@@ -189,9 +203,9 @@ thread per process as a conservative memory setting for large certificates;
 against higher thread counts. Caching and worker counts do not change the
 required proof obligations.
 
-The source bridge embeds the authoritative `silver_profile.ads` and `.adb`,
-checks restricted source bytes and declaration shapes, and matches typed
-expressions with checked Ada precedence. Its semantic scope is described in the
+The source bridge embeds the authoritative null/output recognizers and output
+library, checks restricted source bytes and declaration shapes, and interprets
+typed expression and statement models. Its semantic scope is described in the
 trusted boundary. Every mode audits actual imported modules and every
 declaration's transitive axioms; full validation also runs a fresh `leanchecker`
 kernel check. Only Lean's standard logical
@@ -208,7 +222,8 @@ incremental workflows on macOS ARM64 before the cold-proof and exploratory-tool
 guard changes. It reported passing proofs, tests under the default symlinked
 temporary directory, and all Lean modes. Retained compiler and final clean Lean
 artifacts were independently corroborated on Linux. The subsequent cold-proof
-and guard changes still await native macOS validation. Evidence, exact scope and
+and guard changes, and this Hello World capability, still await native macOS
+validation. Evidence, exact scope and
 remaining platform checks are recorded in [the workflow record](docs/proof-workflow.md).
 Linux is primary and macOS validation is independent under the Oracle. This work remains
 local as requested: the repository has no Git remote, and the configured CI

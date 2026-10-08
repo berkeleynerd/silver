@@ -22,6 +22,23 @@ input_file profileBodySource where
   path := "../src/silver_profile.adb"
   text := false
 
+input_file outputProfileSpecSource where
+  path := "../src/silver_output_profile.ads"
+  text := false
+input_file outputProfileBodySource where
+  path := "../src/silver_output_profile.adb"
+  text := false
+input_file ioSpecSource where
+  path := "../src/silver_io.ads"
+  text := false
+input_file ioBodySource where
+  path := "../src/silver_io.adb"
+  text := false
+input_file outputLibcSource where
+  path := "../src/silver_output_libc.ads"
+  text := false
+
 @[default_target]
 lean_lib Silver where
-  needs := #[profileSpecSource, profileBodySource]
+  needs := #[profileSpecSource, profileBodySource, outputProfileSpecSource,
+    outputProfileBodySource, ioSpecSource, ioBodySource, outputLibcSource]

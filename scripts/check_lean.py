@@ -27,7 +27,15 @@ else:
     from platforms import ROOT, HostLayout, native_layout
 
 PROOF = ROOT / "proof"
-CANDIDATE = Path("Silver/SourceCertificates.lean")
+CANDIDATES = {
+    Path("Silver/ProfileSpecCertificate.lean"): "silver_profile.ads",
+    Path("Silver/ProfileBodyCertificate.lean"): "silver_profile.adb",
+    Path("Silver/OutputSpecCertificate.lean"): "silver_output_profile.ads",
+    Path("Silver/OutputBodyCertificate.lean"): "silver_output_profile.adb",
+    Path("Silver/IOSpecCertificate.lean"): "silver_io.ads",
+    Path("Silver/IOBodyCertificate.lean"): "silver_io.adb",
+    Path("Silver/OutputLibcCertificate.lean"): "silver_output_libc.ads",
+}
 
 
 def project_sources(proof: Path) -> dict[str, Path]:
@@ -76,7 +84,7 @@ def prepare_workspace(host: HostLayout, inputs: dict[Path, bytes], *, clean: boo
     removed = False
     for path in host.proof.rglob("*.lean"):
         relative = path.relative_to(host.proof)
-        if ".lake" not in relative.parts and relative != CANDIDATE and relative not in expected:
+        if ".lake" not in relative.parts and relative not in CANDIDATES and relative not in expected:
             require_regular_workspace_path(host, path)
             path.unlink()
             removed = True
@@ -119,7 +127,7 @@ def positive_integer(value: str) -> int:
 
 
 def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None:
-    """Only the candidate certificate may differ from captured shared inputs.
+    """Only the seven generated certificates may differ from shared inputs.
 
     Run this before establishing the workspace hash baseline: a generator must
     not redefine the handwritten source binding or bridge and then have those
@@ -130,7 +138,7 @@ def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None
         if not source.is_relative_to(shared_proof):
             continue
         relative = source.relative_to(shared_proof)
-        if relative == CANDIDATE or not (source.suffix == ".lean" or source.name == "lean-toolchain"):
+        if relative in CANDIDATES or not (source.suffix == ".lean" or source.name == "lean-toolchain"):
             continue
         destination = host.proof / relative
         for depth in range(len(relative.parts) + 1):
@@ -138,12 +146,13 @@ def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None
                 raise RuntimeError(f"handwritten proof input is a symbolic link: {destination}")
         if not destination.is_file() or destination.read_bytes() != expected:
             raise RuntimeError(f"candidate generation changed handwritten proof input: {relative}")
-    candidate = host.proof / CANDIDATE
-    for depth in range(len(CANDIDATE.parts) + 1):
-        if host.proof.joinpath(*CANDIDATE.parts[:depth]).is_symlink():
-            raise RuntimeError("candidate certificate must not be a symbolic link")
-    if not candidate.is_file():
-        raise RuntimeError("candidate generator did not produce a regular certificate file")
+    for relative in CANDIDATES:
+        candidate = host.proof / relative
+        for depth in range(len(relative.parts) + 1):
+            if host.proof.joinpath(*relative.parts[:depth]).is_symlink():
+                raise RuntimeError(f"candidate certificate must not be a symbolic link: {relative}")
+        if not candidate.is_file():
+            raise RuntimeError(f"candidate generator did not produce a regular certificate file: {relative}")
 
 
 def audit_import_closure(sources: dict[str, Path], output: str) -> set[str]:
@@ -182,9 +191,10 @@ def main(arguments: list[str] | None = None) -> None:
     evidence.unlink(missing_ok=True)
 
     sources = project_sources(PROOF)
-    # The checked-in candidate is never edited or used as trusted generated
-    # input. Every replay regenerates its host-local replacement from src.
-    paths = [*(path for path in sources.values() if path != PROOF / CANDIDATE),
+    # The checked-in candidates are never edited or used as trusted generated
+    # inputs. Every replay regenerates their host-local replacements from src.
+    # SourceCertificates.lean is a protected handwritten import facade.
+    paths = [*(path for path in sources.values() if path.relative_to(PROOF) not in CANDIDATES),
              PROOF / "lakefile.lean", PROOF / "lean-toolchain",
              PROOF / "generate_source_certificate.py",
              *sorted((ROOT / "src").glob("*.ads")), *sorted((ROOT / "src").glob("*.adb")),
@@ -212,22 +222,23 @@ def main(arguments: list[str] | None = None) -> None:
 
     prepare_workspace(host, inputs, clean=args.clean)
     prepare_tool_cache(host, tool_hashes)
-    candidate = host.proof / CANDIDATE
     # These are candidate certificates, not trusted results: Lean checks each
     # line and reconstruction of the exact authoritative source bytes.
     # The generator writes beside the final module so its authoritative-source
     # path checks remain valid. Publish only changed bytes to preserve no-op runs.
-    generated = candidate.with_suffix(".lean.pending")
-    require_regular_workspace_path(host, generated)
-    require_regular_workspace_path(host, candidate)
-    generated.unlink(missing_ok=True)
-    try:
-        subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
-                        "--output", str(generated)], cwd=ROOT, check=True)
+    for relative, source_name in CANDIDATES.items():
+        candidate = host.proof / relative
+        generated = candidate.with_suffix(".lean.pending")
         require_regular_workspace_path(host, generated)
-        write_changed(candidate, generated.read_bytes())
-    finally:
+        require_regular_workspace_path(host, candidate)
         generated.unlink(missing_ok=True)
+        try:
+            subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
+                            "--source", source_name, "--output", str(generated)], cwd=ROOT, check=True)
+            require_regular_workspace_path(host, generated)
+            write_changed(candidate, generated.read_bytes())
+        finally:
+            generated.unlink(missing_ok=True)
     verify_workspace_inputs(host, inputs)
     workspace_sources = project_sources(host.proof)
     if workspace_sources.keys() != sources.keys():

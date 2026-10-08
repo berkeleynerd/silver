@@ -32,12 +32,16 @@ TRUSTED_IMPORT_SPECS = {
     # ada__command_line__argument_count, ada__command_line__argument,
     # __gnat_set_exit_status (original GNAT runtime symbols)
     "silver_runtime.ads": "1f068e3ef313bdcdc7ada3b2ca7f3d1688db337d6645c9d931baec7a245df32b",
+    # putchar, fflush, exit (direct existing-libc output/failure interface)
+    "silver_output_libc.ads": "02bfcd99bc16a0fb144a81163ccc502a0163669a36e656c920486fd43c06395c",
 }
 TRUSTED_IMPORT_ENTITIES = {
     "silver_libc": {f"Silver_Libc.{name}" for name in
                     ("C_Open", "C_Get", "C_Put", "C_Error", "C_Close", "C_System", "C_Mkdir", "C_Mkdtemp")},
     "silver_runtime": {f"Silver_Runtime.{name}" for name in
                        ("Argument_Count", "Argument", "Set_Exit_Status")},
+    "silver_output_libc": {f"Silver_Output_Libc.{name}" for name in
+                           ("Put_Byte", "Flush", "Fail")},
 }
 
 # These documented proof limitations withhold information from the prover;
@@ -45,7 +49,9 @@ TRUSTED_IMPORT_ENTITIES = {
 # actual flow/proof checks must still be discharged. See the contracts-recursive
 # and numeric-variant entries in SPARK 16.1 UG proof_limitations.rst.
 PROOF_LIMITATION_NOTES = {"contracts-recursive", "numeric-variant"}
-PROOF_OPTIONS = ["--mode=all", "--report=all", "--warnings=error",
+# Runtime units need verification even when the compiler Main does not call them.
+# GNATprove's default only analyzes Main and its transitive dependency closure.
+PROOF_OPTIONS = ["-U", "--mode=all", "--report=all", "--warnings=error",
                  "--checks-as-errors=on", "--level=2", "--prover=cvc5,z3,altergo",
                  "--timeout=30"]
 TRUSTED_RUNTIME_CALLEES = {

@@ -11,6 +11,16 @@ import argparse
 import json
 from pathlib import Path
 
+SOURCE_BINDINGS = (
+    ("silver_profile.ads", "profileSpec", "specTokens"),
+    ("silver_profile.adb", "profileBody", "bodyTokens"),
+    ("silver_output_profile.ads", "outputProfileSpec", "outputSpecTokens"),
+    ("silver_output_profile.adb", "outputProfileBody", "outputBodyTokens"),
+    ("silver_io.ads", "ioSpec", "ioSpecTokens"),
+    ("silver_io.adb", "ioBody", "ioBodyTokens"),
+    ("silver_output_libc.ads", "outputLibcSpec", "outputLibcTokens"),
+)
+
 
 def literal(text: str) -> str:
     return json.dumps(text, ensure_ascii=False)
@@ -160,6 +170,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path,
                         help="candidate module in an isolated proof workspace")
+    parser.add_argument("--source", choices=[entry[0] for entry in SOURCE_BINDINGS],
+                        help="emit one independently checked source certificate module")
     arguments = parser.parse_args()
     proof = Path(__file__).resolve().parent
     repository = proof.parent
@@ -183,10 +195,9 @@ def main() -> None:
         "namespace Silver.Source",
         "",
     ]
-    for filename, profile, prefix in (
-        ("silver_profile.ads", "profileSpec", "specTokens"),
-        ("silver_profile.adb", "profileBody", "bodyTokens"),
-    ):
+    for filename, profile, prefix in SOURCE_BINDINGS:
+        if arguments.source is not None and filename != arguments.source:
+            continue
         # Read bytes directly: text-mode newline translation would lose CRs.
         source_bytes = (repository / "src" / filename).read_bytes()
         validate_source_bytes(source_bytes, filename)

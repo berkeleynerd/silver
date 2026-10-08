@@ -1,0 +1,184 @@
+"""Real output driver rejects changed library snapshots and absent evidence."""
+from __future__ import annotations
+
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import textwrap
+import unittest
+
+from scripts.bootstrap import prepare_context
+from scripts.platforms import HostLayout, alire_command, tool_environment
+from tests import test_silver
+from tests.test_library_reports import report as runtime_report
+
+ROOT = test_silver.ROOT
+HOST = test_silver.HOST
+LIBRARIES = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads")
+SOURCE = (b'with Silver_IO; procedure Main is pragma SPARK_Mode(On); '
+          b'begin Silver_IO.Put_Line("Hello, world!"); end Main;')
+
+
+class OutputIntegrityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        # Rebuild the unchanged SPARK implementation with fixture-specific fixed
+        # installation paths. Only the fixture's external Alire tool is replaced.
+        cls.temporary = tempfile.TemporaryDirectory(prefix="silver output integrity-")
+        cls.addClassCleanup(cls.temporary.cleanup)
+        cls.sandbox = (Path(cls.temporary.name) / "installation ' with spaces").resolve()
+        cls.sandbox.mkdir()
+        cls.host = HostLayout(cls.sandbox, HOST.key)
+        (cls.sandbox / "src").symlink_to(ROOT / "src", target_is_directory=True)
+        for filename in ("silver.gpr", "alire.toml"):
+            shutil.copyfile(ROOT / filename, cls.sandbox / filename)
+        prepare_context(cls.host)
+        built = subprocess.run(
+            alire_command(HOST, "exec", "--", "gprbuild", "-P", cls.sandbox / "silver.gpr",
+                          "-XSILVER_HOST=" + HOST.key, "--subdirs=explore/output-integrity", "-p", "-j2"),
+            cwd=HOST.context, env=tool_environment(HOST), capture_output=True, text=True, timeout=120)
+        if built.returncode:
+            raise AssertionError(built.stdout + built.stderr)
+        cls.silver = cls.host.compiler / "bin/explore/output-integrity/silver"
+        cls.source = Path(cls.temporary.name) / "author source.adb"
+        cls.source.write_bytes(SOURCE)
+        cls.originals = {name: (ROOT / "src" / name).read_bytes() for name in LIBRARIES}
+        cls.fixtures = cls.sandbox / "reports"
+        cls.fixtures.mkdir()
+        main = {"progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
+                "spark": {" 1": "all"}, "flow": [], "proof": [], "warn_error": [],
+                "skip_flow_proof": [], "skip_proof": [], "pragma_assume": []}
+        for name, data in (("main.spark", main), ("silver_io.spark", runtime_report()),
+                           ("silver_output_libc.spark", runtime_report(True))):
+            (cls.fixtures / name).write_text(json.dumps(data))
+        alr = cls.host.alr
+        alr.parent.mkdir(parents=True, exist_ok=True)
+        alr.write_text("#!" + sys.executable + "\n" + textwrap.dedent('''\
+            import json
+            import os
+            from pathlib import Path
+            import shutil
+            import sys
+            root = Path(__file__).resolve().parents[4]
+            scenario = json.loads((root / "scenario.json").read_text())
+            project = Path(sys.argv[sys.argv.index("-P") + 1])
+            if not project.is_absolute() or not project.is_file():
+                raise SystemExit("project does not resolve from fixed tool context")
+            workspace = project.parent
+            (root / "workspace").write_text(str(workspace))
+            libraries = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads")
+            if "gnatprove" in sys.argv:
+                # Confirm the proof input is exactly the selected local source
+                # set, not the caller's cwd or an expanded search directory.
+                text = project.read_text()
+                if 'for Source_Dirs use (".")' not in text:
+                    raise SystemExit("project source directory escaped its snapshot")
+                if 'for Source_Files use ("main.adb", "silver_io.ads", "silver_io.adb", "silver_output_libc.ads")' not in text:
+                    raise SystemExit("project did not select exactly the runtime files")
+                for name in libraries:
+                    if (workspace / name).read_bytes() != (root / "src" / name).read_bytes():
+                        raise SystemExit("runtime snapshot differs before proof")
+                (root / "proof_invoked").touch()
+                target = workspace / "obj/gnatprove"
+                target.mkdir(parents=True)
+                for name in ("main.spark", "silver_io.spark", "silver_output_libc.spark"):
+                    if name != scenario.get("missing"):
+                        shutil.copyfile(root / "reports" / name, target / name)
+                if scenario.get("phase") == "proof":
+                    changed = workspace / scenario["library"]
+                    changed.write_bytes(changed.read_bytes() + b"\\n-- changed during proof\\n")
+            elif "gprbuild" in sys.argv:
+                (root / "build_invoked").touch()
+                if scenario.get("phase") == "build":
+                    changed = workspace / scenario["library"]
+                    changed.write_bytes(changed.read_bytes() + b"\\n-- changed during build\\n")
+                executable = workspace / "bin/main"
+                executable.parent.mkdir(parents=True)
+                executable.write_text("#!" + sys.executable + "\\nfrom pathlib import Path\\n"
+                                      + "Path(" + repr(str(root / "run_invoked")) + ").touch()\\n"
+                                      + "print('Hello, world!')\\n")
+                executable.chmod(0o755)
+            else:
+                raise SystemExit("unexpected external tool")
+            '''))
+        alr.chmod(0o755)
+
+    def run_scenario(self, scenario: dict, command: str = "run") -> tuple[subprocess.CompletedProcess[str], Path]:
+        (self.sandbox / "scenario.json").write_text(json.dumps(scenario))
+        for name in ("workspace", "proof_invoked", "build_invoked", "run_invoked"):
+            (self.sandbox / name).unlink(missing_ok=True)
+        # A caller-owned package with the same filename must not affect the
+        # fixed installation selection. The fixture tool checks copied bytes.
+        caller = Path(self.temporary.name) / "caller"
+        caller.mkdir(exist_ok=True)
+        for name in LIBRARIES:
+            (caller / name).write_text("caller-owned source must not be selected")
+        result = subprocess.run([str(self.silver), command, str(self.source)], cwd=caller,
+                                env=os.environ.copy(), capture_output=True, text=True, timeout=30)
+        output = result.stdout + result.stderr
+        marker = self.sandbox / "workspace"
+        self.assertTrue(marker.is_file(), output)
+        workspace = Path(marker.read_text())
+        self.assertEqual(workspace.parent, self.host.artifacts)
+        self.addCleanup(shutil.rmtree, workspace)
+        self.assertEqual((workspace / "main.adb").read_bytes(), SOURCE)
+        self.assertEqual(self.source.read_bytes(), SOURCE)
+        for name, original in self.originals.items():
+            self.assertEqual((ROOT / "src" / name).read_bytes(), original)
+        return result, workspace
+
+    def assert_rejected(self, scenario: dict, build_started: bool, message: str) -> Path:
+        result, workspace = self.run_scenario(scenario)
+        output = result.stdout + result.stderr
+        self.assertEqual(result.returncode, 3, output)
+        self.assertIn(message, output)
+        self.assertNotIn("Executable:", output)
+        self.assertNotIn("Execution completed successfully.", output)
+        self.assertTrue((self.sandbox / "proof_invoked").exists())
+        self.assertEqual((self.sandbox / "build_invoked").exists(), build_started)
+        self.assertFalse((self.sandbox / "run_invoked").exists())
+        return workspace
+
+    def test_selected_compiler_accepts_output_source(self) -> None:
+        result = test_silver.invoke("check", self.source)
+        self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_success_uses_fixed_library_selection_and_runs(self) -> None:
+        result, workspace = self.run_scenario({})
+        output = result.stdout + result.stderr
+        self.assertEqual(result.returncode, 0, output)
+        self.assertIn("Executable:", output)
+        self.assertIn("Hello, world!\n", output)
+        self.assertIn("Execution completed successfully.", output)
+        self.assertTrue((self.sandbox / "build_invoked").exists())
+        self.assertTrue((self.sandbox / "run_invoked").exists())
+        for name, original in self.originals.items():
+            self.assertEqual((workspace / name).read_bytes(), original)
+
+    def test_missing_runtime_report_stops_before_build(self) -> None:
+        for name in ("silver_io.spark", "silver_output_libc.spark"):
+            with self.subTest(report=name):
+                self.assert_rejected({"missing": name}, False, "runtime library evidence")
+
+    def test_every_library_snapshot_change_during_proof_stops_before_build(self) -> None:
+        for name in LIBRARIES:
+            with self.subTest(library=name):
+                workspace = self.assert_rejected({"phase": "proof", "library": name}, False,
+                                                 "runtime library changed during verification")
+                self.assertNotEqual((workspace / name).read_bytes(), self.originals[name])
+
+    def test_every_library_snapshot_change_during_build_stops_before_publication(self) -> None:
+        for name in LIBRARIES:
+            with self.subTest(library=name):
+                workspace = self.assert_rejected({"phase": "build", "library": name}, True,
+                                                 "runtime library changed during compilation")
+                self.assertTrue((workspace / "bin/main").exists())
+                self.assertNotEqual((workspace / name).read_bytes(), self.originals[name])
+
+
+if __name__ == "__main__":
+    unittest.main()

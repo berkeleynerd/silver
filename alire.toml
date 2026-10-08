@@ -1,5 +1,5 @@
 name = "silver"
-description = "The initial null-only Silver profile of SPARK"
+description = "Silver: a subtractive profile of SPARK"
 version = "0.1.0-dev"
 
 # Tilde requirements permit patch updates while keeping major/minor identical

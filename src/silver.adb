@@ -2,15 +2,16 @@ with Ada.Command_Line;
 with Ada.Text_IO;
 with Interfaces.C;
 with Silver_Runtime;
-with Silver_Numbers;
 with Silver_Platform;
 with Silver_Profile;
 with Silver_Reports;
 with Silver_Build;
+with Silver_Output_Profile;
+with Silver_Libraries;
+with Silver_Catalogue;
 
 procedure Silver with SPARK_Mode => On is
    use Ada.Text_IO;
-   use Silver_Numbers;
    use Silver_Platform;
 
    procedure Failure (Message : String; Status : Ada.Command_Line.Exit_Status := 3)
@@ -19,135 +20,6 @@ procedure Silver with SPARK_Mode => On is
       Put_Line (Message);
       Silver_Runtime.Set_Exit_Status (Status);
    end Failure;
-
-   procedure Catalogue is
-      type Byte_Class is (Whitespace, Allowed, Identifier, Comment_End);
-      Word_Written : Boolean := False;
-
-      procedure Bytes (Field : String; Class : Byte_Class)
-        with Pre => Field'Length <= 64
-      is
-         Written : Boolean := False;
-         Included : Boolean;
-      begin
-         Put ("  """ & Field & """: [");
-         for Item in Character loop
-            Included :=
-              (case Class is
-                 when Whitespace => Silver_Profile.Is_Whitespace (Item),
-                 when Allowed => Silver_Profile.Is_Allowed_Character (Item),
-                 when Identifier => Silver_Profile.Is_Identifier_Character (Item),
-                 when Comment_End => Silver_Profile.Is_Comment_End (Item));
-            if Included then
-               if Written then
-                  Put (",");
-               end if;
-               Put (Decimal (Character'Pos (Item)));
-               Written := True;
-            end if;
-         end loop;
-         Put_Line ("],");
-      end Bytes;
-   begin
-      Put_Line ("{");
-      Put_Line ("  ""schema_version"": 1,");
-      Put_Line ("  ""constructs"": [");
-      Put_Line ("    {");
-      Put_Line ("      ""id"": ""main_procedure"",");
-      Put_Line ("      ""ada_kind"": ""library_level_procedure_body"",");
-      Put_Line ("      ""token_span"": [");
-      Put_Line ("        1,");
-      Put_Line ("        15");
-      Put_Line ("      ],");
-      Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""name"": ""Main"",");
-      Put_Line ("        ""parameters"": [],");
-      Put_Line ("        ""end_name"": ""Main"",");
-      Put_Line ("        ""context_clauses"": [],");
-      Put_Line ("        ""additional_declarations"": false,");
-      Put_Line ("        ""exception_handlers"": false");
-      Put_Line ("      }");
-      Put_Line ("    },");
-      Put_Line ("    {");
-      Put_Line ("      ""id"": ""spark_mode_on"",");
-      Put_Line ("      ""ada_kind"": ""pragma"",");
-      Put_Line ("      ""token_span"": [");
-      Put_Line ("        4,");
-      Put_Line ("        9");
-      Put_Line ("      ],");
-      Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""name"": ""SPARK_Mode"",");
-      Put_Line ("        ""argument"": ""On"",");
-      Put_Line ("        ""required"": true");
-      Put_Line ("      }");
-      Put_Line ("    },");
-      Put_Line ("    {");
-      Put_Line ("      ""id"": ""null_statement"",");
-      Put_Line ("      ""ada_kind"": ""null_statement"",");
-      Put_Line ("      ""token_span"": [");
-      Put_Line ("        11,");
-      Put_Line ("        12");
-      Put_Line ("      ],");
-      Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""count"": 1");
-      Put_Line ("      }");
-      Put_Line ("    }");
-      Put_Line ("  ],");
-      Put_Line ("  ""composition"": {");
-      Put_Line ("    ""root"": ""main_procedure"",");
-      Put_Line ("    ""declarative_items"": [");
-      Put_Line ("      ""spark_mode_on""");
-      Put_Line ("    ],");
-      Put_Line ("    ""statements"": [");
-      Put_Line ("      ""null_statement""");
-      Put_Line ("    ],");
-      Put_Line ("    ""additional_units"": false");
-      Put_Line ("  },");
-      Put_Line ("  ""profile"": ""silver-null-0"",");
-      Put_Line ("  ""max_source_bytes"":" & Decimal (Silver_Profile.Max_Source_Length) & ",");
-      Put_Line ("  ""procedure_name"": ""Main"",");
-      Put_Line ("  ""source_encoding"": ""ASCII"",");
-      Bytes ("whitespace_bytes", Whitespace);
-      Bytes ("allowed_source_bytes", Allowed);
-      Bytes ("identifier_bytes", Identifier);
-      Put_Line ("  ""comment_prefix"": """ & Silver_Profile.Comment_Introducer & """,");
-      Bytes ("comment_end_bytes", Comment_End);
-      Put_Line ("  ""comment_ends_at_eof"": true,");
-      Put_Line ("  ""comment_printable_bytes"": [32, 126],");
-      Put_Line ("  ""comment_tab_allowed"": true,");
-      Put_Line ("  ""ascii_case_insensitive"": true,");
-      Put_Line ("  ""whole_identifier_tokens"": true,");
-      Put_Line ("  ""additional_constructs"": false,");
-      Put ("  ""word_tokens"": [");
-      for Token in Silver_Profile.Token_Kind loop
-         if Silver_Profile.Is_Word_Token (Token) then
-            if Word_Written then
-               Put (",");
-            end if;
-            Put ("""" & Silver_Profile.Spelling (Token) & """");
-            Word_Written := True;
-         end if;
-      end loop;
-      Put_Line ("],");
-      Put ("  ""casefold_bytes"": [");
-      for Item in Character loop
-         if Item /= Character'First then
-            Put (",");
-         end if;
-         Put (Decimal (Character'Pos (Silver_Profile.Lowercase (Item))));
-      end loop;
-      Put_Line ("],");
-      Put_Line ("  ""tokens"": [");
-      for Index in Silver_Profile.Required_Tokens'Range loop
-         Put ("    """ & Silver_Profile.Spelling (Silver_Profile.Required_Tokens (Index)) & """");
-         if Index < Silver_Profile.Required_Tokens'Last then
-            Put (",");
-         end if;
-         New_Line;
-      end loop;
-      Put_Line ("  ]");
-      Put_Line ("}");
-   end Catalogue;
 
    function Valid_Command (Command : String) return Boolean is
      (Command'Length in 1 .. 16_384
@@ -187,9 +59,10 @@ procedure Silver with SPARK_Mode => On is
         and then Observed (Observed'First .. Last) = Expected;
    end Same_Source;
 
-   procedure Compile (Source : String; Run_After : Boolean)
-     with Pre => Source'Length <= Silver_Profile.Max_Source_Length
-       and then Silver_Profile.Is_Member (Source)
+   procedure Compile (Source : String; Output_Mode, Run_After : Boolean)
+     with Pre => (Runtime => Source'Length <= Silver_Profile.Max_Source_Length,
+                  Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
+                             else Silver_Profile.Is_Member (Source)))
    is
       Directory : Workspace_Path;
       Success : Boolean;
@@ -216,7 +89,9 @@ procedure Silver with SPARK_Mode => On is
            "project Program is" & LF &
            "   for Languages use (""Ada"");" & LF &
            "   for Source_Dirs use (""."");" & LF &
-           "   for Source_Files use (""main.adb"");" & LF &
+           (if Output_Mode then
+             "   for Source_Files use (""main.adb"", ""silver_io.ads"", ""silver_io.adb"", ""silver_output_libc.ads"");" & LF
+            else "   for Source_Files use (""main.adb"");" & LF) &
            "   for Main use (""main.adb"");" & LF &
            "   for Object_Dir use ""obj"";" & LF &
            "   for Exec_Dir use ""bin"";" & LF &
@@ -226,7 +101,8 @@ procedure Silver with SPARK_Mode => On is
            "end Program;" & LF;
          Proof_Command : constant String :=
            Silver_Build.Alire_Exec & "gnatprove -P " & Shell_Directory & "/program.gpr" &
-           " --mode=all --report=all --warnings=error";
+           " -U --mode=all --report=all --warnings=error --checks-as-errors=on" &
+           " --level=2 --prover=cvc5,z3,altergo --steps=10000 --timeout=0 --memlimit=0 -j0";
          Build_Command : constant String :=
            Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p";
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
@@ -237,6 +113,11 @@ procedure Silver with SPARK_Mode => On is
          Report_Read : Boolean;
          Report_Too_Long : Boolean;
          Report_Complete : Boolean;
+         Library_Sources : Silver_Libraries.Source_Set :=
+           (Bytes => (others => (others => Character'Val (0))), Lengths => (others => 0));
+         Runtime_Evidence_Complete : Boolean := False;
+         Initial_Libraries_Matched, Proof_Libraries_Matched, Build_Libraries_Matched : Boolean := False
+           with Ghost => Static;
 
          --  Past observations are recorded from actual return values and
          --  returned bytes. They never decide executable control flow.
@@ -250,8 +131,9 @@ procedure Silver with SPARK_Mode => On is
          Build_Command_Matched : Boolean with Ghost;
 
          procedure Prove
-           with Pre => Source_Written and then Valid_Command (Proof_Command)
+           with Pre => (Runtime => Source_Written and then Valid_Command (Proof_Command)
              and then Initial_Source_Matched and then Project_Written,
+             Static => (if Output_Mode then Initial_Libraries_Matched)),
              Post => Proof_Returned_Success = Success
                and then (if Success then Proof_Command_Matched)
          is
@@ -271,8 +153,10 @@ procedure Silver with SPARK_Mode => On is
              and then Proof_Source_Matched
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
-             and then Report_Complete,
-             Static => Report_Last <= Report'Length
+             and then Report_Complete
+             and then (if Output_Mode then Runtime_Evidence_Complete),
+             Static => (if Output_Mode then Initial_Libraries_Matched and then Proof_Libraries_Matched)
+               and then Report_Last <= Report'Length
                and then Silver_Reports.Recognizes_Null_Report
                  (Report (1 .. Report_Last))),
              Post => Build_Returned_Success = Success
@@ -288,7 +172,7 @@ procedure Silver with SPARK_Mode => On is
 
          procedure Publish
            with Pre => (Runtime =>
-             Silver_Profile.Is_Member (Source) and then Source_Written
+             Source_Written
              and then Valid_Path (Snapshot) and then Valid_Path (Report_Name)
              and then Valid_Path (Executable) and then Valid_Command (Executable_Command)
              and then Initial_Source_Matched and then Project_Written
@@ -298,9 +182,13 @@ procedure Silver with SPARK_Mode => On is
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
              and then Report_Complete
+             and then (if Output_Mode then Runtime_Evidence_Complete)
              and then Success and then Observed_Last <= Observed'Length
              and then Observed (1 .. Observed_Last) = Source,
-             Static => Report_Last <= Report'Length
+             Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
+                 and then Initial_Libraries_Matched and then Proof_Libraries_Matched
+                 and then Build_Libraries_Matched else Silver_Profile.Is_Member (Source))
+               and then Report_Last <= Report'Length
                and then Silver_Reports.Recognizes_Null_Report
                  (Report (1 .. Report_Last)))
          is
@@ -312,7 +200,7 @@ procedure Silver with SPARK_Mode => On is
             if Run_After then
                Execute (Executable_Command, Ran);
                if not Ran then
-                  Failure ("Execution failure for admitted Silver: toolchain or implementation defect.");
+                  Failure ("Execution failed: output failure or an external runtime/process failure.");
                   return;
                end if;
                Put_Line ("Execution completed successfully.");
@@ -345,6 +233,16 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Infrastructure error: cannot create an identical source snapshot.");
             return;
          end if;
+         if Output_Mode then
+            Silver_Libraries.Capture_And_Snapshot (Directory, Library_Sources, Success);
+            --  The verified helper reports success only after capturing, writing
+            --  and rereading the exact three library byte sequences.
+            Initial_Libraries_Matched := Success;
+            if not Success then
+               Failure ("Infrastructure error: cannot create identical runtime library snapshots.");
+               return;
+            end if;
+         end if;
          Write_File (Project, Project_Text, Success);
          Project_Written := Success and then Write_Closed
            and then Written_Count = Project_Text'Length
@@ -369,6 +267,20 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;
          end if;
+         if Output_Mode then
+            Silver_Libraries.Check_Proof_Evidence (Directory, Runtime_Evidence_Complete);
+            if not Runtime_Evidence_Complete then
+               Failure ("Verification failure for admitted Silver: missing or incomplete runtime library evidence.");
+               return;
+            end if;
+            Silver_Libraries.Same_Sources (Directory, Library_Sources, Success);
+            --  Same_Sources' successful-return contract establishes exact equality.
+            Proof_Libraries_Matched := Success;
+            if not Success then
+               Failure ("Infrastructure error: runtime library changed during verification.");
+               return;
+            end if;
+         end if;
          Same_Source (Snapshot, Source, Observed, Observed_Last, Success);
          Proof_Source_Matched := Success
            and then Observed (1 .. Observed_Last) = Source;
@@ -386,6 +298,14 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Infrastructure error: source changed during compilation.");
             return;
          end if;
+         if Output_Mode then
+            Silver_Libraries.Same_Sources (Directory, Library_Sources, Success);
+            Build_Libraries_Matched := Success;
+            if not Success then
+               Failure ("Infrastructure error: runtime library changed during compilation.");
+               return;
+            end if;
+         end if;
          Publish;
       end;
    end Compile;
@@ -395,7 +315,7 @@ begin
    if Silver_Runtime.Argument_Count = 1
      and then Silver_Runtime.Argument (1) = "catalogue"
    then
-      Catalogue;
+      Silver_Catalogue.Export;
       return;
    end if;
    if Silver_Runtime.Argument_Count /= 2 then
@@ -408,6 +328,7 @@ begin
       Source : String (1 .. Silver_Profile.Max_Source_Length);
       Last : Natural;
       Too_Long, Success : Boolean;
+      Null_Accepted, Output_Accepted : Boolean;
    begin
       if Command /= "check" and then Command /= "compile" and then Command /= "run" then
          Failure ("Usage: silver catalogue | silver {check|compile|run} SOURCE", 2);
@@ -422,13 +343,19 @@ begin
          Failure ("Infrastructure error: cannot read source file.");
          return;
       end if;
-      if Too_Long or else not Silver_Profile.Accepts (Source (1 .. Last)) then
-         Failure ("Rejected: source is outside the silver-null-0 catalogue.", 2);
+      if Too_Long then
+         Failure ("Rejected: source is outside the Silver catalogue.", 2);
          return;
       end if;
-      Put_Line ("Accepted: silver-null-0.");
+      Null_Accepted := Silver_Profile.Accepts (Source (1 .. Last));
+      Output_Accepted := not Null_Accepted and then Silver_Output_Profile.Accepts (Source (1 .. Last));
+      if not Null_Accepted and then not Output_Accepted then
+         Failure ("Rejected: source is outside the Silver catalogue.", 2);
+         return;
+      end if;
+      Put_Line ("Accepted: silver.");
       if Command /= "check" then
-         Compile (Source (1 .. Last), Command = "run");
+         Compile (Source (1 .. Last), Output_Accepted, Command = "run");
       end if;
    end;
 end Silver;

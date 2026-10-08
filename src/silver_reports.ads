@@ -7,9 +7,9 @@ package Silver_Reports with SPARK_Mode => On is
    function Recognizes_Null_Report (Report : String) return Boolean
      with Ghost => Static, Global => null;
 
-   --  The null-only profile generates no source-level checks. Require the
-   --  trusted GNATprove 16.1 report to confirm completed analysis of its sole
-   --  entity, with no failed, skipped, assumed, or outstanding obligations.
+   --  Both admitted application units have this empty-check report shape.
+   --  Require completed analysis of the sole entity, with no failed, skipped,
+   --  assumed or outstanding checks. Output library reports are checked separately.
    function Complete_Null_Proof (Report : String) return Boolean
      with Global => null,
           Post => (Static =>

@@ -28,14 +28,15 @@ that a configured pathname selects the intended executable.
 ## Compiler implementation and runtime imports
 
 All Silver-owned executable implementation is in the SPARK bodies under `src/`:
-`silver`, `silver_profile`, `silver_platform`, `silver_reports`, and
-`silver_numbers`. GNATprove checks those bodies, their specifications, and the
+`silver`, both profile recognizers, catalogue export, platform and library
+snapshot helpers, both report checkers, decimal rendering, and `silver_io`.
+GNATprove checks all bodies, their specifications, and the
 host-local generated `Silver_Build` SPARK specification. This specification
 contains absolute installation paths, shell-quoted paths, and the command prefix
 used to invoke Alire. Verification checks their use as SPARK values; bootstrap's
 choice of the installation and intended external tools remains reviewed
-configuration. Two additional SPARK specifications declare existing external entry points; neither
-has a Silver-owned implementation body.
+configuration. Three additional SPARK specifications declare existing external
+entry points; none has a Silver-owned implementation body.
 
 | Binding in `silver_libc.ads` | Existing libc symbol | Purpose |
 | --- | --- | --- |
@@ -94,12 +95,61 @@ Explicitly detected failures use the driver's failure status. Resource exhaustio
 or external runtime exceptions can still terminate the process outside that
 ordinary diagnostic path.
 
+## Literal-output boundary
+
+The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
+`String` parameter has no precondition. An executable length guard handles
+arguments exceeding 4096; the admitted literal domain always fits. GNATprove
+verifies initialization, arbitrary String lower bounds, byte-loop bounds and
+successful-return postconditions. Static ghost observations record bytes only
+after successful imported writes and record a successful flush. These
+observations and assertions are erased by GNAT, while their obligations remain.
+
+| Binding in `silver_output_libc.ads` | Existing libc symbol | Relied-upon behavior |
+| --- | --- | --- |
+| `Put_Byte` | `putchar` | Writes the supplied unsigned byte to C stdout and returns that byte on success; EOF reports failure. |
+| `Flush` | `fflush` | A null pointer flushes open C output streams; zero reports success. |
+| `Fail` | `exit` | Terminates the process with the supplied nonzero status; never returns. |
+
+These C-convention imports use the same conservative, initialized
+`Ada.Text_IO.File_System` abstract state as other compiler I/O bindings.
+`System.Null_Address` denotes the C null pointer on the supported GNAT ABI.
+There are no new C implementations or SPARK-off wrappers. The interface's exact
+reviewed token shape is pinned by the evidence audit and checked in Lean.
+
+For each literal byte the wrapper checks that `putchar` returned that byte.
+It then checks LF and `fflush(NULL)`. Normal return means all those operations
+reported success. A detected mismatch exits with status 1; accepted output can
+be partial on failure. Flush completion means host-stream acceptance, not
+reader consumption or durable storage. `fflush(NULL)` can flush other streams,
+but admitted programs create no others.
+
+Physical effects rely on faithful libc statuses, initialized standard output,
+and no concurrent writers, rebinding or mutation of the stream. Successful
+execution additionally needs available output capacity and progress of external
+calls. Imports and wrapper explicitly use `Always_Terminates => False`; no proof
+claims that a blocked device must progress. `exit` itself may block while
+flushing. SIGPIPE or another environmental process failure may terminate the
+program before a call returns, so not every output failure has status exactly 1.
+Resource exhaustion, tool/runtime defects and external interruption remain
+outside the verified source behavior. Healthy output yields the decoded literal
+followed by LF and successful return; unsuccessful output never becomes a
+successful partial return in the checked wrapper semantics.
+
+The Lean effect model represents completed replies from these external calls.
+Its transcript is accepted writes, not a proof of physical delivery. Its
+healthy-environment theorem proves success for every admitted literal, and its
+failure theorem gives status 1 and an accepted prefix under the completed-reply
+model. Signal and blocking behavior belong to the environmental boundary above.
+See [the experiment](hello-runtime-experiment.md) and
+[the assurance argument](assurance.md) for evidence and correspondence scope.
+
 ## Audit of the boundary
 
 `scripts/check_evidence.py` enumerates all Ada source units under `src/` and
 `.silver/<host>/generated/`, requires fresh `.spark` reports, and checks each
 owned entity. Full implementation entities must have `all` SPARK coverage.
-Exactly the eleven imported functions/procedures
+Exactly the fourteen imported functions/procedures
 above may have `spec` coverage. Their enclosing package declarations and any
 flow/proof diagnostics are still audited; a package initialization error is not
 waived because the package contains imports.
@@ -187,16 +237,17 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The catalogue names the admitted procedure, required `SPARK_Mode (On)` pragma,
-and single null statement, with their conditions and only allowed composition.
-It specializes the language to an empty user-program obligation set. Its report
-contract and safety theorem must be extended before admitting constructs that
-generate checks; compiler-implementation obligations remain substantive.
+The catalogue names both productions and their admitted constructs and operation.
+Both application-unit obligation sets are empty. Output selects the verified
+`Silver_IO` specification/body and `Silver_Output_Libc` interface. Their source
+bytes are copied from the installation into the private workspace and compared
+after capture, proof and build. The generated project explicitly selects only
+`main.adb` and those three files, excluding caller-planted library replacements.
 
 `Silver_Reports.Complete_Null_Proof` checks the GNATprove 16.1 `.spark` format for
 completed proof progress, no stop reason, precisely one fully SPARK entity, and
 empty flow, proof, skipped-proof, `Assume`, and warning/error lists. Zero checks
-are expected for the admitted null program; entity coverage prevents accepting
+are expected for either admitted application unit; entity coverage prevents accepting
 an empty analysis merely because it has no failures.
 
 GNATprove establishes the checker's exact functional contract:
@@ -225,6 +276,30 @@ same interpretation. The tool implementation, report provenance, filesystem,
 and absence of hostile concurrent replacement inside the private workspace are
 part of the external trust assumptions.
 
+For output, `Silver_Library_Reports.Complete_Runtime_Proof` additionally audits
+both library reports. It checks immediate required fields, completed analysis,
+no skips/assumptions/warnings, approved dependency predicates, exact selected
+entity coverage and each flow/proof record. The body requires nonempty checks
+and a proved `Put_Line` postcondition; the three imported declarations require
+specification-only coverage. Its bounded scanner handles quoted/escaped strings
+and nested metadata with a fixed stack, without executable recursion. It rejects
+duplicate audited fields and malformed checked records. There is no fixed
+historical obligation-count threshold.
+
+GNATprove verifies this scanner's safety; unlike the existing null-report
+checker, it has no independent ghost parser-refinement theorem. Its format
+interpretation is reviewed and tested against actual and mutated reports.
+Unrecognized metadata is skipped within bounds. Neither checker authenticates
+arbitrary JSON or replaces trusted GNATprove completeness and provenance.
+
+Application proof uses `-U --mode=all --report=all --warnings=error
+--checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
+--timeout=0 --memlimit=0 -j0`. The fixed library obligations are discharged on
+every fresh application compile; application membership remains independent of
+those results. Zero wall-clock timeout is not a guarantee against environmental
+failure. Compiler development proofs have their separately documented cached,
+wall-clock-limited configuration.
+
 The driver's proved contracts require source membership, exact source/project
 write observations, matching source reads, the accepted report predicate, and
 successful calls of the specified proof/build commands before publishing or
@@ -236,7 +311,8 @@ these contracts do not constitute verification of libc or GNAT itself.
 ## Source correspondence and semantic assumptions
 
 The handwritten `Silver.AuthoritativeSource` module fixes the source bindings
-for the actual profile specification and body. The certificate generator emits
+for both actual recognizer specifications/bodies and the three selected output
+library files. The certificate generator emits
 candidate reconstruction data and cannot select replacement bindings. Lean
 checks that every source byte, including comments and literals, belongs to
 HT/LF/CR or printable ASCII. A checked-in complete token shape fixes declarations,
@@ -292,22 +368,24 @@ are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
 The Lean replay tree is private to the host and reads the authoritative `src/`
-through a checked link. Generated source certificates, Lake artifacts, and
+through a checked link. Seven generated source-certificate modules, Lake artifacts, and
 manifests are written there. Shared proof inputs are fingerprinted and must
 remain unchanged throughout replay. Script inputs, Lean/Lake/kernel-checker
 binaries, compiled artifacts and the replay log are also hashed. The imported
 module inventory and transitive axiom audit come from a fresh execution of the
 audit module after every build, including cache hits. Full/clean modes also
 perform a fresh independent kernel recheck. Local cached Lean objects rely on
-Lake's dependency tracking and the pinned Lean toolchain; both external Ada
+Lake's dependency tracking and the pinned Lean toolchain; all seven embedded Ada
 files are binary input dependencies, rehashed on each invocation. A change to
-either invalidates the whole Silver Lean library's cached build. Lean/Lake
+any of them invalidates the whole Silver Lean library's cached build. Lean/Lake
 startup receives explicit native tool, sysroot, configuration, and cache paths;
 inherited Lean/Elan search
 paths and tool selections cannot redirect it. Artifact restoration is disabled
 for proof replay; this does not disable the local Lake build cache.
 
-After generation and again after replay, noncandidate workspace modules and
+The handwritten import facade is protected like other proof inputs; only the
+seven enumerated candidate modules may be regenerated. After generation and
+again after replay, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot
 replace a handwritten binding or proof module while leaving only a self-consistent
@@ -326,7 +404,8 @@ mode. Retained compiler and final clean Lean artifacts were independently
 corroborated on Linux. These artifacts cover that reviewed workflow, not the
 subsequent cold/guard changes. Exact evidence and scope are in
 [the workflow record](proof-workflow.md). Native macOS validation of those
-additions and Linux/macOS x86-64 validation remain pending.
+additions and this Hello World capability, and Linux/macOS x86-64 validation,
+remain pending. Linux Hello World evidence is in [the capability record](hello-world.md).
 CI is prepared for
 `ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
 The work is local-only as requested, the repository has no remote, and no CI job

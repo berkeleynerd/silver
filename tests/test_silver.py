@@ -52,8 +52,8 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout)
         catalogue = json.loads(result.stdout)
         self.assertIsInstance(catalogue, dict)
-        self.assertEqual(catalogue, json.loads((ROOT / "catalogue/silver-null-0.json").read_text()))
-        self.assertEqual(catalogue["profile"], "silver-null-0")
+        self.assertEqual(catalogue, json.loads((ROOT / "catalogue/silver.json").read_text()))
+        self.assertEqual(catalogue["profile"], "silver")
         self.assertEqual(catalogue["max_source_bytes"], 4096)
         self.assertEqual(catalogue["procedure_name"], "Main")
         self.assertEqual(catalogue["source_encoding"], "ASCII")
@@ -71,17 +71,22 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(catalogue["additional_constructs"], False)
         self.assertEqual(catalogue["schema_version"], 1)
         constructs = {item["id"]: item for item in catalogue["constructs"]}
-        self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement"})
-        self.assertEqual(catalogue["composition"], {
-            "root": "main_procedure", "declarative_items": ["spark_mode_on"],
-            "statements": ["null_statement"], "additional_units": False})
-        for name, expected in (("spark_mode_on", ["pragma", "spark_mode", "(", "on", ")", ";"]),
-                               ("null_statement", ["null", ";"])):
-            first, last = constructs[name]["token_span"]
-            self.assertEqual(catalogue["tokens"][first - 1:last], expected)
-        self.assertEqual(catalogue["tokens"], ["procedure", "main", "is", "pragma",
+        self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement",
+                                          "runtime_context", "literal_output", "string_literal"})
+        compositions = {item["name"]: item for item in catalogue["compositions"]}
+        self.assertEqual(set(compositions), {"null", "literal_output"})
+        self.assertEqual(compositions["null"]["statements"], ["null_statement"])
+        self.assertEqual(compositions["null"]["context"], [])
+        self.assertEqual(compositions["literal_output"]["statements"], ["literal_output"])
+        self.assertEqual(compositions["literal_output"]["context"], ["runtime_context"])
+        self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '""')
+        self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",
                          ";", "end", "main", ";"])
+        self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
+                         "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
+                         "begin", "silver_io", ".", "put_line", "(", "<string_literal>",
+                         ")", ";", "end", "main", ";"])
 
     def test_accepted_lexical_forms(self) -> None:
         cases = {
@@ -353,7 +358,10 @@ class SilverIntegrationTests(unittest.TestCase):
                                              "GPR_PROJECT_PATH": "untrusted-projects",
                                              "GPR_PROJECT_PATH_FILE": "untrusted-list",
                                              "ADA_PROJECT_PATH": "untrusted-ada"},
-                                        timeout=30)
+                                        # Full-size reports exercise bounded scans plus runtime
+                                        # ghost observations on potentially contended hosts.
+                                        timeout=120 if mode in ("maximum_report", "oversized_report",
+                                                               "large_rejected") else 30)
                 successful = mode in ("success", "large_report", "maximum_report")
                 self.assertEqual(result.returncode, 0 if successful else 3, result.stdout)
                 self.assertTrue((sandbox / "routing_checked").is_file(), result.stdout)
