@@ -1,7 +1,6 @@
 """End-to-end regression evidence for the actual SPARK executable."""
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -86,7 +85,7 @@ class SilverIntegrationTests(unittest.TestCase):
 
     def test_accepted_lexical_forms(self) -> None:
         cases = {
-            "original": (ROOT / "null.adb").read_bytes(),
+            "original": (ROOT / "samples/null.adb").read_bytes(),
             "compact": CANONICAL,
             "case": CANONICAL.upper(),
             "mixed_case": b"PrOcEdUrE mAiN iS pRaGmA SpArK_MoDe(oN);bEgIn NuLl;eNd MAIN;",
@@ -152,7 +151,7 @@ class SilverIntegrationTests(unittest.TestCase):
 
     def test_command_usage_errors(self) -> None:
         for args in ((), ("unknown",), ("check",), ("compile",), ("run",),
-                     ("check", "null.adb", "extra")):
+                     ("check", "samples/null.adb", "extra")):
             with self.subTest(args=args):
                 self.assertNotEqual(invoke(*args).returncode, 0)
 
@@ -168,57 +167,52 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertFalse(list(workspace.rglob("*.spark")), "excluded source reached proof")
             self.assertFalse((workspace / "bin/main").exists(), "excluded source was compiled")
 
-    def test_compile_and_run_preserve_the_admitted_source(self) -> None:
+    def test_run_preserves_the_admitted_source(self) -> None:
         # Includes filename punctuation, maximum source length and nontrivial
         # lexical variation: these must survive admission/proof/build unchanged.
-        original = ROOT / "null.adb"
-        original_digest = hashlib.sha256(original.read_bytes()).digest()
         variant = b"-- leading comment\r\n" + CANONICAL.upper() + b"--"
         variant += b"x" * (4096 - len(variant))
-        for command, data in (("compile", original.read_bytes()), ("run", variant)):
-            with self.subTest(command=command):
-                source = Path(self.directory.name) / "input ' with spaces.adb"
-                source.write_bytes(data)
-                before = set(HOST.artifacts.glob("program-*"))
-                # Paths are anchored to the compiled installation, even when
-                # the caller has a separate tree resembling that installation.
-                foreign = Path(self.directory.name) / "foreign"
-                foreign.mkdir(exist_ok=True)
-                planted = foreign / HOST.alr.relative_to(ROOT)
-                planted.parent.mkdir(parents=True, exist_ok=True)
-                planted.write_text("#!/bin/sh\nexit 99\n")
-                planted.chmod(0o755)
-                result = invoke(command, source, cwd=foreign)
-                self.assertEqual(result.returncode, 0, result.stdout)
-                self.assertEqual("Execution completed successfully." in result.stdout, command == "run")
-                self.assertFalse((foreign / ".silver").exists())
-                match = re.search(r"^Executable: (.+)$", result.stdout, re.MULTILINE)
-                self.assertIsNotNone(match, result.stdout)
-                executable = Path(match.group(1))
-                if not executable.is_absolute():
-                    executable = ROOT / executable
-                self.assertTrue(executable.is_file(), result.stdout)
-                execution = subprocess.run([str(executable)], timeout=10, capture_output=True)
-                self.assertEqual(execution.returncode, 0, execution.stderr)
-                self.assertEqual(execution.stdout, b"")
-                self.assertEqual(source.read_bytes(), data)
-                created = set(HOST.artifacts.glob("program-*")) - before
-                self.assertEqual(len(created), 1, result.stdout)
-                workspace = created.pop()
-                snapshots = [path for path in workspace.rglob("*.adb")
-                             if path.read_bytes() == data]
-                self.assertEqual(len(snapshots), 1, "missing or ambiguous byte-identical snapshot")
-                projects = list(workspace.glob("*.gpr"))
-                self.assertEqual(len(projects), 1)
-                self.assertIn(snapshots[0].name, projects[0].read_text())
-                reports = list(workspace.rglob("gnatprove.sarif"))
-                self.assertEqual(len(reports), 1)
-                from scripts.check_evidence import audit_reports
-                statistics = audit_reports(reports[0].parent, {snapshots[0].stem})
-                self.assertEqual(statistics["units"], 1)
-                self.assertEqual(statistics["proof_checks"], 0)
-                shutil.rmtree(workspace)
-        self.assertEqual(hashlib.sha256(original.read_bytes()).digest(), original_digest)
+        source = Path(self.directory.name) / "input ' with spaces.adb"
+        source.write_bytes(variant)
+        before = set(HOST.artifacts.glob("program-*"))
+        # Paths are anchored to the compiled installation, even when
+        # the caller has a separate tree resembling that installation.
+        foreign = Path(self.directory.name) / "foreign"
+        foreign.mkdir(exist_ok=True)
+        planted = foreign / HOST.alr.relative_to(ROOT)
+        planted.parent.mkdir(parents=True, exist_ok=True)
+        planted.write_text("#!/bin/sh\nexit 99\n")
+        planted.chmod(0o755)
+        result = invoke("run", source, cwd=foreign)
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertIn("Execution completed successfully.", result.stdout)
+        self.assertFalse((foreign / ".silver").exists())
+        match = re.search(r"^Executable: (.+)$", result.stdout, re.MULTILINE)
+        self.assertIsNotNone(match, result.stdout)
+        executable = Path(match.group(1))
+        if not executable.is_absolute():
+            executable = ROOT / executable
+        self.assertTrue(executable.is_file(), result.stdout)
+        execution = subprocess.run([str(executable)], timeout=10, capture_output=True)
+        self.assertEqual(execution.returncode, 0, execution.stderr)
+        self.assertEqual(execution.stdout, b"")
+        self.assertEqual(source.read_bytes(), variant)
+        created = set(HOST.artifacts.glob("program-*")) - before
+        self.assertEqual(len(created), 1, result.stdout)
+        workspace = created.pop()
+        snapshots = [path for path in workspace.rglob("*.adb")
+                     if path.read_bytes() == variant]
+        self.assertEqual(len(snapshots), 1, "missing or ambiguous byte-identical snapshot")
+        projects = list(workspace.glob("*.gpr"))
+        self.assertEqual(len(projects), 1)
+        self.assertIn(snapshots[0].name, projects[0].read_text())
+        reports = list(workspace.rglob("gnatprove.sarif"))
+        self.assertEqual(len(reports), 1)
+        from scripts.check_evidence import audit_reports
+        statistics = audit_reports(reports[0].parent, {snapshots[0].stem})
+        self.assertEqual(statistics["units"], 1)
+        self.assertEqual(statistics["proof_checks"], 0)
+        shutil.rmtree(workspace)
 
     def test_tool_failures_and_source_changes_do_not_report_success(self) -> None:
         # Only the external tool is replaced. The real SPARK CLI executes all

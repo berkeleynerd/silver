@@ -105,9 +105,9 @@ as version 26.0.0. Downloads and generated files are ignored by Git.
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
 "$silver_executable" catalogue
-"$silver_executable" check null.adb
-"$silver_executable" compile null.adb
-"$silver_executable" run null.adb
+"$silver_executable" check samples/null.adb
+"$silver_executable" compile samples/null.adb
+"$silver_executable" run samples/null.adb
 ```
 
 `check` decides membership without invoking a prover. `compile` first admits the

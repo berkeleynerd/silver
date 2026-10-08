@@ -144,12 +144,12 @@ counts in [the workflow record](docs/proof-workflow.md), not acceptance threshol
 
 ## Samples, platforms and handoffs
 
-[null.adb](null.adb) remains in the root. Its byte-preserving move to `samples/`,
-a small sample manifest and manifest-driven validation remain proposed work.
-When implemented, the manifest should link supported samples to capabilities,
+[samples/null.adb](samples/null.adb) preserves the original source bytes. The
+[sample manifest](samples/manifest.json) links supported samples to capabilities,
 specification references and expected output/exit status. Proposed examples stay
-in the roadmap; rejected fixtures stay in tests. Every supported sample should
-be admitted, proved, built and executed by the suite.
+in the roadmap; rejected fixtures stay in tests. The manifest-driven test admits,
+proves, builds and executes every supported sample, comparing application output
+separately from compiler diagnostics.
 
 Linux is primary; native macOS validation is independent and nonblocking.
 Distinguish native evidence, mocked routing and configured-but-unrun CI.

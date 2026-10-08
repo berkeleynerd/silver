@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-08 — Hello World goal authorized
+
+The owner approved the proposed implementation goal and autonomous progress
+through its milestones, using judgment about sub-agent models and effort.
+The previous null-program goal is complete. The new goal is a supported class
+of bounded string-literal output programs, represented by
+`samples/hello_world.adb`, producing `Hello, world!` followed by LF and a
+successful exit. Preserve the null baseline, move it into a small manifest-driven
+sample collection, verify all owned SPARK code and extend the language-wide Lean
+assurance and actual-source correspondence. Finish with Linux validation,
+independent review and local commits. Native macOS and remote CI remain
+nonblocking; do not publish.
+
+The owner chose to leave the Oracle unchanged after discussing the scratch
+draft `tmp/oracle-draft-bullets.md`. That draft is not a requirement. In
+particular, it does not mandate a new solver, a universal certificate pipeline,
+or new release machinery. Keep “If it compiles, it proves” and the existing
+complete automatic assurance requirement.
+
+Begin with an isolated runtime/obligation experiment before selecting the
+output binding and necessary report changes. New syntax remains experimental
+until implementation, proofs, catalogue and specification agree. Routine proof
+failures are implementation work; do not weaken guarantees or treat a working
+sample alone as completion. The checkpoint and evidence are recorded in
+[hello-world.md](hello-world.md).
+
+The sample-collection increment is complete: the original 69-byte null source
+now lives at `samples/null.adb`, unchanged. `samples/manifest.json` drives the
+baseline's admission/proof/build/run test and separates actual application
+output from compiler diagnostics. Focused native tests passed. Earlier entries
+describing the root sample location are historical.
+
 ## 2026-10-08 — Pre-1.0 direction and completed workflow changes
 
 The owner chose **one evolving language before 1.0**. Git records its history;

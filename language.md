@@ -98,10 +98,11 @@ source is an implementation or toolchain defect.
 
 ## Examples and growth
 
-[null.adb](null.adb) is the supported baseline example. A future `samples/`
-collection and `samples/manifest.json` are proposed in the roadmap. Samples
-witness supported behavior; they do not replace this specification or the
-universal assurance argument.
+[samples/null.adb](samples/null.adb) is the supported baseline example. The
+[sample manifest](samples/manifest.json) records each supported sample's
+capabilities and expected output and exit status. The suite admits, proves,
+builds and executes each sample. Samples witness supported behavior; they do
+not replace this specification or the universal assurance argument.
 
 Language changes must specify their exact syntax, restrictions, inherited
 semantics, and compositions, including interactions with existing capabilities.

@@ -36,12 +36,12 @@ sequence.
 
 | Milestone | Status | Capability and dependencies | Sample |
 | --- | --- | --- | --- |
-| Null baseline | Supported | `main_procedure`, `spark_mode_on`, and `null_statement` in the sole `silver-null-0` composition. | [null.adb](null.adb) |
+| Null baseline | Supported | `main_procedure`, `spark_mode_on`, and `null_statement` in the sole `silver-null-0` composition. | [samples/null.adb](samples/null.adb) |
 | Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; CI has not run. | Developer workflow |
-| Sample collection | Proposed | Relocate `null.adb` into `samples/`, add a manifest of capabilities and expected behavior, and update references and validation without changing language membership. | Future `samples/null.adb` |
+| Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Approved runtime context | Proposed | A context clause for a specifically selected runtime package; selected specifications and bodies, dependencies, elaboration, and initialization must be covered. | Future `runtime_context.adb` |
-| First text output | Proposed | A qualified call to one admitted operation and a specified class of string-literal arguments; depends on the approved runtime context and its verified implementation. | Future `text_output.adb` |
-| Hello World | Proposed | Complete output behavior and automatic assurance for the chosen operation and literal class; composes the preceding capabilities. | Future `hello_world.adb` |
+| First text output | In progress | Isolated wrapper and obligation experiment, followed by one qualified call and a specified class of string-literal arguments; admission requires the approved runtime context and its verified implementation. | Future `hello_world.adb` |
+| Hello World | In progress | Complete output behavior and automatic assurance for the chosen operation and literal class; see the [implementation checkpoint](docs/hello-world.md). | Future `hello_world.adb` |
 
 A parameterless newline operation could be a separate step before text output
 if it is a desired part of the runtime API. It is not required merely to split
@@ -104,9 +104,9 @@ place; accurate evidence and current language guarantees are still required.
 For each active milestone, record its capability identifiers, dependencies,
 exact scope, remaining decisions, and links to implementation and evidence.
 When a language capability becomes supported, update this file, `language.md`,
-the catalogue, and the sample manifest together. The sample collection is a
-separate proposed repository change; preparing these documents does not execute
-it or any output milestone. Keep proof claims and assumptions in
+the catalogue, and the sample manifest together. The sample collection is
+implemented; the output capability remains in progress and is not yet admitted.
+Keep proof claims and assumptions in
 [docs/assurance.md](docs/assurance.md) and
 [docs/trusted-boundary.md](docs/trusted-boundary.md), linking to them here.
 

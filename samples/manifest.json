@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "samples": [
+    {
+      "source": "null.adb",
+      "capabilities": ["main_procedure", "spark_mode_on", "null_statement"],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {"stdout": "", "stderr": "", "exit_status": 0}
+    }
+  ]
+}
