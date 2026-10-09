@@ -278,6 +278,30 @@ adds an explicit capacity guard before constructing its output; the existing
 argument-validity guard alone does not reserve space for a prefix and suffix.
 That follow-on is not authorized by the completed greeting goal.
 
+## Proof coverage follow-up
+
+The 2026-10-09 review of additional prover options identified one existing
+mechanization gap worth a focused follow-up: `Silver_Library_Reports` has verified
+safety, but its report-policy meaning is reviewed and tested rather than linked
+to an independent functional specification. See the
+[current assurance scope](docs/assurance.md#selected-library-sources-and-evidence)
+and [report boundary](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
+This is not a discovered incorrect acceptance or a need for another prover.
+
+Proposed work, naturally paired with future report changes, is to prove that
+acceptance establishes the required coverage and discharge policy, and that
+genuinely complete successful reports in the supported format are accepted.
+Keep report/parser bounds sufficient for every admitted program. Use existing
+SPARK/Lean tools and the pinned producer's format; completeness of GNATprove's
+emitted obligations remains its documented premise. No general JSON framework
+or adversarial report authentication is proposed. This entry does not start
+implementation or reorder the already proposed next goals.
+
+The guarded command-line goal separately requires extending the language-wide
+automatic-discharge argument to its actual generated obligations. The current
+empty-application proof does not establish that extension, and additional
+solvers or certificates alone would not establish it either.
+
 ## Deferred until needed
 
 Binary attestations, full per-program dependency provenance, additional defenses
@@ -286,6 +310,12 @@ Revisit them when distributing independently consumed binaries, working in
 untrusted/shared environments, or preparing a stable release makes them useful.
 They are not prerequisites for Hello World. Existing validation remains in
 place; accurate evidence and current language guarantees are still required.
+
+Additional solver cross-checks, alternative kernels such as lean4lean, duplicate
+proof developments in Rocq/Isabelle and solver-certificate infrastructure are
+deferred. Revisit additional proof tooling only for a demonstrated coverage or
+automatic-discharge gap, or when practical use warrants redundancy. No new
+prover dependency or Oracle amendment is indicated by the current assessment.
 
 ## Recording progress
 

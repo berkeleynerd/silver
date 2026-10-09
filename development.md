@@ -25,6 +25,15 @@ Binary attestations, comprehensive per-program dependency manifests and
 additional adversarial workspace defenses are deferred until distribution or
 stronger reproducibility claims require them. Existing safeguards remain.
 
+Additional solvers, proof assistants and checkers must address a concrete gap
+in end-to-end proof coverage or automatic discharge for the current or authorized
+next capability. Defer redundant solver runs, second kernels and duplicated
+proof developments until practical use justifies them. Solver certificates can
+reduce an approved trust assumption, but do not by themselves establish faithful
+obligation generation or that every admitted program automatically proves.
+Use the existing SPARK/Lean tools for missing arguments where they suffice.
+This preserves existing checks and the work needed for a fast cached proof loop.
+
 ## Admit one coherent capability
 
 Prefer a small capability motivated by a sample. Closely coupled syntax may

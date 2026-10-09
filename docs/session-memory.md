@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-09 — Additional proof tools require a concrete coverage gap
+
+The owner deferred extra solvers/provers/checkers that only add redundancy until
+Silver offers something practically useful. Additional tooling must close an identified
+end-to-end coverage gap or strengthen automatic discharge for admitted programs.
+The [development policy](../development.md#pre-10-development-policy) records
+the rule; existing checks, source correspondence and proof-cache/performance
+work remain in scope under their existing authorization status.
+
+No proposed additional prover is needed now. A read-only source and assurance
+check confirmed one existing mechanization gap: the library-report scanner has
+verified safety but no independent functional refinement of its acceptance
+policy. The [roadmap](../roadmap.md#proof-coverage-follow-up) records a proposed
+soundness/completeness argument for genuine supported reports using existing
+tools. This is not a demonstrated bug. The next dynamic-concatenation capability
+also needs its own obligation/discharge argument, as already planned. Neither
+follow-up starts here; approved external-tool premises and the Oracle remain
+unchanged. The host-local CLI memory was updated with this durable decision.
+
 ## 2026-10-09 — CLI memory enabled and seeded
 
 The owner enabled Codex CLI memories and requested the same durable guidance

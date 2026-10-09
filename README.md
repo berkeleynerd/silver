@@ -9,7 +9,9 @@ Before 1.0, Silver is one evolving language. We prioritize foundational
 correctness, useful capabilities and a fast proof loop. Intentional language
 changes are documented together with their proofs and examples; historical
 language editions are not maintained. Independently addable release hardening
-is deferred until needed. See [the development policy](development.md).
+is deferred until needed. Additional proof tools must close a concrete coverage
+or automatic-discharge gap; redundant verification is deferred until practical
+use justifies it. See [the development policy](development.md).
 
 The root documents provide the main review entry points:
 
