@@ -172,10 +172,11 @@ record are retained under `superseded-input-*`. A new full invocation captures
 all final bytes and reuses those modules before its fresh kernel recheck; the
 superseded invocation is not claimed as completed full evidence.
 
-Native macOS validation of this increment is pending, independent and
-nonblocking. Earlier macOS evidence validates the five-form baseline only.
-Hosted CI, x86-64 and GNAT Pro remain untested. Work remains local; the Oracle
-is unchanged.
+At this local validation checkpoint, native macOS validation of this increment
+was pending, independent and nonblocking. Earlier macOS evidence validates the
+five-form baseline only. This record includes no hosted CI, x86-64 or GNAT Pro
+run. See the [session memory](session-memory.md) and [handoff](../RESUME.md) for
+subsequent publication and CI status. The Oracle is unchanged.
 
 ## Completed Lean evidence and handoff
 

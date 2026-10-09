@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-09 — Published history and replacement-host handoff refreshed
+
+Read-only remote verification confirmed `main` at `9731278`, including feature
+implementation/review target `96b4e3a` and performance decision `5668806`.
+Publication has succeeded since the initial rejected push; the credential
+blocker below is historical. The first
+[GitHub Actions run](https://github.com/berkeleynerd/silver/actions/runs/37983290787)
+was in progress at this refresh. Check its outcome separately from retained
+native Linux evidence; do not infer success from publication. The harness goal
+remains complete, and no further language expansion is authorized.
+
+The owner is preparing a new sandbox on a host with 96 GB physical RAM. The
+recommended allocation is now 32 GiB sandbox RAM, automatic CPU allocation and
+64 GiB Docker storage. The [handoff](../RESUME.md) contains the verified one-line
+`sbx create` command and distinguishes Docker storage from the mounted workspace's
+host filesystem. This supersedes the earlier 18 GB plan without claiming the
+new VM or evidence transfer has been verified. Keep conservative proof settings
+initially; physical RAM and Lean allocation limits are distinct.
+
+The handoff changes are documentation only and preserve the implementation
+review target. Publication authorization still applies; commit and push this
+refresh so the new host can receive it. Preserve local ignored evidence/caches
+and untracked `.vscode/` and `tmp/`. A CLI memory update note records the actual
+closing commit and push result after handoff.
+
 ## 2026-10-09 — Remote publication authorized
 
 The owner added `origin` at `git@github.com:berkeleynerd/silver.git` and explicitly

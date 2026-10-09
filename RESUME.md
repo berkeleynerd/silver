@@ -1,8 +1,9 @@
 # Silver VM handoff
 
 Prepared on 2026-10-09 after completing the authorized performance and guarded
-command-line greeting work, before the requested VM replacement. No VM migration
-or destruction has been performed.
+command-line greeting work. Refreshed after publication and the owner's move to
+a host with 96 GB RAM, where the replacement sandbox is being prepared. Creation
+of that sandbox and transfer of local evidence have not been verified here.
 
 ## Completed work and review target
 
@@ -20,14 +21,20 @@ or destruction has been performed.
   explicit resumption; do not recreate it as unfinished work from an old note.
 - The Oracle is unchanged. After completion, the owner added the
   [GitHub remote](https://github.com/berkeleynerd/silver) and authorized pushing
-  the committed history. The first push was rejected for missing OAuth
-  `workflow` scope; publication is pending credential refresh. No next language
-  capability or further performance investigation is authorized.
+  the committed history. Publication is now confirmed: remote `main` contained
+  `9731278` at this refresh, including the implementation and performance commits.
+  The initial missing-`workflow`-scope rejection is historical, not a current
+  publication blocker. No next language capability or further performance
+  investigation is authorized.
 
 Read [the capability record](docs/command-line-greeting.md) for exact proof
 claims, results, identities and limitations, and
 [the performance record](docs/certificate-performance.md) for the negative
 performance result. The next action is external review of the feature commit.
+The first [hosted CI run](https://github.com/berkeleynerd/silver/actions/runs/37983290787)
+started for `9731278` and was in progress at this refresh; inspect its final
+results before claiming hosted validation. Later handoff-only commits do not
+change the implementation review target.
 
 ## Preserve before replacing the VM
 
@@ -68,9 +75,12 @@ the owner's latest instructions take precedence over the older paused snapshot.
    [session memory](docs/session-memory.md). Inspect Git status and the live
    harness goal before starting work.
 2. Verify the actual OS, architecture, RAM and free disk. The old checkout path
-   looks like macOS, but the completed work ran on Linux ARM64. The owner allows
-   **18 GB RAM** for the replacement; **64 GB disk** is the suggested allowance.
-   These are provisioning recommendations, not changes already applied.
+   looks like macOS, but the completed work ran on Linux ARM64. The owner now has
+   a host with **96 GB RAM**. The recommended sandbox allocation is **32 GiB RAM**,
+   automatic CPU allocation, and **64 GiB Docker storage**. The mounted Silver
+   workspace, including `.tools/` and `.silver/`, uses the host filesystem and
+   needs its own free space. These recommendations supersede the earlier 18 GB
+   plan; the new sandbox's actual resources still need verification.
 3. Check selected host paths with `python3 scripts/dev.py paths`. Python 3.11+
    and native libc development files are required on Linux. If the installation
    moves, run `python3 scripts/bootstrap.py`,
@@ -89,11 +99,27 @@ the owner's latest instructions take precedence over the older paused snapshot.
    `leanchecker` has no memory-limit CLI option. Retain caches; use cold or clean
    checks only when their purpose warrants the extra cost.
 
+Run this on the new host from the Silver folder to create the sandbox:
+
+```sh
+DOCKER_SANDBOXES_DOCKER_SIZE=64g sbx create --name codex-silver --cpus 0 --memory 32g codex .
+```
+
+Then attach with `sbx run --name codex-silver`. The
+[creation options](https://docs.docker.com/reference/cli/sbx/create/) use binary
+memory units and automatic CPU allocation (capped at 16 on Linux ARM64). The
+[disk override](https://docs.docker.com/ai/sandboxes/configuration/settings/#sandboxdiskdockervolume)
+sets the new sandbox's Docker volume, not the mounted workspace's capacity.
+Additional physical RAM does not change Lean's configured allocation limit or
+establish a measured proof speedup; retain the conservative starting settings
+above until actual resource use warrants tuning.
+
 No validation process needs to be resumed from this VM. The final compiler audit
 used wholly fresh sessions/cache, and the final Lean invocation reused completed
 modules but executed a fresh axiom audit and kernel recheck. Native macOS
-validation of the sixth form remains independent and pending; x86-64, hosted CI
-and AdaCore GNAT Pro remain untested.
+validation of the sixth form remains independent and pending in the retained
+local evidence; that evidence also contains no x86-64 or AdaCore GNAT Pro run.
+Hosted CI has now started separately, as linked above.
 
 The intermittent GNATprove `DOC_END` JSON-reader failure in reused state remains
 unresolved. Logs are preserved; there is no automatic retry and cold success is
