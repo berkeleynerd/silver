@@ -1,5 +1,125 @@
 # Session memory
 
+## 2026-10-09 — Combined goal completed; guarded greeting ready for review
+
+The owner resumed work and requested completion before VM replacement. Both
+units are complete: performance decision in `5668806`, and the sixth production
+in the implementation commit carrying this entry and adding
+`samples/command_line_greeting.adb`. That implementation commit is the next
+external-review target; subsequent documentation alone does not change it.
+The goal is to be marked complete at this local-commit handoff, not replaced by
+another feature goal. No next language expansion is authorized.
+
+The [capability record](command-line-greeting.md) holds the complete native Linux
+SPARK/build/test/Lean/kernel results, exact evidence identities, independent
+review and retained failures. It distinguishes the failed performance candidates,
+the fixed Lake resource-option bug, two unresolved warm-state GNAT JSON-reader
+crashes, the repaired warning audit and platform fixture, and successful final
+cold compiler and cached full Lean validation. Compiler and proof source bytes
+were rechecked after completion. Native macOS for this increment, x86-64,
+hosted CI and GNAT Pro remain untested; macOS is independently handled and
+nonblocking. The Oracle and approved external-tool boundary are unchanged.
+
+The next action is external review of the feature commit. VM replacement can
+follow this completed goal; preserve the checkout and host-local evidence/caches,
+and consult [the VM handoff](../RESUME.md). The future RAM allowance is 18 GB;
+resource settings must still respect actual host headroom. Work remains local,
+with unrelated `.vscode/` and `tmp/` left untouched. CLI recall receives a small
+completion note with the actual commit identifier after the commit; this records
+an explicit note write, not assumed background consolidation.
+
+## 2026-10-09 — Performance committed; guarded greeting integrated
+
+The bounded negative result is locally committed as `5668806`. Both permitted
+candidates failed to establish an improvement, so the existing certificate
+implementation stays; no third approach. See [the record](certificate-performance.md).
+The configured CI allowance is now 120 minutes; hosted capacity is unmeasured.
+
+The sixth-production implementation, runtime normalization, independent report
+policy and Lean source bridges are integrated. Full native Linux validation is
+running; the feature is not yet complete or committed. The first full Lean
+attempt was explicitly stopped because Lake reused a cached configuration that
+ignored the requested memory limit. Repair that resource-option handling and
+preserve the unsuccessful log before final replay. Source/proof checks are not
+weakened. The [capability record](command-line-greeting.md) and host-local
+`.silver/linux-aarch64/guarded-greeting-validation/` retain current evidence.
+The owner still requests completion in this VM before replacement.
+
+## 2026-10-09 — Owner resumed the goal before VM replacement
+
+The owner instructed: "Let's finish the current goal before we make this change."
+This revokes the preceding pause. Complete the existing two-unit goal in the
+current Linux ARM64 VM before migration: final bounded performance decision and
+its local commit, then guarded greeting/report-policy integration, full assurance,
+independent review and local feature commit. The replacement VM and its handoff
+document are deferred until that work is complete.
+
+At resumption, the harness still returned the original objective with status
+paused; the exposed goal tools have no resume operation. The owner's instruction
+authorizes resumed work without creating or replacing the unfinished goal.
+The existing environment still has about 12 GiB RAM. The owner's future VM limit
+is 18 GB; the proposed 6-GiB Lean allowance and 64-GB disk are future settings,
+not changes already applied. Keep the current bounded comparison's recorded
+4-GiB/3300-second limits and label any resource changes separately.
+
+No proof process survived the pause. The second and final candidate's helper
+repair now checks; its first dominant benchmark has started. Focused subthreads
+resume the missing source bridges and independent recognizer review. The earlier
+pause records and process/session IDs below are history; current files, live goal
+and new logs determine progress. No Oracle amendment or remote publication.
+
+## 2026-10-09 — Paused at the owner's request
+
+The owner requested a pause at the next available opportunity. The combined
+performance/guarded-greeting goal is paused, not complete. No implementation
+commit has been made; HEAD remains 653fe52. Resume only when requested.
+
+The performance baseline and first candidate both hit the experiment's Lean
+memory limit. The second and final candidate is prepared but its dominant trial
+has not started; its helper needs a small elaboration fix. Detailed state is in
+.silver/linux-aarch64/certificate-performance/resume-checkpoint.json.
+No third candidate is authorized. Any adopted change still needs full validation
+in the frozen performance-only snapshot and its own local commit.
+
+Report-policy refinement and its native tests pass. Draft recognizer, runtime,
+core Lean and driver checks pass; complete bridges, final integration, full audits
+and local feature commit remain. The supported language is still five productions.
+See .silver/linux-aarch64/guarded-greeting-draft/RESUME.md for exact evidence,
+file ownership and pending work. Some direct draft edits postdate preparation
+scripts. The in-progress [capability record](command-line-greeting.md) is uncommitted.
+
+No proof/benchmark process remains running. Preserve uncommitted report work,
+unrelated .vscode/ and tmp/, caches and other hosts. No Oracle amendment or remote
+publication. CLI recall received a pending note under memories/extensions/ad_hoc/notes/;
+that records an actual note write, not completed background consolidation.
+
+## 2026-10-09 — Active goal implementation checkpoint
+
+The combined goal remains active. Authorization is committed in `653fe52`;
+no implementation unit is complete yet. The execution host is Linux ARM64.
+After a sandbox restart, the interrupted timing run was retained without being
+counted as a baseline result. A replacement dominant-certificate baseline and
+candidate comparison use isolated workspaces under
+`.silver/linux-aarch64/certificate-performance/`, with one reserved CPU and a
+finite measurement budget. Candidate one changes only reconstruction proof terms
+and their generator; exact source, lexer, axiom and kernel checks remain required.
+
+The [guarded-greeting record](command-line-greeting.md) captures the concrete
+lower-bound issue and owned-SPARK normalization repair. Experiments and exact
+reports are retained under `.silver/linux-aarch64/guarded-greeting-experiment/`.
+Draft recognition, driver, catalogue, tests and Lean files live under
+`.silver/linux-aarch64/guarded-greeting-draft/`; they have not admitted a sixth
+form in the supported language. Embedded authoritative sources remain unchanged
+through the comparable performance measurements. Report-policy refinement is
+being developed in `src/silver_library_reports.*`, with independent byte parsing,
+coverage and discharge specifications; its proof work is still in progress.
+
+Resume by checking live agents/processes before restarting long runs. Complete
+the bounded performance decision and its validation/local commit before
+integrating the embedded language/runtime changes. Then finish full feature
+assurance, native validation, independent review and its local commit. Preserve
+unrelated `.vscode/`, `tmp/`, experiments and other hosts; no remote publication.
+
 ## 2026-10-09 — Performance and guarded-greeting goal authorized
 
 The owner approved the proposed sequence and said, "Update the goal to cover
@@ -57,7 +177,7 @@ work remain in scope under their existing authorization status.
 No proposed additional prover is needed now. A read-only source and assurance
 check confirmed one existing mechanization gap: the library-report scanner has
 verified safety but no independent functional refinement of its acceptance
-policy. The [roadmap](../roadmap.md#proof-coverage-follow-up) records a proposed
+policy. The [roadmap](../roadmap.md#completed-report-policy-follow-up) records a proposed
 soundness/completeness argument for genuine supported reports using existing
 tools. This is not a demonstrated bug. The next dynamic-concatenation capability
 also needs its own obligation/discharge argument, as already planned. Neither

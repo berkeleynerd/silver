@@ -10,7 +10,8 @@ is
    function Is_Word_Token (Token : Token_Kind) return Boolean is
      (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
         | Arguments_Name | First_Or_Default_Name | If_Keyword
-        | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name);
+        | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name
+        | And_Keyword | Length_Name);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -42,7 +43,12 @@ is
          when Then_Keyword => "then",
          when Else_Keyword => "else",
          when Reject_Name => "reject",
-         when Ampersand => "&");
+         when Ampersand => "&",
+         when And_Keyword => "and",
+         when Apostrophe => "'",
+         when Length_Name => "length",
+         when Less_Equal => "<=",
+         when Capacity_Literal => "0");
 
    function Normalized (Source : String) return String
      with
@@ -585,13 +591,240 @@ is
           (Text, Trivia_End (Text, Position) + Spelling (Concatenation_Required_Tokens (Next_Token))'Length,
            Next_Token + 1, Declared_First, Declared_After));
 
+   subtype Capacity_Value is Natural range 0 .. Max_Source_Length;
+   type Decimal_Result is record
+      After : Literal_Position;
+      Value : Capacity_Value;
+   end record;
+   Invalid_Decimal : constant Decimal_Result := (After => 0, Value => 0);
+
+   function Decimal_Tail
+     (Text : String; Position : Cursor; Value : Capacity_Value)
+      return Decimal_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Decimal_Tail'Result.After = 0
+         or else Decimal_Tail'Result.After in Position .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position);
+
+   function Decimal_Tail
+     (Text : String; Position : Cursor; Value : Capacity_Value)
+      return Decimal_Result is
+     (if Position > Text'Last then (After => Position, Value => Value)
+      elsif Text (Position) not in '0' .. '9' then
+        (if Is_Identifier_Character (Text (Position)) then Invalid_Decimal
+         else (After => Position, Value => Value))
+      elsif Value > (Max_Source_Length -
+        (Character'Pos (Text (Position)) - Character'Pos ('0'))) / 10
+      then Invalid_Decimal
+      else Decimal_Tail (Text, Position + 1,
+        10 * Value + (Character'Pos (Text (Position)) - Character'Pos ('0'))));
+
+   function Decimal_At (Text : String; Position : Cursor) return Decimal_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Decimal_At'Result.After = 0
+         or else Decimal_At'Result.After in Position + 1 .. Text'Last + 1;
+
+   function Decimal_At (Text : String; Position : Cursor) return Decimal_Result is
+     (if Position > Text'Last or else Text (Position) not in '0' .. '9'
+      then Invalid_Decimal
+      elsif Text (Position) = '0' then
+        (if Position < Text'Last
+           and then Is_Identifier_Character (Text (Position + 1))
+         then Invalid_Decimal else (After => Position + 1, Value => 0))
+      else Decimal_Tail (Text, Position + 1,
+        Character'Pos (Text (Position)) - Character'Pos ('0')));
+
+   function Literal_Length (Text : String; Position : Cursor) return Capacity_Value
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Literal_Length'Result <= (Text'Last + 1) - Position,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position);
+
+   function Literal_Length (Text : String; Position : Cursor) return Capacity_Value is
+     (if Position > Text'Last then 0
+      elsif Text (Position) = Character'Val (34) then
+        (if Position < Text'Last and then Text (Position + 1) = Character'Val (34)
+         then 1 + Literal_Length (Text, Position + 2) else 0)
+      elsif Text (Position) in ' ' .. '~'
+      then 1 + Literal_Length (Text, Position + 1)
+      else 0);
+
+   function Read_Capacity (Text : String; Position : Cursor) return Decimal_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => (Static => Read_Capacity'Result = Decimal_At (Text, Position))
+   is
+      Next : Cursor := Position;
+      Value : Capacity_Value;
+   begin
+      if Next > Text'Last or else Text (Next) not in '0' .. '9' then
+         return Invalid_Decimal;
+      end if;
+      if Text (Next) = '0' then
+         if Next < Text'Last and then Is_Identifier_Character (Text (Next + 1)) then
+            return Invalid_Decimal;
+         end if;
+         return (After => Next + 1, Value => 0);
+      end if;
+      Value := Character'Pos (Text (Next)) - Character'Pos ('0');
+      Next := Next + 1;
+      while Next <= Text'Last loop
+         pragma Loop_Invariant (Next in Position + 1 .. Text'Last + 1);
+         pragma Loop_Invariant (Static =>
+           Decimal_At (Text, Position) = Decimal_Tail (Text, Next, Value));
+         pragma Loop_Variant (Increases => Next);
+         if Text (Next) not in '0' .. '9' then
+            if Is_Identifier_Character (Text (Next)) then
+               return Invalid_Decimal;
+            end if;
+            return (After => Next, Value => Value);
+         end if;
+         declare
+            Digit : constant Natural := Character'Pos (Text (Next)) - Character'Pos ('0');
+         begin
+            if Value > (Max_Source_Length - Digit) / 10 then
+               return Invalid_Decimal;
+            end if;
+            Value := 10 * Value + Digit;
+         end;
+         Next := Next + 1;
+      end loop;
+      return (After => Next, Value => Value);
+   end Read_Capacity;
+
+   procedure Match_Sized_Literal
+     (Text : String; Position : in out Cursor; Matched : out Boolean;
+      Length : out Capacity_Value)
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => (Static => Position <= Text'Last + 1
+         and then Matched =
+           (Position'Old <= Text'Last
+            and then Text (Position'Old) = Character'Val (34)
+            and then Literal_End (Text, Position'Old + 1) /= 0)
+         and then (if Matched then
+           Position = Literal_End (Text, Position'Old + 1)
+           and then Length = Literal_Length (Text, Position'Old + 1)))
+   is
+      Start : constant Cursor := Position;
+   begin
+      Matched := False;
+      Length := 0;
+      if Position > Text'Last or else Text (Position) /= Character'Val (34) then
+         return;
+      end if;
+      Position := Position + 1;
+      while Position <= Text'Last loop
+         pragma Loop_Invariant (Position in Start + 1 .. Text'Last + 1);
+         pragma Loop_Invariant (Length <= (Position - Start) - 1);
+         pragma Loop_Invariant (Static =>
+           Literal_End (Text, Start + 1) = Literal_End (Text, Position));
+         pragma Loop_Invariant (Static =>
+           Length + Literal_Length (Text, Position) = Literal_Length (Text, Start + 1));
+         pragma Loop_Variant (Increases => Position);
+         if Text (Position) = Character'Val (34) then
+            if Position < Text'Last and then Text (Position + 1) = Character'Val (34) then
+               Position := Position + 2;
+               Length := Length + 1;
+            else
+               Position := Position + 1;
+               Matched := True;
+               return;
+            end if;
+         elsif Text (Position) in ' ' .. '~' then
+            Position := Position + 1;
+            Length := Length + 1;
+         else
+            return;
+         end if;
+      end loop;
+   end Match_Sized_Literal;
+
+   subtype Guarded_Token_Index is
+     Positive range 1 .. Guarded_Required_Tokens'Last + 1;
+
+   function Guarded_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Guarded_Token_Index;
+      Declared_First, Declared_After : Literal_Position;
+      Capacity, Decoration_Length : Capacity_Value) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Declared_First, Declared_After),
+       Subprogram_Variant => (Increases => Next_Token);
+
+   function Guarded_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Guarded_Token_Index;
+      Declared_First, Declared_After : Literal_Position;
+      Capacity, Decoration_Length : Capacity_Value) return Boolean
+   is
+     (if Next_Token > Guarded_Required_Tokens'Last then
+        Trivia_End (Text, Position) = Text'Last + 1
+        and then Capacity + Decoration_Length = Max_Source_Length
+      elsif Guarded_Required_Tokens (Next_Token) = Declaration_Name then
+        Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then not Forbidden_Argument_Name
+          (Text, Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Guarded_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)),
+           Capacity, Decoration_Length)
+      elsif Guarded_Required_Tokens (Next_Token) = Reference_Name then
+        Declared_First > 0
+        and then Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then Equal_Name
+          (Text, Declared_First, Declared_After,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Guarded_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Declared_First, Declared_After, Capacity, Decoration_Length)
+      elsif Guarded_Required_Tokens (Next_Token) = Capacity_Literal then
+        Decimal_At (Text, Trivia_End (Text, Position)).After /= 0
+        and then Guarded_Suffix_Matches
+          (Text, Decimal_At (Text, Trivia_End (Text, Position)).After, Next_Token + 1,
+           Declared_First, Declared_After,
+           Decimal_At (Text, Trivia_End (Text, Position)).Value, Decoration_Length)
+      elsif Guarded_Required_Tokens (Next_Token) = String_Literal then
+        Trivia_End (Text, Position) <= Text'Last
+        and then Text (Trivia_End (Text, Position)) = Character'Val (34)
+        and then Literal_End (Text, Trivia_End (Text, Position) + 1) /= 0
+        and then (if Next_Token > 39 then
+          Decoration_Length + Literal_Length (Text, Trivia_End (Text, Position) + 1)
+            <= Max_Source_Length)
+        and then Guarded_Suffix_Matches
+          (Text, Literal_End (Text, Trivia_End (Text, Position) + 1), Next_Token + 1,
+           Declared_First, Declared_After, Capacity,
+           (if Next_Token > 39 then
+              Decoration_Length + Literal_Length (Text, Trivia_End (Text, Position) + 1)
+            else Decoration_Length))
+      else
+        Token_At (Text, Trivia_End (Text, Position),
+          Spelling (Guarded_Required_Tokens (Next_Token)),
+          Is_Word_Token (Guarded_Required_Tokens (Next_Token)))
+        and then Guarded_Suffix_Matches
+          (Text, Trivia_End (Text, Position) + Spelling (Guarded_Required_Tokens (Next_Token))'Length,
+           Next_Token + 1, Declared_First, Declared_After, Capacity, Decoration_Length));
+
+   function Is_Guarded_Member (Source : String) return Boolean is
+     (Source'Length in 1 .. Max_Source_Length
+      and then Allowed_Source (Normalized (Source))
+      and then Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0));
+
    function Is_Member (Source : String) return Boolean is
      (Source'Length in 1 .. Max_Source_Length
       and then Allowed_Source (Normalized (Source))
       and then (Suffix_Matches (Normalized (Source), 1, 1)
         or else Named_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
         or else Argument_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
-        or else Concatenation_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
+        or else Concatenation_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
+        or else Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0)));
 
    function Is_Literal_Member (Source : String) return Boolean
      with Ghost => Static, Global => null;
@@ -1000,9 +1233,80 @@ is
       end;
    end Accepts_Concatenation;
 
+   function Accepts_Guarded (Source : String) return Boolean is
+   begin
+      if Source'Length = 0 or else Source'Length > Max_Source_Length then
+         return False;
+      end if;
+      declare
+         Text : constant String := Normalized (Source);
+         Position : Cursor := 1;
+         Next_Token : Guarded_Token_Index := 1;
+         Declared_First, Declared_After : Literal_Position := 0;
+         Matched : Boolean;
+         Capacity, Decoration_Length : Capacity_Value := 0;
+         Length : Capacity_Value;
+      begin
+         if not Allowed_Source (Text) then
+            return False;
+         end if;
+         while Next_Token <= Guarded_Required_Tokens'Last loop
+            pragma Loop_Invariant (Position <= Text'Last + 1);
+            pragma Loop_Invariant (Valid_Name_State (Text, Declared_First, Declared_After));
+            pragma Loop_Invariant (Static =>
+              Guarded_Suffix_Matches (Text, 1, 1, 0, 0, 0, 0)
+                = Guarded_Suffix_Matches (Text, Position, Next_Token, Declared_First, Declared_After, Capacity, Decoration_Length));
+            pragma Loop_Variant (Increases => Next_Token);
+            Skip_Trivia (Text, Position);
+            declare
+               Start : constant Cursor := Position;
+            begin
+               if Guarded_Required_Tokens (Next_Token) = Declaration_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched then return False; end if;
+                  if Forbidden_Argument_Name (Text, Start, Position) then return False; end if;
+                  Declared_First := Start;
+                  Declared_After := Position;
+               elsif Guarded_Required_Tokens (Next_Token) = Reference_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched or else Declared_First = 0 then return False; end if;
+                  if not Equal_Name (Text, Declared_First, Declared_After, Start, Position) then
+                     return False;
+                  end if;
+               elsif Guarded_Required_Tokens (Next_Token) = Capacity_Literal then
+                  declare
+                     Parsed : constant Decimal_Result := Read_Capacity (Text, Position);
+                  begin
+                     if Parsed.After = 0 then return False; end if;
+                     Position := Parsed.After;
+                     Capacity := Parsed.Value;
+                     Matched := True;
+                  end;
+               elsif Guarded_Required_Tokens (Next_Token) = String_Literal then
+                  Match_Sized_Literal (Text, Position, Matched, Length);
+                  if not Matched then return False; end if;
+                  if Next_Token > 39 then
+                     if Decoration_Length + Length > Max_Source_Length then
+                        return False;
+                     end if;
+                     Decoration_Length := Decoration_Length + Length;
+                  end if;
+               else
+                  Match_Token (Text, Position, Guarded_Required_Tokens (Next_Token), Matched);
+               end if;
+            end;
+            if not Matched then return False; end if;
+            Next_Token := Next_Token + 1;
+         end loop;
+         Skip_Trivia (Text, Position);
+         return Position > Text'Last and then Capacity + Decoration_Length = Max_Source_Length;
+      end;
+   end Accepts_Guarded;
+
    function Accepts (Source : String) return Boolean is
    begin
       return Accepts_Literal (Source) or else Accepts_Named (Source)
-        or else Accepts_Arguments (Source) or else Accepts_Concatenation (Source);
+        or else Accepts_Arguments (Source) or else Accepts_Concatenation (Source)
+        or else Accepts_Guarded (Source);
    end Accepts;
 end Silver_Output_Profile;

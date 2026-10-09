@@ -10,3 +10,5 @@ import Silver.ArgumentsSourceBridge
 import Silver.ArgumentsExamples
 import Silver.ConcatSourceBridge
 import Silver.ConcatExamples
+import Silver.GuardedSourceBridge
+import Silver.GuardedExamples

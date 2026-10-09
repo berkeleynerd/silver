@@ -119,6 +119,61 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "command_line_greeting.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "string_concatenation",
+        "concatenated_output",
+        "argument_context",
+        "argument_initialization",
+        "capacity_guard",
+        "argument_rejection"
+      ],
+      "specification": "../language.md#guarded-command-line-concatenation",
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "Hello, !\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "Ada"
+          ],
+          "expected": {
+            "stdout": "Hello, Ada!\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "one",
+            "two"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
     }
   ]
 }

@@ -129,6 +129,13 @@ def positive_integer(value: str) -> int:
     return number
 
 
+def lake_build_command(lake: Path, settings: list[str]) -> list[str]:
+    # Lake caches get_config? values at configuration elaboration time. -K alone
+    # does not replace that cached configuration. Re-elaboration applies this
+    # run's thread/memory settings; weakLeanArgs preserve accepted module caches.
+    return [str(lake), "--rehash", "--reconfigure", *settings, "build", "Silver.Audit"]
+
+
 def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None:
     """Only the selected generated certificates may differ from shared inputs.
 
@@ -257,7 +264,7 @@ def main(arguments: list[str] | None = None) -> None:
     if args.memory_mb is not None:
         lake_settings.extend(["-K", f"silverMemoryMb={args.memory_mb}"])
         lean_settings.append(f"-M{args.memory_mb}")
-    build_command = [str(lake), "--rehash", *lake_settings, "build", "Silver.Audit"]
+    build_command = lake_build_command(lake, lake_settings)
     audit_command = [str(lake), *lake_settings, "env", str(lean), *lean_settings,
                      "Silver/Audit.lean"]
     commands = [build_command, audit_command]

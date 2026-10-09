@@ -20,6 +20,7 @@ The root documents provide the main review entry points:
 - [roadmap.md](roadmap.md): proposed capabilities and their dependencies.
 - [development.md](development.md): the workflow for admitting a capability.
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
+- [RESUME.md](RESUME.md): completed-goal handoff and VM replacement checklist.
 
 The compiler admits, proves, builds, and runs this program shape:
 
@@ -45,17 +46,23 @@ The original [null program](samples/null.adb) and a
 printing it.
 The [greeting sample](samples/greeting.adb) adds a literal prefix and suffix to a
 literal-initialized constant using `"Hello, " & Name & "!"`.
+The [command-line greeting](samples/command_line_greeting.adb) combines that
+expression with command-line initialization and an explicit remaining-capacity
+guard, `Name'Length <= 4088` for these decorations.
 
-The five complete forms are one null statement without a context clause, one
+The six complete forms are one null statement without a context clause, one
 qualified literal-output call, one literal-initialized `constant String`
 printed by its identifier, the guarded command-line form, and one
-prefix/reference/suffix concatenation of a literal-backed constant. All output forms
+prefix/reference/suffix concatenation of a literal-backed constant, plus the
+capacity-guarded command-line greeting. All output forms
 require `with Silver_IO;`; command-line input also requires
 `with Silver_Arguments;`.
 Names bind without ASCII case distinctions; the constant is immutable.
 No argument selects the literal default; one printable ASCII argument of up to
 4096 bytes is preserved, including an explicit empty argument. Extra arguments,
-unsupported bytes and oversized input produce no output and status 1. Variables,
+unsupported bytes and oversized input produce no output and status 1. In the
+decorated command-line form, the value must also fit beside its prefix and suffix
+within 4096 output bytes. Otherwise it is rejected without output. Variables,
 general conditionals, repeated output calls, other concatenation forms and other APIs remain
 excluded. See [language.md](language.md)
 for the exact rules. On detected failure the wrapper sets status 1 and returns;
@@ -67,9 +74,11 @@ The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
 are development setup, evidence auditing, and tests. GNATprove verifies the
 compiler implementation. Lean connects the restricted recognizer source to its
-language model and the runtime wrappers to their effect models. All five application
-forms have no caller obligations; the selected libraries' nonempty obligations
-must also be proved and checked before compilation.
+language model and the runtime wrappers to their effect models. The first five
+forms have empty application reports. The sixth adds range checks covered by
+verified runtime bounds, a Lean arithmetic argument and complete report handling.
+Application authors supply no contracts or proof annotations. Every emitted
+check and all selected library obligations must be proved before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
 source-semantics assumptions are listed in the
 [trusted boundary](docs/trusted-boundary.md). Completion and semantic preservation
@@ -188,7 +197,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the five permitted compositions. Structural metadata is written explicitly in
+and the six permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -212,6 +221,8 @@ The subsequent concatenation capability and its native evidence are recorded in
 [greeting.md](docs/greeting.md).
 The bounded [source-certificate investigation](docs/certificate-performance.md)
 found no validated improvement; the existing reconstruction remains in use.
+Guarded dynamic concatenation and independent report-policy refinement are recorded in
+[command-line-greeting.md](docs/command-line-greeting.md).
 The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.

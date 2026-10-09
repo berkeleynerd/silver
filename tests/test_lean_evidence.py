@@ -7,7 +7,8 @@ import tempfile
 import unittest
 
 from scripts.bootstrap_lean import lean_environment
-from scripts.check_lean import (CANDIDATES, audit_import_closure, prepare_tool_cache, prepare_workspace,
+from scripts.check_lean import (CANDIDATES, audit_import_closure, lake_build_command,
+                               prepare_tool_cache, prepare_workspace,
                                verify_workspace_inputs)
 from scripts.platforms import HostLayout, native_layout
 from tests.test_lean_source import EMBEDDED
@@ -161,6 +162,48 @@ class LeanTemporaryDirectoryTests(unittest.TestCase):
 
 
 class LeanNativeDependencyTests(unittest.TestCase):
+    def test_changed_resource_settings_apply_without_discarding_cached_objects(self) -> None:
+        native = native_layout(ROOT)
+        if not (native.lean / "bin/lake").is_file():
+            self.skipTest("install the pinned native Lean tools to check Lake configuration")
+        with tempfile.TemporaryDirectory(prefix="silver lean config-") as temporary:
+            root = Path(temporary).resolve()
+            host = HostLayout(root, native.key)
+            host.lean.parent.mkdir(parents=True)
+            host.lean.symlink_to(native.lean, target_is_directory=True)
+            (root / "src").mkdir()
+            for name in EMBEDDED:
+                (root / "src" / name).write_bytes(b"original\n")
+            inputs = {
+                root / "proof/lakefile.lean": (ROOT / "proof/lakefile.lean").read_bytes(),
+                root / "proof/lean-toolchain": (ROOT / "proof/lean-toolchain").read_bytes(),
+                root / "proof/Silver/Audit.lean": b"example : True := True.intro\n",
+            }
+            prepare_workspace(host, inputs)
+            environment = lean_environment(host)
+
+            def build(threads: int, memory: int) -> subprocess.CompletedProcess[str]:
+                command = lake_build_command(host.lean / "bin/lake", [
+                    "-K", f"silverThreads={threads}", "-K", f"silverMemoryMb={memory}"])
+                command.insert(1, "--verbose")
+                result = subprocess.run(command, cwd=host.proof, env=environment, text=True,
+                                        capture_output=True, timeout=180)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                return result
+
+            first = build(1, 256)
+            self.assertRegex(first.stdout + first.stderr, r"\s-j1\s-M256\b")
+            artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
+            before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
+            build(2, 512)
+            self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
+            # Force a new Lean process after changing only the cached Lake
+            # configuration. Without --reconfigure it still receives -j1/-M256.
+            (host.proof / "Silver/Audit.lean").write_bytes(
+                b"example : True := True.intro\nexample : 2 + 2 = 4 := rfl\n")
+            changed = build(2, 512)
+            self.assertRegex(changed.stdout + changed.stderr, r"\s-j2\s-M512\b")
+
     def test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects(self) -> None:
         native = native_layout(ROOT)
         if not (native.lean / "bin/lake").is_file():

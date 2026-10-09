@@ -72,60 +72,78 @@ def argumentsSpecTokens_line_9 : LineCertificate where
   noNewline := by decide +kernel
 
 def argumentsSpecTokens_line_10 : LineCertificate where
+  text := "   --  Return canonical one-based bounds while preserving the selected bytes."
+  tokens := []
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsSpecTokens_line_11 : LineCertificate where
+  text := "   --  This also applies to shifted and null-range Default values."
+  tokens := []
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsSpecTokens_line_12 : LineCertificate where
   text := "   function First_Or_Default (Default : String) return String"
   tokens := ["function", "first_or_default", "(", "default", ":", "string", ")", "return", "string"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_11 : LineCertificate where
+def argumentsSpecTokens_line_13 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_12 : LineCertificate where
-  text := "          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length"
-  tokens := ["post", "=>", "first_or_default", "'", "result", "'", "length", "<=", "silver_io", ".", "max_length"]
+def argumentsSpecTokens_line_14 : LineCertificate where
+  text := "          Post => First_Or_Default'Result'First = 1"
+  tokens := ["post", "=>", "first_or_default", "'", "result", "'", "first", "=", "1"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_13 : LineCertificate where
+def argumentsSpecTokens_line_15 : LineCertificate where
+  text := "            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length"
+  tokens := ["and", "then", "first_or_default", "'", "result", "'", "length", "<=", "silver_io", ".", "max_length"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsSpecTokens_line_16 : LineCertificate where
   text := "            and then (for all Ch of First_Or_Default'Result =>"
   tokens := ["and", "then", "(", "for", "all", "ch", "of", "first_or_default", "'", "result", "=>"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_14 : LineCertificate where
+def argumentsSpecTokens_line_17 : LineCertificate where
   text := "              Character'Pos (Ch) in 32 .. 126);"
   tokens := ["character", "'", "pos", "(", "ch", ")", "in", "32", "..", "126", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_15 : LineCertificate where
+def argumentsSpecTokens_line_18 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_16 : LineCertificate where
+def argumentsSpecTokens_line_19 : LineCertificate where
   text := "   procedure Reject"
   tokens := ["procedure", "reject"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_17 : LineCertificate where
+def argumentsSpecTokens_line_20 : LineCertificate where
   text := "     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;"
   tokens := ["with", "global", "=>", "(", "in_out", "=>", "ada", ".", "text_io", ".", "file_system", ")", ",", "always_terminates", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_18 : LineCertificate where
+def argumentsSpecTokens_line_21 : LineCertificate where
   text := "end Silver_Arguments;"
   tokens := ["end", "silver_arguments", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsSpecTokens_line_19 : LineCertificate where
+def argumentsSpecTokens_line_22 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
@@ -176,14 +194,20 @@ def argumentsSpecTokens_block_5_6 : ReconstructionCertificate :=
 def argumentsSpecTokens_block_6_7 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_6
 
-def argumentsSpecTokens_block_5_7 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_5_6 argumentsSpecTokens_block_6_7
-    "   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's"
-    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',']
-      [' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's'])
-
 def argumentsSpecTokens_block_7_8 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_7
+
+def argumentsSpecTokens_block_6_8 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_6_7 argumentsSpecTokens_block_7_8
+    "   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback."
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.'])
+
+def argumentsSpecTokens_block_5_8 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_5_6 argumentsSpecTokens_block_6_8
+    "   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback."
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.'])
 
 def argumentsSpecTokens_block_8_9 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_8
@@ -191,41 +215,35 @@ def argumentsSpecTokens_block_8_9 : ReconstructionCertificate :=
 def argumentsSpecTokens_block_9_10 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_9
 
-def argumentsSpecTokens_block_8_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_8_9 argumentsSpecTokens_block_9_10
-    "   function Input_Is_Valid return Boolean with Global => null;\n"
-    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
-      [])
-
-def argumentsSpecTokens_block_7_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_7_8 argumentsSpecTokens_block_8_10
-    "   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n"
-    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n'])
-
-def argumentsSpecTokens_block_5_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_5_7 argumentsSpecTokens_block_7_10
-    "   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n"
-    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's']
-      [' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n'])
-
-def argumentsSpecTokens_block_0_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_0_5 argumentsSpecTokens_block_5_10
-    "with Ada.Text_IO;\nwith Silver_IO;\n\npackage Silver_Arguments with SPARK_Mode => On is\n   --  Both queries observe the immutable GNAT argument vector. An absent\n   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 't', 'h', ' ', 'q', 'u', 'e', 'r', 'i', 'e', 's', ' ', 'o', 'b', 's', 'e', 'r', 'v', 'e', ' ', 't', 'h', 'e', ' ', 'i', 'm', 'm', 'u', 't', 'a', 'b', 'l', 'e', ' ', 'G', 'N', 'A', 'T', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'v', 'e', 'c', 't', 'o', 'r', '.', ' ', 'A', 'n', ' ', 'a', 'b', 's', 'e', 'n', 't']
-      [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n'])
-
 def argumentsSpecTokens_block_10_11 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_10
 
+def argumentsSpecTokens_block_9_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_9_10 argumentsSpecTokens_block_10_11
+    "\n   --  Return canonical one-based bounds while preserving the selected bytes."
+    (string_join_ofList []
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'u', 'r', 'n', ' ', 'c', 'a', 'n', 'o', 'n', 'i', 'c', 'a', 'l', ' ', 'o', 'n', 'e', '-', 'b', 'a', 's', 'e', 'd', ' ', 'b', 'o', 'u', 'n', 'd', 's', ' ', 'w', 'h', 'i', 'l', 'e', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 's', 'e', 'l', 'e', 'c', 't', 'e', 'd', ' ', 'b', 'y', 't', 'e', 's', '.'])
+
+def argumentsSpecTokens_block_8_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_8_9 argumentsSpecTokens_block_9_11
+    "   function Input_Is_Valid return Boolean with Global => null;\n\n   --  Return canonical one-based bounds while preserving the selected bytes."
+    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
+      ['\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'u', 'r', 'n', ' ', 'c', 'a', 'n', 'o', 'n', 'i', 'c', 'a', 'l', ' ', 'o', 'n', 'e', '-', 'b', 'a', 's', 'e', 'd', ' ', 'b', 'o', 'u', 'n', 'd', 's', ' ', 'w', 'h', 'i', 'l', 'e', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 's', 'e', 'l', 'e', 'c', 't', 'e', 'd', ' ', 'b', 'y', 't', 'e', 's', '.'])
+
+def argumentsSpecTokens_block_5_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_5_8 argumentsSpecTokens_block_8_11
+    "   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n\n   --  Return canonical one-based bounds while preserving the selected bytes."
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'u', 'r', 'n', ' ', 'c', 'a', 'n', 'o', 'n', 'i', 'c', 'a', 'l', ' ', 'o', 'n', 'e', '-', 'b', 'a', 's', 'e', 'd', ' ', 'b', 'o', 'u', 'n', 'd', 's', ' ', 'w', 'h', 'i', 'l', 'e', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 's', 'e', 'l', 'e', 'c', 't', 'e', 'd', ' ', 'b', 'y', 't', 'e', 's', '.'])
+
+def argumentsSpecTokens_block_0_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_0_5 argumentsSpecTokens_block_5_11
+    "with Ada.Text_IO;\nwith Silver_IO;\n\npackage Silver_Arguments with SPARK_Mode => On is\n   --  Both queries observe the immutable GNAT argument vector. An absent\n   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n\n   --  Return canonical one-based bounds while preserving the selected bytes."
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 't', 'h', ' ', 'q', 'u', 'e', 'r', 'i', 'e', 's', ' ', 'o', 'b', 's', 'e', 'r', 'v', 'e', ' ', 't', 'h', 'e', ' ', 'i', 'm', 'm', 'u', 't', 'a', 'b', 'l', 'e', ' ', 'G', 'N', 'A', 'T', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'v', 'e', 'c', 't', 'o', 'r', '.', ' ', 'A', 'n', ' ', 'a', 'b', 's', 'e', 'n', 't']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'u', 'r', 'n', ' ', 'c', 'a', 'n', 'o', 'n', 'i', 'c', 'a', 'l', ' ', 'o', 'n', 'e', '-', 'b', 'a', 's', 'e', 'd', ' ', 'b', 'o', 'u', 'n', 'd', 's', ' ', 'w', 'h', 'i', 'l', 'e', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 's', 'e', 'l', 'e', 'c', 't', 'e', 'd', ' ', 'b', 'y', 't', 'e', 's', '.'])
+
 def argumentsSpecTokens_block_11_12 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_11
-
-def argumentsSpecTokens_block_10_12 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_10_11 argumentsSpecTokens_block_11_12
-    "   function First_Or_Default (Default : String) return String\n     with Global => null,"
-    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g']
-      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ','])
 
 def argumentsSpecTokens_block_12_13 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_12
@@ -233,26 +251,20 @@ def argumentsSpecTokens_block_12_13 : ReconstructionCertificate :=
 def argumentsSpecTokens_block_13_14 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_13
 
+def argumentsSpecTokens_block_12_14 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_12_13 argumentsSpecTokens_block_13_14
+    "   function First_Or_Default (Default : String) return String\n     with Global => null,"
+    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g']
+      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ','])
+
+def argumentsSpecTokens_block_11_14 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_11_12 argumentsSpecTokens_block_12_14
+    "   --  This also applies to shifted and null-range Default values.\n   function First_Or_Default (Default : String) return String\n     with Global => null,"
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 'a', 'l', 's', 'o', ' ', 'a', 'p', 'p', 'l', 'i', 'e', 's', ' ', 't', 'o', ' ', 's', 'h', 'i', 'f', 't', 'e', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'l', 'l', '-', 'r', 'a', 'n', 'g', 'e', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', 'v', 'a', 'l', 'u', 'e', 's', '.']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ','])
+
 def argumentsSpecTokens_block_14_15 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_14
-
-def argumentsSpecTokens_block_13_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_13_14 argumentsSpecTokens_block_14_15
-    "            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';'])
-
-def argumentsSpecTokens_block_12_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_12_13 argumentsSpecTokens_block_13_15
-    "          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';'])
-
-def argumentsSpecTokens_block_10_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_10_12 argumentsSpecTokens_block_12_15
-    "   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);"
-    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';'])
 
 def argumentsSpecTokens_block_15_16 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_15
@@ -262,9 +274,21 @@ def argumentsSpecTokens_block_16_17 : ReconstructionCertificate :=
 
 def argumentsSpecTokens_block_15_17 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsSpecTokens_block_15_16 argumentsSpecTokens_block_16_17
-    "\n   procedure Reject"
-    (string_join_ofList []
-      [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't'])
+    "            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>'])
+
+def argumentsSpecTokens_block_14_17 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_14_15 argumentsSpecTokens_block_15_17
+    "          Post => First_Or_Default'Result'First = 1\n            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>'])
+
+def argumentsSpecTokens_block_11_17 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_11_14 argumentsSpecTokens_block_14_17
+    "   --  This also applies to shifted and null-range Default values.\n   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'First = 1\n            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>"
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 'a', 'l', 's', 'o', ' ', 'a', 'p', 'p', 'l', 'i', 'e', 's', ' ', 't', 'o', ' ', 's', 'h', 'i', 'f', 't', 'e', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'l', 'l', '-', 'r', 'a', 'n', 'g', 'e', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', 'v', 'a', 'l', 'u', 'e', 's', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>'])
 
 def argumentsSpecTokens_block_17_18 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsSpecTokens_line_17
@@ -277,50 +301,71 @@ def argumentsSpecTokens_block_19_20 : ReconstructionCertificate :=
 
 def argumentsSpecTokens_block_18_20 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsSpecTokens_block_18_19 argumentsSpecTokens_block_19_20
+    "\n   procedure Reject"
+    (string_join_ofList []
+      [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't'])
+
+def argumentsSpecTokens_block_17_20 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_17_18 argumentsSpecTokens_block_18_20
+    "              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';']
+      ['\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't'])
+
+def argumentsSpecTokens_block_20_21 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsSpecTokens_line_20
+
+def argumentsSpecTokens_block_21_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsSpecTokens_line_21
+
+def argumentsSpecTokens_block_22_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsSpecTokens_line_22
+
+def argumentsSpecTokens_block_21_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_21_22 argumentsSpecTokens_block_22_23
     "end Silver_Arguments;\n"
     (string_join_ofList ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';']
       [])
 
-def argumentsSpecTokens_block_17_20 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_17_18 argumentsSpecTokens_block_18_20
+def argumentsSpecTokens_block_20_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_20_21 argumentsSpecTokens_block_21_23
     "     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
     (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';']
       ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
 
-def argumentsSpecTokens_block_15_20 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_15_17 argumentsSpecTokens_block_17_20
-    "\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
-    (string_join_ofList ['\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't']
+def argumentsSpecTokens_block_17_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_17_20 argumentsSpecTokens_block_20_23
+    "              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
 
-def argumentsSpecTokens_block_10_20 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_10_15 argumentsSpecTokens_block_15_20
-    "   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
-    (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';']
-      ['\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
+def argumentsSpecTokens_block_11_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_11_17 argumentsSpecTokens_block_17_23
+    "   --  This also applies to shifted and null-range Default values.\n   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'First = 1\n            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
+    (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 'a', 'l', 's', 'o', ' ', 'a', 'p', 'p', 'l', 'i', 'e', 's', ' ', 't', 'o', ' ', 's', 'h', 'i', 'f', 't', 'e', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'l', 'l', '-', 'r', 'a', 'n', 'g', 'e', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', 'v', 'a', 'l', 'u', 'e', 's', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
 
-def argumentsSpecTokens_block_0_20 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsSpecTokens_block_0_10 argumentsSpecTokens_block_10_20
-    "with Ada.Text_IO;\nwith Silver_IO;\n\npackage Silver_Arguments with SPARK_Mode => On is\n   --  Both queries observe the immutable GNAT argument vector. An absent\n   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n\n   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 't', 'h', ' ', 'q', 'u', 'e', 'r', 'i', 'e', 's', ' ', 'o', 'b', 's', 'e', 'r', 'v', 'e', ' ', 't', 'h', 'e', ' ', 'i', 'm', 'm', 'u', 't', 'a', 'b', 'l', 'e', ' ', 'G', 'N', 'A', 'T', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'v', 'e', 'c', 't', 'o', 'r', '.', ' ', 'A', 'n', ' ', 'a', 'b', 's', 'e', 'n', 't', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
+def argumentsSpecTokens_block_0_23 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsSpecTokens_block_0_11 argumentsSpecTokens_block_11_23
+    "with Ada.Text_IO;\nwith Silver_IO;\n\npackage Silver_Arguments with SPARK_Mode => On is\n   --  Both queries observe the immutable GNAT argument vector. An absent\n   --  argument selects Default; one valid argument preserves its exact bytes,\n   --  including the empty String. Invalid input is handled by the caller's\n   --  required validity guard and Reject branch, never printed as a fallback.\n   function Input_Is_Valid return Boolean with Global => null;\n\n   --  Return canonical one-based bounds while preserving the selected bytes.\n   --  This also applies to shifted and null-range Default values.\n   function First_Or_Default (Default : String) return String\n     with Global => null,\n          Post => First_Or_Default'Result'First = 1\n            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length\n            and then (for all Ch of First_Or_Default'Result =>\n              Character'Pos (Ch) in 32 .. 126);\n\n   procedure Reject\n     with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates;\nend Silver_Arguments;\n"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 't', 'h', ' ', 'q', 'u', 'e', 'r', 'i', 'e', 's', ' ', 'o', 'b', 's', 'e', 'r', 'v', 'e', ' ', 't', 'h', 'e', ' ', 'i', 'm', 'm', 'u', 't', 'a', 'b', 'l', 'e', ' ', 'G', 'N', 'A', 'T', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'v', 'e', 'c', 't', 'o', 'r', '.', ' ', 'A', 'n', ' ', 'a', 'b', 's', 'e', 'n', 't', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 's', 'e', 'l', 'e', 'c', 't', 's', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', ' ', 'o', 'n', 'e', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'a', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'e', 's', ' ', 'i', 't', 's', ' ', 'e', 'x', 'a', 'c', 't', ' ', 'b', 'y', 't', 'e', 's', ',', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'i', 'n', 'c', 'l', 'u', 'd', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'e', 'm', 'p', 't', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', '.', ' ', 'I', 'n', 'v', 'a', 'l', 'i', 'd', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'i', 's', ' ', 'h', 'a', 'n', 'd', 'l', 'e', 'd', ' ', 'b', 'y', ' ', 't', 'h', 'e', ' ', 'c', 'a', 'l', 'l', 'e', 'r', '\'', 's', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'r', 'e', 'q', 'u', 'i', 'r', 'e', 'd', ' ', 'v', 'a', 'l', 'i', 'd', 'i', 't', 'y', ' ', 'g', 'u', 'a', 'r', 'd', ' ', 'a', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'b', 'r', 'a', 'n', 'c', 'h', ',', ' ', 'n', 'e', 'v', 'e', 'r', ' ', 'p', 'r', 'i', 'n', 't', 'e', 'd', ' ', 'a', 's', ' ', 'a', ' ', 'f', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'u', 'r', 'n', ' ', 'c', 'a', 'n', 'o', 'n', 'i', 'c', 'a', 'l', ' ', 'o', 'n', 'e', '-', 'b', 'a', 's', 'e', 'd', ' ', 'b', 'o', 'u', 'n', 'd', 's', ' ', 'w', 'h', 'i', 'l', 'e', ' ', 'p', 'r', 'e', 's', 'e', 'r', 'v', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 's', 'e', 'l', 'e', 'c', 't', 'e', 'd', ' ', 'b', 'y', 't', 'e', 's', '.']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 'a', 'l', 's', 'o', ' ', 'a', 'p', 'p', 'l', 'i', 'e', 's', ' ', 't', 'o', ' ', 's', 'h', 'i', 'f', 't', 'e', 'd', ' ', 'a', 'n', 'd', ' ', 'n', 'u', 'l', 'l', '-', 'r', 'a', 'n', 'g', 'e', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', 'v', 'a', 'l', 'u', 'e', 's', '.', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', '(', 'I', 'n', '_', 'O', 'u', 't', ' ', '=', '>', ' ', 'A', 'd', 'a', '.', 'T', 'e', 'x', 't', '_', 'I', 'O', '.', 'F', 'i', 'l', 'e', '_', 'S', 'y', 's', 't', 'e', 'm', ')', ',', ' ', 'A', 'l', 'w', 'a', 'y', 's', '_', 'T', 'e', 'r', 'm', 'i', 'n', 'a', 't', 'e', 's', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n'])
 
 def argumentsSpecTokens_certificates : List LineCertificate :=
-  argumentsSpecTokens_block_0_20.lines
+  argumentsSpecTokens_block_0_23.lines
 
 def argumentsSpecTokens : Tokens :=
-  ["with", "ada", ".", "text_io", ";", "with", "silver_io", ";", "package", "silver_arguments", "with", "spark_mode", "=>", "on", "is", "function", "input_is_valid", "return", "boolean", "with", "global", "=>", "null", ";", "function", "first_or_default", "(", "default", ":", "string", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "first_or_default", "'", "result", "'", "length", "<=", "silver_io", ".", "max_length", "and", "then", "(", "for", "all", "ch", "of", "first_or_default", "'", "result", "=>", "character", "'", "pos", "(", "ch", ")", "in", "32", "..", "126", ")", ";", "procedure", "reject", "with", "global", "=>", "(", "in_out", "=>", "ada", ".", "text_io", ".", "file_system", ")", ",", "always_terminates", ";", "end", "silver_arguments", ";"]
+  ["with", "ada", ".", "text_io", ";", "with", "silver_io", ";", "package", "silver_arguments", "with", "spark_mode", "=>", "on", "is", "function", "input_is_valid", "return", "boolean", "with", "global", "=>", "null", ";", "function", "first_or_default", "(", "default", ":", "string", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "first_or_default", "'", "result", "'", "first", "=", "1", "and", "then", "first_or_default", "'", "result", "'", "length", "<=", "silver_io", ".", "max_length", "and", "then", "(", "for", "all", "ch", "of", "first_or_default", "'", "result", "=>", "character", "'", "pos", "(", "ch", ")", "in", "32", "..", "126", ")", ";", "procedure", "reject", "with", "global", "=>", "(", "in_out", "=>", "ada", ".", "text_io", ".", "file_system", ")", ",", "always_terminates", ";", "end", "silver_arguments", ";"]
 
 theorem argumentsSpecTokens_source :
     String.intercalate "\n" (argumentsSpecTokens_certificates.map (·.text)) = argumentsSpec := by
-  exact argumentsSpecTokens_block_0_20.correct
+  exact argumentsSpecTokens_block_0_23.correct
 
 theorem argumentsSpecTokens_values :
     argumentsSpecTokens_certificates.flatMap (·.tokens) = argumentsSpecTokens := by rfl
 
 theorem argumentsSpecTokens_correct : lex argumentsSpec = some argumentsSpecTokens := by
   rw [← argumentsSpecTokens_source, reconstructed_source_lex argumentsSpecTokens_certificates
-    argumentsSpecTokens_block_0_20.nonempty]
+    argumentsSpecTokens_block_0_23.nonempty]
   rw [argumentsSpecTokens_values]
 
 end Silver.Source

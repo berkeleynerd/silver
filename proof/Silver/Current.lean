@@ -5,20 +5,23 @@ import Silver.NamedSemantics
 import Silver.NamedDisjoint
 import Silver.ArgumentsDisjoint
 import Silver.ConcatDisjoint
+import Silver.GuardedDisjoint
+import Silver.GuardedObligations
 
-/-! One current language, five productions. The obligation model assigns an
-empty list to all application forms. Agreement with GNATprove's actual
-obligation generation is an explicit ToolContract premise, checked per compile;
-this module is not a verified Ada/SPARK obligation generator. The fixed library
-body retains its separately audited obligations. -/
+/-! One current language, six productions. Guarded dynamic concatenation adds
+bounded range schemas. Their arithmetic validity is proved; faithful generation
+and completion of the pinned external tools on that concrete fragment are
+explicit ToolContract premises. Optimization may remove a generated check, but
+the real compiler must audit every check actually emitted. The selected library
+bodies retain their separately audited obligations. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source ∨ Concat.Member source
-def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || (Arguments.accepts source || Concat.accepts source)))
+def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source ∨ Concat.Member source ∨ Guarded.Member source
+def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || (Arguments.accepts source || (Concat.accepts source || Guarded.accepts source))))
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member, Concat.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member, Concat.accepts_iff_member, Guarded.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
@@ -27,6 +30,7 @@ inductive Program
   | nullMain
   | outputMain (literal : Source)
   | argumentMain (defaultValue : Source)
+  | guardedMain (program : Guarded.Program)
   deriving DecidableEq, Repr
 
 inductive SourceMeaning : Source → Program → Prop
@@ -44,9 +48,12 @@ inductive SourceMeaning : Source → Program → Prop
   | concatMain {source : Source} {program : Concat.Program} :
       Concat.SourceMeaning source program → SourceMeaning source (.outputMain program.bytes)
 
+  | guardedMain {source : Source} {program : Guarded.Program} :
+      Guarded.SourceMeaning source program → SourceMeaning source (.guardedMain program)
+
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember | namedMember | argumentMember | concatMember
+  rcases member with nullMember | outputMember | namedMember | argumentMember | concatMember | guardedMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
   · obtain ⟨literal, parsed⟩ := outputMember.2.2.2
     exact ⟨.outputMain literal, .outputMain outputMember parsed⟩
@@ -56,6 +63,9 @@ theorem member_has_meaning {source : Source} (member : Member source) :
     exact ⟨.argumentMain program.defaultValue, .argumentMain meaning⟩
   · obtain ⟨program, meaning⟩ := Concat.member_has_meaning concatMember
     exact ⟨.outputMain program.bytes, .concatMain meaning⟩
+
+  · obtain ⟨program, meaning⟩ := Guarded.member_has_meaning guardedMember
+    exact ⟨.guardedMain program, .guardedMain meaning⟩
 
 /-- The first nontrivia token is `procedure` or `with`, never both. -/
 theorem member_disjoint (source : Source) : ¬ (Silver.Member source ∧ Output.Member source) := by
@@ -85,6 +95,7 @@ theorem meaning_unique {source : Source} {left right : Program}
       | namedMain namedMeaning => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
       | argumentMain meaning => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
       | concatMain meaning => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
+      | guardedMain other => exact False.elim (Guarded.null_guarded_disjoint source ⟨member, other.1⟩)
   | outputMain member parsed =>
       cases second with
       | nullMain nullMember => exact False.elim (member_disjoint source ⟨nullMember, member⟩)
@@ -94,6 +105,7 @@ theorem meaning_unique {source : Source} {left right : Program}
       | namedMain namedMeaning => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
       | argumentMain meaning => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
       | concatMain meaning => exact False.elim (Concat.literal_concat_disjoint source ⟨member, meaning.1⟩)
+      | guardedMain other => exact False.elim (Guarded.literal_guarded_disjoint source ⟨member, other.1⟩)
   | namedMain namedMeaning =>
       cases second with
       | nullMain member => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
@@ -103,6 +115,7 @@ theorem meaning_unique {source : Source} {left right : Program}
             (Named.meaning_unique namedMeaning other)
       | argumentMain meaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
       | concatMain meaning => exact False.elim (Concat.named_concat_disjoint source ⟨namedMeaning.1, meaning.1⟩)
+      | guardedMain other => exact False.elim (Guarded.named_guarded_disjoint source ⟨namedMeaning.1, other.1⟩)
   | argumentMain meaning =>
       cases second with
       | nullMain member => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
@@ -112,6 +125,7 @@ theorem meaning_unique {source : Source} {left right : Program}
           exact congrArg (fun (program : Arguments.Program) => Program.argumentMain program.defaultValue)
             (Arguments.meaning_unique meaning other)
       | concatMain other => exact False.elim (Concat.concat_argument_disjoint source ⟨other.1, meaning.1⟩)
+      | guardedMain other => exact False.elim (Guarded.argument_guarded_disjoint source ⟨meaning.1, other.1⟩)
   | concatMain meaning =>
       cases second with
       | nullMain member => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
@@ -121,6 +135,15 @@ theorem meaning_unique {source : Source} {left right : Program}
       | concatMain other =>
           exact congrArg (fun (program : Concat.Program) => Program.outputMain program.bytes)
             (Concat.meaning_unique meaning other)
+      | guardedMain other => exact False.elim (Guarded.concat_guarded_disjoint source ⟨meaning.1, other.1⟩)
+  | guardedMain meaning =>
+      cases second with
+      | nullMain member => exact False.elim (Guarded.null_guarded_disjoint source ⟨member, meaning.1⟩)
+      | outputMain member _ => exact False.elim (Guarded.literal_guarded_disjoint source ⟨member, meaning.1⟩)
+      | namedMain other => exact False.elim (Guarded.named_guarded_disjoint source ⟨other.1, meaning.1⟩)
+      | argumentMain other => exact False.elim (Guarded.argument_guarded_disjoint source ⟨other.1, meaning.1⟩)
+      | concatMain other => exact False.elim (Guarded.concat_guarded_disjoint source ⟨other.1, meaning.1⟩)
+      | guardedMain other => exact congrArg Program.guardedMain (Guarded.meaning_unique meaning other)
 
 theorem literal_domain {source literal : Source}
     (meaning : SourceMeaning source (.outputMain literal)) :
@@ -138,26 +161,57 @@ theorem default_domain {source defaultValue : Source}
   cases meaning with
   | argumentMain meaning => exact Arguments.default_is_message meaning
 
-def obligations : Program → List Semantics.Obligation
-  | .nullMain => []
-  | .outputMain _ => []
-  | .argumentMain _ => []
+def rangeObligations : Program → List Guarded.RangeObligation
+  | .nullMain | .outputMain _ | .argumentMain _ => []
+  | .guardedMain program => Guarded.rangeObligations program
 
-theorem obligations_empty (program : Program) : obligations program = [] := by
-  cases program <;> rfl
+def obligations (program : Program) : List Semantics.Obligation :=
+  (rangeObligations program).map Guarded.RangeObligation.toObligation
 
+/-- The source checker uses fixed maximal coefficients; no classical extraction
+of a parse witness is needed. The per-program refinement theorem below links
+these computed schemas to each admitted meaning. -/
 def automaticDischarge (source : Source) : Option Bool :=
-  if accepts source then some (Semantics.discharge []) else none
+  if accepts source then
+    some (Semantics.discharge (if Guarded.accepts source then Guarded.uniformObligations else []))
+  else none
 
 theorem automatic_discharge_complete {source : Source} (member : Member source) :
     automaticDischarge source = some true := by
-  simp [automaticDischarge, (accepts_iff_member source).mpr member, Semantics.discharge]
+  simp only [automaticDischarge, (accepts_iff_member source).mpr member, ite_true]
+  cases Guarded.accepts source <;> simp [Semantics.discharge, Guarded.uniform_discharge]
 
-theorem all_obligations_discharge (program : Program) :
+/-- A concrete arithmetic fragment, independent of source membership or solver
+success: each range schema is dominated by a checked uniform bound. -/
+def BoundedRangeFragment (checks : List Guarded.RangeObligation) : Prop :=
+  ∀ check ∈ checks, ∃ upper ∈ Guarded.uniformRangeObligations, check.Refines upper
+
+theorem admitted_range_fragment {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) : BoundedRangeFragment (rangeObligations program) := by
+  cases meaning with
+  | nullMain | outputMain | namedMain | argumentMain | concatMain => simp [BoundedRangeFragment, rangeObligations]
+  | guardedMain meaning => exact Guarded.obligations_refine_uniform meaning
+
+theorem fragment_checks_valid {checks : List Guarded.RangeObligation}
+    (fragment : BoundedRangeFragment checks) : ∀ check ∈ checks, check.Valid := by
+  intro check member
+  obtain ⟨upper, present, bounded⟩ := fragment check member
+  exact Guarded.RangeObligation.valid_of_refines bounded (Guarded.uniform_range_valid upper present)
+
+theorem all_obligations_discharge {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
     Semantics.discharge (obligations program) = true ∧
-      Semantics.DischargeSteps (obligations program) true 1 := by
-  rw [obligations_empty]
-  exact ⟨rfl, .done⟩
+      ∃ steps, steps ≤ (obligations program).length + 1 ∧
+        Semantics.DischargeSteps (obligations program) true steps := by
+  have discharged : Semantics.discharge (obligations program) = true := by
+    apply (Semantics.discharge_iff _).mpr
+    intro check member
+    obtain ⟨range, present, rfl⟩ := List.mem_map.mp member
+    exact (Guarded.RangeObligation.discharge_iff _).mpr
+      (fragment_checks_valid (admitted_range_fragment meaning) range present)
+  have steps := Semantics.discharge_terminates (obligations program)
+  rw [discharged] at steps
+  exact ⟨discharged, steps⟩
 
 structure Environment where
   output : Output.Runtime.Environment
@@ -177,6 +231,11 @@ def action (environment : Environment) : Program → Action
   | .argumentMain defaultValue =>
       if Arguments.Runtime.inputIsValid environment.arguments then
         .output (Arguments.Runtime.firstOrDefault defaultValue environment.arguments)
+      else .reject
+
+  | .guardedMain program =>
+      if Guarded.guard environment.arguments program then
+        .output (Guarded.decorated environment.arguments program)
       else .reject
 
 def executeAction (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult
@@ -244,6 +303,15 @@ theorem argument_execution_refines {source : Source} {program : Arguments.Progra
   cases valid : Arguments.Runtime.inputIsValid environment.arguments <;>
     simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain]
 
+theorem guarded_execution_refines {source : Source} {program : Guarded.Program}
+    (meaning : Guarded.SourceMeaning source program) (environment : Environment) :
+    Guarded.execute environment.output environment.arguments program =
+      some (execute environment (.guardedMain program)) := by
+  rw [Guarded.execution_refines meaning]
+  cases valid : Guarded.guard environment.arguments program <;>
+    simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain,
+      Arguments.Runtime.rejectProgram, Arguments.Runtime.Effect.execute]
+
 theorem argument_rejection {source : Source} {program : Arguments.Program}
     (meaning : Arguments.SourceMeaning source program) (environment : Environment)
     (invalid : Arguments.Runtime.inputIsValid environment.arguments = false) :
@@ -284,6 +352,15 @@ theorem action_domain {source : Source} {program : Program}
         intro byte member
         exact decide_eq_true (domain.2 byte member)
       · cases selected
+  | guardedMain program =>
+      cases meaning with
+      | guardedMain meaning =>
+        simp only [action] at selected
+        split at selected
+        · rename_i guarded
+          cases selected
+          exact Guarded.output_domain meaning environment.arguments guarded
+        · cases selected
 
 theorem healthy_execution {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (environment : Environment)
@@ -303,27 +380,32 @@ theorem healthy_execution {source : Source} {program : Program}
 
 theorem admitted_assurance {source : Source} (member : Member source) :
     automaticDischarge source = some true ∧
-    ∃ program, SourceMeaning source program ∧ obligations program = [] ∧
-      Semantics.DischargeSteps (obligations program) true 1 ∧
+    ∃ program, SourceMeaning source program ∧
+      Semantics.discharge (obligations program) = true ∧
+      (∃ steps, steps ≤ (obligations program).length + 1 ∧
+        Semantics.DischargeSteps (obligations program) true steps) ∧
       ∀ environment, SpecifiedOutcome environment program (execute environment program) := by
   obtain ⟨program, meaning⟩ := member_has_meaning member
-  exact ⟨automatic_discharge_complete member, program, meaning, obligations_empty program,
-    (all_obligations_discharge program).2, fun environment => execution_specified environment program⟩
+  have checked := all_obligations_discharge meaning
+  exact ⟨automatic_discharge_complete member, program, meaning, checked.1, checked.2,
+    fun environment => execution_specified environment program⟩
 
 theorem every_meaning_assured {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
-    obligations program = [] ∧ Semantics.DischargeSteps (obligations program) true 1 ∧
+    Semantics.discharge (obligations program) = true ∧
+    (∃ steps, steps ≤ (obligations program).length + 1 ∧
+      Semantics.DischargeSteps (obligations program) true steps) ∧
     ∀ environment, SpecifiedOutcome environment program (execute environment program) ∧
       (Output.Runtime.Healthy environment.output →
         execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
-  exact ⟨obligations_empty program, (all_obligations_discharge program).2,
-    fun environment => ⟨execution_specified environment program,
-      healthy_execution meaning environment⟩⟩
+  have checked := all_obligations_discharge meaning
+  exact ⟨checked.1, checked.2, fun environment =>
+    ⟨execution_specified environment program, healthy_execution meaning environment⟩⟩
 
 structure Tools (Artifact : Type) where
   parse : Source → Program → Nat → Prop
-  generate : Program → List Semantics.Obligation → Nat → Prop
-  prove : List Semantics.Obligation → Nat → Prop
+  generate : Program → List Guarded.RangeObligation → Nat → Prop
+  prove : List Guarded.RangeObligation → Nat → Prop
   verifyFixedLibrary : Nat → Prop
   build : Source → Artifact → Nat → Prop
   execute : Artifact → Environment → Output.Runtime.ProcessResult → Prop
@@ -333,20 +415,27 @@ It is not a semantic contract or a proof that library verification succeeds:
 ToolContract supplies completion separately from trusted compilation semantics. -/
 def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Prop
   | .nullMain => True
-  | .outputMain _ | .argumentMain _ => ∃ steps, tools.verifyFixedLibrary steps
+  | .outputMain _ | .argumentMain _ | .guardedMain _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
-Compilation uses the same source as parsing, and preserves and realizes the
+Each generated check normalizes to an instance of a source concatenation range
+schema; emitted checks may be simplified, repeated or omitted by optimization.
+This relation does not certify the producer's obligation completeness, which
+remains a trusted GNATprove premise audited through complete reports. The pinned
+provers must complete on the concrete bounded arithmetic fragment. These facts
+are external-tool premises, not results about their implementation or a measured
+universal solver step bound. Compilation uses the same source as parsing, and preserves and realizes the
 checked runtime semantics under the documented external-call interpretation. -/
 structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
   parseCompletes : ∀ source program, SourceMeaning source program →
     ∃ steps, tools.parse source program steps
   parseFaithful : ∀ source program steps, tools.parse source program steps →
     SourceMeaning source program
-  generationCompletes : ∀ program, ∃ steps, tools.generate program (obligations program) steps
+  generationCompletes : ∀ program, ∃ checks steps, tools.generate program checks steps
   generationFaithful : ∀ program checks steps, tools.generate program checks steps →
-    checks = obligations program
-  emptyProofCompletes : ∃ steps, tools.prove [] steps
+    ∀ check ∈ checks, ∃ schema ∈ rangeObligations program, check.Refines schema
+  boundedRangeProofCompletes : ∀ checks, BoundedRangeFragment checks →
+    ∃ steps, tools.prove checks steps
   fixedLibraryProofCompletes : ∃ steps, tools.verifyFixedLibrary steps
   buildCompletes : ∀ source program steps, tools.parse source program steps →
     ∃ artifact buildSteps, tools.build source artifact buildSteps
@@ -362,8 +451,8 @@ structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
 inhabited. It is not an implementation or verification of the external tools. -/
 def modelTools : Tools Program where
   parse := fun source program steps => SourceMeaning source program ∧ steps = 1
-  generate := fun program checks steps => checks = obligations program ∧ steps = 1
-  prove := fun checks steps => checks = [] ∧ steps = 1
+  generate := fun program checks steps => checks = rangeObligations program ∧ steps = 1
+  prove := fun checks steps => BoundedRangeFragment checks ∧ steps = checks.length + 1
   verifyFixedLibrary := fun steps => steps = 1
   build := fun source program steps => SourceMeaning source program ∧ steps = 1
   execute := fun program environment result => result = execute environment program
@@ -371,9 +460,12 @@ def modelTools : Tools Program where
 theorem model_tool_contract : ToolContract modelTools where
   parseCompletes := fun _ _ meaning => ⟨1, meaning, rfl⟩
   parseFaithful := fun _ _ _ parsed => parsed.1
-  generationCompletes := fun _ => ⟨1, rfl, rfl⟩
-  generationFaithful := fun _ _ _ generated => generated.1
-  emptyProofCompletes := ⟨1, rfl, rfl⟩
+  generationCompletes := fun program => ⟨rangeObligations program, 1, rfl, rfl⟩
+  generationFaithful := by
+    intro program checks steps generated
+    intro check member
+    exact ⟨check, by simpa [generated.1] using member, Nat.le_refl _, Nat.le_refl _⟩
+  boundedRangeProofCompletes := fun checks fragment => ⟨checks.length + 1, fragment, rfl⟩
   fixedLibraryProofCompletes := ⟨1, rfl⟩
   buildCompletes := fun _ program _ parsed => ⟨program, 1, parsed.1, rfl⟩
   compilationPreserves := by
@@ -386,32 +478,43 @@ theorem model_tool_contract : ToolContract modelTools where
     simp [modelTools, same]
 
 inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artifact → Nat → Prop
-  | complete {source : Source} {program : Program} {checks : List Semantics.Obligation}
+  | complete {source : Source} {program : Program} {checks : List Guarded.RangeObligation}
       {artifact : Artifact} {parseSteps generateSteps proofSteps buildSteps : Nat} :
       tools.parse source program parseSteps → tools.generate program checks generateSteps →
       tools.prove checks proofSteps → LibraryEvidence tools program →
       tools.build source artifact buildSteps →
       Pipeline tools source artifact (parseSteps + generateSteps + proofSteps + buildSteps)
 
+theorem generated_range_fragment {Artifact : Type} {tools : Tools Artifact}
+    (contract : ToolContract tools) {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) {checks : List Guarded.RangeObligation} {steps : Nat}
+    (generated : tools.generate program checks steps) : BoundedRangeFragment checks := by
+  intro check member
+  obtain ⟨schema, present, bounded⟩ := contract.generationFaithful program checks steps generated check member
+  obtain ⟨upper, found, parent⟩ := admitted_range_fragment meaning schema present
+  exact ⟨upper, found, Nat.le_trans bounded.1 parent.1, Nat.le_trans bounded.2 parent.2⟩
+
 theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} (member : Member source) :
     ∃ artifact steps, Pipeline tools source artifact steps := by
   obtain ⟨program, meaning⟩ := member_has_meaning member
   obtain ⟨parseSteps, parsed⟩ := contract.parseCompletes source program meaning
-  obtain ⟨generateSteps, generated⟩ := contract.generationCompletes program
-  obtain ⟨proofSteps, proved⟩ := contract.emptyProofCompletes
+  obtain ⟨checks, generateSteps, generated⟩ := contract.generationCompletes program
+  obtain ⟨proofSteps, proved⟩ := contract.boundedRangeProofCompletes checks
+    (generated_range_fragment contract meaning generated)
   obtain ⟨artifact, buildSteps, built⟩ := contract.buildCompletes source program parseSteps parsed
   have library : LibraryEvidence tools program := by
     cases program with
     | nullMain => trivial
-    | outputMain | argumentMain => exact contract.fixedLibraryProofCompletes
-  rw [obligations_empty] at generated
+    | outputMain | argumentMain | guardedMain => exact contract.fixedLibraryProofCompletes
   exact ⟨artifact, _, .complete parsed generated proved library built⟩
 
-theorem pipeline_obligations_empty {Artifact : Type} {tools : Tools Artifact}
-    (contract : ToolContract tools) {program : Program} {checks : List Semantics.Obligation}
-    {steps : Nat} (generated : tools.generate program checks steps) : checks = [] := by
-  rw [contract.generationFaithful program checks steps generated, obligations_empty]
+theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}
+    (contract : ToolContract tools) {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) {checks : List Guarded.RangeObligation}
+    {steps : Nat} (generated : tools.generate program checks steps) :
+    ∀ check ∈ checks, check.Valid :=
+  fragment_checks_valid (generated_range_fragment contract meaning generated)
 
 theorem pipeline_preserves {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {artifact : Artifact} {steps : Nat}

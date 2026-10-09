@@ -12,10 +12,10 @@ restrictions and behavior. This document records its assurance argument and
 evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
 complete the [admission workflow](../development.md).
 
-The SPARK implementation recognizes five productions: null, literal output,
-named-constant output, guarded command-line output and literal-backed
-concatenation. The new composition's scope and validation status are recorded in
-[greeting.md](greeting.md).
+The SPARK implementation recognizes six productions: null, literal output,
+named-constant output, guarded command-line output, literal-backed concatenation
+and guarded command-line concatenation. The latest composition and report-policy
+refinement are recorded in [command-line-greeting.md](command-line-greeting.md).
 The preceding [command-line capability](command-line.md) and
 [review repairs](command-line-review-repairs.md) retain their completed evidence.
 Completed earlier capability evidence remains in [hello-world.md](hello-world.md),
@@ -24,9 +24,11 @@ workflow history is in [proof-workflow.md](proof-workflow.md) and
 [review-repairs.md](review-repairs.md). These records retain their actual input
 and platform scope; earlier results do not validate later changes.
 Pinned Lean 4.34.1 proves membership and behavior of the restricted source
-models. Their application obligation lists are defined to be empty; the
-reviewed Ada argument below and faithful GNATprove generation connect that
-definition to real programs, whose complete reports are checked. The fixed
+models. The first five application obligation lists are empty. Guarded dynamic
+concatenation has nonempty, universally valid arithmetic range schemas with a
+proved finite decision procedure. The reviewed Ada argument and explicit
+GNATprove-generation and bounded-solver-completion premises connect those models
+to real programs, whose complete reports are checked. The fixed
 runtime library set has its own nonempty, separately audited GNATprove
 obligations. The compiler bridge checks authoritative bytes and the complete
 reviewed source token shape, then proves membership equivalence for every
@@ -89,11 +91,11 @@ those expressions. `RecursiveBridge` interprets recursive calls parametrically,
 applies the three uniqueness lemmas, and composes the resulting equivalences
 with cursor/grammar equivalence in the final source theorem. A complete reviewed
 token shape fixes surrounding declarations and binding scopes as well as the
-selected bodies. The JSON names the admitted constructs, their conditions, the five token
+selected bodies. The JSON names the admitted constructs, their conditions, the six token
 sequences and permitted compositions. Construct metadata is maintained explicitly;
 integration compares parsed JSON values, not whitespace or key order. Output
 word-token selection is explicit in the exporter. An integration assertion
-compares its word set with the alphabetic tokens of the five productions;
+compares its word set with the alphabetic tokens of the six productions;
 source checks separately bind those productions to the recognizers.
 
 ### Null structural proof
@@ -159,9 +161,9 @@ by consumed source. `OutputLiteral` supplies the printable-byte predicate.
 `OutputAdmission` defines the 23-token output production and proves scanner
 soundness/completeness. Existing trivia and whole-word rules apply outside the
 literal. `Current.Member` is the union of the null, literal, named, guarded
-argument and concatenation grammars; `Current.accepts_iff_member` connects
+argument, concatenation and guarded concatenation grammars; `Current.accepts_iff_member` connects
 decidable membership to that union.
-Only these five compositions are included; their constructs are not freely
+Only these six compositions are included; their constructs are not freely
 repeatable.
 
 `OutputRuntime` models the actual wrapper's length guard, checked writes,
@@ -217,7 +219,7 @@ production. Library checks remain required and nonempty.
 **Composition and tool steps.** These steps cover every admitted literal and
 layout, and exactly the one permitted call composition. GNATprove verifies the
 wrapper for every `String`, including oversized and non-1-based strings.
-Lean's `Current.obligations` defines the modeled application lists as empty;
+For this literal-output form, Lean's `Current.obligations` is empty;
 its discharge theorem follows from that definition. It does not independently
 extract GNATprove obligations from Ada. Correspondence uses the reviewed
 structural argument, the explicit faithful-generation tool premise and complete
@@ -253,7 +255,7 @@ The named source semantics reduces to the same output value and verified
 wrapper execution as the direct-literal form. Its success, partial-output and
 status-1 failure outcomes therefore inherit the runtime theorem and premises
 above. The `Current` pipeline also covers the concatenation and guarded argument
-compositions below. Modeled obligations remain empty by definition; the reviewed Ada argument,
+compositions below. This named-literal form has empty modeled obligations; the reviewed Ada argument,
 faithful tool-generation premise and complete actual reports remain distinct
 parts of the assurance.
 
@@ -314,7 +316,7 @@ grouping enforces left association, while the decoder's event order makes no
 claim about Ada operand evaluation order. `evaluation_refines` and
 `execution_refines` connect the initialized binding, concatenated value and
 existing IO wrapper. `Current.concat_execution_refines` embeds this result in
-the five-form language through its existing output action.
+the six-form language through its existing output action.
 `Concat.SourceBridge.authoritative_main_correct` retains the checked source,
 parsing against the typed renderer, event evaluation and equality to
 `Current.execute`. Reading the fixed syntax as Ada retains the frontend premise
@@ -328,7 +330,7 @@ initialized by `Silver_Arguments.First_Or_Default`, and one mandatory validity
 guard. Its event trace still has exactly one declaration, default literal and
 matching reference. The name excludes `Silver_Arguments` in addition to the
 named grammar's exclusions, so the initializer and guard retain their package
-binding. The extra exclusion applies only to this production.
+binding. The extra exclusion applies to both command-line productions.
 `ArgumentsSemantics` proves unique source meaning, reference resolution and the
 printable, bounded default domain; `ArgumentsDisjoint` separates it from all
 three earlier forms.
@@ -355,7 +357,7 @@ rendering. The interpreter evaluates the initializer before creating the
 binding and executing the guard, and reports an uninitialized reference as a
 failed evaluation. `Arguments.execution_refines` connects that execution to
 `Arguments.Runtime.executeMain` for every admitted source meaning;
-`Current.argument_execution_refines` connects the result to the five-form model.
+`Current.argument_execution_refines` connects the result to the six-form model.
 `Arguments.SourceBridge.authoritative_main_correct` retains the checked source,
 parsing against that rendering, and equality of the interpreted result with
 `Current.execute` in one theorem.
@@ -390,6 +392,61 @@ reassignment or general command-line access. The empty modeled Main obligation
 list is connected to actual GNATprove generation by the same explicit tool
 premise and complete report checks as the earlier forms.
 
+### Guarded command-line concatenation
+
+The sixth production combines the argument initializer with a fixed short-circuit
+condition: `Input_Is_Valid and then Name'Length <= capacity`. Its output is
+`prefix_literal & Name & suffix_literal`, and its false branch calls `Reject`.
+Both references bind to the sole declaration. The canonical decimal capacity
+must equal 4096 minus the decoded prefix and suffix lengths. Membership checks
+this arithmetic independently of a prover result.
+
+`GuardedDecimal` proves the bounded decimal scanner against a separate digit
+relation and relates literal length to decoded bytes. `GuardedAdmission` defines
+the 62-token grammar and ordered declaration/literal/reference/capacity events.
+`GuardedSemantics` proves unique meaning, binding, source-consumption bounds and
+the output domain for every argument vector. The typed `Guarded.Main.composition`
+renders exactly to the admitted tokens and consumes those events in source
+order. Its interpreter initializes the constant, short-circuits the guard and
+selects output or rejection. `Current.guarded_execution_refines` connects it to
+the six-form execution model; general conditionals are not admitted.
+
+**Reviewed Ada correspondence.** The owned initializer's verified postcondition
+now fixes the result's lower bound at 1. Extended returns construct
+`String (1 .. Item'Length)` and copy the original value, including null and
+non-1-based defaults. The original bytes and invalid-input behavior are preserved.
+This is an owned-SPARK proof, not a new assumption about GNAT's returned bounds.
+The Lean body renderer checks the extended-return statements; its byte-value
+interpreter abstracts array bounds, whose numeric correctness is proved in SPARK.
+Predefined Ada String concatenation and its index semantics remain frontend
+premises, as with earlier forms.
+
+The pure initialized value is bounded by 4096. Each literal is bounded by its
+consumption of source bytes. Both concatenations therefore fit the conservative
+Integer range bounds 8192 and 12288, below Ada's guaranteed positive minimum
+32767. Empty operands still require the owned lower-bound fact. The tighter
+capacity guard independently ensures that the final printable result fits the
+4096-byte output domain. A missing argument uses the default, a valid empty
+argument prints just the decorations, and invalid or over-capacity input returns
+status 1 without application output. Every branch reads initialized data.
+
+`Guarded.RangeObligation` quantifies over every selected-value length
+up to its bound. Its finite checker is proved equivalent to validity by checking
+the maximum. Two source-operation schemas describe the left-associated sums;
+`obligations_refine_uniform` bounds every admitted program by the two fixed
+maximal schemas, and `all_obligations_discharge` proves their discharge.
+`Current` composes these theorems with membership and execution. Its mathematical
+step bound counts checker transitions, not external solver instructions.
+
+Real GNATprove reports contain range checks, with optimization-dependent counts.
+`Complete_Application_Proof` audits Main body coverage, the four exact called
+library entities, every flow/proof record, approved dependencies and completed
+analysis. It admits only proved Main `VC_RANGE_CHECK` proof records. It does not
+pin a check total or infer that omitted checks were unnecessary: faithful and
+complete GNATprove generation remains an explicit external premise. The previous
+five forms retain their strict empty-report route. All selected library reports
+remain required before build and publication.
+
 ### Selected library sources and evidence
 
 Every output application project selects unchanged `main.adb` and exactly six
@@ -415,16 +472,22 @@ required. The IO and Arguments bodies require nonempty checks and proved
 `Put_Line` and `First_Or_Default` postconditions respectively. The Output_Libc
 and Runtime reports require full package coverage and specification coverage
 for their exact approved imports. No arbitrary historical check total is pinned.
-It is a bounded,
-nonrecursive scanner with verified safety and reviewed/tested report semantics;
-it has no independent ghost parser-refinement theorem. Genuine GNATprove report
-completeness remains trusted. See the boundary document for this distinction
-from the existing null-report functional contract.
+The executable scan is bounded and nonrecursive. Its result is proved equal to
+independent ghost policies, `Runtime_Report_Policy` and
+`Application_Report_Policy`. The ghost definitions specify byte traversal,
+quoted/escaped strings, nesting, required immediate fields, entity coverage,
+dependencies and every emitted result; they do not call executable traversals or record/coverage acceptance functions.
+Elementary byte predicates and immutable policy tables are shared; data
+constructors have exact component contracts. Refinement is equality, covering both
+acceptance and rejection in the supported bounded format. These definitions
+and lemmas use Static ghost erasure. The format still belongs to the genuine
+pinned producer; this is not a general JSON or provenance theorem. Faithful,
+complete obligation generation remains trusted.
 
 ## Compiler verification evidence
 
 `Silver_Profile.Accepts` is the null source recognizer;
-`Silver_Output_Profile.Accepts` recognizes the four output productions. Both have an
+`Silver_Output_Profile.Accepts` recognizes the five output productions. Both have an
 independent ghost membership specification and proved executable refinement.
 For the null recognizer, its postcondition is
 `Accepts'Result = Is_Member (Source)`. The independent ghost specification uses
@@ -460,7 +523,7 @@ operations. The imported subprograms in three reviewed interface packages have
 specification-only coverage; the packages themselves require full coverage.
 Their existing implementation bodies are external. Generated `Silver_Build`
 and `Silver_Library_Sources` are covered too. See the
-[greeting record](greeting.md) for current validation status and the
+[guarded-greeting record](command-line-greeting.md) for current validation status and the
 [command-line repair record](command-line-review-repairs.md),
 [command-line capability](command-line.md) and
 [Hello World repair evidence](hello-review-repairs.md) for earlier baselines.
@@ -518,9 +581,10 @@ ordinary warm state. It rejects custom `--subdirs` and prints its evidence path.
 subdirectory and cannot select an audit-managed cache. This catches routine
 command mistakes, not arbitrary wrapper behavior. Such runs do not create
 audited success evidence. The wall-clock timeout remains machine-dependent;
-passing evidence is not a performance guarantee on every host. Before admitting
-nonempty user-program obligations, their prover configuration and complete
-automatic-discharge argument must be specified together. The normal report
+passing evidence is not a performance guarantee on every host. Application
+proof uses the separate deterministic step-limited configuration documented
+below and in the trusted boundary. Its dynamic-range argument is distinct from
+this compiler-development audit. The normal report
 directory is `.silver/<host>/compiler/obj/gnatprove/`; cold runs use the printed
 path under `.silver/<host>/compiler/obj/cold-<random>/gnatprove/`.
 `gnatprove.out` provides the readable summary; `.spark` and SARIF supply the
@@ -569,7 +633,8 @@ Additional cases simulate external tool failure, incomplete proof reports,
 skipped/assumed obligations, and source changes during proof or compilation.
 These tests are implementation evidence, not a universal language theorem.
 
-Current concatenation validation belongs in [greeting.md](greeting.md);
+Current validation belongs in [command-line-greeting.md](command-line-greeting.md);
+literal-backed concatenation validation remains in [greeting.md](greeting.md);
 the preceding repair and capability results are in
 [command-line-review-repairs.md](command-line-review-repairs.md) and
 [command-line.md](command-line.md). Earlier
@@ -589,7 +654,13 @@ recorded in `proof/lean-toolchain`. The Lake project treats warnings as errors
 and has no Mathlib dependency. Declaration checking defaults to one thread per
 Lean process as a conservative memory setting; `--threads N` can adjust it.
 This default has not been benchmarked against higher thread counts. Lake retains
-its native scheduling of independent modules.
+its native scheduling of independent modules. The build re-elaborates Lake
+configuration before using `--threads` or `--memory-mb`, because the pinned Lake
+caches `get_config?` values without comparing new command-line options. This
+preserves accepted module objects while making resource settings effective; a
+real Lake regression checks both changed child arguments and cache reuse. The
+optional memory allowance applies to Lean build/audit processes, not host RSS.
+The pinned standalone `leanchecker` accepts no memory-limit CLI option.
 
 Each native host uses its own `.tools/<host>/lean` installation and
 `.silver/<host>/proof` replay workspace. The checker copies shared proof inputs
@@ -691,27 +762,27 @@ The proof chain has distinct checked components:
    union. `NamedSourceBridge` retains checked identifier/span/forbidden-name and
    named-suffix templates, including the complete forbidden-name enum and its
    ordinary case/return spelling body.
-8. `ArgumentsExpressions` interprets the extra package-name exclusion, guarded
-   suffix and public four-output-production membership expression. It closes
-   arbitrary shared and new callees on their verified domains, including the
-   retained named suffix, and applies identifier/suffix uniqueness. The ordinary
-   fixed-token comparison domain is checked at 16 bytes. A concrete
-   `model_interpreted` witnesses the complete equation interface.
-   `ArgumentsSourceBridge.CheckedSource` adds exact reconstruction of Arguments
-   spec/body and Runtime spec, their declaration/contract checks and the whole
-   typed argument-body rendering, plus the typed Main composition's equality
-   with the required token production. Its `authoritative_current_member_iff`
-   retains the checked source facts and proves five-form union membership for
-   every interpretation satisfying the checked equations. Parse determinism,
-   disjointness and `Current.meaning_unique` establish a unique source meaning.
-9. `ConcatExpressions` renders and interprets the actual concatenation suffix
-   recognizer; `ConcatEquations` applies its recursive uniqueness argument.
-   `ConcatSourceBridge` checks that source expression, its refinement header,
-   and the Main composition's token rendering and precedence. The complete
-   argument bridge retains those checks alongside the other production bridges.
-   The sum over literal source spans and the event-consuming Main interpreter
-   connect source meaning to the bounded concatenated output value.
-10. `Current` composes runtime and source-meaning model lemmas for the five
+8. `ArgumentsExpressions` interprets the package-name exclusion and argument
+   suffix. It closes shared and new callees on their verified domains and
+   applies identifier/suffix uniqueness. `ArgumentsSourceBridge` checks exact
+   Arguments spec/body and Runtime spec bytes, contracts, the whole typed
+   argument-body rendering and the typed argument Main composition. Runtime
+   normalization uses checked extended-return nodes; SPARK verifies their
+   machine bounds while the Lean interpreter preserves the returned byte value.
+9. `ConcatExpressions` and `ConcatEquations` interpret the literal-backed
+   concatenation suffix and prove its recursive uniqueness. `ConcatSourceBridge`
+   checks the source expression, refinement header, typed Main rendering and
+   precedence. `GuardedEquations` and `GuardedExpressions` add the bounded decimal
+   and literal-length calculations, capacity/name conditions and guarded suffix.
+   `GuardedSourceBridge` checks these actual-source expressions and the typed
+   guarded Main renderer. Its current-language facade includes all six forms;
+   the separate guarded-selector theorem connects the driver classifier to this
+   exact production. `authoritative_current_member_iff` and
+   `checked_current_pipeline` retain the checked source facts when composing
+   membership and the conditional external-tool result. Each checked recursive
+   interpretation is closed by the corresponding uniqueness argument. The
+   source reading still uses the approved Ada frontend and SPARK's numeric facts.
+10. `Current` composes runtime and source-meaning model lemmas for the six
    productions, including `Arguments.execution_refines` and
    `Arguments.Runtime.main_refines`. It does not import the source bridges.
    `Output.SourceBridge.authoritative_runtime_correct` separately conjoins the
@@ -766,7 +837,14 @@ connects source-checked membership to this conditional completion result.
 For the current union, `Current.Tools` and `Current.ToolContract` extend this
 structure with the fixed six-file library set's separately audited proof and
 execution over an immutable argument vector and output environment. `automatic_pipeline` composes faithful parsing, obligation generation,
-empty application discharge, fixed-library proof and same-source compilation.
+bounded-range discharge, fixed-library proof and same-source compilation.
+`generationFaithful` relates each generated check to a concatenation schema;
+`generated_range_fragment` proves it lies within the checked uniform bounds.
+`boundedRangeProofCompletes` explicitly assumes completion of the pinned external
+provers on that concrete arithmetic fragment. The Lean decision procedure proves
+validity and termination for its mathematical schemas; it is not a proof of
+CVC5/Z3/Alt-Ergo or of their 10,000-step bound. The native obligation experiments
+and boundary cases exercise this premise; they do not prove it universally.
 `pipeline_preserves` and `pipeline_realizes` establish specified outcomes and,
 in a healthy output environment, exact bytes and the expected status. Invalid
 arguments retain rejection status 1 under that premise. The fixed-library proof premise is
@@ -781,20 +859,20 @@ accessible immutable source/project files, sufficient resources, successful I/O,
 and completion of the invoked processes. Runtime startup, linking, libc, and
 the OS remain within the explicit trust boundary. The theorem does not establish
 those implementations or assert infallibility under tool crashes or resource
-exhaustion. Real GNATprove evidence checks positive coverage, empty application-unit
-flow/proof lists, and discharge of every selected library check;
+exhaustion. Real GNATprove evidence checks positive coverage, the appropriate
+empty or range-check application policy, and discharge of every selected library check;
 identifying those records with semantic obligations uses the external tool contract; the driver's proved guards connect observed success to artifact
 publication. There is no separate single theorem modeling the entire CLI and OS.
 
 | Claim | How established | Scope and premises |
 | --- | --- | --- |
 | Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
-| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All five compositions, admitted concatenations, defaults and argument outcomes; immutable argv, GNAT ABI and output meanings/progress as documented. |
-| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the five productions; no general serializer theorem. |
+| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All six compositions, admitted concatenations, defaults and argument outcomes; immutable argv, GNAT ABI and output meanings/progress as documented. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the six productions; no general serializer theorem. |
 | Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; pinned external imports and the documented runtime assumptions. |
-| Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null-report recognition, I/O observations and ordered driver guards. |
+| Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null/runtime/application report-policy refinement, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
-| Automatic discharge | Lean empty-obligation certificate; conditional external-tool theorem; real report checks | Empty application checks plus separately audited fixed-library obligations for every admitted source. No arbitrary-SPARK solver completeness claim. |
+| Automatic discharge | Lean bounded-range decision and refinement theorems; conditional external-tool theorem; real report checks | Empty checks for the first five forms, valid bounded-range schemas for the sixth, and separately audited fixed libraries. External generation and pinned-fragment prover completion remain explicit premises. |
 | Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Retained macOS baseline evidence does not validate later changes. Current macOS validation is independent and pending; CI is configured but has not run. |
 
 These boundaries do not change membership or waive any obligation. Admission,

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import json
+from itertools import product
 from pathlib import Path
 import subprocess
 import tempfile
@@ -58,6 +59,21 @@ def argument_report(interface: bool = False) -> dict:
             "pragma_assume": [], "warn_error": [], "assumptions": []}
 
 
+def main_report(count: int = 2) -> dict:
+    names = ["Main", "Silver_Arguments.First_Or_Default", "Silver_Arguments.Input_Is_Valid",
+             "Silver_Arguments.Reject", "Silver_IO.Put_Line"]
+    data = report(True)
+    data["entities"] = {f" {i}": ({"name": name, "sloc": [
+        {"file": "main.adb", "line": 1, "column": 1}]} if name == "Main" else entity(name))
+        for i, name in enumerate(names, 1)}
+    data["spark"] = {" 1": "all"}
+    data["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb") for _ in range(count)]
+    data["assumptions"] = [{"claim": {"predicate": "CLAIM_AORTE", "arg": 1},
+        "assumptions": [{"predicate": "CLAIM_POST", "arg": 2},
+                        {"predicate": "CLAIM_EFFECTS", "arg": 3}]}]
+    return data
+
+
 class LibraryReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -95,6 +111,68 @@ end Probe;
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(result.stdout, ("accepted\n", "rejected\n"))
         return result.stdout == "accepted\n"
+
+    def test_main_complete_reports_and_optimized_empty_checks(self) -> None:
+        for count in (0, 1, 2, 9):
+            with self.subTest(count=count):
+                self.assertTrue(self.accepts(main_report(count), kind="main"))
+                self.assertFalse(self.accepts(main_report(count), kind="body"))
+        self.assertFalse(self.accepts(report(), kind="main"))
+
+    def test_main_entity_preserves_admitted_procedure_casing(self) -> None:
+        for letters in product(*[(c.lower(), c.upper()) for c in "main"]):
+            data = main_report()
+            data["entities"][" 1"]["name"] = "".join(letters)
+            self.assertTrue(self.accepts(data, kind="main"))
+        for name in ("Mai", "Maine", "Main ", " Main", "Maix", "Other.Main"):
+            data = main_report()
+            data["entities"][" 1"]["name"] = name
+            self.assertFalse(self.accepts(data, kind="main"))
+
+    def test_large_main_report_erases_recursive_ghost_models(self) -> None:
+        # At -gnata the Static models must still be absent from execution.
+        # This traverses enough bytes to expose accidentally executable ghost
+        # recursion, while staying inside the documented report domain.
+        data = main_report(120)
+        self.assertGreater(len(json.dumps(data)), 20_000)
+        self.assertLess(len(json.dumps(data)), 262_144)
+        self.assertTrue(self.accepts(data, kind="main"))
+
+    def test_main_failed_records_and_unapproved_obligations(self) -> None:
+        for section in ("flow", "proof"):
+            for field, value in (("severity", "low"), ("severity", "warning"),
+                                 ("how_proved", "unknown"), ("how_proved", "flow"),
+                                 ("rule", "VC_PRECONDITION"), ("rule", ""),
+                                 ("file", "silver_io.adb"), ("entity", 2),
+                                 ("entity", 99), ("line", 0), ("col", 0)):
+                data = main_report(1)
+                data[section] = [dict(data["proof"][0], **{field: value})]
+                with self.subTest(section=section, field=field, value=value):
+                    self.assertFalse(self.accepts(data, kind="main"))
+            for field in ("justification", "justified", "suppressed", "annot_kind", "justif_msg"):
+                data = main_report(1)
+                data[section] = [dict(data["proof"][0], **{field: False})]
+                self.assertFalse(self.accepts(data, kind="main"))
+
+    def test_main_exact_coverage_dependencies_and_completion(self) -> None:
+        for field in ("skip_flow_proof", "skip_proof", "pragma_assume", "warn_error"):
+            data = main_report()
+            data[field] = [{}]
+            self.assertFalse(self.accepts(data, kind="main"))
+        for field, value in (("spark", {}), ("spark", {" 1": "spec"}),
+                             ("spark", {" 1": "all", " 2": "spec"}),
+                             ("progress", "PROGRESS_FLOW"), ("stop_reason", "STOP_REASON_ERROR")):
+            data = main_report()
+            data[field] = value
+            self.assertFalse(self.accepts(data, kind="main"))
+        for key in (" 1", " 2", " 3", " 4", " 5"):
+            data = main_report()
+            del data["entities"][key]
+            self.assertFalse(self.accepts(data, kind="main"))
+        for predicate in ("CLAIM_ASSUME", "CLAIM_PRE", "UNKNOWN"):
+            data = main_report()
+            data["assumptions"][0]["assumptions"][0]["predicate"] = predicate
+            self.assertFalse(self.accepts(data, kind="main"))
 
     def test_both_selected_schemas_and_wrong_kind(self) -> None:
         self.assertTrue(self.accepts(report()))

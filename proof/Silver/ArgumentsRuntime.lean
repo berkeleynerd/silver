@@ -86,16 +86,23 @@ def Result.thenNext {kind : Kind} (first next : Result kind) : Result kind :=
   | .returned value => .returned value
   | .invalid => .invalid
 
-inductive Statement (kind : Kind)
-  | returnValue (value : Expr kind)
-  | sequence (first next : Statement kind)
-  | ifThen (test : Expr .boolean) (body : Statement kind)
-  | ifElsif (firstTest : Expr .boolean) (firstBody : Statement kind)
-      (nextTest : Expr .boolean) (nextBody : Statement kind)
-  | localItem (value : Expr .bytes) (body : Statement kind)
+inductive Statement : Kind → Type
+  | returnValue {kind : Kind} (value : Expr kind) : Statement kind
+  /-- Ada extended return constrains the result to 1 .. value'Length and
+  initializes it from that same value. The byte semantics forget array indices;
+  the rendered bounds and the verified SPARK postcondition fix the lower bound. -/
+  | returnRebased (value : Expr .bytes) : Statement .bytes
+  | sequence {kind : Kind} (first next : Statement kind) : Statement kind
+  | ifThen {kind : Kind} (test : Expr .boolean) (body : Statement kind) : Statement kind
+  | ifElsif {kind : Kind} (firstTest : Expr .boolean) (firstBody : Statement kind)
+      (nextTest : Expr .boolean) (nextBody : Statement kind) : Statement kind
+  | localItem {kind : Kind} (value : Expr .bytes) (body : Statement kind) : Statement kind
 
 def Statement.render {kind : Kind} : Statement kind → List String
   | .returnValue value => ["return"] ++ value.render ++ [";"]
+  | .returnRebased value =>
+      ["return", "result", ":", "string", "(", "1", ".."] ++ value.render ++
+      ["'", "length", ")", ":="] ++ value.render ++ [";"]
   | .sequence first next => first.render ++ next.render
   | .ifThen test body =>
       ["if"] ++ test.render ++ ["then"] ++ body.render ++ ["end", "if", ";"]
@@ -107,7 +114,7 @@ def Statement.render {kind : Kind} : Statement kind → List String
       [";", "begin"] ++ body.render ++ ["end", ";"]
 
 def Statement.execute {kind : Kind} (context : Context) : Statement kind → Result kind
-  | .returnValue value =>
+  | .returnValue value | .returnRebased value =>
       match value.evaluate context with
       | some result => .returned result
       | none => .invalid
@@ -140,9 +147,9 @@ def validityProgram : Statement .boolean :=
 def initializerProgram : Statement .bytes :=
   .sequence
     (.ifElsif (.countEquals 0)
-      (.ifThen (.isMessage .defaultValue) (.returnValue .defaultValue))
+      (.ifThen (.isMessage .defaultValue) (.returnRebased .defaultValue))
       (.countEquals 1)
-      (.localItem .argumentOne (.ifThen (.isMessage .localItem) (.returnValue .localItem))))
+      (.localItem .argumentOne (.ifThen (.isMessage .localItem) (.returnRebased .localItem))))
     (.returnValue .empty)
 
 /-- Independent case specification of valid process arguments. -/

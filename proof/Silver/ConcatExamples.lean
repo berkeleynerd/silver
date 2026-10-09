@@ -9,7 +9,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr (Or.inr (Or.inr (Or.inr ((accepts_iff_member exampleSource).mp example_admitted))))
+  Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ((accepts_iff_member exampleSource).mp example_admitted)))))
 
 def repeatedReference : Source :=
   "with Silver_IO; procedure Main is pragma SPARK_Mode (On); Name : constant String := \"world\"; begin Silver_IO.Put_Line (Name & Name & \"!\"); end Main;".toList.map Char.toNat

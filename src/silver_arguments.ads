@@ -8,9 +8,12 @@ package Silver_Arguments with SPARK_Mode => On is
    --  required validity guard and Reject branch, never printed as a fallback.
    function Input_Is_Valid return Boolean with Global => null;
 
+   --  Return canonical one-based bounds while preserving the selected bytes.
+   --  This also applies to shifted and null-range Default values.
    function First_Or_Default (Default : String) return String
      with Global => null,
-          Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length
+          Post => First_Or_Default'Result'First = 1
+            and then First_Or_Default'Result'Length <= Silver_IO.Max_Length
             and then (for all Ch of First_Or_Default'Result =>
               Character'Pos (Ch) in 32 .. 126);
 

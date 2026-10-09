@@ -181,7 +181,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             assert Path(str(kwargs["cwd"])) == host.proof
             options = args[1:]
             if options and options[0] == "--rehash":
-                options = options[1:]
+                assert options[:2] == ["--rehash", "--reconfigure"]
+                options = options[2:]
             assert options[:2] == ["-K", "silverThreads=1"]
             options = options[2:]
             if options == ["build", "Silver.Audit"]:

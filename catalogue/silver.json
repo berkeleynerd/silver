@@ -154,9 +154,13 @@
           "string_literal"
         ],
         "association": "left",
-        "constant_initializer": "string_literal",
+        "constant_initializer": [
+          "string_literal",
+          "argument_initialization"
+        ],
         "reference_count": 1,
-        "max_result_bytes": 4096
+        "max_result_bytes": 4096,
+        "dynamic_requires": "capacity_guard"
       }
     },
     {
@@ -167,6 +171,23 @@
         "qualification_required": true,
         "arguments": [
           "string_concatenation"
+        ],
+        "count": 1
+      }
+    },
+    {
+      "id": "capacity_guard",
+      "ada_kind": "if_statement",
+      "conditions": {
+        "condition": "Silver_Arguments.Input_Is_Valid and then declared_constant_identifier'Length <= capacity_literal",
+        "capacity_literal_syntax": "0|[1-9][0-9]*",
+        "capacity_value": "4096 - decoded_prefix_length - decoded_suffix_length",
+        "same_bound_name": true,
+        "then": [
+          "concatenated_output"
+        ],
+        "else": [
+          "argument_rejection"
         ],
         "count": 1
       }
@@ -273,6 +294,32 @@
         "silver_runtime.ads"
       ],
       "initializer": "string_literal"
+    },
+    {
+      "name": "guarded_concatenated_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_constant"
+      ],
+      "initializer": "argument_initialization",
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "statements": [
+        "capacity_guard"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ]
     }
   ],
   "additional_units": false,
@@ -755,7 +802,9 @@
     "input_is_valid",
     "then",
     "else",
-    "reject"
+    "reject",
+    "and",
+    "length"
   ],
   "null_tokens": [
     "procedure",
@@ -844,7 +893,8 @@
     "empty": "preserved",
     "invalid_exit_status": 1,
     "invalid_stdout": "",
-    "immutable_argument_vector_required": true
+    "immutable_argument_vector_required": true,
+    "selected_value_first": 1
   },
   "argument_tokens": [
     "with",
@@ -930,6 +980,70 @@
     "&",
     "<string_literal>",
     ")",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "guarded_concatenation_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "with",
+    "silver_arguments",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "silver_arguments",
+    ".",
+    "first_or_default",
+    "(",
+    "<string_literal>",
+    ")",
+    ";",
+    "begin",
+    "if",
+    "silver_arguments",
+    ".",
+    "input_is_valid",
+    "and",
+    "then",
+    "<reference_name>",
+    "'",
+    "length",
+    "<=",
+    "<capacity_literal>",
+    "then",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<string_literal>",
+    "&",
+    "<reference_name>",
+    "&",
+    "<string_literal>",
+    ")",
+    ";",
+    "else",
+    "silver_arguments",
+    ".",
+    "reject",
+    ";",
+    "end",
+    "if",
     ";",
     "end",
     "main",

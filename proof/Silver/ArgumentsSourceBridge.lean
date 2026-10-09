@@ -7,7 +7,9 @@ interpreted by Arguments.execute. Recognizer expressions, owned argument-wrapper
 statements and GNAT imports are checked against their authoritative sources.
 Current composes the model refinements; this bridge retains their source facts
 alongside them. Ada frontend interpretation, immutable argv and the GNAT ABI
-remain explicit premises; token-shape equality alone proves no implementation. -/
+remain explicit premises; token-shape equality alone proves no implementation.
+The guarded-greeting bridge owns the latest public whole-language membership
+checks; this module retains the argument production and wrapper correspondence. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -26,8 +28,7 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "forbidden_name" Source.outputBodyTokens = some Expressions.forbiddenBody.render ∧
   Source.expressionBody "valid_name_state" Source.outputBodyTokens = some Expressions.stateBody.render ∧
   Source.expressionBody "forbidden_argument_name" Source.outputBodyTokens = some Expressions.argumentForbiddenBody.render ∧
-  Source.expressionBody "argument_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render ∧
-  Source.expressionBody "is_member" Source.outputBodyTokens = some Expressions.memberBody.render
+  Source.expressionBody "argument_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
@@ -45,7 +46,7 @@ abbrev RuntimeDeclarations : Prop :=
   functionHeader "input_is_valid" ";" Source.argumentsSpecTokens = some (expectedTokens
     "return Boolean with Global => null") ∧
   functionHeader "first_or_default" ";" Source.argumentsSpecTokens = some (expectedTokens
-    "(Default : String) return String with Global => null, Post => First_Or_Default'Result'Length <= Silver_IO.Max_Length and then (for all Ch of First_Or_Default'Result => Character'Pos (Ch) in 32 .. 126)") ∧
+    "(Default : String) return String with Global => null, Post => First_Or_Default'Result'First = 1 and then First_Or_Default'Result'Length <= Silver_IO.Max_Length and then (for all Ch of First_Or_Default'Result => Character'Pos (Ch) in 32 .. 126)") ∧
   Output.SourceBridge.procedureHeader "reject" Source.argumentsSpecTokens = some (expectedTokens
     "with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates") ∧
   functionHeader "argument_count" ";" Source.runtimeSpecTokens = some (expectedTokens
@@ -118,30 +119,5 @@ theorem authoritative_argument_runtime_correct (environment : Output.Runtime.Env
         Runtime.outputMain environment (Runtime.firstOrDefault defaultValue arguments) else ⟨1, []⟩) :=
   ⟨checked_source, Runtime.validity_refines arguments defaultValue,
     Runtime.initializer_refines arguments defaultValue, Runtime.main_refines environment arguments defaultValue⟩
-
-theorem authoritative_current_member_iff
-    (nullCalls : Silver.Expressions.Calls)
-    (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
-    (source : Source) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ((nullCalls.member source || calls.arguments.member source) = true ↔ Current.Member source) := by
-  refine ⟨Silver.SourceBridge.checked_source, checked_source, ?_⟩
-  simp only [Bool.or_eq_true, Current.Member,
-    Silver.Expressions.member_implementation_iff nullCalls nullEquations source,
-    implementation_member_iff calls.arguments (Expressions.interpreted_equations calls sourceEquations) source]
-
-/-- Faithful generation and verification of the fixed six-file library set
-remain explicit tool premises, with source identity checked by the driver. -/
-theorem checked_current_pipeline {Artifact : Type} {tools : Current.Tools Artifact}
-    (contract : Current.ToolContract tools)
-    (nullCalls : Silver.Expressions.Calls)
-    (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
-    (source : Source) (accepted : (nullCalls.member source || calls.arguments.member source) = true) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ∃ artifact steps, Current.Pipeline tools source artifact steps := by
-  have bridge := authoritative_current_member_iff nullCalls nullEquations calls sourceEquations source
-  exact ⟨bridge.1, bridge.2.1, Current.automatic_pipeline contract (bridge.2.2.mp accepted)⟩
 
 end Silver.Arguments.SourceBridge

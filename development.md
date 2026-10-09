@@ -51,8 +51,9 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit report
-   remains empty for the five current productions; output additionally requires
-   the complete nonempty library reports. Extend report handling when new
+   remains empty for the first five productions; the guarded dynamic
+   concatenation has a complete range-check policy. Every output form also
+   requires the complete nonempty selected library reports. Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.
 4. Update the specification, catalogue and motivating sample together. Exercise
@@ -98,7 +99,12 @@ remains one because generated
 certificates have high peak memory use. This is a conservative starting point,
 not a measured optimum. The ten source-certificate modules are independent
 so Lake can check them concurrently; each module remains serial at this setting. Measure time and memory when tuning it, and avoid multiplying all-core
-thread pools across concurrent modules.
+thread pools across concurrent modules. The runner re-elaborates Lake configuration
+so each invocation actually applies its requested thread and memory settings.
+`--memory-mb N` limits allocations in Lean build/audit processes, not total host
+RSS or the combined memory of concurrently scheduled modules. The separate
+pinned `leanchecker --fresh` executable has no memory-limit CLI option; observe
+host headroom during that phase as well.
 
 At capability-validation checkpoints:
 

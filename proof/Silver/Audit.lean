@@ -51,14 +51,14 @@ run_cmd do
 #print axioms Silver.Source.unsupported_literal_syntax_rejected
 #print axioms Silver.Output.accepts_iff_member
 #print axioms Silver.Output.source_implementation_member_iff
-#print axioms Silver.Arguments.SourceBridge.authoritative_current_member_iff
+#print axioms Silver.Guarded.SourceBridge.authoritative_current_member_iff
 #print axioms Silver.Output.SourceBridge.authoritative_runtime_correct
 #print axioms Silver.Output.Runtime.healthy_output
 #print axioms Silver.Current.every_meaning_assured
 #print axioms Silver.Current.automatic_pipeline
 #print axioms Silver.Current.pipeline_preserves
 #print axioms Silver.Current.pipeline_realizes
-#print axioms Silver.Arguments.SourceBridge.checked_current_pipeline
+#print axioms Silver.Guarded.SourceBridge.checked_current_pipeline
 
 #print axioms Silver.Output.literalAt_unique
 #print axioms Silver.Output.parsed_unique
@@ -136,3 +136,32 @@ run_cmd do
 #print axioms Silver.Concat.Expressions.model_interpreted
 #print axioms Silver.Concat.SourceBridge.authoritative_main_correct
 #print axioms Silver.Current.concat_execution_refines
+
+-- Guarded dynamic concatenation: admission, source meaning, and range proofs.
+#print axioms Silver.Guarded.accepts_iff_member
+#print axioms Silver.Guarded.meaning_unique
+#print axioms Silver.Guarded.meaning_binds
+#print axioms Silver.Guarded.output_domain
+#print axioms Silver.Guarded.execution_refines
+#print axioms Silver.Guarded.obligations_refine_uniform
+#print axioms Silver.Guarded.range_obligations_valid
+#print axioms Silver.Guarded.all_obligations_discharge
+#print axioms Silver.Guarded.selected_range_bounds
+#print axioms Silver.Guarded.Main.rendered_tokens
+#print axioms Silver.Guarded.RangeObligation.discharge_iff
+#print axioms Silver.Current.guarded_execution_refines
+#print axioms Silver.Current.automatic_discharge_complete
+#print axioms Silver.Current.admitted_range_fragment
+#print axioms Silver.Current.all_obligations_discharge
+#print axioms Silver.Current.generated_range_fragment
+#print axioms Silver.Current.pipeline_checks_valid
+
+#print axioms Silver.Guarded.SourceBridge.checked_source
+#print axioms Silver.Guarded.SourceBridge.authoritative_guarded_member_iff
+
+#print axioms Silver.Guarded.Expressions.interpreted_member_iff
+#print axioms Silver.Guarded.Expressions.interpreted_guarded_iff
+#print axioms Silver.Guarded.Expressions.model_interpreted
+#print axioms Silver.Guarded.SourceBridge.authoritative_executable_member_iff
+#print axioms Silver.Guarded.SourceBridge.authoritative_main_correct
+#print axioms Silver.Guarded.SourceBridge.checked_executable_pipeline

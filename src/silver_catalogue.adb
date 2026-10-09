@@ -192,9 +192,13 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""string_literal""");
       Put_Line ("        ],");
       Put_Line ("        ""association"": ""left"",");
-      Put_Line ("        ""constant_initializer"": ""string_literal"",");
+      Put_Line ("        ""constant_initializer"": [");
+      Put_Line ("          ""string_literal"",");
+      Put_Line ("          ""argument_initialization""");
+      Put_Line ("        ],");
       Put_Line ("        ""reference_count"": 1,");
-      Put_Line ("        ""max_result_bytes"": 4096");
+      Put_Line ("        ""max_result_bytes"": 4096,");
+      Put_Line ("        ""dynamic_requires"": ""capacity_guard""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -205,6 +209,23 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""qualification_required"": true,");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_concatenation""");
+      Put_Line ("        ],");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""capacity_guard"",");
+      Put_Line ("      ""ada_kind"": ""if_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""condition"": ""Silver_Arguments.Input_Is_Valid and then declared_constant_identifier'Length <= capacity_literal"",");
+      Put_Line ("        ""capacity_literal_syntax"": ""0|[1-9][0-9]*"",");
+      Put_Line ("        ""capacity_value"": ""4096 - decoded_prefix_length - decoded_suffix_length"",");
+      Put_Line ("        ""same_bound_name"": true,");
+      Put_Line ("        ""then"": [");
+      Put_Line ("          ""concatenated_output""");
+      Put_Line ("        ],");
+      Put_Line ("        ""else"": [");
+      Put_Line ("          ""argument_rejection""");
       Put_Line ("        ],");
       Put_Line ("        ""count"": 1");
       Put_Line ("      }");
@@ -317,6 +338,32 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""silver_runtime.ads""");
       Put_Line ("      ],");
       Put_Line ("      ""initializer"": ""string_literal""");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""name"": ""guarded_concatenated_output"",");
+      Put_Line ("      ""context"": [");
+      Put_Line ("        ""runtime_context"",");
+      Put_Line ("        ""argument_context""");
+      Put_Line ("      ],");
+      Put_Line ("      ""declarative_items"": [");
+      Put_Line ("        ""spark_mode_on"",");
+      Put_Line ("        ""named_string_constant""");
+      Put_Line ("      ],");
+      Put_Line ("      ""initializer"": ""argument_initialization"",");
+      Put_Line ("      ""additional_excluded_names"": [");
+      Put_Line ("        ""Silver_Arguments""");
+      Put_Line ("      ],");
+      Put_Line ("      ""statements"": [");
+      Put_Line ("        ""capacity_guard""");
+      Put_Line ("      ],");
+      Put_Line ("      ""library_units"": [");
+      Put_Line ("        ""silver_io.ads"",");
+      Put_Line ("        ""silver_io.adb"",");
+      Put_Line ("        ""silver_output_libc.ads"",");
+      Put_Line ("        ""silver_arguments.ads"",");
+      Put_Line ("        ""silver_arguments.adb"",");
+      Put_Line ("        ""silver_runtime.ads""");
+      Put_Line ("      ]");
       Put_Line ("    }");
       Put_Line ("  ],");
    end Export_Compositions;
@@ -362,6 +409,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("    ""empty"": ""preserved"",");
       Put_Line ("    ""invalid_exit_status"": 1,");
       Put_Line ("    ""invalid_stdout"": """",");
+      Put_Line ("    ""selected_value_first"": 1,");
       Put_Line ("    ""immutable_argument_vector_required"": true");
       Put_Line ("  },");
       Put_Line ("  ""max_source_bytes"":" & Decimal (Silver_Profile.Max_Source_Length) & ",");
@@ -392,6 +440,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
            | Silver_Output_Profile.If_Keyword | Silver_Output_Profile.Input_Is_Valid_Name
            | Silver_Output_Profile.Then_Keyword | Silver_Output_Profile.Else_Keyword
            | Silver_Output_Profile.Reject_Name
+           | Silver_Output_Profile.And_Keyword | Silver_Output_Profile.Length_Name
          then
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
@@ -458,6 +507,22 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put ("""<reference_name>""");
          else
             Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Argument_Required_Tokens (Index)) & """");
+         end if;
+      end loop;
+      Put_Line ("],");
+      Put ("  ""guarded_concatenation_tokens"": [");
+      for Index in Silver_Output_Profile.Guarded_Required_Tokens'Range loop
+         if Index /= Silver_Output_Profile.Guarded_Required_Tokens'First then Put (","); end if;
+         if Silver_Output_Profile.Guarded_Required_Tokens (Index) = Silver_Output_Profile.String_Literal then
+            Put ("""<string_literal>""");
+         elsif Silver_Output_Profile.Guarded_Required_Tokens (Index) = Silver_Output_Profile.Declaration_Name then
+            Put ("""<declaration_name>""");
+         elsif Silver_Output_Profile.Guarded_Required_Tokens (Index) = Silver_Output_Profile.Reference_Name then
+            Put ("""<reference_name>""");
+         elsif Silver_Output_Profile.Guarded_Required_Tokens (Index) = Silver_Output_Profile.Capacity_Literal then
+            Put ("""<capacity_literal>""");
+         else
+            Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Guarded_Required_Tokens (Index)) & """");
          end if;
       end loop;
       Put_Line ("]");

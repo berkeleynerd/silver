@@ -43,7 +43,7 @@ sequence.
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
 | Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
-| Guarded command-line greeting | In progress | Authorized 2026-10-09; design and obligation investigation, followed by implementation after the bounded performance decision. [Dynamic concatenation behind an explicit capacity guard](#guarded-command-line-greeting). | Planned `samples/command_line_greeting.adb` |
+| Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -56,15 +56,16 @@ Originally recorded on 2026-10-09 while external review of `a73f85e` was pending
 That review is now assessed in the
 [greeting record](docs/greeting.md#external-review-and-native-macos-validation),
 with no blocking finding. The owner authorized the combined remit on 2026-10-09,
-and its new harness goal is active. Address independently confirmed
+and both implementation units are complete. Address independently confirmed
 correctness or assurance defects before further language expansion. Review
 suggestions do not automatically require new infrastructure or approval gates.
 
-The authorized order is a bounded source-certificate performance pass, then
-the guarded command-line greeting. This protects the development loop while
-keeping the next language target concrete. Report-policy functional refinement
-is included with the feature's report changes. No Oracle amendment is currently
-indicated. The fifth-form implementation baseline is `a73f85e`; the reviewed
+The completed order was a bounded source-certificate performance pass, then
+the guarded command-line greeting with report-policy functional refinement.
+Neither performance candidate established an improvement; the original
+representation remains. The feature passed complete native validation and
+independent review without an Oracle amendment. Further work needs its own
+owner-authorized scope. The fifth-form implementation baseline is `a73f85e`; the reviewed
 documentation handoff is `fee3afe`.
 
 ### Bounded source-certificate performance
@@ -113,10 +114,9 @@ The authorized language implementation follows that bounded decision.
 
 ### Guarded command-line greeting
 
-**Authorized language goal, not yet supported:** support a sixth complete production combining the
-existing argument initializer and greeting expression, with an executable
-capacity guard before either concatenation is evaluated. The motivating sample
-is ordinary Ada/SPARK, but is **not currently admitted Silver**:
+**Supported**, after authorization on 2026-10-09 and the bounded performance
+decision. The sixth complete production combines command-line initialization
+with an explicit capacity guard and one prefix/name/suffix concatenation:
 
 ```ada
 with Silver_IO;
@@ -135,48 +135,28 @@ begin
 end Main;
 ```
 
-The prefix and suffix consume eight bytes, leaving 4088 for `Name`. The proposed
-class permits arbitrary existing-domain default, prefix and suffix literals.
-Membership checks that the decimal capacity literal equals 4096 minus the
-decoded prefix and suffix lengths; it does not add source arithmetic. Introduce
-only this use of `'Length`, `<=`, `and then` and the capacity literal. The guard
-and output must reference the same declared constant, with exactly one reference
-in the concatenation and the existing command-line name restrictions.
+The capacity must equal 4096 minus the decoded prefix and suffix lengths; the
+example therefore reserves 4088 bytes for `Name`. Only this use of `'Length`,
+`<=`, canonical decimal and `and then` is admitted. Both references bind to the
+same constant. Missing input selects the default; empty input prints the
+decorations; invalid, extra, oversized or over-capacity input returns status 1
+without output. The [language specification](language.md#guarded-command-line-concatenation)
+contains the exact rules.
 
-Missing input prints the decorated default; an explicitly empty argument prints
-the decorations. Valid input fitting the remaining capacity prints its exact
-bytes with the prefix, suffix and LF. Invalid input, extra arguments, and input
-exceeding the remaining capacity return status 1 without application output or
-truncation. Existing detected-output-failure behavior and external assumptions
-remain. The default and decorations fit by their combined source-consumption
-bound; a runtime argument needs the new guard.
+The obligation experiment exposed a String lower-bound requirement for empty
+prefixes. The owned SPARK initializer now constructs one-based results and
+proves that bound while preserving bytes. Lean checks admission, typed Main
+meaning, source correspondence, output bounds and a finite range-obligation
+decision procedure. Concrete GNAT obligation generation and pinned prover
+completion remain explicit external-tool premises. Every emitted application
+and selected-library check is audited. SPARK proves executable report acceptance
+equivalent to independent ghost policies.
 
-Begin with an isolated GNATprove/GNAT obligation experiment.
-Dynamic concatenation may introduce nonempty application reports. Check both
-intermediate results, String index/lower bounds and empty prefixes; the external
-review's non-admitted command-line contrast generated two Main range checks.
-That probe confirms a need to investigate obligations, not the exact check set
-of this proposed guarded production. The current
-initializer contract guarantees length and printable bytes, not a particular
-lower bound. Establish any needed contract strengthening through verified owned
-code or an independently justified existing interface premise. Do not assume a
-length guard alone settles these obligations or silently exclude failed cases.
-Extend report handling for the obligations actually generated, with complete
-coverage and discharge. Keep the capacity condition visible in application
-source rather than introducing a wrapper solely to conceal it.
-
-Completion requires the recognizer, specification, catalogue, proposed sample
-and manifest; universal assurance and checked source correspondence for all six
-forms; native GNAT/GNATprove boundary and failure tests; full Linux validation;
-independent review and a local commit. Include exact capacity and one-byte-over
-cases, empty input/default/prefix/suffix, escaped literals, mismatched or weakened
-guards, invalid arguments and output failure. Ordinary proof failures are work
-to resolve. A necessary Oracle amendment or broader architectural change is a
-reason to report the concrete issue and reconsider scope, not to suppress checks.
-macOS validation remains independent and nonblocking.
-
-Reassignment, mutable strings, repeated output references, arbitrary expressions
-or conditionals, a general parser and a new output API remain later work.
+The [capability record](docs/command-line-greeting.md) records complete Linux
+validation, review, resource-option repair and preserved tool failures. Native
+macOS validation is independent and pending; hosted CI has not run. Reassignment,
+mutable strings, repeated references, general expressions/conditionals and a
+new output API remain outside this increment. No next feature is authorized.
 
 ## Output design and next increments
 
@@ -260,7 +240,7 @@ Runtime initialization fixes the object's length from its initial value.
 Reassignment, concatenation, mutable strings, general arrays, access types,
 arbitrary conditionals and general command-line package access remain outside
 that completed task. Literal-backed greeting is now supported below;
-guarded command-line concatenation is the authorized next language increment.
+guarded command-line concatenation is now supported above.
 Statically compatible assignments remain later work.
 
 The implementation reuses the approved GNAT argument imports beneath a verified
@@ -287,35 +267,27 @@ The [capability record](docs/greeting.md) retains the evidence and replay costs.
 Literal contents receive no special treatment.
 
 Repeated references, literal-only or arbitrary concatenation expressions,
-additional declarations, assignment and command-line concatenation remain
-excluded. The [proposed command-line greeting](#guarded-command-line-greeting)
-adds an explicit capacity guard before constructing its output; the existing
-argument-validity guard alone does not reserve space for a prefix and suffix.
-That follow-on is authorized by the new combined goal, not the completed greeting goal.
+additional declarations and assignment remain excluded. The completed
+[command-line greeting](#guarded-command-line-greeting) adds an explicit capacity
+guard before constructing its output; the earlier argument-validity guard alone
+does not reserve space for a prefix and suffix.
 
-## Proof coverage follow-up
+## Completed report-policy follow-up
 
-The 2026-10-09 review of additional prover options identified one existing
-mechanization gap worth a focused follow-up: `Silver_Library_Reports` has verified
-safety, but its report-policy meaning is reviewed and tested rather than linked
-to an independent functional specification. See the
-[current assurance scope](docs/assurance.md#selected-library-sources-and-evidence)
-and [report boundary](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
-This is not a discovered incorrect acceptance or a need for another prover.
+The guarded-greeting increment closes the identified functional-refinement gap
+in `Silver_Library_Reports`. Independent Static ghost byte traversal and complete
+report policies specify coverage, dependencies and discharge; SPARK proves exact
+acceptance equivalence for selected runtime and dynamic Main reports. Shared
+elementary predicates do not replace the independent traversal and policy.
+See [the assurance scope](docs/assurance.md#selected-library-sources-and-evidence)
+and [completed evidence](docs/command-line-greeting.md).
 
-Authorized work, paired with the guarded greeting's report changes, is to prove that
-acceptance establishes the required coverage and discharge policy, and that
-genuinely complete successful reports in the supported format are accepted.
-Keep report/parser bounds sufficient for every admitted program. Use existing
-SPARK/Lean tools and the pinned producer's format; completeness of GNATprove's
-emitted obligations remains its documented premise. No general JSON framework
-or adversarial report authentication is proposed. The active combined goal
-covers this proof work after the bounded performance decision.
-
-The guarded command-line goal separately requires extending the language-wide
-automatic-discharge argument to its actual generated obligations. The current
-empty-application proof does not establish that extension, and additional
-solvers or certificates alone would not establish it either.
+Faithful complete GNAT obligation generation and pinned prover completion on the
+concrete arithmetic fragment remain explicit external-tool premises. The new
+Lean decision procedure proves universal validity of the admitted range schemas;
+it does not verify the bundled solver implementations or their 10000-step bound.
+No additional solver, certificate framework or adversarial report authentication
+was introduced. Additional tools still need an identified coverage gap.
 
 ## Deferred until needed
 

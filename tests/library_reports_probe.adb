@@ -12,7 +12,9 @@ procedure Library_Reports_Probe is
       then Silver_Library_Reports.Runtime_Interface
       else Silver_Library_Reports.Imported_Interface);
 begin
-   if Silver_Library_Reports.Complete_Runtime_Proof (Report, Kind) then
+   if (if Ada.Command_Line.Argument (1) = "main"
+       then Silver_Library_Reports.Complete_Application_Proof (Report)
+       else Silver_Library_Reports.Complete_Runtime_Proof (Report, Kind)) then
       Ada.Text_IO.Put_Line ("accepted");
    else
       Ada.Text_IO.Put_Line ("rejected");

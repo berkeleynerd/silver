@@ -20,14 +20,14 @@ package body Silver_Arguments with SPARK_Mode => On is
    begin
       if Silver_Runtime.Argument_Count = 0 then
          if Is_Message (Default) then
-            return Default;
+            return Result : String (1 .. Default'Length) := Default;
          end if;
       elsif Silver_Runtime.Argument_Count = 1 then
          declare
             Item : constant String := Silver_Runtime.Argument (1);
          begin
             if Is_Message (Item) then
-               return Item;
+               return Result : String (1 .. Item'Length) := Item;
             end if;
          end;
       end if;

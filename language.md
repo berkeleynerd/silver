@@ -42,7 +42,7 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-Exactly five productions are admitted. The null production is:
+Exactly six productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -200,10 +200,66 @@ The two separate context clauses have this fixed order. The declaration and
 reference follow the named-constant rules, with the additional exclusion of
 `Silver_Arguments` as a constant name, ignoring ASCII case. That name remains
 legal in the literal-initialized form. The literal supplies the default for
-`First_Or_Default`; the constant's bounds come from its returned value. Only
-this complete conditional is admitted, including both branches. Parameterless
-calls have no parentheses. The guard cannot be replaced, omitted, negated or
-combined with other conditions.
+`First_Or_Default`; the constant's bounds come from its returned value. This production admits only
+the complete conditional shown, including both branches. Parameterless
+calls have no parentheses. Its guard cannot be replaced, omitted or negated. The separate guarded
+concatenation production below adds exactly one capacity condition.
+
+### Guarded command-line concatenation
+
+The guarded command-line greeting production is:
+
+```ada
+with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Name : constant String := Silver_Arguments.First_Or_Default ("world");
+begin
+   if Silver_Arguments.Input_Is_Valid
+     and then Name'Length <= 4088
+   then
+      Silver_IO.Put_Line ("Hello, " & Name & "!");
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; with silver_arguments ;
+procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : constant string :=
+silver_arguments . first_or_default ( <string_literal> ) ;
+begin if silver_arguments . input_is_valid and then
+<reference_name> ' length <= <capacity_literal> then
+silver_io . put_line (
+<string_literal> & <reference_name> & <string_literal>
+) ; else silver_arguments . reject ; end if ; end main ;
+```
+
+The default, prefix and suffix are independently chosen from the existing literal
+domain. Both references must match the declared name, ignoring ASCII case, with
+the command-line name exclusions. The capacity must equal **4096 minus the decoded
+prefix and suffix lengths**. It is written as canonical decimal: `0` or a nonzero
+digit followed by decimal digits. Signs, leading zeroes, underscores, exponents,
+based literals and source arithmetic are excluded. `<=` is one contiguous token.
+
+Only this attribute, comparison and short-circuit composition are admitted.
+No weaker bound, reordered or negated condition, extra parentheses, additional
+operand, repeated output reference or omitted rejection branch is permitted.
+Both concatenations occur only after the complete guard succeeds. As with the
+literal-backed expression, Ada associates the operators to the left.
+
+The initialized String is one-based, including empty values, as established by
+the verified `First_Or_Default` implementation. Its bytes and length are unchanged
+by normalization. This settles the intermediate String bounds even when the
+prefix is empty. The capacity guard separately establishes that the complete
+result fits the output operation's 4096-byte domain. The default and decorations
+fit together because their distinct literal spans consume the bounded source.
+A command-line value must pass the explicit runtime capacity test.
 
 ### Shared composition rules
 
@@ -218,16 +274,17 @@ The following capability identifiers are shared with the catalogue:
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
 | `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named, concatenated and command-line compositions additionally declare their one constant; no other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
-| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the command-line composition. No `use` clause. |
+| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the two command-line compositions. No `use` clause. |
 | `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
 | `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, the concatenation prefix/suffix, or the argument default. |
 | `named_string_constant` | One `constant String` declaration initialized by a literal or `argument_initialization`, as fixed by the composition. |
 | `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant identifier. |
-| `string_concatenation` | Exactly a prefix literal, one reference to a literal-initialized constant, and a suffix literal joined by two left-associated predefined String `&` operators. |
+| `string_concatenation` | Exactly a prefix literal, one reference to the constant, and a suffix literal joined by two left-associated predefined String `&` operators; a command-line initializer requires `capacity_guard`. |
 | `concatenated_output` | One qualified `Silver_IO.Put_Line` call with the complete `string_concatenation` expression as its sole argument. |
-| `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the command-line composition. |
+| `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the two command-line compositions. |
 | `argument_initialization` | One qualified `Silver_Arguments.First_Or_Default` call with one admitted literal default, initializing the constant. |
 | `input_guard` | Exactly the `if Silver_Arguments.Input_Is_Valid then` output branch and mandatory rejection branch shown above. |
+| `capacity_guard` | Exactly the `Input_Is_Valid and then Name'Length <= capacity` conditional and its fixed branches, with capacity matching the decoded decorations. |
 | `argument_rejection` | One qualified `Silver_Arguments.Reject;` as the sole statement of the guard's `else` branch. |
 
 In the null and literal-output compositions the pragma is the sole declarative
@@ -240,6 +297,8 @@ The concatenated composition uses that same context and literal-backed constant,
 with the fixed prefix/reference/suffix expression as its sole output argument.
 The command-line composition requires both context clauses, argument
 initialization and the complete guard, with output by the bound name.
+The guarded-concatenation composition uses both context clauses, argument
+initialization and `capacity_guard`, with the fixed prefix/reference/suffix output.
 Context plus null, null plus output, and repeated output calls are excluded.
 No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
@@ -269,7 +328,7 @@ decoded suffix in that order, followed by LF, with the same completion and
 failure behavior. Three empty strings produce just LF. No spaces are inserted
 implicitly and the literal contents receive no special treatment.
 
-The command-line form observes the process arguments after the executable name.
+Both command-line forms observe the process arguments after the executable name.
 Normal supported startup supplies that executable-name slot (`argc >= 1`);
 "no arguments" means no entries after it:
 
@@ -278,6 +337,11 @@ Normal supported startup supplies that executable-name slot (`argc >= 1`);
 | No arguments | Print the decoded default followed by LF. |
 | Exactly one argument of 0 through 4096 printable ASCII bytes | Print those exact bytes followed by LF. An explicit empty argument prints just LF. |
 | Extra arguments, an argument longer than 4096 bytes, or any byte outside 32 through 126 | Produce no application output and set status 1. |
+
+For guarded concatenation, prepend the prefix and append the suffix to the
+selected value before LF. One otherwise valid argument must also fit the
+remaining capacity. An oversized value causes status 1 and no application output;
+it is never truncated. Explicitly empty input produces the decorations and LF.
 
 The pure initializer and validity query observe the same immutable GNAT argument
 vector. On invalid input the initializer returns an internal empty value, but the
@@ -300,7 +364,7 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-All five productions have empty **application-unit** obligation sets. Literal
+The earlier five productions have empty **application-unit** obligation sets. Literal
 initialization establishes the constant value and bounds without a range
 constraint or read of uninitialized data. Name binding selects that value; the
 output call has no caller precondition or constrained argument.
@@ -311,11 +375,16 @@ relies on the pinned frontend's faithful Ada semantics.
 The argument initializer returns an unconstrained `String`; its verified contract
 establishes the output domain. The Boolean guard and rejection call add no
 application checks or caller obligations.
+Guarded concatenation generates range checks for the dynamic String operations.
+The owned initializer's length and one-based bounds, the bounded literals, and
+the executable capacity guard establish the necessary ranges and output domain.
+The compiler audits complete Main coverage and every emitted range check; it does
+not require a fixed check count or treat a successful tool exit as evidence.
 The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
 argument covers all permitted literals, identifiers, argument vectors, lexical
-variants and the five compositions,
+variants and all six compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.
@@ -340,7 +409,9 @@ of the source language.
 [samples/command_line.adb](samples/command_line.adb) initializes it from guarded
 command-line input;
 [samples/greeting.adb](samples/greeting.adb) concatenates a literal prefix and
-suffix with one reference to a literal-initialized constant. The
+suffix with one reference to a literal-initialized constant;
+[samples/command_line_greeting.adb](samples/command_line_greeting.adb) adds the
+capacity guard for a command-line value. The
 [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output and exit status. The suite admits, proves,
 builds and executes each sample. Samples witness supported behavior; they do

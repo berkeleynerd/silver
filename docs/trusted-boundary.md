@@ -204,15 +204,20 @@ remains empty. Extra arguments, unsupported bytes and oversized arguments are
 invalid. There is no truncation or successful fallback for invalid input.
 
 `First_Or_Default` has no caller precondition. Its executable guards and proved
-postcondition ensure a bounded, printable result for every default and input
-vector under the import contracts. Invalid input, or an invalid default when
+postcondition ensure a bounded, printable result with lower bound 1 for every
+default and input vector under the import contracts. Extended return objects
+copy values into `String (1 .. Item'Length)`, preserving bytes. GNATprove proves
+this normalization in owned SPARK; it is not an assumed bound on imported Strings. Invalid input, or an invalid default when
 there are no arguments, produces an internal empty String. Admitted defaults always satisfy the required
 domain by source membership, so the invalid-default case cannot occur in a
 Silver application. The required validity guard ensures that an invalid input
 never prints the internal empty result: its false branch calls `Reject`, which
 sets status 1 through the existing returning setter, then Main returns without
 application output. This is distinct from a valid empty argument, which prints
-one LF and succeeds under healthy output conditions.
+one LF in the undecorated form and succeeds under healthy output conditions.
+The decorated form additionally requires the exact residual-capacity guard
+before evaluating either concatenation. An input exceeding that capacity is
+rejected with status 1 and no output; a valid empty input prints its decorations.
 
 The wrapper uses the existing `Silver_Runtime.Argument_Count` and `Argument`
 imports above. Its count checks establish each argument-index precondition.
@@ -343,7 +348,7 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The catalogue names the five productions and their admitted constructs and
+The catalogue names the six productions and their admitted constructs and
 operations. Named constants add restricted declaration/reference semantics,
 including maximal ASCII identifiers, exclusion of Ada reserved words and
 shadowing names, case-insensitive binding and literal-determined String bounds.
@@ -353,7 +358,9 @@ Their interpretation still uses the fixed Ada/SPARK frontend; there is no
 general verified Ada name resolver.
 The guarded form adds the pure argument initializer and fixed validity/rejection
 branches; it separately excludes `Silver_Arguments` as a constant name so the
-package remains visible. All five application-unit obligation sets are empty.
+package remains visible. The sixth form adds the fixed short-circuit capacity
+condition and dynamic concatenation. The first five application-unit obligation
+sets are empty; the sixth has actual range-check obligations.
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
 `Silver_Runtime` interfaces. Their source
@@ -370,7 +377,7 @@ Null programs select no library files.
 `Silver_Reports.Complete_Null_Proof` checks the GNATprove 16.1 `.spark` format for
 completed proof progress, no stop reason, precisely one fully SPARK entity, and
 empty flow, proof, skipped-proof, `Assume`, and warning/error lists. Zero checks
-are expected for every admitted application unit; entity coverage prevents accepting
+are expected for the first five admitted application forms; entity coverage prevents accepting
 an empty analysis merely because it has no failures.
 
 GNATprove establishes the checker's exact functional contract:
@@ -414,12 +421,23 @@ and nested metadata with a fixed stack, without executable recursion. It rejects
 duplicate audited fields and malformed checked records. There is no fixed
 historical obligation-count threshold.
 
-GNATprove verifies this scanner's safety; unlike the existing null-report
-checker, it has no independent ghost parser-refinement theorem. Its format
-interpretation is reviewed. Native integration tests exercise genuine reports;
-automated negative tests mutate synthetic report fixtures.
+GNATprove verifies scanner safety and equality of acceptance to the independent
+Static ghost `Runtime_Report_Policy` and `Application_Report_Policy`. The ghost
+policies independently specify byte scanning, fields, array traversal, coverage,
+assumptions and record acceptance. Their meaning as verification evidence uses
+the reviewed pinned-producer format. Native tests exercise genuine reports and
+mutations. This closes the owned policy-refinement gap, not the external
+obligation-generation or report-provenance premise.
 Unrecognized metadata is skipped within bounds. Neither checker authenticates
 arbitrary JSON or replaces trusted GNATprove completeness and provenance.
+
+For the sixth production, `Complete_Application_Proof` checks completed Main
+analysis, full Main coverage and the exact four called library entities. It
+checks every emitted flow/proof record and permits only proved Main range checks
+in the proof list, with no skipped/assumed/suppressed obligations. Counts may
+vary as GNAT optimizes empty operands. Missing checks cannot be detected solely
+from a report: complete and faithful obligation generation remains trusted.
+Earlier productions continue through the strict empty-report route.
 
 Application proof uses `-U --mode=all --report=all --warnings=error
 --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
@@ -431,7 +449,12 @@ wall-clock-limited configuration. The intermittent GNATprove JSON failure
 seen in compiler audits has not been proved impossible for application runs.
 Such a tool failure prevents publication and is reported as a defect, never as
 nonmembership or successful verification. Prover step limits do not bound
-frontend/flow work, operating-system delays or total elapsed time.
+frontend/flow work, operating-system delays or total elapsed time. Lean proves
+validity and termination of a finite checker for the sixth form's bounded range
+schemas. It does not prove the bundled solvers complete within 10,000 steps.
+That concrete pinned-fragment completion premise is explicit in
+`Current.ToolContract.boundedRangeProofCompletes`; native boundary experiments
+exercise it. No completeness premise for arbitrary SPARK is introduced.
 
 The driver's proved contracts require source membership, exact source/project
 write observations, matching source reads, the accepted report predicate, and
@@ -474,7 +497,7 @@ signatures. The typed Main composition renders to the admitted token production;
 its shared interpreter handles initialization before the required guard and
 uses the immutable-vector assumption for both queries. Ada interpretation of
 those fixed nodes remains reviewed. The public membership
-expression includes all four output forms, retaining the shared literal and
+expression includes all five output forms, retaining the shared literal and
 named helper meanings; the complete bridge connects it with the null form.
 The concatenation bridge checks its recognizer expression and the typed Main
 composition's rendering and left association. Its interpreter consumes the
@@ -483,6 +506,11 @@ the source-consumption argument bounds the combined result. This source decoding
 order does not impose an Ada operand evaluation order. Predefined String
 concatenation, static-expression meaning and index bounds remain frontend
 interpretation premises.
+The guarded Main rendering additionally fixes `and then`, the capacity comparison
+and both branches, with an event-based interpreter and source-derived capacity.
+Its arithmetic schemas use the owned lower-bound normalization and conservative
+Integer bounds; the output-domain bound uses the executable guard. The byte-value
+runtime interpreter abstracts String bounds, whose implementation is proved in SPARK.
 GNATprove establishes normalization, bounds and
 the executable `Accepts = Is_Member` refinement. The combined argument does not
 claim a verified arbitrary Ada parser, complete name-resolution semantics, or a
