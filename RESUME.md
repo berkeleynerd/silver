@@ -9,17 +9,20 @@ or destruction has been performed.
 - `5668806` records the bounded certificate-performance investigation. Neither
   permitted candidate established a validated improvement. The original
   certificate representation remains; no third approach is authorized.
-- The feature implementation and external-review target is the commit adding
+- The feature implementation and external-review target is `96b4e3a`, which added
   this document and `samples/command_line_greeting.adb`. It admits the sixth
   production, normalizes owned argument results to one-based strings, proves
   independent report-policy refinement, and extends the SPARK/Lean assurance.
   Find that commit with `git log -1 --format='%H %s' -- samples/command_line_greeting.adb`.
 - Implementation, independent review and full native Linux validation are
-  complete. The existing harness goal is to be marked complete at the local
+  complete. The existing harness goal was marked complete at the local
   commit handoff. Its earlier paused status was superseded by the owner's
   explicit resumption; do not recreate it as unfinished work from an old note.
-- The Oracle is unchanged. Work is local; nothing has been published. No next
-  language capability or further performance investigation is authorized.
+- The Oracle is unchanged. After completion, the owner added the
+  [GitHub remote](https://github.com/berkeleynerd/silver) and authorized pushing
+  the committed history. The first push was rejected for missing OAuth
+  `workflow` scope; publication is pending credential refresh. No next language
+  capability or further performance investigation is authorized.
 
 Read [the capability record](docs/command-line-greeting.md) for exact proof
 claims, results, identities and limitations, and
@@ -29,7 +32,8 @@ performance result. The next action is external review of the feature commit.
 ## Preserve before replacing the VM
 
 Keep the entire checkout, including `.git`, rather than relying on a source-only
-archive or remote repository. Preserve untracked `.vscode/` and `tmp/` material.
+archive or remote repository: local evidence and scratch files are not included
+in the push. Preserve untracked `.vscode/` and `tmp/` material.
 Keep all hosts' `.silver/<host>/` evidence and caches and `.tools/<host>/`
 installations; the latter avoid unnecessary downloads. Do not discard another
 host's state when preparing Linux. Important evidence is ignored by Git:

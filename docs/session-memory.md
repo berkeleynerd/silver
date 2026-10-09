@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-10-09 — Remote publication authorized
+
+The owner added `origin` at `git@github.com:berkeleynerd/silver.git` and explicitly
+requested committing outstanding work and pushing. This supersedes the earlier
+local-only direction for publishing the completed project history. The remote
+was confirmed to be the owner's empty private repository. This sandbox has no
+SSH identity; its authenticated GitHub CLI HTTPS connection was used for the push.
+GitHub rejected that push because the available OAuth credential lacks the
+`workflow` scope required to publish `.github/workflows/verify.yml`. No remote
+branch was created. Publication awaits refreshed credentials with the necessary
+repository/workflow access or an authorized SSH identity; preserve the workflow.
+
+All implementation was already committed: performance decision `5668806` and
+guarded-greeting implementation/external-review target `96b4e3a`. The combined
+harness goal is complete. This later bookkeeping commit records publication
+authorization without changing implementation, proof inputs, Oracle or review
+target. No next language expansion is authorized.
+
+Only `.vscode/` editor preferences and `tmp/` historical reviews, experiments and
+generated artifacts remained untracked. Preserve them locally; they are not
+outstanding implementation and are excluded from the push, as are ignored
+host-specific evidence, caches and tools. Follow [RESUME.md](../RESUME.md) before
+VM replacement; a remote clone alone cannot restore that local state. The
+existing native evidence retains its original scope; publication and configured
+CI do not establish a successful hosted run. The blocked push and exact closing
+commit are reported at handoff and in the CLI memory update note.
+
 ## 2026-10-09 — Combined goal completed; guarded greeting ready for review
 
 The owner resumed work and requested completion before VM replacement. Both

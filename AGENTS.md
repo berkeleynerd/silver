@@ -28,7 +28,7 @@ implementation.
   for human review. Current support and future plans must remain distinct.
 - Inspect Git status before editing. Preserve unrelated work and scratch files.
   Follow the current request about staging, committing and publishing; the
-  session memory records the current local-only direction.
+  session memory records the current publication authorization.
 - Determine the actual host rather than inferring it from the checkout path.
   Linux is primary; macOS validation is independent and nonblocking.
 - Use `scripts/dev.py` and its `paths` command. Preserve other hosts' artifacts

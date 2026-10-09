@@ -318,5 +318,7 @@ Keep proof claims and assumptions in
 
 Linux is the primary implementation and validation platform. macOS validation
 is independent and secondary under the Oracle. Record actual evidence per host;
-a configured CI workflow is not a completed CI run. Work remains local until
-the owner creates the remote repository and authorizes publication.
+a configured CI workflow is not a completed CI run. On 2026-10-09 the owner added
+the [remote repository](https://github.com/berkeleynerd/silver) and authorized
+committing outstanding work and pushing the completed history. This publication
+does not authorize another language increment.

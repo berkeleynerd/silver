@@ -296,6 +296,8 @@ checks. Retained evidence was corroborated read-only on Linux; the
 [greeting record](docs/greeting.md#external-review-and-native-macos-validation)
 records the exact input, cache and platform scope. Earlier evidence
 retains its actual input/platform scope in the linked capability records.
-Linux is primary and macOS validation is nonblocking under the Oracle. Work
-remains local; configured CI has not run, and no x86-64 or AdaCore GNAT Pro
-execution is claimed. The tested Ada compiler is Alire's GNAT-FSF distribution.
+Linux is primary and macOS validation is nonblocking under the Oracle. The owner
+has authorized publication to [berkeleynerd/silver](https://github.com/berkeleynerd/silver).
+The retained validation predates the first hosted CI run; no x86-64 or AdaCore
+GNAT Pro execution is claimed by those records. The tested Ada compiler is
+Alire's GNAT-FSF distribution.
