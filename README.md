@@ -295,15 +295,21 @@ See [the assurance argument](docs/assurance.md) for the exact proved claims, and
 [the trusted boundary](docs/trusted-boundary.md) for external symbols, ABI
 assumptions, report-format assumptions, and supported execution conditions.
 
-[CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
-x86-64/ARM64, plus Lean checks. An independent native macOS ARM64 review of
-greeting commit `a73f85e` passed the compiler audit, tests and full Lean/kernel
+Validation runs locally at the owner's direction. GitHub Actions is disabled
+repository-wide; the retained [workflow](.github/workflows/verify.yml) for Linux
+x86-64/ARM64 and macOS x86-64/ARM64, including Lean checks, is dormant. Hosted
+results are not required for this local workflow.
+
+An independent native macOS ARM64 review of greeting commit `a73f85e` passed
+the compiler audit, tests and full Lean/kernel
 checks. Retained evidence was corroborated read-only on Linux; the
 [greeting record](docs/greeting.md#external-review-and-native-macos-validation)
 records the exact input, cache and platform scope. Earlier evidence
 retains its actual input/platform scope in the linked capability records.
 Linux is primary and macOS validation is nonblocking under the Oracle. The owner
 has authorized publication to [berkeleynerd/silver](https://github.com/berkeleynerd/silver).
-The retained validation predates the first hosted CI run; no x86-64 or AdaCore
-GNAT Pro execution is claimed by those records. The tested Ada compiler is
-Alire's GNAT-FSF distribution.
+The historical validation predates the first hosted CI run; no x86-64 or AdaCore
+GNAT Pro execution is claimed by those records. See
+[host readiness](docs/host-readiness.md) for replacement-host validation, recovery
+of the old hosts' local evidence and caches, and the owner's decision to validate
+locally. The tested Ada compiler is Alire's GNAT-FSF distribution.

@@ -873,7 +873,7 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null/runtime/application report-policy refinement, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
 | Automatic discharge | Lean bounded-range decision and refinement theorems; conditional external-tool theorem; real report checks | Empty checks for the first five forms, valid bounded-range schemas for the sixth, and separately audited fixed libraries. External generation and pinned-fragment prover completion remain explicit premises. |
-| Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Retained macOS baseline evidence does not validate later changes. Current macOS validation is independent and pending; CI is configured but has not run. |
+| Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Historical macOS baseline evidence does not validate later changes. Current macOS validation is independent and pending. Validation runs locally with hosted CI disabled at the owner's direction; [host readiness](host-readiness.md) records replacement-host evidence and recovery. |
 
 These boundaries do not change membership or waive any obligation. Admission,
 verification or compilation failure on admitted source remains an implementation

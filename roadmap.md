@@ -36,7 +36,7 @@ sequence.
 | Milestone | Status | Capability and dependencies | Sample |
 | --- | --- | --- | --- |
 | Null baseline | Supported | `main_procedure`, `spark_mode_on`, and `null_statement` in the null composition. | [samples/null.adb](samples/null.adb) |
-| Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; CI has not run. | Developer workflow |
+| Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; [host readiness](docs/host-readiness.md) records local validation and the owner's decision to disable hosted CI. | Developer workflow |
 | Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
@@ -73,8 +73,10 @@ documentation handoff is `fee3afe`.
 **Completed investigation:** neither of the two candidates established a
 validated improvement. Retain the existing representation; no third approach is
 authorized. The [performance record](docs/certificate-performance.md) distinguishes
-failed and interrupted trials from successful validation. The configured CI
-allowance is now 120 minutes, with hosted capacity still unmeasured.
+failed and interrupted trials from successful validation. The investigation
+raised the CI Lean allowance to 120 minutes without measuring hosted capacity.
+The retained workflow is now dormant at the owner's direction; validation runs
+locally.
 
 The following records the bounded investigation scope.
 
@@ -83,9 +85,10 @@ enlarged recognizer certificate. Its timings overlapped other probes, so they
 motivate investigation without constituting a controlled benchmark. Caching
 already works; this task concerns rebuilding changed source certificates.
 The external review also identifies a capacity risk in the configured CI Lean
-job's former 60-minute timeout. Hosted CI has never run, so a timeout is not established.
-Include job-budget headroom in this performance assessment before the first
-hosted run; a larger timeout alone would not improve proof feedback.
+job's former 60-minute timeout. Hosted CI had not run at that planning checkpoint,
+so a timeout was not established.
+That assessment included job-budget headroom before the first hosted run;
+a larger timeout alone would not improve proof feedback.
 
 - Establish a comparable baseline on fixed current source bytes and pinned
   tools on Linux ARM64. Record certificate and full-replay phase times, peak
@@ -154,9 +157,11 @@ equivalent to independent ghost policies.
 
 The [capability record](docs/command-line-greeting.md) records complete Linux
 validation, review, resource-option repair and preserved tool failures. Native
-macOS validation is independent and pending; hosted CI has not run. Reassignment,
-mutable strings, repeated references, general expressions/conditionals and a
-new output API remain outside this increment. No next feature is authorized.
+macOS validation is independent and pending. Subsequent host validation, evidence
+recovery and the owner's decision to validate locally with hosted CI disabled
+are recorded in [host readiness](docs/host-readiness.md).
+Reassignment, mutable strings, repeated references, general expressions/conditionals
+and a new output API remain outside this increment. No next feature is authorized.
 
 ## Output design and next increments
 
@@ -317,8 +322,10 @@ Keep proof claims and assumptions in
 [docs/trusted-boundary.md](docs/trusted-boundary.md), linking to them here.
 
 Linux is the primary implementation and validation platform. macOS validation
-is independent and secondary under the Oracle. Record actual evidence per host;
-a configured CI workflow is not a completed CI run. On 2026-10-09 the owner added
+is independent and secondary under the Oracle. Record actual evidence per host.
+The owner has disabled GitHub Actions repository-wide and directed local
+validation; the retained workflow is dormant and hosted results are not a
+required follow-up. On 2026-10-09 the owner added
 the [remote repository](https://github.com/berkeleynerd/silver) and authorized
 committing outstanding work and pushing the completed history. This publication
 does not authorize another language increment.

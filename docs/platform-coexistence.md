@@ -100,8 +100,11 @@ validation. Later validation of the command-line baseline is recorded in
 [command-line-review-repairs.md](command-line-review-repairs.md); native macOS
 validation of greeting commit `a73f85e` is recorded in
 [greeting.md](greeting.md#external-review-and-native-macos-validation).
-Linux/macOS x86-64 validation also remains pending.
-CI is configured for all four supported host keys, including a fresh Lean kernel
-recheck, but has not executed. This work remains local as requested and the
-repository has no Git remote. Linux is the primary validation platform; native
-macOS validation remains independent and nonblocking under the Oracle.
+Those historical records do not cover x86-64. Validation runs locally at the
+owner's direction, with GitHub Actions disabled repository-wide. The retained
+[workflow](../.github/workflows/verify.yml) for all four host keys, including a
+fresh Lean kernel recheck, is dormant; hosted results are not a required
+follow-up. See [host readiness](host-readiness.md) for current native validation,
+historical hosted activity and recovery of the old hosts' evidence and caches.
+Linux is the primary validation platform; native macOS validation remains
+independent and nonblocking under the Oracle.

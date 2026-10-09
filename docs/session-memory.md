@@ -1,5 +1,61 @@
 # Session memory
 
+## 2026-10-09 — Local validation; GitHub CI disabled
+
+The owner explicitly instructed: "GitHub CI should be disabled entirely. We are
+running local." GitHub Actions is now disabled for the entire repository, with
+the setting read back and verified. The existing workflow definition and local
+checks are preserved. Do not enable or dispatch hosted CI as a readiness or
+publication follow-up; validate locally. This supersedes earlier hosted-CI
+follow-up plans. Publication authorization continues and no language expansion
+is authorized. See [host readiness](host-readiness.md) for the setting evidence
+and actual native validation results. CLI memory remains unavailable; this
+checked-in entry is the durable recall.
+
+## 2026-10-09 — Replacement Linux x86-64 host restoration
+
+The owner requested host/resource, Git/remote/CI and toolchain verification,
+preservation of evidence/caches, and a refreshed handoff without another language
+expansion. The replacement sandbox is Linux x86-64; its observed RAM and Docker
+storage match the previous allocation recommendations. Native bootstrap and
+compiler build, complete tests and full SPARK audit passed. Two host/sandbox
+restarts interrupted Lean; both partial attempts are retained and full replay has resumed
+using completed native objects. Use
+[host-readiness.md](host-readiness.md) for exact results and local evidence paths.
+
+This checkout arrived with source and intact Git history at `69d294c`, but no
+old `.silver/`, `.tools/`, `tmp/`, `.vscode/` or CLI memories. Historical ARM64
+and macOS evidence and tools have since been recovered from the authorized
+snapshots, with full integrity checks and read-only provenance corroboration.
+Top-level scratch/editor files, CLI memory and old local Git state remain outside
+those snapshots. Preserve any separate backup of that omitted state. New
+tools and caches are isolated under `linux-x86_64`; no existing state was removed.
+
+The workspace received eight fetched migration commits while this sandbox
+restarted. Local main was fast-forwarded to `1bf065d`, preserving and merging
+the new migration guidance with this handoff. Source/proof inputs are unchanged.
+GitHub authentication recovered after the second restart. Authenticated checks
+and a fetch confirm remote `main` at `1bf065d`. The repository lists no CI runs,
+the previously recorded first run returns 404, and `Verify Silver` was already
+manually disabled. The owner's subsequent instruction above disabled Actions
+repository-wide; hosted success is neither claimed nor required for this local
+readiness task.
+The owner-authorized `silver` and `tools` split snapshots are present locally;
+recovery preserved the new x86-64 state, original foreign-host evidence and
+legacy caches without collisions. Consult the readiness record for exact scope
+and the unarchived external-system Python identity limitations.
+Publication authorization continues. This documentation checkpoint records
+completed recovery while the resumed local Lean check is still running; its
+final result will be recorded separately. No change to Oracle,
+language, proof inputs, feature implementation/review target `96b4e3a`, or bounded
+performance decision `5668806`. The live harness has no goal in this session;
+the completed implementation goal was not recreated. External feature review
+remains the next project action after environment recovery.
+
+CLI memory was actually checked: its feature is disabled, the memory directory
+is absent, and no memory tool is exposed. No CLI recall update was made and no
+global setting was changed. These checked-in documents are the durable handoff.
+
 ## 2026-10-09 — Non-dot artifact snapshots authorized for migration
 
 After discussing the size and generated nature of `.silver/` and `.tools/`, the

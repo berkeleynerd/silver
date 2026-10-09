@@ -597,11 +597,13 @@ validation belongs in [greeting.md](greeting.md). Its independent native macOS
 ARM64 review validates implementation commit `a73f85e`; the retained inputs,
 reports and Lean artifacts were corroborated read-only on Linux. This is a
 full audit/replay with cache reuse, not a cold GNATprove or clean Lean run.
-Linux/macOS x86-64 execution remains untested.
-CI is prepared for
-`ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
-The work is local-only as requested, the repository has no remote, and no CI job
-has been dispatched. Configuration is not evidence of a hosted run. Under the
+Those historical records do not cover x86-64 execution. The owner has disabled
+GitHub Actions repository-wide and directed local validation. The retained
+[workflow](../.github/workflows/verify.yml) for `ubuntu-24.04`, `ubuntu-24.04-arm`,
+`macos-15-intel`, and `macos-15` (ARM64) is dormant. Hosted results are not a
+required follow-up. See [host readiness](host-readiness.md) for current native
+validation, historical hosted activity and recovery of the old hosts' evidence
+and caches. Under the
 Oracle, Linux is primary and native macOS validation is independent and does not
 block completion of the Linux milestone. Historical checkpoint files describe
 their dated baseline, not the current validation state.
