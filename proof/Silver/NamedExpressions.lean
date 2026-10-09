@@ -46,7 +46,7 @@ inductive Number
   | constant (value : Nat) | character (value : Nat) | characterVal (value : Number)
   | position | last | nextToken | tokenLast | item | first | after
   | leftFirst | leftAfter | rightFirst | rightAfter | declaredFirst | declaredAfter
-  | offset | wordLength | sourceLength | maxLength
+  | offset | wordLength
   | add (left right : Number) | sub (left right : Number) | group (value : Number)
   | byteAt (position : Number) | wordAt (position : Number) | lower (value : Number)
   | tail (position : Number) (previous : Condition) | finish (position : Number)
@@ -67,7 +67,6 @@ inductive Condition
   | equal (leftFirst leftAfter rightFirst rightAfter : Number)
   | suffix (position index first after : Number)
   | allOffsets (last : Number) (body : Condition) | someForbidden (body : Condition)
-  | allowedNormalized | directNormalized | namedNormalized
   | ite (condition yes no : Condition) | elsif (condition yes no : Condition)
   deriving DecidableEq, Repr
 end
@@ -106,7 +105,6 @@ def Number.render : Number → List String
   | .rightFirst => ["right_first"] | .rightAfter => ["right_after"]
   | .declaredFirst => ["declared_first"] | .declaredAfter => ["declared_after"]
   | .offset => ["offset"] | .wordLength => ["word", "'", "length"]
-  | .sourceLength => ["source", "'", "length"] | .maxLength => ["max_source_length"]
   | .add left right => left.render ++ ["+"] ++ right.render
   | .sub left right => left.render ++ ["-"] ++ right.render
   | .group value => ["("] ++ value.render ++ [")"]
@@ -150,14 +148,91 @@ def Condition.render : Condition → List String
       [["text"], position.render, index.render, first.render, after.render]
   | .allOffsets last body => ["for", "all", "offset", "in", "0", ".."] ++ last.render ++ ["=>"] ++ body.render
   | .someForbidden body => ["for", "some", "word", "in", "forbidden_kind", "=>"] ++ body.render
-  | .allowedNormalized => call "allowed_source" [call "normalized" [["source"]]]
-  | .directNormalized => call "suffix_matches" [call "normalized" [["source"]], ["1"], ["1"]]
-  | .namedNormalized => call "named_suffix_matches" [call "normalized" [["source"]], ["1"], ["1"], ["0"], ["0"]]
   | .ite condition yes no => ["if"] ++ condition.render ++ ["then"] ++ yes.render ++
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
   | .elsif condition yes no => ["elsif"] ++ condition.render ++ ["then"] ++ yes.render ++
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
 end
+
+/-- Ada grammar categories prevent the token renderer from silently changing
+precedence. Groups in a tree must be present in the checked source itself. -/
+def Number.primary : Number → Bool
+  | .add _ _ | .sub _ _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.simple : Number → Bool
+  | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.isElsif : Number → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.primary : Condition → Bool
+  | .value _ | .previous | .group _ | .identifier _ | .letter _ | .tokenAt _ _
+  | .name _ _ _ | .forbidden _ _ | .equal _ _ _ _ | .suffix _ _ _ _ => true
+  | _ => false
+
+def Condition.relation : Condition → Bool
+  | .andThen _ _ | .orElse _ _ | .allOffsets _ _ | .someForbidden _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.logical : Condition → Bool
+  | .allOffsets _ _ | .someForbidden _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.isElsif : Condition → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.andLeft : Condition → Bool
+  | .andThen _ _ => true
+  | condition => condition.relation
+
+def Condition.orLeft : Condition → Bool
+  | .orElse _ _ => true
+  | condition => condition.relation
+
+mutual
+def Number.wellFormed : Number → Bool
+  | .add left right | .sub left right =>
+      left.wellFormed && right.wellFormed && left.simple && right.primary
+  | .byteAt value | .wordAt value | .lower value | .characterVal value
+  | .finish value | .literal value | .trivia value | .spellingLength value => value.wellFormed && value.simple
+  | .tail position previous => position.wellFormed && position.simple && previous.wellFormed && previous.logical
+  | .group value => value.wellFormed && !value.isElsif
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.simple &&
+      no.wellFormed && (no.simple || no.isElsif)
+  | _ => true
+
+def Condition.wellFormed : Condition → Bool
+  | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
+      left.wellFormed && right.wellFormed && left.simple && right.simple
+  | .range value first last =>
+      value.wellFormed && first.wellFormed && last.wellFormed && value.simple && first.simple && last.simple
+  | .andThen left right => left.wellFormed && right.wellFormed && left.andLeft && right.relation
+  | .twoRanges value first last secondFirst secondLast =>
+      value.wellFormed && first.wellFormed && last.wellFormed && secondFirst.wellFormed && secondLast.wellFormed &&
+      value.simple && first.simple && last.simple && secondFirst.simple && secondLast.simple
+  | .orElse left right => left.wellFormed && right.wellFormed && left.orLeft && right.relation
+  | .not value => value.wellFormed && value.primary
+  | .group value => value.wellFormed && !value.isElsif
+  | .identifier value | .letter value => value.wellFormed && value.simple
+  | .tokenEq index _ => index.wellFormed && index.simple
+  | .tokenAt position index | .forbidden position index =>
+      position.wellFormed && index.wellFormed && position.simple && index.simple
+  | .name first after _ => first.wellFormed && after.wellFormed && first.simple && after.simple
+  | .equal a b c d | .suffix a b c d =>
+      a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && a.simple && b.simple && c.simple && d.simple
+  | .allOffsets last body => last.wellFormed && last.simple && body.wellFormed && body.logical
+  | .someForbidden body => body.wellFormed && body.logical
+  | .value _ | .previous => true
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.logical &&
+      no.wellFormed && (no.logical || no.isElsif)
+end
+
 
 mutual
 def Number.eval (calls : Calls) (context : Context) : Number → Nat
@@ -170,7 +245,6 @@ def Number.eval (calls : Calls) (context : Context) : Number → Nat
   | .rightFirst => context.rightFirst | .rightAfter => context.rightAfter
   | .declaredFirst => context.declaredFirst | .declaredAfter => context.declaredAfter
   | .offset => context.offset | .wordLength => context.word.length
-  | .sourceLength => context.text.length | .maxLength => maxSourceLength
   | .add left right => left.eval calls context + right.eval calls context
   | .sub left right => left.eval calls context - right.eval calls context
   | .byteAt position => Cursor.byteAt context.text (position.eval calls context)
@@ -209,9 +283,6 @@ def Condition.eval (calls : Calls) (context : Context) : Condition → Bool
       (index.eval calls context) ⟨first.eval calls context, after.eval calls context⟩
   | .allOffsets last body => (List.range (last.eval calls context + 1)).all (fun offset => body.eval calls {context with offset})
   | .someForbidden body => (List.finRange forbiddenNames.length).any (fun forbiddenWord => body.eval calls {context with forbiddenWord})
-  | .allowedNormalized => calls.primitive.allowed (calls.primitive.normalize context.text)
-  | .directNormalized => calls.output.suffix (calls.primitive.normalize context.text) 1 1
-  | .namedNormalized => calls.named.suffix (calls.primitive.normalize context.text) 1 1 {}
   | .ite condition yes no | .elsif condition yes no =>
       if condition.eval calls context then yes.eval calls context else no.eval calls context
 end
@@ -256,9 +327,26 @@ def suffixBody : Condition :=
             (.suffix (.literal (.add start (.constant 1))) next .declaredFirst .declaredAfter))
           (.andThen (.tokenAt start .nextToken)
             (.suffix (.add start (.spellingLength .nextToken)) next .declaredFirst .declaredAfter)))))
-def memberBody : Condition :=
-  .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized)
-    (.group (.orElse .directNormalized .namedNormalized))
+
+abbrev WellFormedTrees : Prop :=
+  letterBody.wellFormed = true ∧
+  tailBody.wellFormed = true ∧
+  finishBody.wellFormed = true ∧
+  nameBody.wellFormed = true ∧
+  equalBody.wellFormed = true ∧
+  forbiddenBody.wellFormed = true ∧
+  stateBody.wellFormed = true ∧
+  suffixBody.wellFormed = true
+
+theorem checked_precedence : WellFormedTrees := by decide +kernel
+
+/-- Without explicit grouping, negating a disjunction has different Ada
+precedence; the source bridge must reject such an interpretation. -/
+theorem ungrouped_negation_rejected :
+    (Condition.not (.orElse (.value true) (.value false))).wellFormed = false := by decide +kernel
+
+theorem grouped_negation_allowed :
+    (Condition.not (.group (.orElse (.value true) (.value false)))).wellFormed = true := by decide +kernel
 
 theorem letter_denotation (calls : Calls) (context : Context) :
     letterBody.eval calls context = letter context.item := by rfl
@@ -393,7 +481,6 @@ structure InterpretedSource (calls : Calls) : Prop where
       1 ≤ nextToken → nextToken ≤ requiredTokens.length + 1 → state.Valid text →
       calls.named.suffix text position nextToken state =
         suffixBody.eval calls {text, position, nextToken, declaredFirst := state.first, declaredAfter := state.after}
-  member : ∀ text, calls.named.member text = memberBody.eval calls {text}
 
 theorem interpreted_identifier_equations (calls : Calls) (source : InterpretedSource calls) :
     IdentifierEquations calls.identifier where
@@ -465,12 +552,6 @@ theorem model_interpreted : InterpretedSource modelCalls where
         (suffixAtIndex text) text position nextToken state
     rw [suffixAtIndex_equation text position nextToken state first]
     rfl
-  member := by
-    intro text
-    dsimp +instances only [memberBody, Condition.eval, Number.eval]
-    have bound : 1 ≤ text.length ↔ 0 < text.length := by omega
-    simp [modelCalls, Named.modelCalls, Output.Expressions.modelCalls,
-      Output.Expressions.modelPrimitives, bound]
 
 theorem interpreted_equations (calls : Calls) (source : InterpretedSource calls) :
     DefinitionEquations calls.named where
@@ -498,19 +579,5 @@ theorem interpreted_equations (calls : Calls) (source : InterpretedSource calls)
       (fun cursor token first last => (source.token text positive bounded cursor token first last).trans
         (token_denotation text cursor token last))
       position nextToken state first last valid
-  member := by
-    intro text
-    rw [source.member]
-    dsimp +instances only [memberBody, Condition.eval, Number.eval]
-    have outputSource := Output.Expressions.interpreted_equations calls.output calls.primitive source.output
-    have outputDefinitions := Output.source_equations_reduce calls.output calls.primitive outputSource
-    by_cases bound : 0 < text.length ∧ text.length ≤ maxSourceLength
-    · rw [outputSource.primitive.normalize text bound.2, outputSource.primitive.allowed]
-      rw [Output.implementation_suffix calls.output outputDefinitions text bound.1 bound.2
-        1 1 (by omega) (by omega) (by decide) (by decide)]
-      have first : 1 ≤ text.length := by omega
-      simp [bound, first]
-    · have outside : ¬ (1 ≤ text.length ∧ text.length ≤ maxSourceLength) := by omega
-      simp [outside, bound]
 
 end Silver.Named.Expressions

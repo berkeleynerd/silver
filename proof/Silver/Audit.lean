@@ -90,6 +90,7 @@ run_cmd do
 #print axioms Silver.Named.SourceBridge.checked_source
 #print axioms Silver.Current.named_execution_refines
 
+-- The named interface now contains only retained suffix/helper equations.
 #print axioms Silver.Named.Expressions.interpreted_equations
 #print axioms Silver.Named.Expressions.model_interpreted
 
@@ -110,3 +111,13 @@ run_cmd do
 #print axioms Silver.Arguments.SourceBridge.checked_source
 #print axioms Silver.Current.argument_execution_refines
 #print axioms Silver.Current.argument_rejection
+
+#print axioms Silver.Arguments.Main.rendered_tokens
+#print axioms Silver.Arguments.Main.swapped_branches_differ
+#print axioms Silver.Arguments.Main.uninitialized_initializer_fails
+#print axioms Silver.Arguments.SourceBridge.authoritative_main_correct
+#print axioms Silver.Arguments.example_current
+#print axioms Silver.Arguments.missing_uses_initialized_default
+#print axioms Silver.Output.Expressions.checked_precedence
+#print axioms Silver.Named.Expressions.checked_precedence
+#print axioms Silver.Arguments.Expressions.checked_precedence

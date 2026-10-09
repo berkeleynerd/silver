@@ -58,6 +58,7 @@ abbrev ForbiddenTranslation : Prop :=
 theorem actual_forbidden_translation : ForbiddenTranslation := by decide +kernel
 
 abbrev ExpressionTranslation : Prop :=
+  Expressions.WellFormedTrees ∧
   Source.expressionBody "is_letter" Source.outputBodyTokens = some Expressions.letterBody.render ∧
   Source.expressionBody "identifier_tail" Source.outputBodyTokens = some Expressions.tailBody.render ∧
   Source.expressionBody "identifier_end" Source.outputBodyTokens = some Expressions.finishBody.render ∧

@@ -29,6 +29,7 @@ def literalExpression : List String := Expressions.literalBody.render
 def suffixExpression : List String := Expressions.suffixBody.render
 
 abbrev ExpressionTranslation : Prop :=
+  Expressions.WellFormedTrees ∧
   Source.expressionBody "comment_end" Source.outputBodyTokens = some Silver.Expressions.commentBody.render ∧
   Source.expressionBody "trivia_end" Source.outputBodyTokens = some Silver.Expressions.triviaBody.render ∧
   Source.expressionBody "token_at" Source.outputBodyTokens = some Silver.Expressions.tokenBody.render ∧

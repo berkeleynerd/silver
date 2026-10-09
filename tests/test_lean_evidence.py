@@ -10,6 +10,7 @@ from scripts.bootstrap_lean import lean_environment
 from scripts.check_lean import (CANDIDATES, audit_import_closure, prepare_tool_cache, prepare_workspace,
                                verify_workspace_inputs)
 from scripts.platforms import HostLayout, native_layout
+from tests.test_lean_source import EMBEDDED
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -170,12 +171,7 @@ class LeanNativeDependencyTests(unittest.TestCase):
             host.lean.parent.mkdir(parents=True)
             host.lean.symlink_to(native.lean, target_is_directory=True)
             (root / "src").mkdir()
-            filenames = (
-                "silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
-                "silver_output_profile.adb", "silver_io.ads", "silver_io.adb",
-                "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
-                "silver_runtime.ads")
-            sources = [root / "src" / name for name in filenames]
+            sources = [root / "src" / name for name in EMBEDDED]
             for source in sources:
                 source.write_bytes(b"original\n")
             declarations = "\n".join(

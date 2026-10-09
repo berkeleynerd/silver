@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -38,17 +39,25 @@ class ArgumentTests(unittest.TestCase):
         name = b'X' * ((4096 - len(source_for(b'', b''))) // 2)
         maximum = source_for(b'', name)
         accepted.append(maximum + b' ' * (4096 - len(maximum)))
-        rejected = [source_for(name=b'Silver_Arguments'), source_for(name=b'String'),
+        rejected = [source_for(name=b'Silver_Arguments'), source_for(name=b'SILVER_ARGUMENTS'),
+                    source_for(name=b'String'),
                     source_for(name=b'Silver_IO'), source_for(name=b'if'),
                     source_for(reference=b'Other'),
                     valid.replace(b'with Silver_Arguments; ', b''),
                     valid.replace(b'with Silver_IO; with Silver_Arguments;',
                                   b'with Silver_Arguments; with Silver_IO;'),
+                    valid.replace(b'with Silver_IO; with Silver_Arguments;',
+                                  b'with Silver_IO, Silver_Arguments;'),
+                    valid.replace(b'procedure Main', b'use Silver_Arguments; procedure Main'),
                     valid.replace(b'if Silver_Arguments.Input_Is_Valid then ', b'')
                          .replace(b'else Silver_Arguments.Reject;end if;', b''),
                     valid.replace(b'Input_Is_Valid', b'Input_Is_Valid()'),
                     valid.replace(b'Input_Is_Valid', b'Argument_Count=1'),
                     valid.replace(b'if Silver_Arguments.Input_Is_Valid', b'if True'),
+                    valid.replace(b'if Silver_Arguments.Input_Is_Valid',
+                                  b'if not Silver_Arguments.Input_Is_Valid'),
+                    valid.replace(b'Silver_IO.Put_Line(Message);else Silver_Arguments.Reject;',
+                                  b'Silver_Arguments.Reject;else Silver_IO.Put_Line(Message);'),
                     valid.replace(b'else Silver_Arguments.Reject;', b''),
                     valid.replace(b'Silver_Arguments.Reject', b'null'),
                     valid.replace(b'Silver_Arguments.Reject', b'Silver_Arguments.Reject()'),
@@ -101,6 +110,16 @@ class ArgumentTests(unittest.TestCase):
                 self.assertEqual(run.returncode, 0 if expected is not None else 1, run.stderr)
                 self.assertEqual(run.stdout, expected + b'\n' if expected is not None else b'')
                 self.assertEqual(run.stderr, b'')
+        # A closed descriptor exercises output failure on both Linux and macOS.
+        for arguments in ((), ('valid',), ('',)):
+            with self.subTest(closed_stdout=arguments):
+                failed_output = subprocess.run(
+                    [sys.executable, '-c',
+                     'import os, sys; os.close(1); os.execv(sys.argv[1], sys.argv[1:])',
+                     str(executable), *arguments], capture_output=True, timeout=10)
+                self.assertEqual(failed_output.returncode, 1, failed_output.stderr)
+                self.assertEqual(failed_output.stdout, b'')
+                self.assertEqual(failed_output.stderr, b'')
         if HOST.key.startswith('linux-'):
             with open('/dev/full', 'wb', buffering=0) as full:
                 failed_output = subprocess.run([str(executable), 'valid'], stdout=full,
@@ -113,6 +132,10 @@ class ArgumentTests(unittest.TestCase):
         name = b'X' * ((4096 - len(source_for(b'', b''))) // 2)
         cases = [(source_for(default, declared, reference), default)
                  for default, declared, reference in ((b'', b'Main', b'mAiN'),
+                                                      (b'" -- default', b'First_Or_Default', b'FIRST_OR_DEFAULT'),
+                                                      (b'fallback', b'Reject', b'reject'),
+                                                      (b'normal', b'Standard', b'Standard'),
+                                                      (b'', b'Silver_Runtime', b'Silver_Runtime'),
                                                       (maximum, b'Message', b'Message'),
                                                       (b'', name, name))]
         overhead = len(source_for(b'', b'').replace(b'; ', b';'))

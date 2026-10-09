@@ -201,6 +201,8 @@ Hello World baseline validation is recorded in
 recorded in [the capability record](docs/named-strings.md).
 Guarded command-line validation is recorded in
 [the command-line capability record](docs/command-line.md).
+The latest proof/test maintenance and independently corroborated macOS baseline
+results are in [the follow-up record](docs/command-line-review-repairs.md).
 The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.
@@ -268,12 +270,12 @@ See [the assurance argument](docs/assurance.md) for the exact proved claims, and
 assumptions, report-format assumptions, and supported execution conditions.
 
 [CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
-x86-64/ARM64, plus Lean checks. The independent macOS ARM64 review validated
-`3fdda42`: warm/cold compiler audits, the suite, and full Lean/kernel checking
-passed. Retained evidence was corroborated read-only from Linux; qualifications
-are in the [capability record](docs/hello-world.md). The subsequent
-[review repairs](docs/hello-review-repairs.md), [named strings](docs/named-strings.md)
-and [command-line input](docs/command-line.md) have separate input/platform scope
-and await independent native macOS validation. Linux is primary and macOS
-validation is nonblocking under the Oracle. Work remains local; configured CI
-has not run, and no x86-64 execution is claimed.
+x86-64/ARM64, plus Lean checks. An independent native macOS ARM64 review of
+`e14ba1a` passed the compiler audit, tests and full Lean/kernel checks. Retained
+evidence was corroborated read-only on Linux; the
+[follow-up record](docs/command-line-review-repairs.md) separates that baseline
+from later changes awaiting their own native macOS validation. Earlier evidence
+retains its actual input/platform scope in the linked capability records.
+Linux is primary and macOS validation is nonblocking under the Oracle. Work
+remains local; configured CI has not run, and no x86-64 or AdaCore GNAT Pro
+execution is claimed. The tested Ada compiler is Alire's GNAT-FSF distribution.

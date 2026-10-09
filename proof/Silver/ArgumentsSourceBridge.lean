@@ -1,10 +1,12 @@
 import Silver.NamedSourceBridge
 import Silver.ArgumentsExpressions
 
-/-! The fixed guarded composition, authoritative recognizer expressions, owned
-argument-wrapper statements and existing GNAT argument imports are checked as
-one current source interface. Immutable argv and the GNAT ABI remain explicit
-external premises; no token-shape equality alone proves their implementations. -/
+/-! The typed Main composition renders to the admitted token sequence and is
+interpreted by Arguments.execute. Recognizer expressions, owned argument-wrapper
+statements and GNAT imports are checked against their authoritative sources.
+Current composes the model refinements; this bridge retains their source facts
+alongside them. Ada frontend interpretation, immutable argv and the GNAT ABI
+remain explicit premises; token-shape equality alone proves no implementation. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -14,6 +16,7 @@ namespace Silver.Arguments.SourceBridge
 open Silver.SourceBridge
 
 abbrev ExpressionTranslation : Prop :=
+  Expressions.WellFormedTrees ∧
   Source.expressionBody "is_letter" Source.outputBodyTokens = some Expressions.letterBody.render ∧
   Source.expressionBody "identifier_tail" Source.outputBodyTokens = some Expressions.tailBody.render ∧
   Source.expressionBody "identifier_end" Source.outputBodyTokens = some Expressions.finishBody.render ∧
@@ -72,6 +75,7 @@ structure CheckedSource : Prop where
   refinement : Refinement
   runtimeDeclarations : RuntimeDeclarations
   runtimeTranslation : Source.argumentsBodyTokens = Runtime.renderedBody
+  mainTranslation : Main.composition.render = requiredTokens
 
 theorem checked_source : CheckedSource where
   named := Named.SourceBridge.checked_source
@@ -83,6 +87,21 @@ theorem checked_source : CheckedSource where
   refinement := actual_refinement
   runtimeDeclarations := actual_runtime_declarations
   runtimeTranslation := actual_runtime_translation
+  mainTranslation := Main.rendered_tokens
+
+/-- The same typed composition supplies the tokens parsed from every admitted
+Main and the interpreter refined to Current. No independently handwritten branch
+reading is substituted between membership and execution. The wrapper refinement
+and trusted frontend/tool premises remain separate explicit parts of the claim. -/
+theorem authoritative_main_correct {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) (environment : Current.Environment) :
+    CheckedSource ∧
+    Parsed source Main.composition.render 1 {}
+      [.declaration program.declared, .literal program.defaultValue, .reference program.reference] ∧
+    Main.composition.execute environment.output environment.arguments program =
+      some (Current.execute environment (.argumentMain program.defaultValue)) := by
+  refine ⟨checked_source, ?_, Current.argument_execution_refines meaning environment⟩
+  simpa only [Main.rendered_tokens] using meaning.2
 
 /-- Whole-body statement interpretation refines the independent argument cases
 and ordinary Main completion for every immutable argument vector and default. -/

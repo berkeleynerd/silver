@@ -73,6 +73,67 @@ def Condition.render : Condition → List String
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
 end
 
+/-- Ada grammar categories prevent the token renderer from silently changing
+precedence. Groups in a tree must be present in the checked source itself. -/
+def Number.primary : Number → Bool
+  | .add _ _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.simple : Number → Bool
+  | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.isElsif : Number → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.primary : Condition → Bool
+  | .tokenAt _ _ | .suffix _ _ => true
+  | _ => false
+
+def Condition.relation : Condition → Bool
+  | .andThen _ _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.logical : Condition → Bool
+  | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.isElsif : Condition → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.andLeft : Condition → Bool
+  | .andThen _ _ => true
+  | value => value.relation
+
+
+mutual
+def Number.wellFormed : Number → Bool
+  | .add left right => left.wellFormed && right.wellFormed && left.simple && right.primary
+  | .byteAt value | .characterVal value | .literal value | .trivia value | .spellingLength value =>
+      value.wellFormed && value.simple
+  | .group value => value.wellFormed && !value.isElsif
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.simple &&
+      no.wellFormed && (no.simple || no.isElsif)
+  | _ => true
+
+def Condition.wellFormed : Condition → Bool
+  | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
+      left.wellFormed && right.wellFormed && left.simple && right.simple
+  | .range value first last =>
+      value.wellFormed && first.wellFormed && last.wellFormed && value.simple && first.simple && last.simple
+  | .andThen left right => left.wellFormed && right.wellFormed && left.andLeft && right.relation
+  | .literalToken index => index.wellFormed && index.simple
+  | .tokenAt position index | .suffix position index =>
+      position.wellFormed && index.wellFormed && position.simple && index.simple
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.logical &&
+      no.wellFormed && (no.logical || no.isElsif)
+end
+
+
 structure Context where
   text : Source
   position : Nat := 1
@@ -132,6 +193,13 @@ def suffixBody : Condition :=
         (.suffix (.literal (.add (.trivia .position) (.constant 1))) (.add .nextToken (.constant 1))))
       (.andThen (.tokenAt (.trivia .position) .nextToken)
         (.suffix (.add (.trivia .position) (.spellingLength .nextToken)) (.add .nextToken (.constant 1)))))
+
+
+abbrev WellFormedTrees : Prop :=
+  literalBody.wellFormed = true ∧
+  suffixBody.wellFormed = true
+
+theorem checked_precedence : WellFormedTrees := by decide +kernel
 
 theorem literal_denotation (calls : Calls) (primitives : PrimitiveCalls) (context : Context) :
     literalBody.eval calls primitives context =

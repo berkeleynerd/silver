@@ -71,6 +71,8 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(catalogue["additional_constructs"], False)
         self.assertEqual(catalogue["schema_version"], 1)
         constructs = {item["id"]: item for item in catalogue["constructs"]}
+        self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
+        self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
         self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement",
                                           "runtime_context", "literal_output", "string_literal",
                                           "named_string_constant", "named_output", "argument_context",
@@ -94,6 +96,14 @@ class SilverIntegrationTests(unittest.TestCase):
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
                          "begin", "silver_io", ".", "put_line", "(", "<string_literal>",
                          ")", ";", "end", "main", ";"])
+        grammar_words = {
+            token
+            for key in ("null_tokens", "output_tokens", "named_tokens", "argument_tokens")
+            for token in catalogue[key]
+            if re.fullmatch(r'[a-z][a-z0-9_]*', token)
+        }
+        self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
+        self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))
 
     def test_accepted_lexical_forms(self) -> None:
         cases = {

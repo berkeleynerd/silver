@@ -7,3 +7,4 @@ import Silver.OutputSourceBridge
 import Silver.NamedSourceBridge
 import Silver.NamedExamples
 import Silver.ArgumentsSourceBridge
+import Silver.ArgumentsExamples

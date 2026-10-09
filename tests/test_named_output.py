@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -78,6 +79,7 @@ class NamedOutputTests(unittest.TestCase):
     def test_native_empty_escaped_and_boundary_constants(self) -> None:
         longest_name = b'X' * ((4096 - len(source_for(b'', b''))) // 2)
         cases = [(b'', b'Main', b'mAiN'), (b'" -- MiXeD', b'A_2', b'a_2'),
+                 (b'local name', b'Silver_Arguments', b'sILVER_aRGUMENTS'),
                  (b'', longest_name, longest_name),
                  (b'x' * (4096 - len(source_for(b''))), b'Message', b'Message')]
         sources = [(source_for(value, name, reference), value) for value, name, reference in cases]
@@ -111,6 +113,13 @@ class NamedOutputTests(unittest.TestCase):
                 self.assertEqual(execution.returncode, 0, execution.stderr)
                 self.assertEqual(execution.stdout, value + b'\n')
                 self.assertEqual(execution.stderr, b'')
+                failed_output = subprocess.run(
+                    [sys.executable, '-c',
+                     'import os, sys; os.close(1); os.execv(sys.argv[1], [sys.argv[1]])',
+                     str(executable)], capture_output=True, timeout=10)
+                self.assertEqual(failed_output.returncode, 1, failed_output.stderr)
+                self.assertEqual(failed_output.stdout, b'')
+                self.assertEqual(failed_output.stderr, b'')
                 self.assertEqual(self.source.read_bytes(), data)
 
 

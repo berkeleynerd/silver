@@ -9,7 +9,7 @@
         "name": "Main",
         "parameters": [],
         "end_name": "Main",
-        "additional_declarations": false,
+        "declarations_outside_composition": false,
         "exception_handlers": false
       }
     },

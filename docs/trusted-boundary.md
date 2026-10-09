@@ -25,6 +25,14 @@ that a configured pathname selects the intended executable.
 | Lean 4.34.1 kernel and source embedding | Kernel checking, imported source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, actual import/axiom audit, and fresh `leanchecker` checking. No project-specific axioms or unfinished proofs are permitted. |
 | Restricted Ada-to-Lean semantic interpretation | Frontend meaning of the fixed fragment: predefined operators, indexing, evaluation, statement sequencing, branches, loops, returns and machine bounds | Whole-source byte/token/declaration checks constrain the input; GNATprove supplies executable refinement. This is not a verified general Ada parser or complete compiler-semantics theorem. |
 
+The pinned frontend must accept every source line and lexical element fitting
+Silver's 4096-byte source bound. Ada RM 2.2 requires support for only 200
+characters and leaves the maximum implementation-defined; the vendored GNAT
+reference's stated 255-character default does not describe the pinned tool's
+observed capacity. Native boundary tests compile 4096-byte single-line programs
+and their maximal admitted literals and identifiers. This is a frontend premise,
+not a claim of portability to every conforming Ada compiler.
+
 ## Compiler implementation and runtime imports
 
 All Silver-owned executable implementation is in the SPARK bodies under `src/`:
@@ -64,6 +72,10 @@ for an unconstrained `String` result. Exit-status and libc imports use the C
 calling convention. The linked GNAT runtime must match the pinned compiler
 family. The program imports the original runtime implementations; there are no
 private C wrappers or invented implementations behind these declarations.
+With assertion checking enabled, GNAT may generate a precondition-checking
+wrapper for `Argument` from its imported declaration. A bodyless Silver interface
+does not imply that its compiled object contains no code; this wrapper belongs
+to the trusted compiler's contract expansion.
 
 The argument vector is modeled as immutable: neither the compiler nor an
 admitted application calls the runtime operation that removes arguments, and
@@ -72,6 +84,9 @@ vector. Compiler exit status is an external abstract state, written through an
 `Output` contract; the compiler's Main initializes it explicitly. Admitted
 applications rely on GNAT startup's initial success status and use the returning
 status setter on detected output failure or invalid input.
+Normal startup supplies an executable-name slot in the argument vector
+(`argc >= 1`); "no arguments" means no entries after that slot, so `argc = 1`.
+This establishes the nonnegative count required by the imported contract.
 The libc bindings conservatively share the existing, initialized
 `Ada.Text_IO.File_System` abstract state with ordinary output. This records
 external effects instead of silently assuming calls are pure. It does not prove
@@ -123,7 +138,11 @@ this state and its assertions while GNATprove verifies all their obligations.
 These C-convention imports use the conservative, initialized
 `Ada.Text_IO.File_System` abstract state, conservatively grouping status
 effects with output state. The compiler driver
-separately models its own status through `Silver_Runtime.Exit_State`. `System.Null_Address` denotes the C null pointer on the
+separately models its own status through `Silver_Runtime.Exit_State`. Guarded
+applications also select that interface for the argument queries, but their
+reachable status-setting calls use only `Silver_Output_Libc.Set_Exit_Status`.
+The two declarations therefore do not introduce two independent physical status
+variables. `System.Null_Address` denotes the C null pointer on the
 supported GNAT ABI. There are no new C implementations or SPARK-off wrappers.
 The reviewed interface token shape is pinned by the audit and checked in Lean.
 
@@ -157,8 +176,8 @@ exhaustion and external interruption remain outside verified source behavior.
 The Lean model interprets completed external replies, ordered wrapper actions,
 and ordinary `Main` completion. Its success theorem gives the selected bytes plus LF;
 its failure theorem gives status 1 and an accepted prefix. Physical delivery,
-blocking and signals retain the premises above. See the current
-[repair record](hello-review-repairs.md), historical
+blocking and signals retain the premises above. See the
+[Hello World repair record](hello-review-repairs.md), historical
 [runtime experiment](hello-runtime-experiment.md) and
 [assurance argument](assurance.md).
 
@@ -199,11 +218,21 @@ ordinary status assignment, not libc process exit. The command-line form adds
 no output operations beyond its terminal `Put_Line` branch, whose failures and
 progress assumptions remain as specified above.
 
-The typed Lean model covers the initializer before the guard and the exact
-selected branch for every immutable argument vector. Its whole-body rendering
-is checked against the authoritative `Silver_Arguments` body, and the bridge
-checks the query, postcondition and import declarations. Interpretation still
-uses the documented frontend and GNAT premises. See the
+A launch with no executable-name slot (`argc = 0` and a non-null argv vector)
+falls outside the startup premise: GNAT's runtime computes `argc - 1`, violating
+the imported `Natural` result contract. The independent macOS review observed
+status 1 and no output for that launch. This is a recorded observation outside
+the contract, not a portable fail-closed guarantee or another admitted input
+case. See the [review record](command-line-review-repairs.md).
+
+The typed Lean wrapper model's whole-body rendering is checked against the
+authoritative `Silver_Arguments` body, and the bridge checks the query,
+postcondition and import declarations. A separate typed Main composition
+shares its initializer and conditional nodes between rendering and execution.
+Its rendering equals the admitted token production, and its execution refines
+the argument/output model for every admitted source meaning and immutable
+argument vector. Interpreting those fixed typed nodes as Ada still uses the
+reviewed frontend and GNAT premises. See the
 [assurance argument](assurance.md#guarded-command-line-initialization) and
 [capability record](command-line.md).
 
@@ -282,7 +311,8 @@ GNATprove marks these disabled-by-default notes as externally suppressed in
 SARIF; the auditor permits that exact representation for these two codes and
 counts them. It permits no source suppression or failed obligation through this
 exception. The [workflow record](proof-workflow.md) preserves its baseline
-counts; current capability evidence belongs in [command-line.md](command-line.md).
+counts; capability evidence belongs in [command-line.md](command-line.md), with
+follow-up validation in [command-line-review-repairs.md](command-line-review-repairs.md).
 
 ## Source identity and program proof evidence
 
@@ -371,7 +401,8 @@ historical obligation-count threshold.
 
 GNATprove verifies this scanner's safety; unlike the existing null-report
 checker, it has no independent ghost parser-refinement theorem. Its format
-interpretation is reviewed and tested against actual and mutated reports.
+interpretation is reviewed. Native integration tests exercise genuine reports;
+automated negative tests mutate synthetic report fixtures.
 Unrecognized metadata is skipped within bounds. Neither checker authenticates
 arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 
@@ -424,8 +455,10 @@ allows only fixed ghost actions and loop annotations and checks their Static
 declarations plus the numeric output bound; it does not type-check arbitrary
 Ada statements. The argument bridge renders its entire owned body without
 ghost-erasure slots and checks the pure query contracts and existing GNAT import
-signatures. Its model handles initialization before the required guard, and
-uses the immutable-vector assumption for both queries. The public membership
+signatures. The typed Main composition renders to the admitted token production;
+its shared interpreter handles initialization before the required guard and
+uses the immutable-vector assumption for both queries. Ada interpretation of
+those fixed nodes remains reviewed. The public membership
 expression includes all three output forms, retaining the shared literal and
 named helper meanings; the complete bridge connects it with the null form.
 GNATprove establishes normalization, bounds and
@@ -502,11 +535,16 @@ warm and cold compiler audits, tests, Lean replay, axiom audit, fresh kernel
 recheck and application execution; its actual scope is recorded in
 [the Hello World record](hello-world.md). That evidence covers the reviewed
 baseline, not subsequent repairs or the named-string and argument capabilities.
-Their Linux evidence and current native macOS status are recorded in
+Their original Linux evidence is recorded in
 [the follow-up repair record](hello-review-repairs.md),
 [named strings](named-strings.md) and [command-line messages](command-line.md).
-Independent macOS validation of these later changes remains pending, as does
-Linux/macOS x86-64 execution.
+The subsequent independent macOS ARM64 review validates command-line commit
+`e14ba1a`, including its compiler audit, full test suite, Lean replay and fresh
+kernel recheck. That retained evidence does not validate later changes.
+The [command-line review repairs](command-line-review-repairs.md) record this
+baseline and the follow-up validation scope. Native macOS validation of the
+review repairs remains independent and pending; Linux/macOS x86-64 execution is
+also untested.
 CI is prepared for
 `ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
 The work is local-only as requested, the repository has no remote, and no CI job

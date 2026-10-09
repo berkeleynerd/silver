@@ -169,30 +169,12 @@ decreasing_by all_goals omega
 
 structure Calls where
   suffix : Source → Nat → Nat → NameState → Bool
-  member : Source → Bool
 
 structure DefinitionEquations (calls : Calls) : Prop where
   suffix : ∀ text, 0 < text.length → text.length ≤ maxSourceLength →
     ∀ position nextToken state, 1 ≤ position → position ≤ text.length + 1 →
       1 ≤ nextToken → nextToken ≤ requiredTokens.length + 1 → state.Valid text →
       calls.suffix text position nextToken state = suffixEquation (calls.suffix text) text position nextToken state
-  member : ∀ text, calls.member text =
-    (decide (0 < text.length ∧ text.length ≤ maxSourceLength) && text.all allowedCharacter &&
-      (Output.suffixAtIndex text 1 1 || calls.suffix text 1 1 {}))
-
-theorem implementation_member_iff (calls : Calls) (equations : DefinitionEquations calls) (text : Source) :
-    calls.member text = true ↔ Output.Member text ∨ Member text := by
-  rw [equations.member]
-  by_cases bound : 0 < text.length ∧ text.length ≤ maxSourceLength
-  · rw [suffixAtIndex_unique text (calls.suffix text) (equations.suffix text bound.1 bound.2)
-      1 1 {} (by omega) (by omega) (by omega) (by decide) (Or.inl ⟨rfl, rfl⟩)]
-    rw [← Output.accepts_iff_member, ← accepts_iff_member]
-    simp [Output.accepts, accepts, Output.suffixAtIndex, suffixAtIndex, bound, Bool.or_eq_true,
-      Bool.and_eq_true, and_or_left]
-  · have notOutput : ¬ Output.Member text := fun member => bound ⟨member.1, member.2.1⟩
-    have notNamed : ¬ Member text := fun member => bound ⟨member.1, member.2.1⟩
-    simp [bound, notOutput, notNamed]
-
 /-- Concrete witnesses establish that the equation interfaces are inhabited;
 actual SPARK interpretation additionally requires the checked source bridge. -/
 def modelIdentifierCalls : IdentifierCalls where
@@ -211,15 +193,11 @@ theorem model_identifier_equations : IdentifierEquations modelIdentifierCalls wh
 
 def modelCalls : Calls where
   suffix := suffixAtIndex
-  member := fun text =>
-    decide (0 < text.length ∧ text.length ≤ maxSourceLength) && text.all allowedCharacter &&
-      (Output.suffixAtIndex text 1 1 || suffixAtIndex text 1 1 {})
 
 theorem model_equations : DefinitionEquations modelCalls where
   suffix := by
     intro text _ _ position nextToken state _ _ first _ _
     exact suffixAtIndex_equation text position nextToken state first
-  member := by intros; rfl
 
 /-- The actual named suffix equation keeps every callee arbitrary. Each call
 is closed only on the short-circuit branch where its verified precondition holds. -/

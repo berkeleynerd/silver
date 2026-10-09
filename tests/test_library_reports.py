@@ -139,6 +139,49 @@ end Probe;
             data["flow"] = [dict(check(), how_proved="flow")]
             self.assertTrue(self.accepts(data))
 
+    def test_argument_and_runtime_entity_locations_are_exact(self) -> None:
+        for interface, kind in ((False, "arguments"), (True, "runtime")):
+            baseline = argument_report(interface)
+            for key, declaration in baseline["entities"].items():
+                bad = copy.deepcopy(baseline)
+                expected_file = declaration["sloc"][0]["file"]
+                # Choose another selected source, so the check must enforce
+                # the entity's own declaration file, not merely an allow-list.
+                wrong_file = ("silver_arguments.adb" if expected_file != "silver_arguments.adb"
+                              else "silver_arguments.ads")
+                bad["entities"][key]["sloc"][0]["file"] = wrong_file
+                with self.subTest(kind=kind, entity=declaration["name"]):
+                    self.assertFalse(self.accepts(bad, kind=kind))
+
+    def test_argument_postcondition_belongs_to_initializer(self) -> None:
+        for key in (2, 3, 4, 5):
+            bad = argument_report()
+            bad["proof"][0]["entity"] = key
+            with self.subTest(entity=key):
+                self.assertFalse(self.accepts(bad, kind="arguments"))
+        bad = argument_report()
+        bad["proof"] = [dict(check(), file="silver_arguments.adb", entity=3),
+                        dict(check(), file="silver_arguments.adb", entity=1, rule="VC_RANGE_CHECK")]
+        self.assertFalse(self.accepts(bad, kind="arguments"))
+        good = argument_report()
+        good["proof"].append(dict(check(), file="silver_arguments.adb", entity=3,
+                                  rule="VC_RANGE_CHECK"))
+        self.assertTrue(self.accepts(good, kind="arguments"))
+
+    def test_known_but_unselected_entities_are_rejected(self) -> None:
+        cases = ((report(), "body", "Silver_Arguments.Reject"),
+                 (report(True), "interface", "Silver_Arguments.Reject"),
+                 (argument_report(), "arguments", "Silver_IO.Put_Line"),
+                 (argument_report(True), "runtime", "Silver_IO.Put_Line"))
+        for data, kind, extra in cases:
+            data["entities"][" 99"] = entity(extra)
+            with self.subTest(kind=kind, extra=extra):
+                self.assertFalse(self.accepts(data, kind=kind))
+        # The argument wrapper uses the output interface's returning setter.
+        bad = argument_report()
+        bad["entities"][" 8"] = entity("Silver_Runtime.Set_Exit_Status")
+        self.assertFalse(self.accepts(bad, kind="arguments"))
+
     def test_every_record_is_audited(self) -> None:
         for field, value in (("severity", "warning"), ("how_proved", "unproved"),
                              ("how_proved", "justified"), ("entity", 999),

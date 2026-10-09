@@ -13,8 +13,10 @@ evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
 complete the [admission workflow](../development.md).
 
 The SPARK implementation recognizes four productions: null, literal output,
-named-constant output and guarded command-line output. The current increment's
-scope and validation status are recorded in [command-line.md](command-line.md).
+named-constant output and guarded command-line output. The capability's scope
+and original validation are recorded in [command-line.md](command-line.md).
+The [command-line review repairs](command-line-review-repairs.md) record the
+follow-up changes and their validation status.
 Completed earlier capability evidence remains in [hello-world.md](hello-world.md),
 the [repair record](hello-review-repairs.md) and [named-strings.md](named-strings.md);
 workflow history is in [proof-workflow.md](proof-workflow.md) and
@@ -35,6 +37,10 @@ contracts; it does not verify GNAT, the OS, or an arbitrary Ada front end.
 Inherited meanings come from the checked-in
 [Ada 2022 Reference Manual](../references/ada/2022/RM-TOC.html) and
 [SPARK 16.1 Reference Manual](../references/spark/16.1/docs/lrm/source/index.rst).
+The pinned frontend must support every source line and lexical element that fits
+Silver's 4096-byte source bound. Ada's minimum required capacity alone does not
+establish that; the native boundary compilation tests exercise this frontend
+premise, as described in the [trusted boundary](trusted-boundary.md).
 The assurance targets are the SPARK User's Guide definitions of
 [Bronze](../references/spark/16.1/docs/ug/en/source/bronze_level.rst) and
 [Silver](../references/spark/16.1/docs/ug/en/source/silver_level.rst).
@@ -85,8 +91,9 @@ token shape fixes surrounding declarations and binding scopes as well as the
 selected bodies. The JSON names the admitted constructs, their conditions, the four token
 sequences and permitted compositions. Construct metadata is maintained explicitly;
 integration compares parsed JSON values, not whitespace or key order. Output
-word-token selection is explicit in the exporter; source checks and tests keep
-its constants consistent with the output recognizer.
+word-token selection is explicit in the exporter. An integration assertion
+compares its word set with the alphabetic tokens of the four productions;
+source checks separately bind those productions to the recognizers.
 
 ### Null structural proof
 
@@ -274,9 +281,20 @@ The source composition cannot mistake that internal value for a successful
 empty argument. An invalid default is guarded safely by the wrapper but cannot
 occur in admitted source.
 
-`ArgumentsSemantics.execution_refines` connects the initialized binding and
-required branch to `ArgumentsRuntime.executeMain`; `Current.argument_execution_refines`
-connects that result to the four-form model. Output success, partial-output
+`ArgumentsSemantics` also defines a small typed `Main` composition. The same
+initializer, reference and conditional nodes drive its token renderer and
+execution interpreter. `Main.rendered_tokens` proves that this composition
+renders to `Arguments.requiredTokens`; changing the branch order changes that
+rendering. The interpreter evaluates the initializer before creating the
+binding and executing the guard, and reports an uninitialized reference as a
+failed evaluation. `Arguments.execution_refines` connects that execution to
+`Arguments.Runtime.executeMain` for every admitted source meaning;
+`Current.argument_execution_refines` connects the result to the four-form model.
+`Arguments.SourceBridge.authoritative_main_correct` retains the checked source,
+parsing against that rendering, and equality of the interpreted result with
+`Current.execute` in one theorem.
+These are model refinement theorems. Reading the fixed typed syntax as Ada uses
+the reviewed frontend interpretation below. Output success, partial-output
 failure and detected status 1 follow from the existing IO theorem. Input
 rejection has no output even in an otherwise healthy output environment.
 The interpreter handles completed imported calls, not storage exhaustion,
@@ -291,9 +309,12 @@ selects either the unconstrained output call or the returning rejection
 procedure. There are no source-level indexes, conversions, explicit String
 constraints, arithmetic, assertions or proof annotations. No operation introduces
 an application-author obligation. Runtime argument access is guarded inside the
-verified library by its count checks. Function termination, initialization,
-argument-access preconditions and the bounded-printable return postcondition
-are library obligations and remain required. GNAT may allocate the returned
+verified library by its count checks. GNATprove analyzes library initialization,
+function termination, argument-access preconditions and the bounded-printable
+return postcondition. The report checker requires every emitted flow/proof
+record to be proved and requires the `First_Or_Default` postcondition explicitly;
+it does not require a record for every named obligation class. Completeness of
+obligation generation remains a trusted GNATprove premise. GNAT may allocate the returned
 String before Silver checks its length; that resource premise is explicit in
 the [trusted boundary](trusted-boundary.md#command-line-boundary).
 
@@ -373,8 +394,9 @@ operations. The imported subprograms in three reviewed interface packages have
 specification-only coverage; the packages themselves require full coverage.
 Their existing implementation bodies are external. Generated `Silver_Build`
 and `Silver_Library_Sources` are covered too. See the
-[capability record](command-line.md) for current validation and the
-[repair evidence](hello-review-repairs.md) for its earlier baseline.
+[command-line repair record](command-line-review-repairs.md) for current
+validation, the [capability record](command-line.md) for the original increment,
+and the [Hello World repair evidence](hello-review-repairs.md) for its earlier baseline.
 
 The report model and its refinement assertions use SPARK's predefined `Static`
 level. GNATprove still verifies their bodies, recursive termination, contracts,
@@ -474,13 +496,15 @@ do not turn the prover into the membership rule.
 
 The regression suite exercises the actual SPARK CLI with case changes, comments,
 CR/LF/tab layouts, maximum-length sources, extra constructs, identifier-boundary
-errors, forbidden bytes, inaccessible files, and oversized sources. Two real
-proof/build/run cases verify snapshot identity, including a 4096-byte variant.
+errors, forbidden bytes, inaccessible files, and oversized sources. Native
+proof/build/run cases verify snapshot identity, including 4096-byte variants.
 Additional cases simulate external tool failure, incomplete proof reports,
 skipped/assumed obligations, and source changes during proof or compilation.
 These tests are implementation evidence, not a universal language theorem.
 
-Current regression results belong in [command-line.md](command-line.md); earlier
+Current review-repair validation belongs in
+[command-line-review-repairs.md](command-line-review-repairs.md); the capability's
+original results are in [command-line.md](command-line.md). Earlier
 sample and regression results retain their scope in [hello-world.md](hello-world.md)
 and [named-strings.md](named-strings.md).
 Platform workers exercise hostile inherited tool settings, symlinked temporary
@@ -587,6 +611,9 @@ The proof chain has distinct checked components:
 
 7. `OutputExpressions` renders and interprets typed literal/suffix expressions;
    its primitive interpretation also reuses checked lexical expression trees.
+   The output, named and argument expression trees each have a checked
+   `WellFormedTrees` predicate for Ada precedence and explicit grouping,
+   included in their source-translation checks.
    `OutputEquations` proves uniqueness of literal/suffix cursor equations.
    `OutputSourceBridge.CheckedSource` checks the output recognizer, IO sources
    and Output_Libc interface, complete `ReviewedOutputShape`, catalogue and
@@ -604,16 +631,25 @@ The proof chain has distinct checked components:
    `model_interpreted` witnesses the complete equation interface.
    `ArgumentsSourceBridge.CheckedSource` adds exact reconstruction of Arguments
    spec/body and Runtime spec, their declaration/contract checks and the whole
-   typed argument-body rendering. Its `authoritative_current_member_iff`
+   typed argument-body rendering, plus the typed Main composition's equality
+   with the required token production. Its `authoritative_current_member_iff`
    retains the checked source facts and proves four-form union membership for
    every interpretation satisfying the checked equations. Parse determinism,
    disjointness and `Current.meaning_unique` establish a unique source meaning.
-9. `Output.SourceBridge.authoritative_runtime_correct` connects the rendered IO
-   body to its output specification. The argument bridge's
-   `authoritative_argument_runtime_correct` connects both pure queries and
-   initialized guard execution to independent argument cases. `Current` composes
-   these results with the four source productions and explicit rejection action.
-   Its model tool-contract witness is not verification of the physical toolchain.
+9. `Current` composes runtime and source-meaning model lemmas for the four
+   productions, including `Arguments.execution_refines` and
+   `Arguments.Runtime.main_refines`. It does not import the source bridges.
+   `Output.SourceBridge.authoritative_runtime_correct` separately conjoins the
+   checked IO source with its runtime refinement. The argument bridge's
+   `authoritative_argument_runtime_correct` similarly retains `CheckedSource`
+   alongside the pure-query and Main runtime refinements.
+   `authoritative_main_correct` combines `CheckedSource`, parsing of the typed
+   Main rendering, and its interpreted result's equality with `Current.execute`.
+   This ties the initializer, guard polarity and branch order to the admitted
+   token production. The combined pipeline theorem retains the checked source
+   facts when applying `Current`'s conditional pipeline result; changing source
+   invalidates that source check. Its model tool-contract witness is not
+   verification of the physical toolchain.
    Reading checked Ada tokens as these typed expressions/statements still uses
    the approved frontend, SPARK's proved bounds, and the documented GNAT/libc
    meanings; this is not a verified general Ada parser or whole-toolchain theorem.

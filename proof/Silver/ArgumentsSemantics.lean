@@ -126,17 +126,115 @@ theorem evaluate_initializer {source : Source} {program : Program} (meaning : So
     evaluate arguments program = some (Runtime.firstOrDefault program.defaultValue arguments) := by
   simp [evaluate, Named.lookup, initializeBinding, (meaning_binds meaning).symm]
 
+/-! A small application syntax, distinct from the wrapper-body syntax. Its
+renderer and interpreter share the initializer, reference and branch structure.
+Only `composition` is admitted: the auxiliary constructors permit meaningful
+negative checks without extending the language. Ada's interpretation of these
+fixed syntax nodes remains the documented frontend premise. -/
+namespace Main
+
+inductive Kind | bytes | boolean
+
+abbrev Value : Kind → Type
+  | .bytes => Source
+  | .boolean => Bool
+
+inductive Expression : Kind → Type
+  | defaultValue : Expression .bytes
+  | firstOrDefault (value : Expression .bytes) : Expression .bytes
+  | reference : Expression .bytes
+  | inputIsValid : Expression .boolean
+
+def Expression.render : {kind : Kind} → Expression kind → List Token
+  | _, .defaultValue => [.base .stringLiteral]
+  | _, .firstOrDefault value =>
+      [.argumentsName, .base .dot, .firstOrDefaultName, .base .leftParenthesis] ++
+      value.render ++ [.base .rightParenthesis]
+  | _, .reference => [.referenceName]
+  | _, .inputIsValid => [.argumentsName, .base .dot, .inputIsValidName]
+
+structure Context where
+  arguments : Runtime.Arguments
+  program : Program
+  binding : Option Named.Binding := none
+
+def Expression.evaluate (context : Context) : {kind : Kind} → Expression kind → Option (Value kind)
+  | _, .defaultValue => some context.program.defaultValue
+  | _, .firstOrDefault value =>
+      (value.evaluate context).map (fun fallback => Runtime.firstOrDefault fallback context.arguments)
+  | _, .reference => context.binding.bind (fun binding => Named.lookup binding context.program.reference)
+  | _, .inputIsValid => some (Runtime.inputIsValid context.arguments)
+
+inductive Statement
+  | output (value : Expression .bytes)
+  | reject
+  | conditional (test : Expression .boolean) (yes no : Statement)
+
+def Statement.render : Statement → List Token
+  | .output value => [.base .ioName, .base .dot, .base .putLineName, .base .leftParenthesis] ++
+      value.render ++ [.base .rightParenthesis, .base .semicolon]
+  | .reject => [.argumentsName, .base .dot, .rejectName, .base .semicolon]
+  | .conditional test yes no => [.ifKeyword] ++ test.render ++ [.thenKeyword] ++
+      yes.render ++ [.elseKeyword] ++ no.render ++ [.base .endKeyword, .ifKeyword, .base .semicolon]
+
+def Statement.execute (environment : Output.Runtime.Environment) (context : Context) :
+    Statement → Option Output.Runtime.ProcessResult
+  | .output value => (value.evaluate context).map (Runtime.outputMain environment)
+  | .reject => some Runtime.rejectProgram.execute
+  | .conditional test yes no => (test.evaluate context).bind (fun valid =>
+      if valid then yes.execute environment context else no.execute environment context)
+
+structure Composition where
+  initializer : Expression .bytes
+  body : Statement
+
+def Composition.render (template : Composition) : List Token :=
+  [.base .withKeyword, .base .ioName, .base .semicolon,
+   .base .withKeyword, .argumentsName, .base .semicolon,
+   .base .procedureKeyword, .base .mainName, .base .isKeyword,
+   .base .pragmaKeyword, .base .sparkModeName, .base .leftParenthesis,
+   .base .onName, .base .rightParenthesis, .base .semicolon,
+   .declarationName, .colon, .constantKeyword, .stringName, .assignment] ++
+  template.initializer.render ++ [.base .semicolon, .base .beginKeyword] ++
+  template.body.render ++ [.base .endKeyword, .base .mainName, .base .semicolon]
+
+/-- Initializer evaluation happens with no binding. Only its successful result
+creates the immutable local before any guard or output expression is evaluated. -/
+def Composition.execute (template : Composition) (environment : Output.Runtime.Environment)
+    (arguments : Runtime.Arguments) (program : Program) : Option Output.Runtime.ProcessResult :=
+  let context : Context := ⟨arguments, program, none⟩
+  (template.initializer.evaluate context).bind (fun value =>
+    template.body.execute environment {context with binding := some ⟨program.declared, value⟩})
+
+def composition : Composition :=
+  ⟨.firstOrDefault .defaultValue, .conditional .inputIsValid (.output .reference) .reject⟩
+
+theorem rendered_tokens : composition.render = requiredTokens := by decide +kernel
+
+/-- Branch order is visible to the renderer, rather than a semantic label. -/
+theorem swapped_branches_differ :
+    ({composition with body := .conditional .inputIsValid .reject (.output .reference)} : Composition).render ≠
+      requiredTokens := by decide +kernel
+
+/-- An uninitialized read is an interpreter failure, even if the body would
+reject. Thus declaration-before-body order is part of the executable model. -/
+theorem uninitialized_initializer_fails (environment : Output.Runtime.Environment)
+    (arguments : Runtime.Arguments) (program : Program) :
+    ({initializer := .reference, body := .reject} : Composition).execute environment arguments program = none := rfl
+
+end Main
+
 def execute (environment : Output.Runtime.Environment) (arguments : Runtime.Arguments) (program : Program) :
     Option Output.Runtime.ProcessResult :=
-  (evaluate arguments program).map (fun value =>
-    if Runtime.inputIsValid arguments then Runtime.outputMain environment value
-    else Runtime.rejectProgram.execute)
+  Main.composition.execute environment arguments program
 
 theorem execution_refines {source : Source} {program : Program} (meaning : SourceMeaning source program)
     (environment : Output.Runtime.Environment) (arguments : Runtime.Arguments) :
     execute environment arguments program = Runtime.executeMain environment arguments program.defaultValue := by
-  simp [execute, evaluate_initializer meaning, Runtime.main_refines,
-    Runtime.rejectProgram, Runtime.Effect.execute]
+  cases valid : Runtime.inputIsValid arguments <;>
+    simp [execute, Main.Composition.execute, Main.composition, Main.Expression.evaluate,
+      Main.Statement.execute, Named.lookup, (meaning_binds meaning).symm, Runtime.main_refines,
+      valid, Runtime.rejectProgram, Runtime.Effect.execute]
 
 theorem invalid_execution {source : Source} {program : Program} (meaning : SourceMeaning source program)
     (environment : Output.Runtime.Environment) (arguments : Runtime.Arguments)

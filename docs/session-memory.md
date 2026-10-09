@@ -1,5 +1,29 @@
 # Session memory
 
+## 2026-10-09 — Command-line review follow-up complete
+
+The owner approved the independently assessed `e14ba1a` review follow-up and a
+local commit. The repair now links the guarded Main's rendering and execution
+through one typed composition, removes obsolete named-membership proof plumbing,
+and adds existing-style precedence checks and focused regressions. Catalogue/CI
+consistency, assurance wording and runtime premises are corrected. No new
+language forms, Oracle amendment, publication, general parser or release-hardening
+framework were introduced.
+
+Focused proof, tests/CI and documentation subthreads completed their work;
+independent read-only review found no blocking mismatch. The full Linux compiler
+audit, build, complete tests, Lean build/fresh axiom audit and independent fresh
+kernel recheck passed. Final input/tool/report/artifact hashes matched. The
+current evidence and exact scope are in
+[command-line-review-repairs.md](command-line-review-repairs.md), including the
+retained review note. Native caches and previous/other-host artifacts were
+preserved. Unrelated `tmp/` remains untracked and untouched.
+
+The independently corroborated macOS evidence validates the `e14ba1a` baseline;
+native macOS validation of this follow-up remains independent and nonblocking.
+CI, x86-64 and GNAT Pro remain untested. Work remains local, and no further
+language increment is authorized by this repair task.
+
 ## 2026-10-09 — Named strings and guarded command-line input complete
 
 Named literal constants are committed as `2f76b20`, following the completed

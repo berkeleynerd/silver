@@ -53,6 +53,9 @@ jobs:
             .silver/*/program-*/silver_io.ads
             .silver/*/program-*/silver_io.adb
             .silver/*/program-*/silver_output_libc.ads
+            .silver/*/program-*/silver_arguments.ads
+            .silver/*/program-*/silver_arguments.adb
+            .silver/*/program-*/silver_runtime.ads
             .silver/*/toolchain/alire/alire.lock
             .silver/*/toolchain/alire.toml
 

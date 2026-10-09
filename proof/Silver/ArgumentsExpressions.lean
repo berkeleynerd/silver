@@ -172,6 +172,89 @@ def Condition.render : Condition → List String
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
 end
 
+/-- Ada grammar categories prevent the token renderer from silently changing
+precedence. Groups in a tree must be present in the checked source itself. -/
+def Number.primary : Number → Bool
+  | .add _ _ | .sub _ _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.simple : Number → Bool
+  | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Number.isElsif : Number → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.primary : Condition → Bool
+  | .value _ | .previous | .group _ | .identifier _ | .letter _ | .tokenAt _ _
+  | .name _ _ _ | .forbidden _ _ | .equal _ _ _ _ | .suffix _ _ _ _ => true
+  | .argumentForbidden _ _ | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized => true
+  | _ => false
+
+def Condition.relation : Condition → Bool
+  | .andThen _ _ | .orElse _ _ | .allOffsets _ _ | .someForbidden _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.logical : Condition → Bool
+  | .allOffsets _ _ | .someForbidden _ | .ite _ _ _ | .elsif _ _ _ => false
+  | _ => true
+
+def Condition.isElsif : Condition → Bool
+  | .elsif _ _ _ => true
+  | _ => false
+
+def Condition.andLeft : Condition → Bool
+  | .andThen _ _ => true
+  | condition => condition.relation
+
+def Condition.orLeft : Condition → Bool
+  | .orElse _ _ => true
+  | condition => condition.relation
+
+mutual
+def Number.wellFormed : Number → Bool
+  | .add left right | .sub left right =>
+      left.wellFormed && right.wellFormed && left.simple && right.primary
+  | .byteAt value | .wordAt value | .lower value | .characterVal value
+  | .finish value | .literal value | .trivia value | .spellingLength value => value.wellFormed && value.simple
+  | .tail position previous => position.wellFormed && position.simple && previous.wellFormed && previous.logical
+  | .group value => value.wellFormed && !value.isElsif
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.simple &&
+      no.wellFormed && (no.simple || no.isElsif)
+  | _ => true
+
+def Condition.wellFormed : Condition → Bool
+  | .eq left right | .ne left right | .lt left right | .le left right | .gt left right =>
+      left.wellFormed && right.wellFormed && left.simple && right.simple
+  | .range value first last =>
+      value.wellFormed && first.wellFormed && last.wellFormed && value.simple && first.simple && last.simple
+  | .andThen left right => left.wellFormed && right.wellFormed && left.andLeft && right.relation
+  | .twoRanges value first last secondFirst secondLast =>
+      value.wellFormed && first.wellFormed && last.wellFormed && secondFirst.wellFormed && secondLast.wellFormed &&
+      value.simple && first.simple && last.simple && secondFirst.simple && secondLast.simple
+  | .orElse left right => left.wellFormed && right.wellFormed && left.orLeft && right.relation
+  | .not value => value.wellFormed && value.primary
+  | .group value => value.wellFormed && !value.isElsif
+  | .identifier value | .letter value => value.wellFormed && value.simple
+  | .tokenEq index _ => index.wellFormed && index.simple
+  | .tokenAt position index | .forbidden position index =>
+      position.wellFormed && index.wellFormed && position.simple && index.simple
+  | .name first after _ => first.wellFormed && after.wellFormed && first.simple && after.simple
+  | .equal a b c d | .suffix a b c d =>
+      a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && a.simple && b.simple && c.simple && d.simple
+  | .allOffsets last body => last.wellFormed && last.simple && body.wellFormed && body.logical
+  | .someForbidden body => body.wellFormed && body.logical
+  | .value _ | .previous => true
+  | .argumentForbidden first after => first.wellFormed && after.wellFormed && first.simple && after.simple
+  | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized => true
+  | .ite condition yes no | .elsif condition yes no =>
+      condition.wellFormed && condition.logical && yes.wellFormed && yes.logical &&
+      no.wellFormed && (no.logical || no.isElsif)
+end
+
+
 mutual
 def Number.eval (calls : Calls) (context : Context) : Number → Nat
   | .constant value | .character value => value
@@ -277,6 +360,29 @@ def suffixBody : Condition :=
 def memberBody : Condition :=
   .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized)
     (.group (.orElse (.orElse .directNormalized .namedNormalized) .argumentNormalized))
+
+
+abbrev WellFormedTrees : Prop :=
+  letterBody.wellFormed = true ∧
+  tailBody.wellFormed = true ∧
+  finishBody.wellFormed = true ∧
+  nameBody.wellFormed = true ∧
+  equalBody.wellFormed = true ∧
+  forbiddenBody.wellFormed = true ∧
+  stateBody.wellFormed = true ∧
+  suffixBody.wellFormed = true ∧
+  argumentForbiddenBody.wellFormed = true ∧
+  memberBody.wellFormed = true
+
+theorem checked_precedence : WellFormedTrees := by decide +kernel
+
+/-- Without explicit grouping, negating a disjunction has different Ada
+precedence; the source bridge must reject such an interpretation. -/
+theorem ungrouped_negation_rejected :
+    (Condition.not (.orElse (.value true) (.value false))).wellFormed = false := by decide +kernel
+
+theorem grouped_negation_allowed :
+    (Condition.not (.group (.orElse (.value true) (.value false)))).wellFormed = true := by decide +kernel
 
 theorem letter_denotation (calls : Calls) (context : Context) :
     letterBody.eval calls context = letter context.item := by rfl
@@ -391,13 +497,13 @@ theorem embedNamedToken_spelling (token : Named.Token) :
 theorem embedNamedToken_isWord (token : Named.Token) :
     (embedNamedToken token).isWord = token.isWord := by cases token <;> rfl
 
-/-- Adapter for the retained physical named-suffix template. Its unused member
-slot is the actual public callback; no old union-body premise is invented. -/
+/-- Adapter for the retained physical named-suffix template. Public membership
+is interpreted only by the current three-output-form expression below. -/
 def inheritedCalls (calls : Calls) : Named.Expressions.Calls where
   output := calls.output
   primitive := calls.primitive
   identifier := calls.identifier
-  named := {suffix := calls.namedSuffix, member := calls.arguments.member}
+  named := {suffix := calls.namedSuffix}
   letter := calls.letter
   token := fun text position token => calls.token text position (embedNamedToken token)
   forbiddenSpelling := calls.forbiddenSpelling

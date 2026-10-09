@@ -63,8 +63,8 @@ remain in SPARK.
 
 ## Validation scope
 
-Current capability and repair evidence is maintained in
-[hello-world.md](hello-world.md) and [hello-review-repairs.md](hello-review-repairs.md).
+Current capability and repair records are indexed in the
+[README's platform evidence](../README.md#proofs-and-platform-evidence).
 Earlier workflow results remain in [proof-workflow.md](proof-workflow.md);
 [the review repair record](review-repairs.md) records the earlier baseline.
 Platform regressions cover
@@ -90,12 +90,15 @@ three tests exposed another symlinked-temporary-directory fixture error. The
 retained proof and Lean artifacts were subsequently checked read-only on Linux.
 See [proof-workflow.md](proof-workflow.md) for evidence and scope.
 
-The latest external review also validated the staged incremental workflows on
+An earlier external review also validated the staged incremental workflows on
 macOS ARM64 before the cold-proof and direct-tool guard additions. It reported
 passing compiler proofs, all tests under symlinked `TMPDIR`, and all Lean modes.
 The retained compiler and final clean Lean artifacts were independently
 corroborated on Linux; intermediate timings and test results remain reviewer
-reports. The new cold/guard additions still await native macOS validation.
+reports. At that stage, the cold/guard additions still awaited native macOS
+validation. Later validation of the command-line baseline and the current
+follow-up's platform scope are recorded in
+[command-line-review-repairs.md](command-line-review-repairs.md).
 Linux/macOS x86-64 validation also remains pending.
 CI is configured for all four supported host keys, including a fresh Lean kernel
 recheck, but has not executed. This work remains local as requested and the

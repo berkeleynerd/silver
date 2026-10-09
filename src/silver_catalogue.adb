@@ -47,7 +47,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""name"": ""Main"",");
       Put_Line ("        ""parameters"": [],");
       Put_Line ("        ""end_name"": ""Main"",");
-      Put_Line ("        ""additional_declarations"": false,");
+      Put_Line ("        ""declarations_outside_composition"": false,");
       Put_Line ("        ""exception_handlers"": false");
       Put_Line ("      }");
       Put_Line ("    },");

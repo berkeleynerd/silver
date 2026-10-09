@@ -75,6 +75,10 @@ The source bridge checks both recognizers and the selected runtime libraries.
 Source-certificate replay remains a development cost to measure as these grow.
 Preserve caching and independent module scheduling; improve representation when
 measurements justify it without weakening source correspondence or kernel checks.
+The completed [command-line review follow-up](docs/command-line-review-repairs.md)
+strengthens the existing Main composition and expression-precedence checks,
+regressions and evidence documentation. It adds no admitted forms and does not
+authorize another language increment.
 
 ## Hello World with a command-line message
 

@@ -35,6 +35,11 @@ following rules and the complete grammar below:
   grammar exactly. Printable bytes are not generally legal executable syntax;
   being in the source alphabet alone does not establish membership.
 
+The pinned Ada frontend must support every line and lexical element fitting
+this complete-source bound. Boundary compilation tests exercise that capacity;
+Ada's minimum implementation requirements alone do not establish it. See the
+[frontend assumptions](docs/trusted-boundary.md#source-correspondence-and-semantic-assumptions).
+
 ## Grammar and capabilities
 
 Exactly four productions are admitted. The null production is:
@@ -208,7 +213,9 @@ output; it does not guarantee consumption by a reader or durable storage.
 With healthy, progressing output and normal process startup, the program prints
 those bytes and exits successfully. Empty literals produce just LF.
 
-The command-line form observes the process arguments after the executable name:
+The command-line form observes the process arguments after the executable name.
+Normal supported startup supplies that executable-name slot (`argc >= 1`);
+"no arguments" means no entries after it:
 
 | Input | Observable behavior |
 | --- | --- |

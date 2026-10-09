@@ -1,5 +1,9 @@
 # Command-line messages
 
+This records the `e14ba1a` capability baseline. Its subsequent independent macOS
+validation and review follow-up are recorded in
+[command-line-review-repairs.md](command-line-review-repairs.md).
+
 This capability follows the named-string increment and implements the owner's
 2026-10-09 authorization. Its motivating sample is
 [samples/command_line.adb](../samples/command_line.adb). The complete source rules
@@ -48,7 +52,9 @@ identifier/literal rules, one initializer and one mandatory guard. Lean proves
 membership, binding, source meaning and the runtime outcomes over all argument
 vectors under the documented ABI and environment assumptions. The actual-source
 bridge checks the new recognizer expressions and the wrapper declarations/body.
-SPARK verifies every owned implementation and all selected report checks.
+GNATprove verifies the owned implementations' required flow and proof
+obligations, including report-scanner safety. Report interpretation is reviewed
+and tested; it has no independent parser-refinement theorem.
 Application Main reports remain empty for this production; actual nonempty
 library obligations remain required. Modeled empty application lists are
 connected through the reviewed Ada structural argument and the faithful
@@ -101,14 +107,18 @@ recognizer certificate took 853 seconds and dominated build time. Lake retained
 its native workspace; changed embedded source invalidated the library under the
 existing dependency policy. This records the current cost, not an optimized
 parallelism claim. The independent `leanchecker --fresh Silver.Audit` kernel
-recheck passed. The complete invocation took 1,282.621 seconds. All 75 captured
+recheck passed. The complete invocation took 1,282.621 seconds while test runs
+overlapped part of the replay; these are observed durations, not isolated
+benchmarks. All 75 captured
 inputs, 52 workspace inputs, 100 compiled artifacts, tool hashes and the proof
 log hash matched after completion. The final Lean evidence SHA256 is
 `1ec39ca36a72f5f822b0a9a9b8aa01a934e8b4419a6103d806ce0f7a2a86f7f6`.
 
 Stable compiler reports, manifest and logs are retained in
 `.silver/linux-aarch64/arguments-final-evidence/`, together with final Lean
-evidence and logs. The capability is complete on Linux. Native macOS validation remains
-independent, pending and nonblocking; no hosted CI or x86-64 execution is claimed.
+evidence and logs. Native macOS validation was pending at the initial capability
+commit; the subsequent `e14ba1a` review passed and is recorded in the
+[follow-up record](command-line-review-repairs.md#native-macos-validation-of-the-baseline).
+No hosted CI or x86-64 execution is claimed.
 Earlier capability records retain their actual inputs and platform scope.
 Oracle bytes remain unchanged.
