@@ -42,11 +42,126 @@ sequence.
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
+| Source-certificate performance | Proposed | Recommended next: a [bounded performance pass](#bounded-source-certificate-performance) on exact-source reconstruction, retaining all current assurance. | Developer workflow; no language change |
+| Guarded command-line greeting | Proposed | Next language increment: [dynamic concatenation behind an explicit capacity guard](#guarded-command-line-greeting). | Planned `samples/command_line_greeting.adb` |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
 string variables, arbitrary concatenation, indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
+
+## Next goals after the greeting review
+
+Recorded on 2026-10-09 while external review of `a73f85e` is pending. This is
+planning only; neither proposed goal has started or been activated in the
+harness. Independently verify the incoming findings and address actual
+correctness or assurance defects before further language expansion. Review
+suggestions do not automatically require new infrastructure or approval gates.
+
+The recommended order is a bounded source-certificate performance pass, then
+the guarded command-line greeting. This protects the development loop while
+keeping the next language target concrete. Both await the owner's go-ahead;
+no Oracle amendment is currently indicated.
+
+### Bounded source-certificate performance
+
+**Proposed goal:** evaluate at most two local approaches to reducing exact-source
+certificate checking cost; integrate a validated improvement, or record a
+negative result and retain the current representation.
+
+The [greeting evidence](docs/greeting.md) identifies a substantial cost in the
+enlarged recognizer certificate. Its timings overlapped other probes, so they
+motivate investigation without constituting a controlled benchmark. Caching
+already works; this task concerns rebuilding changed source certificates.
+
+- Establish a comparable baseline on fixed current source bytes and pinned
+  tools on Linux ARM64. Record certificate and full-replay phase times, peak
+  memory, artifact size and warm-cache behavior. Keep measurements in the
+  evidence record, not as machine-dependent language acceptance thresholds.
+- Limit implementation candidates to reconstruction lemmas, proof terms and
+  their generator. The current reconstruction tree is already balanced. Large
+  character-list conversions are a candidate bottleneck; the earlier raw-byte
+  experiment was unsuccessful and is not a ready solution.
+- Run heavy experiments separately in native-host workspaces with explicit
+  time and memory budgets based on the baseline and available resources.
+  Preserve normal caches and other hosts' state; use parallel work where the
+  memory budget permits it. Trial budgets do not change proof acceptance policy.
+- Preserve exact authoritative bytes, checked lexing and source correspondence,
+  source-change cache invalidation, the fresh axiom audit and independent kernel
+  recheck. Adopt only a successfully checked improvement that exceeds ordinary
+  measurement variation without a material memory regression. No new trusted
+  shortcut, source/runtime/language change or general certificate framework.
+
+Completion means a measured decision after at most two candidate approaches.
+A successful candidate must pass focused generation, mutation and cache tests,
+full Lean validation and ordinary semantic review before a local commit. If
+neither improves matters, retain the implementation and record the findings;
+stop that investigation rather than extending it into an open-ended redesign.
+The language goal can then proceed once authorized.
+
+### Guarded command-line greeting
+
+**Proposed language goal:** support a sixth complete production combining the
+existing argument initializer and greeting expression, with an executable
+capacity guard before either concatenation is evaluated. The motivating sample
+is ordinary Ada/SPARK, but is **not currently admitted Silver**:
+
+```ada
+with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Name : constant String := Silver_Arguments.First_Or_Default ("world");
+begin
+   if Silver_Arguments.Input_Is_Valid
+     and then Name'Length <= 4088
+   then
+      Silver_IO.Put_Line ("Hello, " & Name & "!");
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+```
+
+The prefix and suffix consume eight bytes, leaving 4088 for `Name`. The proposed
+class permits arbitrary existing-domain default, prefix and suffix literals.
+Membership checks that the decimal capacity literal equals 4096 minus the
+decoded prefix and suffix lengths; it does not add source arithmetic. Introduce
+only this use of `'Length`, `<=`, `and then` and the capacity literal. The guard
+and output must reference the same declared constant, with exactly one reference
+in the concatenation and the existing command-line name restrictions.
+
+Missing input prints the decorated default; an explicitly empty argument prints
+the decorations. Valid input fitting the remaining capacity prints its exact
+bytes with the prefix, suffix and LF. Invalid input, extra arguments, and input
+exceeding the remaining capacity return status 1 without application output or
+truncation. Existing detected-output-failure behavior and external assumptions
+remain. The default and decorations fit by their combined source-consumption
+bound; a runtime argument needs the new guard.
+
+Once authorized, begin with an isolated GNATprove/GNAT obligation experiment.
+Dynamic concatenation may introduce nonempty application reports. Check both
+intermediate results, String index/lower bounds and empty prefixes; the current
+initializer contract guarantees length and printable bytes, not a particular
+lower bound. Establish any needed contract strengthening through verified owned
+code or an independently justified existing interface premise. Do not assume a
+length guard alone settles these obligations or silently exclude failed cases.
+Extend report handling for the obligations actually generated, with complete
+coverage and discharge. Keep the capacity condition visible in application
+source rather than introducing a wrapper solely to conceal it.
+
+Completion requires the recognizer, specification, catalogue, proposed sample
+and manifest; universal assurance and checked source correspondence for all six
+forms; native GNAT/GNATprove boundary and failure tests; full Linux validation;
+independent review and a local commit. Include exact capacity and one-byte-over
+cases, empty input/default/prefix/suffix, escaped literals, mismatched or weakened
+guards, invalid arguments and output failure. Ordinary proof failures are work
+to resolve. A necessary Oracle amendment or broader architectural change is a
+reason to report the concrete issue and reconsider scope, not to suppress checks.
+macOS validation remains independent and nonblocking.
+
+Reassignment, mutable strings, repeated output references, arbitrary expressions
+or conditionals, a general parser and a new output API remain later work.
 
 ## Output design and next increments
 
@@ -129,8 +244,9 @@ guard composition is admitted.
 Runtime initialization fixes the object's length from its initial value.
 Reassignment, concatenation, mutable strings, general arrays, access types,
 arbitrary conditionals and general command-line package access remain outside
-that completed task. The next literal-backed greeting is authorized below;
-command-line concatenation and statically compatible assignments remain proposed.
+that completed task. Literal-backed greeting is now supported below;
+guarded command-line concatenation is the proposed next language increment.
+Statically compatible assignments remain later work.
 
 The implementation reuses the approved GNAT argument imports beneath a verified
 SPARK wrapper. Application reports remain empty; selected owned libraries have
@@ -142,7 +258,7 @@ through `silver run` remains a separate convenience. No Oracle amendment.
 
 ## Literal-backed greeting
 
-Authorized on 2026-10-09 as an active harness goal, following repair commit
+Completed in `a73f85e`, following authorization on 2026-10-09 and repair commit
 `54844c5`. The motivating application declares a literal-backed `Name` constant
 and calls `Silver_IO.Put_Line ("Hello, " & Name & "!")`.
 
@@ -157,10 +273,10 @@ Literal contents receive no special treatment.
 
 Repeated references, literal-only or arbitrary concatenation expressions,
 additional declarations, assignment and command-line concatenation remain
-excluded. A later `command_line_greeting.adb` could add an explicit capacity
-guard before constructing its output; the existing argument-validity guard
-alone does not reserve space for a prefix and suffix. That follow-on is proposed,
-not authorized by this goal. No Oracle amendment is expected.
+excluded. The [proposed command-line greeting](#guarded-command-line-greeting)
+adds an explicit capacity guard before constructing its output; the existing
+argument-validity guard alone does not reserve space for a prefix and suffix.
+That follow-on is not authorized by the completed greeting goal.
 
 ## Deferred until needed
 

@@ -1,5 +1,33 @@
 # Session memory
 
+## 2026-10-09 — Next goals proposed while greeting review is pending
+
+The owner requested planning and a roadmap update while an external reviewer
+assesses greeting commit `a73f85e`. The completed harness goal remains complete;
+this request does not start implementation, proof experiments or another harness
+goal. The [roadmap](../roadmap.md#next-goals-after-the-greeting-review) now records
+the recommended order: independently assess the incoming review, conduct a
+bounded source-certificate performance pass, then add guarded command-line
+greeting as the next language capability. Both proposed tasks await a go-ahead.
+
+The performance proposal addresses measured certificate cost, preserves every
+source/axiom/kernel check, and ends after at most two candidate approaches with
+either a validated improvement or a recorded negative result. Keep caches and
+native-host isolation; do not treat the unsuccessful raw-byte experiment as a
+solution or grow this into general infrastructure work.
+
+The proposed `command_line_greeting.adb` uses the existing initializer and an
+explicit `Input_Is_Valid and then Name'Length <= capacity` guard before
+`prefix_literal & Name & suffix_literal`. Membership would verify the capacity
+against decoded decorations. Actual dynamic concatenation obligations and String
+lower bounds must be investigated before admitting the form; existing empty
+Main reports and length-only contracts are not sufficient evidence for it.
+See the roadmap for proposed behavior, boundaries and completion criteria.
+
+Only planning documents change now. The Oracle, five-form language,
+implementation, catalogue, samples and proof evidence remain as committed.
+Work stays local; preserve unrelated `tmp/` material and all host artifacts.
+
 ## 2026-10-09 — Literal-backed greeting concatenation complete
 
 The owner's harness goal is completed in this change, following repair commit
