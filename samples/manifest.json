@@ -47,6 +47,60 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "command_line.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "named_output",
+        "argument_context",
+        "argument_initialization",
+        "input_guard",
+        "argument_rejection"
+      ],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "Hello from argv"
+          ],
+          "expected": {
+            "stdout": "Hello from argv\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "one",
+            "two"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
     }
   ]
 }

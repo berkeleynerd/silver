@@ -4,7 +4,9 @@ with Silver_Library_Reports;
 
 package Silver_Libraries with SPARK_Mode => On is
    Max_Source_Length : constant Positive := 16_384;
-   type Unit_Kind is (IO_Specification, IO_Implementation, Imported_Interface);
+   type Unit_Kind is
+     (IO_Specification, IO_Implementation, Imported_Interface,
+      Arguments_Specification, Arguments_Implementation, Runtime_Interface);
    subtype Source_Buffer is String (1 .. Max_Source_Length);
    subtype Source_Length is Natural range 0 .. Max_Source_Length;
    type Buffer_Array is array (Unit_Kind) of Source_Buffer;

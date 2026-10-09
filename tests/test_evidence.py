@@ -137,6 +137,8 @@ class ProofEvidenceTests(unittest.TestCase):
 
         for unit, package in (("silver_io", "Silver_IO"),
                               ("silver_output_libc", "Silver_Output_Libc"),
+                              ("silver_arguments", "Silver_Arguments"),
+                              ("silver_runtime", "Silver_Runtime"),
                               ("silver_library_sources", "Silver_Library_Sources")):
             report = copy.deepcopy(self.report)
             names = [package, *sorted(TRUSTED_IMPORT_ENTITIES.get(unit, set()))]
@@ -151,7 +153,16 @@ class ProofEvidenceTests(unittest.TestCase):
         report_path = self.path / "silver_build.spark"
         report_path.write_text(json.dumps(report))
         self.refresh_reports()
-        self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 5)
+        self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 7)
+
+        for unit in ("silver_arguments", "silver_runtime"):
+            target = self.path / (unit + ".spark")
+            original_report = target.read_bytes()
+            target.unlink()
+            with self.subTest(unit=unit), self.assertRaisesRegex(EvidenceError, "missing report"):
+                audit_sources(source_dir, self.path, generated_dir)
+            target.write_bytes(original_report)
+        self.refresh_reports()
 
         # A generated spec with changed expected bytes cannot be accepted even
         # if all producer reports claim success and are newer than the source.
@@ -161,12 +172,14 @@ class ProofEvidenceTests(unittest.TestCase):
             audit_sources(source_dir, self.path, generated_dir)
         binding.write_bytes(original_binding)
         self.refresh_reports()
-        target = source_dir / "silver_io.adb"
-        original = target.read_bytes()
-        target.write_bytes(original + b"-- changed installed source\n")
-        with self.assertRaisesRegex(EvidenceError, "embedded runtime source bytes differ"):
-            audit_sources(source_dir, self.path, generated_dir)
-        target.write_bytes(original)
+        for filename in bootstrap.RUNTIME_SOURCES.values():
+            target = source_dir / filename
+            original = target.read_bytes()
+            target.write_bytes(original + b"-- changed installed source\n")
+            with self.subTest(source=filename), self.assertRaisesRegex(
+                    EvidenceError, "embedded runtime source bytes differ"):
+                audit_sources(source_dir, self.path, generated_dir)
+            target.write_bytes(original)
         self.refresh_reports()
 
         # A proof for yesterday's host configuration cannot verify today's.

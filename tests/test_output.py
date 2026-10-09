@@ -92,11 +92,11 @@ class LiteralOutputTests(unittest.TestCase):
         self.assertEqual(workspace.parent, HOST.artifacts)
         self.addCleanup(shutil.rmtree, workspace)
         self.assertEqual((workspace / "main.adb").read_bytes(), source)
-        for name in ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads"):
+        for name in ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads"):
             self.assertEqual((workspace / name).read_bytes(), (ROOT / "src" / name).read_bytes())
         statistics = audit_reports(workspace / "obj/gnatprove",
-                                   {"main", "silver_io", "silver_output_libc"},
-                                   {"silver_output_libc"})
+                                   {"main", "silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"},
+                                   {"silver_output_libc", "silver_runtime"})
         self.assertGreater(statistics["proof_checks"], 0)
         main = json.loads((workspace / "obj/gnatprove/main.spark").read_text())
         self.assertEqual(main["flow"], [])

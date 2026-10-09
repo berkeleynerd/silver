@@ -12,7 +12,10 @@ package body Silver_Libraries with SPARK_Mode => On is
      (case Kind is
         when IO_Specification => "silver_io.ads",
         when IO_Implementation => "silver_io.adb",
-        when Imported_Interface => "silver_output_libc.ads");
+        when Imported_Interface => "silver_output_libc.ads",
+        when Arguments_Specification => "silver_arguments.ads",
+        when Arguments_Implementation => "silver_arguments.adb",
+        when Runtime_Interface => "silver_runtime.ads");
 
    function Expected_Source (Kind : Unit_Kind) return String is
    begin
@@ -25,6 +28,12 @@ package body Silver_Libraries with SPARK_Mode => On is
             return Silver_Library_Sources.IO_Implementation;
          when Imported_Interface =>
             return Silver_Library_Sources.Imported_Interface;
+         when Arguments_Specification =>
+            return Silver_Library_Sources.Arguments_Specification;
+         when Arguments_Implementation =>
+            return Silver_Library_Sources.Arguments_Implementation;
+         when Runtime_Interface =>
+            return Silver_Library_Sources.Runtime_Interface;
       end case;
    end Expected_Source;
 
@@ -42,8 +51,11 @@ package body Silver_Libraries with SPARK_Mode => On is
              (if Earlier < Kind then Accepted_Reports (Earlier))));
          declare
             Name : constant String := Directory & "/obj/gnatprove/" &
-              (if Kind = Silver_Library_Reports.Library_Body then "silver_io.spark"
-               else "silver_output_libc.spark");
+              (case Kind is
+                 when Silver_Library_Reports.Library_Body => "silver_io.spark",
+                 when Silver_Library_Reports.Imported_Interface => "silver_output_libc.spark",
+                 when Silver_Library_Reports.Arguments_Body => "silver_arguments.spark",
+                 when Silver_Library_Reports.Runtime_Interface => "silver_runtime.spark");
             Accepted : Boolean;
          begin
             Read_File (Name, Report, Last, Too_Long, Read_Success);
@@ -57,7 +69,7 @@ package body Silver_Libraries with SPARK_Mode => On is
             end if;
          end;
       end loop;
-      --  Both selected, fully read reports passed the source-specific checker.
+      --  Every selected, fully read report passed the source-specific checker.
       Proof_Complete := True;
       Success := True;
    end Check_Proof_Evidence;

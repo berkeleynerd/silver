@@ -14,11 +14,11 @@ import unittest
 from scripts.bootstrap import prepare_context
 from scripts.platforms import HostLayout, alire_command, tool_environment
 from tests import test_silver
-from tests.test_library_reports import report as runtime_report
+from tests.test_library_reports import report as runtime_report, argument_report
 
 ROOT = test_silver.ROOT
 HOST = test_silver.HOST
-LIBRARIES = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads")
+LIBRARIES = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads")
 SOURCE = (b'with Silver_IO; procedure Main is pragma SPARK_Mode(On); '
           b'begin Silver_IO.Put_Line("Hello, world!"); end Main;')
 
@@ -53,7 +53,9 @@ class OutputIntegrityTests(unittest.TestCase):
                 "spark": {" 1": "all"}, "flow": [], "proof": [], "warn_error": [],
                 "skip_flow_proof": [], "skip_proof": [], "pragma_assume": []}
         for name, data in (("main.spark", main), ("silver_io.spark", runtime_report()),
-                           ("silver_output_libc.spark", runtime_report(True))):
+                           ("silver_output_libc.spark", runtime_report(True)),
+                           ("silver_arguments.spark", argument_report()),
+                           ("silver_runtime.spark", argument_report(True))):
             (cls.fixtures / name).write_text(json.dumps(data))
         alr = cls.host.alr
         alr.parent.mkdir(parents=True, exist_ok=True)
@@ -70,14 +72,14 @@ class OutputIntegrityTests(unittest.TestCase):
                 raise SystemExit("project does not resolve from fixed tool context")
             workspace = project.parent
             (root / "workspace").write_text(str(workspace))
-            libraries = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads")
+            libraries = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads")
             if "gnatprove" in sys.argv:
                 # Confirm the proof input is exactly the selected local source
                 # set, not the caller's cwd or an expanded search directory.
                 text = project.read_text()
                 if 'for Source_Dirs use (".")' not in text:
                     raise SystemExit("project source directory escaped its snapshot")
-                if 'for Source_Files use ("main.adb", "silver_io.ads", "silver_io.adb", "silver_output_libc.ads")' not in text:
+                if 'for Source_Files use ("main.adb", "silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads")' not in text:
                     raise SystemExit("project did not select exactly the runtime files")
                 for name in libraries:
                     if (workspace / name).read_bytes() != (root / "src" / name).read_bytes():
@@ -85,7 +87,7 @@ class OutputIntegrityTests(unittest.TestCase):
                 (root / "proof_invoked").touch()
                 target = workspace / "obj/gnatprove"
                 target.mkdir(parents=True)
-                for name in ("main.spark", "silver_io.spark", "silver_output_libc.spark"):
+                for name in ("main.spark", "silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):
                     if name != scenario.get("missing"):
                         shutil.copyfile(root / "reports" / name, target / name)
                 if scenario.get("rejected"):
@@ -173,14 +175,17 @@ class OutputIntegrityTests(unittest.TestCase):
             self.assertEqual((workspace / name).read_bytes(), original)
 
     def test_missing_runtime_report_stops_before_build(self) -> None:
-        for name in ("silver_io.spark", "silver_output_libc.spark"):
+        for name in ("silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):
             with self.subTest(report=name):
                 self.assert_rejected({"missing": name}, False, "runtime library evidence")
 
     def test_present_but_rejected_runtime_report_stops_before_build(self) -> None:
         for name, fault in (("silver_io.spark", "unproved"),
                             ("silver_io.spark", "empty_proof"),
-                            ("silver_output_libc.spark", "wrong_import_coverage")):
+                            ("silver_output_libc.spark", "wrong_import_coverage"),
+                            ("silver_arguments.spark", "unproved"),
+                            ("silver_arguments.spark", "empty_proof"),
+                            ("silver_runtime.spark", "wrong_import_coverage")):
             with self.subTest(report=name, fault=fault):
                 workspace = self.assert_rejected({"rejected": name, "fault": fault}, False,
                                                  "runtime library evidence")

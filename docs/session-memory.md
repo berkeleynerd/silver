@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-09 — Named strings and guarded command-line input complete
+
+Named literal constants are committed as `2f76b20`, following the completed
+review repairs in `251dd85`. The guarded command-line increment is complete in
+this change. Both authorized language increments have full Linux validation;
+no further language expansion is authorized by this goal.
+
+The integrated command-line form uses a pure `First_Or_Default` initializer,
+mandatory `Input_Is_Valid` guard and `Reject` false branch. Missing input uses
+the literal default; an explicit empty argument stays empty. One printable ASCII
+argument up to 4096 bytes is preserved; invalid or extra arguments produce no
+application output and status 1. The queries require the same immutable GNAT
+argument vector. No general conditionals, reassignment or concatenation.
+
+All output forms now select six source files and require all four library-unit
+reports. Null programs select none. Existing GNAT argument imports remain the
+trusted boundary; no new external tool or runtime exemption was introduced.
+See [command-line.md](command-line.md) for the exact scope and validation record.
+The compiler-wide audit, native build, complete suite, actual-source Lean replay,
+fresh axiom audit and independent fresh kernel recheck passed. Two stale test
+fixtures found by the initial full suite were repaired; both their focused tests
+and the complete rerun passed. Independent semantic/source and documentation
+reviews found no blocking mismatch. Completed evidence and the retained initial
+failure log are in the capability record's stable native directory. All recorded
+compiler/Lean inputs, tools, reports and proof artifacts matched after validation.
+The enlarged source certificate dominates replay cost; preserve native caches
+and independent module scheduling. No retry or weakened proof policy was added.
+Oracle bytes remain unchanged, macOS validation is independent/nonblocking, and
+publication remains unauthorized. Continue with the current specification; old
+pending-validation notes below describe their dated stages.
+
 ## 2026-10-09 — Repair baseline committed; feature goal active
 
 Review repairs and the earlier macOS helper are committed locally as `251dd85`.
@@ -77,7 +108,7 @@ current support or the authority for this repair goal.
 The owner selected **Hello World with a command-line message** as the next task
 and explicitly requested waiting for a go-ahead while a fresh review is coming.
 The proposed scope is recorded in the
-[roadmap](../roadmap.md#next-task-hello-world-with-a-command-line-message): first
+[roadmap](../roadmap.md#hello-world-with-a-command-line-message): first
 a named string constant initialized from a literal and printed by identifier,
 then initialization through a narrow verified command-line wrapper with defined
 default, empty-input, bound and failure behavior. Reassignment and concatenation

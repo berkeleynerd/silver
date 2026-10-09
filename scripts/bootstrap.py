@@ -46,6 +46,9 @@ RUNTIME_SOURCES = {
     "IO_Specification": "silver_io.ads",
     "IO_Implementation": "silver_io.adb",
     "Imported_Interface": "silver_output_libc.ads",
+    "Arguments_Specification": "silver_arguments.ads",
+    "Arguments_Implementation": "silver_arguments.adb",
+    "Runtime_Interface": "silver_runtime.ads",
 }
 MAX_RUNTIME_SOURCE_LENGTH = 16_384
 

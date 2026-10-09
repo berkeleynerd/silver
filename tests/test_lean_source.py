@@ -10,7 +10,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
             "silver_output_profile.adb", "silver_io.ads", "silver_io.adb",
-            "silver_output_libc.ads")
+            "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
+            "silver_runtime.ads")
 SPEC = importlib.util.spec_from_file_location(
     "silver_source_certificate", ROOT / "proof" / "generate_source_certificate.py")
 assert SPEC is not None and SPEC.loader is not None
@@ -66,6 +67,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             "ProfileSpecCertificate", "ProfileBodyCertificate",
             "OutputSpecCertificate", "OutputBodyCertificate",
             "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
+            "ArgumentsSpecCertificate", "ArgumentsBodyCertificate", "RuntimeSpecCertificate",
         )
         with tempfile.TemporaryDirectory(prefix="silver-certificate-parity-") as temporary:
             workspace = Path(temporary)

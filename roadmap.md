@@ -40,10 +40,10 @@ sequence.
 | Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
-| Command-line message | In progress | Initialize the named constant through a narrowly admitted, verified argument wrapper; depends on the named-string increment. | Planned `samples/command_line.adb` |
+| Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 
-The target is a class of programs that can print admitted literals, not special
-treatment of the text `Hello, world!`. String literals do not imply support for
+The supported output target covers admitted literals and bounded command-line
+messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
 string variables, concatenation, indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
 
@@ -61,50 +61,46 @@ obligation classes before the report checker was extended.
 
 The [language specification](language.md) defines printable ASCII literals,
 quote escaping, empty strings, the source bound, exact LF output, detected
-failure, and the two permitted compositions. The
+failure, and the four permitted compositions. The
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary) defines
 external effects and progress. Repeated calls, variables, concatenation and
 broader library admission remain excluded.
 
 The owner authorized the command-line message task below on 2026-10-09.
-The review repairs are complete in `251dd85`. Specify
-interactions and generated obligations before implementation. A general proof
+The review repairs are complete in `251dd85`; named strings are committed in
+`2f76b20`. The command-line scope and assurance are recorded below. A general proof
 engine, catalogue framework, or additional output API is not a prerequisite.
 
-The source bridge checks both recognizers and the selected output library.
+The source bridge checks both recognizers and the selected runtime libraries.
 Source-certificate replay remains a development cost to measure as these grow.
 Preserve caching and independent module scheduling; improve representation when
 measurements justify it without weakening source correspondence or kernel checks.
 
-## Next task: Hello World with a command-line message
+## Hello World with a command-line message
 
 Recorded on 2026-10-08 and **authorized for implementation on 2026-10-09**.
 The preceding review repairs are complete in `251dd85`. Named strings are
-supported with [complete Linux evidence](docs/named-strings.md); command-line
-syntax remains an isolated prototype until its own assurance and validation
-are complete.
+supported in `2f76b20` with [complete Linux evidence](docs/named-strings.md).
+Guarded command-line input is also supported; its
+[capability record](docs/command-line.md) records the completed compiler audit,
+tests, Lean replay and independent kernel recheck, with actual platform scope.
 
-1. Add a named `constant String` initialized from a string literal, then passed
-   to `Silver_IO.Put_Line`. Establish declaration, initialization, name lookup
-   and identifier-expression rules and their permitted compositions.
-2. Allow initialization through a narrow verified command-line wrapper, with
-   the proposed spelling `Silver_Arguments.First_Or_Default`. A missing argument
-   uses the supplied default; an explicitly empty argument remains empty. Start
-   with printable ASCII and an explicit length bound compatible with output.
-   Oversized input, unsupported bytes and extra arguments have defined
-   unsuccessful outcomes, without truncation. Finalize the API, exact bound and
-   failure details during authorized implementation.
+The two increments are:
 
-The motivating proposed declaration is:
+1. A named `constant String` initialized from a string literal, then passed
+   to `Silver_IO.Put_Line`, with case-insensitive whole-name binding.
+2. Initialization by `Silver_Arguments.First_Or_Default`, followed by the fixed
+   `Input_Is_Valid` guard. The true branch prints the constant; the false branch
+   calls `Reject` and returns with status 1 and no application output.
+
+The command-line sample contains:
 
 ```ada
 Message : constant String :=
   Silver_Arguments.First_Or_Default ("Hello, world!");
 ```
 
-The focused Linux experiment selected a pure initializer and an explicit
-validity guard. SPARK rejects a side-effecting function in this declaration;
-therefore the proposed complete body for the argument form is:
+and the complete body:
 
 ```ada
 if Silver_Arguments.Input_Is_Valid then
@@ -114,33 +110,28 @@ else
 end if;
 ```
 
+A missing argument uses the default. One printable ASCII argument of at most
+4096 bytes is preserved, including an explicitly empty argument. Extra arguments,
+unsupported bytes and oversized input are unsuccessful without truncation.
 The pure initializer returns an internal empty value for invalid input; the
-required false branch never prints it and sets process status 1. Both checks use
-the same immutable argument vector. This admits one fixed guard composition,
-not arbitrary conditionals or general command-line access. No oversized sentinel
-or abrupt process-exit import is needed. The initial literal-constant increment
-still uses a sole unguarded output call. The named production is now supported; the argument production remains
-in progress.
+required false branch never prints it. Both queries observe the same immutable
+argument vector. The focused experiment selected this design because SPARK
+rejects a side-effecting function in a constant initializer. Only this complete
+guard composition is admitted.
 
-Runtime initialization fixes the object's
-length from its initial value. This task does not introduce reassignment: Ada
-string objects do not resize, so arbitrary assignment to an existing string
-requires a separate length-safety rule. Concatenation, mutable strings, general
-arrays, access types and general command-line package access remain outside the
-task. A later increment could add bounded concatenation for a personalized
-greeting, or statically compatible assignments.
+Runtime initialization fixes the object's length from its initial value.
+Reassignment, concatenation, mutable strings, general arrays, access types,
+arbitrary conditionals and general command-line package access remain outside
+this task. A later increment could add bounded concatenation for a personalized
+greeting, or statically compatible assignments; neither is authorized yet.
 
-Begin with a focused GNATprove obligation experiment. Reuse the
-existing trusted GNAT argument bindings beneath a verified SPARK wrapper whose
-calls impose no application-author preconditions. Extend actual-source Lean
-correspondence, semantics and composition assurance for the resulting language.
-The application-report checker currently expects empty obligation lists; extend
-it if the new forms generate checks, preserving complete coverage and discharge.
-Update the specification, catalogue and manifest only as each capability becomes
-supported. Extend sample cases with arguments and expected success/failure
-outcomes; initially invoke the compiled executable directly. Argument forwarding
-through `silver run` is a separate convenience, not a prerequisite. No Oracle
-amendment is proposed.
+The implementation reuses the approved GNAT argument imports beneath a verified
+SPARK wrapper. Application reports remain empty; selected owned libraries have
+complete nonempty reports. The source bridge covers the recognizer and argument
+wrapper, with immutable argv and runtime ABI semantics documented as trusted
+premises. The sample manifest records default, empty, valid and rejected input
+cases. Execute the compiled application directly to pass arguments; forwarding
+through `silver run` remains a separate convenience. No Oracle amendment.
 
 ## Deferred until needed
 

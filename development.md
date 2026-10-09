@@ -42,7 +42,7 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit report
-   remains empty for the three current productions; output additionally requires
+   remains empty for the four current productions; output additionally requires
    the complete nonempty library reports. Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.
@@ -81,13 +81,13 @@ and reports but invalidate the previous completed full-audit manifest. They
 provide development feedback, not a new full assurance record.
 
 Lean retains Lake artifacts and rebuilds changed dependencies. Changing an embedded
-recognizer or output-library Ada file invalidates the whole Silver Lean library.
+recognizer or selected runtime Ada file invalidates the whole Silver Lean library.
 Its module/axiom audit executes on
 every invocation, including cache hits. Lake schedules independent modules;
 `--threads N` controls declaration threads within each Lean process. The default
 remains one because generated
 certificates have high peak memory use. This is a conservative starting point,
-not a measured optimum. The seven source-certificate modules are independent
+not a measured optimum. The ten source-certificate modules are independent
 so Lake can check them concurrently; each module remains serial at this setting. Measure time and memory when tuning it, and avoid multiplying all-core
 thread pools across concurrent modules.
 

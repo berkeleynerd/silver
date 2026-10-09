@@ -102,8 +102,8 @@ class NamedOutputTests(unittest.TestCase):
                 self.addCleanup(shutil.rmtree, workspace)
                 self.assertEqual((workspace / 'main.adb').read_bytes(), data)
                 reports = workspace / 'obj/gnatprove'
-                audit_reports(reports, {'main', 'silver_io', 'silver_output_libc'},
-                              {'silver_output_libc'})
+                audit_reports(reports, {'main', 'silver_io', 'silver_output_libc', 'silver_arguments', 'silver_runtime'},
+                              {'silver_output_libc', 'silver_runtime'})
                 main = json.loads((reports / 'main.spark').read_text())
                 self.assertEqual(main['flow'], [])
                 self.assertEqual(main['proof'], [])

@@ -37,15 +37,24 @@ or EOF, and contain printable ASCII or horizontal tabs. Word tokens retain their
 Ada lexical boundaries. Literal contents preserve case, may be empty, and may
 contain any printable ASCII character, with quotes doubled as in Ada.
 The original [null program](samples/null.adb) and a
-[named string constant](samples/string_constant.adb) are also supported.
+[named string constant](samples/string_constant.adb) are also supported. The
+[command-line sample](samples/command_line.adb) initializes that constant from
+`Silver_Arguments.First_Or_Default` and uses a required validity guard before
+printing it.
 
-The three complete forms are one null statement without a context clause, one
-qualified literal-output call, or one literal-initialized `constant String`
-printed by its identifier. Both output forms require `with Silver_IO;`.
+The four complete forms are one null statement without a context clause, one
+qualified literal-output call, one literal-initialized `constant String`
+printed by its identifier, plus the guarded command-line form. All output forms
+require `with Silver_IO;`; command-line input also requires
+`with Silver_Arguments;`.
 Names bind without ASCII case distinctions; the constant is immutable.
-Variables, repeated calls, concatenation and other APIs remain excluded. See [language.md](language.md)
+No argument selects the literal default; one printable ASCII argument of up to
+4096 bytes is preserved, including an explicit empty argument. Extra arguments,
+unsupported bytes and oversized input produce no output and status 1. Variables,
+general conditionals, repeated output calls, concatenation and other APIs remain
+excluded. See [language.md](language.md)
 for the exact rules. On detected failure the wrapper sets status 1 and returns;
-the sole-call `Main` returns with that status. Normal output is the literal bytes followed by LF, with a
+`Main` returns with that status. Successful output is the selected message followed by LF, with a
 successful flush. Detected output failure exits unsuccessfully and may leave
 partial output; blocking and host failures have documented environmental limits.
 
@@ -53,8 +62,8 @@ The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
 are development setup, evidence auditing, and tests. GNATprove verifies the
 compiler implementation. Lean connects the restricted recognizer source to its
-language model and the output wrapper to its effect model. All three application
-forms have no caller obligations; the output library's nonempty obligations
+language model and the runtime wrappers to their effect models. All four application
+forms have no caller obligations; the selected libraries' nonempty obligations
 must also be proved and checked before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
 source-semantics assumptions are listed in the
@@ -144,6 +153,18 @@ proof reports, and builds those same snapshots. It prints the snapshot,
 proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
 
+For command-line input, compile the sample and run the executable path printed
+by the compiler with the desired argument:
+
+```sh
+"$silver_executable" compile samples/command_line.adb
+# Replace the path below with the printed Executable path.
+".silver/<host>/program-XXXXXX/bin/main" "Hello from the command line"
+```
+
+Run that executable without an argument to use `Hello, world!`, or with `""` to
+print an empty line. `silver run` does not forward application arguments.
+
 The executable can be invoked from another working directory. Relative input
 paths refer to that directory; tools and output workspaces stay anchored to the
 installation recorded during bootstrap. Installation paths are shell-quoted,
@@ -160,8 +181,9 @@ status is distinct from the compiler CLI's status.
 The [machine-readable catalogue](catalogue/silver.json) matches the parsed
 JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
-construct metadata are explicit fields checked against the specification. It also lists admitted constructs, the output operation, literal domain,
-and the three permitted compositions. Structural metadata is written explicitly in
+construct metadata are explicit fields checked against the specification. It also
+lists admitted constructs and operations, literal and argument domains,
+and the four permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -177,6 +199,8 @@ Hello World baseline validation is recorded in
 [the capability record](docs/hello-world.md); current follow-up evidence is in
 [the review repairs](docs/hello-review-repairs.md). Named-string validation is
 recorded in [the capability record](docs/named-strings.md).
+Guarded command-line validation is recorded in
+[the command-line capability record](docs/command-line.md).
 The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.
@@ -210,7 +234,7 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 The default Lean check retains Lake's native build cache and freshly runs the
 module/axiom audit even on a cache hit. `--full` adds the independent kernel
 recheck; `--clean` also discards this host's proof workspace. The embedded
-recognizer and output-library Ada files are dependencies
+recognizer and selected runtime Ada files are dependencies
 of the whole Silver Lean library: editing any of them invalidates that entire
 library's cached build. After runtime source edits, refresh bootstrap and rebuild so embedded library
 bytes agree with the source; full audits reject stale bindings. For a
@@ -230,8 +254,8 @@ thread per process as a conservative memory setting for large certificates;
 against higher thread counts. Caching and worker counts do not change the
 required proof obligations.
 
-The source bridge embeds the authoritative null/output recognizers and output
-library, checks restricted source bytes and declaration shapes, and interprets
+The source bridge embeds the authoritative null/output recognizers and selected
+runtime sources, checks restricted source bytes and declaration shapes, and interprets
 typed expression and statement models. Its semantic scope is described in the
 trusted boundary. Every mode audits actual imported modules and every
 declaration's transitive axioms; full validation also runs a fresh `leanchecker`
@@ -248,7 +272,8 @@ x86-64/ARM64, plus Lean checks. The independent macOS ARM64 review validated
 `3fdda42`: warm/cold compiler audits, the suite, and full Lean/kernel checking
 passed. Retained evidence was corroborated read-only from Linux; qualifications
 are in the [capability record](docs/hello-world.md). The subsequent
-[review repairs](docs/hello-review-repairs.md) have separate input/platform scope
+[review repairs](docs/hello-review-repairs.md), [named strings](docs/named-strings.md)
+and [command-line input](docs/command-line.md) have separate input/platform scope
 and await independent native macOS validation. Linux is primary and macOS
 validation is nonblocking under the Oracle. Work remains local; configured CI
 has not run, and no x86-64 execution is claimed.

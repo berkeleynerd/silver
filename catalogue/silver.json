@@ -70,7 +70,10 @@
       "conditions": {
         "type": "String",
         "constant": true,
-        "initializer": "string_literal",
+        "initializer": [
+          "string_literal",
+          "argument_initialization"
+        ],
         "count": 1,
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
@@ -90,6 +93,53 @@
         "arguments": [
           "declared_constant_identifier"
         ],
+        "count": 1
+      }
+    },
+    {
+      "id": "argument_context",
+      "ada_kind": "with_clause",
+      "conditions": {
+        "package": "Silver_Arguments",
+        "use_clause": false,
+        "count": 1
+      }
+    },
+    {
+      "id": "argument_initialization",
+      "ada_kind": "function_call",
+      "conditions": {
+        "operation": "Silver_Arguments.First_Or_Default",
+        "qualification_required": true,
+        "arguments": [
+          "string_literal"
+        ],
+        "count": 1
+      }
+    },
+    {
+      "id": "input_guard",
+      "ada_kind": "if_statement",
+      "conditions": {
+        "condition": "Silver_Arguments.Input_Is_Valid",
+        "then": [
+          "named_output"
+        ],
+        "else": [
+          "argument_rejection"
+        ],
+        "count": 1
+      }
+    },
+    {
+      "id": "argument_rejection",
+      "ada_kind": "procedure_call_statement",
+      "conditions": {
+        "operation": "Silver_Arguments.Reject",
+        "qualification_required": true,
+        "arguments": [],
+        "exit_status": 1,
+        "stdout": "",
         "count": 1
       }
     }
@@ -120,7 +170,10 @@
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
-        "silver_output_libc.ads"
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
       ]
     },
     {
@@ -138,7 +191,37 @@
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
-        "silver_output_libc.ads"
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "initializer": "string_literal"
+    },
+    {
+      "name": "command_line_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_constant"
+      ],
+      "initializer": "argument_initialization",
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "statements": [
+        "input_guard"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
       ]
     }
   ],
@@ -615,7 +698,14 @@
     "silver_io",
     "put_line",
     "constant",
-    "string"
+    "string",
+    "silver_arguments",
+    "first_or_default",
+    "if",
+    "input_is_valid",
+    "then",
+    "else",
+    "reject"
   ],
   "null_tokens": [
     "procedure",
@@ -686,6 +776,74 @@
     "(",
     "<reference_name>",
     ")",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "argument_input": {
+    "operation": "Silver_Arguments.First_Or_Default",
+    "validity_operation": "Silver_Arguments.Input_Is_Valid",
+    "maximum_arguments": 1,
+    "max_argument_bytes": 4096,
+    "argument_byte_range": [
+      32,
+      126
+    ],
+    "missing": "supplied_default",
+    "empty": "preserved",
+    "invalid_exit_status": 1,
+    "invalid_stdout": "",
+    "immutable_argument_vector_required": true
+  },
+  "argument_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "with",
+    "silver_arguments",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "silver_arguments",
+    ".",
+    "first_or_default",
+    "(",
+    "<string_literal>",
+    ")",
+    ";",
+    "begin",
+    "if",
+    "silver_arguments",
+    ".",
+    "input_is_valid",
+    "then",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<reference_name>",
+    ")",
+    ";",
+    "else",
+    "silver_arguments",
+    ".",
+    "reject",
+    ";",
+    "end",
+    "if",
     ";",
     "end",
     "main",

@@ -14,4 +14,8 @@ def ioSpec : String := include_str "../../src/silver_io.ads"
 def ioBody : String := include_str "../../src/silver_io.adb"
 def outputLibcSpec : String := include_str "../../src/silver_output_libc.ads"
 
+def argumentsSpec : String := include_str "../../src/silver_arguments.ads"
+def argumentsBody : String := include_str "../../src/silver_arguments.adb"
+def runtimeSpec : String := include_str "../../src/silver_runtime.ads"
+
 end Silver.Source

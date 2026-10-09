@@ -3,8 +3,9 @@ import Silver.OutputRuntime
 import Silver.Semantics
 import Silver.NamedSemantics
 import Silver.NamedDisjoint
+import Silver.ArgumentsDisjoint
 
-/-! One current language, three productions. The obligation model assigns an
+/-! One current language, four productions. The obligation model assigns an
 empty list to all application forms. Agreement with GNATprove's actual
 obligation generation is an explicit ToolContract premise, checked per compile;
 this module is not a verified Ada/SPARK obligation generator. The fixed library
@@ -12,11 +13,11 @@ body retains its separately audited obligations. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source
-def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || Named.accepts source)
+def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source
+def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || Arguments.accepts source))
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
@@ -24,6 +25,7 @@ instance memberDecidable (source : Source) : Decidable (Member source) :=
 inductive Program
   | nullMain
   | outputMain (literal : Source)
+  | argumentMain (defaultValue : Source)
   deriving DecidableEq, Repr
 
 inductive SourceMeaning : Source → Program → Prop
@@ -35,14 +37,19 @@ inductive SourceMeaning : Source → Program → Prop
   | namedMain {source : Source} {program : Named.Program} :
       Named.SourceMeaning source program → SourceMeaning source (.outputMain program.literal)
 
+  | argumentMain {source : Source} {program : Arguments.Program} :
+      Arguments.SourceMeaning source program → SourceMeaning source (.argumentMain program.defaultValue)
+
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember | namedMember
+  rcases member with nullMember | outputMember | namedMember | argumentMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
   · obtain ⟨literal, parsed⟩ := outputMember.2.2.2
     exact ⟨.outputMain literal, .outputMain outputMember parsed⟩
   · obtain ⟨program, meaning⟩ := Named.member_has_meaning namedMember
     exact ⟨.outputMain program.literal, .namedMain meaning⟩
+  · obtain ⟨program, meaning⟩ := Arguments.member_has_meaning argumentMember
+    exact ⟨.argumentMain program.defaultValue, .argumentMain meaning⟩
 
 /-- The first nontrivia token is `procedure` or `with`, never both. -/
 theorem member_disjoint (source : Source) : ¬ (Silver.Member source ∧ Output.Member source) := by
@@ -70,6 +77,7 @@ theorem meaning_unique {source : Source} {left right : Program}
       | nullMain => rfl
       | outputMain outputMember parsed => exact False.elim (member_disjoint source ⟨member, outputMember⟩)
       | namedMain namedMeaning => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
+      | argumentMain meaning => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
   | outputMain member parsed =>
       cases second with
       | nullMain nullMember => exact False.elim (member_disjoint source ⟨nullMember, member⟩)
@@ -77,6 +85,7 @@ theorem meaning_unique {source : Source} {left right : Program}
           have same := Output.parsed_unique parsed other
           simpa using congrArg Program.outputMain (List.cons.inj same).1
       | namedMain namedMeaning => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
+      | argumentMain meaning => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
   | namedMain namedMeaning =>
       cases second with
       | nullMain member => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
@@ -84,6 +93,15 @@ theorem meaning_unique {source : Source} {left right : Program}
       | namedMain other =>
           exact congrArg (fun (program : Named.Program) => Program.outputMain program.literal)
             (Named.meaning_unique namedMeaning other)
+      | argumentMain meaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
+  | argumentMain meaning =>
+      cases second with
+      | nullMain member => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
+      | outputMain member _ => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
+      | namedMain namedMeaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
+      | argumentMain other =>
+          exact congrArg (fun (program : Arguments.Program) => Program.argumentMain program.defaultValue)
+            (Arguments.meaning_unique meaning other)
 
 theorem literal_domain {source literal : Source}
     (meaning : SourceMeaning source (.outputMain literal)) :
@@ -94,9 +112,16 @@ theorem literal_domain {source literal : Source}
       exact ⟨Nat.le_trans facts.1 member.2.1, facts.2⟩
   | namedMain meaning => exact Named.literal_domain meaning
 
+theorem default_domain {source defaultValue : Source}
+    (meaning : SourceMeaning source (.argumentMain defaultValue)) :
+    Arguments.Runtime.message defaultValue = true := by
+  cases meaning with
+  | argumentMain meaning => exact Arguments.default_is_message meaning
+
 def obligations : Program → List Semantics.Obligation
   | .nullMain => []
   | .outputMain _ => []
+  | .argumentMain _ => []
 
 theorem obligations_empty (program : Program) : obligations program = [] := by
   cases program <;> rfl
@@ -114,44 +139,143 @@ theorem all_obligations_discharge (program : Program) :
   rw [obligations_empty]
   exact ⟨rfl, .done⟩
 
-def execute (environment : Output.Runtime.Environment) : Program → Output.Runtime.ProcessResult
-  | .nullMain => ⟨0, []⟩
-  | .outputMain literal => Output.Runtime.completeMain
-      (Output.Runtime.execute environment literal Output.Runtime.program [])
+structure Environment where
+  output : Output.Runtime.Environment
+  arguments : Arguments.Runtime.Arguments
 
-/-- Resolving the initialized constant is exactly the existing output action. -/
-theorem named_execution_refines {source : Source} {program : Named.Program}
-    (meaning : Named.SourceMeaning source program) (environment : Output.Runtime.Environment) :
-    Named.execute environment program = some (execute environment (.outputMain program.literal)) :=
-  Named.execution_refines meaning environment
+inductive Action
+  | noOutput
+  | output (item : Source)
+  | reject
+  deriving DecidableEq, Repr
 
-def intendedBytes : Program → Source
-  | .nullMain => []
-  | .outputMain literal => literal ++ [10]
+/-- Fixed composition: initialization uses one immutable argument snapshot,
+then the mandatory guard selects output or ordinary returning rejection. -/
+def action (environment : Environment) : Program → Action
+  | .nullMain => .noOutput
+  | .outputMain literal => .output literal
+  | .argumentMain defaultValue =>
+      if Arguments.Runtime.inputIsValid environment.arguments then
+        .output (Arguments.Runtime.firstOrDefault defaultValue environment.arguments)
+      else .reject
 
-def SpecifiedOutcome (environment : Output.Runtime.Environment) (program : Program)
+def executeAction (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult
+  | .noOutput => ⟨0, []⟩
+  | .reject => ⟨1, []⟩
+  | .output item => Output.Runtime.completeMain
+      (Output.Runtime.execute environment item Output.Runtime.program [])
+
+def execute (environment : Environment) (program : Program) : Output.Runtime.ProcessResult :=
+  executeAction environment.output (action environment program)
+
+def intendedBytes (environment : Environment) (program : Program) : Source :=
+  match action environment program with
+  | .noOutput | .reject => []
+  | .output item => item ++ [10]
+
+def expectedStatus (environment : Environment) (program : Program) : Nat :=
+  match action environment program with
+  | .reject => 1
+  | _ => 0
+
+def ActionOutcome (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult → Prop
+  | .noOutput, result => result = ⟨0, []⟩
+  | .reject, result => result = ⟨1, []⟩
+  | .output item, result =>
+      if result.status = 0 then result.accepted = item ++ [10] ∧ environment.flushStatus = 0
+      else result.status = 1 ∧ ∃ rest, result.accepted ++ rest = item ++ [10]
+
+def SpecifiedOutcome (environment : Environment) (program : Program)
     (result : Output.Runtime.ProcessResult) : Prop :=
-  if result.status = 0 then result.accepted = intendedBytes program ∧
-      (∀ literal, program = .outputMain literal → environment.flushStatus = 0)
-  else result.status = 1 ∧ ∃ rest, result.accepted ++ rest = intendedBytes program
+  ActionOutcome environment.output (action environment program) result
 
-theorem execution_specified (environment : Output.Runtime.Environment) (program : Program) :
-    SpecifiedOutcome environment program (execute environment program) := by
-  cases program with
-  | nullMain => simp [execute, SpecifiedOutcome, intendedBytes]
-  | outputMain literal =>
-      cases result : Output.Runtime.execute environment literal Output.Runtime.program [] with
+theorem action_execution_specified (environment : Output.Runtime.Environment) (selected : Action) :
+    ActionOutcome environment selected (executeAction environment selected) := by
+  cases selected with
+  | noOutput | reject => rfl
+  | output item =>
+      cases result : Output.Runtime.execute environment item Output.Runtime.program [] with
       | returned bytes =>
-          have facts := Output.Runtime.successful_output environment literal bytes result
-          simpa [execute, result, Output.Runtime.completeMain, SpecifiedOutcome, intendedBytes]
-            using ⟨facts.2.1, facts.2.2⟩
+          have facts := Output.Runtime.successful_output environment item bytes result
+          simpa [executeAction, result, Output.Runtime.completeMain, ActionOutcome] using ⟨facts.2.1, facts.2.2⟩
       | failedReturn status bytes =>
-          obtain ⟨rfl, acceptedPrefix⟩ := Output.Runtime.failed_output environment literal bytes status result
-          simpa [execute, result, Output.Runtime.completeMain, SpecifiedOutcome, intendedBytes]
-            using acceptedPrefix
+          obtain ⟨rfl, acceptedPrefix⟩ := Output.Runtime.failed_output environment item bytes status result
+          simpa [executeAction, result, Output.Runtime.completeMain, ActionOutcome] using acceptedPrefix
 
-/-- Total finite execution for completed external replies. Physical call
-progress, SIGPIPE behavior and actual emission remain environmental premises. -/
+theorem execution_specified (environment : Environment) (program : Program) :
+    SpecifiedOutcome environment program (execute environment program) :=
+  action_execution_specified _ _
+
+theorem named_execution_refines {source : Source} {program : Named.Program}
+    (meaning : Named.SourceMeaning source program) (environment : Environment) :
+    Named.execute environment.output program = some (execute environment (.outputMain program.literal)) :=
+  Named.execution_refines meaning environment.output
+
+theorem argument_execution_refines {source : Source} {program : Arguments.Program}
+    (meaning : Arguments.SourceMeaning source program) (environment : Environment) :
+    Arguments.execute environment.output environment.arguments program =
+      some (execute environment (.argumentMain program.defaultValue)) := by
+  rw [Arguments.execution_refines meaning, Arguments.Runtime.main_refines]
+  cases valid : Arguments.Runtime.inputIsValid environment.arguments <;>
+    simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain]
+
+theorem argument_rejection {source : Source} {program : Arguments.Program}
+    (meaning : Arguments.SourceMeaning source program) (environment : Environment)
+    (invalid : Arguments.Runtime.inputIsValid environment.arguments = false) :
+    execute environment (.argumentMain program.defaultValue) = ⟨1, []⟩ := by
+  have refined := argument_execution_refines meaning environment
+  rw [Arguments.invalid_execution meaning environment.output environment.arguments invalid] at refined
+  exact (Option.some.inj refined).symm
+
+theorem argument_default_selected {source defaultValue : Source}
+    (meaning : SourceMeaning source (.argumentMain defaultValue))
+    (environment : Output.Runtime.Environment) :
+    action ⟨environment, []⟩ (.argumentMain defaultValue) = .output defaultValue := by
+  simp [action, Arguments.Runtime.inputIsValid, Arguments.Runtime.firstOrDefault, default_domain meaning]
+
+theorem argument_empty_selected (environment : Output.Runtime.Environment) (defaultValue : Source) :
+    action ⟨environment, [[]]⟩ (.argumentMain defaultValue) = .output [] := by
+  simp [action, Arguments.Runtime.inputIsValid, Arguments.Runtime.firstOrDefault]
+
+/-- Every output action has a safe byte domain; invalid input selects rejection
+and cannot be confused with the valid explicit empty string. -/
+theorem action_domain {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) (environment : Environment) (item : Source)
+    (selected : action environment program = .output item) :
+    item.length ≤ 4096 ∧ ∀ byte ∈ item, Output.printable byte = true := by
+  cases program with
+  | nullMain => cases selected
+  | outputMain literal =>
+      have same : literal = item := Action.output.inj selected
+      subst item
+      exact literal_domain meaning
+  | argumentMain defaultValue =>
+      simp only [action] at selected
+      split at selected
+      · cases selected
+        have domain := (Arguments.Runtime.message_iff _).mp
+          (Arguments.Runtime.initializer_domain environment.arguments defaultValue)
+        refine ⟨domain.1, ?_⟩
+        intro byte member
+        exact decide_eq_true (domain.2 byte member)
+      · cases selected
+
+theorem healthy_execution {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) (environment : Environment)
+    (healthy : Output.Runtime.Healthy environment.output) :
+    execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩ := by
+  cases selected : action environment program with
+  | noOutput | reject => simp [execute, intendedBytes, expectedStatus, selected, executeAction]
+  | output item =>
+      have domain := action_domain meaning environment item selected
+      have bytes : ∀ byte ∈ item, byte ≤ 255 := by
+        intro byte member
+        have bounded := domain.2 byte member
+        simp only [Output.printable, decide_eq_true_eq] at bounded
+        omega
+      simp [execute, intendedBytes, expectedStatus, selected, executeAction,
+        Output.Runtime.healthy_output environment.output healthy item domain.1 bytes, Output.Runtime.completeMain]
+
 theorem admitted_assurance {source : Source} (member : Member source) :
     automaticDischarge source = some true ∧
     ∃ program, SourceMeaning source program ∧ obligations program = [] ∧
@@ -161,28 +285,12 @@ theorem admitted_assurance {source : Source} (member : Member source) :
   exact ⟨automatic_discharge_complete member, program, meaning, obligations_empty program,
     (all_obligations_discharge program).2, fun environment => execution_specified environment program⟩
 
-theorem healthy_execution {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) (environment : Output.Runtime.Environment)
-    (healthy : Output.Runtime.Healthy environment) :
-    execute environment program = ⟨0, intendedBytes program⟩ := by
-  cases program with
-  | nullMain => rfl
-  | outputMain literal =>
-      have output := Output.Runtime.healthy_output environment healthy literal
-        (literal_domain meaning).1 (by
-          intro byte member
-          have bounds := (literal_domain meaning).2 byte member
-          simp only [Output.printable, decide_eq_true_eq] at bounds
-          omega)
-      simp [execute, output, Output.Runtime.completeMain, intendedBytes]
-
-/-- Every interpretation of every admitted source receives the guarantee. -/
 theorem every_meaning_assured {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
     obligations program = [] ∧ Semantics.DischargeSteps (obligations program) true 1 ∧
     ∀ environment, SpecifiedOutcome environment program (execute environment program) ∧
-      (Output.Runtime.Healthy environment →
-        execute environment program = ⟨0, intendedBytes program⟩) := by
+      (Output.Runtime.Healthy environment.output →
+        execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   exact ⟨obligations_empty program, (all_obligations_discharge program).2,
     fun environment => ⟨execution_specified environment program,
       healthy_execution meaning environment⟩⟩
@@ -193,14 +301,14 @@ structure Tools (Artifact : Type) where
   prove : List Semantics.Obligation → Nat → Prop
   verifyFixedLibrary : Nat → Prop
   build : Source → Artifact → Nat → Prop
-  execute : Artifact → Output.Runtime.Environment → Output.Runtime.ProcessResult → Prop
+  execute : Artifact → Environment → Output.Runtime.ProcessResult → Prop
 
 /-- Completion marker for the fixed library's separately audited GNATprove run.
 It is not a semantic contract or a proof that library verification succeeds:
 ToolContract supplies completion separately from trusted compilation semantics. -/
 def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Prop
   | .nullMain => True
-  | .outputMain _ => ∃ steps, tools.verifyFixedLibrary steps
+  | .outputMain _ | .argumentMain _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
 Compilation uses the same source as parsing, and preserves and realizes the
@@ -271,7 +379,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
   have library : LibraryEvidence tools program := by
     cases program with
     | nullMain => trivial
-    | outputMain => exact contract.fixedLibraryProofCompletes
+    | outputMain | argumentMain => exact contract.fixedLibraryProofCompletes
   rw [obligations_empty] at generated
   exact ⟨artifact, _, .complete parsed generated proved library built⟩
 
@@ -299,8 +407,8 @@ theorem pipeline_realizes {Artifact : Type} {tools : Tools Artifact}
     (pipeline : Pipeline tools source artifact steps) :
     ∃ program, SourceMeaning source program ∧
       ∀ environment, tools.execute artifact environment (execute environment program) ∧
-        (Output.Runtime.Healthy environment →
-          tools.execute artifact environment ⟨0, intendedBytes program⟩) := by
+        (Output.Runtime.Healthy environment.output →
+          tools.execute artifact environment ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   cases pipeline with
   | complete parsed generated proved library built =>
       have meaning := contract.parseFaithful _ _ _ parsed

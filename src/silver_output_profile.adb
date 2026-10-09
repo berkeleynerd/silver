@@ -8,7 +8,9 @@ is
    subtype Cursor is Positive range 1 .. Max_Source_Length + 1;
 
    function Is_Word_Token (Token : Token_Kind) return Boolean is
-     (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name);
+     (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
+        | Arguments_Name | First_Or_Default_Name | If_Keyword
+        | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -32,7 +34,14 @@ is
          when Constant_Keyword => "constant",
          when String_Name => "string",
          when Assignment => ":=",
-         when Declaration_Name | Reference_Name => "_");
+         when Declaration_Name | Reference_Name => "_",
+         when Arguments_Name => "silver_arguments",
+         when First_Or_Default_Name => "first_or_default",
+         when If_Keyword => "if",
+         when Input_Is_Valid_Name => "input_is_valid",
+         when Then_Keyword => "then",
+         when Else_Keyword => "else",
+         when Reject_Name => "reject");
 
    function Normalized (Source : String) return String
      with
@@ -98,7 +107,7 @@ is
          and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Word'First = 1
-         and then Word'Length in 1 .. 10;
+         and then Word'Length in 1 .. 16;
 
    function Token_At
      (Text : String; Position : Cursor; Word : String; Is_Word : Boolean)
@@ -411,6 +420,17 @@ is
      (for some Word in Forbidden_Kind =>
         Name_Is (Text, First, After, Forbidden_Spelling (Word)));
 
+   function Forbidden_Argument_Name
+     (Text : String; First, After : Cursor) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then First < After and then After <= Text'Last + 1;
+
+   function Forbidden_Argument_Name
+     (Text : String; First, After : Cursor) return Boolean is
+     (Forbidden_Name (Text, First, After)
+      or else Name_Is (Text, First, After, "silver_arguments"));
+
    subtype Named_Token_Index is Positive range 1 .. Named_Required_Tokens'Last + 1;
 
    function Valid_Name_State (Text : String; First, After : Literal_Position) return Boolean
@@ -467,11 +487,60 @@ is
           (Text, Trivia_End (Text, Position) + Spelling (Named_Required_Tokens (Next_Token))'Length,
            Next_Token + 1, Declared_First, Declared_After));
 
+   subtype Argument_Token_Index is Positive range 1 .. Argument_Required_Tokens'Last + 1;
+
+   function Argument_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Argument_Token_Index;
+      Declared_First, Declared_After : Literal_Position) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Declared_First, Declared_After),
+       Subprogram_Variant => (Increases => Next_Token);
+
+   function Argument_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Argument_Token_Index;
+      Declared_First, Declared_After : Literal_Position) return Boolean
+   is
+     (if Next_Token > Argument_Required_Tokens'Last then
+        Trivia_End (Text, Position) = Text'Last + 1
+      elsif Argument_Required_Tokens (Next_Token) = Declaration_Name then
+        Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then not Forbidden_Argument_Name
+          (Text, Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Argument_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+      elsif Argument_Required_Tokens (Next_Token) = Reference_Name then
+        Declared_First > 0
+        and then Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then Equal_Name
+          (Text, Declared_First, Declared_After,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Argument_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Declared_First, Declared_After)
+      elsif Argument_Required_Tokens (Next_Token) = String_Literal then
+        Trivia_End (Text, Position) <= Text'Last
+        and then Text (Trivia_End (Text, Position)) = Character'Val (34)
+        and then Literal_End (Text, Trivia_End (Text, Position) + 1) /= 0
+        and then Argument_Suffix_Matches
+          (Text, Literal_End (Text, Trivia_End (Text, Position) + 1), Next_Token + 1,
+           Declared_First, Declared_After)
+      else
+        Token_At (Text, Trivia_End (Text, Position),
+          Spelling (Argument_Required_Tokens (Next_Token)),
+          Is_Word_Token (Argument_Required_Tokens (Next_Token)))
+        and then Argument_Suffix_Matches
+          (Text, Trivia_End (Text, Position) + Spelling (Argument_Required_Tokens (Next_Token))'Length,
+           Next_Token + 1, Declared_First, Declared_After));
+
    function Is_Member (Source : String) return Boolean is
      (Source'Length in 1 .. Max_Source_Length
       and then Allowed_Source (Normalized (Source))
       and then (Suffix_Matches (Normalized (Source), 1, 1)
-        or else Named_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
+        or else Named_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
+        or else Argument_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
 
    function Is_Literal_Member (Source : String) return Boolean
      with Ghost => Static, Global => null;
@@ -762,8 +831,68 @@ is
       end;
    end Accepts_Named;
 
+   function Accepts_Arguments (Source : String) return Boolean
+     with Global => null,
+       Post => (Static => Accepts_Arguments'Result =
+         (Source'Length in 1 .. Max_Source_Length
+          and then Allowed_Source (Normalized (Source))
+          and then Argument_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
+
+   function Accepts_Arguments (Source : String) return Boolean is
+   begin
+      if Source'Length = 0 or else Source'Length > Max_Source_Length then
+         return False;
+      end if;
+      declare
+         Text : constant String := Normalized (Source);
+         Position : Cursor := 1;
+         Next_Token : Argument_Token_Index := 1;
+         Declared_First, Declared_After : Literal_Position := 0;
+         Matched : Boolean;
+      begin
+         if not Allowed_Source (Text) then
+            return False;
+         end if;
+         while Next_Token <= Argument_Required_Tokens'Last loop
+            pragma Loop_Invariant (Position <= Text'Last + 1);
+            pragma Loop_Invariant (Valid_Name_State (Text, Declared_First, Declared_After));
+            pragma Loop_Invariant (Static =>
+              Argument_Suffix_Matches (Text, 1, 1, 0, 0)
+                = Argument_Suffix_Matches (Text, Position, Next_Token, Declared_First, Declared_After));
+            pragma Loop_Variant (Increases => Next_Token);
+            Skip_Trivia (Text, Position);
+            declare
+               Start : constant Cursor := Position;
+            begin
+               if Argument_Required_Tokens (Next_Token) = Declaration_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched then return False; end if;
+                  if Forbidden_Argument_Name (Text, Start, Position) then return False; end if;
+                  Declared_First := Start;
+                  Declared_After := Position;
+               elsif Argument_Required_Tokens (Next_Token) = Reference_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched or else Declared_First = 0 then return False; end if;
+                  if not Equal_Name (Text, Declared_First, Declared_After, Start, Position) then
+                     return False;
+                  end if;
+               elsif Argument_Required_Tokens (Next_Token) = String_Literal then
+                  Match_Literal (Text, Position, Matched);
+               else
+                  Match_Token (Text, Position, Argument_Required_Tokens (Next_Token), Matched);
+               end if;
+            end;
+            if not Matched then return False; end if;
+            Next_Token := Next_Token + 1;
+         end loop;
+         Skip_Trivia (Text, Position);
+         return Position > Text'Last;
+      end;
+   end Accepts_Arguments;
+
    function Accepts (Source : String) return Boolean is
    begin
-      return Accepts_Literal (Source) or else Accepts_Named (Source);
+      return Accepts_Literal (Source) or else Accepts_Named (Source)
+        or else Accepts_Arguments (Source);
    end Accepts;
 end Silver_Output_Profile;

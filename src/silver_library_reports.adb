@@ -184,7 +184,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Empty_Array;
 
    type Entity_Kind is (Unknown, IO_Package, Put_Line, Libc_Package,
-                       Put_Byte, Flush, Set_Exit_Status);
+                       Put_Byte, Flush, Set_Exit_Status, Arguments_Package,
+                       Input_Is_Valid, First_Or_Default, Reject, Is_Message,
+                       Runtime_Package, Argument_Count, Argument, Runtime_Exit_Status);
    function Location_OK (Text : String; Entity : Span; Name : Entity_Kind)
      return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
@@ -207,8 +209,17 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Name in IO_Package | Put_Line then
          return String_Equal (Text, File, "silver_io.ads");
       end if;
-      return Name /= Unknown
-        and then String_Equal (Text, File, "silver_output_libc.ads");
+      case Name is
+         when Libc_Package | Put_Byte | Flush | Set_Exit_Status =>
+            return String_Equal (Text, File, "silver_output_libc.ads");
+         when Arguments_Package | Input_Is_Valid | First_Or_Default | Reject =>
+            return String_Equal (Text, File, "silver_arguments.ads");
+         when Is_Message =>
+            return String_Equal (Text, File, "silver_arguments.adb");
+         when Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status =>
+            return String_Equal (Text, File, "silver_runtime.ads");
+         when others => return False;
+      end case;
    end Location_OK;
 
    function Entity_Name (Text : String; Entity : Span) return Entity_Kind
@@ -223,6 +234,15 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif String_Equal (Text, Name, "Silver_Output_Libc.Put_Byte") then Result := Put_Byte;
       elsif String_Equal (Text, Name, "Silver_Output_Libc.Flush") then Result := Flush;
       elsif String_Equal (Text, Name, "Silver_Output_Libc.Set_Exit_Status") then Result := Set_Exit_Status;
+      elsif String_Equal (Text, Name, "Silver_Arguments") then Result := Arguments_Package;
+      elsif String_Equal (Text, Name, "Silver_Arguments.Input_Is_Valid") then Result := Input_Is_Valid;
+      elsif String_Equal (Text, Name, "Silver_Arguments.First_Or_Default") then Result := First_Or_Default;
+      elsif String_Equal (Text, Name, "Silver_Arguments.Reject") then Result := Reject;
+      elsif String_Equal (Text, Name, "Silver_Arguments.Is_Message") then Result := Is_Message;
+      elsif String_Equal (Text, Name, "Silver_Runtime") then Result := Runtime_Package;
+      elsif String_Equal (Text, Name, "Silver_Runtime.Argument_Count") then Result := Argument_Count;
+      elsif String_Equal (Text, Name, "Silver_Runtime.Argument") then Result := Argument;
+      elsif String_Equal (Text, Name, "Silver_Runtime.Set_Exit_Status") then Result := Runtime_Exit_Status;
       end if;
       if not Location_OK (Text, Entity, Result) then return Unknown; end if;
       return Result;
@@ -278,7 +298,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Entity_Name (Text, Entity) /= Unknown;
    end Reference_OK;
 
-   type List_Kind is (Checks, References, Postconditions);
+   type List_Kind is (Checks, References, Postconditions, Argument_Postconditions);
    function List_OK
      (Text : String; Items, Entities : Span; Kind : List_Kind) return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
@@ -290,10 +310,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item); end if;
-      if Kind = Postconditions then
+      if Kind in Postconditions | Argument_Postconditions then
          return String_Equal (Text, Field (Text, Item, "rule"), "VC_POSTCONDITION")
            and then Entity_Name (Text, Referenced_Entity
-             (Text, Entities, Field (Text, Item, "entity"))) = Put_Line;
+             (Text, Entities, Field (Text, Item, "entity")))
+                = (if Kind = Postconditions then Put_Line else First_Or_Default);
       end if;
       How := Field (Text, Item, "how_proved");
       return String_Equal (Text, Field (Text, Item, "severity"), "info")
@@ -308,7 +329,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Nonempty_String (Text, Field (Text, Item, "rule"))
         and then (String_Equal (Text, Field (Text, Item, "file"), "silver_io.ads")
           or else String_Equal (Text, Field (Text, Item, "file"), "silver_io.adb")
-          or else String_Equal (Text, Field (Text, Item, "file"), "silver_output_libc.ads"))
+          or else String_Equal (Text, Field (Text, Item, "file"), "silver_output_libc.ads")
+          or else String_Equal (Text, Field (Text, Item, "file"), "silver_arguments.ads")
+          or else String_Equal (Text, Field (Text, Item, "file"), "silver_arguments.adb")
+          or else String_Equal (Text, Field (Text, Item, "file"), "silver_runtime.ads"))
         and then Positive_Number (Text, Field (Text, Item, "line"))
         and then Positive_Number (Text, Field (Text, Item, "col"))
         and then Entity_Name (Text, Referenced_Entity
@@ -329,18 +353,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          pragma Loop_Invariant (P in Items.First + 1 .. Text'Length + 1);
          pragma Loop_Variant (Increases => P);
          Skip_Space (Text, P);
-         if P = Items.Last then return Kind /= Postconditions or else Found; end if;
+         if P = Items.Last then return Kind not in Postconditions | Argument_Postconditions or else Found; end if;
          if P >= Items.Last or else Text (P) /= '{' then return False; end if;
          Last := Value_End (Text, P);
          if Last = 0 or else Last >= Items.Last then return False; end if;
-         if Kind = Postconditions then
+         if Kind in Postconditions | Argument_Postconditions then
             Found := Found or else Record_OK (Text, (P, Last), Entities, Kind);
          elsif not Record_OK (Text, (P, Last), Entities, Kind) then
             return False;
          end if;
          P := Last + 1;
          Skip_Space (Text, P);
-         if P = Items.Last then return Kind /= Postconditions or else Found; end if;
+         if P = Items.Last then return Kind not in Postconditions | Argument_Postconditions or else Found; end if;
          if P >= Items.Last or else Text (P) /= ',' then return False; end if;
          P := P + 1;
          Skip_Space (Text, P);
@@ -379,8 +403,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       end loop;
    end Dependencies_OK;
 
-   --  Every entity in these two fixed runtime reports belongs to the selected
-   --  owned source or to one of its three approved imported declarations.
+   function Expected_Entity (Name : Entity_Kind; Kind : Report_Kind)
+     return Boolean is
+     (case Kind is
+        when Library_Body => Name in IO_Package | Put_Line | Put_Byte | Flush | Set_Exit_Status,
+        when Imported_Interface => Name in Libc_Package | Put_Byte | Flush | Set_Exit_Status,
+        when Arguments_Body => Name in Arguments_Package | Input_Is_Valid | First_Or_Default
+          | Reject | Is_Message | Set_Exit_Status | Argument_Count | Argument,
+        when Runtime_Interface => Name in Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status);
+
+   function Expected_Coverage (Name : Entity_Kind; Kind : Report_Kind)
+     return String is
+     (case Kind is
+        when Library_Body => (if Name in IO_Package | Put_Line then "all" else ""),
+        when Imported_Interface =>
+          (if Name = Libc_Package then "all"
+           elsif Name in Put_Byte | Flush | Set_Exit_Status then "spec" else ""),
+        when Arguments_Body =>
+          (if Name in Arguments_Package | Input_Is_Valid | First_Or_Default | Reject | Is_Message
+           then "all" else ""),
+        when Runtime_Interface =>
+          (if Name = Runtime_Package then "all"
+           elsif Name in Argument_Count | Argument | Runtime_Exit_Status then "spec" else ""));
+
+   --  Every entity belongs to the selected owned source or an approved import.
    --  An unexpected owned declaration cannot hide outside the coverage map.
    function Entities_OK
      (Text : String; Entities : Span; Kind : Report_Kind) return Boolean
@@ -426,14 +472,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Skip_Space (Text, P);
          if P >= Entities.Last then return False; end if;
       end loop;
-      if Kind = Library_Body then
-         return Seen (IO_Package) and then Seen (Put_Line)
-           and then not Seen (Libc_Package) and then Seen (Put_Byte)
-           and then Seen (Flush) and then Seen (Set_Exit_Status);
-      end if;
-      return not Seen (IO_Package) and then not Seen (Put_Line)
-        and then Seen (Libc_Package) and then Seen (Put_Byte)
-        and then Seen (Flush) and then Seen (Set_Exit_Status);
+      return (for all Name in Entity_Kind => Seen (Name) = Expected_Entity (Name, Kind));
    end Entities_OK;
 
    function Coverage_OK
@@ -470,16 +509,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Skip_Space (Text, P);
          Last := Value_End (Text, P);
          if Last = 0 or else Last >= Coverage.Last then return False; end if;
-         if Kind = Library_Body then
-            if Name not in IO_Package | Put_Line
-              or else not String_Equal (Text, (P, Last), "all")
-            then return False; end if;
-         elsif Name = Libc_Package then
-            if not String_Equal (Text, (P, Last), "all") then return False; end if;
-         elsif Name in Put_Byte | Flush | Set_Exit_Status then
-            if not String_Equal (Text, (P, Last), "spec") then return False; end if;
-         else return False;
-         end if;
+         if Expected_Coverage (Name, Kind)'Length = 0
+           or else not String_Equal (Text, (P, Last), Expected_Coverage (Name, Kind))
+         then return False; end if;
          P := Last + 1;
          Skip_Space (Text, P);
          if P = Coverage.Last then exit; end if;
@@ -488,11 +520,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          Skip_Space (Text, P);
          if P >= Coverage.Last then return False; end if;
       end loop;
-      if Kind = Library_Body then
-         return Seen (IO_Package) and then Seen (Put_Line);
-      end if;
-      return Seen (Libc_Package) and then Seen (Put_Byte)
-        and then Seen (Flush) and then Seen (Set_Exit_Status);
+      return (for all Name in Entity_Kind =>
+        Seen (Name) = (Expected_Coverage (Name, Kind)'Length > 0));
    end Coverage_OK;
 
    function Audit_Report (Report : String; Kind : Report_Kind) return Boolean is
@@ -524,10 +553,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then List_OK (Text, Field (Text, Object, "flow"), Entities, Checks)
            and then List_OK (Text, Field (Text, Object, "proof"), Entities, Checks)
            and then Dependencies_OK (Text, Field (Text, Object, "assumptions"), Entities)
-           and then (Kind = Imported_Interface or else
+           and then (Kind in Imported_Interface | Runtime_Interface or else
              (not Empty_Array (Text, Field (Text, Object, "flow"))
               and then not Empty_Array (Text, Field (Text, Object, "proof"))
-              and then List_OK (Text, Field (Text, Object, "proof"), Entities, Postconditions)));
+              and then List_OK (Text, Field (Text, Object, "proof"), Entities,
+                (if Kind = Library_Body then Postconditions else Argument_Postconditions))));
       end;
    end Audit_Report;
 

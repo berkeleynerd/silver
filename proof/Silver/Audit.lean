@@ -51,14 +51,14 @@ run_cmd do
 #print axioms Silver.Source.unsupported_literal_syntax_rejected
 #print axioms Silver.Output.accepts_iff_member
 #print axioms Silver.Output.source_implementation_member_iff
-#print axioms Silver.Named.SourceBridge.authoritative_current_member_iff
+#print axioms Silver.Arguments.SourceBridge.authoritative_current_member_iff
 #print axioms Silver.Output.SourceBridge.authoritative_runtime_correct
 #print axioms Silver.Output.Runtime.healthy_output
 #print axioms Silver.Current.every_meaning_assured
 #print axioms Silver.Current.automatic_pipeline
 #print axioms Silver.Current.pipeline_preserves
 #print axioms Silver.Current.pipeline_realizes
-#print axioms Silver.Named.SourceBridge.checked_current_pipeline
+#print axioms Silver.Arguments.SourceBridge.checked_current_pipeline
 
 #print axioms Silver.Output.literalAt_unique
 #print axioms Silver.Output.parsed_unique
@@ -92,3 +92,21 @@ run_cmd do
 
 #print axioms Silver.Named.Expressions.interpreted_equations
 #print axioms Silver.Named.Expressions.model_interpreted
+
+#print axioms Silver.Arguments.accepts_iff_member
+#print axioms Silver.Arguments.meaning_unique
+#print axioms Silver.Arguments.meaning_binds
+#print axioms Silver.Arguments.evaluate_initializer
+#print axioms Silver.Arguments.execution_refines
+#print axioms Silver.Arguments.invalid_execution
+#print axioms Silver.Arguments.Runtime.initializer_refines
+#print axioms Silver.Arguments.Runtime.validity_refines
+#print axioms Silver.Arguments.Runtime.main_refines
+#print axioms Silver.Arguments.Runtime.invalid_no_output
+#print axioms Silver.Arguments.Runtime.explicit_empty_preserved
+#print axioms Silver.Arguments.Expressions.interpreted_equations
+#print axioms Silver.Arguments.Expressions.model_interpreted
+#print axioms Silver.Arguments.SourceBridge.actual_runtime_translation
+#print axioms Silver.Arguments.SourceBridge.checked_source
+#print axioms Silver.Current.argument_execution_refines
+#print axioms Silver.Current.argument_rejection

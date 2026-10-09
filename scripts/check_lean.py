@@ -35,6 +35,9 @@ CANDIDATES = {
     Path("Silver/IOSpecCertificate.lean"): "silver_io.ads",
     Path("Silver/IOBodyCertificate.lean"): "silver_io.adb",
     Path("Silver/OutputLibcCertificate.lean"): "silver_output_libc.ads",
+    Path("Silver/ArgumentsSpecCertificate.lean"): "silver_arguments.ads",
+    Path("Silver/ArgumentsBodyCertificate.lean"): "silver_arguments.adb",
+    Path("Silver/RuntimeSpecCertificate.lean"): "silver_runtime.ads",
 }
 
 
@@ -127,7 +130,7 @@ def positive_integer(value: str) -> int:
 
 
 def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None:
-    """Only the seven generated certificates may differ from shared inputs.
+    """Only the selected generated certificates may differ from shared inputs.
 
     Run this before establishing the workspace hash baseline: a generator must
     not redefine the handwritten source binding or bridge and then have those

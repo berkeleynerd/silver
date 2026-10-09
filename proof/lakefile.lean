@@ -38,7 +38,17 @@ input_file outputLibcSource where
   path := "../src/silver_output_libc.ads"
   text := false
 
+input_file argumentsSpecSource where
+  path := "../src/silver_arguments.ads"
+  text := false
+input_file argumentsBodySource where
+  path := "../src/silver_arguments.adb"
+  text := false
+input_file runtimeSpecSource where
+  path := "../src/silver_runtime.ads"
+  text := false
+
 @[default_target]
 lean_lib Silver where
   needs := #[profileSpecSource, profileBodySource, outputProfileSpecSource,
-    outputProfileBodySource, ioSpecSource, ioBodySource, outputLibcSource]
+    outputProfileBodySource, ioSpecSource, ioBodySource, outputLibcSource, argumentsSpecSource, argumentsBodySource, runtimeSpecSource]

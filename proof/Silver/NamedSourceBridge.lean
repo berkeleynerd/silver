@@ -65,8 +65,7 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "equal_name" Source.outputBodyTokens = some Expressions.equalBody.render ∧
   Source.expressionBody "forbidden_name" Source.outputBodyTokens = some Expressions.forbiddenBody.render ∧
   Source.expressionBody "valid_name_state" Source.outputBodyTokens = some Expressions.stateBody.render ∧
-  Source.expressionBody "named_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render ∧
-  Source.expressionBody "is_member" Source.outputBodyTokens = some Expressions.memberBody.render
+  Source.expressionBody "named_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
@@ -103,43 +102,5 @@ theorem checked_source : CheckedSource where
   forbidden := actual_forbidden_translation
   expressions := actual_expressions
   refinement := actual_refinement
-
-/-- Equation-level composition after the typed interpretation has closed every
-callee. The union is exactly the three current productions. -/
-theorem equations_current_member_iff
-    (nullCalls : Silver.Expressions.Calls)
-    (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (namedCalls : Calls) (namedEquations : DefinitionEquations namedCalls) (source : Source) :
-    (nullCalls.member source || namedCalls.member source) = true ↔ Current.Member source := by
-  simp only [Bool.or_eq_true, Current.Member,
-    Silver.Expressions.member_implementation_iff nullCalls nullEquations source,
-    implementation_member_iff namedCalls namedEquations source]
-
-/-- Authoritative source checks and the closed arbitrary-callee interpretation
-establish membership for the complete current language. -/
-theorem authoritative_current_member_iff
-    (nullCalls : Silver.Expressions.Calls)
-    (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
-    (source : Source) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ((nullCalls.member source || calls.named.member source) = true ↔ Current.Member source) :=
-  ⟨Silver.SourceBridge.checked_source, checked_source,
-    equations_current_member_iff nullCalls nullEquations calls.named
-      (Expressions.interpreted_equations calls sourceEquations) source⟩
-
-/-- The exact admitted source completes the current pipeline under the explicit
-external-tool and fixed-library premises. Application obligation correspondence
-continues to use the faithful-generation premise and complete native reports. -/
-theorem checked_current_pipeline {Artifact : Type} {tools : Current.Tools Artifact}
-    (contract : Current.ToolContract tools)
-    (nullCalls : Silver.Expressions.Calls)
-    (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
-    (source : Source) (accepted : (nullCalls.member source || calls.named.member source) = true) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ∃ artifact steps, Current.Pipeline tools source artifact steps := by
-  have bridge := authoritative_current_member_iff nullCalls nullEquations calls sourceEquations source
-  exact ⟨bridge.1, bridge.2.1, Current.automatic_pipeline contract (bridge.2.2.mp accepted)⟩
 
 end Silver.Named.SourceBridge

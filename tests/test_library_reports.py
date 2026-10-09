@@ -14,8 +14,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def entity(name: str) -> dict:
-    return {"name": name, "sloc": [{"file": "silver_io.ads" if name.startswith("Silver_IO")
-                                  else "silver_output_libc.ads", "line": 1, "column": 1}]}
+    package = name.split('.')[0]
+    filename = {'Silver_IO': 'silver_io.ads', 'Silver_Output_Libc': 'silver_output_libc.ads',
+                'Silver_Arguments': 'silver_arguments.ads', 'Silver_Runtime': 'silver_runtime.ads'}[package]
+    if name == 'Silver_Arguments.Is_Message':
+        filename = 'silver_arguments.adb'
+    return {"name": name, "sloc": [{"file": filename, "line": 1, "column": 1}]}
 
 
 def report(interface: bool = False) -> dict:
@@ -36,6 +40,22 @@ def check() -> dict:
     return {"severity": "info", "how_proved": "prover", "entity": 1,
             "rule": "VC_POSTCONDITION", "file": "silver_io.adb", "line": 12, "col": 3,
             "message": {"text": 'postcondition proved, escaped "quote", {nested}'}}
+
+
+def argument_report(interface: bool = False) -> dict:
+    names = (["Silver_Runtime", "Silver_Runtime.Argument_Count", "Silver_Runtime.Argument",
+              "Silver_Runtime.Set_Exit_Status"] if interface else
+             ["Silver_Arguments.First_Or_Default", "Silver_Arguments", "Silver_Arguments.Input_Is_Valid",
+              "Silver_Arguments.Reject", "Silver_Arguments.Is_Message", "Silver_Runtime.Argument_Count",
+              "Silver_Runtime.Argument", "Silver_Output_Libc.Set_Exit_Status"])
+    obligation = dict(check(), file="silver_arguments.adb")
+    return {"entities": {f" {i}": entity(name) for i, name in enumerate(names, 1)},
+            "spark": ({" 1": "all", " 2": "spec", " 3": "spec", " 4": "spec"} if interface else
+                      {f" {i}": "all" for i in range(1, 6)}),
+            "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
+            "flow": [] if interface else [dict(obligation, how_proved="flow")],
+            "proof": [] if interface else [obligation], "skip_flow_proof": [], "skip_proof": [],
+            "pragma_assume": [], "warn_error": [], "assumptions": []}
 
 
 class LibraryReportTests(unittest.TestCase):
@@ -67,10 +87,10 @@ end Probe;
     def tearDownClass(cls) -> None:
         cls.temp.cleanup()
 
-    def accepts(self, value: dict | str, interface: bool = False) -> bool:
+    def accepts(self, value: dict | str, interface: bool = False, *, kind: str | None = None) -> bool:
         source = value if isinstance(value, str) else json.dumps(value)
         result = subprocess.run([self.directory / "library_reports_probe",
-                                 "interface" if interface else "body"],
+                                 kind if kind else "interface" if interface else "body"],
                                 input=source + "\n", capture_output=True, text=True, timeout=10)
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(result.stdout, ("accepted\n", "rejected\n"))
@@ -81,6 +101,36 @@ end Probe;
         self.assertTrue(self.accepts(report(True), True))
         self.assertFalse(self.accepts(report(True)))
         self.assertFalse(self.accepts(report(), True))
+
+    def test_argument_schemas_and_coverage(self) -> None:
+        for interface, kind in ((False, "arguments"), (True, "runtime")):
+            data = argument_report(interface)
+            self.assertTrue(self.accepts(data, kind=kind))
+            for wrong in ("body", "interface", "runtime" if not interface else "arguments"):
+                self.assertFalse(self.accepts(data, kind=wrong))
+            for key in data["spark"]:
+                bad = copy.deepcopy(data)
+                del bad["spark"][key]
+                self.assertFalse(self.accepts(bad, kind=kind))
+                bad = copy.deepcopy(data)
+                bad["spark"][key] = "no"
+                self.assertFalse(self.accepts(bad, kind=kind))
+            for key in data["entities"]:
+                bad = copy.deepcopy(data)
+                del bad["entities"][key]
+                self.assertFalse(self.accepts(bad, kind=kind))
+            for section in ("skip_proof", "pragma_assume", "warn_error"):
+                bad = copy.deepcopy(data)
+                bad[section] = [{}]
+                self.assertFalse(self.accepts(bad, kind=kind))
+        for section in ("proof", "flow"):
+            for field, value in (("severity", "high"), ("how_proved", "unproved"), ("entity", 999)):
+                bad = argument_report()
+                bad[section][0][field] = value
+                self.assertFalse(self.accepts(bad, kind="arguments"))
+        bad = argument_report()
+        bad["proof"][0]["rule"] = "VC_RANGE_CHECK"
+        self.assertFalse(self.accepts(bad, kind="arguments"))
 
     def test_obligation_count_is_not_pinned(self) -> None:
         for count in (1, 3, 26):

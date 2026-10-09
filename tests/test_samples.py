@@ -55,9 +55,9 @@ class SupportedSampleTests(unittest.TestCase):
                 output = "runtime_context" in sample["capabilities"]
                 units = {snapshots[0].stem}
                 if output:
-                    units |= {"silver_io", "silver_output_libc"}
+                    units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
                 statistics = audit_reports(reports[0].parent, units,
-                                           {"silver_output_libc"} if output else set())
+                                           {"silver_output_libc", "silver_runtime"} if output else set())
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)
@@ -66,11 +66,16 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertTrue(executable.is_file(), compilation.stdout)
                 # Compiler diagnostics are not application output. Execute the
                 # published binary directly and compare each stream as bytes.
-                execution = subprocess.run([str(executable)], timeout=10, capture_output=True)
-                expected = sample["expected"]
-                self.assertEqual(execution.returncode, expected["exit_status"], execution.stderr)
-                self.assertEqual(execution.stdout, expected["stdout"].encode("utf-8"))
-                self.assertEqual(execution.stderr, expected["stderr"].encode("utf-8"))
+                cases = [{"arguments": [], "expected": sample["expected"]},
+                         *sample.get("argument_cases", [])]
+                for case in cases:
+                    with self.subTest(arguments=case["arguments"]):
+                        execution = subprocess.run([str(executable), *case["arguments"]],
+                                                   timeout=10, capture_output=True)
+                        expected = case["expected"]
+                        self.assertEqual(execution.returncode, expected["exit_status"], execution.stderr)
+                        self.assertEqual(execution.stdout, expected["stdout"].encode("utf-8"))
+                        self.assertEqual(execution.stderr, expected["stderr"].encode("utf-8"))
                 self.assertEqual(source.read_bytes(), data, "compilation modified sample source")
 
 

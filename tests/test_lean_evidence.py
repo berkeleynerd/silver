@@ -173,7 +173,8 @@ class LeanNativeDependencyTests(unittest.TestCase):
             filenames = (
                 "silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
                 "silver_output_profile.adb", "silver_io.ads", "silver_io.adb",
-                "silver_output_libc.ads")
+                "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
+                "silver_runtime.ads")
             sources = [root / "src" / name for name in filenames]
             for source in sources:
                 source.write_bytes(b"original\n")

@@ -5,7 +5,7 @@ This script is a proof-artifact generator, not compiler implementation or a
 trusted lexer. Each generated per-source module proves its candidate token list
 equals the Lean lexer result and reconstruction equals the authoritative
 include_str source. The handwritten SourceCertificates.lean facade imports
-those seven modules. Incorrect generation therefore fails kernel checking.
+those ten modules. Incorrect generation therefore fails kernel checking.
 """
 
 import argparse
@@ -13,6 +13,9 @@ import json
 from pathlib import Path
 
 SOURCE_BINDINGS = (
+    ("silver_arguments.ads", "argumentsSpec", "argumentsSpecTokens"),
+    ("silver_arguments.adb", "argumentsBody", "argumentsBodyTokens"),
+    ("silver_runtime.ads", "runtimeSpec", "runtimeSpecTokens"),
     ("silver_profile.ads", "profileSpec", "specTokens"),
     ("silver_profile.adb", "profileBody", "bodyTokens"),
     ("silver_output_profile.ads", "outputProfileSpec", "outputSpecTokens"),

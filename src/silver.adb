@@ -91,7 +91,7 @@ procedure Silver with SPARK_Mode => On is
            "   for Languages use (""Ada"");" & LF &
            "   for Source_Dirs use (""."");" & LF &
            (if Output_Mode then
-             "   for Source_Files use (""main.adb"", ""silver_io.ads"", ""silver_io.adb"", ""silver_output_libc.ads"");" & LF
+             "   for Source_Files use (""main.adb"", ""silver_io.ads"", ""silver_io.adb"", ""silver_output_libc.ads"", ""silver_arguments.ads"", ""silver_arguments.adb"", ""silver_runtime.ads"");" & LF
             else "   for Source_Files use (""main.adb"");" & LF) &
            "   for Main use (""main.adb"");" & LF &
            "   for Object_Dir use ""obj"";" & LF &
@@ -238,7 +238,7 @@ procedure Silver with SPARK_Mode => On is
          if Output_Mode then
             Silver_Libraries.Capture_And_Snapshot (Directory, Library_Sources, Success);
             --  The verified helper reports success only after capturing, writing
-            --  and rereading the exact three library byte sequences.
+            --  and rereading the exact six library byte sequences.
             Initial_Libraries_Matched := Success
               and then Silver_Libraries.Same_Bytes
                 (Silver_Libraries.Checked, Library_Sources)

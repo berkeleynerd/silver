@@ -6,6 +6,10 @@ procedure Library_Reports_Probe is
    Kind : constant Silver_Library_Reports.Report_Kind :=
      (if Ada.Command_Line.Argument (1) = "body"
       then Silver_Library_Reports.Library_Body
+      elsif Ada.Command_Line.Argument (1) = "arguments"
+      then Silver_Library_Reports.Arguments_Body
+      elsif Ada.Command_Line.Argument (1) = "runtime"
+      then Silver_Library_Reports.Runtime_Interface
       else Silver_Library_Reports.Imported_Interface);
 begin
    if Silver_Library_Reports.Complete_Runtime_Proof (Report, Kind) then

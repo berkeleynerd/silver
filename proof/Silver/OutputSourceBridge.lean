@@ -2,11 +2,12 @@ import Silver.SourceBridge
 import Silver.OutputExpressions
 import Silver.Current
 import Silver.NamedEquations
+import Silver.ArgumentsExpressions
 import Silver.ReviewedOutputShape
 
 /-! Source correspondence for literal-output admission and execution. `Calls.member`
 interprets the internal Is_Literal_Member helper; the public Is_Member union is
-closed by NamedSourceBridge. Existing typed
+closed by ArgumentsSourceBridge. Existing typed
 expression trees bind the copied lexical primitives and membership composition.
 The two new recursive expression templates fix operators, grouping and calls;
 OutputEquations proves uniqueness on their legal machine domains. The reviewed
@@ -69,8 +70,12 @@ def namedTokenName : Named.Token → String
   | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
   | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
 
-def fullTokens : List Named.Token := allTokens.map Named.Token.base ++
-  [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName]
+def fullTokens : List Arguments.Token := allTokens.map Arguments.Token.base ++
+  [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName,
+   .argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName]
+
+def argumentNames (tokens : List Arguments.Token) : List String :=
+  List.flatten ((tokens.map (fun token => [Arguments.Expressions.tokenName token])).intersperse [","])
 
 def namedNames (tokens : List Named.Token) : List String :=
   List.flatten ((tokens.map (fun token => [namedTokenName token])).intersperse [","])
@@ -79,33 +84,44 @@ def fullSpellingExpression : List String := spellingExpression ++
   [.colon, .constantKeyword, .stringName, .assignment].flatMap (fun (token : Named.Token) =>
     [",", "when", namedTokenName token, "=>", "\"" ++ token.spellingText ++ "\""]) ++
   [",", "when", "declaration_name", "|", "reference_name", "=>",
-    "\"" ++ Named.Token.declarationName.spellingText ++ "\""]
+    "\"" ++ Named.Token.declarationName.spellingText ++ "\""] ++
+  [.argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName].flatMap
+    (fun (token : Arguments.Token) =>
+      [",", "when", Arguments.Expressions.tokenName token, "=>", "\"" ++ token.spellingText ++ "\""])
 
 theorem variable_token_same_spelling :
     Named.Token.declarationName.spelling = Named.Token.referenceName.spelling := rfl
 
-theorem full_word_token_denotation (token : Named.Token) :
+theorem full_word_token_denotation (token : Arguments.Token) :
     token.isWord = decide (fullTokens.idxOf token ≤ 10 ∨
-      token = .constantKeyword ∨ token = .stringName) := by
+      token = .constantKeyword ∨ token = .stringName ∨ 22 ≤ fullTokens.idxOf token) := by
   cases token with
   | base token => cases token <;> decide
   | _ => decide
 
 abbrev CatalogueTranslation : Prop :=
-  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ namedNames fullTokens ++ [")"]) ∧
+  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ argumentNames fullTokens ++ [")"]) ∧
   Source.declaration "required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ names requiredTokens ++ [")"]) ∧
   Source.declaration "named_required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ namedNames Named.requiredTokens ++ [")"]) ∧
+  Source.declaration "argument_required_tokens" Source.outputSpecTokens =
+    some (["constant", "token_sequence", ":=", "("] ++ argumentNames Arguments.requiredTokens ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some fullSpellingExpression ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens =
-    some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name"] ∧
+    some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name"] ∧
   Source.declaration "max_source_length" Source.outputSpecTokens =
     some ["constant", "positive", ":=", "4_096"] ∧
   Source.declaration "comment_introducer" Source.outputSpecTokens =
     some ["constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\""]
 
 theorem actual_catalogue : CatalogueTranslation := by decide +kernel
+
+theorem fixed_token_bounds (token : Arguments.Token) :
+    0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
+  cases token with
+  | base token => cases token <;> decide
+  | _ => decide
 
 abbrev Refinement : Prop :=
   functionHeader "accepts" ";" Source.outputSpecTokens = some (expectedTokens
@@ -208,7 +224,7 @@ theorem checked_source : CheckedSource where
 /-- A checked translation and uniqueness of all new recursive definitions.
 Equations carry the same frontend/machine-domain premise as the null bridge;
 none assumes the conclusion or automatic proof success. This theorem covers
-the retained literal-only helper; NamedSourceBridge covers the public union. -/
+the retained literal-only helper; ArgumentsSourceBridge covers the public union. -/
 theorem authoritative_output_member_iff (calls : Calls) (primitives : PrimitiveCalls)
     (equations : Expressions.InterpretedSource calls primitives)
     (source : Source) : CheckedSource ∧ (calls.member source = true ↔ Member source) :=

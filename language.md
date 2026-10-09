@@ -37,7 +37,7 @@ following rules and the complete grammar below:
 
 ## Grammar and capabilities
 
-Exactly three productions are admitted. The null production is:
+Exactly four productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -116,6 +116,45 @@ contiguous token; comments or whitespace cannot separate its characters.
 Exactly one reference supplies the sole output call. No reassignment, slicing,
 concatenation, further declarations or other use of the name is admitted.
 
+The guarded command-line production is:
+
+```ada
+with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Message : constant String :=
+     Silver_Arguments.First_Or_Default ("Hello, world!");
+begin
+   if Silver_Arguments.Input_Is_Valid then
+      Silver_IO.Put_Line (Message);
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; with silver_arguments ;
+procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : constant string :=
+silver_arguments . first_or_default ( <string_literal> ) ;
+begin if silver_arguments . input_is_valid then
+silver_io . put_line ( <reference_name> ) ;
+else silver_arguments . reject ; end if ; end main ;
+```
+
+The two separate context clauses have this fixed order. The declaration and
+reference follow the named-constant rules, with the additional exclusion of
+`Silver_Arguments` as a constant name, ignoring ASCII case. That name remains
+legal in the literal-initialized form. The literal supplies the default for
+`First_Or_Default`; the constant's bounds come from its returned value. Only
+this complete conditional is admitted, including both branches. Parameterless
+calls have no parentheses. The guard cannot be replaced, omitted, negated or
+combined with other conditions.
+
 Whitespace around punctuation is optional. Adjacent word tokens require a
 lexical separator. Both occurrences of the procedure name must be `Main`,
 ignoring ASCII letter case.
@@ -125,26 +164,33 @@ The following capability identifiers are shared with the catalogue:
 | Capability | Admitted form and restrictions |
 | --- | --- |
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
-| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named composition additionally declares its one constant; no other pragmas are admitted. |
+| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named and command-line compositions additionally declare their one constant; no other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
-| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure. No `use` clause. |
+| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the command-line composition. No `use` clause. |
 | `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
-| `string_literal` | A literal in the domain above, used as the direct output argument or the named constant initializer. |
-| `named_string_constant` | One `constant String` declaration initialized by a literal, with the name rules above. |
+| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, or the argument default. |
+| `named_string_constant` | One `constant String` declaration initialized by a literal or `argument_initialization`, as fixed by the composition. |
 | `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant identifier. |
+| `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the command-line composition. |
+| `argument_initialization` | One qualified `Silver_Arguments.First_Or_Default` call with one admitted literal default, initializing the constant. |
+| `input_guard` | Exactly the `if Silver_Arguments.Input_Is_Valid then` output branch and mandatory rejection branch shown above. |
+| `argument_rejection` | One qualified `Silver_Arguments.Reject;` as the sole statement of the guard's `else` branch. |
 
 In the null and literal-output compositions the pragma is the sole declarative
-item of `Main`; the named composition adds exactly its constant after the pragma.
+item of `Main`; the named and command-line compositions add exactly their
+constant after the pragma.
 The null composition has no context clause and exactly one null statement.
 The literal-output composition requires the context clause and exactly one
 literal call. The named composition requires the same context and a call by name.
+The command-line composition requires both context clauses, argument
+initialization and the complete guard, with output by the bound name.
 Context plus null, null plus output, and repeated output calls are excluded.
 No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
 
 Everything else is excluded, including other context clauses or calls, variables,
-string operations, general arrays, access types, and file handles. Admitting
-`Silver_IO.Put_Line` admits no other API or implementation feature. In particular,
+general conditionals, string operations, general arrays, access types, and file
+handles. Admitting these operations admits no other API or implementation feature. In particular,
 application code cannot call `Ada.Text_IO` or the underlying libc imports.
 
 ## Meaning and assurance
@@ -155,15 +201,33 @@ At source level the null program has no data accesses, calls, or output and leav
 the initial state unchanged. Runtime startup and external execution conditions
 remain within the documented [trusted boundary](docs/trusted-boundary.md).
 
-Both output productions request their decoded literal bytes followed by exactly LF
+Literal and named-literal output request their decoded literal bytes followed by exactly LF
 (byte 10) on standard output. Successful completion requires every byte write and the
 final `fflush(NULL)` to succeed. Completion means the host stream accepted the
 output; it does not guarantee consumption by a reader or durable storage.
 With healthy, progressing output and normal process startup, the program prints
 those bytes and exits successfully. Empty literals produce just LF.
 
+The command-line form observes the process arguments after the executable name:
+
+| Input | Observable behavior |
+| --- | --- |
+| No arguments | Print the decoded default followed by LF. |
+| Exactly one argument of 0 through 4096 printable ASCII bytes | Print those exact bytes followed by LF. An explicit empty argument prints just LF. |
+| Extra arguments, an argument longer than 4096 bytes, or any byte outside 32 through 126 | Produce no application output and set status 1. |
+
+The pure initializer and validity query observe the same immutable GNAT argument
+vector. On invalid input the initializer returns an internal empty value, but the
+mandatory false branch calls `Reject` and never prints that value. No invalid
+argument is truncated or replaced with a successful default. The default itself
+always satisfies the literal domain and complete source bound. Retrieving an
+argument precedes its length check; the input limit does not bound the storage
+allocated by GNAT. Storage exhaustion remains environmental. See the
+[argument boundary](docs/trusted-boundary.md#command-line-boundary).
+
 A detected failed write or flush sets process status 1 and returns from
-`Put_Line`; the sole-call `Main` then returns with that unsuccessful status.
+`Put_Line`; `Main` then returns with that unsuccessful status. `Reject` likewise
+sets status 1 and returns normally through the fixed false branch.
 Wrapper return by itself does not mean successful output. Partial output may
 remain, including bytes flushed by runtime finalization. An operating-system signal such as SIGPIPE may
 terminate it unsuccessfully before an imported call returns. External blocking,
@@ -173,22 +237,29 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-All three productions have empty **application-unit** obligation sets. Literal
+All four productions have empty **application-unit** obligation sets. Literal
 initialization establishes the constant value and bounds without a range
 constraint or read of uninitialized data. Name binding selects that value; the
 output call has no caller precondition or constrained argument.
+The argument initializer returns an unconstrained `String`; its verified contract
+establishes the output domain. The Boolean guard and rejection call add no
+application checks or caller obligations.
 The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
-argument covers all permitted literals, identifiers, lexical variants and the three compositions,
+argument covers all permitted literals, identifiers, argument vectors, lexical
+variants and the four compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.
 
 Application authors supply neither contracts nor proof annotations. Admission,
 proof, and compilation use the same source bytes; the compiler snapshots the
-input as `main.adb` without adding annotations. It also copies the three selected
-library source files unchanged and checks them after proof and build. The input
+input as `main.adb` without adding annotations. Every output form selects the
+same six library source files: the `Silver_IO` spec/body, `Silver_Output_Libc`
+spec, `Silver_Arguments` spec/body and `Silver_Runtime` spec. It copies these
+unchanged and checks them after proof and build, auditing all four library-unit
+reports. Null programs select no libraries. The input
 file's name does not change language membership. Verification or compilation
 failure on an admitted source is an implementation or toolchain defect. A
 specified environmental output failure is an execution outcome, not rejection
@@ -197,7 +268,10 @@ of the source language.
 ## Examples and growth
 
 [samples/null.adb](samples/null.adb) is the baseline example;
-[samples/hello_world.adb](samples/hello_world.adb) exercises literal output. The
+[samples/hello_world.adb](samples/hello_world.adb) exercises literal output;
+[samples/string_constant.adb](samples/string_constant.adb) adds a named constant;
+[samples/command_line.adb](samples/command_line.adb) initializes it from guarded
+command-line input. The
 [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output and exit status. The suite admits, proves,
 builds and executes each sample. Samples witness supported behavior; they do
