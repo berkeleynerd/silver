@@ -39,6 +39,8 @@ sequence.
 | Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; CI has not run. | Developer workflow |
 | Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
+| Named string constant | Authorized; follows repair baseline | A literal-initialized `constant String`, name binding and output through its identifier. First increment of the next task below. | Planned `samples/string_constant.adb` |
+| Command-line message | Authorized; follows named strings | Initialize the named constant through a narrowly admitted, verified argument wrapper; depends on the named-string increment. | Planned `samples/command_line.adb` |
 
 The target is a class of programs that can print admitted literals, not special
 treatment of the text `Hello, world!`. String literals do not imply support for
@@ -51,7 +53,9 @@ Hello World admits its context clause, literal, and call as one coherent
 capability. A context-only null program would add no behavior and is not admitted;
 there is no artificial `runtime_context.adb` step. The API is
 `Silver_IO.Put_Line`, implemented in verified SPARK over the existing libc
-`putchar`, `fflush`, and `exit` symbols. The focused
+`putchar` and `fflush` symbols plus GNAT
+`__gnat_set_exit_status`. The [review repairs](docs/hello-review-repairs.md)
+replace abrupt exit with ordinary status assignment and return. The focused
 [runtime experiment](docs/hello-runtime-experiment.md) established the actual
 obligation classes before the report checker was extended.
 
@@ -62,9 +66,8 @@ failure, and the two permitted compositions. The
 external effects and progress. Repeated calls, variables, concatenation and
 broader library admission remain excluded.
 
-Choose the next sample only after this capability is complete and the owner
-selects further work. Useful candidates include repeated output calls or one
-bounded scalar declaration; neither is authorized by its presence here. Specify
+The owner authorized the command-line message task below on 2026-10-09.
+Finish the current review-repair validation and commit before language changes. Specify
 interactions and generated obligations before implementation. A general proof
 engine, catalogue framework, or additional output API is not a prerequisite.
 
@@ -72,6 +75,71 @@ The source bridge checks both recognizers and the selected output library.
 Source-certificate replay remains a development cost to measure as these grow.
 Preserve caching and independent module scheduling; improve representation when
 measurements justify it without weakening source correspondence or kernel checks.
+
+## Next task: Hello World with a command-line message
+
+Recorded on 2026-10-08 and **authorized for implementation on 2026-10-09**.
+Complete the preceding review-repair baseline first. The two milestones are
+authorized work, not yet supported language; their sample files and final API
+will be admitted only with complete assurance and validation.
+
+1. Add a named `constant String` initialized from a string literal, then passed
+   to `Silver_IO.Put_Line`. Establish declaration, initialization, name lookup
+   and identifier-expression rules and their permitted compositions.
+2. Allow initialization through a narrow verified command-line wrapper, with
+   the proposed spelling `Silver_Arguments.First_Or_Default`. A missing argument
+   uses the supplied default; an explicitly empty argument remains empty. Start
+   with printable ASCII and an explicit length bound compatible with output.
+   Oversized input, unsupported bytes and extra arguments have defined
+   unsuccessful outcomes, without truncation. Finalize the API, exact bound and
+   failure details during authorized implementation.
+
+The motivating proposed declaration is:
+
+```ada
+Message : constant String :=
+  Silver_Arguments.First_Or_Default ("Hello, world!");
+```
+
+The focused Linux experiment selected a pure initializer and an explicit
+validity guard. SPARK rejects a side-effecting function in this declaration;
+therefore the proposed complete body for the argument form is:
+
+```ada
+if Silver_Arguments.Input_Is_Valid then
+   Silver_IO.Put_Line (Message);
+else
+   Silver_Arguments.Reject;
+end if;
+```
+
+The pure initializer returns an internal empty value for invalid input; the
+required false branch never prints it and sets process status 1. Both checks use
+the same immutable argument vector. This admits one fixed guard composition,
+not arbitrary conditionals or general command-line access. No oversized sentinel
+or abrupt process-exit import is needed. The initial literal-constant increment
+still uses a sole unguarded output call. These experiment results do not yet
+admit either new production.
+
+Runtime initialization fixes the object's
+length from its initial value. This task does not introduce reassignment: Ada
+string objects do not resize, so arbitrary assignment to an existing string
+requires a separate length-safety rule. Concatenation, mutable strings, general
+arrays, access types and general command-line package access remain outside the
+task. A later increment could add bounded concatenation for a personalized
+greeting, or statically compatible assignments.
+
+Begin with a focused GNATprove obligation experiment. Reuse the
+existing trusted GNAT argument bindings beneath a verified SPARK wrapper whose
+calls impose no application-author preconditions. Extend actual-source Lean
+correspondence, semantics and composition assurance for the resulting language.
+The application-report checker currently expects empty obligation lists; extend
+it if the new forms generate checks, preserving complete coverage and discharge.
+Update the specification, catalogue and manifest only as each capability becomes
+supported. Extend sample cases with arguments and expected success/failure
+outcomes; initially invoke the compiled executable directly. Argument forwarding
+through `silver run` is a separate convenience, not a prerequisite. No Oracle
+amendment is proposed.
 
 ## Deferred until needed
 

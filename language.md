@@ -117,14 +117,16 @@ the initial state unchanged. Runtime startup and external execution conditions
 remain within the documented [trusted boundary](docs/trusted-boundary.md).
 
 The output program requests its decoded literal bytes followed by exactly LF
-(byte 10) on standard output. Normal return requires every byte write and the
+(byte 10) on standard output. Successful completion requires every byte write and the
 final `fflush(NULL)` to succeed. Completion means the host stream accepted the
 output; it does not guarantee consumption by a reader or durable storage.
 With healthy, progressing output and normal process startup, the program prints
 those bytes and exits successfully. Empty literals produce just LF.
 
-A detected failed write or flush terminates the application with status 1.
-Partial output may remain. An operating-system signal such as SIGPIPE may
+A detected failed write or flush sets process status 1 and returns from
+`Put_Line`; the sole-call `Main` then returns with that unsuccessful status.
+Wrapper return by itself does not mean successful output. Partial output may
+remain, including bytes flushed by runtime finalization. An operating-system signal such as SIGPIPE may
 terminate it unsuccessfully before an imported call returns. External blocking,
 storage exhaustion and process failure remain environmental conditions; progress
 is an explicit assumption, not an unconditional termination claim. Standard
@@ -136,7 +138,7 @@ Both productions have empty **application-unit** obligation sets: the literal
 call has no caller precondition, constrained argument or dynamic expression.
 The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
-bounds and the successful-return contract are verified. The language-wide
+bounds and the conditional success contract are verified. The language-wide
 argument covers all permitted literals, lexical variants and both compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source

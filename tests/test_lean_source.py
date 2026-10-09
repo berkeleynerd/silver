@@ -2,6 +2,9 @@
 
 import importlib.util
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +60,27 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         self.assertEqual(GENERATOR.lex_candidate('-- %--%'), [])
         self.assertEqual(GENERATOR.lex_candidate('"%--%"'), ['"%--%"'])
         self.assertEqual(GENERATOR.lex_candidate("'%'"), ["'%'"])
+
+    def test_checked_in_certificates_equal_regeneration(self):
+        modules = (
+            "ProfileSpecCertificate", "ProfileBodyCertificate",
+            "OutputSpecCertificate", "OutputBodyCertificate",
+            "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
+        )
+        with tempfile.TemporaryDirectory(prefix="silver-certificate-parity-") as temporary:
+            workspace = Path(temporary)
+            (workspace / "src").symlink_to(ROOT / "src", target_is_directory=True)
+            for source, module in zip(EMBEDDED, modules, strict=True):
+                with self.subTest(source=source):
+                    candidate = workspace / "proof" / "Silver" / f"{module}.lean"
+                    subprocess.run(
+                        [sys.executable, str(ROOT / "proof/generate_source_certificate.py"),
+                         "--source", source, "--output", str(candidate)],
+                        check=True, capture_output=True, text=True,
+                    )
+                    checked_in = ROOT / "proof" / "Silver" / f"{module}.lean"
+                    self.assertTrue(candidate.read_bytes() == checked_in.read_bytes(),
+                                    f"{module} differs from regenerated source certificate")
 
     def test_current_compiler_sources_satisfy_byte_policy(self):
         for filename in EMBEDDED:

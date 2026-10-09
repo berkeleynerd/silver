@@ -33,7 +33,7 @@ class OutputIntegrityTests(unittest.TestCase):
         cls.sandbox = (Path(cls.temporary.name) / "installation ' with spaces").resolve()
         cls.sandbox.mkdir()
         cls.host = HostLayout(cls.sandbox, HOST.key)
-        (cls.sandbox / "src").symlink_to(ROOT / "src", target_is_directory=True)
+        shutil.copytree(ROOT / "src", cls.sandbox / "src")
         for filename in ("silver.gpr", "alire.toml"):
             shutil.copyfile(ROOT / filename, cls.sandbox / filename)
         prepare_context(cls.host)
@@ -88,6 +88,16 @@ class OutputIntegrityTests(unittest.TestCase):
                 for name in ("main.spark", "silver_io.spark", "silver_output_libc.spark"):
                     if name != scenario.get("missing"):
                         shutil.copyfile(root / "reports" / name, target / name)
+                if scenario.get("rejected"):
+                    changed = target / scenario["rejected"]
+                    evidence = json.loads(changed.read_text())
+                    if scenario["fault"] == "unproved":
+                        evidence["proof"][0]["severity"] = "high"
+                    elif scenario["fault"] == "empty_proof":
+                        evidence["proof"] = []
+                    else:
+                        evidence["spark"][" 2"] = "all"
+                    changed.write_text(json.dumps(evidence))
                 if scenario.get("phase") == "proof":
                     changed = workspace / scenario["library"]
                     changed.write_bytes(changed.read_bytes() + b"\\n-- changed during proof\\n")
@@ -107,7 +117,7 @@ class OutputIntegrityTests(unittest.TestCase):
             '''))
         alr.chmod(0o755)
 
-    def run_scenario(self, scenario: dict, command: str = "run") -> tuple[subprocess.CompletedProcess[str], Path]:
+    def invoke_scenario(self, scenario: dict, command: str = "run") -> subprocess.CompletedProcess[str]:
         (self.sandbox / "scenario.json").write_text(json.dumps(scenario))
         for name in ("workspace", "proof_invoked", "build_invoked", "run_invoked"):
             (self.sandbox / name).unlink(missing_ok=True)
@@ -117,8 +127,11 @@ class OutputIntegrityTests(unittest.TestCase):
         caller.mkdir(exist_ok=True)
         for name in LIBRARIES:
             (caller / name).write_text("caller-owned source must not be selected")
-        result = subprocess.run([str(self.silver), command, str(self.source)], cwd=caller,
-                                env=os.environ.copy(), capture_output=True, text=True, timeout=30)
+        return subprocess.run([str(self.silver), command, str(self.source)], cwd=caller,
+                              env=os.environ.copy(), capture_output=True, text=True, timeout=30)
+
+    def run_scenario(self, scenario: dict, command: str = "run") -> tuple[subprocess.CompletedProcess[str], Path]:
+        result = self.invoke_scenario(scenario, command)
         output = result.stdout + result.stderr
         marker = self.sandbox / "workspace"
         self.assertTrue(marker.is_file(), output)
@@ -163,6 +176,47 @@ class OutputIntegrityTests(unittest.TestCase):
         for name in ("silver_io.spark", "silver_output_libc.spark"):
             with self.subTest(report=name):
                 self.assert_rejected({"missing": name}, False, "runtime library evidence")
+
+    def test_present_but_rejected_runtime_report_stops_before_build(self) -> None:
+        for name, fault in (("silver_io.spark", "unproved"),
+                            ("silver_io.spark", "empty_proof"),
+                            ("silver_output_libc.spark", "wrong_import_coverage")):
+            with self.subTest(report=name, fault=fault):
+                workspace = self.assert_rejected({"rejected": name, "fault": fault}, False,
+                                                 "runtime library evidence")
+                self.assertTrue((workspace / "obj/gnatprove" / name).is_file())
+
+    def test_divergent_installed_source_stops_before_proof(self) -> None:
+        for name, original in self.originals.items():
+            with self.subTest(library=name):
+                selected = self.sandbox / "src" / name
+                selected.write_bytes(original + b"\n-- divergent live installation\n")
+                try:
+                    result = self.invoke_scenario({})
+                    output = result.stdout + result.stderr
+                    self.assertEqual(result.returncode, 3, output)
+                    self.assertIn("cannot create identical runtime library snapshots", output)
+                    self.assertNotIn("Executable:", output)
+                    for marker in ("proof_invoked", "build_invoked", "run_invoked"):
+                        self.assertFalse((self.sandbox / marker).exists(), output)
+                    self.assertEqual((ROOT / "src" / name).read_bytes(), original)
+                    self.assertEqual(self.source.read_bytes(), SOURCE)
+                finally:
+                    selected.write_bytes(original)
+
+    def test_artifact_symlink_does_not_redirect_runtime_source_selection(self) -> None:
+        alias = self.sandbox / ".silver"
+        physical = Path(self.temporary.name) / "external artifact store"
+        alias.rename(physical)
+        alias.symlink_to(physical, target_is_directory=True)
+        try:
+            result, workspace = self.run_scenario({})
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            for name, original in self.originals.items():
+                self.assertEqual((workspace / name).read_bytes(), original)
+        finally:
+            alias.unlink()
+            physical.rename(alias)
 
     def test_every_library_snapshot_change_during_proof_stops_before_build(self) -> None:
         for name in LIBRARIES:

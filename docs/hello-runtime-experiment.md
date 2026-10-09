@@ -1,5 +1,10 @@
 # Hello World runtime experiment
 
+Historical experiment for `3fdda42`: the later [review repairs](hello-review-repairs.md)
+replace libc exit with a returning status setter. Read the current
+[trusted boundary](trusted-boundary.md#literal-output-boundary) for the supported
+implementation; the original measurements below remain history.
+
 ## Scope and selected implementation
 
 On 2026-10-08 the isolated experiment in

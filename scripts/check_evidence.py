@@ -17,8 +17,10 @@ import sys
 
 if __package__:
     from .platforms import native_layout
+    from .bootstrap import runtime_source_configuration
 else:
     from platforms import native_layout
+    from bootstrap import runtime_source_configuration
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -32,8 +34,8 @@ TRUSTED_IMPORT_SPECS = {
     # ada__command_line__argument_count, ada__command_line__argument,
     # __gnat_set_exit_status (original GNAT runtime symbols)
     "silver_runtime.ads": "1f068e3ef313bdcdc7ada3b2ca7f3d1688db337d6645c9d931baec7a245df32b",
-    # putchar, fflush, exit (direct existing-libc output/failure interface)
-    "silver_output_libc.ads": "02bfcd99bc16a0fb144a81163ccc502a0163669a36e656c920486fd43c06395c",
+    # putchar, fflush and __gnat_set_exit_status (existing output/status interface)
+    "silver_output_libc.ads": "ca1aaff15cdf9a2c780f92f6cace9dd49903896b37ddfb01d65833c8333fdb13",
 }
 TRUSTED_IMPORT_ENTITIES = {
     "silver_libc": {f"Silver_Libc.{name}" for name in
@@ -41,7 +43,7 @@ TRUSTED_IMPORT_ENTITIES = {
     "silver_runtime": {f"Silver_Runtime.{name}" for name in
                        ("Argument_Count", "Argument", "Set_Exit_Status")},
     "silver_output_libc": {f"Silver_Output_Libc.{name}" for name in
-                           ("Put_Byte", "Flush", "Fail")},
+                           ("Put_Byte", "Flush", "Set_Exit_Status")},
 }
 
 # These documented proof limitations withhold information from the prover;
@@ -308,6 +310,10 @@ def audit_sources(source_dir: Path, report_dir: Path,
     if generated_dir is not None:
         require((generated_dir / "silver_build.ads").is_file(),
                 f"missing platform configuration: {generated_dir / 'silver_build.ads'}")
+        binding = generated_dir / "silver_library_sources.ads"
+        require(binding.is_file(), f"missing runtime source binding: {binding}")
+        require(binding.read_bytes() == runtime_source_configuration(source_dir),
+                "embedded runtime source bytes differ from current source; bootstrap and rebuild")
         sources.extend(sorted(path for path in generated_dir.rglob("*")
                               if path.suffix in (".ads", ".adb")))
     for source in sources:

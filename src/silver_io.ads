@@ -9,17 +9,19 @@ package Silver_IO with SPARK_Mode => On is
      with Ghost => Static;
    Written_Count : Natural range 0 .. Max_Length + 1 := 0 with Ghost => Static;
    Flushed : Boolean := False with Ghost => Static;
-   --  Normal return means that every input byte and LF were accepted by
-   --  putchar, and fflush(NULL) completed successfully. Any detected failure
-   --  exits with status 1; there is no successful partial return.
+   Succeeded : Boolean := False with Ghost => Static;
+   --  Succeeded records acceptance of every input byte and LF followed by a
+   --  successful fflush(NULL). On detected failure, set process exit status 1
+   --  and return normally with Succeeded False. The admitted Main then returns
+   --  with that status. Success leaves the startup success status unchanged.
    --  Environmental blocking is modeled by Always_Terminates => False.
    procedure Put_Line (Item : String)
      with Global => (In_Out => Ada.Text_IO.File_System,
-                     Output => (Written_Bytes, Written_Count, Flushed)),
+                     Output => (Written_Bytes, Written_Count, Flushed, Succeeded)),
           Always_Terminates => False,
-          Post => (Static => Item'Length <= Max_Length
-            and then Written_Count = Item'Length + 1
-            and then Written_Bytes (1 .. Item'Length) = Item
-            and then Written_Bytes (Written_Count) = Character'Val (10)
-            and then Flushed);
+          Post => (Static => Succeeded = Flushed
+            and then (if Succeeded then Item'Length <= Max_Length
+              and then Written_Count = Item'Length + 1
+              and then Written_Bytes (1 .. Item'Length) = Item
+              and then Written_Bytes (Written_Count) = Character'Val (10)));
 end Silver_IO;

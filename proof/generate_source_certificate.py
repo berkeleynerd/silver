@@ -2,9 +2,10 @@
 """Generate candidate source-token certificates; Lean checks every candidate.
 
 This script is a proof-artifact generator, not compiler implementation or a
-trusted lexer. SourceCertificates.lean proves each candidate token list equals
-the Lean lexer result and proves reconstruction equals the actual include_str
-source. Incorrect generation therefore fails kernel checking.
+trusted lexer. Each generated per-source module proves its candidate token list
+equals the Lean lexer result and reconstruction equals the authoritative
+include_str source. The handwritten SourceCertificates.lean facade imports
+those seven modules. Incorrect generation therefore fails kernel checking.
 """
 
 import argparse
@@ -170,7 +171,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path,
                         help="candidate module in an isolated proof workspace")
-    parser.add_argument("--source", choices=[entry[0] for entry in SOURCE_BINDINGS],
+    parser.add_argument("--source", required=True, choices=[entry[0] for entry in SOURCE_BINDINGS],
                         help="emit one independently checked source certificate module")
     arguments = parser.parse_args()
     proof = Path(__file__).resolve().parent

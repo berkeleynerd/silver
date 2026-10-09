@@ -59,3 +59,18 @@ run_cmd do
 #print axioms Silver.Current.pipeline_preserves
 #print axioms Silver.Current.pipeline_realizes
 #print axioms Silver.Output.SourceBridge.checked_current_pipeline
+
+#print axioms Silver.Output.literalAt_unique
+#print axioms Silver.Output.parsed_unique
+#print axioms Silver.Output.Expressions.model_interpreted
+#print axioms Silver.Output.Runtime.ghost_blocks_no_effect_calls
+#print axioms Silver.Output.Runtime.program_refines
+#print axioms Silver.Output.Runtime.successful_output
+#print axioms Silver.Output.Runtime.failed_output
+#print axioms Silver.Output.SourceBridge.actual_runtime_declarations
+#print axioms Silver.Current.accepts_iff_member
+#print axioms Silver.Current.member_disjoint
+#print axioms Silver.Current.meaning_unique
+#print axioms Silver.Current.literal_domain
+#print axioms Silver.Current.healthy_execution
+#print axioms Silver.Current.model_tool_contract

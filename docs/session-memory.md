@@ -1,5 +1,88 @@
 # Session memory
 
+## 2026-10-09 — Named strings and command-line message authorized
+
+The owner now explicitly requested a goal to implement the previously queued
+features and drive to completion. This supersedes the earlier wait-for-go-ahead
+restriction. Finish and locally commit the review repairs first, then admit:
+(1) a named `constant String` initialized from a literal and printed through its
+identifier; (2) initialization through a narrow verified command-line interface,
+with missing-argument default, preserved empty input, bounded printable ASCII,
+and specified unsuccessful outcomes for oversized/unsupported/extra arguments.
+Finalize the provisional API and failure propagation from a focused obligation
+experiment; do not silently return a successful fallback for invalid input.
+
+Preserve the existing null and literal-output samples. Extend actual-source
+SPARK/Lean correspondence, complete report handling, language/catalogue,
+manifest-driven samples and docs with each supported increment. End with full
+Linux validation, independent review and local commits. macOS remains secondary;
+no Oracle amendment, remote publication, concatenation, reassignment, general
+array/access surface or versioned-profile infrastructure is authorized by this
+scope. The roadmap records the active milestones. The preceding repair goal
+must be completed before registering the succeeding implementation goal.
+
+The review-repair baseline is complete: final compiler audit/build, full suite,
+final binding regressions, Lean replay/axiom audit and fresh independent kernel
+check passed on Linux. Stable evidence copies and qualifications are recorded in
+[hello-review-repairs.md](hello-review-repairs.md). Continue into the authorized
+feature increments after the local baseline commit; macOS remains independent.
+
+## 2026-10-09 — Review repairs authorized; language expansion remains queued
+
+The owner requested resolving the `3fdda42` review issues as an active goal,
+with autonomous progress through validation and local commits. This authorizes
+repairs to the current output capability, not the named-string/command-line
+proposal below. No Oracle amendment or remote publication is authorized.
+
+The repair replaces the libc exit/divergence mismatch with ordinary status
+assignment and return through the single-call `Main`, preserving specified
+application output/status outcomes. It binds installed library bytes to expected
+compiler inputs, restricts Lean ghost erasure, strengthens source identity
+observations and fixes path bounds. Current claims distinguish modeled empty
+obligation lists from the reviewed Ada correspondence and genuine tool evidence.
+See [hello-review-repairs.md](hello-review-repairs.md) for scope, evidence and
+remaining limits. Proof/source pin changes require semantic review together.
+
+Retained native macOS review evidence validates `3fdda42`, with qualifications
+recorded in [hello-world.md](hello-world.md); it does not validate these repairs.
+The actual repair environment is Linux ARM64. Preserve other-host artifacts and
+unrelated `tmp/` material. Continue to use caching and proportionate parallelism,
+without automatic proof retries or suppressed obligations.
+
+The already requested macOS runner and queued roadmap documentation are part
+of the local commit handoff. Their earlier uncommitted status below is history.
+The older planning-only and null-only notes describe their dated stages, not
+current support or the authority for this repair goal.
+
+## 2026-10-08 — Next language task recorded; awaiting go-ahead
+
+The owner selected **Hello World with a command-line message** as the next task
+and explicitly requested waiting for a go-ahead while a fresh review is coming.
+The proposed scope is recorded in the
+[roadmap](../roadmap.md#next-task-hello-world-with-a-command-line-message): first
+a named string constant initialized from a literal and printed by identifier,
+then initialization through a narrow verified command-line wrapper with defined
+default, empty-input, bound and failure behavior. Reassignment and concatenation
+remain later increments. The proposal requires no Oracle amendment.
+
+Only planning documentation is authorized now. Do not start implementation,
+proof experiments, new sample files or language/catalogue changes until the
+owner's go-ahead. Independently assess the forthcoming review when it arrives;
+its recommendations alone do not authorize the proposed language expansion.
+The earlier Hello World implementation goal is complete; this is a queued task.
+The macOS runner and its documentation remain uncommitted, as previously reported.
+
+## 2026-10-08 — macOS application runner
+
+The owner requested an easy macOS prove/build/run script.
+[scripts/run_macos.py](../scripts/run_macos.py) bootstraps native tools, builds
+Silver, and delegates application/library proof, report checks, build and
+execution to `silver run`. It defaults to Hello World and accepts caller-relative
+source paths. Compiler-wide GNATprove and Lean audits remain separate. Host
+selection uses the existing native paths; this is development orchestration,
+with no language or Oracle change. Validation here uses Linux smoke checks and
+simulated macOS tools, not a native macOS execution claim.
+
 ## 2026-10-08 — Hello World goal authorized
 
 The owner approved the proposed implementation goal and autonomous progress
@@ -118,7 +201,8 @@ independent kernel check was not repeated for this follow-up. See the workflow
 record for the retained failure, subsequent successful diagnostics and final
 current-input evidence. This work does not start a roadmap language capability.
 
-No language expansion is authorized by this workflow task:
+**Historical scope of that workflow task (superseded by the Hello World
+authorization and completed capability above):**
 
 - The admitted language remains null-only. `silver-null-0` is the existing
   compiler/catalogue label, not an ongoing version-management requirement.

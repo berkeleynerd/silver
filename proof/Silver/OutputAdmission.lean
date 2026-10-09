@@ -98,6 +98,27 @@ theorem literalAt_sound (text : Source) (position : Nat)
 termination_by text.length + 1 - position
 decreasing_by all_goals omega
 
+theorem literalAt_unique {text left right : Source} {position leftEnd rightEnd : Nat}
+    (first : LiteralAt text position left leftEnd)
+    (second : LiteralAt text position right rightEnd) : left = right ∧ leftEnd = rightEnd := by
+  induction first generalizing right rightEnd with
+  | close bound quote ending =>
+      cases second <;> simp_all
+  | quote bound quote next previous ih =>
+      cases second with
+      | close bound quote ending => exact False.elim (ending ⟨by assumption, by assumption⟩)
+      | quote bound quote next other =>
+          obtain ⟨rfl, rfl⟩ := ih other
+          exact ⟨rfl, rfl⟩
+      | character bound different character other => contradiction
+  | character bound different character previous ih =>
+      cases second with
+      | close bound quote ending => contradiction
+      | quote bound quote next other => contradiction
+      | character bound different character other =>
+          obtain ⟨rfl, rfl⟩ := ih other
+          exact ⟨rfl, rfl⟩
+
 theorem literalAt_bounds {text value : Source} {position finish : Nat}
     (h : LiteralAt text position value finish) :
     position + value.length < finish ∧ finish ≤ text.length + 1 ∧
@@ -145,6 +166,22 @@ inductive Parsed (text : Source) : List Token → Nat → List Source → Prop
       LiteralAt text (Cursor.triviaPosition text position + 1) value finish →
       Parsed text tokens finish values →
       Parsed text (.stringLiteral :: tokens) position (value :: values)
+
+theorem parsed_unique {text : Source} {tokens : List Token} {position : Nat}
+    {left right : List Source} (first : Parsed text tokens position left)
+    (second : Parsed text tokens position right) : left = right := by
+  induction first generalizing right with
+  | done ending => cases second; rfl
+  | token different matched previous ih =>
+      cases second with
+      | token _ _ other => exact ih other
+      | literal => contradiction
+  | literal bound opening value previous ih =>
+      cases second with
+      | token different => contradiction
+      | literal bound opening otherLiteral other =>
+          obtain ⟨rfl, rfl⟩ := literalAt_unique value otherLiteral
+          exact congrArg (List.cons _) (ih other)
 
 theorem parsed_complete {text : Source} {tokens : List Token} {position : Nat}
     {values : List Source} (h : Parsed text tokens position values) :

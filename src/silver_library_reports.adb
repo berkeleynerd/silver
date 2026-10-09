@@ -184,7 +184,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Empty_Array;
 
    type Entity_Kind is (Unknown, IO_Package, Put_Line, Libc_Package,
-                       Put_Byte, Flush, Fail);
+                       Put_Byte, Flush, Set_Exit_Status);
    function Location_OK (Text : String; Entity : Span; Name : Entity_Kind)
      return Boolean
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
@@ -222,7 +222,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       elsif String_Equal (Text, Name, "Silver_Output_Libc") then Result := Libc_Package;
       elsif String_Equal (Text, Name, "Silver_Output_Libc.Put_Byte") then Result := Put_Byte;
       elsif String_Equal (Text, Name, "Silver_Output_Libc.Flush") then Result := Flush;
-      elsif String_Equal (Text, Name, "Silver_Output_Libc.Fail") then Result := Fail;
+      elsif String_Equal (Text, Name, "Silver_Output_Libc.Set_Exit_Status") then Result := Set_Exit_Status;
       end if;
       if not Location_OK (Text, Entity, Result) then return Unknown; end if;
       return Result;
@@ -429,11 +429,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Kind = Library_Body then
          return Seen (IO_Package) and then Seen (Put_Line)
            and then not Seen (Libc_Package) and then Seen (Put_Byte)
-           and then Seen (Flush) and then Seen (Fail);
+           and then Seen (Flush) and then Seen (Set_Exit_Status);
       end if;
       return not Seen (IO_Package) and then not Seen (Put_Line)
         and then Seen (Libc_Package) and then Seen (Put_Byte)
-        and then Seen (Flush) and then Seen (Fail);
+        and then Seen (Flush) and then Seen (Set_Exit_Status);
    end Entities_OK;
 
    function Coverage_OK
@@ -476,7 +476,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
             then return False; end if;
          elsif Name = Libc_Package then
             if not String_Equal (Text, (P, Last), "all") then return False; end if;
-         elsif Name in Put_Byte | Flush | Fail then
+         elsif Name in Put_Byte | Flush | Set_Exit_Status then
             if not String_Equal (Text, (P, Last), "spec") then return False; end if;
          else return False;
          end if;
@@ -492,7 +492,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          return Seen (IO_Package) and then Seen (Put_Line);
       end if;
       return Seen (Libc_Package) and then Seen (Put_Byte)
-        and then Seen (Flush) and then Seen (Fail);
+        and then Seen (Flush) and then Seen (Set_Exit_Status);
    end Coverage_OK;
 
    function Audit_Report (Report : String; Kind : Report_Kind) return Boolean is

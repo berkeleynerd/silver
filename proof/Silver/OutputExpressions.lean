@@ -235,4 +235,48 @@ theorem interpreted_equations (calls : Calls) (primitives : PrimitiveCalls)
     simp [Silver.Expressions.memberBody, Silver.Expressions.Condition.evalWith,
       Silver.Expressions.Number.evalWith, memberCalls, length]
 
+/-- Concrete inhabitation witness; actual-source interpretation still requires
+reviewed frontend semantics and verified machine bounds. -/
+def modelCalls : Calls where
+  literal := literalEnd
+  suffix := suffixAtIndex
+  member := accepts
+
+def modelPrimitives : PrimitiveCalls where
+  comment := Cursor.commentPosition
+  trivia := Cursor.triviaPosition
+  token := tokenAt
+  normalize := id
+  allowed := fun text => text.all allowedCharacter
+
+theorem model_interpreted : InterpretedSource modelCalls modelPrimitives where
+  primitive := {
+    comment := by
+      intro text _ _ position first last
+      exact (Silver.Expressions.commentBody_denotation {text, position} first last).symm
+    trivia := by
+      intro text _ _ position first last
+      exact (Silver.Expressions.triviaBody_denotation {text, position} first last).symm
+    token := by
+      intro text _ _ position token _ last
+      exact (token_expression_denotation text position token last).symm
+    normalize := by intros; rfl
+    allowed := by intros; rfl }
+  literal := by
+    intro text _ _ position _ _
+    rw [literal_denotation]
+    change literalEnd text position = literalEquation (literalEnd text) text position
+    rw [literalEnd]
+    rfl
+  suffix := by
+    intro text _ _ position nextToken _ _ first _
+    rw [suffix_denotation]
+    exact suffixAtIndex_equation text position nextToken first
+  member := by
+    intro text
+    have positive : (1 : Int) ≤ text.length ↔ 0 < text.length := by omega
+    simp [modelCalls, accepts, Silver.Expressions.memberBody,
+      Silver.Expressions.Condition.evalWith, Silver.Expressions.Number.evalWith,
+      memberCalls, modelPrimitives, suffixAtIndex, positive]
+
 end Silver.Output.Expressions

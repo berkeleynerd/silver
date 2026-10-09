@@ -20,8 +20,8 @@ def entity(name: str) -> dict:
 
 def report(interface: bool = False) -> dict:
     names = (["Silver_Output_Libc", "Silver_Output_Libc.Put_Byte",
-              "Silver_Output_Libc.Flush", "Silver_Output_Libc.Fail"] if interface else
-             ["Silver_IO.Put_Line", "Silver_IO", "Silver_Output_Libc.Fail",
+              "Silver_Output_Libc.Flush", "Silver_Output_Libc.Set_Exit_Status"] if interface else
+             ["Silver_IO.Put_Line", "Silver_IO", "Silver_Output_Libc.Set_Exit_Status",
               "Silver_Output_Libc.Flush", "Silver_Output_Libc.Put_Byte"])
     return {"entities": {f" {i}": entity(name) for i, name in enumerate(names, 1)},
             "spark": ({" 1": "all", " 2": "spec", " 3": "spec", " 4": "spec"}

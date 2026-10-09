@@ -23,7 +23,7 @@ that a configured pathname selects the intended executable.
 | Python setup and generated `Silver_Build` | Correct installation anchoring, byte encoding, shell quoting, and external command prefix | Generated declarations are included in SPARK verification and evidence hashes. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |
 | Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound provenance detect stale/mismatched evidence. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |
 | Lean 4.34.1 kernel and source embedding | Kernel checking, imported source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, actual import/axiom audit, and fresh `leanchecker` checking. No project-specific axioms or unfinished proofs are permitted. |
-| Restricted Ada-to-Lean semantic interpretation | Frontend meaning of the fixed fragment: predefined operators, indexing, evaluation and machine bounds | Whole-source byte/token/declaration checks constrain the input; GNATprove supplies executable refinement. This is not a verified general Ada parser or complete compiler-semantics theorem. |
+| Restricted Ada-to-Lean semantic interpretation | Frontend meaning of the fixed fragment: predefined operators, indexing, evaluation, statement sequencing, branches, loops, returns and machine bounds | Whole-source byte/token/declaration checks constrain the input; GNATprove supplies executable refinement. This is not a verified general Ada parser or complete compiler-semantics theorem. |
 
 ## Compiler implementation and runtime imports
 
@@ -99,50 +99,58 @@ ordinary diagnostic path.
 
 The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
 `String` parameter has no precondition. An executable length guard handles
-arguments exceeding 4096; the admitted literal domain always fits. GNATprove
-verifies initialization, arbitrary String lower bounds, byte-loop bounds and
-successful-return postconditions. Static ghost observations record bytes only
-after successful imported writes and record a successful flush. These
-observations and assertions are erased by GNAT, while their obligations remain.
+arguments exceeding 4096; every admitted literal fits. GNATprove verifies
+initialization, arbitrary String lower bounds, byte-loop bounds and a
+conditional success postcondition. Static observations record accepted bytes,
+flush success and whether the entire requested effect succeeded. GNAT erases
+this state and its assertions while GNATprove verifies all their obligations.
 
-| Binding in `silver_output_libc.ads` | Existing libc symbol | Relied-upon behavior |
+| Binding in `silver_output_libc.ads` | Existing symbol | Relied-upon behavior |
 | --- | --- | --- |
-| `Put_Byte` | `putchar` | Writes the supplied unsigned byte to C stdout and returns that byte on success; EOF reports failure. |
-| `Flush` | `fflush` | A null pointer flushes open C output streams; zero reports success. |
-| `Fail` | `exit` | Terminates the process with the supplied nonzero status; never returns. |
+| `Put_Byte` | libc `putchar` | Writes the supplied unsigned byte to C stdout and returns that byte on success; EOF reports failure. |
+| `Flush` | libc `fflush` | A null pointer flushes open C output streams; zero reports success. |
+| `Set_Exit_Status` | GNAT `__gnat_set_exit_status` | Stores the process status used when `Main` returns; returns normally without flushing or terminating the process. |
 
-These C-convention imports use the same conservative, initialized
-`Ada.Text_IO.File_System` abstract state as other compiler I/O bindings.
-`System.Null_Address` denotes the C null pointer on the supported GNAT ABI.
-There are no new C implementations or SPARK-off wrappers. The interface's exact
-reviewed token shape is pinned by the evidence audit and checked in Lean.
+These C-convention imports use the conservative, initialized
+`Ada.Text_IO.File_System` abstract state, conservatively grouping status
+effects with output state for this single-call API. The compiler driver
+separately models its own status through `Silver_Runtime.Exit_State`. `System.Null_Address` denotes the C null pointer on the
+supported GNAT ABI. There are no new C implementations or SPARK-off wrappers.
+The reviewed interface token shape is pinned by the audit and checked in Lean.
 
-For each literal byte the wrapper checks that `putchar` returned that byte.
-It then checks LF and `fflush(NULL)`. Normal return means all those operations
-reported success. A detected mismatch exits with status 1; accepted output can
-be partial on failure. Flush completion means host-stream acceptance, not
-reader consumption or durable storage. `fflush(NULL)` can flush other streams,
-but admitted programs create no others.
+Each byte write, LF write and `fflush(NULL)` result is checked. Success means
+all reported success; completion means host-stream acceptance, not reader
+consumption or durable storage. On any detected failure the wrapper calls the
+ordinary status setter with 1 and returns immediately. It makes no further
+output request. The admitted `Main` then returns without resetting that status.
+Success leaves GNAT's initial success status unchanged. Standard GNAT startup,
+finalization and status propagation are external assumptions; finalization may
+flush buffered output. Partial output is possible, and the accepted-byte trace
+need not equal physically visible output.
 
-Physical effects rely on faithful libc statuses, initialized standard output,
-and no concurrent writers, rebinding or mutation of the stream. Successful
-execution additionally needs available output capacity and progress of external
-calls. Imports and wrapper explicitly use `Always_Terminates => False`; no proof
-claims that a blocked device must progress. `exit` itself may block while
-flushing. SIGPIPE or another environmental process failure may terminate the
-program before a call returns, so not every output failure has status exactly 1.
-Resource exhaustion, tool/runtime defects and external interruption remain
-outside the verified source behavior. Healthy output yields the decoded literal
-followed by LF and successful return; unsuccessful output never becomes a
-successful partial return in the checked wrapper semantics.
+This replaces the earlier libc `exit` import, whose absent `Program_Exit`
+contract incorrectly described process exit as noncompletion. The new import
+performs a terminating status assignment (`Always_Terminates => True`). No
+abrupt program exit is modeled or hidden, and application authors need no
+program-exit annotation. Wrapper return alone does not imply output success.
+This is sufficient for the current single-call `Main`; any future composition
+with following statements must revisit failure propagation explicitly.
 
-The Lean effect model represents completed replies from these external calls.
-Its transcript is accepted writes, not a proof of physical delivery. Its
-healthy-environment theorem proves success for every admitted literal, and its
-failure theorem gives status 1 and an accepted prefix under the completed-reply
-model. Signal and blocking behavior belong to the environmental boundary above.
-See [the experiment](hello-runtime-experiment.md) and
-[the assurance argument](assurance.md) for evidence and correspondence scope.
+Physical effects rely on faithful statuses, initialized standard output, no
+concurrent writers or stream rebinding, and ordinary GNAT finalization. Healthy
+execution requires output capacity and external progress. The blocking `putchar`/`fflush` imports
+and wrapper use `Always_Terminates => False`; a blocked device need not progress.
+SIGPIPE or another environmental failure may terminate the process before a
+call returns, so only detected failures have the specified status 1. Storage
+exhaustion and external interruption remain outside verified source behavior.
+
+The Lean model interprets completed external replies, ordered wrapper actions,
+and ordinary `Main` completion. Its success theorem gives literal bytes plus LF;
+its failure theorem gives status 1 and an accepted prefix. Physical delivery,
+blocking and signals retain the premises above. See the current
+[repair record](hello-review-repairs.md), historical
+[runtime experiment](hello-runtime-experiment.md) and
+[assurance argument](assurance.md).
 
 ## Audit of the boundary
 
@@ -240,8 +248,13 @@ Regression tests exercise these failures using the actual SPARK executable.
 The catalogue names both productions and their admitted constructs and operation.
 Both application-unit obligation sets are empty. Output selects the verified
 `Silver_IO` specification/body and `Silver_Output_Libc` interface. Their source
-bytes are copied from the installation into the private workspace and compared
-after capture, proof and build. The generated project explicitly selects only
+bytes are read from the explicitly configured checkout source directory,
+compared with the exact expected bytes embedded in the compiler, then copied
+to its private workspace and rechecked after capture, proof and build. Bootstrap
+generates the bindings; compiler audits reject stale bindings and Lean checks
+the authoritative files. Refresh bootstrap, rebuild and both audits after edits.
+This assumes a compiler built from those audited inputs; binary attestation
+remains deferred. The generated project explicitly selects only
 `main.adb` and those three files, excluding caller-planted library replacements.
 
 `Silver_Reports.Complete_Null_Proof` checks the GNATprove 16.1 `.spark` format for
@@ -278,7 +291,8 @@ part of the external trust assumptions.
 
 For output, `Silver_Library_Reports.Complete_Runtime_Proof` additionally audits
 both library reports. It checks immediate required fields, completed analysis,
-no skips/assumptions/warnings, approved dependency predicates, exact selected
+no skipped checks, `pragma Assume` or warnings; approved dependency predicates,
+exact selected
 entity coverage and each flow/proof record. The body requires nonempty checks
 and a proved `Put_Line` postcondition; the three imported declarations require
 specification-only coverage. Its bounded scanner handles quoted/escaped strings
@@ -298,7 +312,11 @@ Application proof uses `-U --mode=all --report=all --warnings=error
 every fresh application compile; application membership remains independent of
 those results. Zero wall-clock timeout is not a guarantee against environmental
 failure. Compiler development proofs have their separately documented cached,
-wall-clock-limited configuration.
+wall-clock-limited configuration. The intermittent GNATprove JSON failure
+seen in compiler audits has not been proved impossible for application runs.
+Such a tool failure prevents publication and is reported as a defect, never as
+nonmembership or successful verification. Prover step limits do not bound
+frontend/flow work, operating-system delays or total elapsed time.
 
 The driver's proved contracts require source membership, exact source/project
 write observations, matching source reads, the accepted report predicate, and
@@ -329,7 +347,12 @@ success.
 
 The remaining interpretation premise is that approved Ada/GNAT frontend
 semantics gives this fixed fragment its modeled predefined operators, indexing,
-evaluation and machine bounds. GNATprove establishes normalization, bounds and
+evaluation and machine bounds. For the runtime it also supplies statement
+sequencing, conditional branches, element-order String iteration, early returns,
+predefined C integer comparisons, and Static ghost erasure. The runtime bridge
+allows only fixed ghost actions and loop annotations and checks their Static
+declarations plus the numeric output bound; it does not type-check arbitrary
+Ada statements. GNATprove establishes normalization, bounds and
 the executable `Accepts = Is_Member` refinement. The combined argument does not
 claim a verified arbitrary Ada parser, complete name-resolution semantics, or a
 single theorem for the entire compiler, shell and operating system. The

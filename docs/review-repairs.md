@@ -4,7 +4,9 @@ This is the historical repair record for commit `8b8619f`, following the
 independent review on 2026-10-08. That commit did not change the then-current
 Oracle or admitted Silver language. The Oracle has since been amended with the
 owner's approval; current requirements are in [oracle.md](../oracle.md), and
-current workflows and platform evidence are in [proof-workflow.md](proof-workflow.md).
+later workflow evidence is in [proof-workflow.md](proof-workflow.md), and
+current capability/repair evidence is in [hello-world.md](hello-world.md) and
+[hello-review-repairs.md](hello-review-repairs.md).
 The commands, counts and artifact hashes below describe the repair baseline,
 not the later proof workflows. Compiler implementation remains SPARK; Python is
 setup, proof orchestration, evidence auditing, and test code.

@@ -114,11 +114,12 @@ independent modules, but the generated source-certificate module dominates cold
 Lean builds. One declaration thread per process is a conservative memory setting,
 not an established optimum. Higher thread counts have not been comparatively
 benchmarked. `--threads N` and `--memory-mb N` permit machine-specific tuning;
-incremental reuse avoids rebuilding unchanged certificates. Scaling the bridge
-to effectful procedures remains work for the output capability, as recorded in
-[the roadmap](../roadmap.md).
+incremental reuse avoids rebuilding unchanged certificates. This paragraph records the pre-output baseline. The output capability later
+added a statement bridge and split certificates into seven independently
+scheduled modules; see [hello-world.md](hello-world.md) and the subsequent
+[review repairs](hello-review-repairs.md).
 
-On this run Lake reported 802 seconds for `SourceCertificates` alone. Caching
+On that historical monolithic run Lake reported 802 seconds for `SourceCertificates` alone. Caching
 improves unchanged checks; it does not remove that cost when the certificate's
 inputs change.
 

@@ -3,8 +3,10 @@
 The owner authorized this goal on 2026-10-08 under the unchanged Oracle.
 The starting implementation commit was `fa558c6`; `e8c068b` established the
 manifest-driven sample collection and moved the original null source unchanged.
-This record describes the supported output capability and its completed native
-Linux validation, independent review and local capability commit.
+This is the historical capability/evidence record for commit `3fdda42`.
+It records native Linux validation and the later independent macOS review.
+The [follow-up repairs](hello-review-repairs.md) supersede its original exit
+implementation and source-binding details; the admitted source grammar is unchanged.
 
 ## Implemented scope
 
@@ -58,7 +60,7 @@ The new library integrity suite passed all scenarios: mutation of each copied
 file during proof or build, each missing runtime report, and fixed installation
 selection despite caller-planted package sources. The checker-platform suite
 passed after the certificate split, including symlinked temporary paths and all
-seven generator routes. Canonical suite results belong below once complete.
+seven generator routes. The completed canonical suite results appear below.
 
 A development test initially observed unrelated concurrently created application
 workspaces and cleaned them up. New output/sample tests now own only the
@@ -157,12 +159,41 @@ exactly `Hello, world!` plus LF, empty stderr and status 0. Its command log and
 result are `.silver/linux-aarch64/hello-final-application.log` and
 `.silver/linux-aarch64/hello-final-application.json`.
 
-The current native evidence paths are:
+The baseline native evidence paths are Git-ignored local artifacts:
 
 - `.silver/linux-aarch64/compiler/obj/cold-rdftsh61/gnatprove/`
-- `.silver/linux-aarch64/lean-evidence.json`
-- `.silver/linux-aarch64/lean-proof.log`
+- `.silver/linux-aarch64/review-3fdda42-baseline/lean-evidence.json`
+- `.silver/linux-aarch64/review-3fdda42-baseline/lean-proof.log`
 
-Native macOS validation is independent and nonblocking. Retained macOS workflow
-results predate this capability. Neither x86-64 validation nor a hosted CI run is
-claimed. The work remains local-only; unrelated `tmp/` material is preserved.
+The latter are stable copies made before follow-up repair validation overwrote
+the ordinary live Lean files; the manifest hash above identifies the baseline.
+
+## Independent macOS baseline validation
+
+The external review on 2026-10-08 ran `3fdda42` natively on macOS ARM64,
+GNAT/GNATprove 16.1.0 and Lean 4.34.1. Its retained logs/manifests are under
+`tmp/review-3fdda42-macos-logs/` and the corresponding `.silver/macos-aarch64/`
+directories. Linux-side read-only inspection corroborated source/report hashes,
+completed proof manifests and Lean artifacts against that baseline. These are
+independent macOS results, not fresh Linux execution or validation of later repairs.
+
+- Warm full and cold four-worker compiler audits both passed: 1,364 checks,
+  14 units, 125 entities, with no skipped or unproved obligation.
+- All 109 tests passed under the default symlinked temporary directory.
+- Full Lean replay, all-declaration axiom audit (7,589 declarations, standard
+  foundations only), and `leanchecker --fresh` passed. The enclosing
+  `/usr/bin/time` exited 1 because the sandbox blocked its `sysctl` query after
+  successful checking; that wrapper failure is distinct from the Lean result.
+- Hello World and edge cases produced exact output. Closed stdout produced
+  status 1. The Linux `/dev/full` case is unavailable on macOS.
+
+The manifests captured the then-untracked macOS runner as an input, but do not
+show that helper being executed. The reviewer used a Homebrew Python binary
+unavailable on Linux for independent identity rechecking. Other available tool
+identities and artifacts were corroborated. These qualifications constrain the
+evidence claim; neither invalidates the recorded native checker results.
+
+Native macOS validation remains independent and nonblocking. The follow-up
+repairs require new native results before claiming macOS validation for their
+inputs. Neither x86-64 validation nor hosted CI is claimed. Work remains local;
+unrelated `tmp/` material is preserved.

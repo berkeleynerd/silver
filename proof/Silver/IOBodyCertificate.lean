@@ -60,210 +60,252 @@ def ioBodyTokens_line_7 : LineCertificate where
   noNewline := by decide +kernel
 
 def ioBodyTokens_line_8 : LineCertificate where
-  text := "      if Item'Length > Max_Length then"
-  tokens := ["if", "item", "'", "length", ">", "max_length", "then"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def ioBodyTokens_line_9 : LineCertificate where
-  text := "         Silver_Output_Libc.Fail (1);"
-  tokens := ["silver_output_libc", ".", "fail", "(", "1", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def ioBodyTokens_line_10 : LineCertificate where
-  text := "      end if;"
-  tokens := ["end", "if", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def ioBodyTokens_line_11 : LineCertificate where
   text := "      Written_Bytes := (others => Character'Val (0));"
   tokens := ["written_bytes", ":=", "(", "others", "=>", "character", "'", "val", "(", "0", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_12 : LineCertificate where
+def ioBodyTokens_line_9 : LineCertificate where
   text := "      Written_Count := 0;"
   tokens := ["written_count", ":=", "0", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def ioBodyTokens_line_10 : LineCertificate where
+  text := "      Flushed := False;"
+  tokens := ["flushed", ":=", "false", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_11 : LineCertificate where
+  text := "      Succeeded := False;"
+  tokens := ["succeeded", ":=", "false", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_12 : LineCertificate where
+  text := "      if Item'Length > Max_Length then"
+  tokens := ["if", "item", "'", "length", ">", "max_length", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def ioBodyTokens_line_13 : LineCertificate where
+  text := "         Silver_Output_Libc.Set_Exit_Status (1);"
+  tokens := ["silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_14 : LineCertificate where
+  text := "         return;"
+  tokens := ["return", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_15 : LineCertificate where
+  text := "      end if;"
+  tokens := ["end", "if", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_16 : LineCertificate where
   text := "      --  The input may have any String lower bound; only its length is bounded."
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_14 : LineCertificate where
+def ioBodyTokens_line_17 : LineCertificate where
   text := "      for Index in Item'Range loop"
   tokens := ["for", "index", "in", "item", "'", "range", "loop"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_15 : LineCertificate where
+def ioBodyTokens_line_18 : LineCertificate where
   text := "         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);"
   tokens := ["pragma", "loop_invariant", "(", "static", "=>", "written_count", "=", "index", "-", "item", "'", "first", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_16 : LineCertificate where
+def ioBodyTokens_line_19 : LineCertificate where
   text := "         pragma Loop_Invariant"
   tokens := ["pragma", "loop_invariant"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_17 : LineCertificate where
+def ioBodyTokens_line_20 : LineCertificate where
   text := "           (Static => (for all Offset in 1 .. Written_Count =>"
   tokens := ["(", "static", "=>", "(", "for", "all", "offset", "in", "1", "..", "written_count", "=>"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_18 : LineCertificate where
+def ioBodyTokens_line_21 : LineCertificate where
   text := "              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));"
   tokens := ["written_bytes", "(", "offset", ")", "=", "item", "(", "item", "'", "first", "+", "(", "offset", "-", "1", ")", ")", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_19 : LineCertificate where
+def ioBodyTokens_line_22 : LineCertificate where
   text := "         Status := Silver_Output_Libc.Put_Byte"
   tokens := ["status", ":=", "silver_output_libc", ".", "put_byte"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_20 : LineCertificate where
+def ioBodyTokens_line_23 : LineCertificate where
   text := "           (Interfaces.C.int (Character'Pos (Item (Index))));"
   tokens := ["(", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_21 : LineCertificate where
+def ioBodyTokens_line_24 : LineCertificate where
   text := "         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
   tokens := ["if", "status", "/=", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", "then"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_22 : LineCertificate where
-  text := "            Silver_Output_Libc.Fail (1);"
-  tokens := ["silver_output_libc", ".", "fail", "(", "1", ")", ";"]
+def ioBodyTokens_line_25 : LineCertificate where
+  text := "            Silver_Output_Libc.Set_Exit_Status (1);"
+  tokens := ["silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_23 : LineCertificate where
+def ioBodyTokens_line_26 : LineCertificate where
+  text := "            return;"
+  tokens := ["return", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_27 : LineCertificate where
   text := "         end if;"
   tokens := ["end", "if", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_24 : LineCertificate where
+def ioBodyTokens_line_28 : LineCertificate where
   text := "         Written_Count := Written_Count + 1;"
   tokens := ["written_count", ":=", "written_count", "+", "1", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_25 : LineCertificate where
+def ioBodyTokens_line_29 : LineCertificate where
   text := "         Written_Bytes (Written_Count) := Item (Index);"
   tokens := ["written_bytes", "(", "written_count", ")", ":=", "item", "(", "index", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_26 : LineCertificate where
+def ioBodyTokens_line_30 : LineCertificate where
   text := "      end loop;"
   tokens := ["end", "loop", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_27 : LineCertificate where
+def ioBodyTokens_line_31 : LineCertificate where
   text := "      Status := Silver_Output_Libc.Put_Byte (10);"
   tokens := ["status", ":=", "silver_output_libc", ".", "put_byte", "(", "10", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_28 : LineCertificate where
+def ioBodyTokens_line_32 : LineCertificate where
   text := "      if Status /= 10 then"
   tokens := ["if", "status", "/=", "10", "then"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_29 : LineCertificate where
-  text := "         Silver_Output_Libc.Fail (1);"
-  tokens := ["silver_output_libc", ".", "fail", "(", "1", ")", ";"]
+def ioBodyTokens_line_33 : LineCertificate where
+  text := "         Silver_Output_Libc.Set_Exit_Status (1);"
+  tokens := ["silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_30 : LineCertificate where
+def ioBodyTokens_line_34 : LineCertificate where
+  text := "         return;"
+  tokens := ["return", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_35 : LineCertificate where
   text := "      end if;"
   tokens := ["end", "if", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_31 : LineCertificate where
+def ioBodyTokens_line_36 : LineCertificate where
   text := "      Written_Count := Written_Count + 1;"
   tokens := ["written_count", ":=", "written_count", "+", "1", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_32 : LineCertificate where
+def ioBodyTokens_line_37 : LineCertificate where
   text := "      Written_Bytes (Written_Count) := Character'Val (10);"
   tokens := ["written_bytes", "(", "written_count", ")", ":=", "character", "'", "val", "(", "10", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_33 : LineCertificate where
+def ioBodyTokens_line_38 : LineCertificate where
   text := "      --  NULL requests flushing of all C output streams. Admitted application"
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_34 : LineCertificate where
+def ioBodyTokens_line_39 : LineCertificate where
   text := "      --  code has no stream creation, reassignment or other output operations."
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_35 : LineCertificate where
+def ioBodyTokens_line_40 : LineCertificate where
   text := "      Status := Silver_Output_Libc.Flush (System.Null_Address);"
   tokens := ["status", ":=", "silver_output_libc", ".", "flush", "(", "system", ".", "null_address", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_36 : LineCertificate where
+def ioBodyTokens_line_41 : LineCertificate where
   text := "      if Status /= 0 then"
   tokens := ["if", "status", "/=", "0", "then"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_37 : LineCertificate where
-  text := "         Silver_Output_Libc.Fail (1);"
-  tokens := ["silver_output_libc", ".", "fail", "(", "1", ")", ";"]
+def ioBodyTokens_line_42 : LineCertificate where
+  text := "         Silver_Output_Libc.Set_Exit_Status (1);"
+  tokens := ["silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_38 : LineCertificate where
+def ioBodyTokens_line_43 : LineCertificate where
+  text := "         return;"
+  tokens := ["return", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_44 : LineCertificate where
   text := "      end if;"
   tokens := ["end", "if", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_39 : LineCertificate where
+def ioBodyTokens_line_45 : LineCertificate where
   text := "      Flushed := True;"
   tokens := ["flushed", ":=", "true", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_40 : LineCertificate where
+def ioBodyTokens_line_46 : LineCertificate where
+  text := "      Succeeded := True;"
+  tokens := ["succeeded", ":=", "true", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def ioBodyTokens_line_47 : LineCertificate where
   text := "   end Put_Line;"
   tokens := ["end", "put_line", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_41 : LineCertificate where
+def ioBodyTokens_line_48 : LineCertificate where
   text := "end Silver_IO;"
   tokens := ["end", "silver_io", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def ioBodyTokens_line_42 : LineCertificate where
+def ioBodyTokens_line_49 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
@@ -275,14 +317,20 @@ def ioBodyTokens_block_0_1 : ReconstructionCertificate :=
 def ioBodyTokens_block_1_2 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_1
 
-def ioBodyTokens_block_0_2 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_0_1 ioBodyTokens_block_1_2
-    "with Interfaces.C;\nwith System;"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';']
-      ['w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';'])
-
 def ioBodyTokens_block_2_3 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_2
+
+def ioBodyTokens_block_1_3 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_1_2 ioBodyTokens_block_2_3
+    "with System;\nwith Silver_Output_Libc;"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';']
+      ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';'])
+
+def ioBodyTokens_block_0_3 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_0_1 ioBodyTokens_block_1_3
+    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';']
+      ['w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';'])
 
 def ioBodyTokens_block_3_4 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_3
@@ -290,35 +338,29 @@ def ioBodyTokens_block_3_4 : ReconstructionCertificate :=
 def ioBodyTokens_block_4_5 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_4
 
-def ioBodyTokens_block_3_5 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_3_4 ioBodyTokens_block_4_5
-    "package body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;"
-    (string_join_ofList ['p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's']
-      [' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';'])
-
-def ioBodyTokens_block_2_5 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_2_3 ioBodyTokens_block_3_5
-    "with Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';']
-      ['p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';'])
-
-def ioBodyTokens_block_0_5 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_0_2 ioBodyTokens_block_2_5
-    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';']
-      ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';'])
-
 def ioBodyTokens_block_5_6 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_5
 
+def ioBodyTokens_block_4_6 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_4_5 ioBodyTokens_block_5_6
+    "   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is"
+    (string_join_ofList [' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';']
+      [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's'])
+
+def ioBodyTokens_block_3_6 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_3_4 ioBodyTokens_block_4_6
+    "package body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is"
+    (string_join_ofList ['p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's']
+      [' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's'])
+
+def ioBodyTokens_block_0_6 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_0_3 ioBodyTokens_block_3_6
+    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';']
+      ['p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's'])
+
 def ioBodyTokens_block_6_7 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_6
-
-def ioBodyTokens_block_5_7 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_5_6 ioBodyTokens_block_6_7
-    "   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;"
-    (string_join_ofList [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';'])
 
 def ioBodyTokens_block_7_8 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_7
@@ -326,32 +368,20 @@ def ioBodyTokens_block_7_8 : ReconstructionCertificate :=
 def ioBodyTokens_block_8_9 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_8
 
+def ioBodyTokens_block_7_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_7_8 ioBodyTokens_block_8_9
+    "   begin\n      Written_Bytes := (others => Character'Val (0));"
+    (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';'])
+
+def ioBodyTokens_block_6_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_6_7 ioBodyTokens_block_7_9
+    "      Status : Interfaces.C.int;\n   begin\n      Written_Bytes := (others => Character'Val (0));"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';']
+      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';'])
+
 def ioBodyTokens_block_9_10 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_9
-
-def ioBodyTokens_block_8_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_8_9 ioBodyTokens_block_9_10
-    "      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';'])
-
-def ioBodyTokens_block_7_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_7_8 ioBodyTokens_block_8_10
-    "   begin\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);"
-    (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';'])
-
-def ioBodyTokens_block_5_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_5_7 ioBodyTokens_block_7_10
-    "   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);"
-    (string_join_ofList [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';']
-      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';'])
-
-def ioBodyTokens_block_0_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_0_5 ioBodyTokens_block_5_10
-    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';']
-      [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';'])
 
 def ioBodyTokens_block_10_11 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_10
@@ -361,9 +391,27 @@ def ioBodyTokens_block_11_12 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_10_12 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_10_11 ioBodyTokens_block_11_12
-    "      end if;\n      Written_Bytes := (others => Character'Val (0));"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';'])
+    "      Flushed := False;\n      Succeeded := False;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';'])
+
+def ioBodyTokens_block_9_12 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_9_10 ioBodyTokens_block_10_12
+    "      Written_Count := 0;\n      Flushed := False;\n      Succeeded := False;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';'])
+
+def ioBodyTokens_block_6_12 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_6_9 ioBodyTokens_block_9_12
+    "      Status : Interfaces.C.int;\n   begin\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      Flushed := False;\n      Succeeded := False;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';'])
+
+def ioBodyTokens_block_0_12 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_0_6 ioBodyTokens_block_6_12
+    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      Flushed := False;\n      Succeeded := False;"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';'])
 
 def ioBodyTokens_block_12_13 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_12
@@ -376,21 +424,15 @@ def ioBodyTokens_block_14_15 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_13_15 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_13_14 ioBodyTokens_block_14_15
-    "      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
+    "         Silver_Output_Libc.Set_Exit_Status (1);\n         return;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';'])
 
 def ioBodyTokens_block_12_15 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_12_13 ioBodyTokens_block_13_15
-    "      Written_Count := 0;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
-
-def ioBodyTokens_block_10_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_10_12 ioBodyTokens_block_12_15
-    "      end if;\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
+    "      if Item'Length > Max_Length then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';'])
 
 def ioBodyTokens_block_15_16 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_15
@@ -403,15 +445,21 @@ def ioBodyTokens_block_17_18 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_16_18 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_16_17 ioBodyTokens_block_17_18
-    "         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>'])
+    "      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
 
 def ioBodyTokens_block_15_18 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_15_16 ioBodyTokens_block_16_18
-    "         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>'])
+    "      end if;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
+
+def ioBodyTokens_block_12_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_12_15 ioBodyTokens_block_15_18
+    "      if Item'Length > Max_Length then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p'])
 
 def ioBodyTokens_block_18_19 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_18
@@ -424,33 +472,15 @@ def ioBodyTokens_block_20_21 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_19_21 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_19_20 ioBodyTokens_block_20_21
-    "         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';'])
+    "         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>'])
 
 def ioBodyTokens_block_18_21 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_18_19 ioBodyTokens_block_19_21
-    "              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';'])
-
-def ioBodyTokens_block_15_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_15_18 ioBodyTokens_block_18_21
-    "         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';'])
-
-def ioBodyTokens_block_10_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_10_15 ioBodyTokens_block_15_21
-    "      end if;\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';'])
-
-def ioBodyTokens_block_0_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_0_10 ioBodyTokens_block_10_21
-    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';'])
+    "         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>'])
 
 def ioBodyTokens_block_21_22 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_21
@@ -460,9 +490,9 @@ def ioBodyTokens_block_22_23 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_21_23 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_21_22 ioBodyTokens_block_22_23
-    "         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Fail (1);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';'])
+    "              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e'])
 
 def ioBodyTokens_block_23_24 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_23
@@ -470,26 +500,38 @@ def ioBodyTokens_block_23_24 : ReconstructionCertificate :=
 def ioBodyTokens_block_24_25 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_24
 
+def ioBodyTokens_block_23_25 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_23_24 ioBodyTokens_block_24_25
+    "           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n'])
+
+def ioBodyTokens_block_21_25 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_21_23 ioBodyTokens_block_23_25
+    "              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n'])
+
+def ioBodyTokens_block_18_25 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_18_21 ioBodyTokens_block_21_25
+    "         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n'])
+
+def ioBodyTokens_block_12_25 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_12_18 ioBodyTokens_block_18_25
+    "      if Item'Length > Max_Length then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n'])
+
+def ioBodyTokens_block_0_25 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_0_12 ioBodyTokens_block_12_25
+    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      Flushed := False;\n      Succeeded := False;\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n'])
+
 def ioBodyTokens_block_25_26 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_25
-
-def ioBodyTokens_block_24_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_24_25 ioBodyTokens_block_25_26
-    "         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';'])
-
-def ioBodyTokens_block_23_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_23_24 ioBodyTokens_block_24_26
-    "         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';'])
-
-def ioBodyTokens_block_21_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_21_23 ioBodyTokens_block_23_26
-    "         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Fail (1);\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';'])
 
 def ioBodyTokens_block_26_27 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_26
@@ -497,20 +539,20 @@ def ioBodyTokens_block_26_27 : ReconstructionCertificate :=
 def ioBodyTokens_block_27_28 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_27
 
+def ioBodyTokens_block_26_28 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_26_27 ioBodyTokens_block_27_28
+    "            return;\n         end if;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';'])
+
+def ioBodyTokens_block_25_28 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_25_26 ioBodyTokens_block_26_28
+    "            Silver_Output_Libc.Set_Exit_Status (1);\n            return;\n         end if;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';'])
+
 def ioBodyTokens_block_28_29 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_28
-
-def ioBodyTokens_block_27_29 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_27_28 ioBodyTokens_block_28_29
-    "      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n'])
-
-def ioBodyTokens_block_26_29 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_26_27 ioBodyTokens_block_27_29
-    "      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n'])
 
 def ioBodyTokens_block_29_30 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_29
@@ -518,32 +560,26 @@ def ioBodyTokens_block_29_30 : ReconstructionCertificate :=
 def ioBodyTokens_block_30_31 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_30
 
+def ioBodyTokens_block_29_31 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_29_30 ioBodyTokens_block_30_31
+    "         Written_Bytes (Written_Count) := Item (Index);\n      end loop;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';'])
+
+def ioBodyTokens_block_28_31 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_28_29 ioBodyTokens_block_29_31
+    "         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';'])
+
+def ioBodyTokens_block_25_31 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_25_28 ioBodyTokens_block_28_31
+    "            Silver_Output_Libc.Set_Exit_Status (1);\n            return;\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';'])
+
 def ioBodyTokens_block_31_32 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_31
-
-def ioBodyTokens_block_30_32 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_30_31 ioBodyTokens_block_31_32
-    "      end if;\n      Written_Count := Written_Count + 1;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
-
-def ioBodyTokens_block_29_32 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_29_30 ioBodyTokens_block_30_32
-    "         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Count := Written_Count + 1;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
-
-def ioBodyTokens_block_26_32 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_26_29 ioBodyTokens_block_29_32
-    "      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Count := Written_Count + 1;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
-
-def ioBodyTokens_block_21_32 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_21_26 ioBodyTokens_block_26_32
-    "         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Fail (1);\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Count := Written_Count + 1;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
 
 def ioBodyTokens_block_32_33 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_32
@@ -553,9 +589,15 @@ def ioBodyTokens_block_33_34 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_32_34 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_32_33 ioBodyTokens_block_33_34
-    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n'])
+    "      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';'])
+
+def ioBodyTokens_block_31_34 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_31_32 ioBodyTokens_block_32_34
+    "      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';'])
 
 def ioBodyTokens_block_34_35 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_34
@@ -568,21 +610,27 @@ def ioBodyTokens_block_36_37 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_35_37 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_35_36 ioBodyTokens_block_36_37
-    "      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n'])
+    "      end if;\n      Written_Count := Written_Count + 1;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
 
 def ioBodyTokens_block_34_37 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_34_35 ioBodyTokens_block_35_37
-    "      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n'])
+    "         return;\n      end if;\n      Written_Count := Written_Count + 1;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
 
-def ioBodyTokens_block_32_37 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_32_34 ioBodyTokens_block_34_37
-    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n'])
+def ioBodyTokens_block_31_37 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_31_34 ioBodyTokens_block_34_37
+    "      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Written_Count := Written_Count + 1;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
+
+def ioBodyTokens_block_25_37 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_25_31 ioBodyTokens_block_31_37
+    "            Silver_Output_Libc.Set_Exit_Status (1);\n            return;\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Written_Count := Written_Count + 1;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';'])
 
 def ioBodyTokens_block_37_38 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_37
@@ -595,15 +643,15 @@ def ioBodyTokens_block_39_40 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_38_40 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_38_39 ioBodyTokens_block_39_40
-    "      end if;\n      Flushed := True;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';'])
+    "      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations."
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.'])
 
 def ioBodyTokens_block_37_40 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_37_38 ioBodyTokens_block_38_40
-    "         Silver_Output_Libc.Fail (1);\n      end if;\n      Flushed := True;"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';'])
+    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations."
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.'])
 
 def ioBodyTokens_block_40_41 : ReconstructionCertificate :=
   ReconstructionCertificate.single ioBodyTokens_line_40
@@ -616,56 +664,113 @@ def ioBodyTokens_block_42_43 : ReconstructionCertificate :=
 
 def ioBodyTokens_block_41_43 : ReconstructionCertificate :=
   ReconstructionCertificate.join ioBodyTokens_block_41_42 ioBodyTokens_block_42_43
+    "      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';'])
+
+def ioBodyTokens_block_40_43 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_40_41 ioBodyTokens_block_41_43
+    "      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';'])
+
+def ioBodyTokens_block_37_43 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_37_40 ioBodyTokens_block_40_43
+    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';'])
+
+def ioBodyTokens_block_43_44 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_43
+
+def ioBodyTokens_block_44_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_44
+
+def ioBodyTokens_block_45_46 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_45
+
+def ioBodyTokens_block_44_46 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_44_45 ioBodyTokens_block_45_46
+    "      end if;\n      Flushed := True;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';'])
+
+def ioBodyTokens_block_43_46 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_43_44 ioBodyTokens_block_44_46
+    "         return;\n      end if;\n      Flushed := True;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';'])
+
+def ioBodyTokens_block_46_47 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_46
+
+def ioBodyTokens_block_47_48 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_47
+
+def ioBodyTokens_block_46_48 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_46_47 ioBodyTokens_block_47_48
+    "      Succeeded := True;\n   end Put_Line;"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';']
+      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';'])
+
+def ioBodyTokens_block_48_49 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_48
+
+def ioBodyTokens_block_49_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.single ioBodyTokens_line_49
+
+def ioBodyTokens_block_48_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_48_49 ioBodyTokens_block_49_50
     "end Silver_IO;\n"
     (string_join_ofList ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';']
       [])
 
-def ioBodyTokens_block_40_43 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_40_41 ioBodyTokens_block_41_43
-    "   end Put_Line;\nend Silver_IO;\n"
-    (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';']
+def ioBodyTokens_block_46_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_46_48 ioBodyTokens_block_48_50
+    "      Succeeded := True;\n   end Put_Line;\nend Silver_IO;\n"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';']
       ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
 
-def ioBodyTokens_block_37_43 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_37_40 ioBodyTokens_block_40_43
-    "         Silver_Output_Libc.Fail (1);\n      end if;\n      Flushed := True;\n   end Put_Line;\nend Silver_IO;\n"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';']
-      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
+def ioBodyTokens_block_43_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_43_46 ioBodyTokens_block_46_50
+    "         return;\n      end if;\n      Flushed := True;\n      Succeeded := True;\n   end Put_Line;\nend Silver_IO;\n"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
 
-def ioBodyTokens_block_32_43 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_32_37 ioBodyTokens_block_37_43
-    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Flushed := True;\n   end Put_Line;\nend Silver_IO;\n"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
+def ioBodyTokens_block_37_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_37_43 ioBodyTokens_block_43_50
+    "      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Flushed := True;\n      Succeeded := True;\n   end Put_Line;\nend Silver_IO;\n"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
 
-def ioBodyTokens_block_21_43 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_21_32 ioBodyTokens_block_32_43
-    "         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Fail (1);\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Count := Written_Count + 1;\n      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Flushed := True;\n   end Put_Line;\nend Silver_IO;\n"
-    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
+def ioBodyTokens_block_25_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_25_37 ioBodyTokens_block_37_50
+    "            Silver_Output_Libc.Set_Exit_Status (1);\n            return;\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Written_Count := Written_Count + 1;\n      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Flushed := True;\n      Succeeded := True;\n   end Put_Line;\nend Silver_IO;\n"
+    (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
 
-def ioBodyTokens_block_0_43 : ReconstructionCertificate :=
-  ReconstructionCertificate.join ioBodyTokens_block_0_21 ioBodyTokens_block_21_43
-    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Fail (1);\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Written_Count := Written_Count + 1;\n      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Fail (1);\n      end if;\n      Flushed := True;\n   end Put_Line;\nend Silver_IO;\n"
-    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'a', 'i', 'l', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
+def ioBodyTokens_block_0_50 : ReconstructionCertificate :=
+  ReconstructionCertificate.join ioBodyTokens_block_0_25 ioBodyTokens_block_25_50
+    "with Interfaces.C;\nwith System;\nwith Silver_Output_Libc;\npackage body Silver_IO with SPARK_Mode => On is\n   use type Interfaces.C.int;\n   procedure Put_Line (Item : String) is\n      Status : Interfaces.C.int;\n   begin\n      Written_Bytes := (others => Character'Val (0));\n      Written_Count := 0;\n      Flushed := False;\n      Succeeded := False;\n      if Item'Length > Max_Length then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      --  The input may have any String lower bound; only its length is bounded.\n      for Index in Item'Range loop\n         pragma Loop_Invariant (Static => Written_Count = Index - Item'First);\n         pragma Loop_Invariant\n           (Static => (for all Offset in 1 .. Written_Count =>\n              Written_Bytes (Offset) = Item (Item'First + (Offset - 1))));\n         Status := Silver_Output_Libc.Put_Byte\n           (Interfaces.C.int (Character'Pos (Item (Index))));\n         if Status /= Interfaces.C.int (Character'Pos (Item (Index))) then\n            Silver_Output_Libc.Set_Exit_Status (1);\n            return;\n         end if;\n         Written_Count := Written_Count + 1;\n         Written_Bytes (Written_Count) := Item (Index);\n      end loop;\n      Status := Silver_Output_Libc.Put_Byte (10);\n      if Status /= 10 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Written_Count := Written_Count + 1;\n      Written_Bytes (Written_Count) := Character'Val (10);\n      --  NULL requests flushing of all C output streams. Admitted application\n      --  code has no stream creation, reassignment or other output operations.\n      Status := Silver_Output_Libc.Flush (System.Null_Address);\n      if Status /= 0 then\n         Silver_Output_Libc.Set_Exit_Status (1);\n         return;\n      end if;\n      Flushed := True;\n      Succeeded := True;\n   end Put_Line;\nend Silver_IO;\n"
+    (string_join_ofList ['w', 'i', 't', 'h', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'y', 's', 't', 'e', 'm', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'u', 's', 'e', ' ', 't', 'y', 'p', 'e', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ';', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', ':', '=', ' ', '(', 'o', 't', 'h', 'e', 'r', 's', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '0', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', '0', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '>', ' ', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'e', ' ', 'i', 'n', 'p', 'u', 't', ' ', 'm', 'a', 'y', ' ', 'h', 'a', 'v', 'e', ' ', 'a', 'n', 'y', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'l', 'o', 'w', 'e', 'r', ' ', 'b', 'o', 'u', 'n', 'd', ';', ' ', 'o', 'n', 'l', 'y', ' ', 'i', 't', 's', ' ', 'l', 'e', 'n', 'g', 't', 'h', ' ', 'i', 's', ' ', 'b', 'o', 'u', 'n', 'd', 'e', 'd', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'f', 'o', 'r', ' ', 'I', 'n', 'd', 'e', 'x', ' ', 'i', 'n', ' ', 'I', 't', 'e', 'm', '\'', 'R', 'a', 'n', 'g', 'e', ' ', 'l', 'o', 'o', 'p', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', 'I', 'n', 'd', 'e', 'x', ' ', '-', ' ', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'p', 'r', 'a', 'g', 'm', 'a', ' ', 'L', 'o', 'o', 'p', '_', 'I', 'n', 'v', 'a', 'r', 'i', 'a', 'n', 't', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'O', 'f', 'f', 's', 'e', 't', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', '>', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ')', ' ', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 't', 'e', 'm', '\'', 'F', 'i', 'r', 's', 't', ' ', '+', ' ', '(', 'O', 'f', 'f', 's', 'e', 't', ' ', '-', ' ', '1', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '(', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', 'I', 'n', 't', 'e', 'r', 'f', 'a', 'c', 'e', 's', '.', 'C', '.', 'i', 'n', 't', ' ', '(', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ')', ')', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ' ', '(', 'I', 'n', 'd', 'e', 'x', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'l', 'o', 'o', 'p', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'P', 'u', 't', '_', 'B', 'y', 't', 'e', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '1', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', ':', '=', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ' ', '+', ' ', '1', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'B', 'y', 't', 'e', 's', ' ', '(', 'W', 'r', 'i', 't', 't', 'e', 'n', '_', 'C', 'o', 'u', 'n', 't', ')', ' ', ':', '=', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'V', 'a', 'l', ' ', '(', '1', '0', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'N', 'U', 'L', 'L', ' ', 'r', 'e', 'q', 'u', 'e', 's', 't', 's', ' ', 'f', 'l', 'u', 's', 'h', 'i', 'n', 'g', ' ', 'o', 'f', ' ', 'a', 'l', 'l', ' ', 'C', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 's', 't', 'r', 'e', 'a', 'm', 's', '.', ' ', 'A', 'd', 'm', 'i', 't', 't', 'e', 'd', ' ', 'a', 'p', 'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '-', '-', ' ', ' ', 'c', 'o', 'd', 'e', ' ', 'h', 'a', 's', ' ', 'n', 'o', ' ', 's', 't', 'r', 'e', 'a', 'm', ' ', 'c', 'r', 'e', 'a', 't', 'i', 'o', 'n', ',', ' ', 'r', 'e', 'a', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', 'o', 'r', ' ', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'u', 't', 'p', 'u', 't', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'i', 'o', 'n', 's', '.', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'F', 'l', 'u', 's', 'h', ' ', '(', 'S', 'y', 's', 't', 'e', 'm', '.', 'N', 'u', 'l', 'l', '_', 'A', 'd', 'd', 'r', 'e', 's', 's', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 't', 'a', 't', 'u', 's', ' ', '/', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'F', 'l', 'u', 's', 'h', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'u', 'c', 'c', 'e', 'e', 'd', 'e', 'd', ' ', ':', '=', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', ';', '\n'])
 
 def ioBodyTokens_certificates : List LineCertificate :=
-  ioBodyTokens_block_0_43.lines
+  ioBodyTokens_block_0_50.lines
 
 def ioBodyTokens : Tokens :=
-  ["with", "interfaces", ".", "c", ";", "with", "system", ";", "with", "silver_output_libc", ";", "package", "body", "silver_io", "with", "spark_mode", "=>", "on", "is", "use", "type", "interfaces", ".", "c", ".", "int", ";", "procedure", "put_line", "(", "item", ":", "string", ")", "is", "status", ":", "interfaces", ".", "c", ".", "int", ";", "begin", "if", "item", "'", "length", ">", "max_length", "then", "silver_output_libc", ".", "fail", "(", "1", ")", ";", "end", "if", ";", "written_bytes", ":=", "(", "others", "=>", "character", "'", "val", "(", "0", ")", ")", ";", "written_count", ":=", "0", ";", "for", "index", "in", "item", "'", "range", "loop", "pragma", "loop_invariant", "(", "static", "=>", "written_count", "=", "index", "-", "item", "'", "first", ")", ";", "pragma", "loop_invariant", "(", "static", "=>", "(", "for", "all", "offset", "in", "1", "..", "written_count", "=>", "written_bytes", "(", "offset", ")", "=", "item", "(", "item", "'", "first", "+", "(", "offset", "-", "1", ")", ")", ")", ")", ";", "status", ":=", "silver_output_libc", ".", "put_byte", "(", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", ")", ";", "if", "status", "/=", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", "then", "silver_output_libc", ".", "fail", "(", "1", ")", ";", "end", "if", ";", "written_count", ":=", "written_count", "+", "1", ";", "written_bytes", "(", "written_count", ")", ":=", "item", "(", "index", ")", ";", "end", "loop", ";", "status", ":=", "silver_output_libc", ".", "put_byte", "(", "10", ")", ";", "if", "status", "/=", "10", "then", "silver_output_libc", ".", "fail", "(", "1", ")", ";", "end", "if", ";", "written_count", ":=", "written_count", "+", "1", ";", "written_bytes", "(", "written_count", ")", ":=", "character", "'", "val", "(", "10", ")", ";", "status", ":=", "silver_output_libc", ".", "flush", "(", "system", ".", "null_address", ")", ";", "if", "status", "/=", "0", "then", "silver_output_libc", ".", "fail", "(", "1", ")", ";", "end", "if", ";", "flushed", ":=", "true", ";", "end", "put_line", ";", "end", "silver_io", ";"]
+  ["with", "interfaces", ".", "c", ";", "with", "system", ";", "with", "silver_output_libc", ";", "package", "body", "silver_io", "with", "spark_mode", "=>", "on", "is", "use", "type", "interfaces", ".", "c", ".", "int", ";", "procedure", "put_line", "(", "item", ":", "string", ")", "is", "status", ":", "interfaces", ".", "c", ".", "int", ";", "begin", "written_bytes", ":=", "(", "others", "=>", "character", "'", "val", "(", "0", ")", ")", ";", "written_count", ":=", "0", ";", "flushed", ":=", "false", ";", "succeeded", ":=", "false", ";", "if", "item", "'", "length", ">", "max_length", "then", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "return", ";", "end", "if", ";", "for", "index", "in", "item", "'", "range", "loop", "pragma", "loop_invariant", "(", "static", "=>", "written_count", "=", "index", "-", "item", "'", "first", ")", ";", "pragma", "loop_invariant", "(", "static", "=>", "(", "for", "all", "offset", "in", "1", "..", "written_count", "=>", "written_bytes", "(", "offset", ")", "=", "item", "(", "item", "'", "first", "+", "(", "offset", "-", "1", ")", ")", ")", ")", ";", "status", ":=", "silver_output_libc", ".", "put_byte", "(", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", ")", ";", "if", "status", "/=", "interfaces", ".", "c", ".", "int", "(", "character", "'", "pos", "(", "item", "(", "index", ")", ")", ")", "then", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "return", ";", "end", "if", ";", "written_count", ":=", "written_count", "+", "1", ";", "written_bytes", "(", "written_count", ")", ":=", "item", "(", "index", ")", ";", "end", "loop", ";", "status", ":=", "silver_output_libc", ".", "put_byte", "(", "10", ")", ";", "if", "status", "/=", "10", "then", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "return", ";", "end", "if", ";", "written_count", ":=", "written_count", "+", "1", ";", "written_bytes", "(", "written_count", ")", ":=", "character", "'", "val", "(", "10", ")", ";", "status", ":=", "silver_output_libc", ".", "flush", "(", "system", ".", "null_address", ")", ";", "if", "status", "/=", "0", "then", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "return", ";", "end", "if", ";", "flushed", ":=", "true", ";", "succeeded", ":=", "true", ";", "end", "put_line", ";", "end", "silver_io", ";"]
 
 theorem ioBodyTokens_source :
     String.intercalate "\n" (ioBodyTokens_certificates.map (·.text)) = ioBody := by
-  exact ioBodyTokens_block_0_43.correct
+  exact ioBodyTokens_block_0_50.correct
 
 theorem ioBodyTokens_values :
     ioBodyTokens_certificates.flatMap (·.tokens) = ioBodyTokens := by rfl
 
 theorem ioBodyTokens_correct : lex ioBody = some ioBodyTokens := by
   rw [← ioBodyTokens_source, reconstructed_source_lex ioBodyTokens_certificates
-    ioBodyTokens_block_0_43.nonempty]
+    ioBodyTokens_block_0_50.nonempty]
   rw [ioBodyTokens_values]
 
 end Silver.Source

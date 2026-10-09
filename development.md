@@ -164,3 +164,8 @@ and `.silver/`. See [platform coexistence](docs/platform-coexistence.md).
 [docs/session-memory.md](docs/session-memory.md) records dated decisions and
 handoffs. Use subthreads with explicit ownership for separable work. Keep
 temporary experiments separate and preserve unrelated scratch files.
+
+Runtime source edits require refreshing bootstrap, rebuilding Silver and
+rechecking compiler and Lean evidence together. Bootstrap embeds exact selected
+library bytes; a stale compiler rejects changed installed runtime files. This
+source binding is part of correspondence, not deferred binary attestation.

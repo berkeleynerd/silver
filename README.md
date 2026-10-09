@@ -41,7 +41,8 @@ The original [null program](samples/null.adb) is also supported.
 These are the two complete forms: one null statement without a context clause,
 or one qualified literal-output call with `with Silver_IO;`. Variables, repeated
 calls, concatenation and other APIs remain excluded. See [language.md](language.md)
-for the exact rules. Normal output is the literal bytes followed by LF, with a
+for the exact rules. On detected failure the wrapper sets status 1 and returns;
+the sole-call `Main` returns with that status. Normal output is the literal bytes followed by LF, with a
 successful flush. Detected output failure exits unsuccessfully and may leave
 partial output; blocking and host failures have documented environmental limits.
 
@@ -109,6 +110,22 @@ as version 26.0.0. Downloads and generated files are ignored by Git.
 
 ## Use the compiler
 
+On macOS, with Python 3.11+ and Xcode Command Line Tools installed, this helper
+sets up the native toolchain, builds Silver, then proves, builds and runs Hello
+World:
+
+```sh
+python3 scripts/run_macos.py
+```
+
+Pass a source path to run another application, for example
+`python3 scripts/run_macos.py samples/null.adb`. The helper can be invoked by its
+absolute path from any directory; explicit source paths are relative to the
+caller. It reuses installed tools, keeps macOS artifacts separate from Linux,
+and stops on the first failure. Application and selected-library verification
+run through Silver; compiler-wide GNATprove and Lean audits use the separate
+development workflow. Initial setup may download tools.
+
 ```sh
 silver_executable=$(python3 scripts/dev.py paths --field executable)
 "$silver_executable" catalogue
@@ -137,9 +154,10 @@ implementation defect; prover results never redefine membership. Specified
 application output failures are reported separately. The executable's own exit
 status is distinct from the compiler CLI's status.
 
-The [machine-readable catalogue](catalogue/silver.json) is exported by
-the actual compiler. Recognition and JSON export share SPARK token and character
-rules. It also lists admitted constructs, the output operation, literal domain,
+The [machine-readable catalogue](catalogue/silver.json) matches the parsed
+JSON exported by the compiler; formatting and key order may differ. Recognition
+and export share the null token and character rules. Output word selection and
+construct metadata are explicit fields checked against the specification. It also lists admitted constructs, the output operation, literal domain,
 and both permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
@@ -152,7 +170,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-Hello World validation is recorded in [the capability record](docs/hello-world.md).
+Hello World baseline validation is recorded in
+[the capability record](docs/hello-world.md); current follow-up evidence is in
+[the review repairs](docs/hello-review-repairs.md).
 Its compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.
@@ -188,9 +208,12 @@ module/axiom audit even on a cache hit. `--full` adds the independent kernel
 recheck; `--clean` also discards this host's proof workspace. The embedded
 recognizer and output-library Ada files are dependencies
 of the whole Silver Lean library: editing any of them invalidates that entire
-library's cached build. For a capability-validation checkpoint, run:
+library's cached build. After runtime source edits, refresh bootstrap and rebuild so embedded library
+bytes agree with the source; full audits reject stale bindings. For a
+capability-validation checkpoint, run:
 
 ```sh
+python3 scripts/bootstrap.py
 python3 scripts/dev.py prove --full
 python3 scripts/dev.py build
 python3 scripts/dev.py test
@@ -217,14 +240,11 @@ See [the assurance argument](docs/assurance.md) for the exact proved claims, and
 assumptions, report-format assumptions, and supported execution conditions.
 
 [CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
-x86-64/ARM64, plus Lean checks. The latest external review validated the staged
-incremental workflows on macOS ARM64 before the cold-proof and exploratory-tool
-guard changes. It reported passing proofs, tests under the default symlinked
-temporary directory, and all Lean modes. Retained compiler and final clean Lean
-artifacts were independently corroborated on Linux. The subsequent cold-proof
-and guard changes, and this Hello World capability, still await native macOS
-validation. Evidence, exact scope and
-remaining platform checks are recorded in [the workflow record](docs/proof-workflow.md).
-Linux is primary and macOS validation is independent under the Oracle. This work remains
-local as requested: the repository has no Git remote, and the configured CI
-workflow has not been executed.
+x86-64/ARM64, plus Lean checks. The independent macOS ARM64 review validated
+`3fdda42`: warm/cold compiler audits, the suite, and full Lean/kernel checking
+passed. Retained evidence was corroborated read-only from Linux; qualifications
+are in the [capability record](docs/hello-world.md). The subsequent
+[review repairs](docs/hello-review-repairs.md) have separate input/platform scope
+and await independent native macOS validation. Linux is primary and macOS
+validation is nonblocking under the Oracle. Work remains local; configured CI
+has not run, and no x86-64 execution is claimed.

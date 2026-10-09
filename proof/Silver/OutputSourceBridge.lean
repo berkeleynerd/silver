@@ -8,10 +8,11 @@ expression trees bind the copied lexical primitives and membership composition.
 The two new recursive expression templates fix operators, grouping and calls;
 OutputEquations proves uniqueness on their legal machine domains. The reviewed
 Ada frontend interpretation supplies their definition equations, as it does for
-the null bridge. Runtime body correspondence is stronger than a token pin: the
-complete executable body is rendered from the interpreted statement structure.
-Static ghost operations erase only after their checked declarations/contracts
-and the GNATprove audit establish their SPARK meaning. -/
+the null bridge. The runtime renderer covers the whole body with interpreted
+executable instructions and a finite set of fixed static observations. Separate
+checks bind every erased target to its Static declaration and Max_Length to the
+shared model bound. Ada statement/ghost interpretation and the GNATprove audit
+remain explicit premises; the complete-shape pin alone establishes no semantics. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -86,6 +87,46 @@ abbrev Refinement : Prop :=
 
 theorem actual_refinement : Refinement := by decide +kernel
 
+/-- Extract unique procedure declarations without accepting a second overload. -/
+def procedureHeaders (name : String) : List String → List (List String)
+  | [] => []
+  | "procedure" :: actual :: tokens =>
+    let later := procedureHeaders name (actual :: tokens)
+    if actual == name then
+      match Source.declarationEnd 0 tokens with
+      | some header => header :: later
+      | none => later
+    else later
+  | _ :: tokens => procedureHeaders name tokens
+
+def procedureHeader (name : String) (tokens : List String) : Option (List String) :=
+  match procedureHeaders name tokens with
+  | [header] => some header
+  | _ => none
+
+/-- Fixed declarations classify all targets in GhostAction.render as Static.
+The numeric spelling check ties the extracted Ada bound to Runtime.maxLength. -/
+abbrev RuntimeDeclarations : Prop :=
+  Source.declaration "max_length" Source.ioSpecTokens =
+    some ["constant", "positive", ":=", "4_096"] ∧
+  ("4_096".toList.filter (· != '_')).foldl
+    (fun value digit => value * 10 + (digit.toNat - 48)) 0 = Runtime.maxLength ∧
+  Source.declaration "written_bytes" Source.ioSpecTokens = some (expectedTokens
+    "String (1 .. Max_Length + 1) := (others => Character'Val (0)) with Ghost => Static") ∧
+  Source.declaration "written_count" Source.ioSpecTokens = some (expectedTokens
+    "Natural range 0 .. Max_Length + 1 := 0 with Ghost => Static") ∧
+  Source.declaration "flushed" Source.ioSpecTokens = some (expectedTokens
+    "Boolean := False with Ghost => Static") ∧
+  Source.declaration "succeeded" Source.ioSpecTokens = some (expectedTokens
+    "Boolean := False with Ghost => Static") ∧
+  procedureHeader "put_line" Source.ioSpecTokens = some (expectedTokens
+    "(Item : String) with Global => (In_Out => Ada.Text_IO.File_System, Output => (Written_Bytes, Written_Count, Flushed, Succeeded)), Always_Terminates => False, Post => (Static => Succeeded = Flushed and then (if Succeeded then Item'Length <= Max_Length and then Written_Count = Item'Length + 1 and then Written_Bytes (1 .. Item'Length) = Item and then Written_Bytes (Written_Count) = Character'Val (10)))") ∧
+  procedureHeader "set_exit_status" Source.outputLibcTokens = some (expectedTokens
+    "(Status : Interfaces.C.int) with Import, Convention => C, External_Name => \"__gnat_set_exit_status\", Always_Terminates => True, Global => (In_Out => Ada.Text_IO.File_System)")
+
+theorem actual_runtime_declarations : RuntimeDeclarations :=
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
 def runtimeFrame : List String := expectedTokens
   "with Interfaces.C; with System; with Silver_Output_Libc; package body Silver_IO with SPARK_Mode => On is use type Interfaces.C.int; procedure Put_Line (Item : String) is Status : Interfaces.C.int; begin"
 
@@ -116,6 +157,7 @@ structure CheckedSource : Prop where
   expressions : ExpressionTranslation
   catalogue : CatalogueTranslation
   refinement : Refinement
+  runtimeDeclarations : RuntimeDeclarations
   runtimeTranslation : Source.ioBodyTokens = renderedRuntime
 
 theorem checked_source : CheckedSource where
@@ -128,6 +170,7 @@ theorem checked_source : CheckedSource where
   expressions := actual_expressions
   catalogue := actual_catalogue
   refinement := actual_refinement
+  runtimeDeclarations := actual_runtime_declarations
   runtimeTranslation := actual_runtime_translation
 
 /-- A checked translation and uniqueness of all new recursive definitions.
@@ -160,7 +203,9 @@ theorem authoritative_runtime_correct (environment : Runtime.Environment) (item 
 
 /-- Actual admitted bytes complete the stronger current pipeline under the
 explicit tool and fixed-library contracts. No premise identifies membership
-with prover success; the language proof supplies the empty user obligations. -/
+with prover success. The defined empty application obligation list agrees with
+the external generator under ToolContract.generationFaithful, not by derivation
+of Ada/SPARK obligations in this model. -/
 theorem checked_current_pipeline {Artifact : Type} {tools : Current.Tools Artifact}
     (contract : Current.ToolContract tools)
     (nullCalls : Silver.Expressions.Calls) (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)

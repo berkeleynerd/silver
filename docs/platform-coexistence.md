@@ -10,7 +10,8 @@ and no cleanup or migration of another host's artifacts.
 - `.silver/<host>/toolchain/` owns the Alire manifest copy, lock, and local settings.
 - `.silver/<host>/generated/silver_build.ads` contains installation paths and the
   shell command prefix used by the actual compiler. SPARK verification includes
-  this generated specification; external-tool selection remains reviewed setup
+  this generated specification and the adjacent `silver_library_sources.ads`
+  containing exact expected runtime sources; external-tool selection remains reviewed setup
   configuration.
 - `.silver/<host>/compiler/` owns compiler objects, the executable, GNATprove
   intermediates, and content-bound proof provenance. The GPR project requires a
@@ -21,7 +22,8 @@ and no cleanup or migration of another host's artifacts.
   and sessions plus a separate `cache/`. It preserves normal warm state and
   every other host's artifacts, and prints its evidence path.
 - `.silver/<host>/program-XXXXXX/` holds each byte-identical program snapshot,
-  generated project, proof report and executable. The workspace contract checks
+  selected runtime library snapshots for output, generated project, proof
+  reports and executable. The workspace contract checks
   the absolute installation prefix and an alphanumeric six-character suffix.
 - `.silver/<host>/proof/` holds Lean verification inputs, generated certificates,
   Lake objects, and its manifest. The adjacent source link resolves to
@@ -61,7 +63,9 @@ remain in SPARK.
 
 ## Validation scope
 
-Current workflow results are maintained in [proof-workflow.md](proof-workflow.md);
+Current capability and repair evidence is maintained in
+[hello-world.md](hello-world.md) and [hello-review-repairs.md](hello-review-repairs.md).
+Earlier workflow results remain in [proof-workflow.md](proof-workflow.md);
 [the review repair record](review-repairs.md) records the earlier baseline.
 Platform regressions cover
 canonical paths under symlinked `TMPDIR`, concurrent simulated setup for all four

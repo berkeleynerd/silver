@@ -14,10 +14,13 @@ complete the [admission workflow](../development.md).
 
 The SPARK compiler supports the null and literal-output productions in the
 language specification. Current capability validation is recorded in
-[hello-world.md](hello-world.md); earlier workflow and repair evidence remains
+[hello-world.md](hello-world.md) and the follow-up
+[repair record](hello-review-repairs.md); earlier workflow and repair evidence remains
 in [proof-workflow.md](proof-workflow.md) and [review-repairs.md](review-repairs.md).
-Pinned Lean 4.34.1 proves membership, source-level behavior and empty application
-obligation sets for both productions. The fixed output library has its own
+Pinned Lean 4.34.1 proves membership and behavior of the restricted source
+models. Their application obligation lists are defined to be empty; the
+reviewed Ada argument below and faithful GNATprove generation connect that
+definition to real programs, whose complete reports are checked. The fixed output library has its own
 nonempty, separately audited GNATprove obligations. The compiler bridge checks authoritative bytes and the complete
 reviewed source token shape, then proves membership equivalence for every
 interpretation satisfying the checked definition equations. Interpreting those
@@ -75,8 +78,11 @@ those expressions. `RecursiveBridge` interprets recursive calls parametrically,
 applies the three uniqueness lemmas, and composes the resulting equivalences
 with cursor/grammar equivalence in the final source theorem. A complete reviewed
 token shape fixes surrounding declarations and binding scopes as well as the
-selected bodies. The JSON also names the three admitted constructs, their
-conditions, token spans, and the permitted compositions.
+selected bodies. The JSON names six admitted constructs, their conditions, both token sequences
+and both permitted compositions. Construct metadata is maintained explicitly;
+integration compares parsed JSON values, not whitespace or key order. Output
+word-token selection is explicit in the exporter; source checks and tests keep
+its constants consistent with the output recognizer.
 
 ### Null structural proof
 
@@ -120,12 +126,12 @@ dereference, assertion, explicit raise, or subprogram call. Hence no source-leve
 runtime-check obligation can fail. Together with the Bronze consequences, this
 establishes the required source-level safety properties.
 
-**Composition step.** The profile permits precisely one composition of semantic
+**Composition step.** The null subgrammar permits precisely one composition of semantic
 constructs: the library procedure wrapper, its permitted pragma, and its single
 null statement. Its declaration and execution steps have already been covered.
 Every remaining permitted variation is lexical and preserves this composition
 by the lexical step. Thus the proof quantifies over all admitted sources and
-all permitted compositions, not merely the checked-in `null.adb` example.
+all permitted compositions, not merely the checked-in `samples/null.adb` example.
 
 This argument concerns the Silver source program. The GNAT-generated startup,
 binder, linker, operating-system interaction, and runtime behavior rely on the
@@ -134,53 +140,90 @@ implementations.
 
 ## Literal-output membership and semantics
 
-`OutputLiteral` defines and decides a relational quoted-literal grammar. It
-handles empty values and doubled quotes, preserves literal case, and proves
-that decoded values contain only printable ASCII and are bounded by consumed
-source. `OutputAdmission` defines the independent 23-token production with its
-single literal argument and proves scanner soundness/completeness. The existing
-trivia and whole-word rules apply outside literals. `Current.Member` is the union
-of the two grammars, and `Current.accepts_iff_member` proves decidable membership.
-Only these two compositions are admitted; their constructs are not freely
-repeatable or interchangeable.
+`OutputAdmission.LiteralAt` is the relational quoted-literal grammar used by
+`Parsed` and the membership proof. It handles empty values and doubled quotes,
+preserves case, and proves that decoded bytes are printable ASCII and bounded
+by consumed source. `OutputLiteral` supplies the printable-byte predicate.
+`OutputAdmission` defines the 23-token output production and proves scanner
+soundness/completeness. Existing trivia and whole-word rules apply outside the
+literal. `Current.Member` is the union of the two grammars, and
+`Current.accepts_iff_member` proves decidable membership. Only these two
+compositions are admitted; their constructs are not freely repeatable.
 
-The literal's static value fits the wrapper's unconstrained `String` formal.
-`Put_Line` has no public precondition and literal evaluation has no dynamic
-arithmetic, indexing or conversion. Thus the application unit has no caller
-proof obligations. This statement does **not** erase library obligations:
-`Silver_IO` elaboration, loop bounds, arbitrary String lower bounds and its
-successful-return contract are verified separately. The driver requires all
-selected application and library reports before building.
+`OutputRuntime` models the actual wrapper's length guard, checked writes,
+checked LF, checked flush, failure-status assignment and early return. Its
+renderer matches the complete body tokens. Erased operations use a finite set
+of fixed ghost actions and fixed loop annotations; checked declarations bind
+those actions to Static ghost state. The bound is checked against the actual
+`Max_Length` declaration. There is no arbitrary token-list erasure slot.
+Interpreting the rendered statements as Ada still uses the restricted frontend
+and erasure premises documented in the trusted boundary.
 
-`OutputRuntime` gives a typed statement model of the actual wrapper: length
-guard, per-byte checked writes, checked LF, checked flush and unsuccessful exit.
-Its renderer matches the reviewed non-ghost executable tokens. Ghost transcript
-updates and invariants are erased by GNAT but verified by GNATprove. Lean proves
-that a normal return contains exactly the literal plus LF and follows a zero
-flush status. Failure has status 1 and an accepted prefix of those bytes.
-`healthy_output` proves that a bounded literal succeeds when the external calls
-return healthy statuses. These are theorems about completed replies; byte delivery,
-blocking, signals and host progress have the
-[documented external interpretation](trusted-boundary.md#literal-output-boundary).
+The success theorem requires acceptance of exactly the literal plus LF and a
+zero flush status. A failed return records status 1 and an accepted prefix;
+returning from the wrapper alone is no longer a claim of successful output.
+The admitted `Main` has no following statement and returns with the stored
+status. `healthy_output` proves success for every bounded literal when the
+external calls return healthy statuses. These theorems model completed replies,
+not physical delivery, signals or guaranteed external progress.
 
-`Current.every_meaning_assured` covers every admitted source meaning, not a
-chosen sample. `literal_domain` supplies the runtime theorem's bounds from
-membership. `healthy_execution` proves successful output for all admitted
-literals under the healthy-environment premise. The null branch retains its
-unchanged-state, empty-output behavior. Automatic application discharge is
-finite and trivial because its obligation list is empty; the fixed library's
-actual proof is a separate requirement in the pipeline.
+`Current.every_meaning_assured` covers every admitted source meaning.
+`literal_domain` supplies the bound from membership, and `healthy_execution`
+proves successful output for every admitted literal under its environment
+premise. The null branch retains empty output and successful status; the
+separate null semantics theorem also proves unchanged abstract state.
 
-The application GPR project selects the unchanged `main.adb` snapshot and exactly
-`silver_io.ads`, `silver_io.adb` and `silver_output_libc.ads` for output. The
-`Silver_Libraries` helpers have proved contracts connecting actual file reads,
-writes and rereads to byte identity. Captured library bytes are checked after
-proof and build; phase guards reject changes. No annotated replacement or
-caller-supplied library is selected. Stable workspace/project files and genuine
-tools remain environmental premises.
+### Output structural proof and obligation correspondence
+
+**Lexical and declaration steps (reviewed Ada correspondence).** Membership
+fixes one `with Silver_IO;`, the `Main` body, its SPARK pragma and one qualified
+call with a string literal. Allowed trivia and case changes preserve those
+Ada tokens. Doubled quotes decode to one quote; no expression, declaration,
+second call or hidden unit can occur. The selected package declares the sole
+called operation with an unconstrained `String` parameter and no precondition.
+The literal's decoded length fits the checked wrapper bound. The context clause
+elaborates the selected library; its initialization obligations belong to that
+library's separately checked report.
+
+**Bronze and Silver steps.** `Main` reads no uninitialized application data,
+declares no variables or functions, and contains no arithmetic, indexing,
+conversion or dynamic argument expression. Literal evaluation and parameter
+passing require no run-time bound check for the unconstrained formal. The
+callee has no caller precondition and neither it nor its imports can abruptly
+exit the program under their SPARK contracts. Output failure uses the ordinary
+returning GNAT status setter, then returns through the wrapper and `Main`.
+Possible I/O blocking is explicit in `Always_Terminates => False` on procedures
+and effectful imports; it is not a disguised program exit. Thus there is no
+application-unit flow, run-time-error or program-exit obligation for this
+production. Library checks remain required and nonempty.
+
+**Composition and tool steps.** These steps cover every admitted literal and
+layout, and exactly the one permitted call composition. GNATprove verifies the
+wrapper for every `String`, including oversized and non-1-based strings.
+Lean's `Current.obligations` defines the modeled application lists as empty;
+its discharge theorem follows from that definition. It does not independently
+extract GNATprove obligations from Ada. Correspondence uses the reviewed
+structural argument, the explicit faithful-generation tool premise and complete
+real reports. The library-proof premise additionally assumes identical selected
+sources, logical tool configuration and caller-independent verification; one
+successful run alone is not a universal prover-completeness theorem.
+
+The application project selects unchanged `main.adb` and exactly three runtime
+files. Bootstrap embeds their exact bytes in `Silver_Library_Sources`; the
+compiler rejects installation files that differ before snapshotting them.
+The compiler audit checks this generated binding against the current source,
+and Lean checks those source files directly. After editing a runtime file,
+bootstrap, rebuild, compiler audit and Lean replay must be refreshed together.
+This binds source selection; it is not a compiler-binary attestation.
+
+`Silver_Libraries` has proved contracts connecting captured expected bytes and
+runtime rereads to byte identity. The driver records equality with the specific
+captured source set before proof, build and publication. Library and application
+snapshots are rechecked after proof and build. Stable workspace/project files
+and genuine tools remain environmental premises.
 
 `Silver_Library_Reports` checks complete selected entity coverage, completed
-analysis, every flow/proof record, approved dependencies, no skips or assumptions,
+analysis, every flow/proof record, approved dependency assumptions, no skipped checks or `pragma Assume`,
 and a proved wrapper postcondition. It requires the actual nonempty library
 checks, without pinning an arbitrary historical total. It is a bounded,
 nonrecursive scanner with verified safety and reviewed/tested report semantics;
@@ -193,7 +236,7 @@ from the existing null-report functional contract.
 `Silver_Profile.Accepts` is the null source recognizer;
 `Silver_Output_Profile.Accepts` is the literal-output recognizer. Both have an
 independent ghost membership specification and proved executable refinement.
-For the null recognizer, Its postcondition is
+For the null recognizer, its postcondition is
 `Accepts'Result = Is_Member (Source)`. The independent ghost specification uses
 recursive comment/trivia boundaries, token spans, lexical boundaries, and the
 fixed token sequence; it does not call the imperative recognizer. Loop invariants
@@ -222,10 +265,11 @@ arbitrary JSON or establish report provenance by text matching.
 The compiler proof covers bounds, overflow, initialization, preconditions,
 postconditions, invariants, and applicable termination checks. All owned entities
 must have full SPARK coverage. The audit enumerates every current unit, including the output library even
-though the compiler does not itself call that library. Three reviewed import
-specifications have specification-only coverage; their existing implementation
-bodies are outside the owned-code boundary. Generated `Silver_Build` is also
-covered. See the [capability record](hello-world.md) for current totals.
+though the compiler does not itself call that library. The imported subprograms in three reviewed interface packages have
+specification-only coverage; the packages themselves require full coverage.
+Their existing implementation bodies are external. Generated `Silver_Build`
+and `Silver_Library_Sources` are covered too. See the
+[repair evidence](hello-review-repairs.md) for current totals.
 
 The report model and its refinement assertions use SPARK's predefined `Static`
 level. GNATprove still verifies their bodies, recursive termination, contracts,
@@ -439,9 +483,14 @@ The proof chain has distinct checked components:
    `OutputEquations` proves uniqueness of literal/suffix cursor equations.
    `OutputSourceBridge.CheckedSource` adds the five new authoritative source
    reconstructions, complete `ReviewedOutputShape`, expression/callee checks,
-   catalogue and refinement checks, and the runtime statement rendering.
+   catalogue and refinement checks, runtime statement rendering, Static ghost
+   declarations, the length bound and returning status-setter signature.
    `authoritative_current_member_iff` combines both checked source bridges and
    proves union membership for every interpretation satisfying their equations.
+   Literal/parse determinism, disjoint productions and `Current.meaning_unique`
+   establish a unique source meaning. `model_interpreted` and
+   `model_tool_contract` provide explicit witnesses for the equation and tool
+   interfaces; they do not verify the physical toolchain.
 8. `authoritative_runtime_correct` retains those checked-source facts and
    proves that the interpreter of the rendered wrapper body equals its output
    specification. The `Current` assurance and tool-pipeline theorems compose
@@ -490,7 +539,9 @@ execution. `automatic_pipeline` composes faithful parsing, obligation generation
 empty application discharge, fixed-library proof and same-source compilation.
 `pipeline_preserves` and `pipeline_realizes` establish specified outcomes and
 successful output in a healthy environment. The fixed-library proof premise is
-explicit; it is not inferred from an empty application report or from membership.
+an explicit pipeline requirement; behavior preservation is a separate external
+tool-contract premise, not a consequence derived from that proof marker.
+Neither premise is inferred from an empty application report or from membership.
 The source correspondence theorem connects checked recognition to this union.
 
 Instantiation for physical GNAT/GNATprove invocations uses the approved external
@@ -508,17 +559,17 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | --- | --- | --- |
 | Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
 | Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrapper | Null and literal-output compositions, all admitted literals; external output meanings/progress as documented. |
-| Catalogue correspondence | Shared SPARK rules, Lean source checks, exact JSON integration comparison | Explicit construct metadata and token/byte tables for both productions; no general serializer theorem. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for both productions; no general serializer theorem. |
 | Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; pinned external imports and the documented runtime assumptions. |
-| Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, report recognition, I/O observations and ordered driver guards. |
+| Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null-report recognition, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
 | Automatic discharge | Lean empty-obligation certificate; conditional external-tool theorem; real report checks | Empty application checks plus separately audited fixed-library obligations for every admitted source. No arbitrary-SPARK solver completeness claim. |
-| Native support | Native build/proof/tests plus simulated routing tests | Linux results and independently reviewed macOS workflow results have explicit input/mode scope in the workflow record; the newest cold/guard and Hello World changes await native macOS validation. CI is configured; no remote run exists yet. |
+| Native support | Native build/proof/tests plus simulated routing tests | Linux repair results and retained macOS baseline results have explicit input/mode scope in the capability and repair records. The present repairs await independent native macOS validation. CI is configured; no remote run exists yet. |
 
 These boundaries do not change membership or waive any obligation. Admission,
 verification or compilation failure on admitted source remains an implementation
 or toolchain defect. Specified external output failure is an execution outcome. Any extension of
-the initial language must extend the catalogue, source correspondence, and
+the current language must extend the catalogue, source correspondence, and
 universal composition/discharge arguments before it is admitted.
 
 For a language extension, first specify its constructs, decidable admission and

@@ -12,7 +12,7 @@ from unittest import mock
 from scripts.check_evidence import (EvidenceError, TRUSTED_IMPORT_ENTITIES,
                                     audit_import_spec, audit_reports, audit_source_policy,
                                     audit_sources)
-from scripts import proof_provenance
+from scripts import proof_provenance, bootstrap
 from scripts.check_evidence import PROOF_OPTIONS
 from scripts.platforms import HostLayout
 
@@ -117,6 +117,9 @@ class ProofEvidenceTests(unittest.TestCase):
         source_dir.mkdir()
         generated_dir.mkdir()
         (source_dir / "main.adb").write_text("procedure Main is begin null; end Main;\n")
+        root = Path(__file__).resolve().parents[1]
+        for filename in bootstrap.RUNTIME_SOURCES.values():
+            (source_dir / filename).write_bytes((root / "src" / filename).read_bytes())
         self.audit()
         with self.assertRaisesRegex(EvidenceError, "missing platform configuration"):
             audit_sources(source_dir, self.path, generated_dir)
@@ -125,15 +128,46 @@ class ProofEvidenceTests(unittest.TestCase):
         generated.write_text('package Silver_Build with SPARK_Mode => On is\n'
                              '   Host : constant String := "linux-aarch64";\n'
                              'end Silver_Build;\n')
+        binding = generated_dir / "silver_library_sources.ads"
+        with self.assertRaisesRegex(EvidenceError, "missing runtime source binding"):
+            audit_sources(source_dir, self.path, generated_dir)
+        binding.write_bytes(bootstrap.runtime_source_configuration(source_dir))
         with self.assertRaisesRegex(EvidenceError, "missing report"):
             audit_sources(source_dir, self.path, generated_dir)
 
+        for unit, package in (("silver_io", "Silver_IO"),
+                              ("silver_output_libc", "Silver_Output_Libc"),
+                              ("silver_library_sources", "Silver_Library_Sources")):
+            report = copy.deepcopy(self.report)
+            names = [package, *sorted(TRUSTED_IMPORT_ENTITIES.get(unit, set()))]
+            report["entities"] = {
+                str(index): {"name": name, "sloc": [{"file": unit + ".ads"}]}
+                for index, name in enumerate(names, 1)}
+            report["spark"] = {str(index): "all" if index == 1 else "spec"
+                               for index in range(1, len(names) + 1)}
+            (self.path / (unit + ".spark")).write_text(json.dumps(report))
         report = dict(self.report)
         report["entities"] = {" 1": {"name": "Silver_Build", "sloc": [{"file": "silver_build.ads"}]}}
         report_path = self.path / "silver_build.spark"
         report_path.write_text(json.dumps(report))
         self.refresh_reports()
-        self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 2)
+        self.assertEqual(audit_sources(source_dir, self.path, generated_dir)["units"], 5)
+
+        # A generated spec with changed expected bytes cannot be accepted even
+        # if all producer reports claim success and are newer than the source.
+        original_binding = binding.read_bytes()
+        binding.write_bytes(original_binding + b"-- changed binding\n")
+        with self.assertRaisesRegex(EvidenceError, "embedded runtime source bytes differ"):
+            audit_sources(source_dir, self.path, generated_dir)
+        binding.write_bytes(original_binding)
+        self.refresh_reports()
+        target = source_dir / "silver_io.adb"
+        original = target.read_bytes()
+        target.write_bytes(original + b"-- changed installed source\n")
+        with self.assertRaisesRegex(EvidenceError, "embedded runtime source bytes differ"):
+            audit_sources(source_dir, self.path, generated_dir)
+        target.write_bytes(original)
+        self.refresh_reports()
 
         # A proof for yesterday's host configuration cannot verify today's.
         old = report_path.stat().st_mtime_ns

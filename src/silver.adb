@@ -60,7 +60,8 @@ procedure Silver with SPARK_Mode => On is
    end Same_Source;
 
    procedure Compile (Source : String; Output_Mode, Run_After : Boolean)
-     with Pre => (Runtime => Source'Length <= Silver_Profile.Max_Source_Length,
+     with Pre => (Runtime => Source'Length <= Silver_Profile.Max_Source_Length
+                    and then (if not Output_Mode then Silver_Profile.Is_Member (Source)),
                   Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
                              else Silver_Profile.Is_Member (Source)))
    is
@@ -183,6 +184,7 @@ procedure Silver with SPARK_Mode => On is
              and then Report_Last <= Report'Length
              and then Report_Complete
              and then (if Output_Mode then Runtime_Evidence_Complete)
+             and then (if not Output_Mode then Silver_Profile.Is_Member (Source))
              and then Success and then Observed_Last <= Observed'Length
              and then Observed (1 .. Observed_Last) = Source,
              Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
@@ -237,7 +239,10 @@ procedure Silver with SPARK_Mode => On is
             Silver_Libraries.Capture_And_Snapshot (Directory, Library_Sources, Success);
             --  The verified helper reports success only after capturing, writing
             --  and rereading the exact three library byte sequences.
-            Initial_Libraries_Matched := Success;
+            Initial_Libraries_Matched := Success
+              and then Silver_Libraries.Same_Bytes
+                (Silver_Libraries.Checked, Library_Sources)
+              and then Silver_Libraries.Bound_To_Compiler (Library_Sources);
             if not Success then
                Failure ("Infrastructure error: cannot create identical runtime library snapshots.");
                return;
@@ -275,7 +280,10 @@ procedure Silver with SPARK_Mode => On is
             end if;
             Silver_Libraries.Same_Sources (Directory, Library_Sources, Success);
             --  Same_Sources' successful-return contract establishes exact equality.
-            Proof_Libraries_Matched := Success;
+            Proof_Libraries_Matched := Success
+              and then Silver_Libraries.Same_Bytes
+                (Silver_Libraries.Checked, Library_Sources)
+              and then Silver_Libraries.Bound_To_Compiler (Library_Sources);
             if not Success then
                Failure ("Infrastructure error: runtime library changed during verification.");
                return;
@@ -300,7 +308,10 @@ procedure Silver with SPARK_Mode => On is
          end if;
          if Output_Mode then
             Silver_Libraries.Same_Sources (Directory, Library_Sources, Success);
-            Build_Libraries_Matched := Success;
+            Build_Libraries_Matched := Success
+              and then Silver_Libraries.Same_Bytes
+                (Silver_Libraries.Checked, Library_Sources)
+              and then Silver_Libraries.Bound_To_Compiler (Library_Sources);
             if not Success then
                Failure ("Infrastructure error: runtime library changed during compilation.");
                return;

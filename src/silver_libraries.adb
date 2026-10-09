@@ -1,17 +1,32 @@
 with Silver_Build;
 with Silver_Platform;
 with Silver_Library_Reports;
+with Silver_Library_Sources;
 
 package body Silver_Libraries with SPARK_Mode => On is
    use Silver_Platform;
    use type Silver_Library_Reports.Report_Kind;
-   Library_Directory : constant String := Silver_Build.Artifacts_Directory & "/../src";
+   Library_Directory : constant String := Silver_Build.Source_Directory;
 
    function File_Name (Kind : Unit_Kind) return String is
      (case Kind is
         when IO_Specification => "silver_io.ads",
         when IO_Implementation => "silver_io.adb",
         when Imported_Interface => "silver_output_libc.ads");
+
+   function Expected_Source (Kind : Unit_Kind) return String is
+   begin
+      --  Callers need the source value and its verified bounds, without
+      --  unfolding every byte of the generated constants in their proofs.
+      case Kind is
+         when IO_Specification =>
+            return Silver_Library_Sources.IO_Specification;
+         when IO_Implementation =>
+            return Silver_Library_Sources.IO_Implementation;
+         when Imported_Interface =>
+            return Silver_Library_Sources.Imported_Interface;
+      end case;
+   end Expected_Source;
 
    procedure Check_Proof_Evidence (Directory : String; Success : out Boolean) is
       Report : String (1 .. Silver_Library_Reports.Max_Report_Length);
@@ -84,7 +99,9 @@ package body Silver_Libraries with SPARK_Mode => On is
                   Lengths => (others => 0));
       Captured := Sources;
       Checked := Sources;
-      All_Written := False;
+      --  Vacuous success before any file; every completed write contributes
+      --  its actual closure, count and content observation below.
+      All_Written := True;
       Success := False;
       if not Valid_Directory (Library_Directory) then
          return;
@@ -92,17 +109,24 @@ package body Silver_Libraries with SPARK_Mode => On is
       for Kind in Unit_Kind loop
          pragma Loop_Invariant
            (for all Earlier in Unit_Kind => (if Earlier < Kind then Sources.Lengths (Earlier) > 0));
+         pragma Loop_Invariant (Static =>
+           (for all Earlier in Unit_Kind => (if Earlier < Kind then
+             Sources.Bytes (Earlier) (1 .. Sources.Lengths (Earlier)) = Expected_Source (Earlier))));
          pragma Loop_Invariant
-           (Static => Captured = Sources and then (if Kind /= Unit_Kind'First then All_Written));
+           (Static => Captured = Sources and then All_Written);
          Read_File (Library_Directory & "/" & File_Name (Kind), Sources.Bytes (Kind),
                     Last, Too_Long, Success);
-         if not Success or else Too_Long or else Last = 0 then
+         if not Success or else Too_Long or else Last = 0
+           or else Sources.Bytes (Kind) (1 .. Last) /= Expected_Source (Kind)
+         then
             Success := False;
             Sources.Lengths := (others => 0);
             return;
          end if;
          Sources.Lengths (Kind) := Last;
-         --  Sources contains the actual bytes returned by the original read.
+         --  Sources contains the actual bytes returned by Read_File. This
+         --  summary does not create source identity: the executable comparison
+         --  to Expected_Source and final Same_Sources check establish it.
          Captured := Sources;
          Write_File (Directory & "/" & File_Name (Kind),
                      Sources.Bytes (Kind) (1 .. Sources.Lengths (Kind)), Success);
@@ -110,7 +134,8 @@ package body Silver_Libraries with SPARK_Mode => On is
             Sources.Lengths := (others => 0);
             return;
          end if;
-         All_Written := Write_Closed and then Written_Count = Sources.Lengths (Kind)
+         All_Written := All_Written and then Write_Closed
+           and then Written_Count = Sources.Lengths (Kind)
            and then Written_Bytes (1 .. Written_Count) = Sources.Bytes (Kind) (1 .. Sources.Lengths (Kind));
       end loop;
       Same_Sources (Directory, Sources, Success);

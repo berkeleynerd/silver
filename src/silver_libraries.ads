@@ -28,6 +28,13 @@ package Silver_Libraries with SPARK_Mode => On is
           Post => File_Name'Result'First = 1
             and then File_Name'Result'Length in 13 .. 22
             and then (for all Item of File_Name'Result => Item /= Character'Val (0));
+   function Expected_Source (Kind : Unit_Kind) return String
+     with Global => null,
+          Post => Expected_Source'Result'First = 1
+            and then Expected_Source'Result'Length in 1 .. Max_Source_Length;
+   function Bound_To_Compiler (Sources : Source_Set) return Boolean is
+     (for all Kind in Unit_Kind =>
+        Sources.Bytes (Kind) (1 .. Sources.Lengths (Kind)) = Expected_Source (Kind));
 
    --  These observations come from actual returned read/write results.
    Captured, Checked : Source_Set :=
@@ -55,7 +62,8 @@ package Silver_Libraries with SPARK_Mode => On is
                                 Silver_Platform.Read_Ended, Silver_Platform.Read_Closed,
                                 Checked)),
           Pre => Valid_Directory (Directory) and then Complete (Expected),
-          Post => (Static => (if Success then Same_Bytes (Checked, Expected)));
+          Post => (Static => (if Success then Same_Bytes (Checked, Expected)
+            and then Bound_To_Compiler (Checked) = Bound_To_Compiler (Expected)));
 
    procedure Capture_And_Snapshot
      (Directory : String; Sources : out Source_Set; Success : out Boolean)
@@ -69,5 +77,5 @@ package Silver_Libraries with SPARK_Mode => On is
           Post => (Runtime => Complete (Sources) = Success,
                    Static => (if Success then
                      Same_Bytes (Captured, Sources) and then Same_Bytes (Checked, Sources)
-                     and then All_Written));
+                     and then Bound_To_Compiler (Sources) and then All_Written));
 end Silver_Libraries;

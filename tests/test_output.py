@@ -35,6 +35,8 @@ class LiteralOutputTests(unittest.TestCase):
             "case sensitive content": PREFIX.upper() + b'"MiXeD"' + SUFFIX.upper(),
             "trivia around qualification": source_for(b"hello").replace(
                 b"Silver_IO.Put_Line", b"Silver_IO -- dot next\r\n .\tPut_Line"),
+            "trivia before literal": source_for(b"hello").replace(
+                b'("hello"', b'(-- argument follows\r\n\t"hello"'),
             "leading trailing comments": b"-- before\r\n" + source_for(b"hello") + b"-- after",
             "maximum source": source_for(b"x" * (4096 - len(source_for(b"")))),
         }
@@ -52,7 +54,9 @@ class LiteralOutputTests(unittest.TestCase):
             "different package": valid.replace(b"Silver_IO", b"Ada.Text_IO"),
             "different operation": valid.replace(b"Put_Line", b"Put"),
             "unqualified call": valid.replace(b"Silver_IO.Put_Line", b"Put_Line"),
-            "use clause": b"use Silver_IO; " + valid,
+            "use clause": valid.replace(b"with Silver_IO;",
+                                        b"with Silver_IO; use Silver_IO;"),
+            "attached context keyword": valid.replace(b"with Silver_IO", b"withSilver_IO"),
             "second call": valid.replace(b"; end", b'; Silver_IO.Put_Line("more"); end'),
             "extra null": valid.replace(b"begin ", b"begin null; "),
             "context only": valid.replace(b'Silver_IO.Put_Line("hello")', b"null"),
@@ -60,7 +64,9 @@ class LiteralOutputTests(unittest.TestCase):
             "concatenation": valid.replace(b'"hello"', b'"hel" & "lo"'),
             "missing closing quote": valid.replace(b'"hello"', b'"hello'),
             "bare doubled quotes": valid.replace(b'"hello"', b'"""'),
+            "lone internal quote": valid.replace(b'"hello"', b'"hel"lo"'),
             "newline in literal": source_for(b"hel\nlo"),
+            "carriage return in literal": source_for(b"hel\rlo"),
             "tab in literal": source_for(b"hel\tlo"),
             "non ASCII": source_for(b"caf\xc3\xa9"),
             "forbidden comment byte": valid + b"--\x0bhidden",
@@ -99,7 +105,8 @@ class LiteralOutputTests(unittest.TestCase):
 
     def test_empty_escaped_and_maximum_literals_execute(self) -> None:
         maximum = 4096 - len(source_for(b""))
-        for contents in (b"", bytes(range(32, 127)), b"x" * maximum):
+        for contents in (b"", bytes(range(32, 127)), b"x" * maximum,
+                         b"AND", b"aNd", b"Mod", b"+", b"/=", b'["abc"]'):
             with self.subTest(length=len(contents)):
                 executable = self.compile(contents)
                 run = subprocess.run([str(executable)], capture_output=True, timeout=10)
@@ -115,14 +122,24 @@ class LiteralOutputTests(unittest.TestCase):
             with open("/dev/full", "wb", buffering=0) as full:
                 run = subprocess.run([str(executable)], stdout=full,
                                      stderr=subprocess.PIPE, timeout=10)
-            self.assertNotEqual(run.returncode, 0)
+            self.assertEqual(run.returncode, 1, run.stderr)
+            self.assertEqual(run.stderr, b"")
+            # Unbuffered stdout makes the first putchar fail immediately.
+            stdbuf = shutil.which("stdbuf")
+            if stdbuf is not None:
+                with open("/dev/full", "wb", buffering=0) as full:
+                    run = subprocess.run([stdbuf, "-o0", str(executable)], stdout=full,
+                                         stderr=subprocess.PIPE, timeout=10)
+                self.assertEqual(run.returncode, 1, run.stderr)
+                self.assertEqual(run.stderr, b"")
         # Closing stdout is portable across supported POSIX hosts. The Python
         # process only supplies the environment; it does not replace the app.
         run = subprocess.run([sys.executable, "-c",
                               "import os, sys; os.close(1); os.execv(sys.argv[1], [sys.argv[1]])",
                               str(executable)], capture_output=True, timeout=10)
-        self.assertNotEqual(run.returncode, 0)
+        self.assertEqual(run.returncode, 1, run.stderr)
         self.assertEqual(run.stdout, b"")
+        self.assertEqual(run.stderr, b"")
 
 
 if __name__ == "__main__":

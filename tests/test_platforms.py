@@ -568,6 +568,9 @@ class InstallationEnvironmentTests(unittest.TestCase):
             root = parent / "installation 'quote\" $dollar `tick` ;semi café"
             root.mkdir()
             shutil.copy2(ROOT / "alire.toml", root / "alire.toml")
+            (root / "src").mkdir()
+            for filename in bootstrap.RUNTIME_SOURCES.values():
+                shutil.copy2(ROOT / "src" / filename, root / "src" / filename)
             host = platforms.HostLayout(root, platforms.host_key())
             bootstrap.prepare_context(host)
             configuration = bootstrap.build_configuration(host)
@@ -605,6 +608,41 @@ class InstallationEnvironmentTests(unittest.TestCase):
             for name in platforms.TOOL_ENVIRONMENT_OVERRIDES:
                 self.assertNotIn(name, actual_environment)
             self.assertEqual(list(caller.iterdir()), [])
+
+    def test_bootstrap_reserves_the_library_evidence_precondition_suffix(self) -> None:
+        # Isolate filesystem-path length from the independently checked shell
+        # command bound. The latter can be stricter for heavily quoted paths.
+        host = mock.Mock(key="linux-aarch64", root=Path("/installation"),
+                         context=Path("/context"), alire_settings=Path("/settings"), alr=Path("/alr"))
+        host.artifacts = Path("/" + "x" * 4035)
+        fields = bootstrap.build_configuration(host)
+        self.assertEqual(len(os.fsencode(fields["Root_Directory"])), 4036)
+        self.assertEqual(fields["Source_Directory"], "/installation/src")
+        host.artifacts = Path("/" + "x" * 4036)
+        with self.assertRaisesRegex(RuntimeError, "4096-byte path bound"):
+            bootstrap.build_configuration(host)
+
+    def test_bootstrap_requires_complete_bounded_runtime_sources(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="silver embedded sources-") as temporary:
+            root = Path(temporary)
+            shutil.copy2(ROOT / "alire.toml", root / "alire.toml")
+            (root / "src").mkdir()
+            host = platforms.HostLayout(root, platforms.host_key())
+            with self.assertRaises(FileNotFoundError):
+                bootstrap.prepare_context(host)
+            for filename in bootstrap.RUNTIME_SOURCES.values():
+                shutil.copy2(ROOT / "src" / filename, root / "src" / filename)
+            bootstrap.prepare_context(host)
+            generated = host.generated / "silver_library_sources.ads"
+            self.assertEqual(generated.read_bytes(), bootstrap.runtime_source_configuration(root / "src"))
+            before = generated.stat().st_mtime_ns
+            bootstrap.prepare_context(host)
+            self.assertEqual(generated.stat().st_mtime_ns, before)
+            target = root / "src" / "silver_io.adb"
+            for data in (b"", b" " * 16_385, b"--\xff\n"):
+                target.write_bytes(data)
+                with self.subTest(data_length=len(data)), self.assertRaises(RuntimeError):
+                    bootstrap.prepare_context(host)
 
 
 if __name__ == "__main__":
