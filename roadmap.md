@@ -42,7 +42,7 @@ sequence.
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
-| Source-certificate performance | In progress | Authorized 2026-10-09: a [bounded performance pass](#bounded-source-certificate-performance) on exact-source reconstruction, retaining all current assurance. | Developer workflow; no language change |
+| Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
 | Guarded command-line greeting | In progress | Authorized 2026-10-09; design and obligation investigation, followed by implementation after the bounded performance decision. [Dynamic concatenation behind an explicit capacity guard](#guarded-command-line-greeting). | Planned `samples/command_line_greeting.adb` |
 
 The output target covers admitted literals and bounded command-line
@@ -69,16 +69,20 @@ documentation handoff is `fee3afe`.
 
 ### Bounded source-certificate performance
 
-**Active work:** evaluate at most two local approaches to reducing exact-source
-certificate checking cost; integrate a validated improvement, or record a
-negative result and retain the current representation.
+**Completed investigation:** neither of the two candidates established a
+validated improvement. Retain the existing representation; no third approach is
+authorized. The [performance record](docs/certificate-performance.md) distinguishes
+failed and interrupted trials from successful validation. The configured CI
+allowance is now 120 minutes, with hosted capacity still unmeasured.
+
+The following records the bounded investigation scope.
 
 The [greeting evidence](docs/greeting.md) identifies a substantial cost in the
 enlarged recognizer certificate. Its timings overlapped other probes, so they
 motivate investigation without constituting a controlled benchmark. Caching
 already works; this task concerns rebuilding changed source certificates.
 The external review also identifies a capacity risk in the configured CI Lean
-job's 60-minute timeout. Hosted CI has never run, so a timeout is not established.
+job's former 60-minute timeout. Hosted CI has never run, so a timeout is not established.
 Include job-budget headroom in this performance assessment before the first
 hosted run; a larger timeout alone would not improve proof feedback.
 

@@ -210,6 +210,8 @@ The command-line proof/test maintenance and independently corroborated macOS bas
 results are in [the follow-up record](docs/command-line-review-repairs.md).
 The subsequent concatenation capability and its native evidence are recorded in
 [greeting.md](docs/greeting.md).
+The bounded [source-certificate investigation](docs/certificate-performance.md)
+found no validated improvement; the existing reconstruction remains in use.
 The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.

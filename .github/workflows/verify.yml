@@ -67,7 +67,7 @@ jobs:
         runner: [ubuntu-24.04, ubuntu-24.04-arm, macos-15-intel, macos-15]
     runs-on: ${{ matrix.runner }}
     # Include the separate fresh kernel recheck after elaboration/axiom audit.
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
