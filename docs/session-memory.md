@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-09 — Non-dot artifact snapshots authorized for migration
+
+After discussing the size and generated nature of `.silver/` and `.tools/`, the
+owner explicitly authorized adding their non-dot equivalents to the repository.
+This supersedes the previous exclusion of these captured trees from publication;
+it does not change the live artifact layout or authorize further language work.
+
+The [silver snapshot](../silver/README.md) and
+[tools snapshot](../tools/README.md) preserve the original directories in split,
+compressed tar archives. Packaging preserves nested Git repositories, symbolic
+links, executable modes and original paths while keeping each part below GitHub's
+file-size limit. All parts are needed to restore a tree. Per-directory
+`snapshot.json` and `SHA256SUMS` record exact capture identities, checksums and
+full comparison against the originals. The live dot directories remain intact
+and ignored. Restore to staging first; preserve any newer target-host state.
+
+The original implementation/review target remains `96b4e3a`, with performance
+decision `5668806` and completed harness goal. This transfer adds no source or
+proof change and establishes no new platform validation. Archive commits use
+`[skip ci]` to avoid launching repeated expensive proof runs for binary transfer
+batches; archive integrity and source comparisons are checked separately.
+Preserve untracked `.vscode/` and `tmp/`. The [handoff](../RESUME.md) now explains
+restoration from Git and which remaining local state still needs a separate
+backup. CLI memory records the closing commit and actual push outcome.
+
 ## 2026-10-09 — Published history and replacement-host handoff refreshed
 
 Read-only remote verification confirmed `main` at `9731278`, including feature

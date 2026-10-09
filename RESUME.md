@@ -38,12 +38,21 @@ change the implementation review target.
 
 ## Preserve before replacing the VM
 
-Keep the entire checkout, including `.git`, rather than relying on a source-only
-archive or remote repository: local evidence and scratch files are not included
-in the push. Preserve untracked `.vscode/` and `tmp/` material.
+The owner subsequently authorized including snapshots of both artifact trees in
+Git under their non-dot names. [silver/](silver/README.md) and
+[tools/](tools/README.md) contain compressed, split archives of the original
+`.silver/` and `.tools/`, with capture metadata, checksums and restoration steps.
+Use every part of each selected snapshot; restore through the documented staging
+procedure so existing state is preserved. These are point-in-time migration
+copies, not alternate live build directories or new validation runs.
+
+Keep the entire checkout, including `.git`, for any local state newer than those
+snapshots. Preserve untracked `.vscode/` and `tmp/` material; those directories
+are still excluded from Git.
 Keep all hosts' `.silver/<host>/` evidence and caches and `.tools/<host>/`
 installations; the latter avoid unnecessary downloads. Do not discard another
-host's state when preparing Linux. Important evidence is ignored by Git:
+host's state when preparing Linux. Live artifact trees remain ignored by Git;
+the snapshots preserve their captured contents, including this evidence:
 
 - `.silver/linux-aarch64/guarded-greeting-validation/` contains final results,
   review identities and preserved failed/interrupted attempts. Its
@@ -59,8 +68,8 @@ host's state when preparing Linux. Important evidence is ignored by Git:
   candidate trials. Earlier review evidence and other-host artifacts retain
   their original scope.
 
-Verify the backup includes these ignored directories and `.git` before destroying
-the old VM. Retain original evidence if relocation makes its absolute paths
+Verify snapshot checksums and any additional backup before destroying the old
+VM. Retain original evidence if relocation makes its absolute paths
 stale; a new machine or installation does not retroactively change that evidence.
 
 CLI recall is secondary. If needed, preserve the Silver notes under

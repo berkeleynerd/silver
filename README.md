@@ -22,6 +22,12 @@ The root documents provide the main review entry points:
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
 - [RESUME.md](RESUME.md): completed-goal handoff and VM replacement checklist.
 
+Owner-authorized migration snapshots of local evidence/caches and installed
+toolchains are available in [silver/](silver/README.md) and
+[tools/](tools/README.md). These large binary archives preserve one captured
+installation; restore instructions and checksums are included. Development still
+uses the ignored `.silver/` and `.tools/` directories.
+
 The compiler admits, proves, builds, and runs this program shape:
 
 ```ada
