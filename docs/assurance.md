@@ -12,11 +12,12 @@ restrictions and behavior. This document records its assurance argument and
 evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
 complete the [admission workflow](../development.md).
 
-The SPARK implementation recognizes four productions: null, literal output,
-named-constant output and guarded command-line output. The capability's scope
-and original validation are recorded in [command-line.md](command-line.md).
-The [command-line review repairs](command-line-review-repairs.md) record the
-follow-up changes and their validation status.
+The SPARK implementation recognizes five productions: null, literal output,
+named-constant output, guarded command-line output and literal-backed
+concatenation. The new composition's scope and validation status are recorded in
+[greeting.md](greeting.md).
+The preceding [command-line capability](command-line.md) and
+[review repairs](command-line-review-repairs.md) retain their completed evidence.
 Completed earlier capability evidence remains in [hello-world.md](hello-world.md),
 the [repair record](hello-review-repairs.md) and [named-strings.md](named-strings.md);
 workflow history is in [proof-workflow.md](proof-workflow.md) and
@@ -88,11 +89,11 @@ those expressions. `RecursiveBridge` interprets recursive calls parametrically,
 applies the three uniqueness lemmas, and composes the resulting equivalences
 with cursor/grammar equivalence in the final source theorem. A complete reviewed
 token shape fixes surrounding declarations and binding scopes as well as the
-selected bodies. The JSON names the admitted constructs, their conditions, the four token
+selected bodies. The JSON names the admitted constructs, their conditions, the five token
 sequences and permitted compositions. Construct metadata is maintained explicitly;
 integration compares parsed JSON values, not whitespace or key order. Output
 word-token selection is explicit in the exporter. An integration assertion
-compares its word set with the alphabetic tokens of the four productions;
+compares its word set with the alphabetic tokens of the five productions;
 source checks separately bind those productions to the recognizers.
 
 ### Null structural proof
@@ -157,9 +158,10 @@ preserves case, and proves that decoded bytes are printable ASCII and bounded
 by consumed source. `OutputLiteral` supplies the printable-byte predicate.
 `OutputAdmission` defines the 23-token output production and proves scanner
 soundness/completeness. Existing trivia and whole-word rules apply outside the
-literal. `Current.Member` is the union of the null, literal, named and guarded
-argument grammars, and `Current.accepts_iff_member` proves decidable membership.
-Only these four compositions are included; their constructs are not freely
+literal. `Current.Member` is the union of the null, literal, named, guarded
+argument and concatenation grammars; `Current.accepts_iff_member` connects
+decidable membership to that union.
+Only these five compositions are included; their constructs are not freely
 repeatable.
 
 `OutputRuntime` models the actual wrapper's length guard, checked writes,
@@ -180,8 +182,9 @@ external calls return healthy statuses. These theorems model completed replies,
 not physical delivery, signals or guaranteed external progress.
 
 `Current.every_meaning_assured` covers every admitted source meaning.
-`literal_domain` supplies the literal bound from membership. `action_domain`
-also covers initialized argument values. `healthy_execution` gives exact output
+`literal_domain` supplies the output bound from membership, including the
+combined concatenation value. `action_domain` also covers initialized argument
+values. `healthy_execution` gives exact output
 and successful status for valid input under its output-environment premise;
 invalid arguments still produce empty output and status 1. The null branch
 retains empty output and successful status; the separate null semantics theorem
@@ -249,10 +252,73 @@ this fixed composition, not arbitrary declarations or name resolution.
 The named source semantics reduces to the same output value and verified
 wrapper execution as the direct-literal form. Its success, partial-output and
 status-1 failure outcomes therefore inherit the runtime theorem and premises
-above. The `Current` pipeline also covers the guarded argument composition
-below. Modeled obligations remain empty by definition; the reviewed Ada argument,
+above. The `Current` pipeline also covers the concatenation and guarded argument
+compositions below. Modeled obligations remain empty by definition; the reviewed Ada argument,
 faithful tool-generation premise and complete actual reports remain distinct
 parts of the assurance.
+
+### Literal-backed concatenation
+
+The new production adds exactly `prefix_literal & Name & suffix_literal` to the
+single output call of a literal-initialized constant. The initializer, prefix
+and suffix obey the existing literal rules. The declaration and sole reference
+obey the named-output rules; no additional shadowing exclusion is needed.
+The name is read exactly once, and Ada's predefined String concatenations
+associate to the left. Extra operands, repeated references, subexpression
+parentheses and command-line initializers remain excluded.
+
+**Reviewed Ada correspondence and obligations.** Under
+[Ada RM 4.9](../references/ada/2022/RM-4-9.html), the literal initializer makes
+the constant static, and its name and the prefix/suffix literals are static
+string expressions. Predefined String concatenation is a static function, so
+both concatenations are static expressions too. Their bytes are, in order,
+prefix, initialized value and suffix. Left association fixes expression grouping;
+the result does not depend on operand evaluation order because all operands are
+pure. The existing name exclusions preserve the
+predefined type and library binding, and no admitted declaration can replace
+the predefined operator. String literals and their initialized constant have
+the usual lower bound 1, including null strings; both concatenation results
+fit the supported GNAT String index range.
+
+The length argument uses the three distinct literal spans in one complete
+parse. Their combined decoded length is at most the source length, not three
+times that length. Quotes, escaping, syntax and trivia consume additional
+source bytes without adding result bytes. The sole name reference inserts its
+initializer value once. Consequently both the intermediate prefix/value result
+and the final result are at most 4096 bytes and contain only printable ASCII.
+This bound covers empty operands and doubled quotes. Each result fits the
+existing output wrapper's domain without a new application guard or contract.
+
+There is no constrained assignment, dynamic operand, index, conversion or
+caller precondition. The source is passed unchanged to GNATprove and GNAT;
+Silver neither computes a replacement literal nor emits replacement Ada.
+The structural argument and genuine application reports support the existing
+empty-application-report policy for this composition. The complete fixed
+library reports remain required. Lean's modeled empty obligations, the reviewed
+Ada static-expression argument, and faithful tool generation remain distinct
+parts of the assurance. The [capability record](greeting.md) records the proof
+integration and validation status.
+
+The proof extension uses `ConcatAdmission` for the 34-token production and
+`ConcatDisjoint` to distinguish it from the four earlier forms.
+`Concat.parsed_literal_consumption` accumulates decoded bytes over the
+whole parse using monotone cursor advancement. `concatenation_bounds` applies
+that sum to both intermediate and final lengths; `output_domain` establishes
+the printable-byte and maximum-length output domain.
+
+The typed `Concat.Main.composition` shares its syntax between token rendering
+and interpretation. Literal and reference nodes consume the parser's ordered
+events, with actual binding lookup for the sole reference. This ties initializer,
+prefix and suffix values to their source positions. The expression's checked
+grouping enforces left association, while the decoder's event order makes no
+claim about Ada operand evaluation order. `evaluation_refines` and
+`execution_refines` connect the initialized binding, concatenated value and
+existing IO wrapper. `Current.concat_execution_refines` embeds this result in
+the five-form language through its existing output action.
+`Concat.SourceBridge.authoritative_main_correct` retains the checked source,
+parsing against the typed renderer, event evaluation and equality to
+`Current.execute`. Reading the fixed syntax as Ada retains the frontend premise
+above.
 
 ### Guarded command-line initialization
 
@@ -289,7 +355,7 @@ rendering. The interpreter evaluates the initializer before creating the
 binding and executing the guard, and reports an uninitialized reference as a
 failed evaluation. `Arguments.execution_refines` connects that execution to
 `Arguments.Runtime.executeMain` for every admitted source meaning;
-`Current.argument_execution_refines` connects the result to the four-form model.
+`Current.argument_execution_refines` connects the result to the five-form model.
 `Arguments.SourceBridge.authoritative_main_correct` retains the checked source,
 parsing against that rendering, and equality of the interpreted result with
 `Current.execute` in one theorem.
@@ -358,7 +424,7 @@ from the existing null-report functional contract.
 ## Compiler verification evidence
 
 `Silver_Profile.Accepts` is the null source recognizer;
-`Silver_Output_Profile.Accepts` recognizes the three output productions. Both have an
+`Silver_Output_Profile.Accepts` recognizes the four output productions. Both have an
 independent ghost membership specification and proved executable refinement.
 For the null recognizer, its postcondition is
 `Accepts'Result = Is_Member (Source)`. The independent ghost specification uses
@@ -394,9 +460,10 @@ operations. The imported subprograms in three reviewed interface packages have
 specification-only coverage; the packages themselves require full coverage.
 Their existing implementation bodies are external. Generated `Silver_Build`
 and `Silver_Library_Sources` are covered too. See the
-[command-line repair record](command-line-review-repairs.md) for current
-validation, the [capability record](command-line.md) for the original increment,
-and the [Hello World repair evidence](hello-review-repairs.md) for its earlier baseline.
+[greeting record](greeting.md) for current validation status and the
+[command-line repair record](command-line-review-repairs.md),
+[command-line capability](command-line.md) and
+[Hello World repair evidence](hello-review-repairs.md) for earlier baselines.
 
 The report model and its refinement assertions use SPARK's predefined `Static`
 level. GNATprove still verifies their bodies, recursive termination, contracts,
@@ -502,9 +569,10 @@ Additional cases simulate external tool failure, incomplete proof reports,
 skipped/assumed obligations, and source changes during proof or compilation.
 These tests are implementation evidence, not a universal language theorem.
 
-Current review-repair validation belongs in
-[command-line-review-repairs.md](command-line-review-repairs.md); the capability's
-original results are in [command-line.md](command-line.md). Earlier
+Current concatenation validation belongs in [greeting.md](greeting.md);
+the preceding repair and capability results are in
+[command-line-review-repairs.md](command-line-review-repairs.md) and
+[command-line.md](command-line.md). Earlier
 sample and regression results retain their scope in [hello-world.md](hello-world.md)
 and [named-strings.md](named-strings.md).
 Platform workers exercise hostile inherited tool settings, symlinked temporary
@@ -611,7 +679,7 @@ The proof chain has distinct checked components:
 
 7. `OutputExpressions` renders and interprets typed literal/suffix expressions;
    its primitive interpretation also reuses checked lexical expression trees.
-   The output, named and argument expression trees each have a checked
+   The output, named, argument and concatenation expression trees each have a checked
    `WellFormedTrees` predicate for Ada precedence and explicit grouping,
    included in their source-translation checks.
    `OutputEquations` proves uniqueness of literal/suffix cursor equations.
@@ -624,7 +692,7 @@ The proof chain has distinct checked components:
    named-suffix templates, including the complete forbidden-name enum and its
    ordinary case/return spelling body.
 8. `ArgumentsExpressions` interprets the extra package-name exclusion, guarded
-   suffix and public three-output-production membership expression. It closes
+   suffix and public four-output-production membership expression. It closes
    arbitrary shared and new callees on their verified domains, including the
    retained named suffix, and applies identifier/suffix uniqueness. The ordinary
    fixed-token comparison domain is checked at 16 bytes. A concrete
@@ -633,10 +701,17 @@ The proof chain has distinct checked components:
    spec/body and Runtime spec, their declaration/contract checks and the whole
    typed argument-body rendering, plus the typed Main composition's equality
    with the required token production. Its `authoritative_current_member_iff`
-   retains the checked source facts and proves four-form union membership for
+   retains the checked source facts and proves five-form union membership for
    every interpretation satisfying the checked equations. Parse determinism,
    disjointness and `Current.meaning_unique` establish a unique source meaning.
-9. `Current` composes runtime and source-meaning model lemmas for the four
+9. `ConcatExpressions` renders and interprets the actual concatenation suffix
+   recognizer; `ConcatEquations` applies its recursive uniqueness argument.
+   `ConcatSourceBridge` checks that source expression, its refinement header,
+   and the Main composition's token rendering and precedence. The complete
+   argument bridge retains those checks alongside the other production bridges.
+   The sum over literal source spans and the event-consuming Main interpreter
+   connect source meaning to the bounded concatenated output value.
+10. `Current` composes runtime and source-meaning model lemmas for the five
    productions, including `Arguments.execution_refines` and
    `Arguments.Runtime.main_refines`. It does not import the source bridges.
    `Output.SourceBridge.authoritative_runtime_correct` separately conjoins the
@@ -714,8 +789,8 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | Claim | How established | Scope and premises |
 | --- | --- | --- |
 | Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
-| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All four compositions, admitted defaults and argument outcomes; immutable argv, GNAT ABI and output meanings/progress as documented. |
-| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the four productions; no general serializer theorem. |
+| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All five compositions, admitted concatenations, defaults and argument outcomes; immutable argv, GNAT ABI and output meanings/progress as documented. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the five productions; no general serializer theorem. |
 | Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; pinned external imports and the documented runtime assumptions. |
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null-report recognition, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |

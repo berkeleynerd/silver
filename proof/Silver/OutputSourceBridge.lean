@@ -70,10 +70,11 @@ def namedTokenName : Named.Token → String
   | .base token => tokenName token
   | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
   | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
+  | .ampersand => "ampersand"
 
 def fullTokens : List Arguments.Token := allTokens.map Arguments.Token.base ++
   [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName,
-   .argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName]
+   .argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName, .ampersand]
 
 def argumentNames (tokens : List Arguments.Token) : List String :=
   List.flatten ((tokens.map (fun token => [Arguments.Expressions.tokenName token])).intersperse [","])
@@ -86,7 +87,7 @@ def fullSpellingExpression : List String := spellingExpression ++
     [",", "when", namedTokenName token, "=>", "\"" ++ token.spellingText ++ "\""]) ++
   [",", "when", "declaration_name", "|", "reference_name", "=>",
     "\"" ++ Named.Token.declarationName.spellingText ++ "\""] ++
-  [.argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName].flatMap
+  [.argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName, .ampersand].flatMap
     (fun (token : Arguments.Token) =>
       [",", "when", Arguments.Expressions.tokenName token, "=>", "\"" ++ token.spellingText ++ "\""])
 
@@ -95,7 +96,7 @@ theorem variable_token_same_spelling :
 
 theorem full_word_token_denotation (token : Arguments.Token) :
     token.isWord = decide (fullTokens.idxOf token ≤ 10 ∨
-      token = .constantKeyword ∨ token = .stringName ∨ 22 ≤ fullTokens.idxOf token) := by
+      token = .constantKeyword ∨ token = .stringName ∨ (22 ≤ fullTokens.idxOf token ∧ fullTokens.idxOf token ≤ 28)) := by
   cases token with
   | base token => cases token <;> decide
   | _ => decide
@@ -108,6 +109,8 @@ abbrev CatalogueTranslation : Prop :=
     some (["constant", "token_sequence", ":=", "("] ++ namedNames Named.requiredTokens ++ [")"]) ∧
   Source.declaration "argument_required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ argumentNames Arguments.requiredTokens ++ [")"]) ∧
+  Source.declaration "concatenation_required_tokens" Source.outputSpecTokens =
+    some (["constant", "token_sequence", ":=", "("] ++ namedNames Concat.requiredTokens ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some fullSpellingExpression ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens =
     some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name"] ∧

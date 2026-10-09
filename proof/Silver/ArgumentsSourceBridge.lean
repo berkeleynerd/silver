@@ -1,4 +1,5 @@
 import Silver.NamedSourceBridge
+import Silver.ConcatSourceBridge
 import Silver.ArgumentsExpressions
 
 /-! The typed Main composition renders to the admitted token sequence and is
@@ -67,6 +68,7 @@ theorem actual_complete_shape : CompleteShape := ⟨rfl, rfl, rfl⟩
 
 structure CheckedSource : Prop where
   named : Named.SourceBridge.CheckedSource
+  concatenation : Concat.SourceBridge.CheckedSource
   argumentsSpecification : Source.lex Source.argumentsSpec = some Source.argumentsSpecTokens
   argumentsImplementation : Source.lex Source.argumentsBody = some Source.argumentsBodyTokens
   runtimeSpecification : Source.lex Source.runtimeSpec = some Source.runtimeSpecTokens
@@ -79,6 +81,7 @@ structure CheckedSource : Prop where
 
 theorem checked_source : CheckedSource where
   named := Named.SourceBridge.checked_source
+  concatenation := Concat.SourceBridge.checked_source
   argumentsSpecification := Source.argumentsSpecTokens_correct
   argumentsImplementation := Source.argumentsBodyTokens_correct
   runtimeSpecification := Source.runtimeSpecTokens_correct

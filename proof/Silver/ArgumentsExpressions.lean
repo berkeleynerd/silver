@@ -1,5 +1,6 @@
 import Silver.ArgumentsEquations
 import Silver.NamedExpressions
+import Silver.ConcatExpressions
 import Silver.OutputExpressions
 
 /-! Typed templates for the argument recognizer. Numerical subtraction occurs only
@@ -18,6 +19,7 @@ structure Calls where
   primitive : Output.PrimitiveCalls
   identifier : IdentifierCalls
   namedSuffix : Source → Nat → Nat → NameState → Bool
+  concatSuffix : Source → Nat → Nat → NameState → Bool
   arguments : Arguments.Calls
   argumentForbidden : Source → Nat → Nat → Bool
   letter : Nat → Bool
@@ -73,7 +75,7 @@ inductive Condition
   | equal (leftFirst leftAfter rightFirst rightAfter : Number)
   | suffix (position index first after : Number)
   | allOffsets (last : Number) (body : Condition) | someForbidden (body : Condition)
-  | allowedNormalized | directNormalized | namedNormalized | argumentNormalized
+  | allowedNormalized | directNormalized | namedNormalized | argumentNormalized | concatNormalized
   | ite (condition yes no : Condition) | elsif (condition yes no : Condition)
   deriving DecidableEq, Repr
 end
@@ -91,6 +93,7 @@ def tokenName : Token → String
   | .base .dot => "dot" | .base .stringLiteral => "string_literal"
   | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
   | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
+  | .ampersand => "ampersand"
   | .argumentsName => "arguments_name" | .firstOrDefaultName => "first_or_default_name"
   | .ifKeyword => "if_keyword" | .inputIsValidName => "input_is_valid_name"
   | .thenKeyword => "then_keyword" | .elseKeyword => "else_keyword" | .rejectName => "reject_name"
@@ -166,6 +169,7 @@ def Condition.render : Condition → List String
   | .directNormalized => call "suffix_matches" [call "normalized" [["source"]], ["1"], ["1"]]
   | .namedNormalized => call "named_suffix_matches" [call "normalized" [["source"]], ["1"], ["1"], ["0"], ["0"]]
   | .argumentNormalized => call "argument_suffix_matches" [call "normalized" [["source"]], ["1"], ["1"], ["0"], ["0"]]
+  | .concatNormalized => call "concatenation_suffix_matches" [call "normalized" [["source"]], ["1"], ["1"], ["0"], ["0"]]
   | .ite condition yes no => ["if"] ++ condition.render ++ ["then"] ++ yes.render ++
       (match no with | .elsif _ _ _ => no.render | _ => ["else"] ++ no.render)
   | .elsif condition yes no => ["elsif"] ++ condition.render ++ ["then"] ++ yes.render ++
@@ -189,7 +193,7 @@ def Number.isElsif : Number → Bool
 def Condition.primary : Condition → Bool
   | .value _ | .previous | .group _ | .identifier _ | .letter _ | .tokenAt _ _
   | .name _ _ _ | .forbidden _ _ | .equal _ _ _ _ | .suffix _ _ _ _ => true
-  | .argumentForbidden _ _ | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized => true
+  | .argumentForbidden _ _ | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized | .concatNormalized => true
   | _ => false
 
 def Condition.relation : Condition → Bool
@@ -248,7 +252,7 @@ def Condition.wellFormed : Condition → Bool
   | .someForbidden body => body.wellFormed && body.logical
   | .value _ | .previous => true
   | .argumentForbidden first after => first.wellFormed && after.wellFormed && first.simple && after.simple
-  | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized => true
+  | .allowedNormalized | .directNormalized | .namedNormalized | .argumentNormalized | .concatNormalized => true
   | .ite condition yes no | .elsif condition yes no =>
       condition.wellFormed && condition.logical && yes.wellFormed && yes.logical &&
       no.wellFormed && (no.logical || no.isElsif)
@@ -310,6 +314,7 @@ def Condition.eval (calls : Calls) (context : Context) : Condition → Bool
   | .directNormalized => calls.output.suffix (calls.primitive.normalize context.text) 1 1
   | .namedNormalized => calls.namedSuffix (calls.primitive.normalize context.text) 1 1 {}
   | .argumentNormalized => calls.arguments.suffix (calls.primitive.normalize context.text) 1 1 {}
+  | .concatNormalized => calls.concatSuffix (calls.primitive.normalize context.text) 1 1 {}
   | .ite condition yes no | .elsif condition yes no =>
       if condition.eval calls context then yes.eval calls context else no.eval calls context
 end
@@ -359,7 +364,7 @@ def suffixBody : Condition :=
             (.suffix (.add start (.spellingLength .nextToken)) next .declaredFirst .declaredAfter)))))
 def memberBody : Condition :=
   .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized)
-    (.group (.orElse (.orElse .directNormalized .namedNormalized) .argumentNormalized))
+    (.group (.orElse (.orElse (.orElse .directNormalized .namedNormalized) .argumentNormalized) .concatNormalized))
 
 
 abbrev WellFormedTrees : Prop :=
@@ -490,6 +495,7 @@ def embedNamedToken : Named.Token → Token
   | .base token => .base token
   | .colon => .colon | .constantKeyword => .constantKeyword | .stringName => .stringName
   | .assignment => .assignment | .declarationName => .declarationName | .referenceName => .referenceName
+  | .ampersand => .ampersand
 
 theorem embedNamedToken_spelling (token : Named.Token) :
     (embedNamedToken token).spelling = token.spelling := by cases token <;> rfl
@@ -498,12 +504,21 @@ theorem embedNamedToken_isWord (token : Named.Token) :
     (embedNamedToken token).isWord = token.isWord := by cases token <;> rfl
 
 /-- Adapter for the retained physical named-suffix template. Public membership
-is interpreted only by the current three-output-form expression below. -/
+is interpreted only by the current four-output-form expression below. -/
 def inheritedCalls (calls : Calls) : Named.Expressions.Calls where
   output := calls.output
   primitive := calls.primitive
   identifier := calls.identifier
   named := {suffix := calls.namedSuffix}
+  letter := calls.letter
+  token := fun text position token => calls.token text position (embedNamedToken token)
+  forbiddenSpelling := calls.forbiddenSpelling
+
+def inheritedConcatCalls (calls : Calls) : Concat.Expressions.Calls where
+  output := calls.output
+  primitive := calls.primitive
+  identifier := calls.identifier
+  named := {suffix := calls.concatSuffix}
   letter := calls.letter
   token := fun text position token => calls.token text position (embedNamedToken token)
   forbiddenSpelling := calls.forbiddenSpelling
@@ -556,6 +571,12 @@ structure InterpretedSource (calls : Calls) : Prop where
       1 ≤ nextToken → nextToken ≤ requiredTokens.length + 1 → state.Valid text →
       calls.arguments.suffix text position nextToken state =
         suffixBody.eval calls {text, position, nextToken, declaredFirst := state.first, declaredAfter := state.after}
+  concatSuffix : ∀ text, 0 < text.length → text.length ≤ maxSourceLength →
+    ∀ position nextToken state, 1 ≤ position → position ≤ text.length + 1 →
+      1 ≤ nextToken → nextToken ≤ Concat.requiredTokens.length + 1 → state.Valid text →
+      calls.concatSuffix text position nextToken state =
+        Concat.Expressions.suffixBody.eval (inheritedConcatCalls calls)
+          {text, position, nextToken, declaredFirst := state.first, declaredAfter := state.after}
   member : ∀ text, calls.arguments.member text = memberBody.eval calls {text}
 
 theorem interpreted_identifier_equations (calls : Calls) (source : InterpretedSource calls) :
@@ -628,6 +649,33 @@ theorem interpreted_named_suffix (calls : Calls) (source : InterpretedSource cal
   · exact last
   · exact valid
 
+theorem interpreted_concat_source (calls : Calls) (source : InterpretedSource calls) :
+    Concat.Expressions.InterpretedSource (inheritedConcatCalls calls) where
+  output := source.output
+  letter := source.letter
+  forbiddenSpelling := source.forbiddenSpelling
+  token := by
+    intro text positive bounded position token first last
+    have checked := source.token text positive bounded position (embedNamedToken token) first last
+    simpa only [inheritedConcatCalls, embedNamedToken_spelling, embedNamedToken_isWord] using checked
+  tail := source.tail
+  finish := source.finish
+  name := source.name
+  equal := source.equal
+  forbidden := source.forbidden
+  suffix := source.concatSuffix
+
+theorem interpreted_concat_suffix (calls : Calls) (source : InterpretedSource calls)
+    (text : Source) (positive : 0 < text.length) (bounded : text.length ≤ maxSourceLength)
+    (position nextToken : Nat) (state : NameState)
+    (first : 1 ≤ position) (last : position ≤ text.length + 1)
+    (start : 1 ≤ nextToken) (stop : nextToken ≤ Concat.requiredTokens.length + 1) (valid : state.Valid text) :
+    calls.concatSuffix text position nextToken state = Concat.suffixAtIndex text position nextToken state := by
+  exact Concat.suffixAtIndex_unique text (calls.concatSuffix text)
+    ((Concat.Expressions.interpreted_equations (inheritedConcatCalls calls)
+      (interpreted_concat_source calls source)).suffix text positive bounded)
+    position nextToken state first last start stop valid
+
 theorem interpreted_equations (calls : Calls) (source : InterpretedSource calls) :
     DefinitionEquations calls.arguments where
   suffix := by
@@ -660,6 +708,8 @@ theorem interpreted_equations (calls : Calls) (source : InterpretedSource calls)
         1 1 (by omega) (by omega) (by decide) (by decide)]
       rw [interpreted_named_suffix calls source text bound.1 bound.2 1 1 {} (by omega) (by omega)
         (by decide) (by decide) (Or.inl ⟨rfl, rfl⟩)]
+      rw [interpreted_concat_suffix calls source text bound.1 bound.2 1 1 {} (by omega) (by omega)
+        (by decide) (by decide) (Or.inl ⟨rfl, rfl⟩)]
       have first : 1 ≤ text.length := by omega
       simp [bound, first]
     · have outside : ¬ (1 ≤ text.length ∧ text.length ≤ maxSourceLength) := by omega
@@ -670,6 +720,7 @@ def modelCalls : Calls where
   primitive := Output.Expressions.modelPrimitives
   identifier := Named.modelIdentifierCalls
   namedSuffix := Named.suffixAtIndex
+  concatSuffix := Concat.suffixAtIndex
   arguments := Arguments.modelCalls
   argumentForbidden := Arguments.forbiddenName
   letter := Named.letter
@@ -727,6 +778,19 @@ theorem model_interpreted : InterpretedSource modelCalls where
         (identifierEnd text) (Arguments.forbiddenName text) (equalName text) (tokenAt text)
         (suffixAtIndex text) text position nextToken state
     rw [suffixAtIndex_equation text position nextToken state first]
+    rfl
+  concatSuffix := by
+    intro text _ _ position nextToken state _ _ first _ _
+    rw [Concat.Expressions.suffix_denotation]
+    change Concat.suffixAtIndex text position nextToken state =
+      Concat.sourceSuffixEquation (Cursor.triviaPosition text) (Output.literalEnd text)
+        (identifierEnd text) (Named.forbiddenName text) (equalName text)
+        (fun position token => tokenAt text position (embedNamedToken token))
+        (Concat.suffixAtIndex text) text position nextToken state
+    have tokens : (fun position token => tokenAt text position (embedNamedToken token)) = Named.tokenAt text := by
+      funext position token
+      exact embedNamedToken_tokenAt text position token
+    rw [tokens, Concat.suffixAtIndex_equation text position nextToken state first]
     rfl
   member := by
     intro text

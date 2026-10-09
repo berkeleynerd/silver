@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-10-09 — Literal-backed greeting concatenation complete
+
+The owner's harness goal is completed in this change, following repair commit
+`54844c5`. [samples/greeting.adb](../samples/greeting.adb) introduces exactly
+`prefix_literal & Name & suffix_literal`, where `Name` is a literal-initialized
+`constant String` referenced once. All five current forms are covered by the
+updated specification, catalogue, SPARK recognizer and Lean assurance. The
+combined decoded length follows from distinct consumed literal spans, and the
+typed Main interpreter obtains values and binding from ordered parser events.
+Existing forms and the Oracle remain unchanged.
+
+Full compiler verification, native build, the complete regression suite, actual
+source correspondence, a fresh axiom audit and independent fresh kernel recheck
+passed on Linux ARM64. Genuine GNATprove/GNAT application experiments confirm
+that the static concatenations retain empty application reports; selected
+libraries still require their complete nonempty reports. No runtime or report
+policy extension was needed. Independent semantic, source, proof-depth and
+documentation reviews found no blocking issue.
+
+The enlarged source certificate first reached an elaboration recursion limit.
+A finite local depth allowance fixed it without weakening source checks; related
+generator/evidence regressions and final Lean validation passed. Source-certificate
+reconstruction remains an observed development cost. An isolated alternative
+byte-equality probe did not complete and was not adopted. Preserve native caches
+and consult [greeting.md](greeting.md) for exact validation, hashes, failure logs,
+review scope and replay costs instead of repeating totals here.
+
+Native macOS validation remains independent and nonblocking; earlier macOS
+evidence does not validate this capability. Work remains local. Other-host
+artifacts and unrelated `tmp/` material were preserved. The proposed command-line
+greeting with an explicit capacity guard still needs a separate go-ahead. This
+completed goal does not authorize argument concatenation, repeated references,
+assignment or general string expressions.
+
 ## 2026-10-09 — Command-line review follow-up complete
 
 The owner approved the independently assessed `e14ba1a` review follow-up and a

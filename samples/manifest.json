@@ -101,6 +101,24 @@
           }
         }
       ]
+    },
+    {
+      "source": "greeting.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "string_concatenation",
+        "concatenated_output"
+      ],
+      "specification": "../language.md#literal-backed-concatenation",
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

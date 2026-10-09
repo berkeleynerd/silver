@@ -10,7 +10,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr (Or.inr (Or.inr ((accepts_iff_member exampleSource).mp example_admitted)))
+  Or.inr (Or.inr (Or.inr (Or.inl ((accepts_iff_member exampleSource).mp example_admitted))))
 
 def swappedSource : Source :=
   "with Silver_IO; with Silver_Arguments; procedure Main is pragma SPARK_Mode (On); Message : constant String := Silver_Arguments.First_Or_Default (\"\"); begin if Silver_Arguments.Input_Is_Valid then Silver_Arguments.Reject; else Silver_IO.Put_Line (Message); end if; end Main;".toList.map Char.toNat

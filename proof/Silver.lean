@@ -8,3 +8,5 @@ import Silver.NamedSourceBridge
 import Silver.NamedExamples
 import Silver.ArgumentsSourceBridge
 import Silver.ArgumentsExamples
+import Silver.ConcatSourceBridge
+import Silver.ConcatExamples

@@ -6,7 +6,7 @@ open Named
 
 inductive Token
   | base (token : Output.Token)
-  | colon | constantKeyword | stringName | assignment | declarationName | referenceName
+  | colon | constantKeyword | stringName | assignment | declarationName | referenceName | ampersand
   | argumentsName | firstOrDefaultName | ifKeyword | inputIsValidName | thenKeyword | elseKeyword | rejectName
   deriving DecidableEq, Repr
 
@@ -14,6 +14,7 @@ def Token.spellingText : Token → String
   | .base token => token.spellingText
   | .colon => ":" | .constantKeyword => "constant" | .stringName => "string"
   | .assignment => ":=" | .declarationName | .referenceName => "_"
+  | .ampersand => "&"
   | .argumentsName => "silver_arguments" | .firstOrDefaultName => "first_or_default"
   | .ifKeyword => "if" | .inputIsValidName => "input_is_valid" | .thenKeyword => "then"
   | .elseKeyword => "else" | .rejectName => "reject"

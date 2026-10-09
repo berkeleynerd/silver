@@ -121,3 +121,18 @@ run_cmd do
 #print axioms Silver.Output.Expressions.checked_precedence
 #print axioms Silver.Named.Expressions.checked_precedence
 #print axioms Silver.Arguments.Expressions.checked_precedence
+
+#print axioms Silver.Concat.accepts_iff_member
+#print axioms Silver.Concat.parsed_literal_consumption
+#print axioms Silver.Concat.concatenation_bounds
+#print axioms Silver.Concat.output_domain
+#print axioms Silver.Concat.meaning_unique
+#print axioms Silver.Concat.meaning_binds
+#print axioms Silver.Concat.Main.rendered_tokens
+#print axioms Silver.Concat.Main.checked_precedence
+#print axioms Silver.Concat.Main.right_nested_rejected
+#print axioms Silver.Concat.evaluation_refines
+#print axioms Silver.Concat.Expressions.interpreted_equations
+#print axioms Silver.Concat.Expressions.model_interpreted
+#print axioms Silver.Concat.SourceBridge.authoritative_main_correct
+#print axioms Silver.Current.concat_execution_refines

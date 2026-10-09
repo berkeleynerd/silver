@@ -42,7 +42,7 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit report
-   remains empty for the four current productions; output additionally requires
+   remains empty for the five current productions; output additionally requires
    the complete nonempty library reports. Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.

@@ -1,5 +1,6 @@
 import Silver.ArgumentsAdmission
 import Silver.NamedEquations
+import Silver.ConcatEquations
 
 namespace Silver.Arguments
 
@@ -116,13 +117,13 @@ structure DefinitionEquations (calls : Calls) : Prop where
       calls.suffix text position nextToken state = suffixEquation (calls.suffix text) text position nextToken state
   member : ∀ text, calls.member text =
     (decide (0 < text.length ∧ text.length ≤ maxSourceLength) && text.all allowedCharacter &&
-      (Output.suffixAtIndex text 1 1 || Named.suffixAtIndex text 1 1 {} || calls.suffix text 1 1 {}))
+      (Output.suffixAtIndex text 1 1 || Named.suffixAtIndex text 1 1 {} || calls.suffix text 1 1 {} || Concat.suffixAtIndex text 1 1 {}))
 
 def modelCalls : Calls where
   suffix := suffixAtIndex
   member := fun text =>
     decide (0 < text.length ∧ text.length ≤ maxSourceLength) && text.all allowedCharacter &&
-      (Output.suffixAtIndex text 1 1 || Named.suffixAtIndex text 1 1 {} || suffixAtIndex text 1 1 {})
+      (Output.suffixAtIndex text 1 1 || Named.suffixAtIndex text 1 1 {} || suffixAtIndex text 1 1 {} || Concat.suffixAtIndex text 1 1 {})
 
 theorem model_equations : DefinitionEquations modelCalls where
   suffix := by
@@ -213,17 +214,18 @@ theorem sourceSuffixEquation_reduce
 
 
 theorem implementation_member_iff (calls : Calls) (equations : DefinitionEquations calls) (text : Source) :
-    calls.member text = true ↔ Output.Member text ∨ Named.Member text ∨ Member text := by
+    calls.member text = true ↔ Output.Member text ∨ Named.Member text ∨ Member text ∨ Concat.Member text := by
   rw [equations.member]
   by_cases bound : 0 < text.length ∧ text.length ≤ maxSourceLength
   · rw [suffixAtIndex_unique text (calls.suffix text) (equations.suffix text bound.1 bound.2)
       1 1 {} (by omega) (by omega) (by omega) (by decide) (Or.inl ⟨rfl, rfl⟩)]
-    rw [← Output.accepts_iff_member, ← Named.accepts_iff_member, ← accepts_iff_member]
-    simp [Output.accepts, Named.accepts, accepts, Output.suffixAtIndex, Named.suffixAtIndex,
+    rw [← Output.accepts_iff_member, ← Named.accepts_iff_member, ← accepts_iff_member, ← Concat.accepts_iff_member]
+    simp [Output.accepts, Named.accepts, accepts, Concat.accepts, Concat.suffixAtIndex, Output.suffixAtIndex, Named.suffixAtIndex,
       suffixAtIndex, bound, Bool.or_eq_true, Bool.and_eq_true, and_or_left, or_assoc]
   · have notOutput : ¬ Output.Member text := fun member => bound ⟨member.1, member.2.1⟩
     have notNamed : ¬ Named.Member text := fun member => bound ⟨member.1, member.2.1⟩
     have notArgument : ¬ Member text := fun member => bound ⟨member.1, member.2.1⟩
-    simp [bound, notOutput, notNamed, notArgument]
+    have notConcat : ¬ Concat.Member text := fun member => bound ⟨member.1, member.2.1⟩
+    simp [bound, notOutput, notNamed, notArgument, notConcat]
 
 end Silver.Arguments

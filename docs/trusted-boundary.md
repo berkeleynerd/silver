@@ -122,7 +122,8 @@ ordinary diagnostic path.
 
 The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
 `String` parameter has no precondition. An executable length guard handles
-arguments exceeding 4096; every admitted literal fits. GNATprove verifies
+arguments exceeding 4096; every admitted literal and literal-backed concatenation
+fits by the complete-source bound. GNATprove verifies
 the same bound for values selected by `Silver_Arguments`. It verifies
 initialization, arbitrary String lower bounds, byte-loop bounds and a
 conditional success postcondition. Static observations record accepted bytes,
@@ -180,6 +181,17 @@ blocking and signals retain the premises above. See the
 [Hello World repair record](hello-review-repairs.md), historical
 [runtime experiment](hello-runtime-experiment.md) and
 [assurance argument](assurance.md).
+
+Literal-backed concatenation uses the same wrapper and external imports. Its
+three operands are static strings: prefix and suffix literals and the sole
+reference to a literal-initialized constant. Ada's predefined String `&`
+preserves their byte order and associates to the left. The combined decoded
+length follows from distinct consumed source spans and the single reference;
+both intermediate and final results fit the 4096-byte bound. Their static
+evaluation and index bounds use the approved Ada/GNAT frontend semantics.
+Storage for the compiled program and trusted runtime remains an environmental
+premise; a result-length bound is not a guarantee of sufficient process storage.
+See [the concatenation argument](assurance.md#literal-backed-concatenation).
 
 ## Command-line boundary
 
@@ -311,8 +323,9 @@ GNATprove marks these disabled-by-default notes as externally suppressed in
 SARIF; the auditor permits that exact representation for these two codes and
 counts them. It permits no source suppression or failed obligation through this
 exception. The [workflow record](proof-workflow.md) preserves its baseline
-counts; capability evidence belongs in [command-line.md](command-line.md), with
-follow-up validation in [command-line-review-repairs.md](command-line-review-repairs.md).
+counts; current capability validation belongs in [greeting.md](greeting.md).
+Earlier evidence remains in [command-line.md](command-line.md) and
+[command-line-review-repairs.md](command-line-review-repairs.md).
 
 ## Source identity and program proof evidence
 
@@ -330,15 +343,17 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The catalogue names the four productions and their admitted constructs and
+The catalogue names the five productions and their admitted constructs and
 operations. Named constants add restricted declaration/reference semantics,
 including maximal ASCII identifiers, exclusion of Ada reserved words and
 shadowing names, case-insensitive binding and literal-determined String bounds.
+The concatenation production reuses those rules and admits only a prefix literal,
+one reference and a suffix literal, with two predefined String `&` operators.
 Their interpretation still uses the fixed Ada/SPARK frontend; there is no
 general verified Ada name resolver.
 The guarded form adds the pure argument initializer and fixed validity/rejection
 branches; it separately excludes `Silver_Arguments` as a constant name so the
-package remains visible. All four application-unit obligation sets are empty.
+package remains visible. All five application-unit obligation sets are empty.
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
 `Silver_Runtime` interfaces. Their source
@@ -459,8 +474,15 @@ signatures. The typed Main composition renders to the admitted token production;
 its shared interpreter handles initialization before the required guard and
 uses the immutable-vector assumption for both queries. Ada interpretation of
 those fixed nodes remains reviewed. The public membership
-expression includes all three output forms, retaining the shared literal and
+expression includes all four output forms, retaining the shared literal and
 named helper meanings; the complete bridge connects it with the null form.
+The concatenation bridge checks its recognizer expression and the typed Main
+composition's rendering and left association. Its interpreter consumes the
+parser's ordered literal/reference events and looks up the initialized binding;
+the source-consumption argument bounds the combined result. This source decoding
+order does not impose an Ada operand evaluation order. Predefined String
+concatenation, static-expression meaning and index bounds remain frontend
+interpretation premises.
 GNATprove establishes normalization, bounds and
 the executable `Accepts = Is_Member` refinement. The combined argument does not
 claim a verified arbitrary Ada parser, complete name-resolution semantics, or a
@@ -542,9 +564,10 @@ The subsequent independent macOS ARM64 review validates command-line commit
 `e14ba1a`, including its compiler audit, full test suite, Lean replay and fresh
 kernel recheck. That retained evidence does not validate later changes.
 The [command-line review repairs](command-line-review-repairs.md) record this
-baseline and the follow-up validation scope. Native macOS validation of the
-review repairs remains independent and pending; Linux/macOS x86-64 execution is
-also untested.
+baseline and the follow-up validation scope. The newer concatenation increment's
+validation belongs in [greeting.md](greeting.md). Native macOS validation of
+these later changes remains independent and pending; Linux/macOS x86-64 execution
+is also untested.
 CI is prepared for
 `ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
 The work is local-only as requested, the repository has no remote, and no CI job

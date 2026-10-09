@@ -41,17 +41,20 @@ The original [null program](samples/null.adb) and a
 [command-line sample](samples/command_line.adb) initializes that constant from
 `Silver_Arguments.First_Or_Default` and uses a required validity guard before
 printing it.
+The [greeting sample](samples/greeting.adb) adds a literal prefix and suffix to a
+literal-initialized constant using `"Hello, " & Name & "!"`.
 
-The four complete forms are one null statement without a context clause, one
+The five complete forms are one null statement without a context clause, one
 qualified literal-output call, one literal-initialized `constant String`
-printed by its identifier, plus the guarded command-line form. All output forms
+printed by its identifier, the guarded command-line form, and one
+prefix/reference/suffix concatenation of a literal-backed constant. All output forms
 require `with Silver_IO;`; command-line input also requires
 `with Silver_Arguments;`.
 Names bind without ASCII case distinctions; the constant is immutable.
 No argument selects the literal default; one printable ASCII argument of up to
 4096 bytes is preserved, including an explicit empty argument. Extra arguments,
 unsupported bytes and oversized input produce no output and status 1. Variables,
-general conditionals, repeated output calls, concatenation and other APIs remain
+general conditionals, repeated output calls, other concatenation forms and other APIs remain
 excluded. See [language.md](language.md)
 for the exact rules. On detected failure the wrapper sets status 1 and returns;
 `Main` returns with that status. Successful output is the selected message followed by LF, with a
@@ -62,7 +65,7 @@ The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
 are development setup, evidence auditing, and tests. GNATprove verifies the
 compiler implementation. Lean connects the restricted recognizer source to its
-language model and the runtime wrappers to their effect models. All four application
+language model and the runtime wrappers to their effect models. All five application
 forms have no caller obligations; the selected libraries' nonempty obligations
 must also be proved and checked before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
@@ -183,7 +186,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the four permitted compositions. Structural metadata is written explicitly in
+and the five permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -196,13 +199,15 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ## Proofs and platform evidence
 
 Hello World baseline validation is recorded in
-[the capability record](docs/hello-world.md); current follow-up evidence is in
+[the capability record](docs/hello-world.md); its Hello World follow-up evidence is in
 [the review repairs](docs/hello-review-repairs.md). Named-string validation is
 recorded in [the capability record](docs/named-strings.md).
 Guarded command-line validation is recorded in
 [the command-line capability record](docs/command-line.md).
-The latest proof/test maintenance and independently corroborated macOS baseline
+The command-line proof/test maintenance and independently corroborated macOS baseline
 results are in [the follow-up record](docs/command-line-review-repairs.md).
+The subsequent concatenation capability and its native evidence are recorded in
+[greeting.md](docs/greeting.md).
 The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.

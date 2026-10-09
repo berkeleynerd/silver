@@ -4,8 +4,9 @@ import Silver.Semantics
 import Silver.NamedSemantics
 import Silver.NamedDisjoint
 import Silver.ArgumentsDisjoint
+import Silver.ConcatDisjoint
 
-/-! One current language, four productions. The obligation model assigns an
+/-! One current language, five productions. The obligation model assigns an
 empty list to all application forms. Agreement with GNATprove's actual
 obligation generation is an explicit ToolContract premise, checked per compile;
 this module is not a verified Ada/SPARK obligation generator. The fixed library
@@ -13,11 +14,11 @@ body retains its separately audited obligations. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source
-def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || Arguments.accepts source))
+def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source ∨ Concat.Member source
+def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || (Arguments.accepts source || Concat.accepts source)))
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member, Concat.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
@@ -40,9 +41,12 @@ inductive SourceMeaning : Source → Program → Prop
   | argumentMain {source : Source} {program : Arguments.Program} :
       Arguments.SourceMeaning source program → SourceMeaning source (.argumentMain program.defaultValue)
 
+  | concatMain {source : Source} {program : Concat.Program} :
+      Concat.SourceMeaning source program → SourceMeaning source (.outputMain program.bytes)
+
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember | namedMember | argumentMember
+  rcases member with nullMember | outputMember | namedMember | argumentMember | concatMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
   · obtain ⟨literal, parsed⟩ := outputMember.2.2.2
     exact ⟨.outputMain literal, .outputMain outputMember parsed⟩
@@ -50,6 +54,8 @@ theorem member_has_meaning {source : Source} (member : Member source) :
     exact ⟨.outputMain program.literal, .namedMain meaning⟩
   · obtain ⟨program, meaning⟩ := Arguments.member_has_meaning argumentMember
     exact ⟨.argumentMain program.defaultValue, .argumentMain meaning⟩
+  · obtain ⟨program, meaning⟩ := Concat.member_has_meaning concatMember
+    exact ⟨.outputMain program.bytes, .concatMain meaning⟩
 
 /-- The first nontrivia token is `procedure` or `with`, never both. -/
 theorem member_disjoint (source : Source) : ¬ (Silver.Member source ∧ Output.Member source) := by
@@ -78,6 +84,7 @@ theorem meaning_unique {source : Source} {left right : Program}
       | outputMain outputMember parsed => exact False.elim (member_disjoint source ⟨member, outputMember⟩)
       | namedMain namedMeaning => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
       | argumentMain meaning => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
+      | concatMain meaning => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
   | outputMain member parsed =>
       cases second with
       | nullMain nullMember => exact False.elim (member_disjoint source ⟨nullMember, member⟩)
@@ -86,6 +93,7 @@ theorem meaning_unique {source : Source} {left right : Program}
           simpa using congrArg Program.outputMain (List.cons.inj same).1
       | namedMain namedMeaning => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
       | argumentMain meaning => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
+      | concatMain meaning => exact False.elim (Concat.literal_concat_disjoint source ⟨member, meaning.1⟩)
   | namedMain namedMeaning =>
       cases second with
       | nullMain member => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
@@ -94,6 +102,7 @@ theorem meaning_unique {source : Source} {left right : Program}
           exact congrArg (fun (program : Named.Program) => Program.outputMain program.literal)
             (Named.meaning_unique namedMeaning other)
       | argumentMain meaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
+      | concatMain meaning => exact False.elim (Concat.named_concat_disjoint source ⟨namedMeaning.1, meaning.1⟩)
   | argumentMain meaning =>
       cases second with
       | nullMain member => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
@@ -102,6 +111,16 @@ theorem meaning_unique {source : Source} {left right : Program}
       | argumentMain other =>
           exact congrArg (fun (program : Arguments.Program) => Program.argumentMain program.defaultValue)
             (Arguments.meaning_unique meaning other)
+      | concatMain other => exact False.elim (Concat.concat_argument_disjoint source ⟨other.1, meaning.1⟩)
+  | concatMain meaning =>
+      cases second with
+      | nullMain member => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
+      | outputMain member _ => exact False.elim (Concat.literal_concat_disjoint source ⟨member, meaning.1⟩)
+      | namedMain other => exact False.elim (Concat.named_concat_disjoint source ⟨other.1, meaning.1⟩)
+      | argumentMain other => exact False.elim (Concat.concat_argument_disjoint source ⟨meaning.1, other.1⟩)
+      | concatMain other =>
+          exact congrArg (fun (program : Concat.Program) => Program.outputMain program.bytes)
+            (Concat.meaning_unique meaning other)
 
 theorem literal_domain {source literal : Source}
     (meaning : SourceMeaning source (.outputMain literal)) :
@@ -111,6 +130,7 @@ theorem literal_domain {source literal : Source}
       have facts := (Output.parsed_literals parsed).2 literal (by simp)
       exact ⟨Nat.le_trans facts.1 member.2.1, facts.2⟩
   | namedMain meaning => exact Named.literal_domain meaning
+  | concatMain meaning => exact Concat.output_domain meaning
 
 theorem default_domain {source defaultValue : Source}
     (meaning : SourceMeaning source (.argumentMain defaultValue)) :
@@ -210,6 +230,11 @@ theorem named_execution_refines {source : Source} {program : Named.Program}
     (meaning : Named.SourceMeaning source program) (environment : Environment) :
     Named.execute environment.output program = some (execute environment (.outputMain program.literal)) :=
   Named.execution_refines meaning environment.output
+
+theorem concat_execution_refines {source : Source} {program : Concat.Program}
+    (meaning : Concat.SourceMeaning source program) (environment : Environment) :
+    Concat.execute environment.output program = some (execute environment (.outputMain program.bytes)) :=
+  Concat.execution_refines meaning environment.output
 
 theorem argument_execution_refines {source : Source} {program : Arguments.Program}
     (meaning : Arguments.SourceMeaning source program) (environment : Environment) :

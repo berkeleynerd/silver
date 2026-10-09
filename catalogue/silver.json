@@ -61,7 +61,7 @@
         "quote_escape": "\"\"",
         "empty_allowed": true,
         "case_preserved": true,
-        "concatenation": false
+        "general_concatenation": false
       }
     },
     {
@@ -140,6 +140,34 @@
         "arguments": [],
         "exit_status": 1,
         "stdout": "",
+        "count": 1
+      }
+    },
+    {
+      "id": "string_concatenation",
+      "ada_kind": "concatenation_expression",
+      "conditions": {
+        "operator": "&",
+        "operands": [
+          "string_literal",
+          "declared_constant_identifier",
+          "string_literal"
+        ],
+        "association": "left",
+        "constant_initializer": "string_literal",
+        "reference_count": 1,
+        "max_result_bytes": 4096
+      }
+    },
+    {
+      "id": "concatenated_output",
+      "ada_kind": "procedure_call_statement",
+      "conditions": {
+        "operation": "Silver_IO.Put_Line",
+        "qualification_required": true,
+        "arguments": [
+          "string_concatenation"
+        ],
         "count": 1
       }
     }
@@ -223,6 +251,28 @@
         "silver_arguments.adb",
         "silver_runtime.ads"
       ]
+    },
+    {
+      "name": "concatenated_output",
+      "context": [
+        "runtime_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_constant"
+      ],
+      "statements": [
+        "concatenated_output"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "initializer": "string_literal"
     }
   ],
   "additional_units": false,
@@ -844,6 +894,42 @@
     ";",
     "end",
     "if",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "concatenation_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "<string_literal>",
+    ";",
+    "begin",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<string_literal>",
+    "&",
+    "<reference_name>",
+    "&",
+    "<string_literal>",
+    ")",
     ";",
     "end",
     "main",

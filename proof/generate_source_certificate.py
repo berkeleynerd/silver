@@ -136,6 +136,14 @@ def generate(source: str, profile: str, prefix: str) -> list[str]:
             left = reconstruction(start, middle)
             right = reconstruction(middle, end)
             text = "\n".join(lines[start:end])
+            # Large joins elaborate flat character-list equality witnesses.
+            # Give only these declarations a bounded, size-based recursion
+            # budget; the kernel still checks the complete equality. Keep
+            # smaller certificates unchanged so their native caches remain
+            # reusable when this implementation source grows.
+            if len(text) > 32_768:
+                depth = 100_000 * ((len(text) + 32_767) // 32_768)
+                output.append(f"set_option maxRecDepth {depth} in")
             output.extend([
                 f"def {name} : ReconstructionCertificate :=",
                 f"  ReconstructionCertificate.join {left} {right}",

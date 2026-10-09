@@ -76,9 +76,11 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement",
                                           "runtime_context", "literal_output", "string_literal",
                                           "named_string_constant", "named_output", "argument_context",
-                                          "argument_initialization", "input_guard", "argument_rejection"})
+                                          "argument_initialization", "input_guard", "argument_rejection",
+                                          "string_concatenation", "concatenated_output"})
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "literal_output", "named_output", "command_line_output"})
+        self.assertEqual(set(compositions), {"null", "literal_output", "named_output", "command_line_output",
+                                            "concatenated_output"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
         self.assertEqual(compositions["literal_output"]["statements"], ["literal_output"])
@@ -86,6 +88,16 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(compositions["named_output"]["declarative_items"],
                          ["spark_mode_on", "named_string_constant"])
         self.assertEqual(compositions["named_output"]["statements"], ["named_output"])
+        self.assertEqual(compositions["concatenated_output"]["declarative_items"],
+                         ["spark_mode_on", "named_string_constant"])
+        self.assertEqual(compositions["concatenated_output"]["statements"], ["concatenated_output"])
+        self.assertEqual(constructs["string_concatenation"]["conditions"]["operands"],
+                         ["string_literal", "declared_constant_identifier", "string_literal"])
+        named_tokens = catalogue["named_tokens"]
+        reference = named_tokens.index("<reference_name>")
+        self.assertEqual(catalogue["concatenation_tokens"], named_tokens[:reference] +
+                         ["<string_literal>", "&", "<reference_name>", "&", "<string_literal>"] +
+                         named_tokens[reference + 1:])
         self.assertEqual(constructs["named_string_constant"]["conditions"]["initializer"],
                          ["string_literal", "argument_initialization"])
         self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '""')
@@ -98,7 +110,7 @@ class SilverIntegrationTests(unittest.TestCase):
                          ")", ";", "end", "main", ";"])
         grammar_words = {
             token
-            for key in ("null_tokens", "output_tokens", "named_tokens", "argument_tokens")
+            for key in ("null_tokens", "output_tokens", "named_tokens", "argument_tokens", "concatenation_tokens")
             for token in catalogue[key]
             if re.fullmatch(r'[a-z][a-z0-9_]*', token)
         }

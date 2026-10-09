@@ -99,7 +99,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""quote_escape"": ""\""\"""",");
       Put_Line ("        ""empty_allowed"": true,");
       Put_Line ("        ""case_preserved"": true,");
-      Put_Line ("        ""concatenation"": false");
+      Put_Line ("        ""general_concatenation"": false");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -178,6 +178,34 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""arguments"": [],");
       Put_Line ("        ""exit_status"": 1,");
       Put_Line ("        ""stdout"": """",");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""string_concatenation"",");
+      Put_Line ("      ""ada_kind"": ""concatenation_expression"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""operator"": ""&"",");
+      Put_Line ("        ""operands"": [");
+      Put_Line ("          ""string_literal"",");
+      Put_Line ("          ""declared_constant_identifier"",");
+      Put_Line ("          ""string_literal""");
+      Put_Line ("        ],");
+      Put_Line ("        ""association"": ""left"",");
+      Put_Line ("        ""constant_initializer"": ""string_literal"",");
+      Put_Line ("        ""reference_count"": 1,");
+      Put_Line ("        ""max_result_bytes"": 4096");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""concatenated_output"",");
+      Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""arguments"": [");
+      Put_Line ("          ""string_concatenation""");
+      Put_Line ("        ],");
       Put_Line ("        ""count"": 1");
       Put_Line ("      }");
       Put_Line ("    }");
@@ -267,6 +295,28 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""silver_arguments.adb"",");
       Put_Line ("        ""silver_runtime.ads""");
       Put_Line ("      ]");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""name"": ""concatenated_output"",");
+      Put_Line ("      ""context"": [");
+      Put_Line ("        ""runtime_context""");
+      Put_Line ("      ],");
+      Put_Line ("      ""declarative_items"": [");
+      Put_Line ("        ""spark_mode_on"",");
+      Put_Line ("        ""named_string_constant""");
+      Put_Line ("      ],");
+      Put_Line ("      ""statements"": [");
+      Put_Line ("        ""concatenated_output""");
+      Put_Line ("      ],");
+      Put_Line ("      ""library_units"": [");
+      Put_Line ("        ""silver_io.ads"",");
+      Put_Line ("        ""silver_io.adb"",");
+      Put_Line ("        ""silver_output_libc.ads"",");
+      Put_Line ("        ""silver_arguments.ads"",");
+      Put_Line ("        ""silver_arguments.adb"",");
+      Put_Line ("        ""silver_runtime.ads""");
+      Put_Line ("      ],");
+      Put_Line ("      ""initializer"": ""string_literal""");
       Put_Line ("    }");
       Put_Line ("  ],");
    end Export_Compositions;
@@ -380,6 +430,20 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put ("""<reference_name>""");
          else
             Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Named_Required_Tokens (Index)) & """");
+         end if;
+      end loop;
+      Put_Line ("],");
+      Put ("  ""concatenation_tokens"": [");
+      for Index in Silver_Output_Profile.Concatenation_Required_Tokens'Range loop
+         if Index /= Silver_Output_Profile.Concatenation_Required_Tokens'First then Put (","); end if;
+         if Silver_Output_Profile.Concatenation_Required_Tokens (Index) = Silver_Output_Profile.String_Literal then
+            Put ("""<string_literal>""");
+         elsif Silver_Output_Profile.Concatenation_Required_Tokens (Index) = Silver_Output_Profile.Declaration_Name then
+            Put ("""<declaration_name>""");
+         elsif Silver_Output_Profile.Concatenation_Required_Tokens (Index) = Silver_Output_Profile.Reference_Name then
+            Put ("""<reference_name>""");
+         else
+            Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Concatenation_Required_Tokens (Index)) & """");
          end if;
       end loop;
       Put_Line ("],");

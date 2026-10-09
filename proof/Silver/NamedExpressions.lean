@@ -84,6 +84,7 @@ def tokenName : Token → String
   | .base .dot => "dot" | .base .stringLiteral => "string_literal"
   | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
   | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
+  | .ampersand => "ampersand"
 
 def Word.render : Word → List String
   | .parameter => ["word"] | .forbidden => call "forbidden_spelling" [["word"]]

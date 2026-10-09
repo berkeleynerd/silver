@@ -42,7 +42,7 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-Exactly four productions are admitted. The null production is:
+Exactly five productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -84,7 +84,8 @@ begin silver_io . put_line ( <string_literal> ) ; end main ;
 - Literal case is preserved. Spaces and `--` inside a literal are content.
   Tabs, line breaks and non-ASCII characters inside literals are excluded.
 - The complete source, including quotes, escaping and trivia, must still fit
-  the 4096-byte source limit. No concatenation or other expression is admitted.
+  the 4096-byte source limit. This production's argument is one literal;
+  concatenation is admitted only in the separate production below.
 
 The named-constant output production is:
 
@@ -118,8 +119,52 @@ The constant is declared immediately after the pragma, has the unconstrained
 predefined type `String`, and is initialized from one admitted literal. Its
 bounds are determined by that value, including the empty string. `:=` is one
 contiguous token; comments or whitespace cannot separate its characters.
-Exactly one reference supplies the sole output call. No reassignment, slicing,
-concatenation, further declarations or other use of the name is admitted.
+Exactly one reference supplies the sole output call. This named-output
+production contains no concatenation. Reassignment, slicing, further
+declarations and other uses of the name remain excluded.
+
+### Literal-backed concatenation
+
+The concatenated-output production is:
+
+```ada
+with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Name : constant String := "world";
+begin
+   Silver_IO.Put_Line ("Hello, " & Name & "!");
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : constant string := <string_literal> ;
+begin silver_io . put_line (
+<string_literal> & <reference_name> & <string_literal>
+) ; end main ;
+```
+
+The initializer, prefix and suffix are independently chosen literals from the
+domain above, including empty literals and doubled quotes. The declaration and
+reference follow the named-literal rules, including case-insensitive binding.
+`Main` and `Silver_Arguments` remain legal names. The output argument contains
+exactly two predefined String concatenations: a prefix literal, one reference
+to the initialized constant, then a suffix literal. Ada associates the operators
+to the left, so the first result joins prefix and value, and the second appends
+the suffix. No parentheses around subexpressions, repeated reference, literal-only
+concatenation, different operand order or extra operand is admitted.
+
+Each of the three decoded strings occurs once in the result and comes from a
+different literal in the source. Their combined length, and each intermediate
+result, cannot exceed the complete source's 4096-byte bound. Doubled quotes,
+trivia and syntax consume source bytes without increasing that decoded length.
+The name's single use is essential to this argument. The initializer remains
+one literal; command-line initialization is not admitted in this composition.
+
+### Guarded command-line initialization
 
 The guarded command-line production is:
 
@@ -160,6 +205,8 @@ this complete conditional is admitted, including both branches. Parameterless
 calls have no parentheses. The guard cannot be replaced, omitted, negated or
 combined with other conditions.
 
+### Shared composition rules
+
 Whitespace around punctuation is optional. Adjacent word tokens require a
 lexical separator. Both occurrences of the procedure name must be `Main`,
 ignoring ASCII letter case.
@@ -169,24 +216,28 @@ The following capability identifiers are shared with the catalogue:
 | Capability | Admitted form and restrictions |
 | --- | --- |
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
-| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named and command-line compositions additionally declare their one constant; no other pragmas are admitted. |
+| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named, concatenated and command-line compositions additionally declare their one constant; no other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
 | `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the command-line composition. No `use` clause. |
 | `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
-| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, or the argument default. |
+| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, the concatenation prefix/suffix, or the argument default. |
 | `named_string_constant` | One `constant String` declaration initialized by a literal or `argument_initialization`, as fixed by the composition. |
 | `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant identifier. |
+| `string_concatenation` | Exactly a prefix literal, one reference to a literal-initialized constant, and a suffix literal joined by two left-associated predefined String `&` operators. |
+| `concatenated_output` | One qualified `Silver_IO.Put_Line` call with the complete `string_concatenation` expression as its sole argument. |
 | `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the command-line composition. |
 | `argument_initialization` | One qualified `Silver_Arguments.First_Or_Default` call with one admitted literal default, initializing the constant. |
 | `input_guard` | Exactly the `if Silver_Arguments.Input_Is_Valid then` output branch and mandatory rejection branch shown above. |
 | `argument_rejection` | One qualified `Silver_Arguments.Reject;` as the sole statement of the guard's `else` branch. |
 
 In the null and literal-output compositions the pragma is the sole declarative
-item of `Main`; the named and command-line compositions add exactly their
+item of `Main`; the named, concatenated and command-line compositions add exactly their
 constant after the pragma.
 The null composition has no context clause and exactly one null statement.
 The literal-output composition requires the context clause and exactly one
 literal call. The named composition requires the same context and a call by name.
+The concatenated composition uses that same context and literal-backed constant,
+with the fixed prefix/reference/suffix expression as its sole output argument.
 The command-line composition requires both context clauses, argument
 initialization and the complete guard, with output by the bound name.
 Context plus null, null plus output, and repeated output calls are excluded.
@@ -194,7 +245,7 @@ No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
 
 Everything else is excluded, including other context clauses or calls, variables,
-general conditionals, string operations, general arrays, access types, and file
+general conditionals, other string expressions/operations, general arrays, access types, and file
 handles. Admitting these operations admits no other API or implementation feature. In particular,
 application code cannot call `Ada.Text_IO` or the underlying libc imports.
 
@@ -212,6 +263,11 @@ final `fflush(NULL)` to succeed. Completion means the host stream accepted the
 output; it does not guarantee consumption by a reader or durable storage.
 With healthy, progressing output and normal process startup, the program prints
 those bytes and exits successfully. Empty literals produce just LF.
+
+Concatenated output requests the decoded prefix, initialized constant value and
+decoded suffix in that order, followed by LF, with the same completion and
+failure behavior. Three empty strings produce just LF. No spaces are inserted
+implicitly and the literal contents receive no special treatment.
 
 The command-line form observes the process arguments after the executable name.
 Normal supported startup supplies that executable-name slot (`argc >= 1`);
@@ -244,10 +300,13 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-All four productions have empty **application-unit** obligation sets. Literal
+All five productions have empty **application-unit** obligation sets. Literal
 initialization establishes the constant value and bounds without a range
 constraint or read of uninitialized data. Name binding selects that value; the
 output call has no caller precondition or constrained argument.
+Concatenation's literal-backed operands form a static String expression. Their
+combined source-consumption bound keeps both intermediate and final lengths
+within the pinned frontend's capacity and the output library bound.
 The argument initializer returns an unconstrained `String`; its verified contract
 establishes the output domain. The Boolean guard and rejection call add no
 application checks or caller obligations.
@@ -255,7 +314,7 @@ The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
 argument covers all permitted literals, identifiers, argument vectors, lexical
-variants and the four compositions,
+variants and the five compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.
@@ -278,7 +337,9 @@ of the source language.
 [samples/hello_world.adb](samples/hello_world.adb) exercises literal output;
 [samples/string_constant.adb](samples/string_constant.adb) adds a named constant;
 [samples/command_line.adb](samples/command_line.adb) initializes it from guarded
-command-line input. The
+command-line input;
+[samples/greeting.adb](samples/greeting.adb) concatenates a literal prefix and
+suffix with one reference to a literal-initialized constant. The
 [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output and exit status. The suite admits, proves,
 builds and executes each sample. Samples witness supported behavior; they do

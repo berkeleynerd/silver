@@ -4,13 +4,14 @@ namespace Silver.Named
 
 inductive Token
   | base (token : Output.Token)
-  | colon | constantKeyword | stringName | assignment | declarationName | referenceName
+  | colon | constantKeyword | stringName | assignment | declarationName | referenceName | ampersand
   deriving DecidableEq, Repr
 
 def Token.spellingText : Token → String
   | .base token => token.spellingText
   | .colon => ":" | .constantKeyword => "constant" | .stringName => "string"
   | .assignment => ":=" | .declarationName | .referenceName => "_"
+  | .ampersand => "&"
 
 def Token.spelling (token : Token) : Source := token.spellingText.toList.map Char.toNat
 

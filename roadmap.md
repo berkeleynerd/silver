@@ -41,10 +41,11 @@ sequence.
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
+| Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
 
-The supported output target covers admitted literals and bounded command-line
+The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
-string variables, concatenation, indexing, general arrays, access types, or file
+string variables, arbitrary concatenation, indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
 
 ## Output design and next increments
@@ -61,9 +62,9 @@ obligation classes before the report checker was extended.
 
 The [language specification](language.md) defines printable ASCII literals,
 quote escaping, empty strings, the source bound, exact LF output, detected
-failure, and the four permitted compositions. The
+failure, and the current permitted compositions. The
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary) defines
-external effects and progress. Repeated calls, variables, concatenation and
+external effects and progress. Repeated calls, variables, arbitrary concatenation and
 broader library admission remain excluded.
 
 The owner authorized the command-line message task below on 2026-10-09.
@@ -75,6 +76,8 @@ The source bridge checks both recognizers and the selected runtime libraries.
 Source-certificate replay remains a development cost to measure as these grow.
 Preserve caching and independent module scheduling; improve representation when
 measurements justify it without weakening source correspondence or kernel checks.
+The [greeting record](docs/greeting.md) retains the enlarged certificate's
+resource-limit repair and observed replay cost for that follow-up.
 The completed [command-line review follow-up](docs/command-line-review-repairs.md)
 strengthens the existing Main composition and expression-precedence checks,
 regressions and evidence documentation. It adds no admitted forms and does not
@@ -126,8 +129,8 @@ guard composition is admitted.
 Runtime initialization fixes the object's length from its initial value.
 Reassignment, concatenation, mutable strings, general arrays, access types,
 arbitrary conditionals and general command-line package access remain outside
-this task. A later increment could add bounded concatenation for a personalized
-greeting, or statically compatible assignments; neither is authorized yet.
+that completed task. The next literal-backed greeting is authorized below;
+command-line concatenation and statically compatible assignments remain proposed.
 
 The implementation reuses the approved GNAT argument imports beneath a verified
 SPARK wrapper. Application reports remain empty; selected owned libraries have
@@ -136,6 +139,28 @@ wrapper, with immutable argv and runtime ABI semantics documented as trusted
 premises. The sample manifest records default, empty, valid and rejected input
 cases. Execute the compiled application directly to pass arguments; forwarding
 through `silver run` remains a separate convenience. No Oracle amendment.
+
+## Literal-backed greeting
+
+Authorized on 2026-10-09 as an active harness goal, following repair commit
+`54844c5`. The motivating application declares a literal-backed `Name` constant
+and calls `Silver_IO.Put_Line ("Hello, " & Name & "!")`.
+
+The capability admits arbitrary existing-domain literals for the initializer,
+prefix and suffix, with exactly one reference to the constant. The sum of their
+decoded lengths is bounded by their consumption of the complete source. The
+completed work includes a genuine GNATprove obligation experiment, SPARK
+recognition, Lean admission/composition/source correspondence, catalogue/specification
+and sample updates, boundary and rejection tests, and full native validation.
+The [capability record](docs/greeting.md) retains the evidence and replay costs.
+Literal contents receive no special treatment.
+
+Repeated references, literal-only or arbitrary concatenation expressions,
+additional declarations, assignment and command-line concatenation remain
+excluded. A later `command_line_greeting.adb` could add an explicit capacity
+guard before constructing its output; the existing argument-validity guard
+alone does not reserve space for a prefix and suffix. That follow-on is proposed,
+not authorized by this goal. No Oracle amendment is expected.
 
 ## Deferred until needed
 
@@ -151,9 +176,9 @@ place; accurate evidence and current language guarantees are still required.
 For each active milestone, record its capability identifiers, dependencies,
 exact scope, remaining decisions, and links to implementation and evidence.
 When a language capability becomes supported, update this file, `language.md`,
-the catalogue, and the sample manifest together. The sample collection and output capability are supported; their completed
-validation and remaining tool/platform limits are recorded in the
-[capability record](docs/hello-world.md).
+the catalogue, and the sample manifest together. Completed validation and
+remaining tool/platform limits are recorded per capability in the
+[README's evidence index](README.md#proofs-and-platform-evidence).
 Keep proof claims and assumptions in
 [docs/assurance.md](docs/assurance.md) and
 [docs/trusted-boundary.md](docs/trusted-boundary.md), linking to them here.
