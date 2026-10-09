@@ -53,5 +53,10 @@ to detailed evidence. Memories cannot override the Oracle or newer human
 instructions. Keep volatile totals and artifact hashes in their evidence record
 instead of copying them into session rules. Preserve historical records as history.
 
+When CLI memory is available, keep a concise Silver-scoped recall entry aligned
+with durable decisions and pointing to these checked-in documents. Recheck live
+state at handoff; CLI memory is not authoritative. Report whether it was actually
+updated rather than assuming background memory generation has completed.
+
 Use only the conventional `AGENTS.md` spelling for automatic discovery. A
 case-only `agents.md` alias can collide on macOS filesystems.

@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-10-09 — CLI memory enabled and seeded
+
+The owner enabled Codex CLI memories and requested the same durable guidance
+there. The local configuration and this thread's memory mode are enabled. A
+concise Silver entry and routing summary were manually seeded in the active
+Codex home's `memories/MEMORY.md` and `memories/memory_summary.md`; these are
+host-local recall files, outside Git, not evidence of background consolidation.
+They point to the repository's authoritative documents and require rechecking
+live goal, Git and review state. Other hosts' memory stores were not updated.
+
+[AGENTS.md](../AGENTS.md#durable-memory) now records this maintenance convention.
+Keep required guidance checked in; update the CLI recall layer when durable
+decisions change and it is available. OpenAI's [memory documentation](https://developers.openai.com/codex/customization/memories)
+describes automatic generation as asynchronous. This bookkeeping update starts
+no implementation goal and changes no Oracle or proof claim.
+
 ## 2026-10-09 — Bookkeeping guidance checked and completed
 
 The owner asked whether session memory preserves our bookkeeping commitments.
