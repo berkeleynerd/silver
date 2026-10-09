@@ -1,9 +1,12 @@
 import Silver.SourceBridge
 import Silver.OutputExpressions
 import Silver.Current
+import Silver.NamedEquations
 import Silver.ReviewedOutputShape
 
-/-! Source correspondence for output admission and execution. Existing typed
+/-! Source correspondence for literal-output admission and execution. `Calls.member`
+interprets the internal Is_Literal_Member helper; the public Is_Member union is
+closed by NamedSourceBridge. Existing typed
 expression trees bind the copied lexical primitives and membership composition.
 The two new recursive expression templates fix operators, grouping and calls;
 OutputEquations proves uniqueness on their legal machine domains. The reviewed
@@ -29,7 +32,7 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "trivia_end" Source.outputBodyTokens = some Silver.Expressions.triviaBody.render ∧
   Source.expressionBody "token_at" Source.outputBodyTokens = some Silver.Expressions.tokenBody.render ∧
   Source.expressionBody "allowed_source" Source.outputBodyTokens = some Silver.Expressions.allowedBody.render ∧
-  Source.expressionBody "is_member" Source.outputBodyTokens = some Silver.Expressions.memberBody.render ∧
+  Source.expressionBody "is_literal_member" Source.outputBodyTokens = some Silver.Expressions.memberBody.render ∧
   Source.expressionBody "literal_end" Source.outputBodyTokens = some literalExpression ∧
   Source.expressionBody "suffix_matches" Source.outputBodyTokens = some suffixExpression
 
@@ -61,13 +64,42 @@ def quotedSpelling (token : Token) : String :=
 def spellingExpression : List String := ["case", "token", "is"] ++
   List.flatten ((allTokens.map (fun token => ["when", tokenName token, "=>", quotedSpelling token])).intersperse [","])
 
+def namedTokenName : Named.Token → String
+  | .base token => tokenName token
+  | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
+  | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
+
+def fullTokens : List Named.Token := allTokens.map Named.Token.base ++
+  [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName]
+
+def namedNames (tokens : List Named.Token) : List String :=
+  List.flatten ((tokens.map (fun token => [namedTokenName token])).intersperse [","])
+
+def fullSpellingExpression : List String := spellingExpression ++
+  [.colon, .constantKeyword, .stringName, .assignment].flatMap (fun (token : Named.Token) =>
+    [",", "when", namedTokenName token, "=>", "\"" ++ token.spellingText ++ "\""]) ++
+  [",", "when", "declaration_name", "|", "reference_name", "=>",
+    "\"" ++ Named.Token.declarationName.spellingText ++ "\""]
+
+theorem variable_token_same_spelling :
+    Named.Token.declarationName.spelling = Named.Token.referenceName.spelling := rfl
+
+theorem full_word_token_denotation (token : Named.Token) :
+    token.isWord = decide (fullTokens.idxOf token ≤ 10 ∨
+      token = .constantKeyword ∨ token = .stringName) := by
+  cases token with
+  | base token => cases token <;> decide
+  | _ => decide
+
 abbrev CatalogueTranslation : Prop :=
-  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ names allTokens ++ [")"]) ∧
+  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ namedNames fullTokens ++ [")"]) ∧
   Source.declaration "required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ names requiredTokens ++ [")"]) ∧
-  Source.expressionBody "spelling" Source.outputBodyTokens = some spellingExpression ∧
+  Source.declaration "named_required_tokens" Source.outputSpecTokens =
+    some (["constant", "token_sequence", ":=", "("] ++ namedNames Named.requiredTokens ++ [")"]) ∧
+  Source.expressionBody "spelling" Source.outputBodyTokens = some fullSpellingExpression ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens =
-    some ["token", "in", "with_keyword", "..", "end_keyword"] ∧
+    some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name"] ∧
   Source.declaration "max_source_length" Source.outputSpecTokens =
     some ["constant", "positive", ":=", "4_096"] ∧
   Source.declaration "comment_introducer" Source.outputSpecTokens =
@@ -175,24 +207,13 @@ theorem checked_source : CheckedSource where
 
 /-- A checked translation and uniqueness of all new recursive definitions.
 Equations carry the same frontend/machine-domain premise as the null bridge;
-none assumes the conclusion or automatic proof success. -/
+none assumes the conclusion or automatic proof success. This theorem covers
+the retained literal-only helper; NamedSourceBridge covers the public union. -/
 theorem authoritative_output_member_iff (calls : Calls) (primitives : PrimitiveCalls)
     (equations : Expressions.InterpretedSource calls primitives)
     (source : Source) : CheckedSource ∧ (calls.member source = true ↔ Member source) :=
   ⟨checked_source, source_implementation_member_iff calls primitives
     (Expressions.interpreted_equations calls primitives equations) source⟩
-
-theorem authoritative_current_member_iff
-    (nullCalls : Silver.Expressions.Calls) (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (outputCalls : Calls) (primitives : PrimitiveCalls)
-    (outputEquations : Expressions.InterpretedSource outputCalls primitives) (source : Source) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ((nullCalls.member source || outputCalls.member source) = true ↔ Current.Member source) := by
-  refine ⟨Silver.SourceBridge.checked_source, checked_source, ?_⟩
-  simp only [Bool.or_eq_true, Current.Member,
-    Silver.Expressions.member_implementation_iff nullCalls nullEquations source,
-    source_implementation_member_iff outputCalls primitives
-      (Expressions.interpreted_equations outputCalls primitives outputEquations) source]
 
 /-- Whole-source runtime correspondence and behavioral refinement together.
 An altered guard/call/byte/loop cannot satisfy the same checked translation. -/
@@ -200,22 +221,5 @@ theorem authoritative_runtime_correct (environment : Runtime.Environment) (item 
     CheckedSource ∧ Runtime.execute environment item Runtime.program [] =
       Runtime.specification environment item :=
   ⟨checked_source, Runtime.program_refines environment item⟩
-
-/-- Actual admitted bytes complete the stronger current pipeline under the
-explicit tool and fixed-library contracts. No premise identifies membership
-with prover success. The defined empty application obligation list agrees with
-the external generator under ToolContract.generationFaithful, not by derivation
-of Ada/SPARK obligations in this model. -/
-theorem checked_current_pipeline {Artifact : Type} {tools : Current.Tools Artifact}
-    (contract : Current.ToolContract tools)
-    (nullCalls : Silver.Expressions.Calls) (nullEquations : Silver.Expressions.DefinitionEquations nullCalls)
-    (outputCalls : Calls) (primitives : PrimitiveCalls)
-    (outputEquations : Expressions.InterpretedSource outputCalls primitives)
-    (source : Source) (accepted : (nullCalls.member source || outputCalls.member source) = true) :
-    Silver.SourceBridge.CheckedSource ∧ CheckedSource ∧
-      ∃ artifact steps, Current.Pipeline tools source artifact steps := by
-  have bridge := authoritative_current_member_iff nullCalls nullEquations
-    outputCalls primitives outputEquations source
-  exact ⟨bridge.1, bridge.2.1, Current.automatic_pipeline contract (bridge.2.2.mp accepted)⟩
 
 end Silver.Output.SourceBridge

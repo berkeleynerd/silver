@@ -39,8 +39,8 @@ sequence.
 | Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; CI has not run. | Developer workflow |
 | Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
-| Named string constant | Authorized; follows repair baseline | A literal-initialized `constant String`, name binding and output through its identifier. First increment of the next task below. | Planned `samples/string_constant.adb` |
-| Command-line message | Authorized; follows named strings | Initialize the named constant through a narrowly admitted, verified argument wrapper; depends on the named-string increment. | Planned `samples/command_line.adb` |
+| Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
+| Command-line message | In progress | Initialize the named constant through a narrowly admitted, verified argument wrapper; depends on the named-string increment. | Planned `samples/command_line.adb` |
 
 The target is a class of programs that can print admitted literals, not special
 treatment of the text `Hello, world!`. String literals do not imply support for
@@ -67,7 +67,7 @@ external effects and progress. Repeated calls, variables, concatenation and
 broader library admission remain excluded.
 
 The owner authorized the command-line message task below on 2026-10-09.
-Finish the current review-repair validation and commit before language changes. Specify
+The review repairs are complete in `251dd85`. Specify
 interactions and generated obligations before implementation. A general proof
 engine, catalogue framework, or additional output API is not a prerequisite.
 
@@ -79,9 +79,10 @@ measurements justify it without weakening source correspondence or kernel checks
 ## Next task: Hello World with a command-line message
 
 Recorded on 2026-10-08 and **authorized for implementation on 2026-10-09**.
-Complete the preceding review-repair baseline first. The two milestones are
-authorized work, not yet supported language; their sample files and final API
-will be admitted only with complete assurance and validation.
+The preceding review repairs are complete in `251dd85`. Named strings are
+supported with [complete Linux evidence](docs/named-strings.md); command-line
+syntax remains an isolated prototype until its own assurance and validation
+are complete.
 
 1. Add a named `constant String` initialized from a string literal, then passed
    to `Silver_IO.Put_Line`. Establish declaration, initialization, name lookup
@@ -118,8 +119,8 @@ required false branch never prints it and sets process status 1. Both checks use
 the same immutable argument vector. This admits one fixed guard composition,
 not arbitrary conditionals or general command-line access. No oversized sentinel
 or abrupt process-exit import is needed. The initial literal-constant increment
-still uses a sole unguarded output call. These experiment results do not yet
-admit either new production.
+still uses a sole unguarded output call. The named production is now supported; the argument production remains
+in progress.
 
 Runtime initialization fixes the object's
 length from its initial value. This task does not introduce reassignment: Ada

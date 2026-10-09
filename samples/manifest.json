@@ -3,15 +3,50 @@
   "samples": [
     {
       "source": "null.adb",
-      "capabilities": ["main_procedure", "spark_mode_on", "null_statement"],
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "null_statement"
+      ],
       "specification": "../language.md#grammar-and-capabilities",
-      "expected": {"stdout": "", "stderr": "", "exit_status": 0}
+      "expected": {
+        "stdout": "",
+        "stderr": "",
+        "exit_status": 0
+      }
     },
     {
       "source": "hello_world.adb",
-      "capabilities": ["main_procedure", "spark_mode_on", "runtime_context", "literal_output", "string_literal"],
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "literal_output",
+        "string_literal"
+      ],
       "specification": "../language.md#grammar-and-capabilities",
-      "expected": {"stdout": "Hello, world!\n", "stderr": "", "exit_status": 0}
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "string_constant.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "named_output"
+      ],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

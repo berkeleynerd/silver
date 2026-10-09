@@ -12,10 +12,11 @@ restrictions and behavior. This document records its assurance argument and
 evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
 complete the [admission workflow](../development.md).
 
-The SPARK compiler supports the null and literal-output productions in the
-language specification. Current capability validation is recorded in
+The SPARK compiler supports the null, literal-output and named-constant output
+productions in the language specification. Current capability validation is recorded in
 [hello-world.md](hello-world.md) and the follow-up
-[repair record](hello-review-repairs.md); earlier workflow and repair evidence remains
+[repair record](hello-review-repairs.md), with named-string evidence in
+[named-strings.md](named-strings.md); earlier workflow and repair evidence remains
 in [proof-workflow.md](proof-workflow.md) and [review-repairs.md](review-repairs.md).
 Pinned Lean 4.34.1 proves membership and behavior of the restricted source
 models. Their application obligation lists are defined to be empty; the
@@ -78,8 +79,8 @@ those expressions. `RecursiveBridge` interprets recursive calls parametrically,
 applies the three uniqueness lemmas, and composes the resulting equivalences
 with cursor/grammar equivalence in the final source theorem. A complete reviewed
 token shape fixes surrounding declarations and binding scopes as well as the
-selected bodies. The JSON names six admitted constructs, their conditions, both token sequences
-and both permitted compositions. Construct metadata is maintained explicitly;
+selected bodies. The JSON names the admitted constructs, their conditions, the three token
+sequences and permitted compositions. Construct metadata is maintained explicitly;
 integration compares parsed JSON values, not whitespace or key order. Output
 word-token selection is explicit in the exporter; source checks and tests keep
 its constants consistent with the output recognizer.
@@ -146,8 +147,8 @@ preserves case, and proves that decoded bytes are printable ASCII and bounded
 by consumed source. `OutputLiteral` supplies the printable-byte predicate.
 `OutputAdmission` defines the 23-token output production and proves scanner
 soundness/completeness. Existing trivia and whole-word rules apply outside the
-literal. `Current.Member` is the union of the two grammars, and
-`Current.accepts_iff_member` proves decidable membership. Only these two
+literal. `Current.Member` is the union of the null, literal and named grammars,
+and `Current.accepts_iff_member` proves decidable membership. Only these three
 compositions are admitted; their constructs are not freely repeatable.
 
 `OutputRuntime` models the actual wrapper's length guard, checked writes,
@@ -207,6 +208,37 @@ structural argument, the explicit faithful-generation tool premise and complete
 real reports. The library-proof premise additionally assumes identical selected
 sources, logical tool configuration and caller-independent verification; one
 successful run alone is not a universal prover-completeness theorem.
+
+### Named constants and their composition
+
+`NamedIdentifier` defines maximal ASCII identifiers, the Ada reserved-word and
+visible-name exclusions, and case-insensitive equality of bounded source spans.
+`NamedAdmission` defines the separate 30-token production and its declaration,
+literal and reference events. Scanner equivalence covers all admitted names,
+trivia and literals; it does not merely recognize the motivating example.
+`NamedSemantics` proves that the sole declaration initializes one binding with
+the literal value, the sole reference resolves to that binding, and evaluating
+it yields exactly the original value. The source meaning is unique, and the
+literal retains the same printable-byte and length domain as direct output.
+`NamedDisjoint` distinguishes this production from the earlier ones.
+
+**Reviewed Ada correspondence and obligations.** The predefined unconstrained
+`String` constant acquires its bounds from the initializer. No explicit subtype
+constraint, conversion or assignment introduces a length check. All bytes are
+initialized before the name is read, and there is no mutation, indexing or other
+expression. Excluding reserved words and `String`/`Silver_IO` keeps the type and
+package names bound to the intended declarations. The reference is the same
+Ada identifier ignoring case. The output operation has no caller precondition
+and accepts an unconstrained String. This adds no application-unit obligation;
+selected library reports remain nonempty and required. These claims concern
+this fixed composition, not arbitrary declarations or name resolution.
+
+The named source semantics reduces to the same output value and verified
+wrapper execution as the direct-literal form. Its success, partial-output and
+status-1 failure outcomes therefore inherit the runtime theorem and premises
+above. The `Current` pipeline covers the three-way union. Modeled obligations
+remain empty by definition; the reviewed Ada argument, faithful tool-generation
+premise and complete actual reports remain distinct parts of the assurance.
 
 The application project selects unchanged `main.adb` and exactly three runtime
 files. Bootstrap embeds their exact bytes in `Silver_Library_Sources`; the
@@ -485,8 +517,15 @@ The proof chain has distinct checked components:
    reconstructions, complete `ReviewedOutputShape`, expression/callee checks,
    catalogue and refinement checks, runtime statement rendering, Static ghost
    declarations, the length bound and returning status-setter signature.
-   `authoritative_current_member_iff` combines both checked source bridges and
-   proves union membership for every interpretation satisfying their equations.
+   `NamedSourceBridge` checks the added typed identifier, span-comparison,
+   forbidden-name, state and named-suffix expression templates. It checks the
+   complete finite forbidden-name enum and its ordinary case/return spelling
+   body. `NamedExpressions.interpreted_equations` closes arbitrary helper and
+   recursive callees on their verified domains, applying identifier/suffix
+   uniqueness; `model_interpreted` supplies an explicit witness.
+   `Named.SourceBridge.authoritative_current_member_iff` retains all three
+   checked bridges and proves union membership for every interpretation
+   satisfying the checked equations.
    Literal/parse determinism, disjoint productions and `Current.meaning_unique`
    establish a unique source meaning. `model_interpreted` and
    `model_tool_contract` provide explicit witnesses for the equation and tool
@@ -494,7 +533,7 @@ The proof chain has distinct checked components:
 8. `authoritative_runtime_correct` retains those checked-source facts and
    proves that the interpreter of the rendered wrapper body equals its output
    specification. The `Current` assurance and tool-pipeline theorems compose
-   that model with both grammar productions as described above. Interpreting
+   that model with all three grammar productions as described above. Interpreting
    checked Ada tokens as these typed expressions/statements still uses the
    approved frontend, SPARK's proved bounds, and the documented libc meanings;
    this is not a verified general Ada parser or whole-toolchain theorem.
@@ -559,7 +598,7 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | --- | --- | --- |
 | Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
 | Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrapper | Null and literal-output compositions, all admitted literals; external output meanings/progress as documented. |
-| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for both productions; no general serializer theorem. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the three productions; no general serializer theorem. |
 | Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; pinned external imports and the documented runtime assumptions. |
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null-report recognition, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |

@@ -36,11 +36,14 @@ return, or line feed. Comments begin with `--`, end at carriage return, line fee
 or EOF, and contain printable ASCII or horizontal tabs. Word tokens retain their
 Ada lexical boundaries. Literal contents preserve case, may be empty, and may
 contain any printable ASCII character, with quotes doubled as in Ada.
-The original [null program](samples/null.adb) is also supported.
+The original [null program](samples/null.adb) and a
+[named string constant](samples/string_constant.adb) are also supported.
 
-These are the two complete forms: one null statement without a context clause,
-or one qualified literal-output call with `with Silver_IO;`. Variables, repeated
-calls, concatenation and other APIs remain excluded. See [language.md](language.md)
+The three complete forms are one null statement without a context clause, one
+qualified literal-output call, or one literal-initialized `constant String`
+printed by its identifier. Both output forms require `with Silver_IO;`.
+Names bind without ASCII case distinctions; the constant is immutable.
+Variables, repeated calls, concatenation and other APIs remain excluded. See [language.md](language.md)
 for the exact rules. On detected failure the wrapper sets status 1 and returns;
 the sole-call `Main` returns with that status. Normal output is the literal bytes followed by LF, with a
 successful flush. Detected output failure exits unsuccessfully and may leave
@@ -50,7 +53,7 @@ The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
 are development setup, evidence auditing, and tests. GNATprove verifies the
 compiler implementation. Lean connects the restricted recognizer source to its
-language model and the output wrapper to its effect model. Both application
+language model and the output wrapper to its effect model. All three application
 forms have no caller obligations; the output library's nonempty obligations
 must also be proved and checked before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
@@ -158,7 +161,7 @@ The [machine-readable catalogue](catalogue/silver.json) matches the parsed
 JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also lists admitted constructs, the output operation, literal domain,
-and both permitted compositions. Structural metadata is written explicitly in
+and the three permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -172,8 +175,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 Hello World baseline validation is recorded in
 [the capability record](docs/hello-world.md); current follow-up evidence is in
-[the review repairs](docs/hello-review-repairs.md).
-Its compiler audit passed with fresh cold state. An intermittent GNATprove
+[the review repairs](docs/hello-review-repairs.md). Named-string validation is
+recorded in [the capability record](docs/named-strings.md).
+The Hello World baseline compiler audit passed with fresh cold state. An intermittent GNATprove
 temporary-result JSON failure in warm runs remains unresolved; the record
 distinguishes those failures from successful evidence.
 Validation of the earlier incremental workflows is recorded in

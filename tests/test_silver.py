@@ -72,13 +72,19 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["schema_version"], 1)
         constructs = {item["id"]: item for item in catalogue["constructs"]}
         self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement",
-                                          "runtime_context", "literal_output", "string_literal"})
+                                          "runtime_context", "literal_output", "string_literal",
+                                          "named_string_constant", "named_output"})
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "literal_output"})
+        self.assertEqual(set(compositions), {"null", "literal_output", "named_output"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
         self.assertEqual(compositions["literal_output"]["statements"], ["literal_output"])
         self.assertEqual(compositions["literal_output"]["context"], ["runtime_context"])
+        self.assertEqual(compositions["named_output"]["declarative_items"],
+                         ["spark_mode_on", "named_string_constant"])
+        self.assertEqual(compositions["named_output"]["statements"], ["named_output"])
+        self.assertEqual(constructs["named_string_constant"]["conditions"]["initializer"],
+                         "string_literal")
         self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '""')
         self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",

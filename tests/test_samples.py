@@ -52,7 +52,7 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
                 reports = list(workspace.rglob("gnatprove.sarif"))
                 self.assertEqual(len(reports), 1)
-                output = "literal_output" in sample["capabilities"]
+                output = "runtime_context" in sample["capabilities"]
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc"}

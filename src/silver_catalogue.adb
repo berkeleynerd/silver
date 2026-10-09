@@ -8,39 +8,37 @@ package body Silver_Catalogue with SPARK_Mode => On is
    use Silver_Numbers;
    use type Silver_Output_Profile.Token_Kind;
 
-   procedure Export is
-      type Byte_Class is (Whitespace, Allowed, Identifier, Comment_End);
-      Word_Written : Boolean := False;
+   type Byte_Class is (Whitespace, Allowed, Identifier, Comment_End);
 
-      procedure Bytes (Field : String; Class : Byte_Class)
-        with Pre => Field'Length <= 64
-      is
-         Written : Boolean := False;
-         Included : Boolean;
-      begin
-         Put ("  """ & Field & """: [");
-         for Item in Character loop
-            Included :=
-              (case Class is
-                 when Whitespace => Silver_Profile.Is_Whitespace (Item),
-                 when Allowed => Silver_Profile.Is_Allowed_Character (Item),
-                 when Identifier => Silver_Profile.Is_Identifier_Character (Item),
-                 when Comment_End => Silver_Profile.Is_Comment_End (Item));
-            if Included then
-               if Written then
-                  Put (",");
-               end if;
-               Put (Decimal (Character'Pos (Item)));
-               Written := True;
-            end if;
-         end loop;
-         Put_Line ("],");
-      end Bytes;
-
+   procedure Bytes (Field : String; Class : Byte_Class)
+     with Pre => Field'Length <= 64
+   is
+      Written : Boolean := False;
+      Included : Boolean;
    begin
-      Put_Line ("{");
-      Put_Line ("  ""schema_version"": 1,");
-      Put_Line ("  ""profile"": ""silver"",");
+      Put ("  """ & Field & """: [");
+      for Item in Character loop
+         Included :=
+           (case Class is
+              when Whitespace => Silver_Profile.Is_Whitespace (Item),
+              when Allowed => Silver_Profile.Is_Allowed_Character (Item),
+              when Identifier => Silver_Profile.Is_Identifier_Character (Item),
+              when Comment_End => Silver_Profile.Is_Comment_End (Item));
+         if Included then
+            if Written then
+               Put (",");
+            end if;
+            Put (Decimal (Character'Pos (Item)));
+            Written := True;
+         end if;
+      end loop;
+      Put_Line ("],");
+   end Bytes;
+
+   procedure Export_Constructs
+     with Global => (In_Out => Ada.Text_IO.File_System)
+   is
+   begin
       Put_Line ("  ""constructs"": [");
       Put_Line ("    {");
       Put_Line ("      ""id"": ""main_procedure"",");
@@ -103,8 +101,43 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""case_preserved"": true,");
       Put_Line ("        ""concatenation"": false");
       Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""named_string_constant"",");
+      Put_Line ("      ""ada_kind"": ""object_declaration"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""type"": ""String"",");
+      Put_Line ("        ""constant"": true,");
+      Put_Line ("        ""initializer"": ""string_literal"",");
+      Put_Line ("        ""count"": 1,");
+      Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
+      Put_Line ("        ""exclude_ada_2022_reserved_words"": true,");
+      Put_Line ("        ""excluded_names"": [");
+      Put_Line ("          ""String"",");
+      Put_Line ("          ""Silver_IO""");
+      Put_Line ("        ],");
+      Put_Line ("        ""case_insensitive_binding"": true");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""named_output"",");
+      Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""arguments"": [");
+      Put_Line ("          ""declared_constant_identifier""");
+      Put_Line ("        ],");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
       Put_Line ("    }");
       Put_Line ("  ],");
+   end Export_Constructs;
+
+   procedure Export_Compositions
+     with Global => (In_Out => Ada.Text_IO.File_System)
+   is
+   begin
       Put_Line ("  ""compositions"": [");
       Put_Line ("    {");
       Put_Line ("      ""name"": ""null"",");
@@ -133,8 +166,32 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""silver_io.adb"",");
       Put_Line ("        ""silver_output_libc.ads""");
       Put_Line ("      ]");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""name"": ""named_output"",");
+      Put_Line ("      ""context"": [");
+      Put_Line ("        ""runtime_context""");
+      Put_Line ("      ],");
+      Put_Line ("      ""declarative_items"": [");
+      Put_Line ("        ""spark_mode_on"",");
+      Put_Line ("        ""named_string_constant""");
+      Put_Line ("      ],");
+      Put_Line ("      ""statements"": [");
+      Put_Line ("        ""named_output""");
+      Put_Line ("      ],");
+      Put_Line ("      ""library_units"": [");
+      Put_Line ("        ""silver_io.ads"",");
+      Put_Line ("        ""silver_io.adb"",");
+      Put_Line ("        ""silver_output_libc.ads""");
+      Put_Line ("      ]");
       Put_Line ("    }");
       Put_Line ("  ],");
+   end Export_Compositions;
+
+   procedure Export_Rules
+     with Global => (In_Out => Ada.Text_IO.File_System)
+   is
+   begin
       Put_Line ("  ""additional_units"": false,");
       Put_Line ("  ""additional_constructs"": false,");
       Put_Line ("  ""procedure_name"": ""Main"",");
@@ -165,6 +222,13 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Bytes ("identifier_bytes", Identifier);
       Put_Line ("  ""comment_prefix"": """ & Silver_Profile.Comment_Introducer & """,");
       Bytes ("comment_end_bytes", Comment_End);
+   end Export_Rules;
+
+   procedure Export_Tokens
+     with Global => (In_Out => Ada.Text_IO.File_System)
+   is
+      Word_Written : Boolean := False;
+   begin
       Put ("  ""word_tokens"": [");
       for Token in Silver_Profile.Token_Kind loop
          if Silver_Profile.Is_Word_Token (Token) then
@@ -174,7 +238,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
          end if;
       end loop;
       for Token in Silver_Output_Profile.Token_Kind loop
-         if Token in Silver_Output_Profile.With_Keyword | Silver_Output_Profile.IO_Name | Silver_Output_Profile.Put_Line_Name then
+         if Token in Silver_Output_Profile.With_Keyword | Silver_Output_Profile.IO_Name | Silver_Output_Profile.Put_Line_Name
+           | Silver_Output_Profile.Constant_Keyword | Silver_Output_Profile.String_Name
+         then
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
       end loop;
@@ -200,7 +266,32 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Required_Tokens (Index)) & """");
          end if;
       end loop;
+      Put_Line ("],");
+      Put ("  ""named_tokens"": [");
+      for Index in Silver_Output_Profile.Named_Required_Tokens'Range loop
+         if Index /= Silver_Output_Profile.Named_Required_Tokens'First then Put (","); end if;
+         if Silver_Output_Profile.Named_Required_Tokens (Index) = Silver_Output_Profile.String_Literal then
+            Put ("""<string_literal>""");
+         elsif Silver_Output_Profile.Named_Required_Tokens (Index) = Silver_Output_Profile.Declaration_Name then
+            Put ("""<declaration_name>""");
+         elsif Silver_Output_Profile.Named_Required_Tokens (Index) = Silver_Output_Profile.Reference_Name then
+            Put ("""<reference_name>""");
+         else
+            Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Named_Required_Tokens (Index)) & """");
+         end if;
+      end loop;
       Put_Line ("]");
+   end Export_Tokens;
+
+   procedure Export is
+   begin
+      Put_Line ("{");
+      Put_Line ("  ""schema_version"": 1,");
+      Put_Line ("  ""profile"": ""silver"",");
+      Export_Constructs;
+      Export_Compositions;
+      Export_Rules;
+      Export_Tokens;
       Put_Line ("}");
    end Export;
 end Silver_Catalogue;

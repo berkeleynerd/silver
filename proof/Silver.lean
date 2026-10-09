@@ -4,3 +4,5 @@ import Silver.Semantics
 import Silver.SourceBridge
 import Silver.Current
 import Silver.OutputSourceBridge
+import Silver.NamedSourceBridge
+import Silver.NamedExamples

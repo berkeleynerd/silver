@@ -10,11 +10,13 @@ is
      (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,
       Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,
       End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,
-      String_Literal);
+      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,
+      Declaration_Name, Reference_Name);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,
-          Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10);
+          Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10
+            or else Token in Constant_Keyword | String_Name);
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;
    Required_Tokens : constant Token_Sequence :=
@@ -25,12 +27,23 @@ is
       IO_Name, Dot, Put_Line_Name, Left_Parenthesis, String_Literal,
       Right_Parenthesis, Semicolon, End_Keyword, Main_Name, Semicolon);
 
+   Named_Required_Tokens : constant Token_Sequence :=
+     (With_Keyword, IO_Name, Semicolon,
+      Procedure_Keyword, Main_Name, Is_Keyword,
+      Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis, On_Name,
+      Right_Parenthesis, Semicolon, Declaration_Name, Colon,
+      Constant_Keyword, String_Name, Assignment, String_Literal, Semicolon,
+      Begin_Keyword, IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
+      Reference_Name, Right_Parenthesis, Semicolon, End_Keyword, Main_Name,
+      Semicolon);
+
    function Spelling (Token : Token_Kind) return String
      with Global => null,
           Post => Spelling'Result'First = 1
             and then Spelling'Result'Length in 1 .. 10;
 
-   --  The independent ghost grammar admits one literal output statement.
+   --  The independent ghost grammar admits direct literal output or output
+   --  through one literal-initialized constant.
    --  Its string contents are printable ASCII; doubled quotes encode one
    --  quote, and comments/trivia apply only outside the literal.
    function Is_Member (Source : String) return Boolean

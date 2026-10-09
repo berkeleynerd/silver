@@ -63,6 +63,35 @@
         "case_preserved": true,
         "concatenation": false
       }
+    },
+    {
+      "id": "named_string_constant",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "String",
+        "constant": true,
+        "initializer": "string_literal",
+        "count": 1,
+        "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
+        "excluded_names": [
+          "String",
+          "Silver_IO"
+        ],
+        "case_insensitive_binding": true,
+        "exclude_ada_2022_reserved_words": true
+      }
+    },
+    {
+      "id": "named_output",
+      "ada_kind": "procedure_call_statement",
+      "conditions": {
+        "operation": "Silver_IO.Put_Line",
+        "qualification_required": true,
+        "arguments": [
+          "declared_constant_identifier"
+        ],
+        "count": 1
+      }
     }
   ],
   "compositions": [
@@ -87,6 +116,24 @@
       ],
       "statements": [
         "literal_output"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads"
+      ]
+    },
+    {
+      "name": "named_output",
+      "context": [
+        "runtime_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_constant"
+      ],
+      "statements": [
+        "named_output"
       ],
       "library_units": [
         "silver_io.ads",
@@ -566,7 +613,9 @@
     "end",
     "with",
     "silver_io",
-    "put_line"
+    "put_line",
+    "constant",
+    "string"
   ],
   "null_tokens": [
     "procedure",
@@ -604,6 +653,38 @@
     "put_line",
     "(",
     "<string_literal>",
+    ")",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "named_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "<string_literal>",
+    ";",
+    "begin",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<reference_name>",
     ")",
     ";",
     "end",

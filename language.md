@@ -37,7 +37,7 @@ following rules and the complete grammar below:
 
 ## Grammar and capabilities
 
-Exactly two productions are admitted. The null production is:
+Exactly three productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -81,6 +81,41 @@ begin silver_io . put_line ( <string_literal> ) ; end main ;
 - The complete source, including quotes, escaping and trivia, must still fit
   the 4096-byte source limit. No concatenation or other expression is admitted.
 
+The named-constant output production is:
+
+```ada
+with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Message : constant String := "Hello, world!";
+begin
+   Silver_IO.Put_Line (Message);
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : constant string := <string_literal> ;
+begin silver_io . put_line ( <reference_name> ) ; end main ;
+```
+
+The declaration name starts with an ASCII letter, followed by letters or decimal
+digits, optionally separated by single underscores. It has no trailing or
+consecutive underscore. Equivalently it matches
+`[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*`. The 74 Ada 2022 reserved words, `String`
+and `Silver_IO` are excluded, ignoring ASCII case. `Main` is a legal constant
+name. The reference must match the entire declared name, ignoring ASCII case.
+There is no separate identifier-length limit beyond the complete source bound.
+
+The constant is declared immediately after the pragma, has the unconstrained
+predefined type `String`, and is initialized from one admitted literal. Its
+bounds are determined by that value, including the empty string. `:=` is one
+contiguous token; comments or whitespace cannot separate its characters.
+Exactly one reference supplies the sole output call. No reassignment, slicing,
+concatenation, further declarations or other use of the name is admitted.
+
 Whitespace around punctuation is optional. Adjacent word tokens require a
 lexical separator. Both occurrences of the procedure name must be `Main`,
 ignoring ASCII letter case.
@@ -90,15 +125,19 @@ The following capability identifiers are shared with the catalogue:
 | Capability | Admitted form and restrictions |
 | --- | --- |
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
-| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. No other declarations or pragmas are admitted. |
+| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named composition additionally declares its one constant; no other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
 | `runtime_context` | Exactly one `with Silver_IO;` before the output procedure. No `use` clause. |
 | `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
-| `string_literal` | A literal in the domain above, used only as the output argument. |
+| `string_literal` | A literal in the domain above, used as the direct output argument or the named constant initializer. |
+| `named_string_constant` | One `constant String` declaration initialized by a literal, with the name rules above. |
+| `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant identifier. |
 
-In both compositions the pragma is the sole declarative item of `Main`.
+In the null and literal-output compositions the pragma is the sole declarative
+item of `Main`; the named composition adds exactly its constant after the pragma.
 The null composition has no context clause and exactly one null statement.
-The output composition requires the context clause and exactly one literal call.
+The literal-output composition requires the context clause and exactly one
+literal call. The named composition requires the same context and a call by name.
 Context plus null, null plus output, and repeated output calls are excluded.
 No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
@@ -116,7 +155,7 @@ At source level the null program has no data accesses, calls, or output and leav
 the initial state unchanged. Runtime startup and external execution conditions
 remain within the documented [trusted boundary](docs/trusted-boundary.md).
 
-The output program requests its decoded literal bytes followed by exactly LF
+Both output productions request their decoded literal bytes followed by exactly LF
 (byte 10) on standard output. Successful completion requires every byte write and the
 final `fflush(NULL)` to succeed. Completion means the host stream accepted the
 output; it does not guarantee consumption by a reader or durable storage.
@@ -134,12 +173,14 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-Both productions have empty **application-unit** obligation sets: the literal
-call has no caller precondition, constrained argument or dynamic expression.
+All three productions have empty **application-unit** obligation sets. Literal
+initialization establishes the constant value and bounds without a range
+constraint or read of uninitialized data. Name binding selects that value; the
+output call has no caller precondition or constrained argument.
 The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
-argument covers all permitted literals, lexical variants and both compositions,
+argument covers all permitted literals, identifiers, lexical variants and the three compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.

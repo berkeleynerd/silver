@@ -245,7 +245,12 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The catalogue names both productions and their admitted constructs and operation.
+The catalogue names the three productions and their admitted constructs and
+operation. Named constants add restricted declaration/reference semantics,
+including maximal ASCII identifiers, exclusion of Ada reserved words and
+shadowing names, case-insensitive binding and literal-determined String bounds.
+Their interpretation still uses the fixed Ada/SPARK frontend; there is no
+general verified Ada name resolver.
 Both application-unit obligation sets are empty. Output selects the verified
 `Silver_IO` specification/body and `Silver_Output_Libc` interface. Their source
 bytes are read from the explicitly configured checkout source directory,

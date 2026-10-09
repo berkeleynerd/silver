@@ -1,20 +1,22 @@
 import Silver.OutputAdmission
 import Silver.OutputRuntime
 import Silver.Semantics
+import Silver.NamedSemantics
+import Silver.NamedDisjoint
 
-/-! One current language, two productions. The obligation model assigns an
-empty list to both application forms. Agreement with GNATprove's actual
+/-! One current language, three productions. The obligation model assigns an
+empty list to all application forms. Agreement with GNATprove's actual
 obligation generation is an explicit ToolContract premise, checked per compile;
 this module is not a verified Ada/SPARK obligation generator. The fixed library
 body retains its separately audited obligations. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source
-def accepts (source : Source) : Bool := Silver.accepts source || Output.accepts source
+def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source
+def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || Named.accepts source)
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
@@ -30,12 +32,17 @@ inductive SourceMeaning : Source → Program → Prop
       Output.Member source → Output.Parsed source Output.requiredTokens 1 [literal] →
       SourceMeaning source (.outputMain literal)
 
+  | namedMain {source : Source} {program : Named.Program} :
+      Named.SourceMeaning source program → SourceMeaning source (.outputMain program.literal)
+
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember
+  rcases member with nullMember | outputMember | namedMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
   · obtain ⟨literal, parsed⟩ := outputMember.2.2.2
     exact ⟨.outputMain literal, .outputMain outputMember parsed⟩
+  · obtain ⟨program, meaning⟩ := Named.member_has_meaning namedMember
+    exact ⟨.outputMain program.literal, .namedMain meaning⟩
 
 /-- The first nontrivia token is `procedure` or `with`, never both. -/
 theorem member_disjoint (source : Source) : ¬ (Silver.Member source ∧ Output.Member source) := by
@@ -62,12 +69,21 @@ theorem meaning_unique {source : Source} {left right : Program}
       cases second with
       | nullMain => rfl
       | outputMain outputMember parsed => exact False.elim (member_disjoint source ⟨member, outputMember⟩)
+      | namedMain namedMeaning => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
   | outputMain member parsed =>
       cases second with
       | nullMain nullMember => exact False.elim (member_disjoint source ⟨nullMember, member⟩)
       | outputMain outputMember other =>
           have same := Output.parsed_unique parsed other
           simpa using congrArg Program.outputMain (List.cons.inj same).1
+      | namedMain namedMeaning => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
+  | namedMain namedMeaning =>
+      cases second with
+      | nullMain member => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
+      | outputMain member _ => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
+      | namedMain other =>
+          exact congrArg (fun (program : Named.Program) => Program.outputMain program.literal)
+            (Named.meaning_unique namedMeaning other)
 
 theorem literal_domain {source literal : Source}
     (meaning : SourceMeaning source (.outputMain literal)) :
@@ -76,6 +92,7 @@ theorem literal_domain {source literal : Source}
   | outputMain member parsed =>
       have facts := (Output.parsed_literals parsed).2 literal (by simp)
       exact ⟨Nat.le_trans facts.1 member.2.1, facts.2⟩
+  | namedMain meaning => exact Named.literal_domain meaning
 
 def obligations : Program → List Semantics.Obligation
   | .nullMain => []
@@ -101,6 +118,12 @@ def execute (environment : Output.Runtime.Environment) : Program → Output.Runt
   | .nullMain => ⟨0, []⟩
   | .outputMain literal => Output.Runtime.completeMain
       (Output.Runtime.execute environment literal Output.Runtime.program [])
+
+/-- Resolving the initialized constant is exactly the existing output action. -/
+theorem named_execution_refines {source : Source} {program : Named.Program}
+    (meaning : Named.SourceMeaning source program) (environment : Output.Runtime.Environment) :
+    Named.execute environment program = some (execute environment (.outputMain program.literal)) :=
+  Named.execution_refines meaning environment
 
 def intendedBytes : Program → Source
   | .nullMain => []

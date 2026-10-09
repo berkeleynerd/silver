@@ -1,5 +1,23 @@
 # Session memory
 
+## 2026-10-09 — Repair baseline committed; feature goal active
+
+Review repairs and the earlier macOS helper are committed locally as `251dd85`.
+Their completed Linux evidence is in [hello-review-repairs.md](hello-review-repairs.md).
+The successor goal now covers both authorized increments: named literal constants,
+then guarded command-line initialization. The named compiler audit/build, native tests, actual-source Lean replay/axiom
+audit and independent fresh kernel check all passed.
+[named-strings.md](named-strings.md) records evidence and the retained warm
+GNATprove JSON-reader failure separately. Stable copies of completed named evidence are retained before beginning the
+argument increment.
+
+Command-line runtime, report/snapshot integration and recognizer prototypes have
+focused proofs and native boundary evidence in ignored Linux experiment trees.
+They remain isolated until the named-only increment is committed; then integrate
+and validate the guarded argument form without stopping the active goal. Root owns
+catalogue/spec/samples/tests; proof subthreads own typed expressions, membership,
+semantics and actual-source bridges. No Oracle amendment or publication.
+
 ## 2026-10-09 — Named strings and command-line message authorized
 
 The owner now explicitly requested a goal to implement the previously queued
