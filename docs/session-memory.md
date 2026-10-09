@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-10-09 — Performance and guarded-greeting goal authorized
+
+The owner approved the proposed sequence and said, "Update the goal to cover
+this remit and then proceed." A new active harness goal was created at
+`2026-10-09T14:41:12Z`, superseding the completed literal-backed greeting goal.
+Baseline implementation is `a73f85e`, with review/documentation handoff `fee3afe`.
+
+First perform the bounded source-certificate performance pass: fixed-input
+baseline, at most two candidate approaches, then a validated improvement or
+recorded negative result. Preserve exact authoritative-source checks, axiom
+audits, kernel replay, caches and other hosts. The language unit then adds the
+fixed guarded command-line greeting, including actual-obligation investigation,
+universal bounds/discharge/source correspondence and report-policy functional
+refinement. The [roadmap](../roadmap.md#next-goals-after-the-greeting-review)
+defines scope and completion conditions. Both units require appropriate native
+Linux validation, independent review and local commits; no new prover or Oracle
+amendment is authorized. Ordinary proof failures are work to resolve.
+
+Focused performance, language-design and report-proof subthreads are active with
+separate ownership; design starts read-only while the fixed baseline is measured.
+No new form is supported until full assurance and validation are complete.
+Preserve unrelated `tmp/` and other-host artifacts; publication remains outside
+scope. Consult the live goal rather than historical completed/proposed entries.
 ## 2026-10-09 — Greeting external review assessed and evidence recorded
 
 The external review of implementation commit `a73f85e` against `54844c5` has

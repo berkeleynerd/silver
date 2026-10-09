@@ -42,8 +42,8 @@ sequence.
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
-| Source-certificate performance | Proposed | Recommended next: a [bounded performance pass](#bounded-source-certificate-performance) on exact-source reconstruction, retaining all current assurance. | Developer workflow; no language change |
-| Guarded command-line greeting | Proposed | Next language increment: [dynamic concatenation behind an explicit capacity guard](#guarded-command-line-greeting). | Planned `samples/command_line_greeting.adb` |
+| Source-certificate performance | In progress | Authorized 2026-10-09: a [bounded performance pass](#bounded-source-certificate-performance) on exact-source reconstruction, retaining all current assurance. | Developer workflow; no language change |
+| Guarded command-line greeting | In progress | Authorized 2026-10-09; design and obligation investigation, followed by implementation after the bounded performance decision. [Dynamic concatenation behind an explicit capacity guard](#guarded-command-line-greeting). | Planned `samples/command_line_greeting.adb` |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -55,19 +55,21 @@ handles. Each additional form needs explicit admission and composition rules.
 Originally recorded on 2026-10-09 while external review of `a73f85e` was pending.
 That review is now assessed in the
 [greeting record](docs/greeting.md#external-review-and-native-macos-validation),
-with no blocking finding. This is planning only; neither proposed goal has
-started or been activated in the harness. Address independently confirmed
+with no blocking finding. The owner authorized the combined remit on 2026-10-09,
+and its new harness goal is active. Address independently confirmed
 correctness or assurance defects before further language expansion. Review
 suggestions do not automatically require new infrastructure or approval gates.
 
-The recommended order is a bounded source-certificate performance pass, then
+The authorized order is a bounded source-certificate performance pass, then
 the guarded command-line greeting. This protects the development loop while
-keeping the next language target concrete. Both await the owner's go-ahead;
-no Oracle amendment is currently indicated.
+keeping the next language target concrete. Report-policy functional refinement
+is included with the feature's report changes. No Oracle amendment is currently
+indicated. The fifth-form implementation baseline is `a73f85e`; the reviewed
+documentation handoff is `fee3afe`.
 
 ### Bounded source-certificate performance
 
-**Proposed goal:** evaluate at most two local approaches to reducing exact-source
+**Active work:** evaluate at most two local approaches to reducing exact-source
 certificate checking cost; integrate a validated improvement, or record a
 negative result and retain the current representation.
 
@@ -103,11 +105,11 @@ A successful candidate must pass focused generation, mutation and cache tests,
 full Lean validation and ordinary semantic review before a local commit. If
 neither improves matters, retain the implementation and record the findings;
 stop that investigation rather than extending it into an open-ended redesign.
-The language goal can then proceed once authorized.
+The authorized language implementation follows that bounded decision.
 
 ### Guarded command-line greeting
 
-**Proposed language goal:** support a sixth complete production combining the
+**Authorized language goal, not yet supported:** support a sixth complete production combining the
 existing argument initializer and greeting expression, with an executable
 capacity guard before either concatenation is evaluated. The motivating sample
 is ordinary Ada/SPARK, but is **not currently admitted Silver**:
@@ -145,7 +147,7 @@ truncation. Existing detected-output-failure behavior and external assumptions
 remain. The default and decorations fit by their combined source-consumption
 bound; a runtime argument needs the new guard.
 
-Once authorized, begin with an isolated GNATprove/GNAT obligation experiment.
+Begin with an isolated GNATprove/GNAT obligation experiment.
 Dynamic concatenation may introduce nonempty application reports. Check both
 intermediate results, String index/lower bounds and empty prefixes; the external
 review's non-admitted command-line contrast generated two Main range checks.
@@ -254,7 +256,7 @@ Runtime initialization fixes the object's length from its initial value.
 Reassignment, concatenation, mutable strings, general arrays, access types,
 arbitrary conditionals and general command-line package access remain outside
 that completed task. Literal-backed greeting is now supported below;
-guarded command-line concatenation is the proposed next language increment.
+guarded command-line concatenation is the authorized next language increment.
 Statically compatible assignments remain later work.
 
 The implementation reuses the approved GNAT argument imports beneath a verified
@@ -285,7 +287,7 @@ additional declarations, assignment and command-line concatenation remain
 excluded. The [proposed command-line greeting](#guarded-command-line-greeting)
 adds an explicit capacity guard before constructing its output; the existing
 argument-validity guard alone does not reserve space for a prefix and suffix.
-That follow-on is not authorized by the completed greeting goal.
+That follow-on is authorized by the new combined goal, not the completed greeting goal.
 
 ## Proof coverage follow-up
 
@@ -297,14 +299,14 @@ to an independent functional specification. See the
 and [report boundary](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
 This is not a discovered incorrect acceptance or a need for another prover.
 
-Proposed work, naturally paired with future report changes, is to prove that
+Authorized work, paired with the guarded greeting's report changes, is to prove that
 acceptance establishes the required coverage and discharge policy, and that
 genuinely complete successful reports in the supported format are accepted.
 Keep report/parser bounds sufficient for every admitted program. Use existing
 SPARK/Lean tools and the pinned producer's format; completeness of GNATprove's
 emitted obligations remains its documented premise. No general JSON framework
-or adversarial report authentication is proposed. This entry does not start
-implementation or reorder the already proposed next goals.
+or adversarial report authentication is proposed. The active combined goal
+covers this proof work after the bounded performance decision.
 
 The guarded command-line goal separately requires extending the language-wide
 automatic-discharge argument to its actual generated obligations. The current
