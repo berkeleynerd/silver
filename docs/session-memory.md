@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-09 — Bookkeeping guidance checked and completed
+
+The owner asked whether session memory preserves our bookkeeping commitments.
+The existing admission, evidence, cache/platform and local-work rules remain in
+[AGENTS.md](../AGENTS.md), [development.md](../development.md) and the
+[roadmap](../roadmap.md). The new
+[goal and review bookkeeping](../development.md#goal-and-review-bookkeeping)
+makes three practiced conventions explicit: inspect the actual harness goal
+separately from its conversation title, record a precise completion handoff, and
+retain independently assessed review dispositions tied to the reviewed commit.
+Use those shared rules rather than duplicating them in each memory entry.
+
+Current handoff: implementation and pending external-review target `a73f85e`;
+subsequent roadmap-only planning commit `c3ca119`; greeting harness goal complete.
+The bounded proof-performance pass and guarded command-line greeting remain
+proposed, with no active implementation goal. This update changes guidance only.
+Later documentation commits do not change the external review's target. Work
+remains local; preserve unrelated `tmp/` files and other hosts' artifacts.
+
 ## 2026-10-09 — Next goals proposed while greeting review is pending
 
 The owner requested planning and a roadmap update while an external reviewer

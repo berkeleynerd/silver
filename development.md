@@ -169,3 +169,27 @@ Runtime source edits require refreshing bootstrap, rebuilding Silver and
 rechecking compiler and Lean evidence together. Bootstrap embeds exact selected
 library bytes; a stale compiler rejects changed installed runtime files. This
 source binding is part of correspondence, not deferred binary attestation.
+
+## Goal and review bookkeeping
+
+- When resuming goal-driven work, read the live harness objective and status and
+  reconcile them with the owner's current authorization. For an explicitly
+  requested new goal, record its scope and completion/stop conditions and keep
+  the separate conversation title aligned where title controls are available.
+  A roadmap proposal or display title does not start, replace or complete a
+  harness goal. Mark completion only when its actual work, validation and any
+  required local commit are finished.
+- At completion or handoff, update the affected documents under the workflow
+  above and add a concise dated memory entry. Identify the implementation commit,
+  any relevant later documentation commit, the exact review target, evidence
+  links, unresolved items and next authorized step. Report the closing commit
+  and remaining Git state, preserving unrelated files. Git history identifies
+  the commit containing an entry; do not create another commit merely to insert
+  that entry's own commit hash. Keep volatile results in the evidence record.
+- Tie each review to its reviewed commit even when later documentation changes
+  advance HEAD. In the existing capability or repair record, retain a short
+  disposition of material findings: independently confirmed or unconfirmed,
+  fixed, deferred with a reason, or rejected with a reason, with supporting
+  evidence. External validation keeps its actual host/input scope. Carry open
+  actions into the roadmap or dated handoff without treating every suggestion
+  as mandatory work. Reuse existing records and ordinary validation rules.

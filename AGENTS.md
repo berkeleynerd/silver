@@ -41,6 +41,10 @@ implementation.
   changes. Updating a pin alone does not establish correspondence.
 - Use focused subthreads with explicit file ownership and review their results.
   Maintain a concise checkpoint before context loss.
+- Follow the [goal and review bookkeeping](development.md#goal-and-review-bookkeeping)
+  at handoffs. Read the live harness goal; its objective/status and the conversation
+  title are separate. Keep the review target, implementation commit, evidence and
+  proposed next work distinct.
 
 ## Durable memory
 
