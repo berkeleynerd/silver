@@ -38,7 +38,7 @@ following rules and the complete grammar below:
 The pinned Ada frontend must support every line and lexical element fitting
 this complete-source bound. Boundary compilation tests exercise that capacity;
 Ada's minimum implementation requirements alone do not establish it. See the
-[frontend assumptions](docs/trusted-boundary.md#source-correspondence-and-semantic-assumptions).
+[frontend assumptions](docs/trusted-boundary.md#trusted-computing-base).
 
 ## Grammar and capabilities
 
@@ -306,7 +306,8 @@ constraint or read of uninitialized data. Name binding selects that value; the
 output call has no caller precondition or constrained argument.
 Concatenation's literal-backed operands form a static String expression. Their
 combined source-consumption bound keeps both intermediate and final lengths
-within the pinned frontend's capacity and the output library bound.
+within String's index range and the output library bound. Static evaluation
+relies on the pinned frontend's faithful Ada semantics.
 The argument initializer returns an unconstrained `String`; its verified contract
 establishes the output domain. The Boolean guard and rejection call add no
 application checks or caller obligations.

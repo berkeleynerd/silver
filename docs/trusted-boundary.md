@@ -565,9 +565,11 @@ The subsequent independent macOS ARM64 review validates command-line commit
 kernel recheck. That retained evidence does not validate later changes.
 The [command-line review repairs](command-line-review-repairs.md) record this
 baseline and the follow-up validation scope. The newer concatenation increment's
-validation belongs in [greeting.md](greeting.md). Native macOS validation of
-these later changes remains independent and pending; Linux/macOS x86-64 execution
-is also untested.
+validation belongs in [greeting.md](greeting.md). Its independent native macOS
+ARM64 review validates implementation commit `a73f85e`; the retained inputs,
+reports and Lean artifacts were corroborated read-only on Linux. This is a
+full audit/replay with cache reuse, not a cold GNATprove or clean Lean run.
+Linux/macOS x86-64 execution remains untested.
 CI is prepared for
 `ubuntu-24.04`, `ubuntu-24.04-arm`, `macos-15-intel`, and `macos-15` (ARM64).
 The work is local-only as requested, the repository has no remote, and no CI job

@@ -52,9 +52,11 @@ handles. Each additional form needs explicit admission and composition rules.
 
 ## Next goals after the greeting review
 
-Recorded on 2026-10-09 while external review of `a73f85e` is pending. This is
-planning only; neither proposed goal has started or been activated in the
-harness. Independently verify the incoming findings and address actual
+Originally recorded on 2026-10-09 while external review of `a73f85e` was pending.
+That review is now assessed in the
+[greeting record](docs/greeting.md#external-review-and-native-macos-validation),
+with no blocking finding. This is planning only; neither proposed goal has
+started or been activated in the harness. Address independently confirmed
 correctness or assurance defects before further language expansion. Review
 suggestions do not automatically require new infrastructure or approval gates.
 
@@ -73,6 +75,10 @@ The [greeting evidence](docs/greeting.md) identifies a substantial cost in the
 enlarged recognizer certificate. Its timings overlapped other probes, so they
 motivate investigation without constituting a controlled benchmark. Caching
 already works; this task concerns rebuilding changed source certificates.
+The external review also identifies a capacity risk in the configured CI Lean
+job's 60-minute timeout. Hosted CI has never run, so a timeout is not established.
+Include job-budget headroom in this performance assessment before the first
+hosted run; a larger timeout alone would not improve proof feedback.
 
 - Establish a comparable baseline on fixed current source bytes and pinned
   tools on Linux ARM64. Record certificate and full-replay phase times, peak
@@ -141,7 +147,10 @@ bound; a runtime argument needs the new guard.
 
 Once authorized, begin with an isolated GNATprove/GNAT obligation experiment.
 Dynamic concatenation may introduce nonempty application reports. Check both
-intermediate results, String index/lower bounds and empty prefixes; the current
+intermediate results, String index/lower bounds and empty prefixes; the external
+review's non-admitted command-line contrast generated two Main range checks.
+That probe confirms a need to investigate obligations, not the exact check set
+of this proposed guarded production. The current
 initializer contract guarantees length and printable bytes, not a particular
 lower bound. Establish any needed contract strengthening through verified owned
 code or an independently justified existing interface premise. Do not assume a

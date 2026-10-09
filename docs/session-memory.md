@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-10-09 — Greeting external review assessed and evidence recorded
+
+The external review of implementation commit `a73f85e` against `54844c5` has
+arrived. Read-only independent checks corroborated retained native macOS
+compiler, test and full Lean evidence against the reviewed inputs and Linux
+records. No blocking finding emerged. Exact results, mode limits, authorization
+chronology and finding dispositions are in
+[greeting.md](greeting.md#external-review-and-native-macos-validation).
+
+Corrected documentation premises/pointers and clarified earlier review snapshots,
+test chronology and experiment reproducibility. The CI timeout is an unmeasured
+capacity risk carried into the proposed performance pass. Optional sample
+witnesses and additional regression cases remain deferred; the existing
+universal proofs cover them. The non-admitted dynamic-concatenation contrast
+confirms new obligations need investigation in the proposed next capability.
+
+This follow-up changes documentation only; the implementation/review target
+remains `a73f85e`. The greeting goal remains complete, and the performance pass,
+guarded command-line greeting and report-policy proof remain proposed, not
+started. The host-local CLI recall pointers were updated. Preserve review logs,
+other-host state and unrelated `tmp/`; work remains local.
+
 ## 2026-10-09 — Additional proof tools require a concrete coverage gap
 
 The owner deferred extra solvers/provers/checkers that only add redundancy until

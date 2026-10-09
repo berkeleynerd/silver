@@ -153,7 +153,8 @@ Use the symlinked-TMPDIR regression to exercise path portability on Linux.
 For Markdown-only changes, check links, current-language consistency and
 `git diff --check`; rerun proofs only when affected inputs or claims warrant it.
 Record incremental, full, clean and reused results accurately. Keep timings and
-counts in [the workflow record](docs/proof-workflow.md), not acceptance thresholds.
+counts in the relevant [capability or workflow evidence record](README.md#proofs-and-platform-evidence),
+not acceptance thresholds.
 
 ## Samples, platforms and handoffs
 

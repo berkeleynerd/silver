@@ -96,9 +96,10 @@ passing compiler proofs, all tests under symlinked `TMPDIR`, and all Lean modes.
 The retained compiler and final clean Lean artifacts were independently
 corroborated on Linux; intermediate timings and test results remain reviewer
 reports. At that stage, the cold/guard additions still awaited native macOS
-validation. Later validation of the command-line baseline and the current
-follow-up's platform scope are recorded in
-[command-line-review-repairs.md](command-line-review-repairs.md).
+validation. Later validation of the command-line baseline is recorded in
+[command-line-review-repairs.md](command-line-review-repairs.md); native macOS
+validation of greeting commit `a73f85e` is recorded in
+[greeting.md](greeting.md#external-review-and-native-macos-validation).
 Linux/macOS x86-64 validation also remains pending.
 CI is configured for all four supported host keys, including a fresh Lean kernel
 recheck, but has not executed. This work remains local as requested and the

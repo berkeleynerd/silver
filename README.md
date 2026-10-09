@@ -278,10 +278,10 @@ assumptions, report-format assumptions, and supported execution conditions.
 
 [CI](.github/workflows/verify.yml) is configured for Linux x86-64/ARM64 and macOS
 x86-64/ARM64, plus Lean checks. An independent native macOS ARM64 review of
-`e14ba1a` passed the compiler audit, tests and full Lean/kernel checks. Retained
-evidence was corroborated read-only on Linux; the
-[follow-up record](docs/command-line-review-repairs.md) separates that baseline
-from later changes awaiting their own native macOS validation. Earlier evidence
+greeting commit `a73f85e` passed the compiler audit, tests and full Lean/kernel
+checks. Retained evidence was corroborated read-only on Linux; the
+[greeting record](docs/greeting.md#external-review-and-native-macos-validation)
+records the exact input, cache and platform scope. Earlier evidence
 retains its actual input/platform scope in the linked capability records.
 Linux is primary and macOS validation is nonblocking under the Oracle. Work
 remains local; configured CI has not run, and no x86-64 or AdaCore GNAT Pro

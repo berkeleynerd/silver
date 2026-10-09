@@ -68,6 +68,9 @@ Experiment sources, projects, reports, logs and hashes are retained in
 `evidence-hashes.json`. The exploratory recognizer proof is separate from the
 completed-audit harness and is retained under
 `.silver/linux-aarch64/greeting-explore/`.
+The retained experiment script regenerates eight of the eleven cases; the
+additional `all_printable`, `distributed` and `compact_maximum_name` runs have
+retained results and artifacts but were not added to that script.
 
 ## Implementation and final validation
 
@@ -101,6 +104,8 @@ The native build, catalogue comparison and manifest-driven five-sample test
 passed. Three focused greeting tests passed in 35.512 seconds.
 The complete suite passed all 129 tests in 200.120 seconds while the compiler
 audit overlapped part of the run; this is an observed duration, not a benchmark.
+This complete Linux run preceded the recursion-depth repair; the 19 affected
+generator/evidence tests were rerun after that repair, as recorded above.
 All 2,389 compiler inputs, eighteen report hashes and twelve tool identities
 matched in a separate completed-evidence recheck. The compiler manifest SHA256
 is `7fba4e63f2b293e75e791639f70fd710b4a114996f6ea03b5e3e5cc02a280834`.
@@ -111,6 +116,12 @@ and exact reviewed input hashes are retained as `INDEPENDENT-REVIEW.md`,
 `reviewed-proof-inputs.json` in the integrated evidence directory. The proof
 review checked the combined consumption bound, actual lookup, source-order
 literal decoding and complete fifth-form meaning/uniqueness integration.
+Those earlier review snapshots predate the final `language.md`/capability-record wording and
+one comment-only edit each in `ConcatExpressions.lean` and
+`ArgumentsExpressions.lean`. The separate `FINAL-DOCUMENTATION-REVIEW.md`
+records the final committed language document's hash. Final Lean validation
+covers the committed proof bytes; the older review hashes retain their actual
+scope and are not rewritten to imply a later review.
 
 The completed `python3 scripts/check_lean.py --full` invocation reused unchanged
 native objects and finished all 69 Lake jobs. The enlarged output-body
@@ -139,5 +150,70 @@ that experiment were adopted. The exact probe and result are retained under
 representation change must preserve exact source reconstruction and demonstrate
 successful kernel checking and an actual performance improvement.
 Completed evidence is retained in `.silver/linux-aarch64/greeting-final-evidence/`.
-Native macOS validation is independent and nonblocking; earlier macOS evidence
-does not validate this capability. Hosted CI, x86-64 and GNAT Pro remain untested.
+The independent native macOS validation below covers this capability. Hosted CI,
+x86-64 and GNAT Pro remain untested.
+
+## External review and native macOS validation
+
+The 2026-10-09 external review covers `a73f85e` against `54844c5`. Its full report
+and logs are retained in `tmp/review-a73f85e.md` and
+`tmp/review-a73f85e-logs/`. It also reviewed documentation commits `c3ca119`,
+`9e12c96` and `da0a76e`; later policy commit `29154a8` was outside that review.
+No blocking, high or medium finding survived its verification. The following
+Linux-side assessment reads and hashes retained evidence; it is not another
+native execution or a rerun of the reviewer's scripts.
+
+On macOS ARM64 the compiler audit passed 1,850 checks (302 flow and 1,548 proof)
+over sixteen units and 157 entities. All 129 tests passed. Full Lean validation
+passed 69 Lake jobs, audited 16,249 declarations across 58 modules with only
+standard foundations, and completed `leanchecker --fresh Silver.Audit`.
+This is fresh replay through Lean's kernel, not a separately implemented kernel.
+The GNATprove audit used a new report/session directory and the existing solver
+cache. Lean used `--full`, not `--clean`; its 2,734.783-second duration overlapped
+tests and probes. No cold-proof or clean-replay claim follows from those runs.
+
+The retained macOS proof manifest is under
+`.silver/macos-aarch64/compiler/obj/review-a73f85e/gnatprove/`; the Lean record is
+`.silver/macos-aarch64/lean-evidence.json`, with its log alongside it. Read-only
+rehashing on Linux confirmed both hosts' compiler inputs/reports and Lean
+inputs/workspace/artifacts. Their 85 combined tracked compiler/Lean inputs match
+`a73f85e`; the 83 Lean inputs, 60 workspace inputs and 116 artifact hashes agree
+across hosts. The 116 artifacts are 58 `.olean` files plus 58 `.olean.hash`
+files, not 116 separately compiled modules. Native test/probe outcomes remain
+attributed to the reviewer and retained logs. These establish the reviewed
+implementation's scope, not future source changes.
+
+### Finding disposition
+
+- **C1, CI capacity:** confirmed 60-minute configuration and increased observed
+  certificate cost; a hosted timeout is unmeasured. Carry capacity/headroom
+  assessment into the already proposed bounded performance pass. No arbitrary
+  timeout increase or extra proof run is needed for this documentation update.
+- **D1–D4, wording and pointers:** corrected String bounds versus lexical
+  capacity, the frontend-premise anchor, the platform evidence pointer and the
+  destination for capability timings.
+- **E1–E3, evidence scope:** clarified the earlier review snapshots, complete
+  versus focused Linux test timing, and eight scripted versus eleven retained
+  experiment cases above. No evidence of changed proof semantics was found.
+- **CRITIC-01, authorization:** the retained owner message at
+  `2026-10-09T11:30:02.681Z` says, "Agreed. Please make this a goal we achieve
+  using the harnesses' goal feature and drive to completion." The live harness
+  record for thread `01a118d1-b593-7a02-941c-6572dc781fbd` created the scoped
+  greeting goal at `11:30:11Z`, before commit `a73f85e` at `12:44:23Z`, and marks
+  it complete at `12:44:39Z`. The actual session supplies the authorization;
+  another owner confirmation is unnecessary.
+- **T1–T4, optional witnesses/regressions:** deferred under the owner's policy.
+  The sample-meaning probe specializes existing universal existence, uniqueness
+  and execution results; the extra names/argv/reserved-word/whole-language
+  tests add regression breadth. They do not close a missing language-wide
+  theorem. Preserve the passing external probes rather than requiring another
+  full replay now.
+- **Dynamic concatenation:** the non-admitted command-line contrast produced
+  two Main range checks. Preserve this observation in the next capability's
+  obligation investigation; it does not prove the proposed guarded form's
+  exact obligation set or discharge. That implementation remains unstarted.
+
+The optional 4096-byte concrete Lean evaluation timed out at the reviewer's
+30-minute cap. It supplies no result; the existing universal bound and native
+boundary checks remain the applicable evidence. The review establishes no need
+for an additional solver, proof assistant or certificate framework.
