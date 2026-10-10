@@ -148,9 +148,10 @@ The earlier bounded certificate-performance investigation remains closed at
 ## Snapshot recovery
 
 At initial inspection, `.silver/`, `.tools/`, `tmp/` and `.vscode/` were absent.
-The owner subsequently supplied the old artifact/tool trees through the
-[Silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md)
-and [tool snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md).
+The owner subsequently supplied the old artifact/tool trees through temporary
+`silver/` and `tools/` snapshots. The account below preserves the original
+recovery chronology and commit IDs; their later removal from history is recorded
+[below](#transfer-history-removal).
 After the sandbox restart, the shared repository had eight fetched migration
 commits ending at `1bf065de18e1e33bbc36bb15894e104f27bae3b2`. Local main was
 fast-forwarded to that commit after preserving the documentation draft; both
@@ -173,8 +174,8 @@ Restored `linux-aarch64`, `macos-aarch64` and legacy entries under their origina
 live dot directories. There were no collisions and neither archive contained a
 `linux-x86_64` entry. Existing native x86-64 state was preserved. Original paths,
 symlink targets, executable modes and nested repositories were retained; no
-foreign executable was run or evidence manifest rewritten. The committed
-snapshot archives remain intact in Git history at the snapshot commit above.
+foreign executable was run or evidence manifest rewritten. These restored live
+trees remain preserved after the transfer archives' subsequent history removal.
 Detailed recovery checks and logs are under
 `.silver/linux-x86_64/host-readiness-2026-10-09/restoration/`.
 `recovery-summary.json`, `restoration.json` and
@@ -221,11 +222,11 @@ archive.
 After verified recovery, the owner authorized removing the temporary non-dot
 `silver/` and `tools/` archive directories from the current tree and synchronizing
 the remote. The restored `.silver/` and `.tools/` trees, including native and
-foreign-host evidence and caches, remain preserved. This removes the migration
-copies from the current tree without rewriting Git history; the original archives
-and checksums remain recoverable at `1bf065de18e1e33bbc36bb15894e104f27bae3b2`.
+foreign-host evidence and caches, remain preserved. That first cleanup left
+history intact. The owner's subsequent instruction explicitly authorized the
+history removal below, superseding recovery from the old snapshot commit.
 See the [recovery guidance](../RESUME.md#recover-and-preserve-the-old-vm-evidence)
-for retrieving those archives and extracting them into separate staging.
+for preserving live artifacts and updating an existing clone.
 
 ## Git, remote and hosted CI
 
@@ -285,6 +286,42 @@ native result is recorded above; this completion follow-up leaves the
 feature-review target unchanged. Publication remains authorized; its closing
 commit and actual remote outcome are reported at handoff.
 
+## Transfer history removal
+
+On 2026-10-10 the owner explicitly requested removing the transfer folders from
+Git history. `git-filter-repo 2.47.0` removed only `silver/`, `tools/` and the
+archive-only `.gitattributes` from an isolated copy of `main`. Seven commits
+containing only those transfers became empty and were dropped. The rewritten
+tip has exactly the same tracked tree as the prior tip before this documentation
+follow-up. Implementation, proof, language and toolchain inputs are unchanged.
+
+The feature/review commit `96b4e3a` and performance decision `5668806` predate
+the transfers and retain their IDs. Later IDs changed:
+
+| Original ID | Rewritten ID | Record |
+| --- | --- | --- |
+| `1bf065d` | `96a9c21` | Migration handoff, with archives removed |
+| `eb7262a` | `0bb7359` | Recovery checkpoint |
+| `04c6cb7` | `73354c7` | Completed native recovery |
+| `b8b263d` | `b3f7e00` | Lean concurrency tuning |
+| `1e4e780` | `f382b11` | Working-tree archive cleanup |
+
+Original IDs in historical evidence and the external review identify the
+original input history; they are not instructions to restore the removed
+archives. The full mapping and verification records are retained locally under
+`.silver/linux-x86_64/history-cleanup-2026-10-10/`. Existing live `.silver/` and
+`.tools/` trees and safety stash `a48321d` are preserved. Seven pre-existing
+unreachable Git objects were saved as an explicit-object pack in that evidence
+directory, without recursively retaining their obsolete archive references.
+
+The authorized remote update uses an explicit lease against the observed old
+`main`. Final publication, reachable-object checks, local reclamation and fresh
+remote-clone results belong in the closing evidence record. GitHub Actions
+remains disabled. A fresh clone excludes the transfer archives; deletion of
+unreferenced objects from GitHub's internal storage depends on GitHub's cleanup
+and is not claimed. A special partial-clone recipe is no longer needed to avoid
+these removed archive blobs.
+
 ## CLI memory and remaining scope
 
 CLI memory remained unavailable at the October 10, 00:21:30 UTC final recheck:
@@ -296,8 +333,10 @@ updated and no global feature setting was changed. The check is recorded in
 [session memory](session-memory.md) remains the durable handoff; this is not a
 claim about asynchronous background memory generation.
 
-Independent macOS validation of the sixth form and AdaCore GNAT Pro validation
-remain outside this native run. The reused-state GNATprove `DOC_END` failure
+The subsequent [external review](command-line-greeting.md#external-review-disposition)
+reports native macOS success for the sixth form. Its records are entirely
+optional at the owner's direction; obtaining them is not a remaining task.
+AdaCore GNAT Pro validation remains outside this native run. The reused-state GNATprove `DOC_END` failure
 remains unresolved; fresh-state success does not establish its repair. Faithful
 complete obligation generation, concrete pinned-solver completion and the other
 documented frontend/runtime/environment premises remain explicit. No Oracle,

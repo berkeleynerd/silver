@@ -28,7 +28,7 @@ The runner exposes two independent controls:
 | --- | --- |
 | `--workers N` | Lake workers for independent modules; `0` selects available CPUs and is the default. |
 | `--threads N` | Worker threads within each Lean build/audit process; `0` selects available CPUs and is the default. |
-| `--memory-mb N` | Optional Lean allocation limit per build/audit process, not aggregate host RSS. |
+| `--memory-mb N` | Optional internal resident-memory threshold in MiB per Lean build/audit process, checked periodically. |
 
 CPU detection respects the process affinity mask and Python's CPU-count
 override, with a portable system-count fallback. Affinity does not describe
@@ -36,8 +36,16 @@ CPU-time quotas or competing workloads; those can require an explicit lower
 worker setting. Lake receives `LEAN_NUM_THREADS` in its subprocess environment
 after ambient Lean/Lake settings have been removed. The explicit `-jN` argument
 separately configures Lean processes. No global environment or tool setting changes.
-Direct Lake calls retain their conservative one-thread fallback; use
-`scripts/check_lean.py` for the supported automatic resource selection.
+The lakefile falls back to one Lean thread when elaborated without
+`silverThreads`. Direct Lake builds in an existing workspace can retain cached
+`silverThreads` and `silverMemoryMb` settings. The runner reconfigures Lake on
+each invocation; use `scripts/check_lean.py` for reliable resource selection.
+
+Lean's `-M` threshold checks process RSS periodically in the pinned
+[runtime](https://github.com/leanprover/lean4/blob/5045d0056413266e57c625dcd7c365b10e377c52/src/runtime/memory.cpp#L145).
+The [shell conversion](https://github.com/leanprover/lean4/blob/5045d0056413266e57c625dcd7c365b10e377c52/src/Lean/Shell.lean#L476)
+uses MiB. This is neither a cumulative allocation counter nor a hard OS-enforced
+cap, and it does not bound the combined memory of concurrent processes.
 
 These worker counts are scheduling controls, not strict OS-thread caps. Process
 main threads, dedicated I/O workers and replacement workers for blocked tasks
@@ -110,8 +118,8 @@ hosts and changed proof dependency graphs may have different optima.
 Keep the current sandbox allocation for now. The usual incremental command is
 `python3 scripts/check_lean.py --memory-mb 6144`; append `--full` for the independent
 kernel replay. Explicit `--workers N` and `--threads N` remain available when
-other workloads or host limits require lower counts. The optional allocation
-limit itself remains unchanged and applies per Lean process.
+other workloads or host limits require lower counts. The optional resident-memory
+threshold itself remains unchanged and applies per Lean process.
 
 ## What can run concurrently
 
@@ -179,6 +187,11 @@ and all 68 module `.olean` modification times are unchanged. Compiler coverage
 and provenance also passed revalidation. The final test log and all seven
 captured test-input hashes match. This confirms cache reuse and the final
 input scope; historical macOS evidence retains its earlier scope.
+
+The later [external review](command-line-greeting.md#external-review-disposition)
+reported native macOS validation with all-core defaults and no swap. That report
+is distinct from the Linux measurements above; its raw records are unavailable
+here, and obtaining or corroborating them is entirely optional.
 
 ## Cache preservation and evidence
 

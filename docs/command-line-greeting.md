@@ -115,14 +115,17 @@ Completed native Linux validation is retained under
 `.silver/linux-aarch64/guarded-greeting-validation/`. This contains the compiler
 input identities, phase logs and timings. The first Lean attempt was explicitly
 stopped after discovering that Lake's cached configuration ignored a newly
-requested memory allowance. Its partial artifacts and interruption record are
+requested memory threshold. Its partial artifacts and interruption record are
 retained; it is not successful validation. The repaired runner re-elaborates
 Lake configuration while retaining unchanged proof objects. Twenty focused Lean
 evidence/source tests pass, including a real-Lake resource regression; removing
-the fix makes its negative control fail. The restarted full replay requests one
-thread and a 6144-MiB Lean allocation allowance for build/audit processes.
-The separate pinned `leanchecker` has no memory-limit CLI option. This is a production
-validation setting, separate from the performance trials' 4096-MiB budget.
+the fix makes its negative control fail. That restarted full replay requested one
+thread and a 6144-MiB internally checked resident-memory threshold per Lean
+build/audit process. Lean's `-M` threshold is neither cumulative allocations nor
+a hard OS limit or aggregate limit across processes. The separate pinned
+`leanchecker` has no memory-limit CLI option. This was the production validation
+setting, separate from the performance trials' 4096-MiB budget; subsequent
+[concurrency tuning](lean-concurrency.md) changed the runner's thread defaults.
 
 The first full compiler audit encountered the previously recorded external
 `value expected (got DOC_END)` failure while processing unchanged
@@ -212,3 +215,57 @@ implementation and external-review target is the commit adding the supported
 `samples/command_line_greeting.adb` and this completed record. All implementation,
 proof, catalogue, sample, test and documentation changes belong to that unit.
 No further language expansion is authorized by completion of this goal.
+
+## External review disposition
+
+The external review covered `da0a76e..b8b263d`, with `b8b263d` identifying the
+original reviewed endpoint before migration-archive history cleanup. The feature
+implementation and review target remains `96b4e3a`. Independent assessment of
+the supplied findings and current source found no surviving blocking, high- or
+medium-severity defect. This documentation follow-up changes no guarantee,
+language rule, implementation or proof.
+
+Five wording clarifications were accepted:
+
+1. Current Lean runner defaults use available CPUs for both Lake workers and
+   per-process threads. The earlier one-thread setting and lack of concurrency
+   measurements describe historical checkpoints; the
+   [concurrency record](lean-concurrency.md) supplies the later measurements.
+2. Lean's `-M` option is an internally checked per-process resident-memory
+   threshold in MiB, not a cumulative allocation budget, hard OS limit or bound
+   on the combined memory of concurrent processes.
+3. Direct Lake invocations can retain the last cached configuration. The
+   one-thread fallback applies only to fresh configuration elaboration without
+   an override; the supported runner reconfigures Lake on each invocation.
+4. The guarded form concatenates a runtime argument value. Its predefined Ada
+   String concatenation and index semantics remain frontend premises; references
+   to static evaluation concern the separate literal-backed form.
+5. The consolidated [trusted-boundary table](trusted-boundary.md#trusted-computing-base)
+   now makes faithful, complete obligation generation and bounded-fragment
+   solver completion explicit. These premises already appear in the detailed
+   assurance argument and `Current.ToolContract`; this is a visibility correction,
+   not a newly introduced assumption or a claim of arbitrary-SPARK completeness.
+
+The reviewer reported source-size variation probes reaching up to 988 of the
+configured 10,000 solver steps at the 4096-byte source bound. Those are externally
+reported sample measurements, not a universal completion bound. Lean proves the
+mathematical range schemas and finite checker, while completion of the concrete
+pinned solvers remains an explicit external-tool premise. The review's raw
+temporary logs are unavailable in this checkout, so these measurements have not
+been independently corroborated here.
+
+The reviewer also reported optional native macOS validation: 2616 compiler
+checks, 144 tests and 19993 Lean declarations, with fresh axiom auditing and
+kernel checking, about 11.2 GB memory use and no swap. These are attributed
+external results, distinct from the retained Linux evidence above. Their raw
+logs are unavailable here. Obtaining or corroborating those macOS logs is
+optional and is not a pending requirement for this Linux work.
+
+Additional routing assertions, layout regression cases and an exact-sample
+meaning theorem are deferred because the assessment found no demonstrated
+correctness gap requiring them. Existing generic `member_has_meaning` and
+`meaning_unique` proofs already cover every admitted source; connecting the
+checked-in sample to one explicit program would add regression coverage, not a
+new universal guarantee. The reported 29-minute example-proof cost does not
+justify adding it now. No stack rewrite, certificate redesign, additional prover
+or language expansion follows from this review. No next feature is selected.

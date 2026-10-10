@@ -25,9 +25,11 @@ The root documents provide the main review entry points:
 Migration restored local evidence, caches and toolchains into the ignored
 `.silver/` and `.tools/` directories used by development. After verified recovery,
 the temporary non-dot `silver/` and `tools/` archive directories were removed
-from the current tree. Their archives, checksums and restore instructions remain
-recoverable from Git history; history was not rewritten. See the
-[recovery guidance](RESUME.md#recover-and-preserve-the-old-vm-evidence).
+from the current tree and, at the owner's request, from Git history. Fresh clones
+no longer download those migration archives. Preserve the live dot directories
+or a separate backup for future recovery; Git no longer supplies them. See the
+[handoff](RESUME.md#recover-and-preserve-the-old-vm-evidence) for migration and
+existing-clone guidance.
 
 The compiler admits, proves, builds, and runs this program shape:
 
@@ -310,7 +312,10 @@ checks. Retained evidence was corroborated read-only on Linux; the
 [greeting record](docs/greeting.md#external-review-and-native-macos-validation)
 records the exact input, cache and platform scope. Earlier evidence
 retains its actual input/platform scope in the linked capability records.
-Linux is primary and macOS validation is nonblocking under the Oracle. The owner
+The subsequent [sixth-form external review](docs/command-line-greeting.md#external-review-disposition)
+reported successful native macOS validation with no blocking findings. Its raw
+records are not present here; obtaining or retaining macOS records is entirely
+optional at the owner's direction. Linux is primary. The owner
 has authorized publication to [berkeleynerd/silver](https://github.com/berkeleynerd/silver).
 The historical validation predates the first hosted CI run; no x86-64 or AdaCore
 GNAT Pro execution is claimed by those records. See

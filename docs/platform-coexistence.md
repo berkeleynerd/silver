@@ -106,5 +106,7 @@ owner's direction, with GitHub Actions disabled repository-wide. The retained
 fresh Lean kernel recheck, is dormant; hosted results are not a required
 follow-up. See [host readiness](host-readiness.md) for current native validation,
 historical hosted activity and recovery of the old hosts' evidence and caches.
-Linux is the primary validation platform; native macOS validation remains
-independent and nonblocking under the Oracle.
+Linux is the primary validation platform. The later
+[sixth-form review](command-line-greeting.md#external-review-disposition) reports
+native macOS success. macOS records are entirely optional at the owner's
+direction; their absence is not an outstanding recovery or validation task.

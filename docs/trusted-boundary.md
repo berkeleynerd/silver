@@ -15,7 +15,7 @@ that a configured pathname selects the intended executable.
 | Component | What the assurance argument relies on | Controls and remaining scope |
 | --- | --- | --- |
 | GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |
-| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis, obligation generation, solver results, and reported evidence | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness is trusted; no completeness claim for arbitrary SPARK is made. |
+| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion on the concrete bounded range fragment | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 10,000 steps, and no completeness claim for arbitrary SPARK is made. |
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
@@ -218,6 +218,10 @@ one LF in the undecorated form and succeeds under healthy output conditions.
 The decorated form additionally requires the exact residual-capacity guard
 before evaluating either concatenation. An input exceeding that capacity is
 rejected with status 1 and no output; a valid empty input prints its decorations.
+These concatenations use a runtime argument value. Their index reasoning uses
+the owned lower-bound normalization and approved predefined String concatenation
+semantics; the static-expression argument for literal-backed concatenation does
+not apply to this form.
 
 The wrapper uses the existing `Silver_Runtime.Argument_Count` and `Argument`
 imports above. Its count checks establish each argument-index precondition.
@@ -597,7 +601,12 @@ validation belongs in [greeting.md](greeting.md). Its independent native macOS
 ARM64 review validates implementation commit `a73f85e`; the retained inputs,
 reports and Lean artifacts were corroborated read-only on Linux. This is a
 full audit/replay with cache reuse, not a cold GNATprove or clean Lean run.
-Those historical records do not cover x86-64 execution. The owner has disabled
+Those historical records do not cover x86-64 execution. A later
+[external review](command-line-greeting.md#external-review-disposition) reports
+native macOS validation of the guarded form and all-core Lean defaults. That
+attributed report is distinct from the retained historical artifacts; its raw
+records are unavailable here, and obtaining or corroborating them is entirely
+optional. The owner has disabled
 GitHub Actions repository-wide and directed local validation. The retained
 [workflow](../.github/workflows/verify.yml) for `ubuntu-24.04`, `ubuntu-24.04-arm`,
 `macos-15-intel`, and `macos-15` (ARM64) is dormant. Hosted results are not a

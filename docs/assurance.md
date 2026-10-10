@@ -418,8 +418,10 @@ non-1-based defaults. The original bytes and invalid-input behavior are preserve
 This is an owned-SPARK proof, not a new assumption about GNAT's returned bounds.
 The Lean body renderer checks the extended-return statements; its byte-value
 interpreter abstracts array bounds, whose numeric correctness is proved in SPARK.
-Predefined Ada String concatenation and its index semantics remain frontend
-premises, as with earlier forms.
+This form concatenates the runtime result of the argument initializer.
+Predefined Ada String concatenation and its runtime index semantics remain
+frontend premises. The static-expression argument in the literal-backed section
+applies to that separate form.
 
 The pure initialized value is bounded by 4096. Each literal is bounded by its
 consumption of source bytes. Both concatenations therefore fit the conservative
@@ -651,16 +653,18 @@ punctuation and Unicode, and invocation from another working directory.
 Lean 4.34.1 is installed by `scripts/bootstrap_lean.py` from a release archive
 whose upstream SHA256 is pinned for each supported platform. The version is also
 recorded in `proof/lean-toolchain`. The Lake project treats warnings as errors
-and has no Mathlib dependency. Declaration checking defaults to one thread per
-Lean process as a conservative memory setting; `--threads N` can adjust it.
-This default has not been benchmarked against higher thread counts. Lake retains
-its native scheduling of independent modules. The build re-elaborates Lake
-configuration before using `--threads` or `--memory-mb`, because the pinned Lake
+and has no Mathlib dependency. The runner defaults both Lake workers and threads
+per Lean build/audit process to available CPUs; `--workers N` and `--threads N`
+adjust these independently. The [concurrency record](lean-concurrency.md)
+documents the measurements and remaining serial work. The build re-elaborates
+Lake configuration on every invocation, because the pinned Lake
 caches `get_config?` values without comparing new command-line options. This
 preserves accepted module objects while making resource settings effective; a
 real Lake regression checks both changed child arguments and cache reuse. The
-optional memory allowance applies to Lean build/audit processes, not host RSS.
-The pinned standalone `leanchecker` accepts no memory-limit CLI option.
+optional `--memory-mb` setting is an internal per-process resident-memory
+threshold in MiB, checked periodically. It is neither a hard OS-enforced cap nor
+an aggregate budget for concurrent processes. The pinned standalone
+`leanchecker` accepts no memory-limit CLI option.
 
 Each native host uses its own `.tools/<host>/lean` installation and
 `.silver/<host>/proof` replay workspace. The checker copies shared proof inputs
@@ -873,7 +877,7 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null/runtime/application report-policy refinement, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
 | Automatic discharge | Lean bounded-range decision and refinement theorems; conditional external-tool theorem; real report checks | Empty checks for the first five forms, valid bounded-range schemas for the sixth, and separately audited fixed libraries. External generation and pinned-fragment prover completion remain explicit premises. |
-| Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Historical macOS baseline evidence does not validate later changes. Current macOS validation is independent and pending. Validation runs locally with hosted CI disabled at the owner's direction; [host readiness](host-readiness.md) records replacement-host evidence and recovery. |
+| Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Historical macOS baseline evidence retains its original scope. The later [external review](command-line-greeting.md#external-review-disposition) reports current native macOS validation; corroborating records are entirely optional. Validation runs locally with hosted CI disabled at the owner's direction; [host readiness](host-readiness.md) records replacement-host evidence and recovery. |
 
 These boundaries do not change membership or waive any obligation. Admission,
 verification or compilation failure on admitted source remains an implementation

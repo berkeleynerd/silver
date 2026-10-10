@@ -1,6 +1,43 @@
 # Session memory
 
+## 2026-10-10 — External review assessed; transfer history removed
+
+The owner supplied the completed external review of original range
+`da0a76e..b8b263d`, centered on feature `96b4e3a`, and authorized the parsimonious
+documentation follow-up after independent assessment. No blocking, high or
+medium finding survived the review. Corrected Lean default, memory-threshold
+and cached-Lake wording; clarified runtime concatenation and the consolidated
+solver-completion premise. The
+[capability record](command-line-greeting.md#external-review-disposition) records
+the findings and deferrals. Source, tests, proofs and language remain unchanged;
+no next language increment is selected or authorized.
+
+The owner's latest instruction makes macOS records **entirely optional**. The
+reviewer's successful native results remain attributed reports; the raw logs
+are absent here and no retrieval or corroboration task is required. Linux stays
+primary. Observed solver-step margins are sample evidence, not a universal
+external-solver bound. Hosted CI remains disabled.
+
+The owner explicitly authorized removing the non-dot `silver/` and `tools/`
+transfer folders from Git history. This supersedes the earlier promise of
+recoverability through Git: the archive paths and their obsolete attributes
+are removed from the rewritten branch. Live `.silver/` and `.tools/`, caches,
+native and foreign-host evidence, and safety stash `a48321d` remain preserved.
+Future artifact recovery needs those live trees or a separate backup. The
+[history record](host-readiness.md#transfer-history-removal) maps changed commit
+IDs; feature `96b4e3a` is unchanged and tuning `b8b263d` becomes `b3f7e00`.
+Older entries retain the chronology and original IDs, not current recovery
+instructions. Publication remains authorized; the closing handoff records the
+actual remote result. Existing clones must not merge the removed history back.
+
+CLI memory is unavailable and no recall was updated; these checked-in documents
+remain the durable handoff. The live harness has no goal. The review is assessed,
+and the next project capability remains to be chosen.
+
 ## 2026-10-10 — Migration archives removed from the current tree
+
+Historical checkpoint; the later history-removal decision above supersedes
+this entry's archive-recovery guidance and original post-migration commit IDs.
 
 After verified restoration, the owner explicitly requested removing the non-dot
 `silver/` and `tools/` migration folders and syncing with the remote. Those
@@ -155,8 +192,7 @@ owner explicitly authorized adding their non-dot equivalents to the repository.
 This supersedes the previous exclusion of these captured trees from publication;
 it does not change the live artifact layout or authorize further language work.
 
-The [silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md) and
-[tools snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md) preserve the original directories in split,
+The original `silver/` and `tools/` snapshots preserved the directories in split,
 compressed tar archives. Packaging preserves nested Git repositories, symbolic
 links, executable modes and original paths while keeping each part below GitHub's
 file-size limit. All parts are needed to restore a tree. Per-directory

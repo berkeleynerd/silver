@@ -14,8 +14,7 @@ integrity checks; historical ARM64/macOS evidence, tools and caches are restored
 alongside the new x86-64 state. Top-level `tmp/`, `.vscode/`, old CLI memory and
 the old checkout's local Git state were outside those snapshots. Preserve any
 remaining old VM/backup until that separate state is accounted for. GitHub access
-is now restored; an authenticated October 10 check confirmed local and remote
-`main` at published recovery handoff `04c6cb7`. At the owner's explicit
+is restored. At the owner's explicit
 direction, GitHub Actions is disabled for the entire repository and validation
 runs locally. Do not enable hosted CI as a readiness follow-up. No runs are
 listed and the previously recorded run is no longer retrievable.
@@ -25,9 +24,10 @@ on the current proofs. No language expansion or new certificate-representation
 candidate is authorized.
 
 The temporary non-dot `silver/` and `tools/` migration folders have now been
-removed at the owner's request. The live `.silver/` and `.tools/` directories
-remain in place; the archives remain recoverable from Git history as described
-below.
+removed from both the current tree and Git history at the owner's request.
+The live `.silver/` and `.tools/` directories remain in place. Future recovery
+requires those live directories or a separate backup; the transfer archives
+are no longer recoverable from the rewritten branch.
 
 **Concurrency tuning:** the measured runner change is complete. Lake workers
 and per-process Lean threads now default to the available CPUs, with independent
@@ -57,8 +57,8 @@ unchanged.
   the committed history. The previous handoff confirmed that remote `main`
   contained `9731278`, including the implementation and performance commits.
   The initial missing-`workflow`-scope rejection is historical. The replacement
-  checkout started at `69d294c` and has now incorporated the fetched migration
-  commits through `1bf065d`. Initial credential failures on the replacement host
+  checkout started at `69d294c` and incorporated the migration commits before
+  their archive contents were removed from history. Initial credential failures on the replacement host
   were separate from that earlier resolved scope issue; access recovered after
   the second restart. The later scheduling task is separate from the closed
   certificate-representation investigation; no next language capability is
@@ -67,7 +67,11 @@ unchanged.
 Read [the capability record](docs/command-line-greeting.md) for exact proof
 claims, results, identities and limitations, and
 [the performance record](docs/certificate-performance.md) for the negative
-performance result. The next action is external review of the feature commit.
+performance result. The [external review](docs/command-line-greeting.md#external-review-disposition)
+is now assessed, with no surviving blocking, high or medium finding. Its accepted
+follow-up corrects documentation; optional source, test and proof additions are
+deferred. The next language capability remains to be selected and authorized.
+macOS records are entirely optional; no retrieval or corroboration task is open.
 The first [hosted CI run](https://github.com/berkeleynerd/silver/actions/runs/37983290787)
 started for `9731278` and was reported in progress at the previous refresh.
 The authenticated API now returns 404 for that run and lists no repository runs;
@@ -79,42 +83,40 @@ harness returned no goal; do not recreate the completed implementation goal.
 
 ## Recover and preserve the old VM evidence
 
-The one-time migration is complete. The owner authorized removing its non-dot
-`silver/` and `tools/` folders from the current tree after restoration and full
-integrity checks. Their complete split archives, capture metadata, checksums
-and original restoration instructions remain in Git at snapshot commit
-`1bf065de18e1e33bbc36bb15894e104f27bae3b2`:
-[Silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md)
-and [tool snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md).
-No Git history was rewritten.
+The one-time migration and full archive integrity checks are complete. The owner
+subsequently authorized removing `silver/`, `tools/` and their obsolete binary
+attributes from history. The rewritten branch retains source and documentation
+history, but no transfer archives. The feature commit `96b4e3a` is unchanged;
+later migration, recovery, tuning and cleanup commit IDs changed. The
+[history rewrite record](docs/host-readiness.md#transfer-history-removal) maps
+the relevant old IDs to their replacements. Historical evidence keeps its
+original IDs and input hashes.
 
-For a future recovery, recreate just those transfer folders from the repository
-root when they are absent:
+For future recovery, back up the live `.silver/` and `.tools/` trees separately
+and restore through fresh staging, preserving newer native state. A Git clone
+does not contain these ignored directories. The earlier command to restore
+transfer folders from `1bf065d` is obsolete.
 
-```sh
-git restore --source=1bf065de18e1e33bbc36bb15894e104f27bae3b2 --worktree -- silver tools
-```
-
-Then follow the recovered READMEs: verify every part and extract to fresh
-staging, preserving any existing live `.silver/` and `.tools/` state. Every part
-of each selected snapshot is required. These point-in-time archives do not
-include later x86-64 validation, tuning evidence or newer caches. Deleting their
-current-tree copies frees workspace space; the archive blobs remain in Git
-history and normal full-history clones.
+Existing clones still have the old archive history. Preserve local work and
+ignored artifacts, then use a fresh clone of the rewritten remote. Do not merge
+or push the old branch history back into it; port any unpublished source changes
+separately. The current checkout was updated without replacing its live dot
+directories. GitHub may retain unreferenced objects until its own cleanup; their
+server-side deletion is not established by a force-push.
 
 Keep the entire checkout, including `.git`, for any local state newer than those
 snapshots. Preserve untracked `.vscode/` and `tmp/` material; those directories
 are still excluded from Git.
 
-The fetched snapshot commits are now present locally at `1bf065d`. All part and
-archive hashes, extracted inventories and full content comparisons passed.
+During the original recovery, all part and archive hashes, extracted inventories
+and full content comparisons passed.
 Foreign-host and legacy trees were restored without collisions; the new native
 x86-64 state was preserved. New validation does not replace historical records.
 
 Keep all hosts' `.silver/<host>/` evidence and caches and `.tools/<host>/`
 installations; the latter avoid unnecessary downloads. Do not discard another
 host's state when preparing Linux. Live artifact trees remain ignored by Git;
-the snapshots preserve their captured contents, including this evidence:
+the restored live trees include this evidence:
 
 - `.silver/linux-aarch64/guarded-greeting-validation/` contains final results,
   review identities and preserved failed/interrupted attempts. Its
@@ -130,7 +132,7 @@ the snapshots preserve their captured contents, including this evidence:
   candidate trials. Earlier review evidence and other-host artifacts retain
   their original scope.
 
-Verify snapshot checksums and any additional backup before destroying the old
+Verify any additional backup before destroying the old
 VM. Retain original evidence if relocation makes its absolute paths
 stale; a new machine or installation does not retroactively change that evidence.
 
@@ -188,7 +190,7 @@ Then attach with `sbx run --name codex-silver`. The
 memory units and automatic CPU allocation (capped at 16 on Linux ARM64). The
 [disk override](https://docs.docker.com/ai/sandboxes/configuration/settings/#sandboxdiskdockervolume)
 sets the new sandbox's Docker volume, not the mounted workspace's capacity.
-Additional physical RAM does not change Lean's configured allocation limit or
+Additional physical RAM does not change Lean's configured memory threshold or
 establish a proof speedup. The [concurrency record](docs/lean-concurrency.md)
 documents the measured scheduling gains, memory headroom and remaining serial
 work; use those results when deciding whether a later workload needs more RAM.
@@ -197,8 +199,9 @@ No historical ARM64 validation process needs resumption. Its compiler audit
 used wholly fresh sessions/cache, and its final Lean invocation reused completed
 modules but executed a fresh axiom audit and kernel recheck. Those underlying
 artifacts are now restored and corroborated within the snapshot's scope. The readiness record distinguishes new x86-64
-validation from those historical results. Native macOS validation of the sixth
-form and AdaCore GNAT Pro remain pending. GitHub Actions is intentionally disabled
+validation from those historical results. The external reviewer reports native
+macOS success for the sixth form; macOS records are entirely optional. AdaCore
+GNAT Pro remains untested. GitHub Actions is intentionally disabled
 repository-wide; local validation is the requested workflow. Publication
 authorization continues, with its outcome recorded
 in the latest session-memory entry.

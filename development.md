@@ -105,8 +105,9 @@ explains the remaining serial certificate and kernel work. The ten independent
 source-certificate modules can still build concurrently. The runner re-elaborates
 Lake configuration
 so each invocation actually applies its requested thread and memory settings.
-`--memory-mb N` limits allocations in Lean build/audit processes, not total host
-RSS or the combined memory of concurrently scheduled modules. The separate
+`--memory-mb N` sets Lean's internal per-process resident-memory threshold in
+MiB for build/audit processes. Lean checks it periodically; it is neither a hard
+OS-enforced cap nor a budget for all concurrently scheduled modules. The separate
 pinned `leanchecker --fresh` executable has no memory-limit CLI option; observe
 host headroom during that phase as well.
 

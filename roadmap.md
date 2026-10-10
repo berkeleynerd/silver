@@ -161,12 +161,19 @@ and selected-library check is audited. SPARK proves executable report acceptance
 equivalent to independent ghost policies.
 
 The [capability record](docs/command-line-greeting.md) records complete Linux
-validation, review, resource-option repair and preserved tool failures. Native
-macOS validation is independent and pending. Subsequent host validation, evidence
-recovery and the owner's decision to validate locally with hosted CI disabled
-are recorded in [host readiness](docs/host-readiness.md).
+validation, review, resource-option repair and preserved tool failures. The
+[external review disposition](docs/command-line-greeting.md#external-review-disposition)
+assesses the feature review with no surviving blocking, high- or medium-severity
+finding and records five documentation clarifications. Its reported native macOS
+results remain optional external evidence; obtaining or corroborating their raw
+logs is not a pending requirement. Additional routing assertions, layout tests
+and an exact-sample theorem are deferred without a demonstrated correctness gap.
+Subsequent host validation, evidence recovery and the owner's decision to
+validate locally with hosted CI disabled are recorded in
+[host readiness](docs/host-readiness.md).
 Reassignment, mutable strings, repeated references, general expressions/conditionals
-and a new output API remain outside this increment. No next feature is authorized.
+and a new output API remain outside this increment. No next feature is selected
+or authorized.
 
 ## Output design and next increments
 
