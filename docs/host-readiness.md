@@ -1,8 +1,9 @@
 # Replacement-host readiness
 
-Observed on 2026-10-09 at source/documentation baseline
-`69d294c35297d6facc7473c3275721a2675129bc`. This task restores the development
-environment and records its actual validation scope. It starts no language
+Restoration began on 2026-10-09 at source/documentation baseline
+`69d294c35297d6facc7473c3275721a2675129bc`; native validation completed on
+2026-10-10. This task restores the development environment and records its
+actual validation scope. It starts no language
 expansion or further certificate-performance investigation. The implementation
 and external-review target remains `96b4e3a22194a1ae96d446938d5e94d702b014b4`;
 the performance decision remains `5668806`. The live harness returned no goal
@@ -25,6 +26,8 @@ sandbox observations, not independent verification of the owner's physical
 Docker storage is consistent with the recommended 64-GiB allocation; it is
 separate from the mounted workspace and root filesystem. The RAM allocation is
 consistent with the recommended 32 GiB. No storage or resource settings changed.
+The final October 10 audit reconfirmed 12 CPUs and 31.42 GiB RAM, with 562.12 GiB
+free in the workspace, 17.27 GiB on root and 59.23 GiB in Docker storage.
 
 `python3 scripts/dev.py paths` selects `linux-x86_64` and the installation root
 `/home/canto/src/github.com/berkeleynerd/silver`. There was no native installation
@@ -62,6 +65,9 @@ and 12 tool identities, and reran the existing coverage/source audit. Its record
 is `independent-evidence-check.json` in the readiness directory. The completed
 compiler manifest SHA256 is
 `6d863e33593d7aa64c51e908b8559108293ca0be1cd24313e7a851a8a2c34b72`.
+The readiness directory also preserves 25 files under `compiler-final-record/`:
+all 18 reports, both provenance/input manifests and five generated/native inputs.
+Every copy matched its original hash; the originals and caches remain intact.
 
 The first full Lean invocation was interrupted by a sandbox/container restart,
 observed at 21:21 UTC and recorded in `validation.json` at 21:23:04 UTC.
@@ -73,10 +79,16 @@ Its last retained memory sample was at 4160.307 seconds, before the output-body
 certificate completed. No proof process survived; the same 57 completed native
 objects remained. This attempt's logs and phase record are preserved under
 `lean-full-resumed-interrupted-20261009T224134Z/`. A second resumption,
-`lean-full-resumed-2`, uses those objects without discarding the cache and will
-still run a fresh axiom audit and independent kernel recheck.
+`lean-full-resumed-2`, uses those objects without discarding the cache. All 68
+native project modules built successfully (79 Lake jobs), including the
+output-body certificate in 5403 seconds. The fresh axiom audit passed for 19993
+project declarations, using only `propext`, `Classical.choice` and `Quot.sound`.
+The independent `leanchecker --fresh Silver.Audit` recheck passed. The final
+invocation completed at 00:33:02 UTC on October 10 in 6653.018 seconds
+(6653.145 seconds for the wrapper). This is full validation with reuse of
+completed native modules after interruption, not a clean rebuild.
 
-Full Lean replay is in progress. `validation.json` in the readiness evidence
+All native validation phases passed. `validation.json` in the readiness evidence
 directory records phase commands, times and exit status; each phase has its own
 log and host-memory samples. The proof commands are
 `dev.py prove --full --jobs 4`, then
@@ -85,10 +97,51 @@ separately. No foreign-host cache was used for native validation, and no
 existing cache was discarded.
 
 The Lean allowance applies per build/audit process, not to aggregate RSS or the
-separate `leanchecker`. A successful new run would establish only its actual
-x86-64 input/tool scope; it cannot recreate historical review or failure evidence.
+separate `leanchecker`. This successful run establishes its actual x86-64
+input/tool scope; it does not recreate historical review or failure evidence.
 See [the assurance argument](assurance.md) and
 [trusted boundary](trusted-boundary.md) for exact proof claims and premises.
+
+The final read-only corroboration passed in `final-native-evidence-check.json`.
+It revalidated compiler coverage/provenance and all Lean identities: 93
+source/script inputs, 70 workspace inputs, 136 compiled artifacts and three
+tools. All ten regenerated source certificates match their checked-in
+candidates. All 133 tracked implementation, proof, script, test, sample,
+catalogue, workflow, Oracle and language files in the checked scope match both
+implementation/review target `96b4e3a` and initial checkout `69d294c`.
+
+The native Lean manifest SHA256 is
+`02ed2c8db726cb1752cbd4e069de1c87375561b10a8cd3b27f73e273d6674b1c`.
+Seven hash-matched copies under `lean-final-record/` preserve that manifest,
+the proof log, final phase record, wrapper log/resource samples, corroboration
+record and its checker. Originals and all caches remain in place. No native
+validation phase remains pending.
+
+## Parallelism and cache settings
+
+The host exposes 12 CPUs. Routine `python3 scripts/dev.py prove` defaults to
+`--jobs 0` (all available cores), incremental analysis and the native filesystem
+solver cache. The completed recovery audit explicitly used four workers under
+the conservative handoff settings; it does not measure all-core performance.
+Ordinary `--full` retains that cache, while optional `--cold` allocates separate
+fresh state.
+
+Lean retains compiled modules and preserves unchanged source timestamps. Lake
+schedules independent modules concurrently; the default `--threads 1` sets
+declaration threads within each Lean build/audit process. The recovery run also
+set `--memory-mb 6144` per process. These are conservative settings, not a
+measured optimum for the replacement host. The separate fresh kernel checker
+does not receive those thread or memory arguments. Increasing declaration
+threads does not establish proportional speedup and can multiply memory use
+across concurrently building modules. No new tuning experiment was performed.
+
+Every ordinary Lean invocation executes the axiom audit afresh; `--full` adds
+the fresh kernel recheck, and optional `--clean` discards native module caches.
+Use ordinary cached commands for development and the existing full-validation
+workflow when its assurance record is needed. A change to any embedded Ada source
+invalidates the whole Silver Lean library, as required by its source dependencies.
+The earlier bounded certificate-performance investigation remains closed at
+`5668806`; this host recovery does not claim a new performance improvement.
 
 ## Snapshot recovery
 
@@ -155,6 +208,12 @@ that separate local state is accounted for. The
 [performance record](certificate-performance.md) retains its original negative
 result; no further candidate was attempted.
 
+On October 10 the owner clarified that a reference to a non-dot `codex/` backup
+meant `silver/`. Both intended snapshot directories, `silver/` and `tools/`, have
+therefore been recovered; there is no outstanding request to locate a separate
+`codex/` tree. This clarification does not add the omitted local state to either
+archive.
+
 ## Git, remote and hosted CI
 
 Initial `main`, cached `origin/main` and cached `origin/HEAD` all pointed to
@@ -201,18 +260,26 @@ Ubuntu x86-64, Ubuntu ARM64, macOS Intel and macOS ARM64, with 30/120-minute
 timeouts; its definition establishes no hosted success and remains unchanged.
 
 Continuing publication authorization is recorded in
-[session memory](session-memory.md). This documentation checkpoint preserves
-completed recovery and the current pending Lean status across host restarts.
-The final native result and publication outcome will be recorded after
-validation; the feature-review target is unchanged.
+[session memory](session-memory.md). The earlier documentation checkpoint
+preserved completed recovery while Lean was still pending across host restarts.
+The checkpoint was committed and published as `eb7262a`; an authenticated
+October 10 audit confirmed local `main`, cached `origin/main` and remote `main`
+at that commit, with no divergence. The safety stash `a48321d` remains preserved.
+Actions was still disabled repository-wide, `Verify Silver` manually disabled,
+and the run list empty. The audit, including final host resources and native
+tool versions, is `final-host-remote-audit-20261010T002233Z.json`. The latest
+native result is recorded above; this completion follow-up leaves the
+feature-review target unchanged. Publication remains authorized; its closing
+commit and actual remote outcome are reported at handoff.
 
 ## CLI memory and remaining scope
 
-CLI memory remained unavailable at the post-restart 22:42:31 UTC recheck:
+CLI memory remained unavailable at the October 10, 00:21:30 UTC final recheck:
 `CODEX_HOME` is `/home/agent/.codex`,
 the memory directory and old ad-hoc notes are absent, and `codex features list`
 reports `memories` disabled. No memory tools are exposed. No recall file was
-updated and no global feature setting was changed. Checked-in
+updated and no global feature setting was changed. The check is recorded in
+`cli-memory-final-audit-20261010T002130Z.json`. Checked-in
 [session memory](session-memory.md) remains the durable handoff; this is not a
 claim about asynchronous background memory generation.
 

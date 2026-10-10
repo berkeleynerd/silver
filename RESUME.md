@@ -1,11 +1,12 @@
 # Silver VM handoff
 
-Refreshed on 2026-10-09 from the replacement sandbox after reading the authority
+Refreshed on 2026-10-10 from the replacement sandbox after reading the authority
 and prior handoff. The actual host is **Linux x86-64**, with 12 visible CPUs,
 approximately 31 GiB usable RAM and separate 63-GiB Docker storage. Native pinned
-tools have been installed; build, tests and full SPARK validation passed. Lean
-replay resumed after two host/sandbox restarts, preserving its completed objects
-and both interrupted attempts' logs. See the
+tools have been installed; build, tests, full SPARK validation and full Lean
+verification passed. Lean replay resumed after two host/sandbox restarts,
+preserving its completed objects and both interrupted attempts' logs, then
+passed a fresh axiom audit and independent kernel recheck. See the
 [host-readiness record](docs/host-readiness.md) for commands, results and resources.
 
 **Recovery status:** the subsequently fetched migration archives passed full
@@ -13,8 +14,8 @@ integrity checks; historical ARM64/macOS evidence, tools and caches are restored
 alongside the new x86-64 state. Top-level `tmp/`, `.vscode/`, old CLI memory and
 the old checkout's local Git state were outside those snapshots. Preserve any
 remaining old VM/backup until that separate state is accounted for. GitHub access
-is now restored; the authenticated recovery fetch confirmed remote `main` at
-`1bf065d` before this documentation checkpoint. At the owner's explicit
+is now restored; an authenticated October 10 check confirmed local and remote
+`main` at published recovery checkpoint `eb7262a`. At the owner's explicit
 direction, GitHub Actions is disabled for the entire repository and validation
 runs locally. Do not enable hosted CI as a readiness follow-up. No runs are
 listed and the previously recorded run is no longer retrievable.

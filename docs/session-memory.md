@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-10-10 — Replacement-host recovery and local validation completed
+
+The replacement Linux x86-64 environment is ready for local development.
+Native bootstrap, build, complete tests, full SPARK audit and full Lean
+verification passed. The last Lean invocation reused completed native modules
+after two host/sandbox interruptions, then passed a fresh axiom audit and
+independent kernel recheck. Both interrupted attempts and all caches remain
+preserved. Final read-only checks corroborated the actual source, tool and
+artifact identities; implementation/proof inputs match review target `96b4e3a`.
+See [host readiness](host-readiness.md) for exact results, evidence hashes,
+preserved final records and parallelism/cache settings.
+
+Both intended non-dot snapshots, `silver/` and `tools/`, have been recovered
+and checked. The owner clarified that a reference to `codex/` meant `silver/`;
+no separate Codex backup remains to be located. The old top-level scratch/editor
+files, CLI memory and checkout-local Git state were outside these snapshots;
+preserve any separate backup. Restored historical evidence retains its original
+platform/input scope. Native macOS validation of the sixth form and GNAT Pro
+remain independent gaps; the warm-state GNATprove `DOC_END` issue and documented
+external-tool premises remain unresolved by this successful fresh-state run.
+
+Recovery checkpoint `eb7262a` was committed, pushed and authenticated against
+remote `main`. This documentation follow-up records the completed native result;
+Git history identifies its commit and the closing handoff reports the actual
+publication outcome. Publication authorization continues. GitHub Actions remains
+disabled repository-wide at the owner's direction; do not enable or dispatch
+hosted CI. The dormant workflow and local checks remain intact.
+
+CLI memory was rechecked and remains disabled, absent and unavailable through
+tools. No CLI recall was updated and no global setting was changed. These
+checked-in documents are the durable handoff. The live harness has no goal;
+the completed implementation goal was not recreated. No Oracle, language,
+implementation, proof or workflow changes were made. External review still
+targets `96b4e3a`, and the performance decision remains `5668806`. No further
+language expansion or performance candidate was started.
+
 ## 2026-10-09 — Local validation; GitHub CI disabled
 
 The owner explicitly instructed: "GitHub CI should be disabled entirely. We are
