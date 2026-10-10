@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-10-10 — Native I/O proof bookkeeping erased and validated
+
+The owner approved the proposed bounded native I/O optimization after the
+architecture review. On baseline `8d5f626`, platform observations, their dependent
+proof contracts/invariants and eight historical driver flags now use the
+existing Static convention. Real I/O, failure branches, bounds, command/path
+checks, source/library identity and report/publication gates remain executable.
+Every logical contract term remains a GNATprove obligation. No compiler flag,
+runtime library, Lean proof, language rule or Oracle changed.
+
+The [performance record](native-io-performance.md) contains paired measurements,
+native proof/test results and limits. Independent source review passed. The
+full Linux native audit and focused regressions passed; a cached Lean build and
+fresh axiom audit passed with unchanged compiled objects. No embedded Lean input
+changed, so no certificate rebuild or fresh kernel replay was repeated. Prior
+evidence, live caches/tools, foreign-host artifacts and scratch remain preserved
+under their existing paths; task records are under
+`.silver/linux-x86_64/native-io-static-2026-10-10/`.
+
+The feature review target remains `44fd8ea`; `8d5f626` is its separate review and
+runner follow-up, and this entry's containing commit is the native maintenance
+change. The live harness goal still records the completed seventh production;
+no new language work or goal was started. Source/dependency partitioning and
+certificate redesign remain deferred proposals. The intermittent GNATprove
+`DOC_END` failure remains unresolved by this successful audit.
+
+Publication remains authorized. Record the closing commit and verified remote
+result in the final response and local publication evidence. GitHub Actions
+remains disabled; macOS proofs are a non-goal. CLI memory was rechecked: no memory
+tool or conventional recall directory is available, so no CLI entry was updated.
+This checked-in handoff is durable. The separate remote-control request remains
+unresolved; this maintenance task did not change authentication or its daemon.
+
 ## 2026-10-10 — Assignment review follow-up and Lean runner improvements
 
 The owner authorized the independently assessed documentation/test fixes and

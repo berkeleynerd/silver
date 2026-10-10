@@ -20,9 +20,12 @@ the current capability remains separate from this architectural assessment.
 
 The owner subsequently selected the input-inventory and phase-logging repairs
 for the [review follow-up](string-assignment.md#external-review-disposition).
-The other recommendations below remain proposals. The original review did not
-run additional validation; subsequent runner validation is recorded separately
-in the [concurrency record](lean-concurrency.md#runner-follow-up).
+The owner then authorized recommendation 2, the proof-only platform I/O change;
+its [implementation, measurements and validation](native-io-performance.md) are
+complete. The remaining recommendations stay proposals. The findings below
+describe the original reviewed state. That review did not run additional
+validation; subsequent runner validation is recorded separately in the
+[concurrency record](lean-concurrency.md#runner-follow-up).
 
 Three focused reviews covered all 24 native source files, all 75 Lean modules
 and their import graph, all eight Python scripts, the organization of the Python

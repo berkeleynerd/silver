@@ -92,7 +92,7 @@ The libc bindings conservatively share the existing, initialized
 external effects instead of silently assuming calls are pure. It does not prove
 libc's filesystem, process, pointer, allocation, or termination behavior.
 
-The SPARK file wrappers additionally record ghost observations beside their
+The SPARK file wrappers additionally record Static ghost observations beside their
 actual libc calls. GNATprove establishes that a successful complete read returns
 exactly the byte sequence observed from `fgetc`, followed by EOF and a successful
 close. A successful write passes exactly the supplied bytes, in order, to
@@ -102,6 +102,11 @@ the documented semantics of the trusted libc functions. `Run` similarly records
 the exact command passed to `system` and its returned status. Its postcondition
 equates success with a zero status. The observations are verification state,
 not additional imported assumptions.
+Their dependent proof contracts and historical driver flags also use Static
+erasure; real I/O, error handling and source/report gates remain executable.
+GNATprove still checks those contracts, and global assertion/overflow checking
+remains enabled. The [native I/O record](native-io-performance.md) describes the
+change and its measured scope.
 
 The supported libc ABI uses byte results `0 .. 255`, `EOF = -1`, and zero for
 successful close/process completion. Binary `rb`/`wb` modes preserve byte values.

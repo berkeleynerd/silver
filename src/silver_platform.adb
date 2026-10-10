@@ -13,14 +13,14 @@ is
    use Silver_Libc;
 
    procedure Observed_Get (File : System.Address; Item : out Interfaces.C.int)
-     with Pre => Read_Count <= Max_File_Length,
-          Post => Read_Ended = (Item = -1)
+     with Pre => (Static => Read_Count <= Max_File_Length),
+          Post => (Static => Read_Ended = (Item = -1)
             and then Read_Bytes (1 .. Read_Count'Old) =
               Read_Bytes'Old (1 .. Read_Count'Old)
             and then (if Item in 0 .. 255 then
               Read_Count = Read_Count'Old + 1
               and then Read_Bytes (Read_Count) = Character'Val (Item)
-            else Read_Count = Read_Count'Old)
+            else Read_Count = Read_Count'Old))
    is
    begin
       Item := C_Get (File);
@@ -33,13 +33,14 @@ is
 
    procedure Observed_Put
      (File : System.Address; Item : Interfaces.C.int; Status : out Interfaces.C.int)
-     with Pre => Item in 0 .. 255 and then Written_Count < Max_File_Length,
-          Post => Written_Bytes (1 .. Written_Count'Old) =
+     with Pre => (Runtime => Item in 0 .. 255,
+                  Static => Written_Count < Max_File_Length),
+          Post => (Static => Written_Bytes (1 .. Written_Count'Old) =
               Written_Bytes'Old (1 .. Written_Count'Old)
             and then (if Status = Item then
               Written_Count = Written_Count'Old + 1
               and then Written_Bytes (Written_Count) = Character'Val (Item)
-            else Written_Count = Written_Count'Old)
+            else Written_Count = Written_Count'Old))
    is
    begin
       Status := C_Put (Item, File);
@@ -72,8 +73,9 @@ is
 
       Success := True;
       for Index in Buffer'Range loop
-         pragma Loop_Invariant (Last = Index - 1 and then Read_Count = Last);
-         pragma Loop_Invariant (Buffer (1 .. Last) = Read_Bytes (1 .. Read_Count));
+         pragma Loop_Invariant (Last = Index - 1);
+         pragma Loop_Invariant (Static => Read_Count = Last);
+         pragma Loop_Invariant (Static => Buffer (1 .. Last) = Read_Bytes (1 .. Read_Count));
          Observed_Get (File, Item);
          if Item = -1 then
             Status := C_Error (File);
@@ -119,10 +121,10 @@ is
       end if;
       Success := True;
       for Index in Contents'Range loop
-         pragma Loop_Invariant (Written_Count = Index - Contents'First);
+         pragma Loop_Invariant (Static => Written_Count = Index - Contents'First);
          pragma Loop_Invariant
-           (for all Offset in 1 .. Written_Count =>
-             Written_Bytes (Offset) = Contents (Contents'First + (Offset - 1)));
+           (Static => (for all Offset in 1 .. Written_Count =>
+             Written_Bytes (Offset) = Contents (Contents'First + (Offset - 1))));
          Observed_Put
            (File, Interfaces.C.int (Character'Pos (Contents (Index))), Status);
          if Status /= Interfaces.C.int (Character'Pos (Contents (Index))) then

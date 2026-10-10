@@ -25,7 +25,12 @@ completed follow-up addresses the external review's documentation/test findings
 and the Lean runner's input-inventory checks and phase logging. Focused tests
 and one cached Linux Lean build/fresh axiom audit passed; the prior full kernel
 replay is preserved. See the [runner record](docs/lean-concurrency.md#runner-follow-up).
-The native I/O refactor and source/dependency partitioning remain deferred.
+The subsequently authorized [native I/O optimization](docs/native-io-performance.md)
+is also complete: proof-only platform observations and historical driver flags
+use Static erasure while real I/O, failure handling, source/report checks and
+proof obligations remain. Paired measurements show less executed bookkeeping;
+the full native audit, focused regressions and cached Lean audit passed.
+Source/dependency partitioning and certificate redesign remain deferred.
 
 The implementation/review target is the commit introducing
 [samples/string_assignment.adb](samples/string_assignment.adb), identifiable with:
@@ -72,7 +77,9 @@ bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexi
 
 The completed capability's evidence is under
 `.silver/linux-x86_64/assignment-validation/`; current review follow-up records
-are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Prior canonical
+are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Native I/O measurements,
+validation and preserved before/after reports are under
+`.silver/linux-x86_64/native-io-static-2026-10-10/`. Prior canonical
 reports/manifests are preserved separately from new runner checks. Earlier
 host recovery and Linux ARM64 records retain their original input and platform
 scope in the [host-readiness record](docs/host-readiness.md) and linked artifacts.

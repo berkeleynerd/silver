@@ -667,13 +667,17 @@ project and the same explicitly named snapshot. The generated project selects
 Ada 2022 and enables assertion/overflow checking; it adds no source contracts,
 pragmas, or declarations.
 
-These checks have proved contracts. Ghost transcripts record bytes observed by
+These checks have proved contracts. Static ghost transcripts record bytes observed by
 the actual read/write calls, closure/EOF observations, exact command text, and
 returned process status. `Same_Source` establishes equality with the admitted
 source from those observations. The driver's ordered proof/build/publication
 guards require successful source and project writes, matching snapshots,
 successful named tool invocations, and accepted proof evidence before publishing
 an executable. These are connected contracts for the real SPARK procedures.
+The transcripts and historical driver flags are erased from executable code;
+their contracts remain GNATprove obligations. Mixed contracts retain Runtime
+checks on actual bounds, commands, reports and source equality. See the
+[native I/O record](native-io-performance.md) for the bounded erasure change.
 The external filesystem, libc calls, and tool behavior retain their documented
 trusted meanings; their implementations are not verified here.
 

@@ -27,11 +27,11 @@ procedure Silver with SPARK_Mode => On is
       and then (for all Item of Command => Item /= Character'Val (0)));
 
    procedure Execute (Command : String; Success : out Boolean)
-     with Post => (if Valid_Command (Command) then
+     with Post => (Runtime => (if not Valid_Command (Command) then not Success),
+       Static => (if Valid_Command (Command) then
        Command_Length = Command'Length
        and then Command_Text (1 .. Command_Length) = Command
-       and then Success = Interfaces.C."=" (Command_Status, 0)
-       else not Success)
+       and then Success = Interfaces.C."=" (Command_Status, 0)))
    is
    begin
       if not Valid_Command (Command) then
@@ -46,12 +46,12 @@ procedure Silver with SPARK_Mode => On is
       Last : out Natural; Success : out Boolean)
      with Pre => Valid_Path (Name) and then Observed'First = 1
        and then Observed'Length = Silver_Profile.Max_Source_Length,
-       Post => Last <= Observed'Length
+       Post => (Runtime => Last <= Observed'Length
          and then (if Success then
-           Observed (Observed'First .. Last) = Expected
-           and then Read_Ended and then Read_Closed
+           Observed (Observed'First .. Last) = Expected),
+         Static => (if Success then Read_Ended and then Read_Closed
            and then Last = Read_Count
-           and then Read_Bytes (1 .. Read_Count) = Expected)
+           and then Read_Bytes (1 .. Read_Count) = Expected))
    is
       Too_Long : Boolean;
    begin
@@ -127,21 +127,21 @@ procedure Silver with SPARK_Mode => On is
 
          --  Past observations are recorded from actual return values and
          --  returned bytes. They never decide executable control flow.
-         Source_Written : Boolean with Ghost;
-         Initial_Source_Matched : Boolean with Ghost;
-         Project_Written : Boolean with Ghost;
-         Proof_Returned_Success : Boolean with Ghost;
-         Proof_Command_Matched : Boolean with Ghost;
-         Proof_Source_Matched : Boolean with Ghost;
-         Build_Returned_Success : Boolean with Ghost;
-         Build_Command_Matched : Boolean with Ghost;
+         Source_Written : Boolean with Ghost => Static;
+         Initial_Source_Matched : Boolean with Ghost => Static;
+         Project_Written : Boolean with Ghost => Static;
+         Proof_Returned_Success : Boolean with Ghost => Static;
+         Proof_Command_Matched : Boolean with Ghost => Static;
+         Proof_Source_Matched : Boolean with Ghost => Static;
+         Build_Returned_Success : Boolean with Ghost => Static;
+         Build_Command_Matched : Boolean with Ghost => Static;
 
          procedure Prove
-           with Pre => (Runtime => Source_Written and then Valid_Command (Proof_Command)
-             and then Initial_Source_Matched and then Project_Written,
-             Static => (if Output_Mode then Initial_Libraries_Matched)),
-             Post => Proof_Returned_Success = Success
-               and then (if Success then Proof_Command_Matched)
+           with Pre => (Runtime => Valid_Command (Proof_Command),
+             Static => Source_Written and then Initial_Source_Matched and then Project_Written
+               and then (if Output_Mode then Initial_Libraries_Matched)),
+             Post => (Static => Proof_Returned_Success = Success
+               and then (if Success then Proof_Command_Matched))
          is
          begin
             Execute (Proof_Command, Success);
@@ -153,23 +153,23 @@ procedure Silver with SPARK_Mode => On is
 
          procedure Build
            with Pre => (Runtime =>
-             Source_Written and then Valid_Command (Build_Command)
-             and then Initial_Source_Matched and then Project_Written
-             and then Proof_Returned_Success and then Proof_Command_Matched
-             and then Proof_Source_Matched
+             Valid_Command (Build_Command)
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
              and then Report_Complete
              and then (if Output_Mode then Runtime_Evidence_Complete),
-             Static => (if Output_Mode then Initial_Libraries_Matched and then Proof_Libraries_Matched)
+             Static => Source_Written and then Initial_Source_Matched and then Project_Written
+               and then Proof_Returned_Success and then Proof_Command_Matched
+               and then Proof_Source_Matched
+               and then (if Output_Mode then Initial_Libraries_Matched and then Proof_Libraries_Matched)
                and then Report_Last <= Report'Length
                and then (if Dynamic_Mode then
                  Silver_Library_Reports.Application_Report_Policy (Report (1 .. Report_Last))
                 elsif Assignment_Mode then
                  Silver_Library_Reports.Assignment_Report_Policy (Report (1 .. Report_Last))
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))),
-             Post => Build_Returned_Success = Success
-               and then (if Success then Build_Command_Matched)
+             Post => (Static => Build_Returned_Success = Success
+               and then (if Success then Build_Command_Matched))
          is
          begin
             Execute (Build_Command, Success);
@@ -181,13 +181,8 @@ procedure Silver with SPARK_Mode => On is
 
          procedure Publish
            with Pre => (Runtime =>
-             Source_Written
-             and then Valid_Path (Snapshot) and then Valid_Path (Report_Name)
+             Valid_Path (Snapshot) and then Valid_Path (Report_Name)
              and then Valid_Path (Executable) and then Valid_Command (Executable_Command)
-             and then Initial_Source_Matched and then Project_Written
-             and then Proof_Returned_Success and then Proof_Command_Matched
-             and then Proof_Source_Matched
-             and then Build_Returned_Success and then Build_Command_Matched
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
              and then Report_Complete
@@ -195,7 +190,11 @@ procedure Silver with SPARK_Mode => On is
              and then (if not Output_Mode then Silver_Profile.Is_Member (Source))
              and then Success and then Observed_Last <= Observed'Length
              and then Observed (1 .. Observed_Last) = Source,
-             Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
+             Static => Source_Written and then Initial_Source_Matched and then Project_Written
+               and then Proof_Returned_Success and then Proof_Command_Matched
+               and then Proof_Source_Matched
+               and then Build_Returned_Success and then Build_Command_Matched
+               and then (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
                  and then Initial_Libraries_Matched and then Proof_Libraries_Matched
                  and then Build_Libraries_Matched else Silver_Profile.Is_Member (Source))
                and then Report_Last <= Report'Length
