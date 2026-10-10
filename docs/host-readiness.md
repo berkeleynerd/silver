@@ -149,7 +149,8 @@ The earlier bounded certificate-performance investigation remains closed at
 
 At initial inspection, `.silver/`, `.tools/`, `tmp/` and `.vscode/` were absent.
 The owner subsequently supplied the old artifact/tool trees through the
-[Silver snapshot](../silver/README.md) and [tool snapshot](../tools/README.md).
+[Silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md)
+and [tool snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md).
 After the sandbox restart, the shared repository had eight fetched migration
 commits ending at `1bf065de18e1e33bbc36bb15894e104f27bae3b2`. Local main was
 fast-forwarded to that commit after preserving the documentation draft; both
@@ -173,7 +174,8 @@ live dot directories. There were no collisions and neither archive contained a
 `linux-x86_64` entry. Existing native x86-64 state was preserved. Original paths,
 symlink targets, executable modes and nested repositories were retained; no
 foreign executable was run or evidence manifest rewritten. The committed
-snapshot archives remain intact. Detailed recovery checks and logs are under
+snapshot archives remain intact in Git history at the snapshot commit above.
+Detailed recovery checks and logs are under
 `.silver/linux-x86_64/host-readiness-2026-10-09/restoration/`.
 `recovery-summary.json`, `restoration.json` and
 `historical-evidence-verification.json` distinguish archive integrity,
@@ -215,6 +217,15 @@ meant `silver/`. Both intended snapshot directories, `silver/` and `tools/`, hav
 therefore been recovered; there is no outstanding request to locate a separate
 `codex/` tree. This clarification does not add the omitted local state to either
 archive.
+
+After verified recovery, the owner authorized removing the temporary non-dot
+`silver/` and `tools/` archive directories from the current tree and synchronizing
+the remote. The restored `.silver/` and `.tools/` trees, including native and
+foreign-host evidence and caches, remain preserved. This removes the migration
+copies from the current tree without rewriting Git history; the original archives
+and checksums remain recoverable at `1bf065de18e1e33bbc36bb15894e104f27bae3b2`.
+See the [recovery guidance](../RESUME.md#recover-and-preserve-the-old-vm-evidence)
+for retrieving those archives and extracting them into separate staging.
 
 ## Git, remote and hosted CI
 

@@ -24,6 +24,11 @@ handoff. The owner subsequently authorized [Lean concurrency tuning](docs/lean-c
 on the current proofs. No language expansion or new certificate-representation
 candidate is authorized.
 
+The temporary non-dot `silver/` and `tools/` migration folders have now been
+removed at the owner's request. The live `.silver/` and `.tools/` directories
+remain in place; the archives remain recoverable from Git history as described
+below.
+
 **Concurrency tuning:** the measured runner change is complete. Lake workers
 and per-process Lean threads now default to the available CPUs, with independent
 overrides and retained caches. Regression tests, full Lean verification and a
@@ -74,13 +79,28 @@ harness returned no goal; do not recreate the completed implementation goal.
 
 ## Recover and preserve the old VM evidence
 
-The owner subsequently authorized including snapshots of both artifact trees in
-Git under their non-dot names. [silver/](silver/README.md) and
-[tools/](tools/README.md) contain compressed, split archives of the original
-`.silver/` and `.tools/`, with capture metadata, checksums and restoration steps.
-Use every part of each selected snapshot; restore through the documented staging
-procedure so existing state is preserved. These are point-in-time migration
-copies, not alternate live build directories or new validation runs.
+The one-time migration is complete. The owner authorized removing its non-dot
+`silver/` and `tools/` folders from the current tree after restoration and full
+integrity checks. Their complete split archives, capture metadata, checksums
+and original restoration instructions remain in Git at snapshot commit
+`1bf065de18e1e33bbc36bb15894e104f27bae3b2`:
+[Silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md)
+and [tool snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md).
+No Git history was rewritten.
+
+For a future recovery, recreate just those transfer folders from the repository
+root when they are absent:
+
+```sh
+git restore --source=1bf065de18e1e33bbc36bb15894e104f27bae3b2 --worktree -- silver tools
+```
+
+Then follow the recovered READMEs: verify every part and extract to fresh
+staging, preserving any existing live `.silver/` and `.tools/` state. Every part
+of each selected snapshot is required. These point-in-time archives do not
+include later x86-64 validation, tuning evidence or newer caches. Deleting their
+current-tree copies frees workspace space; the archive blobs remain in Git
+history and normal full-history clones.
 
 Keep the entire checkout, including `.git`, for any local state newer than those
 snapshots. Preserve untracked `.vscode/` and `tmp/` material; those directories

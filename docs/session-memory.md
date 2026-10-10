@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-10 — Migration archives removed from the current tree
+
+After verified restoration, the owner explicitly requested removing the non-dot
+`silver/` and `tools/` migration folders and syncing with the remote. Those
+transfer archives and their obsolete binary-attribute rules are removed; the
+live `.silver/` and `.tools/` evidence, tools and caches remain intact. The
+complete snapshots and original READMEs remain recoverable at Git commit
+`1bf065de18e1e33bbc36bb15894e104f27bae3b2`. No history rewrite was performed.
+The [handoff](../RESUME.md#recover-and-preserve-the-old-vm-evidence) explains
+recovery from history and preservation of newer local state.
+
+This cleanup changes no implementation, proof or toolchain input; prior native
+validation retains its scope. Feature review still targets `96b4e3a`, and Lean
+concurrency tuning is published at `b8b263d`. GitHub Actions remains disabled,
+with local validation as directed. Publication is explicitly authorized; Git
+history identifies this cleanup commit, and the closing handoff reports the
+actual remote outcome. CLI memory remains unavailable and was not updated;
+these checked-in documents carry the durable recall. The live harness has no goal.
+
 ## 2026-10-10 — Lean concurrency tuning
 
 The owner authorized tuning Lean for maximum useful concurrency on the current
@@ -136,8 +155,8 @@ owner explicitly authorized adding their non-dot equivalents to the repository.
 This supersedes the previous exclusion of these captured trees from publication;
 it does not change the live artifact layout or authorize further language work.
 
-The [silver snapshot](../silver/README.md) and
-[tools snapshot](../tools/README.md) preserve the original directories in split,
+The [silver snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/silver/README.md) and
+[tools snapshot](https://github.com/berkeleynerd/silver/blob/1bf065de18e1e33bbc36bb15894e104f27bae3b2/tools/README.md) preserve the original directories in split,
 compressed tar archives. Packaging preserves nested Git repositories, symbolic
 links, executable modes and original paths while keeping each part below GitHub's
 file-size limit. All parts are needed to restore a tree. Per-directory

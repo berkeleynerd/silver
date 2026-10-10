@@ -22,11 +22,12 @@ The root documents provide the main review entry points:
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
 - [RESUME.md](RESUME.md): completed-goal handoff and VM replacement checklist.
 
-Owner-authorized migration snapshots of local evidence/caches and installed
-toolchains are available in [silver/](silver/README.md) and
-[tools/](tools/README.md). These large binary archives preserve one captured
-installation; restore instructions and checksums are included. Development still
-uses the ignored `.silver/` and `.tools/` directories.
+Migration restored local evidence, caches and toolchains into the ignored
+`.silver/` and `.tools/` directories used by development. After verified recovery,
+the temporary non-dot `silver/` and `tools/` archive directories were removed
+from the current tree. Their archives, checksums and restore instructions remain
+recoverable from Git history; history was not rewritten. See the
+[recovery guidance](RESUME.md#recover-and-preserve-the-old-vm-evidence).
 
 The compiler admits, proves, builds, and runs this program shape:
 
