@@ -1,6 +1,7 @@
 import Silver.GuardedEquations
 import Silver.ArgumentsExpressions
 import Silver.AssignmentExpressions
+import Silver.BranchingExpressions
 
 /-! Typed trees for the newly admitted recognizer equations. The inherited
 helper interpretation is reused without assuming the obsolete public union.
@@ -22,6 +23,9 @@ structure Calls where
   guarded : Source → Bool
   assignment : Source → Nat → Nat → NameState → Nat → Bool
   assignmentMember : Source → Bool
+  branching : Source → Nat → Nat → NameState → Bool
+  branchingToken : Source → Nat → Branching.Token → Bool
+  branchingMember : Source → Bool
 
 structure Context where
   text : Source
@@ -57,7 +61,7 @@ inductive Condition
   | equal (leftFirst leftAfter rightFirst rightAfter : Number)
   | tokenEq (index : Number) (token : Token) | tokenAt (position index : Number)
   | suffix (position index first after capacity decorations : Number)
-  | allowedNormalized | directNormalized | namedNormalized | argumentNormalized | concatNormalized | guardedNormalized | assignmentNormalized
+  | allowedNormalized | directNormalized | namedNormalized | argumentNormalized | concatNormalized | guardedNormalized | assignmentNormalized | branchingNormalized
   | whenTrue (condition yes : Condition)
   | ite (condition yes no : Condition) | elsif (condition yes no : Condition)
   deriving DecidableEq, Repr
@@ -137,6 +141,7 @@ def Condition.render : Condition → List String
   | .concatNormalized => call "concatenation_suffix_matches" [normalized,["1"],["1"],["0"],["0"]]
   | .guardedNormalized => call "guarded_suffix_matches" [normalized,["1"],["1"],["0"],["0"],["0"],["0"]]
   | .assignmentNormalized => call "assignment_suffix_matches" [normalized,["1"],["1"],["0"],["0"],["0"]]
+  | .branchingNormalized => call "branching_suffix_matches" [normalized,["1"],["1"],["0"],["0"]]
   | .whenTrue c a => ["if"] ++ c.render ++ ["then"] ++ a.render
   | .ite c a b => ["if"] ++ c.render ++ ["then"] ++ a.render ++ (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
   | .elsif c a b => ["elsif"] ++ c.render ++ ["then"] ++ a.render ++ (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
@@ -161,7 +166,7 @@ def Number.isElsif : Number → Bool | .elsif _ _ _ => true | _ => false
 def Condition.primary : Condition → Bool
   | .value _ | .group _ | .identifier _ | .forbidden _ _ | .equal _ _ _ _ | .tokenAt _ _
   | .suffix _ _ _ _ _ _ | .allowedNormalized | .directNormalized | .namedNormalized
-  | .argumentNormalized | .concatNormalized | .guardedNormalized | .assignmentNormalized => true | _ => false
+  | .argumentNormalized | .concatNormalized | .guardedNormalized | .assignmentNormalized | .branchingNormalized => true | _ => false
 def Condition.relation : Condition → Bool
   | .andThen _ _ | .orElse _ _ | .whenTrue _ _ | .ite _ _ _ | .elsif _ _ _ => false | _ => true
 def Condition.logical : Condition → Bool
@@ -244,6 +249,7 @@ def Condition.eval (calls : Calls) (ctx : Context) : Condition → Bool
   | .concatNormalized => calls.base.concatSuffix (calls.base.primitive.normalize ctx.text) 1 1 {}
   | .guardedNormalized => calls.suffix (calls.base.primitive.normalize ctx.text) 1 1 {} 0 0
   | .assignmentNormalized => calls.assignment (calls.base.primitive.normalize ctx.text) 1 1 {} 0
+  | .branchingNormalized => calls.branching (calls.base.primitive.normalize ctx.text) 1 1 {}
   | .whenTrue c a => if c.eval calls ctx then a.eval calls ctx else true
   | .ite c a b | .elsif c a b => if c.eval calls ctx then a.eval calls ctx else b.eval calls ctx
 end
@@ -303,15 +309,18 @@ def suffixBody : Condition :=
               (.suffix (.add start (.spellingLength .nextToken)) next .declaredFirst .declaredAfter .capacity .decorations))))))
 def memberBody : Condition :=
   .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized)
-    (.group (.orElse (.orElse (.orElse (.orElse (.orElse .directNormalized .namedNormalized) .argumentNormalized) .concatNormalized) .guardedNormalized) .assignmentNormalized))
+    (.group (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse .directNormalized .namedNormalized) .argumentNormalized) .concatNormalized) .guardedNormalized) .assignmentNormalized) .branchingNormalized))
 def guardedBody : Condition :=
   .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized) .guardedNormalized
 
 def assignmentBody : Condition :=
   .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized) .assignmentNormalized
 
+def branchingBody : Condition :=
+  .andThen (.andThen (.range .sourceLength (.constant 1) .maxLength) .allowedNormalized) .branchingNormalized
+
 abbrev WellFormedTrees : Prop := decimalTailBody.wellFormed = true ∧ decimalAtBody.wellFormed = true ∧
-  literalLengthBody.wellFormed = true ∧ suffixBody.wellFormed = true ∧ memberBody.wellFormed = true ∧ guardedBody.wellFormed = true ∧ assignmentBody.wellFormed = true
+  literalLengthBody.wellFormed = true ∧ suffixBody.wellFormed = true ∧ memberBody.wellFormed = true ∧ guardedBody.wellFormed = true ∧ assignmentBody.wellFormed = true ∧ branchingBody.wellFormed = true
 theorem checked_precedence : WellFormedTrees := by decide +kernel
 
 theorem outside_digit (n : Nat) : (48 ≤ n → 57 < n) ↔ (n < 48 ∨ 57 < n) := by omega
@@ -416,6 +425,11 @@ def assignmentCalls (calls : Calls) : Assignment.Expressions.Calls where
   length := calls.length
   suffix := calls.assignment
 
+def branchingCalls (calls : Calls) : Branching.Expressions.Calls where
+  base := helperCalls calls.base
+  token := calls.branchingToken
+  suffix := calls.branching
+
 structure InterpretedSource (calls : Calls) : Prop where
   inherited : InheritedHelpers calls.base
   token : ∀ text, 0 < text.length → text.length ≤ maxSourceLength →
@@ -447,6 +461,17 @@ structure InterpretedSource (calls : Calls) : Prop where
         Assignment.Expressions.suffixBody.eval (assignmentCalls calls)
           {text,position,nextToken,declaredFirst := state.first,declaredAfter := state.after,initialLength}
   assignmentMember : ∀ text, calls.assignmentMember text = assignmentBody.eval calls {text}
+  branchingToken : ∀ text, 0 < text.length → text.length ≤ maxSourceLength →
+    ∀ position token, 1 ≤ position → position ≤ text.length + 1 →
+      calls.branchingToken text position token = Silver.Expressions.tokenBody.eval
+        {text, position, word := token.spelling, wordFlag := token.isWord}
+  branching : ∀ text, 0 < text.length → text.length ≤ maxSourceLength →
+    ∀ position nextToken state, 1 ≤ position → position ≤ text.length + 1 →
+      1 ≤ nextToken → nextToken ≤ Branching.requiredTokens.length + 1 → state.Valid text →
+      calls.branching text position nextToken state =
+        Branching.Expressions.suffixBody.eval (branchingCalls calls)
+          {text,position,nextToken,declaredFirst := state.first,declaredAfter := state.after}
+  branchingMember : ∀ text, calls.branchingMember text = branchingBody.eval calls {text}
 
 theorem assignment_interpretation (calls : Calls) (source : InterpretedSource calls) :
     Assignment.Expressions.InterpretedSource (assignmentCalls calls) where
@@ -457,6 +482,12 @@ theorem assignment_interpretation (calls : Calls) (source : InterpretedSource ca
     rw [Assignment.Expressions.literalLength_denotation]
     exact (source.length text positive bounded position first last).trans (literalLength_denotation calls _)
   suffix := source.assignment
+
+theorem branching_interpretation (calls : Calls) (source : InterpretedSource calls) :
+    Branching.Expressions.InterpretedSource (branchingCalls calls) where
+  inherited := inherited_interpretation calls.base source.inherited
+  token := source.branchingToken
+  suffix := source.branching
 
 theorem interpreted_tail (calls : Calls) (source : InterpretedSource calls)
     (text : Source) (positive : 0 < text.length) (bounded : text.length ≤ maxSourceLength)
@@ -580,12 +611,34 @@ theorem interpreted_assignment_iff (calls : Calls) (source : InterpretedSource c
     (text : Source) : calls.assignmentMember text = true ↔ Assignment.Member text := by
   rw [interpreted_assignment calls source, Assignment.accepts_iff_member]
 
+theorem interpreted_branching (calls : Calls) (source : InterpretedSource calls)
+    (text : Source) : calls.branchingMember text = Branching.accepts text := by
+  rw [source.branchingMember]
+  dsimp only [branchingBody, Condition.eval, Number.eval]
+  have inherited := inherited_interpretation calls.base source.inherited
+  have outputSource := Output.Expressions.interpreted_equations calls.base.output calls.base.primitive inherited.output
+  by_cases bound : 0 < text.length ∧ text.length ≤ maxSourceLength
+  · rw [outputSource.primitive.normalize text bound.2, outputSource.primitive.allowed]
+    have suffix := Branching.Expressions.interpreted_suffix (branchingCalls calls)
+      (branching_interpretation calls source) text bound.1 bound.2 1 1 {}
+      (by omega) (by omega) (by decide) (by decide) (Or.inl ⟨rfl,rfl⟩)
+    change calls.branching text 1 1 {} = _ at suffix
+    rw [suffix]
+    have first : 1 ≤ text.length := by omega
+    simp [Branching.accepts, Branching.suffixAtIndex, bound, first]
+  · have outside : ¬ (1 ≤ text.length ∧ text.length ≤ maxSourceLength) := by omega
+    simp [Branching.accepts, outside, bound]
+
+theorem interpreted_branching_iff (calls : Calls) (source : InterpretedSource calls)
+    (text : Source) : calls.branchingMember text = true ↔ Branching.Member text := by
+  rw [interpreted_branching calls source, Branching.accepts_iff_member]
+
 theorem public_union (calls : Calls) (source : InterpretedSource calls)
     (text : Source) : calls.member text =
-      (((helperCalls calls.base).arguments.member text || calls.guarded text) || calls.assignmentMember text) := by
-  rw [source.member, source.guarded, source.assignmentMember]
+      ((((helperCalls calls.base).arguments.member text || calls.guarded text) || calls.assignmentMember text) || calls.branchingMember text) := by
+  rw [source.member, source.guarded, source.assignmentMember, source.branchingMember]
   apply Bool.eq_iff_iff.mpr
-  simp only [memberBody, guardedBody, assignmentBody, Condition.eval, Number.eval, helperCalls,
+  simp only [memberBody, guardedBody, assignmentBody, branchingBody, Condition.eval, Number.eval, helperCalls,
     Arguments.Expressions.memberBody, Arguments.Expressions.Condition.eval,
     Arguments.Expressions.Number.eval, Bool.or_eq_true, Bool.and_eq_true,
     and_or_left]
@@ -597,13 +650,13 @@ theorem interpreted_guarded_iff (calls : Calls) (source : InterpretedSource call
 
 theorem interpreted_member_iff (calls : Calls) (source : InterpretedSource calls)
     (text : Source) : calls.member text = true ↔
-      Output.Member text ∨ Named.Member text ∨ Arguments.Member text ∨ Concat.Member text ∨ Member text ∨ Assignment.Member text := by
+      Output.Member text ∨ Named.Member text ∨ Arguments.Member text ∨ Concat.Member text ∨ Member text ∨ Assignment.Member text ∨ Branching.Member text := by
   rw [public_union calls source]
   have inherited := inherited_interpretation calls.base source.inherited
   simp only [Bool.or_eq_true]
   rw [Arguments.implementation_member_iff _
     (Arguments.Expressions.interpreted_equations (helperCalls calls.base) inherited),
-    interpreted_guarded_iff calls source, interpreted_assignment_iff calls source]
+    interpreted_guarded_iff calls source, interpreted_assignment_iff calls source, interpreted_branching_iff calls source]
   simp only [or_assoc]
 
 /-- A concrete interpretation witnesses that the displayed frontend premises
@@ -620,9 +673,12 @@ def modelHelpers : Calls where
   guarded := fun _ => false
   assignment := Assignment.suffixAtIndex
   assignmentMember := fun _ => false
+  branching := Branching.suffixAtIndex
+  branchingToken := Branching.tokenAt
+  branchingMember := fun _ => false
 
 def modelCalls : Calls :=
-  { modelHelpers with member := fun text => memberBody.eval modelHelpers {text}, guarded := fun text => guardedBody.eval modelHelpers {text}, assignmentMember := fun text => assignmentBody.eval modelHelpers {text} }
+  { modelHelpers with member := fun text => memberBody.eval modelHelpers {text}, guarded := fun text => guardedBody.eval modelHelpers {text}, assignmentMember := fun text => assignmentBody.eval modelHelpers {text}, branchingMember := fun text => branchingBody.eval modelHelpers {text} }
 
 set_option maxHeartbeats 1000000 in
 theorem model_interpreted : InterpretedSource modelCalls where
@@ -681,5 +737,18 @@ theorem model_interpreted : InterpretedSource modelCalls where
         cases token <;> rfl)
       position nextToken state initialLength first last valid).symm
   assignmentMember := by intro text; rfl
+  branchingToken := by
+    intro text _ _ position token _ last
+    exact (Branching.Expressions.token_denotation text position token last).symm
+  branching := by
+    intro text _ _ position nextToken state first last start _ valid
+    rw [Branching.Expressions.suffix_denotation]
+    change Branching.suffixAtIndex text position nextToken state = _
+    rw [Branching.suffixAtIndex_equation text position nextToken state start]
+    exact (Branching.sourceSuffixEquation_reduce _ _ _ _ _ _ _ text
+      (fun _ _ _ => rfl) (fun _ _ _ => rfl) (fun _ _ _ => rfl)
+      (fun _ _ _ _ _ => rfl) (fun _ _ _ _ _ _ _ _ _ _ => rfl)
+      (fun _ _ _ _ => rfl) position nextToken state first last valid).symm
+  branchingMember := by intro text; rfl
 
 end Silver.Guarded.Expressions

@@ -8,49 +8,42 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-The seventh production is implemented and locally validated: one literal-initialized `String`
-variable, one assignment of an equal-decoded-length literal, then output through
-the same name. Independent reviews, native validation, the full Lean build,
-fresh axiom audit and independent fresh kernel recheck passed. Final evidence
-corroboration matched current inputs and artifacts. Commit `44fd8ea` contains the
-implementation and was published; its harness goal is complete. Recheck the live
-goal at resumption rather than treating this historical status as an instruction.
-The [capability record](docs/string-assignment.md) records exact scope, the
-obligation experiment, source correspondence and validation status.
-
-The owner also requested a read-only [architecture review](docs/architecture-review.md)
-while validation ran. It recommends retaining the main boundaries, with small
-evidence-runner and proof-only I/O improvements as possible follow-ups. The
-completed follow-up addresses the external review's documentation/test findings
-and the Lean runner's input-inventory checks and phase logging. Focused tests
-and one cached Linux Lean build/fresh axiom audit passed; the prior full kernel
-replay is preserved. See the [runner record](docs/lean-concurrency.md#runner-follow-up).
-The subsequently authorized [native I/O optimization](docs/native-io-performance.md)
-is also complete: proof-only platform observations and historical driver flags
-use Static erasure while real I/O, failure handling, source/report checks and
-proof obligations remain. Paired measurements show less executed bookkeeping;
-the full native audit, focused regressions and cached Lean audit passed.
-Source/dependency partitioning and certificate redesign remain deferred.
-
-The owner has selected [input-dependent branching](roadmap.md#input-dependent-branching)
-as the next **proposed** roadmap item: one String equality on validated argv
-input, selecting two terminal literal-output branches. The current instruction
-authorizes roadmap work and the [generalization assessment](docs/language-generalization.md),
-not implementation. That assessment recommends bounded output expressions next,
-then a fixed-length result selected by a branch and printed once. These are
-follow-up proposals; the current seven productions remain unchanged.
+[Input-dependent branching](docs/input-branching.md) is complete: one String
+equality on validated argv input selects two terminal literal-output branches;
+invalid input reaches the existing rejection branch. All eight productions
+passed the stable-input Linux checkpoint: native compiler audit, full test
+suite, full Lean build, fresh axiom audit and independent fresh kernel replay.
+Independent source review and final evidence corroboration found no material
+findings. The Oracle, runtime operations and driver/report policies are unchanged.
 
 The implementation/review target is the commit introducing
-[samples/string_assignment.adb](samples/string_assignment.adb), identifiable with:
+[samples/input_branching.adb](samples/input_branching.adb), identifiable with:
 
 ```sh
-git log --diff-filter=A -1 --format='%H %s' -- samples/string_assignment.adb
+git log --diff-filter=A -1 --format='%H %s' -- samples/input_branching.adb
 ```
 
-The implementation is based on `6403b5c`. Earlier feature `96b4e3a` and its
-[external review disposition](docs/command-line-greeting.md#external-review-disposition)
-remain historical evidence for the sixth form. Implementation of the proposed
-next capability is not yet authorized. The Oracle is unchanged.
+It is based on `4422316`. The preceding assignment implementation and review
+target `44fd8ea` retain their [completed evidence](docs/string-assignment.md).
+The live harness still records that completed seventh-production goal; this
+branching task did not explicitly request a replacement harness goal. Recheck
+the live goal at resumption rather than treating history as a new instruction.
+The [runner follow-up](docs/lean-concurrency.md#runner-follow-up) and
+[native I/O optimization](docs/native-io-performance.md) also remain complete.
+
+After observing the serial certificate cost, the owner requested end-of-day
+checking or serious compartmentalization. The [workflow](development.md#proof-loop-and-validation)
+now batches expensive source-correspondence checks at a stable end-of-session/day
+checkpoint, with focused native/model checks during iteration. Preserve the
+completed objects and caches. Before the next language increment, assess a
+bounded source/dependency partition with measured incremental and full-check
+costs, as recorded in the [architecture follow-up](docs/architecture-review.md#proof-structure-and-the-expensive-rebuild).
+No partition or certificate representation change has been implemented.
+
+The [ordered language sequence](roadmap.md#current-development-sequence) remains
+bounded output expressions with tighter safe capacities, a branch-selected
+fixed-length result, further initialized bindings/copies, then repeated output.
+Those capabilities were not begun by this task.
 
 ## Local tools and evidence
 
@@ -67,12 +60,15 @@ these commands are alternatives, not a sequence after every edit:
 ```sh
 python3 scripts/dev.py build
 python3 scripts/dev.py prove
-python3 scripts/dev.py test -- -p test_string_assignment.py
-python3 scripts/check_lean.py --memory-mb 12288
+python3 scripts/dev.py test -- -p test_branching.py
 ```
 
 Choose tests for the affected behavior and batch edits before expensive
-source-certificate rebuilds. Once a capability's inputs are stable, run the full
+source-certificate rebuilds. Use focused Lean model/module checks during the
+day. `python3 scripts/check_lean.py --memory-mb 12288` is useful for a cached
+whole-project check, but a changed embedded Ada source triggers certificate
+rebuilding even without `--full`. Once a capability's inputs are stable, normally
+at the end of the session or day, run the full
 test suite and add `--full` to both proof commands. This regenerates
 complete compiler evidence and adds Lean's independent fresh kernel recheck;
 it does not imply a cold build. Repeat only validation affected by subsequent
@@ -83,8 +79,9 @@ commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
 and all foreign-host evidence. Source/runtime installation moves require
 bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
 
-The completed capability's evidence is under
-`.silver/linux-x86_64/assignment-validation/`; current review follow-up records
+The latest completed capability's evidence is under
+`.silver/linux-x86_64/branching-validation/`; the preceding assignment evidence
+is under `.silver/linux-x86_64/assignment-validation/`. Earlier review follow-up records
 are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Native I/O measurements,
 validation and preserved before/after reports are under
 `.silver/linux-x86_64/native-io-static-2026-10-10/`. Prior canonical

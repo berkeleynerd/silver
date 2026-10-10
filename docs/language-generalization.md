@@ -1,10 +1,12 @@
 # Generalizing Silver's current features
 
-Assessment on 2026-10-10 against implementation `d630229`, requested alongside
-the next [roadmap item](../roadmap.md#input-dependent-branching). This is planning:
-the seven productions in [language.md](../language.md) remain the complete
-admitted language. No proposed example below has been implemented or validated.
-The Oracle is unchanged.
+Assessment on 2026-10-10 against the seven-production implementation `d630229`,
+requested alongside the next [roadmap item](../roadmap.md#input-dependent-branching).
+The owner subsequently authorized beginning the
+[ordered sequence](../roadmap.md#current-development-sequence); the selected
+[branching increment](input-branching.md) is complete. The broader expressions,
+assignments and output sequences proposed below remain future work. Consult
+[language.md](../language.md) for current support. The Oracle is unchanged.
 
 ## Recommendation
 
@@ -19,11 +21,11 @@ doubled quotes. Names, case-insensitive binding, comments and whitespace already
 vary under explicit rules. The checked-in sample texts are not special cases.
 The main opportunity is broader composition, not more literal or naming examples.
 
-The selected branching item can reuse the typed conditional interpreter in
-[GuardedMain](../proof/Silver/GuardedMain.lean), but still needs String equality,
-the new grammar and an input-dependent meaning in
-[Current](../proof/Silver/Current.lean), connected to the actual source. That
-does not require implementing the expression generalization first.
+The completed branching item follows the existing typed conditional approach
+with its own interpreter in [BranchingMain](../proof/Silver/BranchingMain.lean).
+It adds String equality, its grammar and an input-dependent meaning in
+[Current](../proof/Silver/Current.lean), connected to the actual source. It did
+not require implementing the expression generalization first.
 
 | Area | Useful generalization | Cost or reason to limit it | Recommendation |
 | --- | --- | --- | --- |
@@ -46,7 +48,7 @@ operand    := string_literal | bound_string_name
 ```
 
 Use it in the output positions of supported compositions, including conditional
-leaves once branching is supported. Initially retain their existing declaration
+leaves. Initially retain their existing declaration
 and statement order. A nonempty operand sequence follows Ada's left association;
 arbitrary parentheses, calls, indexing and conversions need not arrive with it.
 For example, output following the current equal-length assignment could use:
@@ -172,8 +174,11 @@ accepting all warnings is justified. The existing compiler routes those modes
 separately in [silver.adb](../src/silver.adb).
 
 No new trusted dependency or Oracle amendment is indicated by these candidates.
-Do not make parser replacement, certificate redesign or source partitioning a
-prerequisite. Reuse small proof/recognizer components where the authorized
+Parser replacement and certificate redesign are not prerequisites. The owner
+subsequently prioritized end-of-day checking and assessment of source/dependency
+compartmentalization before another language increment; this addresses measured
+development cost, rather than a missing language foundation. Reuse small
+proof/recognizer components where the authorized
 capability needs them, keeping specification and implementation arguments
 independent. Retain the [proportionate validation cadence](../development.md#proof-loop-and-validation),
 including complete local assurance at a capability checkpoint.

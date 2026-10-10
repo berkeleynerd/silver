@@ -42,7 +42,7 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-Exactly seven productions are admitted. The null production is:
+Exactly eight productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -308,6 +308,68 @@ expressions are excluded from this composition. `:=` remains one contiguous toke
 The full source, including both literals and all three name occurrences, must
 fit the existing 4096-byte bound.
 
+### Input-dependent branching
+
+The eighth production selects between two literal outputs by comparing validated
+command-line input with a literal. Its completed assurance and Linux validation
+are recorded in [input-branching.md](docs/input-branching.md).
+
+```ada
+with Silver_IO;
+with Silver_Arguments;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Mode : constant String :=
+     Silver_Arguments.First_Or_Default ("brief");
+begin
+   if Silver_Arguments.Input_Is_Valid then
+      if Mode = "verbose" then
+         Silver_IO.Put_Line ("Silver is ready. Input validation succeeded.");
+      else
+         Silver_IO.Put_Line ("Ready.");
+      end if;
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; with silver_arguments ;
+procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : constant string :=
+silver_arguments . first_or_default ( <string_literal> ) ;
+begin if silver_arguments . input_is_valid then
+if <reference_name> = <string_literal> then
+silver_io . put_line ( <string_literal> ) ;
+else silver_io . put_line ( <string_literal> ) ; end if ;
+else silver_arguments . reject ; end if ; end main ;
+```
+
+The default, comparison literal and two output literals are independently chosen
+from the existing literal domain, including empty values and doubled quotes.
+Each selected output fits the 4096-byte domain because it is decoded from one
+literal within the bounded source. The two outputs are alternatives; their
+contents need not differ.
+
+The declaration and comparison reference use the command-line identifier rules:
+complete names bind ignoring ASCII case, and reserved words, `String`, `Silver_IO`
+and `Silver_Arguments` are excluded. Predefined String `=` compares the input's
+bytes with the **decoded literal value**, preserving character case. Unequal
+lengths compare false; no truncation, case folding or resizing occurs. With no
+argument, compare the default. With one valid argument, compare that argument,
+including an explicitly empty one. Invalid input reaches `Reject` without
+evaluating the inner choice or producing application output.
+
+Only identifier-on-the-left, literal-on-the-right equality in this fixed nested
+guard is permitted. `/=`, reversed operands, parentheses, Boolean combinations,
+additional decisions, branch assignments, named/concatenated output arguments
+and additional statements remain excluded. There are two literal-output call
+sites, but exactly one terminal call executes on a valid-input path. Neither
+output call is followed by another application operation.
+
 ### Shared composition rules
 
 Whitespace around punctuation is optional. Adjacent word tokens require a
@@ -321,19 +383,21 @@ The following capability identifiers are shared with the catalogue:
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
 | `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named, concatenated and command-line compositions additionally declare their one constant; the assignment composition declares one variable. No other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
-| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the two command-line compositions. No `use` clause. |
-| `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
-| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, the concatenation prefix/suffix, the argument default, or either literal of `string_assignment_output`. |
+| `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` in the command-line compositions, including branching. No `use` clause. |
+| `literal_output` | One qualified `Silver_IO.Put_Line` call with one string-literal argument per terminal branch: the entire direct-output body, or either inner branch of `branching_output`. |
+| `string_literal` | A literal in the domain above, used as an output argument, named initializer, concatenation decoration, argument default, assignment value or branching comparison. |
 | `named_string_constant` | One `constant String` declaration initialized by a literal or `argument_initialization`, as fixed by the composition. |
 | `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant or variable identifier, as fixed by the composition. |
 | `named_string_variable` | One `String` variable initialized by a literal, with bounds fixed by that value. |
 | `string_assignment` | One assignment to that variable from an equal-decoded-length literal, followed by `named_output`. |
 | `string_concatenation` | Exactly a prefix literal, one reference to the constant, and a suffix literal joined by two left-associated predefined String `&` operators; a command-line initializer requires `capacity_guard`. |
 | `concatenated_output` | One qualified `Silver_IO.Put_Line` call with the complete `string_concatenation` expression as its sole argument. |
-| `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the two command-line compositions. |
+| `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the command-line compositions, including branching. |
 | `argument_initialization` | One qualified `Silver_Arguments.First_Or_Default` call with one admitted literal default, initializing the constant. |
-| `input_guard` | Exactly the `if Silver_Arguments.Input_Is_Valid then` output branch and mandatory rejection branch shown above. |
+| `input_guard` | Exactly the validity guard with named output in its `then` branch and mandatory rejection in its `else` branch, as in direct command-line output. |
 | `capacity_guard` | Exactly the `Input_Is_Valid and then Name'Length <= capacity` conditional and its fixed branches, with capacity matching the decoded decorations. |
+| `string_equality` | One predefined String `=` between the declared constant identifier and a literal; exact case-sensitive value equality, false for unequal lengths. |
+| `input_branch` | The complete outer validity/rejection guard and inner equality choice shown above, with a terminal literal output in each inner branch. |
 | `argument_rejection` | One qualified `Silver_Arguments.Reject;` as the sole statement of the guard's `else` branch. |
 
 In the null and literal-output compositions the pragma is the sole declarative
@@ -349,8 +413,10 @@ initialization and the complete guard, with output by the bound name.
 The guarded-concatenation composition uses both context clauses, argument
 initialization and `capacity_guard`, with the fixed prefix/reference/suffix output.
 The assignment composition has the same single IO context, one variable and the
-fixed assignment-then-output sequence. Context plus null, null plus output, and
-repeated output calls are excluded.
+fixed assignment-then-output sequence. Branching requires both context clauses,
+argument initialization and the complete `input_branch`; it has no other
+declaration or statement. Context plus null, null plus output, and sequences of
+output calls are excluded.
 No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
 
@@ -379,9 +445,9 @@ decoded suffix in that order, followed by LF, with the same completion and
 failure behavior. Three empty strings produce just LF. No spaces are inserted
 implicitly and the literal contents receive no special treatment.
 
-Both command-line forms observe the process arguments after the executable name.
+Command-line forms observe the process arguments after the executable name.
 Normal supported startup supplies that executable-name slot (`argc >= 1`);
-"no arguments" means no entries after it:
+"no arguments" means no entries after it. For direct command-line output:
 
 | Input | Observable behavior |
 | --- | --- |
@@ -393,6 +459,12 @@ For guarded concatenation, prepend the prefix and append the suffix to the
 selected value before LF. One otherwise valid argument must also fit the
 remaining capacity. An oversized value causes status 1 and no application output;
 it is never truncated. Explicitly empty input produces the decorations and LF.
+
+For input-dependent branching, a valid selected value determines which literal
+is printed: equality selects the `then` literal, inequality selects the `else`
+literal. The input itself is not printed. The sample prints `Ready.` for no
+argument, an empty argument or `Verbose`, and the longer response for exactly
+`verbose`. Invalid or extra arguments still produce no output and status 1.
 
 The pure initializer and validity query observe the same immutable GNAT argument
 vector. On invalid input the initializer returns an internal empty value, but the
@@ -415,7 +487,7 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-The first five productions and the fixed-length assignment production have empty
+The first five productions, fixed-length assignment and branching have empty
 **application-unit safety-obligation** sets. Literal
 initialization establishes the constant value and bounds without a range
 constraint or read of uninitialized data. Name binding selects that value; the
@@ -435,6 +507,13 @@ flow warning for the overwritten initializer value. The assignment-only report
 policy classifies this precise advisory while retaining it in the report; it
 accepts no failed safety check or other warning. Required complete library
 reports are unchanged.
+Branching compares two fully initialized Strings with predefined equality;
+unequal lengths are valid operands. Its selected call receives one bounded
+literal with no caller precondition. The native obligation experiment found
+empty Main flow/proof lists under strict warnings, so branching uses the ordinary
+empty-report route, not the assignment advisory or dynamic range-check policy.
+Every selected-library obligation is still required. Completed capability
+validation is in the [branching record](docs/input-branching.md).
 Guarded concatenation generates range checks for the dynamic String operations.
 The owned initializer's length and one-based bounds, the bounded literals, and
 the executable capacity guard establish the necessary ranges and output domain.
@@ -444,7 +523,7 @@ The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
 argument covers all permitted literals, identifiers, argument vectors, lexical
-variants and all seven compositions,
+variants and all eight compositions, including equality and the selected terminal output,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.
@@ -473,7 +552,9 @@ suffix with one reference to a literal-initialized constant;
 [samples/command_line_greeting.adb](samples/command_line_greeting.adb) adds the
 capacity guard for a command-line value;
 [samples/string_assignment.adb](samples/string_assignment.adb) assigns an
-equal-length literal to one variable before output. The
+equal-length literal to one variable before output.
+[samples/input_branching.adb](samples/input_branching.adb) exercises the
+supported equality choice. The
 [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output and exit status. The suite admits, proves,
 builds and executes each sample. Samples witness supported behavior; they do

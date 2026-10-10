@@ -3,8 +3,9 @@ import Silver.GuardedExpressions
 import Silver.GuardedMain
 import Silver.Current
 import Silver.AssignmentSourceBridge
+import Silver.BranchingSourceBridge
 
-/-! Source correspondence for the current seven-form recognizer and its report
+/-! Source correspondence for the current eight-form recognizer and its report
 policy selector. Checked typed expressions, arbitrary-callee interpretation,
 and applied recursion uniqueness close the new helper chain. The SPARK-proved
 imperative contracts and trusted Ada frontend remain explicit premises. Main's
@@ -78,7 +79,9 @@ abbrev NumericDeclarations : Prop :=
   subtypeDeclaration "guarded_token_index" Source.outputBodyTokens =
     some (expectedTokens "Positive range 1 .. Guarded_Required_Tokens'Last + 1") ∧
   subtypeDeclaration "assignment_token_index" Source.outputBodyTokens =
-    some (expectedTokens "Positive range 1 .. Assignment_Required_Tokens'Last + 1")
+    some (expectedTokens "Positive range 1 .. Assignment_Required_Tokens'Last + 1") ∧
+  subtypeDeclaration "branching_token_index" Source.outputBodyTokens =
+    some (expectedTokens "Positive range 1 .. Branching_Required_Tokens'Last + 1")
 
 theorem actual_numeric_declarations : NumericDeclarations := by decide +kernel
 
@@ -144,6 +147,7 @@ theorem actual_helper_contracts : HelperContracts :=
 structure CheckedSource : Prop where
   inherited : Arguments.SourceBridge.CheckedSource
   assignment : Assignment.SourceBridge.CheckedSource
+  branching : Branching.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   numeric : NumericDeclarations
   refinement : Refinement
@@ -155,6 +159,7 @@ structure CheckedSource : Prop where
 theorem checked_source : CheckedSource where
   inherited := Arguments.SourceBridge.checked_source
   assignment := Assignment.SourceBridge.checked_source
+  branching := Branching.SourceBridge.checked_source
   expressions := actual_expressions
   numeric := actual_numeric_declarations
   refinement := actual_refinement
@@ -203,6 +208,17 @@ theorem authoritative_assignment_member_iff
     CheckedSource ∧ (acceptsAssignment source = true ↔ Assignment.Member source) := by
   refine ⟨checked_source, ?_⟩
   rw [provedSelector, Expressions.interpreted_assignment_iff calls sourceEquations]
+
+/-- The internal branching recognizer has an inline proved postcondition.
+`branchingMember` denotes that expression, not a separate ghost function. -/
+theorem authoritative_branching_member_iff
+    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
+    (acceptsBranching : Source → Bool)
+    (provedRecognizer : ∀ source, acceptsBranching source = calls.branchingMember source)
+    (source : Source) :
+    CheckedSource ∧ (acceptsBranching source = true ↔ Branching.Member source) := by
+  refine ⟨checked_source, ?_⟩
+  rw [provedRecognizer, Expressions.interpreted_branching_iff calls sourceEquations]
 
 theorem authoritative_executable_member_iff
     (nullCalls : Silver.Expressions.Calls)

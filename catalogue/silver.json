@@ -47,7 +47,7 @@
         "arguments": [
           "string_literal"
         ],
-        "count": 1
+        "count_per_terminal_branch": 1
       }
     },
     {
@@ -225,6 +225,40 @@
         "decoded_length": "equal_to_initializer_decoded_length",
         "count": 1
       }
+    },
+    {
+      "id": "string_equality",
+      "ada_kind": "relational_expression",
+      "conditions": {
+        "operator": "=",
+        "operands": [
+          "declared_constant_identifier",
+          "string_literal"
+        ],
+        "predefined_string_equality": true,
+        "case_sensitive": true,
+        "unequal_lengths_equal": false,
+        "count": 1
+      }
+    },
+    {
+      "id": "input_branch",
+      "ada_kind": "if_statement",
+      "conditions": {
+        "outer_condition": "Silver_Arguments.Input_Is_Valid",
+        "outer_else": [
+          "argument_rejection"
+        ],
+        "inner_condition": "string_equality",
+        "then": [
+          "literal_output"
+        ],
+        "else": [
+          "literal_output"
+        ],
+        "terminal_branches": true,
+        "additional_nesting": false
+      }
     }
   ],
   "compositions": [
@@ -377,6 +411,32 @@
         "silver_runtime.ads"
       ],
       "initializer": "string_literal"
+    },
+    {
+      "name": "branching_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_constant"
+      ],
+      "initializer": "argument_initialization",
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "statements": [
+        "input_branch"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ]
     }
   ],
   "additional_units": false,
@@ -1136,6 +1196,75 @@
     "(",
     "<reference_name>",
     ")",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "branching_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "with",
+    "silver_arguments",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "silver_arguments",
+    ".",
+    "first_or_default",
+    "(",
+    "<string_literal>",
+    ")",
+    ";",
+    "begin",
+    "if",
+    "silver_arguments",
+    ".",
+    "input_is_valid",
+    "then",
+    "if",
+    "<reference_name>",
+    "=",
+    "<string_literal>",
+    "then",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<string_literal>",
+    ")",
+    ";",
+    "else",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<string_literal>",
+    ")",
+    ";",
+    "end",
+    "if",
+    ";",
+    "else",
+    "silver_arguments",
+    ".",
+    "reject",
+    ";",
+    "end",
+    "if",
     ";",
     "end",
     "main",

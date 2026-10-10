@@ -1,5 +1,94 @@
 # Session memory
 
+## 2026-10-10 — Input-dependent branching completed
+
+The selected first item in the [ordered roadmap](../roadmap.md#current-development-sequence)
+is complete. Silver now admits eight productions. The new form compares one
+validated argv String with a literal and selects one of two terminal literal
+outputs; invalid input reaches the existing rejection branch. Four literal
+values vary over the existing domain, names bind ignoring case, and equality
+compares exact bytes. No runtime API, driver/report policy or Oracle changed.
+
+The [capability record](input-branching.md) records native obligations, universal
+Lean semantics, actual-source correspondence, independent reviews and completed
+Linux validation. Evidence and final input/tool/artifact corroboration are under
+`.silver/linux-x86_64/branching-validation/`. Existing caches, previous evidence,
+tools, foreign-host artifacts and scratch are preserved. No native validation
+was repeated merely for final documentation. macOS proofs remain a non-goal and
+GitHub Actions remains disabled.
+
+The implementation and review target is the commit introducing
+[samples/input_branching.adb](../samples/input_branching.adb), recoverable with
+`git log --diff-filter=A -1 --format='%H %s' -- samples/input_branching.adb`.
+It is based on `4422316`; `44fd8ea` remains the earlier assignment review target.
+Publication is authorized; the final response and local publication record
+identify the closing commit and verified remote state. The live harness still
+records the completed seventh-production goal; this task did not request a
+replacement goal. The title and harness goal are distinct from this completed task.
+
+The owner subsequently requested end-of-day checking or compartmentalization.
+The preceding workflow decision remains in force: assess a bounded source and
+dependency partition before another language increment. Bounded String output
+expressions with tighter safe capacities remain the next language item, followed
+by a branch-selected result, further bindings/copies and repeated output. These
+were not begun. The historical GNATprove `DOC_END` failure remains unresolved,
+and GNAT Pro is untested. CLI
+memory was rechecked: no exposed memory tool or conventional recall directory
+is available, so no CLI entry was updated. This checked-in handoff is durable.
+
+## 2026-10-10 — Batch expensive proof work; prioritize compartmentalization assessment
+
+After observing the branching certificate cost, the owner requested end-of-day
+checking or serious compartmentalization. The [workflow](../development.md#proof-loop-and-validation)
+now uses focused native and Lean model/module checks during development and
+batches expensive source correspondence at a stable end-of-session/day checkpoint.
+Omitting `--full` does not avoid a changed embedded-source certificate rebuild;
+it omits the additional fresh kernel replay. Capabilities remain pending until
+their complete checkpoint passes. Preserve a running checkpoint's inputs and
+single-writer workspace; reuse successful native checks whose inputs are unchanged.
+
+Read-only assessment corroborated two costs: common authoritative-source/Lake
+dependencies invalidate unrelated modules, and the changed recognizer itself
+has a large serial certificate. The [architecture follow-up](architecture-review.md#proof-structure-and-the-expensive-rebuild)
+and [roadmap](../roadmap.md#current-development-sequence) prioritize a bounded
+compartmentalization experiment before further language expansion: isolate
+per-file authority/dependencies and test one useful real Ada helper boundary,
+retaining complete byte identity, semantic call correspondence and the existing
+certificate representation. Measure successful incremental and full verification
+before adoption. No partition, new benchmark or automatic schedule was installed.
+Earlier failed representation experiments remain closed. The current branching
+run and its completed objects were preserved.
+
+## 2026-10-10 — Ordered generalization sequence; branching implementation authorized
+
+The owner requested the generalization items at the beginning of the roadmap in
+the recommended order and authorized beginning one or more at our discretion.
+The [sequence](../roadmap.md#current-development-sequence) is branching, bounded
+String output expressions with tighter safe capacities, a branch-selected
+fixed-length result, further initialized bindings/copies, then repeated output.
+The selected implementation unit is the first: one immutable argv String,
+mandatory validity/rejection guard, and one case-sensitive equality with a
+literal selecting two terminal literal outputs. Other rows remain queued.
+
+This supersedes the preceding planning-only restriction. Complete the native
+obligation experiment, SPARK implementation, universal Lean assurance and actual
+source correspondence, specification/catalogue/sample/tests, full local Linux
+validation, review and publication for this unit. The working
+[capability record](input-branching.md) tracks progress; seven productions remain
+the completed baseline until the new assurance checkpoint passes. No Oracle
+change, runtime redesign, general parser, certificate redesign or source
+partitioning is part of this increment.
+
+Root owns documents and actual-source bridges; focused subthreads own native
+recognition/catalogue, Branching model/Current integration, and tests/samples.
+Prior source, binary and canonical reports/manifests are preserved under
+`.silver/linux-x86_64/branching-validation/preserved-before-validation/`; live
+caches, tools and foreign-host evidence stay intact. Use isolated experiments
+and focused iteration, then one full checkpoint on stable inputs. GitHub Actions
+stays disabled and macOS proofs are a non-goal. Publication authorization persists.
+The live harness still records the completed seventh-production goal; the owner
+authorized a task here without explicitly requesting a replacement harness goal.
+
 ## 2026-10-10 — Next branching item and feature generalization assessed
 
 The owner requested adding the proposed input-dependent branch to the roadmap,

@@ -51,8 +51,9 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit safety-obligation set
-   remains empty for the first five productions and fixed-length assignment; the
-   latter has a narrowly classified ineffective-initialization advisory. The guarded dynamic
+   remains empty for the first five productions, fixed-length assignment and
+   input-dependent branching; assignment has a narrowly classified
+   ineffective-initialization advisory. The guarded dynamic
    concatenation has a complete range-check policy. Every output form also
    requires the complete nonempty selected library reports. Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
@@ -85,14 +86,29 @@ The commands below are a menu, not a sequence to repeat after every edit:
 python3 scripts/dev.py prove
 python3 scripts/dev.py build
 python3 scripts/dev.py test -- -p test_string_assignment.py
-python3 scripts/check_lean.py
 ```
 
 Choose the test file for the affected behavior. Batch recognizer and proof edits
 before rebuilding the expensive source certificates; focused model proofs give
 early feedback, while actual-source correspondence remains required at the
-capability checkpoint. Documentation-only changes need link, consistency and
-whitespace checks, without unrelated proof or test reruns.
+capability checkpoint. During daytime iteration, use targeted Lean model/module
+checks with the existing dependencies. After changes to embedded Ada source,
+queue the complete source-correspondence run for a stable checkpoint, normally
+the end of the session or day. Keep the capability pending until that checkpoint
+passes; record the exact inputs and outstanding validation when handing it off.
+Preserve a running checkpoint and its completed objects rather than restarting
+it for unrelated work. Keep its captured source/proof/tooling inputs stable;
+continue with documentation, read-only work or an isolated worktree. Run only
+one writer against a host's proof workspace. Reuse successful native checks
+whose inputs remain unchanged.
+
+`python3 scripts/check_lean.py` is useful for a cached whole-project check when
+its source-certificate dependencies are unchanged. Omitting `--full` does not
+avoid certificate rebuilding after an embedded-source change: `--full` adds the
+independent fresh kernel replay to the build and fresh axiom audit. Do not use
+the whole-project command as the default inner loop for recognizer changes.
+Documentation-only changes need link, consistency and whitespace checks,
+without unrelated proof or test reruns.
 
 GNATprove uses incremental analysis and its native local filesystem result cache.
 The default worker count is all detected cores (`--jobs 0`); use `--jobs N` when

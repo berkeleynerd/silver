@@ -27,6 +27,22 @@ describe the original reviewed state. That review did not run additional
 validation; subsequent runner validation is recorded separately in the
 [concurrency record](lean-concurrency.md#runner-follow-up).
 
+During the later branching checkpoint, the owner requested end-of-day checking
+or serious compartmentalization. The [development workflow](../development.md#proof-loop-and-validation)
+now batches expensive correspondence checks at the end of the session or day.
+The source/dependency partition experiment below is the next performance
+assessment before further language expansion; no partition or certificate
+representation change is implemented by that workflow decision.
+Read-only inspection of the branching implementation found a 69,515-byte
+recognizer body and a 5,464,903-byte generated certificate. Per-file handwritten
+authority bindings and narrowly scoped binary dependencies can prevent unrelated
+rebuilds. Reducing the changed certificate's own cost also requires testing a
+smaller real Ada source unit, initially a stable lexical/name-helper boundary.
+Merely splitting generated Lean declarations leaves upper reconstruction joins
+and whole-file identity work. Native feasibility must establish an appropriate
+SPARK package boundary; support for Ada `separate` subunits is not assumed.
+No new benchmark or successful partition is claimed by this read-only assessment.
+
 Three focused reviews covered all 24 native source files, all 75 Lean modules
 and their import graph, all eight Python scripts, the organization of the Python
 test modules and Ada probe, sample/catalogue consistency, build configuration, host

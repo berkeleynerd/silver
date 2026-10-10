@@ -78,11 +78,12 @@ class SilverIntegrationTests(unittest.TestCase):
                                           "named_string_constant", "named_output", "argument_context",
                                           "argument_initialization", "input_guard", "argument_rejection", "capacity_guard",
                                           "string_concatenation", "concatenated_output",
-                                          "named_string_variable", "string_assignment"})
+                                          "named_string_variable", "string_assignment",
+                                          "string_equality", "input_branch"})
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "literal_output", "named_output", "command_line_output",
                                             "concatenated_output", "guarded_concatenated_output",
-                                            "string_assignment_output"})
+                                            "string_assignment_output", "branching_output"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
         self.assertEqual(compositions["literal_output"]["statements"], ["literal_output"])
@@ -104,6 +105,14 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(compositions["guarded_concatenated_output"]["context"],
                          ["runtime_context", "argument_context"])
         argument_tokens = catalogue["argument_tokens"]
+        branching_body = (['if', '<reference_name>', '=', '<string_literal>', 'then']
+                          + ['silver_io', '.', 'put_line', '(', '<string_literal>', ')', ';']
+                          + ['else']
+                          + ['silver_io', '.', 'put_line', '(', '<string_literal>', ')', ';']
+                          + ['end', 'if', ';'])
+        self.assertEqual(catalogue["branching_tokens"],
+                         argument_tokens[:argument_tokens.index('then') + 1] + branching_body
+                         + argument_tokens[argument_tokens.index('else'):])
         condition_end = argument_tokens.index("input_is_valid") + 1
         output_argument = argument_tokens.index("put_line") + 2
         self.assertEqual(catalogue["guarded_concatenation_tokens"],

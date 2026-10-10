@@ -61,11 +61,18 @@ guard, `Name'Length <= 4088` for these decorations.
 The [assignment sample](samples/string_assignment.adb) initializes a variable
 with `"Hello"`, assigns the equal-length literal `"World"`, then prints it.
 
-The seven complete forms are one null statement without a context clause, one
+The [branching sample](samples/input_branching.adb) compares a validated argument
+with `"verbose"`, choosing between two literal responses. Equality compares exact
+decoded bytes and preserves case. Each valid-input execution makes one terminal
+output call. Its completed assurance and Linux validation are recorded in
+[input-branching.md](docs/input-branching.md).
+
+The eight complete forms are one null statement without a context clause, one
 qualified literal-output call, one literal-initialized `constant String`
 printed by its identifier, the guarded command-line form, and one
 prefix/reference/suffix concatenation of a literal-backed constant, plus the
-capacity-guarded command-line greeting and fixed-length literal assignment. All output forms
+capacity-guarded command-line greeting, fixed-length literal assignment and
+input-dependent branching. All output forms
 require `with Silver_IO;`; command-line input also requires
 `with Silver_Arguments;`.
 Names bind without ASCII case distinctions. Constants are immutable; the
@@ -91,6 +98,9 @@ forms have empty application reports. The sixth adds range checks covered by
 verified runtime bounds, a Lean arithmetic argument and complete report handling.
 The seventh proves length-compatible assignment and reads the replacement value;
 its reports may include a narrowly classified dead-initializer advisory.
+The eighth form uses the ordinary strict empty-Main-report route;
+its driver and runtime are unchanged, and all selected library reports remain
+mandatory. Its full validation is recorded in the capability record.
 Application authors supply no contracts or proof annotations. Every emitted
 check and all selected library obligations must be proved before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
@@ -217,7 +227,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the seven permitted compositions. Structural metadata is written explicitly in
+and the eight permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -228,6 +238,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The completed input-dependent branching implementation and full assurance
+checkpoint are recorded in [input-branching.md](docs/input-branching.md).
 
 The fixed-length assignment increment is recorded in
 [string-assignment.md](docs/string-assignment.md), including its exact report

@@ -106,6 +106,32 @@ def guardedSpellingExpression : List String := fullSpellingExpression ++
     (fun (token : Guarded.Token) =>
       [",", "when", Guarded.Expressions.tokenName token, "=>", "\"" ++ token.spellingText ++ "\""])
 
+def branchingNames (tokens : List Branching.Token) : List String :=
+  List.flatten ((tokens.map (fun token => [Branching.Expressions.tokenName token])).intersperse [","])
+
+/-- The physical enum extends the guarded-token enum by one punctuation token.
+The branching grammar uses a subset, whose ordinals are read from this enum. -/
+def currentTokenNames : List String :=
+  guardedTokens.map Guarded.Expressions.tokenName ++ ["equal"]
+
+def currentSpellingExpression : List String :=
+  guardedSpellingExpression ++ [",", "when", "equal", "=>", "\"" ++ Branching.Token.equal.spellingText ++ "\""]
+
+theorem branching_word_token_denotation (token : Branching.Token) :
+    token.isWord = decide (currentTokenNames.idxOf (Branching.Expressions.tokenName token) ≤ 10 ∨
+      token = .constantKeyword ∨ token = .stringName ∨
+      (22 ≤ currentTokenNames.idxOf (Branching.Expressions.tokenName token) ∧
+        currentTokenNames.idxOf (Branching.Expressions.tokenName token) ≤ 28)) := by
+  cases token with
+  | base token => cases token <;> decide
+  | _ => decide
+
+theorem branching_fixed_token_bounds (token : Branching.Token) :
+    0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
+  cases token with
+  | base token => cases token <;> decide
+  | _ => decide
+
 theorem guarded_word_token_denotation (token : Guarded.Token) :
     token.isWord = decide (guardedTokens.idxOf token ≤ 10 ∨
       token = .constantKeyword ∨ token = .stringName ∨
@@ -132,7 +158,7 @@ theorem full_word_token_denotation (token : Arguments.Token) :
   | _ => decide
 
 abbrev CatalogueTranslation : Prop :=
-  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ guardedNames guardedTokens ++ [")"]) ∧
+  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ guardedNames guardedTokens ++ [",", "equal", ")"]) ∧
   Source.declaration "required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ names requiredTokens ++ [")"]) ∧
   Source.declaration "named_required_tokens" Source.outputSpecTokens =
@@ -145,7 +171,9 @@ abbrev CatalogueTranslation : Prop :=
     some (["constant", "token_sequence", ":=", "("] ++ guardedNames Guarded.requiredTokens ++ [")"]) ∧
   Source.declaration "assignment_required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ namedNames Assignment.requiredTokens ++ [")"]) ∧
-  Source.expressionBody "spelling" Source.outputBodyTokens = some guardedSpellingExpression ∧
+  Source.declaration "branching_required_tokens" Source.outputSpecTokens =
+    some (["constant", "token_sequence", ":=", "("] ++ branchingNames Branching.requiredTokens ++ [")"]) ∧
+  Source.expressionBody "spelling" Source.outputBodyTokens = some currentSpellingExpression ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens =
     some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name"] ∧
   Source.declaration "max_source_length" Source.outputSpecTokens =

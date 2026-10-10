@@ -192,6 +192,71 @@
         "stderr": "",
         "exit_status": 0
       }
+    },
+    {
+      "source": "input_branching.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "literal_output",
+        "argument_context",
+        "argument_initialization",
+        "string_equality",
+        "input_branch",
+        "argument_rejection"
+      ],
+      "specification": "../language.md#input-dependent-branching",
+      "expected": {
+        "stdout": "Ready.\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            "verbose"
+          ],
+          "expected": {
+            "stdout": "Silver is ready. Input validation succeeded.\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "Verbose"
+          ],
+          "expected": {
+            "stdout": "Ready.\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "Ready.\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "verbose",
+            "extra"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
     }
   ]
 }

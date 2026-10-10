@@ -14,3 +14,5 @@ import Silver.GuardedSourceBridge
 import Silver.GuardedExamples
 import Silver.AssignmentSourceBridge
 import Silver.AssignmentExamples
+import Silver.BranchingSourceBridge
+import Silver.BranchingExamples

@@ -12,6 +12,36 @@ changes to earlier rules and examples must be explicit and consistent. The
 [development policy](development.md) prioritizes foundations needed for the
 next capability while retaining full assurance for the current language.
 
+## Current development sequence
+
+The branching checkpoint exposed a long serial source-certificate rebuild.
+Batch complete source-correspondence runs at the end of the session or day,
+using focused native/model checks during iteration as described in
+[the workflow](development.md#proof-loop-and-validation). Before the next
+language increment, assess a bounded compartmentalization change that can cache
+unchanged source sections independently while retaining complete authoritative
+byte coverage and semantic correspondence. More workers alone do not remove
+the serial certificate cost; adopt a change only after measuring a successful
+rebuild and full verification.
+
+The owner authorized starting one or more of these items on 2026-10-10. The
+selected implementation unit, **input-dependent branching**, is complete with
+full Linux validation. Bounded String output expressions are next in sequence;
+this task does not begin that broader composition.
+
+| Order | Item | Status and bounded scope |
+| --- | --- | --- |
+| 1 | [Input-dependent branching](#input-dependent-branching) | **Supported.** One equality on immutable validated argv, selecting two terminal literal outputs; [completed validation](docs/input-branching.md). |
+| 2 | Bounded String output expressions | **Proposed.** Literals, existing names and flat `&` chains in current output positions, including after assignment; count repeated static references. Initially retain one dynamic reference and assess tighter safe capacity guards alongside this work. |
+| 3 | Branch-selected fixed-length result | **Proposed.** One mutable result alongside immutable input, equal-length branch assignments, and one common terminal output; prove the state where branches rejoin. |
+| 4 | Additional initialized bindings and compatible copies | **Proposed.** Expand declarations and useful pure statement sequences when a data-flow example needs them; track names, initialization, mutability and fixed lengths. Repeated literal overwrites alone remain low priority. |
+| 5 | Repeated output | **Proposed.** A multiline application with explicit cumulative output and failure behavior; choose continued attempts or stopping after failure before implementing the composition. |
+
+The [generalization assessment](docs/language-generalization.md) explains the
+benefits, limits and deferred alternatives. Later rows are queued directions,
+not part of the current branching completion criteria. Multiple argv operations,
+resizable strings and arbitrary statements remain outside this sequence.
+
 ## Status and admission
 
 Milestones move through **proposed → in progress → supported**:
@@ -45,7 +75,7 @@ sequence.
 | Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
 | Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
 | Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
-| Input-dependent branching | Proposed — next | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Proposed scope](#input-dependent-branching). | Brief or verbose response, shown below; no supported sample yet |
+| Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -54,9 +84,9 @@ handles. Each additional form needs explicit admission and composition rules.
 
 ## Input-dependent branching
 
-**Proposed next capability**, selected for the roadmap by the owner on
-2026-10-10. This instruction authorizes planning and assessment, not language
-implementation. The example below is not currently admitted Silver:
+**Supported**, following owner authorization on 2026-10-10.
+The [capability record](docs/input-branching.md) records the obligation experiment,
+implementation, source correspondence and completed full Linux validation:
 
 ```ada
 with Silver_IO;
@@ -93,14 +123,12 @@ call with the existing failure semantics.
 
 This adds runtime choice without a new library API. General Boolean expressions,
 additional decision nesting, branch assignments, multiple outputs and arbitrary
-statement sequences are separate proposals. Once implementation is authorized,
-start with a focused native obligation experiment, including empty strings,
-unequal lengths, case differences and maximum-size sources. Establish exact
-membership, branch meaning, binding, complete obligation handling and source
-correspondence before marking the capability supported. Do not assume the
-existing empty-report policy applies without checking actual obligations.
-Use focused iteration and one complete Linux validation checkpoint on stable
-inputs, preserving caches; hosted CI remains disabled and macOS proofs are a
+statement sequences are separate proposals. A focused native obligation
+experiment covered empty strings, unequal lengths, case differences and
+maximum-size sources and confirmed the strict empty-Main report policy. Exact
+membership, branch meaning, binding, complete obligation handling and actual
+source correspondence passed the full Linux checkpoint. Existing caches and
+evidence were preserved; hosted CI remains disabled and macOS proofs are a
 non-goal for this work.
 
 ## Generalizing the existing features
@@ -118,9 +146,10 @@ After that, a fixed-length result assigned in either input-dependent branch and
 printed once is a useful data-flow increment. Repeated assignments alone add
 little behavior; multiple output calls require separate whole-program effect
 and failure semantics. Multiple bindings, repeated dynamic references and new
-argument operations remain later candidates. These are recommendations, not
-an authorized implementation batch or additional supported forms. Keep the
-selected next item above bounded; do not enlarge it implicitly.
+argument operations remain later candidates. The owner subsequently authorized
+starting work from the sequence now listed at the beginning of this roadmap.
+Only branching is selected for the current implementation unit; the other rows
+remain queued and are not additional supported forms.
 
 ## Next goals after the greeting review
 

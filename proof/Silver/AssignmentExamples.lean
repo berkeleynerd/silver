@@ -10,7 +10,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr ((accepts_iff_member exampleSource).mp example_admitted))))))
+  Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ((accepts_iff_member exampleSource).mp example_admitted)))))))
 
 /-- Escaped source width differs while decoded value lengths agree. -/
 def escapedSource : Source :=

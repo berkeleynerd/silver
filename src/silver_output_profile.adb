@@ -48,7 +48,8 @@ is
          when Apostrophe => "'",
          when Length_Name => "length",
          when Less_Equal => "<=",
-         when Capacity_Literal => "0");
+         when Capacity_Literal => "0",
+         when Equal => "=");
 
    function Normalized (Source : String) return String
      with
@@ -542,6 +543,54 @@ is
           (Text, Trivia_End (Text, Position) + Spelling (Argument_Required_Tokens (Next_Token))'Length,
            Next_Token + 1, Declared_First, Declared_After));
 
+   subtype Branching_Token_Index is Positive range 1 .. Branching_Required_Tokens'Last + 1;
+
+   function Branching_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Branching_Token_Index;
+      Declared_First, Declared_After : Literal_Position) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Declared_First, Declared_After),
+       Subprogram_Variant => (Increases => Next_Token);
+
+   function Branching_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Branching_Token_Index;
+      Declared_First, Declared_After : Literal_Position) return Boolean
+   is
+     (if Next_Token > Branching_Required_Tokens'Last then
+        Trivia_End (Text, Position) = Text'Last + 1
+      elsif Branching_Required_Tokens (Next_Token) = Declaration_Name then
+        Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then not Forbidden_Argument_Name
+          (Text, Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Branching_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+      elsif Branching_Required_Tokens (Next_Token) = Reference_Name then
+        Declared_First > 0
+        and then Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then Equal_Name
+          (Text, Declared_First, Declared_After,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Branching_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Declared_First, Declared_After)
+      elsif Branching_Required_Tokens (Next_Token) = String_Literal then
+        Trivia_End (Text, Position) <= Text'Last
+        and then Text (Trivia_End (Text, Position)) = Character'Val (34)
+        and then Literal_End (Text, Trivia_End (Text, Position) + 1) /= 0
+        and then Branching_Suffix_Matches
+          (Text, Literal_End (Text, Trivia_End (Text, Position) + 1), Next_Token + 1,
+           Declared_First, Declared_After)
+      else
+        Token_At (Text, Trivia_End (Text, Position),
+          Spelling (Branching_Required_Tokens (Next_Token)),
+          Is_Word_Token (Branching_Required_Tokens (Next_Token)))
+        and then Branching_Suffix_Matches
+          (Text, Trivia_End (Text, Position) + Spelling (Branching_Required_Tokens (Next_Token))'Length,
+           Next_Token + 1, Declared_First, Declared_After));
+
    subtype Concatenation_Token_Index is
      Positive range 1 .. Concatenation_Required_Tokens'Last + 1;
 
@@ -887,7 +936,8 @@ is
         or else Argument_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
         or else Concatenation_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
         or else Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0)
-        or else Assignment_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0)));
+        or else Assignment_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0)
+        or else Branching_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
 
    function Is_Literal_Member (Source : String) return Boolean
      with Ghost => Static, Global => null;
@@ -1237,6 +1287,65 @@ is
       end;
    end Accepts_Arguments;
 
+   function Accepts_Branching (Source : String) return Boolean
+     with Global => null,
+       Post => (Static => Accepts_Branching'Result =
+         (Source'Length in 1 .. Max_Source_Length
+          and then Allowed_Source (Normalized (Source))
+          and then Branching_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)));
+
+   function Accepts_Branching (Source : String) return Boolean is
+   begin
+      if Source'Length = 0 or else Source'Length > Max_Source_Length then
+         return False;
+      end if;
+      declare
+         Text : constant String := Normalized (Source);
+         Position : Cursor := 1;
+         Next_Token : Branching_Token_Index := 1;
+         Declared_First, Declared_After : Literal_Position := 0;
+         Matched : Boolean;
+      begin
+         if not Allowed_Source (Text) then
+            return False;
+         end if;
+         while Next_Token <= Branching_Required_Tokens'Last loop
+            pragma Loop_Invariant (Position <= Text'Last + 1);
+            pragma Loop_Invariant (Valid_Name_State (Text, Declared_First, Declared_After));
+            pragma Loop_Invariant (Static =>
+              Branching_Suffix_Matches (Text, 1, 1, 0, 0)
+                = Branching_Suffix_Matches (Text, Position, Next_Token, Declared_First, Declared_After));
+            pragma Loop_Variant (Increases => Next_Token);
+            Skip_Trivia (Text, Position);
+            declare
+               Start : constant Cursor := Position;
+            begin
+               if Branching_Required_Tokens (Next_Token) = Declaration_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched then return False; end if;
+                  if Forbidden_Argument_Name (Text, Start, Position) then return False; end if;
+                  Declared_First := Start;
+                  Declared_After := Position;
+               elsif Branching_Required_Tokens (Next_Token) = Reference_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched or else Declared_First = 0 then return False; end if;
+                  if not Equal_Name (Text, Declared_First, Declared_After, Start, Position) then
+                     return False;
+                  end if;
+               elsif Branching_Required_Tokens (Next_Token) = String_Literal then
+                  Match_Literal (Text, Position, Matched);
+               else
+                  Match_Token (Text, Position, Branching_Required_Tokens (Next_Token), Matched);
+               end if;
+            end;
+            if not Matched then return False; end if;
+            Next_Token := Next_Token + 1;
+         end loop;
+         Skip_Trivia (Text, Position);
+         return Position > Text'Last;
+      end;
+   end Accepts_Branching;
+
    function Accepts_Concatenation (Source : String) return Boolean
      with Global => null,
        Post => (Static => Accepts_Concatenation'Result =
@@ -1431,6 +1540,7 @@ is
    begin
       return Accepts_Literal (Source) or else Accepts_Named (Source)
         or else Accepts_Arguments (Source) or else Accepts_Concatenation (Source)
-        or else Accepts_Guarded (Source) or else Accepts_Assignment (Source);
+        or else Accepts_Guarded (Source) or else Accepts_Assignment (Source)
+        or else Accepts_Branching (Source);
    end Accepts;
 end Silver_Output_Profile;

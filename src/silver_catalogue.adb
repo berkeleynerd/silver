@@ -85,7 +85,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_literal""");
       Put_Line ("        ],");
-      Put_Line ("        ""count"": 1");
+      Put_Line ("        ""count_per_terminal_branch"": 1");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -263,6 +263,40 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""decoded_length"": ""equal_to_initializer_decoded_length"",");
       Put_Line ("        ""count"": 1");
       Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""string_equality"",");
+      Put_Line ("      ""ada_kind"": ""relational_expression"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""operator"": ""="",");
+      Put_Line ("        ""operands"": [");
+      Put_Line ("          ""declared_constant_identifier"",");
+      Put_Line ("          ""string_literal""");
+      Put_Line ("        ],");
+      Put_Line ("        ""predefined_string_equality"": true,");
+      Put_Line ("        ""case_sensitive"": true,");
+      Put_Line ("        ""unequal_lengths_equal"": false,");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""input_branch"",");
+      Put_Line ("      ""ada_kind"": ""if_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""outer_condition"": ""Silver_Arguments.Input_Is_Valid"",");
+      Put_Line ("        ""outer_else"": [");
+      Put_Line ("          ""argument_rejection""");
+      Put_Line ("        ],");
+      Put_Line ("        ""inner_condition"": ""string_equality"",");
+      Put_Line ("        ""then"": [");
+      Put_Line ("          ""literal_output""");
+      Put_Line ("        ],");
+      Put_Line ("        ""else"": [");
+      Put_Line ("          ""literal_output""");
+      Put_Line ("        ],");
+      Put_Line ("        ""terminal_branches"": true,");
+      Put_Line ("        ""additional_nesting"": false");
+      Put_Line ("      }");
       Put_Line ("    }");
       Put_Line ("  ],");
    end Export_Constructs;
@@ -421,6 +455,32 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""silver_runtime.ads""");
       Put_Line ("      ],");
       Put_Line ("      ""initializer"": ""string_literal""");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""name"": ""branching_output"",");
+      Put_Line ("      ""context"": [");
+      Put_Line ("        ""runtime_context"",");
+      Put_Line ("        ""argument_context""");
+      Put_Line ("      ],");
+      Put_Line ("      ""declarative_items"": [");
+      Put_Line ("        ""spark_mode_on"",");
+      Put_Line ("        ""named_string_constant""");
+      Put_Line ("      ],");
+      Put_Line ("      ""initializer"": ""argument_initialization"",");
+      Put_Line ("      ""additional_excluded_names"": [");
+      Put_Line ("        ""Silver_Arguments""");
+      Put_Line ("      ],");
+      Put_Line ("      ""statements"": [");
+      Put_Line ("        ""input_branch""");
+      Put_Line ("      ],");
+      Put_Line ("      ""library_units"": [");
+      Put_Line ("        ""silver_io.ads"",");
+      Put_Line ("        ""silver_io.adb"",");
+      Put_Line ("        ""silver_output_libc.ads"",");
+      Put_Line ("        ""silver_arguments.ads"",");
+      Put_Line ("        ""silver_arguments.adb"",");
+      Put_Line ("        ""silver_runtime.ads""");
+      Put_Line ("      ]");
       Put_Line ("    }");
       Put_Line ("  ],");
    end Export_Compositions;
@@ -564,6 +624,20 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put ("""<reference_name>""");
          else
             Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Argument_Required_Tokens (Index)) & """");
+         end if;
+      end loop;
+      Put_Line ("],");
+      Put ("  ""branching_tokens"": [");
+      for Index in Silver_Output_Profile.Branching_Required_Tokens'Range loop
+         if Index /= Silver_Output_Profile.Branching_Required_Tokens'First then Put (","); end if;
+         if Silver_Output_Profile.Branching_Required_Tokens (Index) = Silver_Output_Profile.String_Literal then
+            Put ("""<string_literal>""");
+         elsif Silver_Output_Profile.Branching_Required_Tokens (Index) = Silver_Output_Profile.Declaration_Name then
+            Put ("""<declaration_name>""");
+         elsif Silver_Output_Profile.Branching_Required_Tokens (Index) = Silver_Output_Profile.Reference_Name then
+            Put ("""<reference_name>""");
+         else
+            Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Branching_Required_Tokens (Index)) & """");
          end if;
       end loop;
       Put_Line ("],");

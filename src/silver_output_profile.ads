@@ -13,7 +13,7 @@ is
       String_Literal, Colon, Constant_Keyword, String_Name, Assignment,
       Declaration_Name, Reference_Name, Arguments_Name, First_Or_Default_Name,
       If_Keyword, Input_Is_Valid_Name, Then_Keyword, Else_Keyword, Reject_Name,
-      Ampersand, And_Keyword, Apostrophe, Length_Name, Less_Equal, Capacity_Literal);
+      Ampersand, And_Keyword, Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,
@@ -54,6 +54,20 @@ is
       Right_Parenthesis, Semicolon, Else_Keyword, Arguments_Name, Dot,
       Reject_Name, Semicolon, End_Keyword, If_Keyword, Semicolon,
       End_Keyword, Main_Name, Semicolon);
+
+   Branching_Required_Tokens : constant Token_Sequence :=
+     (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name, Semicolon,
+      Procedure_Keyword, Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
+      Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon, Declaration_Name, Colon,
+      Constant_Keyword, String_Name, Assignment, Arguments_Name, Dot,
+      First_Or_Default_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+      Semicolon, Begin_Keyword, If_Keyword, Arguments_Name, Dot, Input_Is_Valid_Name,
+      Then_Keyword, If_Keyword, Reference_Name, Equal, String_Literal, Then_Keyword,
+      IO_Name, Dot, Put_Line_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+      Semicolon, Else_Keyword, IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
+      String_Literal, Right_Parenthesis, Semicolon, End_Keyword, If_Keyword, Semicolon,
+      Else_Keyword, Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword, If_Keyword,
+      Semicolon, End_Keyword, Main_Name, Semicolon);
 
    Concatenation_Required_Tokens : constant Token_Sequence :=
      (With_Keyword, IO_Name, Semicolon,
@@ -100,7 +114,8 @@ is
    --  literal constants, guarded command-line initialization and output,
    --  literal-backed concatenation, and command-line concatenation behind
    --  the fixed validity and residual-capacity guard, and one equal-length
-   --  literal assignment to a literal-initialized String variable.
+   --  literal assignment to a literal-initialized String variable, and input
+   --  equality selecting two terminal literal outputs behind the validity guard.
    --  Its string contents are printable ASCII; doubled quotes encode one
    --  quote, and comments/trivia apply only outside the literal.
    function Is_Member (Source : String) return Boolean

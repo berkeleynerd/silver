@@ -12,10 +12,13 @@ restrictions and behavior. This document records its assurance argument and
 evidence. Future capabilities remain in the [roadmap](../roadmap.md) until they
 complete the [admission workflow](../development.md).
 
-The SPARK implementation recognizes seven productions: null, literal output,
+The SPARK implementation recognizes eight productions: null, literal output,
 named-constant output, guarded command-line output, literal-backed concatenation,
-guarded command-line concatenation, and fixed-length literal assignment. The
-latest composition and validation are recorded in [string-assignment.md](string-assignment.md).
+guarded command-line concatenation, fixed-length literal assignment and
+input-dependent branching. The latest completed source-correspondence and
+validation checkpoint is recorded in [input-branching.md](input-branching.md).
+The preceding assignment increment is recorded in
+[string-assignment.md](string-assignment.md).
 The preceding report-policy refinement is recorded in
 [command-line-greeting.md](command-line-greeting.md).
 The preceding [command-line capability](command-line.md) and
@@ -26,7 +29,8 @@ workflow history is in [proof-workflow.md](proof-workflow.md) and
 [review-repairs.md](review-repairs.md). These records retain their actual input
 and platform scope; earlier results do not validate later changes.
 Pinned Lean 4.34.1 proves membership and behavior of the restricted source
-models. The first five and the assignment application safety-obligation lists are empty. Guarded dynamic
+models. The first five, assignment and branching application safety-obligation
+lists are empty. Guarded dynamic
 concatenation has nonempty, universally valid arithmetic range schemas with a
 proved finite decision procedure. The reviewed Ada argument and explicit
 GNATprove-generation and bounded-solver-completion premises connect those models
@@ -93,11 +97,11 @@ those expressions. `RecursiveBridge` interprets recursive calls parametrically,
 applies the three uniqueness lemmas, and composes the resulting equivalences
 with cursor/grammar equivalence in the final source theorem. A complete reviewed
 token shape fixes surrounding declarations and binding scopes as well as the
-selected bodies. The JSON names the admitted constructs, their conditions, the seven token
+selected bodies. The JSON names the admitted constructs, their conditions, the eight token
 sequences and permitted compositions. Construct metadata is maintained explicitly;
 integration compares parsed JSON values, not whitespace or key order. Output
 word-token selection is explicit in the exporter. An integration assertion
-compares its word set with the alphabetic tokens of the seven productions;
+compares its word set with the alphabetic tokens of the productions;
 source checks separately bind those productions to the recognizers.
 
 ### Null structural proof
@@ -163,9 +167,9 @@ by consumed source. `OutputLiteral` supplies the printable-byte predicate.
 `OutputAdmission` defines the 23-token output production and proves scanner
 soundness/completeness. Existing trivia and whole-word rules apply outside the
 literal. `Current.Member` is the union of the null, literal, named, guarded
-argument, concatenation, guarded concatenation and assignment grammars; `Current.accepts_iff_member` connects
+argument, concatenation, guarded concatenation, assignment and branching grammars; `Current.accepts_iff_member` connects
 decidable membership to that union.
-Only these seven compositions are included; their constructs are not freely
+Only these eight compositions are included in the current model; their constructs are not freely
 repeatable.
 
 `OutputRuntime` models the actual wrapper's length guard, checked writes,
@@ -318,7 +322,7 @@ grouping enforces left association, while the decoder's event order makes no
 claim about Ada operand evaluation order. `evaluation_refines` and
 `execution_refines` connect the initialized binding, concatenated value and
 existing IO wrapper. `Current.concat_execution_refines` embeds this result in
-the seven-form language through its existing output action.
+the current language through its existing output action.
 `Concat.SourceBridge.authoritative_main_correct` retains the checked source,
 parsing against the typed renderer, event evaluation and equality to
 `Current.execute`. Reading the fixed syntax as Ada retains the frontend premise
@@ -359,7 +363,7 @@ rendering. The interpreter evaluates the initializer before creating the
 binding and executing the guard, and reports an uninitialized reference as a
 failed evaluation. `Arguments.execution_refines` connects that execution to
 `Arguments.Runtime.executeMain` for every admitted source meaning;
-`Current.argument_execution_refines` connects the result to the seven-form model.
+`Current.argument_execution_refines` connects the result to the current model.
 `Arguments.SourceBridge.authoritative_main_correct` retains the checked source,
 parsing against that rendering, and equality of the interpreted result with
 `Current.execute` in one theorem.
@@ -411,7 +415,7 @@ the output domain for every argument vector. The typed `Guarded.Main.composition
 renders exactly to the admitted tokens and consumes those events in source
 order. Its interpreter initializes the constant, short-circuits the guard and
 selects output or rejection. `Current.guarded_execution_refines` connects it to
-the seven-form execution model; general conditionals are not admitted.
+the current execution model; general conditionals are not admitted.
 
 **Reviewed Ada correspondence.** The owned initializer's verified postcondition
 now fixes the result's lower bound at 1. Extended returns construct
@@ -499,12 +503,66 @@ or suppressed checks in the audited report. Successful tool termination is
 checked separately; `warn_error` is not a catch-all list of compiler warnings.
 The permitted library-effect dependency remains explicit. GNATprove omits the advisory for some legal identifiers, so its
 presence is not an acceptance requirement. The assignment route uses
-`--warnings=continue` to collect the full report; all six earlier routes keep
+`--warnings=continue` to collect the full report; every other route keeps
 `--warnings=error`, and every selected library report retains its strict policy.
 No diagnostic is suppressed in source or erased from evidence. The independent
 ghost `Assignment_Report_Policy` specifies this route and SPARK proves acceptance
 equivalent to it. The [capability record](string-assignment.md) records genuine
 report variants, mutation tests and validation.
+
+### Input-dependent branching
+
+The eighth production has one argv-initialized constant, the existing
+validity/rejection guard and one inner String equality choosing between terminal
+literal outputs. Its completed full assurance checkpoint is recorded in the
+[capability record](input-branching.md).
+
+`BranchingAdmission` defines the 67-token production, an independent event grammar
+and scanner soundness/completeness. The existing literal grammar preserves all
+four decoded payloads in order: default, comparison, matching output and other
+output. In `BranchingSemantics`, `member_has_meaning`, `meaning_unique` and
+`meaning_binds` establish the program payload and case-insensitive reference
+binding. `choose` compares byte lists exactly; `unequal_lengths_choose_no` records
+the differing-length case. `output_domain` bounds whichever output is selected
+without summing unexecuted branches.
+
+The typed `Branching.Main.composition` uses shared rendering and interpretation
+nodes for initialization, reference lookup, predefined equality and the nested
+conditional. `rendered_tokens`, `checked_precedence` and `instantiation` connect
+the token production to its ordered parser events. `execution_refines` selects
+the corresponding literal only after the validity guard; `missing_execution`,
+`single_execution`, `empty_execution` and `extra_arguments_rejected` cover the
+argument cases. `valid_output_success` retains complete bytes and successful
+flush; `valid_output_failure` retains status 1 and an accepted prefix. There is
+no statement after either output call.
+
+`BranchingDisjoint` distinguishes the new form from all seven earlier grammars.
+`Current.branching_execution_refines` integrates a distinct `branchingMain`
+meaning, preserving input-dependent behavior in the union. Its range-obligation
+list is empty, and it still requires fixed-library evidence.
+`BranchingEquations` and `BranchingExpressions` supply the recursive recognizer
+equation, uniqueness argument and typed expression interpretation.
+`BranchingSourceBridge` checks the authoritative suffix body, numeric domain,
+recursive contract and executable recognizer postcondition against the typed
+expression, and connects the typed Main to `Current.execute`. The public union
+is closed by `GuardedSourceBridge`.
+
+**Reviewed Ada correspondence and obligations.** Both equality operands are
+fully initialized Strings. Ada's predefined array equality compares element
+values and length; it does not require equal operand lengths or equal bounds.
+It preserves character case and does not concatenate, index or mutate the
+application values. The selected output argument is one literal bounded by the
+complete source. Default selection and the validity query retain the same
+immutable-argv premise as the existing command-line forms.
+
+The native experiment found empty Main flow/proof lists, including empty and
+escaped literals, differing lengths and an exact 4096-byte source. The unchanged
+driver routes this form through `Complete_Null_Proof` with `--warnings=error`;
+it satisfies neither the dynamic-concatenation nor assignment selector.
+No report policy, proof option, runtime source or library obligation is relaxed.
+Faithful complete GNATprove generation and frontend equality meaning remain
+external premises. Focused examples corroborate the route; they do not establish
+universal assurance or substitute for the complete capability checkpoint.
 
 ### Selected library sources and evidence
 
@@ -546,7 +604,7 @@ complete obligation generation remains trusted.
 ## Compiler verification evidence
 
 `Silver_Profile.Accepts` is the null source recognizer;
-`Silver_Output_Profile.Accepts` recognizes the six output productions. Both have an
+`Silver_Output_Profile.Accepts` recognizes the seven output productions. Both have an
 independent ghost membership specification and proved executable refinement.
 For the null recognizer, its postcondition is
 `Accepts'Result = Is_Member (Source)`. The independent ghost specification uses
@@ -696,8 +754,9 @@ Additional cases simulate external tool failure, incomplete proof reports,
 skipped/assumed obligations, and source changes during proof or compilation.
 These tests are implementation evidence, not a universal language theorem.
 
-Current validation belongs in [string-assignment.md](string-assignment.md);
-guarded-concatenation results remain in [command-line-greeting.md](command-line-greeting.md);
+Completed assignment validation belongs in [string-assignment.md](string-assignment.md);
+the completed eighth-form checkpoint belongs in [input-branching.md](input-branching.md).
+Guarded-concatenation results remain in [command-line-greeting.md](command-line-greeting.md);
 literal-backed concatenation validation remains in [greeting.md](greeting.md);
 the preceding repair and capability results are in
 [command-line-review-repairs.md](command-line-review-repairs.md) and
@@ -841,15 +900,17 @@ The proof chain has distinct checked components:
    precedence. `GuardedEquations` and `GuardedExpressions` add the bounded decimal
    and literal-length calculations, capacity/name conditions and guarded suffix.
    `GuardedSourceBridge` checks these actual-source expressions and the typed
-   guarded Main renderer. Its current-language facade includes all seven forms;
+   guarded Main renderer. Its current-language facade includes all eight forms;
    the guarded- and assignment-selector theorems connect the driver classifiers
    to their exact productions. `AssignmentSourceBridge` adds the assignment
-   expression, fixed-length mutation and ordered Main rendering checks. `authoritative_current_member_iff` and
+   expression, fixed-length mutation and ordered Main rendering checks.
+   `BranchingSourceBridge` adds the equality/terminal-branch Main composition and
+   actual suffix and executable refinement checks. `authoritative_current_member_iff` and
    `checked_current_pipeline` retain the checked source facts when composing
    membership and the conditional external-tool result. Each checked recursive
    interpretation is closed by the corresponding uniqueness argument. The
    source reading still uses the approved Ada frontend and SPARK's numeric facts.
-10. `Current` composes runtime and source-meaning model lemmas for the seven
+10. `Current` composes runtime and source-meaning model lemmas for the eight
    productions, including `Arguments.execution_refines` and
    `Arguments.Runtime.main_refines`. It does not import the source bridges.
    `Output.SourceBridge.authoritative_runtime_correct` separately conjoins the
@@ -934,12 +995,12 @@ publication. There is no separate single theorem modeling the entire CLI and OS.
 | Claim | How established | Scope and premises |
 | --- | --- | --- |
 | Decidable membership | Lean grammar/cursor equivalence; checked source shape; applied recursive uniqueness; GNATprove refinement | Fixed compiler-source fragment, interpreted with the approved frontend and checked numeric/normalization contracts. |
-| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All seven compositions, admitted concatenations, defaults and argument outcomes; immutable argv, GNAT ABI and output meanings/progress as documented. |
-| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the seven productions; no general serializer theorem. |
+| Construct/composition safety | Lean universal execution theorems; reviewed Ada lexical/semantic argument; verified wrappers | All eight compositions; admitted concatenations, equality, defaults and argument outcomes use the documented argv, GNAT ABI and output premises. |
+| Catalogue correspondence | Shared SPARK rules, Lean source checks, parsed JSON integration comparison | Explicit construct metadata and token/byte tables for the eight productions. No general serializer theorem. |
 | Compiler Bronze/Silver | GNATprove and content-bound coverage/result audit | All owned units; pinned external imports and the documented runtime assumptions. |
 | Component functional correctness | GNATprove contracts; Lean recognition bridge | Membership, normalization, decimal rendering, null/runtime/application report-policy refinement, I/O observations and ordered driver guards. |
 | Source preservation | GNATprove snapshot/transcript contracts; integration tests | Same snapshot around proof/build; immutable project/filesystem and faithful external tools remain premises. |
-| Automatic discharge | Lean bounded-range decision and refinement theorems; conditional external-tool theorem; real report checks | Empty checks for the first five forms, valid bounded-range schemas for the sixth, statically compatible assignment in the seventh, and separately audited fixed libraries. External generation and pinned-fragment prover completion remain explicit premises. |
+| Automatic discharge | Lean bounded-range decision and refinement theorems; conditional external-tool theorem; real report checks | Empty checks for the first five forms and branching, valid bounded-range schemas for the sixth, statically compatible assignment in the seventh, and separately audited fixed libraries. External generation and pinned-fragment prover completion remain explicit premises. |
 | Native support | Native build/proof/tests plus simulated routing tests | Capability and repair records identify actual inputs, modes and hosts. Historical macOS baseline evidence retains its original scope. The later [external review](command-line-greeting.md#external-review-disposition) reports native macOS validation of the sixth form; corroborating records are entirely optional. Validation runs locally with hosted CI disabled at the owner's direction; [host readiness](host-readiness.md) records replacement-host evidence and recovery. |
 
 These boundaries do not change membership or waive any obligation. Admission,
