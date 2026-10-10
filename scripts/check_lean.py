@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -129,6 +130,37 @@ def positive_integer(value: str) -> int:
     return number
 
 
+def nonnegative_integer(value: str) -> int:
+    number = int(value)
+    if number < 0:
+        raise argparse.ArgumentTypeError("must be nonnegative (0 uses available CPUs)")
+    return number
+
+
+def available_cpus() -> int:
+    """Respect process affinity and Python's CPU override, with a portable fallback.
+
+    CPU-time quotas and competing workloads can require an explicit lower worker
+    setting; an affinity mask does not describe those limits.
+    """
+    counts = []
+    for probe in (getattr(os, "process_cpu_count", None), os.cpu_count):
+        if probe is not None:
+            try:
+                count = probe()
+            except OSError:
+                continue
+            if count is not None and count > 0:
+                counts.append(count)
+    try:
+        affinity = len(os.sched_getaffinity(0))
+        if affinity > 0:
+            counts.append(affinity)
+    except (AttributeError, OSError):
+        pass
+    return min(counts, default=1)
+
+
 def lake_build_command(lake: Path, settings: list[str]) -> list[str]:
     # Lake caches get_config? values at configuration elaboration time. -K alone
     # does not replace that cached configuration. Re-elaboration applies this
@@ -182,12 +214,18 @@ def main(arguments: list[str] | None = None) -> None:
                         help="also independently replay the complete kernel environment")
     parser.add_argument("--clean", action="store_true",
                         help="discard this host's proof workspace and perform a full check")
-    parser.add_argument("--threads", type=positive_integer, default=1,
-                        help="threads per Lean process (default 1 for certificate memory use; "
-                             "Lake also schedules independent modules)")
+    parser.add_argument("--workers", type=nonnegative_integer, default=0,
+                        help="Lake workers for independent modules (default 0: available CPUs; "
+                             "reduce on quota-limited or shared hosts)")
+    parser.add_argument("--threads", type=nonnegative_integer, default=0,
+                        help="threads per Lean build/audit process (default 0: available CPUs; "
+                             "separate from Lake workers)")
     parser.add_argument("--memory-mb", type=positive_integer,
                         help="optional memory limit per Lean process, in megabytes")
     args = parser.parse_args(arguments)
+    cpus = available_cpus()
+    args.workers = args.workers or cpus
+    args.threads = args.threads or cpus
     full = args.full or args.clean
     started = time.monotonic()
     host = native_layout()
@@ -229,6 +267,14 @@ def main(arguments: list[str] | None = None) -> None:
                              cwd=host.artifacts).stdout.strip()
     if version != pin.removeprefix(prefix):
         raise RuntimeError(f"Lean {version} does not match {pin}")
+
+    # Lake's compiled runtime uses this worker pool for independent build jobs.
+    # lean_environment removed any inherited value; the explicit -j option
+    # separately configures each Lean build/audit process. Neither setting
+    # parallelizes leanchecker's fresh replay.
+    environment["LEAN_NUM_THREADS"] = str(args.workers)
+    print(f"Lean concurrency: {args.workers} Lake workers, "
+          f"{args.threads} threads per Lean process ({cpus} available CPUs).", flush=True)
 
     prepare_workspace(host, inputs, clean=args.clean)
     prepare_tool_cache(host, tool_hashes)
@@ -313,6 +359,8 @@ def main(arguments: list[str] | None = None) -> None:
                                     "clean_replay": args.clean, "axiom_audit": "passed",
                                     "kernel_recheck": "leanchecker --fresh Silver.Audit" if full else None,
                                     "threads_per_process": args.threads,
+                                    "lake_workers": args.workers,
+                                    "available_cpus": cpus,
                                     "memory_mb_per_process": args.memory_mb,
                                     "commands": commands,
                                     "tools_sha256": tool_hashes,

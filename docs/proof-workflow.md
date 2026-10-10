@@ -119,6 +119,10 @@ added a statement bridge and split certificates into seven independently
 scheduled modules; see [hello-world.md](hello-world.md) and the subsequent
 [review repairs](hello-review-repairs.md).
 
+Subsequent [Lean concurrency tuning](lean-concurrency.md) measures the current
+six-production library on Linux x86-64 and supersedes the historical default
+guidance above. Its scheduling changes preserve the same cache and audit rules.
+
 On that historical monolithic run Lake reported 802 seconds for `SourceCertificates` alone. Caching
 improves unchanged checks; it does not remove that cost when the certificate's
 inputs change.
@@ -259,7 +263,9 @@ assurance records describe the checked inputs/results, not authenticated
 distributed binaries. Additional adversarial hardening and stable-release
 compatibility machinery can be added when their use is justified.
 
-Native validation of the cold option and exploratory guard on macOS, and all
-x86-64 validation, remains independent and pending.
-CI is configured for full SPARK and clean Lean checks, but no remote CI run
-exists; repository work remains local at the owner's request.
+At that historical checkpoint, native validation of the cold option and
+exploratory guard on macOS, and all x86-64 validation, remained pending. CI was
+configured for full SPARK and clean Lean checks, with no remote run recorded.
+Subsequent [host readiness](host-readiness.md) and [concurrency tuning](lean-concurrency.md)
+record completed Linux x86-64 validation. GitHub Actions is now disabled
+repository-wide at the owner's request; ongoing validation runs locally.

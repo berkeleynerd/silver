@@ -276,11 +276,14 @@ python3 scripts/dev.py test
 python3 scripts/check_lean.py --full
 ```
 
-Lake schedules independent modules. Lean declaration checking defaults to one
-thread per process as a conservative memory setting for large certificates;
-`--threads N` lets developers tune it. This default has not been benchmarked
-against higher thread counts. Caching and worker counts do not change the
-required proof obligations.
+The runner defaults both Lake workers and Lean threads per process to the CPUs
+available to this process. `--workers N`
+and `--threads N` override them independently; `0` selects the automatic count.
+Use lower settings on shared or memory-constrained hosts. `--memory-mb N` limits
+each Lean build/audit process, not combined host memory. See the
+[concurrency measurements](docs/lean-concurrency.md) for the observed speedup
+and RAM use. Generated certificates and the separate fresh kernel recheck still
+have serial work. Caching and worker counts do not change required obligations.
 
 The source bridge embeds the authoritative null/output recognizers and selected
 runtime sources, checks restricted source bytes and declaration shapes, and interprets

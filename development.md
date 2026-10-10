@@ -93,13 +93,17 @@ provide development feedback, not a new full assurance record.
 Lean retains Lake artifacts and rebuilds changed dependencies. Changing an embedded
 recognizer or selected runtime Ada file invalidates the whole Silver Lean library.
 Its module/axiom audit executes on
-every invocation, including cache hits. Lake schedules independent modules;
-`--threads N` controls declaration threads within each Lean process. The default
-remains one because generated
-certificates have high peak memory use. This is a conservative starting point,
-not a measured optimum. The ten source-certificate modules are independent
-so Lake can check them concurrently; each module remains serial at this setting. Measure time and memory when tuning it, and avoid multiplying all-core
-thread pools across concurrent modules. The runner re-elaborates Lake configuration
+every invocation, including cache hits. `--workers N` controls Lake's workers for
+independent modules; `--threads N` separately controls each Lean build/audit
+process. Both default to `0`, selecting the CPUs available through process
+affinity and Python's CPU count. Explicit counts permit
+lower settings for CPU quotas, competing workloads or memory pressure. Worker
+pools can multiply across modules; these settings are not strict OS-thread caps
+or a promise that every proof uses every core. The
+[concurrency record](docs/lean-concurrency.md) measures the selected settings and
+explains the remaining serial certificate and kernel work. The ten independent
+source-certificate modules can still build concurrently. The runner re-elaborates
+Lake configuration
 so each invocation actually applies its requested thread and memory settings.
 `--memory-mb N` limits allocations in Lean build/audit processes, not total host
 RSS or the combined memory of concurrently scheduled modules. The separate

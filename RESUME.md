@@ -15,12 +15,23 @@ alongside the new x86-64 state. Top-level `tmp/`, `.vscode/`, old CLI memory and
 the old checkout's local Git state were outside those snapshots. Preserve any
 remaining old VM/backup until that separate state is accounted for. GitHub access
 is now restored; an authenticated October 10 check confirmed local and remote
-`main` at published recovery checkpoint `eb7262a`. At the owner's explicit
+`main` at published recovery handoff `04c6cb7`. At the owner's explicit
 direction, GitHub Actions is disabled for the entire repository and validation
 runs locally. Do not enable hosted CI as a readiness follow-up. No runs are
 listed and the previously recorded run is no longer retrievable.
 CLI memory is disabled and absent; checked-in session memory is the active
-handoff. No new language expansion or performance candidate is authorized.
+handoff. The owner subsequently authorized [Lean concurrency tuning](docs/lean-concurrency.md)
+on the current proofs. No language expansion or new certificate-representation
+candidate is authorized.
+
+**Concurrency tuning:** the measured runner change is complete. Lake workers
+and per-process Lean threads now default to the available CPUs, with independent
+overrides and retained caches. Regression tests, full Lean verification and a
+cached full all-core compiler audit passed. The
+[concurrency record](docs/lean-concurrency.md) gives the measured speedup and RAM
+headroom, exact validation scope and remaining serial costs. Its publication
+outcome is recorded at the closing handoff; the feature review target below is
+unchanged.
 
 ## Completed work and review target
 
@@ -44,8 +55,9 @@ handoff. No new language expansion or performance candidate is authorized.
   checkout started at `69d294c` and has now incorporated the fetched migration
   commits through `1bf065d`. Initial credential failures on the replacement host
   were separate from that earlier resolved scope issue; access recovered after
-  the second restart. No next language
-  capability or further performance investigation is authorized.
+  the second restart. The later scheduling task is separate from the closed
+  certificate-representation investigation; no next language capability is
+  authorized.
 
 Read [the capability record](docs/command-line-greeting.md) for exact proof
 claims, results, identities and limitations, and
@@ -134,9 +146,11 @@ the owner's latest instructions take precedence over the older paused snapshot.
    installing missing Linux libc development files; consult the readiness record
    before repeating completed phases.
 4. Use the existing incremental proof workflow for subsequent authorized work.
-   For a full check, start conservatively with
-   `python3 scripts/dev.py prove --full --jobs 4` and
-   `python3 scripts/check_lean.py --full --threads 1 --memory-mb 6144`.
+   GNATprove defaults to all detected cores; `--jobs N` provides a lower limit.
+   Lean now defaults both Lake workers and per-process threads to the available
+   CPUs (12 here); `--workers N` and `--threads N` override them independently.
+   For full checks, use `python3 scripts/dev.py prove --full` and
+   `python3 scripts/check_lean.py --full --memory-mb 6144`.
    Run heavy proof commands separately and monitor available memory. Lake can
    schedule independent modules concurrently; the memory allowance applies to
    each Lean build/audit process, not aggregate host usage. The separate pinned
@@ -155,8 +169,9 @@ memory units and automatic CPU allocation (capped at 16 on Linux ARM64). The
 [disk override](https://docs.docker.com/ai/sandboxes/configuration/settings/#sandboxdiskdockervolume)
 sets the new sandbox's Docker volume, not the mounted workspace's capacity.
 Additional physical RAM does not change Lean's configured allocation limit or
-establish a measured proof speedup; retain the conservative starting settings
-above until actual resource use warrants tuning.
+establish a proof speedup. The [concurrency record](docs/lean-concurrency.md)
+documents the measured scheduling gains, memory headroom and remaining serial
+work; use those results when deciding whether a later workload needs more RAM.
 
 No historical ARM64 validation process needs resumption. Its compiler audit
 used wholly fresh sessions/cache, and its final Lean invocation reused completed

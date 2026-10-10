@@ -127,13 +127,15 @@ Ordinary `--full` retains that cache, while optional `--cold` allocates separate
 fresh state.
 
 Lean retains compiled modules and preserves unchanged source timestamps. Lake
-schedules independent modules concurrently; the default `--threads 1` sets
+schedules independent modules concurrently; the recovery-time default `--threads 1` set
 declaration threads within each Lean build/audit process. The recovery run also
 set `--memory-mb 6144` per process. These are conservative settings, not a
 measured optimum for the replacement host. The separate fresh kernel checker
 does not receive those thread or memory arguments. Increasing declaration
 threads does not establish proportional speedup and can multiply memory use
-across concurrently building modules. No new tuning experiment was performed.
+across concurrently building modules. No tuning experiment was performed during
+recovery. The owner subsequently authorized [Lean concurrency tuning](lean-concurrency.md);
+that separate record supplies the measured settings for ongoing work.
 
 Every ordinary Lean invocation executes the axiom audit afresh; `--full` adds
 the fresh kernel recheck, and optional `--clean` discards native module caches.

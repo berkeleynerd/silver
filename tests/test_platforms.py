@@ -57,7 +57,8 @@ def mock_lockfile(host: platforms.HostLayout) -> None:
 
 def setup_worker(root: Path, key: str, concurrent: bool = False,
                  fail_proof: bool = False, lean_mode: str = "incremental",
-                 omit_fresh_audit: bool = False) -> None:
+                 omit_fresh_audit: bool = False, lean_workers: int | None = None,
+                 lean_threads: int | None = None) -> None:
     """Run real setup code while replacing only network/external tool effects."""
     host = platforms.HostLayout(root, key)
     root = host.root
@@ -74,6 +75,9 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
     downloads = {alire_name: alire_data, f"{lean_prefix}.zip": lean_data}
     fetched: list[str] = []
     commands: list[list[str]] = []
+    available_cpus = 3
+    resolved_workers = lean_workers or available_cpus
+    resolved_threads = lean_threads or available_cpus
     settings: dict[str, str] = {}
     real_run = subprocess.run
     foreign = root / "foreign-proof-toolchain"
@@ -83,6 +87,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         "LEAN_PATH": str(foreign / "objects"),
         "LEAN_SRC_PATH": str(foreign / "sources"),
         "LEAN_CC": str(foreign / "bin/compiler"),
+        "LEAN_NUM_THREADS": "98",
+        "LEAN_MAX_THREADS": "99",
         "LAKE": str(foreign / "bin/lake"),
         "LAKE_HOME": str(foreign),
         "LAKE_CONFIG": str(foreign / "system-config.toml"),
@@ -97,7 +103,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         "PATH": str(foreign / "bin") + os.pathsep + os.environ.get("PATH", ""),
     }
 
-    def check_lean_environment(kwargs: dict[str, object]) -> dict[str, str]:
+    def check_lean_environment(kwargs: dict[str, object], *, workers: bool = False) -> dict[str, str]:
         environment = kwargs.get("env")
         assert isinstance(environment, dict), "Lean/Lake must receive an isolated environment"
         expected = {
@@ -109,6 +115,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             "LAKE_NO_CACHE": "true", "LAKE_ARTIFACT_CACHE": "false",
             "LAKE_RESTORE_ARTIFACTS": "false", "ELAN": "",
         }
+        if workers:
+            expected["LEAN_NUM_THREADS"] = str(resolved_workers)
         actual = {name: value for name, value in environment.items()
                   if name in ("LEAN", "LAKE", "ELAN")
                   or name.startswith(("LEAN_", "LAKE_", "ELAN_"))}
@@ -177,13 +185,13 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             output = (f"{bootstrap_lean.LEAN_VERSION}\n" if "--short-version" in args
                       else f"Lean (version {bootstrap_lean.LEAN_VERSION}, test fixture)\n")
         elif executable == host.lean / "bin/lake":
-            environment = check_lean_environment(kwargs)
+            environment = check_lean_environment(kwargs, workers=True)
             assert Path(str(kwargs["cwd"])) == host.proof
             options = args[1:]
             if options and options[0] == "--rehash":
                 assert options[:2] == ["--rehash", "--reconfigure"]
                 options = options[2:]
-            assert options[:2] == ["-K", "silverThreads=1"]
+            assert options[:2] == ["-K", f"silverThreads={resolved_threads}"]
             options = options[2:]
             if options == ["build", "Silver.Audit"]:
                 if fail_proof:
@@ -201,7 +209,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
                 output += "".join(f"SILVER_MODULE {module}\n"
                                   for module in sorted(check_lean.project_sources(host.proof)))
             elif options == ["env", str(host.lean / "bin/lean"), "-DwarningAsError=true",
-                             "-j1", "Silver/Audit.lean"]:
+                             f"-j{resolved_threads}", "Silver/Audit.lean"]:
                 if not omit_fresh_audit:
                     output = "Silver axiom audit passed: FRESH MOCKED routing test only\n"
                     output += "".join(f"SILVER_MODULE {module}\n"
@@ -246,6 +254,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             stack.enter_context(mock.patch.object(module, "native_layout",
                                                    side_effect=lambda: platforms.native_layout(root)))
         stack.enter_context(mock.patch.object(check_lean, "PROOF", root / "proof"))
+        stack.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=available_cpus))
         stack.enter_context(mock.patch.object(bootstrap.urllib.request, "urlopen", side_effect=download))
         stack.enter_context(mock.patch.object(subprocess, "run", side_effect=run))
         if concurrent:
@@ -260,7 +269,12 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         bootstrap.main()
         bootstrap_lean.main()
         try:
-            check_lean.main([] if lean_mode == "incremental" else ["--" + lean_mode])
+            lean_arguments = [] if lean_mode == "incremental" else ["--" + lean_mode]
+            if lean_workers is not None:
+                lean_arguments.extend(["--workers", str(lean_workers)])
+            if lean_threads is not None:
+                lean_arguments.extend(["--threads", str(lean_threads)])
+            check_lean.main(lean_arguments)
         except RuntimeError as error:
             expected = "freshly executed axiom audit" if omit_fresh_audit else "Lean check failed"
             if not (fail_proof or omit_fresh_audit) or expected not in str(error):
@@ -285,6 +299,9 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             assert data["workspace"] == str(host.proof.relative_to(root))
             assert data["mode"] == lean_mode
             assert data["clean_replay"] == (lean_mode == "clean")
+            assert data["available_cpus"] == available_cpus
+            assert data["lake_workers"] == resolved_workers
+            assert data["threads_per_process"] == resolved_threads
             assert bool(data["kernel_recheck"]) == (lean_mode != "incremental")
             assert any(command[-1] == "Silver/Audit.lean" for command in commands)
             assert any("--fresh" in command for command in commands) == (lean_mode != "incremental")
@@ -462,6 +479,14 @@ class PlatformIsolationTests(unittest.TestCase):
         self.run_worker(key, "--omit-fresh-audit")
         self.assertFalse((platforms.HostLayout(self.root, key).artifacts / "lean-evidence.json").exists())
         self.assertEqual(self.snapshot((key,)), before)
+
+    def test_lean_auto_and_explicit_resources_are_recorded_and_isolated(self) -> None:
+        key = platforms.host_key()
+        for workers, threads in ((0, 0), (2, 4)):
+            with self.subTest(workers=workers, threads=threads):
+                before = self.snapshot((key,))
+                self.run_worker(key, f"--lean-workers={workers}", f"--lean-threads={threads}")
+                self.assertEqual(self.snapshot((key,)), before)
 
     def test_legacy_archives_are_read_only_inputs(self) -> None:
         key = "macos-x86_64"
@@ -651,6 +676,10 @@ if __name__ == "__main__":
         setup_worker(Path(sys.argv[2]), sys.argv[3], "--concurrent" in sys.argv,
                      "--fail-proof" in sys.argv,
                      next((arg.split("=", 1)[1] for arg in sys.argv if arg.startswith("--lean-mode=")),
-                          "incremental"), "--omit-fresh-audit" in sys.argv)
+                          "incremental"), "--omit-fresh-audit" in sys.argv,
+                     next((int(arg.split("=", 1)[1]) for arg in sys.argv
+                           if arg.startswith("--lean-workers=")), None),
+                     next((int(arg.split("=", 1)[1]) for arg in sys.argv
+                           if arg.startswith("--lean-threads=")), None))
     else:
         unittest.main()

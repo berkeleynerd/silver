@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-10-10 — Lean concurrency tuning
+
+The owner authorized tuning Lean for maximum useful concurrency on the current
+proofs, with more RAM available if measurements justify it. This supersedes the
+recovery handoff's blanket prohibition on further performance work for this
+scheduling task. The certificate-representation investigation remains closed at
+`5668806`; no third representation candidate or language expansion is authorized.
+
+The runner now defaults both Lake workers and per-process Lean threads to the
+available CPU count, respecting affinity and Python's CPU override. Explicit
+`--workers N` and `--threads N` remain independent controls. The
+[concurrency record](lean-concurrency.md) contains controlled module and combined
+rebuild measurements, resource limits, exact evidence and remaining serial work.
+Additional RAM was not needed for the measured workload. Resource choices remain
+weak cache inputs; fresh axiom auditing and the full independent kernel replay
+are unchanged. GNATprove already defaults to all cores with its native cache.
+
+Final runner regressions, full Lean verification with fresh axiom/kernel checks,
+and a cached full all-core compiler audit passed. Independent review found no
+blocking issue; the initial new-test fixture error was repaired and its failed
+run retained. The full compiler audit refreshes the changed runner's provenance;
+its success does not establish a repair of the historical warm-state `DOC_END`
+failure. Performance improvements concern the measured handwritten-module
+workload; certificate reductions and fresh kernel replay retain serial costs.
+Independent final identity/coverage checks confirmed unchanged implementation
+and proof inputs, preserved compiled module hashes/timestamps and current evidence.
+Existing native/foreign evidence, tool installations and caches remain preserved.
+The [handoff](../RESUME.md) now gives the tuned local commands. The feature review
+target remains `96b4e3a`; the preceding recovery handoff is `04c6cb7`. Publication
+authorization continues, and GitHub Actions remains disabled repository-wide.
+Git history identifies the tuning commit carrying this entry; the closing
+handoff reports its actual publication outcome. The next project action remains
+external review of the feature, with no further language expansion started.
+CLI memory was actually rechecked: disabled, absent and unavailable through
+tools, so no CLI recall was updated. Checked-in session memory is the durable
+handoff. The live harness has no goal; the completed feature goal was not recreated.
+
 ## 2026-10-10 — Replacement-host recovery and local validation completed
 
 The replacement Linux x86-64 environment is ready for local development.

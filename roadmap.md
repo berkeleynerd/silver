@@ -36,7 +36,7 @@ sequence.
 | Milestone | Status | Capability and dependencies | Sample |
 | --- | --- | --- | --- |
 | Null baseline | Supported | `main_procedure`, `spark_mode_on`, and `null_statement` in the null composition. | [samples/null.adb](samples/null.adb) |
-| Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md). No language change; [host readiness](docs/host-readiness.md) records local validation and the owner's decision to disable hosted CI. | Developer workflow |
+| Faster proof feedback | Supported | Native GNATprove/Lake reuse, configurable workers and explicit full/cold/clean checks; [native platform evidence and remaining costs](docs/proof-workflow.md), with subsequent [Lean concurrency measurements](docs/lean-concurrency.md). No language change; [host readiness](docs/host-readiness.md) records local validation and the owner's decision to disable hosted CI. | Developer workflow |
 | Sample collection | Supported | Original null source moved byte-for-byte, with a small [manifest](samples/manifest.json) driving admission/proof/build/run checks. No language change. | [samples/null.adb](samples/null.adb) |
 | Literal output / Hello World | Supported | `runtime_context`, `literal_output`, and `string_literal` together: one qualified call, printable ASCII literal, verified wrapper and complete report handling. Final validation is recorded in the [capability record](docs/hello-world.md). | [samples/hello_world.adb](samples/hello_world.adb) |
 | Named string constant | Supported | A literal-initialized `constant String`, name binding and output through its identifier. Completed [validation](docs/named-strings.md). | [samples/string_constant.adb](samples/string_constant.adb) |
@@ -77,6 +77,11 @@ failed and interrupted trials from successful validation. The investigation
 raised the CI Lean allowance to 120 minutes without measuring hosted capacity.
 The retained workflow is now dormant at the owner's direction; validation runs
 locally.
+
+The owner separately authorized [Lean scheduling and concurrency tuning](docs/lean-concurrency.md)
+on 2026-10-10. That work uses the existing proofs and certificate representation;
+it does not reopen the two-candidate representation investigation or authorize
+another language capability.
 
 The following records the bounded investigation scope.
 

@@ -4,8 +4,11 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest import mock
 
+from scripts import check_lean
 from scripts.bootstrap_lean import lean_environment
 from scripts.check_lean import (CANDIDATES, audit_import_closure, lake_build_command,
                                prepare_tool_cache, prepare_workspace,
@@ -14,6 +17,34 @@ from scripts.platforms import HostLayout, native_layout
 from tests.test_lean_source import EMBEDDED
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class LeanCPUSelectionTests(unittest.TestCase):
+    def test_affinity_and_process_limits_both_constrain_available_cpus(self) -> None:
+        for affinity, process_count, expected in (({2, 3}, 8, 2), (set(range(12)), 3, 3)):
+            with self.subTest(affinity=affinity, process_count=process_count):
+                operating_system = SimpleNamespace(
+                    sched_getaffinity=lambda _pid: affinity,
+                    process_cpu_count=lambda: process_count, cpu_count=lambda: 16)
+                with mock.patch.object(check_lean, "os", operating_system):
+                    self.assertEqual(check_lean.available_cpus(), expected)
+
+    def test_python_311_and_non_affinity_platform_fallback(self) -> None:
+        with mock.patch.object(check_lean, "os", SimpleNamespace(cpu_count=lambda: 6)):
+            self.assertEqual(check_lean.available_cpus(), 6)
+
+    def test_unavailable_affinity_does_not_prevent_cpu_detection(self) -> None:
+        operating_system = SimpleNamespace(
+            sched_getaffinity=mock.Mock(side_effect=OSError("affinity unavailable")),
+            process_cpu_count=lambda: 4, cpu_count=lambda: 16)
+        with mock.patch.object(check_lean, "os", operating_system):
+            self.assertEqual(check_lean.available_cpus(), 4)
+
+    def test_unknown_counts_still_allow_one_worker(self) -> None:
+        for reported in (None, 0):
+            with self.subTest(reported=reported), mock.patch.object(
+                    check_lean, "os", SimpleNamespace(cpu_count=lambda: reported)):
+                self.assertEqual(check_lean.available_cpus(), 1)
 
 
 class LeanEvidenceTests(unittest.TestCase):
@@ -174,35 +205,43 @@ class LeanNativeDependencyTests(unittest.TestCase):
             (root / "src").mkdir()
             for name in EMBEDDED:
                 (root / "src" / name).write_bytes(b"original\n")
+            audit_source = (
+                'example : True := True.intro\n'
+                '#eval (do IO.println ("lake workers=" ++ '
+                '(← IO.getEnv "LEAN_NUM_THREADS").getD "missing") : IO Unit)\n').encode()
             inputs = {
                 root / "proof/lakefile.lean": (ROOT / "proof/lakefile.lean").read_bytes(),
                 root / "proof/lean-toolchain": (ROOT / "proof/lean-toolchain").read_bytes(),
-                root / "proof/Silver/Audit.lean": b"example : True := True.intro\n",
+                root / "proof/Silver/Audit.lean": audit_source,
             }
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
 
-            def build(threads: int, memory: int) -> subprocess.CompletedProcess[str]:
+            def build(workers: int, threads: int, memory: int) -> subprocess.CompletedProcess[str]:
                 command = lake_build_command(host.lean / "bin/lake", [
                     "-K", f"silverThreads={threads}", "-K", f"silverMemoryMb={memory}"])
                 command.insert(1, "--verbose")
-                result = subprocess.run(command, cwd=host.proof, env=environment, text=True,
-                                        capture_output=True, timeout=180)
+                result = subprocess.run(
+                    command, cwd=host.proof,
+                    env={**environment, "LEAN_NUM_THREADS": str(workers)}, text=True,
+                    capture_output=True, timeout=180)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 return result
 
-            first = build(1, 256)
+            first = build(1, 1, 256)
             self.assertRegex(first.stdout + first.stderr, r"\s-j1\s-M256\b")
+            self.assertIn("lake workers=1", first.stdout + first.stderr)
             artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
             before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
-            build(2, 512)
+            build(3, 2, 512)
             self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
             # Force a new Lean process after changing only the cached Lake
             # configuration. Without --reconfigure it still receives -j1/-M256.
             (host.proof / "Silver/Audit.lean").write_bytes(
-                b"example : True := True.intro\nexample : 2 + 2 = 4 := rfl\n")
-            changed = build(2, 512)
+                audit_source + b"example : 2 + 2 = 4 := rfl\n")
+            changed = build(3, 2, 512)
             self.assertRegex(changed.stdout + changed.stderr, r"\s-j2\s-M512\b")
+            self.assertIn("lake workers=3", changed.stdout + changed.stderr)
 
     def test_lake_tracks_embedded_ada_bytes_and_preserves_unchanged_objects(self) -> None:
         native = native_layout(ROOT)
