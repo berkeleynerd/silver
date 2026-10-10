@@ -18,9 +18,15 @@ work, rather than authorizing or implementing it. It does not change the
 language, Oracle, proof claims or application report policies. Completion of
 the current capability remains separate from this architectural assessment.
 
+The owner subsequently selected the input-inventory and phase-logging repairs
+for the [review follow-up](string-assignment.md#external-review-disposition).
+The other recommendations below remain proposals. The original review did not
+run additional validation; subsequent runner validation is recorded separately
+in the [concurrency record](lean-concurrency.md#runner-follow-up).
+
 Three focused reviews covered all 24 native source files, all 75 Lean modules
-and their import graph, all eight Python scripts, the organization of all 18
-Python test modules, sample/catalogue consistency, build configuration, host
+and their import graph, all eight Python scripts, the organization of the Python
+test modules and Ada probe, sample/catalogue consistency, build configuration, host
 isolation and evidence handling. The root reviewed the goals, trust boundaries
 and principal findings. Some reviewers authored parts of the active feature;
 this is a combined author and independent review, not wholly independent

@@ -460,8 +460,13 @@ Application proof uses `-U --mode=all --report=all --warnings=error
 --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
 --timeout=0 --memlimit=0 -j0`. Only the assignment route changes
 `--warnings=error` to `--warnings=continue` so it can classify the retained
-dead-initializer advisory using its exact report policy. Other warnings still
-prevent publication, and all selected library reports remain strict. The fixed library obligations are discharged on
+dead-initializer advisory using its exact report policy. Unexpected diagnostics
+in the audited GNATprove reports prevent publication, and all selected library
+reports remain strict. Successful tool termination and accepted report content
+are separate requirements: a warning can appear in `flow` with an empty
+`warn_error` list even when `--warnings=error` causes a failing exit status.
+These checks do not claim that the frontend emitted no compiler warnings.
+The fixed library obligations are discharged on
 every fresh application compile; application membership remains independent of
 those results. Zero wall-clock timeout is not a guarantee against environmental
 failure. Compiler development proofs have their separately documented cached,

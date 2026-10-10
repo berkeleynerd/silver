@@ -1,7 +1,8 @@
 # Guarded command-line greeting
 
-This capability is **supported** after complete native Linux validation. The
-current language has six productions.
+This capability is **supported** after complete native Linux validation. It
+introduced the sixth production; [language.md](../language.md) defines the
+current admitted language.
 The [roadmap](../roadmap.md#guarded-command-line-greeting) records its authorization
 and completion conditions. The Oracle is unchanged.
 

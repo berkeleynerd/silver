@@ -1,5 +1,46 @@
 # Session memory
 
+## 2026-10-10 — Assignment review follow-up and Lean runner improvements
+
+The owner authorized the independently assessed documentation/test fixes and
+bounded earlier Lean workflow improvements. macOS proofs are now explicitly a
+non-goal for this work: no collection, corroboration or replay is pending here.
+The [review disposition](string-assignment.md#external-review-disposition)
+records the accepted scope. Existing-clone guidance again preserves the old
+checkout and ignored artifacts before using a fresh clone of rewritten history;
+old archive-bearing history must never be merged or pushed back.
+
+Warning claims now distinguish successful tool status from diagnostics in
+audited GNATprove reports. No compiler flags or report policies changed. New
+Python fixtures coordinate `.spark` and SARIF to exercise advisory checks that
+the earlier cross-report mismatches masked. Focused tests pass, and isolated
+guard-deletion probes confirm the new tests detect each disputed missing check.
+The production helper already rejected the malformed cases.
+
+The [Lean runner follow-up](lean-concurrency.md#runner-follow-up) re-enumerates
+input path sets and bytes at phase boundaries and checks the fresh audit before
+the independent kernel replay. This avoids later expensive work on an already
+stale run while preserving completed caches. Phase logs stream with timing and
+status. All-core settings, source dependencies, fresh auditing and `--full`
+kernel checking remain unchanged. No new steady-state throughput speedup is
+claimed; source partitioning, certificate redesign and the native proof-only
+I/O refactor remain separate. Focused runner/platform tests and one cached Linux
+incremental build with a fresh axiom audit passed. The prior full kernel replay
+was preserved and not repeated; no compiler or Lean proof input changed.
+Object hashes/timestamps remained intact. The smoke wrapper initially flagged
+rewritten `.olean.hash` timestamps from the existing `--rehash` option; follow-up
+corroboration verified unchanged sidecar bytes and real object timestamps.
+Both the original wrapper result and its correction are retained without a rerun.
+
+Implementation review target `44fd8ea` and its completed language goal remain
+distinct from this maintenance follow-up. No language expansion or Oracle change
+is authorized. Preserve all tools, caches, prior evidence and scratch; evidence
+for this work is under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Earlier
+full capability validation retains its original input scope. Publication remains
+authorized; record the actual maintenance commit and authenticated remote result
+at handoff. GitHub Actions remains disabled. CLI memory was rechecked: no exposed
+memory tool or conventional recall directory exists, so no CLI entry was updated.
+
 ## 2026-10-10 — Fixed-length string assignment completed locally
 
 The authorized seventh production is implemented and validated: one

@@ -51,13 +51,43 @@ The warning-free dependency shape occurs for legal names such as
 `Unused_Message`, following GNAT's naming convention. It does not admit a new
 library operation or an assumed safety check. The initial integration test
 caught this genuine variation and the corrected policy covers it explicitly.
-Other diagnostics, unknown dependencies, skipped/assumed/suppressed checks,
+Other diagnostics in the audited reports, unknown dependencies, skipped/assumed/suppressed checks,
 nonempty safety-proof lists and incomplete coverage fail. The six earlier
 forms and all selected library reports retain their existing strict policies.
+Successful GNATprove termination is required independently of report acceptance;
+an empty `warn_error` list alone does not establish either success or the absence
+of frontend compiler warnings.
 The Ada checker has an independent ghost policy and proved acceptance-refinement
 contract; the Python evidence helper uses an explicit assignment-only option.
 The experiment's complete sources, reports, command options and hashes are in
 `assignment-validation/experiment/summary.json` and its sibling case directories.
+
+## External review disposition
+
+The owner supplied an interim external review of implementation commit `44fd8ea`
+and authorized the small follow-up on 2026-10-10 after independent assessment.
+No blocking implementation defect was established. The accepted changes restore
+existing-clone recovery guidance, scope warning claims to audited report
+diagnostics and successful tool status, correct two documentation slips, and
+strengthen Python advisory tests. Source membership still selects the report
+policy: a different production's report matching the assignment schema does not
+make its source an assignment program.
+
+The earlier negative fixtures mutated `.spark` after creating SARIF, so later
+cross-report mismatch checks could mask a removed advisory condition. New cases
+coordinate both reports and exercise the exact rule, filename, positive
+coordinates/entity, message pattern and report-schema name bound. Existing
+cross-report mismatch tests remain. The unmodified helper rejected every
+independent malformed probe; this was a regression-test gap, not a demonstrated
+production acceptance defect. No compiler, runtime, language or Lean theorem
+change is warranted by these findings.
+
+Local assessment and focused test records are retained under
+`.silver/linux-x86_64/review-44fd8ea/`, with implementation validation in its
+`follow-up/` directory. The owner also authorized the bounded
+[Lean runner follow-up](lean-concurrency.md#runner-follow-up) to avoid expensive
+later phases once inputs are already stale. Broader architecture proposals
+remain separate. macOS proof work is explicitly outside this follow-up.
 
 ## Assurance and source review
 

@@ -494,8 +494,10 @@ may report `INEFFECTIVE` for the initializer's overwritten value, whose length
 still establishes the variable constraint. This is a dead-value advisory, not
 an unproved safety obligation. `Complete_Assignment_Proof` retains and narrowly
 classifies it, checks complete Main coverage and allowed dependency records,
-and requires an empty proof list and no other warnings or skipped, assumed
-or suppressed checks. The permitted library-effect dependency remains explicit. GNATprove omits the advisory for some legal identifiers, so its
+and requires an empty proof list and no other warning records or skipped, assumed
+or suppressed checks in the audited report. Successful tool termination is
+checked separately; `warn_error` is not a catch-all list of compiler warnings.
+The permitted library-effect dependency remains explicit. GNATprove omits the advisory for some legal identifiers, so its
 presence is not an acceptance requirement. The assignment route uses
 `--warnings=continue` to collect the full report; all six earlier routes keep
 `--warnings=error`, and every selected library report retains its strict policy.

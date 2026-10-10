@@ -232,6 +232,14 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             raise AssertionError(f"unexpected external executable: {args}")
         return subprocess.CompletedProcess(args, 0, output)
 
+    def run_logged(arguments: list[str], *, cwd: Path, env: dict[str, str],
+                   destination: io.TextIOBase) -> subprocess.CompletedProcess[str]:
+        result = run(arguments, cwd=cwd, env=env)
+        destination.write(result.stdout)
+        destination.flush()
+        print(result.stdout, end="", flush=True)
+        return result
+
     with ExitStack() as stack:
         inherited_settings = str(root / ".user-alire-settings")
         inherited_legacy = str(root / ".old-alire-settings")
@@ -257,6 +265,7 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         stack.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=available_cpus))
         stack.enter_context(mock.patch.object(bootstrap.urllib.request, "urlopen", side_effect=download))
         stack.enter_context(mock.patch.object(subprocess, "run", side_effect=run))
+        stack.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
         if concurrent:
             host.artifacts.mkdir(parents=True, exist_ok=True)
             (host.artifacts / "worker-ready").touch()

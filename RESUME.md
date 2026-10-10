@@ -12,16 +12,20 @@ The seventh production is implemented and locally validated: one literal-initial
 variable, one assignment of an equal-decoded-length literal, then output through
 the same name. Independent reviews, native validation, the full Lean build,
 fresh axiom audit and independent fresh kernel recheck passed. Final evidence
-corroboration matched current inputs and artifacts. The harness goal also covers
-the closing commit and publication; check its live status and closing evidence
-at resumption.
+corroboration matched current inputs and artifacts. Commit `44fd8ea` contains the
+implementation and was published; its harness goal is complete. Recheck the live
+goal at resumption rather than treating this historical status as an instruction.
 The [capability record](docs/string-assignment.md) records exact scope, the
 obligation experiment, source correspondence and validation status.
 
 The owner also requested a read-only [architecture review](docs/architecture-review.md)
 while validation ran. It recommends retaining the main boundaries, with small
-evidence-runner and proof-only I/O improvements as possible follow-ups. No
-recommended refactor has been implemented or selected as the next goal.
+evidence-runner and proof-only I/O improvements as possible follow-ups. The
+completed follow-up addresses the external review's documentation/test findings
+and the Lean runner's input-inventory checks and phase logging. Focused tests
+and one cached Linux Lean build/fresh axiom audit passed; the prior full kernel
+replay is preserved. See the [runner record](docs/lean-concurrency.md#runner-follow-up).
+The native I/O refactor and source/dependency partitioning remain deferred.
 
 The implementation/review target is the commit introducing
 [samples/string_assignment.adb](samples/string_assignment.adb), identifiable with:
@@ -66,11 +70,14 @@ commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
 and all foreign-host evidence. Source/runtime installation moves require
 bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
 
-Current task evidence is under `.silver/linux-x86_64/assignment-validation/`.
-Prior canonical reports/manifests were preserved there before validation. Earlier
+The completed capability's evidence is under
+`.silver/linux-x86_64/assignment-validation/`; current review follow-up records
+are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Prior canonical
+reports/manifests are preserved separately from new runner checks. Earlier
 host recovery and Linux ARM64 records retain their original input and platform
 scope in the [host-readiness record](docs/host-readiness.md) and linked artifacts.
-Linux is primary; macOS records are entirely optional. GNAT Pro is untested.
+Linux is primary. macOS proof work is a non-goal for the current follow-up; retain
+existing artifacts without seeking or rerunning macOS validation. GNAT Pro is untested.
 
 <a id="recover-and-preserve-the-old-vm-evidence"></a>
 
@@ -91,6 +98,13 @@ separately; a clone cannot recover them. Do not merge the old archive-bearing
 history into the rewritten branch. Existing scratch, foreign-host artifacts and
 safety stash `a48321d` remain preserved. Historical references are not instructions
 to recover the removed archives.
+
+For a clone that still has the old history, preserve the entire old checkout,
+including `.git`, unpublished work, ignored `.silver/` and `.tools/`, and scratch
+files. Use a fresh clone of the rewritten remote in a separate directory, then
+port unpublished source changes separately. Do not merge or push the old branch
+history into it. Restore live tools and evidence through staging, preserving
+newer state, and follow the installation-move rules above before using them.
 
 CLI memory is unavailable: no memory tool is exposed and the conventional recall
 directories are absent. No CLI recall entry was updated. Checked-in

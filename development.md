@@ -149,6 +149,11 @@ rejects custom `--subdirs`. Use it for a fresh-proof measurement, toolchain
 investigation or suspected cache problem, not as a mandatory capability gate.
 
 Full Lean validation adds the independent fresh kernel recheck.
+The runner checks complete input inventories between phases and verifies the
+fresh audit's module coverage before starting that replay. If inputs change
+during a long build, it stops before later expensive work and retains the
+completed module cache. Phase output streams to the log as it arrives. This
+avoids wasted work on a stale run; it does not make an unchanged proof faster.
 `check_lean.py --clean` also discards the current host's proof workspace. Clean
 runs serve toolchain changes, cache investigations and CI; they are not the
 everyday editing loop. Both workflows keep the same logical requirements.

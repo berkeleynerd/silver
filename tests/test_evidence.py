@@ -86,11 +86,12 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaises(EvidenceError):
             self.audit()
 
-    def prepare_assignment(self) -> None:
+    def prepare_assignment(self, **advisory_changes: object) -> None:
         self.report["assumptions"] = []
         self.report["flow"] = [{"severity": "warning", "how_proved": "flow", "entity": 1,
                                 "rule": "INEFFECTIVE", "file": "main.adb", "line": 4, "col": 4,
                                 "message": {"text": 'initialization of "Message" has no effect'}}]
+        self.report["flow"][0].update(advisory_changes)
         (self.path / "main.spark").write_text(json.dumps(self.report))
         self.refresh_reports()
         # GNATprove reports this advisory separately from required checks.
@@ -134,6 +135,48 @@ class ProofEvidenceTests(unittest.TestCase):
         (self.path / "main.spark").write_text(json.dumps(self.report))
         with self.assertRaises(EvidenceError):
             audit_reports(self.path, {"main"}, assignment_application=True)
+
+    def test_assignment_policy_rejects_consistent_malformed_advisories(self) -> None:
+        original = copy.deepcopy(self.report)
+        changes = (("rule", "UNINITIALIZED"), ("file", "./main.adb"),
+                   ("line", 0), ("col", 0), ("entity", 0),
+                   ("message", {"text": 'unused assignment to "Message"'}))
+        for field, value in changes:
+            self.report = copy.deepcopy(original)
+            if field == "entity":
+                # Keep the reference known so the generic entity lookup cannot
+                # mask a missing positive-integer advisory check.
+                self.report["entities"][" 0"] = self.report["entities"].pop(" 1")
+                self.report["spark"][" 0"] = self.report["spark"].pop(" 1")
+            # Mutate before mirroring into SARIF: agreeing reports must still
+            # satisfy the narrow permitted-advisory policy.
+            self.prepare_assignment(**{field: value})
+            if field == "file":
+                sarif = json.loads((self.path / "gnatprove.sarif").read_text())
+                location = sarif["runs"][0]["results"][0]["locations"][0]["physicalLocation"]
+                # The later match normalizes basenames; the .spark policy
+                # must independently require the exact filename.
+                location["artifactLocation"]["uri"] = "main.adb"
+                (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
+            with self.subTest(field=field, value=value), self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, assignment_application=True)
+
+    def test_assignment_advisory_identifier_pattern_and_schema_bound(self) -> None:
+        # This is the report-schema bound, not the maximum identifier length
+        # that can fit inside a complete admitted 4096-byte source.
+        cases = (("M", True), ("Message_0", True), ("", False), ("0Message", False),
+                 ("Message_", False), ("Message__Text", False),
+                 ("M" * 4096, True), ("M" * 4097, False))
+        for name, accepted in cases:
+            self.prepare_assignment(message={"text": f'initialization of "{name}" has no effect'})
+            with self.subTest(name=name if len(name) < 32 else f"{len(name)} letters"):
+                if accepted:
+                    stats = audit_reports(self.path, {"main"}, assignment_application=True)
+                    self.assertEqual((stats["flow_checks"], stats["proof_checks"],
+                                      stats["assignment_advisories"]), (0, 0, 1))
+                else:
+                    with self.assertRaises(EvidenceError):
+                        audit_reports(self.path, {"main"}, assignment_application=True)
 
     def test_assignment_sarif_must_match_unsuppressed_advisory(self) -> None:
         for field, value in (("ruleId", "UNINITIALIZED"), ("kind", "fail"), ("kind", "pass"),

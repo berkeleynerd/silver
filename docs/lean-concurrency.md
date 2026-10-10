@@ -204,6 +204,62 @@ Every runner invocation executes a fresh axiom audit; `--full` still adds the
 independent fresh kernel replay. None of the module timing trials substitutes
 for a completed full-validation record.
 
+## Runner follow-up
+
+On 2026-10-10 the owner authorized folding bounded Lean workflow improvements
+into the [assignment review follow-up](string-assignment.md#external-review-disposition).
+All-core scheduling and retained module caches were already enabled. The useful
+additional saving is avoiding later verification phases when a run is already
+invalidated: re-enumerate shared and workspace inputs, compare paths and bytes
+at phase boundaries, and check fresh audit success and module coverage before
+starting the independent kernel replay. Detecting such a failure after the build
+retains its useful compiled artifacts while avoiding the remaining audit/replay
+cost. Successful unchanged runs still perform the same checks.
+
+This also closes the prior final-inventory gap: hashing only the originally
+captured paths detected edits and deletions but missed additions. Shared inputs,
+handwritten workspace files and regenerated candidates retain their distinct
+roles. Tool identities, authoritative source links and compiled artifacts remain
+checked. These controls do not establish adversarial workspace security.
+
+Build, audit and kernel output now streams to the existing log and console, with
+phase timing and status. This preserves partial diagnostics and makes the phase
+responsible for a delay visible; a silent Lean reduction still emits no progress.
+It is not a computational speedup. No faster certificate representation or new
+steady-state throughput result is claimed. Source/dependency partitioning and
+proof-only native I/O changes remain separate, unmeasured proposals.
+
+Use focused Python runner tests for runner-only edits and focused Lean arguments
+during proof iteration. Keep the complete checkpoint on stable capability inputs,
+as specified in the [development workflow](../development.md#proof-loop-and-validation).
+Extra RAM supplies headroom rather than parallelizing serial reductions or the
+fresh checker. No additional macOS proof work is part of this follow-up.
+
+Follow-up evidence is retained under
+`.silver/linux-x86_64/review-44fd8ea/follow-up/`:
+
+- `runner-tests.json` and `.log`: all 43 focused runner/platform tests passed in
+  54.381 seconds, including disposable native Lake fixtures and early-failure
+  and partial-output regressions. Platform routing fixtures remain mocked.
+- `test-evidence-result.json` and `helper-mutation-closure/summary.json`: all 29
+  evidence-helper tests passed; the new cases catch all seven individual guard
+  deletions and their combined deletion in isolated copies.
+- `lean-smoke-result.json` and `lean-smoke-corroboration.json`: the cached Linux
+  build and fresh axiom audit passed in 5.928 seconds including the wrapper.
+  All 75 modules and 21,443 declarations were audited with standard axioms only.
+  The 75 `.olean` and 75 `.ilean` objects retained their bytes and timestamps.
+  An overly broad wrapper assertion also compared the 75 `.olean.hash` sidecar
+  timestamps, which the existing `--rehash` option rewrites. Corroboration verified
+  their unchanged bytes; both records remain preserved without rerunning Lean.
+
+This was a cached incremental check, not a cold build or new full kernel replay.
+The earlier full evidence was copied before the check and retains its original
+scope. Compiler and proof sources were unchanged; the smoke timing measures
+this invocation only, not a before/after speedup. Independent review found no
+blocking issue in the runner or documentation changes.
+
+## Retained concurrency evidence
+
 Ignored evidence is retained under
 `.silver/linux-x86_64/lean-concurrency-2026-10-10/`:
 

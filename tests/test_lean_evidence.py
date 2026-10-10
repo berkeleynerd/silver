@@ -1,9 +1,14 @@
 """Lean evidence, incremental workspace integrity and temporary-path regressions."""
+from contextlib import ExitStack, redirect_stdout
+import io
+import json
 import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import threading
+import time
 from types import SimpleNamespace
 import unittest
 from unittest import mock
@@ -171,6 +176,251 @@ class LeanEvidenceTests(unittest.TestCase):
         directory.symlink_to(outside, target_is_directory=True)
         with self.assertRaisesRegex(RuntimeError, "symbolic link"):
             verify_workspace_inputs(host, inputs)
+
+
+class LeanRunnerPhaseTests(unittest.TestCase):
+    """Exercise final-run ordering without compiling the production proofs."""
+
+    def fixture(self) -> SimpleNamespace:
+        temporary = tempfile.TemporaryDirectory(prefix="silver lean phases-")
+        self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name).resolve()
+        host = HostLayout(root, "linux-x86_64")
+        proof = root / "proof"
+        (proof / "Silver").mkdir(parents=True)
+        (root / "src").mkdir()
+        (root / "scripts").mkdir()
+        (root / "scripts/check_lean.py").write_text("# fixture runner input\n")
+        (proof / "Silver.lean").write_text("namespace Silver\nend Silver\n")
+        (proof / "Silver/Audit.lean").write_text("import Silver\n")
+        (proof / "lakefile.lean").write_text("import Lake\n")
+        (proof / "lean-toolchain").write_text("leanprover/lean4:v4.34.1\n")
+        (proof / "generate_source_certificate.py").write_text("# fixture generator\n")
+        for relative, source in CANDIDATES.items():
+            (proof / relative).write_text("-- shared candidate is deliberately not trusted\n")
+            (root / "src" / source).write_text("-- authoritative source fixture\n")
+        (host.lean / "bin").mkdir(parents=True)
+        for tool in ("lean", "lake", "leanchecker"):
+            (host.lean / "bin" / tool).write_text("fixture " + tool)
+        state = SimpleNamespace(host=host, phases=[], generated=0, after_generation=None,
+                                after_phase=None, audit="valid", fail=None, interrupt=None)
+
+        def run(command, **_kwargs):
+            if command[1:] == ["--short-version"]:
+                return subprocess.CompletedProcess(command, 0, "4.34.1\n")
+            self.assertEqual(command[:2], [sys.executable, str(proof / "generate_source_certificate.py")])
+            source = command[command.index("--source") + 1]
+            Path(command[command.index("--output") + 1]).write_text("-- candidate " + source + "\n")
+            state.generated += 1
+            if state.generated == len(CANDIDATES) and state.after_generation:
+                state.after_generation(host)
+            return subprocess.CompletedProcess(command, 0)
+
+        def run_logged(command, *, cwd, env, destination):
+            self.assertEqual(cwd, host.proof)
+            self.assertEqual(env["LEAN_NUM_THREADS"], "2")
+            phase = "build" if "build" in command else "audit" if command[-1].endswith(".lean") else "kernel"
+            state.phases.append(phase)
+            output = "fixture " + phase + "\n"
+            if phase == "build":
+                artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
+                artifact.parent.mkdir(parents=True)
+                artifact.write_bytes(b"compiled fixture")
+                output += "Silver axiom audit passed: cached output is insufficient\n"
+            if phase == "audit":
+                if state.audit != "missing-marker":
+                    output += "Silver axiom audit passed: fixture\n"
+                names = sorted(check_lean.project_sources(host.proof))
+                if state.audit == "missing-module":
+                    names = names[1:]
+                if state.audit == "unexpected-module":
+                    names.append("Silver.Unexpected")
+                output += "".join("SILVER_MODULE " + name + "\n" for name in names)
+            destination.write(output)
+            destination.flush()
+            if state.after_phase:
+                state.after_phase(phase, host)
+            if phase == state.interrupt:
+                raise KeyboardInterrupt()
+            return subprocess.CompletedProcess(command, 7 if phase == state.fail else 0, output)
+
+        patches = ExitStack()
+        self.addCleanup(patches.close)
+        for name, value in (("ROOT", root), ("PROOF", proof)):
+            patches.enter_context(mock.patch.object(check_lean, name, value))
+        patches.enter_context(mock.patch.object(check_lean, "native_layout", return_value=host))
+        patches.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=2))
+        patches.enter_context(mock.patch.object(check_lean, "lean_environment", return_value=dict(os.environ)))
+        patches.enter_context(mock.patch.object(check_lean.subprocess, "run", side_effect=run))
+        patches.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
+        return state
+
+    def check_fails(self, state: SimpleNamespace, expected: str) -> None:
+        with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, expected):
+            check_lean.main(["--full"])
+        self.assertFalse((state.host.artifacts / "lean-evidence.json").exists())
+
+    def test_added_or_deleted_shared_inputs_stop_after_build_with_cache_retained(self) -> None:
+        for relative, action in (("proof/Silver/New.lean", "add"), ("src/new.adb", "add"),
+                                 ("scripts/new.py", "add"), ("proof/Silver.lean", "delete"),
+                                 ("src/silver_profile.adb", "delete"), ("scripts/check_lean.py", "delete")):
+            with self.subTest(path=relative, action=action):
+                state = self.fixture()
+
+                def change(_phase, host):
+                    path = host.root / relative
+                    path.write_text("new input\n") if action == "add" else path.unlink()
+
+                state.after_phase = change
+                self.check_fails(state, "shared inventory or bytes")
+                self.assertEqual(state.phases, ["build"])
+                self.assertTrue((state.host.proof / ".lake/build/lib/lean/Silver/Audit.olean").is_file())
+
+    def test_added_workspace_module_stops_before_fresh_audit(self) -> None:
+        state = self.fixture()
+        state.after_phase = lambda _phase, host: (host.proof / "Silver/New.lean").write_text("-- new\n")
+        self.check_fails(state, "workspace inventory or bytes")
+        self.assertEqual(state.phases, ["build"])
+
+    def test_generation_drift_stops_before_lake(self) -> None:
+        state = self.fixture()
+        state.after_generation = lambda host: (host.root / "src/new.ads").write_text("-- new\n")
+        self.check_fails(state, "shared inventory or bytes")
+        self.assertEqual(state.phases, [])
+
+    def test_missing_fresh_audit_or_incomplete_closure_never_runs_kernel(self) -> None:
+        for audit in ("missing-marker", "missing-module", "unexpected-module"):
+            with self.subTest(audit=audit):
+                state = self.fixture()
+                state.audit = audit
+                expected = "freshly executed axiom audit" if audit == "missing-marker" else "actual Lean audit imports"
+                self.check_fails(state, expected)
+                self.assertEqual(state.phases, ["build", "audit"])
+
+    def test_input_drift_at_audit_or_kernel_cannot_publish_success(self) -> None:
+        for changed_phase in ("audit", "kernel"):
+            with self.subTest(phase=changed_phase):
+                state = self.fixture()
+
+                def change(phase, host):
+                    if phase == changed_phase:
+                        (host.root / "scripts/added.py").write_text("# new\n")
+
+                state.after_phase = change
+                self.check_fails(state, "shared inventory or bytes")
+                self.assertEqual(state.phases, ["build", "audit"] + (["kernel"] if changed_phase == "kernel" else []))
+
+    def test_tool_or_artifact_drift_stops_before_kernel(self) -> None:
+        for target in ("tool", "artifact", "source-link"):
+            with self.subTest(target=target):
+                state = self.fixture()
+
+                def change(phase, host):
+                    if phase == "audit":
+                        if target == "source-link":
+                            other = host.root / "other-src"
+                            other.mkdir()
+                            link = host.artifacts / "src"
+                            link.unlink()
+                            link.symlink_to(other, target_is_directory=True)
+                        else:
+                            path = (host.lean / "bin/leanchecker" if target == "tool" else
+                                    host.proof / ".lake/build/lib/lean/Silver/Audit.olean")
+                            path.write_bytes(b"changed")
+
+                state.after_phase = change
+                expected = {"tool": "tools changed", "artifact": "artifacts changed",
+                            "source-link": "source link changed"}[target]
+                self.check_fails(state, expected)
+                self.assertEqual(state.phases, ["build", "audit"])
+
+    def test_shared_candidate_bytes_and_cache_files_are_not_new_proof_inputs(self) -> None:
+        state = self.fixture()
+
+        def change(phase, host):
+            if phase == "build":
+                (host.root / "proof" / next(iter(CANDIDATES))).write_text("-- unused shared candidate\n")
+                (host.proof / ".lake/cache.lean").write_text("-- cache entry\n")
+
+        state.after_phase = change
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--full"])
+        self.assertEqual(state.phases, ["build", "audit", "kernel"])
+
+    def test_phase_failure_and_interruption_preserve_partial_log(self) -> None:
+        for interrupt in (False, True):
+            with self.subTest(interrupt=interrupt):
+                state = self.fixture()
+                if interrupt:
+                    state.interrupt = "audit"
+                    with redirect_stdout(io.StringIO()), self.assertRaises(KeyboardInterrupt):
+                        check_lean.main(["--full"])
+                else:
+                    state.fail = "audit"
+                    self.check_fails(state, "Lean check failed")
+                log = (state.host.artifacts / "lean-proof.log").read_text()
+                self.assertIn("fixture audit", log)
+                self.assertIn("interrupted" if interrupt else "exit 7", log)
+                self.assertEqual(state.phases, ["build", "audit"])
+                self.assertFalse((state.host.artifacts / "lean-evidence.json").exists())
+
+    def test_success_records_actual_phase_times_and_current_inventories(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--full"])
+        evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
+        self.assertEqual([phase["phase"] for phase in evidence["phases"]], ["build", "audit", "kernel"])
+        for phase in evidence["phases"]:
+            self.assertEqual(phase["exit_code"], 0)
+            self.assertGreaterEqual(phase["elapsed_seconds"], 0)
+            self.assertLessEqual(phase["started_at"], phase["finished_at"])
+        self.assertEqual(set(evidence["modules"]), set(check_lean.project_sources(state.host.proof)))
+        self.assertEqual(evidence["kernel_recheck"], "leanchecker --fresh Silver.Audit")
+
+
+class LeanStreamingTests(unittest.TestCase):
+    def test_partial_lines_and_merged_stderr_are_logged_before_child_exit(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="silver lean stream-") as temporary:
+            root = Path(temporary).resolve()
+            release = root / "release"
+            log = root / "phase.log"
+            # Exit is gated on the parent observing a flushed, unterminated
+            # UTF-8 message in the canonical log. Buffer-until-exit would fail.
+            code = ("import os,time\nfrom pathlib import Path\n"
+                    "os.write(1, b'partial \\xe2'); time.sleep(.05)\n"
+                    "os.write(1, b'\\x9c\\x93'); os.write(2, b' stderr')\n"
+                    f"release=Path({str(release)!r})\n"
+                    "deadline=time.monotonic()+5\n"
+                    "while not release.exists() and time.monotonic()<deadline: time.sleep(.01)\n"
+                    "raise SystemExit(7 if release.exists() else 8)\n")
+            results = []
+
+            def run():
+                with log.open("w") as destination:
+                    results.append(check_lean.run_logged(
+                        [sys.executable, "-c", code], cwd=root, env=dict(os.environ),
+                        destination=destination))
+
+            console = io.StringIO()
+            with redirect_stdout(console):
+                thread = threading.Thread(target=run)
+                thread.start()
+                try:
+                    deadline = time.monotonic() + 4
+                    while time.monotonic() < deadline:
+                        if log.exists() and log.read_text() == "partial ✓ stderr":
+                            break
+                        time.sleep(.01)
+                    self.assertEqual(log.read_text(), "partial ✓ stderr")
+                    self.assertTrue(thread.is_alive())
+                finally:
+                    release.touch()
+                    thread.join(timeout=6)
+            self.assertFalse(thread.is_alive())
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0].returncode, 7)
+            self.assertEqual(results[0].stdout, "partial ✓ stderr")
+            self.assertEqual(console.getvalue(), results[0].stdout)
 
 
 class LeanTemporaryDirectoryTests(unittest.TestCase):

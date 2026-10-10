@@ -10,6 +10,8 @@ source correspondence never switches to a divergent copied Ada source.
 from __future__ import annotations
 
 import argparse
+import codecs
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -19,6 +21,7 @@ import shutil
 import subprocess
 import sys
 import time
+from typing import TextIO
 
 if __package__:
     from .bootstrap_lean import lean_environment
@@ -46,6 +49,24 @@ def project_sources(proof: Path) -> dict[str, Path]:
     return {".".join(path.relative_to(proof).with_suffix("").parts): path
             for path in proof.rglob("*.lean")
             if ".lake" not in path.parts and path.name != "lakefile.lean"}
+
+
+def capture_shared_inputs() -> tuple[dict[str, Path], dict[Path, bytes]]:
+    """Enumerate the whole selected input set, including additions and removals."""
+    sources = project_sources(PROOF)
+    paths = [*(path for path in sources.values() if path.relative_to(PROOF) not in CANDIDATES),
+             PROOF / "lakefile.lean", PROOF / "lean-toolchain",
+             PROOF / "generate_source_certificate.py",
+             *sorted((ROOT / "src").glob("*.ads")), *sorted((ROOT / "src").glob("*.adb")),
+             *sorted((ROOT / "scripts").glob("*.py"))]
+    return sources, {path: path.read_bytes() for path in sorted(paths)}
+
+
+def capture_workspace_inputs(host: HostLayout) -> tuple[dict[str, Path], dict[str, str]]:
+    sources = project_sources(host.proof)
+    paths = [*sources.values(), host.proof / "lakefile.lean", host.proof / "lean-toolchain"]
+    return sources, {str(path.relative_to(host.proof)):
+                     hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(paths)}
 
 
 def write_changed(path: Path, contents: bytes) -> None:
@@ -208,6 +229,54 @@ def audit_import_closure(sources: dict[str, Path], output: str) -> set[str]:
     return visited
 
 
+def verify_run_inputs(host: HostLayout, inputs: dict[Path, bytes],
+                      source_modules: set[str], workspace_hashes: dict[str, str],
+                      tool_hashes: dict[str, str]) -> dict[str, Path]:
+    """Fail before the next expensive phase if this run has already gone stale."""
+    current_sources, current_inputs = capture_shared_inputs()
+    if set(current_sources) != source_modules or current_inputs != inputs:
+        raise RuntimeError("proof inputs changed during verification (shared inventory or bytes)")
+    verify_workspace_inputs(host, inputs)
+    workspace_sources, current_workspace = capture_workspace_inputs(host)
+    if set(workspace_sources) != source_modules or current_workspace != workspace_hashes:
+        raise RuntimeError("proof inputs changed during verification (workspace inventory or bytes)")
+    current_tools = {relative: hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+                     for relative in tool_hashes}
+    if current_tools != tool_hashes:
+        raise RuntimeError("Lean verification tools changed during replay")
+    if (host.artifacts / "src").resolve() != (ROOT / "src").resolve():
+        raise RuntimeError("authoritative source link changed during replay")
+    return workspace_sources
+
+
+def run_logged(command: list[str], *, cwd: Path, env: dict[str, str],
+               destination: TextIO) -> subprocess.CompletedProcess[str]:
+    """Tee available output, including partial lines, while retaining audit text."""
+    output: list[str] = []
+    decoder = codecs.getincrementaldecoder("utf-8")()
+
+    def publish(text: str) -> None:
+        if text:
+            output.append(text)
+            destination.write(text)
+            destination.flush()
+            print(text, end="", flush=True)
+
+    with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT) as process:
+        assert process.stdout is not None
+        try:
+            while chunk := process.stdout.read1(65536):
+                publish(decoder.decode(chunk))
+            publish(decoder.decode(b"", final=True))
+            returncode = process.wait()
+        except BaseException:
+            process.kill()
+            process.wait()
+            raise
+    return subprocess.CompletedProcess(command, returncode, "".join(output))
+
+
 def main(arguments: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--full", action="store_true",
@@ -221,7 +290,7 @@ def main(arguments: list[str] | None = None) -> None:
                         help="threads per Lean build/audit process (default 0: available CPUs; "
                              "separate from Lake workers)")
     parser.add_argument("--memory-mb", type=positive_integer,
-                        help="optional memory limit per Lean process, in megabytes")
+                        help="optional resident-memory threshold per Lean process, in MiB")
     args = parser.parse_args(arguments)
     cpus = available_cpus()
     args.workers = args.workers or cpus
@@ -238,16 +307,10 @@ def main(arguments: list[str] | None = None) -> None:
     # success. Other host evidence and old flat-layout artifacts are untouched.
     evidence.unlink(missing_ok=True)
 
-    sources = project_sources(PROOF)
     # The checked-in candidates are never edited or used as trusted generated
     # inputs. Every replay regenerates their host-local replacements from src.
     # SourceCertificates.lean is a protected handwritten import facade.
-    paths = [*(path for path in sources.values() if path.relative_to(PROOF) not in CANDIDATES),
-             PROOF / "lakefile.lean", PROOF / "lean-toolchain",
-             PROOF / "generate_source_certificate.py",
-             *sorted((ROOT / "src").glob("*.ads")), *sorted((ROOT / "src").glob("*.adb")),
-             *sorted((ROOT / "scripts").glob("*.py"))]
-    inputs = {path: path.read_bytes() for path in sorted(paths)}
+    sources, inputs = capture_shared_inputs()
     checked_inputs = {str(path.relative_to(ROOT)): hashlib.sha256(data).hexdigest()
                       for path, data in inputs.items()}
 
@@ -296,14 +359,11 @@ def main(arguments: list[str] | None = None) -> None:
         finally:
             generated.unlink(missing_ok=True)
     verify_workspace_inputs(host, inputs)
-    workspace_sources = project_sources(host.proof)
+    workspace_sources, workspace_hashes = capture_workspace_inputs(host)
     if workspace_sources.keys() != sources.keys():
         raise RuntimeError("host proof workspace does not contain exactly the shared project modules")
-    workspace_inputs = [*workspace_sources.values(), host.proof / "lakefile.lean",
-                        host.proof / "lean-toolchain"]
-    workspace_hashes = {str(path.relative_to(host.proof)):
-                        hashlib.sha256(path.read_bytes()).hexdigest()
-                        for path in sorted(workspace_inputs)}
+    source_modules = set(sources)
+    verify_run_inputs(host, inputs, source_modules, workspace_hashes, tool_hashes)
 
     lake_settings = ["-K", f"silverThreads={args.threads}"]
     lean_settings = ["-DwarningAsError=true", f"-j{args.threads}"]
@@ -317,43 +377,52 @@ def main(arguments: list[str] | None = None) -> None:
     if full:
         commands.append([str(lake), *lake_settings, "env", str(checker), "--fresh", "Silver.Audit"])
     compiled_hashes = None
-    audit_output = ""
+    visited: set[str] = set()
+    phases = []
     with log.open("w") as destination:
-        for command in commands:
-            print("+ " + " ".join(command), flush=True)
-            result = subprocess.run(command, cwd=host.proof, text=True,
-                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                    env=environment)
-            destination.write(result.stdout)
+        def record(message: str) -> None:
+            destination.write(message + "\n")
             destination.flush()
-            print(result.stdout, end="", flush=True)
+            print(message, flush=True)
+
+        for phase, command in zip(("build", "audit", "kernel"), commands):
+            phase_started = time.monotonic()
+            started_at = datetime.now(timezone.utc).isoformat()
+            record(f"Lean phase {phase} started at {started_at}")
+            record("+ " + " ".join(command))
+            try:
+                result = run_logged(command, cwd=host.proof, env=environment,
+                                    destination=destination)
+            except BaseException as error:
+                record(f"\nLean phase {phase} interrupted after "
+                       f"{time.monotonic() - phase_started:.3f}s: {type(error).__name__}")
+                raise
+            phases.append({"phase": phase, "started_at": started_at,
+                           "finished_at": datetime.now(timezone.utc).isoformat(),
+                           "elapsed_seconds": round(time.monotonic() - phase_started, 3),
+                           "exit_code": result.returncode})
+            record(f"\nLean phase {phase} finished at {phases[-1]['finished_at']}; "
+                   f"elapsed {phases[-1]['elapsed_seconds']:.3f}s; exit {result.returncode}")
             if result.returncode:
                 raise RuntimeError(f"Lean check failed; see {log}")
+            workspace_sources = verify_run_inputs(
+                host, inputs, source_modules, workspace_hashes, tool_hashes)
             if command == build_command:
                 compiled_hashes = compiled_artifacts(host)
                 if not compiled_hashes:
                     raise RuntimeError("Lean build produced no compiled artifacts to audit")
-            elif command == audit_command:
-                audit_output = result.stdout
-    if "Silver axiom audit passed:" not in audit_output:
-        raise RuntimeError("Lean check completed without a freshly executed axiom audit")
-    verify_workspace_inputs(host, inputs)
-    visited = audit_import_closure(workspace_sources, audit_output)
+            else:
+                if compiled_hashes != compiled_artifacts(host):
+                    raise RuntimeError("compiled Lean artifacts changed during verification")
+                if command == audit_command:
+                    if "Silver axiom audit passed:" not in result.stdout:
+                        raise RuntimeError("Lean check completed without a freshly executed axiom audit")
+                    visited = audit_import_closure(workspace_sources, result.stdout)
+    workspace_sources = verify_run_inputs(
+        host, inputs, source_modules, workspace_hashes, tool_hashes)
     current_artifacts = compiled_artifacts(host)
     if compiled_hashes != current_artifacts:
         raise RuntimeError("compiled Lean artifacts changed during verification")
-    current_inputs = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
-                      for path in inputs}
-    current_workspace = {str(path.relative_to(host.proof)):
-                         hashlib.sha256(path.read_bytes()).hexdigest()
-                         for path in workspace_inputs}
-    if current_inputs != checked_inputs or current_workspace != workspace_hashes:
-        raise RuntimeError("proof inputs changed during verification")
-    if tool_hashes != {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
-                       for path in tool_paths}:
-        raise RuntimeError("Lean verification tools changed during replay")
-    if (host.artifacts / "src").resolve() != (ROOT / "src").resolve():
-        raise RuntimeError("authoritative source link changed during replay")
     evidence.write_text(json.dumps({"host": host.key, "lean_version": version,
                                     "mode": "clean" if args.clean else "full" if full else "incremental",
                                     "clean_replay": args.clean, "axiom_audit": "passed",
@@ -363,6 +432,7 @@ def main(arguments: list[str] | None = None) -> None:
                                     "available_cpus": cpus,
                                     "memory_mb_per_process": args.memory_mb,
                                     "commands": commands,
+                                    "phases": phases,
                                     "tools_sha256": tool_hashes,
                                     "artifacts_sha256": current_artifacts,
                                     "modules": sorted(visited),
