@@ -45,11 +45,82 @@ sequence.
 | Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
 | Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
 | Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
+| Input-dependent branching | Proposed — next | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Proposed scope](#input-dependent-branching). | Brief or verbose response, shown below; no supported sample yet |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
 additional string-variable forms, arbitrary concatenation, indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
+
+## Input-dependent branching
+
+**Proposed next capability**, selected for the roadmap by the owner on
+2026-10-10. This instruction authorizes planning and assessment, not language
+implementation. The example below is not currently admitted Silver:
+
+```ada
+with Silver_IO;
+with Silver_Arguments;
+
+procedure Main is
+   pragma SPARK_Mode (On);
+
+   Mode : constant String :=
+     Silver_Arguments.First_Or_Default ("brief");
+begin
+   if Silver_Arguments.Input_Is_Valid then
+      if Mode = "verbose" then
+         Silver_IO.Put_Line ("Silver is ready. Input validation succeeded.");
+      else
+         Silver_IO.Put_Line ("Ready.");
+      end if;
+   else
+      Silver_Arguments.Reject;
+   end if;
+end Main;
+```
+
+Admit one immutable command-line String using the existing missing/default,
+empty-input, printable-byte and size rules. Inside the mandatory validity
+guard, compare the bound name to an admitted literal with predefined String
+`=` and select exactly one of two literal-output branches. Comparison is
+case-sensitive byte equality; identifier binding remains case-insensitive.
+The default, comparison literal and output literals vary over the existing
+domain, rather than assigning special meaning to `brief` or `verbose`.
+Unequal-length operands simply compare false. Invalid input still reaches the
+terminal rejection branch, and each successful path makes one terminal output
+call with the existing failure semantics.
+
+This adds runtime choice without a new library API. General Boolean expressions,
+additional decision nesting, branch assignments, multiple outputs and arbitrary
+statement sequences are separate proposals. Once implementation is authorized,
+start with a focused native obligation experiment, including empty strings,
+unequal lengths, case differences and maximum-size sources. Establish exact
+membership, branch meaning, binding, complete obligation handling and source
+correspondence before marking the capability supported. Do not assume the
+existing empty-report policy applies without checking actual obligations.
+Use focused iteration and one complete Linux validation checkpoint on stable
+inputs, preserving caches; hosted CI remains disabled and macOS proofs are a
+non-goal for this work.
+
+## Generalizing the existing features
+
+The owner also requested a read-only assessment on 2026-10-10. The
+[generalization assessment](docs/language-generalization.md) recommends shared
+bounded String expression rules as the first follow-up to the branching item:
+literals, an already-bound name and flat `&` chains in terminal output positions,
+including output after the existing assignment. Compute length explicitly,
+count repeated references, preserve the output bound and initially allow only
+one dynamic argument reference under its validity/capacity guard. A tighter
+safe capacity guard is a useful related relaxation to assess.
+
+After that, a fixed-length result assigned in either input-dependent branch and
+printed once is a useful data-flow increment. Repeated assignments alone add
+little behavior; multiple output calls require separate whole-program effect
+and failure semantics. Multiple bindings, repeated dynamic references and new
+argument operations remain later candidates. These are recommendations, not
+an authorized implementation batch or additional supported forms. Keep the
+selected next item above bounded; do not enlarge it implicitly.
 
 ## Next goals after the greeting review
 

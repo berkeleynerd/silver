@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-10-10 — Next branching item and feature generalization assessed
+
+The owner requested adding the proposed input-dependent branch to the roadmap,
+then assessing how to generalize existing features. The
+[next roadmap item](../roadmap.md#input-dependent-branching) is **proposed**, not
+implemented: one immutable argv String, the existing validity/rejection guard,
+and one case-sensitive equality against a literal choosing two terminal literal
+outputs. Literal values vary over the existing domain; names bind without case
+distinctions. No new language implementation or harness goal was requested.
+The live harness still records the completed seventh-production goal.
+
+The [generalization assessment](language-generalization.md), based on `d630229`,
+recommends shared bounded output expressions after branching, then a useful
+fixed-length result with branch assignments and common terminal output. Repeated
+references require explicit length accounting. Smaller safe capacity guards
+need specified handling of defaults that no longer fit. More declarations,
+arbitrary assignment lists and repeated I/O are later candidates; output failure
+status already persists, but successive effects still need a whole-program
+trace and failure argument. These recommendations do not enlarge the selected
+next capability or authorize a batch of language changes.
+
+Three focused source/proof/design reviews informed the assessment. Only roadmap,
+assessment and handoff documents changed; validation is limited to links,
+consistency and whitespace. No proof replay, native experiment, tool change or
+cache cleanup was needed. The implementation/review target `44fd8ea`, runner
+follow-up `8d5f626` and completed native optimization `d630229` retain their
+original evidence and scope. The Oracle and supported language are unchanged.
+
+Publication authorization continues; record the planning commit and remote
+verification at handoff. GitHub Actions stays disabled, Linux remains primary
+and macOS proofs are a non-goal. CLI memory remains unavailable and no CLI entry
+was updated; these checked-in documents provide the durable recall.
+
 ## 2026-10-10 — Native I/O proof bookkeeping erased and validated
 
 The owner approved the proposed bounded native I/O optimization after the

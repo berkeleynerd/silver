@@ -32,6 +32,14 @@ proof obligations remain. Paired measurements show less executed bookkeeping;
 the full native audit, focused regressions and cached Lean audit passed.
 Source/dependency partitioning and certificate redesign remain deferred.
 
+The owner has selected [input-dependent branching](roadmap.md#input-dependent-branching)
+as the next **proposed** roadmap item: one String equality on validated argv
+input, selecting two terminal literal-output branches. The current instruction
+authorizes roadmap work and the [generalization assessment](docs/language-generalization.md),
+not implementation. That assessment recommends bounded output expressions next,
+then a fixed-length result selected by a branch and printed once. These are
+follow-up proposals; the current seven productions remain unchanged.
+
 The implementation/review target is the commit introducing
 [samples/string_assignment.adb](samples/string_assignment.adb), identifiable with:
 
@@ -41,8 +49,8 @@ git log --diff-filter=A -1 --format='%H %s' -- samples/string_assignment.adb
 
 The implementation is based on `6403b5c`. Earlier feature `96b4e3a` and its
 [external review disposition](docs/command-line-greeting.md#external-review-disposition)
-remain historical evidence for the sixth form. No further language expansion is
-authorized. The Oracle is unchanged.
+remain historical evidence for the sixth form. Implementation of the proposed
+next capability is not yet authorized. The Oracle is unchanged.
 
 ## Local tools and evidence
 
