@@ -50,8 +50,9 @@ For each authorized increment:
    composition, correspondence and automatic-discharge arguments over the entire
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
-3. Audit all required obligations and coverage. The application-unit report
-   remains empty for the first five productions; the guarded dynamic
+3. Audit all required obligations and coverage. The application-unit safety-obligation set
+   remains empty for the first five productions and fixed-length assignment; the
+   latter has a narrowly classified ineffective-initialization advisory. The guarded dynamic
    concatenation has a complete range-check policy. Every output form also
    requires the complete nonempty selected library reports. Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
@@ -75,14 +76,23 @@ establish correspondence.
 
 Run from the repository root. Use `scripts/bootstrap.py` and
 `scripts/bootstrap_lean.py` when tools need installation. Moving the installation
-requires bootstrap and rebuild. Everyday commands are:
+requires bootstrap and rebuild. During iteration, run the smallest check relevant
+to the change: a build and focused tests for executable behavior, incremental
+GNATprove for SPARK changes, or focused Lean proofs for the changed argument.
+The commands below are a menu, not a sequence to repeat after every edit:
 
 ```sh
 python3 scripts/dev.py prove
 python3 scripts/dev.py build
-python3 scripts/dev.py test
+python3 scripts/dev.py test -- -p test_string_assignment.py
 python3 scripts/check_lean.py
 ```
+
+Choose the test file for the affected behavior. Batch recognizer and proof edits
+before rebuilding the expensive source certificates; focused model proofs give
+early feedback, while actual-source correspondence remains required at the
+capability checkpoint. Documentation-only changes need link, consistency and
+whitespace checks, without unrelated proof or test reruns.
 
 GNATprove uses incremental analysis and its native local filesystem result cache.
 The default worker count is all detected cores (`--jobs 0`); use `--jobs N` when
@@ -111,7 +121,8 @@ OS-enforced cap nor a budget for all concurrently scheduled modules. The separat
 pinned `leanchecker --fresh` executable has no memory-limit CLI option; observe
 host headroom during that phase as well.
 
-At capability-validation checkpoints:
+Once a capability's implementation and proof inputs are stable, run one complete
+validation checkpoint before describing it as supported:
 
 ```sh
 python3 scripts/dev.py prove --full
@@ -119,6 +130,14 @@ python3 scripts/dev.py build
 python3 scripts/dev.py test
 python3 scripts/check_lean.py --full
 ```
+
+After successful validation, repeat only checks invalidated by changed inputs,
+a failure or a concrete unresolved concern. Preserve successful work and caches;
+do not repeat the whole checkpoint for documentation-only follow-ups. This
+cadence allows incomplete experiments during development, but does not defer
+complete obligation discharge or source correspondence beyond capability
+completion. The compiler's proof and report checks on each admitted user program
+remain mandatory and unchanged.
 
 Full GNATprove validation forces unit analysis, regenerates reports and audits
 complete coverage and provenance; native sessions and solver-cache results may

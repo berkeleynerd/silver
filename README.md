@@ -58,20 +58,23 @@ literal-initialized constant using `"Hello, " & Name & "!"`.
 The [command-line greeting](samples/command_line_greeting.adb) combines that
 expression with command-line initialization and an explicit remaining-capacity
 guard, `Name'Length <= 4088` for these decorations.
+The [assignment sample](samples/string_assignment.adb) initializes a variable
+with `"Hello"`, assigns the equal-length literal `"World"`, then prints it.
 
-The six complete forms are one null statement without a context clause, one
+The seven complete forms are one null statement without a context clause, one
 qualified literal-output call, one literal-initialized `constant String`
 printed by its identifier, the guarded command-line form, and one
 prefix/reference/suffix concatenation of a literal-backed constant, plus the
-capacity-guarded command-line greeting. All output forms
+capacity-guarded command-line greeting and fixed-length literal assignment. All output forms
 require `with Silver_IO;`; command-line input also requires
 `with Silver_Arguments;`.
-Names bind without ASCII case distinctions; the constant is immutable.
+Names bind without ASCII case distinctions. Constants are immutable; the
+variable form admits exactly one assignment.
 No argument selects the literal default; one printable ASCII argument of up to
 4096 bytes is preserved, including an explicit empty argument. Extra arguments,
 unsupported bytes and oversized input produce no output and status 1. In the
 decorated command-line form, the value must also fit beside its prefix and suffix
-within 4096 output bytes. Otherwise it is rejected without output. Variables,
+within 4096 output bytes. Otherwise it is rejected without output. Other variable forms,
 general conditionals, repeated output calls, other concatenation forms and other APIs remain
 excluded. See [language.md](language.md)
 for the exact rules. On detected failure the wrapper sets status 1 and returns;
@@ -86,6 +89,8 @@ compiler implementation. Lean connects the restricted recognizer source to its
 language model and the runtime wrappers to their effect models. The first five
 forms have empty application reports. The sixth adds range checks covered by
 verified runtime bounds, a Lean arithmetic argument and complete report handling.
+The seventh proves length-compatible assignment and reads the replacement value;
+its reports may include a narrowly classified dead-initializer advisory.
 Application authors supply no contracts or proof annotations. Every emitted
 check and all selected library obligations must be proved before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
@@ -107,6 +112,12 @@ python3 scripts/dev.py prove
 python3 scripts/dev.py build
 python3 scripts/dev.py test
 ```
+
+During editing, select focused tests and incremental proofs for the affected
+behavior. Batch changes before expensive certificate rebuilds, and reserve the
+complete validation checkpoint for stable capability inputs. See the
+[validation cadence](development.md#proof-loop-and-validation); these examples
+are not a checklist to repeat after every edit.
 
 The same commands select the native OS and architecture on each machine. Host
 keys are `linux-aarch64`, `linux-x86_64`, `macos-aarch64`, and `macos-x86_64`.
@@ -206,7 +217,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the six permitted compositions. Structural metadata is written explicitly in
+and the seven permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -217,6 +228,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The fixed-length assignment increment is recorded in
+[string-assignment.md](docs/string-assignment.md), including its exact report
+policy and local validation scope.
 
 Hello World baseline validation is recorded in
 [the capability record](docs/hello-world.md); its Hello World follow-up evidence is in
@@ -268,11 +283,10 @@ recheck; `--clean` also discards this host's proof workspace. The embedded
 recognizer and selected runtime Ada files are dependencies
 of the whole Silver Lean library: editing any of them invalidates that entire
 library's cached build. After runtime source edits, refresh bootstrap and rebuild so embedded library
-bytes agree with the source; full audits reject stale bindings. For a
-capability-validation checkpoint, run:
+bytes agree with the source; full audits reject stale bindings. Once a
+capability's inputs are stable, run its complete validation checkpoint:
 
 ```sh
-python3 scripts/bootstrap.py
 python3 scripts/dev.py prove --full
 python3 scripts/dev.py build
 python3 scripts/dev.py test

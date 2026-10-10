@@ -123,7 +123,8 @@ ordinary diagnostic path.
 The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
 `String` parameter has no precondition. An executable length guard handles
 arguments exceeding 4096; every admitted literal and literal-backed concatenation
-fits by the complete-source bound. GNATprove verifies
+fits by the complete-source bound. The assignment production preserves its
+initial fixed bounds and prints its equal-length replacement literal. GNATprove verifies
 the same bound for values selected by `Silver_Arguments`. It verifies
 initialization, arbitrary String lower bounds, byte-loop bounds and a
 conditional success postcondition. Static observations record accepted bytes,
@@ -352,7 +353,7 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The catalogue names the six productions and their admitted constructs and
+The catalogue names the seven productions and their admitted constructs and
 operations. Named constants add restricted declaration/reference semantics,
 including maximal ASCII identifiers, exclusion of Ada reserved words and
 shadowing names, case-insensitive binding and literal-determined String bounds.
@@ -364,7 +365,10 @@ The guarded form adds the pure argument initializer and fixed validity/rejection
 branches; it separately excludes `Silver_Arguments` as a constant name so the
 package remains visible. The sixth form adds the fixed short-circuit capacity
 condition and dynamic concatenation. The first five application-unit obligation
-sets are empty; the sixth has actual range-check obligations.
+sets are empty; the sixth has actual range-check obligations. The seventh
+production introduces fixed-length mutation from an equal-length literal, with
+a statically satisfied length check. The fixed bounds and replacement semantics
+use Ada RM 3.3.1/5.2; no resizing or truncation is introduced.
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
 `Silver_Runtime` interfaces. Their source
@@ -426,7 +430,8 @@ duplicate audited fields and malformed checked records. There is no fixed
 historical obligation-count threshold.
 
 GNATprove verifies scanner safety and equality of acceptance to the independent
-Static ghost `Runtime_Report_Policy` and `Application_Report_Policy`. The ghost
+Static ghost `Runtime_Report_Policy`, `Application_Report_Policy`, and
+`Assignment_Report_Policy`. The ghost
 policies independently specify byte scanning, fields, array traversal, coverage,
 assumptions and record acceptance. Their meaning as verification evidence uses
 the reviewed pinned-producer format. Native tests exercise genuine reports and
@@ -441,11 +446,22 @@ checks every emitted flow/proof record and permits only proved Main range checks
 in the proof list, with no skipped/assumed/suppressed obligations. Counts may
 vary as GNAT optimizes empty operands. Missing checks cannot be detected solely
 from a report: complete and faithful obligation generation remains trusted.
-Earlier productions continue through the strict empty-report route.
+The first five productions continue through the strict empty-report route.
+The seventh uses `Complete_Assignment_Proof`: Main safety checks remain empty,
+while its precise ineffective-initialization advisory may be recorded. That
+advisory concerns the overwritten value, not the bounds established by the
+initializer. The checker verifies Main coverage, permitted call dependencies
+and zero or one exact advisory record, rejecting other warnings and failed,
+skipped or assumed checks. Some legal names cause GNATprove to omit the advisory;
+this is not a change to language membership. Source/refinement and mutation
+checks are described in [the assignment record](string-assignment.md).
 
 Application proof uses `-U --mode=all --report=all --warnings=error
 --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
---timeout=0 --memlimit=0 -j0`. The fixed library obligations are discharged on
+--timeout=0 --memlimit=0 -j0`. Only the assignment route changes
+`--warnings=error` to `--warnings=continue` so it can classify the retained
+dead-initializer advisory using its exact report policy. Other warnings still
+prevent publication, and all selected library reports remain strict. The fixed library obligations are discharged on
 every fresh application compile; application membership remains independent of
 those results. Zero wall-clock timeout is not a guarantee against environmental
 failure. Compiler development proofs have their separately documented cached,
@@ -501,7 +517,7 @@ signatures. The typed Main composition renders to the admitted token production;
 its shared interpreter handles initialization before the required guard and
 uses the immutable-vector assumption for both queries. Ada interpretation of
 those fixed nodes remains reviewed. The public membership
-expression includes all five output forms, retaining the shared literal and
+expression includes all six output forms, retaining the shared literal and
 named helper meanings; the complete bridge connects it with the null form.
 The concatenation bridge checks its recognizer expression and the typed Main
 composition's rendering and left association. Its interpreter consumes the

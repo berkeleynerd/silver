@@ -747,6 +747,63 @@ is
       end loop;
    end Match_Sized_Literal;
 
+   subtype Assignment_Token_Index is
+     Positive range 1 .. Assignment_Required_Tokens'Last + 1;
+
+   function Assignment_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Assignment_Token_Index;
+      Declared_First, Declared_After : Literal_Position;
+      Initial_Length : Capacity_Value) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1
+         and then Valid_Name_State (Text, Declared_First, Declared_After),
+       Subprogram_Variant => (Increases => Next_Token);
+
+   function Assignment_Suffix_Matches
+     (Text : String; Position : Cursor; Next_Token : Assignment_Token_Index;
+      Declared_First, Declared_After : Literal_Position;
+      Initial_Length : Capacity_Value) return Boolean
+   is
+     (if Next_Token > Assignment_Required_Tokens'Last then
+        Trivia_End (Text, Position) = Text'Last + 1
+      elsif Assignment_Required_Tokens (Next_Token) = Declaration_Name then
+        Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then not Forbidden_Name
+          (Text, Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Assignment_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)),
+           Initial_Length)
+      elsif Assignment_Required_Tokens (Next_Token) = Reference_Name then
+        Declared_First > 0
+        and then Identifier_End (Text, Trivia_End (Text, Position)) /= 0
+        and then Equal_Name
+          (Text, Declared_First, Declared_After,
+           Trivia_End (Text, Position), Identifier_End (Text, Trivia_End (Text, Position)))
+        and then Assignment_Suffix_Matches
+          (Text, Identifier_End (Text, Trivia_End (Text, Position)), Next_Token + 1,
+           Declared_First, Declared_After, Initial_Length)
+      elsif Assignment_Required_Tokens (Next_Token) = String_Literal then
+        Trivia_End (Text, Position) <= Text'Last
+        and then Text (Trivia_End (Text, Position)) = Character'Val (34)
+        and then Literal_End (Text, Trivia_End (Text, Position) + 1) /= 0
+        and then (if Next_Token > 17 then
+          Literal_Length (Text, Trivia_End (Text, Position) + 1) = Initial_Length)
+        and then Assignment_Suffix_Matches
+          (Text, Literal_End (Text, Trivia_End (Text, Position) + 1), Next_Token + 1,
+           Declared_First, Declared_After,
+           (if Next_Token = 17 then
+              Literal_Length (Text, Trivia_End (Text, Position) + 1)
+            else Initial_Length))
+      else
+        Token_At (Text, Trivia_End (Text, Position),
+          Spelling (Assignment_Required_Tokens (Next_Token)),
+          Is_Word_Token (Assignment_Required_Tokens (Next_Token)))
+        and then Assignment_Suffix_Matches
+          (Text, Trivia_End (Text, Position) + Spelling (Assignment_Required_Tokens (Next_Token))'Length,
+           Next_Token + 1, Declared_First, Declared_After, Initial_Length));
+
    subtype Guarded_Token_Index is
      Positive range 1 .. Guarded_Required_Tokens'Last + 1;
 
@@ -817,6 +874,11 @@ is
       and then Allowed_Source (Normalized (Source))
       and then Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0));
 
+   function Is_Assignment_Member (Source : String) return Boolean is
+     (Source'Length in 1 .. Max_Source_Length
+      and then Allowed_Source (Normalized (Source))
+      and then Assignment_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0));
+
    function Is_Member (Source : String) return Boolean is
      (Source'Length in 1 .. Max_Source_Length
       and then Allowed_Source (Normalized (Source))
@@ -824,7 +886,8 @@ is
         or else Named_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
         or else Argument_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
         or else Concatenation_Suffix_Matches (Normalized (Source), 1, 1, 0, 0)
-        or else Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0)));
+        or else Guarded_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0, 0)
+        or else Assignment_Suffix_Matches (Normalized (Source), 1, 1, 0, 0, 0)));
 
    function Is_Literal_Member (Source : String) return Boolean
      with Ghost => Static, Global => null;
@@ -1233,6 +1296,67 @@ is
       end;
    end Accepts_Concatenation;
 
+   function Accepts_Assignment (Source : String) return Boolean is
+   begin
+      if Source'Length = 0 or else Source'Length > Max_Source_Length then
+         return False;
+      end if;
+      declare
+         Text : constant String := Normalized (Source);
+         Position : Cursor := 1;
+         Next_Token : Assignment_Token_Index := 1;
+         Declared_First, Declared_After : Literal_Position := 0;
+         Matched : Boolean;
+         Initial_Length : Capacity_Value := 0;
+         Length : Capacity_Value;
+      begin
+         if not Allowed_Source (Text) then
+            return False;
+         end if;
+         while Next_Token <= Assignment_Required_Tokens'Last loop
+            pragma Loop_Invariant (Position <= Text'Last + 1);
+            pragma Loop_Invariant (Valid_Name_State (Text, Declared_First, Declared_After));
+            pragma Loop_Invariant (Static =>
+              Assignment_Suffix_Matches (Text, 1, 1, 0, 0, 0)
+                = Assignment_Suffix_Matches (Text, Position, Next_Token, Declared_First, Declared_After, Initial_Length));
+            pragma Loop_Variant (Increases => Next_Token);
+            Skip_Trivia (Text, Position);
+            declare
+               Start : constant Cursor := Position;
+            begin
+               if Assignment_Required_Tokens (Next_Token) = Declaration_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched then return False; end if;
+                  if Forbidden_Name (Text, Start, Position) then return False; end if;
+                  Declared_First := Start;
+                  Declared_After := Position;
+               elsif Assignment_Required_Tokens (Next_Token) = Reference_Name then
+                  Match_Identifier (Text, Position, Matched);
+                  if not Matched or else Declared_First = 0 then return False; end if;
+                  if not Equal_Name (Text, Declared_First, Declared_After, Start, Position) then
+                     return False;
+                  end if;
+               elsif Assignment_Required_Tokens (Next_Token) = String_Literal then
+                  Match_Sized_Literal (Text, Position, Matched, Length);
+                  if not Matched then return False; end if;
+                  if Next_Token > 17 and then Length /= Initial_Length then
+                     return False;
+                  end if;
+                  if Next_Token = 17 then
+                     Initial_Length := Length;
+                  end if;
+               else
+                  Match_Token (Text, Position, Assignment_Required_Tokens (Next_Token), Matched);
+               end if;
+            end;
+            if not Matched then return False; end if;
+            Next_Token := Next_Token + 1;
+         end loop;
+         Skip_Trivia (Text, Position);
+         return Position > Text'Last;
+      end;
+   end Accepts_Assignment;
+
    function Accepts_Guarded (Source : String) return Boolean is
    begin
       if Source'Length = 0 or else Source'Length > Max_Source_Length then
@@ -1307,6 +1431,6 @@ is
    begin
       return Accepts_Literal (Source) or else Accepts_Named (Source)
         or else Accepts_Arguments (Source) or else Accepts_Concatenation (Source)
-        or else Accepts_Guarded (Source);
+        or else Accepts_Guarded (Source) or else Accepts_Assignment (Source);
    end Accepts;
 end Silver_Output_Profile;

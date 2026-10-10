@@ -1,215 +1,110 @@
-# Silver VM handoff
+# Silver handoff
 
-Refreshed on 2026-10-10 from the replacement sandbox after reading the authority
-and prior handoff. The actual host is **Linux x86-64**, with 12 visible CPUs,
-approximately 31 GiB usable RAM and separate 63-GiB Docker storage. Native pinned
-tools have been installed; build, tests, full SPARK validation and full Lean
-verification passed. Lean replay resumed after two host/sandbox restarts,
-preserving its completed objects and both interrupted attempts' logs, then
-passed a fresh axiom audit and independent kernel recheck. See the
-[host-readiness record](docs/host-readiness.md) for commands, results and resources.
+Updated on 2026-10-10 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+[oracle.md](oracle.md), [language.md](language.md),
+[development.md](development.md), [roadmap.md](roadmap.md), and the newest
+[session memory](docs/session-memory.md) before substantial work. Inspect Git
+status and the live harness goal; historical goal states are not current instructions.
 
-**Recovery status:** the subsequently fetched migration archives passed full
-integrity checks; historical ARM64/macOS evidence, tools and caches are restored
-alongside the new x86-64 state. Top-level `tmp/`, `.vscode/`, old CLI memory and
-the old checkout's local Git state were outside those snapshots. Preserve any
-remaining old VM/backup until that separate state is accounted for. GitHub access
-is restored. At the owner's explicit
-direction, GitHub Actions is disabled for the entire repository and validation
-runs locally. Do not enable hosted CI as a readiness follow-up. No runs are
-listed and the previously recorded run is no longer retrievable.
-CLI memory is disabled and absent; checked-in session memory is the active
-handoff. The owner subsequently authorized [Lean concurrency tuning](docs/lean-concurrency.md)
-on the current proofs. No language expansion or new certificate-representation
-candidate is authorized.
+## Current work
 
-The temporary non-dot `silver/` and `tools/` migration folders have now been
-removed from both the current tree and Git history at the owner's request.
-The live `.silver/` and `.tools/` directories remain in place. Future recovery
-requires those live directories or a separate backup; the transfer archives
-are no longer recoverable from the rewritten branch.
+The seventh production is implemented and locally validated: one literal-initialized `String`
+variable, one assignment of an equal-decoded-length literal, then output through
+the same name. Independent reviews, native validation, the full Lean build,
+fresh axiom audit and independent fresh kernel recheck passed. Final evidence
+corroboration matched current inputs and artifacts. The harness goal also covers
+the closing commit and publication; check its live status and closing evidence
+at resumption.
+The [capability record](docs/string-assignment.md) records exact scope, the
+obligation experiment, source correspondence and validation status.
 
-**Concurrency tuning:** the measured runner change is complete. Lake workers
-and per-process Lean threads now default to the available CPUs, with independent
-overrides and retained caches. Regression tests, full Lean verification and a
-cached full all-core compiler audit passed. The
-[concurrency record](docs/lean-concurrency.md) gives the measured speedup and RAM
-headroom, exact validation scope and remaining serial costs. Its publication
-outcome is recorded at the closing handoff; the feature review target below is
-unchanged.
+The owner also requested a read-only [architecture review](docs/architecture-review.md)
+while validation ran. It recommends retaining the main boundaries, with small
+evidence-runner and proof-only I/O improvements as possible follow-ups. No
+recommended refactor has been implemented or selected as the next goal.
 
-## Completed work and review target
-
-- `5668806` records the bounded certificate-performance investigation. Neither
-  permitted candidate established a validated improvement. The original
-  certificate representation remains; no third approach is authorized.
-- The feature implementation and external-review target is `96b4e3a`, which added
-  this document and `samples/command_line_greeting.adb`. It admits the sixth
-  production, normalizes owned argument results to one-based strings, proves
-  independent report-policy refinement, and extends the SPARK/Lean assurance.
-  Find that commit with `git log -1 --format='%H %s' -- samples/command_line_greeting.adb`.
-- Implementation, independent review and full native Linux validation are
-  complete. The existing harness goal was marked complete at the local
-  commit handoff. Its earlier paused status was superseded by the owner's
-  explicit resumption; do not recreate it as unfinished work from an old note.
-- The Oracle is unchanged. After completion, the owner added the
-  [GitHub remote](https://github.com/berkeleynerd/silver) and authorized pushing
-  the committed history. The previous handoff confirmed that remote `main`
-  contained `9731278`, including the implementation and performance commits.
-  The initial missing-`workflow`-scope rejection is historical. The replacement
-  checkout started at `69d294c` and incorporated the migration commits before
-  their archive contents were removed from history. Initial credential failures on the replacement host
-  were separate from that earlier resolved scope issue; access recovered after
-  the second restart. The later scheduling task is separate from the closed
-  certificate-representation investigation; no next language capability is
-  authorized.
-
-Read [the capability record](docs/command-line-greeting.md) for exact proof
-claims, results, identities and limitations, and
-[the performance record](docs/certificate-performance.md) for the negative
-performance result. The [external review](docs/command-line-greeting.md#external-review-disposition)
-is now assessed, with no surviving blocking, high or medium finding. Its accepted
-follow-up corrects documentation; optional source, test and proof additions are
-deferred. The next language capability remains to be selected and authorized.
-macOS records are entirely optional; no retrieval or corroboration task is open.
-The first [hosted CI run](https://github.com/berkeleynerd/silver/actions/runs/37983290787)
-started for `9731278` and was reported in progress at the previous refresh.
-The authenticated API now returns 404 for that run and lists no repository runs;
-the `Verify Silver` workflow is `disabled_manually`, and repository-wide Actions
-has now been disabled at the owner's request. The old results remain unavailable;
-hosted validation is outside the intended local workflow. Later handoff-only
-commits do not change the implementation review target. This session's live
-harness returned no goal; do not recreate the completed implementation goal.
-
-## Recover and preserve the old VM evidence
-
-The one-time migration and full archive integrity checks are complete. The owner
-subsequently authorized removing `silver/`, `tools/` and their obsolete binary
-attributes from history. The rewritten branch retains source and documentation
-history, but no transfer archives. The feature commit `96b4e3a` is unchanged;
-later migration, recovery, tuning and cleanup commit IDs changed. The
-[history rewrite record](docs/host-readiness.md#transfer-history-removal) maps
-the relevant old IDs to their replacements. Historical evidence keeps its
-original IDs and input hashes.
-
-For future recovery, back up the live `.silver/` and `.tools/` trees separately
-and restore through fresh staging, preserving newer native state. A Git clone
-does not contain these ignored directories. The earlier command to restore
-transfer folders from `1bf065d` is obsolete.
-
-Existing clones still have the old archive history. Preserve local work and
-ignored artifacts, then use a fresh clone of the rewritten remote. Do not merge
-or push the old branch history back into it; port any unpublished source changes
-separately. The current checkout was updated without replacing its live dot
-directories. GitHub may retain unreferenced objects until its own cleanup; their
-server-side deletion is not established by a force-push.
-
-Keep the entire checkout, including `.git`, for any local state newer than those
-snapshots. Preserve untracked `.vscode/` and `tmp/` material; those directories
-are still excluded from Git.
-
-During the original recovery, all part and archive hashes, extracted inventories
-and full content comparisons passed.
-Foreign-host and legacy trees were restored without collisions; the new native
-x86-64 state was preserved. New validation does not replace historical records.
-
-Keep all hosts' `.silver/<host>/` evidence and caches and `.tools/<host>/`
-installations; the latter avoid unnecessary downloads. Do not discard another
-host's state when preparing Linux. Live artifact trees remain ignored by Git;
-the restored live trees include this evidence:
-
-- `.silver/linux-aarch64/guarded-greeting-validation/` contains final results,
-  review identities and preserved failed/interrupted attempts. Its
-  `lean-final-evidence.json` and `lean-final-proof.log` record the completed full
-  Lean check; `native-validation-summary.json` and `native-validation.json`
-  record compiler proof, build and tests.
-- `.silver/linux-aarch64/compiler/obj/cold-tline0db/gnatprove/` contains the
-  successful cold compiler audit and `proof-provenance.json`.
-- `.silver/linux-aarch64/lean-evidence.json` and
-  `.silver/linux-aarch64/proof/` retain the current Lean record and reusable
-  module objects.
-- `.silver/linux-aarch64/certificate-performance/` retains both bounded
-  candidate trials. Earlier review evidence and other-host artifacts retain
-  their original scope.
-
-Verify any additional backup before destroying the old
-VM. Retain original evidence if relocation makes its absolute paths
-stale; a new machine or installation does not retroactively change that evidence.
-
-CLI recall is secondary. If available in the backup, preserve the Silver notes under
-`/home/agent/.codex/memories/extensions/ad_hoc/notes/`; checked-in guidance and
-the owner's latest instructions take precedence over the older paused snapshot.
-
-## Continue on the replacement VM
-
-1. Read [AGENTS.md](AGENTS.md), [oracle.md](oracle.md),
-   [language.md](language.md), [development.md](development.md),
-   [roadmap.md](roadmap.md), and the latest
-   [session memory](docs/session-memory.md). Inspect Git status and the live
-   harness goal before starting work.
-2. Verify the actual OS, architecture, RAM and free disk. The old checkout path
-   looks like macOS, but the completed work ran on Linux ARM64. The owner now has
-   a host with **96 GB RAM**. The recommended sandbox allocation is **32 GiB RAM**,
-   automatic CPU allocation, and **64 GiB Docker storage**. The mounted Silver
-   workspace, including `.tools/` and `.silver/`, uses the host filesystem and
-   needs its own free space. These recommendations supersede the earlier 18 GB
-   plan. This sandbox's observed RAM and Docker capacity match those allocations;
-   the mounted workspace has approximately 604 GiB free before installation.
-   The separate root filesystem is only 20 GiB. Physical host RAM is not directly
-   verified from inside the sandbox.
-3. Check selected host paths with `python3 scripts/dev.py paths`. Python 3.11+
-   and native libc development files are required on Linux. If the installation
-   moves, run `python3 scripts/bootstrap.py`,
-   `python3 scripts/bootstrap_lean.py`, then `python3 scripts/dev.py build` to
-   refresh installation bindings. See
-   [platform coexistence](docs/platform-coexistence.md). Existing evidence still
-   describes the original installation and inputs; record new validation with
-   its actual scope. Both bootstrap commands have now passed on x86-64, after
-   installing missing Linux libc development files; consult the readiness record
-   before repeating completed phases.
-4. Use the existing incremental proof workflow for subsequent authorized work.
-   GNATprove defaults to all detected cores; `--jobs N` provides a lower limit.
-   Lean now defaults both Lake workers and per-process threads to the available
-   CPUs (12 here); `--workers N` and `--threads N` override them independently.
-   For full checks, use `python3 scripts/dev.py prove --full` and
-   `python3 scripts/check_lean.py --full --memory-mb 6144`.
-   Run heavy proof commands separately and monitor available memory. Lake can
-   schedule independent modules concurrently; the memory allowance applies to
-   each Lean build/audit process, not aggregate host usage. The separate pinned
-   `leanchecker` has no memory-limit CLI option. Retain caches; use cold or clean
-   checks only when their purpose warrants the extra cost.
-
-For future recreation, the previously recommended host-side command is:
+The implementation/review target is the commit introducing
+[samples/string_assignment.adb](samples/string_assignment.adb), identifiable with:
 
 ```sh
-DOCKER_SANDBOXES_DOCKER_SIZE=64g sbx create --name codex-silver --cpus 0 --memory 32g codex .
+git log --diff-filter=A -1 --format='%H %s' -- samples/string_assignment.adb
 ```
 
-Then attach with `sbx run --name codex-silver`. The
-[creation options](https://docs.docker.com/reference/cli/sbx/create/) use binary
-memory units and automatic CPU allocation (capped at 16 on Linux ARM64). The
-[disk override](https://docs.docker.com/ai/sandboxes/configuration/settings/#sandboxdiskdockervolume)
-sets the new sandbox's Docker volume, not the mounted workspace's capacity.
-Additional physical RAM does not change Lean's configured memory threshold or
-establish a proof speedup. The [concurrency record](docs/lean-concurrency.md)
-documents the measured scheduling gains, memory headroom and remaining serial
-work; use those results when deciding whether a later workload needs more RAM.
+The implementation is based on `6403b5c`. Earlier feature `96b4e3a` and its
+[external review disposition](docs/command-line-greeting.md#external-review-disposition)
+remain historical evidence for the sixth form. No further language expansion is
+authorized. The Oracle is unchanged.
 
-No historical ARM64 validation process needs resumption. Its compiler audit
-used wholly fresh sessions/cache, and its final Lean invocation reused completed
-modules but executed a fresh axiom audit and kernel recheck. Those underlying
-artifacts are now restored and corroborated within the snapshot's scope. The readiness record distinguishes new x86-64
-validation from those historical results. The external reviewer reports native
-macOS success for the sixth form; macOS records are entirely optional. AdaCore
-GNAT Pro remains untested. GitHub Actions is intentionally disabled
-repository-wide; local validation is the requested workflow. Publication
-authorization continues, with its outcome recorded
-in the latest session-memory entry.
+## Local tools and evidence
 
-The intermittent GNATprove `DOC_END` JSON-reader failure in reused state remains
-unresolved. Its historical logs are restored. There is no automatic retry and
-cold success is not evidence that
-warm state is repaired. Mathematical range validity and its
-decision procedure are proved; faithful concrete GNAT obligation generation and
-pinned solver completion remain documented external-tool premises. Do not
-present these as verified solver completeness or weaken required discharge.
+The current sandbox has 12 visible CPUs and approximately 31 GiB RAM. Native
+pinned tools are installed. Use `python3 scripts/dev.py paths` for the actual
+installation and artifact paths. GNATprove uses all cores by default; Lean uses
+all available Lake workers and per-process threads, with independent overrides.
+The [concurrency record](docs/lean-concurrency.md) distinguishes measured speedups
+from remaining serial work and explains the per-process memory threshold.
+
+During iteration, choose the smallest relevant check and use existing caches;
+these commands are alternatives, not a sequence after every edit:
+
+```sh
+python3 scripts/dev.py build
+python3 scripts/dev.py prove
+python3 scripts/dev.py test -- -p test_string_assignment.py
+python3 scripts/check_lean.py --memory-mb 12288
+```
+
+Choose tests for the affected behavior and batch edits before expensive
+source-certificate rebuilds. Once a capability's inputs are stable, run the full
+test suite and add `--full` to both proof commands. This regenerates
+complete compiler evidence and adds Lean's independent fresh kernel recheck;
+it does not imply a cold build. Repeat only validation affected by subsequent
+changes, failures or unresolved concerns. Documentation-only follow-ups need
+lightweight checks. See the [validation cadence](development.md#proof-loop-and-validation).
+Monitor aggregate host memory when running heavy
+commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
+and all foreign-host evidence. Source/runtime installation moves require
+bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
+
+Current task evidence is under `.silver/linux-x86_64/assignment-validation/`.
+Prior canonical reports/manifests were preserved there before validation. Earlier
+host recovery and Linux ARM64 records retain their original input and platform
+scope in the [host-readiness record](docs/host-readiness.md) and linked artifacts.
+Linux is primary; macOS records are entirely optional. GNAT Pro is untested.
+
+<a id="recover-and-preserve-the-old-vm-evidence"></a>
+
+## Git, recovery and session state
+
+The owner authorized committing and publishing completed work to
+[the repository](https://github.com/berkeleynerd/silver). GitHub Actions remains
+**disabled repository-wide** by explicit instruction; validation runs locally.
+Do not enable hosted CI as a follow-up. Verify remote `main` at handoff and record
+the closing commit in the final response and local evidence.
+
+The non-dot `silver/` and `tools/` transfer directories were removed from both
+the tree and reachable Git history at the owner's request. Live `.silver/` and
+`.tools/` were preserved. See the
+[history rewrite record](docs/host-readiness.md#transfer-history-removal) for
+commit mappings and recovery limits. Back up the ignored live directories
+separately; a clone cannot recover them. Do not merge the old archive-bearing
+history into the rewritten branch. Existing scratch, foreign-host artifacts and
+safety stash `a48321d` remain preserved. Historical references are not instructions
+to recover the removed archives.
+
+CLI memory is unavailable: no memory tool is exposed and the conventional recall
+directories are absent. No CLI recall entry was updated. Checked-in
+[session memory](docs/session-memory.md) is the durable handoff. The separate
+Codex remote-control request remains unresolved because of API authentication;
+this language task does not change authentication or restart its daemon.
+
+## Remaining limits
+
+The intermittent warm-state GNATprove `DOC_END` JSON-reader failure remains
+unresolved. Retain a recurrence's logs and inputs; successful validation does not
+establish repair, and no automatic retry is configured. Faithful complete GNAT
+obligation generation, static elimination of the admitted assignment's satisfied
+length check, pinned solver completion for guarded concatenation, and the
+frontend/runtime/environment assumptions remain explicit in
+[assurance](docs/assurance.md) and the [trusted boundary](docs/trusted-boundary.md).
+No new external operation or trusted shortcut is introduced by this increment.

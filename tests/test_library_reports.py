@@ -74,6 +74,25 @@ def main_report(count: int = 2) -> dict:
     return data
 
 
+def assignment_report(warning: bool = True) -> dict:
+    data = main_report(0)
+    data["entities"] = {" 1": data["entities"][" 1"]}
+    data["assumptions"] = []
+    data["flow"] = ([dict(check(), severity="warning", how_proved="flow",
+                         rule="INEFFECTIVE", file="main.adb",
+                         message={"text": 'initialization of "Message" has no effect'})]
+                    if warning else [])
+    return data
+
+
+def assignment_call_report() -> dict:
+    data = assignment_report(False)
+    data["entities"][" 2"] = entity("Silver_IO.Put_Line")
+    data["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_EFFECTS"},
+                             "assumptions": [{"arg": 2, "predicate": "CLAIM_EFFECTS"}]}]
+    return data
+
+
 class LibraryReportTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -173,6 +192,131 @@ end Probe;
             data = main_report()
             data["assumptions"][0]["assumptions"][0]["predicate"] = predicate
             self.assertFalse(self.accepts(data, kind="main"))
+
+    def test_assignment_advisory_is_separate_from_required_checks(self) -> None:
+        for warning in (False, True):
+            data = assignment_report(warning)
+            self.assertTrue(self.accepts(data, kind="assignment"))
+            for wrong in ("main", "body", "interface", "arguments", "runtime"):
+                self.assertFalse(self.accepts(data, kind=wrong))
+        for name in ("Message", "M", "Main", "Name_2_A", "Silver_Arguments", "X" * 1300):
+            data = assignment_report()
+            data["flow"][0]["message"]["text"] = f'initialization of "{name}" has no effect'
+            self.assertTrue(self.accepts(data, kind="assignment"))
+        for name in ("main", "mAiN", "MAIN"):
+            data = assignment_report()
+            data["entities"][" 1"]["name"] = name
+            self.assertTrue(self.accepts(data, kind="assignment"))
+
+    def test_assignment_rejects_other_diagnostics_and_proof_records(self) -> None:
+        changes = (("severity", "info"), ("severity", "low"), ("severity", "high"),
+                   ("how_proved", "prover"), ("how_proved", "unknown"),
+                   ("rule", "UNINITIALIZED"), ("rule", "VC_LENGTH_CHECK"),
+                   ("file", "silver_io.adb"), ("entity", 2), ("entity", 0),
+                   ("line", 0), ("col", 0), ("line", "1"))
+        for field, value in changes:
+            data = assignment_report()
+            data["flow"][0][field] = value
+            with self.subTest(field=field, value=value):
+                self.assertFalse(self.accepts(data, kind="assignment"))
+        for text in ('unused assignment', 'unused assignment to "Message"',
+                     'initialization of "" has no effect',
+                     'initialization of "1Message" has no effect',
+                     'initialization of "Message_" has no effect',
+                     'initialization of "Message__2" has no effect',
+                     'initialization of "' + 'X' * 4097 + '" has no effect',
+                     'initialization of "Message" has no effect (suppressed)',
+                     'initialization of "Message" has no effect\n'):
+            data = assignment_report()
+            data["flow"][0]["message"]["text"] = text
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        for field in ("severity", "how_proved", "rule", "entity", "file", "line", "col", "message"):
+            data = assignment_report()
+            del data["flow"][0][field]
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        for field in ("justification", "justified", "suppressed", "annot_kind", "justif_msg"):
+            data = assignment_report()
+            data["flow"][0][field] = False
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        data = assignment_report()
+        data["flow"] *= 2
+        self.assertFalse(self.accepts(data, kind="assignment"))
+        for rule in ("VC_LENGTH_CHECK", "VC_RANGE_CHECK", "INEFFECTIVE"):
+            data = assignment_report()
+            data["proof"] = [dict(check(), rule=rule, file="main.adb")]
+            self.assertFalse(self.accepts(data, kind="assignment"))
+
+    def test_assignment_requires_exact_coverage_and_completed_analysis(self) -> None:
+        for field in ("skip_flow_proof", "skip_proof", "pragma_assume", "warn_error", "assumptions"):
+            data = assignment_report()
+            data[field] = [{}]
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        for field, value in (("spark", {}), ("spark", {" 1": "spec"}),
+                             ("spark", {" 1": "all", " 2": "all"}),
+                             ("progress", "PROGRESS_FLOW"), ("stop_reason", "STOP_REASON_ERROR")):
+            data = assignment_report()
+            data[field] = value
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        for field in ("flow", "proof", "entities", "spark", "progress", "stop_reason", "warn_error"):
+            data = assignment_report()
+            del data[field]
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        for field, value in (("name", "Main2"), ("sloc", []),
+                             ("sloc", [{"file": "other.adb", "line": 1, "column": 1}])):
+            data = assignment_report()
+            data["entities"][" 1"][field] = value
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        data = assignment_report()
+        data["entities"][" 2"] = entity("Silver_IO.Put_Line")
+        self.assertFalse(self.accepts(data, kind="assignment"))
+        source = json.dumps(assignment_report())
+        for field in ("severity", "rule", "message"):
+            value = assignment_report()["flow"][0][field]
+            entry = f'"{field}": {json.dumps(value)}'
+            self.assertFalse(self.accepts(source.replace(entry, entry + ", " + entry), kind="assignment"))
+
+    def test_assignment_optional_output_dependency_has_exact_shape(self) -> None:
+        self.assertTrue(self.accepts(assignment_call_report(), kind="assignment"))
+        for predicate in ("CLAIM_AORTE", "CLAIM_POST", "CLAIM_ASSUME", "UNKNOWN"):
+            for where in ("claim", "assumptions"):
+                data = assignment_call_report()
+                reference = data["assumptions"][0][where]
+                if isinstance(reference, list):
+                    reference = reference[0]
+                reference["predicate"] = predicate
+                self.assertFalse(self.accepts(data, kind="assignment"))
+        for where in ("claim", "assumptions"):
+            for arg in (0, 3, 2 if where == "claim" else 1):
+                data = assignment_call_report()
+                reference = data["assumptions"][0][where]
+                if isinstance(reference, list):
+                    reference = reference[0]
+                reference["arg"] = arg
+                self.assertFalse(self.accepts(data, kind="assignment"))
+        for modification in ("absent", "duplicate", "extra_reference", "advisory", "callee_coverage",
+                             "missing_callee", "location"):
+            data = assignment_call_report()
+            if modification == "absent":
+                data["assumptions"] = []
+            elif modification == "duplicate":
+                data["assumptions"] *= 2
+            elif modification == "extra_reference":
+                data["assumptions"][0]["assumptions"] *= 2
+            elif modification == "advisory":
+                data["flow"] = assignment_report()["flow"]
+            elif modification == "callee_coverage":
+                data["spark"][" 2"] = "all"
+            elif modification == "missing_callee":
+                del data["entities"][" 2"]
+            else:
+                data["entities"][" 2"]["sloc"][0]["file"] = "main.adb"
+            self.assertFalse(self.accepts(data, kind="assignment"))
+        data = assignment_call_report()
+        data["entities"] = {" 8": data["entities"][" 2"], " 7": data["entities"][" 1"]}
+        data["spark"] = {" 7": "all"}
+        data["assumptions"][0]["claim"]["arg"] = 7
+        data["assumptions"][0]["assumptions"][0]["arg"] = 8
+        self.assertTrue(self.accepts(data, kind="assignment"))
 
     def test_both_selected_schemas_and_wrong_kind(self) -> None:
         self.assertTrue(self.accepts(report()))

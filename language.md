@@ -42,7 +42,7 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-Exactly six productions are admitted. The null production is:
+Exactly seven productions are admitted. The null production is:
 
 ```ada
 procedure Main is
@@ -261,6 +261,53 @@ result fits the output operation's 4096-byte domain. The default and decorations
 fit together because their distinct literal spans consume the bounded source.
 A command-line value must pass the explicit runtime capacity test.
 
+### Fixed-length string assignment
+
+The assignment-output production is:
+
+```ada
+with Silver_IO;
+procedure Main is
+   pragma SPARK_Mode (On);
+   Message : String := "Hello";
+begin
+   Message := "World";
+   Silver_IO.Put_Line (Message);
+end Main;
+```
+
+Its complete token sequence is:
+
+```text
+with silver_io ; procedure main is pragma spark_mode ( on ) ;
+<declaration_name> : string := <string_literal> ;
+begin <reference_name> := <string_literal> ;
+silver_io . put_line ( <reference_name> ) ; end main ;
+```
+
+The declaration introduces one variable, with no `constant` keyword or explicit
+index constraint. Its name follows the named-literal identifier rules, including
+the exclusions of reserved words, `String` and `Silver_IO`; `Main` and
+`Silver_Arguments` remain legal. Both references must match the complete declared
+name, ignoring ASCII case.
+
+Initialization fixes the variable's bounds. The sole assignment must use an
+admitted literal with exactly the same **decoded length** as the initializer.
+Equality is checked from source before proof; it does not depend on a solver.
+Both empty literals are legal. Doubled quotes count as one value byte, so raw
+literal spans can differ even when their decoded lengths agree. Assignment
+replaces the bytes while preserving the object's bounds; it neither resizes nor
+truncates the string. The final call prints the replacement value followed by LF
+under the existing output contract.
+
+Exactly this sequence is admitted: initialization, one assignment, one output
+call, and return. Unequal lengths, a missing or additional assignment, assignment
+to a constant, extra declarations, output of the initializer before assignment,
+name-to-name assignment, command-line initialization, concatenation and other
+expressions are excluded from this composition. `:=` remains one contiguous token.
+The full source, including both literals and all three name occurrences, must
+fit the existing 4096-byte bound.
+
 ### Shared composition rules
 
 Whitespace around punctuation is optional. Adjacent word tokens require a
@@ -272,13 +319,15 @@ The following capability identifiers are shared with the catalogue:
 | Capability | Admitted form and restrictions |
 | --- | --- |
 | `main_procedure` | Exactly one library-level procedure body named `Main`, with no parameters and the required closing name. |
-| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named, concatenated and command-line compositions additionally declare their one constant; no other pragmas are admitted. |
+| `spark_mode_on` | Exactly one `pragma SPARK_Mode (On);`, in the procedure's declarative part. The named, concatenated and command-line compositions additionally declare their one constant; the assignment composition declares one variable. No other pragmas are admitted. |
 | `null_statement` | Exactly one `null;` statement, forming the entire procedure body. |
 | `runtime_context` | Exactly one `with Silver_IO;` before the output procedure, followed by `argument_context` only in the two command-line compositions. No `use` clause. |
 | `literal_output` | Exactly one qualified `Silver_IO.Put_Line` call with one string-literal argument, forming the entire output procedure body. |
-| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, the concatenation prefix/suffix, or the argument default. |
+| `string_literal` | A literal in the domain above, used as the direct output argument, the named constant initializer, the concatenation prefix/suffix, the argument default, or either literal of `string_assignment_output`. |
 | `named_string_constant` | One `constant String` declaration initialized by a literal or `argument_initialization`, as fixed by the composition. |
-| `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant identifier. |
+| `named_output` | One qualified `Silver_IO.Put_Line` call whose argument is the declared constant or variable identifier, as fixed by the composition. |
+| `named_string_variable` | One `String` variable initialized by a literal, with bounds fixed by that value. |
+| `string_assignment` | One assignment to that variable from an equal-decoded-length literal, followed by `named_output`. |
 | `string_concatenation` | Exactly a prefix literal, one reference to the constant, and a suffix literal joined by two left-associated predefined String `&` operators; a command-line initializer requires `capacity_guard`. |
 | `concatenated_output` | One qualified `Silver_IO.Put_Line` call with the complete `string_concatenation` expression as its sole argument. |
 | `argument_context` | Exactly one `with Silver_Arguments;`, after `with Silver_IO;`, in the two command-line compositions. |
@@ -289,7 +338,7 @@ The following capability identifiers are shared with the catalogue:
 
 In the null and literal-output compositions the pragma is the sole declarative
 item of `Main`; the named, concatenated and command-line compositions add exactly their
-constant after the pragma.
+constant after the pragma. The assignment composition instead adds its one variable.
 The null composition has no context clause and exactly one null statement.
 The literal-output composition requires the context clause and exactly one
 literal call. The named composition requires the same context and a call by name.
@@ -299,11 +348,13 @@ The command-line composition requires both context clauses, argument
 initialization and the complete guard, with output by the bound name.
 The guarded-concatenation composition uses both context clauses, argument
 initialization and `capacity_guard`, with the fixed prefix/reference/suffix output.
-Context plus null, null plus output, and repeated output calls are excluded.
+The assignment composition has the same single IO context, one variable and the
+fixed assignment-then-output sequence. Context plus null, null plus output, and
+repeated output calls are excluded.
 No exception handlers or additional application compilation units are admitted.
 Capabilities are not independently optional or freely repeatable.
 
-Everything else is excluded, including other context clauses or calls, variables,
+Everything else is excluded, including other context clauses or calls, additional variable forms,
 general conditionals, other string expressions/operations, general arrays, access types, and file
 handles. Admitting these operations admits no other API or implementation feature. In particular,
 application code cannot call `Ada.Text_IO` or the underlying libc imports.
@@ -364,7 +415,8 @@ output must be initialized and must not be concurrently written or rebound.
 The exact libc/ABI and effect assumptions are in the
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary).
 
-The earlier five productions have empty **application-unit** obligation sets. Literal
+The first five productions and the fixed-length assignment production have empty
+**application-unit safety-obligation** sets. Literal
 initialization establishes the constant value and bounds without a range
 constraint or read of uninitialized data. Name binding selects that value; the
 output call has no caller precondition or constrained argument.
@@ -375,6 +427,14 @@ relies on the pinned frontend's faithful Ada semantics.
 The argument initializer returns an unconstrained `String`; its verified contract
 establishes the output domain. The Boolean guard and rejection call add no
 application checks or caller obligations.
+The variable initializer establishes fixed bounds and fully initialized bytes.
+Equal decoded lengths establish the assignment's length compatibility statically;
+the output reference reads the replacement value. The pinned tools eliminate the
+statically satisfied length check. GNATprove may still record an `INEFFECTIVE`
+flow warning for the overwritten initializer value. The assignment-only report
+policy classifies this precise advisory while retaining it in the report; it
+accepts no failed safety check or other warning. Required complete library
+reports are unchanged.
 Guarded concatenation generates range checks for the dynamic String operations.
 The owned initializer's length and one-based bounds, the bounded literals, and
 the executable capacity guard establish the necessary ranges and output domain.
@@ -384,7 +444,7 @@ The selected SPARK library bodies have nonempty obligations, all of which must
 be proved and checked before building an output program. Library initialization,
 bounds and the conditional success contract are verified. The language-wide
 argument covers all permitted literals, identifiers, argument vectors, lexical
-variants and all six compositions,
+variants and all seven compositions,
 not just the samples. See the
 [assurance argument](docs/assurance.md) for the checked theorems, source
 correspondence, external-tool premises, and limitations.
@@ -411,7 +471,9 @@ command-line input;
 [samples/greeting.adb](samples/greeting.adb) concatenates a literal prefix and
 suffix with one reference to a literal-initialized constant;
 [samples/command_line_greeting.adb](samples/command_line_greeting.adb) adds the
-capacity guard for a command-line value. The
+capacity guard for a command-line value;
+[samples/string_assignment.adb](samples/string_assignment.adb) assigns an
+equal-length literal to one variable before output. The
 [sample manifest](samples/manifest.json) records each supported sample's
 capabilities and expected output and exit status. The suite admits, proves,
 builds and executes each sample. Samples witness supported behavior; they do

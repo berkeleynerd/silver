@@ -2,8 +2,9 @@ import Silver.ArgumentsSourceBridge
 import Silver.GuardedExpressions
 import Silver.GuardedMain
 import Silver.Current
+import Silver.AssignmentSourceBridge
 
-/-! Source correspondence for the current six-form recognizer and its report
+/-! Source correspondence for the current seven-form recognizer and its report
 policy selector. Checked typed expressions, arbitrary-callee interpretation,
 and applied recursion uniqueness close the new helper chain. The SPARK-proved
 imperative contracts and trusted Ada frontend remain explicit premises. Main's
@@ -22,7 +23,8 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "literal_length" Source.outputBodyTokens = some Expressions.literalLengthBody.render ∧
   Source.expressionBody "guarded_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render ∧
   Source.expressionBody "is_member" Source.outputBodyTokens = some Expressions.memberBody.render ∧
-  Source.expressionBody "is_guarded_member" Source.outputBodyTokens = some Expressions.guardedBody.render
+  Source.expressionBody "is_guarded_member" Source.outputBodyTokens = some Expressions.guardedBody.render ∧
+  Source.expressionBody "is_assignment_member" Source.outputBodyTokens = some Expressions.assignmentBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
@@ -74,7 +76,9 @@ abbrev NumericDeclarations : Prop :=
   Source.declaration "invalid_decimal" Source.outputBodyTokens =
     some (expectedTokens "constant Decimal_Result := (After => 0, Value => 0)") ∧
   subtypeDeclaration "guarded_token_index" Source.outputBodyTokens =
-    some (expectedTokens "Positive range 1 .. Guarded_Required_Tokens'Last + 1")
+    some (expectedTokens "Positive range 1 .. Guarded_Required_Tokens'Last + 1") ∧
+  subtypeDeclaration "assignment_token_index" Source.outputBodyTokens =
+    some (expectedTokens "Positive range 1 .. Assignment_Required_Tokens'Last + 1")
 
 theorem actual_numeric_declarations : NumericDeclarations := by decide +kernel
 
@@ -139,6 +143,7 @@ theorem actual_helper_contracts : HelperContracts :=
 
 structure CheckedSource : Prop where
   inherited : Arguments.SourceBridge.CheckedSource
+  assignment : Assignment.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   numeric : NumericDeclarations
   refinement : Refinement
@@ -149,6 +154,7 @@ structure CheckedSource : Prop where
 
 theorem checked_source : CheckedSource where
   inherited := Arguments.SourceBridge.checked_source
+  assignment := Assignment.SourceBridge.checked_source
   expressions := actual_expressions
   numeric := actual_numeric_declarations
   refinement := actual_refinement
@@ -187,6 +193,16 @@ theorem authoritative_guarded_member_iff
     CheckedSource ∧ (acceptsGuarded source = true ↔ Member source) := by
   refine ⟨checked_source, ?_⟩
   rw [provedSelector, Expressions.interpreted_guarded_iff calls sourceEquations]
+
+/-- The new report route is selected by its source-refined recognizer. -/
+theorem authoritative_assignment_member_iff
+    (calls : Expressions.Calls) (sourceEquations : Expressions.InterpretedSource calls)
+    (acceptsAssignment : Source → Bool)
+    (provedSelector : ∀ source, acceptsAssignment source = calls.assignmentMember source)
+    (source : Source) :
+    CheckedSource ∧ (acceptsAssignment source = true ↔ Assignment.Member source) := by
+  refine ⟨checked_source, ?_⟩
+  rw [provedSelector, Expressions.interpreted_assignment_iff calls sourceEquations]
 
 theorem authoritative_executable_member_iff
     (nullCalls : Silver.Expressions.Calls)

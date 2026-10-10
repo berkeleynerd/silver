@@ -44,10 +44,11 @@ sequence.
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
 | Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
 | Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
+| Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
-string variables, arbitrary concatenation, indexing, general arrays, access types, or file
+additional string-variable forms, arbitrary concatenation, indexing, general arrays, access types, or file
 handles. Each additional form needs explicit admission and composition rules.
 
 ## Next goals after the greeting review
@@ -172,8 +173,8 @@ Subsequent host validation, evidence recovery and the owner's decision to
 validate locally with hosted CI disabled are recorded in
 [host readiness](docs/host-readiness.md).
 Reassignment, mutable strings, repeated references, general expressions/conditionals
-and a new output API remain outside this increment. No next feature is selected
-or authorized.
+and a new output API remain outside that completed increment. The owner
+subsequently authorized the fixed-length assignment increment recorded above.
 
 ## Output design and next increments
 
@@ -191,7 +192,7 @@ The [language specification](language.md) defines printable ASCII literals,
 quote escaping, empty strings, the source bound, exact LF output, detected
 failure, and the current permitted compositions. The
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary) defines
-external effects and progress. Repeated calls, variables, arbitrary concatenation and
+external effects and progress. Repeated calls, additional variable forms, arbitrary concatenation and
 broader library admission remain excluded.
 
 The owner authorized the command-line message task below on 2026-10-09.
@@ -258,7 +259,11 @@ Reassignment, concatenation, mutable strings, general arrays, access types,
 arbitrary conditionals and general command-line package access remain outside
 that completed task. Literal-backed greeting is now supported below;
 guarded command-line concatenation is now supported above.
-Statically compatible assignments remain later work.
+The owner authorized the first statically compatible assignment composition on
+2026-10-10: exactly one literal-initialized variable, one literal assignment of
+equal decoded length, then output by the same name. The
+[capability record](docs/string-assignment.md) tracks its implementation and
+assurance. Further assignment forms remain later work.
 
 The implementation reuses the approved GNAT argument imports beneath a verified
 SPARK wrapper. Application reports remain empty; selected owned libraries have

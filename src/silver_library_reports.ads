@@ -10,6 +10,9 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Application_Report_Policy (Report : String) return Boolean
      with Ghost => Static, Global => null;
 
+   function Assignment_Report_Policy (Report : String) return Boolean
+     with Ghost => Static, Global => null;
+
    --  Source-specific GNATprove 16.1 report policy for the selected runtime.
    --  This is a bounded format/coverage audit under the trusted tool premise,
    --  not authentication of independently supplied JSON or proof certificates.
@@ -30,4 +33,12 @@ package Silver_Library_Reports with SPARK_Mode => On is
    function Complete_Application_Proof (Report : String) return Boolean
      with Global => null,
        Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report));
+   --  Equal-length assignment's Main report has no required safety checks.
+   --  Retain and classify only the expected ineffective-initialization warning:
+   --  the overwritten value is unused, but its bounds constrain the variable.
+   --  Without that advisory, the report may retain the exact Main-to-Put_Line
+   --  call-effects dependency; all required safety check lists remain empty.
+   function Complete_Assignment_Proof (Report : String) return Boolean
+     with Global => null,
+       Post => (Static => Complete_Assignment_Proof'Result = Assignment_Report_Policy (Report));
 end Silver_Library_Reports;

@@ -165,3 +165,25 @@ run_cmd do
 #print axioms Silver.Guarded.SourceBridge.authoritative_executable_member_iff
 #print axioms Silver.Guarded.SourceBridge.authoritative_main_correct
 #print axioms Silver.Guarded.SourceBridge.checked_executable_pipeline
+
+-- Fixed-length String mutation: decoded lengths, state preservation, sequencing.
+#print axioms Silver.Assignment.accepts_iff_member
+#print axioms Silver.Assignment.parsed_erases
+#print axioms Silver.Assignment.meaning_unique
+#print axioms Silver.Assignment.meaning_binds
+#print axioms Silver.Assignment.assignment_length
+#print axioms Silver.Assignment.assignment_valid
+#print axioms Silver.Assignment.assignment_preserves_constraint
+#print axioms Silver.Assignment.output_domain
+#print axioms Silver.Assignment.Main.rendered_tokens
+#print axioms Silver.Assignment.evaluation_refines
+#print axioms Silver.Assignment.execution_refines
+#print axioms Silver.Assignment.suffixAtIndex_unique
+#print axioms Silver.Assignment.model_equations
+#print axioms Silver.Assignment.Expressions.interpreted_suffix
+#print axioms Silver.Assignment.Expressions.model_interpreted
+#print axioms Silver.Assignment.SourceBridge.authoritative_main_correct
+#print axioms Silver.Current.assignment_execution_refines
+#print axioms Silver.Assignment.initializer_domain
+#print axioms Silver.Guarded.SourceBridge.authoritative_assignment_member_iff
+#print axioms Silver.Guarded.Expressions.interpreted_assignment_iff

@@ -129,7 +129,11 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
       Put_Line ("        ""qualification_required"": true,");
       Put_Line ("        ""arguments"": [");
-      Put_Line ("          ""declared_constant_identifier""");
+      Put_Line ("          ""declared_string_identifier""");
+      Put_Line ("        ],");
+      Put_Line ("        ""declaration"": [");
+      Put_Line ("          ""named_string_constant"",");
+      Put_Line ("          ""named_string_variable""");
       Put_Line ("        ],");
       Put_Line ("        ""count"": 1");
       Put_Line ("      }");
@@ -227,6 +231,36 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""else"": [");
       Put_Line ("          ""argument_rejection""");
       Put_Line ("        ],");
+      Put_Line ("        ""count"": 1");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""named_string_variable"",");
+      Put_Line ("      ""ada_kind"": ""object_declaration"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""type"": ""String"",");
+      Put_Line ("        ""constant"": false,");
+      Put_Line ("        ""initializer"": [");
+      Put_Line ("          ""string_literal""");
+      Put_Line ("        ],");
+      Put_Line ("        ""bounds"": ""determined_by_initializer"",");
+      Put_Line ("        ""count"": 1,");
+      Put_Line ("        ""identifier_pattern"": ""[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*"",");
+      Put_Line ("        ""excluded_names"": [");
+      Put_Line ("          ""String"",");
+      Put_Line ("          ""Silver_IO""");
+      Put_Line ("        ],");
+      Put_Line ("        ""case_insensitive_binding"": true,");
+      Put_Line ("        ""exclude_ada_2022_reserved_words"": true");
+      Put_Line ("      }");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""id"": ""string_assignment"",");
+      Put_Line ("      ""ada_kind"": ""assignment_statement"",");
+      Put_Line ("      ""conditions"": {");
+      Put_Line ("        ""target"": ""declared_variable_identifier"",");
+      Put_Line ("        ""value"": ""string_literal"",");
+      Put_Line ("        ""decoded_length"": ""equal_to_initializer_decoded_length"",");
       Put_Line ("        ""count"": 1");
       Put_Line ("      }");
       Put_Line ("    }");
@@ -364,6 +398,29 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""silver_arguments.adb"",");
       Put_Line ("        ""silver_runtime.ads""");
       Put_Line ("      ]");
+      Put_Line ("    },");
+      Put_Line ("    {");
+      Put_Line ("      ""name"": ""string_assignment_output"",");
+      Put_Line ("      ""context"": [");
+      Put_Line ("        ""runtime_context""");
+      Put_Line ("      ],");
+      Put_Line ("      ""declarative_items"": [");
+      Put_Line ("        ""spark_mode_on"",");
+      Put_Line ("        ""named_string_variable""");
+      Put_Line ("      ],");
+      Put_Line ("      ""statements"": [");
+      Put_Line ("        ""string_assignment"",");
+      Put_Line ("        ""named_output""");
+      Put_Line ("      ],");
+      Put_Line ("      ""library_units"": [");
+      Put_Line ("        ""silver_io.ads"",");
+      Put_Line ("        ""silver_io.adb"",");
+      Put_Line ("        ""silver_output_libc.ads"",");
+      Put_Line ("        ""silver_arguments.ads"",");
+      Put_Line ("        ""silver_arguments.adb"",");
+      Put_Line ("        ""silver_runtime.ads""");
+      Put_Line ("      ],");
+      Put_Line ("      ""initializer"": ""string_literal""");
       Put_Line ("    }");
       Put_Line ("  ],");
    end Export_Compositions;
@@ -523,6 +580,20 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put ("""<capacity_literal>""");
          else
             Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Guarded_Required_Tokens (Index)) & """");
+         end if;
+      end loop;
+      Put_Line ("],");
+      Put ("  ""assignment_tokens"": [");
+      for Index in Silver_Output_Profile.Assignment_Required_Tokens'Range loop
+         if Index /= Silver_Output_Profile.Assignment_Required_Tokens'First then Put (","); end if;
+         if Silver_Output_Profile.Assignment_Required_Tokens (Index) = Silver_Output_Profile.String_Literal then
+            Put ("""<string_literal>""");
+         elsif Silver_Output_Profile.Assignment_Required_Tokens (Index) = Silver_Output_Profile.Declaration_Name then
+            Put ("""<declaration_name>""");
+         elsif Silver_Output_Profile.Assignment_Required_Tokens (Index) = Silver_Output_Profile.Reference_Name then
+            Put ("""<reference_name>""");
+         else
+            Put ("""" & Silver_Output_Profile.Spelling (Silver_Output_Profile.Assignment_Required_Tokens (Index)) & """");
          end if;
       end loop;
       Put_Line ("]");

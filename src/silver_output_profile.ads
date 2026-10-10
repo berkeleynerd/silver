@@ -65,6 +65,16 @@ is
       String_Literal, Ampersand, Reference_Name, Ampersand, String_Literal,
       Right_Parenthesis, Semicolon, End_Keyword, Main_Name, Semicolon);
 
+   Assignment_Required_Tokens : constant Token_Sequence :=
+     (With_Keyword, IO_Name, Semicolon,
+      Procedure_Keyword, Main_Name, Is_Keyword,
+      Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis, On_Name,
+      Right_Parenthesis, Semicolon, Declaration_Name, Colon,
+      String_Name, Assignment, String_Literal, Semicolon,
+      Begin_Keyword, Reference_Name, Assignment, String_Literal, Semicolon,
+      IO_Name, Dot, Put_Line_Name, Left_Parenthesis, Reference_Name,
+      Right_Parenthesis, Semicolon, End_Keyword, Main_Name, Semicolon);
+
    Guarded_Required_Tokens : constant Token_Sequence :=
      (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name,
       Semicolon, Procedure_Keyword, Main_Name, Is_Keyword,
@@ -89,7 +99,8 @@ is
    --  The independent ghost grammar admits direct literal output, named
    --  literal constants, guarded command-line initialization and output,
    --  literal-backed concatenation, and command-line concatenation behind
-   --  the fixed validity and residual-capacity guard.
+   --  the fixed validity and residual-capacity guard, and one equal-length
+   --  literal assignment to a literal-initialized String variable.
    --  Its string contents are printable ASCII; doubled quotes encode one
    --  quote, and comments/trivia apply only outside the literal.
    function Is_Member (Source : String) return Boolean
@@ -101,6 +112,13 @@ is
    function Accepts_Guarded (Source : String) return Boolean
      with Global => null,
           Post => (Static => Accepts_Guarded'Result = Is_Guarded_Member (Source));
+
+   function Is_Assignment_Member (Source : String) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Accepts_Assignment (Source : String) return Boolean
+     with Global => null,
+          Post => (Static => Accepts_Assignment'Result = Is_Assignment_Member (Source));
 
    function Accepts (Source : String) return Boolean
      with Global => null,

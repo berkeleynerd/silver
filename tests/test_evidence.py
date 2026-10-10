@@ -86,6 +86,97 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaises(EvidenceError):
             self.audit()
 
+    def prepare_assignment(self) -> None:
+        self.report["assumptions"] = []
+        self.report["flow"] = [{"severity": "warning", "how_proved": "flow", "entity": 1,
+                                "rule": "INEFFECTIVE", "file": "main.adb", "line": 4, "col": 4,
+                                "message": {"text": 'initialization of "Message" has no effect'}}]
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports()
+        # GNATprove reports this advisory separately from required checks.
+        (self.path / "gnatprove.out").write_text(
+            "Total . . . . .\nin unit main, 1 subprograms and packages out of 1 analyzed\n")
+        sarif = json.loads((self.path / "gnatprove.sarif").read_text())
+        sarif["runs"][0]["results"][0].update(kind="open", level="warning")
+        (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
+
+    def test_assignment_advisory_requires_explicit_policy_and_is_not_a_check(self) -> None:
+        self.prepare_assignment()
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main"})
+        stats = audit_reports(self.path, {"main"}, assignment_application=True)
+        self.assertEqual((stats["flow_checks"], stats["proof_checks"], stats["assignment_advisories"]),
+                         (0, 0, 1))
+        (self.path / "gnatprove.out").write_text(
+            "Total 1 1 . . .\nin unit main, 1 subprograms and packages out of 1 analyzed\n")
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main"}, assignment_application=True)
+
+    def test_assignment_policy_rejects_other_diagnostics_and_suppression(self) -> None:
+        changes = (("severity", "info"), ("how_proved", "prover"), ("rule", "VC_LENGTH_CHECK"),
+                   ("file", "other.adb"), ("entity", 2), ("line", 0), ("col", 0),
+                   ("message", {"text": 'unused assignment to "Message"'}),
+                   ("message", {"text": 'initialization of "Message_" has no effect'}),
+                   ("suppressed", False), ("justification", ""), ("justified", False))
+        for field, value in changes:
+            self.prepare_assignment()
+            self.report["flow"][0][field] = value
+            (self.path / "main.spark").write_text(json.dumps(self.report))
+            with self.subTest(field=field, value=value), self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, assignment_application=True)
+        self.prepare_assignment()
+        self.report["flow"] *= 2
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main"}, assignment_application=True)
+        self.prepare_assignment()
+        self.report["proof"] = [{"severity": "info", "rule": "VC_LENGTH_CHECK"}]
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main"}, assignment_application=True)
+
+    def test_assignment_sarif_must_match_unsuppressed_advisory(self) -> None:
+        for field, value in (("ruleId", "UNINITIALIZED"), ("kind", "fail"), ("kind", "pass"),
+                             ("level", "error"), ("level", "none"),
+                             ("message", {"text": 'initialization of "Other" has no effect'}),
+                             ("suppressions", [{"kind": "external"}])):
+            self.prepare_assignment()
+            sarif = json.loads((self.path / "gnatprove.sarif").read_text())
+            sarif["runs"][0]["results"][0][field] = value
+            (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
+            with self.subTest(field=field, value=value), self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, assignment_application=True)
+
+    def test_assignment_optional_effect_dependency_is_exact(self) -> None:
+        self.report["entities"][" 2"] = {
+            "name": "Silver_IO.Put_Line", "sloc": [{"file": "silver_io.ads", "line": 18, "column": 14}]}
+        self.report["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_EFFECTS"},
+                                       "assumptions": [{"arg": 2, "predicate": "CLAIM_EFFECTS"}]}]
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        self.refresh_reports()
+        stats = audit_reports(self.path, {"main"}, assignment_application=True)
+        self.assertEqual((stats["flow_checks"], stats["proof_checks"], stats["assignment_advisories"]),
+                         (0, 0, 0))
+        exact_assumptions = copy.deepcopy(self.report["assumptions"])
+        for assumptions in ([], [{}], [{"claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+                                      "assumptions": [{"arg": 2, "predicate": "CLAIM_EFFECTS"}]}],
+                            [{"claim": {"arg": 2, "predicate": "CLAIM_EFFECTS"},
+                              "assumptions": [{"arg": 1, "predicate": "CLAIM_EFFECTS"}]}]):
+            self.report["assumptions"] = assumptions
+            (self.path / "main.spark").write_text(json.dumps(self.report))
+            with self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, assignment_application=True)
+
+        # Python bool/float equality must not turn malformed JSON references
+        # into the integer entity IDs required by the native report checker.
+        for claim_arg, callee_arg in ((True, 2), (1.0, 2), (1, 2.0)):
+            self.report["assumptions"] = copy.deepcopy(exact_assumptions)
+            self.report["assumptions"][0]["claim"]["arg"] = claim_arg
+            self.report["assumptions"][0]["assumptions"][0]["arg"] = callee_arg
+            (self.path / "main.spark").write_text(json.dumps(self.report))
+            with self.subTest(claim=claim_arg, callee=callee_arg), self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, assignment_application=True)
+
     def test_captured_arguments_handle_lossy_producer_paths_without_shell_parsing(self) -> None:
         command = ["gnatprove", "-P", "/tmp/checkout ' --mode=flow/project.gpr",
                    "--mode=all", "--report=all",

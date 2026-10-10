@@ -12,3 +12,5 @@ import Silver.ConcatSourceBridge
 import Silver.ConcatExamples
 import Silver.GuardedSourceBridge
 import Silver.GuardedExamples
+import Silver.AssignmentSourceBridge
+import Silver.AssignmentExamples

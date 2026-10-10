@@ -91,9 +91,13 @@
         "operation": "Silver_IO.Put_Line",
         "qualification_required": true,
         "arguments": [
-          "declared_constant_identifier"
+          "declared_string_identifier"
         ],
-        "count": 1
+        "count": 1,
+        "declaration": [
+          "named_string_constant",
+          "named_string_variable"
+        ]
       }
     },
     {
@@ -189,6 +193,36 @@
         "else": [
           "argument_rejection"
         ],
+        "count": 1
+      }
+    },
+    {
+      "id": "named_string_variable",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "String",
+        "constant": false,
+        "initializer": [
+          "string_literal"
+        ],
+        "bounds": "determined_by_initializer",
+        "count": 1,
+        "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
+        "excluded_names": [
+          "String",
+          "Silver_IO"
+        ],
+        "case_insensitive_binding": true,
+        "exclude_ada_2022_reserved_words": true
+      }
+    },
+    {
+      "id": "string_assignment",
+      "ada_kind": "assignment_statement",
+      "conditions": {
+        "target": "declared_variable_identifier",
+        "value": "string_literal",
+        "decoded_length": "equal_to_initializer_decoded_length",
         "count": 1
       }
     }
@@ -320,6 +354,29 @@
         "silver_arguments.adb",
         "silver_runtime.ads"
       ]
+    },
+    {
+      "name": "string_assignment_output",
+      "context": [
+        "runtime_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "named_string_variable"
+      ],
+      "statements": [
+        "string_assignment",
+        "named_output"
+      ],
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "initializer": "string_literal"
     }
   ],
   "additional_units": false,
@@ -1044,6 +1101,41 @@
     ";",
     "end",
     "if",
+    ";",
+    "end",
+    "main",
+    ";"
+  ],
+  "assignment_tokens": [
+    "with",
+    "silver_io",
+    ";",
+    "procedure",
+    "main",
+    "is",
+    "pragma",
+    "spark_mode",
+    "(",
+    "on",
+    ")",
+    ";",
+    "<declaration_name>",
+    ":",
+    "string",
+    ":=",
+    "<string_literal>",
+    ";",
+    "begin",
+    "<reference_name>",
+    ":=",
+    "<string_literal>",
+    ";",
+    "silver_io",
+    ".",
+    "put_line",
+    "(",
+    "<reference_name>",
+    ")",
     ";",
     "end",
     "main",

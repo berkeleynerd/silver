@@ -19,7 +19,10 @@ prepared performance-only validation snapshot.
 Each dominant trial directly rebuilt `Silver.OutputBodyCertificate`, whose
 authoritative Ada input was 42,994 bytes. Trials used isolated workspaces, CPU 0,
 one Lean thread, a 3,300-second limit, `-M4096`, warning-as-error and profiling.
-`-M4096` is Lean's allocation limit; it is **not** a total-process RSS limit.
+As clarified by the later [runtime investigation](lean-concurrency.md),
+`-M4096` sets a periodically checked per-process resident-memory threshold in
+MiB, not a hard OS-enforced cap. The original description as an allocation
+limit was incorrect; this clarification changes none of the observations below.
 The other modules' existing objects were retained as dependencies. This measures
 a forced certificate rebuild, not a clean whole-project build.
 
@@ -33,7 +36,7 @@ These are failed or interrupted trials, **not successful replay timings**.
 They establish no speedup ratio. Candidate 2 had no reported Lean memory error
 when interrupted: its rising RSS triggered the explicit host safeguard at about
 8 GiB RSS, before exhausting the VM. The safeguard was distinct from the original
-Lean allocation limit. No larger-limit retry or third approach was attempted.
+Lean memory threshold. No larger-limit retry or third approach was attempted.
 
 ## Approaches and assurance
 

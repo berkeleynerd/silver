@@ -134,7 +134,8 @@ def source_tokens(source: Path) -> list[str]:
 
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
-                  effective_command: list[str] | None = None) -> dict[str, int]:
+                  effective_command: list[str] | None = None,
+                  assignment_application: bool = False) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
@@ -142,10 +143,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     trusted_import_units = trusted_import_units or set()
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
              "limitation_notes": 0, "imported_entities": 0}
+    if assignment_application:
+        require("main" in expected_units, "assignment audit requires Main")
+        stats["assignment_advisories"] = 0
     reports = {unit: read_json(report_dir / f"{unit}.spark") for unit in expected_units}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
     diagnostics: Counter = Counter()
+    assignment_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
     summaries = {name: (int(analyzed), int(total)) for name, analyzed, total in
                  re.findall(r"in unit (\w+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
@@ -164,6 +169,53 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         coverage = report.get("spark")
         require(isinstance(entities, dict) and bool(entities), f"{unit}: no analyzed entities")
         require(isinstance(coverage, dict) and bool(coverage), f"{unit}: no SPARK coverage")
+        assignment = assignment_application and unit == "main"
+        if assignment:
+            # This is an explicit application-form policy. Compiler audits and
+            # all other applications retain the default warning rejection.
+            main_entities = {key: value for key, value in entities.items()
+                             if value.get("name", "").lower() == "main"}
+            call_entities = {key: value for key, value in entities.items()
+                             if value.get("name") == "Silver_IO.Put_Line"}
+            require(len(main_entities) == 1 and len(call_entities) <= 1
+                    and len(entities) == len(main_entities) + len(call_entities)
+                    and coverage.keys() == main_entities.keys()
+                    and all(value == "all" for value in coverage.values()),
+                    "assignment: unexpected entities or Main coverage")
+            main_key, main = next(iter(main_entities.items()))
+            require(bool(main.get("sloc"))
+                    and all(location.get("file") == "main.adb"
+                            and type(location.get("line")) is int and location["line"] > 0
+                            and type(location.get("column")) is int and location["column"] > 0
+                            for location in main["sloc"]),
+                    "assignment: unexpected Main declaration")
+            require(report.get("proof") == [] and report.get("warn_error") == [],
+                    "assignment: unexpected proof or warning record")
+            require(isinstance(report.get("flow"), list) and len(report["flow"]) <= 1,
+                    "assignment: expected at most one initializer advisory")
+            if call_entities:
+                # With the advisory absent, GNATprove can instead retain the
+                # one real output-call effect edge. Require this exact shape.
+                call_key, call = next(iter(call_entities.items()))
+                require(bool(call.get("sloc"))
+                        and all(location.get("file") == "silver_io.ads"
+                                and type(location.get("line")) is int and location["line"] > 0
+                                and type(location.get("column")) is int and location["column"] > 0
+                                for location in call["sloc"]),
+                        "assignment: unexpected output declaration")
+                require(main_key.strip().isdigit() and int(main_key) > 0
+                        and call_key.strip().isdigit() and int(call_key) > 0,
+                        "assignment: invalid dependency entity identifiers")
+                require(report["flow"] == [] and report.get("assumptions") == [{
+                    "claim": {"arg": int(main_key), "predicate": "CLAIM_EFFECTS"},
+                    "assumptions": [{"arg": int(call_key), "predicate": "CLAIM_EFFECTS"}]}],
+                    "assignment: unexpected output-call dependency")
+                dependency = report["assumptions"][0]
+                require(type(dependency["claim"]["arg"]) is int
+                        and type(dependency["assumptions"][0]["arg"]) is int,
+                        "assignment: dependency references must be integer entity identifiers")
+            else:
+                require(report.get("assumptions") == [], "assignment: unexpected dependencies")
         require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
@@ -189,7 +241,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(report.get(key) == [], f"{unit}: missing or nonempty {key}")
         assumptions = report.get("assumptions")
         require(isinstance(assumptions, list), f"{unit}: missing assumption dependencies")
-        for entry in assumptions:
+        # Assignment's optional edge was checked exactly above, including both
+        # declaration files. Other forms use the general selected-unit policy.
+        for entry in ([] if assignment else assumptions):
             require(isinstance(entry.get("assumptions"), list), f"{unit}: malformed assumption dependencies")
             for reference in [entry.get("claim", {}), *entry["assumptions"]]:
                 require(reference.get("predicate") in {"CLAIM_POST", "CLAIM_AORTE", "CLAIM_EFFECTS"},
@@ -210,9 +264,27 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(isinstance(records, list), f"{unit}: missing {key} results")
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
+                advisory = assignment and key == "flow"
+                if advisory:
+                    require(record.get("severity") == "warning"
+                            and record.get("how_proved") == "flow"
+                            and record.get("rule") == "INEFFECTIVE"
+                            and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and type(record.get("entity")) is int and record["entity"] > 0
+                            and re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
+                                             record.get("message", {}).get("text", "")) is not None,
+                            "assignment: unexpected flow diagnostic")
+                    require(len(record["message"]["text"]) <= len('initialization of "" has no effect') + 4096,
+                            "assignment: initializer name exceeds source bound")
+                    require(not any(field in record for field in
+                                    ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
+                            "assignment: suppressed or justified diagnostic")
+                    stats["assignment_advisories"] += 1
                 limitation = (key == "warn_error" and record.get("rule") in PROOF_LIMITATION_NOTES
                               and record.get("severity") == "warning")
-                require(record.get("severity") == "info" or limitation,
+                require(record.get("severity") == "info" or limitation or advisory,
                         f"{unit}: {key} diagnostic is not proved/info: {record}")
                 if limitation:
                     stats["limitation_notes"] += 1
@@ -229,11 +301,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 if key in ("flow", "proof"):
                     require(f" {record.get('entity')}" in entities or str(record.get("entity")) in entities,
                             f"{unit}: diagnostic references unknown entity")
-                diagnostics[(record["rule"], Path(record["file"]).name, record["line"], record["col"],
-                             record.get("message", {}).get("text"))] += 1
+                diagnostic = (record["rule"], Path(record["file"]).name, record["line"], record["col"],
+                              record.get("message", {}).get("text"))
+                diagnostics[diagnostic] += 1
+                if advisory:
+                    assignment_diagnostics[diagnostic] += 1
         stats["units"] += 1
         stats["entities"] += len(own_entities)
-        stats["flow_checks"] += len(report["flow"])
+        stats["flow_checks"] += 0 if assignment else len(report["flow"])
         stats["proof_checks"] += len(report["proof"])
 
     sarif = read_json(report_dir / "gnatprove.sarif")
@@ -272,25 +347,31 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     require(isinstance(results, list), "missing SARIF results")
     sarif_diagnostics: Counter = Counter()
     for result in results:
+        locations = result.get("locations", [])
+        require(len(locations) == 1, "missing/ambiguous SARIF diagnostic location")
+        location = locations[0]["physicalLocation"]
+        region = location["region"]
+        diagnostic = (result.get("ruleId"), Path(location["artifactLocation"]["uri"]).name,
+                      region["startLine"], region["startColumn"],
+                      result.get("message", {}).get("text"))
+        advisory = (diagnostic in assignment_diagnostics
+                    and location["artifactLocation"]["uri"] == "main.adb"
+                    and result.get("kind") == "open" and result.get("level") == "warning")
+        require(diagnostic not in assignment_diagnostics or advisory,
+                "assignment: SARIF must preserve initializer advisory classification")
         limitation = (result.get("ruleId") in PROOF_LIMITATION_NOTES
                       and result.get("kind") in ("open", "informational")
                       and result.get("level") == "warning")
-        require(result.get("kind") in ("pass", "informational") or limitation,
+        require(result.get("kind") in ("pass", "informational") or limitation or advisory,
                 f"SARIF result not proved: {result}")
-        require(result.get("level", "none") in ("none", "note") or limitation,
+        require(result.get("level", "none") in ("none", "note") or limitation or advisory,
                 f"SARIF warning/error: {result}")
         # GNATprove marks its disabled-by-default limitation diagnostics as
         # externally suppressed. This is not an obligation suppression.
         suppressions = result.get("suppressions", [])
         require(not suppressions or (limitation and suppressions == [{"kind": "external"}]),
                 "suppressed SARIF diagnostic")
-        locations = result.get("locations", [])
-        require(len(locations) == 1, "missing/ambiguous SARIF diagnostic location")
-        location = locations[0]["physicalLocation"]
-        region = location["region"]
-        sarif_diagnostics[(result.get("ruleId"), Path(location["artifactLocation"]["uri"]).name,
-                           region["startLine"], region["startColumn"],
-                           result.get("message", {}).get("text"))] += 1
+        sarif_diagnostics[diagnostic] += 1
     require(diagnostics == sarif_diagnostics, "SARIF and SPARK diagnostic coverage disagree")
     total_rows = re.findall(r"(?m)^Total\s+.*$", summary)
     require(len(total_rows) == 1, "missing/ambiguous proof totals in coverage summary")

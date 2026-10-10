@@ -143,6 +143,8 @@ abbrev CatalogueTranslation : Prop :=
     some (["constant", "token_sequence", ":=", "("] ++ namedNames Concat.requiredTokens ++ [")"]) ∧
   Source.declaration "guarded_required_tokens" Source.outputSpecTokens =
     some (["constant", "token_sequence", ":=", "("] ++ guardedNames Guarded.requiredTokens ++ [")"]) ∧
+  Source.declaration "assignment_required_tokens" Source.outputSpecTokens =
+    some (["constant", "token_sequence", ":=", "("] ++ namedNames Assignment.requiredTokens ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some guardedSpellingExpression ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens =
     some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name"] ∧

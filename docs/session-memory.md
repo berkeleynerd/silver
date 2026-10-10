@@ -1,5 +1,124 @@
 # Session memory
 
+## 2026-10-10 — Fixed-length string assignment completed locally
+
+The authorized seventh production is implemented and validated: one
+literal-initialized `String` variable, one equal-decoded-length literal
+assignment and terminal output through the same case-insensitive binding.
+Empty strings and escaped quotes are included. Admission, semantics, source
+correspondence, exact application/library report policies, catalogue,
+specification, samples and tests agree. The Oracle and runtime libraries are
+unchanged; no further language expansion is selected or authorized.
+
+The [capability record](string-assignment.md) contains the complete Linux
+evidence and its scope: full native audit, full tests plus focused final-delta
+regressions, full Lean build, fresh axiom audit and independent fresh kernel
+replay. The expensive first certificate build was retained after its outer
+wrapper's input capture became stale; a new full invocation captured the final
+inputs and reused the completed artifacts. Independent native and Lean
+corroboration matched the final inputs, tools, reports and compiled artifacts.
+This was cached validation, not a cold performance measurement. All attempts,
+native/foreign evidence, tools and caches remain preserved.
+
+The implementation/review target is the commit introducing
+`samples/string_assignment.adb`, based on `6403b5c`; use the lookup in
+[RESUME.md](../RESUME.md). Publication remains authorized; the closing handoff
+and local publication evidence record the actual commit and remote result.
+The live goal also covers that closing commit and publication; recheck its status
+at resumption. GitHub Actions was rechecked and remains disabled. Linux is
+primary, macOS evidence is entirely optional, and GNAT Pro remains untested.
+The historical `DOC_END` issue and documented frontend, solver and runtime
+premises remain unresolved by successful validation.
+
+Use targeted checks during iteration and one complete checkpoint on stable
+capability inputs, then rerun only affected or failed checks. The
+[architecture review](architecture-review.md) and earlier cleanup review are
+complete; their recommended refactors remain proposals, not implemented work or
+new authorization. CLI memory was actually rechecked: no tool or conventional
+recall directory is available, so no CLI entry was updated. These checked-in
+documents provide the durable handoff. The separate remote-control request
+remains unresolved; authentication and its daemon were not changed.
+
+## 2026-10-10 — Architecture reviewed during assignment validation
+
+The owner expanded the read-only review to the full architecture against the
+project goals. The [architecture review](architecture-review.md) covers the
+native implementation, formal-assurance layers, tools, tests and evidence
+workflow, with recommendations for and against each proposed change. Retain
+the principal SPARK/Python/Lean boundaries and independent assurance layers.
+No new logical soundness gap or blocking architectural defect was established.
+
+The strongest bounded follow-ups are completing the Lean runner's end-of-run
+input inventory and making proof-only platform observations Static; existing
+objects confirm large per-byte observation copies. Streaming phase logs is a
+useful small tooling improvement. Actual runtime speedup is unmeasured.
+Coordinated source/dependency partitioning could reduce future certificate
+rebuild work, but requires a separately scoped design and measurement. The
+prior failed certificate-representation investigation remains closed. Defer
+generic parser, proof and build frameworks.
+
+These are recommendations, not implemented refactors or authorization for new
+language work. No extra tests or proof runs were started for the review, and
+the active assignment validation and its caches were preserved. Detailed
+reviews and inspection evidence remain in the assignment-validation directory.
+The historical certificate investigation's description of Lean `-M` was
+corrected to a periodically checked resident-memory threshold; all failed and
+interrupted trial observations remain unchanged.
+CLI memory remains unavailable; this entry is the durable recall.
+
+## 2026-10-10 — Read-only cleanup review during final validation
+
+The owner requested a focused fan-out for dead code, style and lint opportunities,
+without architectural work unless an obvious problem emerged. Three read-only
+reviews found small import, comment and unreachable-condition cleanups, with no
+blocking defect or confirmed dead callable/module to remove. Recommend batching
+these nits with the next relevant edit; an unused Ada specification import is
+not worth a standalone source-certificate rebuild. Preserve independent proof
+models, ghost helpers and regression witnesses. Optional Python lint checks for unused imports
+and undefined names are sufficient; no new mandatory lint machinery,
+formatting campaign or architectural refactor is recommended.
+
+The consolidated report and detailed reviews are retained in
+`.silver/linux-x86_64/assignment-validation/cleanup-review.md` and its sibling
+`cleanup-review-*.md` files. No cleanup implementation or extra validation run
+was performed. The existing assignment proof work remains in progress.
+
+## 2026-10-10 — Parsimonious development validation
+
+The owner requested less frequent expensive checks during development. Use
+targeted tests and incremental or focused proofs while iterating; batch source
+and proof changes before one complete validation checkpoint on stable capability
+inputs. After success, rerun only validation affected by a later change, failure
+or concrete unresolved concern. Documentation-only work needs lightweight
+checks. The [workflow](../development.md#proof-loop-and-validation) records this
+cadence. Cold/clean runs and optional macOS validation are not routine additions.
+
+This changes validation scheduling, not assurance requirements or application
+compilation checks. Complete actual-source correspondence and obligation handling
+remain necessary before claiming the seventh form supported. Its running Lean
+certificate and caches are preserved; the final full checkpoint still needs to
+finish. No Oracle, proof-runner or report-policy change is part of this instruction.
+
+## 2026-10-10 — Fixed-length string assignment authorized
+
+The owner accepted the proposed next normal development unit and explicitly
+requested an active goal and autonomous completion. Implement one literal-initialized
+`String` variable, one assignment from an equal-decoded-length literal, then one
+terminal `Silver_IO.Put_Line` call through the same name. Both references bind
+case-insensitively; existing literal and identifier rules, including empty
+strings and doubled quotes, apply. General expressions, further assignments,
+branches and concatenation in this composition remain outside the scope.
+
+The live harness goal covers the obligation experiment, SPARK implementation,
+universal Lean assurance and source correspondence, specification/catalogue,
+sample/tests, complete local validation, independent review and final handoff.
+This authorization supersedes the earlier statements that no next increment
+was selected. The Oracle stays unchanged. GitHub Actions stays disabled;
+publication authorization continues, and macOS evidence is entirely optional.
+Preserve existing host artifacts and caches. The working capability record is
+[string-assignment.md](string-assignment.md); the new form is not supported
+until implementation and assurance are complete.
+
 ## 2026-10-10 — External review assessed; transfer history removed
 
 The owner supplied the completed external review of original range
