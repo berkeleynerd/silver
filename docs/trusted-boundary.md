@@ -480,9 +480,17 @@ while its precise ineffective-initialization advisory may be recorded. That
 advisory concerns the overwritten value, not the bounds established by the
 initializer. The checker verifies Main coverage, permitted call dependencies
 and zero or one exact advisory record, rejecting other warnings and failed,
-skipped or assumed checks. Some legal names cause GNATprove to omit the advisory;
-this is not a change to language membership. Source/refinement and mutation
+skipped or assumed checks in the audited report. Some legal names cause GNATprove
+to omit the advisory; this is not a change to language membership. Source/refinement and mutation
 checks are described in [the assignment record](string-assignment.md).
+
+Automatic completion for every admitted assignment program relies on the pinned
+frontend eliminating its statically satisfied length check and GNATprove
+producing one of the two accepted Main-report shapes described in that record.
+These are trusted producer premises, corroborated by native runs. A retained
+length check or a third report shape fails closed and constitutes an implementation
+defect for admitted source. Warning filtering also relies on faithful reporting
+of relevant GNATprove diagnostics in the audited reports.
 
 Application proof uses `-U --mode=all --report=all --warnings=error
 --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
@@ -636,6 +644,14 @@ source-correspondence result.
 
 Local cached Lean objects rely on Lake's dependency tracking and the pinned
 Lean toolchain; routine runs do not independently recheck imported objects.
+The runner rejects direct `skipKernelTC`, `addDeclWithoutChecking` and
+`addDeclCore` references in project proof sources/configuration and generated
+candidates, except the audit's exact read-only option guard. It also checks
+retained Lake traces for unsafe build arguments before reuse and after every
+phase. Those traces retain weak arguments even when configuration is reverted.
+Missing traces require Lake's normal rebuild. Source/configuration review and
+honest local cache records remain assumptions: this policy is not a sandbox
+for hostile metaprograms or forged artifacts.
 `--replay` (also `--full`) adds a fresh independent whole-project kernel recheck
 for toolchain/cache investigations or explicit audits. It cannot be combined
 with `--target`. `--clean` discards the local proof workspace without implying

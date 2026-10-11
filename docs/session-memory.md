@@ -1,5 +1,45 @@
 # Session memory
 
+## 2026-10-11 — Review of `d375aec`: kernel-bypass repair and bounded follow-up
+
+The owner supplied the associated final-review summary; the full reviews of
+`44fd8ea`, `1ed039e` and `d375aec` subsequently arrived in `26737d9` under
+[`docs/reviews/`](reviews/review-d375aec.md). Independent Linux
+experiments confirmed that module-local kernel disabling passes the old axiom
+audit, and reverted unsafe weak build arguments can leave an unchecked cached
+proof. The [review disposition](lean-iteration.md#external-review-of-d375aec)
+records the narrow repair: reject direct bypass names in sources/configuration
+and generated candidates, and inspect retained Lake command traces before reuse
+and between phases. The audit's exact read-only option guard is the only allowed
+reference. Existing trusted local tool/cache assumptions remain; this is not an
+adversarial metaprogram sandbox. Keep optional replay and the existing caches.
+
+Default-mode drift/failure tests, interrupted-child cleanup, binding-only source
+embedding and a native regression of the actual axiom audit were added.
+Assignment-membership body/spec headers now participate in
+the source refinement theorem. Complete cached Lean validation, affected tests
+and independent review passed. Ada, language and Oracle did not change. The
+136-name theorem registry stays removed; no broad architecture or new language
+work was started. The implementation/review target adds `check_proof_policy`,
+based on `26737d9` and reviewing `d375aec`; no new harness goal was requested.
+
+Evidence and previous canonical results are under
+`.silver/linux-x86_64/review-d375aec-2026-10-11/`; caches and scratch are preserved.
+The native manifest includes script hashes: only the Lean runner differs among
+its recorded inputs, so retain its original scope rather than claiming exact
+current-manifest validation. No unchanged native proof was rerun.
+
+All three full reports are now dispositioned in the existing capability and
+runner records. Broader native witness promotion and helper hardening are
+deferred without a demonstrated defect; source-comment-only corrections wait
+for the next affected source edit to avoid native evidence or proof rebuilds. The alleged
+missing Ada-checker identifier/name-bound negative tests already existed in
+`44fd8ea`. CI remains disabled; its dormant template was not edited. macOS work and scratch
+cleanup were not undertaken. Publication authorization persists. No CLI memory
+entry was updated because no recall tool or conventional directory is available.
+The earlier optimization goal remains complete; the next language proposal is
+still bounded String output expressions.
+
 ## 2026-10-11 — Focused Lean runner and simpler routine validation
 
 The owner explicitly requested a goal for selected-module checking and the

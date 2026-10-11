@@ -105,4 +105,6 @@ Validation commands overlapped after measurement and their elapsed times are
 not performance comparisons. The historical warm-state GNATprove `DOC_END`
 failure remains unresolved; this successful audit does not establish a repair.
 macOS proof work is a non-goal. Source/dependency partitioning and certificate
-redesign remain deferred; no additional language expansion was started.
+redesign were deferred at this checkpoint; no additional language expansion was
+started. The later [source/dependency partition](lean-compartmentalization.md)
+is complete; the certificate representation remains unchanged.

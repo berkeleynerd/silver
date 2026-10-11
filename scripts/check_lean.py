@@ -47,6 +47,31 @@ CANDIDATES = {
 }
 
 
+def check_proof_policy(path: Path, contents: bytes) -> None:
+    """Reject direct kernel bypasses, including in option strings and comments.
+
+    The audit's exact read-only option guard is the sole permitted reference.
+    This is a project source policy, not a sandbox for hostile metaprograms.
+    """
+    if path.parts[-2:] == ("Silver", "AxiomAudit.lean"):
+        guard = "  if debug.skipKernelTC.get (← getOptions) then\n".encode()
+        contents = contents.replace(guard, b"", 1)
+    forbidden = re.search(rb"skipKernelTC|addDeclWithoutChecking|addDeclCore", contents)
+    if forbidden:
+        raise RuntimeError(f"kernel-check bypass {forbidden[0].decode()!r} is forbidden in {path}")
+
+
+def check_cached_kernel_policy(host: HostLayout) -> None:
+    """Reject retained objects built with unsafe weak arguments before reuse.
+
+    Pinned Lake traces retain the original compiler command when weakLeanArgs
+    changes are reverted. Missing/stale traces cause Lake's normal rebuild.
+    Like the rest of the cache, these local traces are trusted, not authenticated.
+    """
+    for trace in sorted((host.proof / ".lake/build").rglob("*.trace")):
+        check_proof_policy(trace, trace.read_bytes())
+
+
 def project_sources(proof: Path) -> dict[str, Path]:
     return {".".join(path.relative_to(proof).with_suffix("").parts): path
             for path in proof.rglob("*.lean")
@@ -222,6 +247,8 @@ def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None
                 raise RuntimeError(f"handwritten proof input is a symbolic link: {destination}")
         if not destination.is_file() or destination.read_bytes() != expected:
             raise RuntimeError(f"candidate generation changed handwritten proof input: {relative}")
+        if destination.suffix == ".lean":
+            check_proof_policy(destination, expected)
     for relative in CANDIDATES:
         candidate = host.proof / relative
         for depth in range(len(relative.parts) + 1):
@@ -229,6 +256,7 @@ def verify_workspace_inputs(host: HostLayout, inputs: dict[Path, bytes]) -> None
                 raise RuntimeError(f"candidate certificate must not be a symbolic link: {relative}")
         if not candidate.is_file():
             raise RuntimeError(f"candidate generator did not produce a regular certificate file: {relative}")
+        check_proof_policy(candidate, candidate.read_bytes())
 
 
 def audit_import_closure(sources: dict[str, Path], output: str,
@@ -253,6 +281,7 @@ def verify_run_inputs(host: HostLayout, inputs: dict[Path, bytes],
     if set(current_sources) != source_modules or current_inputs != inputs:
         raise RuntimeError("proof inputs changed during verification (shared inventory or bytes)")
     verify_workspace_inputs(host, inputs)
+    check_cached_kernel_policy(host)
     workspace_sources, current_workspace = capture_workspace_inputs(host)
     if set(workspace_sources) != source_modules or current_workspace != workspace_hashes:
         raise RuntimeError("proof inputs changed during verification (workspace inventory or bytes)")
@@ -339,6 +368,9 @@ def main(arguments: list[str] | None = None) -> None:
     # Focused feedback leaves the content-bound complete record as history.
     # Other host evidence and old flat-layout artifacts are untouched.
     evidence.unlink(missing_ok=True)
+    for path, contents in inputs.items():
+        if path.suffix == ".lean":
+            check_proof_policy(path, contents)
 
     # The checked-in candidates are never edited or used as trusted generated
     # inputs. Each invocation regenerates their host-local replacements from src.

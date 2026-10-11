@@ -206,6 +206,35 @@ class LeanEvidenceTests(unittest.TestCase):
             verify_workspace_inputs(host, inputs)
 
 
+class LeanKernelPolicyTests(unittest.TestCase):
+    def test_bypass_options_and_unchecked_declaration_apis_are_rejected(self) -> None:
+        cases = (
+            b"set_option debug.skipKernelTC true in\nexample : 2 + 2 = 5 := by decide +kernel\n",
+            b'set_option debug.skipKernelTC false\n',
+            b'weakLeanArgs := #["-Ddebug.skipKernelTC=true"]\n',
+            b'run_elab Lean.addDeclWithoutChecking declaration\n',
+            b'run_elab Lean.addDeclCore declaration\n',
+        )
+        for path in (Path("Silver/Model.lean"), Path("lakefile.lean")):
+            for contents in cases:
+                with self.subTest(path=path, contents=contents), self.assertRaisesRegex(
+                        RuntimeError, "kernel-check bypass"):
+                    check_lean.check_proof_policy(path, contents)
+
+    def test_only_the_exact_existing_audit_guard_is_exempted_once(self) -> None:
+        guard = "  if debug.skipKernelTC.get (← getOptions) then\n".encode()
+        allowed = Path("Silver/AxiomAudit.lean")
+        check_lean.check_proof_policy(allowed, guard)
+        check_lean.check_proof_policy(allowed, (ROOT / "proof" / allowed).read_bytes())
+        for path, contents in ((Path("Silver/Model.lean"), guard),
+                               (allowed, guard + guard),
+                               (allowed, guard.replace(b"  if", b"  if false &&")),
+                               (allowed, guard + b"set_option debug.skipKernelTC true\n")):
+            with self.subTest(path=path, contents=contents), self.assertRaisesRegex(
+                    RuntimeError, "kernel-check bypass"):
+                check_lean.check_proof_policy(path, contents)
+
+
 class LeanRunnerPhaseTests(unittest.TestCase):
     """Exercise final-run ordering without compiling the production proofs."""
 
@@ -294,10 +323,129 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         patches.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
         return state
 
-    def check_fails(self, state: SimpleNamespace, expected: str) -> None:
+    def check_fails(self, state: SimpleNamespace, expected: str,
+                    arguments: list[str] | None = None) -> None:
         with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, expected):
-            check_lean.main(["--full"])
+            check_lean.main(["--full"] if arguments is None else arguments)
         self.assertFalse((state.host.artifacts / "lean-evidence.json").exists())
+
+    def test_bypass_in_shared_module_or_lakefile_stops_before_workspace_or_lake(self) -> None:
+        for arguments in ([], ["--target", "Silver.Model"]):
+            for relative, contents in (
+                    ("Silver/Shared.lean", "set_option debug.skipKernelTC true\n"),
+                    ("lakefile.lean", 'weakLeanArgs := #["-Ddebug.skipKernelTC=true"]\n')):
+                with self.subTest(arguments=arguments, path=relative):
+                    state = self.fixture()
+                    (state.host.root / "proof" / relative).write_text(contents)
+                    state.host.artifacts.mkdir(parents=True)
+                    name = "lean-focused-evidence.json" if arguments else "lean-evidence.json"
+                    evidence = state.host.artifacts / name
+                    evidence.write_text("prior success\n")
+                    with redirect_stdout(io.StringIO()), self.assertRaisesRegex(
+                            RuntimeError, "kernel-check bypass"):
+                        check_lean.main(arguments)
+                    self.assertFalse(evidence.exists())
+                    self.assertFalse(state.host.proof.exists())
+                    self.assertEqual(state.generated, 0)
+                    self.assertEqual(state.phases, [])
+
+    def test_generated_candidate_bypass_stops_before_lake(self) -> None:
+        for arguments in ([], ["--target", "Silver.Model"]):
+            with self.subTest(arguments=arguments):
+                state = self.fixture()
+                state.after_generation = lambda host: (host.proof / next(iter(CANDIDATES))).write_text(
+                    "set_option debug.skipKernelTC true\n")
+                with redirect_stdout(io.StringIO()), self.assertRaisesRegex(
+                        RuntimeError, "kernel-check bypass"):
+                    check_lean.main(arguments)
+                self.assertEqual(state.phases, [])
+                name = "lean-focused-evidence.json" if arguments else "lean-evidence.json"
+                self.assertFalse((state.host.artifacts / name).exists())
+
+    def test_cached_bypass_command_is_rejected_after_source_reversion_without_deleting_cache(self) -> None:
+        for arguments in ([], ["--target", "Silver.Model"]):
+            with self.subTest(arguments=arguments):
+                state = self.fixture()
+                with redirect_stdout(io.StringIO()):
+                    check_lean.main(arguments)
+                state.phases.clear()
+                artifact = state.host.proof / ".lake/build/lib/lean/Silver/AxiomAudit.olean"
+                if not artifact.exists():
+                    artifact.write_bytes(b"retained cached object")
+                before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
+                trace = artifact.with_suffix(".trace")
+                trace.write_text(json.dumps({"log": [{"message":
+                    "lean -Ddebug.skipKernelTC=true Silver/AxiomAudit.lean"}]}))
+                trace_before = trace.read_bytes()
+                with redirect_stdout(io.StringIO()), self.assertRaisesRegex(
+                        RuntimeError, "kernel-check bypass"):
+                    check_lean.main(arguments)
+                self.assertEqual(state.phases, [])
+                self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
+                self.assertEqual(trace.read_bytes(), trace_before)
+                name = "lean-focused-evidence.json" if arguments else "lean-evidence.json"
+                self.assertFalse((state.host.artifacts / name).exists())
+
+    def test_default_check_rejects_input_drift_after_each_phase(self) -> None:
+        for changed_phase in ("build", "audit"):
+            for target in ("shared-add", "shared-delete", "shared-bytes", "workspace-add",
+                           "workspace-bytes", "candidate-bytes", "tool", "source-link"):
+                with self.subTest(phase=changed_phase, target=target):
+                    state = self.fixture()
+                    state.host.artifacts.mkdir(parents=True)
+                    (state.host.artifacts / "lean-evidence.json").write_text("prior success\n")
+
+                    def change(phase, host):
+                        if phase != changed_phase:
+                            return
+                        if target == "shared-add":
+                            (host.root / "src/new.ads").write_text("-- new source\n")
+                        elif target == "shared-delete":
+                            (host.root / "proof/Silver/Shared.lean").unlink()
+                        elif target == "shared-bytes":
+                            (host.root / "src/silver_profile.adb").write_text("-- changed\n")
+                        elif target == "workspace-add":
+                            (host.proof / "Silver/New.lean").write_text("-- new module\n")
+                        elif target == "workspace-bytes":
+                            (host.proof / "Silver/Model.lean").write_text("-- changed\n")
+                        elif target == "candidate-bytes":
+                            (host.proof / next(iter(CANDIDATES))).write_text("-- changed candidate\n")
+                        elif target == "tool":
+                            (host.lean / "bin/lean").write_bytes(b"changed compiler")
+                        else:
+                            outside = host.root / "other-src"
+                            outside.mkdir()
+                            link = host.artifacts / "src"
+                            link.unlink()
+                            link.symlink_to(outside, target_is_directory=True)
+
+                    state.after_phase = change
+                    expected = ("shared inventory or bytes" if target.startswith("shared-") else
+                                "workspace inventory or bytes" if target in ("workspace-add", "candidate-bytes") else
+                                "changed handwritten proof input" if target == "workspace-bytes" else
+                                "tools changed" if target == "tool" else "source link changed")
+                    with mock.patch.object(check_lean, "compiled_artifacts",
+                                           side_effect=AssertionError("optional collection ran")):
+                        self.check_fails(state, expected, [])
+                    self.assertEqual(state.phases, ["build"] + (["audit"] if changed_phase == "audit" else []))
+                    self.assertTrue((state.host.proof / ".lake/build/lib/lean/Silver/Audit.olean").is_file())
+
+    def test_default_check_cannot_publish_failed_or_incomplete_audit(self) -> None:
+        for failure in ("exit", "missing-marker", "missing-module", "unexpected-module"):
+            with self.subTest(failure=failure):
+                state = self.fixture()
+                state.host.artifacts.mkdir(parents=True)
+                (state.host.artifacts / "lean-evidence.json").write_text("prior success\n")
+                if failure == "exit":
+                    state.fail = "audit"
+                    expected = "Lean check failed"
+                else:
+                    state.audit = failure
+                    expected = ("freshly executed axiom audit" if failure == "missing-marker" else
+                                "actual Lean audit imports")
+                self.check_fails(state, expected, [])
+                self.assertEqual(state.phases, ["build", "audit"])
+                self.assertIn("fixture audit", (state.host.artifacts / "lean-proof.log").read_text())
 
     def test_added_or_deleted_shared_inputs_stop_after_build_with_cache_retained(self) -> None:
         for relative, action in (("proof/Silver/New.lean", "add"), ("src/new.adb", "add"),
@@ -571,6 +719,16 @@ class LeanRunnerPhaseTests(unittest.TestCase):
 
 
 class LeanStreamingTests(unittest.TestCase):
+    def test_interrupted_read_kills_and_reaps_the_child(self) -> None:
+        child = mock.MagicMock()
+        child.__enter__.return_value = child
+        child.stdout.read1.side_effect = KeyboardInterrupt()
+        with mock.patch.object(check_lean.subprocess, "Popen", return_value=child), \
+                self.assertRaises(KeyboardInterrupt):
+            check_lean.run_logged(["fixture-lean"], cwd=ROOT, env={}, destination=io.StringIO())
+        child.kill.assert_called_once_with()
+        child.wait.assert_called_once_with()
+
     def test_partial_lines_and_merged_stderr_are_logged_before_child_exit(self) -> None:
         with tempfile.TemporaryDirectory(prefix="silver lean stream-") as temporary:
             root = Path(temporary).resolve()
@@ -632,6 +790,62 @@ class LeanTemporaryDirectoryTests(unittest.TestCase):
                 cwd=Path(__file__).resolve().parents[1], env=environment,
                 text=True, capture_output=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+
+class LeanNativeAxiomAuditTests(unittest.TestCase):
+    def test_actual_audit_accepts_foundations_and_rejects_other_assumptions(self) -> None:
+        native = native_layout(ROOT)
+        lean = native.lean / "bin/lean"
+        if not lean.is_file():
+            self.skipTest("install the pinned native Lean tools to check the real axiom audit")
+        with tempfile.TemporaryDirectory(prefix="silver lean axiom audit-") as temporary:
+            root = Path(temporary).resolve()
+            (root / "Silver").mkdir()
+            (root / "Silver/AxiomAudit.lean").write_bytes(
+                (ROOT / "proof/Silver/AxiomAudit.lean").read_bytes())
+            environment = {**lean_environment(native), "LEAN_PATH": str(root)}
+
+            def run(relative: str, *, compile_module: bool = False) -> subprocess.CompletedProcess[str]:
+                command = [str(lean), "-j1"]
+                if compile_module:
+                    command.extend(["-o", str(Path(relative).with_suffix(".olean"))])
+                return subprocess.run([*command, relative], cwd=root, env=environment,
+                                      text=True, capture_output=True, timeout=60)
+
+            compiled = run("Silver/AxiomAudit.lean", compile_module=True)
+            self.assertEqual(compiled.returncode, 0, compiled.stdout + compiled.stderr)
+            # Module ownership, rather than a Silver-prefixed declaration name,
+            # must include this unused assumption in the imported audit scope.
+            (root / "Silver/Foreign.lean").write_text("axiom OutsideSilver.unused : False\n")
+            compiled = run("Silver/Foreign.lean", compile_module=True)
+            self.assertEqual(compiled.returncode, 0, compiled.stdout + compiled.stderr)
+            cases = {
+                "foundations": (
+                    "", "theorem Silver.ok : True := True.intro\n"
+                    "noncomputable def Silver.choice (h : Nonempty Nat) : Nat := Classical.choice h\n"
+                    "theorem Silver.ext (p q : Prop) (h : p ↔ q) : p = q := propext h\n"),
+                "unused": ("", "axiom Silver.unused : False\n"),
+                "private": ("", "private axiom hidden : False\n"),
+                "imported": ("import Silver.Foreign\n", ""),
+                "sorry": ("", "theorem Silver.bad : False := by sorry\n"),
+                "native_decide": ("", "theorem Silver.arithmetic : 2 + 2 = 4 := by native_decide\n"),
+            }
+            for name, (imports, declarations) in cases.items():
+                with self.subTest(case=name):
+                    relative = f"Silver/Check_{name}.lean"
+                    (root / relative).write_text(
+                        "import Silver.AxiomAudit\n" + imports + declarations + "#silver_audit\n")
+                    result = run(relative)
+                    output = result.stdout + result.stderr
+                    if name == "foundations":
+                        self.assertEqual(result.returncode, 0, output)
+                        self.assertIn("Silver axiom audit passed:", output)
+                        for foundation in ("propext", "Quot.sound", "Classical.choice"):
+                            self.assertIn(foundation, output)
+                    else:
+                        self.assertNotEqual(result.returncode, 0, output)
+                        self.assertIn("Unapproved logical assumption", output)
+                        self.assertNotIn("Silver axiom audit passed:", output)
 
 
 class LeanNativeDependencyTests(unittest.TestCase):

@@ -43,7 +43,8 @@ all other application proof options remain. `Complete_Assignment_Proof` checks
 one of two exact producer shapes:
 
 - Main alone, full Main coverage, an empty proof list and dependency list, and
-  zero or one precisely identified ineffective-initialization advisory.
+  zero or one ineffective-initialization advisory matching the exact record
+  and message shape.
 - Main and `Silver_IO.Put_Line`, full Main coverage, empty flow/proof lists, and
   exactly one `CLAIM_EFFECTS(Main)` dependency on `CLAIM_EFFECTS(Put_Line)`.
 
@@ -63,6 +64,30 @@ The experiment's complete sources, reports, command options and hashes are in
 `assignment-validation/experiment/summary.json` and its sibling case directories.
 
 ## External review disposition
+
+The [full final review of `44fd8ea`](reviews/review-44fd8ea.md) arrived in
+`26737d9`. The later [review follow-up](lean-iteration.md#external-review-of-d375aec)
+fixes the independently confirmed assignment-membership header omission and
+closes the handoff gap. Its final dispositions are:
+
+| Finding | Assessment and disposition |
+| --- | --- |
+| L1: old-clone recovery | Already fixed: preserve the old checkout, clone separately, and neither merge nor push archive-bearing history. |
+| L2: generation and warning premises | Clarified the required static elimination, completeness of accepted report shapes and warning scope in the language and trusted-boundary docs. A third genuine report shape fails closed and is an implementation defect. Defer the generic `Current.lean` comment edit until that proof file changes; the authoritative premise is explicit without a broad rebuild. |
+| L3: assignment-member headers | Added and validated both specification and body header conjuncts. |
+| L4: masked helper predicates | Already fixed by coordinated `.spark`/SARIF mutations in `8d5f626`; the later review independently killed all nine deletion mutants. |
+| L5: native name/report-shape cases | Defer extra naming witnesses and shape assertions: reported native probes pass and unexpected shapes fail closed. The claimed missing Ada identifier-pattern and oversized-name rejection tests already existed in `44fd8ea` (`tests/test_library_reports.py`); no repair is needed for those negative cases. |
+| L6: bridge/model wording | Corrected: the bridge checks expression/header/rendering correspondence; separate model theorems establish fixed-length mutation. |
+| L7: stale greeting status | Made production-count and next-feature statements historical. |
+| I1–I2: report shapes and routing | Existing schema description and proved source-based policy selection remain appropriate; a shared report shape does not establish source membership. |
+| I3: independent driver flags | Keep the current computation and disjointness proofs; no defect warrants driver/certificate churn. |
+| I4–I5: advisory identity and composition | Clarified exact advisory message shape and shared expression nodes within a fixed statement skeleton. |
+| I6: partial named-axiom list | Whole-environment auditing supplies coverage; do not restore a separate name registry. |
+| I7: historical wording | Date the old memory advice and greeting status; identify runtime/code-generation interpretation. The incorrect architecture test-module count was already removed. No additional implementation follows from historical finding-ID bookkeeping. |
+| I8: input inventories | Already fixed: fresh inventories and byte checks detect additions, deletions and edits between phases. |
+| I9: exact sample-meaning theorem | Keep deferred: existing universal membership/meaning theorems establish assurance; an expensive exact-sample witness adds only regression coverage. |
+
+The following records the earlier interim assessment and its validation.
 
 The owner supplied an interim external review of implementation commit `44fd8ea`
 and authorized the small follow-up on 2026-10-10 after independent assessment.

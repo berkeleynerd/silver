@@ -27,8 +27,10 @@ and no cleanup or migration of another host's artifacts.
   the absolute installation prefix and an alphanumeric six-character suffix.
 - `.silver/<host>/proof/` holds Lean verification inputs, generated certificates,
   Lake objects, and its manifest. The adjacent source link resolves to
-  authoritative `src/`. Replay fingerprints shared inputs, scripts, tools,
-  compiled artifacts and logs; shared inputs must remain unchanged.
+  authoritative `src/`. Routine checks fingerprint shared inputs and scripts
+  and verify tool and protected-workspace stability. Replay or provenance also
+  checks compiled-object hashes between phases; detailed inventories are
+  optional. Shared inputs must remain unchanged throughout each run.
 
 Legacy flat-layout artifacts are retained. Authenticated release archives can be
 copied from the old cache without modifying it. Foreign-host setup and execution
@@ -102,8 +104,10 @@ validation of greeting commit `a73f85e` is recorded in
 [greeting.md](greeting.md#external-review-and-native-macos-validation).
 Those historical records do not cover x86-64. Validation runs locally at the
 owner's direction, with GitHub Actions disabled repository-wide. The retained
-[workflow](../.github/workflows/verify.yml) for all four host keys, including a
-fresh Lean kernel recheck, is dormant; hosted results are not a required
+[workflow](../.github/workflows/verify.yml) for all four host keys is dormant;
+its Lean command builds a clean workspace and audits axioms and module coverage.
+Despite its older step description, `--clean` no longer requests separate kernel
+replay; that requires explicit `--replay`. Hosted results are not a required
 follow-up. See [host readiness](host-readiness.md) for current native validation,
 historical hosted activity and recovery of the old hosts' evidence and caches.
 Linux is the primary validation platform. The later

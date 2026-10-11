@@ -73,7 +73,10 @@ Evidence and preserved previous results are under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`; additional isolated probes are
 linked by its local validation record. No production caches were discarded.
 The native SPARK implementation did not change, so its prior proof and behavior
-validation were not rerun. macOS work remains out of scope.
+validation were not rerun. That retained native audit belongs to its original
+snapshot: its provenance includes all Python scripts, so the changed Lean runner
+means its full manifest does not validate this later tree. macOS work remains
+out of scope.
 
 ## Remaining cost
 
@@ -83,3 +86,54 @@ roughly 64-minute rebuild at a complete checkpoint. Focused mode synchronizes
 all protected inputs and regenerates the cheap candidate files; a malformed
 unrelated Ada candidate can therefore stop setup. This change selects which
 proofs are built and audited; it introduces no new certificate framework.
+
+## External review of `d375aec`
+
+On 2026-10-11 the owner supplied the final review summary for `fe539a5` and
+`d375aec`. The [full report](reviews/review-d375aec.md) and the earlier final
+reports for [`44fd8ea`](reviews/review-44fd8ea.md) and
+[`1ed039e`](reviews/review-1ed039e.md) then arrived in `26737d9`. All three have
+been assessed. Their native macOS results remain optional external evidence,
+distinct from the Linux checks below. Earlier records preserve the interim
+information actually available then; final carry-over dispositions now appear
+in the [assignment](string-assignment.md#external-review-disposition) and
+[branching](input-branching.md#external-review-of-1ed039e) records.
+
+| Finding | Independent assessment and disposition |
+| --- | --- |
+| M1: module-local kernel bypass | Confirmed on Linux: the false theorem builds and passes the real axiom audit; replay rejects it. Fixed with a source policy before building and after candidate generation, covering module, package and library settings and direct unchecked-declaration APIs. |
+| M1: unsafe weak arguments after reversion | Confirmed: the cached object's Lake trace retains its original unsafe compiler command. The runner now rejects those traces before reuse and between phases, without deleting caches or making replay mandatory. |
+| L1: missing final reports and carryovers | Full reports now retained unchanged and dispositioned. Assignment body/specification header conjuncts were added and validated; there is no Ada or certificate change. Documentation corrections and explicit deferrals are recorded in the capability records above. |
+| L2: default-mode failure tests | Confirmed test gap, not a missing production input check. Added default-mode shared/workspace/tool drift and incomplete-audit regressions, including generated-candidate byte drift after build/audit and interrupted-child kill/reap. |
+| L3: removed 136-name theorem list | Leave removed. The reported theorems still existed, and a name registry does not establish assurance completeness. Retain complete module/axiom auditing and ordinary semantic proof review. |
+| L4: real axiom-audit regression | Added a small native scratch regression for allowed foundations and rejection of unused/private/imported axioms, unfinished proofs and native evaluation. |
+| L5: replay/object-hash wording | Clarified current assurance and platform documentation. Object-hash checks apply to replay/provenance. The dormant CI template's older name remains historical; Actions is disabled and the available publication credential cannot edit workflows. |
+| L6: native provenance after runner edits | Confirmed exact-manifest mismatch. Rehashing all 2,391 retained inputs found only the Lean runner changed; all Ada and native configuration inputs matched. Preserve the original record and describe its scope accurately, without rerunning unchanged native proofs. |
+| L7: source-embedding placement | Added an invariant requiring the twelve literal `include_str` uses to remain in their intended per-file binding modules. |
+| I1: edit/revert during binding build | Existing exact-byte certificates fail closed; no new mechanism needed. |
+| I2–I3: historical evidence and capture errors | Keep input-bound evidence semantics. A prior record can survive an early capture error but remains tied to its old inputs, not a claim of current success. No additional evidence lifecycle is needed here. |
+| I4: lexical helper headers | Keep reviewed shape pins; defer extra explicit header conjuncts until that source/bridge is next changed. The assignment header omission is repaired separately. |
+| I5–I6: helper visibility and probe expectation | No implementation action: visibility was withdrawn as a finding, and the actual native-evaluation axiom is already rejected by the real audit. |
+
+The source guard reserves direct bypass names even in comments/strings, with
+one exact exception for the audit's read-only check. It also rejects the direct
+unchecked-declaration APIs. This prevents the demonstrated accidental bypasses
+under the existing trusted tool/cache assumptions; it does not authenticate
+forged traces or constrain arbitrary hostile metaprograms. The Linux experiments
+also showed that `lean -t0` does not fix the module-local bypass.
+
+The follow-up's evidence, including preserved prior canonical records, is under
+`.silver/linux-x86_64/review-d375aec-2026-10-11/`. Native scratch probes are retained
+under `tmp/review-m1-native/` and `tmp/assignment-header-review-20261011T130637Z/`.
+The source/trace guard rejected both actual bypass reproductions and accepted the
+current project sources and 98 retained build traces. The strengthened assignment
+module compiled and passed a fresh axiom audit in isolation. All 70 initial affected
+runner/platform/source tests passed. The final generated-candidate drift,
+interrupted-child and source-embedding regressions also passed after the full
+reports arrived. The complete cached Linux build and fresh
+audit passed in 116.640 seconds, covering 98 modules and 23,516 declarations with
+standard axioms only; all twelve certificate objects retained their exact bytes,
+sizes and timestamps. Independent final review found no material issue. These
+times include the strengthened header theorem and its dependents, not a cold
+certificate build or production kernel replay. No macOS scratch was deleted
+and no new language capability was started.

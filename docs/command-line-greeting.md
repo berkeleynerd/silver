@@ -239,8 +239,9 @@ Five wording clarifications were accepted:
    one-thread fallback applies only to fresh configuration elaboration without
    an override; the supported runner reconfigures Lake on each invocation.
 4. The guarded form concatenates a runtime argument value. Its predefined Ada
-   String concatenation and index semantics remain frontend premises; references
-   to static evaluation concern the separate literal-backed form.
+   String concatenation and index semantics rely on faithful frontend
+   interpretation, code generation and the GNAT runtime concatenation routine;
+   references to static evaluation concern the separate literal-backed form.
 5. The consolidated [trusted-boundary table](trusted-boundary.md#trusted-computing-base)
    now makes faithful, complete obligation generation and bounded-fragment
    solver completion explicit. These premises already appear in the detailed
@@ -269,4 +270,5 @@ correctness gap requiring them. Existing generic `member_has_meaning` and
 checked-in sample to one explicit program would add regression coverage, not a
 new universal guarantee. The reported 29-minute example-proof cost does not
 justify adding it now. No stack rewrite, certificate redesign, additional prover
-or language expansion follows from this review. No next feature is selected.
+or language expansion followed from this review. No next feature was selected
+by that review; the [roadmap](../roadmap.md) records the current sequence.

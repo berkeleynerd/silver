@@ -429,8 +429,8 @@ class SilverIntegrationTests(unittest.TestCase):
                                              "GPR_PROJECT_PATH": "untrusted-projects",
                                              "GPR_PROJECT_PATH_FILE": "untrusted-list",
                                              "ADA_PROJECT_PATH": "untrusted-ada"},
-                                        # Full-size reports exercise bounded scans plus runtime
-                                        # ghost observations on potentially contended hosts.
+                                        # Full-size reports exercise bounded scans on
+                                        # potentially contended hosts.
                                         timeout=120 if mode in ("maximum_report", "oversized_report",
                                                                "large_rejected") else 30)
                 successful = mode in ("success", "large_report", "maximum_report")

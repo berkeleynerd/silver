@@ -185,6 +185,15 @@ cache investigations or an explicit audit; the Oracle does not require this
 second replay. `--provenance` adds detailed input, workspace and artifact
 inventories to the concise content-bound result and streamed log.
 
+Kernel checking must stay enabled in every module. The runner rejects direct
+kernel-bypass names in proof sources, generated candidates and Lake configuration,
+and checks retained build traces for unsafe compiler arguments even after a
+configuration edit is reverted. The sole permitted reference is the audit's
+exact read-only option guard. Keep bypass experiments in separate scratch
+projects. A rejected cache remains intact for diagnosis; preserve it before
+rebuilding with safe inputs. This source policy retains the trusted local
+tool/cache boundary and does not sandbox arbitrary metaprograms.
+
 If inputs change during a long build, the runner stops before later expensive
 work and retains completed module objects. `--clean` discards only the current
 host's proof workspace; it does not imply replay. Use it when investigating

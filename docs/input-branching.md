@@ -160,7 +160,27 @@ GitHub Actions remains disabled. macOS proof work is outside this increment;
 retained artifacts are preserved. GNAT Pro remains untested. The historical
 GNATprove `DOC_END` failure is not established as repaired by successful runs.
 
-## Interim external review of `1ed039e`
+## External review of `1ed039e`
+
+The [full final review](reviews/review-1ed039e.md) arrived in `26737d9` and has
+been assessed alongside the [runner review](lean-iteration.md#external-review-of-d375aec).
+Its macOS runs remain optional external evidence, not Linux validation.
+
+| Finding | Assessment and disposition |
+| --- | --- |
+| L1: assignment-member header | Fixed and validated in the runner-review follow-up. |
+| L2: prior-review dispositions | All findings from the full assignment review now have a [disposition](string-assignment.md#external-review-disposition), including generation premises and bridge/model wording. |
+| L3: in-place byte drift | Added default-mode shared, handwritten workspace and generated-candidate byte edits after build/audit. Candidate edits specifically test workspace hash comparison. |
+| L4: branching/driver/Static test expansion | Defer blanket promotion. All reported probes passed; fixed-token admission, existing driver contracts and native/report tests cover the behavior. No demonstrated defect justifies expanding this repair with every adjacency, exclusion, route mutation and Static annotation witness. |
+| L5: stale text | Corrected current memory/I/O guidance, README handoff description and obsolete test timeout comment. Defer the `silver_reports.ads` “Both/sole entity” comment until the next source change, avoiding native source/evidence churn for prose alone; the route actually serves the first five forms and branching and requires one full-SPARK coverage entry, not one entity. |
+| I1: null-route metadata | Retain the documented genuine-producer premise and current policy; the review found no admitted-source failure. See the assessment below. |
+| I2–I3: named theorem list and exclusivity | Fresh whole-module auditing and existing disjointness/driver contracts supply the arguments; no new registry or redundant theorem is needed. |
+| I4: extra proved checks | Explained by invariant splitting; no action. |
+| I5: helper type/suppression mutants | Defer additional development-helper coverage until that policy changes; the implementation is correct and the admission path uses the SPARK checker. |
+| I6: focused command and child cleanup | Focused runner is implemented; added a mocked interrupted-read test requiring child kill and reap. |
+| I7: withdrawn findings | No action; the reviewer dropped them. |
+
+The following preserves the interim information received at the earlier checkpoint.
 
 The owner's supplied review reports a matching cold native SPARK total,
 174 passing tests, 272 expected branching executions and a successful advisory
@@ -178,5 +198,5 @@ program. Fresh workspace/tool execution, source equality and complete separate
 library checks remain, together with the documented genuine-producer premise.
 No admitted-source failure with genuine tools was demonstrated, so no
 report-policy change is warranted now. In particular, legitimate dependency records must not
-be rejected merely for being nonempty. Reassess a specific final finding if one
-is supplied; do not wait on macOS proof work.
+be rejected merely for being nonempty. The final review supplied no genuine-tool
+counterexample that changes this assessment; do not wait on macOS proof work.

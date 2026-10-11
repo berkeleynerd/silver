@@ -20,7 +20,7 @@ The root documents provide the main review entry points:
 - [roadmap.md](roadmap.md): proposed capabilities and their dependencies.
 - [development.md](development.md): the workflow for admitting a capability.
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
-- [RESUME.md](RESUME.md): completed-goal handoff and VM replacement checklist.
+- [RESUME.md](RESUME.md): current handoff, local tools and recovery guidance.
 
 Migration restored local evidence, caches and toolchains into the ignored
 `.silver/` and `.tools/` directories used by development. After verified recovery,

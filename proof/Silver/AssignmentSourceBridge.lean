@@ -23,6 +23,10 @@ abbrev Refinement : Prop :=
     "(Text : String; Position : Cursor; Next_Token : Assignment_Token_Index; Declared_First, Declared_After : Literal_Position; Initial_Length : Capacity_Value) return Boolean") ∧
   functionHeader "assignment_suffix_matches" ";" Source.outputBodyTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Next_Token : Assignment_Token_Index; Declared_First, Declared_After : Literal_Position; Initial_Length : Capacity_Value) return Boolean with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Valid_Name_State (Text, Declared_First, Declared_After), Subprogram_Variant => (Increases => Next_Token)") ∧
+  functionHeader "is_assignment_member" "is" Source.outputBodyTokens = some (expectedTokens
+    "(Source : String) return Boolean") ∧
+  functionHeader "is_assignment_member" ";" Source.outputSpecTokens = some (expectedTokens
+    "(Source : String) return Boolean with Ghost => Static, Global => null") ∧
   functionHeader "accepts_assignment" ";" Source.outputSpecTokens = some (expectedTokens
     "(Source : String) return Boolean with Global => null, Post => (Static => Accepts_Assignment'Result = Is_Assignment_Member (Source))")
 

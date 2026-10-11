@@ -480,8 +480,9 @@ through the existing identifier/literal/trivia proofs.
 `assignment_length` for every admitted source. Its variable model stores the
 name, fixed length and current bytes. Assignment updates only the bytes after
 checking target identity and length. The typed `Main.composition` uses the same
-nodes for rendering and interpretation: it consumes declaration, initializer,
-assignment target, replacement and output-reference events in order.
+expression nodes for rendering and interpretation within a fixed statement
+skeleton: it consumes declaration, initializer, assignment target, replacement
+and output-reference events in order.
 `assignment_preserves_constraint` and `evaluation_refines` establish that it
 preserves the fixed length and output reads exactly the replacement value.
 `AssignmentDisjoint` distinguishes the production from each earlier form.
@@ -833,6 +834,10 @@ axioms of every declaration originating in a Silver proof module, including
 private and generated declarations. It permits only Lean's standard `propext`,
 `Quot.sound`, and `Classical.choice` foundations. Unfinished proofs,
 project-specific axioms, and native-evaluation trust axioms fail the audit.
+An axiom audit alone cannot detect a term built with kernel checking disabled.
+The runner therefore rejects direct bypasses in source/configuration and in
+retained build-command traces, including reverted unsafe weak arguments; see
+the [review disposition](lean-iteration.md#external-review-of-d375aec).
 Routine validation uses the pinned local toolchain and Lake's imported object
 cache. Optional `--replay` (with `--full` retained as an alias) independently
 rechecks the whole environment with `leanchecker --fresh Silver.Audit` and is
@@ -847,6 +852,8 @@ Focused checks write `lean-focused.log` and `lean-focused-evidence.json` in
 that host's directory. `--provenance` adds detailed
 input, workspace and artifact inventories. Input and tool changes during
 a run are rejected, and protected workspace copies must match shared inputs.
+Replay or provenance also checks object hashes between phases; routine imports
+rely on the pinned local toolchain and cache.
 The current scope's stale success evidence is removed before setup or generation
 begins; other hosts' evidence is untouched.
 
@@ -938,7 +945,8 @@ The proof chain has distinct checked components:
    guarded Main renderer. Its current-language facade includes all eight forms;
    the guarded- and assignment-selector theorems connect the driver classifiers
    to their exact productions. `AssignmentSourceBridge` adds the assignment
-   expression, fixed-length mutation and ordered Main rendering checks.
+   expression, refinement-header and ordered Main rendering checks; the separate
+   `AssignmentSemantics` model theorems establish fixed-length mutation.
    `BranchingSourceBridge` adds the equality/terminal-branch Main composition and
    actual suffix and executable refinement checks. `authoritative_current_member_iff` and
    `checked_current_pipeline` retain the checked source facts when composing

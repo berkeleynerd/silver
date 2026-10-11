@@ -115,11 +115,12 @@ its combined peak memory is not established by these retained-certificate trials
 The selected setting is the fastest tested for this combined workload. Other
 hosts and changed proof dependency graphs may have different optima.
 
-Keep the current sandbox allocation for now. The usual incremental command is
-`python3 scripts/check_lean.py --memory-mb 6144`; append `--full` for the independent
-kernel replay. Explicit `--workers N` and `--threads N` remain available when
-other workloads or host limits require lower counts. The optional resident-memory
-threshold itself remains unchanged and applies per Lean process.
+These historical trials used `--memory-mb 6144`; the setting applied per Lean
+process. The [handoff](../RESUME.md) records current host settings, and the
+[development workflow](../development.md#proof-loop-and-validation) describes
+focused checks, complete checkpoints and optional `--replay`. Explicit
+`--workers N` and `--threads N` remain available when other workloads or host
+limits require lower counts.
 
 ## What can run concurrently
 
@@ -226,8 +227,10 @@ Build, audit and kernel output now streams to the existing log and console, with
 phase timing and status. This preserves partial diagnostics and makes the phase
 responsible for a delay visible; a silent Lean reduction still emits no progress.
 It is not a computational speedup. No faster certificate representation or new
-steady-state throughput result is claimed. Source/dependency partitioning and
-proof-only native I/O changes remain separate, unmeasured proposals.
+steady-state throughput result is claimed for that runner follow-up. The
+subsequent [source/dependency partition](lean-compartmentalization.md) and
+[proof-only native I/O change](native-io-performance.md) are complete; their
+separate records contain their measurements and validation.
 
 Use focused Python runner tests for runner-only edits and focused Lean arguments
 during proof iteration. Keep the complete checkpoint on stable capability inputs,

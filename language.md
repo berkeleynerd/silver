@@ -501,12 +501,14 @@ establishes the output domain. The Boolean guard and rejection call add no
 application checks or caller obligations.
 The variable initializer establishes fixed bounds and fully initialized bytes.
 Equal decoded lengths establish the assignment's length compatibility statically;
-the output reference reads the replacement value. The pinned tools eliminate the
-statically satisfied length check. GNATprove may still record an `INEFFECTIVE`
-flow warning for the overwritten initializer value. The assignment-only report
-policy classifies this precise advisory while retaining it in the report; it
-accepts no failed safety check or other warning. Required complete library
-reports are unchanged.
+the output reference reads the replacement value. Assurance relies on the pinned
+frontend eliminating the statically satisfied length check, under the
+[trusted producer premises](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
+GNATprove may still record an `INEFFECTIVE` flow warning for the overwritten
+initializer value. The assignment-only report policy classifies this precise
+advisory while retaining it in the report; it accepts no failed safety check or
+other warning record in the audited reports. Required complete library reports
+are unchanged.
 Branching compares two fully initialized Strings with predefined equality;
 unequal lengths are valid operands. Its selected call receives one bounded
 literal with no caller precondition. The native obligation experiment found

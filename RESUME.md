@@ -8,6 +8,22 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
+The supplied [review of `d375aec`](docs/lean-iteration.md#external-review-of-d375aec)
+has been assessed and its confirmed small repairs completed: reject direct
+kernel-check bypasses in Lean inputs and retained build traces, test default-mode
+failure paths and the real axiom audit, and strengthen assignment-membership
+header correspondence. Complete cached Linux Lean validation and the affected
+test suites passed without rebuilding source certificates. Replay remains optional.
+The [three full final reviews](docs/lean-iteration.md#external-review-of-d375aec)
+arrived in `26737d9`; their findings have been assessed and dispositioned.
+Broader test promotion and comment-only proof-input edits remain deferred.
+The retained native proof's
+full manifest belongs to its original snapshot because the Lean runner changed;
+its Ada and native configuration inputs remain unchanged. The repair/review target
+is the commit adding `check_proof_policy`, based on `26737d9` and reviewing
+`d375aec`. No new harness goal
+was requested; the earlier optimization goal remains complete.
+
 The [focused Lean runner](docs/lean-iteration.md) and selected workflow
 simplification are complete. `check_lean.py --target MODULE` synchronizes current
 inputs, builds the selected modules/imports and performs a fresh scoped axiom
@@ -105,7 +121,8 @@ commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
 and all foreign-host evidence. Source/runtime installation moves require
 bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
 
-The runner follow-up's evidence is under
+The review repairs' evidence is under
+`.silver/linux-x86_64/review-d375aec-2026-10-11/`. The runner follow-up's evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed capability's evidence is under
 `.silver/linux-x86_64/branching-validation/`; the preceding assignment evidence

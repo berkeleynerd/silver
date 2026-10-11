@@ -77,6 +77,23 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             module = binding[0].upper() + binding[1:] + "Source"
             self.assertEqual(source_modules[filename], module)
 
+    def test_include_str_is_confined_to_the_twelve_source_bindings(self):
+        proof = ROOT / "proof"
+        expected = {
+            Path("Silver") / f"{binding[0].upper() + binding[1:]}Source.lean": 1
+            for _filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS
+        }
+        actual = {}
+        for path in proof.rglob("*.lean"):
+            if ".lake" in path.parts:
+                continue
+            # Match the macro and its literal, not prose mentions in comments.
+            count = len(re.findall(r'\binclude_str\s*"', path.read_text()))
+            if count:
+                actual[path.relative_to(proof)] = count
+        self.assertEqual(len(expected), 12)
+        self.assertEqual(actual, expected)
+
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
         for byte in range(256):
