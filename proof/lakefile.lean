@@ -48,7 +48,77 @@ input_file runtimeSpecSource where
   path := "../src/silver_runtime.ads"
   text := false
 
+-- The umbrella has no external source dependency. Exact one-module libraries
+-- below assign each include_str binding its own binary source dependency.
+-- Lake resolves overlapping module owners in reverse declaration order, so keep
+-- these exact libraries after Silver. Imports carry each dependency onward.
 @[default_target]
-lean_lib Silver where
-  needs := #[profileSpecSource, profileBodySource, outputProfileSpecSource,
-    outputProfileBodySource, ioSpecSource, ioBodySource, outputLibcSource, argumentsSpecSource, argumentsBodySource, runtimeSpecSource]
+lean_lib Silver
+
+lean_lib ProfileSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ProfileSpecSource]
+  needs := #[profileSpecSource]
+
+lean_lib ProfileBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ProfileBodySource]
+  needs := #[profileBodySource]
+
+lean_lib OutputProfileSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.OutputProfileSpecSource]
+  needs := #[outputProfileSpecSource]
+
+lean_lib OutputProfileBodySource where
+  roots := #[]
+  globs := #[.one `Silver.OutputProfileBodySource]
+  needs := #[outputProfileBodySource]
+
+lean_lib IoSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.IoSpecSource]
+  needs := #[ioSpecSource]
+
+lean_lib IoBodySource where
+  roots := #[]
+  globs := #[.one `Silver.IoBodySource]
+  needs := #[ioBodySource]
+
+lean_lib OutputLibcSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.OutputLibcSpecSource]
+  needs := #[outputLibcSource]
+
+lean_lib ArgumentsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ArgumentsSpecSource]
+  needs := #[argumentsSpecSource]
+
+lean_lib ArgumentsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ArgumentsBodySource]
+  needs := #[argumentsBodySource]
+
+lean_lib RuntimeSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.RuntimeSpecSource]
+  needs := #[runtimeSpecSource]
+
+input_file outputLexicalSpecSource where
+  path := "../src/silver_output_lexical.ads"
+  text := false
+
+lean_lib OutputLexicalSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.OutputLexicalSpecSource]
+  needs := #[outputLexicalSpecSource]
+
+input_file outputLexicalBodySource where
+  path := "../src/silver_output_lexical.adb"
+  text := false
+
+lean_lib OutputLexicalBodySource where
+  roots := #[]
+  globs := #[.one `Silver.OutputLexicalBodySource]
+  needs := #[outputLexicalBodySource]

@@ -9,6 +9,10 @@ introduce unverified Silver implementation bodies.
 The latest completed capability is [input-dependent branching](input-branching.md).
 The boundary below covers all eight admitted forms; the capability record retains
 its native validation, source correspondence and full Lean evidence.
+The subsequent [source partition](lean-compartmentalization.md) changes source
+units and dependency tracking without adding a trusted component. Its completed
+native and Lean validation covers the current maintenance change; retained
+capability evidence continues to apply to its recorded inputs.
 
 ## Trusted computing base
 
@@ -40,7 +44,7 @@ not a claim of portability to every conforming Ada compiler.
 ## Compiler implementation and runtime imports
 
 All Silver-owned executable implementation is in the SPARK bodies under `src/`:
-`silver`, both profile recognizers, catalogue export, platform and library
+`silver`, both profile recognizers, lexical helpers, catalogue export, platform and library
 snapshot helpers, both report checkers, decimal rendering, `silver_io`, and
 `silver_arguments`.
 GNATprove checks all bodies, their specifications, and the
@@ -512,14 +516,24 @@ these contracts do not constitute verification of libc or GNAT itself.
 
 ## Source correspondence and semantic assumptions
 
-The handwritten `Silver.AuthoritativeSource` module fixes the source bindings
-for both actual recognizer specifications/bodies and the six selected runtime
-library files, ten sources in total. The certificate generator emits
-candidate reconstruction data and cannot select replacement bindings. Lean
+Twelve handwritten modules fix the source bindings for both actual recognizer
+specifications/bodies, the `Silver_Output_Lexical` specification/body and the six
+selected runtime library files. The `Silver.AuthoritativeSource` facade imports
+all bindings; each certificate imports only its own binding. The certificate
+generator emits candidate reconstruction data and cannot select replacement bindings. Lean
 checks that every source byte, including comments and literals, belongs to
 HT/LF/CR or printable ASCII. A checked-in complete token shape fixes declarations,
 scopes, aspects and bodies, rejecting inserted operators/helpers, renamings, and
 alternate literal spellings outside that reviewed shape.
+
+The output bridge's complete source shape includes both lexical helper units.
+Moved ghost expression and header checks refer to the helper specification;
+ordinary helper-body checks refer to its implementation. The helper imports
+`Silver_Profile` lexical primitives, and the bridge checks equality of its source
+bound and comment introducer with the output profile. Production suffixes and
+acceptance remain in the output recognizer. Resolving these reviewed package
+imports and declarations retains the existing Ada/GNAT interpretation premise;
+the helper remains Silver-owned SPARK subject to complete native verification.
 
 `SourceBridge.CheckedSource` combines the byte, token, declaration, expression,
 catalogue and refinement checks. The recursive expression interpretation is
@@ -605,23 +619,28 @@ are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
 The Lean replay tree is private to the host and reads the authoritative `src/`
-through a checked link. Ten generated source-certificate modules, Lake artifacts, and
-manifests are written there. Shared proof inputs are fingerprinted and must
-remain unchanged throughout replay. Script inputs, Lean/Lake/kernel-checker
+through a checked link. Twelve generated source-certificate modules, Lake
+artifacts and manifests are written there. Shared proof inputs are fingerprinted
+and must remain unchanged throughout replay. Script inputs, Lean/Lake/kernel-checker
 binaries, compiled artifacts and the replay log are also hashed. The imported
 module inventory and transitive axiom audit come from a fresh execution of the
 audit module after every build, including cache hits. Full/clean modes also
 perform a fresh independent kernel recheck. Local cached Lean objects rely on
-Lake's dependency tracking and the pinned Lean toolchain; all ten embedded Ada
-files are binary input dependencies, rehashed on each invocation. A change to
-any of them invalidates the whole Silver Lean library's cached build. Lean/Lake
-startup receives explicit native tool, sysroot, configuration, and cache paths;
+Lake's dependency tracking and the pinned Lean toolchain. Each of the twelve
+embedded Ada files is a binary input dependency of its own handwritten binding
+module, rehashed on each invocation. Changing one file invalidates that binding,
+its certificate and transitive importers. Unrelated certificates and models can
+remain cached; changes to their shared Lean dependencies still invalidate them.
+Exact one-module libraries follow the umbrella library in the handwritten Lake
+configuration so the pinned Lake version selects their specific ownership.
+This cache boundary leaves complete audit coverage and fresh replay unchanged.
+Lean/Lake startup receives explicit native tool, sysroot, configuration, and cache paths;
 inherited Lean/Elan search
 paths and tool selections cannot redirect it. Artifact restoration is disabled
 for proof replay; this does not disable the local Lake build cache.
 
 The handwritten import facade is protected like other proof inputs; only the
-ten enumerated candidate modules may be regenerated. After generation and
+twelve enumerated candidate modules may be regenerated. After generation and
 again after replay, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot

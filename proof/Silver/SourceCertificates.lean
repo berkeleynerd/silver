@@ -1,3 +1,6 @@
+import Silver.OutputLexicalBodyCertificate
+import Silver.OutputLexicalSpecCertificate
+import Silver.AuthoritativeSource
 import Silver.ProfileSpecCertificate
 import Silver.ProfileBodyCertificate
 import Silver.OutputSpecCertificate

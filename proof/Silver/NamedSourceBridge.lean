@@ -50,40 +50,40 @@ def forbiddenSpellingBody : List String := ["begin", "case", "word", "is"] ++
   ["end", "case", ";", "end", "forbidden_spelling", ";"]
 
 abbrev ForbiddenTranslation : Prop :=
-  typeDeclaration "forbidden_kind" Source.outputBodyTokens = some forbiddenEnum ∧
-  ordinaryFunction "forbidden_spelling" Source.outputBodyTokens = some forbiddenSpellingBody ∧
-  functionHeader "forbidden_spelling" "is" Source.outputBodyTokens = some (expectedTokens
+  typeDeclaration "forbidden_kind" Source.outputLexicalSpecTokens = some forbiddenEnum ∧
+  ordinaryFunction "forbidden_spelling" Source.outputLexicalBodyTokens = some forbiddenSpellingBody ∧
+  functionHeader "forbidden_spelling" "is" Source.outputLexicalBodyTokens = some (expectedTokens
     "(Word : Forbidden_Kind) return String")
 
 theorem actual_forbidden_translation : ForbiddenTranslation := by decide +kernel
 
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
-  Source.expressionBody "is_letter" Source.outputBodyTokens = some Expressions.letterBody.render ∧
-  Source.expressionBody "identifier_tail" Source.outputBodyTokens = some Expressions.tailBody.render ∧
-  Source.expressionBody "identifier_end" Source.outputBodyTokens = some Expressions.finishBody.render ∧
-  Source.expressionBody "name_is" Source.outputBodyTokens = some Expressions.nameBody.render ∧
-  Source.expressionBody "equal_name" Source.outputBodyTokens = some Expressions.equalBody.render ∧
-  Source.expressionBody "forbidden_name" Source.outputBodyTokens = some Expressions.forbiddenBody.render ∧
-  Source.expressionBody "valid_name_state" Source.outputBodyTokens = some Expressions.stateBody.render ∧
+  Source.expressionBody "is_letter" Source.outputLexicalSpecTokens = some Expressions.letterBody.render ∧
+  Source.expressionBody "identifier_tail" Source.outputLexicalSpecTokens = some Expressions.tailBody.render ∧
+  Source.expressionBody "identifier_end" Source.outputLexicalSpecTokens = some Expressions.finishBody.render ∧
+  Source.expressionBody "name_is" Source.outputLexicalSpecTokens = some Expressions.nameBody.render ∧
+  Source.expressionBody "equal_name" Source.outputLexicalSpecTokens = some Expressions.equalBody.render ∧
+  Source.expressionBody "forbidden_name" Source.outputLexicalSpecTokens = some Expressions.forbiddenBody.render ∧
+  Source.expressionBody "valid_name_state" Source.outputLexicalSpecTokens = some Expressions.stateBody.render ∧
   Source.expressionBody "named_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev Refinement : Prop :=
-  functionHeader "is_letter" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "is_letter" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Item : Character) return Boolean") ∧
-  functionHeader "identifier_tail" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "identifier_tail" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Previous_Underscore : Boolean) return Literal_Position") ∧
-  functionHeader "identifier_end" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "identifier_end" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor) return Literal_Position") ∧
-  functionHeader "name_is" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "name_is" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Cursor; Word : String) return Boolean") ∧
-  functionHeader "equal_name" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "equal_name" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Left_First, Left_After, Right_First, Right_After : Cursor) return Boolean") ∧
-  functionHeader "forbidden_name" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "forbidden_name" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Cursor) return Boolean") ∧
-  functionHeader "valid_name_state" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "valid_name_state" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Literal_Position) return Boolean") ∧
   functionHeader "named_suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Next_Token : Named_Token_Index; Declared_First, Declared_After : Literal_Position) return Boolean") ∧

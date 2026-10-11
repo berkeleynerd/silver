@@ -42,6 +42,12 @@ Merely splitting generated Lean declarations leaves upper reconstruction joins
 and whole-file identity work. Native feasibility must establish an appropriate
 SPARK package boundary; support for Ada `separate` subunits is not assumed.
 No new benchmark or successful partition is claimed by this read-only assessment.
+The owner subsequently authorized that [bounded experiment](lean-compartmentalization.md)
+on 2026-10-11. It is now complete and adopted after measured cache reuse and full
+Linux validation. The record keeps the historical timing comparison distinct
+from the measured local edit and records the remaining replay cost. The earlier
+assessment below remains historical; no broader rewrite or further partitioning
+is implied.
 
 Three focused reviews covered all 24 native source files, all 75 Lean modules
 and their import graph, all eight Python scripts, the organization of the Python

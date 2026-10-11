@@ -20,24 +20,24 @@ open Silver.SourceBridge
 
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
-  Source.expressionBody "is_letter" Source.outputBodyTokens = some Expressions.letterBody.render ∧
-  Source.expressionBody "identifier_tail" Source.outputBodyTokens = some Expressions.tailBody.render ∧
-  Source.expressionBody "identifier_end" Source.outputBodyTokens = some Expressions.finishBody.render ∧
-  Source.expressionBody "name_is" Source.outputBodyTokens = some Expressions.nameBody.render ∧
-  Source.expressionBody "equal_name" Source.outputBodyTokens = some Expressions.equalBody.render ∧
-  Source.expressionBody "forbidden_name" Source.outputBodyTokens = some Expressions.forbiddenBody.render ∧
-  Source.expressionBody "valid_name_state" Source.outputBodyTokens = some Expressions.stateBody.render ∧
-  Source.expressionBody "forbidden_argument_name" Source.outputBodyTokens = some Expressions.argumentForbiddenBody.render ∧
+  Source.expressionBody "is_letter" Source.outputLexicalSpecTokens = some Expressions.letterBody.render ∧
+  Source.expressionBody "identifier_tail" Source.outputLexicalSpecTokens = some Expressions.tailBody.render ∧
+  Source.expressionBody "identifier_end" Source.outputLexicalSpecTokens = some Expressions.finishBody.render ∧
+  Source.expressionBody "name_is" Source.outputLexicalSpecTokens = some Expressions.nameBody.render ∧
+  Source.expressionBody "equal_name" Source.outputLexicalSpecTokens = some Expressions.equalBody.render ∧
+  Source.expressionBody "forbidden_name" Source.outputLexicalSpecTokens = some Expressions.forbiddenBody.render ∧
+  Source.expressionBody "valid_name_state" Source.outputLexicalSpecTokens = some Expressions.stateBody.render ∧
+  Source.expressionBody "forbidden_argument_name" Source.outputLexicalSpecTokens = some Expressions.argumentForbiddenBody.render ∧
   Source.expressionBody "argument_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev Refinement : Prop :=
-  functionHeader "forbidden_argument_name" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "forbidden_argument_name" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Cursor) return Boolean") ∧
   functionHeader "argument_suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Next_Token : Argument_Token_Index; Declared_First, Declared_After : Literal_Position) return Boolean") ∧
-  functionHeader "token_at" ";" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "token_at" ";" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Word : String; Is_Word : Boolean) return Boolean with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Word'First = 1 and then Word'Length in 1 .. 16")
 
 theorem actual_refinement : Refinement := by decide +kernel

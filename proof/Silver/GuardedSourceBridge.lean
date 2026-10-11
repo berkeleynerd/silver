@@ -19,9 +19,9 @@ open Silver.SourceBridge
 
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
-  Source.expressionBody "decimal_tail" Source.outputBodyTokens = some Expressions.decimalTailBody.render ∧
-  Source.expressionBody "decimal_at" Source.outputBodyTokens = some Expressions.decimalAtBody.render ∧
-  Source.expressionBody "literal_length" Source.outputBodyTokens = some Expressions.literalLengthBody.render ∧
+  Source.expressionBody "decimal_tail" Source.outputLexicalSpecTokens = some Expressions.decimalTailBody.render ∧
+  Source.expressionBody "decimal_at" Source.outputLexicalSpecTokens = some Expressions.decimalAtBody.render ∧
+  Source.expressionBody "literal_length" Source.outputLexicalSpecTokens = some Expressions.literalLengthBody.render ∧
   Source.expressionBody "guarded_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render ∧
   Source.expressionBody "is_member" Source.outputBodyTokens = some Expressions.memberBody.render ∧
   Source.expressionBody "is_guarded_member" Source.outputBodyTokens = some Expressions.guardedBody.render ∧
@@ -70,11 +70,11 @@ def recordDeclaration (name : String) (tokens : List String) : Option (List Stri
   | _ => none
 
 abbrev NumericDeclarations : Prop :=
-  subtypeDeclaration "capacity_value" Source.outputBodyTokens =
+  subtypeDeclaration "capacity_value" Source.outputLexicalSpecTokens =
     some (expectedTokens "Natural range 0 .. Max_Source_Length") ∧
-  recordDeclaration "decimal_result" Source.outputBodyTokens =
+  recordDeclaration "decimal_result" Source.outputLexicalSpecTokens =
     some (expectedTokens "record After : Literal_Position; Value : Capacity_Value; end record") ∧
-  Source.declaration "invalid_decimal" Source.outputBodyTokens =
+  Source.declaration "invalid_decimal" Source.outputLexicalSpecTokens =
     some (expectedTokens "constant Decimal_Result := (After => 0, Value => 0)") ∧
   subtypeDeclaration "guarded_token_index" Source.outputBodyTokens =
     some (expectedTokens "Positive range 1 .. Guarded_Required_Tokens'Last + 1") ∧
@@ -86,11 +86,11 @@ abbrev NumericDeclarations : Prop :=
 theorem actual_numeric_declarations : NumericDeclarations := by decide +kernel
 
 abbrev Refinement : Prop :=
-  functionHeader "decimal_tail" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "decimal_tail" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Value : Capacity_Value) return Decimal_Result") ∧
-  functionHeader "decimal_at" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "decimal_at" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor) return Decimal_Result") ∧
-  functionHeader "literal_length" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "literal_length" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor) return Capacity_Value") ∧
   functionHeader "guarded_suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Next_Token : Guarded_Token_Index; Declared_First, Declared_After : Literal_Position; Capacity, Decoration_Length : Capacity_Value) return Boolean") ∧
@@ -109,7 +109,7 @@ theorem actual_refinement : Refinement := by decide +kernel
 arbitrary-callee recursive interpretation. Machine arithmetic refinement still
 uses the fixed frontend and the complete compiler SPARK proof. -/
 abbrev DecimalTailContract : Prop :=
-  functionHeader "decimal_tail" ";" Source.outputBodyTokens = some (expectedTokens "(Text : String; Position : Cursor; Value : Capacity_Value) return Decimal_Result with Ghost => Static, Global => null," ++
+  functionHeader "decimal_tail" ";" Source.outputLexicalSpecTokens = some (expectedTokens "(Text : String; Position : Cursor; Value : Capacity_Value) return Decimal_Result with Ghost => Static, Global => null," ++
     expectedTokens "Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1, Post =>" ++
     expectedTokens "Decimal_Tail'Result.After = 0 or else Decimal_Tail'Result.After in Position .. Text'Last + 1, Subprogram_Variant =>" ++
     expectedTokens "(Decreases => (Text'Last + 1) - Position)")
@@ -117,14 +117,14 @@ abbrev DecimalTailContract : Prop :=
 theorem actual_decimal_tail_contract : DecimalTailContract := rfl
 
 abbrev DecimalAtContract : Prop :=
-  functionHeader "decimal_at" ";" Source.outputBodyTokens = some (expectedTokens "(Text : String; Position : Cursor) return Decimal_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and" ++
+  functionHeader "decimal_at" ";" Source.outputLexicalSpecTokens = some (expectedTokens "(Text : String; Position : Cursor) return Decimal_Result with Ghost => Static, Global => null, Pre => Text'First = 1 and" ++
     expectedTokens "then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1, Post => Decimal_At'Result.After = 0 or" ++
     expectedTokens "else Decimal_At'Result.After in Position + 1 .. Text'Last + 1")
 
 theorem actual_decimal_at_contract : DecimalAtContract := rfl
 
 abbrev LiteralLengthContract : Prop :=
-  functionHeader "literal_length" ";" Source.outputBodyTokens = some (expectedTokens "(Text : String; Position : Cursor) return Capacity_Value with Ghost => Static, Global => null, Pre => Text'First = 1 and" ++
+  functionHeader "literal_length" ";" Source.outputLexicalSpecTokens = some (expectedTokens "(Text : String; Position : Cursor) return Capacity_Value with Ghost => Static, Global => null, Pre => Text'First = 1 and" ++
     expectedTokens "then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1, Post => Literal_Length'Result <=" ++
     expectedTokens "(Text'Last + 1) - Position, Subprogram_Variant => (Decreases => (Text'Last + 1) - Position)")
 

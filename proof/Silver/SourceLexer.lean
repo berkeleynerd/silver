@@ -14,9 +14,10 @@ The artifact generator computes candidate tokens, but the kernel checks each can
 against the lexer and checks reconstruction of the entire original source.
 No native evaluation theorem or trusted token-generation axiom is used.
 
-`include_str` produces a literal checked by the kernel. Run a clean Lake build
-when checking source correspondence: external include files are not ordinary
-Lean module imports and must not be checked through a stale object file.
+`include_str` produces a literal checked by the kernel. The handwritten Lake
+configuration attaches each external Ada file as a binary dependency of its
+authoritative binding module; the runner rehashes inputs before using caches.
+External includes must never be checked through an object for different bytes.
 -/
 
 set_option maxRecDepth 100000

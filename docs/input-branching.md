@@ -159,3 +159,24 @@ added to this capability; no speedup is claimed from scheduling alone.
 GitHub Actions remains disabled. macOS proof work is outside this increment;
 retained artifacts are preserved. GNAT Pro remains untested. The historical
 GNATprove `DOC_END` failure is not established as repaired by successful runs.
+
+## Interim external review of `1ed039e`
+
+The owner's supplied review reports a matching cold native SPARK total,
+174 passing tests, 272 expected branching executions and a successful advisory
+helper mutation check. These are the reviewer's optional macOS observations;
+its Lean replay, differential comparison and verified findings were still
+pending. They are not additional Linux evidence or a completion prerequisite.
+
+Independent read-only inspection confirmed that the empty-Main-report route
+checks completion, one numeric-key full-SPARK coverage entry and empty required
+lists, but does not resolve entity identity/location or dependency records in
+`assumptions`. This route serves the first five forms and branching. Tighter
+metadata checks could catch routing or producer/schema mistakes, but fabricated
+report acceptance alone establishes no genuine-tool failure for an admitted
+program. Fresh workspace/tool execution, source equality and complete separate
+library checks remain, together with the documented genuine-producer premise.
+No admitted-source failure with genuine tools was demonstrated, so no
+report-policy change is warranted now. In particular, legitimate dependency records must not
+be rejected merely for being nonempty. Reassess a specific final finding if one
+is supplied; do not wait on macOS proof work.

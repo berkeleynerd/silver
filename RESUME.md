@@ -1,12 +1,27 @@
 # Silver handoff
 
-Updated on 2026-10-10 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-11 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
 ## Current work
+
+The bounded [Lean compartmentalization](docs/lean-compartmentalization.md) is
+complete and adopted. Each embedded Ada file has its own Lean dependency, and
+stable lexical/name helpers occupy a separate SPARK package. Complete Linux
+native proof/tests, Lean build/axiom audit, fresh kernel replay and independent
+evidence review passed. Existing evidence and caches are preserved. The
+implementation/review target is the commit introducing
+`src/silver_output_lexical.ads`, based on `1ed039e`. No language expansion occurred.
+
+The owner questioned routine replay and bookkeeping. A proposed follow-up would
+retain actual-source proofs, correct dependencies, cheap axiom/coverage auditing
+and input stability, while making duplicate replay and extensive provenance
+optional for investigations. This is a recommendation, not an implemented policy
+change; the current checkpoint kept all existing checks. Do not silently remove
+checks or begin another language capability from that discussion.
 
 [Input-dependent branching](docs/input-branching.md) is complete: one String
 equality on validated argv input selects two terminal literal-output branches;
@@ -16,7 +31,7 @@ suite, full Lean build, fresh axiom audit and independent fresh kernel replay.
 Independent source review and final evidence corroboration found no material
 findings. The Oracle, runtime operations and driver/report policies are unchanged.
 
-The implementation/review target is the commit introducing
+The preceding branching implementation/review target is the commit introducing
 [samples/input_branching.adb](samples/input_branching.adb), identifiable with:
 
 ```sh
@@ -26,7 +41,8 @@ git log --diff-filter=A -1 --format='%H %s' -- samples/input_branching.adb
 It is based on `4422316`. The preceding assignment implementation and review
 target `44fd8ea` retain their [completed evidence](docs/string-assignment.md).
 The live harness still records that completed seventh-production goal; this
-branching task did not explicitly request a replacement harness goal. Recheck
+branching and compartmentalization tasks did not explicitly request a replacement
+harness goal. Recheck
 the live goal at resumption rather than treating history as a new instruction.
 The [runner follow-up](docs/lean-concurrency.md#runner-follow-up) and
 [native I/O optimization](docs/native-io-performance.md) also remain complete.
@@ -35,10 +51,11 @@ After observing the serial certificate cost, the owner requested end-of-day
 checking or serious compartmentalization. The [workflow](development.md#proof-loop-and-validation)
 now batches expensive source-correspondence checks at a stable end-of-session/day
 checkpoint, with focused native/model checks during iteration. Preserve the
-completed objects and caches. Before the next language increment, assess a
-bounded source/dependency partition with measured incremental and full-check
-costs, as recorded in the [architecture follow-up](docs/architecture-review.md#proof-structure-and-the-expensive-rebuild).
-No partition or certificate representation change has been implemented.
+completed objects and caches. The bounded source/dependency assessment requested
+before the next language increment is now complete, as recorded in the
+[architecture follow-up](docs/architecture-review.md#proof-structure-and-the-expensive-rebuild)
+and compartmentalization record. Changed-body checking and whole-project replay
+remain expensive. The certificate representation is unchanged.
 
 The [ordered language sequence](roadmap.md#current-development-sequence) remains
 bounded output expressions with tighter safe capacities, a branch-selected
@@ -79,7 +96,8 @@ commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
 and all foreign-host evidence. Source/runtime installation moves require
 bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
 
-The latest completed capability's evidence is under
+The completed partition's evidence is under
+`.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed capability's evidence is under
 `.silver/linux-x86_64/branching-validation/`; the preceding assignment evidence
 is under `.silver/linux-x86_64/assignment-validation/`. Earlier review follow-up records
 are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Native I/O measurements,

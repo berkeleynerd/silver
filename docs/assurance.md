@@ -16,7 +16,13 @@ The SPARK implementation recognizes eight productions: null, literal output,
 named-constant output, guarded command-line output, literal-backed concatenation,
 guarded command-line concatenation, fixed-length literal assignment and
 input-dependent branching. The latest completed source-correspondence and
-validation checkpoint is recorded in [input-branching.md](input-branching.md).
+validation checkpoint is recorded in
+[source compartmentalization](lean-compartmentalization.md). This maintenance
+change preserves the language rules and external assumptions while changing the
+compiler's source boundaries and Lean dependencies. Its measurement record
+includes complete native validation, source correspondence, the fresh axiom
+audit and independent kernel replay. The preceding language increment is
+recorded in [input-branching.md](input-branching.md).
 The preceding assignment increment is recorded in
 [string-assignment.md](string-assignment.md).
 The preceding report-policy refinement is recorded in
@@ -640,10 +646,12 @@ operations. The imported subprograms in three reviewed interface packages have
 specification-only coverage; the packages themselves require full coverage.
 Their existing implementation bodies are external. Generated `Silver_Build`
 and `Silver_Library_Sources` are covered too. See the
-[assignment record](string-assignment.md) for current validation status and the
+[compartmentalization record](lean-compartmentalization.md) for current
+maintenance validation and the [branching record](input-branching.md) for the
+preceding language checkpoint. The
 [command-line repair record](command-line-review-repairs.md),
 [command-line capability](command-line.md) and
-[Hello World repair evidence](hello-review-repairs.md) for earlier baselines.
+[Hello World repair evidence](hello-review-repairs.md) retain earlier baselines.
 
 The report model and its refinement assertions use SPARK's predefined `Static`
 level. GNATprove still verifies their bodies, recursive termination, contracts,
@@ -804,7 +812,7 @@ poisoned inherited settings selected the same native tools and search paths as
 the clean environment and left the foreign-host sentinel unchanged.
 
 `scripts/check_lean.py` checks the pinned version, synchronizes proof inputs,
-regenerates ten candidate source-certificate modules and builds incrementally.
+regenerates twelve candidate source-certificate modules and builds incrementally.
 The handwritten `SourceCertificates` facade imports them; Lake can check their
 independent declarations in parallel. The facade and source bindings remain
 protected inputs, not candidate output. It executes
@@ -843,8 +851,11 @@ The proof chain has distinct checked components:
    grammar (`Cursor.isMember_iff`). `Uniqueness` proves that the recursive
    comment/trivia/suffix equations uniquely determine their meanings on the
    verified domains.
-3. Handwritten `AuthoritativeSource` fixes ten `include_str` paths: both
-   recognizer specifications/bodies and the six selected library files. `SourceLexer` rejects bytes outside HT/LF/CR
+3. Twelve handwritten binding modules fix the `include_str` paths: both
+   recognizer specifications/bodies, the `Silver_Output_Lexical` specification
+   and body, and the six selected library files. `AuthoritativeSource` imports
+   all bindings; each certificate imports only its own binding.
+   `SourceLexer` rejects bytes outside HT/LF/CR
    and printable ASCII, including inside comments, and rejects unsupported
    lexical syntax. Generated certificates check each line and reconstruct the
    exact included source. The generator supplies candidates; it cannot choose
@@ -879,14 +890,20 @@ The proof chain has distinct checked components:
    `WellFormedTrees` predicate for Ada precedence and explicit grouping,
    included in their source-translation checks.
    `OutputEquations` proves uniqueness of literal/suffix cursor equations.
-   `OutputSourceBridge.CheckedSource` checks the output recognizer, IO sources
-   and Output_Libc interface, complete `ReviewedOutputShape`, catalogue and
+   `OutputSourceBridge.CheckedSource` checks the output recognizer, lexical
+   helper specification/body, IO sources and Output_Libc interface, complete
+   `ReviewedOutputShape`, catalogue and
    refinement contracts, runtime statement rendering, Static ghost declarations,
    numeric bound and returning status-setter signature. Its literal-membership
    callback denotes the actual `Is_Literal_Member` helper, not the expanded public
-   union. `NamedSourceBridge` retains checked identifier/span/forbidden-name and
-   named-suffix templates, including the complete forbidden-name enum and its
-   ordinary case/return spelling body.
+   union. The lexical helper imports the existing `Silver_Profile` primitives;
+   `LexicalConstants` checks that its source bound and comment introducer agree
+   with the output profile. Expression/header checks name the helper
+   specification for moved ghost equations and the helper body for ordinary
+   implementations. Production-specific suffix checks still name the output
+   recognizer. `NamedSourceBridge` retains checked identifier/span/forbidden-name
+   and named-suffix templates, including the complete forbidden-name enum and
+   its ordinary case/return spelling body in their respective helper units.
 8. `ArgumentsExpressions` interprets the package-name exclusion and argument
    suffix. It closes shared and new callees on their verified domains and
    applies identifier/suffix uniqueness. `ArgumentsSourceBridge` checks exact
@@ -928,9 +945,13 @@ The proof chain has distinct checked components:
    the approved frontend, SPARK's proved bounds, and the documented GNAT/libc
    meanings; this is not a verified general Ada parser or whole-toolchain theorem.
 
-The ten embedded Ada files are declared as binary Lake input dependencies of
-the whole Silver Lean library. Editing any of them invalidates that entire library's
-cached build. Content rehashing detects changed source even if
+The twelve embedded Ada files are declared as binary Lake input dependencies,
+each attached to the exact library owning its handwritten binding module.
+Editing one file invalidates that binding, its certificate and their transitive
+importers; it does not by itself invalidate unrelated certificates or
+source-independent models. Changes to shared Lean dependencies can rebuild more
+modules. The complete fresh axiom audit and requested kernel replay retain
+their whole-project scope. Content rehashing detects changed source even if
 timestamps are restored; line-ending differences remain significant. A cached
 Lean object for different Ada source is not accepted as current evidence. Kernel
 regression theorems reject unsupported comment/literal forms and prove

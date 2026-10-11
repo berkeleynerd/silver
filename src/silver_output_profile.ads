@@ -139,3 +139,6 @@ is
      with Global => null,
           Post => (Static => Accepts'Result = Is_Member (Source));
 end Silver_Output_Profile;
+
+--  Production tokens stay separate from Silver_Output_Lexical so adding a
+--  production does not change the lexical helper source certificates.

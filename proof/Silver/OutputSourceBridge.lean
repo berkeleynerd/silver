@@ -9,7 +9,11 @@ import Silver.ReviewedOutputShape
 /-! Source correspondence for literal-output admission and execution. `Calls.member`
 interprets the internal Is_Literal_Member helper; the public Is_Member union is
 closed by GuardedSourceBridge. Existing typed
-expression trees bind the copied lexical primitives and membership composition.
+expression trees bind the lexical helper package and membership composition.
+The helper package imports Silver_Profile; its bounds and comment bytes equal
+the output specification, and the reviewed with/use clauses resolve the moved
+calls without changing their operators or equations. Complete shapes cover the
+helper specification and body as well as the remaining output recognizer.
 The two new recursive expression templates fix operators, grouping and calls;
 OutputEquations proves uniqueness on their legal machine domains. The reviewed
 Ada frontend interpretation supplies their definition equations, as it does for
@@ -31,12 +35,12 @@ def suffixExpression : List String := Expressions.suffixBody.render
 
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
-  Source.expressionBody "comment_end" Source.outputBodyTokens = some Silver.Expressions.commentBody.render ∧
-  Source.expressionBody "trivia_end" Source.outputBodyTokens = some Silver.Expressions.triviaBody.render ∧
-  Source.expressionBody "token_at" Source.outputBodyTokens = some Silver.Expressions.tokenBody.render ∧
+  Source.expressionBody "comment_end" Source.outputLexicalSpecTokens = some Silver.Expressions.commentBody.render ∧
+  Source.expressionBody "trivia_end" Source.outputLexicalSpecTokens = some Silver.Expressions.triviaBody.render ∧
+  Source.expressionBody "token_at" Source.outputLexicalSpecTokens = some Silver.Expressions.tokenBody.render ∧
   Source.expressionBody "allowed_source" Source.outputBodyTokens = some Silver.Expressions.allowedBody.render ∧
   Source.expressionBody "is_literal_member" Source.outputBodyTokens = some Silver.Expressions.memberBody.render ∧
-  Source.expressionBody "literal_end" Source.outputBodyTokens = some literalExpression ∧
+  Source.expressionBody "literal_end" Source.outputLexicalSpecTokens = some literalExpression ∧
   Source.expressionBody "suffix_matches" Source.outputBodyTokens = some suffixExpression
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
@@ -183,6 +187,16 @@ abbrev CatalogueTranslation : Prop :=
 
 theorem actual_catalogue : CatalogueTranslation := by decide +kernel
 
+/-- The extracted helper uses the null-profile package's shared lexical constants.
+Their declarations agree with the output profile's constants at this boundary. -/
+abbrev LexicalConstants : Prop :=
+  Source.declaration "max_source_length" Source.specTokens =
+    Source.declaration "max_source_length" Source.outputSpecTokens ∧
+  Source.declaration "comment_introducer" Source.specTokens =
+    Source.declaration "comment_introducer" Source.outputSpecTokens
+
+theorem actual_lexical_constants : LexicalConstants := by decide +kernel
+
 theorem fixed_token_bounds (token : Arguments.Token) :
     0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
   cases token with
@@ -194,7 +208,7 @@ abbrev Refinement : Prop :=
     "(Source : String) return Boolean with Global => null, Post => (Static => Accepts'Result = Is_Member (Source))") ∧
   functionHeader "normalized" "is" Source.outputBodyTokens = some (expectedTokens
     "(Source : String) return String with Global => null, Pre => Source'Length <= Max_Source_Length, Post => Normalized'Result'First = 1 and then Normalized'Result'Length = Source'Length and then Normalized'Result = Source") ∧
-  functionHeader "literal_end" "is" Source.outputBodyTokens = some (expectedTokens
+  functionHeader "literal_end" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor) return Literal_Position") ∧
   functionHeader "suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Next_Token : Token_Index) return Boolean")
@@ -255,21 +269,26 @@ theorem actual_runtime_translation : Source.ioBodyTokens = renderedRuntime := by
 abbrev CompleteShape : Prop :=
   Source.outputSpecTokens = SourceShape.outputSpecification ∧
   Source.outputBodyTokens = SourceShape.outputImplementation ∧
+  Source.outputLexicalSpecTokens = SourceShape.outputLexicalSpecification ∧
+  Source.outputLexicalBodyTokens = SourceShape.outputLexicalImplementation ∧
   Source.ioSpecTokens = SourceShape.ioSpecification ∧
   Source.ioBodyTokens = SourceShape.ioImplementation ∧
   Source.outputLibcTokens = SourceShape.libcSpecification
 
-theorem actual_complete_shape : CompleteShape := ⟨rfl, rfl, rfl, rfl, rfl⟩
+theorem actual_complete_shape : CompleteShape := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 structure CheckedSource : Prop where
   outputSpecification : Source.lex Source.outputProfileSpec = some Source.outputSpecTokens
   outputImplementation : Source.lex Source.outputProfileBody = some Source.outputBodyTokens
+  lexicalSpecification : Source.lex Source.outputLexicalSpec = some Source.outputLexicalSpecTokens
+  lexicalImplementation : Source.lex Source.outputLexicalBody = some Source.outputLexicalBodyTokens
   ioSpecification : Source.lex Source.ioSpec = some Source.ioSpecTokens
   ioImplementation : Source.lex Source.ioBody = some Source.ioBodyTokens
   libcSpecification : Source.lex Source.outputLibcSpec = some Source.outputLibcTokens
   shape : CompleteShape
   expressions : ExpressionTranslation
   catalogue : CatalogueTranslation
+  lexicalConstants : LexicalConstants
   refinement : Refinement
   runtimeDeclarations : RuntimeDeclarations
   runtimeTranslation : Source.ioBodyTokens = renderedRuntime
@@ -277,12 +296,15 @@ structure CheckedSource : Prop where
 theorem checked_source : CheckedSource where
   outputSpecification := Source.outputSpecTokens_correct
   outputImplementation := Source.outputBodyTokens_correct
+  lexicalSpecification := Source.outputLexicalSpecTokens_correct
+  lexicalImplementation := Source.outputLexicalBodyTokens_correct
   ioSpecification := Source.ioSpecTokens_correct
   ioImplementation := Source.ioBodyTokens_correct
   libcSpecification := Source.outputLibcTokens_correct
   shape := actual_complete_shape
   expressions := actual_expressions
   catalogue := actual_catalogue
+  lexicalConstants := actual_lexical_constants
   refinement := actual_refinement
   runtimeDeclarations := actual_runtime_declarations
   runtimeTranslation := actual_runtime_translation

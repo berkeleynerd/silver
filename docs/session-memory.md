@@ -1,5 +1,44 @@
 # Session memory
 
+## 2026-10-11 — Bounded compartmentalization completed; simpler replay proposed
+
+The authorized [bounded experiment](lean-compartmentalization.md) is complete
+and the partition adopted: per-file handwritten source bindings and binary Lake
+dependencies, plus one verified SPARK lexical/name-helper boundary. Complete
+native proof/tests, Lean build and fresh axiom audit, fresh kernel replay and
+independent source/evidence reviews passed. The implementation/review target is
+the commit introducing `src/silver_output_lexical.ads`, based on `1ed039e`.
+No language, runtime API, report policy, Oracle or certificate representation
+changed. The live harness still holds the completed assignment goal; this task
+did not request a replacement goal.
+
+The record distinguishes the historical certificate timing comparison, actual
+cache reuse and complete replay cost. The owner questioned over-engineering;
+the optional shared-helper timing was dropped before execution, retaining the
+twelve-source invalidation regressions and one representative edit with full
+validation. Do not turn this bounded improvement into further infrastructure.
+Focused exploration and batched capability checkpoints remain appropriate.
+
+The owner then asked whether ordinary Lean proof success could replace replay
+and bookkeeping. The recommendation is to retain actual-source proofs, correct
+dependencies, stable inputs and the cheap fresh axiom/coverage audit, but slim
+routine reporting and reserve standalone replay/extensive provenance for
+toolchain changes, cache investigations or explicit audits. Separate replay is
+not an explicit Oracle requirement; ordinary imported Lean objects rely on the
+documented local tool/cache trust. This recommendation has not been implemented
+or treated as authorization to remove existing checks. The completed experiment
+used the current full workflow. Bounded String output expressions remain the
+next language proposal; no further capability was begun.
+
+Evidence, preserved baseline and current caches remain under
+`.silver/linux-x86_64/compartmentalization-2026-10-11/` and the native host paths.
+Previous/foreign-host artifacts and scratch are preserved. Publication
+authorization persists; the closing response and local publication record
+identify the commit and verified remote state. GitHub Actions stays disabled;
+macOS proof work is a non-goal. CLI memory was rechecked: no exposed tool or
+conventional recall directory is available, and no CLI entry was updated.
+The historical GNATprove `DOC_END` issue remains unresolved; GNAT Pro is untested.
+
 ## 2026-10-10 — Input-dependent branching completed
 
 The selected first item in the [ordered roadmap](../roadmap.md#current-development-sequence)

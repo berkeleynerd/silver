@@ -292,10 +292,12 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 
 The default Lean check retains Lake's native build cache and freshly runs the
 module/axiom audit even on a cache hit. `--full` adds the independent kernel
-recheck; `--clean` also discards this host's proof workspace. The embedded
-recognizer and selected runtime Ada files are dependencies
-of the whole Silver Lean library: editing any of them invalidates that entire
-library's cached build. After runtime source edits, refresh bootstrap and rebuild so embedded library
+recheck; `--clean` also discards this host's proof workspace. Each embedded
+recognizer, lexical-helper and selected runtime Ada file has its own binary
+dependency: editing it invalidates its handwritten binding, certificate and
+transitive importers. Unrelated certificates and source-independent models can
+remain cached. The [compartmentalization record](docs/lean-compartmentalization.md)
+tracks validation and measured costs. After runtime source edits, refresh bootstrap and rebuild so embedded library
 bytes agree with the source; full audits reject stale bindings. Once a
 capability's inputs are stable, run its complete validation checkpoint:
 

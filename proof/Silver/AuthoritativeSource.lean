@@ -1,21 +1,16 @@
-/-!
-The authoritative input bindings are handwritten and outside the candidate
-generator. Generated certificates may prove facts about these definitions;
-they cannot choose which source is certified.
--/
+import Silver.OutputLexicalBodySource
+import Silver.OutputLexicalSpecSource
+import Silver.ProfileSpecSource
+import Silver.ProfileBodySource
+import Silver.OutputProfileSpecSource
+import Silver.OutputProfileBodySource
+import Silver.IoSpecSource
+import Silver.IoBodySource
+import Silver.OutputLibcSpecSource
+import Silver.ArgumentsSpecSource
+import Silver.ArgumentsBodySource
+import Silver.RuntimeSpecSource
 
-namespace Silver.Source
-
-def profileSpec : String := include_str "../../src/silver_profile.ads"
-def profileBody : String := include_str "../../src/silver_profile.adb"
-def outputProfileSpec : String := include_str "../../src/silver_output_profile.ads"
-def outputProfileBody : String := include_str "../../src/silver_output_profile.adb"
-def ioSpec : String := include_str "../../src/silver_io.ads"
-def ioBody : String := include_str "../../src/silver_io.adb"
-def outputLibcSpec : String := include_str "../../src/silver_output_libc.ads"
-
-def argumentsSpec : String := include_str "../../src/silver_arguments.ads"
-def argumentsBody : String := include_str "../../src/silver_arguments.adb"
-def runtimeSpec : String := include_str "../../src/silver_runtime.ads"
-
-end Silver.Source
+/-! Handwritten facade for the independently bound authoritative source files.
+Each generated certificate imports only its own binding. This facade remains
+part of the complete source bridge and fresh module/axiom audit. -/

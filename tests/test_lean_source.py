@@ -12,12 +12,14 @@ from scripts.check_lean import CANDIDATES
 
 ROOT = Path(__file__).resolve().parents[1]
 EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
-            "silver_output_profile.adb", "silver_io.ads", "silver_io.adb",
+            "silver_output_profile.adb", "silver_output_lexical.ads", "silver_output_lexical.adb",
+            "silver_io.ads", "silver_io.adb",
             "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
             "silver_runtime.ads")
 CERTIFICATE_MODULES = (
     "ProfileSpecCertificate", "ProfileBodyCertificate",
     "OutputSpecCertificate", "OutputBodyCertificate",
+    "OutputLexicalSpecCertificate", "OutputLexicalBodyCertificate",
     "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
     "ArgumentsSpecCertificate", "ArgumentsBodyCertificate", "RuntimeSpecCertificate",
 )
@@ -30,10 +32,19 @@ SPEC.loader.exec_module(GENERATOR)
 
 class CompilerSourcePolicyTests(unittest.TestCase):
     def test_embedded_source_lists_and_lake_dependencies_agree(self):
-        authoritative = (ROOT / "proof/Silver/AuthoritativeSource.lean").read_text()
-        bindings = re.findall(
-            r'^def (\w+) : String := include_str "\.\./\.\./src/([^"/]+)"$',
-            authoritative, re.MULTILINE)
+        facade = (ROOT / "proof/Silver/AuthoritativeSource.lean").read_text()
+        modules = re.findall(r'^import Silver\.(\w+Source)$', facade, re.MULTILINE)
+        self.assertEqual(len(modules), len(EMBEDDED))
+        bindings = []
+        source_modules = {}
+        for module in modules:
+            authoritative = (ROOT / "proof/Silver" / f"{module}.lean").read_text()
+            local = re.findall(
+                r'^def (\w+) : String := include_str "\.\./\.\./src/([^"/]+)"$',
+                authoritative, re.MULTILINE)
+            self.assertEqual(len(local), 1)
+            bindings.extend(local)
+            source_modules[local[0][1]] = module
         self.assertEqual(len(bindings), len(EMBEDDED))
         self.assertEqual({filename for _name, filename in bindings}, set(EMBEDDED))
         self.assertEqual(dict(bindings),
@@ -50,11 +61,21 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             lake, re.MULTILINE)
         self.assertEqual(len(inputs), len(EMBEDDED))
         self.assertEqual({filename for _name, filename in inputs}, set(EMBEDDED))
-        needs_match = re.search(r'\bneeds := #\[(.*?)\]', lake, re.DOTALL)
-        self.assertIsNotNone(needs_match)
-        needs = [name.strip() for name in needs_match.group(1).split(',')]
-        self.assertEqual(len(needs), len(inputs))
-        self.assertEqual(set(needs), {name for name, _filename in inputs})
+        libraries = re.findall(
+            r'^lean_lib (\w+) where\s+roots := #\[\]\s+'
+            r'globs := #\[\.one `Silver\.(\w+)\]\s+needs := #\[(\w+)\]',
+            lake, re.MULTILINE)
+        self.assertEqual(len(libraries), len(inputs))
+        self.assertEqual({module: need for _library, module, need in libraries},
+                         {source_modules[filename]: name for name, filename in inputs})
+        # Exact library ownership must follow the umbrella (Lake searches in
+        # reverse declaration order), and the umbrella has no global needs.
+        umbrella = lake.index("lean_lib Silver\n")
+        for library, _module, _need in libraries:
+            self.assertGreater(lake.index(f"lean_lib {library} where"), umbrella)
+        for filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS:
+            module = binding[0].upper() + binding[1:] + "Source"
+            self.assertEqual(source_modules[filename], module)
 
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
@@ -80,8 +101,9 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         self.assertNotIn("include_str", candidate)
         self.assertNotIn("def profileBody", candidate)
         self.assertIn("= profileBody", candidate)
-        authoritative = (ROOT / "proof" / "Silver" / "AuthoritativeSource.lean").read_text()
-        for filename in EMBEDDED:
+        for filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS:
+            module = binding[0].upper() + binding[1:] + "Source"
+            authoritative = (ROOT / "proof/Silver" / f"{module}.lean").read_text()
             self.assertIn(f'include_str "../../src/{filename}"', authoritative)
 
     def test_unsupported_literal_syntax_cannot_hide_declarations(self):

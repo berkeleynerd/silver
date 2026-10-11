@@ -116,10 +116,15 @@ memory or concurrent work calls for a limit. Incremental runs preserve sessions
 and reports but invalidate the previous completed full-audit manifest. They
 provide development feedback, not a new full assurance record.
 
-Lean retains Lake artifacts and rebuilds changed dependencies. Changing an embedded
-recognizer or selected runtime Ada file invalidates the whole Silver Lean library.
-Its module/axiom audit executes on
-every invocation, including cache hits. `--workers N` controls Lake's workers for
+Lean retains Lake artifacts and rebuilds changed dependencies. The
+[measured source partition](docs/lean-compartmentalization.md) gives each
+embedded Ada file its own handwritten binding and binary Lake dependency.
+Changing just that file invalidates its binding, certificate and transitive
+importers; unrelated certificates and source-independent model modules can
+remain cached. Shared Lean changes can invalidate additional modules. The stable
+checkpoint and complete source-correspondence requirement remain. The module/axiom
+audit executes on every invocation, including cache hits. `--workers N` controls
+Lake's workers for
 independent modules; `--threads N` separately controls each Lean build/audit
 process. Both default to `0`, selecting the CPUs available through process
 affinity and Python's CPU count. Explicit counts permit
@@ -127,7 +132,7 @@ lower settings for CPU quotas, competing workloads or memory pressure. Worker
 pools can multiply across modules; these settings are not strict OS-thread caps
 or a promise that every proof uses every core. The
 [concurrency record](docs/lean-concurrency.md) measures the selected settings and
-explains the remaining serial certificate and kernel work. The ten independent
+explains the remaining serial certificate and kernel work. The twelve independent
 source-certificate modules can still build concurrently. The runner re-elaborates
 Lake configuration
 so each invocation actually applies its requested thread and memory settings.

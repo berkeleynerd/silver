@@ -17,12 +17,12 @@ next capability while retaining full assurance for the current language.
 The branching checkpoint exposed a long serial source-certificate rebuild.
 Batch complete source-correspondence runs at the end of the session or day,
 using focused native/model checks during iteration as described in
-[the workflow](development.md#proof-loop-and-validation). Before the next
-language increment, assess a bounded compartmentalization change that can cache
-unchanged source sections independently while retaining complete authoritative
-byte coverage and semantic correspondence. More workers alone do not remove
-the serial certificate cost; adopt a change only after measuring a successful
-rebuild and full verification.
+[the workflow](development.md#proof-loop-and-validation). The authorized
+[bounded compartmentalization](docs/lean-compartmentalization.md) is complete
+and adopted after measurements and full Linux validation. It isolates per-file
+dependencies and stable lexical/name helpers while retaining complete authoritative
+byte coverage and semantic correspondence. Changed-body checking and whole-project
+replay remain expensive; no further certificate infrastructure is part of this task.
 
 The owner authorized starting one or more of these items on 2026-10-10. The
 selected implementation unit, **input-dependent branching**, is complete with
@@ -73,6 +73,7 @@ sequence.
 | Command-line message | Supported | Initialize the constant through `Silver_Arguments.First_Or_Default`, with a mandatory validity guard and rejection branch. Completed [Linux validation](docs/command-line.md). | [samples/command_line.adb](samples/command_line.adb) |
 | Literal-backed greeting | Supported | Literal prefix, one reference to a literal-initialized String constant, and literal suffix joined by Ada `&`; combined bounds and completed [validation](docs/greeting.md). | [samples/greeting.adb](samples/greeting.adb) |
 | Source-certificate performance | Completed investigation | Both candidates failed to establish a validated improvement; retain the existing representation. [Negative result and evidence](docs/certificate-performance.md). | Developer workflow; no language change |
+| Lean source compartmentalization | Supported | Per-file binary dependencies and a verified lexical-helper boundary; [measured cache reuse and full validation](docs/lean-compartmentalization.md). Certificate representation unchanged. | Developer workflow; no language change |
 | Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
 | Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
 | Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |

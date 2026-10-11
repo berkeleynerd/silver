@@ -19,7 +19,7 @@ from scripts.check_lean import (CANDIDATES, audit_import_closure, lake_build_com
                                prepare_tool_cache, prepare_workspace,
                                verify_workspace_inputs)
 from scripts.platforms import HostLayout, native_layout
-from tests.test_lean_source import EMBEDDED
+from tests.test_lean_source import EMBEDDED, GENERATOR
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -506,15 +506,26 @@ class LeanNativeDependencyTests(unittest.TestCase):
             sources = [root / "src" / name for name in EMBEDDED]
             for source in sources:
                 source.write_bytes(b"original\n")
-            declarations = "\n".join(
-                f'def source{i} : String := include_str "../src/{source.name}"\n'
-                f'example : source{i} = "original\\n" := by decide'
-                for i, source in enumerate(sources)).encode()
             inputs = {
                 root / "proof/lakefile.lean": (ROOT / "proof/lakefile.lean").read_bytes(),
                 root / "proof/lean-toolchain": (ROOT / "proof/lean-toolchain").read_bytes(),
-                root / "proof/Silver.lean": declarations,
+                root / "proof/Silver/Independent.lean": b"example : True := True.intro\n",
             }
+            modules = {}
+            imports = ["import Silver.Independent"]
+            for filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS:
+                module = binding[0].upper() + binding[1:] + "Source"
+                modules[filename] = module
+                relative = Path("Silver") / f"{module}.lean"
+                # Exercise the actual handwritten binding and exact library
+                # ownership, with independent stale-value witnesses downstream.
+                inputs[root / "proof" / relative] = (ROOT / "proof" / relative).read_bytes()
+                inputs[root / f"proof/Silver/{module}Witness.lean"] = (
+                    f"import Silver.{module}\n"
+                    f'example : Silver.Source.{binding} = "original\\n" := by decide\n'
+                ).encode()
+                imports.append(f"import Silver.{module}Witness")
+            inputs[root / "proof/Silver.lean"] = ("\n".join(imports) + "\n").encode()
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
             command = [str(host.lean / "bin/lake"), "--rehash", "-K", "silverThreads=1",
@@ -526,21 +537,39 @@ class LeanNativeDependencyTests(unittest.TestCase):
 
             result = build()
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            artifact = host.proof / ".lake/build/lib/lean/Silver.olean"
-            before = (artifact.read_bytes(), artifact.stat().st_mtime_ns)
+
+            def objects() -> dict[str, tuple[bytes, int]]:
+                return {str(path.relative_to(host.proof / ".lake/build/lib/lean")):
+                        (path.read_bytes(), path.stat().st_mtime_ns)
+                        for path in (host.proof / ".lake/build/lib/lean").rglob("*.olean")}
+
+            before = objects()
             result = build()
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertEqual((artifact.read_bytes(), artifact.stat().st_mtime_ns), before)
+            self.assertEqual(objects(), before)
             for source in sources:
                 with self.subTest(source=source.name):
+                    before = objects()
                     original = source.read_bytes()
                     stat = source.stat()
-                    source.write_bytes(original.replace(b"\n", b"\r"))
-                    os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
-                    result = build()
-                    self.assertNotEqual(result.returncode, 0, "changed included Ada bytes used a stale object")
-                    self.assertIn("decide", result.stdout + result.stderr)
-                    source.write_bytes(original)
+                    # CRLF must differ even with a restored timestamp. A text
+                    # input_file dependency would normalize it and miss this.
+                    try:
+                        source.write_bytes(original.replace(b"\n", b"\r\n"))
+                        os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+                        result = build()
+                        self.assertNotEqual(result.returncode, 0, "changed included Ada bytes used a stale object")
+                        self.assertIn("decide", result.stdout + result.stderr)
+                        changed_module = f"Silver/{modules[source.name]}.olean"
+                        after = objects()
+                        self.assertNotEqual(after[changed_module], before[changed_module])
+                        affected = {changed_module, "Silver.olean",
+                                    f"Silver/{modules[source.name]}Witness.olean"}
+                        for module, identity in before.items():
+                            if module not in affected:
+                                self.assertEqual(after[module], identity, module)
+                    finally:
+                        source.write_bytes(original)
                     result = build()
                     self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 

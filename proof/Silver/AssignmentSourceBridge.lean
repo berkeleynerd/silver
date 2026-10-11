@@ -13,7 +13,7 @@ open Silver.SourceBridge
 
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
-  Source.expressionBody "literal_length" Source.outputBodyTokens = some Expressions.literalLengthBody.render ∧
+  Source.expressionBody "literal_length" Source.outputLexicalSpecTokens = some Expressions.literalLengthBody.render ∧
   Source.expressionBody "assignment_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel

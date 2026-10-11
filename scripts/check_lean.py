@@ -36,6 +36,8 @@ CANDIDATES = {
     Path("Silver/ProfileBodyCertificate.lean"): "silver_profile.adb",
     Path("Silver/OutputSpecCertificate.lean"): "silver_output_profile.ads",
     Path("Silver/OutputBodyCertificate.lean"): "silver_output_profile.adb",
+    Path("Silver/OutputLexicalSpecCertificate.lean"): "silver_output_lexical.ads",
+    Path("Silver/OutputLexicalBodyCertificate.lean"): "silver_output_lexical.adb",
     Path("Silver/IOSpecCertificate.lean"): "silver_io.ads",
     Path("Silver/IOBodyCertificate.lean"): "silver_io.adb",
     Path("Silver/OutputLibcCertificate.lean"): "silver_output_libc.ads",
