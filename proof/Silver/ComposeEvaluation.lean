@@ -47,13 +47,10 @@ def Condition.Legal (calls : Calls) (ctx : Context) : Condition → Prop
 
 def Result.Legal (calls : Calls) (ctx : Context) : Result → Prop
   | .record a b c d => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx
-  | .operand a b c d e f | .expression a b c d e f =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧
-      e.Legal calls ctx ∧ f.Legal calls ctx
-  | .tail a b c d e f g h i j =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧
-      e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx ∧ h.Legal calls ctx ∧
-      i.Legal calls ctx ∧ j.Legal calls ctx
+  | .operand a b c d e f g h i j k l | .expression a b c d e f g h i j k l =>
+      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx ∧ h.Legal calls ctx ∧ i.Legal calls ctx ∧ j.Legal calls ctx ∧ k.Legal calls ctx ∧ l.Legal calls ctx
+  | .tail a b c d e f g h i j k l m n o p =>
+      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx ∧ h.Legal calls ctx ∧ i.Legal calls ctx ∧ j.Legal calls ctx ∧ k.Legal calls ctx ∧ l.Legal calls ctx ∧ m.Legal calls ctx ∧ n.Legal calls ctx ∧ o.Legal calls ctx ∧ p.Legal calls ctx
   | .group a => a.Legal calls ctx
   | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
       if c.eval calls ctx then a.Legal calls ctx else b.Legal calls ctx
@@ -61,8 +58,9 @@ def Result.Legal (calls : Calls) (ctx : Context) : Result → Prop
 
 def State.Legal (calls : Calls) (ctx : Context) : State → Prop
   | .position a | .step a => a.Legal calls ctx
-  | .staticBinding a b c | .dynamicBinding a b c =>
+  | .staticBinding a b c | .dynamicBinding a b c | .constantOneBinding a b c | .constantTwoBinding a b c | .constantValues a b c =>
       a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx
+  | .declarations a b c d e f g => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx
   | .length a b | .capacity a b => a.Legal calls ctx ∧ b.Legal calls ctx
   | .group a => a.Legal calls ctx
   | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
@@ -198,6 +196,18 @@ theorem Number.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning c
   | .stateDynamicFirst, _ => rfl
   | .stateDynamicAfter, _ => rfl
   | .stateCapacity, _ => rfl
+  | .constantOneFirst, _ => rfl
+  | .constantOneAfter, _ => rfl
+  | .constantOneValueFirst, _ => rfl
+  | .constantTwoFirst, _ => rfl
+  | .constantTwoAfter, _ => rfl
+  | .constantTwoValueFirst, _ => rfl
+  | .stateConstantOneFirst, _ => rfl
+  | .stateConstantOneAfter, _ => rfl
+  | .stateConstantOneValueFirst, _ => rfl
+  | .stateConstantTwoFirst, _ => rfl
+  | .stateConstantTwoAfter, _ => rfl
+  | .stateConstantTwoValueFirst, _ => rfl
   | .spellingLength, _ => rfl
 theorem Condition.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
     ∀ (expression : Condition) (_legal : expression.Legal calls ctx),
@@ -350,10 +360,13 @@ theorem Condition.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meanin
   | .tokenEq _, _ => rfl
   | .tokenNe _, _ => rfl
   | .literalToken, _ => rfl
+  | .copyToken, _ => rfl
+  | .declarationToken, _ => rfl
   | .assignmentForm, _ => rfl
   | .formMember _, _ => rfl
   | .currentFormMember, _ => rfl
   | .someForm _, _ => rfl
+  | .firstForm _, _ => rfl
 theorem Result.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
     ∀ (expression : Result) (_legal : expression.Legal calls ctx),
       expression.eval calls ctx = expression.eval (lexical calls) ctx
@@ -365,27 +378,7 @@ theorem Result.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning c
       rw [Condition.eval_lexical calls meaning ctx c legal.2.2.1]
       rw [Condition.eval_lexical calls meaning ctx d legal.2.2.2]
       rfl
-  | .operand a b c d e f, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2]
-      rfl
-  | .expression a b c d e f, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2]
-      rfl
-  | .tail a b c d e f g h i j, legal => by
+  | .operand a b c d e f g h i j k l, legal => by
       dsimp +instances only [Result.Legal] at legal
       dsimp +instances only [Result.eval, lexical]
       rw [Number.eval_lexical calls meaning ctx a legal.1]
@@ -395,9 +388,47 @@ theorem Result.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning c
       rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
       rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
       rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
-      rw [Condition.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
-      rw [Condition.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2]
+      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2]
+      rfl
+  | .expression a b c d e f g h i j k l, legal => by
+      dsimp +instances only [Result.Legal] at legal
+      dsimp +instances only [Result.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2]
+      rfl
+  | .tail a b c d e f g h i j k l m n o p, legal => by
+      dsimp +instances only [Result.Legal] at legal
+      dsimp +instances only [Result.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx m legal.2.2.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Condition.eval_lexical calls meaning ctx n legal.2.2.2.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Condition.eval_lexical calls meaning ctx o legal.2.2.2.2.2.2.2.2.2.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx p legal.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2]
       rfl
   | .group a, legal => by
       dsimp +instances only [Result.Legal] at legal
@@ -447,6 +478,38 @@ theorem State.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning ca
       rw [Number.eval_lexical calls meaning ctx a legal.1]
       rw [Number.eval_lexical calls meaning ctx b legal.2.1]
       rw [Number.eval_lexical calls meaning ctx c legal.2.2]
+      rfl
+  | .constantOneBinding a b c, legal => by
+      dsimp +instances only [State.Legal] at legal
+      dsimp +instances only [State.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
+      rfl
+  | .constantTwoBinding a b c, legal => by
+      dsimp +instances only [State.Legal] at legal
+      dsimp +instances only [State.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
+      rfl
+  | .constantValues a b c, legal => by
+      dsimp +instances only [State.Legal] at legal
+      dsimp +instances only [State.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
+      rfl
+  | .declarations a b c d e f g, legal => by
+      dsimp +instances only [State.Legal] at legal
+      dsimp +instances only [State.eval, lexical]
+      rw [Number.eval_lexical calls meaning ctx a legal.1]
+      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
+      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
+      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2]
       rfl
   | .length a b, legal => by
       dsimp +instances only [State.Legal] at legal
@@ -558,6 +621,6 @@ theorem normalized_definitions (calls : Calls)
     intro text
     exact (source.assignment text).trans
       (Condition.eval_lexical calls meaning _ _ (by
-        simp [assignmentBody, either, Condition.Legal]))
+        simp [assignmentBody, Condition.Legal]))
 
 end Silver.Compose.Expressions

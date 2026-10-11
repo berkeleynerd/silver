@@ -42,11 +42,12 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-The current language has **six output shells plus null**. The
-[composed-String capability record](docs/string-results.md) records its completed
-Linux validation; the [assurance argument](docs/assurance.md) gives the universal
-claims and their explicit premises. The rules below describe the complete
-grammar. Existing samples remain valid.
+The language has **six output shells plus null**, with fifteen concrete output
+forms. The completed [Copy String Values increment](docs/copy-values.md) adds
+constant/copy variants to the preceding
+[composed-String capability](docs/string-results.md). Its complete Linux
+checkpoint passed; the [assurance argument](docs/assurance.md) gives the universal
+claims and their explicit premises. Existing samples remain valid.
 
 All programs contain exactly one library-level `procedure Main`, without
 parameters or exception handlers, and exactly one `pragma SPARK_Mode (On);` at
@@ -65,8 +66,10 @@ Every output shell has `with Silver_IO;`. The three argument-bearing shells
 add exactly `with Silver_Arguments;` after that clause. There are no `use`
 clauses, additional application units, additional declarations or statements
 outside the selected shell. The grammar below uses `L` for an admitted literal,
-`S` for the static-length binding, `D` for the immutable argument binding and
-`E` for an output expression. These are grammar metavariables; authors write
+`S` for the mutable result or sole static binding, `D` for the immutable argument
+binding, `K1`/`K2` for optional literal-backed constants, `V` for a literal or
+one of those preceding constants, and `E` for an output expression. These are
+grammar metavariables; authors write
 ordinary Ada source, as the examples show.
 
 ### Literals, names and output expressions
@@ -81,7 +84,8 @@ A declared name matches `[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*`: an ASCII letter
 followed by letters or digits, optionally separated by single underscores,
 without a trailing underscore. The 74 Ada 2022 reserved words, `String` and
 `Silver_IO` are excluded ignoring ASCII case. In an argument-bearing shell,
-`Silver_Arguments` is also excluded for **both** declarations. `Main` is legal;
+`Silver_Arguments` is also excluded for **every** declaration. All names within
+one program must be distinct ignoring ASCII case. `Main` is legal;
 `Silver_Arguments` remains legal in the static and assignment shells. Every
 reference matches the entire declared identifier ignoring ASCII case. There is
 no additional identifier-length limit beyond the complete source bound.
@@ -96,14 +100,15 @@ operand ::= L | an existing bound name
 The chain is flat and Ada associates `&` to the left. Parenthesized
 subexpressions, indexing, slices, other operators and implicit string conversion
 are excluded. Each operand counts, including an empty literal or a reference
-to an empty String. The static-length name may occur repeatedly; the dynamic
+to an empty String. Each static-length name may occur repeatedly; the dynamic
 argument name occurs at most once **per output expression**, in any position.
 Literals alone are allowed. An assignment-bearing shell must reference its
 mutable result at least once in the final output expression. A static constant
 need not be referenced. No expression can reference a name absent from its shell.
 
 Membership computes the decoded length of every literal and counts every
-static-name occurrence at its declared fixed length. Let `W` be that total,
+static-name occurrence at that object's declared fixed length. Let `W` be that
+total,
 and let `C` be the explicit capacity, or 4096 when the capacity clause is absent.
 Each output expression independently must satisfy:
 
@@ -152,26 +157,38 @@ String. No assignment or additional binding is present.
 
 ### Fixed-length string assignment
 
-One declaration `S : String := L;` follows the pragma. The body consists of
-exactly `S := L;` followed by `Silver_IO.Put_Line (E);`:
+Zero, one or two literal-backed constant declarations follow the pragma, then
+exactly one mutable declaration `S : String := V;`. Each optional declaration
+has the form `K1 : constant String := L;` (and then `K2` when present). The
+body consists of exactly `S := V;` followed by `Silver_IO.Put_Line (E);`:
 
 ```ada
 with Silver_IO;
 procedure Main is
    pragma SPARK_Mode (On);
-   Message : String := "Hello";
+   Ready : constant String := "Hello";
+   Greeting : constant String := "World";
+   Message : String := Ready;
 begin
-   Message := "World";
+   Message := Greeting;
    Silver_IO.Put_Line ("Result: " & Message & " / " & Message);
 end Main;
 ```
 
-The initializer fixes the object's bounds. The assigned literal must have
+The initializer fixes the object's bounds. The assigned value must have
 exactly the same **decoded** length; doubled quotes count as one byte, and
 zero-length values are allowed. Assignment replaces bytes without resizing or
 truncation. `E` must reference `S` at least once and reads the replacement value.
-The initializer and replacement are individual literals, not expressions or
-name-to-name copies. `:=` is one contiguous token.
+The initializer and replacement are each a single literal or a reference to
+either preceding literal-backed constant. The constants themselves always use
+literal initializers; they cannot copy each other. Their lengths may differ
+when they are not used to assign the same result. Constants may be unused, used
+only by initialization/assignment, or referenced repeatedly in `E`.
+
+Copies preserve the constant's bytes and establish or preserve the result's
+fixed bounds. References resolve to complete names ignoring case. Self-assignment,
+argument-to-result copies, expression initializers/RHS values, extra mutable
+objects and additional statements remain excluded. `:=` is one contiguous token.
 
 ### Guarded command-line initialization
 
@@ -251,9 +268,10 @@ assignment in this shell.
 
 ### Branch-selected fixed-length result
 
-Exactly two declarations follow the pragma in order: immutable argument binding
-`D`, then `S : String := L;`. Their names are distinct ignoring ASCII case, and
-both follow the argument-bearing name exclusions. The successful outer guard
+Declarations follow the pragma in order: immutable argument binding `D`, zero
+through two literal-backed constants as above, then `S : String := V;`. All names
+are distinct ignoring ASCII case and follow the argument-bearing name exclusions.
+The successful outer guard
 contains an equality choice whose two branches assign `S`, followed by one
 common output expression:
 
@@ -263,13 +281,15 @@ with Silver_Arguments;
 procedure Main is
    pragma SPARK_Mode (On);
    Mode : constant String := Silver_Arguments.First_Or_Default ("brief");
-   Result : String := "Ready";
+   Ready : constant String := "Hello";
+   Detailed : constant String := "HELLO";
+   Result : String := Ready;
 begin
    if Silver_Arguments.Input_Is_Valid then
       if Mode = "verbose" then
-         Result := "HELLO";
+         Result := Detailed;
       else
-         Result := "Hello";
+         Result := Ready;
       end if;
       Silver_IO.Put_Line ("Result: " & Result & " / " & Result);
    else
@@ -278,12 +298,14 @@ begin
 end Main;
 ```
 
-The complete successful branch is `if D = L then S := L; else S := L;
-end if; Silver_IO.Put_Line (E);`. Both assigned literals have the initializer's
+The complete successful branch is `if D = L then S := V; else S := V;
+end if; Silver_IO.Put_Line (E);`. Both assigned values have the initializer's
 exact decoded length. Both branches definitely assign the result before output,
 so its length and initialization agree where control rejoins. `E` must use `S`
 at least once; it may also use `D` once, under the same weighted capacity rule.
-A branch assignment cannot target `D`, and no extra declaration, copy or statement
+Either constant may appear in `E`, with its own length counted on every use.
+A branch assignment cannot target `D` or a constant. The result's initializer
+and assignments cannot copy `D` or `S`. No additional declaration or statement
 is implied by this composition.
 
 ### Shared composition rules
@@ -301,11 +323,12 @@ The catalogue uses these construct identifiers:
 | `main_procedure`, `spark_mode_on`, `null_statement` | Fixed Main skeleton, required pragma, and the separate null shell. |
 | `runtime_context`, `argument_context` | Fixed qualified output/argument package context clauses. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and the declarations fixed by each shell. |
+| `string_copy` | A preceding literal-backed constant used as mutable-result initializer or equal-length assignment RHS. |
 | `string_expression`, `string_concatenation` | One through sixteen bound/literal operands; `&` requires at least two. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | One terminal output on each executed output path, with the shared expression rules. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and the optional bounded capacity clause. |
 | `string_equality`, `input_branch` | Exact equality choice between two output expressions. |
-| `string_assignment`, `result_branch` | Fixed-length literal assignment, either once directly or once on each selected-result branch. |
+| `string_assignment`, `result_branch` | Fixed-length literal or constant-copy assignment, either once directly or once on each selected-result branch. |
 
 Everything else is excluded, including loops, general conditionals, additional
 bindings, repeated dynamic references, resizable strings, other array operations,
@@ -338,7 +361,8 @@ otherwise it is rejected with status 1 and no output. This applies equally to a
 default and an actual argument. The capacity guard runs before expression
 concatenation or the inner choice. Branching compares the selected value with
 its decoded comparison literal, then either evaluates one output expression or
-assigns one result literal before the common output. Unequal lengths compare
+assigns a literal or literal-backed constant to the result before common output.
+Unequal lengths compare
 false; there is no case folding, truncation or resizing.
 
 The initializer and validity query observe the same immutable GNAT argument
@@ -363,7 +387,8 @@ are unchanged.
 
 Membership decides source shape, binding, operand counts, fixed assignment
 lengths and every expression's output bound before invoking a prover. Literal
-initialization establishes bytes and fixed bounds; equal-length assignments
+initialization and copies from literal-backed constants establish bytes and
+fixed bounds; equal-length assignments
 preserve them. Argument normalization establishes a one-based String of at most
 4096 printable bytes. The validity/capacity guard establishes the output-domain
 bound for any dynamic occurrence. The universal composition argument must cover

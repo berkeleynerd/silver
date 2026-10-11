@@ -327,6 +327,76 @@
           }
         }
       ]
+    },
+    {
+      "source": "copied_result.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "named_string_variable",
+        "string_assignment",
+        "argument_context",
+        "argument_initialization",
+        "input_guard",
+        "string_equality",
+        "result_branch",
+        "string_expression",
+        "expression_output",
+        "argument_rejection",
+        "string_copy"
+      ],
+      "specification": "../language.md#branch-selected-fixed-length-result",
+      "expected": {
+        "stdout": "Selected: ready (choices: ready, extra)\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            "verbose"
+          ],
+          "expected": {
+            "stdout": "Selected: extra (choices: ready, extra)\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "Verbose"
+          ],
+          "expected": {
+            "stdout": "Selected: ready (choices: ready, extra)\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "Selected: ready (choices: ready, extra)\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "verbose",
+            "extra"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
     }
   ]
 }

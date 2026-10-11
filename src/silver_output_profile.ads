@@ -16,7 +16,9 @@ is
       If_Keyword, Input_Is_Valid_Name, Then_Keyword, Else_Keyword, Reject_Name,
       Ampersand, And_Keyword, Apostrophe, Length_Name, Less_Equal,
       Capacity_Literal, Equal, Dynamic_Declaration, Dynamic_Reference,
-      Static_Initializer, Static_Assignment, Output_Expression);
+      Static_Initializer, Static_Assignment, Output_Expression,
+      Constant_One_Declaration, Constant_Two_Declaration,
+      Constant_One_Initializer, Constant_Two_Initializer);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,
@@ -27,12 +29,14 @@ is
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;
 
-   --  Six program shells. The last three have an optional capacity clause,
-   --  represented by separate finite token sequences rather than backtracking.
+   --  Six program shells with finite variants for capacity guards and up to
+   --  two literal-backed constants before an assigned result.
    type Form_Kind is
-     (Direct_Form, Static_Form, Assignment_Form, Argument_Form,
+     (Direct_Form, Static_Form, Assignment_Form, Assignment_One_Form,
+      Assignment_Two_Form, Argument_Form,
       Guarded_Argument_Form, Branching_Form, Guarded_Branching_Form,
-      Result_Form, Guarded_Result_Form);
+      Result_Form, Guarded_Result_Form, Result_One_Form, Result_Two_Form,
+      Guarded_Result_One_Form, Guarded_Result_Two_Form);
 
    function Tokens (Form : Form_Kind) return Token_Sequence
      with Global => null,
@@ -40,9 +44,10 @@ is
          and then Tokens'Result'Length in 1 .. 100;
 
    function Is_Argument_Form (Form : Form_Kind) return Boolean is
-     (Form in Argument_Form .. Guarded_Result_Form);
+     (Form in Argument_Form .. Guarded_Result_Two_Form);
    function Is_Assignment_Form (Form : Form_Kind) return Boolean is
-     (Form in Assignment_Form | Result_Form | Guarded_Result_Form);
+     (Form in Assignment_Form .. Assignment_Two_Form
+        | Result_Form .. Guarded_Result_Two_Form);
 
    function Spelling (Token : Token_Kind) return String
      with Global => null,

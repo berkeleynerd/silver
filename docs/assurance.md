@@ -8,14 +8,19 @@ Bronze and Silver obligation. Membership does not depend on prover success.
 Failure to admit, prove or compile a valid program is an implementation or
 toolchain defect; it cannot silently narrow the language.
 
-The completed [Compose String Results](string-results.md) increment replaces
-the separate output productions with one bounded expression grammar inside six
-output shells, plus the existing null grammar. Optional capacity clauses give
-nine concrete output forms. The implementation and proof argument below passed
-the complete Linux checkpoint: native compiler audit, full tests with affected
-correction reruns, and complete incremental Lean source-correspondence build and
-fresh axiom/coverage audit. The capability record gives exact input and cache
-scope; independent replay was not requested. Earlier [branching](input-branching.md),
+The completed [Compose String Results](string-results.md) increment established
+one bounded expression grammar inside six output shells plus null, with nine
+concrete output forms. Its recorded inputs passed the complete Linux checkpoint;
+the capability record gives exact input and cache scope. Independent replay was
+not requested.
+
+The [Copy String Values](copy-values.md) extension is complete.
+Up to two literal-backed constants in each mutable shell add six finite variants,
+for fifteen output forms. The rules and assurance argument below passed the
+complete physical Linux checkpoint: native compiler audit/build, full tests,
+complete Lean source correspondence and a fresh axiom/coverage audit, with cache
+reuse and no optional independent replay. The capability record identifies the
+validated inputs and retained evidence. Earlier [branching](input-branching.md),
 [source compartmentalization](lean-compartmentalization.md), and
 [focused-runner](lean-iteration.md) records remain evidence for their own inputs,
 not validation of this changed tree.
@@ -41,7 +46,10 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 `Current.Member` is the union of the null grammar and `Compose.Member`.
 `Current.accepts_iff_member` proves decidability; `member_has_meaning` and
-`meaning_unique` give every admitted source exactly one decoded program.
+`meaning_unique` give every admitted source exactly one canonical decoded program.
+Admission remains the union of the finite shells; meaning and report routing
+select the first accepted shell in the shared enumeration. This uniqueness
+result does not require a separate all-forms-disjointness claim.
 `ComposeAdmission` connects independent relational operand/expression/shell
 parsing to its executable model. `ComposeSemantics` tracks the ordered parsed
 payloads and their bounds; `ComposeDecode`'s `decoded_valid` connects every admitted
@@ -50,8 +58,9 @@ payload stream to the validity conditions in `ComposeMain`.
 Membership covers the entire source, including its 1..4096-byte bound, permitted
 ASCII alphabet, comments, trivia, case-insensitive identifiers and whole-word
 token boundaries. Doubled quotes decode to one quote, while literal character
-case and contents are preserved. The two name slots are the static-length value
-and the immutable argument value. Declarations are distinct ignoring ASCII
+case and contents are preserved. The slots distinguish the static-length result,
+immutable argument, and up to two literal-backed constants. Declarations are
+distinct ignoring ASCII
 case; references resolve to the declared slot, and reserved/type/package-name
 exclusions preserve the intended bindings. No additional unit, declaration,
 operator, statement or effect is admitted through an unmatched suffix.
@@ -105,8 +114,12 @@ operator implementation remain external premises.
 
 A literal-initialized `constant String` has its bounds and bytes from that
 literal. Output may use the name repeatedly or omit it. Every reference is
-case-insensitively bound to the sole static declaration, and the weighted
-expression bound counts all occurrences. This generalizes the earlier
+case-insensitively bound to its own declaration, and the weighted expression
+bound counts all occurrences at that object's length. The static-output shell
+still has exactly one constant. Mutable shells permit zero through two constants
+before the result and after argv when present. Each has a literal initializer;
+constant-to-constant and argv copies are excluded. Constants may be unused or
+used only by result initialization or assignment. This generalizes the earlier
 [named-string](named-strings.md) and [literal-backed greeting](greeting.md)
 forms without assuming arbitrary declaration sequences or unrestricted names.
 
@@ -152,11 +165,13 @@ its fixed two-concatenation grammar is no longer the current composition rule.
 
 ### Fixed-length string assignment
 
-A mutable String acquires its fixed bounds from its literal initializer.
-Each permitted replacement literal must have exactly the same decoded length.
+A mutable String acquires its fixed bounds from a literal or preceding
+literal-backed constant initializer. Each replacement is also a literal or
+preceding constant and must have exactly the same decoded length.
 The simple assignment shell initializes, assigns once and then evaluates the
 common expression. The selected-result shell first initializes immutable input
-and a distinct mutable result; after the validity/capacity guard, equality
+then zero through two literal-backed constants and a distinct mutable result;
+after the validity/capacity guard, equality
 selects one of two equal-length assignments, followed by one common output.
 
 `ComposeDecode` proves these length equalities for every admitted payload.
@@ -165,13 +180,27 @@ the initialized fixed-length cell. Its statement interpreter rejects a
 length-mismatched assignment, and `execution_refines` proves that no admitted
 program takes that failure case. Both selected branches establish the same
 length invariant before output; the evaluated bytes are the chosen replacement.
-No path reads an uninitialized binding. The initial bytes may be overwritten,
+`ComposeSemantics.constant_read_is_bound` identifies each normalized named
+operand with the bytes in its immutable declaration slot. Independent
+`SourceOperandValue` and `SourceExpressionValue` relations read those slots
+directly. `meaning_constant_elaboration` carries this read correspondence at
+every parsed initializer, assignment and output step; the public
+`authoritative_main_correct` theorem retains that derivation alongside the
+statement execution result. The copy variants passed complete source-correspondence
+validation in the Linux checkpoint.
+No path may read an uninitialized binding. The initial bytes may be overwritten,
 but initialization still determines the object's bounds.
 
 Under Ada RM 3.3.1 and 5.2, those equal lengths satisfy the assignment constraint.
-The pinned frontend's static elimination of satisfied literal assignment checks
+The pinned frontend's static elimination of satisfied literal and constant-copy
+assignment checks
 is an explicit tool premise, exercised by native positive and unequal-length
-negative controls. Mutable concatenation can still produce range checks.
+negative controls. The isolated copy experiment found only existing proved
+range checks and at most the existing initializer advisory across the positive
+controls; all passed the unchanged report audit. Unused constants added
+no warning class. These observations corroborate the external-tool premises;
+they do not establish the universal theorem. Mutable concatenation can still
+produce range checks.
 The precisely classified ineffective-initialization advisory is discussed below;
 it does not waive a safety obligation.
 
@@ -181,7 +210,8 @@ The inner condition compares the validated String with a literal using
 predefined array equality. Equality compares length and element bytes without
 requiring equal array bounds; it preserves case. The terminal-branch shell
 chooses one of two output expressions. The selected-result shell chooses the
-literal assigned before its common output. A failed outer guard performs
+literal or literal-backed constant assigned before common output. A failed outer
+guard performs
 neither the equality-selected output nor an assignment branch.
 
 `Compose.Main.composition` uses the same typed templates for rendered source
@@ -263,7 +293,7 @@ required correspondence. The checked chain has these distinct parts:
    in its membership/selector theorems. The verified Step postcondition carries
    legal state bounds through recursive shell calls.
 6. `ComposeAdmission`, `ComposeSemantics` and `ComposeDecode` connect that grammar
-   to unique decoded programs satisfying all expression, initialization,
+   to canonical decoded programs satisfying all expression, initialization,
    assignment and guard bounds. `ComposeExecution`, `ComposeObligations` and
    `Current` then establish behavior and the modeled automatic discharge result.
 
@@ -283,9 +313,12 @@ The current proof facade uses the shared composed recognizer. Historical model
 modules can remain as reusable mathematical developments, but obsolete
 fixed-production source bridges do not establish correspondence for replaced
 Ada functions. Source-pin changes must be reviewed together with these semantic
-changes. The completed checkpoint rebuilt the changed output specification/body
-certificates and checked the whole project; ten unrelated certificates retained
-identical bytes and modification times.
+changes. The preceding Compose String Results checkpoint rebuilt its changed
+output specification/body certificates and checked the whole project; ten
+unrelated certificates retained identical bytes and modification times. The
+completed Copy String Values checkpoint validates the subsequent source/proof
+changes and full project; its exact certificate and cache scope is recorded in
+[the capability record](copy-values.md).
 
 ## Automatic completion and the external boundary
 
@@ -381,7 +414,7 @@ All output shells use `Complete_Application_Proof`; only null retains
 | --- | --- | --- | --- |
 | Static | Direct or constant-backed expression | Main and Put_Line | None |
 | Argument | Immutable input, with direct or branch-selected output | Main, First_Or_Default, Input_Is_Valid, Reject and Put_Line | None |
-| Assigned | Literal-initialized result, one assignment, output | Main and Put_Line | At most one exact ineffective-initialization advisory |
+| Assigned | Literal/constant-initialized result, one compatible assignment, output | Main and Put_Line | At most one exact ineffective-initialization advisory |
 | Selected | Immutable input and branch-assigned result, common output | Main and the four argument/output callees | The same narrow allowance |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` with the

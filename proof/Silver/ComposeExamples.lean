@@ -43,4 +43,32 @@ theorem tighter_capacity_rejects_oversized_default : narrowDefault.action [] = .
 
 theorem explicit_empty_satisfies_zero_capacity : narrowDefault.action [[]] = .output [] := by decide +kernel
 
+def copyAssignmentSource (secondInitializer replacement output : String) : Source :=
+  ("with Silver_IO; procedure Main is pragma SPARK_Mode (On); " ++
+   "First : constant String := \"ab\"; Second : constant String := " ++ secondInitializer ++
+   "; Result : String := fIrSt; begin Result := " ++ replacement ++
+   "; Silver_IO.Put_Line (" ++ output ++ "); end Main;").toList.map Char.toNat
+
+theorem two_constants_copy_admitted :
+    formAccepts (copyAssignmentSource "\"cd\"" "sEcOnD" "First & Result & Second") .assignmentTwo = true := by
+  decide +kernel
+
+theorem unequal_named_copy_rejected :
+    accepts (copyAssignmentSource "\"cde\"" "Second" "Result") = false := by decide +kernel
+
+theorem constants_do_not_replace_result_use :
+    accepts (copyAssignmentSource "\"cd\"" "Second" "First & Second") = false := by decide +kernel
+
+theorem constant_alias_initializer_rejected :
+    accepts (copyAssignmentSource "First" "Second" "Result") = false := by decide +kernel
+
+theorem mutable_copy_source_rejected :
+    accepts (copyAssignmentSource "\"cd\"" "Result" "Result") = false := by decide +kernel
+
+def copiedBranchSource : Source :=
+  "with Silver_IO; with Silver_Arguments; procedure Main is pragma SPARK_Mode (On); Mode : constant String := Silver_Arguments.First_Or_Default (\"brief\"); Ready : constant String := \"ready\"; Detailed : constant String := \"extra\"; Result : String := Ready; begin if Silver_Arguments.Input_Is_Valid and then Mode'Length <= 4081 then if Mode = \"verbose\" then Result := Detailed; else Result := Ready; end if; Silver_IO.Put_Line (Ready & Result & Detailed & Mode); else Silver_Arguments.Reject; end if; end Main;".toList.map Char.toNat
+
+theorem two_constants_guarded_branch_admitted :
+    formAccepts copiedBranchSource .guardedResultTwo = true := by decide +kernel
+
 end Silver.Compose

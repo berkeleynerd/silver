@@ -8,27 +8,23 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**Compose String Results** is implemented and validated. That short name also
-identifies the harness goal and Codex CLI title; recheck the live status at
-resumption. The owner-authorized [two-item increment](docs/string-results.md),
-based on `767a33c`, adds bounded flat String expressions across output positions,
-repeated static references and tighter safe capacity guards, plus immutable argv
-beside one fixed-length mutable result assigned in both branches and printed
-once. Native compiler validation, full tests with affected correction reruns,
-the complete cached Linux Lean checkpoint and independent review passed. The
-review target is the commit introducing `samples/composed_result.adb`:
+**Copy String Values** is implemented and validated, based on
+`96b98e1`. It adds up to two literal-backed constants before the mutable result,
+result initialization and equal-length assignments from either constant, and
+constant references in bounded output expressions. The existing six output
+shells and one terminal output per successful path remain. See the
+[capability record](docs/copy-values.md) for scope, review and exact validation
+inputs. The complete physical Linux checkpoint passed: native compiler audit,
+build and full tests, complete Lean source correspondence and fresh axiom/coverage
+audit. Optional independent replay was not requested. The implementation/review
+target is the commit introducing `samples/copied_result.adb`, based on `96b98e1`.
 
-```sh
-git log --diff-filter=A -1 --format='%H %s' -- samples/composed_result.adb
-```
-
-The [capability record](docs/string-results.md) distinguishes the complete Lean
-result, cache reuse and native manifest's script-only difference. Optional replay
-was not run. General declarations/copies and repeated output were not started;
-additional initialized bindings and compatible copies are the next proposed
-item. A new roadmap item needs a new owner instruction. Publication remains
-authorized; the closing commit and remote/Actions checks are recorded in local
-`compose-results/publication.json` and the final response.
+This desktop chat recovered the completed CLI **Compose String Results**
+context; it did not import that chat or reopen its goal. No active harness goal
+was created for this increment. The previous capability is complete in
+`96b98e1`, with [its original evidence](docs/string-results.md). Repeated output
+is the next proposal and requires a new owner instruction. Commit and
+publication authorization persists; hosted Actions remains disabled.
 
 The supplied [review of `d375aec`](docs/lean-iteration.md#external-review-of-d375aec)
 has been assessed and its confirmed small repairs completed: reject direct
@@ -43,7 +39,7 @@ The retained native proof's
 full manifest belongs to its original snapshot because the Lean runner changed;
 its Ada and native configuration inputs remain unchanged. The repair/review target
 is `767a33c`, based on `26737d9` and reviewing `d375aec`. That repair and the
-earlier optimization goal are complete; the String-results goal above is current.
+earlier optimization goal are complete, as is the Copy String Values task above.
 
 The [focused Lean runner](docs/lean-iteration.md) and selected workflow
 simplification are complete. `check_lean.py --target MODULE` synchronizes current
@@ -105,13 +101,18 @@ remain expensive. The certificate representation is unchanged.
 The [ordered language sequence](roadmap.md#current-development-sequence) remains
 bounded output expressions with tighter safe capacities, a branch-selected
 fixed-length result, further initialized bindings/copies, then repeated output.
-The first two capabilities are now supported by the combined work above; later
-items remain proposed.
+The first three capabilities are supported. Repeated output remains proposed
+and requires a new owner instruction.
 
 ## Local tools and evidence
 
-The current sandbox has 12 visible CPUs and approximately 31 GiB RAM. Native
-pinned tools are installed. Use `python3 scripts/dev.py paths` for the actual
+The desktop runs on the physical Linux x86-64 host with 22 available CPUs and
+approximately 91 GiB RAM. The stopped CLI microVM had 12 CPUs and 31 GiB RAM;
+its retained evidence keeps that attribution. Both environments use the same
+host-keyed artifact namespace, so keep one writer per cache. Native pinned tools
+and runtime readiness passed the read-only handover check. The completed Lean
+checkpoint used 12 Lake workers, 12 threads per process and the 12,288 MiB
+per-process threshold. Use `python3 scripts/dev.py paths` for the actual
 installation and artifact paths. GNATprove uses all cores by default; Lean uses
 all available Lake workers and per-process threads, with independent overrides.
 The [concurrency record](docs/lean-concurrency.md) distinguishes measured speedups
@@ -145,8 +146,10 @@ bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexi
 The review repairs' evidence is under
 `.silver/linux-x86_64/review-d375aec-2026-10-11/`. The runner follow-up's evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
-`.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed capability's evidence is under
-`.silver/linux-x86_64/compose-results/`; the earlier branching evidence is under
+`.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
+capability's evidence is under `.silver/linux-x86_64/copy-values/`; the preceding
+composed-result evidence is under `.silver/linux-x86_64/compose-results/`.
+The earlier branching evidence is under
 `.silver/linux-x86_64/branching-validation/`, and the preceding assignment evidence
 is under `.silver/linux-x86_64/assignment-validation/`. Earlier review follow-up records
 are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Native I/O measurements,

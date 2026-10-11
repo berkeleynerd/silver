@@ -80,7 +80,11 @@ truncation. See [language.md](language.md) for the complete rules.
 The [composed-result sample](samples/composed_result.adb) keeps immutable argv
 input beside one initialized mutable result, assigns an equal-length literal
 in each equality branch, then prints the result through one common expression.
-All existing samples remain admitted. Additional declarations/copies, arbitrary
+All existing samples remain admitted. The completed
+[Copy String Values increment](docs/copy-values.md) adds up to two literal-backed
+constants in the mutable shells, with named initialization, equal-length copies
+and bounded output references. Its [copied-result sample](samples/copied_result.adb)
+and complete Linux native/Lean checkpoint passed. Arbitrary
 statements and repeated output remain future work.
 
 Names bind without ASCII case distinctions. No argument selects the literal
@@ -238,6 +242,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The completed constant/copy increment and its Linux validation are recorded
+in [copy-values.md](docs/copy-values.md).
 
 The combined expression/result work and its validation are recorded in
 [string-results.md](docs/string-results.md).

@@ -10,6 +10,8 @@ namespace Silver.Compose.Main
 structure State where
   staticValue : Source := []
   dynamicValue : Source := []
+  constantOne : Source := []
+  constantTwo : Source := []
   deriving DecidableEq, Repr
 
 inductive Condition
@@ -52,12 +54,30 @@ def Statement.execute (arguments : Arguments.Runtime.Arguments) (state : State) 
 
 inductive Declaration
   | static (literal : Source)
+  | constant (second : Bool) (literal : Source)
   | argument (fallback : Source)
   deriving DecidableEq, Repr
 
 def Declaration.execute (arguments : Arguments.Runtime.Arguments) (state : State) : Declaration → State
   | .static literal => {state with staticValue := literal}
+  | .constant second literal => if second then {state with constantTwo := literal} else {state with constantOne := literal}
   | .argument fallback => {state with dynamicValue := Arguments.Runtime.firstOrDefault fallback arguments}
+
+def State.constantValue (state : State) (second : Bool) : Source :=
+  if second then state.constantTwo else state.constantOne
+
+theorem elaboration_binds_constant (arguments : Arguments.Runtime.Arguments) (state : State)
+    (second : Bool) (bytes : Source) :
+    ((Declaration.constant second bytes).execute arguments state).constantValue second = bytes := by
+  cases second <;> rfl
+
+theorem assignment_preserves_constants (arguments : Arguments.Runtime.Arguments) (state next : State)
+    (replacement : Source) (assigned : Statement.execute arguments state (.assign replacement) = some (.continuing next)) :
+    next.constantOne = state.constantOne ∧ next.constantTwo = state.constantTwo := by
+  simp only [Statement.execute] at assigned
+  split at assigned
+  · cases assigned; exact ⟨rfl, rfl⟩
+  · contradiction
 
 structure Instantiated where
   declarations : List Declaration
@@ -117,19 +137,24 @@ def StatementTemplate.instantiate : StatementTemplate → List Event → Option 
 
 inductive DeclarationTemplate
   | static (constant : Bool)
+  | constant (second : Bool)
   | argument
   deriving DecidableEq, Repr
 
 def DeclarationTemplate.render : DeclarationTemplate → List ShellToken
-  | .static constant => [.staticDeclaration, .symbol ":"] ++
-      (if constant then [.word "constant"] else []) ++
+  | .static isConstant => [.staticDeclaration, .symbol ":"] ++
+      (if isConstant then [.word "constant"] else []) ++
       [.word "string", .symbol ":=", .literal .initial, .symbol ";"]
+  | .constant second => [.constantDeclaration second, .symbol ":", .word "constant", .word "string",
+      .symbol ":=", .literal (if second then .constantTwo else .constantOne), .symbol ";"]
   | .argument => [.dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=",
       .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(",
       .literal .ordinary, .symbol ")", .symbol ";"]
 
 def DeclarationTemplate.instantiate : DeclarationTemplate → List Event → Option (Declaration × List Event)
   | .static _, .declaration false _ :: .literal .initial literal :: rest => some (.static literal, rest)
+  | .constant false, .constantDeclaration false _ :: .literal .constantOne literal :: rest => some (.constant false literal, rest)
+  | .constant true, .constantDeclaration true _ :: .literal .constantTwo literal :: rest => some (.constant true literal, rest)
   | .argument, .declaration true _ :: .literal .ordinary fallback :: rest => some (.argument fallback, rest)
   | _, _ => none
 
@@ -172,6 +197,17 @@ def composition : Form → Composition
   | .result => ⟨true, [.argument, .static false],
       .conditional .valid (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
   | .guardedResult => ⟨true, [.argument, .static false],
+      .conditional .capacity (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
+
+  | .assignmentOne => ⟨false, [.constant false, .static false], .sequence .assign .output⟩
+  | .assignmentTwo => ⟨false, [.constant false, .constant true, .static false], .sequence .assign .output⟩
+  | .resultOne => ⟨true, [.argument, .constant false, .static false],
+      .conditional .valid (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
+  | .resultTwo => ⟨true, [.argument, .constant false, .constant true, .static false],
+      .conditional .valid (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
+  | .guardedResultOne => ⟨true, [.argument, .constant false, .static false],
+      .conditional .capacity (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
+  | .guardedResultTwo => ⟨true, [.argument, .constant false, .constant true, .static false],
       .conditional .capacity (.sequence (.conditional .equal .assign .assign) .output) .reject⟩
 
 theorem rendered_tokens (form : Form) : (composition form).render = form.tokens := by

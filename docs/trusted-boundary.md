@@ -7,9 +7,13 @@ are assumptions about existing external tools and libraries, not permission to
 introduce unverified Silver implementation bodies.
 
 The completed [composed-String increment](string-results.md) generalizes output
-expressions and adds branch-selected results. This document describes its
-boundary; its complete Linux checkpoint passed with cache reuse and a fresh
-axiom/coverage audit, without optional independent kernel replay. The previous completed
+expressions and adds branch-selected results. Its complete Linux checkpoint
+passed with cache reuse and a fresh axiom/coverage audit, without optional
+independent kernel replay. The completed [Copy String Values](copy-values.md)
+extension passed its full physical Linux native/Lean checkpoint with cache reuse
+and a fresh axiom/coverage audit, without optional independent replay. Its
+literal-backed constants and fixed-length copies use the existing boundary
+described here, without a new runtime operation or trusted dependency. The previous completed
 [input-dependent branching](input-branching.md) evidence remains scoped to its
 recorded inputs. The [source partition](lean-compartmentalization.md) and
 [focused-runner workflow](lean-iteration.md) retain the pinned local tool/cache
@@ -352,7 +356,7 @@ GNATprove marks these disabled-by-default notes as externally suppressed in
 SARIF; the auditor permits that exact representation for these two codes and
 counts them. It permits no source suppression or failed obligation through this
 exception. The [workflow record](proof-workflow.md) preserves its baseline
-counts; current capability validation is in [string-results.md](string-results.md).
+counts; current capability validation is in [copy-values.md](copy-values.md).
 Earlier evidence remains in [greeting.md](greeting.md), [command-line.md](command-line.md) and
 [command-line-review-repairs.md](command-line-review-repairs.md).
 
@@ -376,15 +380,20 @@ The working catalogue names null and six output shells: direct, static,
 assignment, argument, branching and selected result. They share one bounded
 expression grammar. Identifier parsing excludes reserved/shadowing names and
 binds complete names ignoring ASCII case; argument-bearing shells exclude
-`Silver_Arguments` for both declarations. The selected-result shell's input and
-result names must also differ ignoring case. There is no general verified Ada
+`Silver_Arguments` for every declaration. Mutable shells permit up to two
+literal-backed constants before the result, after argv where present; all names
+must differ ignoring case. There is no general verified Ada
 name resolver.
 
-Equal-decoded-length literal assignments preserve fixed String bounds under Ada
+Equal-decoded-length literal and literal-constant assignments preserve fixed String bounds under Ada
 RM 3.3.1/5.2. The selected-result shell assigns the initialized mutable result on
 both sides of one equality choice before common output. Assignment-bearing
 outputs must reference that result; broader dead-statement/unused-assignment
-advisories are not admitted. Repeated static references count with multiplicity.
+advisories are not admitted. The result initializer may also copy a preceding
+literal-backed constant, preserving its bytes and bounds. Constants themselves
+have literal initializers; copies from argv or the mutable result are excluded.
+Repeated references to each constant and the result count with multiplicity at
+that object's own length.
 Predefined String equality compares complete initialized values, preserving case;
 unequal lengths compare false. Every expression obeys the per-output weighted
 capacity rule. There is no new runtime operation or external dependency, and all
@@ -482,12 +491,19 @@ advisories and non-range safety checks fail closed. The Python evidence helper
 selects the same four kinds and also cross-checks SARIF diagnostics and totals.
 
 Automatic completion relies on the pinned frontend eliminating statically
-satisfied assignment length checks and GNATprove producing one of the accepted
+satisfied literal and constant-copy assignment length checks and GNATprove
+producing one of the accepted
 entity/advisory/check shapes. The complete emitted obligation list and faithful
 diagnostic reporting remain producer premises; matching report fields alone
 cannot establish that no required check was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
-defect, not permission to weaken membership or suppress an obligation.
+defect, not permission to weaken membership or suppress an obligation. The
+isolated copy experiment corroborates the unchanged policy for used and unused
+constants, literal/constant initialization and RHS values, empty/escaped values,
+and both selected branches. This is observed native evidence; the copy increment's
+universal argument and complete current-source checkpoint are recorded in
+[assurance.md](assurance.md) and [copy-values.md](copy-values.md), with the external
+tool premises retained.
 
 Application proof uses `-U --mode=all --report=all --warnings=error
 --checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
@@ -572,8 +588,10 @@ sequences, identifier roles and acceptance/report selectors against those
 models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
 `ArgumentsSourceBridge` and `LexicalSourceBridge` supply lexical/runtime
 correspondence; obsolete fixed-production suffix claims are removed when their
-Ada functions are replaced. The complete Linux source checkpoint validated the
-new composition bridge and the whole project's axiom/module coverage.
+Ada functions are replaced. The preceding Compose String Results Linux checkpoint
+validated that composition bridge and its whole-project axiom/module coverage.
+The completed Copy String Values checkpoint validates the updated bridge and
+constant-read derivations with a fresh whole-project axiom/coverage audit.
 
 Ada interpretation supplies predefined String equality/concatenation, assignment
 and the conditionally executed control flow. Source operand order determines

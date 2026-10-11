@@ -32,13 +32,15 @@ is
          when Right_Parenthesis => ")",
          when Semicolon => ";",
          when Dot => ".",
-         when String_Literal | Static_Initializer | Static_Assignment => """",
+         when String_Literal | Static_Initializer | Static_Assignment
+            | Constant_One_Initializer | Constant_Two_Initializer => """",
          when Colon => ":",
          when Constant_Keyword => "constant",
          when String_Name => "string",
          when Assignment => ":=",
          when Declaration_Name | Reference_Name | Dynamic_Declaration
-            | Dynamic_Reference | Output_Expression => "_",
+            | Dynamic_Reference | Output_Expression | Constant_One_Declaration
+            | Constant_Two_Declaration => "_",
          when Arguments_Name => "silver_arguments",
          when First_Or_Default_Name => "first_or_default",
          when If_Keyword => "if",
@@ -73,6 +75,26 @@ is
          (With_Keyword, IO_Name, Semicolon, Procedure_Keyword, Main_Name, Is_Keyword,
           Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis, On_Name,
           Right_Parenthesis, Semicolon, Declaration_Name, Colon, String_Name,
+          Assignment, Static_Initializer, Semicolon, Begin_Keyword, Reference_Name,
+          Assignment, Static_Assignment, Semicolon, IO_Name, Dot, Put_Line_Name,
+          Left_Parenthesis, Output_Expression, Right_Parenthesis, Semicolon,
+          End_Keyword, Main_Name, Semicolon),
+      when Assignment_One_Form =>
+         (With_Keyword, IO_Name, Semicolon, Procedure_Keyword, Main_Name, Is_Keyword,
+          Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis, On_Name,
+          Right_Parenthesis, Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Declaration_Name, Colon, String_Name,
+          Assignment, Static_Initializer, Semicolon, Begin_Keyword, Reference_Name,
+          Assignment, Static_Assignment, Semicolon, IO_Name, Dot, Put_Line_Name,
+          Left_Parenthesis, Output_Expression, Right_Parenthesis, Semicolon,
+          End_Keyword, Main_Name, Semicolon),
+      when Assignment_Two_Form =>
+         (With_Keyword, IO_Name, Semicolon, Procedure_Keyword, Main_Name, Is_Keyword,
+          Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis, On_Name,
+          Right_Parenthesis, Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Constant_Two_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Constant_Two_Initializer,
+          Semicolon, Declaration_Name, Colon, String_Name,
           Assignment, Static_Initializer, Semicolon, Begin_Keyword, Reference_Name,
           Assignment, Static_Assignment, Semicolon, IO_Name, Dot, Put_Line_Name,
           Left_Parenthesis, Output_Expression, Right_Parenthesis, Semicolon,
@@ -160,6 +182,78 @@ is
           If_Keyword, Semicolon, IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
           Output_Expression, Right_Parenthesis, Semicolon, Else_Keyword,
           Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword, If_Keyword,
+          Semicolon, End_Keyword, Main_Name, Semicolon),
+      when Result_One_Form =>
+         (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name, Semicolon,
+          Procedure_Keyword, Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
+          Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon, Dynamic_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Arguments_Name, Dot,
+          First_Or_Default_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+          Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Declaration_Name, Colon, String_Name, Assignment,
+          Static_Initializer, Semicolon, Begin_Keyword, If_Keyword, Arguments_Name,
+          Dot, Input_Is_Valid_Name, Then_Keyword, If_Keyword, Dynamic_Reference, Equal,
+          String_Literal, Then_Keyword, Reference_Name, Assignment, Static_Assignment,
+          Semicolon, Else_Keyword, Reference_Name, Assignment, Static_Assignment,
+          Semicolon, End_Keyword, If_Keyword, Semicolon, IO_Name, Dot, Put_Line_Name,
+          Left_Parenthesis, Output_Expression, Right_Parenthesis, Semicolon,
+          Else_Keyword, Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon),
+      when Result_Two_Form =>
+         (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name, Semicolon,
+          Procedure_Keyword, Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
+          Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon, Dynamic_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Arguments_Name, Dot,
+          First_Or_Default_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+          Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Constant_Two_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Constant_Two_Initializer,
+          Semicolon, Declaration_Name, Colon, String_Name, Assignment,
+          Static_Initializer, Semicolon, Begin_Keyword, If_Keyword, Arguments_Name,
+          Dot, Input_Is_Valid_Name, Then_Keyword, If_Keyword, Dynamic_Reference, Equal,
+          String_Literal, Then_Keyword, Reference_Name, Assignment, Static_Assignment,
+          Semicolon, Else_Keyword, Reference_Name, Assignment, Static_Assignment,
+          Semicolon, End_Keyword, If_Keyword, Semicolon, IO_Name, Dot, Put_Line_Name,
+          Left_Parenthesis, Output_Expression, Right_Parenthesis, Semicolon,
+          Else_Keyword, Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon),
+      when Guarded_Result_One_Form =>
+         (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name, Semicolon,
+          Procedure_Keyword, Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
+          Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon, Dynamic_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Arguments_Name, Dot,
+          First_Or_Default_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+          Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Declaration_Name, Colon, String_Name, Assignment,
+          Static_Initializer, Semicolon, Begin_Keyword, If_Keyword, Arguments_Name,
+          Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword, Dynamic_Reference,
+          Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Then_Keyword,
+          If_Keyword, Dynamic_Reference, Equal, String_Literal, Then_Keyword,
+          Reference_Name, Assignment, Static_Assignment, Semicolon, Else_Keyword,
+          Reference_Name, Assignment, Static_Assignment, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
+          Output_Expression, Right_Parenthesis, Semicolon, Else_Keyword,
+          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword, If_Keyword,
+          Semicolon, End_Keyword, Main_Name, Semicolon),
+      when Guarded_Result_Two_Form =>
+         (With_Keyword, IO_Name, Semicolon, With_Keyword, Arguments_Name, Semicolon,
+          Procedure_Keyword, Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
+          Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon, Dynamic_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Arguments_Name, Dot,
+          First_Or_Default_Name, Left_Parenthesis, String_Literal, Right_Parenthesis,
+          Semicolon, Constant_One_Declaration, Colon, Constant_Keyword,
+          String_Name, Assignment, Constant_One_Initializer, Semicolon, Constant_Two_Declaration,
+          Colon, Constant_Keyword, String_Name, Assignment, Constant_Two_Initializer,
+          Semicolon, Declaration_Name, Colon, String_Name, Assignment,
+          Static_Initializer, Semicolon, Begin_Keyword, If_Keyword, Arguments_Name,
+          Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword, Dynamic_Reference,
+          Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Then_Keyword,
+          If_Keyword, Dynamic_Reference, Equal, String_Literal, Then_Keyword,
+          Reference_Name, Assignment, Static_Assignment, Semicolon, Else_Keyword,
+          Reference_Name, Assignment, Static_Assignment, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
+          Output_Expression, Right_Parenthesis, Semicolon, Else_Keyword,
+          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword, If_Keyword,
           Semicolon, End_Keyword, Main_Name, Semicolon));
 
    function Normalized (Source : String) return String
@@ -191,12 +285,18 @@ is
      (Text : String; Position : Cursor;
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
-      Dynamic_First, Dynamic_After : Literal_Position) return Expression_Result
+      Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position) return Expression_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Valid_Name_State (Text, Static_First, Static_After)
-         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After),
+         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After)
+         and then Valid_Name_State (Text, Constant_One_First, Constant_One_After)
+         and then Valid_Name_State (Text, Constant_Two_First, Constant_Two_After)
+         and then Constant_One_Value_First <= Text'Last + 1
+         and then Constant_Two_Value_First <= Text'Last + 1,
        Post => Operand_At'Result.After = 0
          or else Operand_At'Result.After in Position + 1 .. Text'Last + 1;
 
@@ -204,7 +304,9 @@ is
      (Text : String; Position : Cursor;
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
-      Dynamic_First, Dynamic_After : Literal_Position) return Expression_Result
+      Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position) return Expression_Result
    is
      (if Position <= Text'Last and then Text (Position) = Character'Val (34)
         and then Literal_End (Text, Position + 1) /= 0 then
@@ -221,6 +323,24 @@ is
           Position, Identifier_End (Text, Position)) then
         (After => Identifier_End (Text, Position), Static_Length => 0,
          Dynamic_Seen => True, Static_Seen => False)
+      elsif Identifier_End (Text, Position) /= 0 and then Constant_One_First > 0
+        and then Equal_Name (Text, Constant_One_First, Constant_One_After,
+          Position, Identifier_End (Text, Position))
+        and then Constant_One_Value_First > 1
+        and then Text (Constant_One_Value_First - 1) = Character'Val (34)
+        and then Literal_End (Text, Constant_One_Value_First) /= 0 then
+        (After => Identifier_End (Text, Position),
+         Static_Length => Literal_Length (Text, Constant_One_Value_First),
+         Dynamic_Seen => False, Static_Seen => False)
+      elsif Identifier_End (Text, Position) /= 0 and then Constant_Two_First > 0
+        and then Equal_Name (Text, Constant_Two_First, Constant_Two_After,
+          Position, Identifier_End (Text, Position))
+        and then Constant_Two_Value_First > 1
+        and then Text (Constant_Two_Value_First - 1) = Character'Val (34)
+        and then Literal_End (Text, Constant_Two_Value_First) /= 0 then
+        (After => Identifier_End (Text, Position),
+         Static_Length => Literal_Length (Text, Constant_Two_Value_First),
+         Dynamic_Seen => False, Static_Seen => False)
       else Invalid_Expression);
 
    function Expression_Tail
@@ -228,13 +348,19 @@ is
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
       Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position;
       Length : Capacity_Value; Dynamic_Seen, Static_Seen : Boolean;
       Remaining : Operand_Count) return Expression_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Valid_Name_State (Text, Static_First, Static_After)
-         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After),
+         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After)
+         and then Valid_Name_State (Text, Constant_One_First, Constant_One_After)
+         and then Valid_Name_State (Text, Constant_Two_First, Constant_Two_After)
+         and then Constant_One_Value_First <= Text'Last + 1
+         and then Constant_Two_Value_First <= Text'Last + 1,
        Post => Expression_Tail'Result.After = 0
          or else Expression_Tail'Result.After in Position + 1 .. Text'Last + 1,
        Subprogram_Variant => (Decreases => Remaining);
@@ -244,62 +370,98 @@ is
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
       Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position;
       Length : Capacity_Value; Dynamic_Seen, Static_Seen : Boolean;
       Remaining : Operand_Count) return Expression_Result
    is
      (if Remaining = 0 then Invalid_Expression
       elsif Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).After = 0
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).After = 0
         or else Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Static_Length > Max_Source_Length - Length
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Static_Length > Max_Source_Length - Length
         or else (Dynamic_Seen and then Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Dynamic_Seen)
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Dynamic_Seen)
       then Invalid_Expression
       elsif Trivia_End (Text, Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).After) <= Text'Last
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).After) <= Text'Last
         and then Text (Trivia_End (Text, Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).After)) = '&'
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).After)) = '&'
       then Expression_Tail (Text, Trivia_End (Text, Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).After) + 1,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).After) + 1,
         Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First,
         Length + Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Static_Length,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Static_Length,
         Dynamic_Seen or else Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Dynamic_Seen,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Dynamic_Seen,
         Static_Seen or else Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Static_Seen, Remaining - 1)
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Static_Seen, Remaining - 1)
       else (After => Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).After,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).After,
         Static_Length => Length + Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Static_Length,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Static_Length,
         Dynamic_Seen => Dynamic_Seen or else Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Dynamic_Seen,
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Dynamic_Seen,
         Static_Seen => Static_Seen or else Operand_At
           (Text, Trivia_End (Text, Position), Static_First, Static_After,
-           Static_Length, Dynamic_First, Dynamic_After).Static_Seen));
+           Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First).Static_Seen));
 
    function Expression_At
      (Text : String; Position : Cursor;
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
-      Dynamic_First, Dynamic_After : Literal_Position) return Expression_Result
+      Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position) return Expression_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Valid_Name_State (Text, Static_First, Static_After)
-         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After),
+         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After)
+         and then Valid_Name_State (Text, Constant_One_First, Constant_One_After)
+         and then Valid_Name_State (Text, Constant_Two_First, Constant_Two_After)
+         and then Constant_One_Value_First <= Text'Last + 1
+         and then Constant_Two_Value_First <= Text'Last + 1,
        Post => Expression_At'Result.After = 0
          or else Expression_At'Result.After in Position + 1 .. Text'Last + 1;
 
@@ -307,25 +469,38 @@ is
      (Text : String; Position : Cursor;
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
-      Dynamic_First, Dynamic_After : Literal_Position) return Expression_Result
+      Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position) return Expression_Result
    is
-     (Expression_Tail (Text, Position, Static_First, Static_After, Static_Length, Dynamic_First,
-          Dynamic_After, 0, False, False, Max_Expression_Operands));
+     (Expression_Tail (Text, Position, Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First, 0, False, False, Max_Expression_Operands));
 
+   --  Constant values stay anchored in their literal initializers. Lookup
+   --  rescans those bounded source spans, preserving the decoded byte length.
    type Parser_State is record
       Position : Literal_Position;
       Static_First, Static_After : Literal_Position;
       Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position;
       Static_Length : Capacity_Value;
       Capacity : Capacity_Value;
    end record;
    Initial_State : constant Parser_State :=
      (Position => 1, Static_First => 0, Static_After => 0,
-      Dynamic_First => 0, Dynamic_After => 0, Static_Length => 0,
+      Dynamic_First => 0, Dynamic_After => 0,
+      Constant_One_First => 0, Constant_One_After => 0, Constant_One_Value_First => 0,
+      Constant_Two_First => 0, Constant_Two_After => 0, Constant_Two_Value_First => 0,
+      Static_Length => 0,
       Capacity => Max_Source_Length);
    Invalid_State : constant Parser_State :=
      (Position => 0, Static_First => 0, Static_After => 0,
-      Dynamic_First => 0, Dynamic_After => 0, Static_Length => 0, Capacity => 0);
+      Dynamic_First => 0, Dynamic_After => 0,
+      Constant_One_First => 0, Constant_One_After => 0, Constant_One_Value_First => 0,
+      Constant_Two_First => 0, Constant_Two_After => 0, Constant_Two_Value_First => 0,
+      Static_Length => 0, Capacity => 0);
 
    function Valid_State (Text : String; State : Parser_State) return Boolean
      with Global => null,
@@ -333,7 +508,11 @@ is
    function Valid_State (Text : String; State : Parser_State) return Boolean is
      (State.Position <= Text'Last + 1
       and then Valid_Name_State (Text, State.Static_First, State.Static_After)
-      and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After));
+      and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)
+      and then Valid_Name_State (Text, State.Constant_One_First, State.Constant_One_After)
+      and then Valid_Name_State (Text, State.Constant_Two_First, State.Constant_Two_After)
+      and then State.Constant_One_Value_First <= Text'Last + 1
+      and then State.Constant_Two_Value_First <= Text'Last + 1);
 
    function Step
      (Text : String; Form : Form_Kind; Token : Token_Kind; State : Parser_State)
@@ -347,19 +526,30 @@ is
      (Text : String; Form : Form_Kind; Token : Token_Kind; State : Parser_State)
       return Parser_State
    is
-     (if Token = Declaration_Name then
+     (if Token in Declaration_Name | Constant_One_Declaration | Constant_Two_Declaration then
         (if Identifier_End (Text, Trivia_End (Text, State.Position)) /= 0
-           and then not Forbidden_Name (Text, Trivia_End (Text, State.Position), Identifier_End (Text,
-          Trivia_End (Text, State.Position)))
+           and then not Forbidden_Name (Text, Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text, State.Position)))
            and then (State.Dynamic_First = 0
-             or else (not Forbidden_Argument_Name (Text, Trivia_End (Text, State.Position),
-          Identifier_End (Text, Trivia_End (Text, State.Position)))
+             or else (not Forbidden_Argument_Name (Text, Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text, State.Position)))
                and then not Equal_Name (Text, State.Dynamic_First, State.Dynamic_After,
-                 Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text,
-          State.Position)))))
+                 Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text, State.Position)))))
+           and then (State.Constant_One_First = 0
+             or else not Equal_Name (Text, State.Constant_One_First, State.Constant_One_After,
+               Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text, State.Position))))
+           and then (State.Constant_Two_First = 0
+             or else not Equal_Name (Text, State.Constant_Two_First, State.Constant_Two_After,
+               Trivia_End (Text, State.Position), Identifier_End (Text, Trivia_End (Text, State.Position))))
          then (State with delta Position => Identifier_End (Text, Trivia_End (Text, State.Position)),
-           Static_First => Trivia_End (Text, State.Position), Static_After => Identifier_End (Text,
-          Trivia_End (Text, State.Position)))
+           Static_First => (if Token = Declaration_Name then Trivia_End (Text, State.Position) else State.Static_First),
+           Static_After => (if Token = Declaration_Name then Identifier_End (Text, Trivia_End (Text, State.Position)) else State.Static_After),
+           Constant_One_First => (if Token = Constant_One_Declaration then
+             Trivia_End (Text, State.Position) else State.Constant_One_First),
+           Constant_One_After => (if Token = Constant_One_Declaration then
+             Identifier_End (Text, Trivia_End (Text, State.Position)) else State.Constant_One_After),
+           Constant_Two_First => (if Token = Constant_Two_Declaration then
+             Trivia_End (Text, State.Position) else State.Constant_Two_First),
+           Constant_Two_After => (if Token = Constant_Two_Declaration then
+             Identifier_End (Text, Trivia_End (Text, State.Position)) else State.Constant_Two_After))
          else Invalid_State)
       elsif Token = Dynamic_Declaration then
         (if Identifier_End (Text, Trivia_End (Text, State.Position)) /= 0
@@ -381,15 +571,32 @@ is
           State.Position), Identifier_End (Text, Trivia_End (Text, State.Position)))
          then (State with delta Position => Identifier_End (Text, Trivia_End (Text,
           State.Position))) else Invalid_State)
-      elsif Token in String_Literal | Static_Initializer | Static_Assignment then
+      elsif Token in String_Literal | Constant_One_Initializer | Constant_Two_Initializer then
         (if Trivia_End (Text, State.Position) <= Text'Last
            and then Text (Trivia_End (Text, State.Position)) = Character'Val (34)
            and then Literal_End (Text, Trivia_End (Text, State.Position) + 1) /= 0
-           and then (Token /= Static_Assignment or else Literal_Length (Text, Trivia_End (Text,
-          State.Position) + 1) = State.Static_Length)
          then (State with delta Position => Literal_End (Text, Trivia_End (Text, State.Position) + 1),
-           Static_Length => (if Token = Static_Initializer then Literal_Length (Text, Trivia_End (Text,
-          State.Position) + 1) else State.Static_Length))
+           Constant_One_Value_First => (if Token = Constant_One_Initializer then
+             Trivia_End (Text, State.Position) + 1 else State.Constant_One_Value_First),
+           Constant_Two_Value_First => (if Token = Constant_Two_Initializer then
+             Trivia_End (Text, State.Position) + 1 else State.Constant_Two_Value_First))
+         else Invalid_State)
+      elsif Token in Static_Initializer | Static_Assignment then
+        (if Operand_At (Text, Trivia_End (Text, State.Position), 0, 0, 0, 0, 0,
+             State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+             State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).After /= 0
+           and then (Token /= Static_Assignment or else Operand_At
+             (Text, Trivia_End (Text, State.Position), 0, 0, 0, 0, 0,
+             State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+             State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).Static_Length = State.Static_Length)
+         then (State with delta Position => Operand_At
+             (Text, Trivia_End (Text, State.Position), 0, 0, 0, 0, 0,
+             State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+             State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).After,
+           Static_Length => (if Token = Static_Initializer then Operand_At
+             (Text, Trivia_End (Text, State.Position), 0, 0, 0, 0, 0,
+             State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+             State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).Static_Length else State.Static_Length))
          else Invalid_State)
       elsif Token = Capacity_Literal then
         (if Decimal_At (Text, Trivia_End (Text, State.Position)).After /= 0
@@ -399,20 +606,29 @@ is
       elsif Token = Output_Expression then
         (if Expression_At
           (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First, State.Dynamic_After).After /= 0
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).After /= 0
            and then (not Expression_At
           (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First, State.Dynamic_After).Dynamic_Seen
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).Dynamic_Seen
              or else Expression_At
           (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First,
-          State.Dynamic_After).Static_Length <= Max_Source_Length - State.Capacity)
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).Static_Length <= Max_Source_Length - State.Capacity)
            and then (not Is_Assignment_Form (Form) or else Expression_At
           (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First, State.Dynamic_After).Static_Seen)
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).Static_Seen)
          then (State with delta Position => Expression_At
           (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First, State.Dynamic_After).After) else Invalid_State)
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First).After) else Invalid_State)
       elsif Token_At (Text, Trivia_End (Text, State.Position), Spelling (Token), Is_Word_Token (Token))
       then (State with delta Position => Trivia_End (Text, State.Position) + Spelling (Token)'Length)
       else Invalid_State);
@@ -445,29 +661,42 @@ is
    function Is_Member (Source : String) return Boolean is
      (for some Form in Form_Kind => Form_Member (Source, Form));
    function Has_Arguments (Source : String) return Boolean is
-     (for some Form in Argument_Form .. Guarded_Result_Form => Form_Member (Source, Form));
+     (for some Form in Form_Kind =>
+        Form_Member (Source, Form) and then Is_Argument_Form (Form)
+        and then (for all Previous in Form_Kind'First .. Form =>
+          (if Previous /= Form then not Form_Member (Source, Previous))));
    function Has_Assignment (Source : String) return Boolean is
-     (Form_Member (Source, Assignment_Form)
-      or else Form_Member (Source, Result_Form)
-      or else Form_Member (Source, Guarded_Result_Form));
+     (for some Form in Form_Kind =>
+        Form_Member (Source, Form) and then Is_Assignment_Form (Form)
+        and then (for all Previous in Form_Kind'First .. Form =>
+          (if Previous /= Form then not Form_Member (Source, Previous))));
 
    procedure Read_Operand
      (Text : String; Position : Cursor;
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
       Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position;
       Result : out Expression_Result)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Valid_Name_State (Text, Static_First, Static_After)
-         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After),
+         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After)
+         and then Valid_Name_State (Text, Constant_One_First, Constant_One_After)
+         and then Valid_Name_State (Text, Constant_Two_First, Constant_Two_After)
+         and then Constant_One_Value_First <= Text'Last + 1
+         and then Constant_Two_Value_First <= Text'Last + 1,
        Post => (Static => Result = Operand_At (Text, Position,
-         Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After))
+         Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First))
    is
       After : Cursor := Position;
       Matched : Boolean;
       Length : Capacity_Value;
+      Value_Position : Cursor;
    begin
       Result := Invalid_Expression;
       if Position <= Text'Last and then Text (Position) = Character'Val (34) then
@@ -484,11 +713,39 @@ is
          then
             Result := (After => After, Static_Length => Static_Length,
               Dynamic_Seen => False, Static_Seen => True);
+            return;
          elsif Dynamic_First > 0 and then Equal_Name
            (Text, Dynamic_First, Dynamic_After, Position, After)
          then
             Result := (After => After, Static_Length => 0,
               Dynamic_Seen => True, Static_Seen => False);
+            return;
+         end if;
+         if Constant_One_First > 0 and then Equal_Name
+           (Text, Constant_One_First, Constant_One_After, Position, After)
+           and then Constant_One_Value_First > 1
+           and then Text (Constant_One_Value_First - 1) = Character'Val (34)
+         then
+            Value_Position := Constant_One_Value_First - 1;
+            Match_Sized_Literal (Text, Value_Position, Matched, Length);
+            if Matched and then Value_Position > Constant_One_Value_First then
+               Result := (After => After, Static_Length => Length,
+                 Dynamic_Seen => False, Static_Seen => False);
+               return;
+            end if;
+         end if;
+         if Constant_Two_First > 0 and then Equal_Name
+           (Text, Constant_Two_First, Constant_Two_After, Position, After)
+           and then Constant_Two_Value_First > 1
+           and then Text (Constant_Two_Value_First - 1) = Character'Val (34)
+         then
+            Value_Position := Constant_Two_Value_First - 1;
+            Match_Sized_Literal (Text, Value_Position, Matched, Length);
+            if Matched and then Value_Position > Constant_Two_Value_First then
+               Result := (After => After, Static_Length => Length,
+                 Dynamic_Seen => False, Static_Seen => False);
+               return;
+            end if;
          end if;
       end if;
    end Read_Operand;
@@ -498,14 +755,22 @@ is
       Static_First, Static_After : Literal_Position;
       Static_Length : Capacity_Value;
       Dynamic_First, Dynamic_After : Literal_Position;
+      Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position;
+      Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position;
       Result : out Expression_Result)
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1
          and then Valid_Name_State (Text, Static_First, Static_After)
-         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After),
+         and then Valid_Name_State (Text, Dynamic_First, Dynamic_After)
+         and then Valid_Name_State (Text, Constant_One_First, Constant_One_After)
+         and then Valid_Name_State (Text, Constant_Two_First, Constant_Two_After)
+         and then Constant_One_Value_First <= Text'Last + 1
+         and then Constant_Two_Value_First <= Text'Last + 1,
        Post => (Static => Result = Expression_At (Text, Position,
-         Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After))
+         Static_First, Static_After, Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First))
    is
       Next : Cursor := Position;
       Length : Capacity_Value := 0;
@@ -519,9 +784,13 @@ is
          pragma Loop_Invariant (Next <= Text'Last + 1);
          pragma Loop_Invariant (Static =>
            Expression_At (Text, Position, Static_First, Static_After,
-             Static_Length, Dynamic_First, Dynamic_After)
+             Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First)
            = Expression_Tail (Text, Next, Static_First, Static_After,
              Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First,
              Length, Dynamic_Seen, Static_Seen, Remaining));
          pragma Loop_Variant (Decreases => Remaining);
          if Remaining = 0 then return; end if;
@@ -530,7 +799,9 @@ is
          begin
             Skip_Trivia (Text, Start);
             Read_Operand (Text, Start, Static_First, Static_After,
-              Static_Length, Dynamic_First, Dynamic_After, Atom);
+              Static_Length, Dynamic_First, Dynamic_After,
+           Constant_One_First, Constant_One_After, Constant_One_Value_First,
+           Constant_Two_First, Constant_Two_After, Constant_Two_Value_First, Atom);
          end;
          if Atom.After = 0
            or else Atom.Static_Length > Max_Source_Length - Length
@@ -597,22 +868,33 @@ is
       Next : Cursor := State.Position;
       Start : Cursor;
       Matched : Boolean;
-      Length : Capacity_Value;
       Parsed : Expression_Result;
       Decimal : Decimal_Result;
    begin
       Skip_Trivia (Text, Next);
       Start := Next;
-      if Token = Declaration_Name then
+      if Token in Declaration_Name | Constant_One_Declaration | Constant_Two_Declaration then
          Match_Identifier (Text, Next, Matched);
          if not Matched or else Forbidden_Name (Text, Start, Next)
            or else (State.Dynamic_First > 0
              and then (Forbidden_Argument_Name (Text, Start, Next)
                or else Equal_Name (Text, State.Dynamic_First, State.Dynamic_After, Start, Next)))
+           or else (State.Constant_One_First > 0 and then Equal_Name
+             (Text, State.Constant_One_First, State.Constant_One_After, Start, Next))
+           or else (State.Constant_Two_First > 0 and then Equal_Name
+             (Text, State.Constant_Two_First, State.Constant_Two_After, Start, Next))
          then State := Invalid_State; return; end if;
          State.Position := Next;
-         State.Static_First := Start;
-         State.Static_After := Next;
+         if Token = Declaration_Name then
+            State.Static_First := Start;
+            State.Static_After := Next;
+         elsif Token = Constant_One_Declaration then
+            State.Constant_One_First := Start;
+            State.Constant_One_After := Next;
+         else
+            State.Constant_Two_First := Start;
+            State.Constant_Two_After := Next;
+         end if;
       elsif Token = Dynamic_Declaration then
          Match_Identifier (Text, Next, Matched);
          if not Matched or else Forbidden_Argument_Name (Text, Start, Next) then
@@ -633,13 +915,24 @@ is
            or else not Equal_Name (Text, State.Dynamic_First, State.Dynamic_After, Start, Next)
          then State := Invalid_State; return; end if;
          State.Position := Next;
-      elsif Token in String_Literal | Static_Initializer | Static_Assignment then
-         Match_Sized_Literal (Text, Next, Matched, Length);
-         if not Matched or else
-           (Token = Static_Assignment and then Length /= State.Static_Length)
-         then State := Invalid_State; return; end if;
+      elsif Token in String_Literal | Constant_One_Initializer | Constant_Two_Initializer then
+         Match_Literal (Text, Next, Matched);
+         if not Matched then State := Invalid_State; return; end if;
          State.Position := Next;
-         if Token = Static_Initializer then State.Static_Length := Length; end if;
+         if Token = Constant_One_Initializer then
+            State.Constant_One_Value_First := Start + 1;
+         elsif Token = Constant_Two_Initializer then
+            State.Constant_Two_Value_First := Start + 1;
+         end if;
+      elsif Token in Static_Initializer | Static_Assignment then
+         Read_Operand (Text, Start, 0, 0, 0, 0, 0,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First, Parsed);
+         if Parsed.After = 0 or else
+           (Token = Static_Assignment and then Parsed.Static_Length /= State.Static_Length)
+         then State := Invalid_State; return; end if;
+         State.Position := Parsed.After;
+         if Token = Static_Initializer then State.Static_Length := Parsed.Static_Length; end if;
       elsif Token = Capacity_Literal then
          Decimal := Read_Capacity (Text, Next);
          if Decimal.After = 0 then State := Invalid_State; return; end if;
@@ -647,7 +940,9 @@ is
          State.Capacity := Decimal.Value;
       elsif Token = Output_Expression then
          Match_Expression (Text, State.Position, State.Static_First, State.Static_After,
-           State.Static_Length, State.Dynamic_First, State.Dynamic_After, Parsed);
+           State.Static_Length, State.Dynamic_First, State.Dynamic_After,
+           State.Constant_One_First, State.Constant_One_After, State.Constant_One_Value_First,
+           State.Constant_Two_First, State.Constant_Two_After, State.Constant_Two_Value_First, Parsed);
          if Parsed.After = 0
            or else (Parsed.Dynamic_Seen
              and then Parsed.Static_Length > Max_Source_Length - State.Capacity)
@@ -705,19 +1000,24 @@ is
 
    function Uses_Arguments (Source : String) return Boolean is
    begin
-      for Form in Argument_Form .. Guarded_Result_Form loop
+      for Form in Form_Kind loop
          pragma Loop_Invariant (Static =>
-           (for all Previous in Argument_Form .. Form =>
+           (for all Previous in Form_Kind'First .. Form =>
              (if Previous /= Form then not Form_Member (Source, Previous))));
-         if Accepts_Form (Source, Form) then return True; end if;
+         if Accepts_Form (Source, Form) then return Is_Argument_Form (Form); end if;
       end loop;
       return False;
    end Uses_Arguments;
 
    function Uses_Assignment (Source : String) return Boolean is
    begin
-      return Accepts_Form (Source, Assignment_Form)
-        or else Accepts_Form (Source, Result_Form)
-        or else Accepts_Form (Source, Guarded_Result_Form);
+      for Form in Form_Kind loop
+         pragma Loop_Invariant (Static =>
+           (for all Previous in Form_Kind'First .. Form =>
+             (if Previous /= Form then not Form_Member (Source, Previous))));
+         if Accepts_Form (Source, Form) then return Is_Assignment_Form (Form); end if;
+      end loop;
+      return False;
    end Uses_Assignment;
+
 end Silver_Output_Profile;

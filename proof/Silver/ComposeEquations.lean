@@ -29,7 +29,10 @@ def ValidCursor (text : Source) (position : Nat) : Prop := 1 ≤ position ∧ po
 def ValidNames (text : Source) (context : NameContext) : Prop :=
   (⟨context.staticFirst,context.staticAfter⟩ : NameState).Valid text ∧
   (⟨context.dynamicFirst,context.dynamicAfter⟩ : NameState).Valid text ∧
-  context.staticLength ≤ maxSourceLength
+  context.staticLength ≤ maxSourceLength ∧
+  (⟨context.constantOneFirst,context.constantOneAfter⟩ : NameState).Valid text ∧
+  (⟨context.constantTwoFirst,context.constantTwoAfter⟩ : NameState).Valid text ∧
+  context.constantOneValueFirst ≤ text.length + 1 ∧ context.constantTwoValueFirst ≤ text.length + 1
 
 def ValidState (text : Source) (state : ParserState) : Prop :=
   state.position ≤ text.length + 1 ∧ ValidNames text state.context ∧ state.capacity ≤ maxSourceLength
@@ -93,12 +96,15 @@ theorem operand_denotation (calls : Calls) (text : Source) (position : Nat) (nam
       simp +instances [operandCore, quote, literal, noName]
   · by_cases identifier : identifierEnd text position = 0
     · simp +instances [operandCore, quote, identifier]
-    · by_cases static : 0 < names.staticFirst <;>
-        by_cases hs : equalName text names.staticFirst names.staticAfter position (identifierEnd text position) = true <;>
-        by_cases dynamic : 0 < names.dynamicFirst <;>
-        by_cases hd : equalName text names.dynamicFirst names.dynamicAfter position (identifierEnd text position) = true <;>
-        simp +instances [operandCore, quote, identifier, matchesStatic, matchesDynamic,
-          static, dynamic, hs, hd]
+    · by_cases static : 0 < names.staticFirst ∧ equalName text names.staticFirst names.staticAfter position (identifierEnd text position) = true <;>
+        by_cases dynamic : 0 < names.dynamicFirst ∧ equalName text names.dynamicFirst names.dynamicAfter position (identifierEnd text position) = true <;>
+        by_cases one : 0 < names.constantOneFirst ∧ equalName text names.constantOneFirst names.constantOneAfter position (identifierEnd text position) = true ∧ 1 < names.constantOneValueFirst ∧ Cursor.byteAt text (names.constantOneValueFirst - 1) = 34 ∧ Output.literalEnd text names.constantOneValueFirst ≠ 0 <;>
+        by_cases two : 0 < names.constantTwoFirst ∧ equalName text names.constantTwoFirst names.constantTwoAfter position (identifierEnd text position) = true ∧ 1 < names.constantTwoValueFirst ∧ Cursor.byteAt text (names.constantTwoValueFirst - 1) = 34 ∧ Output.literalEnd text names.constantTwoValueFirst ≠ 0 <;>
+        simp +instances only [operandCore, quote, matchesStatic, matchesDynamic,
+          matchesConstant, constantValueAtName, usableConstant, Bool.and_eq_true, decide_eq_true_eq,
+          and_assoc, static, dynamic, one, two, false_and, ↓reduceIte]
+      all_goals simp_all [invalidExpression]
+      all_goals split <;> simp_all
 
 theorem interpreted_operand (calls : Calls) (source : DefinitionEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : NameContext)
@@ -193,19 +199,34 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
   rw [source.step text valid form token state tokenValid context positive]
   have expression := interpreted_expression calls source text valid state.position state.context
     ⟨positive,context.1⟩ context.2.1
+  have copyContext : ValidNames text (copyNames state.context) := by
+    simpa [ValidNames, copyNames, NameState.Valid] using context.2.1.2.2.2
+  have copied := interpreted_operand calls source text valid
+    (Cursor.triviaPosition text state.position) (copyNames state.context)
+    (trivia_valid text state.position ⟨positive,context.1⟩) copyContext
   dsimp +instances only [stepBody, State.eval, Condition.eval, Number.eval, Result.eval, lexical, modelPrimitives,
     both, either, quoteAt, plusOne]
-  simp +instances only [expression]
+  simp +instances only [expression, copyNames] at copied ⊢
+  simp +instances only [copied]
   cases token with
   | literal role =>
       cases role <;>
-        dsimp +instances only [step]
-        <;> simp [Bool.and_eq_true, decide_eq_true_eq, and_assoc]
+        simp +instances [step, valueAt, valueContext, initializedContext, operandAt, copyNames,
+          operandCore, matchesStatic, matchesDynamic, constantValueAtName, matchesConstant,
+          Bool.and_eq_true, decide_eq_true_eq, and_assoc]
+      all_goals
+        by_cases bound : Cursor.triviaPosition text state.position ≤ text.length <;>
+        by_cases quote : Cursor.byteAt text (Cursor.triviaPosition text state.position) = 34 <;>
+        by_cases literal : Output.literalEnd text (Cursor.triviaPosition text state.position + 1) = 0 <;>
+        simp [bound, quote, literal, invalidExpression]
   | fixed spelling word =>
       dsimp +instances only [step, Expressions.spelling, isWord]
       rfl
+  | constantDeclaration second =>
+      cases second <;> simp +instances [step, staticNameAllowed, matchesConstant,
+        Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq, and_assoc]
   | _ => simp +instances [step, staticNameAllowed, outputAllowed, matchesStatic, matchesDynamic,
-      Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq, and_assoc]
+      matchesConstant, Bool.and_eq_true, Bool.or_eq_true, decide_eq_true_eq, and_assoc]
 
 def suffixEquation (recurse : Nat → ParserState → Bool) (text : Source)
     (form : Form) (index : Nat) (state : ParserState) : Bool :=
@@ -291,19 +312,49 @@ theorem interpreted_member (calls : Calls) (source : DefinitionEquations calls)
   rw [pointwise]
   simp +instances [accepts, selectedForm, List.isSome_find?, allForms]
 
+def firstFlag {α : Type} [BEq α] (xs : List α) (p flag : α → Bool) : Bool :=
+  xs.any fun x => p x && flag x && (xs.takeWhile (fun y => y != x)).all (fun y => !p y)
+
+theorem firstFlag_find {α : Type} [DecidableEq α] (xs : List α) (p flag : α → Bool)
+    (unique : xs.Nodup) : firstFlag xs p flag = ((xs.find? p).map flag).getD false := by
+  induction xs with
+  | nil => simp [firstFlag]
+  | cons head tail ih =>
+      have notMem : head ∉ tail := (List.nodup_cons.mp unique).1
+      have tailUnique := (List.nodup_cons.mp unique).2
+      have rest : (tail.any fun x => p x && flag x &&
+          ((head :: tail).takeWhile (fun y => y != x)).all (fun y => !p y)) =
+          (!p head && firstFlag tail p flag) := by
+        apply Bool.eq_iff_iff.mpr
+        simp only [List.any_eq_true, Bool.and_eq_true, firstFlag, and_assoc]
+        constructor
+        · rintro ⟨x, member, selected, yes, before⟩
+          have different : head ≠ x := by intro eq; subst x; exact notMem member
+          simp [different, List.all_cons] at before
+          refine ⟨by simpa using before.1, x, member, selected, yes, ?_⟩
+          simpa using before.2
+        · rintro ⟨no, x, member, selected, yes, before⟩
+          have different : head ≠ x := by intro eq; subst x; exact notMem member
+          refine ⟨x, member, selected, yes, ?_⟩
+          simp [different, List.all_cons, no, before]
+      change (p head && flag head && ((head :: tail).takeWhile (fun y => y != head)).all (fun y => !p y) || _) = _
+      rw [rest, ih tailUnique]
+      cases selected : p head <;> simp [selected]
+
 theorem interpreted_arguments (calls : Calls) (source : DefinitionEquations calls)
     (text : Source) : calls.arguments text = hasArguments text := by
   rw [source.arguments]
   dsimp +instances only [argumentsBody, Condition.eval, lexical]
   have pointwise : calls.formMember text = formAccepts text := funext (interpreted_form calls source text)
   rw [pointwise]
-  simp +instances [hasArguments, allForms, Form.hasArguments]
+  exact firstFlag_find allForms (formAccepts text) Form.hasArguments (by decide)
 
 theorem interpreted_assignment (calls : Calls) (source : DefinitionEquations calls)
     (text : Source) : calls.assignment text = hasAssignment text := by
   rw [source.assignment]
-  dsimp +instances only [assignmentBody, Condition.eval, lexical, either]
-  simp +instances only [interpreted_form calls source]
-  simp +instances [hasAssignment, allForms, Form.hasAssignment, Bool.or_assoc]
+  dsimp +instances only [assignmentBody, Condition.eval, lexical]
+  have pointwise : calls.formMember text = formAccepts text := funext (interpreted_form calls source text)
+  rw [pointwise]
+  exact firstFlag_find allForms (formAccepts text) Form.hasAssignment (by decide)
 
 end Silver.Compose.Expressions

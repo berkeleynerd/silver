@@ -1,5 +1,81 @@
 # Session memory
 
+## 2026-10-11 — Copy String Values completed on the desktop host
+
+After the read-only readiness check, the owner instructed proceeding with the
+next unit of work. **[Copy String Values](copy-values.md)** is now supported:
+up to two literal-initialized constants alongside the existing mutable result,
+named result initialization and equal-length assignments/copies, and references
+to those constants in existing bounded output expressions. Retain the existing
+control flow and one terminal output. Repeated output remains later work.
+
+The physical Linux host's pinned tools, native compiler rebuild, sample proof
+and execution, and fresh cached Lean axiom/coverage audit passed. Those checks
+left all repository files unchanged; detailed evidence is outside the checkout
+at `/home/canto/.local/state/silver/host-handover-2026-10-11-s_qucqpv/handover.json`.
+Existing microVM proof records keep their original input/environment scope.
+Use one writer to shared native artifacts and initially retain the known
+12-worker/12-thread Lean settings with the 12,288 MiB per-process threshold.
+
+This task starts from `96b98e1`; implementation and assurance are complete.
+The live desktop harness was rechecked and has no active goal; this instruction
+did not request creating one. Publication remains authorized, hosted Actions
+remains disabled,
+and no Oracle amendment or macOS validation is included. Preserve existing
+tools, caches, prior/foreign evidence and unrelated scratch. No CLI recall entry
+has been updated; checked-in memory remains the durable handoff.
+
+The implementation review, final native compiler audit/build, all regression
+tests, complete Linux Lean source-correspondence build and fresh axiom/coverage
+audit passed. The stable Lean run finished at 19:53 UTC. Exact evidence, cache
+preservation and the independent reviews are in
+[the capability record](copy-values.md). Its command, times and final outcome
+are retained in
+`.silver/linux-x86_64/copy-values/lean-checkpoint-launch.json`.
+Preserve the completed objects and evidence; optional independent kernel replay
+was not requested. Performance-core placement was observed in two samples of
+the busy serial Lean worker without changing affinity or power settings.
+
+The implementation/review target is the commit introducing
+`samples/copied_result.adb`, based on `96b98e1`. The final response and local
+`copy-values/publication.json` record the closing commit, remote synchronization
+and disabled Actions. Repeated output remains proposed and requires a new owner
+instruction. No further language work has begun.
+The physical host has no default Git author configuration; publication uses
+the repository's established `berkeleynerd` GitHub noreply identity through
+per-command Git settings.
+
+## 2026-10-11 — Desktop harness comparison and original CLI history recovered
+
+The owner authorized investigating the original CLI history and settings before
+deciding whether the desktop harness needs changes. The original **Compose String
+Results** chat was found in the stopped `codex-silver` sandbox's separate Codex
+home. Its saved transcript and goal database were read without starting the
+sandbox, mounting its filesystem or changing its state. The goal is complete;
+this desktop chat is a new conversation with recovered context, not an imported
+continuation. Do not recreate the completed goal as active.
+
+The last CLI exchange, after publication, proposed **Copy String Values**:
+bounded named String constants, initializing the existing mutable result from
+a constant, equal-length named copies in assignments and branches, and those
+names in existing bounded output expressions. It recommended one goal and one
+complete Linux checkpoint. The owner had asked only for the next unit of work;
+no implementation authorization followed. Repeated output remains later work.
+
+The effective model/reasoning, full-access permissions and proactive multi-agent
+mode already match. The CLI's sandbox-specific provider and MCP gateway must not
+be copied into the desktop configuration. CLI recall was disabled and its memory
+store empty; there is no generated recall to restore. Enabling future memories
+is separate from recovering this context. No harness setting, authentication,
+remote enrollment, service or session database was changed.
+
+The desktop executes on the physical Linux host rather than the old microVM,
+while using the same checkout and host-keyed artifact paths. Recheck native
+tool/runtime readiness and resource settings before the next implementation;
+retain prior validation's actual microVM scope and preserve all caches/evidence.
+The detailed local comparison is recorded in
+`.silver/linux-x86_64/desktop-harness-audit-2026-10-11/audit.json`.
+
 ## 2026-10-11 — Compose String Results completed
 
 The owner approved bundling the next two roadmap items and explicitly requested

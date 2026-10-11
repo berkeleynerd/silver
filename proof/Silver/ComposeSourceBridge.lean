@@ -37,7 +37,8 @@ def allTokens : List ShellToken :=
    .word "silver_arguments", .word "first_or_default", .word "if", .word "input_is_valid",
    .word "then", .word "else", .word "reject", .symbol "&", .word "and", .symbol "'",
    .word "length", .symbol "<=", .capacity, .symbol "=", .dynamicDeclaration,
-   .dynamicReference, .literal .initial, .literal .assigned, .outputExpression]
+   .dynamicReference, .literal .initial, .literal .assigned, .outputExpression,
+   .constantDeclaration false, .constantDeclaration true, .literal .constantOne, .literal .constantTwo]
 
 def commaNames (names : List String) : List String := List.flatten ((names.map fun name => [name]).intersperse [","])
 
@@ -46,9 +47,10 @@ def quoted (text : String) : String :=
 
 def spellingGroups : List (List ShellToken) :=
   (allTokens.take 15).map (fun token => [token]) ++
-  [[.literal .ordinary, .literal .initial, .literal .assigned]] ++
+  [[.literal .ordinary, .literal .initial, .literal .assigned, .literal .constantOne, .literal .constantTwo]] ++
   (allTokens.drop 16 |>.take 4).map (fun token => [token]) ++
-  [[.staticDeclaration, .staticReference, .dynamicDeclaration, .dynamicReference, .outputExpression]] ++
+  [[.staticDeclaration, .staticReference, .dynamicDeclaration, .dynamicReference, .outputExpression,
+    .constantDeclaration false, .constantDeclaration true]] ++
   (allTokens.drop 22 |>.take 14).map (fun token => [token])
 
 def spellingBody : List String := ["case", "token", "is"] ++
@@ -71,9 +73,9 @@ abbrev CatalogueTranslation : Prop :=
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
     "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name") ∧
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Argument_Form .. Guarded_Result_Form") ∧
+    some (expectedTokens "Form in Argument_Form .. Guarded_Result_Two_Form") ∧
   Source.expressionBody "is_assignment_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Assignment_Form | Result_Form | Guarded_Result_Form")
+    some (expectedTokens "Form in Assignment_Form .. Assignment_Two_Form | Result_Form .. Guarded_Result_Two_Form")
 
 theorem actual_catalogue : CatalogueTranslation := by decide +kernel
 
@@ -102,15 +104,15 @@ abbrev Declarations : Prop :=
   Lexical.SourceBridge.recordDeclaration "expression_result" Source.outputBodyTokens = some (expectedTokens
     "record After : Literal_Position; Static_Length : Capacity_Value; Dynamic_Seen : Boolean; Static_Seen : Boolean; end record") ∧
   Lexical.SourceBridge.recordDeclaration "parser_state" Source.outputBodyTokens = some (expectedTokens
-    "record Position : Literal_Position; Static_First, Static_After : Literal_Position; Dynamic_First, Dynamic_After : Literal_Position; Static_Length : Capacity_Value; Capacity : Capacity_Value; end record") ∧
+    "record Position : Literal_Position; Static_First, Static_After : Literal_Position; Dynamic_First, Dynamic_After : Literal_Position; Constant_One_First, Constant_One_After, Constant_One_Value_First : Literal_Position; Constant_Two_First, Constant_Two_After, Constant_Two_Value_First : Literal_Position; Static_Length : Capacity_Value; Capacity : Capacity_Value; end record") ∧
   Source.declaration "invalid_expression" Source.outputBodyTokens = some (expectedTokens
     "constant Expression_Result := (After => 0, Static_Length => 0, Dynamic_Seen => False, Static_Seen => False)") ∧
   Source.declaration "initial_state" Source.outputBodyTokens = some (expectedTokens
-    "constant Parser_State := (Position => 1, Static_First => 0, Static_After => 0, Dynamic_First => 0, Dynamic_After => 0, Static_Length => 0, Capacity => Max_Source_Length)") ∧
+    "constant Parser_State := (Position => 1, Static_First => 0, Static_After => 0, Dynamic_First => 0, Dynamic_After => 0, Constant_One_First => 0, Constant_One_After => 0, Constant_One_Value_First => 0, Constant_Two_First => 0, Constant_Two_After => 0, Constant_Two_Value_First => 0, Static_Length => 0, Capacity => Max_Source_Length)") ∧
   Source.declaration "invalid_state" Source.outputBodyTokens = some (expectedTokens
-    "constant Parser_State := (Position => 0, Static_First => 0, Static_After => 0, Dynamic_First => 0, Dynamic_After => 0, Static_Length => 0, Capacity => 0)") ∧
+    "constant Parser_State := (Position => 0, Static_First => 0, Static_After => 0, Dynamic_First => 0, Dynamic_After => 0, Constant_One_First => 0, Constant_One_After => 0, Constant_One_Value_First => 0, Constant_Two_First => 0, Constant_Two_After => 0, Constant_Two_Value_First => 0, Static_Length => 0, Capacity => 0)") ∧
   Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens
-    "State.Position <= Text'Last + 1 and then Valid_Name_State (Text, State.Static_First, State.Static_After) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After)")
+    "State.Position <= Text'Last + 1 and then Valid_Name_State (Text, State.Static_First, State.Static_After) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then Valid_Name_State (Text, State.Constant_One_First, State.Constant_One_After) and then Valid_Name_State (Text, State.Constant_Two_First, State.Constant_Two_After) and then State.Constant_One_Value_First <= Text'Last + 1 and then State.Constant_Two_Value_First <= Text'Last + 1")
 
 theorem actual_declarations : Declarations := by decide +kernel
 
@@ -148,9 +150,11 @@ theorem authoritative_main_correct {source : Source} {form : Form} {events : Lis
     (meaning : SourceMeaning source form events) (arguments : Arguments.Runtime.Arguments) :
     CheckedSource ∧ ∃ program, decode form events = some program ∧
       Parsed source form (Main.composition form).render initialState events ∧
+      ConstantElaboration source form (Main.composition form).render initialState {} events ∧
       (Main.composition form).execute events arguments = some (program.action arguments) := by
   obtain ⟨program, decoded, valid⟩ := decoded_valid meaning
   exact ⟨checked_source, program, decoded, by simpa [Main.rendered_tokens] using meaning.2.2,
+    by simpa [Main.rendered_tokens] using meaning_constant_elaboration meaning,
     Main.execution_refines decoded valid arguments⟩
 
 /-- Interpretation of actual helper/body calls and the existing SPARK domain
@@ -194,7 +198,7 @@ theorem authoritative_source_member_iff (calls : Expressions.Calls)
   rw [proved.admission, Expressions.interpreted_member calls (interpreted_equations calls sourceEquations)]
   exact accepts_iff_member source
 
-/-- Both report-routing bits select exactly the unique parsed form. Together
+/-- Both report-routing bits select exactly the first accepted form. Together
 these distinguish static, argument, assigned and selected-result policies. -/
 theorem authoritative_selectors (calls : Expressions.Calls)
     (sourceEquations : InterpretedSource calls)

@@ -1,8 +1,9 @@
 import Silver.ComposeAdmission
 import Silver.GuardedObligations
 
-/-! Decoded payloads of the finite shells. Names are resolved to the two distinct
-binding slots by admission; the values here retain every literal and operand.
+/-! Decoded payloads of the finite shells. Admission resolves result and argument
+names to their distinct slots and immutable names to their declared bytes;
+the values here retain every literal and operand.
 An explicit capacity remains distinguishable from an absent capacity. -/
 
 namespace Silver.Compose
@@ -44,6 +45,32 @@ def decode : Form → List Event → Option Program
       some (.result fallback initial none comparison yes no expression)
   | .guardedResult, [.declaration true _, .literal .ordinary fallback,
       .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
+      .reference true, .literal .ordinary comparison, .reference false,
+      .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
+      some (.result fallback initial (some capacity) comparison yes no expression)
+  | .assignmentOne, [.constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference false,
+      .literal .assigned replacement, .output expression] =>
+      some (.assignment initial replacement expression)
+  | .assignmentTwo, [.constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference false,
+      .literal .assigned replacement, .output expression] =>
+      some (.assignment initial replacement expression)
+  | .resultOne, [.declaration true _, .literal .ordinary fallback,
+      .constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference true,
+      .literal .ordinary comparison, .reference false, .literal .assigned yes,
+      .reference false, .literal .assigned no, .output expression] =>
+      some (.result fallback initial none comparison yes no expression)
+  | .resultTwo, [.declaration true _, .literal .ordinary fallback,
+      .constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference true,
+      .literal .ordinary comparison, .reference false, .literal .assigned yes,
+      .reference false, .literal .assigned no, .output expression] =>
+      some (.result fallback initial none comparison yes no expression)
+  | .guardedResultOne, [.declaration true _, .literal .ordinary fallback,
+      .constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
+      .reference true, .literal .ordinary comparison, .reference false,
+      .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
+      some (.result fallback initial (some capacity) comparison yes no expression)
+  | .guardedResultTwo, [.declaration true _, .literal .ordinary fallback,
+      .constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
       .reference true, .literal .ordinary comparison, .reference false,
       .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
       some (.result fallback initial (some capacity) comparison yes no expression)

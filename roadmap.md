@@ -31,15 +31,17 @@ Input-dependent branching is complete with full Linux validation. On 2026-10-11
 the owner authorized **[Compose String Results](docs/string-results.md)**:
 bounded output expressions and a branch-selected fixed-length result in one
 goal, sharing a stable final validation checkpoint. Both are now supported,
-with complete Linux validation; broader declarations/copies and repeated output
-remain proposed and have not been started.
+with complete Linux validation. The owner subsequently authorized
+**[Copy String Values](docs/copy-values.md)** after the desktop-host readiness
+check; implementation and full Linux validation are complete. Repeated
+output remains proposed and requires a new owner instruction.
 
 | Order | Item | Status and bounded scope |
 | --- | --- | --- |
 | 1 | [Input-dependent branching](#input-dependent-branching) | **Supported.** One equality on immutable validated argv, selecting two terminal literal outputs; [completed validation](docs/input-branching.md). |
 | 2 | Bounded String output expressions | **Supported.** One through sixteen literals/existing names in flat `&` chains across output positions, counting repeated static references. At most one dynamic reference per expression and tighter safe capacity guards; [completed validation](docs/string-results.md). |
 | 3 | Branch-selected fixed-length result | **Supported.** One mutable result alongside immutable input, equal-length literal branch assignments, and one common terminal output with proved initialization and bounds at the join; [completed validation](docs/string-results.md). |
-| 4 | Additional initialized bindings and compatible copies | **Proposed.** Expand declarations and useful pure statement sequences when a data-flow example needs them; track names, initialization, mutability and fixed lengths. Repeated literal overwrites alone remain low priority. |
+| 4 | Additional initialized bindings and compatible copies | **Supported:** [Copy String Values](docs/copy-values.md). Up to two literal-backed constants in assignment/result shells, named result initialization, equal-length constant copies and constant references in bounded output. Retain one mutable result and fixed control flow. |
 | 5 | Repeated output | **Proposed.** A multiline application with explicit cumulative output and failure behavior; choose continued attempts or stopping after failure before implementing the composition. |
 
 The [generalization assessment](docs/language-generalization.md) explains the
@@ -84,6 +86,7 @@ sequence.
 | Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
 | Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |
 | Compose String Results | Supported | Shared bounded output expressions, repeated static references, tighter safe capacities and one branch-selected fixed-length result; [completed Linux validation](docs/string-results.md). | [samples/composed_result.adb](samples/composed_result.adb) |
+| Copy String Values | Supported | Up to two literal-backed constants in mutable shells, named initialization and equal-length copies, with bounded constant output references; [completed Linux validation](docs/copy-values.md). | [samples/copied_result.adb](samples/copied_result.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -159,8 +162,8 @@ argument operations remain later candidates. The owner subsequently authorized
 starting work from the sequence now listed at the beginning of this roadmap.
 Branching is supported. The owner subsequently selected the first two
 generalizations for the combined String-results goal above; both are now
-supported. Additional initialized bindings and compatible copies are the next
-proposed item and require a new owner instruction before implementation.
+supported. Additional initialized bindings and compatible copies were subsequently
+authorized as Copy String Values; its current status is recorded above.
 
 ## Next goals after the greeting review
 

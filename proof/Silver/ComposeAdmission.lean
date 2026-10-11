@@ -16,6 +16,12 @@ structure NameContext where
   staticLength : Nat := 0
   dynamicFirst : Nat := 0
   dynamicAfter : Nat := 0
+  constantOneFirst : Nat := 0
+  constantOneAfter : Nat := 0
+  constantOneValueFirst : Nat := 0
+  constantTwoFirst : Nat := 0
+  constantTwoAfter : Nat := 0
+  constantTwoValueFirst : Nat := 0
   deriving DecidableEq, Repr
 
 structure ExpressionResult where
@@ -35,6 +41,18 @@ def matchesDynamic (text : Source) (context : NameContext) (first after : Nat) :
   decide (0 < context.dynamicFirst) &&
     equalName text context.dynamicFirst context.dynamicAfter first after
 
+def matchesConstant (text : Source) (context : NameContext) (second : Bool) (first after : Nat) : Bool :=
+  let declaredFirst := if second then context.constantTwoFirst else context.constantOneFirst
+  let declaredAfter := if second then context.constantTwoAfter else context.constantOneAfter
+  decide (0 < declaredFirst) && equalName text declaredFirst declaredAfter first after
+
+def usableConstant (text : Source) (value : Nat) : Bool :=
+  decide (1 < value ∧ Cursor.byteAt text (value - 1) = 34 ∧ Output.literalEnd text value ≠ 0)
+
+def constantValueAtName (text : Source) (context : NameContext) (first after : Nat) : Nat :=
+  if matchesConstant text context false first after && usableConstant text context.constantOneValueFirst then context.constantOneValueFirst
+  else if matchesConstant text context true first after && usableConstant text context.constantTwoValueFirst then context.constantTwoValueFirst else 0
+
 def operandCore (text : Source) (start : Nat) (context : NameContext) : ExpressionResult :=
   if start ≤ text.length ∧ Cursor.byteAt text start = 34 then
     if Output.literalEnd text (start + 1) ≠ 0 then
@@ -45,7 +63,11 @@ def operandCore (text : Source) (start : Nat) (context : NameContext) : Expressi
       ⟨identifierEnd text start, context.staticLength, false, true⟩
     else if matchesDynamic text context start (identifierEnd text start) then
       ⟨identifierEnd text start, 0, true, false⟩
-    else invalidExpression
+    else
+      let value := constantValueAtName text context start (identifierEnd text start)
+      if (1 < value ∧ Cursor.byteAt text (value - 1) = 34) ∧ Output.literalEnd text value ≠ 0 then
+        ⟨identifierEnd text start, Guarded.literalLength text value, false, false⟩
+      else invalidExpression
   else invalidExpression
 
 def operandAt (text : Source) (position : Nat) (context : NameContext) : ExpressionResult :=
@@ -70,6 +92,14 @@ inductive OperandAt (text : Source) (context : NameContext) : Nat → Operand �
       matchesStatic text context (Cursor.triviaPosition text position) after = false →
       matchesDynamic text context (Cursor.triviaPosition text position) after = true →
       OperandAt text context position .dynamicReference after
+  | constantName {position after literalAfter : Nat} {name bytes : Source} :
+      IdentifierAt text (Cursor.triviaPosition text position) name after →
+      matchesStatic text context (Cursor.triviaPosition text position) after = false →
+      matchesDynamic text context (Cursor.triviaPosition text position) after = false →
+      (1 < constantValueAtName text context (Cursor.triviaPosition text position) after ∧
+       Cursor.byteAt text (constantValueAtName text context (Cursor.triviaPosition text position) after - 1) = 34) →
+      Output.LiteralAt text (constantValueAtName text context (Cursor.triviaPosition text position) after) bytes literalAfter →
+      OperandAt text context position (.literal bytes) after
 
 theorem identifier_not_quote {text bytes : Source} {position after : Nat}
     (parsed : IdentifierAt text position bytes after) : Cursor.byteAt text position ≠ 34 := by
@@ -95,6 +125,18 @@ theorem operand_complete {text : Source} {context : NameContext} {position after
       have nonzero : after ≠ 0 := by have := identifier_bounds name; omega
       simp [operandAt, operandCore, identifier_not_quote name, identifierEnd_complete name, nonzero,
         different, same, Operand.summary, Operand.staticLength, Operand.dynamicCount, Operand.staticCount]
+  | constantName name noStatic noDynamic positive value =>
+      have nonzero : after ≠ 0 := by have := identifier_bounds name; omega
+      have literalNonzero : Output.literalEnd text
+          (constantValueAtName text context (Cursor.triviaPosition text position) after) ≠ 0 := by
+        rw [Output.literalAt_complete value]
+        have := Output.literalAt_bounds value
+        omega
+      rw [Output.literalAt_complete value] at literalNonzero
+      simp [operandAt, operandCore, identifier_not_quote name, identifierEnd_complete name, nonzero,
+        noStatic, noDynamic, positive, Output.literalAt_complete value, literalNonzero,
+        Operand.summary, Operand.staticLength, Operand.dynamicCount, Operand.staticCount,
+        Guarded.literalLength_decodes value]
 
 theorem operand_sound (text : Source) (position : Nat) (context : NameContext)
     (accepted : (operandAt text position context).after ≠ 0) :
@@ -128,7 +170,24 @@ theorem operand_sound (text : Source) (position : Nat) (context : NameContext)
             simp [operandAt, operandCore, quote, nonzero, same, dynamic]
           rw [observed]
           exact ⟨.dynamicReference, .dynamicName parsed (Bool.eq_false_iff.mpr same) dynamic, rfl⟩
-        · simp [operandAt, operandCore, quote, nonzero, same, dynamic, invalidExpression] at accepted
+        · by_cases constant : (1 < constantValueAtName text context (Cursor.triviaPosition text position)
+                (identifierEnd text (Cursor.triviaPosition text position)) ∧
+              Cursor.byteAt text (constantValueAtName text context (Cursor.triviaPosition text position)
+                (identifierEnd text (Cursor.triviaPosition text position)) - 1) = 34) ∧
+              Output.literalEnd text (constantValueAtName text context (Cursor.triviaPosition text position)
+                (identifierEnd text (Cursor.triviaPosition text position))) ≠ 0
+          · obtain ⟨bytes, value⟩ := Output.literalAt_sound text _ constant.2
+            have observed : operandAt text position context =
+                ⟨identifierEnd text (Cursor.triviaPosition text position),
+                 Guarded.literalLength text (constantValueAtName text context (Cursor.triviaPosition text position)
+                   (identifierEnd text (Cursor.triviaPosition text position))), false, false⟩ := by
+              simp [operandAt, operandCore, quote, nonzero, same, dynamic, constant]
+            rw [observed]
+            exact ⟨.literal bytes, .constantName parsed (Bool.eq_false_iff.mpr same)
+              (Bool.eq_false_iff.mpr dynamic) constant.1 value,
+              by simp [Operand.summary, Operand.staticLength, Operand.dynamicCount, Operand.staticCount,
+                Guarded.literalLength_decodes value]⟩
+          · simp [operandAt, operandCore, quote, nonzero, same, dynamic, constant, invalidExpression] at accepted
     · simp [operandAt, operandCore, quote, nonzero, invalidExpression] at accepted
 
 theorem operand_unique {text : Source} {context : NameContext} {position leftAfter rightAfter : Nat}
@@ -142,11 +201,16 @@ theorem operand_unique {text : Source} {context : NameContext} {position leftAft
           exact ⟨rfl, rfl⟩
       | staticName name _ => exact False.elim (identifier_not_quote name quote)
       | dynamicName name _ _ => exact False.elim (identifier_not_quote name quote)
+      | constantName name _ _ _ _ => exact False.elim (identifier_not_quote name quote)
   | staticName name same =>
       cases second with
       | literal _ quote _ => exact False.elim (identifier_not_quote name quote)
       | staticName other _ => exact ⟨rfl, (identifier_unique name other).2⟩
       | dynamicName other different _ =>
+          have ends := (identifier_unique name other).2
+          rw [ends] at same
+          simp [same] at different
+      | constantName other different _ _ _ =>
           have ends := (identifier_unique name other).2
           rw [ends] at same
           simp [same] at different
@@ -157,6 +221,23 @@ theorem operand_unique {text : Source} {context : NameContext} {position leftAft
           have ends := (identifier_unique name other).2
           simp [ends, matched] at different
       | dynamicName other _ _ => exact ⟨rfl, (identifier_unique name other).2⟩
+      | constantName other _ noDynamic _ _ =>
+          have ends := (identifier_unique name other).2
+          rw [ends] at same
+          simp [same] at noDynamic
+  | constantName name noStatic noDynamic positive value =>
+      cases second with
+      | literal _ quote _ => exact False.elim (identifier_not_quote name quote)
+      | staticName other matched =>
+          have ends := (identifier_unique name other).2
+          simp [ends, matched] at noStatic
+      | dynamicName other _ matched =>
+          have ends := (identifier_unique name other).2
+          simp [ends, matched] at noDynamic
+      | constantName other _ _ _ otherValue =>
+          have ends := (identifier_unique name other).2
+          rw [ends] at value
+          exact ⟨congrArg Operand.literal (Output.literalAt_unique value otherValue).1, ends⟩
 
 theorem operand_bounds {text : Source} {context : NameContext} {position after : Nat} {atom : Operand}
     (parsed : OperandAt text context position atom after)
@@ -167,12 +248,14 @@ theorem operand_bounds {text : Source} {context : NameContext} {position after :
   | literal _ _ value => have := Output.literalAt_bounds value; omega
   | staticName name _ => have := identifier_bounds name; omega
   | dynamicName name _ _ => have := identifier_bounds name; omega
+  | constantName name _ _ _ _ => have := identifier_bounds name; omega
 
 theorem operand_literals {text : Source} {context : NameContext} {position after : Nat} {bytes : Source}
     (parsed : OperandAt text context position (.literal bytes) after) :
     ∀ byte ∈ bytes, Output.printable byte = true := by
   cases parsed with
   | literal _ _ value => exact (Output.literalAt_bounds value).2.2
+  | constantName _ _ _ _ value => exact (Output.literalAt_bounds value).2.2
 
 def hasAmpersand (text : Source) (after : Nat) : Bool :=
   decide (Cursor.triviaPosition text after ≤ text.length ∧
@@ -229,6 +312,7 @@ theorem operand_after_nonzero {text : Source} {context : NameContext} {position 
   | literal _ _ value => have := Output.literalAt_bounds value; omega
   | staticName name _ => have := identifier_bounds name; omega
   | dynamicName name _ _ => have := identifier_bounds name; omega
+  | constantName name _ _ _ _ => have := identifier_bounds name; omega
 
 theorem expressionTail_complete {text : Source} {context : NameContext}
     {remaining position length : Nat} {dynamicSeen staticSeen : Bool}
@@ -423,34 +507,83 @@ theorem expressionAt_bounded {text : Source} {context : NameContext} {position c
   · simpa [one] using safe
 
 inductive Form
-  | direct | static | assignment | argument | guardedArgument
+  | direct | static | assignment | assignmentOne | assignmentTwo | argument | guardedArgument
   | branching | guardedBranching | result | guardedResult
+  | resultOne | resultTwo | guardedResultOne | guardedResultTwo
   deriving DecidableEq, Repr
 
 def allForms : List Form :=
-  [.direct, .static, .assignment, .argument, .guardedArgument,
-   .branching, .guardedBranching, .result, .guardedResult]
+  [.direct, .static, .assignment, .assignmentOne, .assignmentTwo, .argument, .guardedArgument,
+   .branching, .guardedBranching, .result, .guardedResult,
+   .resultOne, .resultTwo, .guardedResultOne, .guardedResultTwo]
 
 def Form.hasArguments : Form → Bool
-  | .direct | .static | .assignment => false
+  | .direct | .static | .assignment | .assignmentOne | .assignmentTwo => false
   | _ => true
 
 def Form.hasAssignment : Form → Bool
-  | .assignment | .result | .guardedResult => true
+  | .assignment | .assignmentOne | .assignmentTwo | .result | .guardedResult |
+    .resultOne | .resultTwo | .guardedResultOne | .guardedResultTwo => true
   | _ => false
 
-inductive LiteralRole | ordinary | initial | assigned
+inductive LiteralRole | ordinary | initial | assigned | constantOne | constantTwo
   deriving DecidableEq, Repr
 
 inductive ShellToken
   | fixed (spelling : String) (word : Bool)
-  | staticDeclaration | dynamicDeclaration | staticReference | dynamicReference
+  | staticDeclaration | dynamicDeclaration | constantDeclaration (second : Bool) | staticReference | dynamicReference
   | literal (role : LiteralRole)
   | capacity | outputExpression
   deriving DecidableEq, Repr
 
 def ShellToken.word (spelling : String) : ShellToken := .fixed spelling true
 def ShellToken.symbol (spelling : String) : ShellToken := .fixed spelling false
+
+def copyNames (context : NameContext) : NameContext :=
+  {context with staticFirst := 0, staticAfter := 0, staticLength := 0, dynamicFirst := 0, dynamicAfter := 0}
+
+def valueContext (context : NameContext) (role : LiteralRole) : NameContext :=
+  if role = .initial ∨ role = .assigned then copyNames context else {}
+
+def valueAt (text : Source) (position : Nat) (context : NameContext) (role : LiteralRole) : ExpressionResult :=
+  operandAt text position (valueContext context role)
+
+def ValueAt (text : Source) (context : NameContext) (role : LiteralRole)
+    (position : Nat) (bytes : Source) (after : Nat) : Prop :=
+  OperandAt text (valueContext context role) position (.literal bytes) after
+
+theorem value_complete {text bytes : Source} {context : NameContext} {role : LiteralRole}
+    {position after : Nat} (parsed : ValueAt text context role position bytes after) :
+    valueAt text position context role = ⟨after, bytes.length, false, false⟩ := by
+  simpa [valueAt, ValueAt, Operand.summary, Operand.staticLength, Operand.dynamicCount, Operand.staticCount]
+    using operand_complete parsed
+
+theorem value_sound (text : Source) (position : Nat) (context : NameContext) (role : LiteralRole)
+    (accepted : (valueAt text position context role).after ≠ 0) :
+    ∃ bytes, ValueAt text context role position bytes (valueAt text position context role).after ∧
+      (valueAt text position context role).staticLength = bytes.length := by
+  obtain ⟨atom, parsed, summary⟩ := operand_sound text position (valueContext context role) accepted
+  have literal : ∃ bytes, atom = .literal bytes := by
+    cases parsed with
+    | literal => exact ⟨_, rfl⟩
+    | constantName => exact ⟨_, rfl⟩
+    | staticName name same => cases role <;> simp [matchesStatic, valueContext, copyNames] at same
+    | dynamicName name different same => cases role <;> simp [matchesDynamic, valueContext, copyNames] at same
+  obtain ⟨bytes, rfl⟩ := literal
+  exact ⟨bytes, parsed, by simpa [valueAt, Operand.summary, Operand.staticLength] using congrArg ExpressionResult.staticLength summary⟩
+
+theorem value_unique {text left right : Source} {context : NameContext} {role : LiteralRole}
+    {position leftAfter rightAfter : Nat} (first : ValueAt text context role position left leftAfter)
+    (second : ValueAt text context role position right rightAfter) : left = right ∧ leftAfter = rightAfter := by
+  obtain ⟨same, ends⟩ := operand_unique first second
+  exact ⟨by simpa using same, ends⟩
+
+def initializedContext (context : NameContext) (role : LiteralRole) (position length : Nat) : NameContext :=
+  match role with
+  | .initial => {context with staticLength := length}
+  | .constantOne => {context with constantOneValueFirst := position + 1}
+  | .constantTwo => {context with constantTwoValueFirst := position + 1}
+  | _ => context
 
 structure ParserState where
   position : Nat := 1
@@ -473,7 +606,8 @@ def staticNameAllowed (text : Source) (context : NameContext) (first after : Nat
   !forbiddenName text first after &&
     (decide (context.dynamicFirst = 0) ||
       (!Arguments.forbiddenName text first after &&
-        !equalName text context.dynamicFirst context.dynamicAfter first after))
+        !equalName text context.dynamicFirst context.dynamicAfter first after)) &&
+    !matchesConstant text context false first after && !matchesConstant text context true first after
 
 def outputAllowed (form : Form) (state : ParserState) (result : ExpressionResult) : Bool :=
   (!result.dynamicSeen || decide (result.staticLength ≤ maxSourceLength - state.capacity)) &&
@@ -486,6 +620,12 @@ def step (text : Source) (form : Form) (token : ShellToken) (state : ParserState
   | .staticDeclaration =>
       if finish ≠ 0 ∧ staticNameAllowed text state.context start finish = true then
         {state with position := finish, context := {state.context with staticFirst := start, staticAfter := finish}}
+      else invalidState
+  | .constantDeclaration second =>
+      if finish ≠ 0 ∧ staticNameAllowed text state.context start finish = true then
+        {state with position := finish, context := if second then
+          {state.context with constantTwoFirst := start, constantTwoAfter := finish}
+          else {state.context with constantOneFirst := start, constantOneAfter := finish}}
       else invalidState
   | .dynamicDeclaration =>
       if finish ≠ 0 ∧ Arguments.forbiddenName text start finish = false then
@@ -500,9 +640,9 @@ def step (text : Source) (form : Form) (token : ShellToken) (state : ParserState
         {state with position := finish}
       else invalidState
   | .literal role =>
-      if start ≤ text.length ∧ Cursor.byteAt text start = 34 ∧ Output.literalEnd text (start + 1) ≠ 0 ∧
-          (role ≠ .assigned ∨ Guarded.literalLength text (start + 1) = state.context.staticLength) then
-        {state with position := Output.literalEnd text (start + 1), context := {state.context with staticLength := if role = .initial then Guarded.literalLength text (start + 1) else state.context.staticLength}}
+      let value := valueAt text state.position state.context role
+      if value.after ≠ 0 ∧ (role ≠ .assigned ∨ value.staticLength = state.context.staticLength) then
+        {state with position := value.after, context := initializedContext state.context role start value.staticLength}
       else invalidState
   | .capacity =>
       if (Guarded.decimalAt text start).after ≠ 0 then
@@ -519,6 +659,7 @@ def step (text : Source) (form : Form) (token : ShellToken) (state : ParserState
 
 inductive Event
   | declaration (dynamic : Bool) (canonical : Source)
+  | constantDeclaration (second : Bool) (canonical : Source)
   | reference (dynamic : Bool)
   | literal (role : LiteralRole) (bytes : Source)
   | capacity (value : Nat)
@@ -533,6 +674,13 @@ inductive StepAt (text : Source) (form : Form) :
       StepAt text form .staticDeclaration state (some (.declaration false (name.map lowercase)))
         {state with position := finish, context := {state.context with
           staticFirst := Cursor.triviaPosition text state.position, staticAfter := finish}}
+  | constantDeclaration {state : ParserState} {name : Source} {finish : Nat} {second : Bool} :
+      IdentifierAt text (Cursor.triviaPosition text state.position) name finish →
+      staticNameAllowed text state.context (Cursor.triviaPosition text state.position) finish = true →
+      StepAt text form (.constantDeclaration second) state (some (.constantDeclaration second (name.map lowercase)))
+        {state with position := finish, context := if second then
+          {state.context with constantTwoFirst := Cursor.triviaPosition text state.position, constantTwoAfter := finish}
+          else {state.context with constantOneFirst := Cursor.triviaPosition text state.position, constantOneAfter := finish}}
   | dynamicDeclaration {state : ParserState} {name : Source} {finish : Nat} :
       IdentifierAt text (Cursor.triviaPosition text state.position) name finish →
       Arguments.forbiddenName text (Cursor.triviaPosition text state.position) finish = false →
@@ -548,13 +696,10 @@ inductive StepAt (text : Source) (form : Form) :
       matchesDynamic text state.context (Cursor.triviaPosition text state.position) finish = true →
       StepAt text form .dynamicReference state (some (.reference true)) {state with position := finish}
   | literal {state : ParserState} {bytes : Source} {role : LiteralRole} {finish : Nat} :
-      Cursor.triviaPosition text state.position ≤ text.length →
-      Cursor.byteAt text (Cursor.triviaPosition text state.position) = 34 →
-      Output.LiteralAt text (Cursor.triviaPosition text state.position + 1) bytes finish →
+      ValueAt text state.context role state.position bytes finish →
       (role = .assigned → bytes.length = state.context.staticLength) →
       StepAt text form (.literal role) state (some (.literal role bytes))
-        {state with position := finish, context := {state.context with staticLength :=
-          if role = .initial then bytes.length else state.context.staticLength}}
+        {state with position := finish, context := initializedContext state.context role (Cursor.triviaPosition text state.position) bytes.length}
   | capacity {state : ParserState} {value finish : Nat} :
       Guarded.DecimalAt text (Cursor.triviaPosition text state.position) value finish →
       StepAt text form .capacity state (some (.capacity value)) {state with position := finish, capacity := value}
@@ -573,6 +718,9 @@ theorem step_complete {text : Source} {form : Form} {token : ShellToken} {state 
   | staticDeclaration name allowed =>
       have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (identifier_bounds name).2.2.1)
       simp [step, identifierEnd_complete name, nonzero, allowed]
+  | constantDeclaration name allowed =>
+      have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (identifier_bounds name).2.2.1)
+      simp [step, identifierEnd_complete name, nonzero, allowed]
   | dynamicDeclaration name allowed =>
       have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (identifier_bounds name).2.2.1)
       simp [step, identifierEnd_complete name, nonzero, allowed]
@@ -582,14 +730,13 @@ theorem step_complete {text : Source} {form : Form} {token : ShellToken} {state 
   | dynamicReference name matched =>
       have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (identifier_bounds name).2.2.1)
       simp [step, identifierEnd_complete name, nonzero, matched]
-  | @literal state bytes role finish bound quote literal equal =>
-      have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (Output.literalAt_bounds literal).1)
+  | @literal state bytes role finish value equal =>
+      have nonzero := operand_after_nonzero value
       have compatible : role ≠ .assigned ∨ bytes.length = state.context.staticLength := by
         by_cases assigned : role = .assigned
         · exact Or.inr (equal assigned)
         · exact Or.inl assigned
-      simp [step, bound, quote, Output.literalAt_complete literal, nonzero,
-        Guarded.literalLength_decodes literal, compatible]
+      simp [step, value_complete value, nonzero, compatible]
   | capacity decimal =>
       have nonzero : _ ≠ 0 := Nat.ne_of_gt (Nat.lt_of_le_of_lt (Nat.zero_le _) (Guarded.decimalAt_bounds decimal).1)
       simp [step, Guarded.decimalAt_complete decimal, nonzero]
@@ -610,6 +757,14 @@ theorem step_sound (text : Source) (form : Form) (token : ShellToken) (state : P
         rw [ite_eq_left permitted]
         obtain ⟨name, parsed⟩ := identifierEnd_sound text _ permitted.1
         exact ⟨_, .staticDeclaration parsed permitted.2⟩
+      · exact False.elim (accepted rfl)
+  | constantDeclaration second =>
+      simp only [step] at accepted ⊢
+      split at accepted
+      · rename_i permitted
+        rw [ite_eq_left permitted]
+        obtain ⟨name, parsed⟩ := identifierEnd_sound text _ permitted.1
+        exact ⟨_, .constantDeclaration parsed permitted.2⟩
       · exact False.elim (accepted rfl)
   | dynamicDeclaration =>
       simp only [step] at accepted ⊢
@@ -640,12 +795,13 @@ theorem step_sound (text : Source) (form : Form) (token : ShellToken) (state : P
       split at accepted
       · rename_i permitted
         rw [ite_eq_left permitted]
-        obtain ⟨bytes, parsed⟩ := Output.literalAt_sound text _ permitted.2.2.1
-        rw [Guarded.literalLength_decodes parsed]
-        refine ⟨_, .literal permitted.1 permitted.2.1 parsed ?_⟩
+        obtain ⟨bytes, parsed, length⟩ := value_sound text state.position state.context role permitted.1
+        rw [length]
+        refine ⟨_, .literal parsed ?_⟩
         intro assigned
-        have compatible := permitted.2.2.2
-        simpa [assigned, Guarded.literalLength_decodes parsed] using compatible
+        rcases permitted.2 with different | same
+        · exact False.elim (different assigned)
+        · exact length ▸ same
       · exact False.elim (accepted rfl)
   | capacity =>
       simp only [step] at accepted ⊢
@@ -683,6 +839,11 @@ theorem step_unique {text : Source} {form : Form} {token : ShellToken} {state ne
       | staticDeclaration otherName _ =>
           obtain ⟨rfl, _⟩ := identifier_unique name otherName
           rfl
+  | constantDeclaration name allowed =>
+      cases second with
+      | constantDeclaration otherName _ =>
+          obtain ⟨rfl, _⟩ := identifier_unique name otherName
+          rfl
   | dynamicDeclaration name allowed =>
       cases second with
       | dynamicDeclaration otherName _ =>
@@ -690,10 +851,10 @@ theorem step_unique {text : Source} {form : Form} {token : ShellToken} {state ne
           rfl
   | staticReference => cases second; rfl
   | dynamicReference => cases second; rfl
-  | literal _ _ value _ =>
+  | literal value _ =>
       cases second with
-      | literal _ _ otherValue _ =>
-          obtain ⟨rfl, _⟩ := Output.literalAt_unique value otherValue
+      | literal otherValue _ =>
+          obtain ⟨rfl, _⟩ := value_unique value otherValue
           rfl
   | capacity value =>
       cases second with
@@ -784,8 +945,27 @@ def Form.tokens : Form → List ShellToken
   | .guardedResult =>
       [.word "with", .word "silver_io", .symbol ";", .word "with", .word "silver_arguments", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=", .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(", .literal .ordinary, .symbol ")", .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .word "if", .word "silver_arguments", .symbol ".", .word "input_is_valid", .word "and", .word "then", .dynamicReference, .symbol "'", .word "length", .symbol "<=", .capacity, .word "then", .word "if", .dynamicReference, .symbol "=", .literal .ordinary, .word "then", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "else", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "end", .word "if", .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";", .word "end", .word "if", .symbol ";", .word "end", .word "main", .symbol ";"]
 
+  | .assignmentOne =>
+      [.word "with", .word "silver_io", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "end", .word "main", .symbol ";"]
+
+  | .assignmentTwo =>
+      [.word "with", .word "silver_io", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";",  .constantDeclaration true, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantTwo, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "end", .word "main", .symbol ";"]
+
+  | .resultOne =>
+      [.word "with", .word "silver_io", .symbol ";", .word "with", .word "silver_arguments", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=", .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(", .literal .ordinary, .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .word "if", .word "silver_arguments", .symbol ".", .word "input_is_valid", .word "then", .word "if", .dynamicReference, .symbol "=", .literal .ordinary, .word "then", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "else", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "end", .word "if", .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";", .word "end", .word "if", .symbol ";", .word "end", .word "main", .symbol ";"]
+
+  | .resultTwo =>
+      [.word "with", .word "silver_io", .symbol ";", .word "with", .word "silver_arguments", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=", .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(", .literal .ordinary, .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";",  .constantDeclaration true, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantTwo, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .word "if", .word "silver_arguments", .symbol ".", .word "input_is_valid", .word "then", .word "if", .dynamicReference, .symbol "=", .literal .ordinary, .word "then", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "else", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "end", .word "if", .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";", .word "end", .word "if", .symbol ";", .word "end", .word "main", .symbol ";"]
+
+  | .guardedResultOne =>
+      [.word "with", .word "silver_io", .symbol ";", .word "with", .word "silver_arguments", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=", .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(", .literal .ordinary, .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .word "if", .word "silver_arguments", .symbol ".", .word "input_is_valid", .word "and", .word "then", .dynamicReference, .symbol "'", .word "length", .symbol "<=", .capacity, .word "then", .word "if", .dynamicReference, .symbol "=", .literal .ordinary, .word "then", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "else", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "end", .word "if", .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";", .word "end", .word "if", .symbol ";", .word "end", .word "main", .symbol ";"]
+
+  | .guardedResultTwo =>
+      [.word "with", .word "silver_io", .symbol ";", .word "with", .word "silver_arguments", .symbol ";", .word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode", .symbol "(", .word "on", .symbol ")", .symbol ";", .dynamicDeclaration, .symbol ":", .word "constant", .word "string", .symbol ":=", .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "(", .literal .ordinary, .symbol ")", .symbol ";", .constantDeclaration false, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantOne, .symbol ";",  .constantDeclaration true, .symbol ":", .word "constant", .word "string", .symbol ":=", .literal .constantTwo, .symbol ";", .staticDeclaration, .symbol ":", .word "string", .symbol ":=", .literal .initial, .symbol ";", .word "begin", .word "if", .word "silver_arguments", .symbol ".", .word "input_is_valid", .word "and", .word "then", .dynamicReference, .symbol "'", .word "length", .symbol "<=", .capacity, .word "then", .word "if", .dynamicReference, .symbol "=", .literal .ordinary, .word "then", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "else", .staticReference, .symbol ":=", .literal .assigned, .symbol ";", .word "end", .word "if", .symbol ";", .word "silver_io", .symbol ".", .word "put_line", .symbol "(", .outputExpression, .symbol ")", .symbol ";", .word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";", .word "end", .word "if", .symbol ";", .word "end", .word "main", .symbol ";"]
+
 inductive EventKind
   | declaration (dynamic : Bool)
+  | constantDeclaration (second : Bool)
   | reference (dynamic : Bool)
   | literal (role : LiteralRole)
   | capacity | output
@@ -793,6 +973,7 @@ inductive EventKind
 
 def Event.kind : Event → EventKind
   | .declaration dynamic _ => .declaration dynamic
+  | .constantDeclaration second _ => .constantDeclaration second
   | .reference dynamic => .reference dynamic
   | .literal role _ => .literal role
   | .capacity _ => .capacity
@@ -802,6 +983,7 @@ def ShellToken.eventKind : ShellToken → Option EventKind
   | .fixed _ _ => none
   | .staticDeclaration => some (.declaration false)
   | .dynamicDeclaration => some (.declaration true)
+  | .constantDeclaration second => some (.constantDeclaration second)
   | .staticReference => some (.reference false)
   | .dynamicReference => some (.reference true)
   | .literal role => some (.literal role)
@@ -871,9 +1053,9 @@ theorem meaning_unique {source : Source} {leftForm rightForm : Form} {left right
   exact ⟨rfl, parsed_unique first.2.2 second.2.2⟩
 
 def hasArguments (source : Source) : Bool :=
-  allForms.any (fun form => form.hasArguments && formAccepts source form)
+  ((selectedForm source).map Form.hasArguments).getD false
 
 def hasAssignment (source : Source) : Bool :=
-  allForms.any (fun form => form.hasAssignment && formAccepts source form)
+  ((selectedForm source).map Form.hasAssignment).getD false
 
 end Silver.Compose
