@@ -283,36 +283,52 @@ python3 scripts/bootstrap_lean.py
 python3 scripts/check_lean.py
 ```
 
-Lean installs in `.tools/<host>/lean`. Its replay workspace is
+Lean installs in `.tools/<host>/lean`. Its proof workspace is
 `.silver/<host>/proof`, with independent Lake objects, manifest, and generated
 source certificates. Builds read the shared `proof/` files without changing them.
 A per-host source link points directly to the authoritative `src/` directory.
 Lean subprocesses use explicit native tool paths and isolated config/cache paths;
 inherited Lean, Lake, and Elan overrides cannot select another installation.
 
-The default Lean check retains Lake's native build cache and freshly runs the
-module/axiom audit even on a cache hit. `--full` adds the independent kernel
-recheck; `--clean` also discards this host's proof workspace. Each embedded
-recognizer, lexical-helper and selected runtime Ada file has its own binary
+For focused iteration, select a module and its dependencies:
+
+```sh
+python3 scripts/check_lean.py --target Silver.BranchingMain
+```
+
+Repeat `--target` for additional modules. The runner synchronizes inputs and
+freshly audits the selected actual import closure. Its separate focused result
+does not establish complete source correspondence. With no target, it builds
+the whole project and audits complete module/axiom coverage, retaining Lake's
+cache. `--replay` (also spelled `--full`) adds an optional independent kernel
+recheck for toolchain/cache investigations or explicit audits; it requires the
+whole project. `--provenance` adds detailed inventories to the concise result
+and log. `--clean` discards this host's proof workspace without implying replay.
+See the [proof workflow](development.md#proof-loop-and-validation) and
+[focused-runner validation](docs/lean-iteration.md).
+
+Each embedded recognizer, lexical-helper and selected runtime Ada file has its own binary
 dependency: editing it invalidates its handwritten binding, certificate and
 transitive importers. Unrelated certificates and source-independent models can
 remain cached. The [compartmentalization record](docs/lean-compartmentalization.md)
-tracks validation and measured costs. After runtime source edits, refresh bootstrap and rebuild so embedded library
-bytes agree with the source; full audits reject stale bindings. Once a
+tracks validation and measured costs. After runtime source edits, refresh
+bootstrap and rebuild so embedded library bytes agree with the source; full
+audits reject stale bindings. Once a
 capability's inputs are stable, run its complete validation checkpoint:
 
 ```sh
 python3 scripts/dev.py prove --full
 python3 scripts/dev.py build
 python3 scripts/dev.py test
-python3 scripts/check_lean.py --full
+python3 scripts/check_lean.py
 ```
 
 The runner defaults both Lake workers and Lean threads per process to the CPUs
 available to this process. `--workers N`
 and `--threads N` override them independently; `0` selects the automatic count.
-Use lower settings on shared or memory-constrained hosts. `--memory-mb N` limits
-each Lean build/audit process, not combined host memory. See the
+Use lower settings on shared or memory-constrained hosts. `--memory-mb N` sets
+a periodically checked memory threshold for each Lean build/audit process,
+not a combined host budget. See the
 [concurrency measurements](docs/lean-concurrency.md) for the observed speedup
 and RAM use. Generated certificates and the separate fresh kernel recheck still
 have serial work. Caching and worker counts do not change required obligations.
@@ -320,9 +336,10 @@ have serial work. Caching and worker counts do not change required obligations.
 The source bridge embeds the authoritative null/output recognizers and selected
 runtime sources, checks restricted source bytes and declaration shapes, and interprets
 typed expression and statement models. Its semantic scope is described in the
-trusted boundary. Every mode audits actual imported modules and every
-declaration's transitive axioms; full validation also runs a fresh `leanchecker`
-kernel check. Only Lean's standard logical
+trusted boundary. Every mode audits its actual imported modules and every
+declaration's transitive axioms. Routine checks trust the pinned local toolchain
+and imported object cache; `--replay` adds a fresh `leanchecker` kernel check.
+Only Lean's standard logical
 foundations are allowed. The separate external-tool theorem proves completion
 and preservation under its documented tool and operational contracts.
 

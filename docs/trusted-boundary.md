@@ -13,6 +13,9 @@ The subsequent [source partition](lean-compartmentalization.md) changes source
 units and dependency tracking without adding a trusted component. Its completed
 native and Lean validation covers the current maintenance change; retained
 capability evidence continues to apply to its recorded inputs.
+The [focused-runner workflow](lean-iteration.md) retains the pinned local
+tool/cache trust and complete default audit while making separate replay and
+detailed provenance optional.
 
 ## Trusted computing base
 
@@ -29,8 +32,8 @@ that a configured pathname selects the intended executable.
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
 | Shell and inherited environment | `/bin/sh` interpretation behind `system`, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |
 | Python setup and generated `Silver_Build` | Correct installation anchoring, byte encoding, shell quoting, and external command prefix | Generated declarations are included in SPARK verification and evidence hashes. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |
-| Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound provenance detect stale/mismatched evidence. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |
-| Lean 4.34.1 kernel and source embedding | Kernel checking, imported source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, actual import/axiom audit, and fresh `leanchecker` checking. No project-specific axioms or unfinished proofs are permitted. |
+| Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound results detect stale/mismatched evidence; detailed Lean provenance is optional. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |
+| Lean 4.34.1 kernel, local object cache and source embedding | Kernel checking, correctly built imported objects, source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, source dependencies and fresh actual-import/axiom audit. Separate `leanchecker` replay is optional for investigations and explicit audits. No project-specific axioms or unfinished proofs are permitted. |
 | Restricted Ada-to-Lean semantic interpretation | Frontend meaning of the fixed fragment: predefined operators, indexing, evaluation, statement sequencing, branches, loops, returns and machine bounds | Whole-source byte/token/declaration checks constrain the input; GNATprove supplies executable refinement. This is not a verified general Ada parser or complete compiler-semantics theorem. |
 
 The pinned frontend must accept every source line and lexical element fitting
@@ -618,30 +621,41 @@ compiler process itself retains the caller's working directory. These controls
 are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
-The Lean replay tree is private to the host and reads the authoritative `src/`
+The Lean proof tree is private to the host and reads the authoritative `src/`
 through a checked link. Twelve generated source-certificate modules, Lake
 artifacts and manifests are written there. Shared proof inputs are fingerprinted
-and must remain unchanged throughout replay. Script inputs, Lean/Lake/kernel-checker
-binaries, compiled artifacts and the replay log are also hashed. The imported
-module inventory and transitive axiom audit come from a fresh execution of the
-audit module after every build, including cache hits. Full/clean modes also
-perform a fresh independent kernel recheck. Local cached Lean objects rely on
-Lake's dependency tracking and the pinned Lean toolchain. Each of the twelve
+and must remain unchanged throughout a run; tools and protected workspace
+copies are also checked for stability. Routine evidence contains an aggregate
+input digest, scope, modules, tool version and identities, timings and replay
+status alongside the log. `--provenance` adds detailed input, workspace and artifact
+inventories. The imported module inventory and transitive axiom audit come from
+a fresh execution after every build, including cache hits. With no target, the
+audit requires every project module. `--target` checks only the selected actual
+import closure and writes separate partial evidence, not a complete
+source-correspondence result.
+
+Local cached Lean objects rely on Lake's dependency tracking and the pinned
+Lean toolchain; routine runs do not independently recheck imported objects.
+`--replay` (also `--full`) adds a fresh independent whole-project kernel recheck
+for toolchain/cache investigations or explicit audits. It cannot be combined
+with `--target`. `--clean` discards the local proof workspace without implying
+replay. The Oracle requires complete proofs and correspondence, not this
+additional standalone recheck. Each of the twelve
 embedded Ada files is a binary input dependency of its own handwritten binding
 module, rehashed on each invocation. Changing one file invalidates that binding,
 its certificate and transitive importers. Unrelated certificates and models can
 remain cached; changes to their shared Lean dependencies still invalidate them.
 Exact one-module libraries follow the umbrella library in the handwritten Lake
 configuration so the pinned Lake version selects their specific ownership.
-This cache boundary leaves complete audit coverage and fresh replay unchanged.
+This cache boundary retains complete default audit coverage and optional replay.
 Lean/Lake startup receives explicit native tool, sysroot, configuration, and cache paths;
 inherited Lean/Elan search
 paths and tool selections cannot redirect it. Artifact restoration is disabled
-for proof replay; this does not disable the local Lake build cache.
+for proof checking; this does not disable the local Lake build cache.
 
 The handwritten import facade is protected like other proof inputs; only the
 twelve enumerated candidate modules may be regenerated. After generation and
-again after replay, noncandidate workspace modules and
+again after checking, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot
 replace a handwritten binding or proof module while leaving only a self-consistent

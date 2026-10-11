@@ -1,5 +1,5 @@
 """Lean evidence, incremental workspace integrity and temporary-path regressions."""
-from contextlib import ExitStack, redirect_stdout
+from contextlib import ExitStack, redirect_stderr, redirect_stdout
 import io
 import json
 import os
@@ -69,6 +69,19 @@ class LeanEvidenceTests(unittest.TestCase):
             audit_import_closure({"Silver.Audit": Path("Audit.lean")},
                                  "SILVER_MODULE Silver.Audit\nSILVER_MODULE Silver.Hidden\n")
 
+    def test_focused_environment_checks_requested_modules_and_real_imports(self) -> None:
+        modules = {name: Path(name + ".lean") for name in (
+            "Silver.AxiomAudit", "Silver.Model", "Silver.Shared", "Silver.Unrelated")}
+        imported = {"Silver.AxiomAudit", "Silver.Model", "Silver.Shared"}
+        output = "".join(f"SILVER_MODULE {name}\n" for name in sorted(imported))
+        self.assertEqual(audit_import_closure(modules, output, ["Silver.Model"]), imported)
+        for missing in ("Silver.Model", "Silver.AxiomAudit"):
+            with self.subTest(missing=missing), self.assertRaises(RuntimeError):
+                audit_import_closure(modules, output.replace(f"SILVER_MODULE {missing}\n", ""),
+                                     ["Silver.Model"])
+        with self.assertRaisesRegex(RuntimeError, "Silver.Hidden"):
+            audit_import_closure(modules, output + "SILVER_MODULE Silver.Hidden\n", ["Silver.Model"])
+
     def workspace(self) -> tuple[HostLayout, dict[Path, bytes]]:
         temporary = tempfile.TemporaryDirectory(prefix="silver-lean-binding-")
         self.addCleanup(temporary.cleanup)
@@ -128,6 +141,21 @@ class LeanEvidenceTests(unittest.TestCase):
         prepare_tool_cache(host, {"lean": "new hash"})
         self.assertFalse(cached.exists())
         self.assertEqual((source.read_bytes(), source.stat().st_mtime_ns), before)
+
+    def test_optional_checker_identity_does_not_discard_compiler_cache(self) -> None:
+        host, _inputs = self.workspace()
+        marker = host.proof / ".silver-cache-tools.json"
+        marker.write_text(json.dumps({"tools/bin/lean": "compiler", "tools/bin/lake": "builder",
+                                      "tools/bin/leanchecker": "old checker"}) + "\n")
+        cached = host.proof / ".lake/build/object.olean"
+        cached.parent.mkdir(parents=True)
+        cached.write_bytes(b"valid compiler cache")
+        before = (cached.read_bytes(), cached.stat().st_mtime_ns)
+        for hashes in ({"tools/bin/lean": "compiler", "tools/bin/lake": "builder"},
+                       {"tools/bin/lean": "compiler", "tools/bin/lake": "builder",
+                        "tools/bin/leanchecker": "new checker"}):
+            prepare_tool_cache(host, hashes)
+            self.assertEqual((cached.read_bytes(), cached.stat().st_mtime_ns), before)
 
     def test_generator_cannot_replace_handwritten_inputs_before_hash_capture(self) -> None:
         host, inputs = self.workspace()
@@ -193,6 +221,10 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         (root / "scripts/check_lean.py").write_text("# fixture runner input\n")
         (proof / "Silver.lean").write_text("namespace Silver\nend Silver\n")
         (proof / "Silver/Audit.lean").write_text("import Silver\n")
+        (proof / "Silver/AxiomAudit.lean").write_text("-- shared fresh-audit command\n")
+        (proof / "Silver/Shared.lean").write_text("example : True := True.intro\n")
+        (proof / "Silver/Model.lean").write_text("import Silver.Shared\n")
+        (proof / "Silver/ModelTwo.lean").write_text("import Silver.Shared\n")
         (proof / "lakefile.lean").write_text("import Lake\n")
         (proof / "lean-toolchain").write_text("leanprover/lean4:v4.34.1\n")
         (proof / "generate_source_certificate.py").write_text("# fixture generator\n")
@@ -202,7 +234,7 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         (host.lean / "bin").mkdir(parents=True)
         for tool in ("lean", "lake", "leanchecker"):
             (host.lean / "bin" / tool).write_text("fixture " + tool)
-        state = SimpleNamespace(host=host, phases=[], generated=0, after_generation=None,
+        state = SimpleNamespace(host=host, phases=[], commands=[], generated=0, after_generation=None,
                                 after_phase=None, audit="valid", fail=None, interrupt=None)
 
         def run(command, **_kwargs):
@@ -221,16 +253,23 @@ class LeanRunnerPhaseTests(unittest.TestCase):
             self.assertEqual(env["LEAN_NUM_THREADS"], "2")
             phase = "build" if "build" in command else "audit" if command[-1].endswith(".lean") else "kernel"
             state.phases.append(phase)
+            state.commands.append(command)
             output = "fixture " + phase + "\n"
             if phase == "build":
-                artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
-                artifact.parent.mkdir(parents=True)
-                artifact.write_bytes(b"compiled fixture")
+                for module in command[command.index("build") + 1:]:
+                    module = module.removeprefix("+")
+                    artifact = host.proof / ".lake/build/lib/lean" / Path(*module.split(".")).with_suffix(".olean")
+                    artifact.parent.mkdir(parents=True, exist_ok=True)
+                    artifact.write_bytes(b"compiled fixture")
                 output += "Silver axiom audit passed: cached output is insufficient\n"
             if phase == "audit":
                 if state.audit != "missing-marker":
                     output += "Silver axiom audit passed: fixture\n"
                 names = sorted(check_lean.project_sources(host.proof))
+                if command[-1].endswith("silver-focused-audit.lean"):
+                    driver = (host.proof / command[-1]).read_text()
+                    names = sorted({line.removeprefix("import ") for line in driver.splitlines()
+                                    if line.startswith("import ")} | {"Silver.Shared"})
                 if state.audit == "missing-module":
                     names = names[1:]
                 if state.audit == "unexpected-module":
@@ -376,6 +415,159 @@ class LeanRunnerPhaseTests(unittest.TestCase):
             self.assertLessEqual(phase["started_at"], phase["finished_at"])
         self.assertEqual(set(evidence["modules"]), set(check_lean.project_sources(state.host.proof)))
         self.assertEqual(evidence["kernel_recheck"], "leanchecker --fresh Silver.Audit")
+
+    def test_routine_and_clean_checks_skip_replay_and_detailed_artifact_collection(self) -> None:
+        for arguments in ([], ["--clean"]):
+            with self.subTest(arguments=arguments):
+                state = self.fixture()
+                (state.host.lean / "bin/leanchecker").unlink()
+                with redirect_stdout(io.StringIO()), mock.patch.object(
+                        check_lean, "compiled_artifacts", side_effect=AssertionError("optional collection ran")):
+                    check_lean.main(arguments)
+                self.assertEqual(state.phases, ["build", "audit"])
+                evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
+                self.assertEqual(evidence["scope"], "complete")
+                self.assertIsNone(evidence["kernel_recheck"])
+                self.assertRegex(evidence["inputs_digest_sha256"], r"^[0-9a-f]{64}$")
+                self.assertTrue(evidence["tools_sha256"])
+                for field in ("artifacts_sha256", "inputs_sha256",
+                              "workspace_inputs_sha256"):
+                    self.assertNotIn(field, evidence)
+
+    def test_provenance_collects_detail_without_enabling_replay(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--provenance"])
+        self.assertEqual(state.phases, ["build", "audit"])
+        evidence = json.loads((state.host.artifacts / "lean-evidence.json").read_text())
+        self.assertIsNone(evidence["kernel_recheck"])
+        self.assertTrue(evidence["artifacts_sha256"])
+        self.assertIn("proof/Silver/Model.lean", evidence["inputs_sha256"])
+        self.assertIn("Silver/Model.lean", evidence["workspace_inputs_sha256"])
+        self.assertTrue(evidence["tools_sha256"])
+
+    def test_replay_and_full_alias_request_kernel_after_fresh_audit(self) -> None:
+        for option in ("--replay", "--full"):
+            with self.subTest(option=option):
+                state = self.fixture()
+                with redirect_stdout(io.StringIO()):
+                    check_lean.main([option])
+                self.assertEqual(state.phases, ["build", "audit", "kernel"])
+                self.assertIn("--fresh", state.commands[-1])
+
+    def test_focused_check_syncs_targets_and_keeps_complete_evidence_and_unrelated_objects(self) -> None:
+        state = self.fixture()
+        host = state.host
+        host.artifacts.mkdir(parents=True)
+        complete_evidence = host.artifacts / "lean-evidence.json"
+        complete_log = host.artifacts / "lean-proof.log"
+        complete_evidence.write_text('{"historical": "complete evidence for earlier inputs"}\n')
+        complete_log.write_text("historical complete log\n")
+        (host.root / "proof/Silver/Model.lean").write_text("import Silver.Shared\n-- current source\n")
+        before = (complete_evidence.read_bytes(), complete_log.read_bytes())
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model", "--target", "Silver.ModelTwo",
+                             "--target", "Silver.Model"])
+        self.assertEqual(state.phases, ["build", "audit"])
+        build = state.commands[0]
+        self.assertEqual(build[build.index("build") + 1:],
+                         ["+Silver.Model", "+Silver.ModelTwo", "+Silver.AxiomAudit"])
+        self.assertEqual((host.proof / "Silver/Model.lean").read_bytes(),
+                         (host.root / "proof/Silver/Model.lean").read_bytes())
+        driver = (host.proof / ".lake/silver-focused-audit.lean").read_text()
+        self.assertIn("#silver_audit", driver)
+        self.assertIn("import Silver.Model\n", driver)
+        self.assertNotIn("import Silver\n", driver)
+        self.assertNotIn("import Silver.Audit\n", driver)
+        evidence = json.loads((host.artifacts / "lean-focused-evidence.json").read_text())
+        self.assertEqual(evidence["scope"], "focused")
+        self.assertEqual(evidence["targets"], ["Silver.Model", "Silver.ModelTwo"])
+        self.assertEqual(set(evidence["modules"]),
+                         {"Silver.Model", "Silver.ModelTwo", "Silver.Shared", "Silver.AxiomAudit"})
+        self.assertIsNone(evidence["kernel_recheck"])
+        self.assertEqual((complete_evidence.read_bytes(), complete_log.read_bytes()), before)
+        cached = host.proof / ".lake/build/lib/lean/Silver/Unrelated.olean"
+        cached.write_bytes(b"unrelated completed proof")
+        prior = (cached.read_bytes(), cached.stat().st_mtime_ns)
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model"])
+        self.assertEqual((cached.read_bytes(), cached.stat().st_mtime_ns), prior)
+        self.assertEqual((complete_evidence.read_bytes(), complete_log.read_bytes()), before)
+
+    def test_failed_focused_audit_cannot_reuse_its_old_success_or_replace_complete_evidence(self) -> None:
+        for audit in ("missing-marker", "missing-module", "unexpected-module"):
+            with self.subTest(audit=audit):
+                state = self.fixture()
+                state.audit = audit
+                state.host.artifacts.mkdir(parents=True)
+                complete = state.host.artifacts / "lean-evidence.json"
+                focused = state.host.artifacts / "lean-focused-evidence.json"
+                complete.write_bytes(b"prior complete evidence\n")
+                focused.write_bytes(b"prior focused evidence\n")
+                with redirect_stdout(io.StringIO()), self.assertRaises(RuntimeError):
+                    check_lean.main(["--target", "Silver.Model"])
+                self.assertFalse(focused.exists())
+                self.assertEqual(complete.read_bytes(), b"prior complete evidence\n")
+                self.assertEqual(state.phases, ["build", "audit"])
+
+    def test_root_target_selects_the_module_instead_of_the_lake_library(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver"])
+        build = state.commands[0]
+        self.assertEqual(build[build.index("build") + 1:], ["+Silver", "+Silver.AxiomAudit"])
+        driver = (state.host.proof / ".lake/silver-focused-audit.lean").read_text()
+        self.assertIn("import Silver\n", driver)
+        self.assertNotIn("import +Silver", driver)
+
+    def test_invalid_target_or_focused_replay_does_not_mutate_workspace_or_evidence(self) -> None:
+        for arguments in (["--target", "Silver.Missing"], ["--target", "../Silver"],
+                          ["--target", "Silver.Model\nimport Silver"],
+                          ["--target", "Silver.Model:olean"],
+                          ["--target", "Silver.Model", "--replay"],
+                          ["--target", "Silver.Model", "--full"]):
+            with self.subTest(arguments=arguments):
+                state = self.fixture()
+                state.host.artifacts.mkdir(parents=True)
+                for name in ("lean-evidence.json", "lean-focused-evidence.json"):
+                    (state.host.artifacts / name).write_bytes(b"prior evidence\n")
+                with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()), \
+                        self.assertRaises((RuntimeError, SystemExit)):
+                    check_lean.main(arguments)
+                self.assertFalse(state.host.proof.exists())
+                self.assertEqual(state.generated, 0)
+                self.assertEqual(state.phases, [])
+                for name in ("lean-evidence.json", "lean-focused-evidence.json"):
+                    self.assertEqual((state.host.artifacts / name).read_bytes(), b"prior evidence\n")
+
+    def test_focused_result_digest_changes_with_protected_input_bytes(self) -> None:
+        state = self.fixture()
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model"])
+        evidence = state.host.artifacts / "lean-focused-evidence.json"
+        before = json.loads(evidence.read_text())["inputs_digest_sha256"]
+        (state.host.root / "src/silver_profile.adb").write_text("-- changed authoritative bytes\n")
+        with redirect_stdout(io.StringIO()):
+            check_lean.main(["--target", "Silver.Model"])
+        self.assertNotEqual(json.loads(evidence.read_text())["inputs_digest_sha256"], before)
+
+    def test_focused_input_drift_stops_before_audit_and_preserves_cache(self) -> None:
+        state = self.fixture()
+        state.after_phase = lambda _phase, host: (host.root / "src/new.ads").write_text("-- new\n")
+        with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, "shared inventory or bytes"):
+            check_lean.main(["--target", "Silver.Model"])
+        self.assertEqual(state.phases, ["build"])
+        self.assertFalse((state.host.artifacts / "lean-focused-evidence.json").exists())
+        self.assertTrue((state.host.proof / ".lake/build/lib/lean/Silver/Model.olean").is_file())
+
+    def test_focused_driver_drift_stops_before_audit(self) -> None:
+        state = self.fixture()
+        state.after_phase = lambda _phase, host: (
+            host.proof / ".lake/silver-focused-audit.lean").write_text("-- replaced audit driver\n")
+        with redirect_stdout(io.StringIO()), self.assertRaisesRegex(RuntimeError, "audit.*changed|changed.*audit"):
+            check_lean.main(["--target", "Silver.Model"])
+        self.assertEqual(state.phases, ["build"])
+        self.assertFalse((state.host.artifacts / "lean-focused-evidence.json").exists())
 
 
 class LeanStreamingTests(unittest.TestCase):

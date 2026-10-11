@@ -86,13 +86,19 @@ The commands below are a menu, not a sequence to repeat after every edit:
 python3 scripts/dev.py prove
 python3 scripts/dev.py build
 python3 scripts/dev.py test -- -p test_string_assignment.py
+python3 scripts/check_lean.py --target Silver.BranchingMain
 ```
 
 Choose the test file for the affected behavior. Batch recognizer and proof edits
 before rebuilding the expensive source certificates; focused model proofs give
 early feedback, while actual-source correspondence remains required at the
-capability checkpoint. During daytime iteration, use targeted Lean model/module
-checks with the existing dependencies. After changes to embedded Ada source,
+capability checkpoint. `check_lean.py --target MODULE` synchronizes the proof
+workspace, builds that module and its dependencies, and freshly audits their
+actual imported declarations. Repeat `--target` to select several modules.
+Focused results are recorded separately and do not establish complete
+source correspondence, even when every selected proof passes. Use the runner
+instead of invoking Lake on potentially stale workspace copies. After changes
+to embedded Ada source,
 queue the complete source-correspondence run for a stable checkpoint, normally
 the end of the session or day. Keep the capability pending until that checkpoint
 passes; record the exact inputs and outstanding validation when handing it off.
@@ -102,11 +108,12 @@ continue with documentation, read-only work or an isolated worktree. Run only
 one writer against a host's proof workspace. Reuse successful native checks
 whose inputs remain unchanged.
 
-`python3 scripts/check_lean.py` is useful for a cached whole-project check when
-its source-certificate dependencies are unchanged. Omitting `--full` does not
-avoid certificate rebuilding after an embedded-source change: `--full` adds the
-independent fresh kernel replay to the build and fresh axiom audit. Do not use
-the whole-project command as the default inner loop for recognizer changes.
+`python3 scripts/check_lean.py` performs a complete cached build and fresh
+whole-project axiom/module-coverage audit. It still rebuilds certificates affected
+by embedded-source changes. Choose model targets during exploration; complete
+the source proofs at the stable checkpoint. Shared dependencies can rebuild
+in either mode. Independent kernel replay is optional, selected by `--replay`
+(`--full` remains an alias), and cannot be combined with `--target`.
 Documentation-only changes need link, consistency and whitespace checks,
 without unrelated proof or test reruns.
 
@@ -123,7 +130,8 @@ Changing just that file invalidates its binding, certificate and transitive
 importers; unrelated certificates and source-independent model modules can
 remain cached. Shared Lean changes can invalidate additional modules. The stable
 checkpoint and complete source-correspondence requirement remain. The module/axiom
-audit executes on every invocation, including cache hits. `--workers N` controls
+audit executes on every invocation, including cache hits, with the selected
+import scope. `--workers N` controls
 Lake's workers for
 independent modules; `--threads N` separately controls each Lean build/audit
 process. Both default to `0`, selecting the CPUs available through process
@@ -149,7 +157,7 @@ validation checkpoint before describing it as supported:
 python3 scripts/dev.py prove --full
 python3 scripts/dev.py build
 python3 scripts/dev.py test
-python3 scripts/check_lean.py --full
+python3 scripts/check_lean.py
 ```
 
 After successful validation, repeat only checks invalidated by changed inputs,
@@ -169,17 +177,22 @@ preserves the normal warm state and every other host's artifacts. Cold mode
 rejects custom `--subdirs`. Use it for a fresh-proof measurement, toolchain
 investigation or suspected cache problem, not as a mandatory capability gate.
 
-Full Lean validation adds the independent fresh kernel recheck.
-The runner checks complete input inventories between phases and verifies the
-fresh audit's module coverage before starting that replay. If inputs change
-during a long build, it stops before later expensive work and retains the
-completed module cache. Phase output streams to the log as it arrives. This
-avoids wasted work on a stale run; it does not make an unchanged proof faster.
-`check_lean.py --clean` also discards the current host's proof workspace. Clean
-runs serve toolchain changes, cache investigations and CI; they are not the
-everyday editing loop. Both workflows keep the same logical requirements.
-Cached evidence must apply
-to the current inputs and configuration.
+Routine Lean validation trusts the pinned local toolchain and Lake's imported
+objects, checks stable inputs between phases, and freshly audits the expected
+module coverage and transitive axioms. `--replay` additionally runs the independent
+`leanchecker --fresh` over the whole project. Reserve it for toolchain changes,
+cache investigations or an explicit audit; the Oracle does not require this
+second replay. `--provenance` adds detailed input, workspace and artifact
+inventories to the concise content-bound result and streamed log.
+
+If inputs change during a long build, the runner stops before later expensive
+work and retains completed module objects. `--clean` discards only the current
+host's proof workspace; it does not imply replay. Use it when investigating
+cache or toolchain problems, not for everyday edits. These choices do not remove
+source-correspondence proofs or change allowed axioms. Cached evidence must
+apply to the current inputs and configuration. The
+[focused-runner record](docs/lean-iteration.md) documents this workflow change
+and its validation.
 
 For exploratory GNATprove options, use a separate output directory:
 

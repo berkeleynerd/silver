@@ -8,6 +8,18 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
+The [focused Lean runner](docs/lean-iteration.md) and selected workflow
+simplification are complete. `check_lean.py --target MODULE` synchronizes current
+inputs, builds the selected modules/imports and performs a fresh scoped axiom
+audit. Default invocation remains a complete cached source-correspondence build
+and coverage/axiom audit. Separate replay (`--replay`, alias `--full`) and detailed
+provenance (`--provenance`) are explicit optional investigations. `--clean` no
+longer implies replay. Focused evidence is separate and cannot establish complete
+assurance. Native runner regressions, scratch replay/axiom probes and the complete
+cached Linux check passed, preserving all twelve certificate objects. The live
+harness goal covers these optimizations; the implementation/review target is the
+commit introducing `proof/Silver/AxiomAudit.lean`, based on `fe539a5`.
+
 The bounded [Lean compartmentalization](docs/lean-compartmentalization.md) is
 complete and adopted. Each embedded Ada file has its own Lean dependency, and
 stable lexical/name helpers occupy a separate SPARK package. Complete Linux
@@ -16,12 +28,10 @@ evidence review passed. Existing evidence and caches are preserved. The
 implementation/review target is the commit introducing
 `src/silver_output_lexical.ads`, based on `1ed039e`. No language expansion occurred.
 
-The owner questioned routine replay and bookkeeping. A proposed follow-up would
-retain actual-source proofs, correct dependencies, cheap axiom/coverage auditing
-and input stability, while making duplicate replay and extensive provenance
-optional for investigations. This is a recommendation, not an implemented policy
-change; the current checkpoint kept all existing checks. Do not silently remove
-checks or begin another language capability from that discussion.
+The owner authorized the runner follow-up after questioning routine replay and
+bookkeeping. The workflow change retains actual-source proofs, correct
+dependencies, fresh axiom/coverage auditing and input stability. No language
+capability or further certificate framework was begun.
 
 [Input-dependent branching](docs/input-branching.md) is complete: one String
 equality on validated argv input selects two terminal literal-output branches;
@@ -40,10 +50,9 @@ git log --diff-filter=A -1 --format='%H %s' -- samples/input_branching.adb
 
 It is based on `4422316`. The preceding assignment implementation and review
 target `44fd8ea` retain their [completed evidence](docs/string-assignment.md).
-The live harness still records that completed seventh-production goal; this
-branching and compartmentalization tasks did not explicitly request a replacement
-harness goal. Recheck
-the live goal at resumption rather than treating history as a new instruction.
+The earlier branching and compartmentalization tasks did not request a replacement
+harness goal. The runner follow-up does; recheck its live state at resumption
+rather than treating historical goals as new instructions.
 The [runner follow-up](docs/lean-concurrency.md#runner-follow-up) and
 [native I/O optimization](docs/native-io-performance.md) also remain complete.
 
@@ -81,14 +90,14 @@ python3 scripts/dev.py test -- -p test_branching.py
 ```
 
 Choose tests for the affected behavior and batch edits before expensive
-source-certificate rebuilds. Use focused Lean model/module checks during the
-day. `python3 scripts/check_lean.py --memory-mb 12288` is useful for a cached
-whole-project check, but a changed embedded Ada source triggers certificate
-rebuilding even without `--full`. Once a capability's inputs are stable, normally
-at the end of the session or day, run the full
-test suite and add `--full` to both proof commands. This regenerates
-complete compiler evidence and adds Lean's independent fresh kernel recheck;
-it does not imply a cold build. Repeat only validation affected by subsequent
+source-certificate rebuilds. Use `python3 scripts/check_lean.py --target
+Silver.BranchingMain --memory-mb 12288` for focused model feedback. Without a
+target, a changed embedded Ada source still triggers its certificate rebuild.
+Once a capability's inputs are stable, normally at the end of the session or
+day, run the full test suite, `dev.py prove --full`, and `check_lean.py` without
+a target. This retains complete compiler and source-correspondence validation
+with cache reuse. Add `--replay` only for an explicit independent kernel audit;
+it is no longer part of every checkpoint. Repeat only validation affected by subsequent
 changes, failures or unresolved concerns. Documentation-only follow-ups need
 lightweight checks. See the [validation cadence](development.md#proof-loop-and-validation).
 Monitor aggregate host memory when running heavy
@@ -96,7 +105,8 @@ commands together. Preserve `.tools/<host>/`, `.silver/<host>/`, scratch files
 and all foreign-host evidence. Source/runtime installation moves require
 bootstrap and rebuild under the [platform coexistence rules](docs/platform-coexistence.md).
 
-The completed partition's evidence is under
+The runner follow-up's evidence is under
+`.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed capability's evidence is under
 `.silver/linux-x86_64/branching-validation/`; the preceding assignment evidence
 is under `.silver/linux-x86_64/assignment-validation/`. Earlier review follow-up records

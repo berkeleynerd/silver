@@ -306,14 +306,14 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
             data = json.loads(evidence.read_text())
             assert data["host"] == key
             assert data["workspace"] == str(host.proof.relative_to(root))
-            assert data["mode"] == lean_mode
-            assert data["clean_replay"] == (lean_mode == "clean")
+            assert data["scope"] == "complete"
+            assert data["mode"] == ("replay" if lean_mode == "full" else lean_mode)
             assert data["available_cpus"] == available_cpus
             assert data["lake_workers"] == resolved_workers
             assert data["threads_per_process"] == resolved_threads
-            assert bool(data["kernel_recheck"]) == (lean_mode != "incremental")
+            assert bool(data["kernel_recheck"]) == (lean_mode == "full")
             assert any(command[-1] == "Silver/Audit.lean" for command in commands)
-            assert any("--fresh" in command for command in commands) == (lean_mode != "incremental")
+            assert any("--fresh" in command for command in commands) == (lean_mode == "full")
         (host.artifacts / "setup-routing-test.json").write_text(
             json.dumps({"host": key, "downloads": fetched, "commands": commands,
                         "mocked_tools": True, "failed_proof": fail_proof}, indent=2))

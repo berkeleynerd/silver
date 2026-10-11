@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-10-11 — Focused Lean runner and simpler routine validation
+
+The owner explicitly requested a goal for selected-module checking and the
+previously recommended replay/bookkeeping optimizations. The live harness goal
+and conversation title were updated. The [runner change](lean-iteration.md) is
+implemented and validated: repeatable `--target` options synchronize inputs,
+build explicit module targets and freshly audit their actual import closure.
+Focused results are separate from complete evidence and mean partial validation.
+
+Routine stable checkpoints now use a complete cached Lean build with the fresh
+axiom/coverage audit. `--replay` (alias `--full`) explicitly requests standalone
+whole-project checking; `--provenance` selects detailed inventories. `--clean`
+discards the local proof workspace without implying replay. The owner authorized
+this workflow change; source correspondence, input stability, source dependency
+invalidation and the three permitted Lean foundations remain unchanged. Local
+toolchain/cache trust is explicit. No Oracle or language change occurred.
+
+Linux runner/platform/source regressions, native axiom and tiny-project replay
+probes, and the complete cached project check passed. All twelve certificate
+objects were preserved. Previous canonical evidence is saved under
+`.silver/linux-x86_64/lean-iteration-2026-10-11/baseline/`; scratch, caches and
+foreign-host evidence remain preserved. See the record for timing scope and the
+remaining expensive changed-body certificate. No production standalone replay,
+SPARK rerun or macOS proof work was needed for this tooling change.
+
+The implementation/review target is the commit adding
+`proof/Silver/AxiomAudit.lean`, based on `fe539a5`. Publication remains authorized;
+the closing response and local record identify its commit and remote state.
+GitHub Actions remains disabled. No CLI memory tool or conventional recall
+directory was available, so no CLI entry was updated. Checked-in memory is the
+durable handoff. Bounded String output expressions remain the next language
+proposal; this optimization goal did not begin them. The old GNATprove `DOC_END`
+issue remains unresolved, and GNAT Pro remains untested.
+
 ## 2026-10-11 — Bounded compartmentalization completed; simpler replay proposed
 
 The authorized [bounded experiment](lean-compartmentalization.md) is complete

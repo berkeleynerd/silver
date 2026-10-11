@@ -32,8 +32,11 @@ inputs and a concise result/log. Separate `leanchecker --fresh` could be reserve
 for toolchain changes, cache investigations or explicit audits. It is an
 additional workflow check, not an explicit Oracle requirement. Ordinary Lean
 imports trust locally built compiled objects; the existing local tool/cache
-assumption would remain explicit. This recommendation does not remove a check
-in this task. The current checkpoint retains full replay.
+assumption would remain explicit. This recommendation did not remove a check in
+the partition task; its checkpoint retained full replay. The owner subsequently
+authorized the [focused-runner follow-up](lean-iteration.md), which implements
+optional replay and detailed provenance while retaining complete routine source
+checking.
 
 ## Implementation
 

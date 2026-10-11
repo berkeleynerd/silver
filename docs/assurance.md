@@ -23,6 +23,9 @@ compiler's source boundaries and Lean dependencies. Its measurement record
 includes complete native validation, source correspondence, the fresh axiom
 audit and independent kernel replay. The preceding language increment is
 recorded in [input-branching.md](input-branching.md).
+The [focused-runner record](lean-iteration.md) describes the subsequent
+workflow simplification; it changes validation scope and optional replay,
+not the source-correspondence argument.
 The preceding assignment increment is recorded in
 [string-assignment.md](string-assignment.md).
 The preceding report-policy refinement is recorded in
@@ -579,7 +582,8 @@ Bootstrap embeds their exact bytes in `Silver_Library_Sources`; the
 compiler rejects installation files that differ before snapshotting them.
 The compiler audit checks this generated binding against the current source,
 and Lean checks those source files directly. After editing a runtime file,
-bootstrap, rebuild, compiler audit and Lean replay must be refreshed together.
+bootstrap, rebuild, compiler audit and complete Lean validation must be
+refreshed together.
 This binds source selection; it is not a compiler-binary attestation.
 
 `Silver_Libraries` has proved contracts connecting captured expected bytes and
@@ -796,7 +800,7 @@ an aggregate budget for concurrent processes. The pinned standalone
 `leanchecker` accepts no memory-limit CLI option.
 
 Each native host uses its own `.tools/<host>/lean` installation and
-`.silver/<host>/proof` replay workspace. The checker copies shared proof inputs
+`.silver/<host>/proof` workspace. The checker copies shared proof inputs
 without modifying them and writes generated candidate certificates only in
 that host's workspace. Lake's manifest and objects are isolated there too.
 The workspace's sibling `src` link resolves directly to the authoritative
@@ -815,31 +819,45 @@ the clean environment and left the foreign-host sentinel unchanged.
 regenerates twelve candidate source-certificate modules and builds incrementally.
 The handwritten `SourceCertificates` facade imports them; Lake can check their
 independent declarations in parallel. The facade and source bindings remain
-protected inputs, not candidate output. It executes
-`Silver.Audit` afresh after building, even on a cache hit, and requires every
-project module in that audit's actual import closure. `--full` additionally
-rechecks exported objects with the pinned `leanchecker --fresh Silver.Audit`;
-`--clean` first discards the host workspace and implies `--full`. The imported-module
-inventory comes from Lean's actual environment rather than source-text regexes. That audit inspects the transitive
+protected inputs, not candidate output. With no target, the runner builds the
+whole project, executes `Silver.Audit` afresh even on a cache hit, and requires
+every project module in that audit's actual import closure. Repeatable
+`--target MODULE` options instead build selected modules and their dependencies,
+then freshly audit their actual import closure. Focused results are separate
+from complete results and do not establish complete source correspondence.
+Both modes synchronize authoritative proof inputs before building.
+
+The imported-module inventory comes from Lean's actual environment rather than
+source-text regexes. The audit inspects the transitive
 axioms of every declaration originating in a Silver proof module, including
 private and generated declarations. It permits only Lean's standard `propext`,
 `Quot.sound`, and `Classical.choice` foundations. Unfinished proofs,
 project-specific axioms, and native-evaluation trust axioms fail the audit.
-A successful replay writes `.silver/<host>/lean-proof.log` and
-`.silver/<host>/lean-evidence.json`, recording the version, modules, duration, and input
-fingerprints for both shared inputs and the exact workspace copies, together
-with the mode and whether a separate kernel recheck ran. Input changes
-during replay are rejected; the current host's stale success evidence is removed
-before setup or generation begins. Other hosts' evidence is untouched.
+Routine validation uses the pinned local toolchain and Lake's imported object
+cache. Optional `--replay` (with `--full` retained as an alias) independently
+rechecks the whole environment with `leanchecker --fresh Silver.Audit` and is
+incompatible with `--target`. This additional replay is useful for toolchain or
+cache investigations and explicit audits; it is not an Oracle requirement.
+`--clean` discards the host workspace without implying replay.
+
+A successful complete check writes `.silver/<host>/lean-proof.log` and
+`.silver/<host>/lean-evidence.json`. The concise result records scope, modules,
+tool version and identities, phase timings, an aggregate input fingerprint and replay status.
+Focused checks write `lean-focused.log` and `lean-focused-evidence.json` in
+that host's directory. `--provenance` adds detailed
+input, workspace and artifact inventories. Input and tool changes during
+a run are rejected, and protected workspace copies must match shared inputs.
+The current scope's stale success evidence is removed before setup or generation
+begins; other hosts' evidence is untouched.
 
 The earlier clean replay is recorded in [review-repairs.md](review-repairs.md);
 incremental/full workflow validation is in [proof-workflow.md](proof-workflow.md).
-Evidence hashes include
-the orchestration scripts and verification tools as well as proof/source inputs.
+Input fingerprints include orchestration scripts and proof/source inputs;
+tool stability is checked independently. Detailed provenance is optional.
 
 ```sh
 python3 scripts/bootstrap_lean.py
-python3 scripts/check_lean.py --full
+python3 scripts/check_lean.py
 ```
 
 The proof chain has distinct checked components:
@@ -950,8 +968,9 @@ each attached to the exact library owning its handwritten binding module.
 Editing one file invalidates that binding, its certificate and their transitive
 importers; it does not by itself invalidate unrelated certificates or
 source-independent models. Changes to shared Lean dependencies can rebuild more
-modules. The complete fresh axiom audit and requested kernel replay retain
-their whole-project scope. Content rehashing detects changed source even if
+modules. The default fresh axiom audit and optional kernel replay retain
+their whole-project scope; focused checks audit only their selected import
+closure. Content rehashing detects changed source even if
 timestamps are restored; line-ending differences remain significant. A cached
 Lean object for different Ada source is not accepted as current evidence. Kernel
 regression theorems reject unsupported comment/literal forms and prove
