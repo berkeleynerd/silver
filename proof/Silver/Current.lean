@@ -1,102 +1,44 @@
-import Silver.OutputAdmission
-import Silver.OutputRuntime
-import Silver.Semantics
-import Silver.NamedSemantics
-import Silver.NamedDisjoint
-import Silver.ArgumentsDisjoint
-import Silver.ConcatDisjoint
-import Silver.GuardedDisjoint
-import Silver.GuardedObligations
-import Silver.AssignmentDisjoint
-import Silver.BranchingDisjoint
+import Silver.ComposeDecode
+import Silver.ComposeExecution
+import Silver.ComposeObligations
+import Silver.Cursor
 
-/-! One current language, eight productions. Guarded dynamic concatenation adds
-bounded range schemas. Their arithmetic validity is proved; faithful generation
-and completion of the pinned external tools on that concrete fragment are
-explicit ToolContract premises. Optimization may remove a generated check, but
-the real compiler must audit every check actually emitted. The selected library
-bodies retain their separately audited obligations. -/
+/-! One current language: null plus the shared expression/shell grammar.
+Every admitted source has one selected meaning. The explicit external tool
+contract retains faithful obligation generation and bounded-fragment solver
+completion; source membership never depends on the solver. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Output.Member source ∨ Named.Member source ∨ Arguments.Member source ∨ Concat.Member source ∨ Guarded.Member source ∨ Assignment.Member source ∨ Branching.Member source
-def accepts (source : Source) : Bool := Silver.accepts source || (Output.accepts source || (Named.accepts source || (Arguments.accepts source || (Concat.accepts source || (Guarded.accepts source || (Assignment.accepts source || Branching.accepts source))))))
+def Member (source : Source) : Prop := Silver.Member source ∨ Compose.Member source
+
+def accepts (source : Source) : Bool := Silver.accepts source || Compose.accepts source
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Output.accepts_iff_member, Named.accepts_iff_member, Arguments.accepts_iff_member, Concat.accepts_iff_member, Guarded.accepts_iff_member, Assignment.accepts_iff_member, Branching.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Compose.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
 
 inductive Program
   | nullMain
-  | outputMain (literal : Source)
-  | argumentMain (defaultValue : Source)
-  | guardedMain (program : Guarded.Program)
-  | branchingMain (program : Branching.Program)
+  | composed (program : Compose.Program)
   deriving DecidableEq, Repr
 
 inductive SourceMeaning : Source → Program → Prop
   | nullMain {source : Source} : Silver.Member source → SourceMeaning source .nullMain
-  | outputMain {source literal : Source} :
-      Output.Member source → Output.Parsed source Output.requiredTokens 1 [literal] →
-      SourceMeaning source (.outputMain literal)
-
-  | namedMain {source : Source} {program : Named.Program} :
-      Named.SourceMeaning source program → SourceMeaning source (.outputMain program.literal)
-
-  | argumentMain {source : Source} {program : Arguments.Program} :
-      Arguments.SourceMeaning source program → SourceMeaning source (.argumentMain program.defaultValue)
-
-  | concatMain {source : Source} {program : Concat.Program} :
-      Concat.SourceMeaning source program → SourceMeaning source (.outputMain program.bytes)
-
-  | guardedMain {source : Source} {program : Guarded.Program} :
-      Guarded.SourceMeaning source program → SourceMeaning source (.guardedMain program)
-
-  | assignmentMain {source : Source} {program : Assignment.Program} :
-      Assignment.SourceMeaning source program → SourceMeaning source (.outputMain program.replacement)
-
-  | branchingMain {source : Source} {program : Branching.Program} :
-      Branching.SourceMeaning source program → SourceMeaning source (.branchingMain program)
+  | composed {source : Source} {form : Compose.Form} {events : List Compose.Event}
+      {program : Compose.Program} :
+      Compose.SourceMeaning source form events → Compose.decode form events = some program →
+      SourceMeaning source (.composed program)
 
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember | namedMember | argumentMember | concatMember | guardedMember | assignmentMember | branchingMember
+  rcases member with nullMember | outputMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
-  · obtain ⟨literal, parsed⟩ := outputMember.2.2.2
-    exact ⟨.outputMain literal, .outputMain outputMember parsed⟩
-  · obtain ⟨program, meaning⟩ := Named.member_has_meaning namedMember
-    exact ⟨.outputMain program.literal, .namedMain meaning⟩
-  · obtain ⟨program, meaning⟩ := Arguments.member_has_meaning argumentMember
-    exact ⟨.argumentMain program.defaultValue, .argumentMain meaning⟩
-  · obtain ⟨program, meaning⟩ := Concat.member_has_meaning concatMember
-    exact ⟨.outputMain program.bytes, .concatMain meaning⟩
-
-  · obtain ⟨program, meaning⟩ := Guarded.member_has_meaning guardedMember
-    exact ⟨.guardedMain program, .guardedMain meaning⟩
-  · obtain ⟨program, meaning⟩ := Assignment.member_has_meaning assignmentMember
-    exact ⟨.outputMain program.replacement, .assignmentMain meaning⟩
-  · obtain ⟨program, meaning⟩ := Branching.member_has_meaning branchingMember
-    exact ⟨.branchingMain program, .branchingMain meaning⟩
-
-/-- The first nontrivia token is `procedure` or `with`, never both. -/
-theorem member_disjoint (source : Source) : ¬ (Silver.Member source ∧ Output.Member source) := by
-  rintro ⟨nullMember, outputMember⟩
-  have nullParsed := (Cursor.isMember_iff source).mpr nullMember
-  change (_ && _ && (Cursor.tokenAt source (Cursor.triviaPosition source 1)
-    .procedureKeyword && _)) = true at nullParsed
-  simp only [Bool.and_eq_true] at nullParsed
-  have nullToken := nullParsed.2.1
-  obtain ⟨literal, parsed⟩ := outputMember.2.2.2
-  cases parsed with
-  | token different matched rest =>
-      simp only [Cursor.tokenAt, Bool.and_eq_true, decide_eq_true_eq] at nullToken
-      simp only [Output.tokenAt, Bool.and_eq_true, decide_eq_true_eq] at matched
-      have firstNull := nullToken.1.2 ⟨0, by decide⟩
-      have firstOutput := matched.1.2 ⟨0, by decide⟩
-      simp [Silver.Token.spelling, Output.Token.spelling, Output.Token.spellingText] at firstNull firstOutput
-      omega
+  · obtain ⟨form, events, meaning⟩ := Compose.member_has_meaning outputMember
+    obtain ⟨program, decoded, _⟩ := Compose.decoded_valid meaning
+    exact ⟨.composed program, .composed meaning decoded⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
     (first : SourceMeaning source left) (second : SourceMeaning source right) : left = right := by
@@ -104,147 +46,57 @@ theorem meaning_unique {source : Source} {left right : Program}
   | nullMain member =>
       cases second with
       | nullMain => rfl
-      | outputMain outputMember parsed => exact False.elim (member_disjoint source ⟨member, outputMember⟩)
-      | namedMain namedMeaning => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
-      | argumentMain meaning => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
-      | concatMain meaning => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
-      | guardedMain other => exact False.elim (Guarded.null_guarded_disjoint source ⟨member, other.1⟩)
-      | assignmentMain other => exact False.elim (Assignment.null_assignment_disjoint source ⟨member, other.1⟩)
-      | branchingMain other => exact False.elim (Branching.null_branching_disjoint source ⟨member, other.1⟩)
-  | outputMain member parsed =>
+      | composed meaning _ => exact False.elim (Compose.null_compose_disjoint source ⟨member, _, meaning.1⟩)
+  | composed meaning decoded =>
       cases second with
-      | nullMain nullMember => exact False.elim (member_disjoint source ⟨nullMember, member⟩)
-      | outputMain outputMember other =>
-          have same := Output.parsed_unique parsed other
-          simpa using congrArg Program.outputMain (List.cons.inj same).1
-      | namedMain namedMeaning => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
-      | argumentMain meaning => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
-      | concatMain meaning => exact False.elim (Concat.literal_concat_disjoint source ⟨member, meaning.1⟩)
-      | guardedMain other => exact False.elim (Guarded.literal_guarded_disjoint source ⟨member, other.1⟩)
-      | assignmentMain other => exact False.elim (Assignment.literal_assignment_disjoint source ⟨member, other.1⟩)
-      | branchingMain other => exact False.elim (Branching.literal_branching_disjoint source ⟨member, other.1⟩)
-  | namedMain namedMeaning =>
-      cases second with
-      | nullMain member => exact False.elim (Named.null_named_disjoint source ⟨member, namedMeaning.1⟩)
-      | outputMain member _ => exact False.elim (Named.literal_named_disjoint source ⟨member, namedMeaning.1⟩)
-      | namedMain other =>
-          exact congrArg (fun (program : Named.Program) => Program.outputMain program.literal)
-            (Named.meaning_unique namedMeaning other)
-      | argumentMain meaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
-      | concatMain meaning => exact False.elim (Concat.named_concat_disjoint source ⟨namedMeaning.1, meaning.1⟩)
-      | guardedMain other => exact False.elim (Guarded.named_guarded_disjoint source ⟨namedMeaning.1, other.1⟩)
-      | assignmentMain other => exact False.elim (Assignment.named_assignment_disjoint source ⟨namedMeaning.1, other.1⟩)
-      | branchingMain other => exact False.elim (Branching.named_branching_disjoint source ⟨namedMeaning.1, other.1⟩)
-  | argumentMain meaning =>
-      cases second with
-      | nullMain member => exact False.elim (Arguments.null_argument_disjoint source ⟨member, meaning.1⟩)
-      | outputMain member _ => exact False.elim (Arguments.literal_argument_disjoint source ⟨member, meaning.1⟩)
-      | namedMain namedMeaning => exact False.elim (Arguments.named_argument_disjoint source ⟨namedMeaning.1, meaning.1⟩)
-      | argumentMain other =>
-          exact congrArg (fun (program : Arguments.Program) => Program.argumentMain program.defaultValue)
-            (Arguments.meaning_unique meaning other)
-      | concatMain other => exact False.elim (Concat.concat_argument_disjoint source ⟨other.1, meaning.1⟩)
-      | guardedMain other => exact False.elim (Guarded.argument_guarded_disjoint source ⟨meaning.1, other.1⟩)
-      | assignmentMain other => exact False.elim (Assignment.assignment_argument_disjoint source ⟨other.1, meaning.1⟩)
-      | branchingMain other => exact False.elim (Branching.argument_branching_disjoint source ⟨meaning.1, other.1⟩)
-  | concatMain meaning =>
-      cases second with
-      | nullMain member => exact False.elim (Concat.null_concat_disjoint source ⟨member, meaning.1⟩)
-      | outputMain member _ => exact False.elim (Concat.literal_concat_disjoint source ⟨member, meaning.1⟩)
-      | namedMain other => exact False.elim (Concat.named_concat_disjoint source ⟨other.1, meaning.1⟩)
-      | argumentMain other => exact False.elim (Concat.concat_argument_disjoint source ⟨meaning.1, other.1⟩)
-      | concatMain other =>
-          exact congrArg (fun (program : Concat.Program) => Program.outputMain program.bytes)
-            (Concat.meaning_unique meaning other)
-      | guardedMain other => exact False.elim (Guarded.concat_guarded_disjoint source ⟨meaning.1, other.1⟩)
-      | assignmentMain other => exact False.elim (Assignment.concat_assignment_disjoint source ⟨meaning.1, other.1⟩)
-      | branchingMain other => exact False.elim (Branching.concat_branching_disjoint source ⟨meaning.1, other.1⟩)
-  | guardedMain meaning =>
-      cases second with
-      | nullMain member => exact False.elim (Guarded.null_guarded_disjoint source ⟨member, meaning.1⟩)
-      | outputMain member _ => exact False.elim (Guarded.literal_guarded_disjoint source ⟨member, meaning.1⟩)
-      | namedMain other => exact False.elim (Guarded.named_guarded_disjoint source ⟨other.1, meaning.1⟩)
-      | argumentMain other => exact False.elim (Guarded.argument_guarded_disjoint source ⟨other.1, meaning.1⟩)
-      | concatMain other => exact False.elim (Guarded.concat_guarded_disjoint source ⟨other.1, meaning.1⟩)
-      | guardedMain other => exact congrArg Program.guardedMain (Guarded.meaning_unique meaning other)
-      | assignmentMain other => exact False.elim (Assignment.assignment_guarded_disjoint source ⟨other.1, meaning.1⟩)
-      | branchingMain other => exact False.elim (Branching.guarded_branching_disjoint source ⟨meaning.1, other.1⟩)
-  | assignmentMain meaning =>
-      cases second with
-      | nullMain member => exact False.elim (Assignment.null_assignment_disjoint source ⟨member, meaning.1⟩)
-      | outputMain member _ => exact False.elim (Assignment.literal_assignment_disjoint source ⟨member, meaning.1⟩)
-      | namedMain other => exact False.elim (Assignment.named_assignment_disjoint source ⟨other.1, meaning.1⟩)
-      | argumentMain other => exact False.elim (Assignment.assignment_argument_disjoint source ⟨meaning.1, other.1⟩)
-      | concatMain other => exact False.elim (Assignment.concat_assignment_disjoint source ⟨other.1, meaning.1⟩)
-      | guardedMain other => exact False.elim (Assignment.assignment_guarded_disjoint source ⟨meaning.1, other.1⟩)
-      | assignmentMain other =>
-          exact congrArg (fun (program : Assignment.Program) => Program.outputMain program.replacement)
-            (Assignment.meaning_unique meaning other)
-      | branchingMain other => exact False.elim (Branching.assignment_branching_disjoint source ⟨meaning.1, other.1⟩)
-  | branchingMain meaning =>
-      cases second with
-      | nullMain member => exact False.elim (Branching.null_branching_disjoint source ⟨member, meaning.1⟩)
-      | outputMain member _ => exact False.elim (Branching.literal_branching_disjoint source ⟨member, meaning.1⟩)
-      | namedMain other => exact False.elim (Branching.named_branching_disjoint source ⟨other.1, meaning.1⟩)
-      | argumentMain other => exact False.elim (Branching.argument_branching_disjoint source ⟨other.1, meaning.1⟩)
-      | concatMain other => exact False.elim (Branching.concat_branching_disjoint source ⟨other.1, meaning.1⟩)
-      | guardedMain other => exact False.elim (Branching.guarded_branching_disjoint source ⟨other.1, meaning.1⟩)
-      | assignmentMain other => exact False.elim (Branching.assignment_branching_disjoint source ⟨other.1, meaning.1⟩)
-      | branchingMain other => exact congrArg Program.branchingMain (Branching.meaning_unique meaning other)
+      | nullMain member => exact False.elim (Compose.null_compose_disjoint source ⟨member, _, meaning.1⟩)
+      | composed other otherDecoded =>
+          obtain ⟨rfl, rfl⟩ := Compose.meaning_unique meaning other
+          exact congrArg Program.composed (Option.some.inj (decoded.symm.trans otherDecoded))
 
-theorem literal_domain {source literal : Source}
-    (meaning : SourceMeaning source (.outputMain literal)) :
-    literal.length ≤ 4096 ∧ ∀ byte ∈ literal, Output.printable byte = true := by
+theorem composed_valid {source : Source} {program : Compose.Program}
+    (meaning : SourceMeaning source (.composed program)) : program.Valid := by
   cases meaning with
-  | outputMain member parsed =>
-      have facts := (Output.parsed_literals parsed).2 literal (by simp)
-      exact ⟨Nat.le_trans facts.1 member.2.1, facts.2⟩
-  | namedMain meaning => exact Named.literal_domain meaning
-  | concatMain meaning => exact Concat.output_domain meaning
-  | assignmentMain meaning => exact Assignment.output_domain meaning
-
-theorem default_domain {source defaultValue : Source}
-    (meaning : SourceMeaning source (.argumentMain defaultValue)) :
-    Arguments.Runtime.message defaultValue = true := by
-  cases meaning with
-  | argumentMain meaning => exact Arguments.default_is_message meaning
+  | composed parsed decoded =>
+      obtain ⟨other, same, valid⟩ := Compose.decoded_valid parsed
+      have equal := Option.some.inj (decoded.symm.trans same)
+      simpa [equal] using valid
 
 def rangeObligations : Program → List Guarded.RangeObligation
-  | .nullMain | .outputMain _ | .argumentMain _ | .branchingMain _ => []
-  | .guardedMain program => Guarded.rangeObligations program
+  | .nullMain => []
+  | .composed program => Compose.rangeObligations program
 
 def obligations (program : Program) : List Semantics.Obligation :=
   (rangeObligations program).map Guarded.RangeObligation.toObligation
 
-/-- The source checker uses fixed maximal coefficients; no classical extraction
-of a parse witness is needed. The per-program refinement theorem below links
-these computed schemas to each admitted meaning. -/
+def uniformObligations : List Semantics.Obligation :=
+  Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation
+
+theorem uniform_discharge : Semantics.discharge uniformObligations = true := by decide +kernel
+
+/-- A computable, uniform certificate. Every source expression and each of its
+left-associated prefixes refine its coefficients, counting repeated fixed names. -/
 def automaticDischarge (source : Source) : Option Bool :=
-  if accepts source then
-    some (Semantics.discharge (if Guarded.accepts source then Guarded.uniformObligations else []))
-  else none
+  if accepts source then some (Semantics.discharge uniformObligations) else none
 
 theorem automatic_discharge_complete {source : Source} (member : Member source) :
     automaticDischarge source = some true := by
-  simp only [automaticDischarge, (accepts_iff_member source).mpr member, ite_true]
-  cases Guarded.accepts source <;> simp [Semantics.discharge, Guarded.uniform_discharge]
+  simp [automaticDischarge, (accepts_iff_member source).mpr member, uniform_discharge]
 
-/-- A concrete arithmetic fragment, independent of source membership or solver
-success: each range schema is dominated by a checked uniform bound. -/
 def BoundedRangeFragment (checks : List Guarded.RangeObligation) : Prop :=
-  ∀ check ∈ checks, ∃ upper ∈ Guarded.uniformRangeObligations, check.Refines upper
+  ∀ check ∈ checks, ∃ upper ∈ Compose.uniformRangeObligations, check.Refines upper
 
 theorem admitted_range_fragment {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : BoundedRangeFragment (rangeObligations program) := by
-  cases meaning with
-  | nullMain | outputMain | namedMain | argumentMain | concatMain | assignmentMain | branchingMain => simp [BoundedRangeFragment, rangeObligations]
-  | guardedMain meaning => exact Guarded.obligations_refine_uniform meaning
+  cases program with
+  | nullMain => simp [BoundedRangeFragment, rangeObligations]
+  | composed program => exact Compose.program_schemas (composed_valid meaning)
 
 theorem fragment_checks_valid {checks : List Guarded.RangeObligation}
     (fragment : BoundedRangeFragment checks) : ∀ check ∈ checks, check.Valid := by
   intro check member
   obtain ⟨upper, present, bounded⟩ := fragment check member
-  exact Guarded.RangeObligation.valid_of_refines bounded (Guarded.uniform_range_valid upper present)
+  exact Guarded.RangeObligation.valid_of_refines bounded (Compose.uniform_range_valid upper present)
 
 theorem all_obligations_discharge {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
@@ -275,21 +127,10 @@ inductive Action
 then the mandatory guard selects output or ordinary returning rejection. -/
 def action (environment : Environment) : Program → Action
   | .nullMain => .noOutput
-  | .outputMain literal => .output literal
-  | .argumentMain defaultValue =>
-      if Arguments.Runtime.inputIsValid environment.arguments then
-        .output (Arguments.Runtime.firstOrDefault defaultValue environment.arguments)
-      else .reject
-
-  | .guardedMain program =>
-      if Guarded.guard environment.arguments program then
-        .output (Guarded.decorated environment.arguments program)
-      else .reject
-
-  | .branchingMain program =>
-      if Arguments.Runtime.inputIsValid environment.arguments then
-        .output (Branching.selectedOutput environment.arguments program)
-      else .reject
+  | .composed program =>
+      match program.action environment.arguments with
+      | .reject => .reject
+      | .output bytes => .output bytes
 
 def executeAction (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult
   | .noOutput => ⟨0, []⟩
@@ -338,103 +179,19 @@ theorem execution_specified (environment : Environment) (program : Program) :
     SpecifiedOutcome environment program (execute environment program) :=
   action_execution_specified _ _
 
-theorem named_execution_refines {source : Source} {program : Named.Program}
-    (meaning : Named.SourceMeaning source program) (environment : Environment) :
-    Named.execute environment.output program = some (execute environment (.outputMain program.literal)) :=
-  Named.execution_refines meaning environment.output
-
-theorem concat_execution_refines {source : Source} {program : Concat.Program}
-    (meaning : Concat.SourceMeaning source program) (environment : Environment) :
-    Concat.execute environment.output program = some (execute environment (.outputMain program.bytes)) :=
-  Concat.execution_refines meaning environment.output
-
-theorem assignment_execution_refines {source : Source} {program : Assignment.Program}
-    (meaning : Assignment.SourceMeaning source program) (environment : Environment) :
-    Assignment.execute environment.output program = some (execute environment (.outputMain program.replacement)) :=
-  Assignment.execution_refines meaning environment.output
-
-theorem argument_execution_refines {source : Source} {program : Arguments.Program}
-    (meaning : Arguments.SourceMeaning source program) (environment : Environment) :
-    Arguments.execute environment.output environment.arguments program =
-      some (execute environment (.argumentMain program.defaultValue)) := by
-  rw [Arguments.execution_refines meaning, Arguments.Runtime.main_refines]
-  cases valid : Arguments.Runtime.inputIsValid environment.arguments <;>
-    simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain]
-
-theorem guarded_execution_refines {source : Source} {program : Guarded.Program}
-    (meaning : Guarded.SourceMeaning source program) (environment : Environment) :
-    Guarded.execute environment.output environment.arguments program =
-      some (execute environment (.guardedMain program)) := by
-  rw [Guarded.execution_refines meaning]
-  cases valid : Guarded.guard environment.arguments program <;>
-    simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain,
-      Arguments.Runtime.rejectProgram, Arguments.Runtime.Effect.execute]
-
-theorem branching_execution_refines {source : Source} {program : Branching.Program}
-    (meaning : Branching.SourceMeaning source program) (environment : Environment) :
-    Branching.execute environment.output environment.arguments program =
-      some (execute environment (.branchingMain program)) := by
-  rw [Branching.execution_refines meaning]
-  cases valid : Arguments.Runtime.inputIsValid environment.arguments <;>
-    simp [execute, action, valid, executeAction, Arguments.Runtime.outputMain]
-
-theorem argument_rejection {source : Source} {program : Arguments.Program}
-    (meaning : Arguments.SourceMeaning source program) (environment : Environment)
-    (invalid : Arguments.Runtime.inputIsValid environment.arguments = false) :
-    execute environment (.argumentMain program.defaultValue) = ⟨1, []⟩ := by
-  have refined := argument_execution_refines meaning environment
-  rw [Arguments.invalid_execution meaning environment.output environment.arguments invalid] at refined
-  exact (Option.some.inj refined).symm
-
-theorem argument_default_selected {source defaultValue : Source}
-    (meaning : SourceMeaning source (.argumentMain defaultValue))
-    (environment : Output.Runtime.Environment) :
-    action ⟨environment, []⟩ (.argumentMain defaultValue) = .output defaultValue := by
-  simp [action, Arguments.Runtime.inputIsValid, Arguments.Runtime.firstOrDefault, default_domain meaning]
-
-theorem argument_empty_selected (environment : Output.Runtime.Environment) (defaultValue : Source) :
-    action ⟨environment, [[]]⟩ (.argumentMain defaultValue) = .output [] := by
-  simp [action, Arguments.Runtime.inputIsValid, Arguments.Runtime.firstOrDefault]
-
-/-- Every output action has a safe byte domain; invalid input selects rejection
-and cannot be confused with the valid explicit empty string. -/
 theorem action_domain {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (environment : Environment) (item : Source)
-    (selected : action environment program = .output item) :
+    (output : action environment program = .output item) :
     item.length ≤ 4096 ∧ ∀ byte ∈ item, Output.printable byte = true := by
   cases program with
-  | nullMain => cases selected
-  | outputMain literal =>
-      have same : literal = item := Action.output.inj selected
-      subst item
-      exact literal_domain meaning
-  | argumentMain defaultValue =>
-      simp only [action] at selected
-      split at selected
-      · cases selected
-        have domain := (Arguments.Runtime.message_iff _).mp
-          (Arguments.Runtime.initializer_domain environment.arguments defaultValue)
-        refine ⟨domain.1, ?_⟩
-        intro byte member
-        exact decide_eq_true (domain.2 byte member)
-      · cases selected
-  | guardedMain program =>
-      cases meaning with
-      | guardedMain meaning =>
-        simp only [action] at selected
-        split at selected
-        · rename_i guarded
-          cases selected
-          exact Guarded.output_domain meaning environment.arguments guarded
-        · cases selected
-  | branchingMain program =>
-      cases meaning with
-      | branchingMain meaning =>
-        simp only [action] at selected
-        split at selected
-        · cases selected
-          exact Branching.output_domain meaning environment.arguments
-        · cases selected
+  | nullMain => cases output
+  | composed program =>
+      cases selected : program.action environment.arguments with
+      | reject => simp [action, selected] at output
+      | output bytes =>
+          have same : bytes = item := by simpa [action, selected] using output
+          subst item
+          exact Compose.action_domain (composed_valid meaning) environment.arguments selected
 
 theorem healthy_execution {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (environment : Environment)
@@ -489,7 +246,7 @@ It is not a semantic contract or a proof that library verification succeeds:
 ToolContract supplies completion separately from trusted compilation semantics. -/
 def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Prop
   | .nullMain => True
-  | .outputMain _ | .argumentMain _ | .guardedMain _ | .branchingMain _ => ∃ steps, tools.verifyFixedLibrary steps
+  | .composed _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
 Each generated check normalizes to an instance of a source concatenation range
@@ -580,7 +337,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
   have library : LibraryEvidence tools program := by
     cases program with
     | nullMain => trivial
-    | outputMain | argumentMain | guardedMain | branchingMain => exact contract.fixedLibraryProofCompletes
+    | composed => exact contract.fixedLibraryProofCompletes
   exact ⟨artifact, _, .complete parsed generated proved library built⟩
 
 theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}

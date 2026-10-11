@@ -51,6 +51,8 @@ class CommandLineGreetingTests(unittest.TestCase):
     def test_admitted_capacity_binding_and_layout(self) -> None:
         canonical = source_for()
         cases = [canonical, canonical.upper(), canonical + b'--end',
+                 source_for(capacity=b'4087'), source_for(capacity=b'0'),
+                 canonical.replace(b'&Name&', b'&"world"&'),
                  source_for(b'', b'', b''),
                  source_for(b'" -- ', b'" &', b'-- "', b'Main', b'mAIN'),
                  source_for(name=b'Length', reference=b'lENGTH'),
@@ -75,9 +77,9 @@ class CommandLineGreetingTests(unittest.TestCase):
     def test_rejected_guard_and_expression_neighbours(self) -> None:
         canonical = source_for()
         cases = [source_for(capacity=value) for value in
-                 (b'4087', b'4089', b'04088', b'+4088', b'4_088', b'4088.0',
+                 (b'4089', b'04088', b'+4088', b'4_088', b'4088.0',
                   b'4.088E3', b'4088e0', b'16#FF8#', b'4088_0', b'4097',
-                  b'0', b'4088X', b'999999999999999999999999999')]
+                  b'4088X', b'999999999999999999999999999')]
         cases += [canonical.replace(b'and then', replacement) for replacement in
                   (b'and', b'or else', b'or', b'andthen')]
         cases += [canonical.replace(b"Name'Length<=4088", replacement) for replacement in
@@ -85,7 +87,7 @@ class CommandLineGreetingTests(unittest.TestCase):
                    b"Other'Length<=4088", b"Name'Length<=4096-8", b"Name'Length< =4088",
                    b"Name'Length<=4088then", b"(Name'Length<=4088)")]
         cases += [canonical.replace(b'&Name&', replacement) for replacement in
-                  (b'&Other&', b'&Name&Name&', b'&"world"&')]
+                  (b'&Other&', b'&Name&Name&')]
         cases += [source_for(name=name) for name in
                   (b'Silver_Arguments', b'String', b'Silver_IO', b'if', b'Name_', b'Name__x', b'1Name')]
         cases += [canonical.replace(b'and then Name\'Length<=4088', b''),

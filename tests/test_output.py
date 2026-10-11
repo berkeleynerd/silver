@@ -30,6 +30,7 @@ class LiteralOutputTests(unittest.TestCase):
     def test_literal_lexing_and_token_boundaries(self) -> None:
         cases = {
             "empty": source_for(b""),
+            "concatenation": source_for(b"hello").replace(b'"hello"', b'"hel" & "lo"'),
             "all printable bytes": source_for(bytes(range(32, 127))),
             "comment markers are content": source_for(b'-- "begin"; end Main;'),
             "case sensitive content": PREFIX.upper() + b'"MiXeD"' + SUFFIX.upper(),
@@ -61,7 +62,6 @@ class LiteralOutputTests(unittest.TestCase):
             "extra null": valid.replace(b"begin ", b"begin null; "),
             "context only": valid.replace(b'Silver_IO.Put_Line("hello")', b"null"),
             "identifier boundary": valid.replace(b"Put_Line", b"Put_Line2"),
-            "concatenation": valid.replace(b'"hello"', b'"hel" & "lo"'),
             "missing closing quote": valid.replace(b'"hello"', b'"hello'),
             "bare doubled quotes": valid.replace(b'"hello"', b'"""'),
             "lone internal quote": valid.replace(b'"hello"', b'"hel"lo"'),

@@ -63,7 +63,9 @@ class SupportedSampleTests(unittest.TestCase):
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
                 statistics = audit_reports(reports[0].parent, units,
                                            {"silver_output_libc", "silver_runtime"} if output else set(),
-                                           assignment_application=assignment)
+                                           application_kind=("selected" if assignment else "argument")
+                                           if "argument_context" in sample["capabilities"]
+                                           else ("assigned" if assignment else "static") if output else None)
                 self.assertEqual(statistics["units"], len(units))
                 if output:
                     self.assertGreater(statistics["proof_checks"], 0)

@@ -8,6 +8,28 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
+**Compose String Results** is implemented and validated. That short name also
+identifies the harness goal and Codex CLI title; recheck the live status at
+resumption. The owner-authorized [two-item increment](docs/string-results.md),
+based on `767a33c`, adds bounded flat String expressions across output positions,
+repeated static references and tighter safe capacity guards, plus immutable argv
+beside one fixed-length mutable result assigned in both branches and printed
+once. Native compiler validation, full tests with affected correction reruns,
+the complete cached Linux Lean checkpoint and independent review passed. The
+review target is the commit introducing `samples/composed_result.adb`:
+
+```sh
+git log --diff-filter=A -1 --format='%H %s' -- samples/composed_result.adb
+```
+
+The [capability record](docs/string-results.md) distinguishes the complete Lean
+result, cache reuse and native manifest's script-only difference. Optional replay
+was not run. General declarations/copies and repeated output were not started;
+additional initialized bindings and compatible copies are the next proposed
+item. A new roadmap item needs a new owner instruction. Publication remains
+authorized; the closing commit and remote/Actions checks are recorded in local
+`compose-results/publication.json` and the final response.
+
 The supplied [review of `d375aec`](docs/lean-iteration.md#external-review-of-d375aec)
 has been assessed and its confirmed small repairs completed: reject direct
 kernel-check bypasses in Lean inputs and retained build traces, test default-mode
@@ -20,9 +42,8 @@ Broader test promotion and comment-only proof-input edits remain deferred.
 The retained native proof's
 full manifest belongs to its original snapshot because the Lean runner changed;
 its Ada and native configuration inputs remain unchanged. The repair/review target
-is the commit adding `check_proof_policy`, based on `26737d9` and reviewing
-`d375aec`. No new harness goal
-was requested; the earlier optimization goal remains complete.
+is `767a33c`, based on `26737d9` and reviewing `d375aec`. That repair and the
+earlier optimization goal are complete; the String-results goal above is current.
 
 The [focused Lean runner](docs/lean-iteration.md) and selected workflow
 simplification are complete. `check_lean.py --target MODULE` synchronizes current
@@ -32,8 +53,7 @@ and coverage/axiom audit. Separate replay (`--replay`, alias `--full`) and detai
 provenance (`--provenance`) are explicit optional investigations. `--clean` no
 longer implies replay. Focused evidence is separate and cannot establish complete
 assurance. Native runner regressions, scratch replay/axiom probes and the complete
-cached Linux check passed, preserving all twelve certificate objects. The live
-harness goal covers these optimizations; the implementation/review target is the
+cached Linux check passed, preserving all twelve certificate objects. The completed optimization goal covered these changes; its implementation/review target is the
 commit introducing `proof/Silver/AxiomAudit.lean`, based on `fe539a5`.
 
 The bounded [Lean compartmentalization](docs/lean-compartmentalization.md) is
@@ -67,8 +87,8 @@ git log --diff-filter=A -1 --format='%H %s' -- samples/input_branching.adb
 It is based on `4422316`. The preceding assignment implementation and review
 target `44fd8ea` retain their [completed evidence](docs/string-assignment.md).
 The earlier branching and compartmentalization tasks did not request a replacement
-harness goal. The runner follow-up does; recheck its live state at resumption
-rather than treating historical goals as new instructions.
+harness goal. The runner follow-up later did, and that goal is complete. Recheck
+the live state at resumption rather than treating historical goals as new instructions.
 The [runner follow-up](docs/lean-concurrency.md#runner-follow-up) and
 [native I/O optimization](docs/native-io-performance.md) also remain complete.
 
@@ -85,7 +105,8 @@ remain expensive. The certificate representation is unchanged.
 The [ordered language sequence](roadmap.md#current-development-sequence) remains
 bounded output expressions with tighter safe capacities, a branch-selected
 fixed-length result, further initialized bindings/copies, then repeated output.
-Those capabilities were not begun by this task.
+The first two capabilities are now supported by the combined work above; later
+items remain proposed.
 
 ## Local tools and evidence
 
@@ -107,7 +128,7 @@ python3 scripts/dev.py test -- -p test_branching.py
 
 Choose tests for the affected behavior and batch edits before expensive
 source-certificate rebuilds. Use `python3 scripts/check_lean.py --target
-Silver.BranchingMain --memory-mb 12288` for focused model feedback. Without a
+Silver.ComposeMain --memory-mb 12288` for focused model feedback. Without a
 target, a changed embedded Ada source still triggers its certificate rebuild.
 Once a capability's inputs are stable, normally at the end of the session or
 day, run the full test suite, `dev.py prove --full`, and `check_lean.py` without
@@ -125,7 +146,8 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/review-d375aec-2026-10-11/`. The runner follow-up's evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed capability's evidence is under
-`.silver/linux-x86_64/branching-validation/`; the preceding assignment evidence
+`.silver/linux-x86_64/compose-results/`; the earlier branching evidence is under
+`.silver/linux-x86_64/branching-validation/`, and the preceding assignment evidence
 is under `.silver/linux-x86_64/assignment-validation/`. Earlier review follow-up records
 are under `.silver/linux-x86_64/review-44fd8ea/follow-up/`. Native I/O measurements,
 validation and preserved before/after reports are under

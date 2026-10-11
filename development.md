@@ -51,11 +51,12 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit safety-obligation set
-   remains empty for the first five productions, fixed-length assignment and
-   input-dependent branching; assignment has a narrowly classified
-   ineffective-initialization advisory. The guarded dynamic
-   concatenation has a complete range-check policy. Every output form also
-   requires the complete nonempty selected library reports. Extend report handling when new
+   follows the source-selected static/argument/assigned/selected policy.
+   Every emitted Main safety check must be a proved range check; static
+   elimination may leave an empty list. Assignment-bearing shells permit at
+   most the narrowly classified ineffective-initialization advisory. Every
+   output form also requires the complete nonempty selected library reports.
+   Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.
 4. Update the specification, catalogue and motivating sample together. Exercise
@@ -86,7 +87,7 @@ The commands below are a menu, not a sequence to repeat after every edit:
 python3 scripts/dev.py prove
 python3 scripts/dev.py build
 python3 scripts/dev.py test -- -p test_string_assignment.py
-python3 scripts/check_lean.py --target Silver.BranchingMain
+python3 scripts/check_lean.py --target Silver.ComposeMain
 ```
 
 Choose the test file for the affected behavior. Batch recognizer and proof edits

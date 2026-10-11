@@ -73,88 +73,48 @@ class SilverIntegrationTests(unittest.TestCase):
         constructs = {item["id"]: item for item in catalogue["constructs"]}
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
-        self.assertEqual(set(constructs), {"main_procedure", "spark_mode_on", "null_statement",
-                                          "runtime_context", "literal_output", "string_literal",
-                                          "named_string_constant", "named_output", "argument_context",
-                                          "argument_initialization", "input_guard", "argument_rejection", "capacity_guard",
-                                          "string_concatenation", "concatenated_output",
-                                          "named_string_variable", "string_assignment",
-                                          "string_equality", "input_branch"})
+        self.assertEqual(catalogue["max_expression_operands"], 16)
+        self.assertTrue({"string_expression", "expression_output", "result_branch"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "literal_output", "named_output", "command_line_output",
-                                            "concatenated_output", "guarded_concatenated_output",
-                                            "string_assignment_output", "branching_output"})
+        self.assertEqual(set(compositions), {"null", "direct_output", "static_output",
+                         "command_line_output", "string_assignment_output",
+                         "branching_output", "selected_result_output"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
-        self.assertEqual(compositions["literal_output"]["statements"], ["literal_output"])
-        self.assertEqual(compositions["literal_output"]["context"], ["runtime_context"])
-        self.assertEqual(compositions["named_output"]["declarative_items"],
+        self.assertEqual(compositions["direct_output"]["statements"], ["expression_output"])
+        self.assertEqual(compositions["static_output"]["declarative_items"],
                          ["spark_mode_on", "named_string_constant"])
-        self.assertEqual(compositions["named_output"]["statements"], ["named_output"])
-        self.assertEqual(compositions["concatenated_output"]["declarative_items"],
-                         ["spark_mode_on", "named_string_constant"])
-        self.assertEqual(compositions["concatenated_output"]["statements"], ["concatenated_output"])
-        self.assertEqual(constructs["string_concatenation"]["conditions"]["operands"],
-                         ["string_literal", "declared_constant_identifier", "string_literal"])
-        named_tokens = catalogue["named_tokens"]
-        reference = named_tokens.index("<reference_name>")
-        self.assertEqual(catalogue["concatenation_tokens"], named_tokens[:reference] +
-                         ["<string_literal>", "&", "<reference_name>", "&", "<string_literal>"] +
-                         named_tokens[reference + 1:])
-        self.assertEqual(compositions["guarded_concatenated_output"]["statements"], ["capacity_guard"])
-        self.assertEqual(compositions["guarded_concatenated_output"]["context"],
-                         ["runtime_context", "argument_context"])
-        argument_tokens = catalogue["argument_tokens"]
-        branching_body = (['if', '<reference_name>', '=', '<string_literal>', 'then']
-                          + ['silver_io', '.', 'put_line', '(', '<string_literal>', ')', ';']
-                          + ['else']
-                          + ['silver_io', '.', 'put_line', '(', '<string_literal>', ')', ';']
-                          + ['end', 'if', ';'])
-        self.assertEqual(catalogue["branching_tokens"],
-                         argument_tokens[:argument_tokens.index('then') + 1] + branching_body
-                         + argument_tokens[argument_tokens.index('else'):])
-        condition_end = argument_tokens.index("input_is_valid") + 1
-        output_argument = argument_tokens.index("put_line") + 2
-        self.assertEqual(catalogue["guarded_concatenation_tokens"],
-                         argument_tokens[:condition_end] +
-                         ["and", "then", "<reference_name>", "'", "length", "<=", "<capacity_literal>"] +
-                         argument_tokens[condition_end:output_argument] +
-                         ["<string_literal>", "&", "<reference_name>", "&", "<string_literal>"] +
-                         argument_tokens[output_argument + 1:])
-        self.assertEqual(constructs["named_string_constant"]["conditions"]["initializer"],
-                         ["string_literal", "argument_initialization"])
-        self.assertEqual(compositions["string_assignment_output"]["context"], ["runtime_context"])
-        self.assertEqual(compositions["string_assignment_output"]["declarative_items"],
-                         ["spark_mode_on", "named_string_variable"])
         self.assertEqual(compositions["string_assignment_output"]["statements"],
-                         ["string_assignment", "named_output"])
-        self.assertIs(constructs["named_string_variable"]["conditions"]["constant"], False)
-        self.assertEqual(constructs["named_string_variable"]["conditions"]["initializer"], ["string_literal"])
-        self.assertEqual(constructs["string_assignment"]["conditions"]["decoded_length"],
-                         "equal_to_initializer_decoded_length")
-        self.assertEqual(constructs["named_output"]["conditions"]["arguments"],
-                         ["declared_string_identifier"])
-        self.assertEqual(constructs["named_output"]["conditions"]["declaration"],
-                         ["named_string_constant", "named_string_variable"])
-        assignment_tokens = [token for token in named_tokens if token != "constant"]
-        assignment_start = assignment_tokens.index("begin") + 1
-        self.assertEqual(catalogue["assignment_tokens"],
-                         assignment_tokens[:assignment_start] +
-                         ["<reference_name>", ":=", "<string_literal>", ";"] +
-                         assignment_tokens[assignment_start:])
-        self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '""')
+                         ["string_assignment", "expression_output"])
+        self.assertEqual(compositions["selected_result_output"]["declarative_items"],
+                         ["spark_mode_on", "named_string_constant", "named_string_variable"])
+        expression = constructs["string_expression"]["conditions"]
+        self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 16))
+        self.assertEqual(expression["max_dynamic_references"], 1)
+        self.assertEqual(expression["max_result_bytes"], 4096)
+        self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], True)
+        self.assertIs(constructs["result_branch"]["conditions"]["equal_branch_and_initializer_lengths"], True)
+        self.assertEqual(constructs["capacity_guard"]["conditions"]["capacity_range"], [0, 4096])
+        self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '\"\"')
         self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",
                          ";", "end", "main", ";"])
         self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
-                         "begin", "silver_io", ".", "put_line", "(", "<string_literal>",
+                         "begin", "silver_io", ".", "put_line", "(", "<string_expression>",
                          ")", ";", "end", "main", ";"])
+        for plain, guarded in (("argument_tokens", "guarded_argument_tokens"),
+                               ("branching_tokens", "guarded_branching_tokens"),
+                               ("result_tokens", "guarded_result_tokens")):
+            tokens = catalogue[plain]
+            end = tokens.index("input_is_valid") + 1
+            self.assertEqual(catalogue[guarded], tokens[:end] +
+                             ["and", "then", "<dynamic_reference>", "'", "length", "<=", "<capacity_literal>"] +
+                             tokens[end:])
         grammar_words = {
-            token
-            for key in ("null_tokens", "output_tokens", "named_tokens", "argument_tokens", "concatenation_tokens", "guarded_concatenation_tokens", "assignment_tokens")
-            for token in catalogue[key]
-            if re.fullmatch(r'[a-z][a-z0-9_]*', token)
+            token for key, tokens in catalogue.items()
+            if key.endswith("_tokens") and key != "word_tokens" and isinstance(tokens, list)
+            for token in tokens if re.fullmatch(r'[a-z][a-z0-9_]*', token)
         }
         self.assertEqual(set(catalogue["word_tokens"]), grammar_words)
         self.assertEqual(len(catalogue["word_tokens"]), len(grammar_words))

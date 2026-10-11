@@ -1,7 +1,7 @@
 import Silver.OutputSourceBridge
 import Silver.NamedExpressions
 
-/-! Source checks for the one-binding extension. The finite spelling function
+/-! Source checks for shared identifier and name-binding helpers. The finite spelling function
 is an ordinary case/return body, so its complete body and enum are checked
 separately from expression bodies. -/
 
@@ -58,15 +58,20 @@ abbrev ForbiddenTranslation : Prop :=
 theorem actual_forbidden_translation : ForbiddenTranslation := by decide +kernel
 
 abbrev ExpressionTranslation : Prop :=
-  Expressions.WellFormedTrees ∧
+  Expressions.letterBody.wellFormed = true ∧
+  Expressions.tailBody.wellFormed = true ∧
+  Expressions.finishBody.wellFormed = true ∧
+  Expressions.nameBody.wellFormed = true ∧
+  Expressions.equalBody.wellFormed = true ∧
+  Expressions.forbiddenBody.wellFormed = true ∧
+  Expressions.stateBody.wellFormed = true ∧
   Source.expressionBody "is_letter" Source.outputLexicalSpecTokens = some Expressions.letterBody.render ∧
   Source.expressionBody "identifier_tail" Source.outputLexicalSpecTokens = some Expressions.tailBody.render ∧
   Source.expressionBody "identifier_end" Source.outputLexicalSpecTokens = some Expressions.finishBody.render ∧
   Source.expressionBody "name_is" Source.outputLexicalSpecTokens = some Expressions.nameBody.render ∧
   Source.expressionBody "equal_name" Source.outputLexicalSpecTokens = some Expressions.equalBody.render ∧
   Source.expressionBody "forbidden_name" Source.outputLexicalSpecTokens = some Expressions.forbiddenBody.render ∧
-  Source.expressionBody "valid_name_state" Source.outputLexicalSpecTokens = some Expressions.stateBody.render ∧
-  Source.expressionBody "named_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
+  Source.expressionBody "valid_name_state" Source.outputLexicalSpecTokens = some Expressions.stateBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
@@ -84,11 +89,7 @@ abbrev Refinement : Prop :=
   functionHeader "forbidden_name" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Cursor) return Boolean") ∧
   functionHeader "valid_name_state" "is" Source.outputLexicalSpecTokens = some (expectedTokens
-    "(Text : String; First, After : Literal_Position) return Boolean") ∧
-  functionHeader "named_suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
-    "(Text : String; Position : Cursor; Next_Token : Named_Token_Index; Declared_First, Declared_After : Literal_Position) return Boolean") ∧
-  functionHeader "is_member" "is" Source.outputBodyTokens = some (expectedTokens
-    "(Source : String) return Boolean")
+    "(Text : String; First, After : Literal_Position) return Boolean")
 
 theorem actual_refinement : Refinement := by decide +kernel
 

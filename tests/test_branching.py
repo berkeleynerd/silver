@@ -56,6 +56,9 @@ class BranchingTests(unittest.TestCase):
         canonical = source_for()
         printable = bytes(range(32, 127))
         cases = [canonical, canonical.upper(), canonical + b'-- final comment',
+                  canonical.replace(b'Silver_IO.Put_Line("Ready.");',
+                                    b'Silver_IO.Put_Line(Mode);'),
+
                  source_for(b'', b'', b'', b''),
                  source_for(printable, printable, printable, printable),
                  source_for(b'" -- ', b'" -- ', b'"&"', b'else;end if;'),
@@ -102,8 +105,6 @@ class BranchingTests(unittest.TestCase):
                   canonical.replace(b'else Silver_IO.Put_Line("Ready.");', b''),
                   canonical.replace(b'else Silver_IO.Put_Line("Ready.");',
                                     b'elsif Mode="brief" then Silver_IO.Put_Line("Ready.");'),
-                  canonical.replace(b'Silver_IO.Put_Line("Ready.");',
-                                    b'Silver_IO.Put_Line(Mode);'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Silver_IO.Put_Line("Hi "&Mode&"!");'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',

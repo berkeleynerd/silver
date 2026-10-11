@@ -27,22 +27,24 @@ is complete: synchronized module targets for iteration, complete cached assuranc
 at stable checkpoints, and optional standalone replay/detailed provenance. No
 further certificate infrastructure is part of these optimizations.
 
-The owner authorized starting one or more of these items on 2026-10-10. The
-selected implementation unit, **input-dependent branching**, is complete with
-full Linux validation. Bounded String output expressions are next in sequence;
-this task does not begin that broader composition.
+Input-dependent branching is complete with full Linux validation. On 2026-10-11
+the owner authorized **[Compose String Results](docs/string-results.md)**:
+bounded output expressions and a branch-selected fixed-length result in one
+goal, sharing a stable final validation checkpoint. Both are now supported,
+with complete Linux validation; broader declarations/copies and repeated output
+remain proposed and have not been started.
 
 | Order | Item | Status and bounded scope |
 | --- | --- | --- |
 | 1 | [Input-dependent branching](#input-dependent-branching) | **Supported.** One equality on immutable validated argv, selecting two terminal literal outputs; [completed validation](docs/input-branching.md). |
-| 2 | Bounded String output expressions | **Proposed.** Literals, existing names and flat `&` chains in current output positions, including after assignment; count repeated static references. Initially retain one dynamic reference and assess tighter safe capacity guards alongside this work. |
-| 3 | Branch-selected fixed-length result | **Proposed.** One mutable result alongside immutable input, equal-length branch assignments, and one common terminal output; prove the state where branches rejoin. |
+| 2 | Bounded String output expressions | **Supported.** One through sixteen literals/existing names in flat `&` chains across output positions, counting repeated static references. At most one dynamic reference per expression and tighter safe capacity guards; [completed validation](docs/string-results.md). |
+| 3 | Branch-selected fixed-length result | **Supported.** One mutable result alongside immutable input, equal-length literal branch assignments, and one common terminal output with proved initialization and bounds at the join; [completed validation](docs/string-results.md). |
 | 4 | Additional initialized bindings and compatible copies | **Proposed.** Expand declarations and useful pure statement sequences when a data-flow example needs them; track names, initialization, mutability and fixed lengths. Repeated literal overwrites alone remain low priority. |
 | 5 | Repeated output | **Proposed.** A multiline application with explicit cumulative output and failure behavior; choose continued attempts or stopping after failure before implementing the composition. |
 
 The [generalization assessment](docs/language-generalization.md) explains the
 benefits, limits and deferred alternatives. Later rows are queued directions,
-not part of the current branching completion criteria. Multiple argv operations,
+not part of the completed combined goal. Multiple argv operations,
 resizable strings and arbitrary statements remain outside this sequence.
 
 ## Status and admission
@@ -81,6 +83,7 @@ sequence.
 | Guarded command-line greeting | Supported | Dynamic concatenation behind the fixed validity/capacity guard; verified normalization, complete application reports and independent report-policy refinement. [Completed validation](docs/command-line-greeting.md). | [samples/command_line_greeting.adb](samples/command_line_greeting.adb) |
 | Fixed-length string assignment | Supported | One literal-initialized variable, one equal-decoded-length literal assignment, then output by the bound name. Completed [Linux validation](docs/string-assignment.md), including full Lean audit and fresh kernel replay. | [samples/string_assignment.adb](samples/string_assignment.adb) |
 | Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |
+| Compose String Results | Supported | Shared bounded output expressions, repeated static references, tighter safe capacities and one branch-selected fixed-length result; [completed Linux validation](docs/string-results.md). | [samples/composed_result.adb](samples/composed_result.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -126,9 +129,10 @@ Unequal-length operands simply compare false. Invalid input still reaches the
 terminal rejection branch, and each successful path makes one terminal output
 call with the existing failure semantics.
 
-This adds runtime choice without a new library API. General Boolean expressions,
-additional decision nesting, branch assignments, multiple outputs and arbitrary
-statement sequences are separate proposals. A focused native obligation
+This added runtime choice without a new library API. Branch assignments are now
+supported by the separate composed-result shell above. General Boolean expressions,
+additional decision nesting, multiple outputs and arbitrary statement sequences
+remain outside the language. A focused native obligation
 experiment covered empty strings, unequal lengths, case differences and
 maximum-size sources and confirmed the strict empty-Main report policy. Exact
 membership, branch meaning, binding, complete obligation handling and actual
@@ -153,8 +157,10 @@ little behavior; multiple output calls require separate whole-program effect
 and failure semantics. Multiple bindings, repeated dynamic references and new
 argument operations remain later candidates. The owner subsequently authorized
 starting work from the sequence now listed at the beginning of this roadmap.
-Only branching is selected for the current implementation unit; the other rows
-remain queued and are not additional supported forms.
+Branching is supported. The owner subsequently selected the first two
+generalizations for the combined String-results goal above; both are now
+supported. Additional initialized bindings and compatible copies are the next
+proposed item and require a new owner instruction before implementation.
 
 ## Next goals after the greeting review
 
@@ -254,7 +260,7 @@ example therefore reserves 4088 bytes for `Name`. Only this use of `'Length`,
 `<=`, canonical decimal and `and then` is admitted. Both references bind to the
 same constant. Missing input selects the default; empty input prints the
 decorations; invalid, extra, oversized or over-capacity input returns status 1
-without output. The [language specification](language.md#guarded-command-line-concatenation)
+without output. The [language specification](language.md#guarded-command-line-initialization)
 contains the exact rules.
 
 The obligation experiment exposed a String lower-bound requirement for empty

@@ -119,13 +119,27 @@ class LeanEvidenceTests(unittest.TestCase):
 
     def test_removed_module_cannot_survive_as_an_importable_cached_object(self) -> None:
         host, inputs = self.workspace()
-        cached = host.proof / ".lake/build/lib/lean/Silver/SourceBridge.olean"
-        cached.parent.mkdir(parents=True)
-        cached.write_bytes(b"old removed module")
+        artifacts = [host.proof / ".lake/build" / directory / "Silver" / suffix
+                     for directory, suffix in (
+                         ("lib/lean", "SourceBridge.olean"),
+                         ("lib/lean", "SourceBridge.olean.private"),
+                         ("lib/lean", "SourceBridge.ilean"),
+                         ("lib/lean", "SourceBridge.olean.hash"),
+                         ("lib/lean", "SourceBridge.trace"),
+                         ("ir", "SourceBridge.c"),
+                         ("ir", "SourceBridge.setup.json"))]
+        for artifact in artifacts:
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_bytes(b"old removed module")
+        unrelated = artifacts[0].with_name("SourceBridgeExtra.olean")
+        unrelated.write_bytes(b"unrelated completed certificate")
+        before = (unrelated.read_bytes(), unrelated.stat().st_mtime_ns, unrelated.stat().st_ino)
         del inputs[host.root / "proof/Silver/SourceBridge.lean"]
         prepare_workspace(host, inputs)
         self.assertFalse((host.proof / "Silver/SourceBridge.lean").exists())
-        self.assertFalse(cached.exists())
+        self.assertFalse(any(artifact.exists() for artifact in artifacts))
+        self.assertEqual((unrelated.read_bytes(), unrelated.stat().st_mtime_ns,
+                          unrelated.stat().st_ino), before)
         self.assertTrue((host.proof / "Silver/AuthoritativeSource.lean").is_file())
 
     def test_changed_tool_invalidates_cache_without_rewriting_sources(self) -> None:
@@ -849,6 +863,60 @@ class LeanNativeAxiomAuditTests(unittest.TestCase):
 
 
 class LeanNativeDependencyTests(unittest.TestCase):
+    def test_removed_dependency_fails_closed_without_discarding_unrelated_objects(self) -> None:
+        native = native_layout(ROOT)
+        if not (native.lean / "bin/lake").is_file():
+            self.skipTest("install the pinned native Lean tools to check module removal")
+        with tempfile.TemporaryDirectory(prefix="silver lean removal-") as temporary:
+            root = Path(temporary).resolve()
+            host = HostLayout(root, native.key)
+            host.lean.parent.mkdir(parents=True)
+            host.lean.symlink_to(native.lean, target_is_directory=True)
+            (root / "src").mkdir()
+            inputs = {root / "proof" / name: contents.encode() for name, contents in (
+                ("lakefile.lean", "import Lake\nopen Lake DSL\npackage probe\nlean_lib Silver\n"),
+                ("lean-toolchain", (ROOT / "proof/lean-toolchain").read_text()),
+                ("Silver/Removed.lean", "def Silver.removed : Nat := 42\n"),
+                ("Silver/Importer.lean", "import Silver.Removed\n"
+                 "def Silver.imported := Silver.removed\n"),
+                ("Silver/Transitive.lean", "import Silver.Importer\n"
+                 "def Silver.transitive := Silver.imported\n"),
+                ("Silver/Independent.lean", "theorem Silver.independent : True := True.intro\n"),
+                ("Silver.lean", "import Silver.Transitive\nimport Silver.Independent\n"))}
+            prepare_workspace(host, inputs)
+            environment = lean_environment(host)
+
+            def lake(*arguments: str) -> subprocess.CompletedProcess[str]:
+                return subprocess.run([str(host.lean / "bin/lake"), *arguments],
+                                      cwd=host.proof, env=environment, text=True,
+                                      capture_output=True, timeout=180)
+
+            result = lake("build", "Silver")
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            objects = host.proof / ".lake/build/lib/lean/Silver"
+            retained = [objects / f"{name}.olean" for name in ("Importer", "Transitive", "Independent")]
+            before = {path: (path.read_bytes(), path.stat().st_mtime_ns) for path in retained}
+            del inputs[root / "proof/Silver/Removed.lean"]
+            prepare_workspace(host, inputs)
+            self.assertFalse((objects / "Removed.olean").exists())
+            self.assertEqual({path: (path.read_bytes(), path.stat().st_mtime_ns)
+                              for path in retained}, before)
+            # Neither Lake nor a fresh Lean process may silently use the old
+            # transitive importer after the dependency has disappeared.
+            result = lake("build", "+Silver.Transitive")
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("Silver.Removed", result.stdout + result.stderr)
+            probe = host.proof / "Probe.lean"
+            probe.write_text("import Silver.Transitive\n#check Silver.transitive\n")
+            result = lake("env", "lean", "Probe.lean")
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("Silver.Removed", result.stdout + result.stderr)
+            result = lake("build", "+Silver.Independent")
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            independent = objects / "Independent.olean"
+            self.assertEqual((independent.read_bytes(), independent.stat().st_mtime_ns),
+                             before[independent])
+
     def test_changed_resource_settings_apply_without_discarding_cached_objects(self) -> None:
         native = native_layout(ROOT)
         if not (native.lean / "bin/lake").is_file():

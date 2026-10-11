@@ -2,15 +2,15 @@ package Silver_Library_Reports with SPARK_Mode => On is
    Max_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
+   type Application_Kind is
+     (Static_Output, Argument_Output, Assigned_Output, Selected_Output);
 
    --  Independent, terminating byte-traversal and complete report policy.
    --  This ghost specification is verified and erased from executable builds.
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind) return Boolean
      with Ghost => Static, Global => null;
-   function Application_Report_Policy (Report : String) return Boolean
-     with Ghost => Static, Global => null;
-
-   function Assignment_Report_Policy (Report : String) return Boolean
+   function Application_Report_Policy
+     (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
      with Ghost => Static, Global => null;
 
    --  Source-specific GNATprove 16.1 report policy for the selected runtime.
@@ -28,17 +28,14 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Report : String; Kind : Report_Kind) return Boolean
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
-   --  Guarded concatenation's Main report. Every emitted check must be a proved
-   --  range check for Main; constant folding may leave no checks at all.
-   function Complete_Application_Proof (Report : String) return Boolean
+   --  Source membership selects the exact Main/callee entity set. Every emitted
+   --  safety check must be a proved range check for Main. Assigned and selected
+   --  results permit at most the exact ineffective-initialization advisory:
+   --  its overwritten value is unused, but its bounds constrain the variable.
+   --  GNAT may omit callees/dependencies when that advisory precedes an empty
+   --  safety-check list. All other shapes retain approved call dependencies.
+   function Complete_Application_Proof
+     (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
      with Global => null,
-       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report));
-   --  Equal-length assignment's Main report has no required safety checks.
-   --  Retain and classify only the expected ineffective-initialization warning:
-   --  the overwritten value is unused, but its bounds constrain the variable.
-   --  Without that advisory, the report may retain the exact Main-to-Put_Line
-   --  call-effects dependency; all required safety check lists remain empty.
-   function Complete_Assignment_Proof (Report : String) return Boolean
-     with Global => null,
-       Post => (Static => Complete_Assignment_Proof'Result = Assignment_Report_Policy (Report));
+       Post => (Static => Complete_Application_Proof'Result = Application_Report_Policy (Report, Kind));
 end Silver_Library_Reports;

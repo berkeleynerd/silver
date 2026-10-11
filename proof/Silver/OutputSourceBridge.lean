@@ -1,27 +1,13 @@
 import Silver.SourceBridge
 import Silver.OutputExpressions
-import Silver.Current
-import Silver.NamedEquations
-import Silver.ArgumentsExpressions
-import Silver.GuardedExpressions
+import Silver.OutputRuntime
 import Silver.ReviewedOutputShape
 
-/-! Source correspondence for literal-output admission and execution. `Calls.member`
-interprets the internal Is_Literal_Member helper; the public Is_Member union is
-closed by GuardedSourceBridge. Existing typed
-expression trees bind the lexical helper package and membership composition.
-The helper package imports Silver_Profile; its bounds and comment bytes equal
-the output specification, and the reviewed with/use clauses resolve the moved
-calls without changing their operators or equations. Complete shapes cover the
-helper specification and body as well as the remaining output recognizer.
-The two new recursive expression templates fix operators, grouping and calls;
-OutputEquations proves uniqueness on their legal machine domains. The reviewed
-Ada frontend interpretation supplies their definition equations, as it does for
-the null bridge. The runtime renderer covers the whole body with interpreted
-executable instructions and a finite set of fixed static observations. Separate
-checks bind every erased target to its Static declaration and Max_Length to the
-shared model bound. Ada statement/ghost interpretation and the GNATprove audit
-remain explicit premises; the complete-shape pin alone establishes no semantics. -/
+/-! Source correspondence for shared lexical helpers and the output runtime.
+The actual composed recognizer is checked in ComposeSourceBridge. This module
+retains the literal/byte lexical translations, shared bounds, complete source
+shapes and the whole output-body renderer with its runtime contracts. The
+frontend interpretation and native SPARK audit remain explicit premises. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -31,161 +17,16 @@ namespace Silver.Output.SourceBridge
 open Silver.SourceBridge
 
 def literalExpression : List String := Expressions.literalBody.render
-def suffixExpression : List String := Expressions.suffixBody.render
 
 abbrev ExpressionTranslation : Prop :=
-  Expressions.WellFormedTrees ∧
+  Expressions.literalBody.wellFormed = true ∧
   Source.expressionBody "comment_end" Source.outputLexicalSpecTokens = some Silver.Expressions.commentBody.render ∧
   Source.expressionBody "trivia_end" Source.outputLexicalSpecTokens = some Silver.Expressions.triviaBody.render ∧
   Source.expressionBody "token_at" Source.outputLexicalSpecTokens = some Silver.Expressions.tokenBody.render ∧
   Source.expressionBody "allowed_source" Source.outputBodyTokens = some Silver.Expressions.allowedBody.render ∧
-  Source.expressionBody "is_literal_member" Source.outputBodyTokens = some Silver.Expressions.memberBody.render ∧
-  Source.expressionBody "literal_end" Source.outputLexicalSpecTokens = some literalExpression ∧
-  Source.expressionBody "suffix_matches" Source.outputBodyTokens = some suffixExpression
+  Source.expressionBody "literal_end" Source.outputLexicalSpecTokens = some literalExpression
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
-
-def tokenName : Token → String
-  | .withKeyword => "with_keyword" | .ioName => "io_name" | .procedureKeyword => "procedure_keyword"
-  | .mainName => "main_name" | .isKeyword => "is_keyword" | .pragmaKeyword => "pragma_keyword"
-  | .sparkModeName => "spark_mode_name" | .onName => "on_name" | .beginKeyword => "begin_keyword"
-  | .putLineName => "put_line_name" | .endKeyword => "end_keyword"
-  | .leftParenthesis => "left_parenthesis" | .rightParenthesis => "right_parenthesis"
-  | .semicolon => "semicolon" | .dot => "dot" | .stringLiteral => "string_literal"
-
-def allTokens : List Token :=
-  [.withKeyword, .ioName, .procedureKeyword, .mainName, .isKeyword, .pragmaKeyword,
-   .sparkModeName, .onName, .beginKeyword, .putLineName, .endKeyword,
-   .leftParenthesis, .rightParenthesis, .semicolon, .dot, .stringLiteral]
-
-theorem word_token_denotation (token : Token) :
-    token.isWord = decide (allTokens.idxOf token ≤ 10) := by
-  cases token <;> decide
-
-def names (tokens : List Token) : List String :=
-  List.flatten ((tokens.map (fun token => [tokenName token])).intersperse [","])
-
-def quotedSpelling (token : Token) : String :=
-  if token = .stringLiteral then "\"\"\"\"" else "\"" ++ token.spellingText ++ "\""
-
-def spellingExpression : List String := ["case", "token", "is"] ++
-  List.flatten ((allTokens.map (fun token => ["when", tokenName token, "=>", quotedSpelling token])).intersperse [","])
-
-def namedTokenName : Named.Token → String
-  | .base token => tokenName token
-  | .colon => "colon" | .constantKeyword => "constant_keyword" | .stringName => "string_name"
-  | .assignment => "assignment" | .declarationName => "declaration_name" | .referenceName => "reference_name"
-  | .ampersand => "ampersand"
-
-def argumentTokens : List Arguments.Token := allTokens.map Arguments.Token.base ++
-  [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName,
-   .argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName, .ampersand]
-
-def argumentNames (tokens : List Arguments.Token) : List String :=
-  List.flatten ((tokens.map (fun token => [Arguments.Expressions.tokenName token])).intersperse [","])
-
-def namedNames (tokens : List Named.Token) : List String :=
-  List.flatten ((tokens.map (fun token => [namedTokenName token])).intersperse [","])
-
-def fullSpellingExpression : List String := spellingExpression ++
-  [.colon, .constantKeyword, .stringName, .assignment].flatMap (fun (token : Named.Token) =>
-    [",", "when", namedTokenName token, "=>", "\"" ++ token.spellingText ++ "\""]) ++
-  [",", "when", "declaration_name", "|", "reference_name", "=>",
-    "\"" ++ Named.Token.declarationName.spellingText ++ "\""] ++
-  [.argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword, .elseKeyword, .rejectName, .ampersand].flatMap
-    (fun (token : Arguments.Token) =>
-      [",", "when", Arguments.Expressions.tokenName token, "=>", "\"" ++ token.spellingText ++ "\""])
-
-def guardedTokens : List Guarded.Token := allTokens.map Guarded.Token.base ++
-  [.colon, .constantKeyword, .stringName, .assignment, .declarationName, .referenceName,
-   .argumentsName, .firstOrDefaultName, .ifKeyword, .inputIsValidName, .thenKeyword,
-   .elseKeyword, .rejectName, .ampersand, .andKeyword, .apostrophe, .lengthName,
-   .lessEqual, .capacityLiteral]
-
-def guardedNames (tokens : List Guarded.Token) : List String :=
-  List.flatten ((tokens.map (fun token => [Guarded.Expressions.tokenName token])).intersperse [","])
-
-def guardedSpellingExpression : List String := fullSpellingExpression ++
-  [.andKeyword, .apostrophe, .lengthName, .lessEqual, .capacityLiteral].flatMap
-    (fun (token : Guarded.Token) =>
-      [",", "when", Guarded.Expressions.tokenName token, "=>", "\"" ++ token.spellingText ++ "\""])
-
-def branchingNames (tokens : List Branching.Token) : List String :=
-  List.flatten ((tokens.map (fun token => [Branching.Expressions.tokenName token])).intersperse [","])
-
-/-- The physical enum extends the guarded-token enum by one punctuation token.
-The branching grammar uses a subset, whose ordinals are read from this enum. -/
-def currentTokenNames : List String :=
-  guardedTokens.map Guarded.Expressions.tokenName ++ ["equal"]
-
-def currentSpellingExpression : List String :=
-  guardedSpellingExpression ++ [",", "when", "equal", "=>", "\"" ++ Branching.Token.equal.spellingText ++ "\""]
-
-theorem branching_word_token_denotation (token : Branching.Token) :
-    token.isWord = decide (currentTokenNames.idxOf (Branching.Expressions.tokenName token) ≤ 10 ∨
-      token = .constantKeyword ∨ token = .stringName ∨
-      (22 ≤ currentTokenNames.idxOf (Branching.Expressions.tokenName token) ∧
-        currentTokenNames.idxOf (Branching.Expressions.tokenName token) ≤ 28)) := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
-theorem branching_fixed_token_bounds (token : Branching.Token) :
-    0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
-theorem guarded_word_token_denotation (token : Guarded.Token) :
-    token.isWord = decide (guardedTokens.idxOf token ≤ 10 ∨
-      token = .constantKeyword ∨ token = .stringName ∨
-      (22 ≤ guardedTokens.idxOf token ∧ guardedTokens.idxOf token ≤ 28) ∨
-      token = .andKeyword ∨ token = .lengthName) := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
-theorem guarded_fixed_token_bounds (token : Guarded.Token) :
-    0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
-theorem variable_token_same_spelling :
-    Named.Token.declarationName.spelling = Named.Token.referenceName.spelling := rfl
-
-theorem full_word_token_denotation (token : Arguments.Token) :
-    token.isWord = decide (argumentTokens.idxOf token ≤ 10 ∨
-      token = .constantKeyword ∨ token = .stringName ∨ (22 ≤ argumentTokens.idxOf token ∧ argumentTokens.idxOf token ≤ 28)) := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
-abbrev CatalogueTranslation : Prop :=
-  typeDeclaration "token_kind" Source.outputSpecTokens = some (["("] ++ guardedNames guardedTokens ++ [",", "equal", ")"]) ∧
-  Source.declaration "required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ names requiredTokens ++ [")"]) ∧
-  Source.declaration "named_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ namedNames Named.requiredTokens ++ [")"]) ∧
-  Source.declaration "argument_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ argumentNames Arguments.requiredTokens ++ [")"]) ∧
-  Source.declaration "concatenation_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ namedNames Concat.requiredTokens ++ [")"]) ∧
-  Source.declaration "guarded_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ guardedNames Guarded.requiredTokens ++ [")"]) ∧
-  Source.declaration "assignment_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ namedNames Assignment.requiredTokens ++ [")"]) ∧
-  Source.declaration "branching_required_tokens" Source.outputSpecTokens =
-    some (["constant", "token_sequence", ":=", "("] ++ branchingNames Branching.requiredTokens ++ [")"]) ∧
-  Source.expressionBody "spelling" Source.outputBodyTokens = some currentSpellingExpression ∧
-  Source.expressionBody "is_word_token" Source.outputBodyTokens =
-    some ["token", "in", "with_keyword", "..", "end_keyword", "|", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name"] ∧
-  Source.declaration "max_source_length" Source.outputSpecTokens =
-    some ["constant", "positive", ":=", "4_096"] ∧
-  Source.declaration "comment_introducer" Source.outputSpecTokens =
-    some ["constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\""]
-
-theorem actual_catalogue : CatalogueTranslation := by decide +kernel
 
 /-- The extracted helper uses the null-profile package's shared lexical constants.
 Their declarations agree with the output profile's constants at this boundary. -/
@@ -197,21 +38,13 @@ abbrev LexicalConstants : Prop :=
 
 theorem actual_lexical_constants : LexicalConstants := by decide +kernel
 
-theorem fixed_token_bounds (token : Arguments.Token) :
-    0 < token.spelling.length ∧ token.spelling.length ≤ 16 := by
-  cases token with
-  | base token => cases token <;> decide
-  | _ => decide
-
 abbrev Refinement : Prop :=
   functionHeader "accepts" ";" Source.outputSpecTokens = some (expectedTokens
     "(Source : String) return Boolean with Global => null, Post => (Static => Accepts'Result = Is_Member (Source))") ∧
   functionHeader "normalized" "is" Source.outputBodyTokens = some (expectedTokens
     "(Source : String) return String with Global => null, Pre => Source'Length <= Max_Source_Length, Post => Normalized'Result'First = 1 and then Normalized'Result'Length = Source'Length and then Normalized'Result = Source") ∧
   functionHeader "literal_end" "is" Source.outputLexicalSpecTokens = some (expectedTokens
-    "(Text : String; Position : Cursor) return Literal_Position") ∧
-  functionHeader "suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
-    "(Text : String; Position : Cursor; Next_Token : Token_Index) return Boolean")
+    "(Text : String; Position : Cursor) return Literal_Position")
 
 theorem actual_refinement : Refinement := by decide +kernel
 
@@ -287,7 +120,6 @@ structure CheckedSource : Prop where
   libcSpecification : Source.lex Source.outputLibcSpec = some Source.outputLibcTokens
   shape : CompleteShape
   expressions : ExpressionTranslation
-  catalogue : CatalogueTranslation
   lexicalConstants : LexicalConstants
   refinement : Refinement
   runtimeDeclarations : RuntimeDeclarations
@@ -303,21 +135,10 @@ theorem checked_source : CheckedSource where
   libcSpecification := Source.outputLibcTokens_correct
   shape := actual_complete_shape
   expressions := actual_expressions
-  catalogue := actual_catalogue
   lexicalConstants := actual_lexical_constants
   refinement := actual_refinement
   runtimeDeclarations := actual_runtime_declarations
   runtimeTranslation := actual_runtime_translation
-
-/-- A checked translation and uniqueness of all new recursive definitions.
-Equations carry the same frontend/machine-domain premise as the null bridge;
-none assumes the conclusion or automatic proof success. This theorem covers
-the retained literal-only helper; GuardedSourceBridge covers the public union. -/
-theorem authoritative_output_member_iff (calls : Calls) (primitives : PrimitiveCalls)
-    (equations : Expressions.InterpretedSource calls primitives)
-    (source : Source) : CheckedSource ∧ (calls.member source = true ↔ Member source) :=
-  ⟨checked_source, source_implementation_member_iff calls primitives
-    (Expressions.interpreted_equations calls primitives equations) source⟩
 
 /-- Whole-source runtime correspondence and behavioral refinement together.
 An altered guard/call/byte/loop cannot satisfy the same checked translation. -/

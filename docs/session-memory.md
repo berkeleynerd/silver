@@ -1,5 +1,45 @@
 # Session memory
 
+## 2026-10-11 — Compose String Results completed
+
+The owner approved bundling the next two roadmap items and explicitly requested
+a harness goal and short Codex CLI title. Both were set to **Compose String
+Results** (the goal's objective retains the detailed scope). Starting from
+`767a33c`, implement bounded flat String output expressions in existing output
+positions, with repeated static names, at most one dynamic reference per
+expression and tighter safe capacity guards; then immutable argv plus one
+initialized fixed-length result assigned equal-length literals in both branches
+and printed once through the expression rules. The
+[capability record](string-results.md) owns scope, experiments and evidence.
+
+Implement sequentially within the combined goal, using focused native/model
+checks, then one stable complete Linux checkpoint with actual-source assurance.
+Replay remains optional. Broader declarations/copies, repeated output, new
+runtime APIs, Oracle changes, hosted CI and macOS proof work remain outside
+scope. Preserve all caches and prior/scratch/foreign-host evidence. Commit and
+publication authorization persists. The preceding review repair is complete;
+its records below remain history, not a restriction on this new authorization.
+
+Implementation and validation are complete. Native compiler audit/build,
+full tests with affected correction reruns, the complete incremental Linux Lean
+source-correspondence build and fresh axiom/coverage audit all passed. Independent
+source, semantics and evidence reviews found no remaining material gap. The
+stable Lean run finished at 15:02 UTC. Preserve its completed objects and all
+logs under `.silver/linux-x86_64/compose-results/`. See the
+[capability record](string-results.md) for exact evidence, test corrections,
+review repairs, retained certificate identities and the native manifest's
+script-only difference; no unchanged SPARK rerun or optional replay was added.
+
+The implementation/review target is the commit introducing
+`samples/composed_result.adb`, based on `767a33c`; Git identifies the closing
+hash. Publication remains authorized, and the final response/local
+`compose-results/publication.json` records remote synchronization and disabled
+Actions. Recheck live harness/Git state at resumption. Additional initialized
+bindings and compatible copies remain the next proposed unit; no further
+language work has begun. The CLI title was rechecked as **Compose String
+Results**. No CLI recall entry was updated because no recall-memory tool or
+conventional directory is available.
+
 ## 2026-10-11 — Review of `d375aec`: kernel-bypass repair and bounded follow-up
 
 The owner supplied the associated final-review summary; the full reviews of

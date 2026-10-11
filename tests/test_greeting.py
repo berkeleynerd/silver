@@ -43,6 +43,11 @@ class GreetingTests(unittest.TestCase):
                  canonical.replace(b'&', b' -- operator\r\n&\t'),
                  canonical.replace(b'&Name&', b'&-- before reference\nName-- after reference\r&'),
                  canonical.upper(), canonical + b' -- final & comment']
+        # Flat expressions now compose across the earlier greeting shell.
+        cases += [canonical.replace(b'"Hello, "&Name&"!"', replacement) for replacement in
+                  (b'"Hello, "&"world"&"!"', b'Name&Name&"!"', b'"Hello, "&Name&Name',
+                   b'Name&"Hello, "&"!"', b'"Hello, "&"!"&Name', b'"Hello, "&Name',
+                   b'Name&"!"', b'"Hello, "&Name&"!"&"extra"')]
         room = 4096 - len(source_for(b'', b'', b''))
         cases.extend((source_for(b'x' * room, b'', b''),
                       source_for(b'', b'x' * room, b''),
@@ -60,11 +65,7 @@ class GreetingTests(unittest.TestCase):
     def test_excluded_neighbour_expressions(self) -> None:
         canonical = source_for()
         expression = b'"Hello, "&Name&"!"'
-        replacements = [b'"Hello, "&"world"&"!"', b'Name&Name&"!"',
-                        b'"Hello, "&Name&Name', b'Name&"Hello, "&"!"',
-                        b'"Hello, "&"!"&Name', b'"Hello, "&Name', b'Name&"!"',
-                        b'"Hello, "&Name&"!"&"extra"',
-                        b'("Hello, "&Name)&"!"', b'"Hello, "&(Name&"!")',
+        replacements = [b'("Hello, "&Name)&"!"', b'"Hello, "&(Name&"!")',
                         b'"Hello, "&Name(1..2)&"!"', b'"Hello, "+Name+"!"',
                         b'"Hello, "&&Name&"!"', b'"Hello, "&Other&"!"']
         cases = [canonical.replace(expression, replacement) for replacement in replacements]

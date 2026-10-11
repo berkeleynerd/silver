@@ -1,4 +1,5 @@
 import Silver.Current
+import Silver.AssignmentSemantics
 
 namespace Silver.Assignment
 
@@ -10,7 +11,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ((accepts_iff_member exampleSource).mp example_admitted)))))))
+  Or.inr ⟨.assignment, (Compose.formAccepts_iff exampleSource .assignment).mp (by decide +kernel)⟩
 
 /-- Escaped source width differs while decoded value lengths agree. -/
 def escapedSource : Source :=

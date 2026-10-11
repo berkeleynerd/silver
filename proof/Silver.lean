@@ -8,11 +8,12 @@ import Silver.NamedSourceBridge
 import Silver.NamedExamples
 import Silver.ArgumentsSourceBridge
 import Silver.ArgumentsExamples
-import Silver.ConcatSourceBridge
 import Silver.ConcatExamples
-import Silver.GuardedSourceBridge
 import Silver.GuardedExamples
-import Silver.AssignmentSourceBridge
 import Silver.AssignmentExamples
-import Silver.BranchingSourceBridge
 import Silver.BranchingExamples
+import Silver.ComposeSourceBridge
+import Silver.ComposeExamples
+
+-- Independent fragment and recursion lemmas retained in the whole-project audit.
+import Silver.BranchingDisjoint

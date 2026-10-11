@@ -1,4 +1,5 @@
 import Silver.Current
+import Silver.ConcatSemantics
 
 namespace Silver.Concat
 
@@ -9,7 +10,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr (Or.inr (Or.inr (Or.inr (Or.inl ((accepts_iff_member exampleSource).mp example_admitted)))))
+  Or.inr ⟨.static, (Compose.formAccepts_iff exampleSource .static).mp (by decide +kernel)⟩
 
 def repeatedReference : Source :=
   "with Silver_IO; procedure Main is pragma SPARK_Mode (On); Name : constant String := \"world\"; begin Silver_IO.Put_Line (Name & Name & \"!\"); end Main;".toList.map Char.toNat
@@ -20,7 +21,7 @@ def wrongReference : Source :=
 def shadowedName : Source :=
   "with Silver_IO; procedure Main is pragma SPARK_Mode (On); Silver_IO : constant String := \"world\"; begin Silver_IO.Put_Line (\"Hello, \" & Silver_IO & \"!\"); end Main;".toList.map Char.toNat
 
-theorem repeated_reference_rejected : Current.accepts repeatedReference = false := by decide +kernel
+theorem repeated_reference_admitted : Current.accepts repeatedReference = true := by decide +kernel
 theorem wrong_reference_rejected : Current.accepts wrongReference = false := by decide +kernel
 theorem shadowed_name_rejected : Current.accepts shadowedName = false := by decide +kernel
 

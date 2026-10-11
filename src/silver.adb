@@ -76,8 +76,14 @@ procedure Silver with SPARK_Mode => On is
       end if;
 
       declare
-         Dynamic_Mode : constant Boolean := Silver_Output_Profile.Accepts_Guarded (Source);
-         Assignment_Mode : constant Boolean := Silver_Output_Profile.Accepts_Assignment (Source);
+         Argument_Mode : constant Boolean := Silver_Output_Profile.Uses_Arguments (Source);
+         Assignment_Mode : constant Boolean := Silver_Output_Profile.Uses_Assignment (Source);
+         Application_Kind : constant Silver_Library_Reports.Application_Kind :=
+           (if Argument_Mode then
+              (if Assignment_Mode then Silver_Library_Reports.Selected_Output
+               else Silver_Library_Reports.Argument_Output)
+            elsif Assignment_Mode then Silver_Library_Reports.Assigned_Output
+            else Silver_Library_Reports.Static_Output);
          Snapshot : constant String := Directory & "/main.adb";
          Project : constant String := Directory & "/program.gpr";
          Report_Name : constant String := Directory & "/obj/gnatprove/main.spark";
@@ -163,10 +169,9 @@ procedure Silver with SPARK_Mode => On is
                and then Proof_Source_Matched
                and then (if Output_Mode then Initial_Libraries_Matched and then Proof_Libraries_Matched)
                and then Report_Last <= Report'Length
-               and then (if Dynamic_Mode then
-                 Silver_Library_Reports.Application_Report_Policy (Report (1 .. Report_Last))
-                elsif Assignment_Mode then
-                 Silver_Library_Reports.Assignment_Report_Policy (Report (1 .. Report_Last))
+               and then (if Output_Mode then
+                 Silver_Library_Reports.Application_Report_Policy
+                   (Report (1 .. Report_Last), Application_Kind)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))),
              Post => (Static => Build_Returned_Success = Success
                and then (if Success then Build_Command_Matched))
@@ -198,10 +203,9 @@ procedure Silver with SPARK_Mode => On is
                  and then Initial_Libraries_Matched and then Proof_Libraries_Matched
                  and then Build_Libraries_Matched else Silver_Profile.Is_Member (Source))
                and then Report_Last <= Report'Length
-               and then (if Dynamic_Mode then
-                 Silver_Library_Reports.Application_Report_Policy (Report (1 .. Report_Last))
-                elsif Assignment_Mode then
-                 Silver_Library_Reports.Assignment_Report_Policy (Report (1 .. Report_Last))
+               and then (if Output_Mode then
+                 Silver_Library_Reports.Application_Report_Policy
+                   (Report (1 .. Report_Last), Application_Kind)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last))))
          is
             Ran : Boolean;
@@ -277,10 +281,9 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;
          end if;
-         Report_Complete := (if Dynamic_Mode then
-           Silver_Library_Reports.Complete_Application_Proof (Report (1 .. Report_Last))
-          elsif Assignment_Mode then
-           Silver_Library_Reports.Complete_Assignment_Proof (Report (1 .. Report_Last))
+         Report_Complete := (if Output_Mode then
+           Silver_Library_Reports.Complete_Application_Proof
+             (Report (1 .. Report_Last), Application_Kind)
           else Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last)));
          if not Report_Complete then
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");

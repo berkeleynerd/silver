@@ -135,7 +135,7 @@ def source_tokens(source: Path) -> list[str]:
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
-                  assignment_application: bool = False) -> dict[str, int]:
+                  application_kind: str | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
@@ -143,8 +143,11 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     trusted_import_units = trusted_import_units or set()
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
              "limitation_notes": 0, "imported_entities": 0}
-    if assignment_application:
-        require("main" in expected_units, "assignment audit requires Main")
+    require(application_kind in (None, "static", "argument", "assigned", "selected"),
+            "unknown application report policy")
+    if application_kind is not None:
+        require("main" in expected_units, "application audit requires Main")
+    if application_kind in ("assigned", "selected"):
         stats["assignment_advisories"] = 0
     reports = {unit: read_json(report_dir / f"{unit}.spark") for unit in expected_units}
     owned_names: set[str] = set()
@@ -169,53 +172,43 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         coverage = report.get("spark")
         require(isinstance(entities, dict) and bool(entities), f"{unit}: no analyzed entities")
         require(isinstance(coverage, dict) and bool(coverage), f"{unit}: no SPARK coverage")
-        assignment = assignment_application and unit == "main"
-        if assignment:
-            # This is an explicit application-form policy. Compiler audits and
-            # all other applications retain the default warning rejection.
+        application = application_kind is not None and unit == "main"
+        assignment = application and application_kind in ("assigned", "selected")
+        if application:
+            # Source membership selects a policy; this helper checks the emitted
+            # producer shape without inferring source membership from a report.
             main_entities = {key: value for key, value in entities.items()
                              if value.get("name", "").lower() == "main"}
-            call_entities = {key: value for key, value in entities.items()
-                             if value.get("name") == "Silver_IO.Put_Line"}
-            require(len(main_entities) == 1 and len(call_entities) <= 1
-                    and len(entities) == len(main_entities) + len(call_entities)
+            callees = {"Silver_IO.Put_Line": "silver_io.ads"}
+            if application_kind in ("argument", "selected"):
+                callees.update({name: "silver_arguments.ads" for name in
+                                ("Silver_Arguments.First_Or_Default",
+                                 "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")})
+            bare = assignment and len(entities) == 1
+            expected_names = set() if bare else set(callees)
+            actual_names = [value.get("name") for key, value in entities.items()
+                            if key not in main_entities]
+            require(len(main_entities) == 1 and set(actual_names) == expected_names
+                    and len(actual_names) == len(expected_names)
                     and coverage.keys() == main_entities.keys()
                     and all(value == "all" for value in coverage.values()),
-                    "assignment: unexpected entities or Main coverage")
+                    "application: unexpected entities or Main coverage")
             main_key, main = next(iter(main_entities.items()))
-            require(bool(main.get("sloc"))
-                    and all(location.get("file") == "main.adb"
-                            and type(location.get("line")) is int and location["line"] > 0
-                            and type(location.get("column")) is int and location["column"] > 0
-                            for location in main["sloc"]),
-                    "assignment: unexpected Main declaration")
-            require(report.get("proof") == [] and report.get("warn_error") == [],
-                    "assignment: unexpected proof or warning record")
-            require(isinstance(report.get("flow"), list) and len(report["flow"]) <= 1,
-                    "assignment: expected at most one initializer advisory")
-            if call_entities:
-                # With the advisory absent, GNATprove can instead retain the
-                # one real output-call effect edge. Require this exact shape.
-                call_key, call = next(iter(call_entities.items()))
-                require(bool(call.get("sloc"))
-                        and all(location.get("file") == "silver_io.ads"
+            for key, item in entities.items():
+                filename = "main.adb" if key == main_key else callees[item["name"]]
+                require(bool(item.get("sloc"))
+                        and all(location.get("file") == filename
                                 and type(location.get("line")) is int and location["line"] > 0
                                 and type(location.get("column")) is int and location["column"] > 0
-                                for location in call["sloc"]),
-                        "assignment: unexpected output declaration")
-                require(main_key.strip().isdigit() and int(main_key) > 0
-                        and call_key.strip().isdigit() and int(call_key) > 0,
-                        "assignment: invalid dependency entity identifiers")
-                require(report["flow"] == [] and report.get("assumptions") == [{
-                    "claim": {"arg": int(main_key), "predicate": "CLAIM_EFFECTS"},
-                    "assumptions": [{"arg": int(call_key), "predicate": "CLAIM_EFFECTS"}]}],
-                    "assignment: unexpected output-call dependency")
-                dependency = report["assumptions"][0]
-                require(type(dependency["claim"]["arg"]) is int
-                        and type(dependency["assumptions"][0]["arg"]) is int,
-                        "assignment: dependency references must be integer entity identifiers")
-            else:
-                require(report.get("assumptions") == [], "assignment: unexpected dependencies")
+                                for location in item["sloc"]),
+                        "application: unexpected entity declaration")
+            require(report.get("warn_error") == [], "application: unexpected warning record")
+            require(isinstance(report.get("flow"), list)
+                    and (len(report["flow"]) <= 1 if assignment else report["flow"] == []),
+                    "application: unexpected flow diagnostics")
+            if bare:
+                require(report.get("proof") == [] and report.get("assumptions") == [],
+                        "application: bare Main requires empty proof and dependency lists")
         require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
@@ -241,13 +234,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(report.get(key) == [], f"{unit}: missing or nonempty {key}")
         assumptions = report.get("assumptions")
         require(isinstance(assumptions, list), f"{unit}: missing assumption dependencies")
-        # Assignment's optional edge was checked exactly above, including both
-        # declaration files. Other forms use the general selected-unit policy.
-        for entry in ([] if assignment else assumptions):
+        for entry in assumptions:
             require(isinstance(entry.get("assumptions"), list), f"{unit}: malformed assumption dependencies")
             for reference in [entry.get("claim", {}), *entry["assumptions"]]:
                 require(reference.get("predicate") in {"CLAIM_POST", "CLAIM_AORTE", "CLAIM_EFFECTS"},
                         f"{unit}: unknown assumption predicate")
+                if application:
+                    require(type(reference.get("arg")) is int and reference["arg"] > 0,
+                            "application: dependency references must be positive integer entity identifiers")
                 entity = entities.get(f" {reference.get('arg')}", entities.get(str(reference.get("arg"))))
                 require(isinstance(entity, dict), f"{unit}: assumption references unknown entity")
                 name = entity.get("name")
@@ -257,7 +251,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     for location in locations)
                 owned_dependency = name in owned_names and bool(locations) and all(
                     Path(location["file"]).name in owned_locations[name] for location in locations)
-                require(owned_dependency or trusted_runtime,
+                require(application or owned_dependency or trusted_runtime,
                         f"{unit}: unapproved external assumption dependency {name}")
         for key in ("flow", "proof", "warn_error"):
             records = report.get(key)
@@ -273,6 +267,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main
                             and re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                              record.get("message", {}).get("text", "")) is not None,
                             "assignment: unexpected flow diagnostic")
@@ -282,6 +277,17 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "assignment: suppressed or justified diagnostic")
                     stats["assignment_advisories"] += 1
+                if application and key == "proof":
+                    require(record.get("severity") == "info" and record.get("how_proved") == "prover"
+                            and record.get("rule") == "VC_RANGE_CHECK" and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and type(record.get("entity")) is int and record["entity"] > 0
+                            and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
+                            "application: expected a proved Main range check")
+                    require(not any(field in record for field in
+                                    ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
+                            "application: suppressed or justified range check")
                 limitation = (key == "warn_error" and record.get("rule") in PROOF_LIMITATION_NOTES
                               and record.get("severity") == "warning")
                 require(record.get("severity") == "info" or limitation or advisory,

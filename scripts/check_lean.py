@@ -133,18 +133,21 @@ def prepare_workspace(host: HostLayout, inputs: dict[Path, bytes], *, clean: boo
     expected = {path.relative_to(shared_proof) for path in inputs
                 if path.is_relative_to(shared_proof) and (
                     path.suffix == ".lean" or path.name == "lean-toolchain")}
-    removed = False
     for path in host.proof.rglob("*.lean"):
         relative = path.relative_to(host.proof)
         if ".lake" not in relative.parts and relative not in CANDIDATES and relative not in expected:
             require_regular_workspace_path(host, path)
             path.unlink()
-            removed = True
-    # A removed module must not remain importable from an old .olean. Removing
-    # the local build directory is deliberately conservative and infrequent.
-    if removed and (host.proof / ".lake/build").exists():
-        require_regular_workspace_path(host, host.proof / ".lake/build")
-        shutil.rmtree(host.proof / ".lake/build")
+            # Pinned Lake checks source dependencies even for cached importers;
+            # Lean also loads transitive imports from their own object files.
+            # Remove this module's object/trace/IR family so neither can reuse
+            # it, retaining unrelated (potentially expensive) certificates.
+            for directory in ("lib/lean", "ir"):
+                artifacts = host.proof / ".lake/build" / directory / relative.parent
+                require_regular_workspace_path(host, artifacts)
+                for artifact in artifacts.glob(relative.stem + ".*"):
+                    require_regular_workspace_path(host, artifact)
+                    artifact.unlink()
     for path, contents in inputs.items():
         if path.is_relative_to(shared_proof) and (
                 path.suffix == ".lean" or path.name == "lean-toolchain"):

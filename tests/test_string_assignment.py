@@ -44,6 +44,8 @@ class StringAssignmentTests(unittest.TestCase):
     def test_admitted_decoded_lengths_names_and_layout(self) -> None:
         canonical = source_for()
         cases = [canonical, canonical.upper(), canonical + b'-- final comment',
+                 canonical.replace(b'Put_Line(Message)', b'Put_Line("Hi "&Message&"!")'),
+
                  source_for(b'', b'', b'Main', b'mAIN', b'MaIn'),
                  source_for(b'A', b'"'), source_for(b'"', b'Z'),
                  source_for(b'" --', b'MiXe', b'Silver_Arguments',
@@ -86,7 +88,6 @@ class StringAssignmentTests(unittest.TestCase):
                  canonical.replace(b';Silver_IO', b';Message:="Again";Silver_IO'),
                  canonical.replace(b';begin', b';Other:String:="Other";begin'),
                  canonical.replace(b'Put_Line(Message)', b'Put_Line("World")'),
-                 canonical.replace(b'Put_Line(Message)', b'Put_Line("Hi "&Message&"!")'),
                  canonical.replace(b'begin Message:="World";Silver_IO.Put_Line(Message);',
                                    b'begin Silver_IO.Put_Line(Message);Message:="World";'),
                  canonical.replace(b';end ', b';null;end '),
@@ -144,7 +145,7 @@ class StringAssignmentTests(unittest.TestCase):
                 audit_reports(reports, {'main', 'silver_io', 'silver_output_libc',
                                         'silver_arguments', 'silver_runtime'},
                               {'silver_output_libc', 'silver_runtime'},
-                              assignment_application=True)
+                              application_kind="assigned")
                 main = json.loads((reports / 'main.spark').read_text())
                 self.assertLessEqual(len(main['flow']), 1)
                 for advisory in main['flow']:

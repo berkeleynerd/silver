@@ -1,15 +1,12 @@
 import Silver.NamedSourceBridge
-import Silver.ConcatSourceBridge
+import Silver.ArgumentsRuntime
 import Silver.ArgumentsExpressions
 
-/-! The typed Main composition renders to the admitted token sequence and is
-interpreted by Arguments.execute. Recognizer expressions, owned argument-wrapper
-statements and GNAT imports are checked against their authoritative sources.
-Current composes the model refinements; this bridge retains their source facts
-alongside them. Ada frontend interpretation, immutable argv and the GNAT ABI
-remain explicit premises; token-shape equality alone proves no implementation.
-The guarded-greeting bridge owns the latest public whole-language membership
-checks; this module retains the argument production and wrapper correspondence. -/
+/-! Shared argument-name helpers and complete argument-wrapper correspondence.
+The composed Main syntax and interpretation are checked separately. This module
+retains the authoritative lexical expressions, runtime declarations, GNAT imports
+and whole argument-body renderer. Ada frontend interpretation, immutable argv
+and the GNAT ABI remain explicit premises. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -19,7 +16,7 @@ namespace Silver.Arguments.SourceBridge
 open Silver.SourceBridge
 
 abbrev ExpressionTranslation : Prop :=
-  Expressions.WellFormedTrees ∧
+  Expressions.argumentForbiddenBody.wellFormed = true ∧
   Source.expressionBody "is_letter" Source.outputLexicalSpecTokens = some Expressions.letterBody.render ∧
   Source.expressionBody "identifier_tail" Source.outputLexicalSpecTokens = some Expressions.tailBody.render ∧
   Source.expressionBody "identifier_end" Source.outputLexicalSpecTokens = some Expressions.finishBody.render ∧
@@ -27,16 +24,13 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "equal_name" Source.outputLexicalSpecTokens = some Expressions.equalBody.render ∧
   Source.expressionBody "forbidden_name" Source.outputLexicalSpecTokens = some Expressions.forbiddenBody.render ∧
   Source.expressionBody "valid_name_state" Source.outputLexicalSpecTokens = some Expressions.stateBody.render ∧
-  Source.expressionBody "forbidden_argument_name" Source.outputLexicalSpecTokens = some Expressions.argumentForbiddenBody.render ∧
-  Source.expressionBody "argument_suffix_matches" Source.outputBodyTokens = some Expressions.suffixBody.render
+  Source.expressionBody "forbidden_argument_name" Source.outputLexicalSpecTokens = some Expressions.argumentForbiddenBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev Refinement : Prop :=
   functionHeader "forbidden_argument_name" "is" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; First, After : Cursor) return Boolean") ∧
-  functionHeader "argument_suffix_matches" "is" Source.outputBodyTokens = some (expectedTokens
-    "(Text : String; Position : Cursor; Next_Token : Argument_Token_Index; Declared_First, Declared_After : Literal_Position) return Boolean") ∧
   functionHeader "token_at" ";" Source.outputLexicalSpecTokens = some (expectedTokens
     "(Text : String; Position : Cursor; Word : String; Is_Word : Boolean) return Boolean with Ghost => Static, Global => null, Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length and then Position <= Text'Last + 1 and then Word'First = 1 and then Word'Length in 1 .. 16")
 
@@ -69,7 +63,6 @@ theorem actual_complete_shape : CompleteShape := ⟨rfl, rfl, rfl⟩
 
 structure CheckedSource : Prop where
   named : Named.SourceBridge.CheckedSource
-  concatenation : Concat.SourceBridge.CheckedSource
   argumentsSpecification : Source.lex Source.argumentsSpec = some Source.argumentsSpecTokens
   argumentsImplementation : Source.lex Source.argumentsBody = some Source.argumentsBodyTokens
   runtimeSpecification : Source.lex Source.runtimeSpec = some Source.runtimeSpecTokens
@@ -78,11 +71,9 @@ structure CheckedSource : Prop where
   refinement : Refinement
   runtimeDeclarations : RuntimeDeclarations
   runtimeTranslation : Source.argumentsBodyTokens = Runtime.renderedBody
-  mainTranslation : Main.composition.render = requiredTokens
 
 theorem checked_source : CheckedSource where
   named := Named.SourceBridge.checked_source
-  concatenation := Concat.SourceBridge.checked_source
   argumentsSpecification := Source.argumentsSpecTokens_correct
   argumentsImplementation := Source.argumentsBodyTokens_correct
   runtimeSpecification := Source.runtimeSpecTokens_correct
@@ -91,21 +82,6 @@ theorem checked_source : CheckedSource where
   refinement := actual_refinement
   runtimeDeclarations := actual_runtime_declarations
   runtimeTranslation := actual_runtime_translation
-  mainTranslation := Main.rendered_tokens
-
-/-- The same typed composition supplies the tokens parsed from every admitted
-Main and the interpreter refined to Current. No independently handwritten branch
-reading is substituted between membership and execution. The wrapper refinement
-and trusted frontend/tool premises remain separate explicit parts of the claim. -/
-theorem authoritative_main_correct {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) (environment : Current.Environment) :
-    CheckedSource ∧
-    Parsed source Main.composition.render 1 {}
-      [.declaration program.declared, .literal program.defaultValue, .reference program.reference] ∧
-    Main.composition.execute environment.output environment.arguments program =
-      some (Current.execute environment (.argumentMain program.defaultValue)) := by
-  refine ⟨checked_source, ?_, Current.argument_execution_refines meaning environment⟩
-  simpa only [Main.rendered_tokens] using meaning.2
 
 /-- Whole-body statement interpretation refines the independent argument cases
 and ordinary Main completion for every immutable argument vector and default. -/

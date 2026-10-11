@@ -32,7 +32,7 @@ class ArgumentTests(unittest.TestCase):
 
     def test_closed_guard_admission(self) -> None:
         valid = source_for()
-        accepted = [valid, named_source(b"local name", b"Silver_Arguments"), source_for(b'', b'Main', b'mAiN'),
+        accepted = [valid.replace(b'Put_Line(Message)', b'Put_Line("fixed")'), valid, named_source(b"local name", b"Silver_Arguments"), source_for(b'', b'Main', b'mAiN'),
                     source_for(b'" -- quoted', b'Name_2', b'nAME_2'),
                     valid.replace(b' then ', b' -- true branch\r\nthen\t'),
                     source_for(b'x' * (4096 - len(source_for(b''))))]
@@ -62,7 +62,6 @@ class ArgumentTests(unittest.TestCase):
                     valid.replace(b'Silver_Arguments.Reject', b'null'),
                     valid.replace(b'Silver_Arguments.Reject', b'Silver_Arguments.Reject()'),
                     valid.replace(b'First_Or_Default', b'Argument'),
-                    valid.replace(b'Put_Line(Message)', b'Put_Line("wrong")'),
                     valid.replace(b'end if;', b'end if;null;'),
                     source_for(b'\n'),
                     source_for(b'x' * (4097 - len(source_for(b''))))]

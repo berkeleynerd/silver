@@ -14,7 +14,10 @@ import unittest
 from scripts.bootstrap import prepare_context
 from scripts.platforms import HostLayout, alire_command, tool_environment
 from tests import test_silver
-from tests.test_library_reports import report as runtime_report, argument_report
+from tests.test_library_reports import (
+    report as runtime_report, argument_report,
+    assignment_call_report as output_call_report,
+)
 
 ROOT = test_silver.ROOT
 HOST = test_silver.HOST
@@ -49,9 +52,10 @@ class OutputIntegrityTests(unittest.TestCase):
         cls.originals = {name: (ROOT / "src" / name).read_bytes() for name in LIBRARIES}
         cls.fixtures = cls.sandbox / "reports"
         cls.fixtures.mkdir()
-        main = {"progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
-                "spark": {" 1": "all"}, "flow": [], "proof": [], "warn_error": [],
-                "skip_flow_proof": [], "skip_proof": [], "pragma_assume": []}
+        # Every output shell now uses the application policy, including a
+        # literal-only output whose Main checks simplify away. Retain its
+        # Main/Put_Line entities and approved effects dependency.
+        main = output_call_report()
         for name, data in (("main.spark", main), ("silver_io.spark", runtime_report()),
                            ("silver_output_libc.spark", runtime_report(True)),
                            ("silver_arguments.spark", argument_report()),

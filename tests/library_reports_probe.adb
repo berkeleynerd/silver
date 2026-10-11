@@ -14,8 +14,15 @@ procedure Library_Reports_Probe is
 begin
    if (if Ada.Command_Line.Argument (1) = "main"
        then Silver_Library_Reports.Complete_Application_Proof (Report)
+       elsif Ada.Command_Line.Argument (1) = "static"
+       then Silver_Library_Reports.Complete_Application_Proof
+         (Report, Silver_Library_Reports.Static_Output)
        elsif Ada.Command_Line.Argument (1) = "assignment"
-       then Silver_Library_Reports.Complete_Assignment_Proof (Report)
+       then Silver_Library_Reports.Complete_Application_Proof
+         (Report, Silver_Library_Reports.Assigned_Output)
+       elsif Ada.Command_Line.Argument (1) = "selected"
+       then Silver_Library_Reports.Complete_Application_Proof
+         (Report, Silver_Library_Reports.Selected_Output)
        else Silver_Library_Reports.Complete_Runtime_Proof (Report, Kind)) then
       Ada.Text_IO.Put_Line ("accepted");
    else

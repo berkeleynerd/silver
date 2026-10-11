@@ -267,7 +267,7 @@ end Probe;
             data["entities"][" 1"][field] = value
             self.assertFalse(self.accepts(data, kind="assignment"))
         data = assignment_report()
-        data["entities"][" 2"] = entity("Silver_IO.Put_Line")
+        data["entities"][" 2"] = entity("Silver_Arguments.Reject")
         self.assertFalse(self.accepts(data, kind="assignment"))
         source = json.dumps(assignment_report())
         for field in ("severity", "rule", "message"):
@@ -275,36 +275,28 @@ end Probe;
             entry = f'"{field}": {json.dumps(value)}'
             self.assertFalse(self.accepts(source.replace(entry, entry + ", " + entry), kind="assignment"))
 
-    def test_assignment_optional_output_dependency_has_exact_shape(self) -> None:
+    def test_assignment_output_dependencies_have_approved_references(self) -> None:
         self.assertTrue(self.accepts(assignment_call_report(), kind="assignment"))
-        for predicate in ("CLAIM_AORTE", "CLAIM_POST", "CLAIM_ASSUME", "UNKNOWN"):
+        for predicate in ("CLAIM_AORTE", "CLAIM_POST", "CLAIM_EFFECTS", "CLAIM_ASSUME", "UNKNOWN"):
             for where in ("claim", "assumptions"):
                 data = assignment_call_report()
                 reference = data["assumptions"][0][where]
                 if isinstance(reference, list):
                     reference = reference[0]
                 reference["predicate"] = predicate
-                self.assertFalse(self.accepts(data, kind="assignment"))
+                self.assertEqual(self.accepts(data, kind="assignment"),
+                                 predicate in ("CLAIM_AORTE", "CLAIM_POST", "CLAIM_EFFECTS"))
         for where in ("claim", "assumptions"):
-            for arg in (0, 3, 2 if where == "claim" else 1):
+            for arg in (0, 3, -1, "1", True):
                 data = assignment_call_report()
                 reference = data["assumptions"][0][where]
                 if isinstance(reference, list):
                     reference = reference[0]
                 reference["arg"] = arg
                 self.assertFalse(self.accepts(data, kind="assignment"))
-        for modification in ("absent", "duplicate", "extra_reference", "advisory", "callee_coverage",
-                             "missing_callee", "location"):
+        for modification in ("callee_coverage", "missing_callee", "location"):
             data = assignment_call_report()
-            if modification == "absent":
-                data["assumptions"] = []
-            elif modification == "duplicate":
-                data["assumptions"] *= 2
-            elif modification == "extra_reference":
-                data["assumptions"][0]["assumptions"] *= 2
-            elif modification == "advisory":
-                data["flow"] = assignment_report()["flow"]
-            elif modification == "callee_coverage":
+            if modification == "callee_coverage":
                 data["spark"][" 2"] = "all"
             elif modification == "missing_callee":
                 del data["entities"][" 2"]
@@ -317,6 +309,54 @@ end Probe;
         data["assumptions"][0]["claim"]["arg"] = 7
         data["assumptions"][0]["assumptions"][0]["arg"] = 8
         self.assertTrue(self.accepts(data, kind="assignment"))
+
+    def test_composed_reports_select_entities_and_advisory_permission(self) -> None:
+        for kind in ("static", "main", "assignment", "selected"):
+            for count in (0, 1, 15, 30):
+                for warning in (False, True):
+                    data = (main_report(count) if kind in ("main", "selected") else
+                            assignment_call_report())
+                    data["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb")
+                                     for _ in range(count)]
+                    data["flow"] = assignment_report(warning)["flow"]
+                    with self.subTest(kind=kind, count=count, warning=warning):
+                        self.assertEqual(self.accepts(data, kind=kind),
+                                         not warning or kind in ("assignment", "selected"))
+                    for wrong in (("static", "assignment") if kind in ("main", "selected")
+                                  else ("main", "selected")):
+                        self.assertFalse(self.accepts(data, kind=wrong))
+        for warning in (False, True):
+            self.assertTrue(self.accepts(assignment_report(warning), kind="selected"))
+
+    def test_composed_mutable_reports_reject_failed_ranges_and_other_advisories(self) -> None:
+        for kind in ("assignment", "selected"):
+            base = assignment_call_report() if kind == "assignment" else main_report(1)
+            base["flow"] = assignment_report()["flow"]
+            base["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb")]
+            self.assertTrue(self.accepts(base, kind=kind))
+            for field, value in (("severity", "low"), ("how_proved", "trivial"),
+                                 ("rule", "VC_LENGTH_CHECK"), ("entity", 2),
+                                 ("file", "silver_io.adb"), ("line", 0), ("col", 0),
+                                 ("suppressed", False), ("justification", "approved")):
+                data = copy.deepcopy(base)
+                data["proof"][0][field] = value
+                with self.subTest(kind=kind, field=field):
+                    self.assertFalse(self.accepts(data, kind=kind))
+            for text in ("unused assignment", "statement has no effect"):
+                data = copy.deepcopy(base)
+                data["flow"][0]["message"]["text"] = text
+                self.assertFalse(self.accepts(data, kind=kind))
+            data = copy.deepcopy(base)
+            data["flow"] *= 2
+            self.assertFalse(self.accepts(data, kind=kind))
+            for section in ("skip_flow_proof", "skip_proof", "pragma_assume", "warn_error"):
+                data = copy.deepcopy(base)
+                data[section] = [{}]
+                self.assertFalse(self.accepts(data, kind=kind))
+            for field in ("flow", "proof", "spark", "assumptions"):
+                data = copy.deepcopy(base)
+                del data[field]
+                self.assertFalse(self.accepts(data, kind=kind))
 
     def test_both_selected_schemas_and_wrong_kind(self) -> None:
         self.assertTrue(self.accepts(report()))

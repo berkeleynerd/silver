@@ -67,40 +67,40 @@ decoded bytes and preserves case. Each valid-input execution makes one terminal
 output call. Its completed assurance and Linux validation are recorded in
 [input-branching.md](docs/input-branching.md).
 
-The eight complete forms are one null statement without a context clause, one
-qualified literal-output call, one literal-initialized `constant String`
-printed by its identifier, the guarded command-line form, and one
-prefix/reference/suffix concatenation of a literal-backed constant, plus the
-capacity-guarded command-line greeting, fixed-length literal assignment and
-input-dependent branching. All output forms
-require `with Silver_IO;`; command-line input also requires
-`with Silver_Arguments;`.
-Names bind without ASCII case distinctions. Constants are immutable; the
-variable form admits exactly one assignment.
-No argument selects the literal default; one printable ASCII argument of up to
-4096 bytes is preserved, including an explicit empty argument. Extra arguments,
-unsupported bytes and oversized input produce no output and status 1. In the
-decorated command-line form, the value must also fit beside its prefix and suffix
-within 4096 output bytes. Otherwise it is rejected without output. Other variable forms,
-general conditionals, repeated output calls, other concatenation forms and other APIs remain
-excluded. See [language.md](language.md)
-for the exact rules. On detected failure the wrapper sets status 1 and returns;
-`Main` returns with that status. Successful output is the selected message followed by LF, with a
-successful flush. Detected output failure exits unsuccessfully and may leave
-partial output; blocking and host failures have documented environmental limits.
+The completed [composed-String increment](docs/string-results.md) organizes
+output into six shells plus null: direct
+expression output, one static constant, one fixed-length assignment, guarded
+argv input, input-dependent output choice, and a branch-selected result printed
+once. Output expressions have one through sixteen printable literals or bound
+names joined by flat `&`. Static names may repeat; an argument name occurs at
+most once per expression. Each expression's weighted length must fit 4096 bytes.
+A tighter capacity guard may reject selected inputs and defaults without
+truncation. See [language.md](language.md) for the complete rules.
+
+The [composed-result sample](samples/composed_result.adb) keeps immutable argv
+input beside one initialized mutable result, assigns an equal-length literal
+in each equality branch, then prints the result through one common expression.
+All existing samples remain admitted. Additional declarations/copies, arbitrary
+statements and repeated output remain future work.
+
+Names bind without ASCII case distinctions. No argument selects the literal
+default; one printable ASCII argument of up to 4096 bytes is preserved,
+including an explicit empty argument. Extra arguments, unsupported bytes and
+oversized input produce no output and status 1. Successful output is the
+selected message followed by LF and a successful flush. A detected output
+failure sets status 1 and returns; partial output may remain. Blocking and host
+failures have documented environmental limits.
 
 The compiler is implemented in SPARK. Its authors may use full SPARK contracts
 and proof annotations; Silver program authors do not supply them. Python scripts
-are development setup, evidence auditing, and tests. GNATprove verifies the
-compiler implementation. Lean connects the restricted recognizer source to its
-language model and the runtime wrappers to their effect models. The first five
-forms have empty application reports. The sixth adds range checks covered by
-verified runtime bounds, a Lean arithmetic argument and complete report handling.
-The seventh proves length-compatible assignment and reads the replacement value;
-its reports may include a narrowly classified dead-initializer advisory.
-The eighth form uses the ordinary strict empty-Main-report route;
-its driver and runtime are unchanged, and all selected library reports remain
-mandatory. Its full validation is recorded in the capability record.
+provide setup, evidence auditing and tests. GNATprove verifies the compiler.
+Lean connects the restricted recognizer source to the language model and the
+runtime wrappers to their effect models. Every output shell selects a complete
+application report policy: static, argument, assigned or selected result. Emitted
+Main safety checks must all be proved range checks; only mutable forms may have
+the one narrowly classified initializer advisory. Selected library reports
+remain mandatory. Frontend elimination, faithful obligation generation and
+pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted
 check and all selected library obligations must be proved before compilation.
 The external tools, runtime, generated configuration, evidence tooling, and
@@ -227,7 +227,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the eight permitted compositions. Structural metadata is written explicitly in
+and the seven permitted compositions. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -238,6 +238,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The combined expression/result work and its validation are recorded in
+[string-results.md](docs/string-results.md).
 
 The completed input-dependent branching implementation and full assurance
 checkpoint are recorded in [input-branching.md](docs/input-branching.md).
@@ -293,7 +296,7 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 For focused iteration, select a module and its dependencies:
 
 ```sh
-python3 scripts/check_lean.py --target Silver.BranchingMain
+python3 scripts/check_lean.py --target Silver.ComposeMain
 ```
 
 Repeat `--target` for additional modules. The runner synchronizes inputs and

@@ -29,7 +29,8 @@ class NamedOutputTests(unittest.TestCase):
 
     def test_names_and_declaration_trivia(self) -> None:
         valid = source_for(b'Hello')
-        cases = [source_for(b'', b'A'), source_for(b'" -- MiXeD', b'Main', b'mAiN'),
+        cases = [valid.replace(b'Put_Line(Message)', b'Put_Line("Hello")'),
+                 source_for(b'', b'A'), source_for(b'" -- MiXeD', b'Main', b'mAiN'),
                  source_for(b'Hello', b'Name_2_A', b'nAME_2_a'),
                  valid.replace(b':constant', b' : -- declaration\r\nconstant'),
                  valid.replace(b'String:=', b'String -- initialization\n := '),
@@ -64,7 +65,6 @@ class NamedOutputTests(unittest.TestCase):
                   valid.replace(b':=', b':-- split\n='),
                   valid.replace(b'"Hello"', b'"Hel" & "lo"'),
                   valid.replace(b'begin ', b'Other:constant String:="Hi";begin '),
-                  valid.replace(b'Put_Line(Message)', b'Put_Line("Hello")'),
                   valid.replace(b'Put_Line(Message)', b'Put_Line(Message(1..2))'),
                   valid.replace(b';end ', b';null;end '),
                   source_for(b'\t'), source_for(b'\x80'),
