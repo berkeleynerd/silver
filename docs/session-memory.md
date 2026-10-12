@@ -1,5 +1,29 @@
 # Session memory
 
+## 2026-10-12 — Remote Oracle/roadmap branch assessed
+
+The owner requested analysis of `codex/oracle-roadmap-audit-plan`, tip
+`4ae1ae798b`, against main `0abdb55bad`. The
+[comparison and exact proposals](remote-plan-review.md) recommend retaining the
+current assurance policy and consolidation sequence. The branch's GNATprove-only
+replacement would remove universal/composition and Lean correspondence
+requirements; its roadmap reflects the older baseline before supported assignment,
+branching, composed expressions/copies and the completed performance/restriction work.
+
+Recommend narrowly documenting restriction/resource purposes in the Oracle and
+replacing its obsolete CI-only wording with automatic project validation. These
+Oracle amendments remain **unapproved and unapplied**. Proposed roadmap additions
+cover source-derived driver/report coverage, context/name syntax, call parameter
+associations, integer-literal parsing and migration of rejection tests. They fit
+the existing rows; no replacement queue or implementation was started. Oracle
+and roadmap bytes remain unchanged. Shared bindings/copies remain next proposed.
+
+Read-only independent reviews and lightweight documentation checks cover this
+analysis. Existing proof evidence retains its scope; no proofs were rerun. Dirty
+proof work, scratch and caches are preserved. Publication authorization persists,
+Actions remains disabled, and the live Compose String Results goal is complete.
+No new goal was requested. CLI recall is unavailable and was not updated.
+
 ## 2026-10-12 — Audit follow-ups made explicit in the roadmap
 
 At the owner's request, the [roadmap](../roadmap.md#audit-follow-ups) now explicitly
