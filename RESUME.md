@@ -8,62 +8,42 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**Lean Critical Path** leads the [roadmap](roadmap.md#lean-critical-path).
-The owner authorized its first item, baseline and declaration-level profiling,
-on 2026-10-12. The [measurement record](docs/lean-baseline.md) is complete:
-all three isolated cases passed, including the fresh complete axiom/coverage
-audit. Large reconstruction joins dominate certificate elaboration; the final
-source equality and tactic search are negligible. The owner subsequently
-authorized the bounded source-reconstruction/equality experiment targeting
-those joins. The [checked-witness optimization](docs/lean-join-optimization.md)
-is complete and adopted: complete builds, fresh axiom/coverage audits, negative
-controls and independent source/evidence reviews passed. The reconstructed
-feature-workload runner fell from 130.5 to 14.9 minutes (observed 8.75×; baseline
-concurrency limits causal attribution). Exact source bytes, final theorem
-statements and allowed axioms are unchanged. Its separate evidence is under
-`.silver/linux-x86_64/join-optimization-20261012T120859Z/` and
-`tmp/join-optimization-active.json`.
-Evidence is preserved under
-`.silver/linux-x86_64/lean-baseline-20261012T094603Z/`; the local
-`tmp/lean-baseline-checkpoint.md` records completion and publication. Canonical
-caches/evidence and the unfinished proof edit below are preserved. The baseline
-profiling and optimization runs are complete. Reusable optimized workspaces are
-`candidate-warm/proof/` and `candidate/.silver/linux-x86_64/proof/` within the
-optimization evidence directory. Copy an optimized seed with its Lake metadata
-for experiments on that representation; prefer the migrated seed below for
-current work. The unchanged canonical workspace retains the older certificate
-implementation. Let the normal runner synchronize and validate inputs.
+**The bounded Lean Critical Path work is complete.** The final
+[proof-authoring pass](docs/lean-proof-authoring.md) adopts one small declaration
+proof split: the matched two-file rebuild is 7.58% faster and peak child RSS is
+62.30% lower. A marginal lexical-equation reuse trial was rejected. The complete
+cached check and fresh whole-project audit passed; source correspondence,
+definitions, theorem statements and accepted axioms are unchanged. No language
+expansion is included. Next proposed work is the restriction/capacity audit and
+shared binding/expression foundations in existing-feature consolidation below.
 
-The owner then authorized the [module/dependency pilot](docs/lean-module-pilot.md).
-After reassessing its deferral, the owner authorized a coherent migration of the
-ordinary proof tree. That [migration](docs/lean-modules.md) is complete and
-adopted: all 107 ordinary modules use module boundaries; the complete and focused
-audits retain legacy imports to inspect transitive private declarations. Current
-computational definitions and interfaces remain exposed. Six source bridges
-explicitly import the pinned standard-library numeric renderer's implementation;
-one lexer proof uses its public simplification lemma. Statements, source bytes
-and accepted axioms are unchanged.
+Current evidence and preferred warm seed are under
+`.silver/linux-x86_64/proof-authoring-20261012T163327Z/`, with recovery pointer
+`tmp/proof-authoring-active.json`. Copy its
+`candidate/.silver/linux-x86_64/proof/` with all object sidecars and Lake metadata,
+then let the normal runner synchronize inputs. Canonical caches, the preceding
+migrated seed and the unfinished edit below remain unchanged. No experiment is
+running. The implementation/review target is the commit introducing
+`docs/lean-proof-authoring.md`, based on `15ca622139`. No new goal was requested;
+the live Compose String Results goal remains complete. CLI recall is unavailable
+and was not updated; checked-in session memory is current.
 
-The matched complete proof-edit check fell from 213.563 to 9.573 seconds, with
-nineteen ordinary consumers retaining their artifacts. Complete source
-correspondence, fresh whole-project audits, native regression checks and
-independent reviews passed. No optional replay or native compiler rerun was
-needed; the compiler/SPARK inputs are unchanged. Evidence is under
-`.silver/linux-x86_64/module-migration-20261012T153858Z/`, with recovery pointer
-`tmp/module-migration-active.json`. The preferred migrated warm seed is its
-`candidate/.silver/linux-x86_64/proof/`; copy all artifacts and Lake metadata,
-then let the normal runner validate current inputs. The canonical workspace and
-older evidence remain preserved. No experiment remains running.
+Earlier evidence remains in the [baseline record](docs/lean-baseline.md),
+[checked-witness optimization](docs/lean-join-optimization.md) (`5267935367`),
+[module pilot](docs/lean-module-pilot.md) (`140de9abd6`) and
+[adopted module migration](docs/lean-modules.md) (`15ca622139`). They separately
+measure source-reconstruction work and proof-edit invalidation; their speedups
+are not multiplicative. Their original input, platform and timing limits remain.
+The canonical workspace retains the older certificate representation as preserved
+evidence; use the latest warm seed above to avoid repeating completed work.
 
-The migration's implementation/review target is the commit introducing
-`docs/lean-modules.md`, based on `140de9abd6`. Its isolated validation excludes
-the unfinished edit below; only the module preamble is staged for that file.
-The comparison used 16,384 MiB per process on this 31 GiB sandbox; no host
-allocation or Lean default changed. Selective improvements at remaining measured
-proof hotspots are next proposed. Neither those nor later language consolidation
-are started by this migration. The harness's Compose String Results goal remains
-complete; no new goal was requested. The earlier reconstruction implementation
-remains `5267935367`, and the pilot disposition is `140de9abd6`.
+All 107 ordinary proof files now use module boundaries with their computational
+interfaces exposed. Keep the complete and focused audit roots legacy so fresh
+audits retain transitive private-declaration coverage. Source/public changes still
+invalidate affected proofs; private proof edits can preserve consumer artifacts.
+The current comparisons use 16,384 MiB per process on the 31 GiB sandbox. No host
+allocation or Lean default changed. The owner's available 96 GB physical RAM
+remains distinct from memory currently visible here.
 
 **Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating

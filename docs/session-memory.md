@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-10-12 — Proof tuning complete; bounded performance work closed
+
+The owner authorized the next selective proof-authoring item and shared final
+validation. The [record](lean-proof-authoring.md) contains the measured candidates,
+dispositions and complete checkpoint. Adopt only the small split of
+`Compose.SourceBridge.actual_declarations` into twelve kernel-checked facts;
+its statement, computational definitions, source correspondence and accepted
+axioms are unchanged. Reject the marginal lexical-equation reuse trial. Defer
+broader example/tactic rewrites and persistent proof-state infrastructure until
+measurements justify them. The complete Linux check and fresh whole-project
+audit passed, with no optional replay. Compiler/SPARK inputs are unchanged;
+their native evidence retains its earlier scope without a rerun.
+
+This closes Lean Critical Path items 4 and 5. Existing-feature consolidation is
+next proposed: start with restrictions/capacity and shared binding/expression
+foundations, without silently treating the unfinished repeated-output work as
+supported. No language expansion or architectural redesign began here.
+
+Frozen input is `15ca622139`; the implementation/review target is the commit
+introducing `docs/lean-proof-authoring.md`. The supported compiler remains
+`e9d18f1996`. Evidence and the preferred warm seed are under
+`.silver/linux-x86_64/proof-authoring-20261012T163327Z/`; use its
+`candidate/.silver/linux-x86_64/proof/` with all object sidecars and Lake metadata.
+The recovery pointer is `tmp/proof-authoring-active.json`. Canonical caches,
+the prior migrated seed, older evidence, scratch and the exact unfinished
+`ComposeAdmission.lean` edit are preserved. The checked snapshot and scoped
+commit exclude that unfinished language edit.
+
+No host allocation or Lean default changed. The sandbox still exposes about
+31 GiB despite the owner's available 96 GB physical RAM; comparisons used the
+existing explicit 16,384 MiB threshold. Publication remains authorized, Actions
+stays disabled, Linux is primary and macOS proof work is out of scope. No new
+harness goal was requested; Compose String Results remains complete. Checked-in
+memory is updated. CLI recall tools and conventional recall directories remain
+unavailable, so no CLI recall entry was updated.
+
 ## 2026-10-12 — Ordinary proof modules adopted
 
 After reassessing the bounded pilot's deferral, the owner authorized the coherent

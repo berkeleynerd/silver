@@ -119,7 +119,9 @@ abbrev Declarations : Prop :=
   Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens
     "State.Position <= Text'Last + 1 and then Valid_Name_State (Text, State.Static_First, State.Static_After) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then Valid_Name_State (Text, State.Constant_One_First, State.Constant_One_After) and then Valid_Name_State (Text, State.Constant_Two_First, State.Constant_Two_After) and then State.Constant_One_Value_First <= Text'Last + 1 and then State.Constant_Two_Value_First <= Text'Last + 1")
 
-theorem actual_declarations : Declarations := by decide +kernel
+theorem actual_declarations : Declarations := by
+  unfold Declarations
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;> decide +kernel
 
 abbrev Refinement : Prop :=
   functionHeader "accepts" ";" Source.outputSpecTokens = some (expectedTokens

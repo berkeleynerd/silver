@@ -14,8 +14,8 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**First priority: Lean Critical Path**, followed by closure of the existing
-language features. On 2026-10-12 the owner requested placing all recommended
+**Lean Critical Path is complete; existing-feature consolidation is next.**
+On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
 is complete. Item 2's authorized bounded reconstruction/equality experiment is
@@ -24,8 +24,11 @@ also [complete and adopted](docs/lean-join-optimization.md). The authorized
 its scope, the owner authorized a coherent [module migration](docs/lean-modules.md),
 which is adopted: the complete proof-edit check fell from 213.6 to 9.6 seconds
 while preserving source correspondence and private/transitive audit coverage.
-Selective proof-authoring improvements are next proposed. Later work
-remains proposed; these investigations do not change the supported language.
+The authorized [selective proof tuning and final integration](docs/lean-proof-authoring.md)
+are also complete: one declaration-proof split reduces peak memory, while a
+marginal reuse trial is rejected. The bounded performance investigation is closed.
+Existing-feature consolidation is next proposed; these investigations do not
+change the supported language.
 
 ### Lean Critical Path
 
@@ -41,8 +44,8 @@ module visibility can separately reduce unnecessary rebuilds after proof edits.
 | 1 | Baseline and declaration-level profiling — complete | Isolated no-change, proof-only and reconstructed feature-workload checks passed. The profile locates the dominant cost in large reconstruction-join elaboration; the proof-only edit separately exposes unnecessary downstream rebuilding. Host, cache state, timing/memory attribution and limits are in the [measurement record](docs/lean-baseline.md). |
 | 2 | Source reconstruction and equality proofs — complete | Adopt checked explicit join witnesses, preserving exact source bytes, final statements and accepted axioms. Complete integration and reconstructed feature-workload checks passed; runner time fell from 130.5 to 14.9 minutes (observed 8.75×, with baseline concurrency caveat). Structural alternatives timed out and remain rejected. The [record](docs/lean-join-optimization.md) covers tests, audits, memory and retained optimized caches. |
 | 3 | Module-system pilot and coherent migration — complete | Adopt module boundaries across all 107 ordinary proof files, retaining both legacy audit roots. The same complete proof-only check falls from 213.563 to 9.573 seconds; nineteen ordinary consumers retain their artifacts. Complete source correspondence, fresh audits and public/source-byte invalidation controls pass. The [migration record](docs/lean-modules.md) explains compatibility repairs, scope and retained caches; the [pilot](docs/lean-module-pilot.md) remains historical evidence. |
-| 4 | Selective proof-authoring improvements | At measured hotspots, use named intermediate equalities, tight theorem interfaces and restricted successful `simp`/`grind` scripts; add auxiliary lemmas only where they reduce duplicated work. Separately measure repeated AI/editor elaboration and pilot persistent editor/REPL proof-state reuse if it is material. Integrate successful proofs into ordinary source files and validate them normally. |
-| 5 | Integration and measurement | Compare successful uninstrumented runs on identical inputs and the same host; separate cached iteration, changed-source checking and any cold-build measurement. Check source-edit invalidation and axiom/module coverage, then complete one stable local checkpoint for adopted changes. Record gains, memory costs and failed candidates; conclude the bounded investigation and continue feature consolidation. |
+| 4 | Selective proof-authoring improvements — complete | Adopt twelve separately checked declaration facts in the existing composed-source proof. The matched two-file rebuild falls from 171.569 to 158.564 seconds and peak child RSS from 11.466 to 4.323 GiB. Reject marginal lexical-proof reuse; defer example/tactic rewrites and persistent proof-state infrastructure without a measured need. Statements, source correspondence and axioms are unchanged. See the [proof-tuning record](docs/lean-proof-authoring.md). |
+| 5 | Integration and measurement — complete | The final complete cached source-correspondence check and fresh axiom/module audit pass. Independent reviews confirm the measured scope and unchanged dependency artifacts; source-invalidation machinery is unchanged. Preserve all caches and the unfinished language edit. The [record](docs/lean-proof-authoring.md) distinguishes focused timings, the final checkpoint, rejected work and limits. The bounded performance investigation is closed; consolidation remains next proposed work. |
 
 The [earlier reconstruction trials](docs/certificate-performance.md) remain
 failed/interrupted experiments, not speedup evidence. Their memory constraints
@@ -128,7 +131,7 @@ complete the existing [validation workflow](development.md#proof-loop-and-valida
 before marking an extension supported. This adds no separate approval or release
 gate and does not substitute examples for the universal argument.
 
-After the bounded performance investigation, the first consolidation work is to
+With the bounded performance investigation complete, the first proposed consolidation work is to
 make the shared fragment and restriction inventory concrete, investigate its
 tool/report capacity, and implement the
 necessary binding and expression foundations. The earlier **Repeated Output**
