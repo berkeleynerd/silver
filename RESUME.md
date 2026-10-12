@@ -8,12 +8,14 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-The remote `codex/oracle-roadmap-audit-plan` branch has been
-[assessed against current main](docs/remote-plan-review.md). Recommendations are
-recorded for selective Oracle wording and roadmap additions; neither document
-has been amended. Retain the current assurance requirements and consolidation
-sequence. The branch's different assurance policy and stale support status are
-not current instructions. Oracle amendments await explicit owner approval;
+The useful findings from the remote `codex/oracle-roadmap-audit-plan` branch are
+[integrated with owner approval](docs/remote-plan-review.md). The Oracle now
+requires explicit purposes for restrictions/resource limits and automatic checks
+during project validation. Its Lean and universal assurance requirements remain.
+The existing roadmap rows now cover source-derived driver/report requirements,
+context/name syntax, call parameter associations, numeral parsing/short-circuit
+facts and migration of rejection tests. The branch's alternative assurance policy
+and obsolete support status were not adopted. This documentation task is complete;
 shared bindings/copies remain next proposed implementation work.
 
 **The restrictions and capacity audit is complete.** The

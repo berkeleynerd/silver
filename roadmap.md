@@ -100,12 +100,12 @@ not newly admitted syntax.
 | Order | Work item | Required result before calling the area closed |
 | --- | --- | --- |
 | 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
-| 2 | Declarations, names and copies — next proposed | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. |
+| 2 | Declarations, names and copies — next proposed | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
 | 3 | String expressions | One expression judgment for literals, names, concatenation and parentheses in initialization, assignment, comparison and output. Count repeated static and dynamic occurrences and prove every intermediate bound. Resolve the sixteen-operand limit through explicit capacity evidence, not an unexplained replacement threshold. |
 | 4 | Statement sequencing and assignment | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
-| 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. |
-| 6 | Output effects | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. |
-| 7 | Existing argument operations | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. New positional-argument APIs are a separate capability. |
+| 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. |
+| 6 | Output effects | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
+| 7 | Existing argument operations | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
 
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
@@ -117,6 +117,20 @@ This carries the shared-rule performance recommendation into the language work
 without a separate core-language or proof-framework redesign. Literals,
 escaping, comments, whitespace and case-insensitive names already vary throughout their declared
 lexical domain; preserve that coverage in the generalized grammar.
+
+As admission is generalized, carry source-derived library requirements and
+verification policies consistently into library snapshots, project construction
+and expected entity, dependency and proof coverage. Required coverage must remain
+independent of whichever records happen to appear in a report. Extend policies
+for obligation classes generated by the supported fragment, retaining rejection
+of missing, skipped, suppressed or unproved required checks and the documented
+external-tool premises. This does not prescribe a new parser or driver architecture.
+
+For the syntax decisions above, record supported alternatives or justified
+exclusions within the existing fragment. They do not imply additional library
+operations or general arithmetic. These clarifications incorporate the useful
+findings from the [remote-plan review](docs/remote-plan-review.md) into the
+existing sequence.
 
 #### Audit follow-ups
 
@@ -151,6 +165,10 @@ complete the existing [validation workflow](development.md#proof-loop-and-valida
 before marking an extension supported. This adds no separate approval or release
 gate and does not substitute examples for the universal argument.
 
+When a formerly rejected composition becomes supported, replace its rejection
+expectation with admission, exact output/exit-status and genuine-report checks.
+Retain negative tests for justified exclusions and incomplete verification.
+
 With the performance investigation and restriction audit complete, implement
 the proposed shared binding, declaration and copy foundations, then common
 expression rules. Carry the audit's report-capacity, diagnostic and translation
@@ -163,7 +181,8 @@ cap was rejected. Ordinary returning calls continue execution, and a detected
 output failure leaves exit status failed even if later output succeeds.
 
 Loops, additional library APIs, resizable strings and unrelated language
-constructs are outside this consolidation. The Oracle remains unchanged.
+constructs are outside this consolidation. The existing assurance guarantees
+remain in force.
 
 ### Completed increments and validation cadence
 

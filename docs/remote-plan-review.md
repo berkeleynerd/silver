@@ -7,9 +7,12 @@ Its one commit is dated 2026-10-12 09:43 UTC and descends from `b3f7e002e7`
 (2026-10-10). Main has 22 subsequent commits absent from that branch. A Git
 commit date does not establish when the branch was created.
 
-The owner requested comparison and recommendations. These are **proposals**;
-neither the Oracle nor the roadmap is amended by this record. The branch's
-statement about earlier owner direction is not new authorization in this session.
+The owner initially requested comparison and recommendations. After receiving
+this assessment, the owner explicitly instructed: “Please integrate anything we
+found useful into the oracle and roadmap.” On 2026-10-12 the two narrow Oracle
+edits and five roadmap requirements below were integrated. The rest of the branch
+was not adopted. The approval comes from that current instruction, not the
+branch's statement about earlier owner direction.
 
 ## Recommendation
 
@@ -70,8 +73,9 @@ records that happen to be present. Faithful complete production remains an
 external-tool premise. Existing Oracle requirements already forbid skipped,
 suppressed or unproved required obligations and mismatched source/libraries.
 
-Both proposed Oracle edits require the owner's explicit approval under
-[the Oracle](../oracle.md). No amendment has been applied.
+The owner explicitly approved these two Oracle edits under
+[the Oracle](../oracle.md), and both are now applied. Lean, universal composition,
+automatic discharge and actual-source correspondence requirements are retained.
 
 ## Minimal roadmap additions
 
@@ -124,6 +128,8 @@ This is source/document analysis with three focused independent reviews: Oracle
 policy, roadmap coverage, and native routing/report policy. No build, proof or
 language experiment was needed. New documentation links and whitespace were checked.
 The existing unfinished `ComposeAdmission.lean` edit, scratch, tools and proof
-caches remain untouched. No goal was started; Compose String Results remains
-complete. CLI recall is unavailable and was not updated. Proposed amendments
-await a decision; this record itself authorizes no language implementation.
+caches remain untouched. The subsequent integration received independent wording
+review and documentation checks; no proof inputs changed. No goal was started;
+Compose String Results remains complete. CLI recall is unavailable and was not
+updated. The approved document changes authorize no language implementation;
+shared declarations, names and copies remain next proposed work.

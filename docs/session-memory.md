@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-10-12 — Selected Oracle and roadmap changes approved and integrated
+
+After the [remote-plan assessment](remote-plan-review.md) in `004a9b84da`, the
+owner explicitly instructed: “Please integrate anything we found useful into
+the oracle and roadmap.” This approves the two recommended Oracle edits:
+document the purposes of restrictions/resource limits and replace CI-only
+wording with automatic project validation. Lean, universal composition,
+automatic discharge and actual-source correspondence requirements remain.
+The earlier pending-approval entry below is historical and superseded.
+
+The five selected roadmap requirements are integrated into the existing sequence:
+source-derived library/driver/report coverage, context/name syntax, positional
+and named call associations, integer-literal parsing and short-circuit facts,
+and migration of rejection tests when combinations become supported. No separate
+audit queue, parser redesign, language expansion or implementation goal began.
+Shared declarations, names and copies remain next proposed work. The review
+record and handoff now describe the approved disposition.
+
+Independent wording review and link/whitespace checks cover these document-only
+changes. Existing proof evidence retains its original input scope; no proofs
+were rerun. The unrelated unfinished proof edit, scratch and caches are preserved.
+Publication remains authorized and GitHub Actions disabled. The live Compose
+String Results goal remains complete; no new goal was requested. CLI recall is
+unavailable and was not updated. This integration is based on `004a9b84da`; Git
+identifies its documentation commit.
+
 ## 2026-10-12 — Remote Oracle/roadmap branch assessed
 
 The owner requested analysis of `codex/oracle-roadmap-audit-plan`, tip
