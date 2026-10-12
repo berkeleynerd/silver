@@ -14,7 +14,55 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**First priority: close the existing features under composition.** On 2026-10-12
+**First priority: Lean Critical Path**, followed by closure of the existing
+language features. On 2026-10-12 the owner requested placing all recommended
+performance work at the beginning of the roadmap. These are proposed bounded
+investigations and integration tasks; this planning instruction does not start
+experiments, migrate proofs or change the supported language.
+
+### Lean Critical Path
+
+The [latest completed desktop checkpoint](docs/copy-values.md#physical-linux-checkpoint)
+spent 6,010 of 6,234 seconds in `OutputBodyCertificate`; ten unrelated
+certificates stayed cached and the fresh axiom audit took 1.36 seconds. These
+are retained physical-host measurements, not timings for the current sandbox
+or its unfinished proof edit. The generated reconstruction is the first target;
+module visibility can separately reduce unnecessary rebuilds after proof edits.
+
+| Order | Work item | Bounded result |
+| --- | --- | --- |
+| 1 | Baseline and declaration-level profiling | Freeze representative inputs and record the actual host, tool versions, settings and cache state. Measure no-change, proof-only-edit and representative feature-edit feedback separately. Profile the dominant certificate's leaf checks, reconstruction joins, final source equality and token flattening; distinguish elaboration, kernel work and build overhead where the profiler permits. Rank time and memory costs. |
+| 2 | Source reconstruction and equality proofs | Test a monitored retry of the existing structural/authoritative-decoding candidate, using an explicit memory budget and host-headroom cutoff. Compare targeted conversion equalities, reusable lemmas and shared reconstruction data against the unchanged baseline. Preserve exact authoritative bytes, including line endings and final newline. Splitting generated files is useful only if final composition also becomes cheaper. |
+| 3 | Module-system and dependency pilot | Migrate a small compatible dependency closure to Lean's opt-in module system. Measure downstream reuse after private/proof-only edits and necessary invalidation after public/source-byte edits. Choose imports and public interfaces deliberately; expose computational bodies where correspondence proofs require reduction. Retain the legacy audit initially or prove equivalent full private/transitive coverage with `import all`. Adopt only demonstrated improvements before considering wider migration. |
+| 4 | Selective proof-authoring improvements | At measured hotspots, use named intermediate equalities, tight theorem interfaces and restricted successful `simp`/`grind` scripts; add auxiliary lemmas only where they reduce duplicated work. Separately measure repeated AI/editor elaboration and pilot persistent editor/REPL proof-state reuse if it is material. Integrate successful proofs into ordinary source files and validate them normally. |
+| 5 | Integration and measurement | Compare successful uninstrumented runs on identical inputs and the same host; separate cached iteration, changed-source checking and any cold-build measurement. Check source-edit invalidation and axiom/module coverage, then complete one stable local checkpoint for adopted changes. Record gains, memory costs and failed candidates; conclude the bounded investigation and continue feature consolidation. |
+
+The [earlier reconstruction trials](docs/certificate-performance.md) remain
+failed/interrupted experiments, not speedup evidence. Their memory constraints
+justify a measured retry, not automatic adoption. The 2026-10-12 isolated module
+probe on pinned Lean 4.34.1 confirmed proof-only invalidation savings, but also
+showed that ordinary module imports can hide unused private declarations from
+the audit; `import all` restored detection. The existing legacy audit rejected
+the private-axiom control. Retain that coverage during any migration.
+
+**10× faster feature feedback is a stretch target.** It is not a promised gain
+or a requirement to reject smaller useful improvements. With other costs held
+fixed, the retained timings imply roughly 15× faster certificate checking for
+10× faster Lean checkpoints; whole-development turnaround needs its own
+measurement. Keep theorem statements, accepted axioms, source correspondence
+and complete obligation discharge unchanged during performance comparisons.
+
+Lean 4.34.1, cached project artifacts, per-source dependencies, focused checks,
+parallel workers and optional separate replay are already in use; preserve them.
+Broad `SymM`/`vcgen` migration is deferred until a measured symbolic-execution
+hotspot warrants it. `native_decide` and ordinary `bv_decide` do not preserve the
+current axiom boundary. Blanket opacity or lower heartbeat limits are not
+general speedups. Keep GitHub Actions disabled and validation local; macOS
+proof work remains outside this sequence.
+
+### Existing-feature consolidation
+
+**Next: close the existing features under composition.** On 2026-10-12
 the owner asked to revisit the implemented capabilities, maximize their useful
 scope within the Oracle's automatic Bronze/Silver guarantee, and put this work
 ahead of further isolated feature increments. The
@@ -42,8 +90,12 @@ not newly admitted syntax.
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
 another complete-program template for every combination. Develop coupled rows
-together where their interactions require it. Literals, escaping, comments,
-whitespace and case-insensitive names already vary throughout their declared
+together where their interactions require it. Build reusable binding,
+expression, statement and effect theorem interfaces as these foundations are
+implemented; measure their reduction in proof duplication and feature-edit work.
+This carries the shared-rule performance recommendation into the language work
+without a separate core-language or proof-framework redesign. Literals,
+escaping, comments, whitespace and case-insensitive names already vary throughout their declared
 lexical domain; preserve that coverage in the generalized grammar.
 
 ### Completion criteria
@@ -65,8 +117,9 @@ complete the existing [validation workflow](development.md#proof-loop-and-valida
 before marking an extension supported. This adds no separate approval or release
 gate and does not substitute examples for the universal argument.
 
-The immediate development work is to make the shared fragment and restriction
-inventory concrete, investigate its tool/report capacity, and implement the
+After the bounded performance investigation, the first consolidation work is to
+make the shared fragment and restriction inventory concrete, investigate its
+tool/report capacity, and implement the
 necessary binding and expression foundations. The earlier **Repeated Output**
 instruction is incorporated into sequencing and effect composition; its partial
 unvalidated implementation is not a completed capability. The proposed four-call
@@ -192,7 +245,7 @@ increments are supported within their documented scopes. The
 [assessment record](docs/language-generalization.md) preserves that history and
 now begins with the 2026-10-12 review of the remaining composition gaps.
 
-The [current priority](#current-development-sequence) supersedes the earlier
+The [consolidation priority](#existing-feature-consolidation) supersedes the earlier
 recommendation to keep repeated assignments, more bindings and repeated dynamic
 references as separate later candidates. Consolidate them through shared rules
 for the existing fragment. The older staging choices are not evidence that

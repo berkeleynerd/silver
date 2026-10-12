@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-10-12 — Lean performance work placed first
+
+The owner requested adding all recommended velocity improvements to the beginning
+of the roadmap. **[Lean Critical Path](../roadmap.md#lean-critical-path)** now
+precedes existing-feature consolidation: profile the actual certificate and
+iteration costs; test structural reconstruction and targeted equality/lemma
+improvements; pilot compatible module boundaries; selectively improve proof
+scripts and persistent proof-state reuse where measured; then integrate and
+compare complete successful checks. Reusable binding/expression/statement/effect
+theorems remain part of the following consolidation work.
+
+Treat 10× as a stretch target, not a measured promise or a gate against smaller
+gains. Compare fixed inputs on the same host and distinguish authoring, cached,
+changed-source and cold costs. Preserve exact-byte correspondence and the
+standard-axiom boundary. Previous failed reconstruction candidates are candidates
+for a monitored retry, not validated improvements. The retained desktop timing
+is documented in [Copy String Values](copy-values.md#physical-linux-checkpoint).
+The preceding isolated module probes under
+`tmp/perf-assessment-module-snrdfce7/` confirmed selective invalidation and the
+need to retain full private/transitive audit coverage; ordinary module imports
+missed an unused private axiom, while the existing legacy audit and `import all`
+rejected it. No current audit defect or project migration is claimed.
+
+This request authorizes the roadmap/handoff update, not starting the proposed
+experiments. The live harness still records the completed Compose String Results
+goal; no goal or title changed. The preliminary unvalidated
+`proof/Silver/ComposeAdmission.lean` edit and all scratch/caches/evidence remain
+untouched. The supported implementation baseline remains `e9d18f1996`; this
+planning review target is the documentation delta from `ec19c4afcc`, identified
+by its containing commit. Publication authorization persists and Actions stays
+disabled. No CLI recall tool is available; checked-in memory is the durable
+record. Independent documentation review and local link/anchor/whitespace
+checks passed. Native and Lean proofs were not rerun for these documentation
+changes; the pre-existing proof edit was verified byte-identical.
+
 ## 2026-10-12 — Prioritize closure of the existing features
 
 The owner asked to revisit each implemented capability, maximize its scope within

@@ -4,8 +4,12 @@
 
 The owner asked to review the existing capabilities, put their generalization
 at the beginning of the roadmap, and drive them to closure. The
-[consolidation sequence](../roadmap.md#current-development-sequence) now takes
-priority over accumulating more special-case program shapes. This assessment
+[consolidation sequence](../roadmap.md#existing-feature-consolidation) takes
+priority over accumulating more special-case program shapes. The owner later
+placed the bounded [Lean Critical Path work](../roadmap.md#lean-critical-path)
+ahead of it. Shared binding, expression, statement and effect theorem interfaces
+remain part of consolidation and its expected reduction in duplicated proof
+work; they are not a separately proposed language architecture. This assessment
 uses the supported Copy String Values baseline `e9d18f1996`; the partial
 Repeated Output edit is unfinished and does not expand current support.
 The [language specification](../language.md), [assurance claims](assurance.md)

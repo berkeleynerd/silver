@@ -8,9 +8,19 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**Close the existing features under composition** is the first roadmap priority.
+**Lean Critical Path** now leads the [roadmap](roadmap.md#lean-critical-path),
+as requested on 2026-10-12. The proposed sequence is declaration-level profiling,
+source-reconstruction/equality experiments, a small module/dependency pilot,
+selective proof-script and persistent-state improvements, then measured
+integration. Keep exact source correspondence and accepted axioms; preserve
+private-declaration coverage when changing module imports. The 10× target is
+aspirational, and old failed candidates remain failures. This is a planning
+update; no performance implementation or new harness goal has started.
+
+**Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating
-more isolated capabilities. The [roadmap](roadmap.md#current-development-sequence)
+more isolated capabilities. The
+[consolidation sequence](roadmap.md#existing-feature-consolidation)
 defines the ordered work and closure criteria; the
 [current assessment](docs/language-generalization.md) records restrictions and
 their reasons. Begin with the explicit fragment, restriction/capacity inventory
@@ -119,7 +129,7 @@ remain expensive. The certificate representation is unchanged.
 
 The former ordered increments are complete through Copy String Values. Their
 narrow scopes retain their assurance. The
-[current consolidation sequence](roadmap.md#current-development-sequence) now
+[current consolidation sequence](roadmap.md#existing-feature-consolidation) now
 takes priority; do not equate those completed milestones with full compositional
 closure or resume adding isolated whole-program templates by default.
 
