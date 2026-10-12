@@ -1,4 +1,8 @@
-import Silver.Expressions
+module
+
+public import Silver.Expressions
+
+@[expose] public section
 
 /-!
 Checks the Ada expression grammar categories of the selected typed trees.

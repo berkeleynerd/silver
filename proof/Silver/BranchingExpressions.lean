@@ -1,5 +1,9 @@
-import Silver.BranchingEquations
-import Silver.ArgumentsExpressions
+module
+
+public import Silver.BranchingEquations
+public import Silver.ArgumentsExpressions
+
+@[expose] public section
 
 /-! Typed expressions for input-dependent branching recognition. Shared identifier
 and literal callees keep their existing checked interpretations; the new suffix

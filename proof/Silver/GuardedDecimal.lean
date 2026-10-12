@@ -1,4 +1,8 @@
-import Silver.ArgumentsAdmission
+module
+
+public import Silver.ArgumentsAdmission
+
+@[expose] public section
 
 namespace Silver.Guarded
 

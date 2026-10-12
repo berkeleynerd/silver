@@ -1,7 +1,11 @@
-import Silver.ArgumentsEquations
-import Silver.NamedExpressions
-import Silver.ConcatExpressions
-import Silver.OutputExpressions
+module
+
+public import Silver.ArgumentsEquations
+public import Silver.NamedExpressions
+public import Silver.ConcatExpressions
+public import Silver.OutputExpressions
+
+@[expose] public section
 
 /-! Typed templates for the argument recognizer. Numerical subtraction occurs only
 on the nonempty span/word domains checked by SPARK; the templates retain each

@@ -1,5 +1,9 @@
-import Silver.GuardedSemantics
-import Silver.Semantics
+module
+
+public import Silver.GuardedSemantics
+public import Silver.Semantics
+
+@[expose] public section
 
 /-! Arithmetic schemas for the actual dynamic concatenation range checks.
 `Valid` quantifies over every possible selected argument length; the finite

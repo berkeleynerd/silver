@@ -1,4 +1,8 @@
-import Silver.Lexical
+module
+
+public import Silver.Lexical
+
+@[expose] public section
 
 namespace Silver
 

@@ -1,5 +1,9 @@
-import Silver.GuardedAdmission
-import Silver.ArgumentsEquations
+module
+
+public import Silver.GuardedAdmission
+public import Silver.ArgumentsEquations
+
+@[expose] public section
 
 namespace Silver.Guarded
 

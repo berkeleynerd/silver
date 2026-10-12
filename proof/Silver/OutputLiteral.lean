@@ -1,4 +1,8 @@
-import Silver.Admission
+module
+
+public import Silver.Admission
+
+@[expose] public section
 
 /-! Printable-ASCII predicate shared by literal admission and runtime bounds.
 The authoritative independent literal derivation is `Output.LiteralAt` in

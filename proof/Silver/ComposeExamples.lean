@@ -1,4 +1,8 @@
-import Silver.Current
+module
+
+public import Silver.Current
+
+@[expose] public section
 
 /-! Small source and boundary witnesses supplement the universal grammar and
 composition theorems. No concrete example substitutes for those theorems. -/

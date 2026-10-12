@@ -1,4 +1,8 @@
-import Silver.NamedIdentifier
+module
+
+public import Silver.NamedIdentifier
+
+@[expose] public section
 
 namespace Silver.Named
 

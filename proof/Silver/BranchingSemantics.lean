@@ -1,6 +1,10 @@
-import Silver.BranchingAdmission
-import Silver.ArgumentsRuntime
-import Silver.NamedSemantics
+module
+
+public import Silver.BranchingAdmission
+public import Silver.ArgumentsRuntime
+public import Silver.NamedSemantics
+
+@[expose] public section
 
 namespace Silver.Branching
 

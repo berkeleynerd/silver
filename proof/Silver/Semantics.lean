@@ -1,4 +1,8 @@
-import Silver.Admission
+module
+
+public import Silver.Admission
+
+@[expose] public section
 
 /-!
 Semantics and assurance for the initial, null-only Silver profile.

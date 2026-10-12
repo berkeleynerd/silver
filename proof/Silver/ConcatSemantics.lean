@@ -1,5 +1,9 @@
-import Silver.ConcatAdmission
-import Silver.NamedSemantics
+module
+
+public import Silver.ConcatAdmission
+public import Silver.NamedSemantics
+
+@[expose] public section
 
 namespace Silver.Concat
 

@@ -1,5 +1,9 @@
-import Silver.NamedAdmission
-import Silver.OutputRuntime
+module
+
+public import Silver.NamedAdmission
+public import Silver.OutputRuntime
+
+@[expose] public section
 
 namespace Silver.Named
 

@@ -1,4 +1,8 @@
-import Silver.ComposeExpressions
+module
+
+public import Silver.ComposeExpressions
+
+@[expose] public section
 
 /-! Close the new recognizer's checked expression equations by recursion
 uniqueness on its verified machine domains. Shared lexical operations have

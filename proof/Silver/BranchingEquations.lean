@@ -1,5 +1,9 @@
-import Silver.BranchingAdmission
-import Silver.NamedEquations
+module
+
+public import Silver.BranchingAdmission
+public import Silver.NamedEquations
+
+@[expose] public section
 
 namespace Silver.Branching
 

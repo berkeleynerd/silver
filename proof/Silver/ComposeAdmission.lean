@@ -1,4 +1,8 @@
-import Silver.ComposeExpression
+module
+
+public import Silver.ComposeExpression
+
+@[expose] public section
 
 /-! Shared expression recognition and its independent source derivations.
 The recognizer retains only cursor/length/use metadata; source meanings retain

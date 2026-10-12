@@ -1,4 +1,8 @@
-import Silver.Semantics
+module
+
+public import Silver.Semantics
+
+@[expose] public section
 
 /-!
 Conditional end-to-end theorem for approved external tools in a supported

@@ -1,6 +1,10 @@
-import Silver.ComposeMain
-import Silver.ComposeSemantics
-import Silver.NamedDisjoint
+module
+
+public import Silver.ComposeMain
+public import Silver.ComposeSemantics
+public import Silver.NamedDisjoint
+
+@[expose] public section
 
 namespace Silver.Compose
 

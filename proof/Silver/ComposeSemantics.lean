@@ -1,4 +1,8 @@
-import Silver.ComposeAdmission
+module
+
+public import Silver.ComposeAdmission
+
+@[expose] public section
 
 /-! Payload properties carried by every successful source derivation. -/
 

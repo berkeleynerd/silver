@@ -1,6 +1,10 @@
-import Silver.ArgumentsAdmission
-import Silver.NamedEquations
-import Silver.ConcatEquations
+module
+
+public import Silver.ArgumentsAdmission
+public import Silver.NamedEquations
+public import Silver.ConcatEquations
+
+@[expose] public section
 
 namespace Silver.Arguments
 

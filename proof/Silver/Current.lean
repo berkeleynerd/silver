@@ -1,7 +1,11 @@
-import Silver.ComposeDecode
-import Silver.ComposeExecution
-import Silver.ComposeObligations
-import Silver.Cursor
+module
+
+public import Silver.ComposeDecode
+public import Silver.ComposeExecution
+public import Silver.ComposeObligations
+public import Silver.Cursor
+
+@[expose] public section
 
 /-! One current language: null plus the shared expression/shell grammar.
 Every admitted source has one selected meaning. The explicit external tool

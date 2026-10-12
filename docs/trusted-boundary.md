@@ -652,6 +652,14 @@ audit requires every project module. `--target` checks only the selected actual
 import closure and writes separate partial evidence, not a complete
 source-correspondence result.
 
+Ordinary proof files use Lean's module system with their current computational
+interfaces exposed. The complete audit, reusable audit helper and generated
+focused audit driver deliberately retain legacy imports, which load transitive
+private declarations. This preserves checks of unused private assumptions behind
+ordinary module boundaries. A top-facade `import all` in a module audit alone
+does not supply that coverage. The [migration record](lean-modules.md) documents
+native proof-reuse, source-invalidation and private-axiom controls.
+
 Local cached Lean objects rely on Lake's dependency tracking and the pinned
 Lean toolchain; routine runs do not independently recheck imported objects.
 The runner rejects direct `skipKernelTC`, `addDeclWithoutChecking` and

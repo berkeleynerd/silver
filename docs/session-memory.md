@@ -1,5 +1,44 @@
 # Session memory
 
+## 2026-10-12 — Ordinary proof modules adopted
+
+After reassessing the bounded pilot's deferral, the owner authorized the coherent
+migration of the ordinary Lean proof tree. The [migration record](lean-modules.md)
+describes the accepted scope, minimal standard-library compatibility repairs,
+complete validation and matched proof-edit comparison. All ordinary proof files
+now use module boundaries while the complete and focused audit roots remain
+legacy, preserving private/transitive coverage. Existing computational interfaces,
+theorem statements, authoritative source bytes and accepted axioms are retained.
+No language expansion or API redesign is included.
+
+This supersedes the deferral recorded immediately below. Source-byte and public
+changes still invalidate affected proofs; private theorem edits can preserve
+consumers. Keep all object sidecars and Lake metadata when copying caches.
+Complete source correspondence remains required at stable checkpoints, and
+independent replay remains optional. The initial complete conversion exposed a
+hidden standard-library renderer; its failed evidence and successful certificate
+objects were preserved, then reused for the successful complete retry.
+
+Frozen input is `140de9abd6`; implementation/review target is the commit
+introducing `docs/lean-modules.md`. The supported compiler remains `e9d18f1996`.
+Evidence is under `.silver/linux-x86_64/module-migration-20261012T153858Z/`, with
+local recovery pointer `tmp/module-migration-active.json`. The final unmutated
+candidate and its migrated warm cache are retained there. Canonical caches and
+older evidence remain untouched. The unrelated unfinished `ComposeAdmission.lean`
+patch is preserved unstaged; only its module preamble joins this commit. The
+isolated successful proof inputs match the staged supported tree, excluding that
+unfinished language work. Compiler/SPARK inputs are unchanged; their older native
+evidence retains its original attribution without a rerun.
+
+The comparisons used a 16,384 MiB process threshold on the 31 GiB sandbox; the
+owner's 96 GB physical RAM remains distinct. No allocation or default changed.
+Selective improvements at remaining measured proof hotspots are next proposed;
+no further roadmap item began. No new harness goal was requested, and Compose
+String Results remains complete. Publication remains authorized, Linux is primary,
+macOS proof work is out of scope and Actions remains disabled. This checked-in
+memory was updated. CLI recall tools remain unavailable and were not updated.
+
+
 ## 2026-10-12 — Module pilot completed; migration deferred
 
 The owner instructed proceeding with the bounded module/dependency pilot after

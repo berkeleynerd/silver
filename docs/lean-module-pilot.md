@@ -1,7 +1,12 @@
 # Bounded module and dependency pilot
 
+Historical checkpoint: the owner subsequently authorized the
+[coherent module migration](lean-modules.md), which is now adopted after a
+complete workload comparison. That decision supersedes the deferral below;
+the original pilot's scope and evidence remain recorded here.
+
 Roadmap item 3 of [Lean Critical Path](../roadmap.md#lean-critical-path) was
-authorized and completed on 2026-10-12. **No production migration is adopted.**
+authorized and completed on 2026-10-12. **This pilot adopted no production migration.**
 Lean's new module system demonstrably avoids rebuilding ordinary module
 consumers after a proof-only edit. The remaining legacy consumers still depend
 on private proof data, including through converted intermediates. Removing the

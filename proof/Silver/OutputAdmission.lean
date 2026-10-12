@@ -1,5 +1,9 @@
-import Silver.OutputLiteral
-import Silver.Cursor
+module
+
+public import Silver.OutputLiteral
+public import Silver.Cursor
+
+@[expose] public section
 
 namespace Silver.Output
 

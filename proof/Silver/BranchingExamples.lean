@@ -1,5 +1,9 @@
-import Silver.Current
-import Silver.BranchingMain
+module
+
+public import Silver.Current
+public import Silver.BranchingMain
+
+@[expose] public section
 
 namespace Silver.Branching
 

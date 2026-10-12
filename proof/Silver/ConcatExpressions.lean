@@ -1,5 +1,9 @@
-import Silver.ConcatEquations
-import Silver.OutputExpressions
+module
+
+public import Silver.ConcatEquations
+public import Silver.OutputExpressions
+
+@[expose] public section
 
 /-! Typed templates for the concatenation recognizer. Numerical subtraction occurs only
 on the nonempty span/word domains checked by SPARK; the templates retain each

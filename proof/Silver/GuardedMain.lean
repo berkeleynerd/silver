@@ -1,4 +1,8 @@
-import Silver.GuardedSemantics
+module
+
+public import Silver.GuardedSemantics
+
+@[expose] public section
 
 namespace Silver.Guarded.Main
 

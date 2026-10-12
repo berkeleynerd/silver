@@ -1,5 +1,9 @@
-import Silver.ConcatAdmission
-import Silver.NamedEquations
+module
+
+public import Silver.ConcatAdmission
+public import Silver.NamedEquations
+
+@[expose] public section
 
 namespace Silver.Concat
 

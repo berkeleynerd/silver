@@ -1,4 +1,8 @@
-import Silver.Cursor
+module
+
+public import Silver.Cursor
+
+@[expose] public section
 
 /-!
 Read the authoritative SPARK files into literal terms and recover their Ada
@@ -159,7 +163,7 @@ representation in one kernel evaluation. Each leaf has already been checked. -/
 theorem certified_source_supported (lines : List LineCertificate) :
     compilerSource (String.intercalate "\n" (lines.map (·.text))) = true := by
   induction lines with
-  | nil => rfl
+  | nil => simp [compilerSource]
   | cons line lines ih =>
     cases lines with
     | nil => simpa using lexLine_supported line.correct

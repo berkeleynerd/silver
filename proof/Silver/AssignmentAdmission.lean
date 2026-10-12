@@ -1,5 +1,9 @@
-import Silver.NamedSemantics
-import Silver.GuardedDecimal
+module
+
+public import Silver.NamedSemantics
+public import Silver.GuardedDecimal
+
+@[expose] public section
 
 namespace Silver.Assignment
 

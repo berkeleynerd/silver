@@ -1,6 +1,10 @@
-import Silver.AssignmentAdmission
-import Silver.GuardedEquations
-import Silver.NamedEquations
+module
+
+public import Silver.AssignmentAdmission
+public import Silver.GuardedEquations
+public import Silver.NamedEquations
+
+@[expose] public section
 
 namespace Silver.Assignment
 

@@ -1,3 +1,7 @@
+module
+
+@[expose] public section
+
 /-! Reviewed complete source shapes. Changes require review with the grammar,
 recursive equations and executable runtime translation; pins alone prove no semantics. -/
 namespace Silver.Output.SourceShape

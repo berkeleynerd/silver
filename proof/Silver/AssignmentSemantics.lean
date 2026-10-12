@@ -1,5 +1,9 @@
-import Silver.AssignmentAdmission
-import Silver.OutputRuntime
+module
+
+public import Silver.AssignmentAdmission
+public import Silver.OutputRuntime
+
+@[expose] public section
 
 namespace Silver.Assignment
 open Named

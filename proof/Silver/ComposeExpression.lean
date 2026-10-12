@@ -1,5 +1,9 @@
-import Silver.GuardedDecimal
-import Silver.ArgumentsRuntime
+module
+
+public import Silver.GuardedDecimal
+public import Silver.ArgumentsRuntime
+
+@[expose] public section
 
 /-! One flat String-expression semantics for all output positions. The static
 binding may be a constant or a fixed-length cell; its value is supplied at the

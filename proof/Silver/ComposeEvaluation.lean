@@ -1,5 +1,9 @@
-import Silver.ComposeEquations
-import Silver.ComposeLexical
+module
+
+public import Silver.ComposeEquations
+public import Silver.ComposeLexical
+
+@[expose] public section
 
 /-! The actual helper calls are replaced by their proved lexical meanings only
 at calls whose native preconditions hold. Legality follows the executed branches

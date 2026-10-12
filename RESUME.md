@@ -30,32 +30,40 @@ caches/evidence and the unfinished proof edit below are preserved. The baseline
 profiling and optimization runs are complete. Reusable optimized workspaces are
 `candidate-warm/proof/` and `candidate/.silver/linux-x86_64/proof/` within the
 optimization evidence directory. Copy an optimized seed with its Lake metadata
-for later experiments; the unchanged canonical workspace retains the older
-certificate implementation. Let the normal runner synchronize and validate inputs.
+for experiments on that representation; prefer the migrated seed below for
+current work. The unchanged canonical workspace retains the older certificate
+implementation. Let the normal runner synchronize and validate inputs.
 
-The owner then authorized the [module/dependency pilot](docs/lean-module-pilot.md),
-which is complete without a production migration. Four copied modules retain
-ordinary consumers after proof-only edits, but legacy descendants still rebuild.
-The complete-check target would require converting 99 of 109 modules under the
-current import graph; the small local saving does not justify that scope now.
-Private/transitive audit and source-invalidation controls passed. Keep the
-existing legacy audit: top-facade `import all` alone does not recover deeper
-private declarations. The pilot's isolated evidence and optimized cache copies
-are under `.silver/linux-x86_64/module-pilot-20261012T144532Z/`; its local pointer
-is `tmp/module-pilot-active.json`. No experiment remains running. The proof tree,
-runner and compiler are unchanged by the pilot; the unfinished edit stays excluded.
-Its review target is the documentation commit introducing the pilot record,
-based on `5267935367`.
+The owner then authorized the [module/dependency pilot](docs/lean-module-pilot.md).
+After reassessing its deferral, the owner authorized a coherent migration of the
+ordinary proof tree. That [migration](docs/lean-modules.md) is complete and
+adopted: all 107 ordinary modules use module boundaries; the complete and focused
+audits retain legacy imports to inspect transitive private declarations. Current
+computational definitions and interfaces remain exposed. Six source bridges
+explicitly import the pinned standard-library numeric renderer's implementation;
+one lexer proof uses its public simplification lemma. Statements, source bytes
+and accepted axioms are unchanged.
 
-Selective proof-authoring improvements are next proposed; broader integration
-remains proposed and broad module migration is deferred. Keep exact source
-correspondence and accepted axioms; preserve private-declaration
-coverage when changing module imports. The 10× target is aspirational, and old
-failed candidates remain failures. Neither investigation changes a supported
-language capability or creates a new harness goal. The adopted reconstruction
-optimization's implementation/review commit is `5267935367`, introducing
-`proof/Silver/CertificateWitness.lean` on `76e98bdc07`. The later module pilot's
-documentation/review target is identified above.
+The matched complete proof-edit check fell from 213.563 to 9.573 seconds, with
+nineteen ordinary consumers retaining their artifacts. Complete source
+correspondence, fresh whole-project audits, native regression checks and
+independent reviews passed. No optional replay or native compiler rerun was
+needed; the compiler/SPARK inputs are unchanged. Evidence is under
+`.silver/linux-x86_64/module-migration-20261012T153858Z/`, with recovery pointer
+`tmp/module-migration-active.json`. The preferred migrated warm seed is its
+`candidate/.silver/linux-x86_64/proof/`; copy all artifacts and Lake metadata,
+then let the normal runner validate current inputs. The canonical workspace and
+older evidence remain preserved. No experiment remains running.
+
+The migration's implementation/review target is the commit introducing
+`docs/lean-modules.md`, based on `140de9abd6`. Its isolated validation excludes
+the unfinished edit below; only the module preamble is staged for that file.
+The comparison used 16,384 MiB per process on this 31 GiB sandbox; no host
+allocation or Lean default changed. Selective improvements at remaining measured
+proof hotspots are next proposed. Neither those nor later language consolidation
+are started by this migration. The harness's Compose String Results goal remains
+complete; no new goal was requested. The earlier reconstruction implementation
+remains `5267935367`, and the pilot disposition is `140de9abd6`.
 
 **Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating

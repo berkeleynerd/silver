@@ -1,5 +1,9 @@
-import Silver.ArgumentsSemantics
-import Silver.NamedDisjoint
+module
+
+public import Silver.ArgumentsSemantics
+public import Silver.NamedDisjoint
+
+@[expose] public section
 
 namespace Silver.Arguments
 

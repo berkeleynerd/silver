@@ -1,7 +1,12 @@
-import Silver.SourceBridge
-import Silver.OutputExpressions
-import Silver.OutputRuntime
-import Silver.ReviewedOutputShape
+module
+
+public import Silver.SourceBridge
+public import Silver.OutputExpressions
+public import Silver.OutputRuntime
+public import Silver.ReviewedOutputShape
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-! Source correspondence for shared lexical helpers and the output runtime.
 The actual composed recognizer is checked in ComposeSourceBridge. This module

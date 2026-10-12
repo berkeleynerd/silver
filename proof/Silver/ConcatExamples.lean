@@ -1,5 +1,9 @@
-import Silver.Current
-import Silver.ConcatSemantics
+module
+
+public import Silver.Current
+public import Silver.ConcatSemantics
+
+@[expose] public section
 
 namespace Silver.Concat
 

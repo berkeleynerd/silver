@@ -1,6 +1,10 @@
-import Silver.OutputAdmission
-import Silver.Uniqueness
-import Silver.Expressions
+module
+
+public import Silver.OutputAdmission
+public import Silver.Uniqueness
+public import Silver.Expressions
+
+@[expose] public section
 
 namespace Silver.Output
 

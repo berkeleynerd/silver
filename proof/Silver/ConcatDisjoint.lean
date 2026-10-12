@@ -1,5 +1,9 @@
-import Silver.ConcatSemantics
-import Silver.ArgumentsDisjoint
+module
+
+public import Silver.ConcatSemantics
+public import Silver.ArgumentsDisjoint
+
+@[expose] public section
 
 namespace Silver.Concat
 

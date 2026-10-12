@@ -1,19 +1,23 @@
-import Silver.Admission
-import Silver.Cursor
-import Silver.Semantics
-import Silver.SourceBridge
-import Silver.Current
-import Silver.OutputSourceBridge
-import Silver.NamedSourceBridge
-import Silver.NamedExamples
-import Silver.ArgumentsSourceBridge
-import Silver.ArgumentsExamples
-import Silver.ConcatExamples
-import Silver.GuardedExamples
-import Silver.AssignmentExamples
-import Silver.BranchingExamples
-import Silver.ComposeSourceBridge
-import Silver.ComposeExamples
+module
+
+public import Silver.Admission
+public import Silver.Cursor
+public import Silver.Semantics
+public import Silver.SourceBridge
+public import Silver.Current
+public import Silver.OutputSourceBridge
+public import Silver.NamedSourceBridge
+public import Silver.NamedExamples
+public import Silver.ArgumentsSourceBridge
+public import Silver.ArgumentsExamples
+public import Silver.ConcatExamples
+public import Silver.GuardedExamples
+public import Silver.AssignmentExamples
+public import Silver.BranchingExamples
+public import Silver.ComposeSourceBridge
+public import Silver.ComposeExamples
 
 -- Independent fragment and recursion lemmas retained in the whole-project audit.
-import Silver.BranchingDisjoint
+public import Silver.BranchingDisjoint
+
+@[expose] public section

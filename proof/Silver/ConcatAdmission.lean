@@ -1,4 +1,8 @@
-import Silver.NamedAdmission
+module
+
+public import Silver.NamedAdmission
+
+@[expose] public section
 
 namespace Silver.Concat
 

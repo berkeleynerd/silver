@@ -542,6 +542,13 @@ unsafe weak arguments that survive a configuration reversion. Honest local
 objects/traces and the pinned toolchain remain trust assumptions; these checks
 are not a sandbox against arbitrary hostile metaprograms.
 
+The [ordinary-module migration](lean-modules.md) permits theorem proof-body edits
+to retain consumer artifacts while preserving public statements and exposed
+computational definitions. The complete and focused audits remain legacy entry
+points so private and transitive declarations stay visible to the fresh audit.
+This changes build dependencies, not the required source correspondence or
+approved assumptions.
+
 Repeatable `--target MODULE` options build and freshly audit only the selected
 actual import closure, recording separate focused evidence. They support fast
 model iteration and do not establish whole-project correspondence. Optional

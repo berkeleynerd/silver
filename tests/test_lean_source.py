@@ -35,7 +35,7 @@ SPEC.loader.exec_module(GENERATOR)
 class CompilerSourcePolicyTests(unittest.TestCase):
     def test_embedded_source_lists_and_lake_dependencies_agree(self):
         facade = (ROOT / "proof/Silver/AuthoritativeSource.lean").read_text()
-        modules = re.findall(r'^import Silver\.(\w+Source)$', facade, re.MULTILINE)
+        modules = re.findall(r'^public import Silver\.(\w+Source)$', facade, re.MULTILINE)
         self.assertEqual(len(modules), len(EMBEDDED))
         bindings = []
         source_modules = {}
@@ -95,6 +95,19 @@ class CompilerSourcePolicyTests(unittest.TestCase):
                 actual[path.relative_to(proof)] = count
         self.assertEqual(len(expected), 12)
         self.assertEqual(actual, expected)
+
+    def test_only_audit_roots_use_legacy_full_imports(self):
+        # Ordinary modules consume public interfaces to avoid rebuilding after
+        # private proof changes. Legacy audit roots deliberately load the full
+        # environment, including private declarations and their assumptions.
+        proof = ROOT / "proof"
+        legacy = {
+            path.relative_to(proof)
+            for path in proof.rglob("*.lean")
+            if ".lake" not in path.parts and path.name != "lakefile.lean"
+            and not re.search(r"^module\s*$", path.read_text(), re.MULTILINE)
+        }
+        self.assertEqual(legacy, {Path("Silver/Audit.lean"), Path("Silver/AxiomAudit.lean")})
 
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
@@ -187,23 +200,32 @@ class NativeCertificateTests(unittest.TestCase):
                 result = compile_file(relative)
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
-            prelude = ("import Silver.SourceLexer\nimport Silver.CertificateWitness\n"
-                       "import Silver.AxiomAudit\n")
+            prelude = ("module\n\npublic import Silver.SourceLexer\n"
+                       "public meta import Silver.CertificateWitness\n\n"
+                       "@[expose] public section\n\n")
 
             def check(name, body, failure=None):
                 relative = f"Silver/Check_{name}.lean"
-                (root / relative).write_text(
-                    prelude + body + ("\n#silver_audit\n" if failure is None else "\n"))
+                (root / relative).write_text(prelude + body + "\n")
                 result = compile_file(relative)
                 output = result.stdout + result.stderr
                 if failure is None:
                     self.assertEqual(result.returncode, 0, output)
+                    # A module cannot import the legacy full-environment audit.
+                    # Audit the compiled module from a separate legacy driver.
+                    driver = f"Silver/Audit_{name}.lean"
+                    (root / driver).write_text(
+                        f"import Silver.Check_{name}\nimport Silver.AxiomAudit\n\n#silver_audit\n")
+                    audit = compile_file(driver)
+                    output = audit.stdout + audit.stderr
+                    self.assertEqual(audit.returncode, 0, output)
                     self.assertIn("Silver axiom audit passed:", output)
                     self.assertIn("SILVER_MODULE Silver.CertificateWitness", output)
                 else:
                     self.assertNotEqual(result.returncode, 0, output)
                     self.assertRegex(output, failure)
-                    self.assertFalse((root / relative).with_suffix(".olean").exists())
+                    for suffix in (".olean", ".olean.server", ".olean.private"):
+                        self.assertFalse((root / relative).with_suffix(suffix).exists())
 
             check("witness", "theorem Silver.witness : 2 + 2 = 4 := by\n"
                   "  kernel_exact (Eq.refl (4 : Nat))\n")

@@ -1,4 +1,8 @@
-import Std
+module
+
+public import Std
+
+@[expose] public section
 
 /-!
 Byte-level semantics of the initial profile. Naturals represent byte values;

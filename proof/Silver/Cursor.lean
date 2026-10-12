@@ -1,4 +1,8 @@
-import Silver.Admission
+module
+
+public import Silver.Admission
+
+@[expose] public section
 
 /-!
 The SPARK ghost specification uses 1-based positions into an immutable string;

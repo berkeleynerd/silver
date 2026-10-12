@@ -1,6 +1,11 @@
-import Silver.NamedSourceBridge
-import Silver.ArgumentsRuntime
-import Silver.ArgumentsExpressions
+module
+
+public import Silver.NamedSourceBridge
+public import Silver.ArgumentsRuntime
+public import Silver.ArgumentsExpressions
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-! Shared argument-name helpers and complete argument-wrapper correspondence.
 The composed Main syntax and interpretation are checked separately. This module

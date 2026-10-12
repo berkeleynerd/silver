@@ -1,5 +1,9 @@
-import Silver.NamedEquations
-import Silver.OutputExpressions
+module
+
+public import Silver.NamedEquations
+public import Silver.OutputExpressions
+
+@[expose] public section
 
 /-! Typed templates for the named recognizer. Numerical subtraction occurs only
 on the nonempty span/word domains checked by SPARK; the templates retain each

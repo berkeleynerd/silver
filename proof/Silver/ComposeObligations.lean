@@ -1,4 +1,8 @@
-import Silver.ComposeMain
+module
+
+public import Silver.ComposeMain
+
+@[expose] public section
 
 /-! Each complete expression bounds every left-associated concatenation prefix.
 These source-derived schemas also dominate checks simplified by the frontend.

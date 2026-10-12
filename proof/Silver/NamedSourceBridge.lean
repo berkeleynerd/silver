@@ -1,5 +1,10 @@
-import Silver.OutputSourceBridge
-import Silver.NamedExpressions
+module
+
+public import Silver.OutputSourceBridge
+public import Silver.NamedExpressions
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-! Source checks for shared identifier and name-binding helpers. The finite spelling function
 is an ordinary case/return body, so its complete body and enum are checked

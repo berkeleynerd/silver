@@ -1,5 +1,9 @@
-import Silver.Current
-import Silver.NamedSemantics
+module
+
+public import Silver.Current
+public import Silver.NamedSemantics
+
+@[expose] public section
 
 namespace Silver.Named
 

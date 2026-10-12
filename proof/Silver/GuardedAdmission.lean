@@ -1,4 +1,8 @@
-import Silver.GuardedDecimal
+module
+
+public import Silver.GuardedDecimal
+
+@[expose] public section
 
 namespace Silver.Guarded
 

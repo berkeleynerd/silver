@@ -1,5 +1,9 @@
-import Silver.OutputEquations
-import Silver.RecursiveBridge
+module
+
+public import Silver.OutputEquations
+public import Silver.RecursiveBridge
+
+@[expose] public section
 
 /-! Typed syntax for the two new authoritative expression functions. The same
 trees render the checked Ada tokens and interpret the recursive definition

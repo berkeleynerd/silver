@@ -1,5 +1,9 @@
-import Silver.NamedAdmission
-import Silver.OutputEquations
+module
+
+public import Silver.NamedAdmission
+public import Silver.OutputEquations
+
+@[expose] public section
 
 namespace Silver.Named
 

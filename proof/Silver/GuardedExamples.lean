@@ -1,5 +1,9 @@
-import Silver.GuardedMain
-import Silver.GuardedObligations
+module
+
+public import Silver.GuardedMain
+public import Silver.GuardedObligations
+
+@[expose] public section
 
 namespace Silver.Guarded
 

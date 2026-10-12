@@ -1,6 +1,10 @@
-import Silver.BranchingMain
-import Silver.AssignmentDisjoint
-import Silver.NamedDisjoint
+module
+
+public import Silver.BranchingMain
+public import Silver.AssignmentDisjoint
+public import Silver.NamedDisjoint
+
+@[expose] public section
 
 namespace Silver.Branching
 

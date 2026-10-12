@@ -1,7 +1,12 @@
-import Silver.LexicalSourceBridge
-import Silver.ComposeEvaluation
-import Silver.ComposeExecution
-import Silver.Current
+module
+
+public import Silver.LexicalSourceBridge
+public import Silver.ComposeEvaluation
+public import Silver.ComposeExecution
+public import Silver.Current
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-! Correspondence for the actual shared recognizer, its finite shell tables,
 executable refinements and interpreted Main statements. Exact-source certificates

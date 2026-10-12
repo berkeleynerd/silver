@@ -1,4 +1,8 @@
-import Silver.OutputRuntime
+module
+
+public import Silver.OutputRuntime
+
+@[expose] public section
 
 /-! Typed statement semantics for the fixed Silver_Arguments implementation.
 The same immutable argument vector supplies both pure queries. Missing imported

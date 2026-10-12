@@ -1,5 +1,9 @@
-import Silver.AssignmentEquations
-import Silver.ConcatExpressions
+module
+
+public import Silver.AssignmentEquations
+public import Silver.ConcatExpressions
+
+@[expose] public section
 
 /-! Typed expressions for fixed-length assignment recognition. Shared identifier
 and literal callees keep their existing checked interpretations; the new suffix

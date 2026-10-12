@@ -1,3 +1,7 @@
+module
+
+@[expose] public section
+
 /-! Handwritten authoritative source binding; never generated with candidates. -/
 
 namespace Silver.Source

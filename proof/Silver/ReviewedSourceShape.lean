@@ -1,4 +1,8 @@
-import Silver.SourceLexer
+module
+
+public import Silver.SourceLexer
+
+@[expose] public section
 
 /-!
 The complete, reviewed compiler fragment. These token streams are a checked-in

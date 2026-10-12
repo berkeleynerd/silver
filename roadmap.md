@@ -20,9 +20,11 @@ performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
 is complete. Item 2's authorized bounded reconstruction/equality experiment is
 also [complete and adopted](docs/lean-join-optimization.md). The authorized
-[module/dependency pilot](docs/lean-module-pilot.md) is complete; production
-migration is deferred because the complete-check target requires near-project
-scope. Selective proof-authoring improvements are next proposed. Later work
+[module/dependency pilot](docs/lean-module-pilot.md) is complete. After reassessing
+its scope, the owner authorized a coherent [module migration](docs/lean-modules.md),
+which is adopted: the complete proof-edit check fell from 213.6 to 9.6 seconds
+while preserving source correspondence and private/transitive audit coverage.
+Selective proof-authoring improvements are next proposed. Later work
 remains proposed; these investigations do not change the supported language.
 
 ### Lean Critical Path
@@ -38,7 +40,7 @@ module visibility can separately reduce unnecessary rebuilds after proof edits.
 | --- | --- | --- |
 | 1 | Baseline and declaration-level profiling — complete | Isolated no-change, proof-only and reconstructed feature-workload checks passed. The profile locates the dominant cost in large reconstruction-join elaboration; the proof-only edit separately exposes unnecessary downstream rebuilding. Host, cache state, timing/memory attribution and limits are in the [measurement record](docs/lean-baseline.md). |
 | 2 | Source reconstruction and equality proofs — complete | Adopt checked explicit join witnesses, preserving exact source bytes, final statements and accepted axioms. Complete integration and reconstructed feature-workload checks passed; runner time fell from 130.5 to 14.9 minutes (observed 8.75×, with baseline concurrency caveat). Structural alternatives timed out and remain rejected. The [record](docs/lean-join-optimization.md) covers tests, audits, memory and retained optimized caches. |
-| 3 | Module-system and dependency pilot — complete; migration deferred | Four actual modules demonstrate proof-only reuse and public-definition invalidation; a separate tiny fixture verifies source-byte invalidation. Legacy descendants still rebuild. Shielding the measured complete-check closure requires 99 of 109 modules under the current graph. The small local saving does not justify that migration now. Keep the existing legacy audit; top-facade `import all` alone misses deeper private assumptions. Scope, measurements and retained controls are in the [pilot record](docs/lean-module-pilot.md). |
+| 3 | Module-system pilot and coherent migration — complete | Adopt module boundaries across all 107 ordinary proof files, retaining both legacy audit roots. The same complete proof-only check falls from 213.563 to 9.573 seconds; nineteen ordinary consumers retain their artifacts. Complete source correspondence, fresh audits and public/source-byte invalidation controls pass. The [migration record](docs/lean-modules.md) explains compatibility repairs, scope and retained caches; the [pilot](docs/lean-module-pilot.md) remains historical evidence. |
 | 4 | Selective proof-authoring improvements | At measured hotspots, use named intermediate equalities, tight theorem interfaces and restricted successful `simp`/`grind` scripts; add auxiliary lemmas only where they reduce duplicated work. Separately measure repeated AI/editor elaboration and pilot persistent editor/REPL proof-state reuse if it is material. Integrate successful proofs into ordinary source files and validate them normally. |
 | 5 | Integration and measurement | Compare successful uninstrumented runs on identical inputs and the same host; separate cached iteration, changed-source checking and any cold-build measurement. Check source-edit invalidation and axiom/module coverage, then complete one stable local checkpoint for adopted changes. Record gains, memory costs and failed candidates; conclude the bounded investigation and continue feature consolidation. |
 
@@ -50,7 +52,9 @@ showed that ordinary module imports can hide unused private declarations from
 the audit; a direct `import all` restored detection in that tiny graph. The
 subsequent bounded pilot confirms that top-facade `import all` is insufficient
 for deeper ordinary imports. Existing legacy roots retain the required coverage.
-Keep broad migration deferred until its measured benefit justifies its scope.
+The later authorized migration retains those legacy roots and demonstrates the
+complete-workload benefit. Computational interfaces remain exposed; further
+opacity or API redesign is not part of this change.
 
 **10× faster feature feedback is a stretch target.** It is not a promised gain
 or a requirement to reject smaller useful improvements. With other costs held

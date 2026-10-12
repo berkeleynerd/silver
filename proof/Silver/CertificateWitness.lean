@@ -1,6 +1,10 @@
-import Lean.Elab.Tactic.ElabTerm
-import Lean.Elab.ElabRules
-import Lean.Meta.Tactic.AuxLemma
+module
+
+public meta import Lean.Elab.Tactic.ElabTerm
+public meta import Lean.Elab.ElabRules
+public meta import Lean.Meta.Tactic.AuxLemma
+
+public section
 
 /-!
 Proof-artifact support for generated source reconstruction. Elaborating a large

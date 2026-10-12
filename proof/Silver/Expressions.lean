@@ -1,4 +1,8 @@
-import Silver.Cursor
+module
+
+public import Silver.Cursor
+
+@[expose] public section
 
 set_option linter.constructorNameAsVariable false
 

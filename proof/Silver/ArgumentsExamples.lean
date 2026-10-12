@@ -1,5 +1,9 @@
-import Silver.Current
-import Silver.ArgumentsSemantics
+module
+
+public import Silver.Current
+public import Silver.ArgumentsSemantics
+
+@[expose] public section
 
 namespace Silver.Arguments
 

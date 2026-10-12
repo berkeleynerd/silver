@@ -1,4 +1,8 @@
-import Silver.BranchingSemantics
+module
+
+public import Silver.BranchingSemantics
+
+@[expose] public section
 
 namespace Silver.Branching.Main
 

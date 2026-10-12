@@ -1,6 +1,10 @@
-import Silver.GuardedMain
-import Silver.GuardedObligations
-import Silver.ConcatDisjoint
+module
+
+public import Silver.GuardedMain
+public import Silver.GuardedObligations
+public import Silver.ConcatDisjoint
+
+@[expose] public section
 
 namespace Silver.Guarded
 

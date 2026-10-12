@@ -1,5 +1,10 @@
-import Silver.ArgumentsSourceBridge
-import Silver.GuardedExpressions
+module
+
+public import Silver.ArgumentsSourceBridge
+public import Silver.GuardedExpressions
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-! Source correspondence for the shared decimal and decoded-literal-length
 helpers. Their existing typed trees and recursive interpretations are retained;

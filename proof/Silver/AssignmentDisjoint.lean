@@ -1,5 +1,9 @@
-import Silver.AssignmentSemantics
-import Silver.GuardedDisjoint
+module
+
+public import Silver.AssignmentSemantics
+public import Silver.GuardedDisjoint
+
+@[expose] public section
 
 namespace Silver.Assignment
 

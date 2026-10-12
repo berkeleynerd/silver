@@ -1,4 +1,8 @@
-import Silver.OutputLiteral
+module
+
+public import Silver.OutputLiteral
+
+@[expose] public section
 
 /-! A small imperative fragment for the actual Silver_IO implementation.
 `checkedByte` renders the assignment and its executable failure guard together;

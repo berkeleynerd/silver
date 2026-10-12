@@ -122,6 +122,7 @@ class LeanEvidenceTests(unittest.TestCase):
         artifacts = [host.proof / ".lake/build" / directory / "Silver" / suffix
                      for directory, suffix in (
                          ("lib/lean", "SourceBridge.olean"),
+                         ("lib/lean", "SourceBridge.olean.server"),
                          ("lib/lean", "SourceBridge.olean.private"),
                          ("lib/lean", "SourceBridge.ilean"),
                          ("lib/lean", "SourceBridge.olean.hash"),
@@ -512,11 +513,16 @@ class LeanRunnerPhaseTests(unittest.TestCase):
                 self.assertEqual(state.phases, ["build", "audit"] + (["kernel"] if changed_phase == "kernel" else []))
 
     def test_tool_or_artifact_drift_stops_before_kernel(self) -> None:
-        for target in ("tool", "artifact", "source-link"):
+        for target in ("tool", "artifact", "artifact.server", "artifact.private", "source-link"):
             with self.subTest(target=target):
                 state = self.fixture()
 
                 def change(phase, host):
+                    artifact = host.proof / ".lake/build/lib/lean/Silver/Audit.olean"
+                    if target.startswith("artifact."):
+                        artifact = artifact.with_name(artifact.name + target.removeprefix("artifact"))
+                        if phase == "build":
+                            artifact.write_bytes(b"compiled sidecar fixture")
                     if phase == "audit":
                         if target == "source-link":
                             other = host.root / "other-src"
@@ -525,13 +531,12 @@ class LeanRunnerPhaseTests(unittest.TestCase):
                             link.unlink()
                             link.symlink_to(other, target_is_directory=True)
                         else:
-                            path = (host.lean / "bin/leanchecker" if target == "tool" else
-                                    host.proof / ".lake/build/lib/lean/Silver/Audit.olean")
+                            path = host.lean / "bin/leanchecker" if target == "tool" else artifact
                             path.write_bytes(b"changed")
 
                 state.after_phase = change
-                expected = {"tool": "tools changed", "artifact": "artifacts changed",
-                            "source-link": "source link changed"}[target]
+                expected = ("artifacts changed" if target.startswith("artifact") else
+                            {"tool": "tools changed", "source-link": "source link changed"}[target])
                 self.check_fails(state, expected)
                 self.assertEqual(state.phases, ["build", "audit"])
 
@@ -637,6 +642,8 @@ class LeanRunnerPhaseTests(unittest.TestCase):
         self.assertEqual((host.proof / "Silver/Model.lean").read_bytes(),
                          (host.root / "proof/Silver/Model.lean").read_bytes())
         driver = (host.proof / ".lake/silver-focused-audit.lean").read_text()
+        # A legacy driver loads private declarations through module boundaries.
+        self.assertNotIn("module", driver.splitlines())
         self.assertIn("#silver_audit", driver)
         self.assertIn("import Silver.Model\n", driver)
         self.assertNotIn("import Silver\n", driver)
@@ -983,10 +990,10 @@ class LeanNativeDependencyTests(unittest.TestCase):
             inputs = {
                 root / "proof/lakefile.lean": (ROOT / "proof/lakefile.lean").read_bytes(),
                 root / "proof/lean-toolchain": (ROOT / "proof/lean-toolchain").read_bytes(),
-                root / "proof/Silver/Independent.lean": b"example : True := True.intro\n",
+                root / "proof/Silver/Independent.lean": b"module\nexample : True := True.intro\n",
             }
             modules = {}
-            imports = ["import Silver.Independent"]
+            imports = ["module", "public import Silver.Independent"]
             for filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS:
                 module = binding[0].upper() + binding[1:] + "Source"
                 modules[filename] = module
@@ -995,10 +1002,10 @@ class LeanNativeDependencyTests(unittest.TestCase):
                 # ownership, with independent stale-value witnesses downstream.
                 inputs[root / "proof" / relative] = (ROOT / "proof" / relative).read_bytes()
                 inputs[root / f"proof/Silver/{module}Witness.lean"] = (
-                    f"import Silver.{module}\n"
+                    f"module\npublic import Silver.{module}\n"
                     f'example : Silver.Source.{binding} = "original\\n" := by decide\n'
                 ).encode()
-                imports.append(f"import Silver.{module}Witness")
+                imports.append(f"public import Silver.{module}Witness")
             inputs[root / "proof/Silver.lean"] = ("\n".join(imports) + "\n").encode()
             prepare_workspace(host, inputs)
             environment = lean_environment(host)
@@ -1015,9 +1022,13 @@ class LeanNativeDependencyTests(unittest.TestCase):
             def objects() -> dict[str, tuple[bytes, int]]:
                 return {str(path.relative_to(host.proof / ".lake/build/lib/lean")):
                         (path.read_bytes(), path.stat().st_mtime_ns)
-                        for path in (host.proof / ".lake/build/lib/lean").rglob("*.olean")}
+                        for path in (host.proof / ".lake/build/lib/lean").rglob("*.olean*")
+                        if path.name.endswith((".olean", ".olean.server", ".olean.private"))}
 
             before = objects()
+            for module in ("Independent", *modules.values()):
+                for suffix in (".olean", ".olean.server", ".olean.private"):
+                    self.assertIn(f"Silver/{module}{suffix}", before)
             result = build()
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertEqual(objects(), before)
@@ -1031,14 +1042,22 @@ class LeanNativeDependencyTests(unittest.TestCase):
                     try:
                         source.write_bytes(original.replace(b"\n", b"\r\n"))
                         os.utime(source, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+                        self.assertEqual(source.stat().st_mtime_ns, stat.st_mtime_ns)
                         result = build()
                         self.assertNotEqual(result.returncode, 0, "changed included Ada bytes used a stale object")
-                        self.assertIn("decide", result.stdout + result.stderr)
+                        output = result.stdout + result.stderr
+                        self.assertIn("Tactic `decide` proved that the proposition", output)
+                        self.assertIn("is false", output)
+                        self.assertIn(f"{modules[source.name]}Witness.lean", output)
                         changed_module = f"Silver/{modules[source.name]}.olean"
                         after = objects()
-                        self.assertNotEqual(after[changed_module], before[changed_module])
-                        affected = {changed_module, "Silver.olean",
-                                    f"Silver/{modules[source.name]}Witness.olean"}
+                        self.assertNotEqual(after[changed_module][0], before[changed_module][0])
+                        affected = {
+                            module + suffix
+                            for module in (f"Silver/{modules[source.name]}", "Silver",
+                                           f"Silver/{modules[source.name]}Witness")
+                            for suffix in (".olean", ".olean.server", ".olean.private")
+                        }
                         for module, identity in before.items():
                             if module not in affected:
                                 self.assertEqual(after[module], identity, module)

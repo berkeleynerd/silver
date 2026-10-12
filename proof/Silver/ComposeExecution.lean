@@ -1,4 +1,8 @@
-import Silver.ComposeMain
+module
+
+public import Silver.ComposeMain
+
+@[expose] public section
 
 /-! A small statement interpreter for the admitted shells. The same templates
 render their source grammar and consume the parser's ordered payloads. Branch

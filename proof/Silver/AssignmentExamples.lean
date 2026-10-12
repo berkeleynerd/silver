@@ -1,5 +1,9 @@
-import Silver.Current
-import Silver.AssignmentSemantics
+module
+
+public import Silver.Current
+public import Silver.AssignmentSemantics
+
+@[expose] public section
 
 namespace Silver.Assignment
 

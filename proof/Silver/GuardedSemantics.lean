@@ -1,6 +1,10 @@
-import Silver.GuardedAdmission
-import Silver.NamedSemantics
-import Silver.ArgumentsRuntime
+module
+
+public import Silver.GuardedAdmission
+public import Silver.NamedSemantics
+public import Silver.ArgumentsRuntime
+
+@[expose] public section
 
 namespace Silver.Guarded
 

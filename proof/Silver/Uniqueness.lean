@@ -1,4 +1,8 @@
-import Silver.Cursor
+module
+
+public import Silver.Cursor
+
+@[expose] public section
 
 /-!
 The source-checked recursive bodies determine unique functions on their proved

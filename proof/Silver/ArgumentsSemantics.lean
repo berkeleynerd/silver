@@ -1,6 +1,10 @@
-import Silver.ArgumentsAdmission
-import Silver.ArgumentsRuntime
-import Silver.NamedSemantics
+module
+
+public import Silver.ArgumentsAdmission
+public import Silver.ArgumentsRuntime
+public import Silver.NamedSemantics
+
+@[expose] public section
 
 namespace Silver.Arguments
 

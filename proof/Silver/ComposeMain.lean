@@ -1,5 +1,9 @@
-import Silver.ComposeAdmission
-import Silver.GuardedObligations
+module
+
+public import Silver.ComposeAdmission
+public import Silver.GuardedObligations
+
+@[expose] public section
 
 /-! Decoded payloads of the finite shells. Admission resolves result and argument
 names to their distinct slots and immutable names to their declared bytes;

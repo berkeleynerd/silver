@@ -1,5 +1,9 @@
-import Silver.ComposeExpressions
-import Silver.GuardedExpressions
+module
+
+public import Silver.ComposeExpressions
+public import Silver.GuardedExpressions
+
+@[expose] public section
 
 /-! Retained lexical-helper correspondence for the composed recognizer.
 Only bodies still present in Silver_Output_Lexical are interpretation premises.

@@ -132,7 +132,15 @@ importers; unrelated certificates and source-independent model modules can
 remain cached. Shared Lean changes can invalidate additional modules. The stable
 checkpoint and complete source-correspondence requirement remain. The module/axiom
 audit executes on every invocation, including cache hits, with the selected
-import scope. `--workers N` controls
+import scope. Ordinary proof files use Lean's `module` system, preserving existing
+reexports with public imports and exposing computational definitions used by
+downstream proofs. Private theorem-body edits can retain consumer artifacts;
+public interface or exposed-definition changes still propagate. Keep `Audit.lean`,
+`AxiomAudit.lean` and generated focused audit drivers legacy so their fresh audits
+retain transitive private-declaration coverage. Preserve `.olean.server` and
+`.olean.private` alongside ordinary objects and Lake metadata when copying a
+cache. See the [module migration](docs/lean-modules.md) for measurements and
+invalidation controls. `--workers N` controls
 Lake's workers for
 independent modules; `--threads N` separately controls each Lean build/audit
 process. Both default to `0`, selecting the CPUs available through process

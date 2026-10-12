@@ -1,5 +1,9 @@
-import Silver.Expressions
-import Silver.Uniqueness
+module
+
+public import Silver.Expressions
+public import Silver.Uniqueness
+
+@[expose] public section
 
 set_option linter.constructorNameAsVariable false
 

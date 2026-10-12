@@ -1,7 +1,11 @@
-import Silver.GuardedEquations
-import Silver.ArgumentsExpressions
-import Silver.AssignmentExpressions
-import Silver.BranchingExpressions
+module
+
+public import Silver.GuardedEquations
+public import Silver.ArgumentsExpressions
+public import Silver.AssignmentExpressions
+public import Silver.BranchingExpressions
+
+@[expose] public section
 
 /-! Typed trees for the newly admitted recognizer equations. The inherited
 helper interpretation is reused without assuming the obsolete public union.

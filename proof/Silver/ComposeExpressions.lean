@@ -1,4 +1,8 @@
-import Silver.ComposeAdmission
+module
+
+public import Silver.ComposeAdmission
+
+@[expose] public section
 
 /-! Typed expression trees for the shared SPARK expression and shell recognizer.
 All newly introduced callees remain arbitrary. Shared lexical callees have a

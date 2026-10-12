@@ -1,4 +1,8 @@
-import Silver.SourceCertificates
+module
+
+public import Silver.SourceCertificates
+
+@[expose] public section
 
 /-!
 The actual-source reader, literal lexical certificates, and their checked

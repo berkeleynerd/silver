@@ -1,4 +1,8 @@
-import Silver.OutputAdmission
+module
+
+public import Silver.OutputAdmission
+
+@[expose] public section
 
 /-! Independent ASCII identifier derivations, bounded cursor recognition, and
 case-insensitive one-binding names. No external parser/prover result defines

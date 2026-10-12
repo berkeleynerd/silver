@@ -1,9 +1,14 @@
-import Silver.Source
-import Silver.Precedence
-import Silver.Uniqueness
-import Silver.SupportedTools
-import Silver.ReviewedSourceShape
-import Silver.RecursiveBridge
+module
+
+public import Silver.Source
+public import Silver.Precedence
+public import Silver.Uniqueness
+public import Silver.SupportedTools
+public import Silver.ReviewedSourceShape
+public import Silver.RecursiveBridge
+import all Init.Data.Repr
+
+@[expose] public section
 
 /-!
 Checked translation of the actual SPARK recognizer specification. The source
