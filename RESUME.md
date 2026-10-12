@@ -25,6 +25,9 @@ that need it. New obligation classes and harmless diagnostics need precise
 policies, and broader expression/effect composition needs justified capacity.
 The [consolidation sequence](roadmap.md#existing-feature-consolidation) and audit
 record define the scope; this audit does not authorize another implementation.
+Its four open [audit follow-ups](roadmap.md#audit-follow-ups) are now explicit
+within those items: length checks, ghost-output advisories, dynamic-expression
+solver limits, and dense proof/report capacity.
 
 Native build, focused tests, incremental GNATprove and the complete cached Lean
 check with a fresh whole-project audit passed for the catalogue repair. This is

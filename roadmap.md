@@ -118,6 +118,20 @@ without a separate core-language or proof-framework redesign. Literals,
 escaping, comments, whitespace and case-insensitive names already vary throughout their declared
 lexical domain; preserve that coverage in the generalized grammar.
 
+#### Audit follow-ups
+
+The restriction audit is complete; these four implementation follow-ups remain
+open within the existing items. The [native findings](docs/restrictions-capacity.md#native-measurements-and-integration)
+retain the sources, results and limitations. All extensions still require the
+complete assurance and validation described below.
+
+| Finding | Work items | Required follow-up |
+| --- | --- | --- |
+| New length-check obligations | 2: bindings/copies; 4: assignment | Extend the obligation model, source correspondence and report policy to cover proved Main `VC_LENGTH_CHECK` records from broader copies and path-refined assignments. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
+| Repeated-output ghost advisories | 4: sequencing; 6: output effects | Precisely classify the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the currently permitted initializer advisory. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
+| Dynamic-expression solver limit | 3: expressions | Resolve the unproved intermediate range check observed with 64 dynamic occurrences before admitting that shape or claiming its automatic discharge. All three ordinary solvers exhausted the configured step budget. Establish discharge for the whole proposed fragment; successful smaller examples do not establish a safe operand threshold. |
+| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | Establish practical native proof/translation completion and complete report capacity for the proposed dense combinations, with justified resource policies. The repeated-output and dense-assignment runs were externally stopped without Main reports; these are not established solver failures or measured report overflows. Do not choose a larger buffer from extrapolation, truncate reports or introduce an arbitrary replacement call cap. |
+
 ### Completion criteria
 
 For each area, enumerate its admitted forms, legal positions and interactions

@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-10-12 — Audit follow-ups made explicit in the roadmap
+
+At the owner's request, the [roadmap](../roadmap.md#audit-follow-ups) now explicitly
+tracks all four open findings from the audit in `ea443035b4`: length-check
+obligations, repeated-output ghost advisories, the dynamic-expression solver
+limit, and dense proof cost/unresolved report capacity. Each is assigned to its
+existing consolidation items with a completion requirement. The audit's distinction
+between solver failure and external experiment interruption is preserved.
+
+This is a documentation follow-up to that audit, not another implementation;
+shared declarations, names and copies remain next proposed. Link/whitespace
+checks and independent wording review cover the change; existing proof evidence
+retains its input scope. Publication remains authorized, Actions remains disabled,
+and the unfinished proof edit and caches are preserved. No new harness goal was
+requested; Compose String Results remains complete. CLI recall is unavailable
+and was not updated.
+
 ## 2026-10-12 — Restrictions and capacity audit completed
 
 The owner authorized the next roadmap item. The
