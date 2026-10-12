@@ -14,7 +14,7 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**Lean Critical Path is complete; existing-feature consolidation is next.**
+**The performance work and restriction audit are complete; shared bindings are next.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
@@ -27,7 +27,10 @@ while preserving source correspondence and private/transitive audit coverage.
 The authorized [selective proof tuning and final integration](docs/lean-proof-authoring.md)
 are also complete: one declaration-proof split reduces peak memory, while a
 marginal reuse trial is rejected. The bounded performance investigation is closed.
-Existing-feature consolidation is next proposed; these investigations do not
+The first consolidation item, the
+[restrictions and capacity audit](docs/restrictions-capacity.md), is also
+complete. Shared declaration, name and copy rules are next proposed, followed
+by common String expressions. The investigations and catalogue repair do not
 change the supported language.
 
 ### Lean Critical Path
@@ -76,12 +79,15 @@ proof work remains outside this sequence.
 
 ### Existing-feature consolidation
 
-**Next: close the existing features under composition.** On 2026-10-12
+**Next: shared declarations, names and copies.** On 2026-10-12
 the owner asked to revisit the implemented capabilities, maximize their useful
 scope within the Oracle's automatic Bronze/Silver guarantee, and put this work
 ahead of further isolated feature increments. The
-[current assessment](docs/language-generalization.md) records the inventory,
-restrictions and implementation implications.
+[current assessment](docs/language-generalization.md) records the closure
+targets. The completed [restriction audit](docs/restrictions-capacity.md)
+classifies all current constructs, records native capacity experiments, repairs
+the catalogue discrepancy, and specifies the proposed binding/expression
+foundation. It does not admit any broader grammar.
 
 Here, **closed** means that a feature works throughout an explicitly specified
 fragment of the existing constructs, wherever the shared binding, initialization,
@@ -93,8 +99,8 @@ not newly admitted syntax.
 
 | Order | Work item | Required result before calling the area closed |
 | --- | --- | --- |
-| 1 | Restrictions and capacity audit | Account for every existing construct and restriction. Distinguish semantic requirements, library contracts, resource limits and staging choices. Resolve catalogue inconsistencies; measure dense source, proof-report and translation cases needed by the broader fragment. |
-| 2 | Declarations, names and copies | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. |
+| 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
+| 2 | Declarations, names and copies — next proposed | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. |
 | 3 | String expressions | One expression judgment for literals, names, concatenation and parentheses in initialization, assignment, comparison and output. Count repeated static and dynamic occurrences and prove every intermediate bound. Resolve the sixteen-operand limit through explicit capacity evidence, not an unexplained replacement threshold. |
 | 4 | Statement sequencing and assignment | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. |
@@ -131,10 +137,12 @@ complete the existing [validation workflow](development.md#proof-loop-and-valida
 before marking an extension supported. This adds no separate approval or release
 gate and does not substitute examples for the universal argument.
 
-With the bounded performance investigation complete, the first proposed consolidation work is to
-make the shared fragment and restriction inventory concrete, investigate its
-tool/report capacity, and implement the
-necessary binding and expression foundations. The earlier **Repeated Output**
+With the performance investigation and restriction audit complete, implement
+the proposed shared binding, declaration and copy foundations, then common
+expression rules. Carry the audit's report-capacity, diagnostic and translation
+constraints into that specification; declaration-time expressions cannot rely
+on facts established only by a later body guard. These foundations remain
+proposed, without a language expansion in the audit. The earlier **Repeated Output**
 instruction is incorporated into sequencing and effect composition; its partial
 unvalidated implementation is not a completed capability. The proposed four-call
 cap was rejected. Ordinary returning calls continue execution, and a detected

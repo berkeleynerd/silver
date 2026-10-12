@@ -15,6 +15,13 @@ Repeated Output edit is unfinished and does not expand current support.
 The [language specification](../language.md), [assurance claims](assurance.md)
 and [Oracle](../oracle.md) remain authoritative.
 
+The subsequent [restrictions and capacity audit](restrictions-capacity.md) is
+complete. It classifies the supported rules by origin, records dense native
+experiments and their limits, and repairs the catalogue metadata without changing
+membership. Shared declaration, name and copy rules are next proposed, followed
+by common String expressions. The audit specifies their binding/value foundation;
+the broader closure targets below remain unimplemented.
+
 ### What is supported, and what is being counted
 
 The existing language has a universal assurance argument for every admitted
@@ -98,14 +105,18 @@ where possible instead of imposing another unrelated template count.
 
 Removing a grammar limit alone does not close a feature. More expressions,
 assignments and branches can increase generated obligations, diagnostics and
-report bytes. The compiler currently has a 262,144-byte report domain. A
-preliminary estimate discussed for 77 repeated 16-operand output calls was about
-1,155 checks and 2.2 MB of report data. **That repeated-call case has not been
-measured**: the figures extrapolate from a retained single-call example and are
-not a verified worst-case bound or current validation evidence. Focused native
-experiments and a justified report-capacity/completeness argument are required;
+report bytes. The compiler currently has a 262,144-byte report domain. The
+[native audit](restrictions-capacity.md#native-measurements-and-integration)
+records the actual dense-program experiments. Its 77-call, sixteen-operand
+probe was stopped at an external 300-second experiment budget without producing
+a Main report. The earlier extrapolation of 1,155 checks and 2.2 MB therefore
+remains unverified; it is neither a measured result nor a worst-case bound.
+Smaller probes and their actual report/translation outcomes are recorded in the
+audit. This exploratory stop is distinct from the application's configured solver
+step limit and does not change current membership. A justified capacity and
+complete-obligation argument remains necessary before extending the grammar;
 silently truncating reports, suppressing obligations or accepting all warnings
-would not satisfy the gate.
+would not satisfy it.
 
 Closure is complete only when the specification and catalogue describe the
 shared rules, the compiler admits precisely that fragment, the same author
@@ -116,14 +127,14 @@ Follow the existing [validation workflow](../development.md#proof-loop-and-valid
 and preserve successful caches; this assessment does not add an approval
 ceremony or require optional independent kernel replay.
 
-A catalogue consistency repair is tracked separately: the
+A catalogue consistency repair is complete and tested in the
+[audit](restrictions-capacity.md): the
 `selected_result_output.initializers` metadata in
 [catalogue/silver.json](../catalogue/silver.json) and its
-[SPARK exporter](../src/silver_catalogue.adb) omits
-`preceding_literal_constant_identifier`, although current result initialization
-admits it and neighboring operand metadata includes it. Reconcile both exports
-and their checks during the restriction inventory. This document records the
-pending discrepancy; it does not change the catalogue or admitted language.
+[SPARK exporter](../src/silver_catalogue.adb) now includes
+`preceding_literal_constant_identifier`, matching already supported result
+initialization and neighboring operand metadata. Native export consistency and
+the focused catalogue tests cover the repair. The admitted language is unchanged.
 
 ## 2026-10-10: historical assessment, partly superseded
 

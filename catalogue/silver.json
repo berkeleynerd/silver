@@ -529,7 +529,8 @@
       ],
       "initializers": [
         "argument_initialization",
-        "string_literal"
+        "string_literal",
+        "preceding_literal_constant_identifier"
       ],
       "optional_capacity_guard": true,
       "additional_excluded_names": [

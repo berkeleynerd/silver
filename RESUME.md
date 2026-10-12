@@ -8,25 +8,43 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**The bounded Lean Critical Path work is complete.** The final
-[proof-authoring pass](docs/lean-proof-authoring.md) adopts one small declaration
-proof split: the matched two-file rebuild is 7.58% faster and peak child RSS is
-62.30% lower. A marginal lexical-equation reuse trial was rejected. The complete
-cached check and fresh whole-project audit passed; source correspondence,
-definitions, theorem statements and accepted axioms are unchanged. No language
-expansion is included. Next proposed work is the restriction/capacity audit and
-shared binding/expression foundations in existing-feature consolidation below.
+**The restrictions and capacity audit is complete.** The
+[audit record](docs/restrictions-capacity.md) classifies every current construct,
+records bounded native proof/translation/report experiments and specifies the
+shared binding/expression foundation. The selected-result catalogue now includes
+its already supported constant-reference initializer; the admitted language is
+unchanged. Broader expressions can exhaust the configured solver effort, and
+dense sequences exceed this audit's bounded proof time. Report size for those
+interrupted cases remains unmeasured. Preserve the distinction between completed
+probes, externally interrupted experiments and universal assurance.
 
-Current evidence and preferred warm seed are under
-`.silver/linux-x86_64/proof-authoring-20261012T163327Z/`, with recovery pointer
-`tmp/proof-authoring-active.json`. Copy its
-`candidate/.silver/linux-x86_64/proof/` with all object sidecars and Lake metadata,
-then let the normal runner synchronize inputs. Canonical caches, the preceding
-migrated seed and the unfinished edit below remain unchanged. No experiment is
-running. The implementation/review target is the commit introducing
-`docs/lean-proof-authoring.md`, based on `15ca622139`. No new goal was requested;
-the live Compose String Results goal remains complete. CLI recall is unavailable
-and was not updated; checked-in session memory is current.
+Next proposed work is **Declarations, names and copies**, with a shared finite
+binding environment, initialized values, mutability, snapshot copies and fixed
+object bounds. The common expression judgment follows or accompanies the pieces
+that need it. New obligation classes and harmless diagnostics need precise
+policies, and broader expression/effect composition needs justified capacity.
+The [consolidation sequence](roadmap.md#existing-feature-consolidation) and audit
+record define the scope; this audit does not authorize another implementation.
+
+Native build, focused tests, incremental GNATprove and the complete cached Lean
+check with a fresh whole-project audit passed for the catalogue repair. This is
+not a new full native audit or an independent kernel replay. Evidence is under
+`.silver/linux-x86_64/restrictions-capacity-20261012T170230Z/`, with recovery pointer
+`tmp/restrictions-capacity-active.json`. Its
+`snapshot/.silver/linux-x86_64/proof/` is the latest checked warm seed; preserve
+all object sidecars and Lake metadata. Native prior state is in
+`preserved-before/`; the canonical Lean workspace and unfinished edit below
+remain unchanged. The implementation/review target is the commit introducing
+`docs/restrictions-capacity.md`, based on `a68d0b7f84`. No new harness goal was
+requested; the live Compose String Results goal remains complete. CLI recall
+is unavailable and was not updated; checked-in session memory is current.
+
+The bounded **Lean Critical Path** work remains complete. Its final
+[proof-authoring pass](docs/lean-proof-authoring.md), commit `a68d0b7f84`, adopts
+one small declaration proof split: the matched two-file rebuild is 7.58% faster
+and peak child RSS is 62.30% lower. Its evidence and previous warm seed remain
+under `.silver/linux-x86_64/proof-authoring-20261012T163327Z/`. Source
+correspondence, definitions, theorem statements and accepted axioms are unchanged.
 
 Earlier evidence remains in the [baseline record](docs/lean-baseline.md),
 [checked-witness optimization](docs/lean-join-optimization.md) (`5267935367`),
@@ -51,9 +69,10 @@ more isolated capabilities. The
 [consolidation sequence](roadmap.md#existing-feature-consolidation)
 defines the ordered work and closure criteria; the
 [current assessment](docs/language-generalization.md) records restrictions and
-their reasons. Begin with the explicit fragment, restriction/capacity inventory
-and shared binding/expression foundations, then compose statements, branches and
-existing library effects. No new syntax is supported by this planning update.
+their reasons. The explicit fragment and restriction/capacity inventory are now
+recorded. Implement the shared binding/expression foundations next, then compose
+statements, branches and existing library effects. No new syntax is supported by
+this planning update.
 
 Repeated output was authorized on 2026-10-11, but its proposed four-call cap was
 rejected as unjustified. Its scope is now part of sequencing and effect

@@ -1,5 +1,46 @@
 # Session memory
 
+## 2026-10-12 — Restrictions and capacity audit completed
+
+The owner authorized the next roadmap item. The
+[audit record](restrictions-capacity.md) inventories all current constructs and
+classifies inherited semantics, library contracts, resource policies and staging
+choices. Bounded native experiments measure dense bindings, assignments,
+expressions, branches and output; completed and externally interrupted runs are
+recorded separately. They inform future capacity and report-policy work, not
+membership or universal assurance. The selected-result catalogue omission is
+repaired in both exports with a native consistency regression; no admitted
+language, recognizer, runtime, proof interface or Oracle rule changed.
+
+The next proposed item is shared declarations, names and copies: a finite ordered
+binding environment with initialized values, mutability, snapshot semantics and
+fixed object bounds, followed or accompanied where needed by the common
+expression judgment. Declaration initializers precede body guards; later guard
+facts cannot justify earlier concatenation. Broader expressions and control flow
+must account for dynamic multiplicity, precise diagnostic/safety classes and
+native report/tool capacity. Sequencing and effects remain separate closure
+work. No further implementation began.
+
+Frozen input is `a68d0b7f84`; the implementation/review target is the commit
+introducing `docs/restrictions-capacity.md`. Native build, affected tests and
+incremental compiler proof passed. The complete cached Linux Lean check and
+fresh whole-project audit also passed in an isolated supported snapshot;
+independent replay and a new full native audit were not requested. Earlier full
+native evidence retains its original scope. Current logs, sources, commands,
+reports, checker results and preserved prior native state are under
+`.silver/linux-x86_64/restrictions-capacity-20261012T170230Z/`. The snapshot's
+`.silver/linux-x86_64/proof/` is the latest checked warm seed; the recovery pointer
+is `tmp/restrictions-capacity-active.json`. Canonical Lean artifacts, prior caches,
+foreign-host evidence, scratch and the exact unfinished `ComposeAdmission.lean`
+edit are preserved. The scoped commit and validation exclude that unfinished
+language change.
+
+Publication remains authorized, Actions stays disabled, Linux is primary and
+macOS proofs remain out of scope. No new harness goal was requested; the live
+Compose String Results goal remains complete. Checked-in memory is updated.
+CLI recall tools and conventional recall directories remain unavailable, so no
+CLI recall entry was updated.
+
 ## 2026-10-12 — Proof tuning complete; bounded performance work closed
 
 The owner authorized the next selective proof-authoring item and shared final

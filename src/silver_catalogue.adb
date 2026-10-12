@@ -573,7 +573,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ],");
       Put_Line ("      ""initializers"": [");
       Put_Line ("        ""argument_initialization"",");
-      Put_Line ("        ""string_literal""");
+      Put_Line ("        ""string_literal"",");
+      Put_Line ("        ""preceding_literal_constant_identifier""");
       Put_Line ("      ],");
       Put_Line ("      ""optional_capacity_guard"": true,");
       Put_Line ("      ""additional_excluded_names"": [");

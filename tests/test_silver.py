@@ -88,6 +88,11 @@ class SilverIntegrationTests(unittest.TestCase):
                          ["string_assignment", "expression_output"])
         self.assertEqual(compositions["selected_result_output"]["declarative_items"],
                          ["spark_mode_on", "named_string_constant", "named_string_variable"])
+        result_initializers = constructs["named_string_variable"]["conditions"]["initializer"]
+        self.assertEqual(compositions["string_assignment_output"]["initializer"],
+                         result_initializers)
+        self.assertEqual(compositions["selected_result_output"]["initializers"],
+                         ["argument_initialization", *result_initializers])
         expression = constructs["string_expression"]["conditions"]
         self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 16))
         self.assertEqual(expression["max_dynamic_references"], 1)
