@@ -1,5 +1,43 @@
 # Session memory
 
+## 2026-10-12 — Checked reconstruction witnesses adopted
+
+After completion of the [baseline](lean-baseline.md), the owner instructed
+proceeding with the proposed bounded reconstruction/equality experiment. Scope
+is Lean Critical Path item 2: test the measured large-join elaboration cost and
+adopt only successful measured improvements preserving exact source bytes,
+source correspondence and accepted axioms. Module migration and language
+expansion remain outside this task. No new harness goal was requested; the
+existing Compose String Results goal remains complete.
+
+The input is `76e98bdc07`. The implementation/review target is the commit
+introducing `proof/Silver/CertificateWitness.lean`, based on that input; Git
+identifies the containing commit. The supported compiler remains `e9d18f1996`.
+Isolated experiment evidence is under
+`.silver/linux-x86_64/join-optimization-20261012T120859Z/`; local pointer
+`tmp/join-optimization-active.json` records the snapshot and preservation state.
+The checked-witness change is adopted after complete source-correspondence
+builds, fresh audits, native negative controls and independent source/evidence
+reviews. Both feature-workload runs rebuilt the same dependency closure while
+retaining unrelated certificates. The observed improvement has a baseline
+concurrency caveat; exact timings, memory, failed alternatives and scope belong
+in the [experiment record](lean-join-optimization.md). Source bytes, final
+theorem statements and accepted axioms are unchanged.
+
+The optimized cache is retained in `candidate-warm/proof/` and
+`candidate/.silver/linux-x86_64/proof/` under that evidence directory. Reuse a
+copy with its Lake metadata for later experiments, letting the runner check
+current dependencies; the canonical workspace preserves the older implementation.
+The unfinished `ComposeAdmission.lean` edit is excluded
+and preserved, as are canonical tools, caches, baseline and earlier evidence.
+Linux is primary, Actions remains disabled and publication remains authorized.
+The owner reports 96 GB physical RAM; this sandbox exposes about 31 GiB. The
+comparison retained the 12,288 MiB process threshold. A later run can raise it
+when needed; no default or allocation changed here. The bounded module/dependency
+pilot is next proposed and has not begun. No native compiler/GNATprove rerun was
+needed because its inputs are unchanged. CLI recall tools remain unavailable;
+this checked-in memory was updated, and no CLI recall entry was written.
+
 ## 2026-10-12 — Lean baseline completed
 
 The owner instructed proceeding with the first **Lean Critical Path** item:

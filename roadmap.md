@@ -18,8 +18,10 @@ next capability while retaining full assurance for the current language.
 language features. On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
-is complete. Later investigations and integration tasks remain proposed;
-this work does not migrate proofs or change the supported language.
+is complete. Item 2's authorized bounded reconstruction/equality experiment is
+also [complete and adopted](docs/lean-join-optimization.md). The module/dependency
+pilot is next proposed. Later investigations and integration tasks remain proposed;
+this work does not migrate module boundaries or change the supported language.
 
 ### Lean Critical Path
 
@@ -33,7 +35,7 @@ module visibility can separately reduce unnecessary rebuilds after proof edits.
 | Order | Work item | Bounded result |
 | --- | --- | --- |
 | 1 | Baseline and declaration-level profiling — complete | Isolated no-change, proof-only and reconstructed feature-workload checks passed. The profile locates the dominant cost in large reconstruction-join elaboration; the proof-only edit separately exposes unnecessary downstream rebuilding. Host, cache state, timing/memory attribution and limits are in the [measurement record](docs/lean-baseline.md). |
-| 2 | Source reconstruction and equality proofs — next proposed | Target the measured large-join elaboration cost with explicit conversion equalities, reusable lemmas and shared reconstruction data. Include a monitored retry of the existing structural/authoritative-decoding candidate, using an explicit memory budget and host-headroom cutoff. Preserve exact authoritative bytes, including line endings and final newline. Measure final composition as well; splitting generated files is useful only if that also becomes cheaper. Compare successful uninstrumented runs before adoption. |
+| 2 | Source reconstruction and equality proofs — complete | Adopt checked explicit join witnesses, preserving exact source bytes, final statements and accepted axioms. Complete integration and reconstructed feature-workload checks passed; runner time fell from 130.5 to 14.9 minutes (observed 8.75×, with baseline concurrency caveat). Structural alternatives timed out and remain rejected. The [record](docs/lean-join-optimization.md) covers tests, audits, memory and retained optimized caches. |
 | 3 | Module-system and dependency pilot | Migrate a small compatible dependency closure to Lean's opt-in module system. Measure downstream reuse after private/proof-only edits and necessary invalidation after public/source-byte edits. Choose imports and public interfaces deliberately; expose computational bodies where correspondence proofs require reduction. Retain the legacy audit initially or prove equivalent full private/transitive coverage with `import all`. Adopt only demonstrated improvements before considering wider migration. |
 | 4 | Selective proof-authoring improvements | At measured hotspots, use named intermediate equalities, tight theorem interfaces and restricted successful `simp`/`grind` scripts; add auxiliary lemmas only where they reduce duplicated work. Separately measure repeated AI/editor elaboration and pilot persistent editor/REPL proof-state reuse if it is material. Integrate successful proofs into ordinary source files and validate them normally. |
 | 5 | Integration and measurement | Compare successful uninstrumented runs on identical inputs and the same host; separate cached iteration, changed-source checking and any cold-build measurement. Check source-edit invalidation and axiom/module coverage, then complete one stable local checkpoint for adopted changes. Record gains, memory costs and failed candidates; conclude the bounded investigation and continue feature consolidation. |

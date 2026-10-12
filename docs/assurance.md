@@ -559,6 +559,14 @@ protected proof modules, bindings or configuration. Exact source correspondence
 comes from the kernel-checked reconstruction and semantic proofs, not hashes
 alone. The [partition record](lean-compartmentalization.md) documents this reuse.
 
+Generated reconstruction joins use `kernel_exact` to elaborate their explicit
+equality witness independently, then check it at the exact goal type through
+Lean's synchronous checked auxiliary-lemma mechanism. A cached auxiliary proof
+is reusable only for that same type. This avoids repeated elaborator conversion
+without changing source data, final correspondence statements or allowed axioms;
+the [reconstruction record](lean-join-optimization.md) gives the implementation,
+negative controls and measurement scope.
+
 Both Lake workers and threads per Lean build/audit process default to available
 CPUs; `--workers` and `--threads` control them separately. Configuration is
 re-elaborated to apply changed settings without throwing away accepted objects.

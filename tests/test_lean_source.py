@@ -8,7 +8,9 @@ import sys
 import tempfile
 import unittest
 
+from scripts.bootstrap_lean import lean_environment
 from scripts.check_lean import CANDIDATES
+from scripts.platforms import native_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.ads",
@@ -157,6 +159,107 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         for filename in EMBEDDED:
             with self.subTest(filename=filename):
                 GENERATOR.validate_source_bytes((ROOT / "src" / filename).read_bytes(), filename)
+
+
+class NativeCertificateTests(unittest.TestCase):
+    def test_generated_certificates_and_witnesses_remain_kernel_checked(self):
+        native = native_layout(ROOT)
+        lean = native.lean / "bin/lean"
+        if not lean.is_file():
+            self.skipTest("install pinned native Lean to check generated certificates")
+        with tempfile.TemporaryDirectory(prefix="silver certificate checks-") as temporary:
+            root = Path(temporary).resolve()
+            (root / "Silver").mkdir()
+            environment = {**lean_environment(native), "LEAN_PATH": str(root)}
+
+            def compile_file(relative):
+                return subprocess.run(
+                    [str(lean), "-j1", "-M2048", "-DwarningAsError=true",
+                     "-o", str(Path(relative).with_suffix(".olean")), relative],
+                    cwd=root, env=environment, text=True, capture_output=True, timeout=60)
+
+            # Compile current sources, not canonical cached helper objects. Only
+            # this small dependency chain is needed; all outputs stay temporary.
+            for module in ("Lexical", "Admission", "Cursor", "SourceLexer",
+                           "CertificateWitness", "AxiomAudit"):
+                relative = f"Silver/{module}.lean"
+                (root / relative).write_bytes((ROOT / "proof" / relative).read_bytes())
+                result = compile_file(relative)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+            prelude = ("import Silver.SourceLexer\nimport Silver.CertificateWitness\n"
+                       "import Silver.AxiomAudit\n")
+
+            def check(name, body, failure=None):
+                relative = f"Silver/Check_{name}.lean"
+                (root / relative).write_text(
+                    prelude + body + ("\n#silver_audit\n" if failure is None else "\n"))
+                result = compile_file(relative)
+                output = result.stdout + result.stderr
+                if failure is None:
+                    self.assertEqual(result.returncode, 0, output)
+                    self.assertIn("Silver axiom audit passed:", output)
+                    self.assertIn("SILVER_MODULE Silver.CertificateWitness", output)
+                else:
+                    self.assertNotEqual(result.returncode, 0, output)
+                    self.assertRegex(output, failure)
+                    self.assertFalse((root / relative).with_suffix(".olean").exists())
+
+            check("witness", "theorem Silver.witness : 2 + 2 = 4 := by\n"
+                  "  kernel_exact (Eq.refl (4 : Nat))\n")
+            check("false_witness", "theorem Silver.badWitness : 2 + 2 = 5 := by\n"
+                  "  kernel_exact (Eq.refl (4 : Nat))\n",
+                  r"\(kernel\) declaration type mismatch")
+
+            def generated(source):
+                return "\n".join(GENERATOR.generate(
+                    source.decode("ascii"), "fixtureSource", "fixtureTokens"))
+
+            def certificate(name, source, candidate, failure=None):
+                (root / "input.adb").write_bytes(source)
+                check(name, "namespace Silver.Source\n"
+                      'def fixtureSource : String := include_str "../input.adb"\n' +
+                      candidate + "\nend Silver.Source\n", failure)
+
+            mixed = b'-- marker\r\n\tX := "a""b";\n'
+            for name, source in (("empty", b""), ("no_final_lf", b"X;"),
+                                 ("mixed_endings", mixed), ("blank_lines", b"\nX;\n\n")):
+                with self.subTest(case=name):
+                    certificate(name, source, generated(source))
+
+            # Same tokens do not establish byte identity, including CR and the
+            # final LF. Keep the candidate unchanged while altering include_str.
+            for name, source in (("comment_byte", mixed.replace(b"marker", b"changed")),
+                                 ("missing_final_lf", mixed[:-1]),
+                                 ("normalized_crlf", mixed.replace(b"\r\n", b"\n"))):
+                with self.subTest(case=name):
+                    certificate(name, source, generated(mixed), r"(?i)type mismatch")
+
+            source = b"X;\n"
+            original = generated(source)
+            mutations = (
+                ("leaf_token", 'tokens := ["x", ";"]',
+                 'tokens := ["wrong", ";"]', r"decide"),
+                ("flattened_tokens", 'def fixtureTokens : Tokens :=\n  ["x", ";"]',
+                 'def fixtureTokens : Tokens :=\n  ["wrong", ";"]', r"rfl"),
+                ("join_witness", GENERATOR.literal("X;\n"), GENERATOR.literal("X;\n!"),
+                 r"\(kernel\) declaration type mismatch"),
+            )
+            for name, before, after, failure in mutations:
+                with self.subTest(case=name):
+                    self.assertEqual(original.count(before), 1)
+                    certificate(name, source, original.replace(before, after, 1), failure)
+
+            # Bypass Python's byte validation to exercise the independent Lean
+            # alphabet and physical-line restrictions themselves.
+            for name, text in (("unsupported_byte", r"\u000b"), ("lf_inside_leaf", r"\n")):
+                with self.subTest(case=name):
+                    check(name, "open Silver.Source\n"
+                          "def Silver.badLine : LineCertificate where\n"
+                          f'  text := "{text}"\n'
+                          "  tokens := []\n"
+                          "  correct := by decide +kernel\n"
+                          "  noNewline := by decide +kernel\n", r"decide")
 
 
 if __name__ == "__main__":

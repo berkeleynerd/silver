@@ -13,20 +13,34 @@ The owner authorized its first item, baseline and declaration-level profiling,
 on 2026-10-12. The [measurement record](docs/lean-baseline.md) is complete:
 all three isolated cases passed, including the fresh complete axiom/coverage
 audit. Large reconstruction joins dominate certificate elaboration; the final
-source equality and tactic search are negligible. The next proposed item is
-a bounded source-reconstruction/equality experiment targeting those joins.
+source equality and tactic search are negligible. The owner subsequently
+authorized the bounded source-reconstruction/equality experiment targeting
+those joins. The [checked-witness optimization](docs/lean-join-optimization.md)
+is complete and adopted: complete builds, fresh axiom/coverage audits, negative
+controls and independent source/evidence reviews passed. The reconstructed
+feature-workload runner fell from 130.5 to 14.9 minutes (observed 8.75×; baseline
+concurrency limits causal attribution). Exact source bytes, final theorem
+statements and allowed axioms are unchanged. Its separate evidence is under
+`.silver/linux-x86_64/join-optimization-20261012T120859Z/` and
+`tmp/join-optimization-active.json`.
 Evidence is preserved under
 `.silver/linux-x86_64/lean-baseline-20261012T094603Z/`; the local
 `tmp/lean-baseline-checkpoint.md` records completion and publication. Canonical
-caches/evidence and the unfinished proof edit below are preserved. No run remains
-active and no speedup has yet been established.
+caches/evidence and the unfinished proof edit below are preserved. The baseline
+profiling and optimization runs are complete. Reusable optimized workspaces are
+`candidate-warm/proof/` and `candidate/.silver/linux-x86_64/proof/` within the
+optimization evidence directory. Copy an optimized seed with its Lake metadata
+for later experiments; the unchanged canonical workspace retains the older
+certificate implementation. Let the normal runner synchronize and validate inputs.
 
-Subsequent source-reconstruction/equality experiments, a module/dependency pilot,
-selective proof-authoring improvements and integration remain proposed. Keep
-exact source correspondence and accepted axioms; preserve private-declaration
+The subsequent module/dependency pilot, selective proof-authoring improvements
+and broader integration remain proposed; the module/dependency pilot is next.
+Keep exact source correspondence and accepted axioms; preserve private-declaration
 coverage when changing module imports. The 10× target is aspirational, and old
-failed candidates remain failures. No optimization, language change or new
-harness goal has started.
+failed candidates remain failures. This optimization changes no supported
+language capability and creates no new harness goal. Its implementation/review
+target is the commit introducing `proof/Silver/CertificateWitness.lean`, based
+on `76e98bdc07`; Git identifies the containing commit.
 
 **Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating
@@ -154,7 +168,11 @@ host-keyed artifact namespace, so determine the actual host and keep one writer
 per cache. Native pinned tools
 and runtime readiness passed the read-only handover check. The completed Lean
 checkpoint used 12 Lake workers, 12 threads per process and the 12,288 MiB
-per-process threshold. Use `python3 scripts/dev.py paths` for the actual
+per-process threshold. The optimized bridge peaked near that threshold despite
+ample host headroom. The owner reports 96 GB physical RAM and can increase the
+sandbox allocation; `--memory-mb 16384` is already feasible for a later run if
+needed. This comparison changed neither the threshold nor the allocation.
+Use `python3 scripts/dev.py paths` for the actual
 installation and artifact paths. GNATprove uses all cores by default; Lean uses
 all available Lake workers and per-process threads, with independent overrides.
 The [concurrency record](docs/lean-concurrency.md) distinguishes measured speedups
