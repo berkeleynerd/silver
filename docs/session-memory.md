@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-12 — Module pilot completed; migration deferred
+
+The owner instructed proceeding with the bounded module/dependency pilot after
+the reconstruction optimization. The [pilot record](lean-module-pilot.md)
+describes the four-module isolated conversion, six successful focused checks,
+binary-source/public-definition invalidation controls and private/transitive
+audit controls. The new module system preserves ordinary consumers after
+proof-only edits; legacy descendants still rebuild. Shielding the measured
+complete-check cascade requires a near-project migration under the current
+graph. The small observed local saving does not justify that scope now.
+
+No production module, runner, audit, generator or test change is adopted. Keep
+the existing legacy audit and source correspondence. A top-level `import all`
+on a facade does not guarantee deeper private-declaration coverage. Retain the
+controls for any later migration, without adding a permanent regression matrix
+for this deferred change. Selective proof-authoring improvements are next
+proposed; neither those nor broader migration have begun.
+
+The frozen input is `5267935367`; the review/publication target is the
+documentation commit introducing `docs/lean-module-pilot.md`. The supported
+compiler remains `e9d18f1996`. Evidence is retained under
+`.silver/linux-x86_64/module-pilot-20261012T144532Z/`, with local recovery pointer
+`tmp/module-pilot-active.json`. Original caches/evidence and the unfinished
+`ComposeAdmission.lean` edit remain unchanged. The focused pilot is not a new
+complete checkpoint; existing full evidence keeps its original input scope.
+No full compiler or Lean rerun is needed for this documentation disposition.
+
+No new harness goal was requested; Compose String Results remains complete.
+Publication authorization persists, Linux is primary and Actions remains
+disabled. The memory allocation and Lean defaults are unchanged. This checked-in
+memory was updated; CLI recall remains unavailable and was not updated.
+
 ## 2026-10-12 — Checked reconstruction witnesses adopted
 
 After completion of the [baseline](lean-baseline.md), the owner instructed

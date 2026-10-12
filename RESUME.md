@@ -33,14 +33,29 @@ optimization evidence directory. Copy an optimized seed with its Lake metadata
 for later experiments; the unchanged canonical workspace retains the older
 certificate implementation. Let the normal runner synchronize and validate inputs.
 
-The subsequent module/dependency pilot, selective proof-authoring improvements
-and broader integration remain proposed; the module/dependency pilot is next.
-Keep exact source correspondence and accepted axioms; preserve private-declaration
+The owner then authorized the [module/dependency pilot](docs/lean-module-pilot.md),
+which is complete without a production migration. Four copied modules retain
+ordinary consumers after proof-only edits, but legacy descendants still rebuild.
+The complete-check target would require converting 99 of 109 modules under the
+current import graph; the small local saving does not justify that scope now.
+Private/transitive audit and source-invalidation controls passed. Keep the
+existing legacy audit: top-facade `import all` alone does not recover deeper
+private declarations. The pilot's isolated evidence and optimized cache copies
+are under `.silver/linux-x86_64/module-pilot-20261012T144532Z/`; its local pointer
+is `tmp/module-pilot-active.json`. No experiment remains running. The proof tree,
+runner and compiler are unchanged by the pilot; the unfinished edit stays excluded.
+Its review target is the documentation commit introducing the pilot record,
+based on `5267935367`.
+
+Selective proof-authoring improvements are next proposed; broader integration
+remains proposed and broad module migration is deferred. Keep exact source
+correspondence and accepted axioms; preserve private-declaration
 coverage when changing module imports. The 10× target is aspirational, and old
-failed candidates remain failures. This optimization changes no supported
-language capability and creates no new harness goal. Its implementation/review
-target is the commit introducing `proof/Silver/CertificateWitness.lean`, based
-on `76e98bdc07`; Git identifies the containing commit.
+failed candidates remain failures. Neither investigation changes a supported
+language capability or creates a new harness goal. The adopted reconstruction
+optimization's implementation/review commit is `5267935367`, introducing
+`proof/Silver/CertificateWitness.lean` on `76e98bdc07`. The later module pilot's
+documentation/review target is identified above.
 
 **Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating
