@@ -112,7 +112,7 @@ procedure Silver with SPARK_Mode => On is
          Proof_Command : constant String :=
            Silver_Build.Alire_Exec & "gnatprove -P " & Shell_Directory & "/program.gpr" &
            " -U --mode=all --report=all" &
-           (if Assignment_Mode then " --warnings=continue" else " --warnings=error") &
+           (if Output_Mode then " --warnings=continue" else " --warnings=error") &
            " --checks-as-errors=on" &
            " --level=2 --prover=cvc5,z3,altergo --steps=10000 --timeout=0 --memlimit=0 -j0";
          Build_Command : constant String :=

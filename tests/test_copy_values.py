@@ -111,6 +111,8 @@ class CopyValuesTests(unittest.TestCase):
         padded = full + b' ' * (4096 - len(full))
         guarded = source_for(output=b'Ready&Result&Detailed&Mode', selected=True, capacity=b'4081')
         self.check_sources([full, padded, guarded,
+                            source_for(output=b'Ready&Detailed'),
+                            source_for(output=b'Ready&Detailed&Mode', selected=True, capacity=b'10'),
                             source_for(constants=((b'Ready', b''), (b'Detailed', b'')),
                                        output=b'&'.join([b'Ready'] * 15 + [b'Result']))], 0)
         rejected = [source_for(constants=bindings, output=expression + b'&""'),
@@ -119,8 +121,6 @@ class CopyValuesTests(unittest.TestCase):
                     guarded.replace(b"'Length<=4081", b"'Length<=4082"),
                     guarded.replace(b" and then Mode'Length<=4081", b''),
                     guarded.replace(b'&Mode)', b'&Mode&Mode)'),
-                    source_for(output=b'Ready&Detailed'),
-                    source_for(output=b'Ready&Detailed&Mode', selected=True, capacity=b'10'),
                     padded + b' ']
         self.check_sources(rejected, 2)
 
@@ -130,26 +130,19 @@ class CopyValuesTests(unittest.TestCase):
         cases = [source_for(initial=b'"four"'), source_for(assigned=b'"four"'),
                  source_for(selected=True, alternative=b'"four"'),
                  source_for(constants=((b'Ready', b'"'), (b'Detailed', b'AA'))),
-                 source_for(initial=b'Result'), source_for(assigned=b'Result'),
+                 source_for(initial=b'Result'),
                  source_for(selected=True, initial=b'Mode'),
                  source_for(selected=True, assigned=b'Mode'),
                  source_for(selected=True, alternative=b'Mode'),
                  source_for(initial=b'Unknown'), source_for(assigned=b'Unknown'),
                  source_for(initial=b'(Ready)'), source_for(assigned=b'Ready&""'),
                  source_for(initial=b'Ready(1..5)'), source_for(assigned=b'Ready_Extra'),
-                 source_for(constants=((b'Ready', b'ready'), (b'Detailed', b'extra'),
-                                       (b'Third', b'third'))),
-                 assignment.replace(b'Detailed:constant String:="extra";',
-                                    b'Detailed:constant String:=Ready;'),
                  assignment.replace(b'Ready:constant String:="ready";',
                                     b'Ready:constant String:=Detailed;'),
-                 assignment.replace(b'Ready:constant String', b'Ready:String'),
                  assignment.replace(b'begin Result:=Detailed;', b'begin Ready:=Detailed;'),
                  assignment.replace(b'begin Result:=Detailed;', b'begin Result:=Detailed;Result:=Ready;'),
                  assignment.replace(b'Silver_IO.Put_Line(Result);',
                                     b'Silver_IO.Put_Line(Result);Silver_IO.Put_Line(Ready);'),
-                 assignment.replace(b'Result:String:=Ready;',
-                                    b'Result:String:=Ready;Later:constant String:="later";'),
                  selected.replace(b'Mode:constant String:=Silver_Arguments.First_Or_Default("brief");', b'')
                  .replace(b'Ready:constant String:="ready";',
                           b'Ready:constant String:="ready";Mode:constant String:=Silver_Arguments.First_Or_Default("brief");'),
@@ -205,6 +198,18 @@ class CopyValuesTests(unittest.TestCase):
              str(executable), *([] if argument is None else [argument])],
             capture_output=True, timeout=10)
         self.assertEqual((result.returncode, result.stdout, result.stderr), (1, b'', b''))
+
+    def test_shared_binding_lists_and_mutable_copy_sources(self) -> None:
+        assignment = source_for()
+        self.check_sources([
+            source_for(assigned=b'Result'),
+            source_for(constants=((b'Ready', b'ready'), (b'Detailed', b'extra'),
+                                  (b'Third', b'third'))),
+            assignment.replace(b'Detailed:constant String:="extra";',
+                               b'Detailed:constant String:=Ready;'),
+            assignment.replace(b'Ready:constant String', b'Ready:String'),
+            assignment.replace(b'Result:String:=Ready;',
+                               b'Result:String:=Ready;Later:constant String:="later";')], 0)
 
     def test_native_copies_advisories_quotes_and_full_output(self) -> None:
         bindings = ((b'Ready', b'a' * 256), (b'Detailed', b'b' * 256))

@@ -397,6 +397,27 @@
           }
         }
       ]
+    },
+    {
+      "source": "shared_bindings.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "string_literal",
+        "named_string_constant",
+        "named_string_variable",
+        "string_copy",
+        "string_assignment",
+        "string_expression",
+        "expression_output"
+      ],
+      "specification": "../language.md#grammar-and-capabilities",
+      "expected": {
+        "stdout": "Before: draft; copied: draft; current: ready\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

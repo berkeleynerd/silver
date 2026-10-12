@@ -15,7 +15,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr ⟨.static, (Compose.formAccepts_iff exampleSource .static).mp (by decide +kernel)⟩
+  Or.inr ⟨.direct, (Compose.formAccepts_iff exampleSource .direct).mp (by decide +kernel)⟩
 
 def mismatchedSource : Source :=
   "with Silver_IO; procedure Main is pragma SPARK_Mode (On); Name : constant String := \"\"; begin Silver_IO.Put_Line (Other); end Main;".toList.map Char.toNat

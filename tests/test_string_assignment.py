@@ -77,17 +77,13 @@ class StringAssignmentTests(unittest.TestCase):
                  canonical.replace(b':String', b':Integer'),
                  canonical.replace(b':="Hello"', b''),
                  canonical.replace(b'"Hello"', b'Silver_Arguments.First_Or_Default("Hello")'),
-                 canonical.replace(b'"World"', b'Message'),
                  canonical.replace(b'"World"', b'"Wo"&"rld"'),
                  canonical.replace(b'"World"', b'("World")'),
                  canonical.replace(b'begin Message:=', b'begin Message(1..5):='),
                  canonical.replace(b'begin Message:=', b'begin Message= '),
                  canonical.replace(b'begin Message:=', b'begin Message: ='),
                  canonical.replace(b'begin Message:=', b'begin Message:-- split\n='),
-                 canonical.replace(b'begin Message:="World";', b'begin '),
                  canonical.replace(b';Silver_IO', b';Message:="Again";Silver_IO'),
-                 canonical.replace(b';begin', b';Other:String:="Other";begin'),
-                 canonical.replace(b'Put_Line(Message)', b'Put_Line("World")'),
                  canonical.replace(b'begin Message:="World";Silver_IO.Put_Line(Message);',
                                    b'begin Silver_IO.Put_Line(Message);Message:="World";'),
                  canonical.replace(b';end ', b';null;end '),
@@ -109,6 +105,14 @@ class StringAssignmentTests(unittest.TestCase):
         names = [b'', b'_x', b'1x', b'x_', b'x__y', b'x-y', b'String', b'SILVER_IO']
         names += [word.upper().encode('ascii') for word in reserved]
         self.check_sources([source_for(name=name) for name in names], 2)
+
+    def test_shared_binding_lists_self_copy_and_independent_output(self) -> None:
+        canonical = source_for()
+        self.check_sources([
+            canonical.replace(b'"World"', b'Message'),
+            canonical.replace(b'begin Message:="World";', b'begin '),
+            canonical.replace(b';begin', b';Other:String:="Other";begin'),
+            canonical.replace(b'Put_Line(Message)', b'Put_Line("World")')], 0)
 
     def test_native_replacement_boundaries_and_output_failure(self) -> None:
         room = (4096 - len(source_for(b'', b''))) // 2

@@ -70,6 +70,7 @@ class BranchingTests(unittest.TestCase):
                  canonical.replace(b';else ', b';-- next branch\nelse '),
                  canonical.replace(b';end if;', b';end-- matched end\r\nif;'),
                  canonical.replace(b':constant', b' -- declaration\n:constant')]
+        cases.append(canonical.replace(b';begin ', b';Other:constant String:="x";begin '))
         cases += [source_for(*maximum_literal(index)) for index in range(4)]
         name = b'X' * ((4096 - len(source_for(b'', b'', b'', b'', b''))) // 2)
         longest_name = source_for(b'', b'', b'', b'', name)
@@ -90,7 +91,6 @@ class BranchingTests(unittest.TestCase):
                   canonical.replace(b':constant String', b':String'),
                   canonical.replace(b'First_Or_Default("brief")', b'First_Or_Default()'),
                   canonical.replace(b'Silver_Arguments.First_Or_Default("brief")', b'"brief"'),
-                  canonical.replace(b';begin ', b';Other:constant String:="x";begin '),
                   canonical.replace(b'Input_Is_Valid', b'Input_Is_Valid()'),
                   canonical.replace(b'Input_Is_Valid', b'Input_Is_Valid=True'),
                   canonical.replace(b'if Silver_Arguments.Input_Is_Valid', b'if True'),

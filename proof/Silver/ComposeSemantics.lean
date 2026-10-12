@@ -4,334 +4,249 @@ public import Silver.ComposeAdmission
 
 @[expose] public section
 
-/-! Payload properties carried by every successful source derivation. -/
-
 namespace Silver.Compose
+open Named Bindings
 
-def LiteralDomain (bytes : Source) : Prop :=
-  bytes.length ≤ maxSourceLength ∧ ∀ byte ∈ bytes, Output.printable byte = true
+def NamesNormal (names : BindingEnvironment) : Prop :=
+  ∀ index info, names.get index = some info → info.dynamic = true → info.staticLength = 0
 
-def StreamValid (form : Form) : Nat → Nat → List Event → Prop
-  | _, _, [] => True
-  | fixedLength, capacity, .declaration _ _ :: events => StreamValid form fixedLength capacity events
-  | fixedLength, capacity, .constantDeclaration _ _ :: events => StreamValid form fixedLength capacity events
-  | fixedLength, capacity, .reference _ :: events => StreamValid form fixedLength capacity events
-  | fixedLength, capacity, .literal role bytes :: events =>
-      LiteralDomain bytes ∧ (role = .assigned → bytes.length = fixedLength) ∧
-      StreamValid form (if role = .initial then bytes.length else fixedLength) capacity events
-  | fixedLength, _, .capacity capacity :: events =>
-      capacity ≤ maxSourceLength ∧ StreamValid form fixedLength capacity events
-  | fixedLength, capacity, .output expression :: events =>
-      expression.LiteralsPrintable ∧ expression.length ≤ maxExpressionOperands ∧
-      expression.Bounded fixedLength capacity ∧
-      (form.hasAssignment = true → 0 < expression.staticCount) ∧
-      StreamValid form fixedLength capacity events
+theorem value_unique {text : Source} {names : BindingEnvironment} {position : Nat}
+    {left right : Operand} {leftResult rightResult : ValueResult}
+    (first : ValueAt text names position left leftResult)
+    (second : ValueAt text names position right rightResult) :
+    left = right ∧ leftResult = rightResult := by
+  have results := (value_complete first).symm.trans (value_complete second)
+  refine ⟨?_, results⟩
+  cases first with
+  | literal _ _ quote parsed =>
+      cases second with
+      | literal _ _ _ other => exact congrArg Bindings.Value.literal (Output.literalAt_unique parsed other).1
+      | reference _ name _ _ _ => exact False.elim (identifier_not_quote name quote)
+  | reference _ name _ _ _ =>
+      cases second with
+      | literal _ _ quote _ => exact False.elim (identifier_not_quote name quote)
+      | reference => exact congrArg Bindings.Value.reference (congrArg ValueResult.reference results)
 
-theorem literal_domain {text bytes : Source} {position after : Nat}
-    (parsed : Output.LiteralAt text position bytes after) (sourceBound : text.length ≤ maxSourceLength)
-    (positive : 1 ≤ position) : LiteralDomain bytes := by
-  have facts := Output.literalAt_bounds parsed
-  exact ⟨by omega, facts.2.2⟩
-
-theorem value_domain {text bytes : Source} {context : NameContext} {role : LiteralRole}
-    {position after : Nat} (parsed : ValueAt text context role position bytes after)
-    (sourceBound : text.length ≤ maxSourceLength) : LiteralDomain bytes := by
+theorem value_normal {text : Source} {names : BindingEnvironment} {position : Nat}
+    {value : Operand} {result : ValueResult} (normal : NamesNormal names)
+    (parsed : ValueAt text names position value result) :
+    result.dynamicSeen = true → result.staticLength = 0 := by
   cases parsed with
-  | literal bound quote value => exact literal_domain value sourceBound (by omega)
-  | constantName name noStatic noDynamic header value => exact literal_domain value sourceBound (by omega)
+  | literal => simp
+  | reference _ _ _ _ present => exact normal _ _ present
 
-@[simp] theorem initialized_staticLength (context : NameContext) (role : LiteralRole) (position length : Nat) :
-    (initializedContext context role position length).staticLength =
-      if role = .initial then length else context.staticLength := by cases role <;> rfl
+theorem value_summary {text : Source} {names : BindingEnvironment} {position : Nat}
+    {value : Operand} {result : ValueResult} (normal : NamesNormal names)
+    (parsed : ValueAt text names position value result) :
+    value.staticLength names.shape = result.staticLength ∧
+      value.dynamicCount names.shape = (if result.dynamicSeen then 1 else 0) := by
+  have inferred := value_infer parsed
+  have zero := value_normal normal parsed
+  simp only [Operand.staticLength, Operand.dynamicCount, Operand.bound, inferred, Option.getD_some,
+    ValueResult.bound]
+  cases dynamic : result.dynamicSeen
+  · simp [Bound.staticPart, Bound.dynamicPart]
+  · simp [Bound.staticPart, Bound.dynamicPart, zero dynamic]
 
-theorem step_length_bounds {text : Source} {form : Form} {token : ShellToken} {state next : ParserState}
-    {event : Option Event} (parsed : StepAt text form token state event next)
-    (sourceBound : text.length ≤ maxSourceLength)
-    (fixed : state.context.staticLength ≤ maxSourceLength) (capacity : state.capacity ≤ maxSourceLength) :
-    next.context.staticLength ≤ maxSourceLength ∧ next.capacity ≤ maxSourceLength := by
-  cases parsed with
-  | staticDeclaration | dynamicDeclaration | staticReference | dynamicReference | output | fixed =>
-      exact ⟨fixed, capacity⟩
-  | constantDeclaration name allowed =>
-      constructor
-      · split <;> exact fixed
-      · exact capacity
-  | literal value _ =>
-      have domain := value_domain value sourceBound
-      constructor
-      · rw [initialized_staticLength]
-        split <;> simp_all [LiteralDomain]
-      · exact capacity
-  | capacity value => exact ⟨fixed, (Guarded.decimalAt_bounds value).2.2⟩
+def ValueResult.expression (value : ValueResult) : ExpressionResult :=
+  ⟨value.after, value.staticLength, value.dynamicSeen⟩
 
-theorem output_expression_bounded {text : Source} {form : Form} {state : ParserState}
-    {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionAt text state.context state.position expression result)
-    (safe : outputAllowed form state result = true) (capacity : state.capacity ≤ maxSourceLength) :
-    expression.Bounded state.context.staticLength state.capacity ∧
-      (form.hasAssignment = true → 0 < expression.staticCount) := by
-  have fixed := expressionTail_length_bound parsed (Nat.zero_le _)
-  have conditions := Bool.and_eq_true_iff.mp safe
-  constructor
-  · apply expressionAt_bounded parsed
-    cases seen : result.dynamicSeen
-    · simpa [seen] using fixed
-    · have enough := conditions.1
-      simp only [seen, Bool.not_true, Bool.false_or, decide_eq_true_eq] at enough
-      simp only [↓reduceIte]
-      omega
-  · intro assignment
-    have seen := conditions.2
-    simp only [assignment, Bool.not_true, Bool.false_or] at seen
-    rw [expressionTail_staticSeen parsed] at seen
-    simpa using seen
+inductive ExpressionTailAt (text : Source) (names : BindingEnvironment) :
+    Nat → Nat → Nat → Bool → Expression → ExpressionResult → Prop
+  | last {remaining position length : Nat} {dynamicSeen : Bool} {atom : Operand} {value : ValueResult} :
+      ValueAt text names position atom value →
+      fitsAccumulator value.expression length dynamicSeen = true →
+      fixedAfter text value.after "&" false = 0 →
+      ExpressionTailAt text names (remaining + 1) position length dynamicSeen [atom]
+        (accumulated value.expression length dynamicSeen)
+  | next {remaining position length : Nat} {dynamicSeen : Bool} {atom : Operand} {value : ValueResult}
+      {rest : Expression} {result : ExpressionResult} :
+      ValueAt text names position atom value →
+      fitsAccumulator value.expression length dynamicSeen = true →
+      fixedAfter text value.after "&" false ≠ 0 →
+      ExpressionTailAt text names remaining (fixedAfter text value.after "&" false)
+        (length + value.staticLength) (dynamicSeen || value.dynamicSeen) rest result →
+      ExpressionTailAt text names (remaining + 1) position length dynamicSeen (atom :: rest) result
 
-theorem step_stream_valid {text : Source} {form : Form} {token : ShellToken} {state next : ParserState}
-    {event : Option Event} {events : List Event}
-    (parsed : StepAt text form token state event next)
-    (sourceBound : text.length ≤ maxSourceLength) (capacity : state.capacity ≤ maxSourceLength)
-    (rest : StreamValid form next.context.staticLength next.capacity events) :
-    StreamValid form state.context.staticLength state.capacity (event.toList ++ events) := by
-  cases parsed with
-  | staticDeclaration | dynamicDeclaration | staticReference | dynamicReference | fixed => exact rest
-  | @constantDeclaration state name finish second parsed allowed => cases second <;> exact rest
-  | literal value compatible =>
-      exact ⟨value_domain value sourceBound, compatible, by change StreamValid form _ _ events; simpa only [initialized_staticLength] using rest⟩
-  | capacity value => exact ⟨(Guarded.decimalAt_bounds value).2.2, rest⟩
-  | output expression safe nonzero =>
-      have bounded := output_expression_bounded expression safe capacity
-      exact ⟨expressionTail_literals expression, (expressionTail_count expression).2,
-        bounded.1, bounded.2, rest⟩
+def ExpressionAt (text : Source) (names : BindingEnvironment) (position : Nat)
+    (expression : Expression) (result : ExpressionResult) : Prop :=
+  ExpressionTailAt text names maxExpressionOperands position 0 false expression result
 
-theorem parsed_stream_valid {text : Source} {form : Form} {tokens : List ShellToken} {state : ParserState}
-    {events : List Event} (parsed : Parsed text form tokens state events)
-    (sourceBound : text.length ≤ maxSourceLength)
-    (fixed : state.context.staticLength ≤ maxSourceLength) (capacity : state.capacity ≤ maxSourceLength) :
-    StreamValid form state.context.staticLength state.capacity events := by
+theorem expressionTail_complete {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    expressionTail text names remaining position length dynamicSeen = result := by
   induction parsed with
-  | done => trivial
-  | next positive step rest ih =>
-      have bounds := step_length_bounds step sourceBound fixed capacity
-      exact step_stream_valid step sourceBound capacity (ih bounds.1 bounds.2)
+  | last atom fits stop =>
+      simp only [ValueResult.expression] at fits
+      simp only [expressionTail, operandAt, value_complete atom, fits, ↓reduceIte, stop, ne_eq, not_true_eq_false, ValueResult.expression]
+  | next atom fits more rest ih =>
+      simp only [ValueResult.expression] at fits
+      simp only [expressionTail, operandAt, value_complete atom, fits, ↓reduceIte]
+      split
+      · exact ih
+      · rename_i absent
+        exact False.elim (absent more)
 
-theorem meaning_stream_valid {source : Source} {form : Form} {events : List Event}
-    (meaning : SourceMeaning source form events) : StreamValid form 0 maxSourceLength events :=
-  parsed_stream_valid meaning.2.2 meaning.1.2.1 (Nat.zero_le _) (Nat.le_refl _)
+theorem expressionTail_sound (text : Source) (names : BindingEnvironment) (remaining position length : Nat)
+    (dynamicSeen : Bool) (accepted : (expressionTail text names remaining position length dynamicSeen).after ≠ 0) :
+    ∃ expression, ExpressionTailAt text names remaining position length dynamicSeen expression
+      (expressionTail text names remaining position length dynamicSeen) := by
+  induction remaining generalizing position length dynamicSeen with
+  | zero => simp [expressionTail, invalidExpression] at accepted
+  | succ remaining ih =>
+      by_cases fits : fitsAccumulator (operandAt text position names) length dynamicSeen = true
+      · have valueAccepted : (valueAt text position names).after ≠ 0 := by
+          simp only [fitsAccumulator, Bool.and_eq_true, decide_eq_true_eq] at fits
+          exact fits.1.1
+        obtain ⟨atom, parsed⟩ := value_sound text position names valueAccepted
+        by_cases more : fixedAfter text (operandAt text position names).after "&" false ≠ 0
+        · have restAccepted : (expressionTail text names remaining
+              (fixedAfter text (operandAt text position names).after "&" false)
+              (length + (operandAt text position names).staticLength)
+              (dynamicSeen || (operandAt text position names).dynamicSeen)).after ≠ 0 := by
+            simpa [expressionTail, fits, more] using accepted
+          obtain ⟨rest, restParsed⟩ := ih _ _ _ restAccepted
+          refine ⟨atom :: rest, ?_⟩
+          rw [expressionTail]
+          simp only [fits, ↓reduceIte]
+          rw [ite_eq_left more]
+          exact .next parsed fits more restParsed
+        · refine ⟨[atom], ?_⟩
+          rw [expressionTail]
+          simp only [fits, ↓reduceIte]
+          rw [ite_eq_right more]
+          have stop : fixedAfter text (operandAt text position names).after "&" false = 0 := by omega
+          exact .last parsed fits (by simpa only [operandAt] using stop)
+      · simp [expressionTail, fits, invalidExpression] at accepted
 
-theorem meaning_eventKinds {source : Source} {form : Form} {events : List Event}
-    (meaning : SourceMeaning source form events) :
-    events.map Event.kind = form.tokens.filterMap ShellToken.eventKind :=
-  parsed_eventKinds meaning.2.2
-
-/-! Constant elaboration is separate from the normalized expression arithmetic.
-At every source step the two recorded initializer positions denote the values
-actually introduced by the preceding declaration events. A resolved name read
-therefore has the immutable binding's bytes, not merely its declared length. -/
-
-structure ConstantValues where
-  one : Option Source := none
-  two : Option Source := none
-  deriving DecidableEq, Repr
-
-def ConstantValues.get (values : ConstantValues) (second : Bool) : Option Source :=
-  if second then values.two else values.one
-
-def ConstantValues.afterEvent (values : ConstantValues) : Option Event → ConstantValues
-  | some (.literal .constantOne bytes) => {values with one := some bytes}
-  | some (.literal .constantTwo bytes) => {values with two := some bytes}
-  | _ => values
-
-def SlotCorresponds (text : Source) (position : Nat) (value : Option Source) : Prop :=
-  (position = 0 ∧ value = none) ∨
-    ∃ bytes after, value = some bytes ∧ Output.LiteralAt text position bytes after
-
-def ConstantsCorrespond (text : Source) (context : NameContext) (values : ConstantValues) : Prop :=
-  SlotCorresponds text context.constantOneValueFirst values.one ∧
-  SlotCorresponds text context.constantTwoValueFirst values.two
-
-theorem initial_constants (text : Source) : ConstantsCorrespond text initialState.context {} :=
-  ⟨Or.inl ⟨rfl, rfl⟩, Or.inl ⟨rfl, rfl⟩⟩
-
-theorem declaration_value_literal {text bytes : Source} {context : NameContext} {role : LiteralRole}
-    {position after : Nat} (parsed : ValueAt text context role position bytes after)
-    (notInitial : role ≠ .initial) (notAssigned : role ≠ .assigned) :
-    Output.LiteralAt text (Cursor.triviaPosition text position + 1) bytes after := by
-  cases parsed with
-  | literal bound quote value => exact value
-  | constantName name noStatic noDynamic header value =>
-      simp [valueContext, notInitial, notAssigned, constantValueAtName, matchesConstant] at header
-
-theorem step_constants {text : Source} {form : Form} {token : ShellToken} {state next : ParserState}
-    {event : Option Event} {values : ConstantValues}
-    (parsed : StepAt text form token state event next)
-    (prior : ConstantsCorrespond text state.context values) :
-    ConstantsCorrespond text next.context (values.afterEvent event) := by
-  cases parsed with
-  | staticDeclaration | dynamicDeclaration | staticReference | dynamicReference | capacity | output | fixed => exact prior
-  | @constantDeclaration state name finish second parsed allowed => cases second <;> exact prior
-  | @literal state bytes role finish value compatible =>
-      cases role with
-      | ordinary | initial | assigned => exact prior
-      | constantOne =>
-          exact ⟨Or.inr ⟨bytes, finish, rfl, declaration_value_literal value (by decide) (by decide)⟩, prior.2⟩
-      | constantTwo =>
-          exact ⟨prior.1, Or.inr ⟨bytes, finish, rfl, declaration_value_literal value (by decide) (by decide)⟩⟩
-
-theorem slot_read {text bytes : Source} {position after : Nat} {value : Option Source}
-    (stored : SlotCorresponds text position value) (positive : 0 < position)
-    (read : Output.LiteralAt text position bytes after) : value = some bytes := by
-  rcases stored with ⟨zero, absent⟩ | ⟨other, finish, same, parsed⟩
-  · omega
-  · rw [(Output.literalAt_unique parsed read).1] at same
-    exact same
-
-/-- Source-name resolution chooses an initialized immutable slot; its literal
-normal form equals reading that slot from the elaborated environment. -/
-theorem constant_read_is_bound {text bytes : Source} {context : NameContext} {values : ConstantValues}
-    {first after literalAfter : Nat}
-    (stored : ConstantsCorrespond text context values)
-    (positive : 0 < constantValueAtName text context first after)
-    (read : Output.LiteralAt text (constantValueAtName text context first after) bytes literalAfter) :
-    ∃ second, matchesConstant text context second first after = true ∧ values.get second = some bytes := by
-  by_cases one : (matchesConstant text context false first after && usableConstant text context.constantOneValueFirst) = true
-  · simp only [constantValueAtName, one, ↓reduceIte] at positive read
-    exact ⟨false, (Bool.and_eq_true_iff.mp one).1, slot_read stored.1 positive read⟩
-  · by_cases two : (matchesConstant text context true first after && usableConstant text context.constantTwoValueFirst) = true
-    · simp only [constantValueAtName, one, two, ↓reduceIte] at positive read
-      exact ⟨true, (Bool.and_eq_true_iff.mp two).1, slot_read stored.2 positive read⟩
-    · simp [constantValueAtName, one, two] at positive
-
-/-- Direct source evaluation reads an immutable binding from its elaborated
-value. It does not obtain the value by rescanning the declaration initializer. -/
-inductive SourceOperandValue (text : Source) (context : NameContext) (values : ConstantValues)
-    (staticValue dynamicValue : Source) : Nat → Source → Nat → Prop
-  | literal {position after : Nat} {bytes : Source} :
-      Cursor.triviaPosition text position ≤ text.length →
-      Cursor.byteAt text (Cursor.triviaPosition text position) = 34 →
-      Output.LiteralAt text (Cursor.triviaPosition text position + 1) bytes after →
-      SourceOperandValue text context values staticValue dynamicValue position bytes after
-  | staticName {position after : Nat} {name : Source} :
-      Named.IdentifierAt text (Cursor.triviaPosition text position) name after →
-      matchesStatic text context (Cursor.triviaPosition text position) after = true →
-      SourceOperandValue text context values staticValue dynamicValue position staticValue after
-  | dynamicName {position after : Nat} {name : Source} :
-      Named.IdentifierAt text (Cursor.triviaPosition text position) name after →
-      matchesStatic text context (Cursor.triviaPosition text position) after = false →
-      matchesDynamic text context (Cursor.triviaPosition text position) after = true →
-      SourceOperandValue text context values staticValue dynamicValue position dynamicValue after
-  | constantName {position after : Nat} {name bytes : Source} {second : Bool} :
-      Named.IdentifierAt text (Cursor.triviaPosition text position) name after →
-      matchesStatic text context (Cursor.triviaPosition text position) after = false →
-      matchesDynamic text context (Cursor.triviaPosition text position) after = false →
-      matchesConstant text context second (Cursor.triviaPosition text position) after = true →
-      values.get second = some bytes →
-      SourceOperandValue text context values staticValue dynamicValue position bytes after
-
-theorem operand_read_refines {text : Source} {context : NameContext} {values : ConstantValues}
-    {position after : Nat} {atom : Operand} (parsed : OperandAt text context position atom after)
-    (stored : ConstantsCorrespond text context values) (staticValue dynamicValue : Source) :
-    SourceOperandValue text context values staticValue dynamicValue position
-      (atom.evaluate staticValue dynamicValue) after := by
-  cases parsed with
-  | literal bound quote value => exact .literal bound quote value
-  | staticName name matched => exact .staticName name matched
-  | dynamicName name different matched => exact .dynamicName name different matched
-  | constantName name noStatic noDynamic header value =>
-      obtain ⟨second, matched, bound⟩ := constant_read_is_bound stored (by omega) value
-      exact .constantName name noStatic noDynamic matched bound
-
-/-- Flat source concatenation over the actual values read at each operand. -/
-inductive SourceExpressionValue (text : Source) (context : NameContext) (values : ConstantValues)
-    (staticValue dynamicValue : Source) : Nat → Source → Nat → Prop
-  | last {position after : Nat} {bytes : Source} :
-      SourceOperandValue text context values staticValue dynamicValue position bytes after →
-      hasAmpersand text after = false →
-      SourceExpressionValue text context values staticValue dynamicValue position bytes after
-  | more {position after finish : Nat} {bytes rest : Source} :
-      SourceOperandValue text context values staticValue dynamicValue position bytes after →
-      hasAmpersand text after = true →
-      SourceExpressionValue text context values staticValue dynamicValue
-        (Cursor.triviaPosition text after + 1) rest finish →
-      SourceExpressionValue text context values staticValue dynamicValue position (bytes ++ rest) finish
-
-theorem expression_read_refines {text : Source} {context : NameContext} {values : ConstantValues}
-    {remaining position length : Nat} {dynamicSeen staticSeen : Bool}
-    {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionTailAt text context remaining position length dynamicSeen staticSeen expression result)
-    (stored : ConstantsCorrespond text context values) (staticValue dynamicValue : Source) :
-    SourceExpressionValue text context values staticValue dynamicValue position
-      (expression.evaluate staticValue dynamicValue) result.after := by
+theorem expressionTail_readable {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    expression.Readable names.shape ∧ expression.LiteralsPrintable := by
   induction parsed with
-  | last atom fits ending =>
-      simpa [Expression.evaluate, accumulated, Operand.summary] using
-        SourceExpressionValue.last (operand_read_refines atom stored staticValue dynamicValue) ending
-  | more atom fits ampersand previous ih =>
-      exact .more (operand_read_refines atom stored staticValue dynamicValue) ampersand ih
+  | last atom _ _ =>
+      constructor
+      · intro item member
+        have same := List.mem_singleton.mp member
+        subst item
+        exact ⟨_, value_infer atom⟩
+      · intro item member
+        have same := List.mem_singleton.mp member
+        subst item
+        exact value_literals atom
+  | next atom _ _ _ ih =>
+      constructor
+      · intro item member
+        rcases List.mem_cons.mp member with rfl | present
+        · exact ⟨_, value_infer atom⟩
+        · exact ih.1 item present
+      · intro item member
+        rcases List.mem_cons.mp member with rfl | present
+        · exact value_literals atom
+        · exact ih.2 item present
 
-theorem value_read_refines {text bytes : Source} {context : NameContext} {values : ConstantValues}
-    {role : LiteralRole} {position after : Nat} (parsed : ValueAt text context role position bytes after)
-    (stored : ConstantsCorrespond text context values) (staticValue dynamicValue : Source) :
-    SourceOperandValue text (valueContext context role) values staticValue dynamicValue position bytes after := by
-  by_cases copied : role = .initial ∨ role = .assigned
-  · exact operand_read_refines parsed (by simpa [valueContext, copied, copyNames, ConstantsCorrespond] using stored)
-      staticValue dynamicValue
-  · cases parsed with
-    | literal bound quote value => exact .literal bound quote value
-    | constantName name noStatic noDynamic header value =>
-        simp [valueContext, copied, constantValueAtName, matchesConstant] at header
 
-/-- Each emitted initializer, replacement, and output payload is the direct
-source evaluation in the current immutable environment, for any live result
-and argument values. This connects normalization to statement execution. -/
-def StepReadsBound (text : Source) (state : ParserState) (values : ConstantValues)
-    (event : Option Event) (next : ParserState) : Prop :=
-  match event with
-  | some (.literal role bytes) => ∀ staticValue dynamicValue,
-      SourceOperandValue text (valueContext state.context role) values staticValue dynamicValue
-        state.position bytes next.position
-  | some (.output expression) => ∀ staticValue dynamicValue,
-      SourceExpressionValue text state.context values staticValue dynamicValue state.position
-        (expression.evaluateLeft staticValue dynamicValue) next.position
-  | _ => True
+theorem expressionTail_count {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    expression ≠ [] ∧ expression.length ≤ remaining := by
+  induction parsed with
+  | last => simp
+  | next _ _ _ _ ih => simpa using Nat.succ_le_succ ih.2
 
-theorem step_reads_bound {text : Source} {form : Form} {token : ShellToken} {state next : ParserState}
-    {event : Option Event} {values : ConstantValues}
-    (parsed : StepAt text form token state event next)
-    (stored : ConstantsCorrespond text state.context values) : StepReadsBound text state values event next := by
-  cases parsed with
-  | literal value compatible => exact value_read_refines value stored
-  | output expression safe nonzero =>
-      intro staticValue dynamicValue
-      simpa only [Expression.left_association] using
-        expression_read_refines expression stored staticValue dynamicValue
-  | staticDeclaration | constantDeclaration | dynamicDeclaration | staticReference | dynamicReference | capacity | fixed => trivial
+theorem expressionTail_staticLength {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (normal : NamesNormal names)
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    result.staticLength = length + expression.staticLength names.shape := by
+  induction parsed with
+  | last atom _ _ =>
+      simp [accumulated, ValueResult.expression, Expression.staticLength, (value_summary normal atom).1]
+  | next atom _ _ _ ih =>
+      simpa [Expression.staticLength, (value_summary normal atom).1, Nat.add_assoc] using ih
 
-/-- A complete source derivation with immutable environments at every step.
-The slots change only when their literal declaration initializers elaborate;
-result assignments and output do not modify them. -/
-inductive ConstantElaboration (text : Source) (form : Form) :
-    List ShellToken → ParserState → ConstantValues → List Event → Prop
-  | done {state : ParserState} {values : ConstantValues} :
-      ConstantsCorrespond text state.context values → ConstantElaboration text form [] state values []
-  | next {token : ShellToken} {tokens : List ShellToken} {state next : ParserState}
-      {values : ConstantValues} {event : Option Event} {events : List Event} :
-      ConstantsCorrespond text state.context values →
-      StepAt text form token state event next →
-      StepReadsBound text state values event next →
-      ConstantElaboration text form tokens next (values.afterEvent event) events →
-      ConstantElaboration text form (token :: tokens) state values (event.toList ++ events)
+theorem expressionTail_dynamicCount {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (normal : NamesNormal names)
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    (if dynamicSeen then 1 else 0) + expression.dynamicCount names.shape ≤ 1 := by
+  induction parsed with
+  | @last remaining position length dynamicSeen atom value parsed fits stop =>
+      have counted := (value_summary normal parsed).2
+      cases dynamicSeen <;> cases seen : value.dynamicSeen <;>
+        simp_all [fitsAccumulator, ValueResult.expression, Expression.dynamicCount]
+  | @next remaining position length dynamicSeen atom value rest result parsed fits more previous ih =>
+      have counted := (value_summary normal parsed).2
+      cases dynamicSeen <;> cases seen : value.dynamicSeen <;>
+        simp_all [fitsAccumulator, ValueResult.expression, Expression.dynamicCount]
 
-theorem parsed_constant_elaboration {text : Source} {form : Form} {tokens : List ShellToken}
-    {state : ParserState} {events : List Event} (parsed : Parsed text form tokens state events)
-    (values : ConstantValues) (stored : ConstantsCorrespond text state.context values) :
-    ConstantElaboration text form tokens state values events := by
-  induction parsed generalizing values with
-  | done => exact .done stored
-  | next positive step rest ih => exact .next stored step (step_reads_bound step stored) (ih _ (step_constants step stored))
+theorem expressionTail_dynamicSeen {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (normal : NamesNormal names)
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    result.dynamicSeen = (dynamicSeen || decide (0 < expression.dynamicCount names.shape)) := by
+  induction parsed with
+  | @last remaining position length dynamicSeen atom value parsed fits stop =>
+      have counted := (value_summary normal parsed).2
+      cases seen : value.dynamicSeen <;>
+        simp [accumulated, ValueResult.expression, Expression.dynamicCount, counted, seen]
+  | @next remaining position length dynamicSeen atom value rest result parsed fits more previous ih =>
+      have counted := (value_summary normal parsed).2
+      rw [ih]
+      cases seen : value.dynamicSeen <;>
+        simp [Expression.dynamicCount, counted, seen] <;> omega
 
-theorem meaning_constant_elaboration {source : Source} {form : Form} {events : List Event}
-    (meaning : SourceMeaning source form events) :
-    ConstantElaboration source form form.tokens initialState {} events :=
-  parsed_constant_elaboration meaning.2.2 {} (initial_constants source)
+theorem expressionTail_length_bound {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {expression : Expression} {result : ExpressionResult}
+    (parsed : ExpressionTailAt text names remaining position length dynamicSeen expression result) :
+    result.staticLength ≤ maxSourceLength := by
+  induction parsed with
+  | last _ fits _ =>
+      simp only [fitsAccumulator, Bool.and_eq_true, decide_eq_true_eq] at fits
+      exact fits.1.2
+  | next _ _ _ _ ih => exact ih
+
+theorem expressionAt_safe {text : Source} {names : BindingEnvironment} {position capacity : Nat}
+    {expression : Expression} {result : ExpressionResult} (normal : NamesNormal names)
+    (parsed : ExpressionAt text names position expression result)
+    (safe : result.staticLength + (if result.dynamicSeen then capacity else 0) ≤ maxSourceLength) :
+    SafeExpression expression names.shape capacity := by
+  have nonempty := expressionTail_count parsed
+  have fixed := expressionTail_staticLength normal parsed
+  have counted := expressionTail_dynamicCount normal parsed
+  have seen := expressionTail_dynamicSeen normal parsed
+  simp only [Bool.false_or, Nat.zero_add, Bool.false_eq_true, ↓reduceIte] at fixed counted seen
+  refine ⟨(expressionTail_readable parsed).1, (expressionTail_readable parsed).2,
+    nonempty.1, nonempty.2, counted, ?_⟩
+  rw [fixed, seen] at safe
+  have possibilities : expression.dynamicCount names.shape = 0 ∨ expression.dynamicCount names.shape = 1 := by omega
+  rcases possibilities with zero | one
+  · simpa [zero] using safe
+  · simpa [one] using safe
+
+theorem expressionTail_unique {text : Source} {names : BindingEnvironment}
+    {remaining position length : Nat} {dynamicSeen : Bool} {left right : Expression}
+    {leftResult rightResult : ExpressionResult}
+    (first : ExpressionTailAt text names remaining position length dynamicSeen left leftResult)
+    (second : ExpressionTailAt text names remaining position length dynamicSeen right rightResult) :
+    left = right ∧ leftResult = rightResult := by
+  have results := (expressionTail_complete first).symm.trans (expressionTail_complete second)
+  refine ⟨?_, results⟩
+  induction first generalizing right rightResult with
+  | last atom fits stop =>
+      cases second with
+      | last other _ _ => exact congrArg (fun x => [x]) (value_unique atom other).1
+      | next other _ more _ =>
+          obtain ⟨_, same⟩ := value_unique atom other
+          exact False.elim (more (same ▸ stop))
+  | next atom fits more rest ih =>
+      cases second with
+      | last other _ stop =>
+          obtain ⟨_, same⟩ := value_unique atom other
+          exact False.elim (more (same.symm ▸ stop))
+      | next other _ _ tail =>
+          obtain ⟨rfl, rfl⟩ := value_unique atom other
+          exact congrArg (List.cons _) (ih tail (expressionTail_complete rest |>.symm.trans (expressionTail_complete tail)))
 
 end Silver.Compose

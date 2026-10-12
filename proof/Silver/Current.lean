@@ -70,16 +70,22 @@ def rangeObligations : Program → List Guarded.RangeObligation
   | .nullMain => []
   | .composed program => Compose.rangeObligations program
 
+def checks : Program → List Compose.Check
+  | .nullMain => []
+  | .composed program => Compose.checks program
+
 def obligations (program : Program) : List Semantics.Obligation :=
-  (rangeObligations program).map Guarded.RangeObligation.toObligation
+  (checks program).map Compose.Check.toObligation
 
 def uniformObligations : List Semantics.Obligation :=
-  Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation
+  Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation ++
+    [Compose.Check.toObligation (.length ⟨.argument, .argument⟩)]
 
 theorem uniform_discharge : Semantics.discharge uniformObligations = true := by decide +kernel
 
-/-- A computable, uniform certificate. Every source expression and each of its
-left-associated prefixes refine its coefficients, counting repeated fixed names. -/
+/-- The uniform range certificate and reflexive symbolic-length certificate
+cover the two checked arithmetic forms. Source-specific obligations are proved
+below to lie in that fragment, independently of external solver success. -/
 def automaticDischarge (source : Source) : Option Bool :=
   if accepts source then some (Semantics.discharge uniformObligations) else none
 
@@ -87,20 +93,19 @@ theorem automatic_discharge_complete {source : Source} (member : Member source) 
     automaticDischarge source = some true := by
   simp [automaticDischarge, (accepts_iff_member source).mpr member, uniform_discharge]
 
-def BoundedRangeFragment (checks : List Guarded.RangeObligation) : Prop :=
-  ∀ check ∈ checks, ∃ upper ∈ Compose.uniformRangeObligations, check.Refines upper
+def BoundedFragment (checks : List Compose.Check) : Prop :=
+  ∀ check ∈ checks, check.InFragment
 
-theorem admitted_range_fragment {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) : BoundedRangeFragment (rangeObligations program) := by
+theorem admitted_fragment {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) : BoundedFragment (checks program) := by
   cases program with
-  | nullMain => simp [BoundedRangeFragment, rangeObligations]
-  | composed program => exact Compose.program_schemas (composed_valid meaning)
+  | nullMain => simp [BoundedFragment, checks]
+  | composed program => exact Compose.program_checks_fragment (composed_valid meaning)
 
-theorem fragment_checks_valid {checks : List Guarded.RangeObligation}
-    (fragment : BoundedRangeFragment checks) : ∀ check ∈ checks, check.Valid := by
+theorem fragment_checks_valid {checks : List Compose.Check}
+    (fragment : BoundedFragment checks) : ∀ check ∈ checks, check.Valid := by
   intro check member
-  obtain ⟨upper, present, bounded⟩ := fragment check member
-  exact Guarded.RangeObligation.valid_of_refines bounded (Compose.uniform_range_valid upper present)
+  exact Compose.Check.fragment_valid (fragment check member)
 
 theorem all_obligations_discharge {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
@@ -110,9 +115,9 @@ theorem all_obligations_discharge {source : Source} {program : Program}
   have discharged : Semantics.discharge (obligations program) = true := by
     apply (Semantics.discharge_iff _).mpr
     intro check member
-    obtain ⟨range, present, rfl⟩ := List.mem_map.mp member
-    exact (Guarded.RangeObligation.discharge_iff _).mpr
-      (fragment_checks_valid (admitted_range_fragment meaning) range present)
+    obtain ⟨schema, present, rfl⟩ := List.mem_map.mp member
+    exact (Compose.Check.discharge_iff _).mpr
+      (fragment_checks_valid (admitted_fragment meaning) schema present)
   have steps := Semantics.discharge_terminates (obligations program)
   rw [discharged] at steps
   exact ⟨discharged, steps⟩
@@ -239,8 +244,8 @@ theorem every_meaning_assured {source : Source} {program : Program}
 
 structure Tools (Artifact : Type) where
   parse : Source → Program → Nat → Prop
-  generate : Program → List Guarded.RangeObligation → Nat → Prop
-  prove : List Guarded.RangeObligation → Nat → Prop
+  generate : Program → List Compose.Check → Nat → Prop
+  prove : List Compose.Check → Nat → Prop
   verifyFixedLibrary : Nat → Prop
   build : Source → Artifact → Nat → Prop
   execute : Artifact → Environment → Output.Runtime.ProcessResult → Prop
@@ -253,11 +258,12 @@ def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Pro
   | .composed _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
-Each generated check normalizes to an instance of a source concatenation range
-schema; emitted checks may be simplified, repeated or omitted by optimization.
+Each generated check normalizes to a source concatenation range schema or an
+exact-length schema for declaration initialization or assignment; emitted checks
+may be simplified, repeated or omitted by optimization.
 This relation does not certify the producer's obligation completeness, which
 remains a trusted GNATprove premise audited through complete reports. The pinned
-provers must complete on the concrete bounded arithmetic fragment. These facts
+provers must complete on the concrete range and exact-length fragment. These facts
 are external-tool premises, not results about their implementation or a measured
 universal solver step bound. Compilation uses the same source as parsing, and preserves and realizes the
 checked runtime semantics under the documented external-call interpretation. -/
@@ -268,8 +274,8 @@ structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
     SourceMeaning source program
   generationCompletes : ∀ program, ∃ checks steps, tools.generate program checks steps
   generationFaithful : ∀ program checks steps, tools.generate program checks steps →
-    ∀ check ∈ checks, ∃ schema ∈ rangeObligations program, check.Refines schema
-  boundedRangeProofCompletes : ∀ checks, BoundedRangeFragment checks →
+    ∀ check ∈ checks, ∃ schema ∈ Current.checks program, check.Refines schema
+  boundedProofCompletes : ∀ checks, BoundedFragment checks →
     ∃ steps, tools.prove checks steps
   fixedLibraryProofCompletes : ∃ steps, tools.verifyFixedLibrary steps
   buildCompletes : ∀ source program steps, tools.parse source program steps →
@@ -286,8 +292,8 @@ structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
 inhabited. It is not an implementation or verification of the external tools. -/
 def modelTools : Tools Program where
   parse := fun source program steps => SourceMeaning source program ∧ steps = 1
-  generate := fun program checks steps => checks = rangeObligations program ∧ steps = 1
-  prove := fun checks steps => BoundedRangeFragment checks ∧ steps = checks.length + 1
+  generate := fun program checks steps => checks = Current.checks program ∧ steps = 1
+  prove := fun checks steps => BoundedFragment checks ∧ steps = checks.length + 1
   verifyFixedLibrary := fun steps => steps = 1
   build := fun source program steps => SourceMeaning source program ∧ steps = 1
   execute := fun program environment result => result = execute environment program
@@ -295,12 +301,12 @@ def modelTools : Tools Program where
 theorem model_tool_contract : ToolContract modelTools where
   parseCompletes := fun _ _ meaning => ⟨1, meaning, rfl⟩
   parseFaithful := fun _ _ _ parsed => parsed.1
-  generationCompletes := fun program => ⟨rangeObligations program, 1, rfl, rfl⟩
+  generationCompletes := fun program => ⟨Current.checks program, 1, rfl, rfl⟩
   generationFaithful := by
     intro program checks steps generated
     intro check member
-    exact ⟨check, by simpa [generated.1] using member, Nat.le_refl _, Nat.le_refl _⟩
-  boundedRangeProofCompletes := fun checks fragment => ⟨checks.length + 1, fragment, rfl⟩
+    exact ⟨check, by simpa [generated.1] using member, Compose.Check.refines_refl _⟩
+  boundedProofCompletes := fun checks fragment => ⟨checks.length + 1, fragment, rfl⟩
   fixedLibraryProofCompletes := ⟨1, rfl⟩
   buildCompletes := fun _ program _ parsed => ⟨program, 1, parsed.1, rfl⟩
   compilationPreserves := by
@@ -313,21 +319,20 @@ theorem model_tool_contract : ToolContract modelTools where
     simp [modelTools, same]
 
 inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artifact → Nat → Prop
-  | complete {source : Source} {program : Program} {checks : List Guarded.RangeObligation}
+  | complete {source : Source} {program : Program} {checks : List Compose.Check}
       {artifact : Artifact} {parseSteps generateSteps proofSteps buildSteps : Nat} :
       tools.parse source program parseSteps → tools.generate program checks generateSteps →
       tools.prove checks proofSteps → LibraryEvidence tools program →
       tools.build source artifact buildSteps →
       Pipeline tools source artifact (parseSteps + generateSteps + proofSteps + buildSteps)
 
-theorem generated_range_fragment {Artifact : Type} {tools : Tools Artifact}
+theorem generated_fragment {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) {checks : List Guarded.RangeObligation} {steps : Nat}
-    (generated : tools.generate program checks steps) : BoundedRangeFragment checks := by
+    (meaning : SourceMeaning source program) {checks : List Compose.Check} {steps : Nat}
+    (generated : tools.generate program checks steps) : BoundedFragment checks := by
   intro check member
   obtain ⟨schema, present, bounded⟩ := contract.generationFaithful program checks steps generated check member
-  obtain ⟨upper, found, parent⟩ := admitted_range_fragment meaning schema present
-  exact ⟨upper, found, Nat.le_trans bounded.1 parent.1, Nat.le_trans bounded.2 parent.2⟩
+  exact Compose.Check.fragment_of_refines bounded (admitted_fragment meaning schema present)
 
 theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} (member : Member source) :
@@ -335,8 +340,8 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
   obtain ⟨program, meaning⟩ := member_has_meaning member
   obtain ⟨parseSteps, parsed⟩ := contract.parseCompletes source program meaning
   obtain ⟨checks, generateSteps, generated⟩ := contract.generationCompletes program
-  obtain ⟨proofSteps, proved⟩ := contract.boundedRangeProofCompletes checks
-    (generated_range_fragment contract meaning generated)
+  obtain ⟨proofSteps, proved⟩ := contract.boundedProofCompletes checks
+    (generated_fragment contract meaning generated)
   obtain ⟨artifact, buildSteps, built⟩ := contract.buildCompletes source program parseSteps parsed
   have library : LibraryEvidence tools program := by
     cases program with
@@ -346,10 +351,10 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
 
 theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) {checks : List Guarded.RangeObligation}
+    (meaning : SourceMeaning source program) {checks : List Compose.Check}
     {steps : Nat} (generated : tools.generate program checks steps) :
     ∀ check ∈ checks, check.Valid :=
-  fragment_checks_valid (generated_range_fragment contract meaning generated)
+  fragment_checks_valid (generated_fragment contract meaning generated)
 
 theorem pipeline_preserves {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {artifact : Artifact} {steps : Nat}

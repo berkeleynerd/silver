@@ -54,10 +54,10 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual(len(reports), 1)
                 command = json.loads(reports[0].read_text())["runs"][0]["invocations"][0]["commandLine"].split()
                 assignment = "string_assignment" in sample["capabilities"]
-                self.assertEqual([argument for argument in command if argument.startswith("--warnings=")],
-                                 ["--warnings=continue" if assignment else "--warnings=error"])
-                self.assertIn("--checks-as-errors=on", command)
                 output = "runtime_context" in sample["capabilities"]
+                self.assertEqual([argument for argument in command if argument.startswith("--warnings=")],
+                                 ["--warnings=continue" if output else "--warnings=error"])
+                self.assertIn("--checks-as-errors=on", command)
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}

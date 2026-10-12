@@ -21,27 +21,31 @@ theorem example_admitted : accepts exampleSource = true :=
 theorem example_current : Current.Member exampleSource :=
   Or.inr ((accepts_iff_member exampleSource).mp example_admitted)
 
-def repeatedStatic : Expression := List.replicate 16 .staticReference
+def repeatedStatic : Expression := List.replicate 16 (.reference 1)
 
-theorem repeated_static_exact_bound : repeatedStatic.Bounded 256 4096 := by
+def fixedShape (length : Nat) : Bindings.Shape :=
+  Bindings.put Bindings.emptyShape 1 (some ⟨.fixed length, true⟩)
+
+theorem repeated_static_exact_bound : repeatedStatic.Bounded (fixedShape 256) 4096 := by
   unfold Expression.Bounded
   decide +kernel
 
-theorem repeated_static_overflow_rejected : ¬repeatedStatic.Bounded 257 4096 := by
+theorem repeated_static_overflow_rejected : ¬repeatedStatic.Bounded (fixedShape 257) 4096 := by
   unfold Expression.Bounded
   decide +kernel
 
 def sixteenEmptyOperands : Source := "\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"".toList.map Char.toNat
 
-theorem operand_limit_admitted : (expressionAt sixteenEmptyOperands 1 {}).after = 48 := by decide +kernel
+theorem operand_limit_admitted : (expressionAt sixteenEmptyOperands 1 []).after = 48 := by decide +kernel
 
 theorem extra_operand_rejected :
-    (expressionAt (sixteenEmptyOperands ++ [38, 34, 34]) 1 {}).after = 0 := by decide +kernel
+    (expressionAt (sixteenEmptyOperands ++ [38, 34, 34]) 1 []).after = 0 := by decide +kernel
 
 theorem repeated_dynamic_rejected :
-    (expressionAt [78, 38, 78] 1 {dynamicFirst := 1, dynamicAfter := 2}).after = 0 := by decide +kernel
+    (expressionAt [78, 38, 78] 1 [⟨1, 2, 0, 0, true, false⟩]).after = 0 := by decide +kernel
 
-def narrowDefault : Program := .argument [65] (some 0) [.dynamicReference]
+def narrowDefault : Program :=
+  ⟨[argumentDeclaration], [⟨1, 2, 0, 0, true, false⟩], [65], .argument (some 0) [.reference 1]⟩
 
 theorem tighter_capacity_rejects_oversized_default : narrowDefault.action [] = .reject := by decide +kernel
 
@@ -54,25 +58,39 @@ def copyAssignmentSource (secondInitializer replacement output : String) : Sourc
    "; Silver_IO.Put_Line (" ++ output ++ "); end Main;").toList.map Char.toNat
 
 theorem two_constants_copy_admitted :
-    formAccepts (copyAssignmentSource "\"cd\"" "sEcOnD" "First & Result & Second") .assignmentTwo = true := by
+    formAccepts (copyAssignmentSource "\"cd\"" "sEcOnD" "First & Result & Second") .assignment = true := by
   decide +kernel
 
 theorem unequal_named_copy_rejected :
     accepts (copyAssignmentSource "\"cde\"" "Second" "Result") = false := by decide +kernel
 
-theorem constants_do_not_replace_result_use :
-    accepts (copyAssignmentSource "\"cd\"" "Second" "First & Second") = false := by decide +kernel
+theorem unused_assignment_target_admitted :
+    accepts (copyAssignmentSource "\"cd\"" "Second" "First & Second") = true := by decide +kernel
 
-theorem constant_alias_initializer_rejected :
-    accepts (copyAssignmentSource "First" "Second" "Result") = false := by decide +kernel
+theorem constant_alias_initializer_admitted :
+    accepts (copyAssignmentSource "First" "Second" "Result") = true := by decide +kernel
 
-theorem mutable_copy_source_rejected :
-    accepts (copyAssignmentSource "\"cd\"" "Result" "Result") = false := by decide +kernel
+theorem mutable_copy_source_admitted :
+    accepts (copyAssignmentSource "\"cd\"" "Result" "Result") = true := by decide +kernel
 
 def copiedBranchSource : Source :=
   "with Silver_IO; with Silver_Arguments; procedure Main is pragma SPARK_Mode (On); Mode : constant String := Silver_Arguments.First_Or_Default (\"brief\"); Ready : constant String := \"ready\"; Detailed : constant String := \"extra\"; Result : String := Ready; begin if Silver_Arguments.Input_Is_Valid and then Mode'Length <= 4081 then if Mode = \"verbose\" then Result := Detailed; else Result := Ready; end if; Silver_IO.Put_Line (Ready & Result & Detailed & Mode); else Silver_Arguments.Reject; end if; end Main;".toList.map Char.toNat
 
 theorem two_constants_guarded_branch_admitted :
-    formAccepts copiedBranchSource .guardedResultTwo = true := by decide +kernel
+    formAccepts copiedBranchSource .guardedResult = true := by decide +kernel
+
+
+def snapshotSource : Source :=
+  "with Silver_IO; procedure Main is pragma SPARK_Mode (On); A : String := \"ab\"; B : constant String := A; C : String := B; begin A := \"cd\"; Silver_IO.Put_Line (A & B & C); end Main;".toList.map Char.toNat
+
+theorem ordered_snapshots_admitted : formAccepts snapshotSource .assignment = true := by decide +kernel
+
+def snapshotProgram : Program :=
+  ⟨[⟨1, true, .literal [97, 98]⟩, ⟨2, false, .reference 1⟩, ⟨3, true, .reference 2⟩],
+    [⟨0, 0, 0, 2, false, true⟩, ⟨0, 0, 0, 2, false, false⟩, ⟨0, 0, 0, 2, false, true⟩], [],
+    .assignment ⟨1, .literal [99, 100]⟩ [.reference 1, .reference 2, .reference 3]⟩
+
+theorem snapshots_keep_initial_values : snapshotProgram.action [] = .output [99, 100, 97, 98, 97, 98] := by
+  decide +kernel
 
 end Silver.Compose

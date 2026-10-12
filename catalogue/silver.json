@@ -71,6 +71,7 @@
         "constant": true,
         "initializer": [
           "string_literal",
+          "preceding_initialized_identifier",
           "argument_initialization"
         ],
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
@@ -78,29 +79,20 @@
           "String",
           "Silver_IO"
         ],
+        "additional_excluded_names_in_argument_forms": [
+          "Silver_Arguments"
+        ],
         "case_insensitive_binding": true,
         "exclude_ada_2022_reserved_words": true,
-        "literal_declarations_by_shell": {
-          "static_output": [
-            1,
-            1
-          ],
-          "string_assignment_output": [
-            0,
-            2
-          ],
-          "selected_result_output": [
-            0,
-            2
-          ]
-        },
-        "argument_declarations_by_shell": {
-          "command_line_output": 1,
-          "branching_output": 1,
-          "selected_result_output": 1
-        },
         "all_declared_names_distinct_ignoring_case": true,
-        "literal_constant_initializer": "string_literal only; no binding references"
+        "count": "finite_within_complete_source_bound",
+        "declaration_context": "every output shell",
+        "initializer_required": true,
+        "initializer_expressions": false,
+        "bounds": "fixed by initialized value",
+        "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
+        "unused_allowed": true,
+        "argument_initializer_position": "first and unique binding in argument-bearing forms only"
       }
     },
     {
@@ -137,7 +129,8 @@
         "arguments": [
           "string_literal"
         ],
-        "count": 1
+        "count": 1,
+        "binding": "immutable String; first and unique binding in argument-bearing forms"
       }
     },
     {
@@ -183,7 +176,8 @@
         "parenthesized_subexpressions": false,
         "static_references": "counted with multiplicity",
         "max_dynamic_references": 1,
-        "max_result_bytes": 4096
+        "max_result_bytes": 4096,
+        "dynamic_references": "original argument and all dynamic-length aliases count toward the same limit"
       }
     },
     {
@@ -229,21 +223,26 @@
         "constant": false,
         "initializer": [
           "string_literal",
-          "preceding_literal_constant_identifier"
+          "preceding_initialized_identifier"
         ],
-        "bounds": "determined_by_initializer",
-        "count": 1,
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
           "String",
           "Silver_IO"
         ],
+        "additional_excluded_names_in_argument_forms": [
+          "Silver_Arguments"
+        ],
         "case_insensitive_binding": true,
         "exclude_ada_2022_reserved_words": true,
-        "declaration_context": [
-          "string_assignment_output",
-          "selected_result_output"
-        ]
+        "all_declared_names_distinct_ignoring_case": true,
+        "count": "finite_within_complete_source_bound",
+        "declaration_context": "every output shell",
+        "initializer_required": true,
+        "initializer_expressions": false,
+        "bounds": "fixed by initialized value",
+        "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
+        "unused_allowed": true
       }
     },
     {
@@ -253,12 +252,12 @@
         "target": "declared_string_variable",
         "value": [
           "string_literal",
-          "preceding_literal_constant_identifier"
+          "initialized_identifier"
         ],
-        "decoded_length": "equal to fixed result length established by initializer",
+        "decoded_length": "same fixed length or same symbolic input-length identity as the target",
         "count_per_executed_path": 1,
-        "output_must_reference_result": true,
-        "self_assignment": false
+        "output_must_reference_result": false,
+        "self_assignment": true
       }
     },
     {
@@ -267,7 +266,7 @@
       "conditions": {
         "operator": "=",
         "operands": [
-          "declared_constant_identifier",
+          "original_argument_identifier",
           "string_literal"
         ],
         "predefined_string_equality": true,
@@ -305,8 +304,12 @@
         "association": "left",
         "max_dynamic_references": 1,
         "max_result_bytes": 4096,
-        "static_references": "each literal constant and mutable-result occurrence counted at its own fixed length",
-        "empty_operands_count": true
+        "static_references": "each static-length binding occurrence counted at its fixed length",
+        "empty_operands_count": true,
+        "dynamic_references": "original argument and every dynamic-length alias share one occurrence limit",
+        "positions": [
+          "output"
+        ]
       }
     },
     {
@@ -337,25 +340,31 @@
         ],
         "equal_branch_and_initializer_lengths": true,
         "distinct_input_and_result_names": true,
-        "output_must_reference_result": true,
-        "all_declared_names_distinct_ignoring_case": true
+        "output_must_reference_result": false,
+        "all_declared_names_distinct_ignoring_case": true,
+        "same_target_in_both_branches": true
       }
     },
     {
       "id": "string_copy",
       "ada_kind": "name_expression",
       "conditions": {
-        "source": "preceding_literal_constant_identifier",
+        "source": "initialized_constant_or_mutable_identifier",
         "positions": [
-          "mutable_result_initializer",
-          "mutable_result_assignment_rhs"
+          "constant_initializer",
+          "mutable_initializer",
+          "assignment_rhs"
         ],
+        "initializer_visibility": "earlier initialized declarations only",
+        "assignment_visibility": "all initialized declarations",
         "case_insensitive_binding": true,
         "preserves_bytes": true,
-        "assignment_length": "equal to fixed result length",
-        "dynamic_source": false,
-        "self_assignment": false,
-        "constant_to_constant_initialization": false
+        "snapshot_semantics": true,
+        "assignment_length": "same fixed length or same symbolic input-length identity as the target",
+        "dynamic_source": true,
+        "mutable_source": true,
+        "self_assignment": true,
+        "constant_to_constant_initialization": true
       }
     }
   ],
@@ -379,9 +388,25 @@
       "declarative_items": [
         "spark_mode_on"
       ],
+      "declaration_list": {
+        "after": "spark_mode_on",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
       "statements": [
         "expression_output"
       ],
+      "tokens": "output_tokens",
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
@@ -392,40 +417,33 @@
       ]
     },
     {
-      "name": "static_output",
-      "context": [
-        "runtime_context"
-      ],
-      "declarative_items": [
-        "spark_mode_on",
-        "named_string_constant"
-      ],
-      "statements": [
-        "expression_output"
-      ],
-      "library_units": [
-        "silver_io.ads",
-        "silver_io.adb",
-        "silver_output_libc.ads",
-        "silver_arguments.ads",
-        "silver_arguments.adb",
-        "silver_runtime.ads"
-      ],
-      "initializer": "string_literal"
-    },
-    {
       "name": "string_assignment_output",
       "context": [
         "runtime_context"
       ],
       "declarative_items": [
-        "spark_mode_on",
-        "named_string_variable"
+        "spark_mode_on"
       ],
+      "declaration_list": {
+        "after": "spark_mode_on",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
       "statements": [
         "string_assignment",
         "expression_output"
       ],
+      "tokens": "assignment_tokens",
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
@@ -433,22 +451,6 @@
         "silver_arguments.ads",
         "silver_arguments.adb",
         "silver_runtime.ads"
-      ],
-      "initializer": [
-        "string_literal",
-        "preceding_literal_constant_identifier"
-      ],
-      "literal_constants_before_result": {
-        "min": 0,
-        "max": 2,
-        "initializer": "string_literal",
-        "after_argument_binding": false,
-        "distinct_names_ignoring_case": true,
-        "may_be_unused": true
-      },
-      "mutable_value_operands": [
-        "string_literal",
-        "preceding_literal_constant_identifier"
       ]
     },
     {
@@ -459,11 +461,27 @@
       ],
       "declarative_items": [
         "spark_mode_on",
-        "named_string_constant"
+        "argument_initialization"
       ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
       "statements": [
         "input_guard"
       ],
+      "tokens": "argument_tokens",
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
@@ -472,11 +490,56 @@
         "silver_arguments.adb",
         "silver_runtime.ads"
       ],
-      "initializer": "argument_initialization",
-      "optional_capacity_guard": true,
+      "original_argument_binding_first": true,
+      "capacity_guard": false,
       "additional_excluded_names": [
         "Silver_Arguments"
-      ]
+      ],
+      "guarded_body": "expression_output"
+    },
+    {
+      "name": "guarded_command_line_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "argument_initialization"
+      ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
+      "statements": [
+        "capacity_guard"
+      ],
+      "tokens": "guarded_argument_tokens",
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "original_argument_binding_first": true,
+      "capacity_guard": true,
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "guarded_body": "expression_output"
     },
     {
       "name": "branching_output",
@@ -486,11 +549,27 @@
       ],
       "declarative_items": [
         "spark_mode_on",
-        "named_string_constant"
+        "argument_initialization"
       ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
       "statements": [
-        "input_branch"
+        "input_guard"
       ],
+      "tokens": "branching_tokens",
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
@@ -499,11 +578,56 @@
         "silver_arguments.adb",
         "silver_runtime.ads"
       ],
-      "initializer": "argument_initialization",
-      "optional_capacity_guard": true,
+      "original_argument_binding_first": true,
+      "capacity_guard": false,
       "additional_excluded_names": [
         "Silver_Arguments"
-      ]
+      ],
+      "guarded_body": "input_branch"
+    },
+    {
+      "name": "guarded_branching_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "argument_initialization"
+      ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
+      "statements": [
+        "capacity_guard"
+      ],
+      "tokens": "guarded_branching_tokens",
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "original_argument_binding_first": true,
+      "capacity_guard": true,
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "guarded_body": "input_branch"
     },
     {
       "name": "selected_result_output",
@@ -513,12 +637,27 @@
       ],
       "declarative_items": [
         "spark_mode_on",
-        "named_string_constant",
-        "named_string_variable"
+        "argument_initialization"
       ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
+      },
       "statements": [
-        "result_branch"
+        "input_guard"
       ],
+      "tokens": "result_tokens",
       "library_units": [
         "silver_io.ads",
         "silver_io.adb",
@@ -527,27 +666,56 @@
         "silver_arguments.adb",
         "silver_runtime.ads"
       ],
-      "initializers": [
-        "argument_initialization",
-        "string_literal",
-        "preceding_literal_constant_identifier"
-      ],
-      "optional_capacity_guard": true,
+      "original_argument_binding_first": true,
+      "capacity_guard": false,
       "additional_excluded_names": [
         "Silver_Arguments"
       ],
-      "literal_constants_before_result": {
-        "min": 0,
-        "max": 2,
-        "initializer": "string_literal",
-        "after_argument_binding": true,
-        "distinct_names_ignoring_case": true,
-        "may_be_unused": true
+      "guarded_body": "result_branch"
+    },
+    {
+      "name": "guarded_selected_result_output",
+      "context": [
+        "runtime_context",
+        "argument_context"
+      ],
+      "declarative_items": [
+        "spark_mode_on",
+        "argument_initialization"
+      ],
+      "declaration_list": {
+        "after": "argument_initialization",
+        "items": [
+          "named_string_constant",
+          "named_string_variable"
+        ],
+        "minimum": 0,
+        "count": "finite_within_complete_source_bound",
+        "initializers": [
+          "string_literal",
+          "preceding_initialized_identifier"
+        ],
+        "ordered": true,
+        "distinct_names_ignoring_case": true
       },
-      "mutable_value_operands": [
-        "string_literal",
-        "preceding_literal_constant_identifier"
-      ]
+      "statements": [
+        "capacity_guard"
+      ],
+      "tokens": "guarded_result_tokens",
+      "library_units": [
+        "silver_io.ads",
+        "silver_io.adb",
+        "silver_output_libc.ads",
+        "silver_arguments.ads",
+        "silver_arguments.adb",
+        "silver_runtime.ads"
+      ],
+      "original_argument_binding_first": true,
+      "capacity_guard": true,
+      "additional_excluded_names": [
+        "Silver_Arguments"
+      ],
+      "guarded_body": "result_branch"
     }
   ],
   "additional_units": false,
@@ -1068,6 +1236,37 @@
     "main",
     ";"
   ],
+  "constant_declaration_tokens": [
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "<initializer_value>",
+    ";"
+  ],
+  "variable_declaration_tokens": [
+    "<declaration_name>",
+    ":",
+    "string",
+    ":=",
+    "<initializer_value>",
+    ";"
+  ],
+  "argument_declaration_tokens": [
+    "<declaration_name>",
+    ":",
+    "constant",
+    "string",
+    ":=",
+    "silver_arguments",
+    ".",
+    "first_or_default",
+    "(",
+    "<string_literal>",
+    ")",
+    ";"
+  ],
   "output_tokens": [
     "with",
     "silver_io",
@@ -1081,38 +1280,7 @@
     "on",
     ")",
     ";",
-    "begin",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "named_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<static_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
+    "<declarations>",
     "begin",
     "silver_io",
     ".",
@@ -1138,16 +1306,11 @@
     "on",
     ")",
     ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
+    "<declarations>",
     "begin",
-    "<static_reference>",
+    "<assignment_target>",
     ":=",
-    "<static_assignment>",
+    "<assignment_value>",
     ";",
     "silver_io",
     ".",
@@ -1176,18 +1339,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1229,18 +1382,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1289,18 +1432,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1358,18 +1491,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1434,24 +1557,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1463,14 +1570,14 @@
     "=",
     "<string_literal>",
     "then",
-    "<static_reference>",
+    "<assignment_target>",
     ":=",
-    "<static_assignment>",
+    "<assignment_value>",
     ";",
     "else",
-    "<static_reference>",
+    "<target_reference>",
     ":=",
-    "<static_assignment>",
+    "<assignment_value>",
     ";",
     "end",
     "if",
@@ -1510,24 +1617,8 @@
     "on",
     ")",
     ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
+    "<argument_declaration>",
+    "<declarations>",
     "begin",
     "if",
     "silver_arguments",
@@ -1546,465 +1637,14 @@
     "=",
     "<string_literal>",
     "then",
-    "<static_reference>",
+    "<assignment_target>",
     ":=",
-    "<static_assignment>",
+    "<assignment_value>",
     ";",
     "else",
-    "<static_reference>",
+    "<target_reference>",
     ":=",
-    "<static_assignment>",
-    ";",
-    "end",
-    "if",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "else",
-    "silver_arguments",
-    ".",
-    "reject",
-    ";",
-    "end",
-    "if",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "assignment_one_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "assignment_two_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<constant_two_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_two_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "result_one_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "with",
-    "silver_arguments",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "if",
-    "silver_arguments",
-    ".",
-    "input_is_valid",
-    "then",
-    "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
-    "then",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "else",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "end",
-    "if",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "else",
-    "silver_arguments",
-    ".",
-    "reject",
-    ";",
-    "end",
-    "if",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "result_two_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "with",
-    "silver_arguments",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<constant_two_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_two_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "if",
-    "silver_arguments",
-    ".",
-    "input_is_valid",
-    "then",
-    "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
-    "then",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "else",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "end",
-    "if",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "else",
-    "silver_arguments",
-    ".",
-    "reject",
-    ";",
-    "end",
-    "if",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "guarded_result_one_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "with",
-    "silver_arguments",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "if",
-    "silver_arguments",
-    ".",
-    "input_is_valid",
-    "and",
-    "then",
-    "<dynamic_reference>",
-    "'",
-    "length",
-    "<=",
-    "<capacity_literal>",
-    "then",
-    "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
-    "then",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "else",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "end",
-    "if",
-    ";",
-    "silver_io",
-    ".",
-    "put_line",
-    "(",
-    "<string_expression>",
-    ")",
-    ";",
-    "else",
-    "silver_arguments",
-    ".",
-    "reject",
-    ";",
-    "end",
-    "if",
-    ";",
-    "end",
-    "main",
-    ";"
-  ],
-  "guarded_result_two_tokens": [
-    "with",
-    "silver_io",
-    ";",
-    "with",
-    "silver_arguments",
-    ";",
-    "procedure",
-    "main",
-    "is",
-    "pragma",
-    "spark_mode",
-    "(",
-    "on",
-    ")",
-    ";",
-    "<dynamic_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "silver_arguments",
-    ".",
-    "first_or_default",
-    "(",
-    "<string_literal>",
-    ")",
-    ";",
-    "<constant_one_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_one_initializer>",
-    ";",
-    "<constant_two_declaration>",
-    ":",
-    "constant",
-    "string",
-    ":=",
-    "<constant_two_initializer>",
-    ";",
-    "<static_declaration>",
-    ":",
-    "string",
-    ":=",
-    "<static_initializer>",
-    ";",
-    "begin",
-    "if",
-    "silver_arguments",
-    ".",
-    "input_is_valid",
-    "and",
-    "then",
-    "<dynamic_reference>",
-    "'",
-    "length",
-    "<=",
-    "<capacity_literal>",
-    "then",
-    "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
-    "then",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
-    ";",
-    "else",
-    "<static_reference>",
-    ":=",
-    "<static_assignment>",
+    "<assignment_value>",
     ";",
     "end",
     "if",

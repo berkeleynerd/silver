@@ -29,10 +29,11 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
    --  Source membership selects the exact Main/callee entity set. Every emitted
-   --  safety check must be a proved range check for Main. Assigned and selected
-   --  results permit at most the exact ineffective-initialization advisory:
-   --  its overwritten value is unused, but its bounds constrain the variable.
-   --  GNAT may omit callees/dependencies when that advisory precedes an empty
+   --  safety check must be a proved range or length check for Main. All output
+   --  forms permit exact ineffective-initialization advisories; assigned and
+   --  selected results additionally permit the exact unused-assignment advisory.
+   --  These unused values do not remove safety checks or fixed object bounds.
+   --  GNAT may omit callees/dependencies when such advisories precede an empty
    --  safety-check list. All other shapes retain approved call dependencies.
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean

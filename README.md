@@ -67,25 +67,26 @@ decoded bytes and preserves case. Each valid-input execution makes one terminal
 output call. Its completed assurance and Linux validation are recorded in
 [input-branching.md](docs/input-branching.md).
 
-The completed [composed-String increment](docs/string-results.md) organizes
-output into six shells plus null: direct
-expression output, one static constant, one fixed-length assignment, guarded
-argv input, input-dependent output choice, and a branch-selected result printed
-once. Output expressions have one through sixteen printable literals or bound
-names joined by flat `&`. Static names may repeat; an argument name occurs at
-most once per expression. Each expression's weighted length must fit 4096 bytes.
-A tighter capacity guard may reject selected inputs and defaults without
-truncation. See [language.md](language.md) for the complete rules.
+The completed [shared-binding increment](docs/shared-bindings.md) replaces fixed declaration slots with ordered initialized String
+constants and mutable objects. Initializers may copy earlier names, capturing
+that value immediately. Assignment preserves the target's fixed length, including
+symbolic argument-length copies, and self-copy is legal. The
+[shared-bindings sample](samples/shared_bindings.adb) prints the old snapshot beside
+the updated value.
 
-The [composed-result sample](samples/composed_result.adb) keeps immutable argv
-input beside one initialized mutable result, assigns an equal-length literal
-in each equality branch, then prints the result through one common expression.
-All existing samples remain admitted. The completed
-[Copy String Values increment](docs/copy-values.md) adds up to two literal-backed
-constants in the mutable shells, with named initialization, equal-length copies
-and bounded output references. Its [copied-result sample](samples/copied_result.adb)
-and complete Linux native/Lean checkpoint passed. Arbitrary
-statements and repeated output remain future work.
+Existing body arrangements remain: direct output, one assignment then output,
+guarded argument output, equality-selected output, and a branch-selected result
+followed by common output. Flat output expressions have one through sixteen
+literal/name operands joined by `&`, with at most one dynamic occurrence,
+including aliases. Every intermediate result must fit 4096 bytes. A tighter
+capacity guard may reject selected inputs and defaults without truncation.
+See [language.md](language.md) for the exact rules. General sequencing, expression
+initializers, parentheses and repeated output remain future work.
+
+The [composed-result](samples/composed_result.adb) and
+[copied-result](samples/copied_result.adb) samples remain admitted instances of
+these shared rules. Their previous completed checkpoints are recorded in
+[string-results.md](docs/string-results.md) and [copy-values.md](docs/copy-values.md).
 
 Names bind without ASCII case distinctions. No argument selects the literal
 default; one printable ASCII argument of up to 4096 bytes is preserved,
@@ -101,8 +102,9 @@ provide setup, evidence auditing and tests. GNATprove verifies the compiler.
 Lean connects the restricted recognizer source to the language model and the
 runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
-Main safety checks must all be proved range checks; only mutable forms may have
-the one narrowly classified initializer advisory. Selected library reports
+Main safety checks must all be proved range or length checks. All output forms
+precisely classify initializer advisories; assignment-bearing forms additionally
+classify the exact unused-assignment advisory. Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted
@@ -231,7 +233,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the seven permitted compositions. Structural metadata is written explicitly in
+and the eight output arrangements plus null. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -243,8 +245,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-The completed constant/copy increment and its Linux validation are recorded
-in [copy-values.md](docs/copy-values.md).
+The current shared-binding capability, complete Linux checkpoint and reviews
+are recorded in [shared-bindings.md](docs/shared-bindings.md). The preceding
+constant/copy evidence retains its scope in [copy-values.md](docs/copy-values.md).
 
 The combined expression/result work and its validation are recorded in
 [string-results.md](docs/string-results.md).

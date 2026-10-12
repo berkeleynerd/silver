@@ -52,10 +52,15 @@ For each authorized increment:
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit safety-obligation set
    follows the source-selected static/argument/assigned/selected policy.
-   Every emitted Main safety check must be a proved range check; static
-   elimination may leave an empty list. Assignment-bearing shells permit at
-   most the narrowly classified ineffective-initialization advisory. Every
-   output form also requires the complete nonempty selected library reports.
+   Under the shared-binding policy, every emitted Main safety check must be a
+   proved range or length check; applicable static elimination may leave an
+   empty list. All output forms precisely classify initializer advisories;
+   assignment-bearing forms additionally classify the exact unused-assignment
+   advisory. Other diagnostics remain rejected. A new accepted obligation class
+   needs a corresponding semantic/discharge argument, not just report handling.
+   The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
+   assurance and validation for this policy. Every output form
+   still requires the complete nonempty selected library reports.
    Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.

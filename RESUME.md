@@ -8,6 +8,44 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
+**Declarations, names and copies is complete**, authorized by the owner's
+“Let's proceed with the next unit of work.” The
+[capability record](docs/shared-bindings.md) gives its scope, complete Linux
+native/Lean checkpoint, independent reviews and exact evidence. It replaces
+fixed declaration slots with initialized binding lists, snapshots, mutability
+and fixed/symbolic assignment bounds within the existing body arrangements.
+The implementation/review target is the commit introducing
+`samples/shared_bindings.adb`, based on `640d5cce9d`.
+
+Next proposed work is **common String expressions**, following the
+[consolidation sequence](roadmap.md#existing-feature-consolidation). General
+sequencing and repeated output remain later work; context/name visibility
+closure remains paired with existing argument operations. No further increment
+has begun. No replacement harness goal was requested; the historical Compose
+String Results goal remains complete.
+
+Recovery pointer: `tmp/shared-bindings-active.json`. Its task evidence directory
+preserves the exact unfinished repeated-output source and patch, previous native
+state, the former canonical proof workspace, focused workspaces, failure logs
+and final validation. The unfinished draft is archived, not live support; its
+rejected four-call cap is not adopted. The completed canonical
+`.silver/linux-x86_64/proof/` is now the preferred warm cache, with all sidecars
+and Lake metadata. Preserve both it and the older cache generations.
+
+Native compiler evidence still matches current implementation/tool inputs. The
+full test run plus focused repairs covered all test methods; the initial full
+invocation was not clean. The complete Lean check passed with a fresh module
+and axiom audit; optional replay was not requested. Linux remains primary,
+macOS proof work is out of scope and hosted Actions remains disabled.
+Publication remains authorized. CLI recall tools remain unavailable and were
+not updated; checked-in session memory is current.
+
+## Earlier checkpoints
+
+The status paragraphs below are historical; the completed shared-binding
+capability and current warm cache above supersede their proposed-next-work and
+latest-cache statements.
+
 The useful findings from the remote `codex/oracle-roadmap-audit-plan` branch are
 [integrated with owner approval](docs/remote-plan-review.md). The Oracle now
 requires explicit purposes for restrictions/resource limits and automatic checks
@@ -90,10 +128,10 @@ this planning update.
 Repeated output was authorized on 2026-10-11, but its proposed four-call cap was
 rejected as unjustified. Its scope is now part of sequencing and effect
 composition. The sole preliminary code edit in
-`proof/Silver/ComposeAdmission.lean` remains uncommitted, incomplete and unvalidated;
-it still contains the rejected constant and must be reconciled during
-implementation. Preserve it and unrelated scratch; do not attribute the previous
-checkpoint to this intermediate working tree.
+`proof/Silver/ComposeAdmission.lean` was uncommitted, incomplete and unvalidated;
+it contained the rejected constant and is now archived in the active task
+evidence directory, as described above. Preserve it and unrelated scratch; do
+not attribute the previous checkpoint to this intermediate working tree.
 
 The latest supported implementation is **Copy String Values**, commit
 `e9d18f1996`, based on `96b98e1`. It adds up to two literal-backed constants before

@@ -1,5 +1,60 @@
 # Session memory
 
+## 2026-10-12 — Shared binding foundation completed
+
+The authorized Declarations, names and copies increment is complete. The
+[capability record](shared-bindings.md) records ordered initialized constants
+and mutable objects, earlier-name snapshots, case-insensitive uniqueness,
+compatible fixed/symbolic assignments and self-copy across the retained eight
+body/capacity forms. Output need not use the assignment target. The source
+limit derives native binding storage; no new arbitrary declaration cap or
+repeated-output limit was introduced.
+
+Complete native compiler verification, build/catalogue checks, full test coverage
+with focused repairs, universal Lean semantics/obligation proofs, actual-source
+correspondence and a fresh whole-project coverage/axiom audit passed. Original
+failure logs remain; the initial full test invocation was not clean. Independent
+reviews found no material remaining mismatch. Review strengthened explicit source
+name facts; exact source assertions were split without changing their propositions.
+Optional replay and macOS proof work were not requested. The unchanged external
+frontend/generation/solver-completion premises remain explicit.
+
+The implementation/review target is the commit introducing
+`../samples/shared_bindings.adb`, based on `640d5cce9d`. Evidence is under
+`.silver/linux-x86_64/shared-bindings-20261012T181220Z/` and the corresponding
+`shared-bindings-probes/20261012T181220Z/` directory; the recovery pointer is
+`tmp/shared-bindings-active.json`. The completed canonical
+`.silver/linux-x86_64/proof/` is the preferred warm cache. All earlier caches,
+sidecars, original repeated-output source/patch, scratch and evidence are preserved.
+The archived draft is useful reference only; its rejected four-call cap remains
+excluded.
+
+Common String expressions are next proposed. Context/name visibility closure
+remains paired with argument-operation work; sequencing and repeated output are
+later. No new increment or harness goal began. The live historical Compose String
+Results goal remains complete. Publication authorization persists, Actions remains
+disabled and Linux remains primary. CLI recall tools were rechecked, remain
+unavailable, and were not updated; this checked-in memory is authoritative.
+
+## 2026-10-12 — Shared bindings implementation authorized and in progress
+
+The owner instructed proceeding with the next unit of work. Implement
+Declarations, names and copies from the consolidation sequence, based on
+`640d5cce9d`. The [working capability record](shared-bindings.md) records scope
+and pending assurance. This is not yet a supported capability or a completed
+checkpoint. No replacement harness goal was requested; the prior goal is complete.
+
+The unfinished repeated-output edit was preserved exactly as source and patch
+under the active task evidence directory. Its rejected four-call cap is not
+adopted. The former canonical Lean workspace and native state are preserved;
+the latest validated snapshot seeded the working cache with all sidecars and
+metadata. `tmp/shared-bindings-active.json` locates these paths and the separate
+model workspace. Preserve both cache generations and previous evidence.
+
+Linux remains primary, macOS proofs out of scope, hosted Actions disabled, and
+publication authorized. CLI recall tools are unavailable and were not updated.
+
+
 ## 2026-10-12 — Selected Oracle and roadmap changes approved and integrated
 
 After the [remote-plan assessment](remote-plan-review.md) in `004a9b84da`, the

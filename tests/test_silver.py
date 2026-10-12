@@ -76,28 +76,39 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["max_expression_operands"], 16)
         self.assertTrue({"string_expression", "expression_output", "result_branch"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "direct_output", "static_output",
-                         "command_line_output", "string_assignment_output",
-                         "branching_output", "selected_result_output"})
+        self.assertEqual(set(compositions), {"null", "direct_output", "string_assignment_output",
+                         "command_line_output", "guarded_command_line_output",
+                         "branching_output", "guarded_branching_output",
+                         "selected_result_output", "guarded_selected_result_output"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
         self.assertEqual(compositions["direct_output"]["statements"], ["expression_output"])
-        self.assertEqual(compositions["static_output"]["declarative_items"],
-                         ["spark_mode_on", "named_string_constant"])
         self.assertEqual(compositions["string_assignment_output"]["statements"],
                          ["string_assignment", "expression_output"])
         self.assertEqual(compositions["selected_result_output"]["declarative_items"],
-                         ["spark_mode_on", "named_string_constant", "named_string_variable"])
-        result_initializers = constructs["named_string_variable"]["conditions"]["initializer"]
-        self.assertEqual(compositions["string_assignment_output"]["initializer"],
-                         result_initializers)
-        self.assertEqual(compositions["selected_result_output"]["initializers"],
-                         ["argument_initialization", *result_initializers])
+                         ["spark_mode_on", "argument_initialization"])
+        initializers = constructs["named_string_variable"]["conditions"]["initializer"]
+        self.assertEqual(initializers, ["string_literal", "preceding_initialized_identifier"])
+        for name, composition in compositions.items():
+            if name == "null":
+                continue
+            declarations = composition["declaration_list"]
+            self.assertEqual(declarations["items"], ["named_string_constant", "named_string_variable"])
+            self.assertEqual(declarations["minimum"], 0)
+            self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
+            self.assertEqual(declarations["initializers"], initializers)
+            self.assertIn(composition["tokens"], catalogue)
+        for key in ("dynamic_source", "mutable_source", "self_assignment", "snapshot_semantics",
+                    "constant_to_constant_initialization"):
+            self.assertIs(constructs["string_copy"]["conditions"][key], True)
+        for obsolete in ("named_tokens", "assignment_one_tokens", "assignment_two_tokens",
+                         "result_one_tokens", "result_two_tokens"):
+            self.assertNotIn(obsolete, catalogue)
         expression = constructs["string_expression"]["conditions"]
         self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 16))
         self.assertEqual(expression["max_dynamic_references"], 1)
         self.assertEqual(expression["max_result_bytes"], 4096)
-        self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], True)
+        self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], False)
         self.assertIs(constructs["result_branch"]["conditions"]["equal_branch_and_initializer_lengths"], True)
         self.assertEqual(constructs["capacity_guard"]["conditions"]["capacity_range"], [0, 4096])
         self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '\"\"')
@@ -106,7 +117,7 @@ class SilverIntegrationTests(unittest.TestCase):
                          ";", "end", "main", ";"])
         self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
-                         "begin", "silver_io", ".", "put_line", "(", "<string_expression>",
+                         "<declarations>", "begin", "silver_io", ".", "put_line", "(", "<string_expression>",
                          ")", ";", "end", "main", ";"])
         for plain, guarded in (("argument_tokens", "guarded_argument_tokens"),
                                ("branching_tokens", "guarded_branching_tokens"),

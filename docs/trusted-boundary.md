@@ -19,6 +19,12 @@ recorded inputs. The [source partition](lean-compartmentalization.md) and
 [focused-runner workflow](lean-iteration.md) retain the pinned local tool/cache
 trust and complete default audit, with optional separate replay/provenance.
 
+The authorized [shared-bindings revision](shared-bindings.md) uses the same
+external dependencies, with explicit range/length obligation channels and
+precisely expanded Main advisory handling. Its complete native/Lean checkpoint
+has passed. The policies below describe that supported implementation; earlier
+evidence retains its original input scope.
+
 ## Trusted computing base
 
 This table is the consolidated dependency boundary. Verification of calls and
@@ -28,7 +34,7 @@ that a configured pathname selects the intended executable.
 | Component | What the assurance argument relies on | Controls and remaining scope |
 | --- | --- | --- |
 | GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |
-| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion on the concrete bounded range fragment | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 10,000 steps, and no completeness claim for arbitrary SPARK is made. |
+| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion on the concrete bounded range/length fragment | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 10,000 steps, and no completeness claim for arbitrary SPARK is made. |
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
@@ -205,14 +211,15 @@ blocking and signals retain the premises above. See the
 [assurance argument](assurance.md).
 
 Composed String output uses the same wrapper and external imports. A flat chain
-has one through sixteen operands, with at most one dynamic argument reference.
+has one through sixteen operands, with at most one dynamic occurrence counting
+the original argument and all its aliases together.
 Ada's predefined String `&` preserves operand byte order and associates to the
 left; this does not prescribe operand evaluation order. Each intermediate length
 is bounded by the checked total. Literal/constant evaluation and ordinary
 mutable/dynamic concatenation use the approved Ada/GNAT semantics, including
 index bounds. The verified argument wrapper normalizes its returned lower bound
-to one. Literal-initialized objects retain their fixed one-based bounds under
-equal-length assignments. Storage for intermediate values and the trusted runtime
+to one. Initialized objects and their copies retain fixed one-based bounds under
+assignments with equal static lengths or the same symbolic input length. Storage for intermediate values and the trusted runtime
 remains environmental; a result-length bound is not a storage guarantee.
 
 ## Command-line boundary
@@ -376,28 +383,33 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The working catalogue names null and six output shells: direct, static,
-assignment, argument, branching and selected result. They share one bounded
-expression grammar. Identifier parsing excludes reserved/shadowing names and
-binds complete names ignoring ASCII case; argument-bearing shells exclude
-`Silver_Arguments` for every declaration. Mutable shells permit up to two
-literal-backed constants before the result, after argv where present; all names
-must differ ignoring case. There is no general verified Ada
-name resolver.
+The working catalogue has null and eight concrete output body/capacity shapes.
+Five executable arrangements share ordered declarations and one bounded output
+expression grammar; three argument arrangements have optional capacity clauses.
+Identifier parsing excludes reserved/shadowing names and binds complete names
+ignoring ASCII case. Argument-bearing shapes protect `Silver_Arguments` for every
+declaration. Literal initializers decode their bytes; named initializers read an
+earlier initialized binding. Constants and mutable objects retain their own
+snapshots and fixed bounds. The
+native array's 341 entries follow from the source bound and the twelve-byte
+minimum declaration, without another language count limit. This is not a general
+verified Ada name resolver.
 
-Equal-decoded-length literal and literal-constant assignments preserve fixed String bounds under Ada
-RM 3.3.1/5.2. The selected-result shell assigns the initialized mutable result on
-both sides of one equality choice before common output. Assignment-bearing
-outputs must reference that result; broader dead-statement/unused-assignment
-advisories are not admitted. The result initializer may also copy a preceding
-literal-backed constant, preserving its bytes and bounds. Constants themselves
-have literal initializers; copies from argv or the mutable result are excluded.
-Repeated references to each constant and the result count with multiplicity at
-that object's own length.
-Predefined String equality compares complete initialized values, preserving case;
-unequal lengths compare false. Every expression obeys the per-output weighted
-capacity rule. There is no new runtime operation or external dependency, and all
-output/rejection calls remain terminal on their execution paths.
+Equal static lengths or the same symbolic input length establish assignment
+compatibility under Ada RM 3.3.1/5.2. The selected-result shape assigns the same
+mutable target on either equality branch before common output. Constants cannot
+be targets. Self-copy is legal, and the target need not occur in output. Current
+reads observe the selected branch's store; earlier declaration copies remain
+unchanged by a later write to their source. Each static reference counts its
+object's length, and at most one dynamic occurrence counts the original input or
+any alias. Predefined String equality compares complete initialized values and
+preserves case; unequal lengths compare false.
+
+The original immutable argument initializer stays first and unique. General
+sequencing, expression initializers, context-clause alternatives and additional
+argument-call placements remain outside this milestone. Every output expression
+obeys its weighted capacity bound. No new runtime operation or external
+dependency is introduced; output/rejection calls remain terminal on their paths.
 
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
@@ -474,47 +486,52 @@ arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 `Complete_Application_Proof` takes an `Application_Kind` derived from the same
 source grammar used for admission: static, argument, assigned or selected
 output. Its independent ghost policy and executable traversal require completed
-Main analysis, full Main coverage, no skipped/assumed/suppressed checks and a
-proved/info Main `VC_RANGE_CHECK` for every emitted safety record. Constant
-folding may leave no safety checks. Static/assigned call reports contain exactly
-Main and Put_Line; argument/selected call reports contain Main and the four
-selected argument/output callees. Every dependency must name an approved entity
-and effects, postcondition or absence-of-runtime-error claim.
+Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
+emitted safety record must be proved/info `VC_RANGE_CHECK` or `VC_LENGTH_CHECK`,
+with prover completion, Main filename/entity and a positive location. Static
+folding may leave no safety checks. Ordinary static/assigned reports contain
+Main and Put_Line; argument/selected reports contain Main and the four argument/
+output callees. Every dependency must name an approved entity and effects,
+postcondition or absence-of-runtime-error claim.
 
-Only assigned/selected kinds may retain at most one exact `INEFFECTIVE`
-initializer advisory. It concerns overwritten bytes, not the bounds established
-by initialization. Legal names such as `Dummy` and `Unused_Result` can suppress
-it. GNAT may instead emit Main alone with empty safety/dependency lists when
-that advisory is present and no checks remain. The policy retains the prior
-zero-advisory bare-Main allowance as well. Other warning messages, extra
-advisories and non-range safety checks fail closed. The Python evidence helper
-selects the same four kinds and also cross-checks SARIF diagnostics and totals.
+All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
+`initialization of "NAME" has no effect`, with the checked identifier grammar.
+Only assigned/selected kinds additionally permit the exact `unused assignment`
+message. Every allowed record requires warning severity, flow provenance, Main
+filename/entity, positive locations and no suppression or justification. There
+is no separate advisory-count cap. Initializers still establish bounds when
+their bytes are unused; these messages do not waive safety checks. Legal names
+such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
+Repeated-output ghost advisories and other messages remain rejected.
 
-Automatic completion relies on the pinned frontend eliminating statically
-satisfied literal and constant-copy assignment length checks and GNATprove
-producing one of the accepted
-entity/advisory/check shapes. The complete emitted obligation list and faithful
-diagnostic reporting remain producer premises; matching report fields alone
-cannot establish that no required check was omitted. An unexpected genuine
+GNAT may emit Main alone with empty safety/dependency lists. For static/argument
+kinds that fallback additionally requires a nonempty permitted initializer-
+advisory list; assigned/selected kinds also retain the earlier zero-advisory
+allowance. Outside this exact fallback the complete callee set is mandatory.
+The Python evidence helper applies the same policies and cross-checks SARIF
+records and totals.
+
+Automatic completion relies on faithful and complete range/length obligation
+generation and the accepted entity/advisory/check shapes. Applicable static
+elimination remains a frontend premise, but elimination of every satisfied
+assignment length check is no longer required: emitted length checks need their
+own semantic/discharge argument and successful solver records. Matching fields
+alone cannot establish that no obligation was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
-defect, not permission to weaken membership or suppress an obligation. The
-isolated copy experiment corroborates the unchanged policy for used and unused
-constants, literal/constant initialization and RHS values, empty/escaped values,
-and both selected branches. This is observed native evidence; the copy increment's
-universal argument and complete current-source checkpoint are recorded in
-[assurance.md](assurance.md) and [copy-values.md](copy-values.md), with the external
-tool premises retained.
+defect, not permission to weaken membership or suppress obligations. Native
+binding discovery corroborates these classes; the [completed checkpoint](shared-bindings.md)
+includes implementation and source-correspondence validation.
 
-Application proof uses `-U --mode=all --report=all --warnings=error
---checks-as-errors=on --level=2 --prover=cvc5,z3,altergo --steps=10000
---timeout=0 --memlimit=0 -j0`. Only assignment-bearing routes change
-`--warnings=error` to `--warnings=continue` so they can classify the retained
-dead-initializer advisory using its exact report policy. Unexpected diagnostics
-in the audited GNATprove reports prevent publication, and all selected library
-reports remain strict. Successful tool termination and accepted report content
-are separate requirements: a warning can appear in `flow` with an empty
-`warn_error` list even when `--warnings=error` causes a failing exit status.
-These checks do not claim that the frontend emitted no compiler warnings.
+Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
+--prover=cvc5,z3,altergo --steps=10000 --timeout=0 --memlimit=0 -j0`. All output
+routes use `--warnings=continue` to classify their exact permitted advisories
+from complete reports; null retains `--warnings=error`. Unexpected audited
+diagnostics prevent publication, and all selected library reports remain strict.
+Successful tool termination and accepted content are separate requirements: a
+warning can occur in `flow` with empty `warn_error`, including when
+`--warnings=error` causes failing exit status. These checks do not claim that
+the frontend emitted no compiler warnings.
+
 The fixed library obligations are discharged on
 every fresh application compile; application membership remains independent of
 those results. Zero wall-clock timeout is not a guarantee against environmental
@@ -524,8 +541,9 @@ seen in compiler audits has not been proved impossible for application runs.
 Such a tool failure prevents publication and is reported as a defect, never as
 nonmembership or successful verification. Prover step limits do not bound
 frontend/flow work, operating-system delays or total elapsed time. The bounded
-composition argument must establish the generated range schemas for every
-permitted flat expression and control-flow path. It does not prove that the
+composition argument must establish the generated range and exact-length
+schemas for every permitted declaration, expression, assignment and control-flow
+path. It does not prove that the
 bundled external solvers complete within 10,000 steps; that concrete pinned
 fragment's completion remains an explicit tool-contract premise. The bound of
 sixteen operands limits each expression to fifteen concatenations, and the
@@ -590,8 +608,11 @@ models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
 correspondence; obsolete fixed-production suffix claims are removed when their
 Ada functions are replaced. The preceding Compose String Results Linux checkpoint
 validated that composition bridge and its whole-project axiom/module coverage.
-The completed Copy String Values checkpoint validates the updated bridge and
-constant-read derivations with a fresh whole-project axiom/coverage audit.
+The completed Copy String Values checkpoint validates that earlier bridge and
+constant-read derivations with a fresh whole-project axiom/coverage audit. The
+shared-binding source replaces slot-specific reads with ordered declaration and
+store relations; its source interpretation and complete checkpoint passed, as
+recorded in [the capability record](shared-bindings.md).
 
 Ada interpretation supplies predefined String equality/concatenation, assignment
 and the conditionally executed control flow. Source operand order determines

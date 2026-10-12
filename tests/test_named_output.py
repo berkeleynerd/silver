@@ -59,12 +59,10 @@ class NamedOutputTests(unittest.TestCase):
         valid = source_for(b'Hello')
         cases += [source_for(b'Hello', b'Message', b'Other'),
                   source_for(b'Hello', b'Message', b'Message_2'),
-                  valid.replace(b':constant', b':'),
                   valid.replace(b'String', b'Integer'),
                   valid.replace(b':=', b': ='),
                   valid.replace(b':=', b':-- split\n='),
                   valid.replace(b'"Hello"', b'"Hel" & "lo"'),
-                  valid.replace(b'begin ', b'Other:constant String:="Hi";begin '),
                   valid.replace(b'Put_Line(Message)', b'Put_Line(Message(1..2))'),
                   valid.replace(b';end ', b';null;end '),
                   source_for(b'\t'), source_for(b'\x80'),
@@ -75,6 +73,15 @@ class NamedOutputTests(unittest.TestCase):
                 self.source.write_bytes(contents)
                 result = invoke('check', self.source)
                 self.assertEqual(result.returncode, 2, result.stdout)
+
+    def test_shared_binding_lists_and_mutable_named_output(self) -> None:
+        valid = source_for(b'Hello')
+        for contents in (valid.replace(b':constant', b':'),
+                         valid.replace(b'begin ', b'Other:constant String:="Hi";begin ')):
+            with self.subTest(source=contents):
+                self.source.write_bytes(contents)
+                result = invoke('check', self.source)
+                self.assertEqual(result.returncode, 0, result.stdout)
 
     def test_native_empty_escaped_and_boundary_constants(self) -> None:
         longest_name = b'X' * ((4096 - len(source_for(b'', b''))) // 2)

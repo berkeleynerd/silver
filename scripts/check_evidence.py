@@ -147,7 +147,6 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             "unknown application report policy")
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
-    if application_kind in ("assigned", "selected"):
         stats["assignment_advisories"] = 0
     reports = {unit: read_json(report_dir / f"{unit}.spark") for unit in expected_units}
     owned_names: set[str] = set()
@@ -184,7 +183,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 callees.update({name: "silver_arguments.ads" for name in
                                 ("Silver_Arguments.First_Or_Default",
                                  "Silver_Arguments.Input_Is_Valid", "Silver_Arguments.Reject")})
-            bare = assignment and len(entities) == 1
+            bare = len(entities) == 1
             expected_names = set() if bare else set(callees)
             actual_names = [value.get("name") for key, value in entities.items()
                             if key not in main_entities]
@@ -203,12 +202,13 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                 for location in item["sloc"]),
                         "application: unexpected entity declaration")
             require(report.get("warn_error") == [], "application: unexpected warning record")
-            require(isinstance(report.get("flow"), list)
-                    and (len(report["flow"]) <= 1 if assignment else report["flow"] == []),
-                    "application: unexpected flow diagnostics")
+            require(isinstance(report.get("flow"), list),
+                    "application: missing flow diagnostics")
             if bare:
                 require(report.get("proof") == [] and report.get("assumptions") == [],
                         "application: bare Main requires empty proof and dependency lists")
+                require(assignment or bool(report["flow"]),
+                        "application: bare binding report requires an initializer advisory")
         require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
@@ -258,7 +258,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(isinstance(records, list), f"{unit}: missing {key} results")
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
-                advisory = assignment and key == "flow"
+                advisory = application and key == "flow"
                 if advisory:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
@@ -268,8 +268,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main
-                            and re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
-                                             record.get("message", {}).get("text", "")) is not None,
+                            and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
+                                              record.get("message", {}).get("text", "")) is not None
+                                 or (assignment and record.get("message", {}).get("text") == "unused assignment")),
                             "assignment: unexpected flow diagnostic")
                     require(len(record["message"]["text"]) <= len('initialization of "" has no effect') + 4096,
                             "assignment: initializer name exceeds source bound")
@@ -279,15 +280,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     stats["assignment_advisories"] += 1
                 if application and key == "proof":
                     require(record.get("severity") == "info" and record.get("how_proved") == "prover"
-                            and record.get("rule") == "VC_RANGE_CHECK" and record.get("file") == "main.adb"
+                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK"}
+                            and record.get("file") == "main.adb"
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
-                            "application: expected a proved Main range check")
+                            "application: expected a proved Main range or length check")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
-                            "application: suppressed or justified range check")
+                            "application: suppressed or justified safety check")
                 limitation = (key == "warn_error" and record.get("rule") in PROOF_LIMITATION_NOTES
                               and record.get("severity") == "warning")
                 require(record.get("severity") == "info" or limitation or advisory,
@@ -314,7 +316,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     assignment_diagnostics[diagnostic] += 1
         stats["units"] += 1
         stats["entities"] += len(own_entities)
-        stats["flow_checks"] += 0 if assignment else len(report["flow"])
+        stats["flow_checks"] += 0 if application else len(report["flow"])
         stats["proof_checks"] += len(report["proof"])
 
     sarif = read_json(report_dir / "gnatprove.sarif")
@@ -364,7 +366,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     and location["artifactLocation"]["uri"] == "main.adb"
                     and result.get("kind") == "open" and result.get("level") == "warning")
         require(diagnostic not in assignment_diagnostics or advisory,
-                "assignment: SARIF must preserve initializer advisory classification")
+                "assignment: SARIF must preserve unused-value advisory classification")
         limitation = (result.get("ruleId") in PROOF_LIMITATION_NOTES
                       and result.get("kind") in ("open", "informational")
                       and result.get("level") == "warning")

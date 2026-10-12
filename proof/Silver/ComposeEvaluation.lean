@@ -1,630 +1,872 @@
 module
 
-public import Silver.ComposeEquations
 public import Silver.ComposeLexical
+public import Silver.ComposeEquations
 
 @[expose] public section
 
-/-! The actual helper calls are replaced by their proved lexical meanings only
-at calls whose native preconditions hold. Legality follows the executed branches
-of the typed source trees, including Ada's short-circuit Boolean operators.
-No global helper equality or parser/model equivalence is assumed. -/
+/-! Transport typed body evaluation from retained lexical callees to their
+established meanings. Legality states only the domains of executed calls;
+it contains no source/model equivalence premise. -/
 
 namespace Silver.Compose.Expressions
 
-def CursorDomain (text : Source) (position : Nat) : Prop :=
-  ValidText text ∧ ValidCursor text position
+def LexicalCursor (text : Source) (position : Nat) : Prop :=
+  0 < text.length ∧ text.length ≤ maxSourceLength ∧ 1 ≤ position ∧ position ≤ text.length + 1
 
-def NameDomain (text : Source) (first after : Nat) : Prop :=
-  ValidText text ∧ 1 ≤ first ∧ first < after ∧ after ≤ text.length + 1
+def LexicalName (text : Source) (first after : Nat) : Prop :=
+  0 < text.length ∧ text.length ≤ maxSourceLength ∧ 1 ≤ first ∧ first < after ∧ after ≤ text.length + 1
 
-mutual
-def Number.Legal (calls : Calls) (ctx : Context) : Number → Prop
-  | .characterVal a | .group a | .byteAt a => a.Legal calls ctx
-  | .add a b | .sub a b => a.Legal calls ctx ∧ b.Legal calls ctx
-  | .trivia a | .identifier a | .literal a | .literalLength a | .decimalAfter a | .decimalValue a =>
-      a.Legal calls ctx ∧ CursorDomain ctx.text (a.eval calls ctx)
-  | .after a | .resultLength a => a.Legal calls ctx
-  | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
-      if c.eval calls ctx then a.Legal calls ctx else b.Legal calls ctx
-  | _ => True
+def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
+  | .lexTrivia a b => a.Legal calls locals ∧ b.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals)
+  | .lexLiteralEnd a b => a.Legal calls locals ∧ b.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals)
+  | .lexLiteralLength a b => a.Legal calls locals ∧ b.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals)
+  | .lexIdentifier a b => a.Legal calls locals ∧ b.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals)
+  | .lexForbidden a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧
+      LexicalName (a.eval calls locals) (b.eval calls locals) (c.eval calls locals)
+  | .lexForbiddenArgument a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧
+      LexicalName (a.eval calls locals) (b.eval calls locals) (c.eval calls locals)
+  | .lexEqual a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧
+      LexicalName (a.eval calls locals) (b.eval calls locals) (c.eval calls locals) ∧ LexicalName (a.eval calls locals) (d.eval calls locals) (e.eval calls locals)
+  | .lexDecimal a b => a.Legal calls locals ∧ b.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals)
+  | .lexTokenAt a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧
+      LexicalCursor (a.eval calls locals) (b.eval calls locals) ∧ 0 < (c.eval calls locals).toList.length ∧ (c.eval calls locals).toList.length ≤ 16
+  | .lexNormalize a => a.Legal calls locals ∧
+      (a.eval calls locals).length ≤ maxSourceLength
+  | .lexAllowed a => a.Legal calls locals ∧
+      True
+  | .app f x => f.Legal calls locals ∧ x.Legal calls locals
+  | .field _ x => x.Legal calls locals
+  | .count x => x.Legal calls locals
+  | .item x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .add x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .sub x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .eq x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .ne x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .boolNe x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .lt x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .le x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .gt x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .range x a b => x.Legal calls locals ∧ a.Legal calls locals ∧ b.Legal calls locals
+  | .not x => x.Legal calls locals
+  | .group x => x.Legal calls locals
+  | .locals x => x.Legal calls locals
+  | .byteAt text position => text.Legal calls locals ∧ position.Legal calls locals
+  | .sourceLast text => text.Legal calls locals
+  | .sourceLength text => text.Legal calls locals
+  | .characterVal x => x.Legal calls locals
+  | .tokenEq x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .tokenSpelling x => x.Legal calls locals
+  | .spellingLength x => x.Legal calls locals
+  | .wordToken x => x.Legal calls locals
+  | .hasArguments x => x.Legal calls locals
+  | .tokensLast x => x.Legal calls locals
+  | .tokenIndex x i => x.Legal calls locals ∧ i.Legal calls locals
+  | .binding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
+  | .value a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals
+  | .result a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .statePosition s p => s.Legal calls locals ∧ p.Legal calls locals
+  | .stateTarget s p t => s.Legal calls locals ∧ p.Legal calls locals ∧ t.Legal calls locals
+  | .stateCapacity s p c => s.Legal calls locals ∧ p.Legal calls locals ∧ c.Legal calls locals
+  | .stateDynamic s a b => s.Legal calls locals ∧ a.Legal calls locals ∧ b.Legal calls locals
+  | .stateBinding s p info => s.Legal calls locals ∧ p.Legal calls locals ∧ info.Legal calls locals
+  | .someForm source => source.Legal calls locals
+  | .firstForm _ source => source.Legal calls locals
+  | .number n => True
+  | .truth b => True
+  | .variable name => True
+  | .maxLength  => True
+  | .maxBindings  => True
+  | .maxOperands  => True
+  | .token tok => True
+  | .initial  => True
+  | .invalid  => True
+  | .invalidValue  => True
+  | .invalidResult  => True
+  | .function symbol => symbol.isLexical = false
+  | .andThen a b => a.Legal calls locals ∧ (a.eval calls locals = true → b.Legal calls locals)
+  | .orElse a b => a.Legal calls locals ∧ (a.eval calls locals = false → b.Legal calls locals)
+  | .ite c a b | .elsif c a b => c.Legal calls locals ∧
+      (if c.eval calls locals then a.Legal calls locals else b.Legal calls locals)
+  | .local name _ localValue rest => localValue.Legal calls locals ∧
+      rest.Legal calls (locals.set _ name (localValue.eval calls locals))
 
-def Condition.Legal (calls : Calls) (ctx : Context) : Condition → Prop
-  | .eq a b | .ne a b | .lt a b | .le a b | .gt a b => a.Legal calls ctx ∧ b.Legal calls ctx
-  | .range a b c => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx
-  | .andThen a b => a.Legal calls ctx ∧ (a.eval calls ctx = true → b.Legal calls ctx)
-  | .orElse a b => a.Legal calls ctx ∧ (a.eval calls ctx = false → b.Legal calls ctx)
-  | .not a | .group a => a.Legal calls ctx
-  | .forbidden a b | .forbiddenArgument a b =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ NameDomain ctx.text (a.eval calls ctx) (b.eval calls ctx)
-  | .equalName a b c d => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧
-      NameDomain ctx.text (a.eval calls ctx) (b.eval calls ctx) ∧
-      NameDomain ctx.text (c.eval calls ctx) (d.eval calls ctx)
-  | .fixedAt a => a.Legal calls ctx ∧ CursorDomain ctx.text (a.eval calls ctx) ∧
-      0 < (spelling ctx.token).toList.length ∧ (spelling ctx.token).toList.length ≤ 16
-  | .resultDynamic a | .resultStatic a => a.Legal calls ctx
-  | .suffix a b => a.Legal calls ctx ∧ b.Legal calls ctx
-  | .suffixNormalized | .allowedNormalized => ctx.text.length ≤ maxSourceLength
-  | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
-      if c.eval calls ctx then a.Legal calls ctx else b.Legal calls ctx
-  | _ => True
+set_option maxRecDepth 10000
 
-def Result.Legal (calls : Calls) (ctx : Context) : Result → Prop
-  | .record a b c d => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx
-  | .operand a b c d e f g h i j k l | .expression a b c d e f g h i j k l =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx ∧ h.Legal calls ctx ∧ i.Legal calls ctx ∧ j.Legal calls ctx ∧ k.Legal calls ctx ∧ l.Legal calls ctx
-  | .tail a b c d e f g h i j k l m n o p =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx ∧ h.Legal calls ctx ∧ i.Legal calls ctx ∧ j.Legal calls ctx ∧ k.Legal calls ctx ∧ l.Legal calls ctx ∧ m.Legal calls ctx ∧ n.Legal calls ctx ∧ o.Legal calls ctx ∧ p.Legal calls ctx
-  | .group a => a.Legal calls ctx
-  | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
-      if c.eval calls ctx then a.Legal calls ctx else b.Legal calls ctx
-  | _ => True
+theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive)
+    (locals : Locals) : ∀ (expression : Expr ty), expression.Legal calls locals →
+      expression.eval calls locals = expression.eval (lexical calls) locals
+  | .lexTrivia a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have domain := legal.2.2
+    have established := meaning.trivia (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) domain.2.2.1 domain.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
 
-def State.Legal (calls : Calls) (ctx : Context) : State → Prop
-  | .position a | .step a => a.Legal calls ctx
-  | .staticBinding a b c | .dynamicBinding a b c | .constantOneBinding a b c | .constantTwoBinding a b c | .constantValues a b c =>
-      a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx
-  | .declarations a b c d e f g => a.Legal calls ctx ∧ b.Legal calls ctx ∧ c.Legal calls ctx ∧ d.Legal calls ctx ∧ e.Legal calls ctx ∧ f.Legal calls ctx ∧ g.Legal calls ctx
-  | .length a b | .capacity a b => a.Legal calls ctx ∧ b.Legal calls ctx
-  | .group a => a.Legal calls ctx
-  | .ite c a b | .elsif c a b => c.Legal calls ctx ∧
-      if c.eval calls ctx then a.Legal calls ctx else b.Legal calls ctx
-  | _ => True
-end
+  | .lexLiteralEnd a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have domain := legal.2.2
+    have established := meaning.literal (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) domain.2.2.1 domain.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
 
-mutual
-theorem Number.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
-    ∀ (expression : Number) (_legal : expression.Legal calls ctx),
-      expression.eval calls ctx = expression.eval (lexical calls) ctx
-  | .characterVal a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .group a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .byteAt a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .add a b, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .sub a b, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .trivia a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.trivia ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .identifier a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.identifier ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .literal a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.literal ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .literalLength a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.length ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .decimalAfter a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.decimal ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .decimalValue a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have argument := Number.eval_lexical calls meaning ctx a legal.1
-      have value := meaning.decimal ctx.text legal.2.1.1 legal.2.1.2
-        (a.eval calls ctx) legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Number.eval, lexical, modelPrimitives]
-      rw [value, argument]
-      rfl
-  | .after a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Result.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .resultLength a, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      dsimp +instances only [Number.eval, lexical]
-      rw [Result.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .ite c a b, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Number.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Number.eval_lexical calls meaning ctx b legal.2
-      · exact Number.eval_lexical calls meaning ctx a legal.2
-  | .elsif c a b, legal => by
-      dsimp +instances only [Number.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Number.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Number.eval_lexical calls meaning ctx b legal.2
-      · exact Number.eval_lexical calls meaning ctx a legal.2
-  | .constant _, _ => rfl
-  | .character _, _ => rfl
-  | .position, _ => rfl
-  | .last, _ => rfl
-  | .sourceLength, _ => rfl
-  | .maxLength, _ => rfl
-  | .maxOperands, _ => rfl
-  | .length, _ => rfl
-  | .remaining, _ => rfl
-  | .nextToken, _ => rfl
-  | .tokensLast, _ => rfl
-  | .staticFirst, _ => rfl
-  | .staticAfter, _ => rfl
-  | .staticLength, _ => rfl
-  | .dynamicFirst, _ => rfl
-  | .dynamicAfter, _ => rfl
-  | .statePosition, _ => rfl
-  | .stateStaticFirst, _ => rfl
-  | .stateStaticAfter, _ => rfl
-  | .stateStaticLength, _ => rfl
-  | .stateDynamicFirst, _ => rfl
-  | .stateDynamicAfter, _ => rfl
-  | .stateCapacity, _ => rfl
-  | .constantOneFirst, _ => rfl
-  | .constantOneAfter, _ => rfl
-  | .constantOneValueFirst, _ => rfl
-  | .constantTwoFirst, _ => rfl
-  | .constantTwoAfter, _ => rfl
-  | .constantTwoValueFirst, _ => rfl
-  | .stateConstantOneFirst, _ => rfl
-  | .stateConstantOneAfter, _ => rfl
-  | .stateConstantOneValueFirst, _ => rfl
-  | .stateConstantTwoFirst, _ => rfl
-  | .stateConstantTwoAfter, _ => rfl
-  | .stateConstantTwoValueFirst, _ => rfl
-  | .spellingLength, _ => rfl
-theorem Condition.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
-    ∀ (expression : Condition) (_legal : expression.Legal calls ctx),
-      expression.eval calls ctx = expression.eval (lexical calls) ctx
-  | .eq a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .ne a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .lt a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .le a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .gt a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .range a b c, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .not a, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Condition.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .group a, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Condition.eval_lexical calls meaning ctx a legal]
-      rfl
+  | .lexLiteralLength a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have domain := legal.2.2
+    have established := meaning.length (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) domain.2.2.1 domain.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .lexIdentifier a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have domain := legal.2.2
+    have established := meaning.identifier (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) domain.2.2.1 domain.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .lexForbidden a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have domain := legal.2.2.2
+    have established := meaning.forbidden (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) (c.eval calls locals) domain.2.2.1 domain.2.2.2.1 domain.2.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .lexForbiddenArgument a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have domain := legal.2.2.2
+    have established := meaning.forbiddenArgument (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) (c.eval calls locals) domain.2.2.1 domain.2.2.2.1 domain.2.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .lexEqual a b c d e, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have domain := legal.2.2.2.2.2
+    have established := meaning.equal (a.eval calls locals) domain.1.1 domain.1.2.1 (b.eval calls locals) (c.eval calls locals) (d.eval calls locals) (e.eval calls locals) domain.1.2.2.1 domain.1.2.2.2.1 domain.1.2.2.2.2 domain.2.2.2.1 domain.2.2.2.2.1 domain.2.2.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    all_goals rfl
+
+  | .lexDecimal a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have domain := legal.2.2
+    have established := meaning.decimal (a.eval calls locals) domain.1 domain.2.1 (b.eval calls locals) domain.2.2.1 domain.2.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .lexTokenAt a b c d, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have domain := legal.2.2.2.2
+    have established := meaning.token (a.eval calls locals) domain.1.1 domain.1.2.1 (b.eval calls locals) (c.eval calls locals) (d.eval calls locals) domain.1.2.2.1 domain.1.2.2.2 domain.2.1 domain.2.2
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    all_goals rfl
+
+  | .lexNormalize a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have domain := legal.2
+    have established := meaning.normalize (a.eval calls locals) domain
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    all_goals rfl
+
+  | .lexAllowed a, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have domain := legal.2
+    have established := meaning.allowed (a.eval calls locals)
+    dsimp only [Expr.eval, lexical, modelPrimitives]
+    rw [established]
+    rw [h0]
+    all_goals rfl
+
+  | .app f x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals f legal.1
+    have h1 := Expr.eval_lexical calls meaning locals x legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .field projection x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .count x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .item x i, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals i legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .add x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .sub x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .eq x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .ne x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .boolNe x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .lt x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .le x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .gt x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .range x a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals a legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals b legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .not x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .group x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .locals x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .byteAt text position, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals text legal.1
+    have h1 := Expr.eval_lexical calls meaning locals position legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .sourceLast text, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals text legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .sourceLength text, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals text legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .characterVal x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .tokenEq x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .tokenSpelling x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .spellingLength x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .wordToken x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .hasArguments x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .tokensLast x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .tokenIndex x i, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals i legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .binding a b c d e f, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    all_goals rfl
+
+  | .value a b c d e, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    all_goals rfl
+
+  | .result a b c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .statePosition s p, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .stateTarget s p t, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals t legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .stateCapacity s p c, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .stateDynamic s a b, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals a legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals b legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .stateBinding s p info, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals info legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .someForm source, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals source legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .firstForm arguments source, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals source legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .number n, _ => rfl
+  | .truth b, _ => rfl
+  | .variable name, _ => rfl
+  | .maxLength , _ => rfl
+  | .maxBindings , _ => rfl
+  | .maxOperands , _ => rfl
+  | .token tok, _ => rfl
+  | .initial , _ => rfl
+  | .invalid , _ => rfl
+  | .invalidValue , _ => rfl
+  | .invalidResult , _ => rfl
+  | .function symbol, legal => by
+      cases symbol <;> simp_all [Expr.Legal, Function.isLexical, Expr.eval, Calls.get, lexical]
   | .andThen a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have left := Condition.eval_lexical calls meaning ctx a legal.1
-      dsimp +instances only [Condition.eval]
-      rw [← left]
-      cases selected : a.eval calls ctx
-      all_goals simp only [Bool.false_and, Bool.true_and]
-      all_goals exact Condition.eval_lexical calls meaning ctx b (legal.2 selected)
+      have ha := Expr.eval_lexical calls meaning locals a legal.1
+      dsimp only [Expr.eval]
+      rw [← ha]
+      cases chosen : a.eval calls locals
+      · rfl
+      · simpa only [Bool.true_and] using Expr.eval_lexical calls meaning locals b (legal.2 chosen)
   | .orElse a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have left := Condition.eval_lexical calls meaning ctx a legal.1
-      dsimp +instances only [Condition.eval]
-      rw [← left]
-      cases selected : a.eval calls ctx
-      all_goals simp only [Bool.false_or, Bool.true_or]
-      all_goals exact Condition.eval_lexical calls meaning ctx b (legal.2 selected)
-  | .forbidden a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have value := meaning.forbidden ctx.text legal.2.2.1.1 legal.2.2.1.2
-        (a.eval calls ctx) (b.eval calls ctx) legal.2.2.2.1 legal.2.2.2.2.1 legal.2.2.2.2.2
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [value, Number.eval_lexical calls meaning ctx a legal.1,
-        Number.eval_lexical calls meaning ctx b legal.2.1]
-      rfl
-  | .forbiddenArgument a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have value := meaning.forbiddenArgument ctx.text legal.2.2.1.1 legal.2.2.1.2
-        (a.eval calls ctx) (b.eval calls ctx) legal.2.2.2.1 legal.2.2.2.2.1 legal.2.2.2.2.2
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [value, Number.eval_lexical calls meaning ctx a legal.1,
-        Number.eval_lexical calls meaning ctx b legal.2.1]
-      rfl
-  | .equalName a b c d, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have left := legal.2.2.2.2.1
-      have right := legal.2.2.2.2.2
-      have value := meaning.equal ctx.text left.1.1 left.1.2
-        (a.eval calls ctx) (b.eval calls ctx) (c.eval calls ctx) (d.eval calls ctx)
-        left.2.1 left.2.2.1 left.2.2.2 right.2.1 right.2.2.1 right.2.2.2
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [value, Number.eval_lexical calls meaning ctx a legal.1,
-        Number.eval_lexical calls meaning ctx b legal.2.1,
-        Number.eval_lexical calls meaning ctx c legal.2.2.1,
-        Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rfl
-  | .fixedAt a, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have value := meaning.token ctx.text legal.2.1.1.1 legal.2.1.1.2
-        (a.eval calls ctx) (spelling ctx.token) (isWord ctx.token)
-        legal.2.1.2.1 legal.2.1.2.2 legal.2.2.1 legal.2.2.2
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [value, Number.eval_lexical calls meaning ctx a legal.1]
-      rfl
-  | .resultDynamic a, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Result.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .resultStatic a, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Result.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .suffix a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [State.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .suffixNormalized, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [meaning.normalize ctx.text legal]
-      rfl
-  | .allowedNormalized, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      dsimp +instances only [Condition.eval, lexical, modelPrimitives]
-      rw [meaning.normalize ctx.text legal]
-      exact meaning.allowed ctx.text
+      have ha := Expr.eval_lexical calls meaning locals a legal.1
+      dsimp only [Expr.eval]
+      rw [← ha]
+      cases chosen : a.eval calls locals
+      · simpa only [Bool.false_or] using Expr.eval_lexical calls meaning locals b (legal.2 chosen)
+      · rfl
   | .ite c a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Condition.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Condition.eval_lexical calls meaning ctx b legal.2
-      · exact Condition.eval_lexical calls meaning ctx a legal.2
+      have hc := Expr.eval_lexical calls meaning locals c legal.1
+      dsimp only [Expr.Legal] at legal
+      dsimp only [Expr.eval]
+      rw [← hc]
+      cases chosen : c.eval calls locals <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
+      · exact Expr.eval_lexical calls meaning locals b legal.2
+      · exact Expr.eval_lexical calls meaning locals a legal.2
   | .elsif c a b, legal => by
-      dsimp +instances only [Condition.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Condition.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Condition.eval_lexical calls meaning ctx b legal.2
-      · exact Condition.eval_lexical calls meaning ctx a legal.2
-  | .value _, _ => rfl
-  | .dynamicSeen, _ => rfl
-  | .staticSeen, _ => rfl
-  | .tokenEq _, _ => rfl
-  | .tokenNe _, _ => rfl
-  | .literalToken, _ => rfl
-  | .copyToken, _ => rfl
-  | .declarationToken, _ => rfl
-  | .assignmentForm, _ => rfl
-  | .formMember _, _ => rfl
-  | .currentFormMember, _ => rfl
-  | .someForm _, _ => rfl
-  | .firstForm _, _ => rfl
-theorem Result.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
-    ∀ (expression : Result) (_legal : expression.Legal calls ctx),
-      expression.eval calls ctx = expression.eval (lexical calls) ctx
-  | .record a b c d, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Condition.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Condition.eval_lexical calls meaning ctx d legal.2.2.2]
-      rfl
-  | .operand a b c d e f g h i j k l, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2]
-      rfl
-  | .expression a b c d e f g h i j k l, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2]
-      rfl
-  | .tail a b c d e f g h i j k l m n o p, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx h legal.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx i legal.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx j legal.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx k legal.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx l legal.2.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx m legal.2.2.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Condition.eval_lexical calls meaning ctx n legal.2.2.2.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Condition.eval_lexical calls meaning ctx o legal.2.2.2.2.2.2.2.2.2.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx p legal.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2]
-      rfl
-  | .group a, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      dsimp +instances only [Result.eval, lexical]
-      rw [Result.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .ite c a b, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Result.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Result.eval_lexical calls meaning ctx b legal.2
-      · exact Result.eval_lexical calls meaning ctx a legal.2
-  | .elsif c a b, legal => by
-      dsimp +instances only [Result.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [Result.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact Result.eval_lexical calls meaning ctx b legal.2
-      · exact Result.eval_lexical calls meaning ctx a legal.2
-  | .invalid, _ => rfl
-theorem State.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning calls.primitive) (ctx : Context) :
-    ∀ (expression : State) (_legal : expression.Legal calls ctx),
-      expression.eval calls ctx = expression.eval (lexical calls) ctx
-  | .position a, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .step a, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .staticBinding a b c, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .dynamicBinding a b c, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .constantOneBinding a b c, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .constantTwoBinding a b c, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .constantValues a b c, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2]
-      rfl
-  | .declarations a b c d e f g, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2.1]
-      rw [Number.eval_lexical calls meaning ctx c legal.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx d legal.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx e legal.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx f legal.2.2.2.2.2.1]
-      rw [Number.eval_lexical calls meaning ctx g legal.2.2.2.2.2.2]
-      rfl
-  | .length a b, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .capacity a b, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [Number.eval_lexical calls meaning ctx a legal.1]
-      rw [Number.eval_lexical calls meaning ctx b legal.2]
-      rfl
-  | .group a, legal => by
-      dsimp +instances only [State.Legal] at legal
-      dsimp +instances only [State.eval, lexical]
-      rw [State.eval_lexical calls meaning ctx a legal]
-      rfl
-  | .ite c a b, legal => by
-      dsimp +instances only [State.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [State.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact State.eval_lexical calls meaning ctx b legal.2
-      · exact State.eval_lexical calls meaning ctx a legal.2
-  | .elsif c a b, legal => by
-      dsimp +instances only [State.Legal] at legal
-      have condition := Condition.eval_lexical calls meaning ctx c legal.1
-      dsimp +instances only [State.eval]
-      rw [← condition]
-      cases chosen : c.eval calls ctx <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
-      · exact State.eval_lexical calls meaning ctx b legal.2
-      · exact State.eval_lexical calls meaning ctx a legal.2
-  | .current, _ => rfl
-  | .initial, _ => rfl
-  | .invalid, _ => rfl
-end
+      have hc := Expr.eval_lexical calls meaning locals c legal.1
+      dsimp only [Expr.Legal] at legal
+      dsimp only [Expr.eval]
+      rw [← hc]
+      cases chosen : c.eval calls locals <;> simp only [chosen, Bool.false_eq_true, ↓reduceIte] at legal ⊢
+      · exact Expr.eval_lexical calls meaning locals b legal.2
+      · exact Expr.eval_lexical calls meaning locals a legal.2
+  | .local name typeName localValue rest, legal => by
+      have hv := Expr.eval_lexical calls meaning locals localValue legal.1
+      dsimp only [Expr.eval]
+      rw [← hv]
+      exact Expr.eval_lexical calls meaning _ rest legal.2
 
-/-- These are the helper-call preconditions discharged by the native SPARK
-analysis of the four bodies that perform lexical operations. The predicate
-contains only domains of executed calls, never a model-equivalence equation. -/
+/-- Native SPARK establishes the domains of executed lexical calls in these
+bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalBodies (calls : Calls) : Prop where
+  skip : ∀ text, ValidText text → ∀ position,
+    ValidCursor text position →
+    skipBody.Legal calls (Context.locals {text,position})
+  name : ∀ text, ValidText text → ∀ position,
+    ValidCursor text position →
+    nameBody.Legal calls (Context.locals {text,position})
+  fixed : ∀ text, ValidText text → ∀ position token,
+    ValidCursor text position → ValidToken token →
+    fixedBody.Legal calls (Context.locals {text,position,token})
+  take : ∀ text, ValidText text → ∀ position token,
+    ValidCursor text position → ValidToken token →
+    fixedBody.Legal calls (Context.locals {text,position,token})
+  lookupFrom : ∀ text, ValidText text → ∀ names first after index,
+    ValidNames text names → ValidName text first after → 1 ≤ index → index ≤ names.length + 1 →
+    lookupFromBody.Legal calls (Context.locals {text,names,first,after,index})
+  lookup : ∀ text, ValidText text → ∀ names first after,
+    ValidNames text names → ValidCursor text first → ValidCursor text after →
+    lookupBody.Legal calls (Context.locals {text,names,first,after})
+  literal : ∀ text, ValidText text → ∀ position,
+    ValidCursor text position →
+    literalBody.Legal calls (Context.locals {text,position})
+  value : ∀ text, ValidText text → ∀ position names,
+    ValidCursor text position → ValidNames text names →
+    valueBody.Legal calls (Context.locals {text,position,names})
+  newName : ∀ text, ValidText text → ∀ state first after arguments,
+    ValidState text state → ValidCursor text first → ValidCursor text after →
+    newNameBody.Legal calls (Context.locals {text,state,first,after,arguments})
+  addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
+    ValidState text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
+    addBindingBody.Legal calls (Context.locals {text,state,first,after,value,mutable,following})
+  declaration : ∀ text, ValidText text → ∀ state arguments,
+    ValidState text state →
+    declarationBody.Legal calls (Context.locals {text,state,arguments})
+  argument : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    argumentBody.Legal calls (Context.locals {text,state})
+  declarations : ∀ text, ValidText text → ∀ state arguments,
+    ValidState text state →
+    declarationsBody.Legal calls (Context.locals {text,state,arguments})
   operand : ∀ text, ValidText text → ∀ position names,
     ValidCursor text position → ValidNames text names →
-    operandBody.Legal calls {text,position,names}
-  tail : ∀ text, ValidText text → ∀ names remaining position length dynamicSeen staticSeen,
-    ValidCursor text position → ValidNames text names → remaining ≤ maxExpressionOperands → length ≤ maxSourceLength →
-    tailBody.Legal calls {text,position,names,remaining,length,dynamicSeen,staticSeen}
+    operandBody.Legal calls (Context.locals {text,position,names})
+  tail : ∀ text, ValidText text → ∀ position names length dynamicSeen remaining,
+    ValidCursor text position → ValidNames text names → length ≤ maxSourceLength → remaining ≤ maxExpressionOperands →
+    tailBody.Legal calls (Context.locals {text,position,names,length,dynamicSeen,remaining})
+  expression : ∀ text, ValidText text → ∀ position names,
+    ValidCursor text position → ValidNames text names →
+    expressionBody.Legal calls (Context.locals {text,position,names})
+  target : ∀ text, ValidText text → ∀ state sameTarget,
+    ValidState text state →
+    targetBody.Legal calls (Context.locals {text,state,sameTarget})
+  dynamic : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    dynamicBody.Legal calls (Context.locals {text,state})
+  assignmentValue : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    assignmentBody.Legal calls (Context.locals {text,state})
+  output : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    outputBody.Legal calls (Context.locals {text,state})
+  capacity : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    capacityBody.Legal calls (Context.locals {text,state})
   step : ∀ text, ValidText text → ∀ form token state,
-    ValidToken token → ValidState text state → 0 < state.position →
-    stepBody.Legal calls {text,form,token,state}
-  suffix : ∀ text, ValidText text → ∀ form index state,
-    ValidState text state → 1 ≤ index → index ≤ form.tokens.length + 1 →
-    suffixBody.Legal calls {text,form,nextToken := index,state}
+    ValidToken token → ValidState text state →
+    stepBody.Legal calls (Context.locals {text,form,token,state})
+  suffix : ∀ text, ValidText text → ∀ form nextToken state,
+    ValidState text state → 1 ≤ nextToken → nextToken ≤ form.tokens.length + 1 →
+    suffixBody.Legal calls (Context.locals {text,form,nextToken,state})
+  formMember : ∀ text form, formBody.Legal calls (Context.locals {text,form})
+  member : ∀ text, memberBody.Legal calls (Context.locals {text})
+  arguments : ∀ text, argumentsBody.Legal calls (Context.locals {text})
+  assignment : ∀ text, assignmentSelectorBody.Legal calls (Context.locals {text})
 
-private theorem expressionBody_legal (calls : Calls) (ctx : Context) : expressionBody.Legal calls ctx := by
-  simp [expressionBody, Result.Legal, Number.Legal, Condition.Legal]
-
-private theorem formBody_legal (calls : Calls) (ctx : Context) : formBody.Legal calls ctx := by
-  dsimp +instances only [formBody, both, Condition.Legal, Number.Legal, Condition.eval, Number.eval]
-  simp only [true_and, decide_eq_true_eq, Bool.and_eq_true]
-  constructor
-  · exact fun bounded => bounded.2
-  · exact fun bounded => bounded.1.2
-
-/-- Raw checked body equations evaluate actual lexical callees. Their proved
-meanings plus SPARK's legal-call contracts imply the normalized equations used
-by recursion uniqueness; lexical interpretation is therefore consumed here. -/
+/-- Normalize only retained lexical meanings. All new helper calls stay
+arbitrary until their checked equations and terminating recursion determine them. -/
 theorem normalized_definitions (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
     (source : DefinitionEquations calls calls) (legal : LegalBodies calls) :
     DefinitionEquations calls where
+  ranges := source.ranges
+  readDeclarations := source.readDeclarations
+  skip := by
+    intros
+    apply Eq.trans
+    · apply source.skip <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.skip <;> assumption
+  name := by
+    intros
+    apply Eq.trans
+    · apply source.name <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.name <;> assumption
+  fixed := by
+    intros
+    apply Eq.trans
+    · apply source.fixed <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.fixed <;> assumption
+  take := by
+    intros
+    apply Eq.trans
+    · apply source.take <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.take <;> assumption
+  lookupFrom := by
+    intros
+    apply Eq.trans
+    · apply source.lookupFrom <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.lookupFrom <;> assumption
+  lookup := by
+    intros
+    apply Eq.trans
+    · apply source.lookup <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.lookup <;> assumption
+  literal := by
+    intros
+    apply Eq.trans
+    · apply source.literal <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.literal <;> assumption
+  value := by
+    intros
+    apply Eq.trans
+    · apply source.value <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.value <;> assumption
+  newName := by
+    intros
+    apply Eq.trans
+    · apply source.newName <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.newName <;> assumption
+  addBinding := by
+    intros
+    apply Eq.trans
+    · apply source.addBinding <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.addBinding <;> assumption
+  declaration := by
+    intros
+    apply Eq.trans
+    · apply source.declaration <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.declaration <;> assumption
+  argument := by
+    intros
+    apply Eq.trans
+    · apply source.argument <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.argument <;> assumption
+  declarations := by
+    intros
+    apply Eq.trans
+    · apply source.declarations <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.declarations <;> assumption
   operand := by
-    intro text valid position names cursor context
-    exact (source.operand text valid position names cursor context).trans
-      (Result.eval_lexical calls meaning _ _ (legal.operand text valid position names cursor context))
+    intros
+    apply Eq.trans
+    · apply source.operand <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.operand <;> assumption
   tail := by
-    intro text valid names remaining position length dynamicSeen staticSeen cursor context fuel size
-    exact (source.tail text valid names remaining position length dynamicSeen staticSeen cursor context fuel size).trans
-      (Result.eval_lexical calls meaning _ _
-        (legal.tail text valid names remaining position length dynamicSeen staticSeen cursor context fuel size))
+    intros
+    apply Eq.trans
+    · apply source.tail <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.tail <;> assumption
   expression := by
-    intro text valid position names cursor context
-    exact (source.expression text valid position names cursor context).trans
-      (Result.eval_lexical calls meaning _ _ (expressionBody_legal calls _))
+    intros
+    apply Eq.trans
+    · apply source.expression <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.expression <;> assumption
+  target := by
+    intros
+    apply Eq.trans
+    · apply source.target <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.target <;> assumption
+  dynamic := by
+    intros
+    apply Eq.trans
+    · apply source.dynamic <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.dynamic <;> assumption
+  assignmentValue := by
+    intros
+    apply Eq.trans
+    · apply source.assignmentValue <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.assignmentValue <;> assumption
+  output := by
+    intros
+    apply Eq.trans
+    · apply source.output <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.output <;> assumption
+  capacity := by
+    intros
+    apply Eq.trans
+    · apply source.capacity <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.capacity <;> assumption
   step := by
-    intro text valid form token state tokenValid context positive
-    exact (source.step text valid form token state tokenValid context positive).trans
-      (State.eval_lexical calls meaning _ _ (legal.step text valid form token state tokenValid context positive))
-  stepRange := source.stepRange
+    intros
+    apply Eq.trans
+    · apply source.step <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.step <;> assumption
   suffix := by
-    intro text valid form index state context first last
-    exact (source.suffix text valid form index state context first last).trans
-      (Condition.eval_lexical calls meaning _ _ (legal.suffix text valid form index state context first last))
+    intros
+    apply Eq.trans
+    · apply source.suffix <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.suffix <;> assumption
   formMember := by
-    intro text form
-    exact (source.formMember text form).trans
-      (Condition.eval_lexical calls meaning _ _ (formBody_legal calls _))
+    intros
+    apply Eq.trans
+    · apply source.formMember <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.formMember <;> assumption
   member := by
-    intro text
-    exact (source.member text).trans
-      (Condition.eval_lexical calls meaning _ _ (by trivial))
+    intros
+    apply Eq.trans
+    · apply source.member <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.member <;> assumption
   arguments := by
-    intro text
-    exact (source.arguments text).trans
-      (Condition.eval_lexical calls meaning _ _ (by trivial))
+    intros
+    apply Eq.trans
+    · apply source.arguments <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.arguments <;> assumption
   assignment := by
-    intro text
-    exact (source.assignment text).trans
-      (Condition.eval_lexical calls meaning _ _ (by
-        simp [assignmentBody, Condition.Legal]))
+    intros
+    apply Eq.trans
+    · apply source.assignment <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.assignment <;> assumption
 
 end Silver.Compose.Expressions

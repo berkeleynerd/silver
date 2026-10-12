@@ -71,9 +71,7 @@ class GreetingTests(unittest.TestCase):
         cases = [canonical.replace(expression, replacement) for replacement in replacements]
         cases += [source_for(name=name) for name in
                   (b'', b'1Name', b'Name_', b'Name__2', b'String', b'SILVER_IO', b'if')]
-        cases += [canonical.replace(b':constant', b':'),
-                  canonical.replace(b'"world"', b'"wo"&"rld"'),
-                  canonical.replace(b';begin', b';Other:constant String:="x";begin'),
+        cases += [canonical.replace(b'"world"', b'"wo"&"rld"'),
                   canonical.replace(b';end', b';null;end'),
                   argument_source().replace(b'Put_Line(Message)', b'Put_Line("Hello, "&Message&"!")'),
                   source_for(b'\t'), source_for(prefix=b'\n'), source_for(suffix=b'\x80'),
@@ -84,6 +82,15 @@ class GreetingTests(unittest.TestCase):
                 self.source.write_bytes(contents)
                 result = invoke('check', self.source)
                 self.assertEqual(result.returncode, 2, result.stdout)
+
+    def test_shared_binding_lists_and_mutable_greeting_operand(self) -> None:
+        canonical = source_for()
+        for contents in (canonical.replace(b':constant', b':'),
+                         canonical.replace(b';begin', b';Other:constant String:="x";begin')):
+            with self.subTest(source=contents):
+                self.source.write_bytes(contents)
+                result = invoke('check', self.source)
+                self.assertEqual(result.returncode, 0, result.stdout)
 
     def test_native_decoded_output_boundaries_names_and_failure(self) -> None:
         room = 4096 - len(source_for(b'', b'', b''))

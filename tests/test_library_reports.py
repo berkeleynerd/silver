@@ -197,7 +197,7 @@ end Probe;
         for warning in (False, True):
             data = assignment_report(warning)
             self.assertTrue(self.accepts(data, kind="assignment"))
-            for wrong in ("main", "body", "interface", "arguments", "runtime"):
+            for wrong in ("body", "interface", "arguments", "runtime"):
                 self.assertFalse(self.accepts(data, kind=wrong))
         for name in ("Message", "M", "Main", "Name_2_A", "Silver_Arguments", "X" * 1300):
             data = assignment_report()
@@ -219,7 +219,7 @@ end Probe;
             data["flow"][0][field] = value
             with self.subTest(field=field, value=value):
                 self.assertFalse(self.accepts(data, kind="assignment"))
-        for text in ('unused assignment', 'unused assignment to "Message"',
+        for text in ('unused assignment ', 'unused assignment to "Message"',
                      'initialization of "" has no effect',
                      'initialization of "1Message" has no effect',
                      'initialization of "Message_" has no effect',
@@ -240,7 +240,7 @@ end Probe;
             self.assertFalse(self.accepts(data, kind="assignment"))
         data = assignment_report()
         data["flow"] *= 2
-        self.assertFalse(self.accepts(data, kind="assignment"))
+        self.assertTrue(self.accepts(data, kind="assignment"))
         for rule in ("VC_LENGTH_CHECK", "VC_RANGE_CHECK", "INEFFECTIVE"):
             data = assignment_report()
             data["proof"] = [dict(check(), rule=rule, file="main.adb")]
@@ -320,8 +320,7 @@ end Probe;
                                      for _ in range(count)]
                     data["flow"] = assignment_report(warning)["flow"]
                     with self.subTest(kind=kind, count=count, warning=warning):
-                        self.assertEqual(self.accepts(data, kind=kind),
-                                         not warning or kind in ("assignment", "selected"))
+                        self.assertTrue(self.accepts(data, kind=kind))
                     for wrong in (("static", "assignment") if kind in ("main", "selected")
                                   else ("main", "selected")):
                         self.assertFalse(self.accepts(data, kind=wrong))
@@ -335,20 +334,20 @@ end Probe;
             base["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb")]
             self.assertTrue(self.accepts(base, kind=kind))
             for field, value in (("severity", "low"), ("how_proved", "trivial"),
-                                 ("rule", "VC_LENGTH_CHECK"), ("entity", 2),
+                                 ("rule", "VC_OVERFLOW_CHECK"), ("entity", 2),
                                  ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                                  ("suppressed", False), ("justification", "approved")):
                 data = copy.deepcopy(base)
                 data["proof"][0][field] = value
                 with self.subTest(kind=kind, field=field):
                     self.assertFalse(self.accepts(data, kind=kind))
-            for text in ("unused assignment", "statement has no effect"):
+            for text in ("unused assignment ", "statement has no effect"):
                 data = copy.deepcopy(base)
                 data["flow"][0]["message"]["text"] = text
                 self.assertFalse(self.accepts(data, kind=kind))
             data = copy.deepcopy(base)
             data["flow"] *= 2
-            self.assertFalse(self.accepts(data, kind=kind))
+            self.assertTrue(self.accepts(data, kind=kind))
             for section in ("skip_flow_proof", "skip_proof", "pragma_assume", "warn_error"):
                 data = copy.deepcopy(base)
                 data[section] = [{}]
@@ -357,6 +356,55 @@ end Probe;
                 data = copy.deepcopy(base)
                 del data[field]
                 self.assertFalse(self.accepts(data, kind=kind))
+
+    def test_shared_bindings_advisory_lists_and_assignment_scope(self) -> None:
+        for kind in ("static", "main", "assignment", "selected"):
+            for bare in (False, True):
+                data = (assignment_report(False) if bare else
+                        main_report(0) if kind in ("main", "selected") else assignment_call_report())
+                advisory = assignment_report()["flow"][0]
+                data["flow"] = [dict(advisory, message={
+                    "text": f'initialization of "Value_{i}" has no effect'}) for i in range(268)]
+                with self.subTest(kind=kind, bare=bare):
+                    self.assertTrue(self.accepts(data, kind=kind))
+                    data["flow"].append(dict(advisory, message={"text": "unused assignment"}))
+                    self.assertEqual(self.accepts(data, kind=kind), kind in ("assignment", "selected"))
+                for text in ('unused assignment ', 'unused assignment to "Value"',
+                             '"Written_Count" is set by "Put_Line" but not used after the call',
+                             '"Flushed" is set by "Put_Line" but not used after the call',
+                             '"Succeeded" is set by "Put_Line" but not used after the call',
+                             '"Written_Bytes" is set by "Put_Line" but not used after the call'):
+                    data["flow"][-1]["message"]["text"] = text
+                    self.assertFalse(self.accepts(data, kind=kind))
+
+    def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
+        for kind in ("static", "main"):
+            self.assertFalse(self.accepts(assignment_report(False), kind=kind))
+            self.assertTrue(self.accepts(assignment_report(True), kind=kind))
+
+    def test_length_checks_have_the_same_complete_safety_policy(self) -> None:
+        changes = (("severity", "warning"), ("severity", "low"),
+                   ("how_proved", "flow"), ("how_proved", "trivial"),
+                   ("rule", "VC_OVERFLOW_CHECK"), ("entity", 2),
+                   ("file", "silver_io.adb"), ("line", 0), ("col", 0),
+                   ("suppressed", False), ("justification", ""),
+                   ("justified", False), ("annot_kind", ""), ("justif_msg", ""))
+        for kind in ("static", "main", "assignment", "selected"):
+            data = main_report(0) if kind in ("main", "selected") else assignment_call_report()
+            data["proof"] = [dict(check(), rule="VC_LENGTH_CHECK", file="main.adb")]
+            self.assertTrue(self.accepts(data, kind=kind))
+            for field, value in changes:
+                bad = copy.deepcopy(data)
+                bad["proof"][0][field] = value
+                with self.subTest(kind=kind, field=field, value=value):
+                    self.assertFalse(self.accepts(bad, kind=kind))
+            for field in ("severity", "how_proved", "rule", "file", "entity", "line", "col"):
+                bad = copy.deepcopy(data)
+                del bad["proof"][0][field]
+                self.assertFalse(self.accepts(bad, kind=kind))
+            bare = assignment_report(False)
+            bare["proof"] = data["proof"]
+            self.assertFalse(self.accepts(bare, kind=kind))
 
     def test_both_selected_schemas_and_wrong_kind(self) -> None:
         self.assertTrue(self.accepts(report()))

@@ -90,6 +90,7 @@ class ComposedResultsTests(unittest.TestCase):
                   source_for(b'Message', form='assignment', initial=b'"', replacement=b'x')]
         cases += [contents.replace(b';', b';-- boundary\r\n')
                   .replace(b'&', b'-- operator\r&\t') for contents in list(cases)]
+        cases += [source_for(b'"unused"', form='assignment'), source_for(b'Input', form='result')]
         self.check_sources(cases, 0)
 
     def test_operand_and_expanded_output_boundaries(self) -> None:
@@ -123,8 +124,6 @@ class ComposedResultsTests(unittest.TestCase):
         cases += [source_for(b'"x"&Input', form='argument'),
                   source_for(b'"x"&Input', form='argument', capacity=b'4096'),
                   source_for(b'Input', form='argument', capacity=b'4097'),
-                  source_for(b'"unused"', form='assignment'),
-                  source_for(b'Input', form='result'),
                   source_for(b'Message', form='result', initial=b'xx'),
                   source_for(b'Message', form='result', replacement=b'xx'),
                   source_for(b'Message', form='result', unmatched=b'xx'),

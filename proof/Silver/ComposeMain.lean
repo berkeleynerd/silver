@@ -1,109 +1,53 @@
 module
 
-public import Silver.ComposeAdmission
+public import Silver.ComposeDeclarations
 public import Silver.GuardedObligations
 
 @[expose] public section
 
-/-! Decoded payloads of the finite shells. Admission resolves result and argument
-names to their distinct slots and immutable names to their declared bytes;
-the values here retain every literal and operand.
-An explicit capacity remains distinguishable from an absent capacity. -/
+/-! The retained body shapes operate over one shared ordered binding region.
+Static metadata determines fixed object bounds; the value store follows Ada's
+sequential elaboration and branch-local assignments. -/
 
 namespace Silver.Compose
+open Bindings
 
-inductive Program
-  | direct (expression : Expression)
-  | static (initial : Source) (expression : Expression)
-  | assignment (initial replacement : Source) (expression : Expression)
-  | argument (fallback : Source) (capacity : Option Nat) (expression : Expression)
-  | branching (fallback : Source) (capacity : Option Nat) (comparison : Source)
-      (yes no : Expression)
-  | result (fallback initial : Source) (capacity : Option Nat)
-      (comparison yes no : Source) (expression : Expression)
-  deriving DecidableEq, Repr
-
-def decode : Form → List Event → Option Program
-  | .direct, [.output expression] => some (.direct expression)
-  | .static, [.declaration false _, .literal .initial initial, .output expression] =>
-      some (.static initial expression)
-  | .assignment, [.declaration false _, .literal .initial initial, .reference false,
-      .literal .assigned replacement, .output expression] =>
-      some (.assignment initial replacement expression)
-  | .argument, [.declaration true _, .literal .ordinary fallback, .output expression] =>
-      some (.argument fallback none expression)
-  | .guardedArgument, [.declaration true _, .literal .ordinary fallback,
-      .reference true, .capacity capacity, .output expression] =>
-      some (.argument fallback (some capacity) expression)
-  | .branching, [.declaration true _, .literal .ordinary fallback, .reference true,
-      .literal .ordinary comparison, .output yes, .output no] =>
-      some (.branching fallback none comparison yes no)
-  | .guardedBranching, [.declaration true _, .literal .ordinary fallback,
-      .reference true, .capacity capacity, .reference true,
-      .literal .ordinary comparison, .output yes, .output no] =>
-      some (.branching fallback (some capacity) comparison yes no)
-  | .result, [.declaration true _, .literal .ordinary fallback,
-      .declaration false _, .literal .initial initial, .reference true,
-      .literal .ordinary comparison, .reference false, .literal .assigned yes,
-      .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial none comparison yes no expression)
-  | .guardedResult, [.declaration true _, .literal .ordinary fallback,
-      .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
-      .reference true, .literal .ordinary comparison, .reference false,
-      .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial (some capacity) comparison yes no expression)
-  | .assignmentOne, [.constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference false,
-      .literal .assigned replacement, .output expression] =>
-      some (.assignment initial replacement expression)
-  | .assignmentTwo, [.constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference false,
-      .literal .assigned replacement, .output expression] =>
-      some (.assignment initial replacement expression)
-  | .resultOne, [.declaration true _, .literal .ordinary fallback,
-      .constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference true,
-      .literal .ordinary comparison, .reference false, .literal .assigned yes,
-      .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial none comparison yes no expression)
-  | .resultTwo, [.declaration true _, .literal .ordinary fallback,
-      .constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference true,
-      .literal .ordinary comparison, .reference false, .literal .assigned yes,
-      .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial none comparison yes no expression)
-  | .guardedResultOne, [.declaration true _, .literal .ordinary fallback,
-      .constantDeclaration false _, .literal .constantOne _, .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
-      .reference true, .literal .ordinary comparison, .reference false,
-      .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial (some capacity) comparison yes no expression)
-  | .guardedResultTwo, [.declaration true _, .literal .ordinary fallback,
-      .constantDeclaration false _, .literal .constantOne _, .constantDeclaration true _, .literal .constantTwo _, .declaration false _, .literal .initial initial, .reference true, .capacity capacity,
-      .reference true, .literal .ordinary comparison, .reference false,
-      .literal .assigned yes, .reference false, .literal .assigned no, .output expression] =>
-      some (.result fallback initial (some capacity) comparison yes no expression)
-  | _, _ => none
+abbrev Printable := Bindings.Printable
 
 def effectiveCapacity (capacity : Option Nat) : Nat := capacity.getD maxSourceLength
 
-def Printable (bytes : Source) : Prop := ∀ byte ∈ bytes, Output.printable byte = true
+inductive Body
+  | output (expression : Expression)
+  | assignment (assignment : Bindings.Assignment) (expression : Expression)
+  | argument (capacity : Option Nat) (expression : Expression)
+  | branching (capacity : Option Nat) (comparison : Source) (yes no : Expression)
+  | result (capacity : Option Nat) (comparison : Source)
+      (yes no : Bindings.Assignment) (expression : Expression)
+  deriving DecidableEq, Repr
 
-def SafeExpression (expression : Expression) (length capacity : Nat) : Prop :=
-  expression.Bounded length capacity ∧ expression.LiteralsPrintable ∧
-    expression.length ≤ maxExpressionOperands
+structure Program where
+  declarations : List Bindings.Declaration
+  names : BindingEnvironment
+  fallback : Source
+  body : Body
+  deriving DecidableEq, Repr
 
-def Program.Valid : Program → Prop
-  | .direct expression => SafeExpression expression 0 maxSourceLength
-  | .static initial expression => Printable initial ∧
-      SafeExpression expression initial.length maxSourceLength
-  | .assignment initial replacement expression => Printable initial ∧ Printable replacement ∧
-      replacement.length = initial.length ∧ SafeExpression expression initial.length maxSourceLength
-  | .argument fallback capacity expression => Printable fallback ∧ fallback.length ≤ maxSourceLength ∧
-      effectiveCapacity capacity ≤ maxSourceLength ∧ SafeExpression expression 0 (effectiveCapacity capacity)
-  | .branching fallback capacity comparison yes no =>
-      Printable fallback ∧ fallback.length ≤ maxSourceLength ∧ Printable comparison ∧
-      effectiveCapacity capacity ≤ maxSourceLength ∧
-      SafeExpression yes 0 (effectiveCapacity capacity) ∧ SafeExpression no 0 (effectiveCapacity capacity)
-  | .result fallback initial capacity comparison yes no expression =>
-      Printable fallback ∧ fallback.length ≤ maxSourceLength ∧ Printable initial ∧ Printable comparison ∧
-      Printable yes ∧ Printable no ∧ yes.length = initial.length ∧ no.length = initial.length ∧
-      effectiveCapacity capacity ≤ maxSourceLength ∧ SafeExpression expression initial.length (effectiveCapacity capacity)
+def Body.Valid (shape : Shape) : Body → Prop
+  | .output expression => SafeExpression expression shape maxSourceLength
+  | .assignment update expression => update.Valid shape ∧ SafeExpression expression shape maxSourceLength
+  | .argument capacity expression => effectiveCapacity capacity ≤ maxSourceLength ∧
+      SafeExpression expression shape (effectiveCapacity capacity)
+  | .branching capacity comparison yes no => effectiveCapacity capacity ≤ maxSourceLength ∧
+      Printable comparison ∧ SafeExpression yes shape (effectiveCapacity capacity) ∧
+      SafeExpression no shape (effectiveCapacity capacity)
+  | .result capacity comparison yes no expression => effectiveCapacity capacity ≤ maxSourceLength ∧
+      Printable comparison ∧ yes.Valid shape ∧ no.Valid shape ∧
+      SafeExpression expression shape (effectiveCapacity capacity)
+
+def Program.Valid (program : Program) : Prop :=
+  Bindings.DeclarationsValid emptyShape program.declarations program.names.shape ∧
+    Printable program.fallback ∧ program.fallback.length ≤ maxSourceLength ∧
+    program.body.Valid program.names.shape
 
 inductive Action
   | reject
@@ -113,28 +57,31 @@ inductive Action
 def selected (fallback : Source) (arguments : Arguments.Runtime.Arguments) : Source :=
   Arguments.Runtime.firstOrDefault fallback arguments
 
-def guard (fallback : Source) (capacity : Option Nat) (arguments : Arguments.Runtime.Arguments) : Bool :=
+def guard (input : Source) (capacity : Option Nat) (arguments : Arguments.Runtime.Arguments) : Bool :=
   Arguments.Runtime.inputIsValid arguments &&
     match capacity with
     | none => true
-    | some bound => decide ((selected fallback arguments).length ≤ bound)
+    | some bound => decide (input.length ≤ bound)
 
-def Program.action (arguments : Arguments.Runtime.Arguments) : Program → Action
-  | .direct expression => .output (expression.evaluate [] [])
-  | .static initial expression => .output (expression.evaluate initial [])
-  | .assignment _ replacement expression => .output (expression.evaluate replacement [])
-  | .argument fallback capacity expression =>
-      if guard fallback capacity arguments then .output (expression.evaluate [] (selected fallback arguments))
+def Body.action (arguments : Arguments.Runtime.Arguments) (input : Source) (values : Values) : Body → Action
+  | .output expression => .output (expression.evaluate values input)
+  | .assignment update expression => .output (expression.evaluate (update.execute values input) input)
+  | .argument capacity expression =>
+      if guard input capacity arguments then .output (expression.evaluate values input) else .reject
+  | .branching capacity comparison yes no =>
+      if guard input capacity arguments then
+        .output ((if input = comparison then yes else no).evaluate values input)
       else .reject
-  | .branching fallback capacity comparison yes no =>
-      if guard fallback capacity arguments then
-        .output ((if selected fallback arguments = comparison then yes else no).evaluate [] (selected fallback arguments))
+  | .result capacity comparison yes no expression =>
+      if guard input capacity arguments then
+        .output (expression.evaluate ((if input = comparison then yes else no).execute values input) input)
       else .reject
-  | .result fallback _ capacity comparison yes no expression =>
-      if guard fallback capacity arguments then
-        .output (expression.evaluate (if selected fallback arguments = comparison then yes else no)
-          (selected fallback arguments))
-      else .reject
+
+def Program.initialValues (program : Program) (arguments : Arguments.Runtime.Arguments) : Values :=
+  executeDeclarations (selected program.fallback arguments) program.declarations emptyValues
+
+def Program.action (arguments : Arguments.Runtime.Arguments) (program : Program) : Action :=
+  program.body.action arguments (selected program.fallback arguments) (program.initialValues arguments)
 
 theorem selected_domain (fallback : Source) (arguments : Arguments.Runtime.Arguments) :
     (selected fallback arguments).length ≤ maxSourceLength ∧ Printable (selected fallback arguments) := by
@@ -142,68 +89,75 @@ theorem selected_domain (fallback : Source) (arguments : Arguments.Runtime.Argum
     (Arguments.Runtime.initializer_domain arguments fallback)
   exact ⟨domain.1, fun byte member => decide_eq_true (domain.2 byte member)⟩
 
-theorem guarded_length {fallback : Source} {capacity : Option Nat} {arguments : Arguments.Runtime.Arguments}
-    (accepted : guard fallback capacity arguments = true) :
-    (selected fallback arguments).length ≤ effectiveCapacity capacity := by
+theorem guarded_length {input : Source} {capacity : Option Nat} {arguments : Arguments.Runtime.Arguments}
+    (domain : input.length ≤ maxSourceLength) (accepted : guard input capacity arguments = true) :
+    input.length ≤ effectiveCapacity capacity := by
   cases capacity with
-  | none => exact (selected_domain fallback arguments).1
+  | none => exact domain
   | some capacity =>
       simp only [guard, Bool.and_eq_true, decide_eq_true_eq] at accepted
       exact accepted.2
 
-theorem expression_domain {expression : Expression} {staticValue dynamicValue : Source} {capacity : Nat}
-    (safe : SafeExpression expression staticValue.length capacity)
-    (staticBytes : Printable staticValue) (dynamicBytes : Printable dynamicValue)
-    (fits : dynamicValue.length ≤ capacity) :
-    (expression.evaluate staticValue dynamicValue).length ≤ maxSourceLength ∧
-      Printable (expression.evaluate staticValue dynamicValue) :=
-  ⟨Expression.output_bound safe.1 fits,
-    Expression.evaluate_printable safe.2.1 staticBytes dynamicBytes⟩
+theorem expression_domain {expression : Expression} {shape : Shape} {values : Values} {input : Source}
+    {capacity : Nat} (safe : SafeExpression expression shape capacity) (state : Fits shape input values)
+    (printable : Printable input) (fits : input.length ≤ capacity) :
+    (expression.evaluate values input).length ≤ maxSourceLength ∧ Printable (expression.evaluate values input) :=
+  ⟨Expression.output_bound safe state fits,
+    Expression.evaluate_printable safe.1 safe.2.1 state printable⟩
+
+theorem body_action_domain {body : Body} {shape : Shape} {values : Values} {input : Source}
+    (valid : body.Valid shape) (state : Fits shape input values)
+    (domain : input.length ≤ maxSourceLength ∧ Printable input)
+    (arguments : Arguments.Runtime.Arguments) {bytes : Source}
+    (output : body.action arguments input values = .output bytes) :
+    bytes.length ≤ maxSourceLength ∧ Printable bytes := by
+  cases body with
+  | output expression =>
+      cases output
+      exact expression_domain valid state domain.2 domain.1
+  | assignment assignment expression =>
+      cases output
+      exact expression_domain valid.2 (Bindings.assignment_preserves state domain.2 valid.1) domain.2 domain.1
+  | argument capacity expression =>
+      simp only [Body.action] at output
+      split at output
+      · rename_i accepted
+        cases output
+        exact expression_domain valid.2 state domain.2 (guarded_length domain.1 accepted)
+      · cases output
+  | branching capacity comparison yes no =>
+      simp only [Body.action] at output
+      split at output
+      · rename_i accepted
+        cases output
+        apply expression_domain
+        · split <;> first | exact valid.2.2.1 | exact valid.2.2.2
+        · exact state
+        · exact domain.2
+        · exact guarded_length domain.1 accepted
+      · cases output
+  | result capacity comparison yes no expression =>
+      simp only [Body.action] at output
+      split at output
+      · rename_i accepted
+        cases output
+        apply expression_domain valid.2.2.2.2
+        · apply Bindings.assignment_preserves state domain.2
+          split <;> first | exact valid.2.2.1 | exact valid.2.2.2.1
+        · exact domain.2
+        · exact guarded_length domain.1 accepted
+      · cases output
+
+theorem initial_values_fit {program : Program} (valid : program.Valid)
+    (arguments : Arguments.Runtime.Arguments) :
+    Fits program.names.shape (selected program.fallback arguments) (program.initialValues arguments) :=
+  declarations_preserve valid.1 _ (selected_domain program.fallback arguments).2 _ (empty_fits _)
 
 theorem action_domain {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) {bytes : Source}
     (output : program.action arguments = .output bytes) :
-    bytes.length ≤ maxSourceLength ∧ Printable bytes := by
-  cases program with
-  | direct expression =>
-      cases output
-      exact expression_domain valid (by simp [Printable]) (by simp [Printable]) (by simp)
-  | static initial expression =>
-      cases output
-      exact expression_domain valid.2 valid.1 (by simp [Printable]) (by simp)
-  | assignment initial replacement expression =>
-      cases output
-      exact expression_domain (by simpa [valid.2.2.1] using valid.2.2.2)
-        valid.2.1 (by simp [Printable]) (by simp)
-  | argument fallback capacity expression =>
-      simp only [Program.action] at output
-      split at output
-      · rename_i accepted
-        cases output
-        exact expression_domain valid.2.2.2 (by simp [Printable])
-          (selected_domain fallback arguments).2 (guarded_length accepted)
-      · cases output
-  | branching fallback capacity comparison yes no =>
-      simp only [Program.action] at output
-      split at output
-      · rename_i accepted
-        cases output
-        apply expression_domain
-        · split <;> first | exact valid.2.2.2.2.1 | exact valid.2.2.2.2.2
-        · simp [Printable]
-        · exact (selected_domain fallback arguments).2
-        · exact guarded_length accepted
-      · cases output
-  | result fallback initial capacity comparison yes no expression =>
-      simp only [Program.action] at output
-      split at output
-      · rename_i accepted
-        cases output
-        apply expression_domain
-        · split <;> simpa only [valid.2.2.2.2.2.2.1, valid.2.2.2.2.2.2.2.1] using valid.2.2.2.2.2.2.2.2.2
-        · split <;> first | exact valid.2.2.2.2.1 | exact valid.2.2.2.2.2.1
-        · exact (selected_domain fallback arguments).2
-        · exact guarded_length accepted
-      · cases output
+    bytes.length ≤ maxSourceLength ∧ Printable bytes :=
+  body_action_domain valid.2.2.2 (initial_values_fit valid arguments)
+    (selected_domain program.fallback arguments) arguments output
 
 end Silver.Compose

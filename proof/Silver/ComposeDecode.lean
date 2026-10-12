@@ -1,49 +1,75 @@
 module
 
-public import Silver.ComposeMain
-public import Silver.ComposeSemantics
+public import Silver.ComposeGrammar
 public import Silver.NamedDisjoint
 
 @[expose] public section
 
 namespace Silver.Compose
+open Bindings
 
-theorem declaration_shape (events : List Event) (dynamic : Bool) (rest : List EventKind) :
-    events.map Event.kind = .declaration dynamic :: rest ↔
-      ∃ name tail, events = .declaration dynamic name :: tail ∧ tail.map Event.kind = rest := by
+def decode : Form → List Event → Option Program
+  | .direct, [.declarations values names, .output expression] => some ⟨values, names, [], .output expression⟩
+  | .assignment, [.declarations values names, .assignment update, .output expression] =>
+      some ⟨values, names, [], .assignment update expression⟩
+  | .argument, [.argument fallback, .declarations values names, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .argument none expression⟩
+  | .guardedArgument, [.argument fallback, .declarations values names, .capacity bound, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .argument (some bound) expression⟩
+  | .branching, [.argument fallback, .declarations values names, .literal comparison, .output yes, .output no] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .branching none comparison yes no⟩
+  | .guardedBranching, [.argument fallback, .declarations values names, .capacity bound, .literal comparison, .output yes, .output no] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .branching (some bound) comparison yes no⟩
+  | .result, [.argument fallback, .declarations values names, .literal comparison, .assignment yes, .assignment no, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .result none comparison yes no expression⟩
+  | .guardedResult, [.argument fallback, .declarations values names, .capacity bound, .literal comparison, .assignment yes, .assignment no, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .result (some bound) comparison yes no expression⟩
+  | _, _ => none
+
+theorem argument_declaration_valid : argumentDeclaration.Valid emptyShape .argument := by
+  simp [Declaration.Valid, argumentDeclaration, emptyShape, Bindings.Value.infer, Bindings.Value.PrintableLiterals]
+
+theorem prepend_argument {values : List Declaration} {names : BindingEnvironment}
+    (valid : DeclarationsValid argumentShape values names.shape) :
+    DeclarationsValid emptyShape (argumentDeclaration :: values) names.shape :=
+  .cons argument_declaration_valid valid
+
+theorem declarations_event_shape (events : List Event) (rest : List EventKind) :
+    events.map Event.kind = .declarations :: rest ↔
+      ∃ values names tail, events = .declarations values names :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
 
-theorem constant_declaration_shape (events : List Event) (second : Bool) (rest : List EventKind) :
-    events.map Event.kind = .constantDeclaration second :: rest ↔
-      ∃ name tail, events = .constantDeclaration second name :: tail ∧ tail.map Event.kind = rest := by
+theorem argument_event_shape (events : List Event) (rest : List EventKind) :
+    events.map Event.kind = .argument :: rest ↔
+      ∃ fallback tail, events = .argument fallback :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
 
-theorem reference_shape (events : List Event) (dynamic : Bool) (rest : List EventKind) :
-    events.map Event.kind = .reference dynamic :: rest ↔
-      ∃ tail, events = .reference dynamic :: tail ∧ tail.map Event.kind = rest := by
+theorem assignment_event_shape (events : List Event) (rest : List EventKind) :
+    events.map Event.kind = .assignment :: rest ↔
+      ∃ update tail, events = .assignment update :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
 
-theorem literal_shape (events : List Event) (role : LiteralRole) (rest : List EventKind) :
-    events.map Event.kind = .literal role :: rest ↔
-      ∃ bytes tail, events = .literal role bytes :: tail ∧ tail.map Event.kind = rest := by
+theorem literal_event_shape (events : List Event) (rest : List EventKind) :
+    events.map Event.kind = .literal :: rest ↔
+      ∃ bytes tail, events = .literal bytes :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
 
-theorem capacity_shape (events : List Event) (rest : List EventKind) :
+theorem capacity_event_shape (events : List Event) (rest : List EventKind) :
     events.map Event.kind = .capacity :: rest ↔
-      ∃ value tail, events = .capacity value :: tail ∧ tail.map Event.kind = rest := by
+      ∃ bound tail, events = .capacity bound :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
 
-theorem output_shape (events : List Event) (rest : List EventKind) :
+theorem output_event_shape (events : List Event) (rest : List EventKind) :
     events.map Event.kind = .output :: rest ↔
       ∃ expression tail, events = .output expression :: tail ∧ tail.map Event.kind = rest := by
   cases events with
@@ -53,245 +79,116 @@ theorem output_shape (events : List Event) (rest : List EventKind) :
 theorem decode_complete_spec {form : Form} {events : List Event}
     (shape : events.map Event.kind = form.tokens.filterMap ShellToken.eventKind) :
     ∃ program, decode form events = some program ∧
-      (StreamValid form 0 maxSourceLength events → program.Valid) := by
+      (StreamValid emptyShape maxSourceLength events → program.Valid) := by
   cases form with
   | direct =>
-      change events.map Event.kind = [.output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (output_shape _ _).mp shape
-      have empty := List.map_eq_nil_iff.mp shape0
-      subst tail0
+      change events.map Event.kind = [.declarations, .output] at shape
+      obtain ⟨value0, names0, tail0, rfl, shape0⟩ := (declarations_event_shape _ _).mp shape
+      obtain ⟨value1, tail1, rfl, shape1⟩ := (output_event_shape _ _).mp shape0
+      have empty := List.map_eq_nil_iff.mp shape1
+      subst tail1
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, Program.Valid, SafeExpression, Form.hasAssignment]
-  | static =>
-      change events.map Event.kind = [.declaration false, .literal .initial, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (output_shape _ _).mp shape1
-      have empty := List.map_eq_nil_iff.mp shape2
-      subst tail2
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, Form.hasAssignment]
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, List.length_nil]
+      exact ⟨stream.1, (by simp [Printable, Bindings.Printable]), (by simp [maxSourceLength]), stream.2⟩
   | assignment =>
-      change events.map Event.kind = [.declaration false, .literal .initial, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨tail2, rfl, shape2⟩ := (reference_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (output_shape _ _).mp shape3
-      have empty := List.map_eq_nil_iff.mp shape4
-      subst tail4
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, Form.hasAssignment]
-  | argument =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (output_shape _ _).mp shape1
+      change events.map Event.kind = [.declarations, .assignment, .output] at shape
+      obtain ⟨value0, names0, tail0, rfl, shape0⟩ := (declarations_event_shape _ _).mp shape
+      obtain ⟨value1, tail1, rfl, shape1⟩ := (assignment_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (output_event_shape _ _).mp shape1
       have empty := List.map_eq_nil_iff.mp shape2
       subst tail2
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, List.length_nil]
+      exact ⟨stream.1, (by simp [Printable, Bindings.Printable]), (by simp [maxSourceLength]), stream.2⟩
+  | argument =>
+      change events.map Event.kind = [.argument, .declarations, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (output_event_shape _ _).mp shape1
+      have empty := List.map_eq_nil_iff.mp shape2
+      subst tail2
+      refine ⟨_, rfl, ?_⟩
+      intro stream
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, ⟨Nat.le_refl _, stream.2.2.2⟩⟩
   | guardedArgument =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .reference true, .capacity, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨tail2, rfl, shape2⟩ := (reference_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (capacity_shape _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (output_shape _ _).mp shape3
+      change events.map Event.kind = [.argument, .declarations, .capacity, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (capacity_event_shape _ _).mp shape1
+      obtain ⟨value3, tail3, rfl, shape3⟩ := (output_event_shape _ _).mp shape2
+      have empty := List.map_eq_nil_iff.mp shape3
+      subst tail3
+      refine ⟨_, rfl, ?_⟩
+      intro stream
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, stream.2.2.2⟩
+  | branching =>
+      change events.map Event.kind = [.argument, .declarations, .literal, .output, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (literal_event_shape _ _).mp shape1
+      obtain ⟨value3, tail3, rfl, shape3⟩ := (output_event_shape _ _).mp shape2
+      obtain ⟨value4, tail4, rfl, shape4⟩ := (output_event_shape _ _).mp shape3
       have empty := List.map_eq_nil_iff.mp shape4
       subst tail4
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-  | branching =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .reference true, .literal .ordinary, .output, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨tail2, rfl, shape2⟩ := (reference_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (output_shape _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (output_shape _ _).mp shape4
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, ⟨Nat.le_refl _, stream.2.2.2⟩⟩
+  | guardedBranching =>
+      change events.map Event.kind = [.argument, .declarations, .capacity, .literal, .output, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (capacity_event_shape _ _).mp shape1
+      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_event_shape _ _).mp shape2
+      obtain ⟨value4, tail4, rfl, shape4⟩ := (output_event_shape _ _).mp shape3
+      obtain ⟨value5, tail5, rfl, shape5⟩ := (output_event_shape _ _).mp shape4
       have empty := List.map_eq_nil_iff.mp shape5
       subst tail5
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-  | guardedBranching =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .reference true, .capacity, .reference true, .literal .ordinary, .output, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨tail2, rfl, shape2⟩ := (reference_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (capacity_shape _ _).mp shape2
-      obtain ⟨tail4, rfl, shape4⟩ := (reference_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨value6, tail6, rfl, shape6⟩ := (output_shape _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (output_shape _ _).mp shape6
-      have empty := List.map_eq_nil_iff.mp shape7
-      subst tail7
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, stream.2.2.2⟩
   | result =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .declaration false, .literal .initial, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨tail4, rfl, shape4⟩ := (reference_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨tail6, rfl, shape6⟩ := (reference_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (literal_shape _ _ _).mp shape8
-      obtain ⟨value10, tail10, rfl, shape10⟩ := (output_shape _ _).mp shape9
-      have empty := List.map_eq_nil_iff.mp shape10
-      subst tail10
+      change events.map Event.kind = [.argument, .declarations, .literal, .assignment, .assignment, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (literal_event_shape _ _).mp shape1
+      obtain ⟨value3, tail3, rfl, shape3⟩ := (assignment_event_shape _ _).mp shape2
+      obtain ⟨value4, tail4, rfl, shape4⟩ := (assignment_event_shape _ _).mp shape3
+      obtain ⟨value5, tail5, rfl, shape5⟩ := (output_event_shape _ _).mp shape4
+      have empty := List.map_eq_nil_iff.mp shape5
+      subst tail5
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, ⟨Nat.le_refl _, stream.2.2.2⟩⟩
   | guardedResult =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .declaration false, .literal .initial, .reference true, .capacity, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨tail4, rfl, shape4⟩ := (reference_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (capacity_shape _ _).mp shape4
-      obtain ⟨tail6, rfl, shape6⟩ := (reference_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (literal_shape _ _ _).mp shape8
-      obtain ⟨tail10, rfl, shape10⟩ := (reference_shape _ _ _).mp shape9
-      obtain ⟨value11, tail11, rfl, shape11⟩ := (literal_shape _ _ _).mp shape10
-      obtain ⟨value12, tail12, rfl, shape12⟩ := (output_shape _ _).mp shape11
-      have empty := List.map_eq_nil_iff.mp shape12
-      subst tail12
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-
-  | assignmentOne =>
-      change events.map Event.kind = [.constantDeclaration false, .literal .constantOne, .declaration false, .literal .initial, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (constant_declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨tail4, rfl, shape4⟩ := (reference_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨value6, tail6, rfl, shape6⟩ := (output_shape _ _).mp shape5
+      change events.map Event.kind = [.argument, .declarations, .capacity, .literal, .assignment, .assignment, .output] at shape
+      obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
+      obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
+      obtain ⟨value2, tail2, rfl, shape2⟩ := (capacity_event_shape _ _).mp shape1
+      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_event_shape _ _).mp shape2
+      obtain ⟨value4, tail4, rfl, shape4⟩ := (assignment_event_shape _ _).mp shape3
+      obtain ⟨value5, tail5, rfl, shape5⟩ := (assignment_event_shape _ _).mp shape4
+      obtain ⟨value6, tail6, rfl, shape6⟩ := (output_event_shape _ _).mp shape5
       have empty := List.map_eq_nil_iff.mp shape6
       subst tail6
       refine ⟨_, rfl, ?_⟩
       intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, Form.hasAssignment]
-  | assignmentTwo =>
-      change events.map Event.kind = [.constantDeclaration false, .literal .constantOne, .constantDeclaration true, .literal .constantTwo, .declaration false, .literal .initial, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (constant_declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (constant_declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (declaration_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨tail6, rfl, shape6⟩ := (reference_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨value8, tail8, rfl, shape8⟩ := (output_shape _ _).mp shape7
-      have empty := List.map_eq_nil_iff.mp shape8
-      subst tail8
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, Form.hasAssignment]
-  | resultOne =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .constantDeclaration false, .literal .constantOne, .declaration false, .literal .initial, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (constant_declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (declaration_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨tail6, rfl, shape6⟩ := (reference_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (literal_shape _ _ _).mp shape8
-      obtain ⟨tail10, rfl, shape10⟩ := (reference_shape _ _ _).mp shape9
-      obtain ⟨value11, tail11, rfl, shape11⟩ := (literal_shape _ _ _).mp shape10
-      obtain ⟨value12, tail12, rfl, shape12⟩ := (output_shape _ _).mp shape11
-      have empty := List.map_eq_nil_iff.mp shape12
-      subst tail12
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-  | resultTwo =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .constantDeclaration false, .literal .constantOne, .constantDeclaration true, .literal .constantTwo, .declaration false, .literal .initial, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (constant_declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (constant_declaration_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨value6, tail6, rfl, shape6⟩ := (declaration_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (literal_shape _ _ _).mp shape8
-      obtain ⟨tail10, rfl, shape10⟩ := (reference_shape _ _ _).mp shape9
-      obtain ⟨value11, tail11, rfl, shape11⟩ := (literal_shape _ _ _).mp shape10
-      obtain ⟨tail12, rfl, shape12⟩ := (reference_shape _ _ _).mp shape11
-      obtain ⟨value13, tail13, rfl, shape13⟩ := (literal_shape _ _ _).mp shape12
-      obtain ⟨value14, tail14, rfl, shape14⟩ := (output_shape _ _).mp shape13
-      have empty := List.map_eq_nil_iff.mp shape14
-      subst tail14
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-  | guardedResultOne =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .constantDeclaration false, .literal .constantOne, .declaration false, .literal .initial, .reference true, .capacity, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (constant_declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (declaration_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨tail6, rfl, shape6⟩ := (reference_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (capacity_shape _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (literal_shape _ _ _).mp shape8
-      obtain ⟨tail10, rfl, shape10⟩ := (reference_shape _ _ _).mp shape9
-      obtain ⟨value11, tail11, rfl, shape11⟩ := (literal_shape _ _ _).mp shape10
-      obtain ⟨tail12, rfl, shape12⟩ := (reference_shape _ _ _).mp shape11
-      obtain ⟨value13, tail13, rfl, shape13⟩ := (literal_shape _ _ _).mp shape12
-      obtain ⟨value14, tail14, rfl, shape14⟩ := (output_shape _ _).mp shape13
-      have empty := List.map_eq_nil_iff.mp shape14
-      subst tail14
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
-  | guardedResultTwo =>
-      change events.map Event.kind = [.declaration true, .literal .ordinary, .constantDeclaration false, .literal .constantOne, .constantDeclaration true, .literal .constantTwo, .declaration false, .literal .initial, .reference true, .capacity, .reference true, .literal .ordinary, .reference false, .literal .assigned, .reference false, .literal .assigned, .output] at shape
-      obtain ⟨value0, tail0, rfl, shape0⟩ := (declaration_shape _ _ _).mp shape
-      obtain ⟨value1, tail1, rfl, shape1⟩ := (literal_shape _ _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (constant_declaration_shape _ _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_shape _ _ _).mp shape2
-      obtain ⟨value4, tail4, rfl, shape4⟩ := (constant_declaration_shape _ _ _).mp shape3
-      obtain ⟨value5, tail5, rfl, shape5⟩ := (literal_shape _ _ _).mp shape4
-      obtain ⟨value6, tail6, rfl, shape6⟩ := (declaration_shape _ _ _).mp shape5
-      obtain ⟨value7, tail7, rfl, shape7⟩ := (literal_shape _ _ _).mp shape6
-      obtain ⟨tail8, rfl, shape8⟩ := (reference_shape _ _ _).mp shape7
-      obtain ⟨value9, tail9, rfl, shape9⟩ := (capacity_shape _ _).mp shape8
-      obtain ⟨tail10, rfl, shape10⟩ := (reference_shape _ _ _).mp shape9
-      obtain ⟨value11, tail11, rfl, shape11⟩ := (literal_shape _ _ _).mp shape10
-      obtain ⟨tail12, rfl, shape12⟩ := (reference_shape _ _ _).mp shape11
-      obtain ⟨value13, tail13, rfl, shape13⟩ := (literal_shape _ _ _).mp shape12
-      obtain ⟨tail14, rfl, shape14⟩ := (reference_shape _ _ _).mp shape13
-      obtain ⟨value15, tail15, rfl, shape15⟩ := (literal_shape _ _ _).mp shape14
-      obtain ⟨value16, tail16, rfl, shape16⟩ := (output_shape _ _).mp shape15
-      have empty := List.map_eq_nil_iff.mp shape16
-      subst tail16
-      refine ⟨_, rfl, ?_⟩
-      intro stream
-      simp_all [StreamValid, LiteralDomain, Program.Valid, SafeExpression, Printable, effectiveCapacity, Form.hasAssignment]
+      simp only [StreamValid, and_true] at stream
+      simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
+      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, stream.2.2.2⟩
 
 theorem decode_complete {form : Form} {events : List Event}
     (shape : events.map Event.kind = form.tokens.filterMap ShellToken.eventKind) :
@@ -299,29 +196,26 @@ theorem decode_complete {form : Form} {events : List Event}
   obtain ⟨program, decoded, _⟩ := decode_complete_spec shape
   exact ⟨program, decoded⟩
 
-theorem decode_complete_valid {form : Form} {events : List Event}
-    (shape : events.map Event.kind = form.tokens.filterMap ShellToken.eventKind)
-    (stream : StreamValid form 0 maxSourceLength events) :
-    ∃ program, decode form events = some program ∧ program.Valid := by
-  obtain ⟨program, decoded, valid⟩ := decode_complete_spec shape
-  exact ⟨program, decoded, valid stream⟩
-
 theorem decoded_valid {source : Source} {form : Form} {events : List Event}
     (meaning : SourceMeaning source form events) :
-    ∃ program, decode form events = some program ∧ program.Valid :=
-  decode_complete_valid (meaning_eventKinds meaning) (meaning_stream_valid meaning)
+    ∃ program, decode form events = some program ∧ program.Valid := by
+  obtain ⟨program, decoded, valid⟩ := decode_complete_spec (meaning_eventKinds meaning)
+  exact ⟨program, decoded, valid (meaning_stream_valid meaning)⟩
 
 theorem null_compose_disjoint (source : Source) : ¬ (Silver.Member source ∧ Member source) := by
-  rintro ⟨nullMember, composed⟩
-  obtain ⟨form, member⟩ := composed
+  rintro ⟨nullMember, form, member⟩
   obtain ⟨events, parsed⟩ := member.2.2.2
   obtain ⟨tokens, spelling⟩ : ∃ tokens, form.tokens = .fixed "with" true :: tokens := by
     cases form <;> exact ⟨_, rfl⟩
   rw [spelling] at parsed
   cases parsed with
-  | next positive first rest =>
-    cases first with
-    | fixed matched =>
+  | next first rest =>
+      have accepted := first.following
+      rw [← first.scanned] at accepted
+      have matched : fixedAt source (Cursor.triviaPosition source 1) "with" true = true := by
+        by_cases found : fixedAt source (Cursor.triviaPosition source 1) "with" true = true
+        · exact found
+        · simp [step, initialState, fixedAfter, found] at accepted
       have nullParsed := (Cursor.isMember_iff source).mpr nullMember
       change (_ && _ && (Cursor.tokenAt source (Cursor.triviaPosition source 1)
         .procedureKeyword && _)) = true at nullParsed
@@ -331,7 +225,7 @@ theorem null_compose_disjoint (source : Source) : ¬ (Silver.Member source ∧ M
       simp only [fixedAt, Bool.and_eq_true, decide_eq_true_eq] at matched
       have firstNull := nullToken.1.2 ⟨0, by decide⟩
       have firstOutput := matched.1.2 ⟨0, by decide⟩
-      simp [Silver.Token.spelling, initialState] at firstNull firstOutput
+      simp [Silver.Token.spelling] at firstNull firstOutput
       omega
 
 theorem meaning_argument_selector {source : Source} {form : Form} {events : List Event}
@@ -343,4 +237,3 @@ theorem meaning_assignment_selector {source : Source} {form : Form} {events : Li
   simp [hasAssignment, meaning.2.1]
 
 end Silver.Compose
-

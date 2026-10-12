@@ -126,11 +126,6 @@ class ProofEvidenceTests(unittest.TestCase):
             with self.subTest(field=field, value=value), self.assertRaises(EvidenceError):
                 audit_reports(self.path, {"main"}, application_kind="assigned")
         self.prepare_assignment()
-        self.report["flow"] *= 2
-        (self.path / "main.spark").write_text(json.dumps(self.report))
-        with self.assertRaises(EvidenceError):
-            audit_reports(self.path, {"main"}, application_kind="assigned")
-        self.prepare_assignment()
         self.report["proof"] = [{"severity": "info", "rule": "VC_LENGTH_CHECK"}]
         (self.path / "main.spark").write_text(json.dumps(self.report))
         with self.assertRaises(EvidenceError):
@@ -254,27 +249,23 @@ class ProofEvidenceTests(unittest.TestCase):
             result.update(kind="open", level="warning")
         (self.path / "gnatprove.sarif").write_text(json.dumps(sarif))
 
-    def test_composed_policies_accept_ranges_with_only_mutable_advisories(self) -> None:
+    def test_composed_policies_accept_ranges_with_initializer_advisories(self) -> None:
         for kind in ("static", "argument", "assigned", "selected"):
             for count in (0, 1, 30):
                 for warning in (False, True):
                     self.prepare_composed(kind, warning=warning, count=count)
                     self.refresh_composed()
                     with self.subTest(kind=kind, count=count, warning=warning):
-                        if warning and kind not in ("assigned", "selected"):
-                            with self.assertRaises(EvidenceError):
-                                audit_reports(self.path, {"main"}, application_kind=kind)
-                        else:
-                            stats = audit_reports(self.path, {"main"}, application_kind=kind)
-                            self.assertEqual(stats["proof_checks"], count)
-                            self.assertEqual(stats["flow_checks"], 0)
+                        stats = audit_reports(self.path, {"main"}, application_kind=kind)
+                        self.assertEqual(stats["proof_checks"], count)
+                        self.assertEqual(stats["flow_checks"], 0)
                     wrong = "static" if kind in ("argument", "selected") else "argument"
                     with self.assertRaises(EvidenceError):
                         audit_reports(self.path, {"main"}, application_kind=wrong)
 
     def test_composed_ranges_reject_consistently_mutated_checks(self) -> None:
         changes = (("severity", "low"), ("how_proved", "trivial"),
-                   ("rule", "VC_LENGTH_CHECK"), ("file", "./main.adb"),
+                   ("rule", "VC_OVERFLOW_CHECK"), ("file", "./main.adb"),
                    ("entity", 2), ("line", 0), ("col", 0),
                    ("justification", ""), ("suppressed", False))
         for kind in ("static", "argument", "assigned", "selected"):
@@ -287,17 +278,76 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_composed_advisories_cannot_reference_callees_or_hide_extra_diagnostics(self) -> None:
         for kind in ("assigned", "selected"):
-            for change in ("callee", "duplicate", "unused"):
+            for change in ("callee", "unknown", "ghost"):
                 self.prepare_composed(kind, warning=True)
                 if change == "callee":
                     self.report["flow"][0]["entity"] = 2
-                elif change == "duplicate":
-                    self.report["flow"] *= 2
+                elif change == "unknown":
+                    self.report["flow"][0]["message"]["text"] = "unused assignment "
                 else:
-                    self.report["flow"][0]["message"]["text"] = "unused assignment"
+                    self.report["flow"][0]["message"]["text"] = (
+                        '"Written_Count" is set by "Put_Line" but not used after the call')
                 self.refresh_composed()
                 with self.subTest(kind=kind, change=change), self.assertRaises(EvidenceError):
                     audit_reports(self.path, {"main"}, application_kind=kind)
+
+    def test_binding_advisory_lists_and_exact_unused_assignment_scope(self) -> None:
+        for kind in ("static", "argument", "assigned", "selected"):
+            for bare in (False, True):
+                self.prepare_composed(kind, warning=True, count=0)
+                if bare:
+                    self.report["entities"] = {" 1": self.report["entities"][" 1"]}
+                    self.report["assumptions"] = []
+                advisory = self.report["flow"][0]
+                self.report["flow"] = [dict(advisory, message={
+                    "text": f'initialization of "Value_{i}" has no effect'}) for i in range(3)]
+                self.refresh_composed()
+                stats = audit_reports(self.path, {"main"}, application_kind=kind)
+                self.assertEqual((stats["flow_checks"], stats["assignment_advisories"]), (0, 3))
+                self.report["flow"].append(dict(advisory, message={"text": "unused assignment"}))
+                self.refresh_composed()
+                with self.subTest(kind=kind, bare=bare):
+                    if kind in ("assigned", "selected"):
+                        stats = audit_reports(self.path, {"main"}, application_kind=kind)
+                        self.assertEqual(stats["assignment_advisories"], 4)
+                    else:
+                        with self.assertRaises(EvidenceError):
+                            audit_reports(self.path, {"main"}, application_kind=kind)
+
+    def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
+        for kind in ("static", "argument"):
+            self.prepare_composed(kind, warning=False, count=0)
+            self.report["entities"] = {" 1": self.report["entities"][" 1"]}
+            self.report["assumptions"] = []
+            self.refresh_composed()
+            with self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, application_kind=kind)
+
+    def test_length_check_policy_rejects_consistent_mutations(self) -> None:
+        changes = (("severity", "warning"), ("severity", "low"),
+                   ("how_proved", "flow"), ("how_proved", "trivial"),
+                   ("rule", "VC_OVERFLOW_CHECK"), ("file", "./main.adb"),
+                   ("entity", 2), ("line", 0), ("col", 0),
+                   ("justification", ""), ("justified", False), ("suppressed", False),
+                   ("annot_kind", ""), ("justif_msg", ""))
+        for kind in ("static", "argument", "assigned", "selected"):
+            self.prepare_composed(kind, warning=True, count=1)
+            self.report["proof"][0]["rule"] = "VC_LENGTH_CHECK"
+            self.refresh_composed()
+            self.assertEqual(audit_reports(self.path, {"main"}, application_kind=kind)["proof_checks"], 1)
+            base = copy.deepcopy(self.report)
+            for field, value in changes:
+                self.report = copy.deepcopy(base)
+                self.report["proof"][0][field] = value
+                self.refresh_composed()
+                with self.subTest(kind=kind, field=field), self.assertRaises(EvidenceError):
+                    audit_reports(self.path, {"main"}, application_kind=kind)
+            self.report = copy.deepcopy(base)
+            self.report["entities"] = {" 1": self.report["entities"][" 1"]}
+            self.report["assumptions"] = []
+            self.refresh_composed()
+            with self.assertRaises(EvidenceError):
+                audit_reports(self.path, {"main"}, application_kind=kind)
 
     def test_composed_policy_selection_is_explicit_and_validated(self) -> None:
         self.prepare_composed("static")

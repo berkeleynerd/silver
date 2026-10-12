@@ -1,7 +1,7 @@
 package body Silver_Library_Reports with SPARK_Mode => On is
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
-      Static_Main, Main_Body, Assignment_Main, Assignment_Effects, Selected_Main);
+      Static_Main, Main_Body, Binding_Main, Assignment_Main, Assignment_Effects, Selected_Main);
    subtype Application_Audit is Audit_Kind range Static_Main .. Selected_Main;
    subtype Mutable_Audit is Audit_Kind range Assignment_Main .. Selected_Main;
    function Audit_Of (Kind : Report_Kind) return Audit_Kind is
@@ -14,6 +14,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_Empty : constant String := "";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_warning : constant String := "warning";
+   Atom_unused_assignment : constant String := "unused assignment";
    Atom_CLAIM_AORTE : constant String := "CLAIM_AORTE";
    Atom_CLAIM_EFFECTS : constant String := "CLAIM_EFFECTS";
    Atom_CLAIM_POST : constant String := "CLAIM_POST";
@@ -36,6 +37,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_Silver_Runtime_Set_Exit_Status : constant String := "Silver_Runtime.Set_Exit_Status";
    Atom_VC_POSTCONDITION : constant String := "VC_POSTCONDITION";
    Atom_VC_RANGE_CHECK : constant String := "VC_RANGE_CHECK";
+   Atom_VC_LENGTH_CHECK : constant String := "VC_LENGTH_CHECK";
    Atom_all : constant String := "all";
    Atom_info : constant String := "info";
    Atom_main_adb : constant String := "main.adb";
@@ -751,8 +753,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Entity_Name (Text, Entity) /= Unknown;
    end Reference_OK;
 
-   --  This advisory describes a deliberately overwritten initializer, not a
-   --  failed safety obligation. Its exact GNAT message contains one Ada name.
+   --  This advisory describes an unused initialized value, not a failed safety
+   --  obligation. Its exact GNAT message contains one Ada name.
    function Initializer_Message (Text : String; Item : Span) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
@@ -771,7 +773,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           Text (I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
           and then (if Text (I) = '_' then Text (I - 1) /= '_')));
 
-   type List_Kind is (Checks, Main_Checks, Assignment_Diagnostics, References, Postconditions, Argument_Postconditions);
+   type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Assignment_Diagnostics,
+                      References, Postconditions, Argument_Postconditions);
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean
      with Ghost => Static, Global => null,
@@ -780,7 +783,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Reference_Policy (Text, Entities, Item)
-      elsif Kind = Assignment_Diagnostics then
+      elsif Kind in Binding_Diagnostics | Assignment_Diagnostics then
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
@@ -789,8 +792,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
           (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
-        and then Initializer_Message (Text, Field_Spec
+        and then (Initializer_Message (Text, Field_Spec
           (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
+          or else (Kind = Assignment_Diagnostics and then String_Equal (Text, Field_Spec
+            (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_unused_assignment)))
         and then Field_Spec (Text, Item, JSON_justification) = Missing
         and then Field_Spec (Text, Item, JSON_justified) = Missing
         and then Field_Spec (Text, Item, JSON_suppressed) = Missing
@@ -813,7 +818,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then
           (if Kind = Main_Checks then
              String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_prover)
-             and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
+             and then (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
              and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
              and then Entity_Name_Spec (Text, Referenced_Entity_Spec
                (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
@@ -839,7 +845,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item); end if;
-      if Kind = Assignment_Diagnostics then
+      if Kind in Binding_Diagnostics | Assignment_Diagnostics then
          return
         String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field (Text, Item, JSON_how_proved), JSON_flow)
@@ -849,8 +855,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
         and then Entity_Name (Text, Referenced_Entity
           (Text, Entities, Field (Text, Item, JSON_entity))) = Main_Entity
-        and then Initializer_Message (Text, Field
+        and then (Initializer_Message (Text, Field
           (Text, Field (Text, Item, JSON_message), JSON_text))
+          or else (Kind = Assignment_Diagnostics and then String_Equal (Text, Field
+            (Text, Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment)))
         and then Field (Text, Item, JSON_justification) = Missing
         and then Field (Text, Item, JSON_justified) = Missing
         and then Field (Text, Item, JSON_suppressed) = Missing
@@ -868,7 +876,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Kind = Main_Checks then
          return String_Equal (Text, Field (Text, Item, JSON_severity), Atom_info)
            and then String_Equal (Text, How, Atom_prover)
-           and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
+           and then (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
            and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
            and then Positive_Number (Text, Field (Text, Item, JSON_line))
            and then Positive_Number (Text, Field (Text, Item, JSON_col))
@@ -901,33 +910,6 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Entity_Name (Text, Referenced_Entity
           (Text, Entities, Field (Text, Item, JSON_entity))) /= Unknown;
    end Record_OK;
-
-   function Assignment_Flow_Spec (Text : String; Items, Entities : Span) return Boolean
-     with Ghost => Static, Global => null,
-       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
-
-   function Assignment_Flow_Spec (Text : String; Items, Entities : Span) return Boolean is
-     (Valid (Text, Items) and then Text (Items.First) = '[' and then Text (Items.Last) = ']'
-      and then (declare M : constant Member := Item_Spec (Text, Items, Items.First + 1);
-                begin M.State = Finished or else
-                  (M.State = Present
-                   and then Record_Policy (Text, M.Value, Entities, Assignment_Diagnostics)
-                   and then Item_Spec (Text, Items, M.Next).State = Finished)));
-
-   function Assignment_Flow_OK (Text : String; Items, Entities : Span) return Boolean
-     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
-       Post => (Static => Assignment_Flow_OK'Result = Assignment_Flow_Spec (Text, Items, Entities))
-   is
-      M : Member;
-   begin
-      if not Valid (Text, Items) or else Text (Items.First) /= '[' or else Text (Items.Last) /= ']'
-      then return False; end if;
-      M := Read_Item (Text, Items, Items.First + 1);
-      return M.State = Finished or else
-        (M.State = Present
-         and then Record_OK (Text, M.Value, Entities, Assignment_Diagnostics)
-         and then Read_Item (Text, Items, M.Next).State = Finished);
-   end Assignment_Flow_OK;
 
    type List_Summary is record
       Well_Formed : Boolean;
@@ -1086,7 +1068,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Argv_Interface => Name in Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status,
         when Main_Body | Selected_Main =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put_Line,
-        when Assignment_Main => Name = Main_Entity,
+        when Binding_Main | Assignment_Main => Name = Main_Entity,
         when Static_Main | Assignment_Effects => Name in Main_Entity | Put_Line);
 
    function Expected_Coverage (Name : Entity_Kind; Kind : Audit_Kind)
@@ -1299,16 +1281,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error))
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
-        and then (if Kind in Mutable_Audit then
-          Assignment_Flow_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities)
-         elsif Kind in Static_Main | Main_Body then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_flow))
-         else List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
-                        (if Kind in Application_Audit then Main_Checks else Checks)))
-        and then (if Kind = Assignment_Main then
+        and then (Kind /= Binding_Main or else
+          not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_flow)))
+        and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
+          (if Kind in Mutable_Audit then Assignment_Diagnostics
+           elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
+        and then (if Kind in Binding_Main | Assignment_Main then
           Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_proof))
          else List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
                         (if Kind in Application_Audit then Main_Checks else Checks)))
-        and then (if Kind = Assignment_Main then
+        and then (if Kind in Binding_Main | Assignment_Main then
           Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_assumptions))
          else Dependencies_Spec (Text, Field_Spec (Text, Object, JSON_assumptions), Entities))
         and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
@@ -1335,8 +1317,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean is
      (case Kind is
-        when Static_Output => Report_Policy (Report, Static_Main),
-        when Argument_Output => Report_Policy (Report, Main_Body),
+        when Static_Output => Report_Policy (Report, Binding_Main)
+          or else Report_Policy (Report, Static_Main),
+        when Argument_Output => Report_Policy (Report, Binding_Main)
+          or else Report_Policy (Report, Main_Body),
         when Assigned_Output => Report_Policy (Report, Assignment_Main)
           or else Report_Policy (Report, Assignment_Effects),
         when Selected_Output => Report_Policy (Report, Assignment_Main)
@@ -1370,16 +1354,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Empty_Array (Text, Field (Text, Object, JSON_warn_error))
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)
-           and then (if Kind in Mutable_Audit then
-             Assignment_Flow_OK (Text, Field (Text, Object, JSON_flow), Entities)
-            elsif Kind in Static_Main | Main_Body then Empty_Array (Text, Field (Text, Object, JSON_flow))
-            else List_OK (Text, Field (Text, Object, JSON_flow), Entities,
-                          (if Kind in Application_Audit then Main_Checks else Checks)))
-           and then (if Kind = Assignment_Main then
+           and then (Kind /= Binding_Main or else
+             not Empty_Array (Text, Field (Text, Object, JSON_flow)))
+           and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,
+             (if Kind in Mutable_Audit then Assignment_Diagnostics
+              elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
+           and then (if Kind in Binding_Main | Assignment_Main then
              Empty_Array (Text, Field (Text, Object, JSON_proof))
             else List_OK (Text, Field (Text, Object, JSON_proof), Entities,
                           (if Kind in Application_Audit then Main_Checks else Checks)))
-           and then (if Kind = Assignment_Main then
+           and then (if Kind in Binding_Main | Assignment_Main then
              Empty_Array (Text, Field (Text, Object, JSON_assumptions))
             else Dependencies_OK (Text, Field (Text, Object, JSON_assumptions), Entities))
            and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
@@ -1399,8 +1383,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean is
    begin
       return (case Kind is
-        when Static_Output => Audit_Report (Report, Static_Main),
-        when Argument_Output => Audit_Report (Report, Main_Body),
+        when Static_Output => Audit_Report (Report, Binding_Main)
+          or else Audit_Report (Report, Static_Main),
+        when Argument_Output => Audit_Report (Report, Binding_Main)
+          or else Audit_Report (Report, Main_Body),
         when Assigned_Output => Audit_Report (Report, Assignment_Main)
           or else Audit_Report (Report, Assignment_Effects),
         when Selected_Output => Audit_Report (Report, Assignment_Main)
