@@ -1,14 +1,138 @@
 # Generalizing Silver's current features
 
-Assessment on 2026-10-10 against the seven-production implementation `d630229`,
-requested alongside the next [roadmap item](../roadmap.md#input-dependent-branching).
-The owner subsequently authorized beginning the
-[ordered sequence](../roadmap.md#current-development-sequence); the selected
-[branching increment](input-branching.md) is complete. The broader expressions,
-assignments and output sequences proposed below remain future work. Consult
-[language.md](../language.md) for current support. The Oracle is unchanged.
+## 2026-10-12: current consolidation assessment
 
-## Recommendation
+The owner asked to review the existing capabilities, put their generalization
+at the beginning of the roadmap, and drive them to closure. The
+[consolidation sequence](../roadmap.md#current-development-sequence) now takes
+priority over accumulating more special-case program shapes. This assessment
+uses the supported Copy String Values baseline `e9d18f1996`; the partial
+Repeated Output edit is unfinished and does not expand current support.
+The [language specification](../language.md), [assurance claims](assurance.md)
+and [Oracle](../oracle.md) remain authoritative.
+
+### What is supported, and what is being counted
+
+The existing language has a universal assurance argument for every admitted
+source in its specified narrow grammars, subject to the documented tool and
+external-runtime premises. It is not limited to the sample texts. That guarantee
+does not imply that each admitted construct can be repeated or combined in
+arbitrary Ada contexts.
+
+| Count | Meaning |
+| --- | --- |
+| 10 completed language milestones | Null baseline; literal output; named String constant; command-line message; literal-backed greeting; guarded command-line greeting; fixed-length String assignment; input-dependent branching; Compose String Results; Copy String Values. Workflow and proof-performance projects are excluded. |
+| 7 current grammar families | Six output shells plus the separate null shell. |
+| 16 concrete program forms | Fifteen output variants, plus null. Capacity guards and optional constant declarations account for variants within the six output shells. |
+| 23 catalogue construct identifiers | Includes Main/pragma/context scaffolding and overlapping descriptions of output and expression syntax. These are not 23 independent, fully generalized language features. |
+
+These counts answer different questions. None measures unrestricted support for
+full SPARK String operations, assignment, conditionals or I/O. The present
+[composition rules](../language.md#shared-composition-rules) explicitly describe
+complete program grammars, not independently repeatable capabilities.
+
+### Closure target
+
+Close a deliberately specified fragment built from the existing String values,
+literals, names, declarations, copies, assignments, concatenation, predicates,
+conditionals, null statements, output and admitted argv APIs. An admitted
+component should compose wherever its explicit typing, initialization, length,
+control-flow and effect conditions hold. Its position in one of the old whole
+program templates should not be an additional requirement.
+
+The target uses finite source expressions and statement trees, including finite
+sequencing and nested conditionals. It preserves inherited Ada/SPARK meaning:
+String assignment does not resize the target, copying captures the source value
+at that point, and a returning output failure does not skip subsequent source
+statements. It does not implicitly admit loops, recursion, application-defined
+subprograms, arbitrary library calls, indexing, slicing, conversions or other
+String/array operations. Those require their own explicit rules and assurance.
+
+Use shared rules rather than one new template for every combination. A finite
+binding environment should record names, mutability, initialization and object
+bounds; one expression judgment should supply value and length facts in every
+admitted context; statement judgments should preserve those facts through
+sequencing and branch joins; an effect model should compose the observable
+calls and process status.
+
+This is a closure objective within an explicit fragment, not a promise of a
+uniquely maximal decidable subset of all automatically provable SPARK programs.
+Membership must remain independent of whether a particular prover run happens
+to succeed. Safety proofs, complete obligation discharge and source
+correspondence remain necessary for the entire admitted fragment.
+
+### Restriction inventory and closure criteria
+
+| Area | Supported restriction | Closure target and required argument |
+| --- | --- | --- |
+| Literals, names and trivia | General printable-ASCII literals, empty Strings, escaped quotes, comments and case-insensitive binding under the source bound | Preserve this existing generality. Reuse lexical rules throughout the grammar; retain documented character and identifier policies rather than inventing restrictions for particular examples. |
+| Declarations and bindings | One static binding, or one mutable result with at most two additional literal-backed constants; declarations occupy fixed positions | Finite declarations throughout the selected declaration region, limited by justified resource policies. Enforce scope, case-insensitive uniqueness, declaration order, mutability and initialization using a shared environment. No independent one-variable or two-constant limit without a stated need. |
+| Initialization and copies | Result initialization/RHS accepts a literal or preceding literal-backed constant; constant aliases, mutable sources and expression initializers are excluded | Use the common expression and binding rules for initialization and copies. Preserve exact values, snapshot semantics and fixed object bounds. Admit initialized sources wherever compatibility is established; do not substitute a mutable name's later value for an earlier copy. |
+| String expressions | Flat chains of 1–16 operands, at most one dynamic reference, used only in output | Use one expression grammar in every admitted value position, including compatible initializers/RHS values and comparisons. Support parentheses, nested concatenation and repeated dynamic references under multiplicity-aware length accounting and bounds on every intermediate result. Remove the independent operand/reference limits once the corresponding arithmetic, solver and report-capacity arguments are established. |
+| Assignments and null | One assignment per executed path, one mutable target, compulsory result use and no self-assignment; null is a separate whole program | Close finite statement sequencing over the admitted operations. Check initialization, target mutability and equal lengths at every assignment. Harmless self-assignment, unused values and overwritten stores should not be excluded merely to retain a template; classify any resulting native diagnostics precisely. Null acts as a no-op within the admitted statement grammar. |
+| Predicates, guards and branches | Two exact outer guards and one input-name/literal equality in fixed branch shapes | Define a decidable predicate/fact language for the existing validity, length and String-equality operations. Compose finite conditional trees with path facts and sound joins for initialization, bounds and state. Do not extend this claim to arbitrary Boolean computations or function calls. |
+| Output effects | One terminal `Put_Line` per executed path | Compose finite calls with no separate four-call limit. Check each argument independently; preserve call order, accepted-byte observations, individual flush results and sticky failure status while continuing after returning failures. Total output depends on the selected call list and is not limited to one line. |
+| Existing argv APIs | One immutable input binding under a fixed validity/capacity/rejection shell | Allow the admitted API operations to compose with the shared declarations, expressions and statements while preserving the immutable argument snapshot, defined invalid/default behavior and required guard facts. Multiple positional inputs or new interpretations require a separate API extension, not an implied relaxation. |
+
+For the current single dynamic value, repeated references can use a bound of
+`W + k * C <= 4096`, where `W` includes every fixed-length occurrence and `k`
+counts dynamic occurrences. More independent values require corresponding
+combined bounds. This describes compiler reasoning; it neither admits new
+application arithmetic nor licenses an overflowing intermediate computation.
+Compatible assignment requires equality with the target's fixed length under
+the established facts, not merely fitting the output limit.
+
+### Resource limits, tooling and the completion test
+
+The current 4096-byte source bound, 4096-byte per-call output domain,
+16-operand limit and proof-report capacities are explicit Silver implementation
+or resource policies, not SPARK Silver-level rules. Review every retained bound:
+state its purpose, distinguish semantic requirements from implementation
+capacity, verify its enforcement and prove that downstream tooling can handle
+every admitted case. Derive finite call/declaration counts from source size
+where possible instead of imposing another unrelated template count.
+
+Removing a grammar limit alone does not close a feature. More expressions,
+assignments and branches can increase generated obligations, diagnostics and
+report bytes. The compiler currently has a 262,144-byte report domain. A
+preliminary estimate discussed for 77 repeated 16-operand output calls was about
+1,155 checks and 2.2 MB of report data. **That repeated-call case has not been
+measured**: the figures extrapolate from a retained single-call example and are
+not a verified worst-case bound or current validation evidence. Focused native
+experiments and a justified report-capacity/completeness argument are required;
+silently truncating reports, suppressing obligations or accepting all warnings
+would not satisfy the gate.
+
+Closure is complete only when the specification and catalogue describe the
+shared rules, the compiler admits precisely that fragment, the same author
+source is proved and compiled, and universal binding/state/effect semantics,
+source correspondence and complete automatic discharge cover all permitted
+compositions. Boundary and interaction tests supplement those arguments.
+Follow the existing [validation workflow](../development.md#proof-loop-and-validation)
+and preserve successful caches; this assessment does not add an approval
+ceremony or require optional independent kernel replay.
+
+A catalogue consistency repair is tracked separately: the
+`selected_result_output.initializers` metadata in
+[catalogue/silver.json](../catalogue/silver.json) and its
+[SPARK exporter](../src/silver_catalogue.adb) omits
+`preceding_literal_constant_identifier`, although current result initialization
+admits it and neighboring operand metadata includes it. Reconcile both exports
+and their checks during the restriction inventory. This document records the
+pending discrepancy; it does not change the catalogue or admitted language.
+
+## 2026-10-10: historical assessment, partly superseded
+
+The following assessment was written against the seven-production
+implementation `d630229`. Its references to “current” scope and future work
+refer to that baseline. Bounded output expressions, tighter capacity guards and
+branch-selected results have since shipped, and Copy String Values partially
+addresses its declaration/copy proposal. Repeated assignments/output and
+additional argv operations remain unfinished. Preserve the analysis below as
+history; use the current assessment above and
+[language.md](../language.md) for present status.
+
+### Recommendation
 
 Several restrictions can usefully become composition rules. After the selected
 input-dependent branching increment, prioritize **bounded String expressions in
@@ -38,7 +162,7 @@ not require implementing the expression generalization first.
 | Repeated output | Multiple lines with a documented complete-program effect | Calls continue after a returning failure; per-call observations do not describe cumulative output | Separate later capability |
 | More argv operations | Multiple positional inputs or other interpretations | New API domains, indexing, validity/failure rules and runtime correspondence | Defer until an application needs them |
 
-## First follow-up: bounded output expressions
+### First follow-up: bounded output expressions
 
 A small proposed grammar is:
 
@@ -103,7 +227,7 @@ target particular productions; a general-looking expression datatype alone
 does not prove the broader language. This is a capability increment with real
 proof work, not a recognizer-only relaxation.
 
-## Later: compute a fixed-length result, then render it
+### Later: compute a fixed-length result, then render it
 
 The existing assignment rule can generalize from one literal replacement to
 compatible expressions and control flow. A useful motivating body is:
@@ -138,7 +262,7 @@ restricted. Add extra bindings or statement sequencing to serve actual data
 flow, with explicit name resolution and state semantics, rather than bundling
 all variations into the first expression increment.
 
-## Repeated I/O has a distinct effect contract
+### Repeated I/O has a distinct effect contract
 
 The actual [Put_Line body](../src/silver_io.adb) sets exit status 1 and returns
 on a detected failure. A later successful call **does not reset that status**.
@@ -156,7 +280,7 @@ do not bound the total output when values can be reused. The
 this composition obligation. Repeated I/O is useful but should have its own
 multiline application and complete effect specification.
 
-## Proof and implementation scope
+### Proof and implementation scope
 
 Keep membership decidable from the actual source, independently of prover
 success. Begin each authorized capability with native obligation experiments,

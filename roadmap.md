@@ -14,40 +14,81 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-The branching checkpoint exposed a long serial source-certificate rebuild.
-Batch complete source-correspondence runs at the end of the session or day,
-using focused native/model checks during iteration as described in
-[the workflow](development.md#proof-loop-and-validation). The authorized
-[bounded compartmentalization](docs/lean-compartmentalization.md) is complete
-and adopted after measurements and full Linux validation. It isolates per-file
-dependencies and stable lexical/name helpers while retaining complete authoritative
-byte coverage and semantic correspondence. Changed-body checking and whole-project
-replay remain expensive. The subsequent [focused-runner follow-up](docs/lean-iteration.md)
-is complete: synchronized module targets for iteration, complete cached assurance
-at stable checkpoints, and optional standalone replay/detailed provenance. No
-further certificate infrastructure is part of these optimizations.
+**First priority: close the existing features under composition.** On 2026-10-12
+the owner asked to revisit the implemented capabilities, maximize their useful
+scope within the Oracle's automatic Bronze/Silver guarantee, and put this work
+ahead of further isolated feature increments. The
+[current assessment](docs/language-generalization.md) records the inventory,
+restrictions and implementation implications.
 
-Input-dependent branching is complete with full Linux validation. On 2026-10-11
-the owner authorized **[Compose String Results](docs/string-results.md)**:
-bounded output expressions and a branch-selected fixed-length result in one
-goal, sharing a stable final validation checkpoint. Both are now supported,
-with complete Linux validation. The owner subsequently authorized
-**[Copy String Values](docs/copy-values.md)** after the desktop-host readiness
-check; implementation and full Linux validation are complete. Repeated
-output remains proposed and requires a new owner instruction.
+Here, **closed** means that a feature works throughout an explicitly specified
+fragment of the existing constructs, wherever the shared binding, initialization,
+length, control-flow and effect rules permit it. It does not mean support for all
+Ada/SPARK or a claim to recognize every program that an external prover might
+prove. A completed narrow milestone is not evidence of that broader closure.
+The existing language retains its assurance; the extensions below are targets,
+not newly admitted syntax.
 
-| Order | Item | Status and bounded scope |
+| Order | Work item | Required result before calling the area closed |
 | --- | --- | --- |
-| 1 | [Input-dependent branching](#input-dependent-branching) | **Supported.** One equality on immutable validated argv, selecting two terminal literal outputs; [completed validation](docs/input-branching.md). |
-| 2 | Bounded String output expressions | **Supported.** One through sixteen literals/existing names in flat `&` chains across output positions, counting repeated static references. At most one dynamic reference per expression and tighter safe capacity guards; [completed validation](docs/string-results.md). |
-| 3 | Branch-selected fixed-length result | **Supported.** One mutable result alongside immutable input, equal-length literal branch assignments, and one common terminal output with proved initialization and bounds at the join; [completed validation](docs/string-results.md). |
-| 4 | Additional initialized bindings and compatible copies | **Supported:** [Copy String Values](docs/copy-values.md). Up to two literal-backed constants in assignment/result shells, named result initialization, equal-length constant copies and constant references in bounded output. Retain one mutable result and fixed control flow. |
-| 5 | Repeated output | **Proposed.** A multiline application with explicit cumulative output and failure behavior; choose continued attempts or stopping after failure before implementing the composition. |
+| 1 | Restrictions and capacity audit | Account for every existing construct and restriction. Distinguish semantic requirements, library contracts, resource limits and staging choices. Resolve catalogue inconsistencies; measure dense source, proof-report and translation cases needed by the broader fragment. |
+| 2 | Declarations, names and copies | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. |
+| 3 | String expressions | One expression judgment for literals, names, concatenation and parentheses in initialization, assignment, comparison and output. Count repeated static and dynamic occurrences and prove every intermediate bound. Resolve the sixteen-operand limit through explicit capacity evidence, not an unexplained replacement threshold. |
+| 4 | Statement sequencing and assignment | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
+| 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. |
+| 6 | Output effects | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. |
+| 7 | Existing argument operations | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. New positional-argument APIs are a separate capability. |
 
-The [generalization assessment](docs/language-generalization.md) explains the
-benefits, limits and deferred alternatives. Later rows are queued directions,
-not part of the completed combined goal. Multiple argv operations,
-resizable strings and arbitrary statements remain outside this sequence.
+These are dependency priorities, not seven isolated implementations. Shared
+declaration, expression and statement rules should replace the need to enumerate
+another complete-program template for every combination. Develop coupled rows
+together where their interactions require it. Literals, escaping, comments,
+whitespace and case-insensitive names already vary throughout their declared
+lexical domain; preserve that coverage in the generalized grammar.
+
+### Completion criteria
+
+For each area, enumerate its admitted forms, legal positions and interactions
+with the other existing features. Each remaining exclusion must have a concrete
+semantic, assurance or resource reason. An unimplemented interaction stays open;
+it must not disappear into an unspecified later increment while the area is
+called closed. Resource policies, including the current source and output size
+bounds, are explicit project choices, not requirements of SPARK's Silver level.
+They remain in force until any change is implemented and justified. A proof or
+tool failure for already-admitted source remains a defect, not a new exclusion.
+
+Establish decidable admission and universal composition, automatic-discharge and
+actual-source correspondence arguments for the resulting fragment. Keep the
+specification, catalogue, SPARK implementation, proofs and samples aligned.
+Exercise boundaries and feature interactions, including failure paths, then
+complete the existing [validation workflow](development.md#proof-loop-and-validation)
+before marking an extension supported. This adds no separate approval or release
+gate and does not substitute examples for the universal argument.
+
+The immediate development work is to make the shared fragment and restriction
+inventory concrete, investigate its tool/report capacity, and implement the
+necessary binding and expression foundations. The earlier **Repeated Output**
+instruction is incorporated into sequencing and effect composition; its partial
+unvalidated implementation is not a completed capability. The proposed four-call
+cap was rejected. Ordinary returning calls continue execution, and a detected
+output failure leaves exit status failed even if later output succeeds.
+
+Loops, additional library APIs, resizable strings and unrelated language
+constructs are outside this consolidation. The Oracle remains unchanged.
+
+### Completed increments and validation cadence
+
+[Input-dependent branching](docs/input-branching.md),
+[Compose String Results](docs/string-results.md) and
+[Copy String Values](docs/copy-values.md) passed their complete Linux checkpoints.
+Their supported scopes remain those in [language.md](language.md); the historical
+milestones below do not imply full closure of their underlying features.
+
+The [source compartmentalization](docs/lean-compartmentalization.md) and
+[focused Lean runner](docs/lean-iteration.md) are complete. Use focused checks
+during development and batch complete source-correspondence checks at stable
+checkpoints, preserving caches and running inputs. Optional independent replay
+and further certificate infrastructure are not prerequisites for this work.
 
 ## Status and admission
 
@@ -145,25 +186,17 @@ non-goal for this work.
 
 ## Generalizing the existing features
 
-The owner also requested a read-only assessment on 2026-10-10. The
-[generalization assessment](docs/language-generalization.md) recommends shared
-bounded String expression rules as the first follow-up to the branching item:
-literals, an already-bound name and flat `&` chains in terminal output positions,
-including output after the existing assignment. Compute length explicitly,
-count repeated references, preserve the output bound and initially allow only
-one dynamic argument reference under its validity/capacity guard. A tighter
-safe capacity guard is a useful related relaxation to assess.
+The original 2026-10-10 assessment led to bounded output expressions, tighter
+capacity guards, branch-selected results and compatible constant copies. Those
+increments are supported within their documented scopes. The
+[assessment record](docs/language-generalization.md) preserves that history and
+now begins with the 2026-10-12 review of the remaining composition gaps.
 
-After that, a fixed-length result assigned in either input-dependent branch and
-printed once is a useful data-flow increment. Repeated assignments alone add
-little behavior; multiple output calls require separate whole-program effect
-and failure semantics. Multiple bindings, repeated dynamic references and new
-argument operations remain later candidates. The owner subsequently authorized
-starting work from the sequence now listed at the beginning of this roadmap.
-Branching is supported. The owner subsequently selected the first two
-generalizations for the combined String-results goal above; both are now
-supported. Additional initialized bindings and compatible copies were subsequently
-authorized as Copy String Values; its current status is recorded above.
+The [current priority](#current-development-sequence) supersedes the earlier
+recommendation to keep repeated assignments, more bindings and repeated dynamic
+references as separate later candidates. Consolidate them through shared rules
+for the existing fragment. The older staging choices are not evidence that
+their restrictions are required by the assurance target.
 
 ## Next goals after the greeting review
 

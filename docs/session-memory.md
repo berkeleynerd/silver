@@ -1,5 +1,46 @@
 # Session memory
 
+## 2026-10-12 — Prioritize closure of the existing features
+
+The owner asked to revisit each implemented capability, maximize its scope within
+the target Silver guarantee, and place that consolidation at the beginning of
+the roadmap. The [current sequence](../roadmap.md#current-development-sequence)
+and [assessment](language-generalization.md) now distinguish completed narrow
+milestones from features closed under explicitly defined composition rules.
+Preserve the existing admitted language's assurance. This is not authorization
+to change the Oracle or claim support for all safe SPARK programs.
+
+The next development work is to define the shared fragment and restriction
+inventory, establish its source/tool/report capacity, and develop reusable
+binding and expression rules. Statement sequences, assignments, branches,
+output effects and existing argument operations must compose under those rules.
+An unfinished interaction remains open; each retained exclusion needs a concrete
+semantic, assurance or resource reason. Broader positional-argument APIs, loops
+and unrelated language constructs are outside this consolidation.
+
+This supersedes earlier sequencing advice that left those interactions as
+separate later candidates. The owner had authorized Repeated Output on
+2026-10-11 and then challenged the proposed four-call limit. The limit was a
+staging choice, not a SPARK requirement, and was rejected. Returning output calls
+continue in source order; a detected failure keeps exit status failed across
+later successes. Repeated output belongs in the common sequencing/effect work.
+
+The supported implementation/review baseline remains `e9d18f1996` (Copy String
+Values). Only `proof/Silver/ComposeAdmission.lean` has a preliminary language
+edit; it is incomplete, unvalidated and still contains the rejected constant.
+Preserve and reconcile it when implementation resumes. Existing `tmp/` scratch
+and retained evidence are unchanged. This handoff changes only the roadmap,
+generalization assessment, session memory and `RESUME.md`; it adds no admitted
+syntax or new compiler/proof evidence. Its review target is the documentation
+delta from that baseline; Git history identifies the containing planning commit.
+Independent documentation review, local link/anchor checks and whitespace
+checks passed. Native and Lean validation were not rerun for this documentation
+update; the prior implementation evidence retains its original input scope.
+
+The live harness has no active goal; no goal or title was changed. Publication
+authorization persists, Actions remains disabled, and Linux is primary. No CLI
+recall entry was updated; these checked-in documents are the durable handoff.
+
 ## 2026-10-11 — Copy String Values completed on the desktop host
 
 After the read-only readiness check, the owner instructed proceeding with the

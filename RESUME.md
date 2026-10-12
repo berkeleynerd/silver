@@ -1,6 +1,6 @@
 # Silver handoff
 
-Updated on 2026-10-11 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-12 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
@@ -8,8 +8,26 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**Copy String Values** is implemented and validated, based on
-`96b98e1`. It adds up to two literal-backed constants before the mutable result,
+**Close the existing features under composition** is the first roadmap priority.
+The owner requested revisiting the narrow completed increments before accumulating
+more isolated capabilities. The [roadmap](roadmap.md#current-development-sequence)
+defines the ordered work and closure criteria; the
+[current assessment](docs/language-generalization.md) records restrictions and
+their reasons. Begin with the explicit fragment, restriction/capacity inventory
+and shared binding/expression foundations, then compose statements, branches and
+existing library effects. No new syntax is supported by this planning update.
+
+Repeated output was authorized on 2026-10-11, but its proposed four-call cap was
+rejected as unjustified. Its scope is now part of sequencing and effect
+composition. The sole preliminary code edit in
+`proof/Silver/ComposeAdmission.lean` remains uncommitted, incomplete and unvalidated;
+it still contains the rejected constant and must be reconciled during
+implementation. Preserve it and unrelated scratch; do not attribute the previous
+checkpoint to this intermediate working tree.
+
+The latest supported implementation is **Copy String Values**, commit
+`e9d18f1996`, based on `96b98e1`. It adds up to two literal-backed constants before
+the mutable result,
 result initialization and equal-length assignments from either constant, and
 constant references in bounded output expressions. The existing six output
 shells and one terminal output per successful path remain. See the
@@ -22,9 +40,10 @@ target is the commit introducing `samples/copied_result.adb`, based on `96b98e1`
 This desktop chat recovered the completed CLI **Compose String Results**
 context; it did not import that chat or reopen its goal. No active harness goal
 was created for this increment. The previous capability is complete in
-`96b98e1`, with [its original evidence](docs/string-results.md). Repeated output
-is the next proposal and requires a new owner instruction. Commit and
-publication authorization persists; hosted Actions remains disabled.
+`96b98e1`, with [its original evidence](docs/string-results.md). The live harness
+was rechecked on 2026-10-12 and has no active goal. Commit and publication
+authorization persists; hosted Actions remains disabled. This documentation
+update does not create a harness goal or change the Oracle.
 
 The supplied [review of `d375aec`](docs/lean-iteration.md#external-review-of-d375aec)
 has been assessed and its confirmed small repairs completed: reject direct
@@ -98,11 +117,11 @@ before the next language increment is now complete, as recorded in the
 and compartmentalization record. Changed-body checking and whole-project replay
 remain expensive. The certificate representation is unchanged.
 
-The [ordered language sequence](roadmap.md#current-development-sequence) remains
-bounded output expressions with tighter safe capacities, a branch-selected
-fixed-length result, further initialized bindings/copies, then repeated output.
-The first three capabilities are supported. Repeated output remains proposed
-and requires a new owner instruction.
+The former ordered increments are complete through Copy String Values. Their
+narrow scopes retain their assurance. The
+[current consolidation sequence](roadmap.md#current-development-sequence) now
+takes priority; do not equate those completed milestones with full compositional
+closure or resume adding isolated whole-program templates by default.
 
 ## Local tools and evidence
 
