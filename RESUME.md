@@ -8,14 +8,25 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Current work
 
-**Lean Critical Path** now leads the [roadmap](roadmap.md#lean-critical-path),
-as requested on 2026-10-12. The proposed sequence is declaration-level profiling,
-source-reconstruction/equality experiments, a small module/dependency pilot,
-selective proof-script and persistent-state improvements, then measured
-integration. Keep exact source correspondence and accepted axioms; preserve
-private-declaration coverage when changing module imports. The 10× target is
-aspirational, and old failed candidates remain failures. This is a planning
-update; no performance implementation or new harness goal has started.
+**Lean Critical Path** leads the [roadmap](roadmap.md#lean-critical-path).
+The owner authorized its first item, baseline and declaration-level profiling,
+on 2026-10-12. The [measurement record](docs/lean-baseline.md) is complete:
+all three isolated cases passed, including the fresh complete axiom/coverage
+audit. Large reconstruction joins dominate certificate elaboration; the final
+source equality and tactic search are negligible. The next proposed item is
+a bounded source-reconstruction/equality experiment targeting those joins.
+Evidence is preserved under
+`.silver/linux-x86_64/lean-baseline-20261012T094603Z/`; the local
+`tmp/lean-baseline-checkpoint.md` records completion and publication. Canonical
+caches/evidence and the unfinished proof edit below are preserved. No run remains
+active and no speedup has yet been established.
+
+Subsequent source-reconstruction/equality experiments, a module/dependency pilot,
+selective proof-authoring improvements and integration remain proposed. Keep
+exact source correspondence and accepted axioms; preserve private-declaration
+coverage when changing module imports. The 10× target is aspirational, and old
+failed candidates remain failures. No optimization, language change or new
+harness goal has started.
 
 **Close the existing features under composition** follows that bounded work.
 The owner requested revisiting the narrow completed increments before accumulating
@@ -135,10 +146,12 @@ closure or resume adding isolated whole-program templates by default.
 
 ## Local tools and evidence
 
-The desktop runs on the physical Linux x86-64 host with 22 available CPUs and
-approximately 91 GiB RAM. The stopped CLI microVM had 12 CPUs and 31 GiB RAM;
-its retained evidence keeps that attribution. Both environments use the same
-host-keyed artifact namespace, so keep one writer per cache. Native pinned tools
+The completed baseline ran on a Linux x86-64 sandbox with 12 available CPUs and
+approximately 31 GiB RAM, without swap. The retained Copy String Values checkpoint
+ran on the physical desktop with 22 CPUs and approximately 91 GiB RAM. Earlier
+microVM evidence keeps its original attribution. These environments use the same
+host-keyed artifact namespace, so determine the actual host and keep one writer
+per cache. Native pinned tools
 and runtime readiness passed the read-only handover check. The completed Lean
 checkpoint used 12 Lake workers, 12 threads per process and the 12,288 MiB
 per-process threshold. Use `python3 scripts/dev.py paths` for the actual

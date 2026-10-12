@@ -16,9 +16,10 @@ next capability while retaining full assurance for the current language.
 
 **First priority: Lean Critical Path**, followed by closure of the existing
 language features. On 2026-10-12 the owner requested placing all recommended
-performance work at the beginning of the roadmap. These are proposed bounded
-investigations and integration tasks; this planning instruction does not start
-experiments, migrate proofs or change the supported language.
+performance work at the beginning of the roadmap, then authorized the baseline
+and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
+is complete. Later investigations and integration tasks remain proposed;
+this work does not migrate proofs or change the supported language.
 
 ### Lean Critical Path
 
@@ -31,8 +32,8 @@ module visibility can separately reduce unnecessary rebuilds after proof edits.
 
 | Order | Work item | Bounded result |
 | --- | --- | --- |
-| 1 | Baseline and declaration-level profiling | Freeze representative inputs and record the actual host, tool versions, settings and cache state. Measure no-change, proof-only-edit and representative feature-edit feedback separately. Profile the dominant certificate's leaf checks, reconstruction joins, final source equality and token flattening; distinguish elaboration, kernel work and build overhead where the profiler permits. Rank time and memory costs. |
-| 2 | Source reconstruction and equality proofs | Test a monitored retry of the existing structural/authoritative-decoding candidate, using an explicit memory budget and host-headroom cutoff. Compare targeted conversion equalities, reusable lemmas and shared reconstruction data against the unchanged baseline. Preserve exact authoritative bytes, including line endings and final newline. Splitting generated files is useful only if final composition also becomes cheaper. |
+| 1 | Baseline and declaration-level profiling — complete | Isolated no-change, proof-only and reconstructed feature-workload checks passed. The profile locates the dominant cost in large reconstruction-join elaboration; the proof-only edit separately exposes unnecessary downstream rebuilding. Host, cache state, timing/memory attribution and limits are in the [measurement record](docs/lean-baseline.md). |
+| 2 | Source reconstruction and equality proofs — next proposed | Target the measured large-join elaboration cost with explicit conversion equalities, reusable lemmas and shared reconstruction data. Include a monitored retry of the existing structural/authoritative-decoding candidate, using an explicit memory budget and host-headroom cutoff. Preserve exact authoritative bytes, including line endings and final newline. Measure final composition as well; splitting generated files is useful only if that also becomes cheaper. Compare successful uninstrumented runs before adoption. |
 | 3 | Module-system and dependency pilot | Migrate a small compatible dependency closure to Lean's opt-in module system. Measure downstream reuse after private/proof-only edits and necessary invalidation after public/source-byte edits. Choose imports and public interfaces deliberately; expose computational bodies where correspondence proofs require reduction. Retain the legacy audit initially or prove equivalent full private/transitive coverage with `import all`. Adopt only demonstrated improvements before considering wider migration. |
 | 4 | Selective proof-authoring improvements | At measured hotspots, use named intermediate equalities, tight theorem interfaces and restricted successful `simp`/`grind` scripts; add auxiliary lemmas only where they reduce duplicated work. Separately measure repeated AI/editor elaboration and pilot persistent editor/REPL proof-state reuse if it is material. Integrate successful proofs into ordinary source files and validate them normally. |
 | 5 | Integration and measurement | Compare successful uninstrumented runs on identical inputs and the same host; separate cached iteration, changed-source checking and any cold-build measurement. Check source-edit invalidation and axiom/module coverage, then complete one stable local checkpoint for adopted changes. Record gains, memory costs and failed candidates; conclude the bounded investigation and continue feature consolidation. |

@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-12 — Lean baseline completed
+
+The owner instructed proceeding with the first **Lean Critical Path** item:
+baseline and declaration-level profiling. This authorizes measurement, not
+optimization implementation, module migration or language expansion. The
+[measurement record](lean-baseline.md) describes the frozen committed inputs,
+isolated tools/cache copies, no-change and proof-only cases, and the single
+profiled reconstruction of the Copy String Values rebuild workload. All passed
+complete source-correspondence builds and fresh axiom/coverage audits. Independent
+review confirmed the rebuild closure, profiler accounting and preserved inputs.
+The dominant cost is elaborating large reconstruction joins, with little time
+spent on the final source equality or tactic search. A bounded join-representation
+and equality experiment is next proposed; no optimization was adopted and no
+speedup is claimed. Preserve the completed inputs and objects;
+`tmp/lean-baseline-checkpoint.md` records completion/publication and
+`.silver/linux-x86_64/lean-baseline-20261012T094603Z/` retains all evidence.
+
+This run is on the 12-CPU, approximately 31-GiB Linux sandbox, not the physical
+desktop of the retained capability checkpoint. Do not infer a cross-host
+speedup. Canonical proof caches and earlier evidence are preserved. The existing
+uncommitted `ComposeAdmission.lean` edit is excluded from the frozen snapshot
+and remains untouched. The live harness still records Compose String Results
+as complete; no goal or title changed. Publication remains authorized, Actions
+remains disabled and CLI recall is unavailable; checked-in memory is updated.
+The measurement/review input is `3ecd0d274fdf9b94d7bfdb246df159acd982f031`, with
+snapshot-only profiler configuration. The supported implementation remains
+`e9d18f1996`. This documentation/review target is the four-file delta from
+`3ecd0d2`; Git identifies its containing commit. No SPARK/compiler validation
+was rerun for this measurement/documentation task. Independent evidence and
+documentation reviews and local link/anchor/whitespace checks passed.
+
 ## 2026-10-12 — Lean performance work placed first
 
 The owner requested adding all recommended velocity improvements to the beginning
