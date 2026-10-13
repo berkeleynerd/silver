@@ -6,9 +6,9 @@ import all Init.Data.Repr
 
 @[expose] public section
 
-/-! Exact token checks depend on the typed source trees, independently of the
-recursive denotation proofs. Retain these expensive checked facts while the
-higher semantic bridge is developed. -/
+/-! Exact source checks for the lexical, declaration and expression helpers
+shared by the current statement scanner. Whole-shell recognition belongs to
+the sequence source bridge; no old shell is asserted to be current source. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -49,16 +49,6 @@ abbrev ExpressionTranslation : Prop :=
     some Expressions.outputBody.render ∧
   Source.expressionBody "step" Source.outputBodyTokens =
     some Expressions.stepBody.render ∧
-  Source.expressionBody "suffix_matches" Source.outputBodyTokens =
-    some Expressions.suffixBody.render ∧
-  Source.expressionBody "form_member" Source.outputBodyTokens =
-    some Expressions.formBody.render ∧
-  Source.expressionBody "is_member" Source.outputBodyTokens =
-    some Expressions.memberBody.render ∧
-  Source.expressionBody "has_arguments" Source.outputBodyTokens =
-    some Expressions.argumentsBody.render ∧
-  Source.expressionBody "has_assignment" Source.outputBodyTokens =
-    some Expressions.assignmentSelectorBody.render ∧
   Source.expressionBody "work_tail" Source.outputBodyTokens = some Expressions.workTailBody.render ∧
   Source.expressionBody "fits" Source.outputBodyTokens = some Expressions.fitsBody.render ∧
   Source.expressionBody "comparison_at" Source.outputBodyTokens = some Expressions.comparisonBody.render
@@ -123,26 +113,6 @@ private theorem expression_fact_17 :
   Source.expressionBody "step" Source.outputBodyTokens =
     some Expressions.stepBody.render := by decide +kernel
 
-private theorem expression_fact_18 :
-  Source.expressionBody "suffix_matches" Source.outputBodyTokens =
-    some Expressions.suffixBody.render := by decide +kernel
-
-private theorem expression_fact_19 :
-  Source.expressionBody "form_member" Source.outputBodyTokens =
-    some Expressions.formBody.render := by decide +kernel
-
-private theorem expression_fact_20 :
-  Source.expressionBody "is_member" Source.outputBodyTokens =
-    some Expressions.memberBody.render := by decide +kernel
-
-private theorem expression_fact_21 :
-  Source.expressionBody "has_arguments" Source.outputBodyTokens =
-    some Expressions.argumentsBody.render := by decide +kernel
-
-private theorem expression_fact_22 :
-  Source.expressionBody "has_assignment" Source.outputBodyTokens =
-    some Expressions.assignmentSelectorBody.render := by decide +kernel
-
 private theorem expression_fact_23 :
   Source.expressionBody "work_tail" Source.outputBodyTokens = some Expressions.workTailBody.render := by decide +kernel
 
@@ -170,11 +140,6 @@ theorem actual_expressions : ExpressionTranslation := by
     expression_fact_15,
     expression_fact_16,
     expression_fact_17,
-    expression_fact_18,
-    expression_fact_19,
-    expression_fact_20,
-    expression_fact_21,
-    expression_fact_22,
     expression_fact_23,
     expression_fact_24,
     expression_fact_25⟩
@@ -188,83 +153,66 @@ def allTokens : List ShellToken :=
    .word "then", .word "else", .word "reject", .symbol "&", .word "and", .symbol "'",
    .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference,
-   .assignmentValue, .outputExpression, .comparisonExpression]
+   .assignmentValue, .outputExpression, .comparisonExpression, .word "null"]
 
 def commaNames (names : List String) : List String := List.flatten ((names.map fun name => [name]).intersperse [","])
 
 def quoted (text : String) : String :=
   String.ofList (['"'] ++ text.toList.flatMap (fun ch => if ch = '"' then ['"', '"'] else [ch]) ++ ['"'])
 
-def spellingGroups : List (List ShellToken) :=
-  (allTokens.take 34).map (fun token => [token]) ++ [allTokens.drop 34]
+/-- Statements is a scanner nonterminal; all lexical/helper tokens retain
+an exact named representation in the native enumeration. -/
+def nativeTokenNames : List String := allTokens.map Expressions.tokenName ++ ["statements"]
 
 def spellingBody : List String := ["case", "token", "is"] ++
-  List.flatten ((spellingGroups.map fun group =>
-    ["when"] ++ List.flatten ((group.map fun token => [Expressions.tokenName token]).intersperse ["|"]) ++
-    ["=>", quoted (Expressions.spelling (group.headD (.symbol ";")))]).intersperse [","])
+  List.flatten (((allTokens.take 34 ++ [ShellToken.word "null"]).map fun token =>
+    ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
+  [",", "when"] ++
+  List.flatten ((((allTokens.drop 34).take 8).map Expressions.tokenName ++ ["statements"]).map
+    (fun name => [name]) |>.intersperse ["|"]) ++ ["=>", quoted "_"]
 
-def tokensBody : List String := ["case", "form", "is"] ++
-  List.flatten ((allForms.map fun form =>
-    ["when", Expressions.formName form, "=>", "("] ++
-    commaNames (form.tokens.map Expressions.tokenName) ++ [")"]).intersperse [","])
+def helperForms : List Form := [.direct, .argument, .guardedArgument]
 
-abbrev CatalogueTranslation : Prop :=
-  typeDeclaration "token_kind" Source.outputSpecTokens =
-    some (["("] ++ commaNames (allTokens.map Expressions.tokenName) ++ [")"]) ∧
+abbrev HelperCatalogueTranslation : Prop :=
   typeDeclaration "form_kind" Source.outputSpecTokens =
-    some (["("] ++ commaNames (allForms.map Expressions.formName) ++ [")"]) ∧
+    some (["("] ++ commaNames (helperForms.map Expressions.formName) ++ [")"]) ∧
+  typeDeclaration "token_kind" Source.outputSpecTokens =
+    some (["("] ++ commaNames nativeTokenNames ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody ∧
-  Source.expressionBody "tokens" Source.outputBodyTokens = some tokensBody ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name") ∧
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") ∧
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Argument_Form .. Guarded_Result_Form") ∧
-  Source.expressionBody "is_assignment_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Assignment_Form | Result_Form | Guarded_Result_Form")
+    some (expectedTokens "Form in Argument_Form | Guarded_Argument_Form")
+
+private theorem catalogue_forms :
+  typeDeclaration "form_kind" Source.outputSpecTokens =
+    some (["("] ++ commaNames (helperForms.map Expressions.formName) ++ [")"]) := by decide +kernel
 
 private theorem catalogue_fact_01 :
   typeDeclaration "token_kind" Source.outputSpecTokens =
-    some (["("] ++ commaNames (allTokens.map Expressions.tokenName) ++ [")"]) := by decide +kernel
-
-private theorem catalogue_fact_02 :
-  typeDeclaration "form_kind" Source.outputSpecTokens =
-    some (["("] ++ commaNames (allForms.map Expressions.formName) ++ [")"]) := by decide +kernel
+    some (["("] ++ commaNames nativeTokenNames ++ [")"]) := by decide +kernel
 
 private theorem catalogue_fact_03 :
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody := by decide +kernel
 
-private theorem catalogue_fact_04 :
-  Source.expressionBody "tokens" Source.outputBodyTokens = some tokensBody := by decide +kernel
-
 private theorem catalogue_fact_05 :
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name") := by decide +kernel
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") := by decide +kernel
 
 private theorem catalogue_fact_06 :
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Argument_Form .. Guarded_Result_Form") := by decide +kernel
+    some (expectedTokens "Form in Argument_Form | Guarded_Argument_Form") := by decide +kernel
 
-private theorem catalogue_fact_07 :
-  Source.expressionBody "is_assignment_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Assignment_Form | Result_Form | Guarded_Result_Form") := by decide +kernel
-
-theorem actual_catalogue : CatalogueTranslation := by
-  exact ⟨catalogue_fact_01,
-    catalogue_fact_02,
-    catalogue_fact_03,
-    catalogue_fact_04,
-    catalogue_fact_05,
-    catalogue_fact_06,
-    catalogue_fact_07⟩
+theorem actual_catalogue : HelperCatalogueTranslation :=
+  ⟨catalogue_forms, catalogue_fact_01, catalogue_fact_03, catalogue_fact_05, catalogue_fact_06⟩
 
 theorem finite_mapping :
-    (∀ form ∈ allForms, ∀ token ∈ form.tokens, token ∈ allTokens) ∧
     (∀ token ∈ allTokens, 1 ≤ (Expressions.spelling token).length ∧ (Expressions.spelling token).length ≤ 16) ∧
     (∀ index : Fin allTokens.length, Expressions.isWord allTokens[index] =
       (decide (index.val ≤ 10) || decide (allTokens[index] ∈
         [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
          .word "if", .word "input_is_valid", .word "then", .word "else", .word "reject",
-         .word "and", .word "length"]))) := by decide +kernel
+         .word "and", .word "length", .word "null"]))) := by decide +kernel
 
 abbrev Declarations : Prop :=
   Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 16") ∧
@@ -411,10 +359,6 @@ theorem actual_declarations : Declarations := by
     declaration_fact_28⟩
 
 abbrev Refinement : Prop :=
-  functionHeader "accepts" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => accepts ' result = is_member ( source ) )") ∧
-  functionHeader "uses_arguments" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => uses_arguments ' result = has_arguments ( source ) )") ∧
-  functionHeader "uses_assignment" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => uses_assignment ' result = has_assignment ( source ) )") ∧
-  functionHeader "tokens" ";" Source.outputSpecTokens = some (expectedTokens "( form : form_kind ) return token_sequence with global => null , post => tokens ' result ' first = 1 and then tokens ' result ' length in 1 .. 100") ∧
   functionHeader "skip_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") ∧
   functionHeader "name_after" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( name_after ' result = 0 or else name_after ' result in position + 1 .. text ' last + 1 ) and then ( name_after ' result = ( if position = 0 then 0 else identifier_end ( text , position ) ) ) )") ∧
   functionHeader "take_token" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; token : token_kind ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( take_token ' result = 0 or else take_token ' result in position + 1 .. text ' last + 1 ) and then ( take_token ' result = fixed_after ( text , position , token ) ) )") ∧
@@ -435,23 +379,10 @@ abbrev Refinement : Prop :=
   functionHeader "declarations_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ; arguments : boolean ) return parser_state with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , declarations_at ' result ) , subprogram_variant => ( decreases => ( text ' last + 1 ) - state . position )") ∧
   functionHeader "lookup_from" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; names : binding_environment ; first , after : cursor ; index : positive ) return binding_count with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , names ) and then first < after and then after <= text ' last + 1 and then index <= names . count + 1 , post => lookup_from ' result <= names . count , subprogram_variant => ( increases => index )") ∧
   functionHeader "expression_tail" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; names : binding_environment ; state : expression_state ) return expression_result with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , names ) and then valid_expression_state ( text , state ) , post => expression_tail ' result . after = 0 or else expression_tail ' result . after in state . position .. text ' last + 1 , subprogram_variant => ( decreases => ( text ' last + 1 ) - state . position )") ∧
-  functionHeader "suffix_matches" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; form : form_kind ; next_token : token_index ; state : parser_state ) return boolean with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , subprogram_variant => ( increases => next_token )") ∧
   functionHeader "work_tail" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; remaining : concatenation_count ) return boolean with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , subprogram_variant => ( decreases => ( text ' last + 1 ) - position )") ∧
   functionHeader "within_work_budget" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ) return boolean with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length , post => ( static => within_work_budget ' result = work_tail ( text , 1 , max_concatenations ) )") ∧
   functionHeader "comparison_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , comparison_at ' result )") ∧
   functionHeader "fits" ";" Source.outputBodyTokens = some (expectedTokens "( value : expression_result ; capacity : capacity_value ) return boolean with global => null")
-
-private theorem refinement_fact_01 :
-  functionHeader "accepts" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => accepts ' result = is_member ( source ) )") := by decide +kernel
-
-private theorem refinement_fact_02 :
-  functionHeader "uses_arguments" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => uses_arguments ' result = has_arguments ( source ) )") := by decide +kernel
-
-private theorem refinement_fact_03 :
-  functionHeader "uses_assignment" ";" Source.outputSpecTokens = some (expectedTokens "( source : string ) return boolean with global => null , post => ( static => uses_assignment ' result = has_assignment ( source ) )") := by decide +kernel
-
-private theorem refinement_fact_04 :
-  functionHeader "tokens" ";" Source.outputSpecTokens = some (expectedTokens "( form : form_kind ) return token_sequence with global => null , post => tokens ' result ' first = 1 and then tokens ' result ' length in 1 .. 100") := by decide +kernel
 
 private theorem refinement_fact_05 :
   functionHeader "skip_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") := by decide +kernel
@@ -513,9 +444,6 @@ private theorem refinement_fact_23 :
 private theorem refinement_fact_24 :
   functionHeader "expression_tail" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; names : binding_environment ; state : expression_state ) return expression_result with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , names ) and then valid_expression_state ( text , state ) , post => expression_tail ' result . after = 0 or else expression_tail ' result . after in state . position .. text ' last + 1 , subprogram_variant => ( decreases => ( text ' last + 1 ) - state . position )") := by decide +kernel
 
-private theorem refinement_fact_25 :
-  functionHeader "suffix_matches" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; form : form_kind ; next_token : token_index ; state : parser_state ) return boolean with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , subprogram_variant => ( increases => next_token )") := by decide +kernel
-
 private theorem refinement_fact_26 :
   functionHeader "work_tail" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; remaining : concatenation_count ) return boolean with ghost => static , global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , subprogram_variant => ( decreases => ( text ' last + 1 ) - position )") := by decide +kernel
 
@@ -529,11 +457,7 @@ private theorem refinement_fact_29 :
   functionHeader "fits" ";" Source.outputBodyTokens = some (expectedTokens "( value : expression_result ; capacity : capacity_value ) return boolean with global => null") := by decide +kernel
 
 theorem actual_refinement : Refinement := by
-  exact ⟨refinement_fact_01,
-    refinement_fact_02,
-    refinement_fact_03,
-    refinement_fact_04,
-    refinement_fact_05,
+  exact ⟨refinement_fact_05,
     refinement_fact_06,
     refinement_fact_07,
     refinement_fact_08,
@@ -553,7 +477,6 @@ theorem actual_refinement : Refinement := by
     refinement_fact_22,
     refinement_fact_23,
     refinement_fact_24,
-    refinement_fact_25,
     refinement_fact_26,
     refinement_fact_27,
     refinement_fact_28,

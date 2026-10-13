@@ -120,7 +120,7 @@ procedure Silver with SPARK_Mode => On is
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
            (others => Character'Val (0));
          Observed_Last : Natural := 0;
-         Report : String (1 .. Silver_Reports.Max_Report_Length);
+         Report : String (1 .. Silver_Library_Reports.Max_Report_Length);
          Report_Last : Natural;
          Report_Read : Boolean;
          Report_Too_Long : Boolean;

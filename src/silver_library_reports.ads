@@ -1,5 +1,9 @@
 package Silver_Library_Reports with SPARK_Mode => On is
-   Max_Report_Length : constant Positive := 262_144;
+   --  Source-bounded application sequences can produce many proved checks and
+   --  exact ghost-output advisories. This capacity uses the documented pinned
+   --  producer envelope; it is not an additional statement-count restriction.
+   Max_Report_Length : constant Positive := 2_097_152;
+   Max_Runtime_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
    type Application_Kind is
@@ -32,11 +36,13 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  safety check must be a proved range or length check for Main. All output
    --  forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
-   --  Argument and selected forms also permit the exact ineffective-statement
-   --  and unreachable-statement advisories from constant-folded comparisons.
+   --  All sequence forms permit the exact ineffective/unreachable-statement
+   --  advisories from constant-folded comparisons and four exact unused ghost
+   --  output messages from Put_Line. Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.
-   --  GNAT may omit callees/dependencies when such advisories precede an empty
-   --  safety-check list. All other shapes retain approved call dependencies.
+   --  GNAT can omit callees after static elimination, including sequences with
+   --  no output. Main-only reports retain the same check/dependency audit;
+   --  argument sequences may retain the three argument callees without IO.
    function Complete_Application_Proof
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
      with Global => null,

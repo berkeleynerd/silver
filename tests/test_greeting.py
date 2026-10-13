@@ -73,8 +73,7 @@ class GreetingTests(unittest.TestCase):
         cases = [canonical.replace(expression, replacement) for replacement in replacements]
         cases += [source_for(name=name) for name in
                   (b'', b'1Name', b'Name_', b'Name__2', b'String', b'SILVER_IO', b'if')]
-        cases += [canonical.replace(b';end', b';null;end'),
-                  argument_source().replace(b'Put_Line(Message)', b'Put_Line("Hello, "&Message&"!")'),
+        cases += [argument_source().replace(b'Put_Line(Message)', b'Put_Line("Hello, "&Message&"!")'),
                   source_for(b'\t'), source_for(prefix=b'\n'), source_for(suffix=b'\x80'),
                   canonical + b'--\x0b hidden',
                   canonical + b' ' * (4097 - len(canonical))]

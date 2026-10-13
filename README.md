@@ -74,18 +74,20 @@ symbolic argument-length copies, and self-copy is legal. The
 [shared-bindings sample](samples/shared_bindings.adb) prints the old snapshot beside
 the updated value.
 
-Existing body arrangements remain: direct output, one assignment then output,
-guarded argument output, equality-selected output, and a branch-selected result
-followed by common output. The [common-expression increment](docs/common-expressions.md)
-uses literals, initialized names, concatenation and parentheses in declarations,
-assignments, comparisons and output. Repeated argument references are allowed
-when the capacity guard bounds every intermediate value to 4096 bytes.
-Each expression has at most sixteen leaves; a program has at most thirty
-concatenation operators, retaining the earlier maximum operator count.
-The [sample](samples/common_expressions.adb) combines these positions and prints
-an earlier snapshot beside an updated value. See [language.md](language.md) for
-the exact rules and the capability record for validation. General sequencing,
-nested conditionals and repeated output remain future work.
+The [common-expression increment](docs/common-expressions.md) shares literals,
+initialized names, concatenation and parentheses across declarations, assignments,
+comparisons and output. Repeated argument references are allowed when the guard
+bounds every intermediate value to 4096 bytes. Each expression has at most sixteen
+leaves and a program at most thirty concatenation operators.
+
+The completed [statement-sequencing increment](docs/statement-sequencing.md)
+replaces fixed bodies with finite sequences of null, compatible
+assignments, output and one-level String-equality choices. Both equality arms
+contain basic statement sequences; multiple choices can occur sequentially.
+There is no separate statement/output-count cap. The
+[sequencing sample](samples/statement_sequence.adb) combines a snapshot, updates,
+repeated output and two choices. Nested equality and broader Boolean guards
+remain future work. See [language.md](language.md) for exact rules.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -97,7 +99,8 @@ default; one printable ASCII argument of up to 4096 bytes is preserved,
 including an explicit empty argument. Extra arguments, unsupported bytes and
 oversized input produce no output and status 1. Successful output is the
 selected message followed by LF and a successful flush. A detected output
-failure sets status 1 and returns; partial output may remain. Blocking and host
+failure sets status 1 and returns; later calls still execute and cannot clear
+that failure status. Partial output may remain. Blocking and host
 failures have documented environmental limits.
 
 The compiler is implemented in SPARK. Its authors may use full SPARK contracts
@@ -108,8 +111,10 @@ runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
 Main safety checks must all be proved range or length checks. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
-classify the exact unused-assignment advisory. Argument-bearing policies also
-classify two exact constant-equality advisories. Selected library reports
+classify the exact unused-assignment advisory. All sequence policies classify
+two exact constant-equality advisories and four exact overwritten ghost-output
+messages.
+Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted
@@ -238,7 +243,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the eight output arrangements plus null. Structural metadata is written explicitly in
+and the three statement shells plus null. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -250,9 +255,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-The current shared-binding capability, complete Linux checkpoint and reviews
-are recorded in [shared-bindings.md](docs/shared-bindings.md). The preceding
-constant/copy evidence retains its scope in [copy-values.md](docs/copy-values.md).
+The current statement-sequencing work and its validation are recorded in
+[statement-sequencing.md](docs/statement-sequencing.md). Earlier shared-binding,
+expression and copy checkpoints retain their input scope in their capability
+records.
 
 The combined expression/result work and its validation are recorded in
 [string-results.md](docs/string-results.md).
@@ -311,7 +317,7 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 For focused iteration, select a module and its dependencies:
 
 ```sh
-python3 scripts/check_lean.py --target Silver.ComposeMain
+python3 scripts/check_lean.py --target Silver.SequenceMain
 ```
 
 Repeat `--target` for additional modules. The runner synchronizes inputs and

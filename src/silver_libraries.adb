@@ -38,7 +38,7 @@ package body Silver_Libraries with SPARK_Mode => On is
    end Expected_Source;
 
    procedure Check_Proof_Evidence (Directory : String; Success : out Boolean) is
-      Report : String (1 .. Silver_Library_Reports.Max_Report_Length);
+      Report : String (1 .. Silver_Library_Reports.Max_Runtime_Report_Length);
       Last : Natural;
       Too_Long, Read_Success : Boolean;
    begin

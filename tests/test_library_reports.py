@@ -187,7 +187,7 @@ end Probe;
         for key in (" 1", " 2", " 3", " 4", " 5"):
             data = main_report()
             del data["entities"][key]
-            self.assertFalse(self.accepts(data, kind="main"))
+            self.assertEqual(self.accepts(data, kind="main"), key == " 5")
         for predicate in ("CLAIM_ASSUME", "CLAIM_PRE", "UNKNOWN"):
             data = main_report()
             data["assumptions"][0]["assumptions"][0]["predicate"] = predicate
@@ -244,7 +244,7 @@ end Probe;
         for rule in ("VC_LENGTH_CHECK", "VC_RANGE_CHECK", "INEFFECTIVE"):
             data = assignment_report()
             data["proof"] = [dict(check(), rule=rule, file="main.adb")]
-            self.assertFalse(self.accepts(data, kind="assignment"))
+            self.assertEqual(self.accepts(data, kind="assignment"), rule != "INEFFECTIVE")
 
     def test_assignment_requires_exact_coverage_and_completed_analysis(self) -> None:
         for field in ("skip_flow_proof", "skip_proof", "pragma_assume", "warn_error", "assumptions"):
@@ -370,10 +370,10 @@ end Probe;
                     data["flow"].append(dict(advisory, message={"text": "unused assignment"}))
                     self.assertEqual(self.accepts(data, kind=kind), kind in ("assignment", "selected"))
                 for text in ('unused assignment ', 'unused assignment to "Value"',
-                             '"Written_Count" is set by "Put_Line" but not used after the call',
-                             '"Flushed" is set by "Put_Line" but not used after the call',
-                             '"Succeeded" is set by "Put_Line" but not used after the call',
-                             '"Written_Bytes" is set by "Put_Line" but not used after the call'):
+                             '"Written_Count" is set by "Other" but not used after the call',
+                             '"Flushed" is set by "Other" but not used after the call',
+                             '"Succeeded" is set by "Other" but not used after the call',
+                             '"Written_Bytes" is set by "Other" but not used after the call'):
                     data["flow"][-1]["message"]["text"] = text
                     self.assertFalse(self.accepts(data, kind=kind))
 
@@ -391,9 +391,7 @@ end Probe;
                     data["flow"] = [dict(assignment_report()["flow"][0],
                                          rule=rule, message={"text": message})]
                     with self.subTest(kind=kind, bare=bare, rule=rule):
-                        self.assertEqual(self.accepts(data, kind=kind), kind in ("main", "selected"))
-                    if kind not in ("main", "selected"):
-                        continue
+                        self.assertTrue(self.accepts(data, kind=kind))
                     changes = (*mutations, ("message", {"text": message + " "}),
                                ("rule", "DEAD_CODE" if rule == "INEFFECTIVE" else "INEFFECTIVE"))
                     for field, value in changes:
@@ -407,10 +405,19 @@ end Probe;
                                  message={"text": message})]
             self.assertFalse(self.accepts(data))
 
-    def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
-        for kind in ("static", "main"):
-            self.assertFalse(self.accepts(assignment_report(False), kind=kind))
-            self.assertTrue(self.accepts(assignment_report(True), kind=kind))
+    def test_main_only_sequences_preserve_complete_checks_and_dependencies(self) -> None:
+        for kind in ("static", "main", "assignment", "selected"):
+            data = assignment_report(False)
+            data["proof"] = [dict(check(), rule="VC_LENGTH_CHECK", file="main.adb")]
+            data["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_AORTE"},
+                                    "assumptions": []}]
+            self.assertTrue(self.accepts(data, kind=kind))
+            changed = copy.deepcopy(data)
+            changed["proof"][0]["how_proved"] = "trivial"
+            self.assertFalse(self.accepts(changed, kind=kind))
+            changed = copy.deepcopy(data)
+            changed["assumptions"][0]["claim"]["arg"] = 2
+            self.assertFalse(self.accepts(changed, kind=kind))
 
     def test_length_checks_have_the_same_complete_safety_policy(self) -> None:
         changes = (("severity", "warning"), ("severity", "low"),
@@ -434,6 +441,8 @@ end Probe;
                 self.assertFalse(self.accepts(bad, kind=kind))
             bare = assignment_report(False)
             bare["proof"] = data["proof"]
+            self.assertTrue(self.accepts(bare, kind=kind))
+            bare["proof"] = [dict(bare["proof"][0], how_proved="trivial")]
             self.assertFalse(self.accepts(bare, kind=kind))
 
     def test_both_selected_schemas_and_wrong_kind(self) -> None:
@@ -646,8 +655,35 @@ end Probe;
             with self.subTest(malformed=malformed[:80]):
                 self.assertFalse(self.accepts(malformed))
 
-    def test_report_bound(self) -> None:
-        self.assertFalse(self.accepts(" " * 262_145))
+    def test_application_report_bound_preserves_runtime_domain(self) -> None:
+        data = json.dumps(assignment_report(False))
+        padded = data + " " * (2_097_152 - len(data))
+        self.assertTrue(self.accepts(padded, kind="static"))
+        self.assertFalse(self.accepts(padded + " ", kind="static"))
+        runtime = json.dumps(report())
+        maximum = runtime + " " * (262_144 - len(runtime))
+        self.assertTrue(self.accepts(maximum))
+        self.assertFalse(self.accepts(maximum + " "))
+
+    def test_repeated_output_ghost_advisories_are_exact(self) -> None:
+        for kind in ("static", "main", "assignment", "selected"):
+            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes"):
+                message = f'"{name}" is set by "Put_Line" but not used after the call'
+                data = assignment_report()
+                data["flow"][0]["message"] = {"text": message}
+                self.assertTrue(self.accepts(data, kind=kind))
+                mutations = (("rule", "DEAD_CODE"), ("severity", "info"),
+                             ("how_proved", "prover"), ("file", "silver_io.adb"),
+                             ("entity", 2), ("line", 0), ("col", 0),
+                             ("suppressed", False), ("justification", ""),
+                             ("message", {"text": message + " "}),
+                             ("message", {"text": message.replace("Put_Line", "Other")}),
+                             ("message", {"text": message.replace(name, "Other")}))
+                for field, value in mutations:
+                    changed = copy.deepcopy(data)
+                    changed["flow"][0][field] = value
+                    with self.subTest(kind=kind, name=name, field=field, value=value):
+                        self.assertFalse(self.accepts(changed, kind=kind))
 
 
 if __name__ == "__main__":

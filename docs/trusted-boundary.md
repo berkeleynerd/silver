@@ -180,8 +180,9 @@ Each byte write, LF write and `fflush(NULL)` result is checked. Success means
 all reported success; completion means host-stream acceptance, not reader
 consumption or durable storage. On any detected failure the wrapper calls the
 ordinary status setter with 1 and returns immediately. It makes no further
-output request. The admitted `Main` then returns without resetting that status.
-Success leaves GNAT's initial success status unchanged. Standard GNAT startup,
+output request within that call. Main continues with following statements and
+calls, which do not reset an earlier failure status. Success leaves the current
+status unchanged; GNAT initializes it to success. Standard GNAT startup,
 finalization and status propagation are external assumptions; finalization may
 flush buffered output. Partial output is possible, and the accepted-byte trace
 need not equal physically visible output.
@@ -191,9 +192,10 @@ contract incorrectly described process exit as noncompletion. The new import
 performs a terminating status assignment (`Always_Terminates => True`). No
 abrupt program exit is modeled or hidden, and application authors need no
 program-exit annotation. Wrapper return alone does not imply output success.
-Every admitted output or input-rejection branch is terminal: no further
-application operation follows its returning call. Any future composition with
-following statements must revisit failure propagation explicitly.
+Output calls can be followed by further statements and calls. The sequence
+effect proof concatenates accepted bytes in call order and preserves failure
+status across successful later calls. Reject remains alone in the outer false
+branch. No failure is treated as successful completion of the requested effect.
 
 Physical effects rely on faithful statuses, initialized standard output, no
 concurrent writers or stream rebinding, and ordinary GNAT finalization. Healthy
@@ -204,8 +206,9 @@ call returns, so only detected failures have the specified status 1. Storage
 exhaustion and external interruption remain outside verified source behavior.
 
 The Lean model interprets completed external replies, ordered wrapper actions,
-and ordinary `Main` completion. Its success theorem gives the selected bytes plus LF;
-its failure theorem gives status 1 and an accepted prefix. Physical delivery,
+and ordinary `Main` completion. Each successful call contributes its bytes plus
+LF; each failed call contributes a prefix and status 1. The whole sequence trace
+need not be a prefix under failures. Physical delivery,
 blocking and signals retain the premises above. See the
 [Hello World repair record](hello-review-repairs.md), historical
 [runtime experiment](hello-runtime-experiment.md) and
@@ -272,9 +275,9 @@ GNAT retrieves the complete unconstrained String before Silver checks its
 length. The 4096-byte language bound is not a bound on the runtime allocation
 needed to retrieve an oversized argument. Adequate storage, normal startup and
 faithful runtime calls remain environmental premises. `Reject` performs an
-ordinary status assignment, not libc process exit. The command-line form adds
-no output operations beyond its terminal `Put_Line` branch, whose failures and
-progress assumptions remain as specified above.
+ordinary status assignment, not libc process exit. The successful argument
+branch may contain multiple output calls; their returning failures and progress
+assumptions remain as specified above.
 
 A launch with no executable-name slot (`argc = 0` and a non-null argv vector)
 falls outside the startup premise: GNAT's runtime computes `argc - 1`, violating
@@ -387,9 +390,9 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The working catalogue has null and eight concrete output body/capacity shapes.
-Five executable arrangements share ordered declarations and one bounded String
-expression grammar; three argument arrangements have optional capacity clauses.
+The working catalogue has null and three statement shells: static, argument
+validity and argument validity/capacity. They share ordered declarations, bounded
+String expressions and nonempty statement sequences.
 Identifier parsing excludes reserved/shadowing names and binds complete names
 ignoring ASCII case. Argument-bearing shapes protect `Silver_Arguments` for every
 declaration. Expression initializers evaluate literals and earlier initialized
@@ -400,20 +403,19 @@ minimum declaration, without another language count limit. This is not a general
 verified Ada name resolver.
 
 Equal static lengths or the same symbolic input length establish assignment
-compatibility under Ada RM 3.3.1/5.2. The selected-result shape assigns the same
-mutable target on either equality branch before common output. Constants cannot
-be targets. Self-copy is legal, and the target need not occur in output. Current
+compatibility under Ada RM 3.3.1/5.2. Each assignment can target any initialized
+mutable object with the required length shape. Constants cannot be targets. Self-copy is legal, and the target need not occur in output. Current
 reads observe the selected branch's store; earlier declaration copies remain
 unchanged by a later write to their source. Each static reference counts its
 object's length, and every dynamic occurrence counts the original input or
 its alias. Predefined String equality compares complete initialized values and
 preserves case; unequal lengths compare false.
 
-The original immutable argument initializer stays first and unique. General
-sequencing, context-clause alternatives and additional
-argument-call placements remain outside this milestone. Every expression
-obeys its affine capacity bound. No new runtime operation or external
-dependency is introduced; output/rejection calls remain terminal on their paths.
+The original immutable argument initializer stays first and unique. Nested
+equality, context-clause alternatives and additional argument-call placements
+remain outside this milestone. Every expression obeys its affine capacity bound.
+No new runtime operation or external dependency is introduced; output calls
+return into the sequence, while Reject remains alone in the outer false branch.
 
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
@@ -448,8 +450,9 @@ The recursive mathematical report specifications and the assertions that refer
 to them use `Ghost => Static` and the `Static` assertion level. GNAT erases those
 proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
-including its refinement contract. The executable checks, report domain of
-262,144 bytes, and global `-gnata`/`-gnato` switches are retained. A native
+including its refinement contract. The executable checks and global
+`-gnata`/`-gnato` switches are retained. Application reports have a 2,097,152-byte
+capacity; runtime reports retain their separate 262,144-byte bound. A native
 negative experiment with a deliberately false static contract fails verification
 as expected; see the repair record for this and maximum-size runtime tests.
 
@@ -493,29 +496,34 @@ output. Its independent ghost policy and executable traversal require completed
 Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
 emitted safety record must be proved/info `VC_RANGE_CHECK` or `VC_LENGTH_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
-folding may leave no safety checks. Ordinary static/assigned reports contain
-Main and Put_Line; argument/selected reports contain Main and the four argument/
-output callees. Every dependency must name an approved entity and effects,
+folding may leave no safety checks. Static/assigned report shapes contain Main
+with or without Put_Line. Argument/selected shapes additionally permit exactly
+Main and First_Or_Default, Input_Is_Valid and Reject without Put_Line, or Main
+alone after producer elimination. Otherwise the complete argument/output set
+is required; each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
 postcondition or absence-of-runtime-error claim.
 
 All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
 `initialization of "NAME" has no effect`, with the checked identifier grammar.
 Only assigned/selected kinds additionally permit the exact `unused assignment`
-message. Argument/selected kinds also permit the exact `INEFFECTIVE` message
+message. All four kinds also permit the exact `INEFFECTIVE` message
 `statement has no effect` and `DEAD_CODE` message `this statement is never reached`,
 observed for statically known comparisons. Every allowed record requires warning severity, flow provenance, Main
 filename/entity, positive locations and no suppression or justification. There
 is no separate advisory-count cap. Initializers still establish bounds when
 their bytes are unused; these messages do not waive safety checks. Legal names
 such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
-Repeated-output ghost advisories and other messages remain rejected.
+Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
+`"NAME" is set by "Put_Line" but not used after the call`, where NAME is one of
+`Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain
+rejected; all provenance and suppression checks also apply to these four messages.
 
-GNAT may emit Main alone with empty safety/dependency lists. For static/argument
-kinds that fallback additionally requires a nonempty route-permitted
-advisory list; assigned/selected kinds also retain the earlier zero-advisory
-allowance. Outside this exact fallback the complete callee set is mandatory.
-The Python evidence helper applies the same policies and cross-checks SARIF
-records and totals.
+No-output sequences and static elimination can produce Main alone with or
+without assignment length/range checks or advisories. The checker retains complete
+Main coverage, all emitted check requirements and approved dependency references.
+The external producer premise, rather than accepting arbitrary entity omissions,
+justifies this finite set of report shapes. The Python evidence helper applies
+the same policies and cross-checks SARIF records and totals.
 
 Automatic completion relies on faithful and complete range/length obligation
 generation and the accepted entity/advisory/check shapes. Applicable static
@@ -525,7 +533,7 @@ own semantic/discharge argument and successful solver records. Matching fields
 alone cannot establish that no obligation was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
 defect, not permission to weaken membership or suppress obligations. Native
-binding discovery corroborates these classes; the [capability checkpoint](common-expressions.md)
+binding discovery corroborates these classes; the [capability checkpoint](statement-sequencing.md)
 includes implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
@@ -555,11 +563,15 @@ fragment's completion remains an explicit tool-contract premise. The bound of
 sixteen leaves limits each expression to fifteen concatenations. A separate
 thirty-operator source budget includes initializers and both body branches,
 retaining the earlier two-output operator-count ceiling. Proof cost can differ
-by expression position. The source bound, these
-resource policies and measured dense cases support the unchanged 262,144-byte
-report capacity; faithful complete producer reports fitting that capacity remain
-an explicit tool premise, not a consequence of a native sample or a solver-time
-theorem. Larger diagnostic probes are not successful production proofs. Native boundary experiments
+by expression position. [Sequencing probes](statement-sequencing.md) produced
+314,746-byte and 469,246-byte Main reports within the source/operator limits,
+exceeding the previous application buffer. The application capacity is now 2 MiB;
+the runtime capacity stays 262,144 bytes. Faithful complete producer reports
+fitting that envelope remain an explicit tool premise, not a proved JSON-size
+or solver-time bound. A dense 800-assignment run was externally stopped before
+report generation; it establishes neither solver failure nor measured capacity.
+No statement/output-count restriction is inferred from that interruption.
+Native boundary experiments
 corroborate the argument; they do not establish a completeness premise for
 arbitrary SPARK. See the [assurance argument](assurance.md) for the checkpoint's
 current proof status and exact theorem boundaries.
@@ -597,15 +609,16 @@ the helper remains Silver-owned SPARK subject to complete native verification.
 catalogue and refinement checks. The recursive expression interpretation is
 parameterized by its callees. Applying the recursive uniqueness lemmas connects
 every interpretation satisfying the checked definition equations to membership.
-The [review repair](common-expressions.md#external-review-of-9b72d36) supplies the
-composed witness missing at `9b72d36`: `Compose.Expressions.modelCalls` satisfies
-the original helper equations, independently proved range contracts and legal
-executed-call domains. `Compose.SourceBridge.model_interpreted` has no premises
-and inhabits their combined interface. This establishes consistency of that
-interface; correspondence for arbitrary actual callees still has the documented
-Ada/frontend interpretation premise below. These equations are a semantic
-interface, not project axioms or an assumption that membership implies proof
-success.
+The [review repair](common-expressions.md#external-review-of-9b72d36) supplied
+the composed witness missing at `9b72d36`. Its helper equations remain reusable;
+the obsolete fixed-shell equations are separate from the new scanner. The current
+sequence interpretation has its own independent `SequenceModel` witness for
+raw scanner equations and range/progress contracts, built from concrete shared
+helper meanings. The combined source bridge retains the actual-byte checks,
+checked definitions and executable refinements. This establishes consistency of
+the interface; actual arbitrary-callee correspondence still has the Ada/frontend
+interpretation premise below. These equations are a semantic interface, not
+project axioms or an assumption that membership implies proof success.
 
 The remaining interpretation premise is that approved Ada/GNAT frontend
 semantics gives this fixed fragment its modeled predefined operators, indexing,
@@ -617,11 +630,11 @@ allows only fixed ghost actions and loop annotations and checks their Static
 declarations plus the numeric output bound; it does not type-check arbitrary
 Ada statements. The argument bridge renders its entire owned body without
 ghost-erasure slots and checks the pure query contracts and existing GNAT import
-signatures. The composed language proof connects the shared expression grammar,
-ordered initialization/assignment/choice semantics and per-output weighted
-length bounds. Its source bridge checks actual expression functions, form token
-sequences, identifier roles and acceptance/report selectors against those
-models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
+signatures. The sequence language proof connects shared expressions and declarations to
+ordered basic statements and one-level choices, fixed-length state preservation
+and cumulative returning-call effects. Its source bridge checks actual helper
+and scanner bodies, token sequences, identifier roles and acceptance/report
+selectors against those models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
 `ArgumentsSourceBridge` and `LexicalSourceBridge` supply lexical/runtime
 correspondence; obsolete fixed-production suffix claims are removed when their
 Ada functions are replaced. The preceding Compose String Results Linux checkpoint

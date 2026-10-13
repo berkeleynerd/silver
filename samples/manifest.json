@@ -205,7 +205,7 @@
         "argument_context",
         "argument_initialization",
         "string_equality",
-        "input_branch",
+        "string_choice",
         "argument_rejection"
       ],
       "specification": "../language.md#input-dependent-branching",
@@ -273,7 +273,7 @@
         "input_guard",
         "capacity_guard",
         "string_equality",
-        "result_branch",
+        "string_choice",
         "string_expression",
         "expression_output",
         "argument_rejection"
@@ -342,7 +342,7 @@
         "argument_initialization",
         "input_guard",
         "string_equality",
-        "result_branch",
+        "string_choice",
         "string_expression",
         "expression_output",
         "argument_rejection",
@@ -436,7 +436,7 @@
         "string_concatenation",
         "string_assignment",
         "string_equality",
-        "result_branch",
+        "string_choice",
         "expression_output"
       ],
       "specification": "../language.md#common-string-expressions",
@@ -470,6 +470,69 @@
           "arguments": [
             "guest",
             "extra"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
+    },
+    {
+      "source": "statement_sequence.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "argument_context",
+        "argument_initialization",
+        "capacity_guard",
+        "argument_rejection",
+        "named_string_constant",
+        "named_string_variable",
+        "string_copy",
+        "string_assignment",
+        "string_expression",
+        "string_concatenation",
+        "string_equality",
+        "string_choice",
+        "statement_sequence",
+        "basic_statement_sequence",
+        "expression_output",
+        "null_statement"
+      ],
+      "specification": "../language.md#statement-sequencing",
+      "expected": {
+        "stdout": "Hello, guest!\nBefore: draft; current: ready\nMode: brief\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            "verbose"
+          ],
+          "expected": {
+            "stdout": "Hello, verbose!\nDetails: extra\nBefore: draft; current: extra\nMode: details\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "Hello, !\nBefore: draft; current: ready\nMode: brief\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "one",
+            "two"
           ],
           "expected": {
             "stdout": "",

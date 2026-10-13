@@ -23,10 +23,12 @@ The completed [shared-bindings increment](shared-bindings.md) replaced fixed
 slots with ordered initialized declarations and eight concrete body/capacity
 forms. The [common-expression increment](common-expressions.md) extends those
 same arrangements with parentheses and shared expressions in initialization,
-assignment, comparison and output. Its capability record gives the current
-checkpoint status and exact evidence. The rules and proof interfaces below
-reflect this implementation. Earlier capability and performance records retain
-their original input scope.
+assignment, comparison and output. The current [sequencing increment](statement-sequencing.md)
+replaces those fixed bodies with nonempty sequences and one-level equality choices.
+Its complete Linux native/Lean checkpoint passed, including actual-source
+correspondence and a fresh whole-project axiom/module audit. The rules and proof
+interfaces below describe this supported language. Earlier capability and
+performance records retain their original input scope.
 
 The [language specification](../language.md) defines the precise admitted syntax
 and behavior; the [catalogue](../catalogue/silver.json) and compiler must agree
@@ -47,17 +49,17 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Membership and composition
 
-`Current.Member` is the union of the null grammar and `Compose.Member`.
+`Current.Member` is the union of the null grammar and `Sequence.Member`.
 `Current.accepts_iff_member` proves decidability; `member_has_meaning` and
-`meaning_unique` give every admitted source exactly one canonical decoded program.
-Admission remains the union of the finite shells; meaning and report routing
-select the first accepted shell in the shared enumeration. This uniqueness
-result does not require a separate all-forms-disjointness claim.
-`ComposeAdmission` defines executable recognition. `ComposeSemantics` connects
-operand/expression parsing to that model; `ComposeDeclarations` and
-`ComposeGrammar` derive ordered declarations, named references and shell events.
-`ComposeDecode`'s `decoded_valid` connects every admitted
-payload stream to the validity conditions in `ComposeMain`.
+`meaning_unique` give every admitted source exactly one decoded program.
+`SequenceAdmission` defines the scanner for three shells, basic statements,
+nonempty lists and one-level choices. `SequenceTokens`, `SequenceBasics`,
+`SequenceLists`, `SequenceConditions`, `SequenceHeader`, `SequenceShell` and
+`SequenceGrammar` connect its token events to the independent typed grammar and
+program validity. The three shells are disjoint; `SequenceSelectors` connects
+argument/output/assignment flags to the decoded program, including occurrences
+in both conditional arms. Shared `Compose` expression/declaration proofs remain
+in use; their obsolete fixed-shell recognition is not the current language.
 
 Membership covers the entire source, including its 1..4096-byte bound, permitted
 ASCII alphabet, comments, trivia, case-insensitive identifiers and whole-word
@@ -170,7 +172,7 @@ An optional canonical capacity in 0..4096 strengthens the executable guard on
 the selected String. A value exceeding it is rejected even when it came from
 the default. This is observable source behavior, not truncation or a hidden
 change to the argument domain. Without an explicit clause, the library's
-4096-byte bound suffices. `ComposeMain`'s `guarded_length` connects successful guard
+4096-byte bound suffices. `Sequence.shell_guard_bound` connects successful guard
 evaluation to the capacity used in each expression's bound.
 
 Retrieving an oversized process argument can allocate storage before Silver
@@ -199,13 +201,12 @@ Declaration initializers execute before those body facts are available.
 `Bindings.assignment_length`, `assignment_preserves` and
 `assignment_preserves_other` establish exact length compatibility, preserved
 initialization/bounds and unchanged other objects. Output reads the resulting
-store. The plain assignment shape performs one assignment; the selected-result
-shape performs one assignment to the same target on either equality branch,
-then common output. Both branch executions start from the pre-choice store, so
-one branch cannot affect the other's RHS meaning. Output may omit the target.
+store. Assignments may occur throughout the sequence and either equality arm.
+Both arms start from the pre-choice store; only the chosen one executes. Later
+statements observe its updates. Output may omit every assignment target.
 
 The source interpretation connects declaration elaboration and each parsed
-read/write to these generic store operations; the [capability checkpoint](common-expressions.md)
+read/write to these generic store operations; the [capability checkpoint](statement-sequencing.md)
 includes that correspondence. No path may read an uninitialized binding.
 Ada RM 3.3.1 and 5.2 supply the inherited object/assignment constraint semantics.
 The assigned bytes can change, but the target's bounds cannot.
@@ -219,55 +220,57 @@ corroborates these check and diagnostic classes; it does not prove a universal
 solver bound. Precisely classified unused-initializer/assignment advisories do
 not waive either safety class.
 
-### Input-dependent branching
+### Statement sequences and equality choices
 
-The inner condition compares two bounded expressions using predefined String
-equality. At least one contains a declared String name, providing Ada's required
-array-type resolution; two literal-only operands are excluded. Equality compares length and element bytes without
-requiring equal array bounds; it preserves case. The terminal-branch shell
-chooses one of two output expressions. The selected-result shell chooses the
-expression value assigned before common output. A failed outer
-guard performs
-neither the equality-selected output nor an assignment branch.
+`SequenceSemantics` executes statements in order over the current initialized
+store. Assignment preserves the target's fixed length shape and all other
+bindings. `SequenceExecution` proves that its checked interpreter always succeeds
+for valid programs, including every assignment after earlier updates.
 
-`Compose.Main.composition` uses the same typed templates for rendered source
-tokens and interpreted declaration/statement sequencing. `rendered_tokens`
-checks every shell, and `execution_refines` connects ordered parser events to
-`Compose.Program.action`. `Compose.SourceBridge.authoritative_main_correct`
-retains the actual-source checks while composing parsing, decoding and that
-execution result. The earlier [branching record](input-branching.md) describes
-the narrower terminal-literal capability and its historical evidence.
+A one-level choice compares two bounded String expressions and executes one
+nonempty sequence of basic statements. At least one operand contains a declared
+String name for Ada array-type resolution. Equality compares length and element
+bytes, preserving case. Multiple choices may occur in sequence; no nested equality
+or new Boolean language is admitted. Both arms preserve initialized values and
+bounds, so their effects compose with following statements. A failed outer
+argument guard performs only Reject.
+
+`SequenceMain` relates the parsed token/payload order, explicit conditional arms
+and declaration store to that same program's checked execution and effects. The
+sequence source bridge combines this with checked native scanner equations and
+refinement contracts. The earlier [branching record](input-branching.md) retains
+its narrower terminal-output scope.
 
 ## Output effects and failure outcomes
 
-`ComposeMain`'s `action_domain` and `Current.action_domain` prove that every selected
-output value is printable and at most 4096 bytes. `OutputRuntime` interprets the
-whole `Silver_IO` body: length guard, byte writes, LF write, flush, checked
-statuses, failure-status assignment and early return. Its renderer matches the
-actual body; only fixed Static ghost actions and annotations are erased, with
-their declarations checked separately. GNATprove verifies the wrapper for every
-String, including arbitrary lower bounds and oversized values.
+`Sequence.program_execution_valid` and `Current.effects_domain` prove that every
+executed output value is printable and at most 4096 bytes. `OutputRuntime`
+interprets the whole `Silver_IO` body: length guard, byte writes, LF write, flush,
+checked statuses, failure-status assignment and early return. Its renderer matches
+the actual body, with only checked Static ghost actions erased. GNATprove verifies
+the wrapper for every String, including arbitrary lower bounds and oversize values.
 
-Success requires acceptance of the selected bytes followed by exactly one LF,
-and a successful flush. A detected write or flush failure returns status 1 and
-records an accepted prefix of that requested output; it cannot count as successful
-completion. A prefix may be the entire byte sequence when flush fails. Guard
-rejection returns status 1 with no output. Null returns status 0 with no output.
-Every output is terminal along its executed path, so no later application action
-can overwrite a detected failure.
+Each call succeeds only if its requested bytes and LF are accepted and its flush
+succeeds. A detected write/flush failure returns and records an accepted prefix
+of that call's requested output. Later statements and calls still execute; a
+later success does not clear the failure status. `SequenceEffects` combines
+per-call traces in execution order with sticky failure. Under failure, the
+combined bytes need not be a prefix of the entire intended output. Its cumulative
+bound is the actual number of output effects times 4097; there is no separate
+call-count cap. Guard rejection returns status 1 without output. Null returns
+status 0 without output.
 
-`Current.execution_specified` proves these outcomes for every modeled completed
-execution. `healthy_execution` gives exact bytes and the expected status under
-`Output.Runtime.Healthy`; invalid or over-capacity input remains a rejection
-even in that environment. `every_meaning_assured` quantifies over every admitted
-meaning and environment, not just the samples.
+`Current.execution_specified` proves the per-call trace relation for every
+modeled completed execution. `healthy_execution` gives the concatenation of all
+requested outputs and expected status under healthy per-call environments;
+invalid or over-capacity input remains a rejection. `every_meaning_assured`
+quantifies over every admitted meaning and environment, not just samples.
 
-The observation is acceptance by the host C output stream, not consumption by a
-reader or durable storage. Blocking calls, signals, abnormal process termination
-and arbitrary external exceptions are outside the completed-reply model.
-Effectful operations have explicit nontermination allowances; there is no
-claimed progress theorem for an unresponsive output environment. libc, GNAT's
-returning status setter and normal startup remain trusted dependencies.
+The observation is host C stream acceptance, not reader consumption or durable
+storage. Blocking, signals, abnormal termination and arbitrary external exceptions
+are outside the completed-reply model. No progress theorem is claimed for an
+unresponsive output environment. libc, GNAT's returning status setter and normal
+startup remain trusted dependencies.
 
 ## Mechanical proofs and their correspondence
 
@@ -285,46 +288,27 @@ required correspondence. The checked chain has these distinct parts:
    lexical/runtime bodies. Surrounding scopes and helper declarations cannot
    disappear behind a selected-body comparison. The runtime bridges render the
    entire owned IO/Arguments bodies and conjoin checked source with refinement.
-3. `ComposeExpressions` interprets the typed binding lookup, literal/name value,
-   declaration, operand, expression-tail, state-step, shell-suffix and selector
-   bodies, together with their checked lexical/executable refinements. `ComposeSourceChecks`
-   checks them against authoritative Ada; `ComposeSourceBridge` assembles those
-   facts, including precedence, scope, record/subtype
-   declarations, active binding-array representation, finite token/form mappings,
-   source constants and executable refinement contracts. The typed Main shapes
-   render those same shell tables and interpret declaration lists and ordered
-   parsed payloads. Capacity for every active binding follows from source size;
-   loops refine the terminating mathematical traversals without native recursive
-   array-state copying.
-4. `Compose.Lexical.InterpretedSource` contains only retained lexical-body
-   equations. For arbitrary helper calls, `interpreted_primitives` proves the
-   meanings of trivia, literals and decoded lengths, identifiers, exclusions,
-   name equality, decimal capacities, fixed tokens, normalization and allowed
-   bytes on their legal machine domains. No deleted suffix/member body or
-   parser-equals-model assertion is an interpretation premise.
-5. `ComposeEvaluation` records legal executed helper calls, respecting
-   short-circuit branches, and proves typed-evaluation congruence. The source
-   bridge starts with raw body equations using the actual arbitrary callees;
-   `normalized_definitions` derives equations using the proved lexical meanings
-   from those raw equations and the verified caller-domain facts. Recursive
-   uniqueness in `ComposeEquations` then closes binding/declaration and
-   operand/expression behavior. `ComposeRecognitionEquations` assembles shell
-   traversal and routing.
-   `interpreted_member`, `interpreted_arguments` and `interpreted_assignment`
-   establish admission and the report selectors. The source bridge retains
-   checked source, helper interpretation and SPARK executable-refinement facts
-   in its membership/selector theorems. The verified Step postcondition carries
-   legal state bounds through recursive shell calls.
-   The downstream `ComposeModel` supplies a concrete inhabitant of this same
-   interface: `Compose.Expressions.modelCalls` satisfies all helper equations,
-   independently proved range contracts and executed lexical-call domains.
-   `Compose.SourceBridge.model_interpreted` has no premises. This closes the
-   composed interface's consistency gap; the existing arbitrary-callee theorems
-   still rely on the documented Ada/frontend interpretation boundary.
-6. `ComposeSemantics`, `ComposeDeclarations`, `ComposeGrammar` and `ComposeDecode` connect that grammar
-   to canonical decoded programs satisfying all expression, initialization,
-   assignment and guard bounds. `ComposeExecution`, `ComposeObligations` and
-   `Current` then establish behavior and the modeled automatic discharge result.
+3. `ComposeExpressions`, `ComposeEvaluation`, `ComposeEquations` and
+   `ComposeSourceChecks` retain shared typed binding, declaration, operand,
+   expression and state-step interpretations. Their helper-only interface is
+   separate from obsolete fixed-shell recognizer equations. Legal caller domains
+   and recursive uniqueness establish those helpers' meanings for arbitrary
+   callees satisfying their actual definition equations and verified contracts.
+4. `Compose.Lexical.InterpretedSource` supplies only retained lexical equations.
+   `interpreted_primitives` proves trivia, literals, identifiers, exclusions,
+   name equality, capacities, tokens, normalization and allowed bytes on their
+   legal machine domains. No whole-recognizer-equality premise is introduced.
+5. `SequenceExpressions`, `SequenceEquations` and `SequenceSourceChecks` interpret
+   the actual basic/list/conditional scanner, shell tables and selectors. Raw
+   equations and progress/range contracts remain distinct. Their concrete
+   `SequenceModel` witness independently satisfies all fields, including helper
+   calls; recursive source interpretation is therefore inhabited. The source
+   bridge retains exact authoritative source checks and executable refinements
+   alongside arbitrary-callee recognition and selector conclusions.
+6. The sequence grammar modules connect recognition to initialized, bounded
+   programs. `SequenceMain`, `SequenceExecution`, `SequenceObligations`,
+   `SequenceEffects` and `Current` connect source-order execution, every assignment
+   and output call, specified failure outcomes and modeled automatic discharge.
 
 The interpretation of the checked restricted Ada fragment as these equations
 uses the approved frontend's predefined operators, indexing, short-circuit
@@ -338,7 +322,7 @@ general Ada parser, arbitrary overload resolution or a theorem about GNAT's
 implementation. The source-equation conclusions quantify over interpretations
 satisfying their checked equations; they do not assume recognition correctness.
 
-The current proof facade uses the shared composed recognizer. Historical model
+The current proof facade uses the sequence scanner and shared expression rules. Historical model
 modules can remain as reusable mathematical developments, but obsolete
 fixed-production source bridges do not establish correspondence for replaced
 Ada functions. Source-pin changes must be reviewed together with these semantic
@@ -353,12 +337,13 @@ validates its earlier generalized binding source; this revision requires the
 
 ## Automatic completion and the external boundary
 
-`ComposeObligations` associates declaration initializers and every body expression
+`SequenceObligations` reuses the shared declaration/expression schemas and
+associates every expression in the statement sequence
 with conservative range schemas. They count the static contribution plus every
 dynamic occurrence times the selected input length. Initializers use the full
 4096-byte domain; later body sites use the executable guard's capacity.
-Prefix/grouping results cover intermediate concatenations, and `program_schemas`
-covers comparison operands, assignment RHS values and both alternative branches.
+Prefix/grouping results cover intermediate concatenations; the sequence fold
+covers every comparison operand, assignment RHS and both alternative branches.
 A separate exact-length schema covers assignment compatibility with the target's
 fixed bounds. Every emitted safety obligation must correspond to the appropriate
 range or length channel; accepting its report is not that correspondence proof.
@@ -439,7 +424,7 @@ the approved imports. No historical check total substitutes for coverage.
 
 ### Source-selected application policies
 
-`Uses_Arguments` and `Uses_Assignment` have SPARK-proved refinement contracts to
+`Uses_Arguments`, `Uses_Assignment` and `Uses_Output` have SPARK-proved refinements to
 the same grammar's selectors. The driver computes one `Application_Kind` and
 uses it consistently in report acceptance and build/publication prerequisites.
 All output shells use `Complete_Application_Proof`; only null retains
@@ -447,10 +432,10 @@ All output shells use `Complete_Application_Proof`; only null retains
 
 | Policy | Source composition | Expected call-report entities | Advisory allowance |
 | --- | --- | --- | --- |
-| Static | Ordinary declarations followed by direct output | Main and Put_Line | Exact initializer advisories |
-| Argument | Immutable input, ordinary declarations, direct or branch-selected output | Main, First_Or_Default, Input_Is_Valid, Reject and Put_Line | Exact initializer and constant-equality advisories |
-| Assigned | Ordinary declarations, one compatible assignment, output | Main and Put_Line | Exact initializer and unused-assignment advisories |
-| Selected | Immutable input, ordinary declarations and branch-assigned target, common output | Main and the four argument/output callees | Exact initializer, unused-assignment and constant-equality advisories |
+| Static | Static sequence without assignment | Main, optionally Put_Line | Initializer, constant-equality and exact ghost-output advisories |
+| Argument | Argument-guarded sequence without assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Same exact messages |
+| Assigned | Static sequence containing assignment | Main, optionally Put_Line | Above plus exact unused-assignment advisory |
+| Selected | Argument-guarded sequence containing assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` or
 `VC_LENGTH_CHECK`, with the expected Main filename/entity, valid positive
@@ -463,29 +448,36 @@ safety class is accepted.
 All four policies permit finite lists of the exact `INEFFECTIVE` message
 `initialization of "NAME" has no effect`. The name must have the checked Ada
 identifier shape. Only Assigned/Selected policies additionally permit the exact
-message `unused assignment`. Argument/Selected policies additionally permit
+message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
 `this statement is never reached`, observed for constant String equality.
 Every allowed advisory must have warning severity,
 flow provenance, Main filename/entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
-waive safety checks. Other messages, including repeated-output ghost-output
-advisories, remain rejected. Some legal names make GNATprove omit an advisory.
+waive safety checks. Repeated output permits exactly `"NAME" is set by
+"Put_Line" but not used after the call`, with NAME one of `Written_Count`,
+`Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
-A bare-Main report requires empty safety/dependency lists. Static/Argument
-policies additionally require a nonempty route-permitted advisory list;
-Assigned/Selected retain their earlier zero-advisory allowance as well. Outside
-this precise fallback, the full source-selected callee set is required. Native
-tests use genuine reports and mutations; the Python evidence helper applies the
-same four policies and additionally checks SARIF consistency and totals.
+A bare-Main report is allowed for no-call/static-elimination shapes, retaining
+all Main coverage, checks and dependency validation. Argument policies additionally
+permit exactly Main with First_Or_Default, Input_Is_Valid and Reject when Put_Line
+is absent. Other accepted entity sets are the complete route-specific sets above;
+unknown, missing-within-a-set or duplicate entities remain rejected. Native tests
+use genuine reports and mutations; the Python evidence helper applies the same
+policies and additionally checks SARIF consistency and totals. The finite sets
+and permitted producer elimination remain an explicit tool-format premise.
 
 The bounded, nonrecursive executable scanners have SPARK-proved equality to
 independent Static ghost `Runtime_Report_Policy` and `Application_Report_Policy`.
 These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
-tables do not replace that refinement. The report domain remains 262,144 bytes.
+tables do not replace that refinement. Application reports have a 2,097,152-byte
+domain; runtime reports retain 262,144 bytes. A maximal 175-output source produced
+314,746 bytes, demonstrating the need for the larger application buffer. The
+complete producer envelope fitting 2 MiB remains an explicit premise; it is not
+a Lean-derived JSON-size bound. See [capacity evidence](statement-sequencing.md).
 Static erasure removes proof computations from the executable while all their
 GNATprove obligations remain; real report guards and assertion/overflow checks
 remain enabled.

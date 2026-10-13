@@ -30,21 +30,21 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
     (state : ParserState) (tokenValid : ValidToken token) (context : ValidState text state) :
     calls.function .step text form token state = step text form token state := by
   rw [source.step text valid form token state tokenValid context]
-  have argument := interpreted_argument calls source text valid state context
-  have declarations := interpreted_declarations calls source text valid state form.hasArguments context
+  have argument := interpreted_argument calls source.toHelperEquations text valid state context
+  have declarations := interpreted_declarations calls source.toHelperEquations text valid state form.hasArguments context
   have read := (source.readDeclarations text valid state form.hasArguments context).trans declarations
-  have target := interpreted_target calls source text valid state false context
-  have targetSame := interpreted_target calls source text valid state true context
-  have dynamic := interpreted_dynamic calls source text valid state context
-  have assignment := interpreted_assignmentValue calls source text valid state context
-  have output := interpreted_output calls source text valid state context
-  have comparison := interpreted_comparison calls source text valid state context
-  have capacity := interpreted_capacity calls source text valid state context
-  have skipped := interpreted_skip calls source text valid state.position context.1
+  have target := interpreted_target calls source.toHelperEquations text valid state false context
+  have targetSame := interpreted_target calls source.toHelperEquations text valid state true context
+  have dynamic := interpreted_dynamic calls source.toHelperEquations text valid state context
+  have assignment := interpreted_assignmentValue calls source.toHelperEquations text valid state context
+  have output := interpreted_output calls source.toHelperEquations text valid state context
+  have comparison := interpreted_comparison calls source.toHelperEquations text valid state context
+  have capacity := interpreted_capacity calls source.toHelperEquations text valid state context
+  have skipped := interpreted_skip calls source.toHelperEquations text valid state.position context.1
   have skipDomain := source.ranges.skip text valid state.position context.1
   rw [skipped] at skipDomain
-  have literal := interpreted_literal calls source text valid (skipAt text state.position) skipDomain
-  have taken := interpreted_take calls source text valid state.position token context.1 tokenValid
+  have literal := interpreted_literal calls source.toHelperEquations text valid (skipAt text state.position) skipDomain
+  have taken := interpreted_take calls source.toHelperEquations text valid state.position token context.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
   rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]
@@ -105,7 +105,7 @@ theorem interpreted_suffix (calls : Calls) (source : DefinitionEquations calls)
     · simp +instances [finished]
     · simp +instances only [finished, ↓reduceIte]
       have tokenValid := tokenAtIndex_valid form index first (by omega)
-      have next := source.ranges.step text valid form (tokenAtIndex form index) state tokenValid context
+      have next := source.stepRange text valid form (tokenAtIndex form index) state tokenValid context
       rw [interpreted_step calls source text valid form (tokenAtIndex form index) state tokenValid context] at next
       exact interpreted_suffix calls source text valid form (index + 1)
         (step text form (tokenAtIndex form index) state) next (by omega) (by omega)
@@ -122,7 +122,7 @@ theorem interpreted_form (calls : Calls) (source : DefinitionEquations calls)
   by_cases valid : ValidText text
   · have suffix := interpreted_suffix calls source text valid form 1 initialState (initial_valid text)
       (by omega) (by omega)
-    have budget := interpreted_workBudget calls source text valid
+    have budget := interpreted_workBudget calls source.toHelperEquations text valid
     have positive : 1 ≤ text.length := valid.1
     simp +instances [formAccepts, budget, suffix, suffixAtIndex, positive, valid.1, valid.2]
   · have invalid : ¬(1 ≤ text.length ∧ text.length ≤ maxSourceLength) := valid

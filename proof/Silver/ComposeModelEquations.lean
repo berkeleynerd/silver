@@ -16,7 +16,8 @@ set_option backward.dsimp.instances true
 
 theorem model_definitions (ranges : RangeContracts modelCalls) :
     DefinitionEquations modelCalls modelCalls where
-  ranges := ranges
+  ranges := ranges.toHelperRanges
+  stepRange := ranges.step
   skip := by
     intros
     simp +instances [modelCalls, modelPrimitives, Context.locals, Expr.eval, skipBody, spelling, isWord, skipAt]

@@ -1,5 +1,60 @@
 # Session memory
 
+## 2026-10-13 — Statement sequencing and assignment completed
+
+The authorized sequencing increment is complete, based on `3c1522f540`. Its
+implementation/review target is the commit introducing
+`../samples/statement_sequence.adb`. The [capability record](statement-sequencing.md)
+contains exact Linux evidence, source-proof structure, reviews, capacity probes
+and remaining solver/complete-report premises. The Oracle is unchanged.
+
+Shared declarations and expressions now compose with finite nonempty sequences
+of null, fixed-bound assignment, output and one-level equality choices, under
+the existing static/argument shells. Multiple choices and outputs are permitted;
+returning output failures allow later statements while retaining failed status.
+There is no arbitrary statement/output-count limit. Native report experiments
+justify the separate application buffer; dense assignment cost remains unresolved.
+
+The complete native compiler audit, build/catalogue checks, full test invocation,
+universal semantics/discharge, concrete interpretation witness, actual-source
+correspondence and complete Lean/fresh axiom audit passed. Failed source-check
+and example-integration attempts are retained; the successful final check uses
+stable final inputs and reuses completed source artifacts. No optional kernel
+replay or native macOS validation was requested.
+
+`tmp/sequencing-active.json` records recovery and closing Git state. The canonical
+proof workspace is current and warm; preserve its private/server sidecars and
+Lake metadata, prior snapshots, isolated lanes, failed logs and scratch. The
+capability record notes the replaced model-lane rolling focused JSON, without
+claiming to preserve that original file; timestamped logs and separate witness
+evidence remain. Existing unfinished repeated-output code stays archived.
+
+Equality, guards and branches is next proposed, with nested conditions/path facts;
+context/name closure and call associations remain in their roadmap rows. No
+further functional increment or new harness goal began. The live historical
+Compose String Results goal remains complete. Publication authorization persists;
+Linux is primary, Actions stays disabled, and macOS proofs remain out of scope.
+CLI memory tools were rechecked and are unavailable; no CLI entry was written.
+This checked-in memory and RESUME are the updated durable handoff.
+
+
+## 2026-10-13 — Statement sequencing authorized
+
+The owner instructed proceeding with the next roadmap unit after its scope was
+stated. The [working record](statement-sequencing.md) specifies finite sequences
+of existing basic statements and one-level equality choices, preserving the
+outer argument guard and fixed binding/expression rules. Repeated output effects
+and source-selected report coverage are coupled requirements. Nested equality
+and broader Boolean guards remain later work. No arbitrary call cap is adopted.
+
+The baseline is `3c1522f540`; prior proof/native artifacts and evidence are copied
+before edits. `tmp/sequencing-active.json` records recovery and isolated proof
+lanes. Use focused checks during development and one stable full checkpoint;
+keep the new capability pending until then. Publication remains authorized,
+Actions disabled and macOS proof work out of scope. No replacement harness goal
+was requested; the historical Compose String Results goal remains complete.
+
+
 ## 2026-10-13 — Composed interpretation witness repair completed
 
 The authorized narrow repair of review M1 is complete. Based on review target

@@ -140,9 +140,6 @@ class CopyValuesTests(unittest.TestCase):
                  assignment.replace(b'Ready:constant String:="ready";',
                                     b'Ready:constant String:=Detailed;'),
                  assignment.replace(b'begin Result:=Detailed;', b'begin Ready:=Detailed;'),
-                 assignment.replace(b'begin Result:=Detailed;', b'begin Result:=Detailed;Result:=Ready;'),
-                 assignment.replace(b'Silver_IO.Put_Line(Result);',
-                                    b'Silver_IO.Put_Line(Result);Silver_IO.Put_Line(Ready);'),
                  selected.replace(b'Mode:constant String:=Silver_Arguments.First_Or_Default("brief");', b'')
                  .replace(b'Ready:constant String:="ready";',
                           b'Ready:constant String:="ready";Mode:constant String:=Silver_Arguments.First_Or_Default("brief");'),

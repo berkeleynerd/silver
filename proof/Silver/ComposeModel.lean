@@ -16,7 +16,14 @@ namespace Silver.Compose.SourceBridge
 
 theorem model_interpreted : InterpretedSource Expressions.modelCalls where
   lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
-  definitions := Expressions.model_definitions Expressions.model_ranges
-  legal := Expressions.model_legal
+  definitions := (Expressions.model_definitions Expressions.model_ranges).toHelperEquations
+  legal := Expressions.model_legal.toLegalHelpers
+  step := by
+    intro text valid form token state _ tokenValid stateValid
+    exact (Expressions.model_definitions Expressions.model_ranges).step
+      text valid form token state tokenValid stateValid
+  stepLegal := by
+    intro text valid form token state _ tokenValid stateValid
+    exact Expressions.model_legal.step text valid form token state tokenValid stateValid
 
 end Silver.Compose.SourceBridge

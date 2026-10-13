@@ -1,8 +1,8 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-common-expression language under the [Oracle](oracle.md), validated by the complete
-[Linux checkpoint](docs/common-expressions.md). The
+statement-sequencing language under the [Oracle](oracle.md), with a completed
+[Linux checkpoint](docs/statement-sequencing.md). The
 [machine-readable catalogue](catalogue/silver.json), compiler, and this
 specification must agree. A discrepancy is a defect to resolve, not an extension
 of the language. Membership depends on source bytes, never on prover success.
@@ -43,14 +43,11 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-The common-expression revision has **eight concrete output forms plus null**.
-Declarations use one ordered binding rule across five executable body shapes;
-three argument-bearing shapes each have an optional capacity clause. Static
-output is an instance of direct output, rather than a separate declaration-count
-variant. The [common-expression checkpoint](docs/common-expressions.md) establishes
-complete native and Lean validation for this revision. The preceding
-[Copy String Values checkpoint](docs/copy-values.md) retains its earlier input
-scope. Existing samples remain instances of the revised grammar.
+The language has the separate null program and three output-capable shells:
+static statements, argument-guarded statements, and argument/capacity-guarded
+statements. They share ordered declarations and finite statement sequences.
+An output-capable shell need not actually call output. Earlier output, assignment
+and branch-selected samples are instances of these shared rules.
 
 All programs contain exactly one library-level `procedure Main`, without
 parameters or exception handlers, and exactly one `pragma SPARK_Mode (On);` at
@@ -65,7 +62,7 @@ begin
 end Main;
 ```
 
-Every output shell has `with Silver_IO;`. The three argument-bearing shells
+Every output-capable shell has `with Silver_IO;`. The two argument-bearing shells
 add exactly `with Silver_Arguments;` after that clause. There are no `use`
 clauses or additional application units. Context-clause reordering/grouping and
 broader visibility rules remain explicit later work with the existing argument
@@ -89,7 +86,7 @@ without a trailing underscore. The 74 Ada 2022 reserved words, `String` and
 `Silver_IO` are excluded ignoring ASCII case. In an argument-bearing shell,
 `Silver_Arguments` is also excluded for **every** declaration. All names within
 one program must be distinct ignoring ASCII case. `Main` is legal;
-`Silver_Arguments` remains legal in the static and assignment shells. Every
+`Silver_Arguments` remains legal in the static shell. Every
 reference matches the entire declared identifier ignoring ASCII case. There is
 no additional identifier-length limit beyond the complete source bound.
 
@@ -172,44 +169,32 @@ project resource policies, not Ada/SPARK restrictions or proved solver-time boun
 The [capacity evidence](docs/common-expressions.md) records their justification
 and the remaining external-tool completion premises.
 
-### Direct output
+### Statement sequences and fixed-bound assignment
 
-The body is exactly `Silver_IO.Put_Line (E);`, following any permitted ordinary
-declarations. With no declarations, only literals are available:
+A static body contains a nonempty sequence of these statements:
 
-```ada
-with Silver_IO;
-procedure Main is
-   pragma SPARK_Mode (On);
-begin
-   Silver_IO.Put_Line ("Hello" & ", " & "world!");
-end Main;
+```text
+statements       ::= statement { statement }
+statement        ::= basic_statement | string_choice
+basic_statements ::= basic_statement { basic_statement }
+basic_statement  ::= "null" ";"
+                   | mutable_name ":=" expression ";"
+                   | "Silver_IO" "." "Put_Line" "(" expression ")" ";"
+string_choice    ::= "if" expression "=" expression "then" basic_statements
+                     "else" basic_statements "end" "if" ";"
 ```
 
-Declared initialized names are also available when declarations are present.
+The same sequence is used inside an argument shell's successful outer guard.
+Statements execute in source order. Null does nothing. Assignment evaluates the
+RHS using the current store, replaces the target's bytes and preserves its fixed
+bounds and every other object's value. Only initialized mutable names are targets;
+constants and the original argument binding cannot be assigned. Assignment
+requires equal affine length shapes: equal static lengths, or the same symbolic
+input length `d`. Empty values and self-copy are legal. Branch-refined equality
+of otherwise different length shapes is not used for admission. `:=` is one
+contiguous token.
 
-### Static output
-
-A named constant is a specialization of the shared declaration and direct-output
-rules. For example:
-
-```ada
-with Silver_IO;
-procedure Main is
-   pragma SPARK_Mode (On);
-   Message : constant String := "Ready";
-begin
-   Silver_IO.Put_Line ("Result: " & Message & " / " & Message);
-end Main;
-```
-
-The initializer determines the constant's bytes and bounds, including the empty
-String. Additional declarations and copies use the same ordered rules.
-
-### Fixed-length string assignment
-
-The body is exactly `S := E; Silver_IO.Put_Line (E);`, where `S` resolves to any
-mutable object and the RHS expression may read any initialized name, including `S`:
+For example, snapshots remain unchanged across later updates:
 
 ```ada
 with Silver_IO;
@@ -217,25 +202,33 @@ procedure Main is
    pragma SPARK_Mode (On);
    Message : String := "Hello";
    Original : constant String := Message;
-   Replacement : String := "World";
 begin
-   Message := Replacement;
+   Silver_IO.Put_Line (Message);
+   Message := "World";
+   null;
    Silver_IO.Put_Line (Original & " / " & Message);
 end Main;
 ```
 
-The initializer fixes the target's bounds. Assignment reads the current RHS
-value and replaces the target's bytes without resizing or affecting earlier
-copies. Both sides must have the same fixed length shape: equal known decoded
-lengths, or the same symbolic input length `d`. Empty values and self-copy are
-allowed. A static/dynamic match inferred from a branch condition or capacity
-is not yet used for assignment admission; broader path-refined assignments
-belong to the predicate/statement work.
+There is no separate statement or output-count limit. The 4096-byte source limit
+and existing expression/operator budgets still apply. Declarations stay in the
+single ordered declaration region. The context-free null program remains exactly
+the earlier null shell; a multi-statement body uses the output-capable context,
+even if every statement is null or assignment.
 
-The output may read the target, other initialized objects or literals. It may
-omit the target entirely. There is one assignment in this body shape; additional
-statements and repeated output remain excluded. `:=` is
-one contiguous token.
+### String equality choices
+
+A choice evaluates both String expressions from the current store and executes
+exactly one nonempty basic statement sequence. Equality compares exact bytes,
+case-sensitive and false for unequal lengths. At least one comparison operand
+must contain an initialized String name so Ada resolves the array type; either
+operand may supply it. Both operands independently satisfy the expression bound.
+
+Each arm may mix null, assignments and output. Arms need not assign the same
+objects or make the same number of calls. Initialization and fixed object bounds
+hold after either arm; following statements observe only the selected updates.
+Multiple choices may occur sequentially, including in the static shell. Nested
+equality choices and new Boolean predicates remain excluded in this increment.
 
 ### Guarded command-line initialization
 
@@ -243,8 +236,8 @@ One declaration `D : constant String :=
 Silver_Arguments.First_Or_Default (L);` follows the pragma before all other
 declarations. It is the only such call. Its returned String is immutable and
 one-based; ordinary declarations may copy it. The body is exactly an outer
-guard whose successful
-branch contains `Silver_IO.Put_Line (E);` and whose false branch contains
+guard whose successful branch contains a nonempty statement sequence and whose
+false branch contains
 `Silver_Arguments.Reject;`:
 
 ```ada
@@ -282,109 +275,40 @@ zero total static length.
 An expression without any dynamic operand may still occur under either guard. The explicit
 capacity applies to the selected argument/default even when output omits it.
 A default longer than the capacity is legal and reaches `Reject` when selected.
-The same guard alternatives apply to the following two shells.
+Every statement in the successful branch uses the same established capacity.
 
-### Input-dependent branching
-
-The original immutable argument binding is followed by the same ordinary
-declaration list. Inside the successful outer guard, one equality `E = E`
-selects two terminal output expressions:
-
-```ada
-with Silver_IO;
-with Silver_Arguments;
-procedure Main is
-   pragma SPARK_Mode (On);
-   Mode : constant String := Silver_Arguments.First_Or_Default ("brief");
-begin
-   if Silver_Arguments.Input_Is_Valid and then Mode'Length <= 4080 then
-      if Mode = "verbose" then
-         Silver_IO.Put_Line ("Selected: " & Mode);
-      else
-         Silver_IO.Put_Line (Mode & " mode");
-      end if;
-   else
-      Silver_Arguments.Reject;
-   end if;
-end Main;
-```
-
-The complete inner form is `if E = E then Silver_IO.Put_Line (E);
-else Silver_IO.Put_Line (E); end if;`. Both comparison operands and both outputs
-independently satisfy the shared expression bounds; one output executes.
-Equality compares evaluated String bytes, case-sensitive and false for unequal
-lengths. At least one comparison operand must contain an initialized String
-name; otherwise Ada cannot resolve the equality's array type from literals
-alone. Either operand may supply that name. There is no extra nesting, Boolean
-combination or branch assignment in this shell.
-
-### Branch-selected fixed-length result
-
-Declarations follow the pragma in order: the immutable argument binding `D`,
-then ordinary initialized declarations. The successful outer guard contains an
-equality choice whose two branches assign the same mutable target `S`, followed
-by one common output expression:
-
-```ada
-with Silver_IO;
-with Silver_Arguments;
-procedure Main is
-   pragma SPARK_Mode (On);
-   Mode : constant String := Silver_Arguments.First_Or_Default ("brief");
-   Ready : constant String := "Hello";
-   Detailed : constant String := "HELLO";
-   Result : String := Ready;
-begin
-   if Silver_Arguments.Input_Is_Valid then
-      if Mode = "verbose" then
-         Result := Detailed;
-      else
-         Result := Ready;
-      end if;
-      Silver_IO.Put_Line ("Result: " & Result & " / " & Result);
-   else
-      Silver_Arguments.Reject;
-   end if;
-end Main;
-```
-
-The complete successful branch is `if E = E then S := E; else S := E;
-end if; Silver_IO.Put_Line (E);`. Equality uses the same typed-name requirement. Each RHS independently meets the target's
-fixed-length shape. Both branches start with the same initialized store; only
-the selected assignment executes. Thus self-copy in one branch reads the value
-before the choice, not the other branch's replacement. `E` may read any initialized
-binding and need not mention `S`; all occurrences count toward its output bound.
-A branch assignment cannot target `D` or a constant. Dynamic copies and self-copy
-are admitted when their fixed length shapes agree. Assignment directly inside
-the outer guard without this inner choice is a later statement-composition case.
+The [sequencing sample](samples/statement_sequence.adb) combines guarded input,
+mutable objects, a snapshot, repeated output, and two sequential equality choices.
+The existing [input-branching](samples/input_branching.adb) and
+[branch-selected-result](samples/composed_result.adb) samples are smaller instances
+of these rules.
 
 ### Shared composition rules
 
 Whitespace around punctuation is optional; adjacent word tokens require a
-separator. These shells are complete program grammars, not independently
-repeatable capabilities. Context plus null, null plus output, additional output
-calls, declarations outside the single ordered declaration region, or general
-statement sequences remain excluded. No
-application can call `Ada.Text_IO`, libc imports or any unlisted library API.
+separator. Declarations precede the entire executable body. Statements and
+one-level choices compose under the shared state, expression and effect rules;
+the outer argument guard and rejection alternative retain their fixed placement.
+No application can call `Ada.Text_IO`, libc imports or an unlisted library API.
 
 The catalogue uses these construct identifiers:
 
 | Capability | Admitted scope |
 | --- | --- |
-| `main_procedure`, `spark_mode_on`, `null_statement` | Fixed Main skeleton, required pragma, and the separate null shell. |
+| `main_procedure`, `spark_mode_on`, `null_statement` | Fixed Main skeleton, required pragma, separate null shell and basic null statements. |
 | `runtime_context`, `argument_context` | Fixed qualified output/argument package context clauses. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
-| `string_copy` | Snapshot copies from earlier initialized objects; current name reads for compatible assignment RHS values. |
-| `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses in all expression positions; at most thirty concatenations per program. |
-| `expression_output`, `literal_output`, `named_output`, `concatenated_output` | One terminal output on each executed output path, with the shared expression rules. |
-| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and the optional bounded capacity clause. |
-| `string_equality`, `input_branch` | Exact equality choice between two output expressions. |
-| `string_assignment`, `result_branch` | Fixed-length expression assignment, either once directly or once on each selected-result branch. |
+| `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
+| `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses; at most thirty concatenations per program. |
+| `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls anywhere a basic statement is allowed. |
+| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and optional bounded capacity clause. |
+| `string_equality`, `string_choice` | One-level equality with nonempty basic sequences in both arms. |
+| `string_assignment` | Compatible fixed-bound expression assignment, including self-copy. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements, with basic-only sequences inside equality arms. |
 
-Everything else is excluded, including loops, general conditionals, additional
-declaration regions, resizable strings, other array
-operations,
-access types and file handles.
+Everything else is excluded, including loops, nested equality, general Boolean
+conditions, additional declaration regions, resizable strings, other array
+operations, access types and file handles.
 
 ## Meaning and assurance
 
@@ -397,7 +321,7 @@ are inserted. Each name contributes its current bytes; declaration copies keep
 their own snapshots when the original is later assigned. A dynamic-length binding
 contributes the selected argument/default; each occurrence counts independently.
 Literals preserve decoded bytes, including empty Strings and
-escaped quotes. The terminal output requests the resulting bytes followed by
+escaped quotes. Each output call requests the resulting bytes followed by
 exactly LF (byte 10). An empty expression value therefore requests one LF.
 
 Command-line forms observe the arguments after the executable-name slot,
@@ -412,11 +336,9 @@ which normal supported startup supplies (`argc >= 1`):
 A valid selected value must also satisfy the optional explicit capacity clause;
 otherwise it is rejected with status 1 and no output. This applies equally to a
 default and an actual argument. Declaration initializers execute before the capacity guard. The guard then
-precedes every body expression and the inner choice. Branching compares the
-current values of its two expressions, then either evaluates one output
-expression or assigns an expression value to the target before common output.
-Unequal lengths compare
-false; there is no case folding, truncation or resizing.
+precedes every statement in the successful sequence. Each choice compares the
+current values of its operands, then executes exactly one basic sequence; later
+statements observe its selected updates. Unequal lengths compare false; there is no case folding, truncation or resizing.
 
 The initializer and validity query observe the same immutable GNAT argument
 vector. Invalid input produces an internal empty initializer value, but the
@@ -428,8 +350,11 @@ Storage exhaustion remains environmental. See the
 Successful output requires every byte write and the final `fflush(NULL)` to
 succeed. Completion means host-stream acceptance, not reader consumption or
 durable storage. A detected write/flush failure sets status 1 and returns from
-`Put_Line`; Main then returns without another application operation. Reject
-likewise sets status 1 and returns through the false branch. Partial output may
+`Put_Line`; later statements and output calls still execute. A subsequent
+success never clears a failed status. Accepted bytes concatenate in call order;
+under failure the cumulative bytes need not be a prefix of the full intended
+output. For `n` executed output calls the accepted trace has at most `n * 4097`
+bytes. Reject sets status 1 and returns through the fixed false branch. Partial output may
 remain, including bytes flushed by runtime finalization. Signals such as SIGPIPE
 may terminate the process before an imported call returns. External blocking,
 storage exhaustion and process failure remain environmental; progress is an
@@ -455,11 +380,14 @@ through static elimination is no longer a prerequisite for supporting copies.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
-advisory. Argument-bearing and selected-result policies also classify the exact
+advisory. All output-capable policies also classify the exact
 `INEFFECTIVE` message `statement has no effect` and `DEAD_CODE` message
 `this statement is never reached`, produced by statically known String equality.
-Initializers still establish object bounds even when their bytes are unused.
-Other warnings in the audited reports fail; naming conventions that make
+Repeated output additionally permits only the four exact `INEFFECTIVE`
+messages naming the overwritten ghost outputs `Written_Count`, `Flushed`,
+`Succeeded` and `Written_Bytes` of `Put_Line`. Every accepted advisory retains
+Main location, flow provenance and no suppression. Initializers still establish
+object bounds even when their bytes are unused. Other warnings in the audited reports fail; naming conventions that make
 GNATprove omit an advisory do not change membership.
 
 Faithful static evaluation, complete obligation/report generation, completeness
@@ -469,7 +397,7 @@ range/length fragment remain explicit
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.
 See [assurance.md](docs/assurance.md) and the completed
-[checkpoint](docs/common-expressions.md) for exact validation scope.
+[checkpoint](docs/statement-sequencing.md) for exact validation scope.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
 compilation use the same source bytes, snapshotted as `main.adb`. Every output

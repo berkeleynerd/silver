@@ -278,7 +278,7 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_composed_advisories_cannot_reference_callees_or_hide_extra_diagnostics(self) -> None:
         for kind in ("assigned", "selected"):
-            for change in ("callee", "unknown", "ghost"):
+            for change in ("callee", "unknown", "wrong ghost"):
                 self.prepare_composed(kind, warning=True)
                 if change == "callee":
                     self.report["flow"][0]["entity"] = 2
@@ -286,7 +286,7 @@ class ProofEvidenceTests(unittest.TestCase):
                     self.report["flow"][0]["message"]["text"] = "unused assignment "
                 else:
                     self.report["flow"][0]["message"]["text"] = (
-                        '"Written_Count" is set by "Put_Line" but not used after the call')
+                        '"Other" is set by "Put_Line" but not used after the call')
                 self.refresh_composed()
                 with self.subTest(kind=kind, change=change), self.assertRaises(EvidenceError):
                     audit_reports(self.path, {"main"}, application_kind=kind)
@@ -330,10 +330,6 @@ class ProofEvidenceTests(unittest.TestCase):
                     self.report["flow"][0].update(rule=rule, message={"text": message})
                     self.refresh_composed()
                     with self.subTest(kind=kind, bare=bare, rule=rule):
-                        if kind not in ("argument", "selected"):
-                            with self.assertRaises(EvidenceError):
-                                audit_reports(self.path, {"main"}, application_kind=kind)
-                            continue
                         stats = audit_reports(self.path, {"main"}, application_kind=kind)
                         self.assertEqual((stats["flow_checks"], stats["assignment_advisories"]), (0, 1))
                     base = copy.deepcopy(self.report)
@@ -347,14 +343,40 @@ class ProofEvidenceTests(unittest.TestCase):
                             with self.assertRaises(EvidenceError):
                                 audit_reports(self.path, {"main"}, application_kind=kind)
 
-    def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
+    def test_nonassignment_bare_sequences_preserve_main_coverage(self) -> None:
         for kind in ("static", "argument"):
+            self.report["spark"] = {" 1": "all"}
             self.prepare_composed(kind, warning=False, count=0)
             self.report["entities"] = {" 1": self.report["entities"][" 1"]}
             self.report["assumptions"] = []
             self.refresh_composed()
+            self.assertEqual(audit_reports(self.path, {"main"}, application_kind=kind)["proof_checks"], 0)
+            self.report["spark"] = {}
+            self.refresh_composed()
             with self.assertRaises(EvidenceError):
                 audit_reports(self.path, {"main"}, application_kind=kind)
+
+    def test_repeated_output_ghost_advisories_are_exact(self) -> None:
+        for kind in ("static", "argument", "assigned", "selected"):
+            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes"):
+                message = f'"{name}" is set by "Put_Line" but not used after the call'
+                self.prepare_composed(kind, warning=True, count=0)
+                self.report["flow"][0]["message"] = {"text": message}
+                self.refresh_composed()
+                self.assertEqual(audit_reports(self.path, {"main"}, application_kind=kind)["assignment_advisories"], 1)
+                base = copy.deepcopy(self.report)
+                for field, value in (("rule", "DEAD_CODE"), ("severity", "info"),
+                                     ("how_proved", "prover"), ("entity", 2),
+                                     ("file", "silver_io.adb"), ("line", 0), ("col", 0),
+                                     ("suppressed", False), ("justification", ""),
+                                     ("message", {"text": message + " "}),
+                                     ("message", {"text": message.replace(name, "Other")})):
+                    self.report = copy.deepcopy(base)
+                    self.report["flow"][0][field] = value
+                    self.refresh_composed()
+                    with self.subTest(kind=kind, name=name, field=field):
+                        with self.assertRaises(EvidenceError):
+                            audit_reports(self.path, {"main"}, application_kind=kind)
 
     def test_length_check_policy_rejects_consistent_mutations(self) -> None:
         changes = (("severity", "warning"), ("severity", "low"),
@@ -378,6 +400,9 @@ class ProofEvidenceTests(unittest.TestCase):
             self.report = copy.deepcopy(base)
             self.report["entities"] = {" 1": self.report["entities"][" 1"]}
             self.report["assumptions"] = []
+            self.refresh_composed()
+            self.assertEqual(audit_reports(self.path, {"main"}, application_kind=kind)["proof_checks"], 1)
+            self.report["proof"][0]["how_proved"] = "trivial"
             self.refresh_composed()
             with self.assertRaises(EvidenceError):
                 audit_reports(self.path, {"main"}, application_kind=kind)

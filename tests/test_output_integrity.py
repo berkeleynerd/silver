@@ -178,6 +178,17 @@ class OutputIntegrityTests(unittest.TestCase):
         for name, original in self.originals.items():
             self.assertEqual((workspace / name).read_bytes(), original)
 
+    def test_application_report_capacity_accepts_exact_bound_without_truncation(self) -> None:
+        fixture = self.fixtures / "main.spark"
+        original = fixture.read_bytes()
+        self.addCleanup(fixture.write_bytes, original)
+        maximum = original + b" " * (2_097_152 - len(original))
+        fixture.write_bytes(maximum)
+        result, _ = self.run_scenario({})
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        fixture.write_bytes(maximum + b" ")
+        self.assert_rejected({}, False, "missing or incomplete proof evidence")
+
     def test_missing_runtime_report_stops_before_build(self) -> None:
         for name in ("silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):
             with self.subTest(report=name):

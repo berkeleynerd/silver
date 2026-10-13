@@ -1,48 +1,46 @@
 module
 
-public import Silver.ComposeDecode
-public import Silver.ComposeExecution
-public import Silver.ComposeObligations
+public import Silver.SequenceGrammar
+public import Silver.SequenceExecution
+public import Silver.SequenceObligations
+public import Silver.SequenceEffects
 public import Silver.Cursor
 
 @[expose] public section
 
-/-! One current language: null plus the shared expression/shell grammar.
-Every admitted source has one selected meaning. The explicit external tool
-contract retains faithful obligation generation and bounded-fragment solver
-completion; source membership never depends on the solver. -/
+/-! One current language: null plus shared statement sequencing. Every admitted
+source has one selected meaning. The explicit external tool contract retains
+faithful obligation generation and bounded-fragment solver completion; source
+membership never depends on the solver. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Compose.Member source
+def Member (source : Source) : Prop := Silver.Member source ∨ Sequence.Member source
 
-def accepts (source : Source) : Bool := Silver.accepts source || Compose.accepts source
+def accepts (source : Source) : Bool := Silver.accepts source || Sequence.accepts source
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Compose.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Sequence.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
 
 inductive Program
   | nullMain
-  | composed (program : Compose.Program)
+  | sequence (program : Sequence.Program)
   deriving DecidableEq, Repr
 
 inductive SourceMeaning : Source → Program → Prop
   | nullMain {source : Source} : Silver.Member source → SourceMeaning source .nullMain
-  | composed {source : Source} {form : Compose.Form} {events : List Compose.Event}
-      {program : Compose.Program} :
-      Compose.SourceMeaning source form events → Compose.decode form events = some program →
-      SourceMeaning source (.composed program)
+  | sequence {source : Source} {program : Sequence.Program} :
+      Sequence.SourceMeaning source program → SourceMeaning source (.sequence program)
 
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
-  rcases member with nullMember | outputMember
+  rcases member with nullMember | sequenceMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
-  · obtain ⟨form, events, meaning⟩ := Compose.member_has_meaning outputMember
-    obtain ⟨program, decoded, _⟩ := Compose.decoded_valid meaning
-    exact ⟨.composed program, .composed meaning decoded⟩
+  · obtain ⟨program, meaning⟩ := Sequence.member_has_meaning sequenceMember
+    exact ⟨.sequence program, .sequence meaning⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
     (first : SourceMeaning source left) (second : SourceMeaning source right) : left = right := by
@@ -50,29 +48,26 @@ theorem meaning_unique {source : Source} {left right : Program}
   | nullMain member =>
       cases second with
       | nullMain => rfl
-      | composed meaning _ => exact False.elim (Compose.null_compose_disjoint source ⟨member, _, meaning.1⟩)
-  | composed meaning decoded =>
+      | sequence meaning =>
+          exact False.elim (Sequence.null_sequence_disjoint source ⟨member, Sequence.meaning_member meaning⟩)
+  | sequence meaning =>
       cases second with
-      | nullMain member => exact False.elim (Compose.null_compose_disjoint source ⟨member, _, meaning.1⟩)
-      | composed other otherDecoded =>
-          obtain ⟨rfl, rfl⟩ := Compose.meaning_unique meaning other
-          exact congrArg Program.composed (Option.some.inj (decoded.symm.trans otherDecoded))
+      | nullMain member =>
+          exact False.elim (Sequence.null_sequence_disjoint source ⟨member, Sequence.meaning_member meaning⟩)
+      | sequence other => exact congrArg Program.sequence (Sequence.meaning_unique meaning other)
 
-theorem composed_valid {source : Source} {program : Compose.Program}
-    (meaning : SourceMeaning source (.composed program)) : program.Valid := by
+theorem sequence_valid {source : Source} {program : Sequence.Program}
+    (meaning : SourceMeaning source (.sequence program)) : program.Valid := by
   cases meaning with
-  | composed parsed decoded =>
-      obtain ⟨other, same, valid⟩ := Compose.decoded_valid parsed
-      have equal := Option.some.inj (decoded.symm.trans same)
-      simpa [equal] using valid
+  | sequence parsed => exact Sequence.meaning_valid parsed
 
 def rangeObligations : Program → List Guarded.RangeObligation
   | .nullMain => []
-  | .composed program => Compose.rangeObligations program
+  | .sequence program => Sequence.rangeObligations program
 
 def checks : Program → List Compose.Check
   | .nullMain => []
-  | .composed program => Compose.checks program
+  | .sequence program => Sequence.checks program
 
 def obligations (program : Program) : List Semantics.Obligation :=
   (checks program).map Compose.Check.toObligation
@@ -100,7 +95,7 @@ theorem admitted_fragment {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : BoundedFragment (checks program) := by
   cases program with
   | nullMain => simp [BoundedFragment, checks]
-  | composed program => exact Compose.program_checks_fragment (composed_valid meaning)
+  | sequence program => exact Sequence.program_checks_fragment (sequence_valid meaning)
 
 theorem fragment_checks_valid {checks : List Compose.Check}
     (fragment : BoundedFragment checks) : ∀ check ∈ checks, check.Valid := by
@@ -122,101 +117,48 @@ theorem all_obligations_discharge {source : Source} {program : Program}
   rw [discharged] at steps
   exact ⟨discharged, steps⟩
 
-structure Environment where
-  output : Output.Runtime.Environment
-  arguments : Arguments.Runtime.Arguments
+abbrev Environment := Sequence.Environment
 
-inductive Action
-  | noOutput
-  | output (item : Source)
-  | reject
-  deriving DecidableEq, Repr
-
-/-- Fixed composition: initialization uses one immutable argument snapshot,
-then the mandatory guard selects output or ordinary returning rejection. -/
-def action (environment : Environment) : Program → Action
-  | .nullMain => .noOutput
-  | .composed program =>
-      match program.action environment.arguments with
-      | .reject => .reject
-      | .output bytes => .output bytes
-
-def executeAction (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult
-  | .noOutput => ⟨0, []⟩
-  | .reject => ⟨1, []⟩
-  | .output item => Output.Runtime.completeMain
-      (Output.Runtime.execute environment item Output.Runtime.program [])
+def effects (environment : Environment) : Program → List Sequence.Effect
+  | .nullMain => []
+  | .sequence program => program.effects environment.arguments
 
 def execute (environment : Environment) (program : Program) : Output.Runtime.ProcessResult :=
-  executeAction environment.output (action environment program)
+  Sequence.executeEffects environment.output 0 (effects environment program)
 
 def intendedBytes (environment : Environment) (program : Program) : Source :=
-  match action environment program with
-  | .noOutput | .reject => []
-  | .output item => item ++ [10]
+  Sequence.intendedEffectBytes (effects environment program)
 
 def expectedStatus (environment : Environment) (program : Program) : Nat :=
-  match action environment program with
-  | .reject => 1
-  | _ => 0
-
-def ActionOutcome (environment : Output.Runtime.Environment) : Action → Output.Runtime.ProcessResult → Prop
-  | .noOutput, result => result = ⟨0, []⟩
-  | .reject, result => result = ⟨1, []⟩
-  | .output item, result =>
-      if result.status = 0 then result.accepted = item ++ [10] ∧ environment.flushStatus = 0
-      else result.status = 1 ∧ ∃ rest, result.accepted ++ rest = item ++ [10]
+  Sequence.expectedEffectStatus (effects environment program)
 
 def SpecifiedOutcome (environment : Environment) (program : Program)
     (result : Output.Runtime.ProcessResult) : Prop :=
-  ActionOutcome environment.output (action environment program) result
-
-theorem action_execution_specified (environment : Output.Runtime.Environment) (selected : Action) :
-    ActionOutcome environment selected (executeAction environment selected) := by
-  cases selected with
-  | noOutput | reject => rfl
-  | output item =>
-      cases result : Output.Runtime.execute environment item Output.Runtime.program [] with
-      | returned bytes =>
-          have facts := Output.Runtime.successful_output environment item bytes result
-          simpa [executeAction, result, Output.Runtime.completeMain, ActionOutcome] using ⟨facts.2.1, facts.2.2⟩
-      | failedReturn status bytes =>
-          obtain ⟨rfl, acceptedPrefix⟩ := Output.Runtime.failed_output environment item bytes status result
-          simpa [executeAction, result, Output.Runtime.completeMain, ActionOutcome] using acceptedPrefix
+  Sequence.TraceOutcome environment.output 0 (effects environment program) result
 
 theorem execution_specified (environment : Environment) (program : Program) :
     SpecifiedOutcome environment program (execute environment program) :=
-  action_execution_specified _ _
+  Sequence.effects_execution_specified _ _ _
 
-theorem action_domain {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) (environment : Environment) (item : Source)
-    (output : action environment program = .output item) :
-    item.length ≤ 4096 ∧ ∀ byte ∈ item, Output.printable byte = true := by
+theorem effects_domain {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) (environment : Environment) :
+    Sequence.EffectsValid (effects environment program) := by
   cases program with
-  | nullMain => cases output
-  | composed program =>
-      cases selected : program.action environment.arguments with
-      | reject => simp [action, selected] at output
-      | output bytes =>
-          have same : bytes = item := by simpa [action, selected] using output
-          subst item
-          exact Compose.action_domain (composed_valid meaning) environment.arguments selected
+  | nullMain => simp [effects, Sequence.EffectsValid]
+  | sequence program =>
+      exact (Sequence.program_execution_valid (sequence_valid meaning) environment.arguments).2
 
 theorem healthy_execution {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (environment : Environment)
-    (healthy : Output.Runtime.Healthy environment.output) :
-    execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩ := by
-  cases selected : action environment program with
-  | noOutput | reject => simp [execute, intendedBytes, expectedStatus, selected, executeAction]
-  | output item =>
-      have domain := action_domain meaning environment item selected
-      have bytes : ∀ byte ∈ item, byte ≤ 255 := by
-        intro byte member
-        have bounded := domain.2 byte member
-        simp only [Output.printable, decide_eq_true_eq] at bounded
-        omega
-      simp [execute, intendedBytes, expectedStatus, selected, executeAction,
-        Output.Runtime.healthy_output environment.output healthy item domain.1 bytes, Output.Runtime.completeMain]
+    (healthy : environment.Healthy) :
+    execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩ :=
+  Sequence.healthy_effects _ healthy _ (effects_domain meaning environment)
+
+theorem cumulative_output_bound {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) (environment : Environment) :
+    (execute environment program).accepted.length ≤
+      Sequence.outputCount (effects environment program) * (maxSourceLength + 1) :=
+  Sequence.accepted_effects_bound _ _ (effects_domain meaning environment)
 
 theorem admitted_assurance {source : Source} (member : Member source) :
     automaticDischarge source = some true ∧
@@ -236,7 +178,7 @@ theorem every_meaning_assured {source : Source} {program : Program}
     (∃ steps, steps ≤ (obligations program).length + 1 ∧
       Semantics.DischargeSteps (obligations program) true steps) ∧
     ∀ environment, SpecifiedOutcome environment program (execute environment program) ∧
-      (Output.Runtime.Healthy environment.output →
+      (environment.Healthy →
         execute environment program = ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   have checked := all_obligations_discharge meaning
   exact ⟨checked.1, checked.2, fun environment =>
@@ -255,7 +197,7 @@ It is not a semantic contract or a proof that library verification succeeds:
 ToolContract supplies completion separately from trusted compilation semantics. -/
 def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Prop
   | .nullMain => True
-  | .composed _ => ∃ steps, tools.verifyFixedLibrary steps
+  | .sequence _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
 Each generated check normalizes to a source concatenation range schema or an
@@ -346,7 +288,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
   have library : LibraryEvidence tools program := by
     cases program with
     | nullMain => trivial
-    | composed => exact contract.fixedLibraryProofCompletes
+    | sequence => exact contract.fixedLibraryProofCompletes
   exact ⟨artifact, _, .complete parsed generated proved library built⟩
 
 theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}
@@ -375,7 +317,7 @@ theorem pipeline_realizes {Artifact : Type} {tools : Tools Artifact}
     (pipeline : Pipeline tools source artifact steps) :
     ∃ program, SourceMeaning source program ∧
       ∀ environment, tools.execute artifact environment (execute environment program) ∧
-        (Output.Runtime.Healthy environment.output →
+        (environment.Healthy →
           tools.execute artifact environment ⟨expectedStatus environment program, intendedBytes environment program⟩) := by
   cases pipeline with
   | complete parsed generated proved library built =>

@@ -441,7 +441,7 @@ def tokenName : ShellToken → String
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "'" => "apostrophe" | "length" => "length_name"
-    | "<=" => "less_equal" | _ => "equal"
+    | "<=" => "less_equal" | "null" => "null_keyword" | _ => "equal"
 
 def spelling : ShellToken → String
   | .fixed word _ => word

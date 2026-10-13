@@ -16,7 +16,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr ⟨.branching, (Compose.formAccepts_iff exampleSource .branching).mp (by decide +kernel)⟩
+  Or.inr ⟨.argument, Sequence.form_reading_sound (by decide +kernel)⟩
 
 def exampleProgram : Program :=
   ⟨[109], [65], [109], [66], [121, 101, 115], [110, 111]⟩

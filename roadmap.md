@@ -14,7 +14,7 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**Shared bindings and common String expressions are complete; statement sequencing is next proposed.**
+**Shared bindings, common String expressions and statement sequencing are complete.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
@@ -32,8 +32,10 @@ The first consolidation item, the
 complete. The authorized shared declaration, name and copy foundations have
 also passed their [complete checkpoint](docs/shared-bindings.md). Common String
 expressions have passed their [complete checkpoint](docs/common-expressions.md).
-Statement sequencing and assignment are next proposed; remaining context/API
-closure is tracked below.
+The owner authorized [statement sequencing and assignment](docs/statement-sequencing.md)
+on 2026-10-13. Its complete native/Lean checkpoint passed, including repeated-output
+effect composition. **Equality, guards and branches** is next proposed; remaining
+predicate/context/API closure is tracked below. No further increment has begun.
 
 The authorized narrow
 [interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
@@ -90,7 +92,7 @@ proof work remains outside this sequence.
 
 ### Existing-feature consolidation
 
-**Shared declarations, names and copies are supported within the retained bodies.** On 2026-10-12
+**Shared declarations, expressions and statement sequences are supported.** On 2026-10-12
 the owner asked to revisit the implemented capabilities, maximize their useful
 scope within the Oracle's automatic Bronze/Silver guarantee, and put this work
 ahead of further isolated feature increments. The
@@ -113,10 +115,10 @@ not newly admitted syntax.
 | 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
 | 2 | Declarations, names and copies — binding foundation complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
 | 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
-| 4 | Statement sequencing and assignment | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
+| 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. |
-| 6 | Output effects | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
-| 7 | Existing argument operations | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
+| 6 | Output effects — sequence composition complete; call associations remain | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
+| 7 | Existing argument operations — fixed-guard sequence integration complete | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
 
 The authorized [shared-binding milestone](docs/shared-bindings.md) implements
 ordered literal/name declarations, snapshots, mutability, compatible static or
@@ -132,11 +134,12 @@ additional API placements and generic sequencing are not implied. Expression
 initializers and parentheses are now supported by the completed
 [common-expression checkpoint](docs/common-expressions.md), including expression
 equality and fixed-length expression assignment. Broader path-refined assignment
-remains in items 4–5. **Statement sequencing and assignment** is next proposed;
-repeated-output effects belong with item 6 where needed by that scope. No further
-increment is authorized by this completion record. With the next required
-recognizer source edit, clarify the spec's operator-budget comment as noted in
-the capability review; equal operator counts do not imply equal proof costs.
+remains in item 5. The authorized **statement sequencing and assignment** work
+includes repeated-output effect composition from item 6 and the existing fixed
+argument guards from item 7. Its [record](docs/statement-sequencing.md) records
+the passed complete checkpoint and preserved caches. Nested predicates, call associations and context/name closure remain
+future work. The recognizer comment now distinguishes the retained operator
+budget from actual proof cost.
 
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
@@ -172,10 +175,10 @@ complete assurance and validation described below.
 
 | Finding | Work items | Required follow-up |
 | --- | --- | --- |
-| New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 4. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
-| Repeated-output ghost advisories | 4: sequencing; 6: output effects | Precisely classify the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
+| New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 5. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
+| Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
-| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The common-expression checkpoint retains the 262,144-byte report buffer and records dense production-option cases at the thirty-operator budget, including a maximal source. Complete producer/report capacity and solver completion remain explicit tool premises. Broader sequencing/repeated-output capacity is unresolved; interrupted dense runs are not solver failures or measured report overflows. Do not extrapolate a buffer increase, truncate reports or introduce an arbitrary replacement call cap. |
+| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The common-expression checkpoint retains the 262,144-byte report buffer and records dense production-option cases at the thirty-operator budget, including a maximal source. Complete producer/report capacity and solver completion remain explicit tool premises. Sequencing probes now measure 314,746-byte and 469,246-byte reports within the source budget and justify a separate 2 MiB application buffer; the complete producer envelope remains an explicit premise. An 800-assignment run was interrupted before a report: it is neither a solver failure nor a measured overflow. Dense cost remains unresolved; no arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 
@@ -200,16 +203,15 @@ When a formerly rejected composition becomes supported, replace its rejection
 expectation with admission, exact output/exit-status and genuine-report checks.
 Retain negative tests for justified exclusions and incomplete verification.
 
-With the performance investigation and restriction audit complete, implement
-the proposed shared binding, declaration and copy foundations, then common
-expression rules. Carry the audit's report-capacity, diagnostic and translation
-constraints into that specification; declaration-time expressions cannot rely
-on facts established only by a later body guard. These foundations remain
-proposed, without a language expansion in the audit. The earlier **Repeated Output**
-instruction is incorporated into sequencing and effect composition; its partial
-unvalidated implementation is not a completed capability. The proposed four-call
-cap was rejected. Ordinary returning calls continue execution, and a detected
-output failure leaves exit status failed even if later output succeeds.
+The shared binding, declaration, copy and common-expression foundations are
+complete. The authorized sequencing checkpoint incorporates repeated output and
+retains the audit's diagnostic, report-capacity and translation constraints.
+Declaration-time expressions cannot rely on facts established only by a later
+body guard. The earlier unfinished **Repeated Output** draft remains preserved as
+history; its proposed four-call cap was rejected. Ordinary returning calls
+continue execution, and a detected output failure leaves exit status failed even
+if later output succeeds. Predicate/path facts, call associations and context/name
+closure are the remaining consolidation work listed above.
 
 Loops, additional library APIs, resizable strings and unrelated language
 constructs are outside this consolidation. The existing assurance guarantees
@@ -268,6 +270,8 @@ sequence.
 | Compose String Results | Supported | Shared bounded output expressions, repeated static references, tighter safe capacities and one branch-selected fixed-length result; [completed Linux validation](docs/string-results.md). | [samples/composed_result.adb](samples/composed_result.adb) |
 | Copy String Values | Supported | Up to two literal-backed constants in mutable shells, named initialization and equal-length copies, with bounded constant output references; [completed Linux validation](docs/copy-values.md). | [samples/copied_result.adb](samples/copied_result.adb) |
 | Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across existing bodies; [scope and completed validation](docs/shared-bindings.md). Context/API placement and general sequencing remain future work. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
+| Common String expressions | Supported | Shared bounded expressions in every expression position; [completed validation](docs/common-expressions.md). | [samples/common_expressions.adb](samples/common_expressions.adb) |
+| Statement sequencing and assignment | In progress | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

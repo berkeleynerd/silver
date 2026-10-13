@@ -74,19 +74,25 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
         self.assertEqual(catalogue["max_expression_operands"], 16)
-        self.assertTrue({"string_expression", "expression_output", "result_branch"} <= set(constructs))
+        self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "direct_output", "string_assignment_output",
-                         "command_line_output", "guarded_command_line_output",
-                         "branching_output", "guarded_branching_output",
-                         "selected_result_output", "guarded_selected_result_output"})
+        self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements",
+                         "guarded_argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
-        self.assertEqual(compositions["direct_output"]["statements"], ["expression_output"])
-        self.assertEqual(compositions["string_assignment_output"]["statements"],
-                         ["string_assignment", "expression_output"])
-        self.assertEqual(compositions["selected_result_output"]["declarative_items"],
+        self.assertEqual(compositions["static_statements"]["statements"], ["statement_sequence"])
+        self.assertEqual(compositions["argument_statements"]["guarded_body"], "statement_sequence")
+        self.assertEqual(compositions["guarded_argument_statements"]["declarative_items"],
                          ["spark_mode_on", "argument_initialization"])
+        sequence = constructs["statement_sequence"]["conditions"]
+        self.assertEqual(sequence["minimum"], 1)
+        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output", "string_choice"])
+        self.assertFalse(sequence["output_required"])
+        self.assertTrue(sequence["repeated_choices"])
+        choice = constructs["string_choice"]["conditions"]
+        self.assertEqual(choice["then"], ["basic_statement_sequence"])
+        self.assertEqual(choice["else"], ["basic_statement_sequence"])
+        self.assertFalse(choice["nested_equality_conditionals"])
         initializers = constructs["named_string_variable"]["conditions"]["initializer"]
         self.assertEqual(initializers, ["string_expression"])
         for name, composition in compositions.items():
@@ -122,7 +128,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(equality["both_operands_independently_bounded"], True)
         self.assertEqual(expression["max_result_bytes"], 4096)
         self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], False)
-        self.assertIs(constructs["result_branch"]["conditions"]["equal_branch_and_initializer_lengths"], True)
+        self.assertIs(choice["assignments_preserve_each_target_bounds"], True)
         self.assertEqual(constructs["capacity_guard"]["conditions"]["capacity_range"], [0, 4096])
         self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '\"\"')
         self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
@@ -130,11 +136,8 @@ class SilverIntegrationTests(unittest.TestCase):
                          ";", "end", "main", ";"])
         self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
-                         "<declarations>", "begin", "silver_io", ".", "put_line", "(", "<string_expression>",
-                         ")", ";", "end", "main", ";"])
-        for plain, guarded in (("argument_tokens", "guarded_argument_tokens"),
-                               ("branching_tokens", "guarded_branching_tokens"),
-                               ("result_tokens", "guarded_result_tokens")):
+                         "<declarations>", "begin", "<statements>", "end", "main", ";"])
+        for plain, guarded in (("argument_tokens", "guarded_argument_tokens"),):
             tokens = catalogue[plain]
             end = tokens.index("input_is_valid") + 1
             self.assertEqual(catalogue[guarded], tokens[:end] +

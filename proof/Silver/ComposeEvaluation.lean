@@ -709,7 +709,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
-structure LegalBodies (calls : Calls) : Prop where
+structure LegalHelpers (calls : Calls) : Prop where
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     skipBody.Legal calls (Context.locals {text,position})
@@ -779,28 +779,31 @@ structure LegalBodies (calls : Calls) : Prop where
   capacity : ∀ text, ValidText text → ∀ state,
     ValidState text state →
     capacityBody.Legal calls (Context.locals {text,state})
+  workTail : ∀ text, ValidText text → ∀ position remaining,
+    ValidCursor text position → remaining ≤ maxConcatenations →
+    workTailBody.Legal calls (Context.locals {text,position,remaining})
+  workBudget : ∀ text, ValidText text →
+    workBudgetBody.Legal calls (Context.locals {text})
+
+structure LegalBodies (calls : Calls) : Prop extends LegalHelpers calls where
   step : ∀ text, ValidText text → ∀ form token state,
     ValidToken token → ValidState text state →
     stepBody.Legal calls (Context.locals {text,form,token,state})
   suffix : ∀ text, ValidText text → ∀ form nextToken state,
     ValidState text state → 1 ≤ nextToken → nextToken ≤ form.tokens.length + 1 →
     suffixBody.Legal calls (Context.locals {text,form,nextToken,state})
-  workTail : ∀ text, ValidText text → ∀ position remaining,
-    ValidCursor text position → remaining ≤ maxConcatenations →
-    workTailBody.Legal calls (Context.locals {text,position,remaining})
-  workBudget : ∀ text, ValidText text →
-    workBudgetBody.Legal calls (Context.locals {text})
   formMember : ∀ text form, formBody.Legal calls (Context.locals {text,form})
   member : ∀ text, memberBody.Legal calls (Context.locals {text})
   arguments : ∀ text, argumentsBody.Legal calls (Context.locals {text})
   assignment : ∀ text, assignmentSelectorBody.Legal calls (Context.locals {text})
 
+
 /-- Normalize only retained lexical meanings. All new helper calls stay
 arbitrary until their checked equations and terminating recursion determine them. -/
-theorem normalized_definitions (calls : Calls)
+theorem normalized_helpers (calls : Calls)
     (meaning : Compose.Lexical.Meaning calls.primitive)
-    (source : DefinitionEquations calls calls) (legal : LegalBodies calls) :
-    DefinitionEquations calls where
+    (source : HelperEquations calls calls) (legal : LegalHelpers calls) :
+    HelperEquations calls where
   ranges := source.ranges
   readDeclarations := source.readDeclarations
   skip := by
@@ -941,18 +944,6 @@ theorem normalized_definitions (calls : Calls)
     · apply source.capacity <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.capacity <;> assumption
-  step := by
-    intros
-    apply Eq.trans
-    · apply source.step <;> assumption
-    · apply Expr.eval_lexical calls meaning
-      apply legal.step <;> assumption
-  suffix := by
-    intros
-    apply Eq.trans
-    · apply source.suffix <;> assumption
-    · apply Expr.eval_lexical calls meaning
-      apply legal.suffix <;> assumption
   workTail := by
     intros
     apply Eq.trans
@@ -965,6 +956,25 @@ theorem normalized_definitions (calls : Calls)
     · apply source.workBudget <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.workBudget <;> assumption
+
+theorem normalized_definitions (calls : Calls)
+    (meaning : Compose.Lexical.Meaning calls.primitive)
+    (source : DefinitionEquations calls calls) (legal : LegalBodies calls) :
+    DefinitionEquations calls where
+  toHelperEquations := normalized_helpers calls meaning source.toHelperEquations legal.toLegalHelpers
+  stepRange := source.stepRange
+  step := by
+    intros
+    apply Eq.trans
+    · apply source.step <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.step <;> assumption
+  suffix := by
+    intros
+    apply Eq.trans
+    · apply source.suffix <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.suffix <;> assumption
   formMember := by
     intros
     apply Eq.trans

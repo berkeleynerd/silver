@@ -1,6 +1,6 @@
---  Common String expressions share ordered initialized bindings and the
---  existing body shapes. Affine lengths count each selected-input occurrence;
---  declarations precede guards and assignments preserve fixed object bounds.
+--  Shared declarations and finite statements use the same bounded expressions.
+--  Declarations precede guards; assignments preserve fixed object bounds, so
+--  statement sequencing and branch joins preserve all binding length shapes.
 with Silver_Profile;
 with Silver_Output_Lexical;
 
@@ -14,7 +14,7 @@ is
      (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
         | Arguments_Name | First_Or_Default_Name | If_Keyword
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name
-        | And_Keyword | Length_Name);
+        | And_Keyword | Length_Name | Null_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -52,9 +52,10 @@ is
          when Less_Equal => "<=",
          when Capacity_Literal => "0",
          when Equal => "=",
+         when Null_Keyword => "null",
          when Argument_Declaration | Declarations | Assignment_Target
             | Target_Reference | Dynamic_Reference | Assignment_Value
-            | Output_Expression | Comparison_Expression => "_");
+            | Output_Expression | Comparison_Expression | Statements => "_");
 
    function Tokens (Form : Form_Kind) return Token_Sequence is
      (case Form is
@@ -62,29 +63,16 @@ is
          (With_Keyword, IO_Name, Semicolon, Procedure_Keyword,
           Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
           Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon,
-          Declarations, Begin_Keyword, IO_Name, Dot,
-          Put_Line_Name, Left_Parenthesis, Output_Expression, Right_Parenthesis,
-          Semicolon, End_Keyword, Main_Name, Semicolon),
-      when Assignment_Form =>
-         (With_Keyword, IO_Name, Semicolon, Procedure_Keyword,
-          Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
-          Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon,
-          Declarations, Begin_Keyword, Assignment_Target, Assignment,
-          Assignment_Value, Semicolon, IO_Name, Dot,
-          Put_Line_Name, Left_Parenthesis, Output_Expression, Right_Parenthesis,
-          Semicolon, End_Keyword, Main_Name, Semicolon),
+          Declarations, Begin_Keyword, Statements, End_Keyword, Main_Name, Semicolon),
       when Argument_Form =>
          (With_Keyword, IO_Name, Semicolon, With_Keyword,
           Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
           Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
           On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
           Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, Then_Keyword, IO_Name,
-          Dot, Put_Line_Name, Left_Parenthesis, Output_Expression,
-          Right_Parenthesis, Semicolon, Else_Keyword, Arguments_Name,
-          Dot, Reject_Name, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, End_Keyword, Main_Name,
-          Semicolon),
+          Dot, Input_Is_Valid_Name, Then_Keyword, Statements, Else_Keyword,
+          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon),
       when Guarded_Argument_Form =>
          (With_Keyword, IO_Name, Semicolon, With_Keyword,
           Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
@@ -93,76 +81,9 @@ is
           Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
           Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword,
           Dynamic_Reference, Apostrophe, Length_Name, Less_Equal,
-          Capacity_Literal, Then_Keyword, IO_Name, Dot,
-          Put_Line_Name, Left_Parenthesis, Output_Expression, Right_Parenthesis,
-          Semicolon, Else_Keyword, Arguments_Name, Dot,
-          Reject_Name, Semicolon, End_Keyword, If_Keyword,
-          Semicolon, End_Keyword, Main_Name, Semicolon),
-      when Branching_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
-          Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
-          On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, Then_Keyword, If_Keyword,
-          Comparison_Expression, Then_Keyword,
-          IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
-          Output_Expression, Right_Parenthesis, Semicolon, Else_Keyword,
-          IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
-          Output_Expression, Right_Parenthesis, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, Else_Keyword, Arguments_Name,
-          Dot, Reject_Name, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, End_Keyword, Main_Name,
-          Semicolon),
-      when Guarded_Branching_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
-          Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
-          On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword,
-          Dynamic_Reference, Apostrophe, Length_Name, Less_Equal,
-          Capacity_Literal, Then_Keyword, If_Keyword, Comparison_Expression, Then_Keyword, IO_Name,
-          Dot, Put_Line_Name, Left_Parenthesis, Output_Expression,
-          Right_Parenthesis, Semicolon, Else_Keyword, IO_Name,
-          Dot, Put_Line_Name, Left_Parenthesis, Output_Expression,
-          Right_Parenthesis, Semicolon, End_Keyword, If_Keyword,
-          Semicolon, Else_Keyword, Arguments_Name, Dot,
-          Reject_Name, Semicolon, End_Keyword, If_Keyword,
-          Semicolon, End_Keyword, Main_Name, Semicolon),
-      when Result_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
-          Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
-          On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, Then_Keyword, If_Keyword,
-          Comparison_Expression, Then_Keyword,
-          Assignment_Target, Assignment, Assignment_Value, Semicolon,
-          Else_Keyword, Target_Reference, Assignment, Assignment_Value,
-          Semicolon, End_Keyword, If_Keyword, Semicolon,
-          IO_Name, Dot, Put_Line_Name, Left_Parenthesis,
-          Output_Expression, Right_Parenthesis, Semicolon, Else_Keyword,
-          Arguments_Name, Dot, Reject_Name, Semicolon,
-          End_Keyword, If_Keyword, Semicolon, End_Keyword,
-          Main_Name, Semicolon),
-      when Guarded_Result_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
-          Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
-          On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword,
-          Dynamic_Reference, Apostrophe, Length_Name, Less_Equal,
-          Capacity_Literal, Then_Keyword, If_Keyword, Comparison_Expression, Then_Keyword, Assignment_Target,
-          Assignment, Assignment_Value, Semicolon, Else_Keyword,
-          Target_Reference, Assignment, Assignment_Value, Semicolon,
-          End_Keyword, If_Keyword, Semicolon, IO_Name,
-          Dot, Put_Line_Name, Left_Parenthesis, Output_Expression,
-          Right_Parenthesis, Semicolon, Else_Keyword, Arguments_Name,
-          Dot, Reject_Name, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, End_Keyword, Main_Name,
-          Semicolon));
+          Capacity_Literal, Then_Keyword, Statements, Else_Keyword,
+          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
+          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon));
 
    function Normalized (Source : String) return String
      with Global => null, Pre => Source'Length <= Max_Source_Length,
@@ -890,77 +811,260 @@ is
         (State with delta Position => Literal_At (Text, Skip_At (Text, State.Position)).After)
       else (State with delta Position => Take_Token (Text, State.Position, Token)));
 
-   subtype Token_Index is Positive range 1 .. 101;
-   function Suffix_Matches
-     (Text : String; Form : Form_Kind; Next_Token : Token_Index;
-      State : Parser_State) return Boolean
+   --  A scan records syntactic effects alongside unchanged binding shapes.
+   --  Flags accumulate across both arms; they select report policy, not runtime
+   --  execution. Every executable list traversal below uses constant stack.
+   type Scan_Result is record
+      State : Parser_State;
+      Assigned, Output : Boolean;
+   end record;
+   Initial_Scan : constant Scan_Result :=
+     (State => Initial_State, Assigned => False, Output => False);
+   Invalid_Scan : constant Scan_Result :=
+     (State => Invalid_State, Assigned => False, Output => False);
+
+   function Scan_Token
+     (Text : String; Scan : Scan_Result; Token : Token_Kind) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Scan_Token'Result.State);
+   function Scan_Token
+     (Text : String; Scan : Scan_Result; Token : Token_Kind) return Scan_Result is
+     (Scan with delta State => Step (Text, Direct_Form, Token, Scan.State));
+
+   function Basic_Statement_At (Text : String; Scan : Scan_Result) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Basic_Statement_At'Result.State)
+         and then (Basic_Statement_At'Result.State.Position = 0
+           or else Basic_Statement_At'Result.State.Position > Scan.State.Position);
+   function Basic_Statement_At (Text : String; Scan : Scan_Result) return Scan_Result is
+      Result : Scan_Result := Scan;
+   begin
+      if Scan.State.Position = 0 then return Invalid_Scan; end if;
+      if Take_Token (Text, Scan.State.Position, Null_Keyword) /= 0 then
+         Result := Scan_Token (Text, Result, Null_Keyword);
+         Result := Scan_Token (Text, Result, Semicolon);
+      elsif Take_Token (Text, Scan.State.Position, IO_Name) /= 0 then
+         Result := Scan_Token (Text, Result, IO_Name);
+         Result := Scan_Token (Text, Result, Dot);
+         Result := Scan_Token (Text, Result, Put_Line_Name);
+         Result := Scan_Token (Text, Result, Left_Parenthesis);
+         Result := Scan_Token (Text, Result, Output_Expression);
+         Result := Scan_Token (Text, Result, Right_Parenthesis);
+         Result := Scan_Token (Text, Result, Semicolon);
+         Result.Output := True;
+      else
+         Result := Scan_Token (Text, Result, Assignment_Target);
+         Result := Scan_Token (Text, Result, Assignment);
+         Result := Scan_Token (Text, Result, Assignment_Value);
+         Result := Scan_Token (Text, Result, Semicolon);
+         Result.Assigned := True;
+      end if;
+      if Result.State.Position <= Scan.State.Position then return Invalid_Scan; end if;
+      return Result;
+   end Basic_Statement_At;
+
+   function Basic_Tail
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, State),
-       Subprogram_Variant => (Increases => Next_Token);
-   function Suffix_Matches
-     (Text : String; Form : Form_Kind; Next_Token : Token_Index;
-      State : Parser_State) return Boolean is
-     (if State.Position = 0 then False
-      elsif Next_Token > Tokens (Form)'Last then
-        Trivia_End (Text, State.Position) = Text'Last + 1
-      else Suffix_Matches (Text, Form, Next_Token + 1,
-        Step (Text, Form, Tokens (Form) (Next_Token), State)));
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Basic_Tail'Result.State),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.State.Position);
+   function Basic_Tail
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
+     (if Scan.State.Position = 0 then Invalid_Scan
+      elsif Take_Token (Text, Scan.State.Position, Stop) /= 0 then Scan
+      elsif Basic_Statement_At (Text, Scan).State.Position = 0 then Invalid_Scan
+      else Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop));
 
-   function Form_Member (Source : String; Form : Form_Kind) return Boolean
+   function Read_Basic_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => (Static => Valid_State (Text, Read_Basic_Statements'Result.State)
+         and then Read_Basic_Statements'Result =
+           Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop));
+   function Read_Basic_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
+      Result : Scan_Result := Basic_Statement_At (Text, Scan);
+   begin
+      while Result.State.Position /= 0 loop
+         pragma Loop_Invariant (Valid_State (Text, Result.State));
+         pragma Loop_Invariant (Static =>
+           Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop) =
+             Basic_Tail (Text, Result, Stop));
+         pragma Loop_Variant (Increases => Result.State.Position);
+         if Take_Token (Text, Result.State.Position, Stop) /= 0 then return Result; end if;
+         Result := Basic_Statement_At (Text, Result);
+      end loop;
+      return Invalid_Scan;
+   end Read_Basic_Statements;
+
+   function Conditional_At (Text : String; Scan : Scan_Result) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Conditional_At'Result.State)
+         and then (Conditional_At'Result.State.Position = 0
+           or else Conditional_At'Result.State.Position > Scan.State.Position);
+   function Conditional_At (Text : String; Scan : Scan_Result) return Scan_Result is
+      Result : Scan_Result := Scan;
+   begin
+      Result := Scan_Token (Text, Result, If_Keyword);
+      Result := Scan_Token (Text, Result, Comparison_Expression);
+      Result := Scan_Token (Text, Result, Then_Keyword);
+      Result := Read_Basic_Statements (Text, Result, Else_Keyword);
+      Result := Scan_Token (Text, Result, Else_Keyword);
+      Result := Read_Basic_Statements (Text, Result, End_Keyword);
+      Result := Scan_Token (Text, Result, End_Keyword);
+      Result := Scan_Token (Text, Result, If_Keyword);
+      Result := Scan_Token (Text, Result, Semicolon);
+      if Result.State.Position <= Scan.State.Position then return Invalid_Scan; end if;
+      return Result;
+   end Conditional_At;
+
+   function Statement_At (Text : String; Scan : Scan_Result) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Statement_At'Result.State)
+         and then (Statement_At'Result.State.Position = 0
+           or else Statement_At'Result.State.Position > Scan.State.Position);
+   function Statement_At (Text : String; Scan : Scan_Result) return Scan_Result is
+     (if Take_Token (Text, Scan.State.Position, If_Keyword) /= 0
+      then Conditional_At (Text, Scan) else Basic_Statement_At (Text, Scan));
+
+   function Statements_Tail
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Statements_Tail'Result.State),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.State.Position);
+   function Statements_Tail
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
+     (if Scan.State.Position = 0 then Invalid_Scan
+      elsif Take_Token (Text, Scan.State.Position, Stop) /= 0 then Scan
+      elsif Statement_At (Text, Scan).State.Position = 0 then Invalid_Scan
+      else Statements_Tail (Text, Statement_At (Text, Scan), Stop));
+
+   function Read_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => (Static => Valid_State (Text, Read_Statements'Result.State)
+         and then Read_Statements'Result =
+           Statements_Tail (Text, Statement_At (Text, Scan), Stop));
+   function Read_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
+      Result : Scan_Result := Statement_At (Text, Scan);
+   begin
+      while Result.State.Position /= 0 loop
+         pragma Loop_Invariant (Valid_State (Text, Result.State));
+         pragma Loop_Invariant (Static =>
+           Statements_Tail (Text, Statement_At (Text, Scan), Stop) =
+             Statements_Tail (Text, Result, Stop));
+         pragma Loop_Variant (Increases => Result.State.Position);
+         if Take_Token (Text, Result.State.Position, Stop) /= 0 then return Result; end if;
+         Result := Statement_At (Text, Result);
+      end loop;
+      return Invalid_Scan;
+   end Read_Statements;
+
+   function Scan_Step
+     (Text : String; Form : Form_Kind; Token : Token_Kind; Scan : Scan_Result)
+      return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Scan_Step'Result.State);
+   function Scan_Step
+     (Text : String; Form : Form_Kind; Token : Token_Kind; Scan : Scan_Result)
+      return Scan_Result is
+     (if Token = Statements then Read_Statements
+        (Text, Scan, (if Is_Argument_Form (Form) then Else_Keyword else End_Keyword))
+      else (Scan with delta State => Step (Text, Form, Token, Scan.State)));
+
+   subtype Token_Index is Positive range 1 .. 101;
+   function Scan_Suffix
+     (Text : String; Form : Form_Kind; Next_Token : Token_Index;
+      Scan : Scan_Result) return Scan_Result
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State),
+       Post => Valid_State (Text, Scan_Suffix'Result.State),
+       Subprogram_Variant => (Increases => Next_Token);
+   function Scan_Suffix
+     (Text : String; Form : Form_Kind; Next_Token : Token_Index;
+      Scan : Scan_Result) return Scan_Result is
+     (if Scan.State.Position = 0 then Invalid_Scan
+      elsif Next_Token > Tokens (Form)'Last then
+        (if Trivia_End (Text, Scan.State.Position) = Text'Last + 1
+         then Scan else Invalid_Scan)
+      else Scan_Suffix (Text, Form, Next_Token + 1,
+        Scan_Step (Text, Form, Tokens (Form) (Next_Token), Scan)));
+
+   function Form_Result (Source : String; Form : Form_Kind) return Scan_Result
      with Ghost => Static, Global => null;
-   function Form_Member (Source : String; Form : Form_Kind) return Boolean is
-     (Source'Length in 1 .. Max_Source_Length
+   function Form_Result (Source : String; Form : Form_Kind) return Scan_Result is
+     (if Source'Length in 1 .. Max_Source_Length
       and then Allowed_Source (Normalized (Source))
       and then Within_Work_Budget (Normalized (Source))
-      and then Suffix_Matches (Normalized (Source), Form, 1, Initial_State));
+      then Scan_Suffix (Normalized (Source), Form, 1, Initial_Scan)
+      else Invalid_Scan);
+
    function Is_Member (Source : String) return Boolean is
-     (for some Form in Form_Kind => Form_Member (Source, Form));
+     (for some Form in Form_Kind => Form_Result (Source, Form).State.Position /= 0);
    function Has_Arguments (Source : String) return Boolean is
      (for some Form in Form_Kind =>
-        Form_Member (Source, Form) and then Is_Argument_Form (Form)
-        and then (for all Previous in Form_Kind'First .. Form =>
-          (if Previous /= Form then not Form_Member (Source, Previous))));
+        Form_Result (Source, Form).State.Position /= 0 and then Is_Argument_Form (Form));
    function Has_Assignment (Source : String) return Boolean is
-     (for some Form in Form_Kind =>
-        Form_Member (Source, Form) and then Is_Assignment_Form (Form)
-        and then (for all Previous in Form_Kind'First .. Form =>
-          (if Previous /= Form then not Form_Member (Source, Previous))));
+     (for some Form in Form_Kind => Form_Result (Source, Form).State.Position /= 0
+        and then Form_Result (Source, Form).Assigned);
+   function Has_Output (Source : String) return Boolean is
+     (for some Form in Form_Kind => Form_Result (Source, Form).State.Position /= 0
+        and then Form_Result (Source, Form).Output);
 
-   function Accepts_Form (Source : String; Form : Form_Kind) return Boolean
+   function Read_Form (Source : String; Form : Form_Kind) return Scan_Result
      with Global => null,
-       Post => (Static => Accepts_Form'Result = Form_Member (Source, Form));
-   function Accepts_Form (Source : String; Form : Form_Kind) return Boolean is
+       Post => (Static => Read_Form'Result = Form_Result (Source, Form));
+   function Read_Form (Source : String; Form : Form_Kind) return Scan_Result is
    begin
-      if Source'Length = 0 or else Source'Length > Max_Source_Length then return False; end if;
+      if Source'Length = 0 or else Source'Length > Max_Source_Length then return Invalid_Scan; end if;
       declare
          Text : constant String := Normalized (Source);
-         State : Parser_State := Initial_State;
+         Scan : Scan_Result := Initial_Scan;
          Next_Token : Token_Index := 1;
       begin
-         if not Allowed_Source (Text) then return False; end if;
-         if not Within_Work_Budget (Text) then return False; end if;
+         if not Allowed_Source (Text) then return Invalid_Scan; end if;
+         if not Within_Work_Budget (Text) then return Invalid_Scan; end if;
          while Next_Token <= Tokens (Form)'Last loop
-            pragma Loop_Invariant (State.Position > 0 and then Valid_State (Text, State));
+            pragma Loop_Invariant (Scan.State.Position > 0 and then Valid_State (Text, Scan.State));
             pragma Loop_Invariant (Static =>
-              Suffix_Matches (Text, Form, 1, Initial_State)
-              = Suffix_Matches (Text, Form, Next_Token, State));
+              Scan_Suffix (Text, Form, 1, Initial_Scan)
+              = Scan_Suffix (Text, Form, Next_Token, Scan));
             pragma Loop_Variant (Increases => Next_Token);
-            State := Step (Text, Form, Tokens (Form) (Next_Token), State);
-            if State.Position = 0 then return False; end if;
+            Scan := Scan_Step (Text, Form, Tokens (Form) (Next_Token), Scan);
+            if Scan.State.Position = 0 then return Invalid_Scan; end if;
             Next_Token := Next_Token + 1;
          end loop;
-         return Skip_At (Text, State.Position) > Text'Last;
+         return (if Skip_At (Text, Scan.State.Position) > Text'Last then Scan else Invalid_Scan);
       end;
-   end Accepts_Form;
+   end Read_Form;
 
    function Accepts (Source : String) return Boolean is
    begin
       for Form in Form_Kind loop
          pragma Loop_Invariant (Static =>
            (for all Previous in Form_Kind'First .. Form =>
-             (if Previous /= Form then not Form_Member (Source, Previous))));
-         if Accepts_Form (Source, Form) then return True; end if;
+             (if Previous /= Form then Form_Result (Source, Previous).State.Position = 0)));
+         if Read_Form (Source, Form).State.Position /= 0 then return True; end if;
       end loop;
       return False;
    end Accepts;
@@ -970,8 +1074,10 @@ is
       for Form in Form_Kind loop
          pragma Loop_Invariant (Static =>
            (for all Previous in Form_Kind'First .. Form =>
-             (if Previous /= Form then not Form_Member (Source, Previous))));
-         if Accepts_Form (Source, Form) then return Is_Argument_Form (Form); end if;
+             (if Previous /= Form then Form_Result (Source, Previous).State.Position = 0
+               or else not Is_Argument_Form (Previous))));
+         if Read_Form (Source, Form).State.Position /= 0 and then Is_Argument_Form (Form)
+         then return True; end if;
       end loop;
       return False;
    end Uses_Arguments;
@@ -981,9 +1087,26 @@ is
       for Form in Form_Kind loop
          pragma Loop_Invariant (Static =>
            (for all Previous in Form_Kind'First .. Form =>
-             (if Previous /= Form then not Form_Member (Source, Previous))));
-         if Accepts_Form (Source, Form) then return Is_Assignment_Form (Form); end if;
+             (if Previous /= Form then Form_Result (Source, Previous).State.Position = 0
+               or else not Form_Result (Source, Previous).Assigned)));
+         declare Scan : constant Scan_Result := Read_Form (Source, Form); begin
+            if Scan.State.Position /= 0 and then Scan.Assigned then return True; end if;
+         end;
       end loop;
       return False;
    end Uses_Assignment;
+
+   function Uses_Output (Source : String) return Boolean is
+   begin
+      for Form in Form_Kind loop
+         pragma Loop_Invariant (Static =>
+           (for all Previous in Form_Kind'First .. Form =>
+             (if Previous /= Form then Form_Result (Source, Previous).State.Position = 0
+               or else not Form_Result (Source, Previous).Output)));
+         declare Scan : constant Scan_Result := Read_Form (Source, Form); begin
+            if Scan.State.Position /= 0 and then Scan.Output then return True; end if;
+         end;
+      end loop;
+      return False;
+   end Uses_Output;
 end Silver_Output_Profile;

@@ -1,8 +1,13 @@
 with Ada.Text_IO;
 with Ada.Command_Line;
+with Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded.Text_IO;
 with Silver_Library_Reports;
 procedure Library_Reports_Probe is
-   Report : constant String := Ada.Text_IO.Get_Line;
+   --  Avoid Ada.Text_IO.Get_Line's recursive stack growth for large fixtures.
+   Input : constant Ada.Strings.Unbounded.Unbounded_String :=
+     Ada.Strings.Unbounded.Text_IO.Get_Line;
+   Report : constant String := Ada.Strings.Unbounded.To_String (Input);
    Kind : constant Silver_Library_Reports.Report_Kind :=
      (if Ada.Command_Line.Argument (1) = "body"
       then Silver_Library_Reports.Library_Body

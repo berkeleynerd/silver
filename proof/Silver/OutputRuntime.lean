@@ -185,8 +185,9 @@ def program : List Instruction :=
   [.ghost .initialize, .lengthGuard, .itemLoop, .checkedByte 10,
    .ghost .recordNewline, .checkedFlush, .ghost .complete]
 
-/-- Main has no statements after its single call. Under the documented GNAT
-startup/finalization premise, its ordinary return exposes the recorded status.
+/-- Accepted bytes and status contribution from a completed call. The original
+single-call Main exposes this pair directly; statement sequences concatenate
+the per-call bytes and retain failure status across ordinary returning calls.
 Signals and external nonprogress are outside this completed-reply model. -/
 structure ProcessResult where
   status : Nat

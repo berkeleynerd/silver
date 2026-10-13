@@ -17,8 +17,13 @@ public import Silver.BranchingExamples
 public import Silver.ComposeSourceBridge
 public import Silver.ComposeModel
 public import Silver.ComposeExamples
+public import Silver.SequenceMain
+public import Silver.SequenceModel
+public import Silver.SequenceSourceBridge
+public import Silver.SequenceCorrespondence
 
 -- Independent fragment and recursion lemmas retained in the whole-project audit.
+public import Silver.ComposeExecution
 public import Silver.BranchingDisjoint
 
 @[expose] public section

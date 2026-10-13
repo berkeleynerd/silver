@@ -51,7 +51,7 @@ def allTokens : List ShellToken :=
    .word "input_is_valid", .word "then", .word "else", .word "reject", .symbol "&", .word "and",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
-   .outputExpression, .comparisonExpression]
+   .outputExpression, .comparisonExpression, .word "null"]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -104,7 +104,7 @@ def Context.locals (ctx : Context) : Locals
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
 Only result bounds/state preservation occur here, never admission correctness. -/
-structure RangeContracts (calls : Calls) : Prop where
+structure HelperRanges (calls : Calls) : Prop where
   skip : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     ValidCursor text (calls.function .skip text position)
   name : ∀ text, ValidText text → ∀ position, ValidCursor text position →
@@ -137,14 +137,16 @@ structure RangeContracts (calls : Calls) : Prop where
   expression : ∀ text, ValidText text → ∀ position names,
     ValidCursor text position → ValidNames text names →
     ValidResult text (calls.function .expression text position names)
+
+structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
   step : ∀ text, ValidText text → ∀ form token state,
     ValidToken token → ValidState text state →
     ValidState text (calls.function .step text form token state)
 
 /-- Equations of checked expression bodies or exact executable-refinement
 postconditions. The evaluator's primitive meanings may be normalized later. -/
-structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical calls) : Prop where
-  ranges : RangeContracts calls
+structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) : Prop where
+  ranges : HelperRanges calls
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =
@@ -243,6 +245,16 @@ structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical call
     ValidState text state →
     calls.function .capacity text state =
       capacityBody.eval evaluator (Context.locals {text,state})
+  readDeclarations : ∀ text, ValidText text → ∀ state arguments, ValidState text state →
+    calls.function .readDeclarations text state arguments = calls.function .declarations text state arguments
+
+/-- The previous fixed-form model retains its own abstract equations. These
+are not assertions about the current statement scanner. -/
+structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical calls)
+    : Prop extends HelperEquations calls evaluator where
+  stepRange : ∀ text, ValidText text → ∀ form token state,
+    ValidToken token → ValidState text state →
+    ValidState text (calls.function .step text form token state)
   step : ∀ text, ValidText text → ∀ form token state,
     ValidToken token → ValidState text state →
     calls.function .step text form token state =
@@ -251,8 +263,6 @@ structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical call
     ValidState text state → 1 ≤ nextToken → nextToken ≤ form.tokens.length + 1 →
     calls.function .suffix text form nextToken state =
       suffixBody.eval evaluator (Context.locals {text,form,nextToken,state})
-  readDeclarations : ∀ text, ValidText text → ∀ state arguments, ValidState text state →
-    calls.function .readDeclarations text state arguments = calls.function .declarations text state arguments
   formMember : ∀ text form, calls.function .formMember text form =
     formBody.eval evaluator (Context.locals {text,form})
   member : ∀ text, calls.function .member text = memberBody.eval evaluator (Context.locals {text})
@@ -262,40 +272,40 @@ structure DefinitionEquations (calls : Calls) (evaluator : Calls := lexical call
 set_option maxRecDepth 10000
 set_option maxHeartbeats 2000000
 
-@[simp] theorem interpreted_skip (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_skip (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .skip text position = skipAt text position := by
   rw [equations.skip text valid position bound]
   simp [skipBody, Expr.eval, Context.locals, lexical, modelPrimitives, skipAt]
 
-@[simp] theorem interpreted_name (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_name (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .nameAfter text position = nameAfter text position := by
   rw [equations.name text valid position bound]
   simp [nameBody, Expr.eval, Context.locals, lexical, modelPrimitives, nameAfter]
 
-@[simp] theorem interpreted_fixed (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_fixed (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (token : ShellToken)
     (bound : ValidCursor text position) (tokenValid : ValidToken token) :
     calls.function .fixedAfter text position token = fixedAfter text position (spelling token) (isWord token) := by
   rw [equations.fixed text valid position token bound tokenValid]
   simp [fixedBody, Expr.eval, Context.locals, lexical, modelPrimitives, fixedAfter]
 
-@[simp] theorem interpreted_take (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_take (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (token : ShellToken)
     (bound : ValidCursor text position) (tokenValid : ValidToken token) :
     calls.function .takeToken text position token = fixedAfter text position (spelling token) (isWord token) := by
   rw [equations.take text valid position token bound tokenValid]
   simp [fixedBody, Expr.eval, Context.locals, lexical, modelPrimitives, fixedAfter]
 
-@[simp] theorem interpreted_literal (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_literal (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (bound : ValidCursor text position) :
     calls.function .literal text position = literalAt text position := by
   rw [equations.literal text valid position bound]
   simp [literalBody, Expr.eval, Context.locals, lexical, modelPrimitives, literalAt, Bool.and_eq_true,
     and_assoc]
 
-@[simp] theorem interpreted_lookupFrom (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_lookupFrom (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (first after index : Nat)
     (namesValid : ValidNames text names) (nameValid : ValidName text first after)
     (positive : 1 ≤ index) (bounded : index ≤ names.length + 1) :
@@ -315,7 +325,7 @@ set_option maxHeartbeats 2000000
 termination_by names.length + 1 - index
 decreasing_by omega
 
-@[simp] theorem interpreted_lookup (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_lookup (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (first after : Nat)
     (namesValid : ValidNames text names) (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
     calls.function .lookupName text names first after = lookupName text names first after := by
@@ -330,7 +340,7 @@ decreasing_by omega
     apply interpreted_lookupFrom calls equations text valid names first after 1 namesValid
         (by exact ⟨firstPositive, afterGreater, afterValid⟩) (by omega) (by omega)
 
-@[simp] theorem interpreted_workTail (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_workTail (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position remaining : Nat)
     (bound : ValidCursor text position) (remainingBound : remaining ≤ maxConcatenations) :
     calls.function .workTail text position remaining = workTail text position remaining := by
@@ -372,13 +382,13 @@ decreasing_by omega
 termination_by text.length + 1 - position
  decreasing_by all_goals assumption
 
-@[simp] theorem interpreted_workBudget (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_workBudget (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) :
     calls.function .workBudget text = withinWorkBudget text := by
   rw [equations.workBudget text valid]
   exact interpreted_workTail calls equations text valid 1 maxConcatenations (by unfold ValidCursor; omega) (Nat.le_refl _)
 
-@[simp] theorem interpreted_value (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_value (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
     (bound : ValidCursor text position) (namesValid : ValidNames text names) :
     calls.function .value text position names = valueAt text position names := by
@@ -394,7 +404,7 @@ termination_by text.length + 1 - position
   rw [literalEq, lookupEq, nameEq, skipEq]
   rfl
 
-@[simp] theorem interpreted_newName (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_newName (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (arguments : Bool)
     (stateValid : ValidState text state) (firstValid : ValidCursor text first) (afterValid : ValidCursor text after) :
     calls.function .newName text state first after arguments = newNameAllowed text state first after arguments := by
@@ -403,7 +413,7 @@ termination_by text.length + 1 - position
     interpreted_lookup calls equations text valid state.names first after stateValid.2.1 firstValid afterValid,
     newNameAllowed, Bool.and_assoc]
 
-@[simp] theorem interpreted_addBinding (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_addBinding (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) (stateValid : ValidState text state)
     (firstValid : ValidCursor text first) (afterValid : ValidCursor text after)
@@ -413,7 +423,7 @@ termination_by text.length + 1 - position
   rw [equations.addBinding text valid state first after value mutable following stateValid firstValid afterValid valueValid followingValid room]
   rfl
 
-@[simp] theorem interpreted_expressionStep (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_expressionStep (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
     calls.function .expressionStep text names scan = expressionStep text names scan := by
@@ -432,7 +442,7 @@ termination_by text.length + 1 - position
   simp only [eopen, ejoin, eclose, atom]
   simp [expressionStep, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
 
-@[simp] theorem interpreted_tail (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_tail (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (names : BindingEnvironment) (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
     calls.function .tail text names scan = expressionTail text names scan := by
@@ -470,7 +480,7 @@ termination_by text.length + 1 - scan.position
   unfold ValidCursor at nextBound
   omega
 
-@[simp] theorem interpreted_expression (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_expression (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position : Nat) (names : BindingEnvironment)
     (bound : ValidCursor text position) (namesValid : ValidNames text names) :
     calls.function .expression text position names = expressionAt text position names := by
@@ -481,7 +491,7 @@ termination_by text.length + 1 - scan.position
   change position = 0 ∨ 0 < position
   omega
 
-@[simp] theorem interpreted_fits (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_fits (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (result : ExpressionResult) (capacity : Nat)
     (resultValid : ValidResult text result) (capacityBound : capacity ≤ maxSourceLength) :
     calls.function .fits result capacity = fits result capacity := by
@@ -498,7 +508,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
       (if !a || decide (b ∨ c) then yes else no) := by
   cases a <;> simp
 
-@[simp] theorem interpreted_declaration (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_declaration (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) :
     calls.function .declaration text state arguments = declarationAt text state arguments := by
@@ -567,7 +577,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [declarationAt, parts]
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
-@[simp] theorem interpreted_argument (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_argument (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .argument text state = argumentAt text state := by
@@ -638,7 +648,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
       tokenAfter, ShellToken.word, ShellToken.symbol, empty]
   · simp [empty, argumentAt]
 
-@[simp] theorem interpreted_declarations (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_declarations (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (arguments : Bool)
     (stateValid : ValidState text state) :
     calls.function .declarations text state arguments = declarationsAt text state arguments := by
@@ -674,7 +684,7 @@ decreasing_by
   have nextBound := nextValid.2.1.1
   omega
 
-@[simp] theorem interpreted_output (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_output (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .output text state = outputAt text state := by
@@ -687,7 +697,7 @@ decreasing_by
   rw [efits, evalue]
   cases h : fits (expressionAt text state.position state.names) state.capacity <;> simp [outputAt, h]
 
-@[simp] theorem interpreted_comparison (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_comparison (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .comparison text state = comparisonAt text state := by
@@ -718,7 +728,7 @@ decreasing_by
   generalize (expressionAt text (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names).namedSeen = d
   cases a <;> cases b <;> cases c <;> cases d <;> rfl
 
-@[simp] theorem interpreted_target (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_target (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState) (sameTarget : Bool)
     (stateValid : ValidState text state) :
     calls.function .target text state sameTarget = targetAt text state sameTarget := by
@@ -733,7 +743,7 @@ decreasing_by
   rw [lookupEq, nameEq, skipEq]
   simp [targetAt, Bool.or_eq_true, Bool.and_eq_true, or_assoc]
 
-@[simp] theorem interpreted_dynamic (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_dynamic (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .dynamic text state = dynamicAt text state := by
@@ -746,7 +756,7 @@ decreasing_by
   rw [nameEq, skipEq]
   simp [dynamicAt, Bool.or_eq_true, or_assoc]
 
-@[simp] theorem interpreted_assignmentValue (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_assignmentValue (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .assignmentValue text state = assignmentAt text state := by
@@ -759,7 +769,7 @@ decreasing_by
   rw [efits, evalue]
   simp [assignmentAt, Bool.or_eq_true, or_assoc]
 
-@[simp] theorem interpreted_capacity (calls : Calls) (equations : DefinitionEquations calls)
+@[simp] theorem interpreted_capacity (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
     calls.function .capacity text state = capacityAt text state := by

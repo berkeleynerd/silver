@@ -64,7 +64,6 @@ class NamedOutputTests(unittest.TestCase):
                   valid.replace(b':=', b': ='),
                   valid.replace(b':=', b':-- split\n='),
                   valid.replace(b'Put_Line(Message)', b'Put_Line(Message(1..2))'),
-                  valid.replace(b';end ', b';null;end '),
                   source_for(b'\t'), source_for(b'\x80'),
                   valid + b'--\x0b hidden',
                   source_for(b'x' * (4097 - len(source_for(b''))))]

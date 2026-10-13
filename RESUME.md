@@ -8,6 +8,34 @@ status and the live harness goal; historical goal states are not current instruc
 
 ## Latest completed work
 
+**[Statement sequencing and assignment](docs/statement-sequencing.md) is complete**,
+based on `3c1522f540`. The implementation/review target is the commit introducing
+`samples/statement_sequence.adb`. It admits finite sequences of null, compatible
+fixed-bound assignments, output and one-level String-equality choices, including
+multiple choices and returning output failures. Existing argument guards,
+expression bounds and the source limit remain; no statement/output-count cap
+was introduced. The Oracle is unchanged.
+
+The complete Linux native audit, build/catalogue checks, full test suite,
+actual-source correspondence and complete Lean build/fresh axiom audit passed.
+The capability record distinguishes the successful final checkpoint, reused
+artifacts, failed proof attempts, native capacity observations and remaining
+external solver/producer premises. Dense assignment cost remains unresolved.
+
+Recovery: `tmp/sequencing-active.json`. The canonical `.silver/linux-x86_64/proof/`
+is the preferred completed warm cache. Preserve prior evidence, isolated lanes,
+private/server sidecars, Lake metadata, failed logs and scratch. The task record
+notes the replaced model-lane rolling focused JSON; its timestamped logs and
+separate witness evidence remain. Do not run concurrent writers in one workspace.
+
+**Equality, guards and branches** is next proposed in the roadmap. No further
+functional work or replacement harness goal began; historical Compose String
+Results remains complete. Publication remains authorized, Actions is disabled,
+macOS proofs are out of scope. CLI recall tools are unavailable and were not
+updated; checked-in session memory is current.
+
+## Previous completed work
+
 The authorized narrow [composed-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
 is complete, based on review target `9b72d36015`. The implementation commit is
 the commit adding `proof/Silver/ComposeModel.lean`. Its concrete witness satisfies

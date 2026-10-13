@@ -137,7 +137,6 @@ class ComposedResultsTests(unittest.TestCase):
                   (b'00', b'01', b'+1', b'1_0', b'1.0', b'1e0', b'16#1#')]
         result = source_for(b'Message&Input', form='result', capacity=b'40')
         cases += [result.replace(b'Message:="new";', b'Other:="new";'),
-                  result.replace(b'Message:="old";end if;', b'Message:="old";Message:="new";end if;'),
                   result.replace(b'else Message:="old";', b''),
                   result.replace(b'Input\'Length<=40', b'Message\'Length<=40'),
                   result.replace(b'else Silver_Arguments.Reject;', b''),

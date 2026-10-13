@@ -51,13 +51,15 @@ For each authorized increment:
    resulting language. Preserve the author's source through proof and build and
    maintain correspondence with the selected library specifications and bodies.
 3. Audit all required obligations and coverage. The application-unit safety-obligation set
-   follows the source-selected static/argument/assigned/selected policy.
+   follows the source-selected static/argument/assigned/selected policy; finite exact entity
+   alternatives cover sequences without output and producer elimination.
    Under the shared-binding policy, every emitted Main safety check must be a
    proved range or length check; applicable static elimination may leave an
    empty list. All output forms precisely classify initializer advisories;
    assignment-bearing forms additionally classify the exact unused-assignment
-   advisory. Argument-bearing policies also classify the exact ineffective-statement
-   and unreachable-statement advisories observed for constant String equality.
+   advisory. All sequence policies classify the exact ineffective-statement
+   and unreachable-statement advisories for constant equality, and the four
+   exact overwritten ghost-output advisories for repeated calls.
    Other diagnostics remain rejected. A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
@@ -94,7 +96,7 @@ The commands below are a menu, not a sequence to repeat after every edit:
 python3 scripts/dev.py prove
 python3 scripts/dev.py build
 python3 scripts/dev.py test -- -p test_string_assignment.py
-python3 scripts/check_lean.py --target Silver.ComposeMain
+python3 scripts/check_lean.py --target Silver.SequenceMain
 ```
 
 Choose the test file for the affected behavior. Batch recognizer and proof edits

@@ -110,8 +110,6 @@ class BranchingTests(unittest.TestCase):
                                     b'Silver_IO.Put_Line("Hi "&Mode&"!");'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Mode:="other";'),
-                  canonical.replace(b'Silver_IO.Put_Line("Ready.");',
-                                    b'Silver_IO.Put_Line("Ready.");Silver_IO.Put_Line("again");'),
                   canonical.replace(b';end if;', b';null;end if;'),
                   canonical.replace(b';end Main;', b';Silver_IO.Put_Line("after");end Main;'),
                   canonical.replace(b' then if Mode', b' then if True then if Mode')
