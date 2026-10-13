@@ -11,7 +11,7 @@ namespace Silver.Compose
 open Named Bindings
 
 theorem declarationParts_value (text : Source) (state : ParserState) :
-    (declarationParts text state).value = valueAt text (declarationValuePosition text state) state.names := by
+    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names := by
   simp only [declarationParts]
 
 theorem fixedAfter_nonzero {text : Source} {position : Nat} {spelling : String} {word : Bool}
@@ -24,20 +24,21 @@ theorem declarationParts_following (text : Source) (state : ParserState) :
   simp only [declarationParts]
 
 inductive DeclarationAt (text : Source) (arguments : Bool) : ParserState → Declaration → ParserState → Prop
-  | declaration {state : ParserState} {parts : DeclarationParts} {value : Operand} :
+  | declaration {state : ParserState} {parts : DeclarationParts} {value : Expression} :
       declarationParts text state = parts →
       newNameAllowed text state parts.first parts.after arguments = true →
       parts.following ≠ 0 → state.names.length ≠ maxBindings →
-      ValueAt text state.names (declarationValuePosition text state) value parts.value →
+      fits parts.value maxSourceLength = true →
+      ExpressionAt text state.names (declarationValuePosition text state) value parts.value →
       DeclarationAt text arguments state
         ⟨state.names.length + 1, decide (parts.constantAfter = 0), value⟩
-        (addBinding state parts.first parts.after parts.value (decide (parts.constantAfter = 0)) parts.following)
+        (addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following)
 
 theorem declaration_complete {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
     declarationAt text state arguments = next := by
   cases parsed with
-  | declaration parts allowed following count _ => simp [declarationAt, parts, allowed, following, count]
+  | declaration parts allowed following count bounded _ => simp [declarationAt, parts, allowed, following, count, bounded]
 
 theorem declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
     (accepted : (declarationAt text state arguments).position ≠ 0) :
@@ -45,43 +46,82 @@ theorem declaration_sound (text : Source) (state : ParserState) (arguments : Boo
   generalize partsEq : declarationParts text state = parts
   have observed : declarationAt text state arguments =
       if !newNameAllowed text state parts.first parts.after arguments ||
-          decide (parts.following = 0 ∨ state.names.length = maxBindings) then invalidState
-      else addBinding state parts.first parts.after parts.value (decide (parts.constantAfter = 0)) parts.following := by
+          decide (parts.following = 0 ∨ state.names.length = maxBindings) || !fits parts.value maxSourceLength
+      then invalidState
+      else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following := by
     simp only [declarationAt, partsEq]
-  by_cases allowed : newNameAllowed text state parts.first parts.after arguments = true
-  · by_cases following : parts.following = 0
-    · simp [observed, following, invalidState] at accepted
-    · by_cases count : state.names.length = maxBindings
-      · simp [observed, count, invalidState] at accepted
-      · have nextEq := declarationParts_following text state
-        rw [partsEq] at nextEq
-        have valueEq := declarationParts_value text state
-        rw [partsEq] at valueEq
-        have valueNonzero : parts.value.after ≠ 0 := fixedAfter_nonzero (nextEq ▸ following)
-        rw [valueEq] at valueNonzero
-        obtain ⟨value, parsed⟩ := value_sound text (declarationValuePosition text state) state.names valueNonzero
-        refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value⟩, ?_⟩
-        rw [observed]
-        simp only [allowed, Bool.not_true, Bool.false_or, following, count, or_self,
-          decide_false, Bool.false_eq_true, ↓reduceIte]
-        exact .declaration partsEq allowed following count (valueEq.symm ▸ parsed)
-  · simp [observed, allowed, invalidState] at accepted
+  have allowed : newNameAllowed text state parts.first parts.after arguments = true := by
+    by_cases good : newNameAllowed text state parts.first parts.after arguments = true
+    · exact good
+    · simp [observed, good, invalidState] at accepted
+  have following : parts.following ≠ 0 := by
+    intro zero
+    simp [observed, zero, invalidState] at accepted
+  have count : state.names.length ≠ maxBindings := by
+    intro full
+    simp [observed, full, invalidState] at accepted
+  have bounded : fits parts.value maxSourceLength = true := by
+    by_cases good : fits parts.value maxSourceLength = true
+    · exact good
+    · simp [observed, good, invalidState] at accepted
+  have valueEq := declarationParts_value text state
+  rw [partsEq] at valueEq
+  have valueNonzero : parts.value.after ≠ 0 := (decide_eq_true_eq.mp bounded).1
+  rw [valueEq] at valueNonzero
+  obtain ⟨value, parsed⟩ := expressionAt_sound text state.names (declarationValuePosition text state) valueNonzero
+  refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value⟩, ?_⟩
+  rw [observed]
+  simp only [allowed, Bool.not_true, Bool.false_or, following, count, or_self,
+    decide_false, bounded, Bool.false_eq_true, ↓reduceIte]
+  exact .declaration partsEq allowed following count bounded (valueEq.symm ▸ parsed)
 
 theorem declaration_positive {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
     next.position ≠ 0 := by
   cases parsed with
-  | declaration _ _ following _ _ => simpa only [addBinding] using following
+  | declaration _ _ following _ _ _ => simpa only [addBinding] using following
+
+theorem expressionResult_coefficients {result : ExpressionResult}
+    (bounded : fits result maxSourceLength = true) :
+    result.dynamicCount ≤ 1 ∧ (result.dynamicCount = 1 → result.staticLength = 0) := by
+  have bound := (decide_eq_true_eq.mp bounded).2
+  simp only [maxSourceLength] at bound
+  omega
+
+def ExpressionResult.bound (result : ExpressionResult) : Bindings.Bound := result.value.bound
+
+theorem expressionResult_summary {result : ExpressionResult}
+    (bounded : fits result maxSourceLength = true) :
+    result.bound.summary = ⟨result.staticLength, result.dynamicCount⟩ ∧
+      result.bound.length maxSourceLength ≤ maxSourceLength := by
+  have coefficients := expressionResult_coefficients bounded
+  have bound := (decide_eq_true_eq.mp bounded).2
+  by_cases dynamic : result.dynamicCount = 1
+  · simp [ExpressionResult.bound, ExpressionResult.value, ValueResult.bound,
+      Bindings.Bound.summary, Bindings.Bound.length, dynamic, coefficients.2 dynamic]
+  · have zero : result.dynamicCount = 0 := by omega
+    simpa [ExpressionResult.bound, ExpressionResult.value, ValueResult.bound,
+      Bindings.Bound.summary, Bindings.Bound.length, zero] using bound
 
 theorem declaration_shape {text : Source} {arguments : Bool} {state next : ParserState}
-    {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
+    {declaration : Declaration} (normal : NamesNormal state.names)
+    (parsed : DeclarationAt text arguments state declaration next) :
     ∃ bound, declaration.Valid state.names.shape bound ∧
       next.names.shape = declaration.extend state.names.shape bound := by
   cases parsed with
-  | declaration parts allowed following count value =>
-      refine ⟨_, ⟨environment_fresh _, value_infer value, value_literals value⟩, ?_⟩
-      simp only [addBinding, environment_append, Declaration.extend, BindingInfo.cell,
-        BindingInfo.bound, ValueResult.bound]
+  | declaration parts allowed following count bounded value =>
+      have coefficients := expressionResult_summary bounded
+      have safe := expressionAt_safe normal value (decide_eq_true_eq.mp bounded).2
+      have summary := expressionTail_summary normal (by simp) value
+      simp only [Nat.zero_add] at summary
+      refine ⟨_, ⟨environment_fresh _, ?_, safe.2.1, safe.2.2.1, safe.2.2.2.1, coefficients.2⟩, ?_⟩
+      · apply Expression.infer_iff.mpr
+        refine ⟨safe.1, ?_⟩
+        rw [coefficients.1]
+        simp only [Expression.summary, summary.1, summary.2]
+      · simp only [addBinding, environment_append, Declaration.extend, BindingInfo.cell,
+          BindingInfo.bound, ExpressionResult.bound, ExpressionResult.value, ValueResult.bound]
+        rfl
 
 theorem get_append_new {names : BindingEnvironment} {info : BindingInfo} {index : Nat}
     {found : BindingInfo} (present : (names ++ [info]).get index = some found) :
@@ -104,12 +144,14 @@ theorem declaration_normal {text : Source} {arguments : Bool} {state next : Pars
     {declaration : Declaration} (normal : NamesNormal state.names)
     (parsed : DeclarationAt text arguments state declaration next) : NamesNormal next.names := by
   cases parsed with
-  | declaration _ _ _ _ value =>
+  | declaration _ _ _ _ bounded value =>
       intro index info present dynamic
       obtain prior | ⟨_, same⟩ := get_append_new present
       · exact normal index info prior dynamic
       · subst info
-        exact value_normal normal value dynamic
+        have coefficient := expressionResult_coefficients bounded
+        have one : _ = 1 := of_decide_eq_true dynamic
+        exact coefficient.2 one
 
 inductive DeclarationsAt (text : Source) (arguments : Bool) :
     ParserState → List Declaration → ParserState → Prop
@@ -158,13 +200,14 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
       simpa only [List.length_cons, count, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using ih
 
 theorem declarations_shape {text : Source} {arguments : Bool} {state final : ParserState}
-    {declarations : List Declaration} (parsed : DeclarationsAt text arguments state declarations final) :
+    {declarations : List Declaration} (normal : NamesNormal state.names)
+    (parsed : DeclarationsAt text arguments state declarations final) :
     Bindings.DeclarationsValid state.names.shape declarations final.names.shape := by
   induction parsed with
   | done => exact .nil _
   | next _ _ first _ ih =>
-      obtain ⟨bound, valid, same⟩ := declaration_shape first
-      exact .cons valid (same ▸ ih)
+      obtain ⟨bound, valid, same⟩ := declaration_shape normal first
+      exact .cons valid (same ▸ ih (declaration_normal normal first))
 
 theorem declarations_normal {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Declaration} (parsed : DeclarationsAt text arguments state declarations final)
@@ -267,7 +310,7 @@ theorem argument_sound (text : Source) (state : ParserState)
       · simp [observed, empty, invalidState] at accepted
   · simp [observed, allowed, invalidState] at accepted
 
-def argumentDeclaration : Bindings.Declaration := ⟨1, false, .argument⟩
+def argumentDeclaration : Bindings.Declaration := ⟨1, false, [.argument]⟩
 def argumentShape : Bindings.Shape := put emptyShape 1 (some ⟨.argument, false⟩)
 
 theorem empty_names_shape : BindingEnvironment.shape [] = emptyShape := by
@@ -284,8 +327,12 @@ theorem argument_shape {text fallback : Source} {state next : ParserState}
       · simp only [addBinding, empty, environment_append, empty_names_shape,
           List.length_nil, Nat.zero_add, BindingInfo.cell, BindingInfo.bound,
           ↓reduceIte, argumentShape]
-      · simp [Declaration.Valid, argumentDeclaration, emptyShape, Bindings.Value.infer,
-          Bindings.Value.PrintableLiterals]
+      · simp [Declaration.Valid, argumentDeclaration, emptyShape, Expression.infer,
+          Expression.summary, Expression.staticLength, Expression.dynamicCount,
+          Expression.PrintableLiterals, Expression.LiteralsPrintable,
+          Operand.staticLength, Operand.dynamicCount, Operand.bound, Bindings.Value.infer,
+          Bindings.Value.PrintableLiterals, Bound.staticPart, Bound.dynamicPart,
+          Bindings.Bound.summary, Bindings.Bound.length, maxExpressionOperands]
 
 theorem argument_normal {text fallback : Source} {state next : ParserState}
     (parsed : ArgumentAt text state fallback next) : NamesNormal next.names := by
@@ -317,12 +364,12 @@ theorem declaration_unique {text : Source} {arguments : Bool} {state leftState r
   have states := (declaration_complete first).symm.trans (declaration_complete second)
   refine ⟨?_, states⟩
   cases first with
-  | declaration partsEq _ _ _ value =>
+  | declaration partsEq _ _ _ _ value =>
       cases second with
-      | declaration otherEq _ _ _ other =>
+      | declaration otherEq _ _ _ _ other =>
           have same := partsEq.symm.trans otherEq
           cases same
-          obtain ⟨rfl, _⟩ := value_unique value other
+          obtain ⟨rfl, _⟩ := expressionTail_unique value other
           rfl
 
 theorem declarations_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}

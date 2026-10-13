@@ -1,5 +1,62 @@
 # Session memory
 
+## 2026-10-13 — Common String expressions completed
+
+The authorized common-expression increment is complete. The
+[capability record](common-expressions.md) records shared literals, names,
+concatenation and parentheses across initialization, assignment, equality and
+output, with affine lengths, fixed object bounds and every intermediate bound.
+Initializers use the full input domain before guards. Equality has a declared
+String-name anchor for Ada type resolution. The retained sixteen-leaf limit and
+thirty-operator source budget have explicit resource purposes and native capacity
+evidence; larger-expression failures remain deferred rather than admitted.
+
+Complete native compiler verification, build/catalogue checks, universal Lean
+semantics/obligations, actual-source correspondence and a fresh whole-project
+coverage/axiom audit passed. Test coverage passed across the full invocation and
+a focused certificate repair; the initial full run was not clean. Independent
+reviews found no remaining material mismatch and corrected stale advisory policy
+wording. A minor spec comment about unchanged work is deferred to the next
+required source edit; the normative docs correctly describe operator count.
+Existing external-tool completion/producer premises remain explicit. Optional
+independent replay and macOS proof work were not requested.
+
+The implementation/review target is the commit introducing
+`../samples/common_expressions.adb`, based on `7547b3d07d`. The capability record
+links exact input/platform evidence. `tmp/common-expressions-active.json` records
+recovery paths and closing Git state. The completed canonical proof workspace
+is the preferred warm cache. Prior evidence, isolated workspaces, all sidecars,
+failed logs, archived repeated-output code and unrelated scratch are preserved.
+
+Statement sequencing and assignment is next proposed, with output effects where
+the scope requires them. No further language increment began. The live historical
+Compose String Results goal remains complete; no replacement goal was requested.
+Publication authorization persists, Linux is primary and Actions stays disabled.
+CLI recall tools were rechecked and remain unavailable; no CLI memory was written.
+This checked-in memory is the updated durable handoff.
+
+
+## 2026-10-13 — Common String expressions authorized
+
+The owner instructed proceeding with the next roadmap unit after its scope was
+stated: shared literals, names, concatenation and parentheses in initialization,
+assignment, comparison and output, preserving fixed object lengths and all
+intermediate bounds. The [working record](common-expressions.md) distinguishes
+implementation from the completed shared-binding checkpoint `7547b3d07d`.
+Native capacity/solver discovery informs the existing operand limit. Declaration
+initializers cannot borrow facts from later body guards. General sequencing,
+nested branches, repeated output and new APIs remain later work.
+
+Evidence is under `.silver/linux-x86_64/common-expressions-20261013T152350Z/`;
+`tmp/common-expressions-active.json` records recovery paths. Previous native and
+canonical Lean state are preserved before changes, and isolated proof workspaces
+retain all sidecars and metadata. Preserve every earlier cache, evidence record,
+scratch and the archived unfinished repeated-output draft. No new harness goal
+was requested; the historical Compose String Results goal remains complete.
+Publication authorization persists. Linux remains primary, macOS proofs are out
+of scope and hosted Actions stays disabled. CLI recall tools are unavailable;
+checked-in memory is updated, but no CLI recall entry was written.
+
 ## 2026-10-12 — Shared binding foundation completed
 
 The authorized Declarations, names and copies increment is complete. The

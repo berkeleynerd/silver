@@ -173,6 +173,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         require(isinstance(coverage, dict) and bool(coverage), f"{unit}: no SPARK coverage")
         application = application_kind is not None and unit == "main"
         assignment = application and application_kind in ("assigned", "selected")
+        comparison = application and application_kind in ("argument", "selected")
         if application:
             # Source membership selects a policy; this helper checks the emitted
             # producer shape without inferring source membership from a report.
@@ -208,7 +209,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 require(report.get("proof") == [] and report.get("assumptions") == [],
                         "application: bare Main requires empty proof and dependency lists")
                 require(assignment or bool(report["flow"]),
-                        "application: bare binding report requires an initializer advisory")
+                        "application: bare binding report requires an allowed advisory")
         require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
@@ -262,15 +263,18 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 if advisory:
                     require(record.get("severity") == "warning"
                             and record.get("how_proved") == "flow"
-                            and record.get("rule") == "INEFFECTIVE"
                             and record.get("file") == "main.adb"
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main
-                            and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
-                                              record.get("message", {}).get("text", "")) is not None
-                                 or (assignment and record.get("message", {}).get("text") == "unused assignment")),
+                            and ((record.get("rule") == "INEFFECTIVE"
+                                  and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
+                                                    record.get("message", {}).get("text", "")) is not None
+                                       or (assignment and record.get("message", {}).get("text") == "unused assignment")
+                                       or (comparison and record.get("message", {}).get("text") == "statement has no effect")))
+                                 or (comparison and record.get("rule") == "DEAD_CODE"
+                                     and record.get("message", {}).get("text") == "this statement is never reached")),
                             "assignment: unexpected flow diagnostic")
                     require(len(record["message"]["text"]) <= len('initialization of "" has no effect') + 4096,
                             "assignment: initializer name exceeds source bound")

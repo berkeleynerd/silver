@@ -16,18 +16,23 @@ def decode : Form → List Event → Option Program
       some ⟨argumentDeclaration :: values, names, fallback, .argument none expression⟩
   | .guardedArgument, [.argument fallback, .declarations values names, .capacity bound, .output expression] =>
       some ⟨argumentDeclaration :: values, names, fallback, .argument (some bound) expression⟩
-  | .branching, [.argument fallback, .declarations values names, .literal comparison, .output yes, .output no] =>
-      some ⟨argumentDeclaration :: values, names, fallback, .branching none comparison yes no⟩
-  | .guardedBranching, [.argument fallback, .declarations values names, .capacity bound, .literal comparison, .output yes, .output no] =>
-      some ⟨argumentDeclaration :: values, names, fallback, .branching (some bound) comparison yes no⟩
-  | .result, [.argument fallback, .declarations values names, .literal comparison, .assignment yes, .assignment no, .output expression] =>
-      some ⟨argumentDeclaration :: values, names, fallback, .result none comparison yes no expression⟩
-  | .guardedResult, [.argument fallback, .declarations values names, .capacity bound, .literal comparison, .assignment yes, .assignment no, .output expression] =>
-      some ⟨argumentDeclaration :: values, names, fallback, .result (some bound) comparison yes no expression⟩
+  | .branching, [.argument fallback, .declarations values names, .comparison left right, .output yes, .output no] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .branching none left right yes no⟩
+  | .guardedBranching, [.argument fallback, .declarations values names, .capacity bound, .comparison left right, .output yes, .output no] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .branching (some bound) left right yes no⟩
+  | .result, [.argument fallback, .declarations values names, .comparison left right, .assignment yes, .assignment no, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .result none left right yes no expression⟩
+  | .guardedResult, [.argument fallback, .declarations values names, .capacity bound, .comparison left right, .assignment yes, .assignment no, .output expression] =>
+      some ⟨argumentDeclaration :: values, names, fallback, .result (some bound) left right yes no expression⟩
   | _, _ => none
 
 theorem argument_declaration_valid : argumentDeclaration.Valid emptyShape .argument := by
-  simp [Declaration.Valid, argumentDeclaration, emptyShape, Bindings.Value.infer, Bindings.Value.PrintableLiterals]
+  simp [Declaration.Valid, argumentDeclaration, emptyShape, Expression.infer,
+    Expression.summary, Expression.staticLength, Expression.dynamicCount,
+    Expression.PrintableLiterals, Expression.LiteralsPrintable,
+    Operand.staticLength, Operand.dynamicCount, Operand.bound, Bindings.Value.infer,
+    Bindings.Value.PrintableLiterals, Bound.staticPart, Bound.dynamicPart,
+    Bindings.Bound.summary, Bindings.Bound.length, maxExpressionOperands]
 
 theorem prepend_argument {values : List Declaration} {names : BindingEnvironment}
     (valid : DeclarationsValid argumentShape values names.shape) :
@@ -58,6 +63,13 @@ theorem assignment_event_shape (events : List Event) (rest : List EventKind) :
 theorem literal_event_shape (events : List Event) (rest : List EventKind) :
     events.map Event.kind = .literal :: rest ↔
       ∃ bytes tail, events = .literal bytes :: tail ∧ tail.map Event.kind = rest := by
+  cases events with
+  | nil => simp
+  | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
+
+theorem comparison_event_shape (events : List Event) (rest : List EventKind) :
+    events.map Event.kind = .comparison :: rest ↔
+      ∃ left right tail, events = .comparison left right :: tail ∧ tail.map Event.kind = rest := by
   cases events with
   | nil => simp
   | cons event tail => cases event <;> simp [Event.kind, List.cons.injEq, and_assoc]
@@ -130,10 +142,10 @@ theorem decode_complete_spec {form : Form} {events : List Event}
       simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
       exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, stream.2.2.2⟩
   | branching =>
-      change events.map Event.kind = [.argument, .declarations, .literal, .output, .output] at shape
+      change events.map Event.kind = [.argument, .declarations, .comparison, .output, .output] at shape
       obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
       obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (literal_event_shape _ _).mp shape1
+      obtain ⟨left2, right2, tail2, rfl, shape2⟩ := (comparison_event_shape _ _).mp shape1
       obtain ⟨value3, tail3, rfl, shape3⟩ := (output_event_shape _ _).mp shape2
       obtain ⟨value4, tail4, rfl, shape4⟩ := (output_event_shape _ _).mp shape3
       have empty := List.map_eq_nil_iff.mp shape4
@@ -144,11 +156,11 @@ theorem decode_complete_spec {form : Form} {events : List Event}
       simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
       exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, ⟨Nat.le_refl _, stream.2.2.2⟩⟩
   | guardedBranching =>
-      change events.map Event.kind = [.argument, .declarations, .capacity, .literal, .output, .output] at shape
+      change events.map Event.kind = [.argument, .declarations, .capacity, .comparison, .output, .output] at shape
       obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
       obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
       obtain ⟨value2, tail2, rfl, shape2⟩ := (capacity_event_shape _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_event_shape _ _).mp shape2
+      obtain ⟨left3, right3, tail3, rfl, shape3⟩ := (comparison_event_shape _ _).mp shape2
       obtain ⟨value4, tail4, rfl, shape4⟩ := (output_event_shape _ _).mp shape3
       obtain ⟨value5, tail5, rfl, shape5⟩ := (output_event_shape _ _).mp shape4
       have empty := List.map_eq_nil_iff.mp shape5
@@ -159,10 +171,10 @@ theorem decode_complete_spec {form : Form} {events : List Event}
       simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
       exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, stream.2.2.2⟩
   | result =>
-      change events.map Event.kind = [.argument, .declarations, .literal, .assignment, .assignment, .output] at shape
+      change events.map Event.kind = [.argument, .declarations, .comparison, .assignment, .assignment, .output] at shape
       obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
       obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
-      obtain ⟨value2, tail2, rfl, shape2⟩ := (literal_event_shape _ _).mp shape1
+      obtain ⟨left2, right2, tail2, rfl, shape2⟩ := (comparison_event_shape _ _).mp shape1
       obtain ⟨value3, tail3, rfl, shape3⟩ := (assignment_event_shape _ _).mp shape2
       obtain ⟨value4, tail4, rfl, shape4⟩ := (assignment_event_shape _ _).mp shape3
       obtain ⟨value5, tail5, rfl, shape5⟩ := (output_event_shape _ _).mp shape4
@@ -174,11 +186,11 @@ theorem decode_complete_spec {form : Form} {events : List Event}
       simp only [Program.Valid, Body.Valid, effectiveCapacity, Option.getD]
       exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1, ⟨Nat.le_refl _, stream.2.2.2⟩⟩
   | guardedResult =>
-      change events.map Event.kind = [.argument, .declarations, .capacity, .literal, .assignment, .assignment, .output] at shape
+      change events.map Event.kind = [.argument, .declarations, .capacity, .comparison, .assignment, .assignment, .output] at shape
       obtain ⟨value0, tail0, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
       obtain ⟨value1, names1, tail1, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
       obtain ⟨value2, tail2, rfl, shape2⟩ := (capacity_event_shape _ _).mp shape1
-      obtain ⟨value3, tail3, rfl, shape3⟩ := (literal_event_shape _ _).mp shape2
+      obtain ⟨left3, right3, tail3, rfl, shape3⟩ := (comparison_event_shape _ _).mp shape2
       obtain ⟨value4, tail4, rfl, shape4⟩ := (assignment_event_shape _ _).mp shape3
       obtain ⟨value5, tail5, rfl, shape5⟩ := (assignment_event_shape _ _).mp shape4
       obtain ⟨value6, tail6, rfl, shape6⟩ := (output_event_shape _ _).mp shape5
@@ -204,7 +216,7 @@ theorem decoded_valid {source : Source} {form : Form} {events : List Event}
 
 theorem null_compose_disjoint (source : Source) : ¬ (Silver.Member source ∧ Member source) := by
   rintro ⟨nullMember, form, member⟩
-  obtain ⟨events, parsed⟩ := member.2.2.2
+  obtain ⟨events, parsed⟩ := member.2.2.2.2
   obtain ⟨tokens, spelling⟩ : ∃ tokens, form.tokens = .fixed "with" true :: tokens := by
     cases form <;> exact ⟨_, rfl⟩
   rw [spelling] at parsed

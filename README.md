@@ -76,12 +76,16 @@ the updated value.
 
 Existing body arrangements remain: direct output, one assignment then output,
 guarded argument output, equality-selected output, and a branch-selected result
-followed by common output. Flat output expressions have one through sixteen
-literal/name operands joined by `&`, with at most one dynamic occurrence,
-including aliases. Every intermediate result must fit 4096 bytes. A tighter
-capacity guard may reject selected inputs and defaults without truncation.
-See [language.md](language.md) for the exact rules. General sequencing, expression
-initializers, parentheses and repeated output remain future work.
+followed by common output. The [common-expression increment](docs/common-expressions.md)
+uses literals, initialized names, concatenation and parentheses in declarations,
+assignments, comparisons and output. Repeated argument references are allowed
+when the capacity guard bounds every intermediate value to 4096 bytes.
+Each expression has at most sixteen leaves; a program has at most thirty
+concatenation operators, retaining the earlier maximum operator count.
+The [sample](samples/common_expressions.adb) combines these positions and prints
+an earlier snapshot beside an updated value. See [language.md](language.md) for
+the exact rules and the capability record for validation. General sequencing,
+nested conditionals and repeated output remain future work.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -104,7 +108,8 @@ runtime wrappers to their effect models. Every output shell selects a complete
 application report policy: static, argument, assigned or selected result. Emitted
 Main safety checks must all be proved range or length checks. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
-classify the exact unused-assignment advisory. Selected library reports
+classify the exact unused-assignment advisory. Argument-bearing policies also
+classify two exact constant-equality advisories. Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.
 Application authors supply no contracts or proof annotations. Every emitted

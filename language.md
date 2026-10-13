@@ -1,8 +1,8 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-shared-binding language under the [Oracle](oracle.md), validated by the complete
-[Linux checkpoint](docs/shared-bindings.md). The
+common-expression language under the [Oracle](oracle.md), validated by the complete
+[Linux checkpoint](docs/common-expressions.md). The
 [machine-readable catalogue](catalogue/silver.json), compiler, and this
 specification must agree. A discrepancy is a defect to resolve, not an extension
 of the language. Membership depends on source bytes, never on prover success.
@@ -43,11 +43,11 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-The shared-binding revision has **eight concrete output forms plus null**.
+The common-expression revision has **eight concrete output forms plus null**.
 Declarations use one ordered binding rule across five executable body shapes;
 three argument-bearing shapes each have an optional capacity clause. Static
 output is an instance of direct output, rather than a separate declaration-count
-variant. The [shared-bindings checkpoint](docs/shared-bindings.md) establishes
+variant. The [common-expression checkpoint](docs/common-expressions.md) establishes
 complete native and Lean validation for this revision. The preceding
 [Copy String Values checkpoint](docs/copy-values.md) retains its earlier input
 scope. Existing samples remain instances of the revised grammar.
@@ -70,11 +70,12 @@ add exactly `with Silver_Arguments;` after that clause. There are no `use`
 clauses or additional application units. Context-clause reordering/grouping and
 broader visibility rules remain explicit later work with the existing argument
 operations. The grammar below uses `L` for a literal, `S` for an assignment's
-mutable target, `D` for the original immutable argument binding, `V` for a
-literal or available initialized name, and `E` for an output expression.
+mutable target, `D` for the original immutable argument binding, and `E` for a String
+expression. Initializers, assignment values, comparison operands and output
+share that expression grammar.
 These are grammar metavariables; authors write ordinary Ada source.
 
-### Literals, names and output expressions
+### Literals and names
 
 A literal is enclosed in double quotes and decodes only printable ASCII bytes
 32 through 126. Doubled quotes encode one quote. Empty literals are allowed;
@@ -98,13 +99,14 @@ After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
 declaration ::= name ":" [ "constant" ] "String" ":=" initializer ";"
-initializer ::= L | earlier_initialized_name
+initializer ::= expression
 ```
 
 Each declaration introduces exactly one name. Every initializer is required;
 it may read any earlier constant or mutable object. Forward, cyclic and
-self-initializer references are excluded. Literal initializers establish their
-decoded bytes. A named initializer copies the source object's bytes immediately:
+self-initializer references are excluded. Each initializer evaluates its literals, earlier names and concatenations
+immediately; parenthesized subexpressions preserve their grouping. A name
+contributes the source object's current bytes:
 a later write to the source does not change its earlier copies. Constants are
 readable but cannot be assignment targets. Declarations may be unused.
 
@@ -114,50 +116,61 @@ may copy `D` or any earlier initialized object. Further calls or placements of
 that API are excluded in this milestone. Every declaration executes before
 body guards; later path facts cannot justify an earlier initializer.
 
-Initialization fixes each object's bounds. A literal and copies descended from
-it have a known fixed length. `D` and its copies share the symbolic selected-input
-length `d`; each object's bounds remain fixed during that execution. This length
+Initialization fixes each object's bounds. An initializer using only static-length
+values has a known fixed length. A dynamic initializer must have exactly one
+dynamic occurrence and no nonempty static contribution, since it executes
+before guards and must fit for every `d <= 4096`. Such an object and `D` share
+the symbolic selected-input length `d`; each object's bounds remain fixed during that execution. This length
 relationship survives copies, including mutable-source snapshots. Native binding
 storage has `4096 / 12 = 341` slots because even `A:String:=B;` consumes twelve
 source bytes. This is capacity derived from the complete-source bound, not an
 independent declaration-count restriction.
 
-Only single literal/name initializers are included here. Concatenation and
-parentheses in initializers/RHS values belong to the common-expression item;
-general statement sequences and additional API placements remain later work.
+### Common String expressions
 
-### Output expressions
-
-Every output position uses the same expression grammar:
+Initialization, assignment, both operands of the inner equality, and output use:
 
 ```text
-E ::= operand | operand & operand | ...   (1 through 16 operands)
-operand ::= L | an existing bound name
+expression ::= atom { "&" atom }
+atom       ::= L | initialized_name | "(" expression ")"
 ```
 
-The chain is flat and Ada associates `&` to the left. Parenthesized
-subexpressions, indexing, slices, other operators and implicit string conversion
-are excluded. Each operand counts, including an empty literal or a reference
-to an empty String. Each static-length name may occur repeatedly; at most one
-dynamic operand occurs
-**per output expression**, counting `D` and all its aliases together. Literals
-alone are allowed. An assignment target need not occur in the output. Every
-reference resolves to an initialized object in the common declaration environment.
+An expression has one through sixteen literal/name leaves. Each occurrence
+counts, including empty values and repeated names. Parentheses control grouping;
+unparenthesized concatenation associates to the left. The catalogue's `association`
+field for concatenation records this default; its separate parentheses flag
+permits explicit grouping. There is no independent
+parenthesis-depth limit beyond the complete-source bound. Indexing, slices,
+other operators and implicit conversion are excluded. References resolve to
+initialized objects in the common declaration environment. The output may omit
+an assignment target entirely.
 
-Membership computes the decoded length of every literal and counts every
-static-name occurrence at that object's declared fixed length. Let `W` be that
-total,
-and let `C` be the explicit capacity, or 4096 when the capacity clause is absent.
-Each output expression independently must satisfy:
+Let `S` be the total decoded literal and static-name length, `K` the number of
+dynamic occurrences (including aliases), and `d` the selected argument length.
+Expression length is exactly `S + K*d`. Every complete expression and intermediate
+String value must fit within 4096 bytes. Admission requires:
 
 ```text
-W + (C if a dynamic operand occurs, otherwise 0) <= 4096
+S + K*C <= 4096
 ```
 
-Thus repeated references cannot multiply a value past the output bound. Every
-intermediate concatenation fits as well because operand lengths are nonnegative.
-The 16-operand bound also bounds application obligation/report growth; source
-length alone would permit hundreds of empty concatenations.
+Here `C = 4096` for declaration initializers and unguarded bodies. Guarded body
+expressions use the explicit capacity, or 4096 if absent. Repeated dynamic
+references are permitted when that bound holds. The total bound covers all
+intermediate groups because operand lengths are nonnegative. Initializers cannot
+borrow the later body's capacity. Assignment additionally requires exact equality
+of its affine length and the target's fixed/static or symbolic length.
+
+The source has at most **30 concatenation operators** across all initializers,
+assignment values, equality operands and output expressions, including both
+branches. Ampersands inside literals or comments do not count. This explicit
+proof-work resource budget redistributes the earlier two-output form's maximum
+`2 * (16 - 1)` concatenations across the new expression positions. Atomic copies
+and parentheses consume no concatenation budget. The sixteen-leaf and thirty-
+operator limits control native proof/translation and report growth; they are
+project resource policies, not Ada/SPARK restrictions or proved solver-time bounds.
+The [capacity evidence](docs/common-expressions.md) records their justification
+and the remaining external-tool completion premises.
 
 ### Direct output
 
@@ -195,8 +208,8 @@ String. Additional declarations and copies use the same ordered rules.
 
 ### Fixed-length string assignment
 
-The body is exactly `S := V; Silver_IO.Put_Line (E);`, where `S` resolves to any
-mutable object and `V` is a literal or any initialized name, including `S`:
+The body is exactly `S := E; Silver_IO.Put_Line (E);`, where `S` resolves to any
+mutable object and the RHS expression may read any initialized name, including `S`:
 
 ```ada
 with Silver_IO;
@@ -221,7 +234,7 @@ belong to the predicate/statement work.
 
 The output may read the target, other initialized objects or literals. It may
 omit the target entirely. There is one assignment in this body shape; additional
-statements, expression RHS values and repeated output remain excluded. `:=` is
+statements and repeated output remain excluded. `:=` is
 one contiguous token.
 
 ### Guarded command-line initialization
@@ -264,7 +277,8 @@ The conditions cannot be reordered, negated or extended.
 
 A capacity can be smaller than the maximum allowed by `E`; equality with the
 remaining output capacity is no longer required. Without a capacity clause,
-`C = 4096`, so a dynamic expression can have only zero total static length.
+`C = 4096`, so a dynamic expression has exactly one dynamic occurrence and
+zero total static length.
 An expression without any dynamic operand may still occur under either guard. The explicit
 capacity applies to the selected argument/default even when output omits it.
 A default longer than the capacity is legal and reaches `Reject` when selected.
@@ -273,7 +287,7 @@ The same guard alternatives apply to the following two shells.
 ### Input-dependent branching
 
 The original immutable argument binding is followed by the same ordinary
-declaration list. Inside the successful outer guard, one equality `D = L`
+declaration list. Inside the successful outer guard, one equality `E = E`
 selects two terminal output expressions:
 
 ```ada
@@ -295,13 +309,14 @@ begin
 end Main;
 ```
 
-The complete inner form is `if D = L then Silver_IO.Put_Line (E);
-else Silver_IO.Put_Line (E); end if;`. Both expressions independently satisfy
-the shared operand/reference/length bounds; one executes. Equality is predefined
-String equality of decoded byte values, case-sensitive and false for unequal
-lengths. Only identifier-on-the-left, literal-on-the-right equality is admitted.
-There is no extra nesting, reversed comparison, Boolean combination or branch
-assignment in this shell.
+The complete inner form is `if E = E then Silver_IO.Put_Line (E);
+else Silver_IO.Put_Line (E); end if;`. Both comparison operands and both outputs
+independently satisfy the shared expression bounds; one output executes.
+Equality compares evaluated String bytes, case-sensitive and false for unequal
+lengths. At least one comparison operand must contain an initialized String
+name; otherwise Ada cannot resolve the equality's array type from literals
+alone. Either operand may supply that name. There is no extra nesting, Boolean
+combination or branch assignment in this shell.
 
 ### Branch-selected fixed-length result
 
@@ -333,8 +348,8 @@ begin
 end Main;
 ```
 
-The complete successful branch is `if D = L then S := V; else S := V;
-end if; Silver_IO.Put_Line (E);`. Each RHS independently meets the target's
+The complete successful branch is `if E = E then S := E; else S := E;
+end if; Silver_IO.Put_Line (E);`. Equality uses the same typed-name requirement. Each RHS independently meets the target's
 fixed-length shape. Both branches start with the same initialized store; only
 the selected assignment executes. Thus self-copy in one branch reads the value
 before the choice, not the other branch's replacement. `E` may read any initialized
@@ -360,14 +375,14 @@ The catalogue uses these construct identifiers:
 | `runtime_context`, `argument_context` | Fixed qualified output/argument package context clauses. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot copies from earlier initialized objects; current name reads for compatible assignment RHS values. |
-| `string_expression`, `string_concatenation` | One through sixteen bound/literal operands; `&` requires at least two. |
+| `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses in all expression positions; at most thirty concatenations per program. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | One terminal output on each executed output path, with the shared expression rules. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and the optional bounded capacity clause. |
 | `string_equality`, `input_branch` | Exact equality choice between two output expressions. |
-| `string_assignment`, `result_branch` | Fixed-length literal/name assignment, either once directly or once on each selected-result branch. |
+| `string_assignment`, `result_branch` | Fixed-length expression assignment, either once directly or once on each selected-result branch. |
 
 Everything else is excluded, including loops, general conditionals, additional
-declaration regions, repeated dynamic occurrences, resizable strings, other array
+declaration regions, resizable strings, other array
 operations,
 access types and file handles.
 
@@ -380,7 +395,7 @@ conditions remain within the [trusted boundary](docs/trusted-boundary.md).
 An output expression concatenates its operands' values in order; no separators
 are inserted. Each name contributes its current bytes; declaration copies keep
 their own snapshots when the original is later assigned. A dynamic-length binding
-contributes the selected argument/default in this literal/name-only fragment.
+contributes the selected argument/default; each occurrence counts independently.
 Literals preserve decoded bytes, including empty Strings and
 escaped quotes. The terminal output requests the resulting bytes followed by
 exactly LF (byte 10). An empty expression value therefore requests one LF.
@@ -396,10 +411,10 @@ which normal supported startup supplies (`argc >= 1`):
 
 A valid selected value must also satisfy the optional explicit capacity clause;
 otherwise it is rejected with status 1 and no output. This applies equally to a
-default and an actual argument. The capacity guard runs before expression
-concatenation or the inner choice. Branching compares the selected value with
-its decoded comparison literal, then either evaluates one output expression or
-assigns a literal or current initialized name value to the target before common output.
+default and an actual argument. Declaration initializers execute before the capacity guard. The guard then
+precedes every body expression and the inner choice. Branching compares the
+current values of its two expressions, then either evaluates one output
+expression or assigns an expression value to the target before common output.
 Unequal lengths compare
 false; there is no case folding, truncation or resizing.
 
@@ -424,7 +439,7 @@ concurrently written or rebound. These
 are unchanged.
 
 Membership decides source shape, binding, operand counts, fixed assignment
-length shapes and every output bound before invoking a prover. Initialization
+length shapes and every initializer/body/intermediate value bound before invoking a prover. Initialization
 establishes bytes and fixed bounds; assignments preserve each target's bounds
 and other objects' snapshots. Argument normalization establishes a one-based
 String of at most 4096 printable bytes. The validity/capacity guard establishes
@@ -440,8 +455,11 @@ through static elimination is no longer a prerequisite for supporting copies.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
-advisory. Initializers still establish object bounds even when their bytes are
-unused. Other warnings in the audited reports fail; naming conventions that make
+advisory. Argument-bearing and selected-result policies also classify the exact
+`INEFFECTIVE` message `statement has no effect` and `DEAD_CODE` message
+`this statement is never reached`, produced by statically known String equality.
+Initializers still establish object bounds even when their bytes are unused.
+Other warnings in the audited reports fail; naming conventions that make
 GNATprove omit an advisory do not change membership.
 
 Faithful static evaluation, complete obligation/report generation, completeness
@@ -451,7 +469,7 @@ range/length fragment remain explicit
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.
 See [assurance.md](docs/assurance.md) and the completed
-[checkpoint](docs/shared-bindings.md) for exact validation scope.
+[checkpoint](docs/common-expressions.md) for exact validation scope.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
 compilation use the same source bytes, snapshotted as `main.adb`. Every output

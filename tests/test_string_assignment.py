@@ -44,6 +44,8 @@ class StringAssignmentTests(unittest.TestCase):
     def test_admitted_decoded_lengths_names_and_layout(self) -> None:
         canonical = source_for()
         cases = [canonical, canonical.upper(), canonical + b'-- final comment',
+                 canonical.replace(b'"World"', b'"Wo"&"rld"'),
+                 canonical.replace(b'"World"', b'("World")'),
                  canonical.replace(b'Put_Line(Message)', b'Put_Line("Hi "&Message&"!")'),
 
                  source_for(b'', b'', b'Main', b'mAIN', b'MaIn'),
@@ -77,8 +79,6 @@ class StringAssignmentTests(unittest.TestCase):
                  canonical.replace(b':String', b':Integer'),
                  canonical.replace(b':="Hello"', b''),
                  canonical.replace(b'"Hello"', b'Silver_Arguments.First_Or_Default("Hello")'),
-                 canonical.replace(b'"World"', b'"Wo"&"rld"'),
-                 canonical.replace(b'"World"', b'("World")'),
                  canonical.replace(b'begin Message:=', b'begin Message(1..5):='),
                  canonical.replace(b'begin Message:=', b'begin Message= '),
                  canonical.replace(b'begin Message:=', b'begin Message: ='),

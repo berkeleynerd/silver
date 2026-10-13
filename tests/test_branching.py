@@ -70,6 +70,8 @@ class BranchingTests(unittest.TestCase):
                  canonical.replace(b';else ', b';-- next branch\nelse '),
                  canonical.replace(b';end if;', b';end-- matched end\r\nif;'),
                  canonical.replace(b':constant', b' -- declaration\n:constant')]
+        cases += [canonical.replace(b'Mode="verbose"', replacement) for replacement in
+                  (b'"verbose"=Mode', b'Mode=Mode', b'Mode=("verbose")', b'Mode="ver"&"bose"')]
         cases.append(canonical.replace(b';begin ', b';Other:constant String:="x";begin '))
         cases += [source_for(*maximum_literal(index)) for index in range(4)]
         name = b'X' * ((4096 - len(source_for(b'', b'', b'', b'', b''))) // 2)
@@ -82,8 +84,7 @@ class BranchingTests(unittest.TestCase):
         cases = [source_for(reference=b'Other'), source_for(reference=b'Mode_2')]
         cases += [canonical.replace(b'Mode="verbose"', replacement) for replacement in
                   (b'Mode/="verbose"', b'Mode=="verbose"', b'Mode:="verbose"',
-                   b'"verbose"=Mode', b'Mode=Mode', b'Mode=("verbose")',
-                   b'(Mode="verbose")', b'Mode="ver"&"bose"',
+                   b'(Mode="verbose")',
                    b'Mode="verbose" and then True', b'True', b'not Mode="verbose"')]
         cases += [canonical.replace(b'with Silver_Arguments;', b''),
                   canonical.replace(b'with Silver_IO;with Silver_Arguments;',

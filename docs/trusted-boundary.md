@@ -22,8 +22,10 @@ trust and complete default audit, with optional separate replay/provenance.
 The authorized [shared-bindings revision](shared-bindings.md) uses the same
 external dependencies, with explicit range/length obligation channels and
 precisely expanded Main advisory handling. Its complete native/Lean checkpoint
-has passed. The policies below describe that supported implementation; earlier
-evidence retains its original input scope.
+has passed. The [common-expression revision](common-expressions.md) retains these dependencies
+and adds precisely classified constant-equality advisories. Its record states
+current validation status; the policies below describe its implementation.
+Earlier evidence retains its original input scope.
 
 ## Trusted computing base
 
@@ -148,8 +150,7 @@ The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
 `String` parameter has no precondition. An executable length guard handles
 arguments exceeding 4096; membership bounds each admitted expression by counting
 every literal and static-name occurrence, plus the guarded capacity for its
-optional dynamic occurrence. Repeated static references therefore contribute
-repeated length. Assignments preserve the initialized object's fixed bounds;
+dynamic occurrences. Every repeated reference contributes its length independently. Assignments preserve the initialized object's fixed bounds;
 a selected result has equal-length assignments on both branches before common
 output. GNATprove verifies the same runtime input bound for values selected by
 `Silver_Arguments`. It verifies
@@ -210,11 +211,13 @@ blocking and signals retain the premises above. See the
 [runtime experiment](hello-runtime-experiment.md) and
 [assurance argument](assurance.md).
 
-Composed String output uses the same wrapper and external imports. A flat chain
-has one through sixteen operands, with at most one dynamic occurrence counting
-the original argument and all its aliases together.
+Common String expressions use the same wrapper and external imports. Every
+initializer, assignment RHS, comparison operand and output has one through
+sixteen literal/name leaves, with parentheses and repeated dynamic references
+allowed under its affine length bound.
 Ada's predefined String `&` preserves operand byte order and associates to the
-left; this does not prescribe operand evaluation order. Each intermediate length
+left unless parentheses specify another grouping; this does not prescribe operand
+evaluation order. Each intermediate length
 is bounded by the checked total. Literal/constant evaluation and ordinary
 mutable/dynamic concatenation use the approved Ada/GNAT semantics, including
 index bounds. The verified argument wrapper normalizes its returned lower bound
@@ -246,13 +249,14 @@ application output. This is distinct from a valid empty argument, which prints
 one LF in the undecorated form and succeeds under healthy output conditions.
 An optional capacity clause tests the selected String before output evaluation
 or the inner choice. Its canonical decimal value lies in 0 through 4096, and
-each expression's counted static length plus that capacity, when the dynamic
-name occurs, must fit 4096. With no clause the assumed capacity is 4096. A tighter
+each body expression's static length plus its dynamic occurrence count times
+that capacity must fit 4096. Initializers execute before guards and must fit
+with the full 4096-byte input domain. With no clause the assumed capacity is 4096. A tighter
 safe bound is permitted, including zero. Any selected value exceeding the explicit
 capacity is rejected with status 1 and no output, including an oversized default
 on a launch without arguments. This is rejection at the source's executable
 guard, never silent truncation or a changed input domain. The dynamic value may
-occur at any one operand position. Runtime concatenation uses owned lower-bound
+occur repeatedly at any operand positions, subject to the complete affine bound. Runtime concatenation uses owned lower-bound
 normalization and predefined String semantics, rather than an assumption that
 all operands are compile-time constants.
 
@@ -384,12 +388,12 @@ reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
 The working catalogue has null and eight concrete output body/capacity shapes.
-Five executable arrangements share ordered declarations and one bounded output
+Five executable arrangements share ordered declarations and one bounded String
 expression grammar; three argument arrangements have optional capacity clauses.
 Identifier parsing excludes reserved/shadowing names and binds complete names
 ignoring ASCII case. Argument-bearing shapes protect `Silver_Arguments` for every
-declaration. Literal initializers decode their bytes; named initializers read an
-earlier initialized binding. Constants and mutable objects retain their own
+declaration. Expression initializers evaluate literals and earlier initialized
+bindings before any body guard. Constants and mutable objects retain their own
 snapshots and fixed bounds. The
 native array's 341 entries follow from the source bound and the twelve-byte
 minimum declaration, without another language count limit. This is not a general
@@ -401,14 +405,14 @@ mutable target on either equality branch before common output. Constants cannot
 be targets. Self-copy is legal, and the target need not occur in output. Current
 reads observe the selected branch's store; earlier declaration copies remain
 unchanged by a later write to their source. Each static reference counts its
-object's length, and at most one dynamic occurrence counts the original input or
-any alias. Predefined String equality compares complete initialized values and
+object's length, and every dynamic occurrence counts the original input or
+its alias. Predefined String equality compares complete initialized values and
 preserves case; unequal lengths compare false.
 
 The original immutable argument initializer stays first and unique. General
-sequencing, expression initializers, context-clause alternatives and additional
-argument-call placements remain outside this milestone. Every output expression
-obeys its weighted capacity bound. No new runtime operation or external
+sequencing, context-clause alternatives and additional
+argument-call placements remain outside this milestone. Every expression
+obeys its affine capacity bound. No new runtime operation or external
 dependency is introduced; output/rejection calls remain terminal on their paths.
 
 Every output composition selects the verified `Silver_IO` and
@@ -497,7 +501,9 @@ postcondition or absence-of-runtime-error claim.
 All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
 `initialization of "NAME" has no effect`, with the checked identifier grammar.
 Only assigned/selected kinds additionally permit the exact `unused assignment`
-message. Every allowed record requires warning severity, flow provenance, Main
+message. Argument/selected kinds also permit the exact `INEFFECTIVE` message
+`statement has no effect` and `DEAD_CODE` message `this statement is never reached`,
+observed for statically known comparisons. Every allowed record requires warning severity, flow provenance, Main
 filename/entity, positive locations and no suppression or justification. There
 is no separate advisory-count cap. Initializers still establish bounds when
 their bytes are unused; these messages do not waive safety checks. Legal names
@@ -505,7 +511,7 @@ such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
 Repeated-output ghost advisories and other messages remain rejected.
 
 GNAT may emit Main alone with empty safety/dependency lists. For static/argument
-kinds that fallback additionally requires a nonempty permitted initializer-
+kinds that fallback additionally requires a nonempty route-permitted
 advisory list; assigned/selected kinds also retain the earlier zero-advisory
 allowance. Outside this exact fallback the complete callee set is mandatory.
 The Python evidence helper applies the same policies and cross-checks SARIF
@@ -519,7 +525,7 @@ own semantic/discharge argument and successful solver records. Matching fields
 alone cannot establish that no obligation was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
 defect, not permission to weaken membership or suppress obligations. Native
-binding discovery corroborates these classes; the [completed checkpoint](shared-bindings.md)
+binding discovery corroborates these classes; the [capability checkpoint](common-expressions.md)
 includes implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
@@ -546,8 +552,14 @@ schemas for every permitted declaration, expression, assignment and control-flow
 path. It does not prove that the
 bundled external solvers complete within 10,000 steps; that concrete pinned
 fragment's completion remains an explicit tool-contract premise. The bound of
-sixteen operands limits each expression to fifteen concatenations, and the
-branching shell to thirty across both output sites. Native boundary experiments
+sixteen leaves limits each expression to fifteen concatenations. A separate
+thirty-operator source budget includes initializers and both body branches,
+retaining the earlier two-output operator-count ceiling. Proof cost can differ
+by expression position. The source bound, these
+resource policies and measured dense cases support the unchanged 262,144-byte
+report capacity; faithful complete producer reports fitting that capacity remain
+an explicit tool premise, not a consequence of a native sample or a solver-time
+theorem. Larger diagnostic probes are not successful production proofs. Native boundary experiments
 corroborate the argument; they do not establish a completeness premise for
 arbitrary SPARK. See the [assurance argument](assurance.md) for the checkpoint's
 current proof status and exact theorem boundaries.

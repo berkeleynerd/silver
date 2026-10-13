@@ -23,6 +23,22 @@ def Bound.length (inputLength : Nat) : Bound → Nat
   | .fixed length => length
   | .argument => inputLength
 
+structure Summary where
+  staticLength : Nat := 0
+  dynamicCount : Nat := 0
+  deriving DecidableEq, Repr
+
+def Summary.length (summary : Summary) (inputLength : Nat) : Nat :=
+  summary.staticLength + summary.dynamicCount * inputLength
+
+def Bound.summary : Bound → Summary
+  | .fixed length => ⟨length, 0⟩
+  | .argument => ⟨0, 1⟩
+
+theorem Bound.summary_length (bound : Bound) (inputLength : Nat) :
+    bound.summary.length inputLength = bound.length inputLength := by
+  cases bound <;> simp [summary, Summary.length, length]
+
 structure CellInfo where
   bound : Bound
   mutable : Bool
@@ -143,10 +159,158 @@ theorem value_printable {shape : Shape} {input : Source} {values : Values}
       obtain ⟨info, found, _⟩ := inferred
       exact (fits index info found).2
 
+end Silver.Bindings
+
+namespace Silver.Compose
+open Bindings
+
+abbrev Operand := Bindings.Value
+abbrev Expression := List Operand
+
+def maxExpressionOperands : Nat := 16
+
+def Bound.staticPart : Bound → Nat
+  | .fixed length => length
+  | .argument => 0
+
+def Bound.dynamicPart : Bound → Nat
+  | .fixed _ => 0
+  | .argument => 1
+
+def Operand.bound (shape : Shape) (atom : Operand) : Bound :=
+  (atom.infer shape).getD (.fixed 0)
+
+def Operand.staticLength (shape : Shape) (atom : Operand) : Nat :=
+  Bound.staticPart (atom.bound shape)
+
+def Operand.dynamicCount (shape : Shape) (atom : Operand) : Nat :=
+  Bound.dynamicPart (atom.bound shape)
+
+def Expression.evaluate (values : Values) (input : Source) : Expression → Source
+  | [] => []
+  | atom :: rest => atom.evaluate values input ++ Expression.evaluate values input rest
+
+def Expression.staticLength (shape : Shape) : Expression → Nat
+  | [] => 0
+  | atom :: rest => atom.staticLength shape + Expression.staticLength shape rest
+
+def Expression.dynamicCount (shape : Shape) : Expression → Nat
+  | [] => 0
+  | atom :: rest => atom.dynamicCount shape + Expression.dynamicCount shape rest
+
+def Expression.Readable (expression : Expression) (shape : Shape) : Prop :=
+  ∀ atom ∈ expression, ∃ bound, atom.infer shape = some bound
+
+def Expression.LiteralsPrintable (expression : Expression) : Prop :=
+  ∀ atom ∈ expression, atom.PrintableLiterals
+
+theorem Operand.evaluate_length {atom : Operand} {shape : Shape}
+    {values : Values} {input : Source} (fits : Fits shape input values)
+    (readable : ∃ bound, atom.infer shape = some bound) :
+    (atom.evaluate values input).length =
+      atom.staticLength shape + atom.dynamicCount shape * input.length := by
+  obtain ⟨bound, inferred⟩ := readable
+  rw [Bindings.value_length fits inferred]
+  simp only [staticLength, dynamicCount, Operand.bound, inferred, Option.getD_some]
+  cases bound <;> simp [Bindings.Bound.length, Bound.staticPart, Bound.dynamicPart]
+
+theorem Expression.evaluate_length {expression : Expression} {shape : Shape}
+    {values : Values} {input : Source} (fits : Fits shape input values)
+    (readable : expression.Readable shape) :
+    (expression.evaluate values input).length =
+      expression.staticLength shape + expression.dynamicCount shape * input.length := by
+  induction expression with
+  | nil => simp [evaluate, staticLength, dynamicCount]
+  | cons atom rest ih =>
+      have first := readable atom (by simp)
+      have remaining : Expression.Readable rest shape := fun other present => readable other (by simp [present])
+      simp only [evaluate, List.length_append, Operand.evaluate_length fits first, ih remaining,
+        staticLength, dynamicCount, Nat.add_mul]
+      omega
+
+theorem Expression.evaluate_append (left right : Expression) (values : Values) (input : Source) :
+    (left ++ right).evaluate values input = left.evaluate values input ++ right.evaluate values input := by
+  induction left with
+  | nil => rfl
+  | cons atom rest ih => simp [evaluate, ih, List.append_assoc]
+
+def Expression.evaluateLeft (expression : Expression) (values : Values) (input : Source) : Source :=
+  expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) []
+
+theorem Expression.foldl_evaluate (expression : Expression) (values : Values) (input initial : Source) :
+    expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) initial =
+      initial ++ expression.evaluate values input := by
+  induction expression generalizing initial with
+  | nil => simp [evaluate]
+  | cons atom rest ih => simp [List.foldl_cons, ih, evaluate, List.append_assoc]
+
+theorem Expression.left_association (expression : Expression) (values : Values) (input : Source) :
+    expression.evaluateLeft values input = expression.evaluate values input := by
+  simp only [evaluateLeft, foldl_evaluate, List.nil_append]
+
+theorem Expression.evaluate_printable {expression : Expression} {shape : Shape}
+    {values : Values} {input : Source} (readable : expression.Readable shape)
+    (literals : expression.LiteralsPrintable) (state : Fits shape input values)
+    (inputPrintable : Printable input) : Printable (expression.evaluate values input) := by
+  induction expression with
+  | nil => simp [evaluate, Printable]
+  | cons atom rest ih =>
+      intro byte present
+      simp only [evaluate, List.mem_append] at present
+      rcases present with present | present
+      · obtain ⟨bound, inferred⟩ := readable atom (by simp)
+        exact Bindings.value_printable state inputPrintable inferred (literals atom (by simp)) byte present
+      · exact ih (fun other member => readable other (by simp [member]))
+          (fun other member => literals other (by simp [member])) byte present
+
+theorem Expression.staticLength_append (left right : Expression) (shape : Shape) :
+    (left ++ right).staticLength shape = left.staticLength shape + right.staticLength shape := by
+  induction left with
+  | nil => simp [staticLength]
+  | cons atom rest ih => simp [staticLength, ih, Nat.add_assoc]
+
+theorem Expression.dynamicCount_append (left right : Expression) (shape : Shape) :
+    (left ++ right).dynamicCount shape = left.dynamicCount shape + right.dynamicCount shape := by
+  induction left with
+  | nil => simp [dynamicCount]
+  | cons atom rest ih => simp [dynamicCount, ih, Nat.add_assoc]
+
+def Expression.summary (expression : Expression) (shape : Shape) : Summary :=
+  ⟨expression.staticLength shape, expression.dynamicCount shape⟩
+
+def Expression.infer (expression : Expression) (shape : Shape) : Option Summary :=
+  if expression.all (fun atom => (atom.infer shape).isSome) then some (expression.summary shape) else none
+
+abbrev Expression.PrintableLiterals := Expression.LiteralsPrintable
+
+theorem Expression.infer_iff {expression : Expression} {shape : Shape} {summary : Summary} :
+    expression.infer shape = some summary ↔
+      expression.Readable shape ∧ expression.summary shape = summary := by
+  have all_iff : expression.all (fun atom => (atom.infer shape).isSome) = true ↔
+      expression.Readable shape := by
+    simp only [List.all_eq_true, Readable, Option.isSome_iff_exists]
+  by_cases readable : expression.Readable shape
+  · simp only [infer, all_iff.mpr readable, ↓reduceIte, Option.some.injEq, readable, true_and]
+  · have absent : expression.all (fun atom => (atom.infer shape).isSome) ≠ true :=
+      fun present => readable (all_iff.mp present)
+    simp [infer, absent, readable]
+
+theorem Expression.infer_length {expression : Expression} {shape : Shape}
+    {values : Values} {input : Source} {summary : Summary}
+    (fits : Fits shape input values) (inferred : expression.infer shape = some summary) :
+    (expression.evaluate values input).length = summary.length input.length := by
+  obtain ⟨readable, rfl⟩ := infer_iff.mp inferred
+  exact evaluate_length fits readable
+
+end Silver.Compose
+
+namespace Silver.Bindings
+open Compose
+
 structure Declaration where
   index : Nat
   mutable : Bool
-  initializer : Value
+  initializer : Expression
   deriving DecidableEq, Repr
 
 def Declaration.extend (declaration : Declaration) (shape : Shape) (bound : Bound) : Shape :=
@@ -157,8 +321,10 @@ def Declaration.execute (declaration : Declaration) (values : Values) (input : S
 
 def Declaration.Valid (shape : Shape) (declaration : Declaration) (bound : Bound) : Prop :=
   shape declaration.index = none ∧
-  declaration.initializer.infer shape = some bound ∧
-  declaration.initializer.PrintableLiterals
+  declaration.initializer.infer shape = some bound.summary ∧
+  declaration.initializer.PrintableLiterals ∧ declaration.initializer ≠ [] ∧
+  declaration.initializer.length ≤ maxExpressionOperands ∧
+  bound.length maxSourceLength ≤ maxSourceLength
 
 theorem declaration_preserves {shape : Shape} {input : Source} {values : Values}
     (fits : Fits shape input values) (inputPrintable : Printable input)
@@ -170,8 +336,8 @@ theorem declaration_preserves {shape : Shape} {input : Source} {values : Values}
     simp only [Declaration.extend, put_same, Option.some.injEq] at found
     subst info
     simp only [Declaration.execute, put_same]
-    exact ⟨value_length fits valid.2.1,
-      value_printable fits inputPrintable valid.2.1 valid.2.2⟩
+    exact ⟨(Expression.infer_length fits valid.2.1).trans (bound.summary_length _),
+      Expression.evaluate_printable (Expression.infer_iff.mp valid.2.1).1 valid.2.2.1 fits inputPrintable⟩
   · simp only [Declaration.extend, put, same, ↓reduceIte] at found
     simpa only [Declaration.execute, put, same, ↓reduceIte] using fits index info found
 
@@ -187,23 +353,23 @@ theorem declaration_extends {shape : Shape} {declaration : Declaration} {bound :
 
 theorem declaration_snapshots (values : Values) (input : Source)
     (index source : Nat) (mutable : Bool) :
-    (Declaration.execute ⟨index, mutable, .reference source⟩ values input) index = values source := by
-  simp [Declaration.execute, Value.evaluate, put]
+    (Declaration.execute ⟨index, mutable, [.reference source]⟩ values input) index = values source := by
+  simp [Declaration.execute, Expression.evaluate, Value.evaluate, put]
 
 theorem snapshot_survives_source_write (values : Values) (input replacement : Source)
     (index source : Nat) (mutable : Bool) (different : index ≠ source) :
-    put (Declaration.execute ⟨index, mutable, .reference source⟩ values input)
+    put (Declaration.execute ⟨index, mutable, [.reference source]⟩ values input)
       source replacement index = values source := by
-  simp [put, different, Declaration.execute, Value.evaluate]
+  simp [put, different, Declaration.execute, Expression.evaluate, Value.evaluate]
 
 structure Assignment where
   target : Nat
-  value : Value
+  value : Expression
   deriving DecidableEq, Repr
 
 def Assignment.Valid (shape : Shape) (assignment : Assignment) : Prop :=
   ∃ bound, shape assignment.target = some ⟨bound, true⟩ ∧
-    assignment.value.infer shape = some bound ∧ assignment.value.PrintableLiterals
+    assignment.value.infer shape = some bound.summary ∧ assignment.value.PrintableLiterals
 
 def Assignment.execute (assignment : Assignment) (values : Values) (input : Source) : Values :=
   put values assignment.target (assignment.value.evaluate values input)
@@ -213,7 +379,8 @@ theorem assignment_length {shape : Shape} {input : Source} {values : Values}
     (valid : assignment.Valid shape) :
     (assignment.value.evaluate values input).length = (values assignment.target).length := by
   obtain ⟨bound, target, inferred, _⟩ := valid
-  exact (value_length fits inferred).trans (fits assignment.target _ target).1.symm
+  exact ((Expression.infer_length fits inferred).trans (bound.summary_length _)).trans
+    (fits assignment.target _ target).1.symm
 
 theorem assignment_preserves {shape : Shape} {input : Source} {values : Values}
     (fits : Fits shape input values) (inputPrintable : Printable input)
@@ -226,7 +393,8 @@ theorem assignment_preserves {shape : Shape} {input : Source} {values : Values}
     rw [target] at found
     cases found
     simp only [Assignment.execute, put_same]
-    exact ⟨value_length fits inferred, value_printable fits inputPrintable inferred literals⟩
+    exact ⟨(Expression.infer_length fits inferred).trans (bound.summary_length _),
+      Expression.evaluate_printable (Expression.infer_iff.mp inferred).1 literals fits inputPrintable⟩
   · simpa only [Assignment.execute, put, same, ↓reduceIte] using fits index info found
 
 theorem assignment_preserves_other (assignment : Assignment) (values : Values)

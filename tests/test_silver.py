@@ -88,7 +88,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(compositions["selected_result_output"]["declarative_items"],
                          ["spark_mode_on", "argument_initialization"])
         initializers = constructs["named_string_variable"]["conditions"]["initializer"]
-        self.assertEqual(initializers, ["string_literal", "preceding_initialized_identifier"])
+        self.assertEqual(initializers, ["string_expression"])
         for name, composition in compositions.items():
             if name == "null":
                 continue
@@ -106,7 +106,20 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertNotIn(obsolete, catalogue)
         expression = constructs["string_expression"]["conditions"]
         self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 16))
-        self.assertEqual(expression["max_dynamic_references"], 1)
+        self.assertEqual(expression["max_dynamic_references"], 16)
+        self.assertIs(expression["parenthesized_subexpressions"], True)
+        self.assertEqual(expression["program_concatenation_budget"], 30)
+        self.assertEqual(expression["positions"],
+                         ["initializer", "assignment_rhs", "comparison_operand", "output"])
+        for name in ("named_string_constant", "named_string_variable"):
+            conditions = constructs[name]["conditions"]
+            self.assertIs(conditions["initializer_expressions"], True)
+            self.assertEqual(conditions["initializer_capacity"], 4096)
+            self.assertIs(conditions["later_guards_justify_initializers"], False)
+        equality = constructs["string_equality"]["conditions"]
+        self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
+        self.assertIs(equality["at_least_one_bound_name_across_operands"], True)
+        self.assertIs(equality["both_operands_independently_bounded"], True)
         self.assertEqual(expression["max_result_bytes"], 4096)
         self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], False)
         self.assertIs(constructs["result_branch"]["conditions"]["equal_branch_and_initializer_lengths"], True)

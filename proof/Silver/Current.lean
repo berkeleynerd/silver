@@ -79,7 +79,7 @@ def obligations (program : Program) : List Semantics.Obligation :=
 
 def uniformObligations : List Semantics.Obligation :=
   Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation ++
-    [Compose.Check.toObligation (.length ⟨.argument, .argument⟩)]
+    [Compose.Check.toObligation (.length ⟨Bindings.Bound.argument.summary, Bindings.Bound.argument.summary⟩)]
 
 theorem uniform_discharge : Semantics.discharge uniformObligations = true := by decide +kernel
 

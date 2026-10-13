@@ -69,7 +69,13 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .tokenIndex x i => x.Legal calls locals ∧ i.Legal calls locals
   | .binding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
   | .value a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals
-  | .result a b c => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals
+  | .result a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals
+  | .mul x y => x.Legal calls locals ∧ y.Legal calls locals
+  | .scan a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
+  | .scanDepth s p d => s.Legal calls locals ∧ p.Legal calls locals ∧ d.Legal calls locals
+  | .scanAtom s p l d o n => s.Legal calls locals ∧ p.Legal calls locals ∧ l.Legal calls locals ∧ d.Legal calls locals ∧ o.Legal calls locals ∧ n.Legal calls locals
+  | .scanNeed s p => s.Legal calls locals ∧ p.Legal calls locals
+  | .scanComplete s => s.Legal calls locals
   | .statePosition s p => s.Legal calls locals ∧ p.Legal calls locals
   | .stateTarget s p t => s.Legal calls locals ∧ p.Legal calls locals ∧ t.Legal calls locals
   | .stateCapacity s p c => s.Legal calls locals ∧ p.Legal calls locals ∧ c.Legal calls locals
@@ -83,11 +89,13 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .maxLength  => True
   | .maxBindings  => True
   | .maxOperands  => True
+  | .maxConcatenations => True
   | .token tok => True
   | .initial  => True
   | .invalid  => True
   | .invalidValue  => True
   | .invalidResult  => True
+  | .invalidScan => True
   | .function symbol => symbol.isLexical = false
   | .andThen a b => a.Legal calls locals ∧ (a.eval calls locals = true → b.Legal calls locals)
   | .orElse a b => a.Legal calls locals ∧ (a.eval calls locals = false → b.Legal calls locals)
@@ -494,15 +502,91 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h4]
     all_goals rfl
 
-  | .result a b c, legal => by
+  | .result a b c d, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
-    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2
     dsimp only [Expr.eval, lexical]
     rw [h0]
     rw [h1]
     rw [h2]
+    rw [h3]
+    all_goals rfl
+
+  | .mul x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .scan a b c d e f g h, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    rw [h6]
+    rw [h7]
+    all_goals rfl
+
+  | .scanDepth s p d, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals d legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    all_goals rfl
+
+  | .scanAtom s p l d o n, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals l legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals o legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals n legal.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    all_goals rfl
+
+  | .scanNeed s p, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .scanComplete s, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
     all_goals rfl
 
   | .statePosition s p, legal => by
@@ -578,11 +662,13 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .maxLength , _ => rfl
   | .maxBindings , _ => rfl
   | .maxOperands , _ => rfl
+  | .maxConcatenations, _ => rfl
   | .token tok, _ => rfl
   | .initial , _ => rfl
   | .invalid , _ => rfl
   | .invalidValue , _ => rfl
   | .invalidResult , _ => rfl
+  | .invalidScan, _ => rfl
   | .function symbol, legal => by
       cases symbol <;> simp_all [Expr.Legal, Function.isLexical, Expr.eval, Calls.get, lexical]
   | .andThen a b, legal => by
@@ -663,12 +749,18 @@ structure LegalBodies (calls : Calls) : Prop where
   declarations : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     declarationsBody.Legal calls (Context.locals {text,state,arguments})
-  operand : ∀ text, ValidText text → ∀ position names,
-    ValidCursor text position → ValidNames text names →
-    operandBody.Legal calls (Context.locals {text,position,names})
-  tail : ∀ text, ValidText text → ∀ position names length dynamicSeen remaining,
-    ValidCursor text position → ValidNames text names → length ≤ maxSourceLength → remaining ≤ maxExpressionOperands →
-    tailBody.Legal calls (Context.locals {text,position,names,length,dynamicSeen,remaining})
+  expressionStep : ∀ text, ValidText text → ∀ names scan,
+    ValidNames text names → ValidScan text scan →
+    expressionStepBody.Legal calls (Context.locals {text,names,scan})
+  tail : ∀ text, ValidText text → ∀ names scan,
+    ValidNames text names → ValidScan text scan →
+    tailBody.Legal calls (Context.locals {text,names,scan})
+  fits : ∀ text, ValidText text → ∀ result capacity,
+    ValidResult text result → capacity ≤ maxSourceLength →
+    fitsBody.Legal calls (Context.locals {text,result,capacity})
+  comparison : ∀ text, ValidText text → ∀ state,
+    ValidState text state →
+    comparisonBody.Legal calls (Context.locals {text,state})
   expression : ∀ text, ValidText text → ∀ position names,
     ValidCursor text position → ValidNames text names →
     expressionBody.Legal calls (Context.locals {text,position,names})
@@ -693,6 +785,11 @@ structure LegalBodies (calls : Calls) : Prop where
   suffix : ∀ text, ValidText text → ∀ form nextToken state,
     ValidState text state → 1 ≤ nextToken → nextToken ≤ form.tokens.length + 1 →
     suffixBody.Legal calls (Context.locals {text,form,nextToken,state})
+  workTail : ∀ text, ValidText text → ∀ position remaining,
+    ValidCursor text position → remaining ≤ maxConcatenations →
+    workTailBody.Legal calls (Context.locals {text,position,remaining})
+  workBudget : ∀ text, ValidText text →
+    workBudgetBody.Legal calls (Context.locals {text})
   formMember : ∀ text form, formBody.Legal calls (Context.locals {text,form})
   member : ∀ text, memberBody.Legal calls (Context.locals {text})
   arguments : ∀ text, argumentsBody.Legal calls (Context.locals {text})
@@ -784,18 +881,30 @@ theorem normalized_definitions (calls : Calls)
     · apply source.declarations <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.declarations <;> assumption
-  operand := by
+  expressionStep := by
     intros
     apply Eq.trans
-    · apply source.operand <;> assumption
+    · apply source.expressionStep <;> assumption
     · apply Expr.eval_lexical calls meaning
-      apply legal.operand <;> assumption
+      apply legal.expressionStep <;> assumption
   tail := by
     intros
     apply Eq.trans
     · apply source.tail <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.tail <;> assumption
+  fits := by
+    intros
+    apply Eq.trans
+    · apply source.fits <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.fits <;> assumption
+  comparison := by
+    intros
+    apply Eq.trans
+    · apply source.comparison <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.comparison <;> assumption
   expression := by
     intros
     apply Eq.trans
@@ -844,6 +953,18 @@ theorem normalized_definitions (calls : Calls)
     · apply source.suffix <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.suffix <;> assumption
+  workTail := by
+    intros
+    apply Eq.trans
+    · apply source.workTail <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.workTail <;> assumption
+  workBudget := by
+    intros
+    apply Eq.trans
+    · apply source.workBudget <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.workBudget <;> assumption
   formMember := by
     intros
     apply Eq.trans

@@ -13,97 +13,21 @@ namespace Silver.Compose
 
 open Bindings
 
-abbrev Operand := Bindings.Value
-abbrev Expression := List Operand
-
-def maxExpressionOperands : Nat := 16
-
-def Bound.staticPart : Bound → Nat
-  | .fixed length => length
-  | .argument => 0
-
-def Bound.dynamicPart : Bound → Nat
-  | .fixed _ => 0
-  | .argument => 1
-
-def Operand.bound (shape : Shape) (atom : Operand) : Bound :=
-  (atom.infer shape).getD (.fixed 0)
-
-def Operand.staticLength (shape : Shape) (atom : Operand) : Nat :=
-  Bound.staticPart (atom.bound shape)
-
-def Operand.dynamicCount (shape : Shape) (atom : Operand) : Nat :=
-  Bound.dynamicPart (atom.bound shape)
-
-def Expression.evaluate (values : Values) (input : Source) : Expression → Source
-  | [] => []
-  | atom :: rest => atom.evaluate values input ++ Expression.evaluate values input rest
-
-def Expression.staticLength (shape : Shape) : Expression → Nat
-  | [] => 0
-  | atom :: rest => atom.staticLength shape + Expression.staticLength shape rest
-
-def Expression.dynamicCount (shape : Shape) : Expression → Nat
-  | [] => 0
-  | atom :: rest => atom.dynamicCount shape + Expression.dynamicCount shape rest
-
-def Expression.Readable (expression : Expression) (shape : Shape) : Prop :=
-  ∀ atom ∈ expression, ∃ bound, atom.infer shape = some bound
-
-def Expression.LiteralsPrintable (expression : Expression) : Prop :=
-  ∀ atom ∈ expression, atom.PrintableLiterals
-
 def Expression.Bounded (expression : Expression) (shape : Shape) (capacity : Nat) : Prop :=
   expression ≠ [] ∧ expression.length ≤ maxExpressionOperands ∧
-    expression.dynamicCount shape ≤ 1 ∧
     expression.staticLength shape + expression.dynamicCount shape * capacity ≤ maxSourceLength
 
 def SafeExpression (expression : Expression) (shape : Shape) (capacity : Nat) : Prop :=
   expression.Readable shape ∧ expression.LiteralsPrintable ∧ expression.Bounded shape capacity
 
-theorem Operand.evaluate_length {atom : Operand} {shape : Shape}
-    {values : Values} {input : Source} (fits : Fits shape input values)
-    (readable : ∃ bound, atom.infer shape = some bound) :
-    (atom.evaluate values input).length =
-      atom.staticLength shape + atom.dynamicCount shape * input.length := by
-  obtain ⟨bound, inferred⟩ := readable
-  rw [Bindings.value_length fits inferred]
-  simp only [staticLength, dynamicCount, Operand.bound, inferred, Option.getD_some]
-  cases bound <;> simp [Bindings.Bound.length, Bound.staticPart, Bound.dynamicPart]
-
-theorem Expression.evaluate_length {expression : Expression} {shape : Shape}
-    {values : Values} {input : Source} (fits : Fits shape input values)
-    (readable : expression.Readable shape) :
-    (expression.evaluate values input).length =
-      expression.staticLength shape + expression.dynamicCount shape * input.length := by
-  induction expression with
-  | nil => simp [evaluate, staticLength, dynamicCount]
-  | cons atom rest ih =>
-      have first := readable atom (by simp)
-      have remaining : Expression.Readable rest shape := fun other present => readable other (by simp [present])
-      simp only [evaluate, List.length_append, Operand.evaluate_length fits first, ih remaining,
-        staticLength, dynamicCount, Nat.add_mul]
-      omega
-
-theorem Expression.evaluate_append (left right : Expression) (values : Values) (input : Source) :
-    (left ++ right).evaluate values input = left.evaluate values input ++ right.evaluate values input := by
-  induction left with
-  | nil => rfl
-  | cons atom rest ih => simp [evaluate, ih, List.append_assoc]
-
-def Expression.evaluateLeft (expression : Expression) (values : Values) (input : Source) : Source :=
-  expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) []
-
-theorem Expression.foldl_evaluate (expression : Expression) (values : Values) (input initial : Source) :
-    expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) initial =
-      initial ++ expression.evaluate values input := by
-  induction expression generalizing initial with
-  | nil => simp [evaluate]
-  | cons atom rest ih => simp [List.foldl_cons, ih, evaluate, List.append_assoc]
-
-theorem Expression.left_association (expression : Expression) (values : Values) (input : Source) :
-    expression.evaluateLeft values input = expression.evaluate values input := by
-  simp only [evaluateLeft, foldl_evaluate, List.nil_append]
+theorem declaration_safe {shape : Shape} {declaration : Declaration} {bound : Bound}
+    (valid : declaration.Valid shape bound) :
+    SafeExpression declaration.initializer shape maxSourceLength := by
+  obtain ⟨readable, summary⟩ := Expression.infer_iff.mp valid.2.1
+  refine ⟨readable, valid.2.2.1, valid.2.2.2.1, valid.2.2.2.2.1, ?_⟩
+  change (declaration.initializer.summary shape).length maxSourceLength ≤ maxSourceLength
+  rw [summary, Bound.summary_length]
+  exact valid.2.2.2.2.2
 
 theorem Expression.output_bound {expression : Expression} {shape : Shape}
     {values : Values} {input : Source} {capacity : Nat}
@@ -111,7 +35,7 @@ theorem Expression.output_bound {expression : Expression} {shape : Shape}
     (fits : input.length ≤ capacity) :
     (expression.evaluate values input).length ≤ maxSourceLength := by
   rw [evaluate_length state safe.1]
-  exact Nat.le_trans (Nat.add_le_add_left (Nat.mul_le_mul_left _ fits) _) safe.2.2.2.2.2
+  exact Nat.le_trans (Nat.add_le_add_left (Nat.mul_le_mul_left _ fits) _) safe.2.2.2.2
 
 theorem Expression.prefix_bound {leading trailing : Expression} {shape : Shape}
     {values : Values} {input : Source} {capacity : Nat}
@@ -123,44 +47,52 @@ theorem Expression.prefix_bound {leading trailing : Expression} {shape : Shape}
   rw [left_association]
   omega
 
-theorem Expression.range_bound {expression : Expression} {shape : Shape}
-    {values : Values} {input : Source} {capacity : Nat}
-    (safe : SafeExpression expression shape capacity) (state : Fits shape input values)
-    (inputBound : input.length ≤ maxSourceLength) :
-    (expression.evaluate values input).length ≤ 8192 := by
-  have fixed : expression.staticLength shape ≤ maxSourceLength := by
-    have := safe.2.2.2.2.2
-    omega
-  have variablePart := Nat.mul_le_mul safe.2.2.2.2.1 inputBound
-  rw [evaluate_length state safe.1]
-  simp only [Nat.one_mul, maxSourceLength] at *
-  omega
+/-- A grouping tree retains every source concatenation and parenthesis boundary. -/
+inductive GroupedExpression
+  | atom (value : Operand)
+  | concatenate (left right : GroupedExpression)
+  | parenthesized (inner : GroupedExpression)
+  deriving DecidableEq, Repr
 
-theorem Expression.evaluate_printable {expression : Expression} {shape : Shape}
-    {values : Values} {input : Source} (readable : expression.Readable shape)
-    (literals : expression.LiteralsPrintable) (state : Fits shape input values)
-    (inputPrintable : Printable input) : Printable (expression.evaluate values input) := by
-  induction expression with
-  | nil => simp [evaluate, Printable]
-  | cons atom rest ih =>
-      intro byte present
-      simp only [evaluate, List.mem_append] at present
-      rcases present with present | present
-      · obtain ⟨bound, inferred⟩ := readable atom (by simp)
-        exact Bindings.value_printable state inputPrintable inferred (literals atom (by simp)) byte present
-      · exact ih (fun other member => readable other (by simp [member]))
-          (fun other member => literals other (by simp [member])) byte present
+def GroupedExpression.flatten : GroupedExpression → Expression
+  | .atom value => [value]
+  | .concatenate left right => left.flatten ++ right.flatten
+  | .parenthesized inner => inner.flatten
 
-theorem Expression.staticLength_append (left right : Expression) (shape : Shape) :
-    (left ++ right).staticLength shape = left.staticLength shape + right.staticLength shape := by
-  induction left with
-  | nil => simp [staticLength]
-  | cons atom rest ih => simp [staticLength, ih, Nat.add_assoc]
+def GroupedExpression.evaluate (values : Values) (input : Source) : GroupedExpression → Source
+  | .atom value => value.evaluate values input
+  | .concatenate left right => left.evaluate values input ++ right.evaluate values input
+  | .parenthesized inner => inner.evaluate values input
 
-theorem Expression.dynamicCount_append (left right : Expression) (shape : Shape) :
-    (left ++ right).dynamicCount shape = left.dynamicCount shape + right.dynamicCount shape := by
-  induction left with
-  | nil => simp [dynamicCount]
-  | cons atom rest ih => simp [dynamicCount, ih, Nat.add_assoc]
+theorem GroupedExpression.flatten_evaluate (grouped : GroupedExpression) (values : Values) (input : Source) :
+    grouped.flatten.evaluate values input = grouped.evaluate values input := by
+  induction grouped with
+  | atom => simp [flatten, Expression.evaluate, evaluate]
+  | concatenate left right ihl ihr => simp [flatten, Expression.evaluate_append, ihl, ihr, evaluate]
+  | parenthesized inner ih => simpa [flatten, evaluate] using ih
+
+inductive GroupedExpression.Subexpression : GroupedExpression → GroupedExpression → Prop
+  | self (expression) : Subexpression expression expression
+  | left {part left right} : Subexpression part left → Subexpression part (.concatenate left right)
+  | right {part left right} : Subexpression part right → Subexpression part (.concatenate left right)
+  | parens {part inner} : Subexpression part inner → Subexpression part (.parenthesized inner)
+
+theorem GroupedExpression.subexpression_length {part whole : GroupedExpression}
+    (member : Subexpression part whole) (values : Values) (input : Source) :
+    (part.evaluate values input).length ≤ (whole.evaluate values input).length := by
+  induction member with
+  | self => exact Nat.le_refl _
+  | left member ih => simp only [evaluate, List.length_append]; omega
+  | right member ih => simp only [evaluate, List.length_append]; omega
+  | parens member ih => exact ih
+
+theorem GroupedExpression.intermediate_bound {part whole : GroupedExpression}
+    {shape : Shape} {values : Values} {input : Source} {capacity : Nat}
+    (member : Subexpression part whole) (safe : SafeExpression whole.flatten shape capacity)
+    (state : Fits shape input values) (fits : input.length ≤ capacity) :
+    (part.evaluate values input).length ≤ maxSourceLength := by
+  have bound := Expression.output_bound safe state fits
+  rw [flatten_evaluate] at bound
+  exact Nat.le_trans (subexpression_length member values input) bound
 
 end Silver.Compose

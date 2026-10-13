@@ -56,7 +56,9 @@ For each authorized increment:
    proved range or length check; applicable static elimination may leave an
    empty list. All output forms precisely classify initializer advisories;
    assignment-bearing forms additionally classify the exact unused-assignment
-   advisory. Other diagnostics remain rejected. A new accepted obligation class
+   advisory. Argument-bearing policies also classify the exact ineffective-statement
+   and unreachable-statement advisories observed for constant String equality.
+   Other diagnostics remain rejected. A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
    assurance and validation for this policy. Every output form

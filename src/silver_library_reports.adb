@@ -1,9 +1,10 @@
 package body Silver_Library_Reports with SPARK_Mode => On is
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
-      Static_Main, Main_Body, Binding_Main, Assignment_Main, Assignment_Effects, Selected_Main);
-   subtype Application_Audit is Audit_Kind range Static_Main .. Selected_Main;
-   subtype Mutable_Audit is Audit_Kind range Assignment_Main .. Selected_Main;
+      Static_Main, Main_Body, Binding_Main, Argument_Binding_Main,
+      Assignment_Main, Assignment_Effects, Selected_Main, Selected_Binding_Main);
+   subtype Application_Audit is Audit_Kind range Static_Main .. Selected_Binding_Main;
+   subtype Mutable_Audit is Audit_Kind range Assignment_Main .. Selected_Binding_Main;
    function Audit_Of (Kind : Report_Kind) return Audit_Kind is
      (case Kind is
         when Library_Body => IO_Body,
@@ -13,6 +14,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    Atom_Empty : constant String := "";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
+   Atom_DEAD_CODE : constant String := "DEAD_CODE";
+   Atom_statement_no_effect : constant String := "statement has no effect";
+   Atom_statement_unreachable : constant String := "this statement is never reached";
    Atom_warning : constant String := "warning";
    Atom_unused_assignment : constant String := "unused assignment";
    Atom_CLAIM_AORTE : constant String := "CLAIM_AORTE";
@@ -773,8 +777,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           Text (I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
           and then (if Text (I) = '_' then Text (I - 1) /= '_')));
 
-   type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Assignment_Diagnostics,
+   type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Argument_Diagnostics,
+                      Assignment_Diagnostics, Selected_Diagnostics,
                       References, Postconditions, Argument_Postconditions);
+   subtype Main_Diagnostics is List_Kind range Binding_Diagnostics .. Selected_Diagnostics;
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean
      with Ghost => Static, Global => null,
@@ -783,19 +789,29 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Reference_Policy (Text, Entities, Item)
-      elsif Kind in Binding_Diagnostics | Assignment_Diagnostics then
+      elsif Kind in Main_Diagnostics then
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
-        and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
           (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
-        and then (Initializer_Message (Text, Field_Spec
-          (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
-          or else (Kind = Assignment_Diagnostics and then String_Equal (Text, Field_Spec
-            (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_unused_assignment)))
+        and then
+          ((String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+            and then
+              (Initializer_Message (Text, Field_Spec
+                 (Text, Field_Spec (Text, Item, JSON_message), JSON_text))
+               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
+                 and then String_Equal (Text, Field_Spec
+                   (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
+               or else (Kind in Argument_Diagnostics | Selected_Diagnostics
+                 and then String_Equal (Text, Field_Spec
+                   (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
+           or else (Kind in Argument_Diagnostics | Selected_Diagnostics
+             and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_DEAD_CODE)
+             and then String_Equal (Text, Field_Spec
+               (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
         and then Field_Spec (Text, Item, JSON_justification) = Missing
         and then Field_Spec (Text, Item, JSON_justified) = Missing
         and then Field_Spec (Text, Item, JSON_suppressed) = Missing
@@ -845,20 +861,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item); end if;
-      if Kind in Binding_Diagnostics | Assignment_Diagnostics then
+      if Kind in Main_Diagnostics then
          return
         String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field (Text, Item, JSON_how_proved), JSON_flow)
-        and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
         and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
         and then Positive_Number (Text, Field (Text, Item, JSON_line))
         and then Positive_Number (Text, Field (Text, Item, JSON_col))
         and then Entity_Name (Text, Referenced_Entity
           (Text, Entities, Field (Text, Item, JSON_entity))) = Main_Entity
-        and then (Initializer_Message (Text, Field
-          (Text, Field (Text, Item, JSON_message), JSON_text))
-          or else (Kind = Assignment_Diagnostics and then String_Equal (Text, Field
-            (Text, Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment)))
+        and then
+          ((String_Equal (Text, Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+            and then
+              (Initializer_Message (Text, Field
+                 (Text, Field (Text, Item, JSON_message), JSON_text))
+               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
+                 and then String_Equal (Text, Field
+                   (Text, Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
+               or else (Kind in Argument_Diagnostics | Selected_Diagnostics
+                 and then String_Equal (Text, Field
+                   (Text, Field (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
+           or else (Kind in Argument_Diagnostics | Selected_Diagnostics
+             and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_DEAD_CODE)
+             and then String_Equal (Text, Field
+               (Text, Field (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
         and then Field (Text, Item, JSON_justification) = Missing
         and then Field (Text, Item, JSON_justified) = Missing
         and then Field (Text, Item, JSON_suppressed) = Missing
@@ -1068,7 +1094,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Argv_Interface => Name in Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status,
         when Main_Body | Selected_Main =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put_Line,
-        when Binding_Main | Assignment_Main => Name = Main_Entity,
+        when Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main =>
+          Name = Main_Entity,
         when Static_Main | Assignment_Effects => Name in Main_Entity | Put_Line);
 
    function Expected_Coverage (Name : Entity_Kind; Kind : Audit_Kind)
@@ -1281,16 +1308,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error))
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
-        and then (Kind /= Binding_Main or else
+        and then (Kind not in Binding_Main | Argument_Binding_Main or else
           not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_flow)))
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
-          (if Kind in Mutable_Audit then Assignment_Diagnostics
+          (if Kind in Main_Body | Argument_Binding_Main then Argument_Diagnostics
+           elsif Kind in Selected_Main | Selected_Binding_Main then Selected_Diagnostics
+           elsif Kind in Mutable_Audit then Assignment_Diagnostics
            elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
-        and then (if Kind in Binding_Main | Assignment_Main then
+        and then (if Kind in Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main then
           Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_proof))
          else List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
                         (if Kind in Application_Audit then Main_Checks else Checks)))
-        and then (if Kind in Binding_Main | Assignment_Main then
+        and then (if Kind in Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main then
           Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_assumptions))
          else Dependencies_Spec (Text, Field_Spec (Text, Object, JSON_assumptions), Entities))
         and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
@@ -1319,11 +1348,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (case Kind is
         when Static_Output => Report_Policy (Report, Binding_Main)
           or else Report_Policy (Report, Static_Main),
-        when Argument_Output => Report_Policy (Report, Binding_Main)
+        when Argument_Output => Report_Policy (Report, Argument_Binding_Main)
           or else Report_Policy (Report, Main_Body),
         when Assigned_Output => Report_Policy (Report, Assignment_Main)
           or else Report_Policy (Report, Assignment_Effects),
-        when Selected_Output => Report_Policy (Report, Assignment_Main)
+        when Selected_Output => Report_Policy (Report, Selected_Binding_Main)
           or else Report_Policy (Report, Selected_Main));
 
    function Audit_Report (Report : String; Kind : Audit_Kind) return Boolean
@@ -1354,16 +1383,18 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Empty_Array (Text, Field (Text, Object, JSON_warn_error))
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)
-           and then (Kind /= Binding_Main or else
+           and then (Kind not in Binding_Main | Argument_Binding_Main or else
              not Empty_Array (Text, Field (Text, Object, JSON_flow)))
            and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,
-             (if Kind in Mutable_Audit then Assignment_Diagnostics
+             (if Kind in Main_Body | Argument_Binding_Main then Argument_Diagnostics
+              elsif Kind in Selected_Main | Selected_Binding_Main then Selected_Diagnostics
+              elsif Kind in Mutable_Audit then Assignment_Diagnostics
               elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
-           and then (if Kind in Binding_Main | Assignment_Main then
+           and then (if Kind in Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main then
              Empty_Array (Text, Field (Text, Object, JSON_proof))
             else List_OK (Text, Field (Text, Object, JSON_proof), Entities,
                           (if Kind in Application_Audit then Main_Checks else Checks)))
-           and then (if Kind in Binding_Main | Assignment_Main then
+           and then (if Kind in Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main then
              Empty_Array (Text, Field (Text, Object, JSON_assumptions))
             else Dependencies_OK (Text, Field (Text, Object, JSON_assumptions), Entities))
            and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
@@ -1385,11 +1416,11 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       return (case Kind is
         when Static_Output => Audit_Report (Report, Binding_Main)
           or else Audit_Report (Report, Static_Main),
-        when Argument_Output => Audit_Report (Report, Binding_Main)
+        when Argument_Output => Audit_Report (Report, Argument_Binding_Main)
           or else Audit_Report (Report, Main_Body),
         when Assigned_Output => Audit_Report (Report, Assignment_Main)
           or else Audit_Report (Report, Assignment_Effects),
-        when Selected_Output => Audit_Report (Report, Assignment_Main)
+        when Selected_Output => Audit_Report (Report, Selected_Binding_Main)
           or else Audit_Report (Report, Selected_Main));
    end Complete_Application_Proof;
 end Silver_Library_Reports;

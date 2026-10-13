@@ -28,7 +28,19 @@ structure ValueResult where
 structure ExpressionResult where
   after : Nat := 0
   staticLength : Nat := 0
-  dynamicSeen : Bool := false
+  dynamicCount : Nat := 0
+  namedSeen : Bool := false
+  deriving DecidableEq, Repr
+
+structure ExpressionState where
+  position : Nat := 0
+  staticLength : Nat := 0
+  dynamicCount : Nat := 0
+  operands : Nat := 0
+  depth : Nat := 0
+  namedSeen : Bool := false
+  needOperand : Bool := true
+  complete : Bool := false
   deriving DecidableEq, Repr
 
 structure ParserState where
@@ -44,6 +56,7 @@ def initialState : ParserState := {}
 def invalidState : ParserState := {position := 0, capacity := 0}
 def invalidValue : ValueResult := {}
 def invalidExpression : ExpressionResult := {}
+def invalidExpressionState : ExpressionState := {}
 
 inductive Form
   | direct | assignment | argument | guardedArgument | branching | guardedBranching | result | guardedResult
@@ -63,7 +76,7 @@ def Form.hasAssignment : Form → Bool
 inductive ShellToken
   | fixed (spelling : String) (word : Bool)
   | declarations | argumentDeclaration | assignmentTarget | targetReference | dynamicReference
-  | assignmentValue | outputExpression | literal | capacity
+  | assignmentValue | outputExpression | comparisonExpression | literal | capacity
   deriving DecidableEq, Repr
 
 def ShellToken.word (spelling : String) : ShellToken := .fixed spelling true
@@ -122,6 +135,106 @@ def valueAt (text : Source) (position : Nat) (names : BindingEnvironment) : Valu
     ⟨after, info.valueFirst, info.staticLength, info.dynamic, index⟩
   else invalidValue
 
+/-- Preserve the former two-output shell's total `2 * (16 - 1)`
+concatenation allowance while sharing it across expression positions. -/
+def maxConcatenations : Nat := 30
+
+/-- Count only operator tokens: trivia skips comments and a quoted literal is
+consumed whole, including doubled quotes. The extra decreasing test only makes
+this source scanner total outside the native routine's verified domains. -/
+def workTail (text : Source) (position remaining : Nat) : Bool :=
+  let first := skipAt text position
+  let quoted := literalAt text first
+  if first = 0 then false
+  else if first > text.length then true
+  else if Cursor.byteAt text first = 34 then
+    if quoted.after = 0 then false
+    else if _advancing : text.length + 1 - quoted.after < text.length + 1 - position then
+      workTail text quoted.after remaining
+    else false
+  else if Cursor.byteAt text first = 38 then
+    if remaining = 0 then false
+    else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
+      workTail text (first + 1) (remaining - 1)
+    else false
+  else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
+    workTail text (first + 1) remaining
+  else false
+termination_by text.length + 1 - position
+
+def withinWorkBudget (text : Source) : Bool := workTail text 1 maxConcatenations
+
+theorem skipAt_advances (text : Source) (position : Nat)
+    (bound : position ≤ text.length + 1) (nonzero : skipAt text position ≠ 0) :
+    position ≤ skipAt text position := by
+  have positive : position ≠ 0 := by intro zero; simp [skipAt, zero] at nonzero
+  simp only [skipAt, positive, ↓reduceIte]
+  exact (Cursor.triviaPosition_bounds text position (by omega) bound).1
+
+theorem literalAt_advances (text : Source) (position : Nat)
+    (nonzero : (literalAt text position).after ≠ 0) :
+    position < (literalAt text position).after := by
+  unfold literalAt at nonzero ⊢
+  split
+  · rename_i conditions
+    have bounds := Output.literalEnd_bounds text (position + 1) conditions.2.2.2
+    simp only
+    omega
+  · rename_i missing
+    simp [missing, invalidValue] at nonzero
+
+def ValidExpressionState (text : Source) (state : ExpressionState) : Prop :=
+  state.position ≤ text.length + 1 ∧ state.dynamicCount ≤ state.operands ∧
+    (state.position = 0 ∨ state.depth < state.position)
+
+def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState) : ExpressionState :=
+  let openAfter := fixedAfter text state.position "(" false
+  let atom := valueAt text state.position names
+  let joinAfter := fixedAfter text state.position "&" false
+  let closeAfter := fixedAfter text state.position ")" false
+  if state.position = 0 then invalidExpressionState
+  else if state.complete then state
+  else if state.needOperand then
+    if openAfter ≠ 0 then {state with position := openAfter, depth := state.depth + 1}
+    else if state.operands = maxExpressionOperands ∨ atom.after = 0 ∨
+        atom.staticLength > maxSourceLength - state.staticLength then invalidExpressionState
+    else {state with
+      position := atom.after
+      staticLength := state.staticLength + atom.staticLength
+      dynamicCount := state.dynamicCount + (if atom.dynamicSeen then 1 else 0)
+      operands := state.operands + 1
+      namedSeen := state.namedSeen || decide (atom.reference ≠ 0)
+      needOperand := false}
+  else if joinAfter ≠ 0 then {state with position := joinAfter, needOperand := true}
+  else if closeAfter ≠ 0 ∧ state.depth ≠ 0 then {state with position := closeAfter, depth := state.depth - 1}
+  else if state.depth = 0 then {state with complete := true}
+  else invalidExpressionState
+
+def ExpressionState.result (state : ExpressionState) : ExpressionResult :=
+  ⟨state.position, state.staticLength, state.dynamicCount, state.namedSeen⟩
+
+def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState) : ExpressionResult :=
+  if state.position = 0 then invalidExpression
+  else if state.complete then state.result
+  else
+    let next := expressionStep text names state
+    if next.position = 0 then invalidExpression
+    else if next.complete then next.result
+    else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
+      expressionTail text names next
+    else invalidExpression
+termination_by text.length + 1 - state.position
+decreasing_by exact _advancing
+
+def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment) : ExpressionResult :=
+  expressionTail text names {position := position}
+
+def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
+  decide (result.after ≠ 0 ∧ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength)
+
+def ExpressionResult.value (result : ExpressionResult) : ValueResult :=
+  ⟨result.after, 0, result.staticLength, decide (result.dynamicCount = 1), 0⟩
+
 def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool) : Bool :=
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
     (!arguments || !Arguments.forbiddenName text first after) &&
@@ -136,7 +249,7 @@ structure DeclarationParts where
   first : Nat
   after : Nat
   constantAfter : Nat
-  value : ValueResult
+  value : ExpressionResult
   following : Nat
   deriving DecidableEq, Repr
 
@@ -156,14 +269,15 @@ def declarationValuePosition (text : Source) (state : ParserState) : Nat :=
 
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
-    valueAt text (declarationValuePosition text state) state.names,
-    fixedAfter text (valueAt text (declarationValuePosition text state) state.names).after ";" false⟩
+    expressionAt text (declarationValuePosition text state) state.names,
+    fixedAfter text (expressionAt text (declarationValuePosition text state) state.names).after ";" false⟩
 
 def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := declarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
-      decide (parts.following = 0 ∨ state.names.length = maxBindings) then invalidState
-  else addBinding state parts.first parts.after parts.value (decide (parts.constantAfter = 0)) parts.following
+      decide (parts.following = 0 ∨ state.names.length = maxBindings) ||
+      !fits parts.value maxSourceLength then invalidState
+  else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following
 
 structure ArgumentParts where
   first : Nat
@@ -205,39 +319,6 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   declarationsLoop text arguments (maxBindings + 1 - state.names.length) state
 
-def operandAt (text : Source) (position : Nat) (names : BindingEnvironment) : ExpressionResult :=
-  let value := valueAt text position names
-  ⟨value.after, value.staticLength, value.dynamicSeen⟩
-
-def accumulated (atom : ExpressionResult) (length : Nat) (dynamicSeen : Bool) : ExpressionResult :=
-  ⟨atom.after, length + atom.staticLength, dynamicSeen || atom.dynamicSeen⟩
-
-def fitsAccumulator (atom : ExpressionResult) (length : Nat) (dynamicSeen : Bool) : Bool :=
-  decide (atom.after ≠ 0 ∧ length + atom.staticLength ≤ maxSourceLength) &&
-    !(dynamicSeen && atom.dynamicSeen)
-
-def hasAmpersand (text : Source) (after : Nat) : Bool :=
-  decide (Cursor.triviaPosition text after ≤ text.length) &&
-    decide (Cursor.byteAt text (Cursor.triviaPosition text after) = 38)
-
-def expressionTail (text : Source) (names : BindingEnvironment) :
-    Nat → Nat → Nat → Bool → ExpressionResult
-  | 0, _, _, _ => invalidExpression
-  | remaining + 1, position, length, dynamicSeen =>
-      let atom := operandAt text position names
-      if fitsAccumulator atom length dynamicSeen then
-        if fixedAfter text atom.after "&" false ≠ 0 then
-          expressionTail text names remaining (fixedAfter text atom.after "&" false)
-            (length + atom.staticLength) (dynamicSeen || atom.dynamicSeen)
-        else accumulated atom length dynamicSeen
-      else invalidExpression
-
-def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment) : ExpressionResult :=
-  expressionTail text names maxExpressionOperands position 0 false
-
-def outputAllowed (state : ParserState) (result : ExpressionResult) : Bool :=
-  !result.dynamicSeen || decide (result.staticLength ≤ maxSourceLength - state.capacity)
-
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
 def header (arguments : Bool) : List ShellToken :=
@@ -258,7 +339,7 @@ def guardTokens (capacity : Bool) : List ShellToken :=
     (if capacity then [.word "and", .word "then", .dynamicReference, .symbol "'", .word "length", .symbol "<=", .capacity] else []) ++
     [.word "then"]
 
-def equalityTokens : List ShellToken := [.word "if", .dynamicReference, .symbol "=", .literal, .word "then"]
+def equalityTokens : List ShellToken := [.word "if", .comparisonExpression, .word "then"]
 def endIfTokens : List ShellToken := [.word "end", .word "if", .symbol ";"]
 def rejectTokens : List ShellToken := [.word "else", .word "silver_arguments", .symbol ".", .word "reject", .symbol ";"] ++ endIfTokens
 
@@ -292,16 +373,21 @@ def dynamicAt (text : Source) (state : ParserState) : ParserState :=
   else {state with position := after}
 
 def assignmentAt (text : Source) (state : ParserState) : ParserState :=
-  let value := valueAt text state.position state.names
+  let value := expressionAt text state.position state.names
   let target := (state.names.get state.target).getD {}
-  if value.after = 0 ∨ state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
-      value.dynamicSeen ≠ target.dynamic then invalidState
+  if !fits value state.capacity || decide (state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
+      value.dynamicCount ≠ (if target.dynamic then 1 else 0)) then invalidState
   else {state with position := value.after}
 
 def outputAt (text : Source) (state : ParserState) : ParserState :=
   let value := expressionAt text state.position state.names
-  if value.after = 0 ∨ (value.dynamicSeen = true ∧ value.staticLength > maxSourceLength - state.capacity)
-  then invalidState else {state with position := value.after}
+  if fits value state.capacity then {state with position := value.after} else invalidState
+
+def comparisonAt (text : Source) (state : ParserState) : ParserState :=
+  let left := expressionAt text state.position state.names
+  let right := expressionAt text (fixedAfter text left.after "=" false) state.names
+  if fits left state.capacity && fits right state.capacity && (left.namedSeen || right.namedSeen)
+  then {state with position := right.after} else invalidState
 
 def capacityAt (text : Source) (state : ParserState) : ParserState :=
   let position := skipAt text state.position
@@ -322,6 +408,7 @@ def step (text : Source) (form : Form) (token : ShellToken) (state : ParserState
   | .targetReference => targetAt text state true
   | .assignmentValue => assignmentAt text state
   | .outputExpression => outputAt text state
+  | .comparisonExpression => comparisonAt text state
 
 def suffixMatches (text : Source) (form : Form) : List ShellToken → ParserState → Bool
   | [], state => decide (state.position ≠ 0 ∧ Cursor.triviaPosition text state.position = text.length + 1)
@@ -330,7 +417,7 @@ def suffixMatches (text : Source) (form : Form) : List ShellToken → ParserStat
 
 def formAccepts (source : Source) (form : Form) : Bool :=
   decide (0 < source.length ∧ source.length ≤ maxSourceLength) && source.all allowedCharacter &&
-    suffixMatches source form form.tokens initialState
+    withinWorkBudget source && suffixMatches source form form.tokens initialState
 
 def selectedForm (source : Source) : Option Form := allForms.find? (formAccepts source)
 def accepts (source : Source) : Bool := (selectedForm source).isSome

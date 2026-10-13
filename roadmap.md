@@ -14,7 +14,7 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**Shared binding foundations are complete; common String expressions are next.**
+**Shared bindings and common String expressions are complete; statement sequencing is next proposed.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
@@ -31,7 +31,9 @@ The first consolidation item, the
 [restrictions and capacity audit](docs/restrictions-capacity.md), is also
 complete. The authorized shared declaration, name and copy foundations have
 also passed their [complete checkpoint](docs/shared-bindings.md). Common String
-expressions are next proposed; the remaining context/API closure is tracked below.
+expressions have passed their [complete checkpoint](docs/common-expressions.md).
+Statement sequencing and assignment are next proposed; remaining context/API
+closure is tracked below.
 
 ### Lean Critical Path
 
@@ -101,7 +103,7 @@ not newly admitted syntax.
 | --- | --- | --- |
 | 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
 | 2 | Declarations, names and copies — binding foundation complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
-| 3 | String expressions | One expression judgment for literals, names, concatenation and parentheses in initialization, assignment, comparison and output. Count repeated static and dynamic occurrences and prove every intermediate bound. Resolve the sixteen-operand limit through explicit capacity evidence, not an unexplained replacement threshold. |
+| 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
 | 4 | Statement sequencing and assignment | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. |
 | 6 | Output effects | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
@@ -118,8 +120,14 @@ minimum twelve-byte declaration; it is not another arbitrary count restriction.
 Item 2's context-clause order/grouping and visibility closure remains explicitly
 with item 7. The sole immutable argument initializer stays first and unique;
 additional API placements and generic sequencing are not implied. Expression
-initializers, parentheses and broader path-refined assignment remain in items
-3–5. **Common String expressions** is next proposed.
+initializers and parentheses are now supported by the completed
+[common-expression checkpoint](docs/common-expressions.md), including expression
+equality and fixed-length expression assignment. Broader path-refined assignment
+remains in items 4–5. **Statement sequencing and assignment** is next proposed;
+repeated-output effects belong with item 6 where needed by that scope. No further
+increment is authorized by this completion record. With the next required
+recognizer source edit, clarify the spec's operator-budget comment as noted in
+the capability review; equal operator counts do not imply equal proof costs.
 
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
@@ -148,8 +156,8 @@ existing sequence.
 
 #### Audit follow-ups
 
-The restriction audit is complete; these four implementation follow-ups remain
-open within the existing items. The [native findings](docs/restrictions-capacity.md#native-measurements-and-integration)
+The restriction audit is complete. These findings retain the following
+completed scope and remaining follow-ups within the existing items. The [native findings](docs/restrictions-capacity.md#native-measurements-and-integration)
 retain the sources, results and limitations. All extensions still require the
 complete assurance and validation described below.
 
@@ -157,8 +165,8 @@ complete assurance and validation described below.
 | --- | --- | --- |
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 4. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Precisely classify the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
-| Dynamic-expression solver limit | 3: expressions | Resolve the unproved intermediate range check observed with 64 dynamic occurrences before admitting that shape or claiming its automatic discharge. All three ordinary solvers exhausted the configured step budget. Establish discharge for the whole proposed fragment; successful smaller examples do not establish a safe operand threshold. |
-| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | Establish practical native proof/translation completion and complete report capacity for the proposed dense combinations, with justified resource policies. The repeated-output and dense-assignment runs were externally stopped without Main reports; these are not established solver failures or measured report overflows. Do not choose a larger buffer from extrapolation, truncate reports or introduce an arbitrary replacement call cap. |
+| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
+| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The common-expression checkpoint retains the 262,144-byte report buffer and records dense production-option cases at the thirty-operator budget, including a maximal source. Complete producer/report capacity and solver completion remain explicit tool premises. Broader sequencing/repeated-output capacity is unresolved; interrupted dense runs are not solver failures or measured report overflows. Do not extrapolate a buffer increase, truncate reports or introduce an arbitrary replacement call cap. |
 
 ### Completion criteria
 

@@ -26,7 +26,7 @@ structure Primitives where
 
 inductive Ty
   | number | truth | source | spelling | token | form
-  | binding | names | state | value | result | decimal
+  | binding | names | state | value | result | scan | decimal
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -34,14 +34,15 @@ inductive Ty
   | .number => Nat | .truth => Bool | .source => Source | .spelling => String
   | .token => ShellToken | .form => Form | .binding => BindingInfo
   | .names => BindingEnvironment | .state => ParserState
-  | .value => ValueResult | .result => ExpressionResult | .decimal => Guarded.DecimalResult
+  | .value => ValueResult | .result => ExpressionResult | .scan => ExpressionState
+  | .decimal => Guarded.DecimalResult
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
   | Ty.number => 0 | Ty.truth => false | Ty.source => [] | Ty.spelling => ""
   | Ty.token => .symbol ";" | Ty.form => .direct | Ty.binding => {}
   | Ty.names => [] | Ty.state => invalidState | Ty.value => invalidValue
-  | Ty.result => invalidExpression | Ty.decimal => ⟨0, 0⟩
+  | Ty.result => invalidExpression | Ty.scan => invalidExpressionState | Ty.decimal => ⟨0, 0⟩
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -63,6 +64,8 @@ inductive Function
   | lookupFrom
   | lookupName
   | literal
+  | workTail
+  | workBudget
   | value
   | newName
   | addBinding
@@ -70,7 +73,9 @@ inductive Function
   | argument
   | declarations
   | readDeclarations
-  | operand
+  | expressionStep
+  | fits
+  | comparison
   | tail
   | expression
   | target
@@ -105,6 +110,8 @@ def Function.name : Function → String
   | .lookupFrom => "lookup_from"
   | .lookupName => "lookup_name"
   | .literal => "literal_at"
+  | .workTail => "work_tail"
+  | .workBudget => "within_work_budget"
   | .value => "value_at"
   | .newName => "new_name_allowed"
   | .addBinding => "add_binding"
@@ -112,7 +119,9 @@ def Function.name : Function → String
   | .argument => "argument_at"
   | .declarations => "declarations_at"
   | .readDeclarations => "read_declarations"
-  | .operand => "operand_at"
+  | .expressionStep => "expression_step"
+  | .fits => "fits"
+  | .comparison => "comparison_at"
   | .tail => "expression_tail"
   | .expression => "expression_at"
   | .target => "target_at"
@@ -146,6 +155,8 @@ def Function.name : Function → String
   | .lookupFrom => .arrow .source (.arrow .names (.arrow .number (.arrow .number (.arrow .number (.number)))))
   | .lookupName => .arrow .source (.arrow .names (.arrow .number (.arrow .number (.number))))
   | .literal => .arrow .source (.arrow .number (.value))
+  | .workTail => .arrow .source (.arrow .number (.arrow .number .truth))
+  | .workBudget => .arrow .source .truth
   | .value => .arrow .source (.arrow .number (.arrow .names (.value)))
   | .newName => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.arrow .truth (.truth)))))
   | .addBinding => .arrow .state (.arrow .number (.arrow .number (.arrow .value (.arrow .truth (.arrow .number (.state))))))
@@ -153,8 +164,10 @@ def Function.name : Function → String
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
-  | .operand => .arrow .source (.arrow .number (.arrow .names (.result)))
-  | .tail => .arrow .source (.arrow .number (.arrow .names (.arrow .number (.arrow .truth (.arrow .number (.result))))))
+  | .expressionStep => .arrow .source (.arrow .names (.arrow .scan .scan))
+  | .fits => .arrow .result (.arrow .number .truth)
+  | .comparison => .arrow .source (.arrow .state .state)
+  | .tail => .arrow .source (.arrow .names (.arrow .scan .result))
   | .expression => .arrow .source (.arrow .number (.arrow .names (.result)))
   | .target => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .dynamic => .arrow .source (.arrow .state (.state))
@@ -193,6 +206,8 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .lookupFrom => calls.function .lookupFrom
   | .lookupName => calls.function .lookupName
   | .literal => calls.function .literal
+  | .workTail => calls.function .workTail
+  | .workBudget => calls.function .workBudget
   | .value => calls.function .value
   | .newName => calls.function .newName
   | .addBinding => calls.function .addBinding
@@ -200,7 +215,9 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .argument => calls.function .argument
   | .declarations => calls.function .declarations
   | .readDeclarations => calls.function .readDeclarations
-  | .operand => calls.function .operand
+  | .expressionStep => calls.function .expressionStep
+  | .fits => calls.function .fits
+  | .comparison => calls.function .comparison
   | .tail => calls.function .tail
   | .expression => calls.function .expression
   | .target => calls.function .target
@@ -235,7 +252,16 @@ inductive Field : Ty → Ty → Type
   | valueReference : Field .value .number
   | resultAfter : Field .result .number
   | resultLength : Field .result .number
-  | resultDynamic : Field .result .truth
+  | resultDynamic : Field .result .number
+  | resultNamed : Field .result .truth
+  | scanPosition : Field .scan .number
+  | scanLength : Field .scan .number
+  | scanDynamic : Field .scan .number
+  | scanOperands : Field .scan .number
+  | scanDepth : Field .scan .number
+  | scanNamed : Field .scan .truth
+  | scanNeed : Field .scan .truth
+  | scanComplete : Field .scan .truth
   | decimalAfter : Field .decimal .number
   | decimalValue : Field .decimal .number
 
@@ -259,7 +285,16 @@ def Field.name : Field a b → String
   | .valueReference => "reference"
   | .resultAfter => "after"
   | .resultLength => "static_length"
-  | .resultDynamic => "dynamic_seen"
+  | .resultDynamic => "dynamic_count"
+  | .resultNamed => "named_seen"
+  | .scanPosition => "position"
+  | .scanLength => "static_length"
+  | .scanDynamic => "dynamic_count"
+  | .scanOperands => "operands"
+  | .scanDepth => "depth"
+  | .scanNamed => "named_seen"
+  | .scanNeed => "need_operand"
+  | .scanComplete => "complete"
   | .decimalAfter => "after"
   | .decimalValue => "value"
 
@@ -283,7 +318,16 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .valueReference, value => value.reference
   | .resultAfter, value => value.after
   | .resultLength, value => value.staticLength
-  | .resultDynamic, value => value.dynamicSeen
+  | .resultDynamic, value => value.dynamicCount
+  | .resultNamed, value => value.namedSeen
+  | .scanPosition, value => value.position
+  | .scanLength, value => value.staticLength
+  | .scanDynamic, value => value.dynamicCount
+  | .scanOperands, value => value.operands
+  | .scanDepth, value => value.depth
+  | .scanNamed, value => value.namedSeen
+  | .scanNeed, value => value.needOperand
+  | .scanComplete, value => value.complete
   | .decimalAfter, value => value.after
   | .decimalValue, value => value.value
 
@@ -309,6 +353,7 @@ inductive Expr : Ty → Type
   | item : Expr .names → Expr .number → Expr .binding
   | add : Expr .number → Expr .number → Expr .number
   | sub : Expr .number → Expr .number → Expr .number
+  | mul : Expr .number → Expr .number → Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
   | boolNe : Expr .truth → Expr .truth → Expr .truth
@@ -331,6 +376,7 @@ inductive Expr : Ty → Type
   | maxLength : Expr .number
   | maxBindings : Expr .number
   | maxOperands : Expr .number
+  | maxConcatenations : Expr .number
   | token (token : ShellToken) : Expr .token
   | tokenEq : Expr .token → Expr .token → Expr .truth
   | tokenSpelling : Expr .token → Expr .spelling
@@ -343,10 +389,18 @@ inductive Expr : Ty → Type
   | invalid : Expr .state
   | invalidValue : Expr .value
   | invalidResult : Expr .result
+  | invalidScan : Expr .scan
   | binding : Expr .number → Expr .number → Expr .number → Expr .number →
       Expr .truth → Expr .truth → Expr .binding
   | value : Expr .number → Expr .number → Expr .number → Expr .truth → Expr .number → Expr .value
-  | result : Expr .number → Expr .number → Expr .truth → Expr .result
+  | result : Expr .number → Expr .number → Expr .number → Expr .truth → Expr .result
+  | scan : Expr .number → Expr .number → Expr .number → Expr .number → Expr .number →
+      Expr .truth → Expr .truth → Expr .truth → Expr .scan
+  | scanDepth : Expr .scan → Expr .number → Expr .number → Expr .scan
+  | scanAtom : Expr .scan → Expr .number → Expr .number → Expr .number → Expr .number →
+      Expr .truth → Expr .scan
+  | scanNeed : Expr .scan → Expr .number → Expr .scan
+  | scanComplete : Expr .scan → Expr .scan
   | statePosition : Expr .state → Expr .number → Expr .state
   | stateTarget : Expr .state → Expr .number → Expr .number → Expr .state
   | stateCapacity : Expr .state → Expr .number → Expr .number → Expr .state
@@ -375,7 +429,7 @@ def tokenName : ShellToken → String
   | .declarations => "declarations" | .argumentDeclaration => "argument_declaration"
   | .assignmentTarget => "assignment_target" | .targetReference => "target_reference"
   | .dynamicReference => "dynamic_reference" | .assignmentValue => "assignment_value"
-  | .outputExpression => "output_expression" | .literal => "string_literal" | .capacity => "capacity_literal"
+  | .outputExpression => "output_expression" | .comparisonExpression => "comparison_expression" | .literal => "string_literal" | .capacity => "capacity_literal"
   | .fixed spelling _ => match spelling with
     | "with" => "with_keyword" | "silver_io" => "io_name" | "procedure" => "procedure_keyword"
     | "main" => "main_name" | "is" => "is_keyword" | "pragma" => "pragma_keyword"
@@ -428,6 +482,7 @@ def Expr.render : Expr ty → List String
   | .item x i => x.render ++ [".", "items", "("] ++ i.render ++ [")"]
   | .add x y => x.render ++ ["+"] ++ y.render
   | .sub x y => x.render ++ ["-"] ++ y.render
+  | .mul x y => x.render ++ ["*"] ++ y.render
   | .eq x y => x.render ++ ["="] ++ y.render
   | .ne x y => x.render ++ ["/="] ++ y.render
   | .boolNe x y => x.render ++ ["/="] ++ y.render
@@ -452,6 +507,7 @@ def Expr.render : Expr ty → List String
   | .characterVal localValue => ["character", "'", "val", "("] ++ localValue.render ++ [")"]
   | .maxLength => ["max_source_length"] | .maxBindings => ["max_bindings"]
   | .maxOperands => ["max_expression_operands"]
+  | .maxConcatenations => ["max_concatenations"]
   | .token tok => [tokenName tok]
   | .tokenEq a b => a.render ++ ["="] ++ b.render
   | .tokenSpelling t => call "spelling" [t.render]
@@ -462,11 +518,21 @@ def Expr.render : Expr ty → List String
   | .tokenIndex f i => call "tokens" [f.render] ++ ["("] ++ i.render ++ [")"]
   | .initial => ["initial_state"] | .invalid => ["invalid_state"]
   | .invalidValue => ["invalid_value"] | .invalidResult => ["invalid_expression"]
+  | .invalidScan => ["invalid_expression_state"]
   | .binding a b c d e f => aggregate [("first",a.render),("after",b.render),("value_first",c.render),
       ("static_length",d.render),("dynamic",e.render),("mutable",f.render)]
   | .value a b c d e => aggregate [("after",a.render),("value_first",b.render),
       ("static_length",c.render),("dynamic_seen",d.render),("reference",e.render)]
-  | .result a b c => aggregate [("after",a.render),("static_length",b.render),("dynamic_seen",c.render)]
+  | .result a b c d => aggregate [("after",a.render),("static_length",b.render),
+      ("dynamic_count",c.render),("named_seen",d.render)]
+  | .scan p l d o depth named need complete => aggregate [("position",p.render),
+      ("static_length",l.render),("dynamic_count",d.render),("operands",o.render),
+      ("depth",depth.render),("named_seen",named.render),("need_operand",need.render),("complete",complete.render)]
+  | .scanDepth s p d => updated s.render [("position",p.render),("depth",d.render)]
+  | .scanAtom s p l d o n => updated s.render [("position",p.render),("static_length",l.render),
+      ("dynamic_count",d.render),("operands",o.render),("named_seen",n.render),("need_operand",["false"])]
+  | .scanNeed s p => updated s.render [("position",p.render),("need_operand",["true"])]
+  | .scanComplete s => updated s.render [("complete",["true"])]
   | .statePosition s p => updated s.render [("position",p.render)]
   | .stateTarget s p t => updated s.render [("position",p.render),("target",t.render)]
   | .stateCapacity s p c => updated s.render [("position",p.render),("capacity",c.render)]
@@ -509,6 +575,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .item x i => ((x.eval calls locals).get (i.eval calls locals)).getD {}
   | .add x y => x.eval calls locals + y.eval calls locals
   | .sub x y => x.eval calls locals - y.eval calls locals
+  | .mul x y => x.eval calls locals * y.eval calls locals
   | .eq x y => decide (x.eval calls locals = y.eval calls locals)
   | .ne x y => decide (x.eval calls locals ≠ y.eval calls locals)
   | .boolNe x y => x.eval calls locals != y.eval calls locals
@@ -526,6 +593,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .sourceLast text | .sourceLength text => (text.eval calls locals).length
   | .characterVal localValue => localValue.eval calls locals
   | .maxLength => maxSourceLength | .maxBindings => Compose.maxBindings | .maxOperands => maxExpressionOperands
+  | .maxConcatenations => Compose.maxConcatenations
   | .token tok => tok | .tokenEq a b => a.eval calls locals == b.eval calls locals
   | .tokenSpelling t => spelling (t.eval calls locals)
   | .spellingLength s => (s.eval calls locals).toList.length
@@ -535,9 +603,17 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .tokenIndex f i => (f.eval calls locals).tokens.getD (i.eval calls locals - 1) (.symbol ";")
   | .initial => initialState | .invalid => invalidState
   | .invalidValue => Compose.invalidValue | .invalidResult => invalidExpression
+  | .invalidScan => invalidExpressionState
   | .binding a b c d e f => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals,d.eval calls locals,e.eval calls locals,f.eval calls locals⟩
   | .value a b c d e => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals,d.eval calls locals,e.eval calls locals⟩
-  | .result a b c => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals⟩
+  | .result a b c d => ⟨a.eval calls locals,b.eval calls locals,c.eval calls locals,d.eval calls locals⟩
+  | .scan p l d o depth named need complete => ⟨p.eval calls locals,l.eval calls locals,
+      d.eval calls locals,o.eval calls locals,depth.eval calls locals,named.eval calls locals,
+      need.eval calls locals,complete.eval calls locals⟩
+  | .scanDepth s p d => {(s.eval calls locals) with position := p.eval calls locals, depth := d.eval calls locals}
+  | .scanAtom s p l d o n => {(s.eval calls locals) with position := p.eval calls locals, staticLength := l.eval calls locals, dynamicCount := d.eval calls locals, operands := o.eval calls locals, namedSeen := n.eval calls locals, needOperand := false}
+  | .scanNeed s p => {(s.eval calls locals) with position := p.eval calls locals, needOperand := true}
+  | .scanComplete s => {(s.eval calls locals) with complete := true}
   | .statePosition s p => {(s.eval calls locals) with position := p.eval calls locals}
   | .stateTarget s p t => {(s.eval calls locals) with position := p.eval calls locals, target := t.eval calls locals}
   | .stateCapacity s p c => {(s.eval calls locals) with position := p.eval calls locals, capacity := c.eval calls locals}
@@ -566,6 +642,27 @@ def lookupBody : Expr .number :=
 def literalBody : Expr .value :=
   (.ite (.andThen (.andThen (.andThen (.ne (.variable "position") (.number 0)) (.le (.variable "position") (.sourceLast (.variable "text")))) (.eq (.byteAt (.variable "text") (.variable "position")) (.characterVal (.number 34)))) (.ne (.lexLiteralEnd (.variable "text") (.add (.variable "position") (.number 1))) (.number 0))) (.value (.lexLiteralEnd (.variable "text") (.add (.variable "position") (.number 1))) (.add (.variable "position") (.number 1)) (.lexLiteralLength (.variable "text") (.add (.variable "position") (.number 1))) (.truth false) (.number 0)) (.invalidValue))
 
+def workTailBody : Expr .truth :=
+  let text : Expr .source := .variable "text"
+  let first : Expr .number := .variable "first"
+  let quoted : Expr .value := .variable "quoted"
+  let remaining : Expr .number := .variable "remaining"
+  let recurse (p r : Expr .number) := Expr.app (.app (.app (.function .workTail) text) p) r
+  .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
+    .local "quoted" "value_result" (.app (.app (.function .literal) text) first) <|
+    .group <| .ite (.eq first (.number 0)) (.truth false) <|
+    .elsif (.gt first (.sourceLast text)) (.truth true) <|
+    .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
+      (.andThen (.ne (.field .valueAfter quoted) (.number 0))
+        (recurse (.field .valueAfter quoted) remaining)) <|
+    .elsif (.eq (.byteAt text first) (.characterVal (.number 38)))
+      (.andThen (.ne remaining (.number 0))
+        (recurse (.add first (.number 1)) (.sub remaining (.number 1))))
+      (recurse (.add first (.number 1)) remaining)
+
+def workBudgetBody : Expr .truth :=
+  .app (.app (.app (.function .workTail) (.variable "text")) (.number 1)) .maxConcatenations
+
 def valueBody : Expr .value :=
   (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.variable "position")) (.local "quoted" "value_result" (.app (.app (.function .literal) (.variable "text")) (.variable "first")) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.variable "names")) (.variable "first")) (.variable "after")) (.group (.ite (.ne (.field .valueAfter (.variable "quoted")) (.number 0)) (.variable "quoted") (.elsif (.ne (.variable "index") (.number 0)) (.value (.variable "after") (.field .bindingValueFirst (.item (.variable "names") (.variable "index"))) (.field .bindingLength (.item (.variable "names") (.variable "index"))) (.field .bindingDynamic (.item (.variable "names") (.variable "index"))) (.variable "index")) (.invalidValue)))))))))
 
@@ -576,7 +673,30 @@ def addBindingBody : Expr .state :=
   (.stateBinding (.variable "state") (.variable "following") (.binding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value")) (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value")) (.variable "mutable")))
 
 def declarationBody : Expr .state :=
-  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "colon_after" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.variable "after")) (.token (.fixed ":" false))) (.local "constant_after" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.variable "colon_after")) (.token (.fixed "constant" true))) (.local "type_after" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.group (.ite (.ne (.variable "constant_after") (.number 0)) (.variable "constant_after") (.variable "colon_after")))) (.token (.fixed "string" true))) (.local "value" "value_result" (.app (.app (.app (.function .value) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.variable "type_after")) (.token (.fixed ":=" false)))) (.field .stateNames (.variable "state"))) (.local "following" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .valueAfter (.variable "value"))) (.token (.fixed ";" false))) (.group (.ite (.orElse (.orElse (.not (.app (.app (.app (.app (.app (.function .newName) (.variable "text")) (.variable "state")) (.variable "first")) (.variable "after")) (.variable "arguments"))) (.eq (.variable "following") (.number 0))) (.eq (.count (.field .stateNames (.variable "state"))) (.maxBindings))) (.invalid) (.app (.app (.app (.app (.app (.app (.function .addBinding) (.variable "state")) (.variable "first")) (.variable "after")) (.variable "value")) (.eq (.variable "constant_after") (.number 0))) (.variable "following"))))))))))))
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let value : Expr .result := .variable "value"
+  let take (p : Expr .number) (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) p) (.token t)
+  .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.field .statePosition state)) <|
+    .local "after" "literal_position" (.app (.app (.function .nameAfter) text) (.variable "first")) <|
+    .local "colon_after" "literal_position" (take (.variable "after") (.symbol ":")) <|
+    .local "constant_after" "literal_position" (take (.variable "colon_after") (.word "constant")) <|
+    .local "type_after" "literal_position" (take (.group <| .ite (.ne (.variable "constant_after") (.number 0))
+      (.variable "constant_after") (.variable "colon_after")) (.word "string")) <|
+    .local "value" "expression_result" (.app (.app (.app (.function .expression) text)
+      (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) <|
+    .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
+    .group <| .ite (.orElse (.orElse (.orElse
+      (.not <| .app (.app (.app (.app (.app (.function .newName) text) state)
+        (.variable "first")) (.variable "after")) (.variable "arguments"))
+      (.eq (.variable "following") (.number 0)))
+      (.eq (.count (.field .stateNames state)) .maxBindings))
+      (.not <| .app (.app (.function .fits) value) .maxLength)) .invalid
+      (.app (.app (.app (.app (.app (.app (.function .addBinding) state)
+        (.variable "first")) (.variable "after"))
+        (.value (.field .resultAfter value) (.number 0) (.field .resultLength value)
+          (.eq (.field .resultDynamic value) (.number 1)) (.number 0)))
+        (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
 def argumentBody : Expr .state :=
   (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "prefix" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.variable "after")) (.token (.fixed ":" false)))) (.token (.fixed "constant" true)))) (.token (.fixed "string" true)))) (.token (.fixed ":=" false)))) (.token (.fixed "silver_arguments" true)))) (.token (.fixed "." false)))) (.token (.fixed "first_or_default" true)))) (.token (.fixed "(" false))) (.local "default_value" "value_result" (.app (.app (.function .literal) (.variable "text")) (.app (.app (.function .skip) (.variable "text")) (.variable "prefix"))) (.local "following" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .valueAfter (.variable "default_value"))) (.token (.fixed ")" false)))) (.token (.fixed ";" false))) (.group (.ite (.orElse (.orElse (.not (.app (.app (.app (.app (.app (.function .newName) (.variable "text")) (.variable "state")) (.variable "first")) (.variable "after")) (.truth true))) (.eq (.variable "following") (.number 0))) (.ne (.count (.field .stateNames (.variable "state"))) (.number 0))) (.invalid) (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) (.variable "state")) (.variable "first")) (.variable "after")) (.value (.variable "following") (.number 0) (.number 0) (.truth true) (.number 0))) (.truth false)) (.variable "following")) (.variable "first") (.variable "after"))))))))))
@@ -584,14 +704,57 @@ def argumentBody : Expr .state :=
 def declarationsBody : Expr .state :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.ne (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.token (.fixed "begin" true))) (.number 0)) (.variable "state") (.elsif (.eq (.field .statePosition (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.number 0)) (.invalid) (.app (.app (.app (.function .declarations) (.variable "text")) (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.variable "arguments")))))
 
-def operandBody : Expr .result :=
-  (.locals (.local "value" "value_result" (.app (.app (.app (.function .value) (.variable "text")) (.variable "position")) (.variable "names")) (.result (.field .valueAfter (.variable "value")) (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value")))))
+def expressionStepBody : Expr .scan :=
+  let text : Expr .source := .variable "text"
+  let state : Expr .scan := .variable "state"
+  let atom : Expr .value := .variable "atom"
+  let take (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text)
+    (.field .scanPosition state)) (.token t)
+  .locals <| .local "open_after" "literal_position" (take (.symbol "(")) <|
+    .local "atom" "value_result" (.app (.app (.app (.function .value) text)
+      (.field .scanPosition state)) (.variable "names")) <|
+    .local "join_after" "literal_position" (take (.symbol "&")) <|
+    .local "close_after" "literal_position" (take (.symbol ")")) <|
+    .group <| .ite (.eq (.field .scanPosition state) (.number 0)) .invalidScan <|
+    .elsif (.field .scanComplete state) state <|
+    .elsif (.field .scanNeed state)
+      (.group <| .ite (.ne (.variable "open_after") (.number 0))
+        (.scanDepth state (.variable "open_after") (.add (.field .scanDepth state) (.number 1))) <|
+        .elsif (.orElse (.orElse (.eq (.field .scanOperands state) .maxOperands)
+          (.eq (.field .valueAfter atom) (.number 0)))
+          (.gt (.field .valueLength atom) (.sub .maxLength (.field .scanLength state)))) .invalidScan <|
+        .scanAtom state (.field .valueAfter atom)
+          (.add (.field .scanLength state) (.field .valueLength atom))
+          (.add (.field .scanDynamic state) (.group <| .ite (.field .valueDynamic atom) (.number 1) (.number 0)))
+          (.add (.field .scanOperands state) (.number 1))
+          (.orElse (.field .scanNamed state) (.ne (.field .valueReference atom) (.number 0)))) <|
+    .elsif (.ne (.variable "join_after") (.number 0)) (.scanNeed state (.variable "join_after")) <|
+    .elsif (.andThen (.ne (.variable "close_after") (.number 0)) (.ne (.field .scanDepth state) (.number 0)))
+      (.scanDepth state (.variable "close_after") (.sub (.field .scanDepth state) (.number 1))) <|
+    .elsif (.eq (.field .scanDepth state) (.number 0)) (.scanComplete state) .invalidScan
 
 def tailBody : Expr .result :=
-  (.locals (.local "atom" "expression_result" (.app (.app (.app (.function .operand) (.variable "text")) (.variable "position")) (.variable "names")) (.local "following" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .resultAfter (.variable "atom"))) (.token (.fixed "&" false))) (.group (.ite (.orElse (.orElse (.orElse (.eq (.variable "remaining") (.number 0)) (.eq (.field .resultAfter (.variable "atom")) (.number 0))) (.gt (.field .resultLength (.variable "atom")) (.sub (.maxLength) (.variable "length")))) (.group (.andThen (.variable "dynamic_seen") (.field .resultDynamic (.variable "atom"))))) (.invalidResult) (.elsif (.ne (.variable "following") (.number 0)) (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "following")) (.variable "names")) (.add (.variable "length") (.field .resultLength (.variable "atom")))) (.orElse (.variable "dynamic_seen") (.field .resultDynamic (.variable "atom")))) (.sub (.variable "remaining") (.number 1))) (.result (.field .resultAfter (.variable "atom")) (.add (.variable "length") (.field .resultLength (.variable "atom"))) (.orElse (.variable "dynamic_seen") (.field .resultDynamic (.variable "atom"))))))))))
+  let state : Expr .scan := .variable "state"
+  let next : Expr .scan := .variable "next"
+  let result (s : Expr .scan) := Expr.result (.field .scanPosition s) (.field .scanLength s)
+    (.field .scanDynamic s) (.field .scanNamed s)
+  .ite (.eq (.field .scanPosition state) (.number 0)) .invalidResult <|
+    .elsif (.field .scanComplete state) (result state) <|
+    .group <| .locals <| .local "next" "expression_state"
+      (.app (.app (.app (.function .expressionStep) (.variable "text")) (.variable "names")) state) <|
+    .group <| .ite (.eq (.field .scanPosition next) (.number 0)) .invalidResult <|
+    .elsif (.field .scanComplete next) (result next)
+      (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names")) next)
 
 def expressionBody : Expr .result :=
-  (.app (.app (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "position")) (.variable "names")) (.number 0)) (.truth false)) (.maxOperands))
+  .app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
+    (.scan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0)
+      (.truth false) (.truth true) (.truth false))
+
+def fitsBody : Expr .truth :=
+  let value : Expr .result := .variable "value"
+  .andThen (.ne (.field .resultAfter value) (.number 0))
+    (.le (.add (.field .resultLength value) (.mul (.field .resultDynamic value) (.variable "capacity"))) .maxLength)
 
 def targetBody : Expr .state :=
   (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.field .stateNames (.variable "state"))) (.variable "first")) (.variable "after")) (.group (.ite (.orElse (.orElse (.eq (.variable "index") (.number 0)) (.not (.field .bindingMutable (.item (.field .stateNames (.variable "state")) (.variable "index"))))) (.group (.andThen (.variable "same_target") (.ne (.variable "index") (.field .stateTarget (.variable "state")))))) (.invalid) (.stateTarget (.variable "state") (.variable "after") (.variable "index"))))))))
@@ -600,10 +763,41 @@ def dynamicBody : Expr .state :=
   (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.group (.ite (.orElse (.orElse (.orElse (.eq (.variable "first") (.number 0)) (.eq (.variable "after") (.number 0))) (.eq (.field .stateDynamicFirst (.variable "state")) (.number 0))) (.not (.lexEqual (.variable "text") (.field .stateDynamicFirst (.variable "state")) (.field .stateDynamicAfter (.variable "state")) (.variable "first") (.variable "after")))) (.invalid) (.statePosition (.variable "state") (.variable "after")))))))
 
 def assignmentBody : Expr .state :=
-  (.locals (.local "value" "value_result" (.app (.app (.app (.function .value) (.variable "text")) (.field .statePosition (.variable "state"))) (.field .stateNames (.variable "state"))) (.group (.ite (.orElse (.orElse (.orElse (.eq (.field .valueAfter (.variable "value")) (.number 0)) (.eq (.field .stateTarget (.variable "state")) (.number 0))) (.ne (.field .valueLength (.variable "value")) (.field .bindingLength (.item (.field .stateNames (.variable "state")) (.field .stateTarget (.variable "state")))))) (.boolNe (.field .valueDynamic (.variable "value")) (.field .bindingDynamic (.item (.field .stateNames (.variable "state")) (.field .stateTarget (.variable "state")))))) (.invalid) (.statePosition (.variable "state") (.field .valueAfter (.variable "value")))))))
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let value : Expr .result := .variable "value"
+  let target := Expr.item (.field .stateNames state) (.field .stateTarget state)
+  .locals <| .local "value" "expression_result"
+    (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) <|
+    .group <| .ite (.orElse (.orElse (.orElse
+      (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
+      (.eq (.field .stateTarget state) (.number 0)))
+      (.ne (.field .resultLength value) (.field .bindingLength target)))
+      (.ne (.field .resultDynamic value) (.group <| .ite (.field .bindingDynamic target) (.number 1) (.number 0))))
+      .invalid (.statePosition state (.field .resultAfter value))
 
 def outputBody : Expr .state :=
-  (.locals (.local "value" "expression_result" (.app (.app (.app (.function .expression) (.variable "text")) (.field .statePosition (.variable "state"))) (.field .stateNames (.variable "state"))) (.group (.ite (.orElse (.eq (.field .resultAfter (.variable "value")) (.number 0)) (.group (.andThen (.field .resultDynamic (.variable "value")) (.gt (.field .resultLength (.variable "value")) (.sub (.maxLength) (.field .stateCapacity (.variable "state"))))))) (.invalid) (.statePosition (.variable "state") (.field .resultAfter (.variable "value")))))))
+  let state : Expr .state := .variable "state"
+  let value : Expr .result := .variable "value"
+  .locals <| .local "value" "expression_result"
+    (.app (.app (.app (.function .expression) (.variable "text")) (.field .statePosition state)) (.field .stateNames state)) <|
+    .group <| .ite (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
+      .invalid (.statePosition state (.field .resultAfter value))
+
+def comparisonBody : Expr .state :=
+  let state : Expr .state := .variable "state"
+  let text : Expr .source := .variable "text"
+  let lhs : Expr .result := .variable "left"
+  let rhs : Expr .result := .variable "right"
+  .locals <| .local "left" "expression_result"
+    (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) <|
+    .local "right" "expression_result" (.app (.app (.app (.function .expression) text)
+      (.app (.app (.app (.function .takeToken) text) (.field .resultAfter lhs)) (.token (.symbol "=")))) (.field .stateNames state)) <|
+    .group <| .ite (.orElse (.orElse
+      (.not <| .app (.app (.function .fits) lhs) (.field .stateCapacity state))
+      (.not <| .app (.app (.function .fits) rhs) (.field .stateCapacity state)))
+      (.not <| .group <| .orElse (.field .resultNamed lhs) (.field .resultNamed rhs)))
+      .invalid (.statePosition state (.field .resultAfter rhs))
 
 def capacityBody : Expr .state :=
   let state : Expr .state := .variable "state"
@@ -614,13 +808,36 @@ def capacityBody : Expr .state :=
       (.stateCapacity state (.field .decimalAfter parsed) (.field .decimalValue parsed)))
 
 def stepBody : Expr .state :=
-  (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.tokenEq (.variable "token") (.token .argumentDeclaration)) (.app (.app (.function .argument) (.variable "text")) (.variable "state")) (.elsif (.tokenEq (.variable "token") (.token .declarations)) (.app (.app (.app (.function .readDeclarations) (.variable "text")) (.variable "state")) (.hasArguments (.variable "form"))) (.elsif (.tokenEq (.variable "token") (.token .assignmentTarget)) (.app (.app (.app (.function .target) (.variable "text")) (.variable "state")) (.truth false)) (.elsif (.tokenEq (.variable "token") (.token .targetReference)) (.app (.app (.app (.function .target) (.variable "text")) (.variable "state")) (.truth true)) (.elsif (.tokenEq (.variable "token") (.token .dynamicReference)) (.app (.app (.function .dynamic) (.variable "text")) (.variable "state")) (.elsif (.tokenEq (.variable "token") (.token .assignmentValue)) (.app (.app (.function .assignmentValue) (.variable "text")) (.variable "state")) (.elsif (.tokenEq (.variable "token") (.token .outputExpression)) (.app (.app (.function .output) (.variable "text")) (.variable "state")) (.elsif (.tokenEq (.variable "token") (.token .capacity)) (.app (.app (.function .capacity) (.variable "text")) (.variable "state")) (.elsif (.tokenEq (.variable "token") (.token .literal)) (.statePosition (.variable "state") (.field .valueAfter (.app (.app (.function .literal) (.variable "text")) (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state")))))) (.statePosition (.variable "state") (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.variable "token")))))))))))))
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let is (t : ShellToken) := Expr.tokenEq (.variable "token") (.token t)
+  let action (f : Function) (h : f.type = .arrow .source (.arrow .state .state)) : Expr .state :=
+    .app (.app (h ▸ Expr.function f) text) state
+  .ite (.eq (.field .statePosition state) (.number 0)) .invalid <|
+    .elsif (is .argumentDeclaration) (action .argument rfl) <|
+    .elsif (is .declarations) (.app (.app (.app (.function .readDeclarations) text) state) (.hasArguments (.variable "form"))) <|
+    .elsif (is .assignmentTarget) (.app (.app (.app (.function .target) text) state) (.truth false)) <|
+    .elsif (is .targetReference) (.app (.app (.app (.function .target) text) state) (.truth true)) <|
+    .elsif (is .dynamicReference) (action .dynamic rfl) <|
+    .elsif (is .assignmentValue) (action .assignmentValue rfl) <|
+    .elsif (is .outputExpression) (action .output rfl) <|
+    .elsif (is .comparisonExpression) (action .comparison rfl) <|
+    .elsif (is .capacity) (action .capacity rfl) <|
+    .elsif (is .literal) (.statePosition state (.field .valueAfter
+      (.app (.app (.function .literal) text) (.app (.app (.function .skip) text) (.field .statePosition state)))))
+      (.statePosition state (.app (.app (.app (.function .takeToken) text) (.field .statePosition state)) (.variable "token")))
 
 def suffixBody : Expr .truth :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.truth false) (.elsif (.gt (.variable "next_token") (.tokensLast (.variable "form"))) (.eq (.lexTrivia (.variable "text") (.field .statePosition (.variable "state"))) (.add (.sourceLast (.variable "text")) (.number 1))) (.app (.app (.app (.app (.function .suffix) (.variable "text")) (.variable "form")) (.add (.variable "next_token") (.number 1))) (.app (.app (.app (.app (.function .step) (.variable "text")) (.variable "form")) (.tokenIndex (.variable "form") (.variable "next_token"))) (.variable "state")))))
 
 def formBody : Expr .truth :=
-  (.andThen (.andThen (.range (.sourceLength (.variable "source")) (.number 1) (.maxLength)) (.lexAllowed (.lexNormalize (.variable "source")))) (.app (.app (.app (.app (.function .suffix) (.lexNormalize (.variable "source"))) (.variable "form")) (.number 1)) (.initial)))
+  let source : Expr .source := .variable "source"
+  .andThen (.andThen (.andThen
+    (.range (.sourceLength source) (.number 1) .maxLength)
+    (.lexAllowed (.lexNormalize source)))
+    (.app (.function .workBudget) (.lexNormalize source)))
+    (.app (.app (.app (.app (.function .suffix) (.lexNormalize source))
+      (.variable "form")) (.number 1)) .initial)
 
 def memberBody : Expr .truth :=
   (.someForm (.variable "source"))
@@ -654,10 +871,14 @@ def Function.isLexical : Function → Bool
 /-- Ada 2022 expression categories. Renderers preserve explicit grouping;
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
-  | .add _ _ | .sub _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
+  | .add _ _ | .sub _ _ | .mul _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
   | .range _ _ _ | .andThen _ _ | .orElse _ _ | .not _ | .ite _ _ _ | .elsif _ _ _
   | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
   | _ => true
+
+def Expr.term : Expr .number → Bool
+  | .mul _ _ => true
+  | x => x.primary
 
 def Expr.simple : Expr ty → Bool
   | .ite _ _ _ | .elsif _ _ _ | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
@@ -687,6 +908,7 @@ def localType : (ty : Ty) → String → Bool
   | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count"])
   | .value, name => name == "value_result"
   | .result, name => name == "expression_result"
+  | .scan, name => name == "expression_state"
   | _, _ => false
 
 def Expr.wellFormed : Expr ty → Bool
@@ -705,8 +927,9 @@ def Expr.wellFormed : Expr ty → Bool
   | .field _ x => x.wellFormed && x.primary
   | .count x => x.wellFormed
   | .item x i => x.wellFormed && i.wellFormed
-  | .add x y => x.wellFormed && y.wellFormed && x.simple && y.primary
-  | .sub x y => x.wellFormed && y.wellFormed && x.simple && y.primary
+  | .add x y => x.wellFormed && y.wellFormed && x.simple && y.term
+  | .sub x y => x.wellFormed && y.wellFormed && x.simple && y.term
+  | .mul x y => x.wellFormed && y.wellFormed && x.primary && y.primary
   | .eq x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .ne x y => x.wellFormed && y.wellFormed && x.simple && y.simple
   | .boolNe x y => x.wellFormed && y.wellFormed && x.simple && y.simple
@@ -730,7 +953,13 @@ def Expr.wellFormed : Expr ty → Bool
   | .tokenIndex x i => x.wellFormed && i.wellFormed
   | .binding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .value a b c d e => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed
-  | .result a b c => a.wellFormed && b.wellFormed && c.wellFormed
+  | .result a b c d => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed
+  | .scan a b c d e f g h => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed &&
+      e.wellFormed && f.wellFormed && g.wellFormed && h.wellFormed
+  | .scanDepth s p d => s.wellFormed && p.wellFormed && d.wellFormed
+  | .scanAtom s p l d o n => s.wellFormed && p.wellFormed && l.wellFormed && d.wellFormed && o.wellFormed && n.wellFormed
+  | .scanNeed s p => s.wellFormed && p.wellFormed
+  | .scanComplete s => s.wellFormed
   | .statePosition s p => s.wellFormed && p.wellFormed
   | .stateTarget s p t => s.wellFormed && p.wellFormed && t.wellFormed
   | .stateCapacity s p c => s.wellFormed && p.wellFormed && c.wellFormed
@@ -744,11 +973,13 @@ def Expr.wellFormed : Expr ty → Bool
   | .maxLength  => true
   | .maxBindings  => true
   | .maxOperands  => true
+  | .maxConcatenations => true
   | .token _ => true
   | .initial  => true
   | .invalid  => true
   | .invalidValue  => true
   | .invalidResult  => true
+  | .invalidScan => true
   | .function _ => true
   | .andThen a b => a.wellFormed && b.wellFormed && a.andLeft && b.relation
   | .orElse a b => a.wellFormed && b.wellFormed && a.orLeft && b.relation
@@ -764,13 +995,17 @@ abbrev WellFormedTrees : Prop :=
   lookupFromBody.wellFormed = true ∧
   lookupBody.wellFormed = true ∧
   literalBody.wellFormed = true ∧
+  workTailBody.wellFormed = true ∧
+  workBudgetBody.wellFormed = true ∧
   valueBody.wellFormed = true ∧
   newNameBody.wellFormed = true ∧
   addBindingBody.wellFormed = true ∧
   declarationBody.wellFormed = true ∧
   argumentBody.wellFormed = true ∧
   declarationsBody.wellFormed = true ∧
-  operandBody.wellFormed = true ∧
+  expressionStepBody.wellFormed = true ∧
+  fitsBody.wellFormed = true ∧
+  comparisonBody.wellFormed = true ∧
   tailBody.wellFormed = true ∧
   expressionBody.wellFormed = true ∧
   targetBody.wellFormed = true ∧
@@ -813,6 +1048,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .item x i => x.scoped scope && i.scoped scope
   | .add x y => x.scoped scope && y.scoped scope
   | .sub x y => x.scoped scope && y.scoped scope
+  | .mul x y => x.scoped scope && y.scoped scope
   | .eq x y => x.scoped scope && y.scoped scope
   | .ne x y => x.scoped scope && y.scoped scope
   | .boolNe x y => x.scoped scope && y.scoped scope
@@ -836,7 +1072,13 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .tokenIndex x i => x.scoped scope && i.scoped scope
   | .binding a b c d e f => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope
   | .value a b c d e => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope
-  | .result a b c => a.scoped scope && b.scoped scope && c.scoped scope
+  | .result a b c d => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope
+  | .scan a b c d e f g h => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope &&
+      e.scoped scope && f.scoped scope && g.scoped scope && h.scoped scope
+  | .scanDepth s p d => s.scoped scope && p.scoped scope && d.scoped scope
+  | .scanAtom s p l d o n => s.scoped scope && p.scoped scope && l.scoped scope && d.scoped scope && o.scoped scope && n.scoped scope
+  | .scanNeed s p => s.scoped scope && p.scoped scope
+  | .scanComplete s => s.scoped scope
   | .statePosition s p => s.scoped scope && p.scoped scope
   | .stateTarget s p t => s.scoped scope && p.scoped scope && t.scoped scope
   | .stateCapacity s p c => s.scoped scope && p.scoped scope && c.scoped scope
@@ -849,11 +1091,13 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .maxLength  => true
   | .maxBindings  => true
   | .maxOperands  => true
+  | .maxConcatenations => true
   | .token _ => true
   | .initial  => true
   | .invalid  => true
   | .invalidValue  => true
   | .invalidResult  => true
+  | .invalidScan => true
   | .variable (ty := ty) name => scope.contains name ty
   | .function _ => true
   | .andThen a b | .orElse a b => a.scoped scope && b.scoped scope
@@ -867,14 +1111,18 @@ abbrev WellScopedTrees : Prop :=
   lookupFromBody.scoped [("text", .source), ("names", .names), ("first", .number), ("after", .number), ("index", .number)] = true ∧
   lookupBody.scoped [("text", .source), ("names", .names), ("first", .number), ("after", .number)] = true ∧
   literalBody.scoped [("text", .source), ("position", .number)] = true ∧
+  workTailBody.scoped [("text", .source), ("position", .number), ("remaining", .number)] = true ∧
+  workBudgetBody.scoped [("text", .source)] = true ∧
   valueBody.scoped [("text", .source), ("position", .number), ("names", .names)] = true ∧
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
   addBindingBody.scoped [("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
   declarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   argumentBody.scoped [("text", .source), ("state", .state)] = true ∧
   declarationsBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
-  operandBody.scoped [("text", .source), ("position", .number), ("names", .names)] = true ∧
-  tailBody.scoped [("text", .source), ("position", .number), ("names", .names), ("length", .number), ("dynamic_seen", .truth), ("remaining", .number)] = true ∧
+  expressionStepBody.scoped [("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  tailBody.scoped [("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  fitsBody.scoped [("value", .result), ("capacity", .number)] = true ∧
+  comparisonBody.scoped [("text", .source), ("state", .state)] = true ∧
   expressionBody.scoped [("text", .source), ("position", .number), ("names", .names)] = true ∧
   targetBody.scoped [("text", .source), ("state", .state), ("same_target", .truth)] = true ∧
   dynamicBody.scoped [("text", .source), ("state", .state)] = true ∧

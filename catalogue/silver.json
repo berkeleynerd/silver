@@ -70,8 +70,7 @@
         "type": "String",
         "constant": true,
         "initializer": [
-          "string_literal",
-          "preceding_initialized_identifier",
+          "string_expression",
           "argument_initialization"
         ],
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
@@ -88,7 +87,9 @@
         "count": "finite_within_complete_source_bound",
         "declaration_context": "every output shell",
         "initializer_required": true,
-        "initializer_expressions": false,
+        "initializer_expressions": true,
+        "initializer_capacity": 4096,
+        "later_guards_justify_initializers": false,
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
@@ -173,11 +174,11 @@
         "association": "left",
         "min_operands": 2,
         "max_operands": 16,
-        "parenthesized_subexpressions": false,
+        "parenthesized_subexpressions": true,
         "static_references": "counted with multiplicity",
-        "max_dynamic_references": 1,
+        "max_dynamic_references": 16,
         "max_result_bytes": 4096,
-        "dynamic_references": "original argument and all dynamic-length aliases count toward the same limit"
+        "dynamic_references": "each original argument or dynamic-length alias occurrence contributes the selected-input length"
       }
     },
     {
@@ -202,7 +203,7 @@
           0,
           4096
         ],
-        "expression_bound": "static_length + (capacity if dynamic_reference_present else 0) <= 4096 for each output",
+        "expression_bound": "static_length + dynamic_occurrences * capacity <= 4096 for each body expression",
         "same_bound_name": true,
         "then": [
           "expression_output",
@@ -222,8 +223,7 @@
         "type": "String",
         "constant": false,
         "initializer": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
         "excluded_names": [
@@ -239,7 +239,9 @@
         "count": "finite_within_complete_source_bound",
         "declaration_context": "every output shell",
         "initializer_required": true,
-        "initializer_expressions": false,
+        "initializer_expressions": true,
+        "initializer_capacity": 4096,
+        "later_guards_justify_initializers": false,
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true
@@ -251,8 +253,7 @@
       "conditions": {
         "target": "declared_string_variable",
         "value": [
-          "string_literal",
-          "initialized_identifier"
+          "string_expression"
         ],
         "decoded_length": "same fixed length or same symbolic input-length identity as the target",
         "count_per_executed_path": 1,
@@ -266,9 +267,11 @@
       "conditions": {
         "operator": "=",
         "operands": [
-          "original_argument_identifier",
-          "string_literal"
+          "string_expression",
+          "string_expression"
         ],
+        "at_least_one_bound_name_across_operands": true,
+        "both_operands_independently_bounded": true,
         "predefined_string_equality": true,
         "case_sensitive": true,
         "unequal_lengths_equal": false,
@@ -279,7 +282,7 @@
       "id": "input_branch",
       "ada_kind": "if_statement",
       "conditions": {
-        "condition": "dynamic_name = string_literal",
+        "condition": "string_expression = string_expression",
         "outer_guard": "input_guard or capacity_guard",
         "then": [
           "expression_output"
@@ -301,13 +304,20 @@
         ],
         "min_operands": 1,
         "max_operands": 16,
-        "association": "left",
-        "max_dynamic_references": 1,
+        "association": "left unless parenthesized",
+        "parenthesized_subexpressions": true,
+        "parenthesis_depth": "limited only by complete source size",
+        "max_dynamic_references": 16,
         "max_result_bytes": 4096,
         "static_references": "each static-length binding occurrence counted at its fixed length",
         "empty_operands_count": true,
-        "dynamic_references": "original argument and every dynamic-length alias share one occurrence limit",
+        "program_concatenation_budget": 30,
+        "program_budget_counts": "all syntactic operators across initializers, assignments, comparisons and both output branches; literal and comment bytes excluded",
+        "dynamic_references": "counted with multiplicity at the established input capacity",
         "positions": [
+          "initializer",
+          "assignment_rhs",
+          "comparison_operand",
           "output"
         ]
       }
@@ -328,7 +338,7 @@
       "id": "result_branch",
       "ada_kind": "if_statement",
       "conditions": {
-        "condition": "dynamic_name = string_literal",
+        "condition": "string_expression = string_expression",
         "then": [
           "string_assignment"
         ],
@@ -397,8 +407,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -433,8 +442,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -472,8 +480,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -516,8 +523,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -560,8 +566,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -604,8 +609,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -648,8 +652,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -692,8 +695,7 @@
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_literal",
-          "preceding_initialized_identifier"
+          "string_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -760,6 +762,7 @@
   },
   "max_source_bytes": 4096,
   "max_expression_operands": 16,
+  "max_program_concatenations": 30,
   "whitespace_bytes": [
     9,
     10,
@@ -1242,7 +1245,7 @@
     "constant",
     "string",
     ":=",
-    "<initializer_value>",
+    "<string_expression>",
     ";"
   ],
   "variable_declaration_tokens": [
@@ -1250,7 +1253,7 @@
     ":",
     "string",
     ":=",
-    "<initializer_value>",
+    "<string_expression>",
     ";"
   ],
   "argument_declaration_tokens": [
@@ -1441,9 +1444,7 @@
     "input_is_valid",
     "then",
     "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
+    "<string_comparison>",
     "then",
     "silver_io",
     ".",
@@ -1507,9 +1508,7 @@
     "<capacity_literal>",
     "then",
     "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
+    "<string_comparison>",
     "then",
     "silver_io",
     ".",
@@ -1566,9 +1565,7 @@
     "input_is_valid",
     "then",
     "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
+    "<string_comparison>",
     "then",
     "<assignment_target>",
     ":=",
@@ -1633,9 +1630,7 @@
     "<capacity_literal>",
     "then",
     "if",
-    "<dynamic_reference>",
-    "=",
-    "<string_literal>",
+    "<string_comparison>",
     "then",
     "<assignment_target>",
     ":=",

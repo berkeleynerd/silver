@@ -38,6 +38,7 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
   have dynamic := interpreted_dynamic calls source text valid state context
   have assignment := interpreted_assignmentValue calls source text valid state context
   have output := interpreted_output calls source text valid state context
+  have comparison := interpreted_comparison calls source text valid state context
   have capacity := interpreted_capacity calls source text valid state context
   have skipped := interpreted_skip calls source text valid state.position context.1
   have skipDomain := source.ranges.skip text valid state.position context.1
@@ -45,7 +46,7 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
   have literal := interpreted_literal calls source text valid (skipAt text state.position) skipDomain
   have taken := interpreted_take calls source text valid state.position token context.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
-  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, capacity, taken]
+  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]
 
 def suffixEquation (recurse : Nat → ParserState → Bool) (text : Source)
@@ -121,8 +122,9 @@ theorem interpreted_form (calls : Calls) (source : DefinitionEquations calls)
   by_cases valid : ValidText text
   · have suffix := interpreted_suffix calls source text valid form 1 initialState (initial_valid text)
       (by omega) (by omega)
+    have budget := interpreted_workBudget calls source text valid
     have positive : 1 ≤ text.length := valid.1
-    simp +instances [formAccepts, suffix, suffixAtIndex, positive, valid.1, valid.2]
+    simp +instances [formAccepts, budget, suffix, suffixAtIndex, positive, valid.1, valid.2]
   · have invalid : ¬(1 ≤ text.length ∧ text.length ≤ maxSourceLength) := valid
     simp +instances [formAccepts, invalid, Nat.lt_iff_add_one_le]
 

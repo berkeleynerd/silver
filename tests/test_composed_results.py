@@ -91,6 +91,10 @@ class ComposedResultsTests(unittest.TestCase):
         cases += [contents.replace(b';', b';-- boundary\r\n')
                   .replace(b'&', b'-- operator\r&\t') for contents in list(cases)]
         cases += [source_for(b'"unused"', form='assignment'), source_for(b'Input', form='result')]
+        cases += [source_for(b'("x")'), source_for(b'Message&(Message)', form='static'),
+                  source_for(b'Input&Input', form='argument', capacity=b'0'),
+                  source_for(b'""&Input&Input', form='argument', capacity=b'0'),
+                  source_for(b'Message', form='result').replace(b'Input="pick"', b'Message="pick"')]
         self.check_sources(cases, 0)
 
     def test_operand_and_expanded_output_boundaries(self) -> None:
@@ -118,9 +122,9 @@ class ComposedResultsTests(unittest.TestCase):
     def test_rejected_operand_guard_and_binding_neighbours(self) -> None:
         cases = [source_for(expr, form='static') for expr in
                  (b'', b'&Message', b'Message&', b'Message&&Message', b'Message+Message',
-                  b'("x")', b'Message&(Message)', b'Message&Other', b'1', b"'x'")]
+                  b'Message&Other', b'1', b"'x'")]
         cases += [source_for(expr, form='argument', capacity=b'0') for expr in
-                  (b'Input&Input', b'""&Input&Input', b'Other', b'Input(1..1)')]
+                  (b'Other', b'Input(1..1)')]
         cases += [source_for(b'"x"&Input', form='argument'),
                   source_for(b'"x"&Input', form='argument', capacity=b'4096'),
                   source_for(b'Input', form='argument', capacity=b'4097'),
@@ -135,7 +139,6 @@ class ComposedResultsTests(unittest.TestCase):
         cases += [result.replace(b'Message:="new";', b'Other:="new";'),
                   result.replace(b'Message:="old";end if;', b'Message:="old";Message:="new";end if;'),
                   result.replace(b'else Message:="old";', b''),
-                  result.replace(b'Input="pick"', b'Message="pick"'),
                   result.replace(b'Input\'Length<=40', b'Message\'Length<=40'),
                   result.replace(b'else Silver_Arguments.Reject;', b''),
                   result.replace(b'&', b'&--\x0b invalid\n')]

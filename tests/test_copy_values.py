@@ -80,7 +80,8 @@ class CopyValuesTests(unittest.TestCase):
     def test_distinct_names_decoded_values_and_layout(self) -> None:
         empty = ((b'Ready', b''), (b'Detailed', b''))
         quotes = ((b'Ready', b'"'), (b'Detailed', b'!'))
-        cases = [source_for(constants=empty, output=b'Ready&Result&Detailed'),
+        cases = [source_for(initial=b'(Ready)'), source_for(assigned=b'Ready&""'),
+                 source_for(constants=empty, output=b'Ready&Result&Detailed'),
                  source_for(constants=empty, selected=True, output=b'Result&Mode', capacity=b'0'),
                  source_for(constants=quotes, output=b'Ready&Result&Detailed'),
                  source_for(constants=quotes, selected=True),
@@ -135,7 +136,6 @@ class CopyValuesTests(unittest.TestCase):
                  source_for(selected=True, assigned=b'Mode'),
                  source_for(selected=True, alternative=b'Mode'),
                  source_for(initial=b'Unknown'), source_for(assigned=b'Unknown'),
-                 source_for(initial=b'(Ready)'), source_for(assigned=b'Ready&""'),
                  source_for(initial=b'Ready(1..5)'), source_for(assigned=b'Ready_Extra'),
                  assignment.replace(b'Ready:constant String:="ready";',
                                     b'Ready:constant String:=Detailed;'),

@@ -314,6 +314,39 @@ class ProofEvidenceTests(unittest.TestCase):
                         with self.assertRaises(EvidenceError):
                             audit_reports(self.path, {"main"}, application_kind=kind)
 
+    def test_comparison_advisories_require_exact_rules_messages_and_routes(self) -> None:
+        pairs = (("INEFFECTIVE", "statement has no effect"),
+                 ("DEAD_CODE", "this statement is never reached"))
+        mutations = (("severity", "info"), ("how_proved", "prover"),
+                     ("file", "./main.adb"), ("entity", 2), ("line", 0), ("col", 0),
+                     ("suppressed", False), ("justification", ""))
+        for kind in ("static", "argument", "assigned", "selected"):
+            for bare in (False, True):
+                for rule, message in pairs:
+                    self.prepare_composed(kind, warning=True, count=0 if bare else 1)
+                    if bare:
+                        self.report["entities"] = {" 1": self.report["entities"][" 1"]}
+                        self.report["assumptions"] = []
+                    self.report["flow"][0].update(rule=rule, message={"text": message})
+                    self.refresh_composed()
+                    with self.subTest(kind=kind, bare=bare, rule=rule):
+                        if kind not in ("argument", "selected"):
+                            with self.assertRaises(EvidenceError):
+                                audit_reports(self.path, {"main"}, application_kind=kind)
+                            continue
+                        stats = audit_reports(self.path, {"main"}, application_kind=kind)
+                        self.assertEqual((stats["flow_checks"], stats["assignment_advisories"]), (0, 1))
+                    base = copy.deepcopy(self.report)
+                    changes = (*mutations, ("message", {"text": message + " "}),
+                               ("rule", "DEAD_CODE" if rule == "INEFFECTIVE" else "INEFFECTIVE"))
+                    for field, value in changes:
+                        self.report = copy.deepcopy(base)
+                        self.report["flow"][0][field] = value
+                        self.refresh_composed()
+                        with self.subTest(kind=kind, bare=bare, rule=rule, field=field):
+                            with self.assertRaises(EvidenceError):
+                                audit_reports(self.path, {"main"}, application_kind=kind)
+
     def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
         for kind in ("static", "argument"):
             self.prepare_composed(kind, warning=False, count=0)

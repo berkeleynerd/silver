@@ -1,12 +1,47 @@
 # Silver handoff
 
-Updated on 2026-10-12 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-13 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Current work
+## Current completed checkpoint
+
+**Common String expressions is complete**, authorized by the owner's “Proceed”
+and based on `7547b3d07d`. The [capability record](docs/common-expressions.md)
+describes the shared literals, names, concatenation and parentheses in
+initialization, assignment, comparison and output; affine bounds cover every
+intermediate value and assignments preserve object lengths. The implementation/
+review target is the commit introducing `samples/common_expressions.adb`.
+
+Complete Linux native compiler verification, build/catalogue checks, universal
+Lean semantics/obligations, actual-source correspondence and fresh whole-project
+axiom/coverage audit passed. All test methods are covered across the full run
+and the focused certificate repair; the initial full invocation was not clean.
+Independent reviews found no remaining material mismatch. Optional replay and
+macOS proofs were not requested. External frontend/generation/solver-completion
+and complete-report capacity premises remain explicit.
+
+Next proposed work is **statement sequencing and assignment** in the
+[consolidation sequence](roadmap.md#existing-feature-consolidation), with output
+effect composition where needed. Context/name/API closure and larger resource
+fragments remain tracked. No further increment or replacement harness goal has
+begun; the live historical Compose String Results goal remains complete.
+
+Recovery pointer: `tmp/common-expressions-active.json`. Preserve its prior-state
+snapshots, isolated workspaces, failed logs, scratch and the archived unfinished
+repeated-output draft. The completed canonical `.silver/linux-x86_64/proof/`
+is the preferred warm cache; retain all sidecars and Lake metadata, as well as
+older cache generations. Native evidence matches the completed implementation/
+tool inputs. Correct the minor spec-comment wording about operator count with
+the next required source edit, as recorded in the capability review.
+
+Publication authorization persists; Linux is primary, Actions is disabled and
+macOS proof work is out of scope. CLI recall tools were rechecked and remain
+unavailable; no CLI recall entry was written. Checked-in session memory is current.
+
+## Previous completed checkpoint
 
 **Declarations, names and copies is complete**, authorized by the owner's
 “Let's proceed with the next unit of work.” The
@@ -17,22 +52,20 @@ and fixed/symbolic assignment bounds within the existing body arrangements.
 The implementation/review target is the commit introducing
 `samples/shared_bindings.adb`, based on `640d5cce9d`.
 
-Next proposed work is **common String expressions**, following the
-[consolidation sequence](roadmap.md#existing-feature-consolidation). General
-sequencing and repeated output remain later work; context/name visibility
-closure remains paired with existing argument operations. No further increment
-has begun. No replacement harness goal was requested; the historical Compose
-String Results goal remains complete.
+Its then-proposed common-expression follow-up is now complete as recorded above.
+Context/name visibility closure remains paired with existing argument operations.
+No replacement harness goal was requested; the historical Compose String Results
+goal remains complete.
 
 Recovery pointer: `tmp/shared-bindings-active.json`. Its task evidence directory
 preserves the exact unfinished repeated-output source and patch, previous native
 state, the former canonical proof workspace, focused workspaces, failure logs
 and final validation. The unfinished draft is archived, not live support; its
-rejected four-call cap is not adopted. The completed canonical
-`.silver/linux-x86_64/proof/` is now the preferred warm cache, with all sidecars
-and Lake metadata. Preserve both it and the older cache generations.
+rejected four-call cap is not adopted. Its completed canonical workspace was
+preserved before common-expression work. The newer preferred warm cache is
+recorded above; preserve both generations with all sidecars and Lake metadata.
 
-Native compiler evidence still matches current implementation/tool inputs. The
+Its native compiler evidence records the then-current implementation/tool inputs. The
 full test run plus focused repairs covered all test methods; the initial full
 invocation was not clean. The complete Lean check passed with a fresh module
 and axiom audit; optional replay was not requested. Linux remains primary,
@@ -42,7 +75,7 @@ not updated; checked-in session memory is current.
 
 ## Earlier checkpoints
 
-The status paragraphs below are historical; the completed shared-binding
+The status paragraphs below are historical; the completed common-expression
 capability and current warm cache above supersede their proposed-next-work and
 latest-cache statements.
 
@@ -238,13 +271,13 @@ approximately 31 GiB RAM, without swap. The retained Copy String Values checkpoi
 ran on the physical desktop with 22 CPUs and approximately 91 GiB RAM. Earlier
 microVM evidence keeps its original attribution. These environments use the same
 host-keyed artifact namespace, so determine the actual host and keep one writer
-per cache. Native pinned tools
-and runtime readiness passed the read-only handover check. The completed Lean
-checkpoint used 12 Lake workers, 12 threads per process and the 12,288 MiB
-per-process threshold. The optimized bridge peaked near that threshold despite
-ample host headroom. The owner reports 96 GB physical RAM and can increase the
-sandbox allocation; `--memory-mb 16384` is already feasible for a later run if
-needed. This comparison changed neither the threshold nor the allocation.
+per cache. Native pinned tools and runtime readiness passed the read-only
+handover check. The completed common-expression Lean checkpoint used 12 Lake
+workers, 12 threads per process and the explicit `--memory-mb 16384` per-process
+threshold on this 31 GiB sandbox. Earlier 12,288 MiB measurements retain their
+original scope. The owner reports 96 GB physical RAM and can increase the
+sandbox allocation; physical capacity is distinct from RAM exposed here.
+Neither the host allocation nor the runner's default was changed by this task.
 Use `python3 scripts/dev.py paths` for the actual
 installation and artifact paths. GNATprove uses all cores by default; Lean uses
 all available Lake workers and per-process threads, with independent overrides.
@@ -262,7 +295,7 @@ python3 scripts/dev.py test -- -p test_branching.py
 
 Choose tests for the affected behavior and batch edits before expensive
 source-certificate rebuilds. Use `python3 scripts/check_lean.py --target
-Silver.ComposeMain --memory-mb 12288` for focused model feedback. Without a
+Silver.ComposeMain --memory-mb 16384` for focused model feedback. Without a
 target, a changed embedded Ada source still triggers its certificate rebuild.
 Once a capability's inputs are stable, normally at the end of the session or
 day, run the full test suite, `dev.py prove --full`, and `check_lean.py` without
@@ -280,7 +313,10 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/review-d375aec-2026-10-11/`. The runner follow-up's evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
-capability's evidence is under `.silver/linux-x86_64/copy-values/`; the preceding
+capability's evidence is under
+`.silver/linux-x86_64/common-expressions-20261013T152350Z/` and
+`.silver/linux-x86_64/common-expressions-probes/20261013T152332Z/`.
+Earlier Copy String Values evidence is under `.silver/linux-x86_64/copy-values/`; the preceding
 composed-result evidence is under `.silver/linux-x86_64/compose-results/`.
 The earlier branching evidence is under
 `.silver/linux-x86_64/branching-validation/`, and the preceding assignment evidence
@@ -332,8 +368,8 @@ this language task does not change authentication or restart its daemon.
 The intermittent warm-state GNATprove `DOC_END` JSON-reader failure remains
 unresolved. Retain a recurrence's logs and inputs; successful validation does not
 establish repair, and no automatic retry is configured. Faithful complete GNAT
-obligation generation, static elimination of the admitted assignment's satisfied
-length check, pinned solver completion for guarded concatenation, and the
+range/length obligation generation, pinned solver completion for the admitted
+expression and fixed-length assignment fragment, complete report capacity, and the
 frontend/runtime/environment assumptions remain explicit in
 [assurance](docs/assurance.md) and the [trusted boundary](docs/trusted-boundary.md).
 No new external operation or trusted shortcut is introduced by this increment.

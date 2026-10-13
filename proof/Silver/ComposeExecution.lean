@@ -18,13 +18,13 @@ structure State where
 inductive Condition
   | valid
   | capacity (bound : Nat)
-  | equal (literal : Source)
+  | equal (left right : Expression)
   deriving DecidableEq, Repr
 
 def Condition.evaluate (arguments : Arguments.Runtime.Arguments) (state : State) : Condition → Bool
   | .valid => Arguments.Runtime.inputIsValid arguments
   | .capacity bound => Arguments.Runtime.inputIsValid arguments && decide (state.input.length ≤ bound)
-  | .equal literal => decide (state.input = literal)
+  | .equal left right => decide (left.evaluate state.values state.input = right.evaluate state.values state.input)
 
 inductive Statement
   | output (expression : Expression)
@@ -72,12 +72,12 @@ def ConditionTemplate.render : ConditionTemplate → List ShellToken
   | .valid => [.word "silver_arguments", .symbol ".", .word "input_is_valid"]
   | .capacity => [.word "silver_arguments", .symbol ".", .word "input_is_valid",
       .word "and", .word "then", .dynamicReference, .symbol "'", .word "length", .symbol "<=", .capacity]
-  | .equal => [.dynamicReference, .symbol "=", .literal]
+  | .equal => [.comparisonExpression]
 
 def ConditionTemplate.instantiate : ConditionTemplate → List Event → Option (Condition × List Event)
   | .valid, events => some (.valid, events)
   | .capacity, .capacity bound :: rest => some (.capacity bound, rest)
-  | .equal, .literal literal :: rest => some (.equal literal, rest)
+  | .equal, .comparison left right :: rest => some (.equal left right, rest)
   | _, _ => none
 
 inductive StatementTemplate
@@ -155,11 +155,11 @@ def statement : Body → Statement
   | .output expression => .output expression
   | .assignment update expression => .sequence (.assign update) (.output expression)
   | .argument capacity expression => .conditional (capacityCondition capacity) (.output expression) .reject
-  | .branching capacity comparison yes no =>
-      .conditional (capacityCondition capacity) (.conditional (.equal comparison) (.output yes) (.output no)) .reject
-  | .result capacity comparison yes no expression =>
+  | .branching capacity left right yes no =>
+      .conditional (capacityCondition capacity) (.conditional (.equal left right) (.output yes) (.output no)) .reject
+  | .result capacity left right yes no expression =>
       .conditional (capacityCondition capacity)
-        (.sequence (.conditional (.equal comparison) (.assign yes) (.assign no)) (.output expression)) .reject
+        (.sequence (.conditional (.equal left right) (.assign yes) (.assign no)) (.output expression)) .reject
 
 theorem capacity_condition (arguments : Arguments.Runtime.Arguments) (state : State) (capacity : Option Nat) :
     (capacityCondition capacity).evaluate arguments state = guard state.input capacity arguments := by
@@ -177,19 +177,19 @@ theorem statement_refines {body : Body} {shape : Shape} {state : State}
   | argument capacity expression =>
       simp only [statement, Statement.execute, capacity_condition, Body.action, Expression.left_association]
       split <;> rfl
-  | branching capacity comparison yes no =>
+  | branching capacity left right yes no =>
       simp only [statement, Statement.execute, Body.action, Expression.left_association]
       rw [capacity_condition]
       by_cases accepted : guard state.input capacity arguments = true <;>
-        by_cases same : state.input = comparison <;> simp_all [Condition.evaluate]
-  | result capacity comparison yes no expression =>
-      have yesLength := assignment_length fits valid.2.2.1
-      have noLength := assignment_length fits valid.2.2.2.1
+        by_cases same : left.evaluate state.values state.input = right.evaluate state.values state.input <;> simp_all [Condition.evaluate]
+  | result capacity left right yes no expression =>
+      have yesLength := assignment_length fits valid.2.2.2.1
+      have noLength := assignment_length fits valid.2.2.2.2.2.1
       simp only [statement, Statement.execute, yesLength, noLength,
         ↓reduceIte, Body.action, Expression.left_association]
       rw [capacity_condition]
       by_cases accepted : guard state.input capacity arguments = true <;>
-        by_cases same : state.input = comparison <;> simp_all [Condition.evaluate]
+        by_cases same : left.evaluate state.values state.input = right.evaluate state.values state.input <;> simp_all [Condition.evaluate]
 
 theorem instantiated_decode {form : Form} {events : List Event} {program : Program}
     (decoded : decode form events = some program) :

@@ -5,6 +5,9 @@ package Silver_Output_Profile
 is
    Max_Source_Length : constant Positive := 4_096;
    Max_Expression_Operands : constant Positive := 16;
+   --  Redistribute the retained two-output shell's 2 * (16 - 1) operator
+   --  allowance across all expression positions without increasing total work.
+   Max_Concatenations : constant Positive := 30;
    --  A single-name declaration needs at least twelve bytes (A:String:=B;).
    --  This storage bound cannot constrain a source within the source limit.
    Max_Bindings : constant Positive := Max_Source_Length / 12;
@@ -19,7 +22,7 @@ is
       Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,
       Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,
       Argument_Declaration, Declarations, Assignment_Target, Target_Reference,
-      Dynamic_Reference, Assignment_Value, Output_Expression);
+      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,

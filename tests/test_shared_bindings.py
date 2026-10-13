@@ -80,7 +80,9 @@ class SharedBindingsTests(unittest.TestCase):
                  program(declarations, b'E:=A;' + output(b'"done"')),
                  program(b'A:String:="";B:constant String:=A;C:String:=B;', output(b'A&B&C')),
                  program(b'Main:String:="old";Copy:constant String:=mAIN;', output(b'COPY')),
-                 program(b'Silver_Arguments:String:="old";', output(b'SILVER_ARGUMENTS'))]
+                 program(b'Silver_Arguments:String:="old";', output(b'SILVER_ARGUMENTS')),
+                 program(b'A:String:="x";B:String:=(A);', output(b'B')),
+                 program(b'A:String:="x";B:String:=A&"";', output(b'B'))]
         for source in cases:
             with self.subTest(source=source):
                 self.check(source)
@@ -105,9 +107,7 @@ class SharedBindingsTests(unittest.TestCase):
                         b'A:String:="x";a:constant String:="x";',
                         b'String:String:="x";', b'END:String:="x";',
                         b'Silver_IO:String:="x";', b'A__B:String:="x";',
-                        b'A:String:="x";B:String:=Absent;',
-                        b'A:String:="x";B:String:=(A);',
-                        b'A:String:="x";B:String:=A&"";']
+                        b'A:String:="x";B:String:=Absent;']
         for source in declarations:
             with self.subTest(declarations=source):
                 self.check(program(source, output(b'"ok"')), 2)
@@ -132,7 +132,7 @@ class SharedBindingsTests(unittest.TestCase):
         self.check(program(empty, output(b'&'.join([b'B'] * 16))))
         self.check(program(empty, output(b'&'.join([b'B'] * 17))), 2)
         dynamic = b'A:constant String:=Input;B:String:=A;'
-        self.check(program(dynamic, output(b'A&B'), arguments=True, capacity=0), 2)
+        self.check(program(dynamic, output(b'A&B'), arguments=True, capacity=0))
         self.check(program(dynamic, output(b'"!"&B'), arguments=True, capacity=4095))
         self.check(program(dynamic, output(b'"!"&B'), arguments=True, capacity=4096), 2)
 

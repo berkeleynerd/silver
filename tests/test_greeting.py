@@ -43,7 +43,10 @@ class GreetingTests(unittest.TestCase):
                  canonical.replace(b'&', b' -- operator\r\n&\t'),
                  canonical.replace(b'&Name&', b'&-- before reference\nName-- after reference\r&'),
                  canonical.upper(), canonical + b' -- final & comment']
-        # Flat expressions now compose across the earlier greeting shell.
+        cases += [canonical.replace(b'"world"', b'"wo"&"rld"'),
+                  canonical.replace(b'"Hello, "&Name&"!"', b'("Hello, "&Name)&"!"'),
+                  canonical.replace(b'"Hello, "&Name&"!"', b'"Hello, "&(Name&"!")')]
+        # Common expressions compose across the earlier greeting shell.
         cases += [canonical.replace(b'"Hello, "&Name&"!"', replacement) for replacement in
                   (b'"Hello, "&"world"&"!"', b'Name&Name&"!"', b'"Hello, "&Name&Name',
                    b'Name&"Hello, "&"!"', b'"Hello, "&"!"&Name', b'"Hello, "&Name',
@@ -65,14 +68,12 @@ class GreetingTests(unittest.TestCase):
     def test_excluded_neighbour_expressions(self) -> None:
         canonical = source_for()
         expression = b'"Hello, "&Name&"!"'
-        replacements = [b'("Hello, "&Name)&"!"', b'"Hello, "&(Name&"!")',
-                        b'"Hello, "&Name(1..2)&"!"', b'"Hello, "+Name+"!"',
+        replacements = [b'"Hello, "&Name(1..2)&"!"', b'"Hello, "+Name+"!"',
                         b'"Hello, "&&Name&"!"', b'"Hello, "&Other&"!"']
         cases = [canonical.replace(expression, replacement) for replacement in replacements]
         cases += [source_for(name=name) for name in
                   (b'', b'1Name', b'Name_', b'Name__2', b'String', b'SILVER_IO', b'if')]
-        cases += [canonical.replace(b'"world"', b'"wo"&"rld"'),
-                  canonical.replace(b';end', b';null;end'),
+        cases += [canonical.replace(b';end', b';null;end'),
                   argument_source().replace(b'Put_Line(Message)', b'Put_Line("Hello, "&Message&"!")'),
                   source_for(b'\t'), source_for(prefix=b'\n'), source_for(suffix=b'\x80'),
                   canonical + b'--\x0b hidden',

@@ -19,15 +19,14 @@ physical Linux checkpoint for fifteen output forms, including two constant
 slots in mutable shells. Its native/Lean evidence retains that recorded input
 scope; the generalized source has its own checkpoint below.
 
-The authorized [shared-bindings increment](shared-bindings.md) replaces those
+The completed [shared-bindings increment](shared-bindings.md) replaced fixed
 slots with ordered initialized declarations and eight concrete body/capacity
-forms. **Its complete Linux checkpoint passed**, including native compiler
-verification, behavioral validation, actual-source correspondence and a fresh
-whole-project coverage/axiom audit. The rules and proof interfaces below describe
-that supported revision. Earlier [branching](input-branching.md),
-[source compartmentalization](lean-compartmentalization.md), and
-[focused-runner](lean-iteration.md) records remain evidence for their own inputs,
-not validation of this changed tree.
+forms. The [common-expression increment](common-expressions.md) extends those
+same arrangements with parentheses and shared expressions in initialization,
+assignment, comparison and output. Its capability record gives the current
+checkpoint status and exact evidence. The rules and proof interfaces below
+reflect this implementation. Earlier capability and performance records retain
+their original input scope.
 
 The [language specification](../language.md) defines the precise admitted syntax
 and behavior; the [catalogue](../catalogue/silver.json) and compiler must agree
@@ -93,22 +92,27 @@ modeled checker discharges it in one step. Real report acceptance still requires
 completed analysis and full Main coverage. Startup, compilation and runtime
 implementation retain the external premises below.
 
-### Bounded String output expressions
+### Common bounded String expressions
 
-Every output position admits a flat left-associated chain of 1..16 literal or
-bound-name operands. Empty operands count. A static-length name may occur more
-than once; at most one dynamic occurrence appears per expression, counting the
-original argument and every dynamic-length alias together. Output need not use
-an assignment target. Membership counts every name occurrence at its object's
-fixed length shape, rather than counting only distinct source spans.
+Every initializer, assignment RHS, equality operand and output uses one grammar
+of literals, initialized names, concatenation and parentheses. Expressions have
+1..16 leaves, counting empty values and each repeated static/dynamic reference.
+The program additionally has at most thirty syntactic concatenations, including
+both branches. A source precheck skips complete literals and trivia/comments;
+its verified traversal counts only operator ampersands. This retains the previous
+two-output form's maximum concatenation count while allowing it in new positions;
+equal counts do not imply equal proof costs. The limits are explicit native
+proof/translation resource policies.
 
-For static contribution `W`, dynamic occurrence count `D` (zero or one), and
-selected capacity `C`, membership requires `W + D*C <= 4096`. An absent capacity
-clause uses 4096. `ComposeExpression` proves exact evaluated length, printable
-bytes, and equality between the operand-list meaning and left-associated
-concatenation. Its prefix bound covers every intermediate concatenation,
-including empty operands and repeated static references. Branch alternatives
-are checked independently; their output lengths are not added together.
+For static contribution `S`, dynamic occurrence count `K`, and capacity `C`,
+membership requires `S + K*C <= 4096`. Declaration initializers precede guards
+and use `C = 4096`; guarded body expressions use the established capacity.
+`Bindings` and `ComposeExpression` prove exact evaluated length, printable bytes,
+and equality between flattened operand evaluation and grouped concatenation.
+Nonnegative operand lengths bound every prefix and subtree by the complete
+expression. `ComposeSemantics` connects the source scanner's operand order,
+parenthesis/operand state and successful terminal state to that interpretation.
+Alternative branches meet their own value bounds; both contribute source work.
 
 The reviewed Ada interpretation uses predefined `String` concatenation and
 ordinary fixed-length initialization. Operand order fixes output byte order;
@@ -120,9 +124,9 @@ operator implementation remain external premises.
 
 ### Named constants and their composition
 
-A declaration initializes a constant or mutable String from a literal or any
-earlier initialized name. Literal decoding fixes bytes; a named initializer
-copies the value at that point. Declarations are folded in source order, with
+A declaration initializes a constant or mutable String from a common expression.
+Literal decoding fixes bytes; each earlier-name occurrence reads its current value.
+The resulting bytes become the new object's snapshot. Declarations are folded in source order, with
 no forward, cyclic or uninitialized reads. Subsequent assignment changes the
 target's bytes without updating earlier copies. The original immutable argument
 binding remains first and unique in argument-bearing shapes; its aliases share
@@ -138,8 +142,8 @@ values. Constants and mutable objects may remain unused.
 
 This generalizes the earlier [named-string](named-strings.md),
 [literal-backed greeting](greeting.md) and [copy](copy-values.md) cases. It does
-not generalize declaration placement, introduce expression initializers, or
-admit arbitrary Ada names/context clauses. Those remaining closures stay in
+not generalize declaration placement or admit arbitrary Ada names/context
+clauses. Those remaining closures stay in
 the [roadmap](../roadmap.md#existing-feature-consolidation).
 
 ### Guarded command-line initialization
@@ -177,8 +181,8 @@ and returning external calls retain their documented assumptions.
 ### Guarded command-line concatenation
 
 The earlier fixed prefix/name/suffix greeting is now a specialization of the
-same expression and guard rules. The dynamic occurrence may be first, last or
-between operands. The wrapper's proved lower-bound normalization and the
+same expression and guard rules. Dynamic occurrences may appear in any position,
+including repeated references and grouped subexpressions. The wrapper's proved lower-bound normalization and the
 weighted output bound cover all such placements. The earlier
 [guarded-greeting record](command-line-greeting.md) retains historical evidence;
 its fixed two-concatenation grammar is no longer the current composition rule.
@@ -186,8 +190,8 @@ its fixed two-concatenation grammar is no longer the current composition rule.
 ### Fixed-length string assignment
 
 Every initialized mutable String has a fixed length shape: a known static
-length, or the symbolic length of the sole selected argument/default. A literal
-or current name value can replace it only when the two shapes agree. This admits
+length, or the symbolic length of the sole selected argument/default. An expression
+can replace it only when its exact affine length agrees with that shape. This admits
 constant/mutable copies and self-copy, including dynamic-to-dynamic copies. It
 does not infer a new static/dynamic equality from a branch condition or capacity.
 Declaration initializers execute before those body facts are available.
@@ -201,7 +205,7 @@ then common output. Both branch executions start from the pre-choice store, so
 one branch cannot affect the other's RHS meaning. Output may omit the target.
 
 The source interpretation connects declaration elaboration and each parsed
-read/write to these generic store operations; the [completed checkpoint](shared-bindings.md)
+read/write to these generic store operations; the [capability checkpoint](common-expressions.md)
 includes that correspondence. No path may read an uninitialized binding.
 Ada RM 3.3.1 and 5.2 supply the inherited object/assignment constraint semantics.
 The assigned bytes can change, but the target's bounds cannot.
@@ -217,11 +221,12 @@ not waive either safety class.
 
 ### Input-dependent branching
 
-The inner condition compares the validated String with a literal using
-predefined array equality. Equality compares length and element bytes without
+The inner condition compares two bounded expressions using predefined String
+equality. At least one contains a declared String name, providing Ada's required
+array-type resolution; two literal-only operands are excluded. Equality compares length and element bytes without
 requiring equal array bounds; it preserves case. The terminal-branch shell
 chooses one of two output expressions. The selected-result shell chooses the
-literal or current initialized name value assigned before common output. A failed outer
+expression value assigned before common output. A failed outer
 guard performs
 neither the equality-selected output nor an assignment branch.
 
@@ -336,31 +341,28 @@ output specification/body certificates and checked the whole project; ten
 unrelated certificates retained identical bytes and modification times. The
 completed Copy String Values checkpoint validates that earlier source/proof
 revision; its exact certificate and cache scope is recorded in
-[the capability record](copy-values.md). The generalized binding source requires
-the new [shared-bindings checkpoint](shared-bindings.md), which has passed.
+[the capability record](copy-values.md). The [shared-bindings checkpoint](shared-bindings.md)
+validates its earlier generalized binding source; this revision requires the
+[common-expression checkpoint](common-expressions.md).
 
 ## Automatic completion and the external boundary
 
-`ComposeObligations` associates each output expression with a conservative range
-schema: its counted static length plus its zero-or-one dynamic contribution.
-`prefix_schema` proves that each left-associated concatenation prefix refines
-the complete expression's schema. `program_schemas` covers both alternative
-output sites where present, including repeated static references and selected
-result assignment. Dynamic aliases contribute the same input-length variable,
-with every occurrence counted. A separate exact-length schema covers required
-copy/assignment checks: compatibility preserves either the same static length
-or the same dynamic input length. Every required emitted safety check must be
-accounted for by the appropriate range or length channel. The stronger
-effect-domain bound remains 4096 per output.
+`ComposeObligations` associates declaration initializers and every body expression
+with conservative range schemas. They count the static contribution plus every
+dynamic occurrence times the selected input length. Initializers use the full
+4096-byte domain; later body sites use the executable guard's capacity.
+Prefix/grouping results cover intermediate concatenations, and `program_schemas`
+covers comparison operands, assignment RHS values and both alternative branches.
+A separate exact-length schema covers assignment compatibility with the target's
+fixed bounds. Every emitted safety obligation must correspond to the appropriate
+range or length channel; accepting its report is not that correspondence proof.
 
-For arithmetic safety, range schemas refine a uniform bound with fixed
-part at most 4096 and variable bound at most 4096. Their sum fits the Ada-required
-minimum `Integer'Last` of 32767. `Guarded.RangeObligation.discharge_iff` proves
-that checking the maximal variable length decides universal validity, and its
-bounds theorem covers both empty and nonempty String ranges. Literal/object
-bounds and the verified normalized argument result supply lower bound one.
-The current proof reuses this range theory; it does not retain the old fixed
-prefix/suffix grammar as an admission condition.
+The arithmetic argument bounds each admitted String value by 4096 bytes and
+accounts for predefined concatenation's range arithmetic. Its conservative
+range bound fits Ada's required minimum `Integer'Last` of 32767. The existing
+`Guarded.RangeObligation` theory decides the uniform bound and covers empty and
+nonempty ranges. Literal/object bounds and the normalized argument result supply
+the inherited lower-bound behavior. No fixed prefix/suffix grammar is required.
 
 `Current.all_obligations_discharge` proves validity and terminating mathematical
 discharge for every admitted meaning. `automatic_discharge_complete` returns a
@@ -394,7 +396,8 @@ configuration's 10,000-step limit remains an explicit premise. Lean proves
 neither those solvers nor a universal bound on their work. Native experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
-The current binding/copy evidence is in [shared-bindings.md](shared-bindings.md).
+The current expression and resource-policy evidence is in
+[common-expressions.md](common-expressions.md).
 Solver effort can vary with source size and translation. These measurements do
 not prove completion for arbitrary SPARK, or a host-independent wall-clock bound.
 
@@ -439,9 +442,9 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Policy | Source composition | Expected call-report entities | Advisory allowance |
 | --- | --- | --- | --- |
 | Static | Ordinary declarations followed by direct output | Main and Put_Line | Exact initializer advisories |
-| Argument | Immutable input, ordinary declarations, direct or branch-selected output | Main, First_Or_Default, Input_Is_Valid, Reject and Put_Line | Exact initializer advisories |
+| Argument | Immutable input, ordinary declarations, direct or branch-selected output | Main, First_Or_Default, Input_Is_Valid, Reject and Put_Line | Exact initializer and constant-equality advisories |
 | Assigned | Ordinary declarations, one compatible assignment, output | Main and Put_Line | Exact initializer and unused-assignment advisories |
-| Selected | Immutable input, ordinary declarations and branch-assigned target, common output | Main and the four argument/output callees | Exact initializer and unused-assignment advisories |
+| Selected | Immutable input, ordinary declarations and branch-assigned target, common output | Main and the four argument/output callees | Exact initializer, unused-assignment and constant-equality advisories |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` or
 `VC_LENGTH_CHECK`, with the expected Main filename/entity, valid positive
@@ -454,15 +457,18 @@ safety class is accepted.
 All four policies permit finite lists of the exact `INEFFECTIVE` message
 `initialization of "NAME" has no effect`. The name must have the checked Ada
 identifier shape. Only Assigned/Selected policies additionally permit the exact
-message `unused assignment`. Every allowed advisory must have warning severity,
+message `unused assignment`. Argument/Selected policies additionally permit
+`INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
+`this statement is never reached`, observed for constant String equality.
+Every allowed advisory must have warning severity,
 flow provenance, Main filename/entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
-and complete report domain still constrain production. These are unused values,
-not failed safety checks. Other messages, including repeated-output ghost-output
+and complete report domain still constrain production. These diagnostics do not
+waive safety checks. Other messages, including repeated-output ghost-output
 advisories, remain rejected. Some legal names make GNATprove omit an advisory.
 
 A bare-Main report requires empty safety/dependency lists. Static/Argument
-policies additionally require a nonempty permitted initializer-advisory list;
+policies additionally require a nonempty route-permitted advisory list;
 Assigned/Selected retain their earlier zero-advisory allowance as well. Outside
 this precise fallback, the full source-selected callee set is required. Native
 tests use genuine reports and mutations; the Python evidence helper applies the

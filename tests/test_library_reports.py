@@ -341,7 +341,7 @@ end Probe;
                 data["proof"][0][field] = value
                 with self.subTest(kind=kind, field=field):
                     self.assertFalse(self.accepts(data, kind=kind))
-            for text in ("unused assignment ", "statement has no effect"):
+            for text in ("unused assignment ", "statement has no effect "):
                 data = copy.deepcopy(base)
                 data["flow"][0]["message"]["text"] = text
                 self.assertFalse(self.accepts(data, kind=kind))
@@ -376,6 +376,36 @@ end Probe;
                              '"Written_Bytes" is set by "Put_Line" but not used after the call'):
                     data["flow"][-1]["message"]["text"] = text
                     self.assertFalse(self.accepts(data, kind=kind))
+
+    def test_comparison_advisories_have_exact_route_and_message_policy(self) -> None:
+        pairs = (("INEFFECTIVE", "statement has no effect"),
+                 ("DEAD_CODE", "this statement is never reached"))
+        mutations = (("severity", "info"), ("how_proved", "prover"),
+                     ("file", "./main.adb"), ("entity", 2), ("line", 0), ("col", 0),
+                     ("suppressed", False), ("justification", ""))
+        for kind in ("static", "main", "assignment", "selected"):
+            for bare in (False, True):
+                for rule, message in pairs:
+                    data = (assignment_report() if bare else
+                            main_report(1) if kind in ("main", "selected") else assignment_call_report())
+                    data["flow"] = [dict(assignment_report()["flow"][0],
+                                         rule=rule, message={"text": message})]
+                    with self.subTest(kind=kind, bare=bare, rule=rule):
+                        self.assertEqual(self.accepts(data, kind=kind), kind in ("main", "selected"))
+                    if kind not in ("main", "selected"):
+                        continue
+                    changes = (*mutations, ("message", {"text": message + " "}),
+                               ("rule", "DEAD_CODE" if rule == "INEFFECTIVE" else "INEFFECTIVE"))
+                    for field, value in changes:
+                        changed = copy.deepcopy(data)
+                        changed["flow"][0][field] = value
+                        with self.subTest(kind=kind, bare=bare, rule=rule, field=field):
+                            self.assertFalse(self.accepts(changed, kind=kind))
+        for rule, message in pairs:
+            data = report()
+            data["flow"] = [dict(data["flow"][0], severity="warning", rule=rule,
+                                 message={"text": message})]
+            self.assertFalse(self.accepts(data))
 
     def test_nonassignment_bare_fallback_requires_an_advisory(self) -> None:
         for kind in ("static", "main"):
