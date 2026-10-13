@@ -89,6 +89,13 @@ There is no separate statement/output-count cap. The
 repeated output and two choices. Nested equality and broader Boolean guards
 remain future work. See [language.md](language.md) for exact rules.
 
+Small source files can still be expensive to compile. In a Linux review, a
+4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
+process-group memory**, producing a 1,734,274-byte Main report within the 2 MiB
+buffer. Expression limits do not cap assignment-driven proof work. This is a
+measured case, not a worst-case bound; the densest argument-bearing case is still
+being measured. See the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
+
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
 these shared rules. Their previous completed checkpoints are recorded in
@@ -131,6 +138,13 @@ The following development examples run from the repository root. Development
 requires Python 3.11+ and native development libraries: libc development files
 on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
+
+Use the validated **8 MiB process stack** configuration for the compiler on Linux
+(`ulimit -s 8192` in a shell where that limit is permitted). The 2 MiB application
+report buffer and report-sized checker storage require stack headroom; a 2 MiB
+stack produced `Storage_Error` even for the null and Hello World samples. An
+exact minimum has not been established. Adequate memory and normal runtime
+startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh
 python3 scripts/bootstrap.py
@@ -232,9 +246,12 @@ and inherited GPR configuration/search-path overrides are removed before Alire
 runs. Moving the installation requires bootstrap and rebuild. These controls do
 not make the entire operating-system environment hermetic.
 
-Exit status is 0 for success, 2 for excluded source or incorrect CLI usage, and 3
-for an infrastructure, verification, compilation, or execution failure. Verification or compilation failure on an admitted program is a toolchain or
-implementation defect; prover results never redefine membership. Specified
+On the ordinary diagnostic path, exit status is 0 for success, 2 for excluded
+source or incorrect CLI usage, and 3 for an infrastructure, verification,
+compilation, or execution failure. Resource exhaustion, signals and external
+runtime exceptions can terminate outside that path; the low-stack experiment
+returned status 1. Verification or compilation failure on an admitted program
+is a toolchain or implementation defect; prover results never redefine membership. Specified
 application output failures are reported separately. The executable's own exit
 status is distinct from the compiler CLI's status.
 

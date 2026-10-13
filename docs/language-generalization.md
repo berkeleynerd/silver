@@ -1,6 +1,16 @@
-# Generalizing Silver's current features
+# Generalizing Silver's existing features: historical assessments
 
-## 2026-10-12: current consolidation assessment
+The assessments below retain their original baselines and counts. Shared
+bindings, common String expressions and statement sequencing have since shipped.
+Use the [language specification](../language.md) and
+[current consolidation roadmap](../roadmap.md#existing-feature-consolidation)
+for present support and remaining work.
+
+## 2026-10-12: historical consolidation assessment
+
+References to current scope, capacities and proposed work in this section
+describe the Copy String Values baseline `e9d18f1996` and its subsequent
+restriction audit. They are preserved as history, not current language limits.
 
 The owner asked to review the existing capabilities, put their generalization
 at the beginning of the roadmap, and drive them to closure. The
@@ -143,9 +153,9 @@ implementation `d630229`. Its references to “current” scope and future work
 refer to that baseline. Bounded output expressions, tighter capacity guards and
 branch-selected results have since shipped, and Copy String Values partially
 addresses its declaration/copy proposal. Repeated assignments/output and
-additional argv operations remain unfinished. Preserve the analysis below as
-history; use the current assessment above and
-[language.md](../language.md) for present status.
+additional argv operations were still unfinished at that follow-up. Preserve the
+analysis below as history; use [language.md](../language.md) and the
+[roadmap](../roadmap.md#existing-feature-consolidation) for present status.
 
 ### Recommendation
 

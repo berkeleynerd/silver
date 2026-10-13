@@ -164,10 +164,12 @@ branches. Ampersands inside literals or comments do not count. This explicit
 proof-work resource budget redistributes the earlier two-output form's maximum
 `2 * (16 - 1)` concatenations across the new expression positions. Atomic copies
 and parentheses consume no concatenation budget. The sixteen-leaf and thirty-
-operator limits control native proof/translation and report growth; they are
+operator limits restrict expression complexity; they do not bound total proof,
+translation or report cost from repeated assignments and control flow. These are
 project resource policies, not Ada/SPARK restrictions or proved solver-time bounds.
-The [capacity evidence](docs/common-expressions.md) records their justification
-and the remaining external-tool completion premises.
+The [expression capacity evidence](docs/common-expressions.md) records their
+justification. The [sequencing capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
+records measured whole-program cost and the remaining external-tool premises.
 
 ### Statement sequences and fixed-bound assignment
 
@@ -216,6 +218,15 @@ single ordered declaration region. The context-free null program remains exactly
 the earlier null shell; a multi-statement body uses the output-capable context,
 even if every statement is null or assignment.
 
+Compilation cost can be substantial even without concatenation: a 4096-byte
+program containing 800 assignments proved in 36.4 minutes with 8.89 GiB peak
+process-group memory on the reviewer's Linux sandbox. Its Main report was
+1,734,274 bytes of the 2 MiB application capacity. These are observations for
+that program and host, not worst-case bounds. The densest argument-bearing case
+is being measured separately in the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
+Sufficient host resources and pinned-tool completion remain operational premises;
+failed compilation of admitted source is still a defect, never nonmembership.
+
 ### String equality choices
 
 A choice evaluates both String expressions from the current store and executes
@@ -229,6 +240,11 @@ objects or make the same number of calls. Initialization and fixed object bounds
 hold after either arm; following statements observe only the selected updates.
 Multiple choices may occur sequentially, including in the static shell. Nested
 equality choices and new Boolean predicates remain excluded in this increment.
+The mandatory `else` keeps this staged grammar to an explicit pair of nonempty
+arms; it is not an Ada requirement. Else-less, nested and `elsif` choices, broader
+predicates and branch-refined assignment are tracked together in
+[roadmap item 5](roadmap.md#existing-feature-consolidation), where their path facts
+and join rules can be established consistently.
 
 ### Guarded command-line initialization
 
@@ -238,7 +254,15 @@ declarations. It is the only such call. Its returned String is immutable and
 one-based; ordinary declarations may copy it. The body is exactly an outer
 guard whose successful branch contains a nonempty statement sequence and whose
 false branch contains
-`Silver_Arguments.Reject;`:
+`Silver_Arguments.Reject;`. The guard establishes validity and capacity before
+body expressions, and the rejection arm preserves the specified no-output
+outcome for invalid input. Requiring the guard to enclose the entire body, with
+no surrounding statements and `Reject` alone in its false arm, is a staging
+restriction that avoids partially guarded effects. It is not required for every
+safe Ada statement; broader placement belongs to
+[roadmap items 5 and 7](roadmap.md#existing-feature-consolidation).
+
+For example:
 
 ```ada
 with Silver_IO;

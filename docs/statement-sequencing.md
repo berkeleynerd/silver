@@ -3,7 +3,7 @@
 Authorized on 2026-10-13 by the owner's “Proceed”, following the completed
 [interpretation-witness repair](common-expressions.md#external-review-of-9b72d36)
 at `3c1522f540`. This capability is **complete and supported**. Its implementation
-and review target is the commit introducing `samples/statement_sequence.adb`;
+and review target is `9b99d52b447a65ea39016c597b8bb8d1859765a1`;
 the evidence below identifies the exact checked inputs.
 
 ## Scope
@@ -15,7 +15,10 @@ sequences; multiple conditionals may appear in the enclosing sequence. Retain th
 current contexts, ordered initialized declarations, expression rules, and the
 outer argument-validity/optional-capacity guard with its Reject alternative.
 An output-capable context may contain a sequence that makes no output call;
-report dependencies must follow the source's actual approved calls.
+the driver selects report policy from the argument and assignment flags. Each
+policy admits finite exact entity/dependency alternatives, including producer
+elimination of an output call. `Uses_Output` is proved but is not used by the
+driver; exact call-sensitive policy selection remains deferred.
 
 Assignments preserve declared length shapes and initialized reads. Repeated calls
 return normally on specified failure outcomes: later calls are still attempted,
@@ -41,7 +44,7 @@ work; its four-call cap is not adopted. Linux is primary, GitHub Actions remains
 disabled, independent replay is optional and macOS proof work is out of scope.
 
 Evidence and preserved prior-state snapshots are under
-`/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/sequencing-20261013T192421Z/`.
+`.silver/linux-x86_64/sequencing-20261013T192421Z/`.
 `tmp/sequencing-active.json` records recovery paths and isolated proof lanes.
 All earlier caches, failed logs, review reports and scratch remain preserved.
 
@@ -99,8 +102,10 @@ They are timed observations with cache reuse permitted, not cold bounds.
 | 4096-byte source, 60 assignments, 160 outputs, 30 concatenations | Passed, 92.59 s | 469,246 bytes; 60 length and 30 range checks, 636 ghost-output advisories |
 | 4096-byte source, 800 assignments | Externally stopped after 180.49 s | No completed report; about 8.16 GiB sampled peak process-group RSS |
 
-The last case is incomplete measurement, not a proved solver failure. Dense
-assignment cost and the complete producer envelope remain explicit limitations.
+The last row records the original interrupted measurement, not a solver failure.
+The subsequent [external follow-up](#external-review-and-capacity-follow-up)
+completed that static case. Dense assignment cost and the complete producer
+envelope remain explicit limitations.
 The output/mixed results demonstrate an actual overflow of the earlier 256 KiB
 application capacity, so application reports now use 2 MiB while runtime reports
 retain 256 KiB. The driver accepts an exactly 2 MiB report and rejects one byte
@@ -114,7 +119,11 @@ existing initializer/assignment/constant-equality advisories plus the four exact
 `Put_Line` ghost-output messages, all with their original provenance/location and
 no-suppression requirements. Every emitted safety check and complete selected
 runtime proof remains mandatory. The checker refinement required factoring the
-empty-suffix map lemma; no policy condition or proof obligation was dropped.
+empty-suffix map lemma without weakening its conclusion. Separately, the new
+bare-Main alternative relaxed the former nonempty-flow requirement and the
+requirements for empty Main proof/dependency lists, allowing assignment-only
+bodies with their required proved checks. Every emitted safety obligation still
+must pass; the former claim that no policy condition changed was incorrect.
 
 Probe source/tool hashes, commands, reports, RSS samples and interruptions are in
 `native-probes/results.json` under the task evidence directory. All seven probe
@@ -132,7 +141,10 @@ The independent admission comparison has **2,083 sources, 574 admitted and zero
 Ada/Lean disagreements** in 38.78 seconds; seeds include earlier samples, generated
 sequences/choices, lexical mutations and source/expression boundaries. It compares
 the compiled recognizer with `SequenceAdmission` plus null, not a proof of native
-compiler correctness by testing.
+compiler correctness by testing. Its binary predates the final report-checker-only
+change; `differential/results.json` records its hash. JSON strings were decoded
+through `Char.toNat`, and the corpus is ASCII: this run supplies no arbitrary
+high-byte differential coverage.
 
 The complete native compiler audit passed with **2,729 checks** (467 flow and
 2,262 proof), 17 units, 246 entities, 59 classified limitation notes and 14 approved
@@ -144,15 +156,22 @@ passed **266/266 methods in 1,302.997 seconds**, with no skips/failures/errors,
 while native/Lean checks shared the host. All sample cases and seven new sequence
 methods passed. Native/tool/test inputs stayed stable; seven proof-file changes
 during the suite are separately enumerated in `native-checkpoint/results.json`.
-This is not a stable-whole-tree test timing; the subsequent complete Lean check
-validates the final proof inputs. Certificate regeneration parity passed after
+Against the final proof tree, thirteen recorded files differed at suite start,
+and `SequenceCorrespondence.lean` and `SequenceSourceBridge.lean` were absent;
+eleven files still differed at suite end. This is not a stable-whole-tree test timing; the subsequent
+complete Lean check validates the final proof inputs. The external reviewer
+reports rerunning all 133 affected proof-reading tests against `9b99d52`, with
+all passing; their report is retained, without claiming local raw logs for that
+rerun. Certificate regeneration parity passed after
 refreshing the two changed tracked candidates.
 
 The final complete Lean check passed on stable final proof/source/tool inputs:
 **144 modules, 37,293 audited declarations**, with only `propext`,
 `Classical.choice` and `Quot.sound`. Its 221.481 seconds comprise a 216.740-second
 cached build and 3.110-second fresh audit plus runner overhead. This is the final
-integration time, not the time to develop or rebuild every proof. It reused 136
+integration time, not the time to develop or rebuild every proof. The comparison
+snapshot was taken after merging completed lane caches, some inherited from
+earlier tasks' workspaces. Relative to that merged state, it reused 136
 of 144 `.olean` artifacts byte-for-byte with unchanged timestamps, including
 all twelve source certificates and both helper/scanner source checks. The six
 repaired example modules, `Silver` import facade and `Silver.Audit` rebuilt. The final input digest was
@@ -206,3 +225,74 @@ The final native read-only scope review is in `native-final-review.md` under the
 task evidence directory. It confirms the twelve removed rejection cases have
 admitted replacements and rejected controls, and the report changes stay within
 this capability.
+
+## External review and capacity follow-up
+
+The owner authorized a bounded response to the
+[external review of `9b99d52`](reviews/review-9b99d52.md): measure the dense cases,
+correct evidence and current-language wording, and add focused regressions.
+Compiler, library and Lean proof inputs remain unchanged. Nested branches and
+other functional work have not begun.
+
+The reviewer completed the original **4096-byte, 800-assignment static source**:
+all **844 checks** passed, including 800 Main length checks; its executable exits
+0 with empty output. They report **2,184.9 seconds (36.4 minutes)** and **8.89 GiB
+peak process-group RSS**. The retained Main report is **1,734,274 bytes**, using
+82.7% of the 2 MiB buffer. These are one source's measurements, not universal
+time, memory or producer-JSON bounds. The source/report bytes, complete check
+results, native admission and executable outcome were independently corroborated
+without repeating the long proof. Timing and RSS remain reviewer-attributed.
+The original `.silver/linux-x86_64/program-XN9AGm/` is preserved.
+
+**The 769-assignment argument-input case is pending.** The reviewer owns its
+production-options run with a two-hour observation cap; no duplicate run was
+started here. Its result, report size and program directory must be corroborated
+before this capacity follow-up is closed. Exceeding the report buffer or failing
+to prove admitted source would remain an implementation defect, not grounds to
+call that source a nonmember. The pinned producer's complete-report envelope
+and external-tool completion assumptions remain explicit in
+[trusted-boundary.md](trusted-boundary.md).
+
+Follow-up evidence lives in
+`.silver/linux-x86_64/sequencing-review-20261013T223033Z/`, with recovery pointer
+`tmp/sequencing-review-active.json`. `static-capacity-verification.json` binds the
+retained static source, reports and executable; `static800-retained/` preserves
+their copies. The retained complete Lean input digest and native proof provenance
+still match the current proof/native inputs. No new full audit, complete suite or
+Lean run is claimed for these documentation/test changes.
+
+Review dispositions:
+
+- **M1:** static maximum completion is now recorded and compilation cost is
+  disclosed in README and the language specification. Dynamic capacity remains
+  pending. Expression/operator budgets are no longer described as controlling
+  whole-program proof growth. No assignment cap was added.
+- **L1–L2:** policy changes, the unused output selector, validated 8 MiB stack
+  configuration and possible resource exceptions are documented. A focused
+  report fixture covers exactly the argument callees without output and rejects
+  missing callees. Call-sensitive policy selection, selector removal and stack
+  storage refactoring are deferred: the review found no incorrectly published
+  program, and those changes would require source-proof work without resolving
+  the measured dense cost.
+- **L3–L4:** admitted/rejected controls now cover empty bodies/arms, nested else,
+  outer guard placement, later output capacity, immutable input assignment and
+  the leaf bound in every expression position. Failure injection exercises later
+  guarded choices on both arms and sticky failed status. The sample manifest
+  includes an oversized but otherwise valid argument. The three affected test
+  files passed **55/55 methods, zero skips**, with stable test/compiler inputs;
+  see `focused-tests-20261013T223254Z/results.json`. A separate real Silver compile
+  of the sequencing sample passed all five manifest cases plus the 4088-byte
+  admitted boundary; the new 4089-byte case rejects with empty streams and status
+  1. Its complete reports and six execution results are recorded in
+  `sample-check/results.json`; workspace `program-5qjy53` is preserved.
+- **L5–L10:** repair current links/status/exclusions, document the staging purpose
+  of fixed guards and mandatory else, and use host-relative evidence paths.
+  The obsolete source comment about the operator budget is deferred until the
+  next necessary source edit, as the roadmap now states.
+- **L11–L13:** qualify the suite timing, merged-cache reuse and differential scope
+  above. Assurance docs describe the scanner-connected grammar and inlined
+  lexical meanings accurately; no bridge redesign is undertaken.
+- **L14:** historical monotonicity is not required by the pre-1.0 policy.
+  Additional sample witnesses/pins and a diagnostic framework remain deferred
+  until relevant proof or language work needs them. The concrete interpretation
+  witness and universal current-language proofs remain required and intact.

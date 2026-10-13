@@ -54,6 +54,47 @@ class StatementSequencingTests(unittest.TestCase):
                 self.check(admitted)
                 self.check(rejected, 2)
 
+    def test_sequence_boundaries_have_single_edit_neighbours(self) -> None:
+        static = program(b'', b'null;')
+        guarded = program(b'', b'null;', arguments=True)
+        branch = program(b'A:String:="old";', b'if A="old" then null;else null;end if;')
+        bounded = program(b'', output(b'Input') + output(b'Input&Input'),
+                          arguments=True, capacity=2048)
+        assignment = program(b'A:String:=Input;', b'A:=Input;', arguments=True)
+        pairs = [
+            ('empty static body', static, static.replace(b'null;', b'')),
+            ('empty guard success branch', guarded, guarded.replace(b'null;', b'')),
+            ('empty then arm', branch, branch.replace(b'then null;', b'then ')),
+            ('nested else choice', branch,
+             branch.replace(b'else null;', b'else if A="old" then null;else null;end if;')),
+            ('statement before guard', guarded, guarded.replace(b'begin if ', b'begin null;if ')),
+            ('later output exceeds capacity', bounded,
+             bounded.replace(output(b'Input&Input'), output(b'Input&Input&"!"'))),
+            ('immutable argument target', assignment, assignment.replace(b'A:=Input;', b'Input:=Input;')),
+        ]
+        for rule, admitted, rejected in pairs:
+            with self.subTest(rule=rule):
+                self.check(admitted)
+                self.check(rejected, 2)
+
+    def test_expression_leaf_limit_in_initializers_assignments_and_comparisons(self) -> None:
+        declarations = b'A:String:="";'
+        sixteen = b'&'.join([b'A'] + [b'""'] * 15)
+        # Empty contributions preserve length; only the seventeenth leaf changes
+        # admission, and neither case approaches the thirty-operator budget.
+        for expression, status in ((sixteen, 0), (sixteen + b'&""', 2)):
+            sources = {
+                'initializer': program(declarations + b'B:String:=' + expression + b';', b'null;'),
+                'assignment': program(declarations, b'A:=' + expression + b';'),
+                'left comparison': program(declarations,
+                                           b'if ' + expression + b'="" then null;else null;end if;'),
+                'right comparison': program(declarations,
+                                            b'if ""=' + expression + b' then null;else null;end if;'),
+            }
+            for position, source in sources.items():
+                with self.subTest(position=position, leaves=16 if status == 0 else 17):
+                    self.check(source, status)
+
     def test_former_single_statement_restrictions_are_sequences(self) -> None:
         from tests import (test_branching, test_composed_results, test_copy_values,
                            test_greeting, test_named_output, test_output,
@@ -134,8 +175,15 @@ class StatementSequencingTests(unittest.TestCase):
     def test_native_output_failure_continues_and_status_stays_failed(self) -> None:
         if not HOST.key.startswith('linux-'):
             self.skipTest('ELF interposition is Linux-specific')
-        executable, _ = self.compile(program(b'', output(b'"first"') + output(b'"second"')
-                                             + output(b'"third"')), 'static')
+        static, _ = self.compile(program(b'', output(b'"first"') + output(b'"second"')
+                                         + output(b'"third"')), 'static')
+        guarded_body = (output(b'"first"') + b'if Input="old" then '
+                        + output(b'"matched"') + b'else ' + output(b'"other"') + b'end if;'
+                        + output(b'"third"'))
+        guarded, _ = self.compile(program(b'', guarded_body, arguments=True), 'argument')
+        cases = [(static, (), b'second\nthird\n'),
+                 (guarded, (), b'matched\nthird\n'),
+                 (guarded, ('new',), b'other\nthird\n')]
         # Test-only libc adapter makes one environmental failure recoverable.
         # Actual Silver_IO remains unchanged and executes every subsequent call.
         shim = self.directory / 'failure.c'
@@ -166,13 +214,15 @@ int fflush(FILE *stream) {
         with shared.open('rb') as preload:
             # LD_PRELOAD splits on spaces; the descriptor path also exercises
             # temporary directories whose names intentionally contain spaces.
-            for variable, expected in (('FAIL_WRITE', b'second\nthird\n'),
-                                       ('FAIL_FLUSH', b'first\nsecond\nthird\n')):
-                environment = dict(os.environ, LD_PRELOAD=f'/proc/self/fd/{preload.fileno()}',
-                                   **{variable: '1'})
-                result = subprocess.run([str(executable)], env=environment,
-                                        pass_fds=(preload.fileno(),), capture_output=True, timeout=10)
-                self.assertEqual((result.returncode, result.stdout, result.stderr), (1, expected, b''))
+            for executable, arguments, later_output in cases:
+                for variable, prefix in (('FAIL_WRITE', b''), ('FAIL_FLUSH', b'first\n')):
+                    with self.subTest(arguments=arguments, failure=variable, program=executable):
+                        environment = dict(os.environ, LD_PRELOAD=f'/proc/self/fd/{preload.fileno()}',
+                                           **{variable: '1'})
+                        result = subprocess.run([str(executable), *arguments], env=environment,
+                                                pass_fds=(preload.fileno(),), capture_output=True, timeout=10)
+                        self.assertEqual((result.returncode, result.stdout, result.stderr),
+                                         (1, prefix + later_output, b''))
 
 
 if __name__ == '__main__':

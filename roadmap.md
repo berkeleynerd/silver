@@ -34,8 +34,12 @@ also passed their [complete checkpoint](docs/shared-bindings.md). Common String
 expressions have passed their [complete checkpoint](docs/common-expressions.md).
 The owner authorized [statement sequencing and assignment](docs/statement-sequencing.md)
 on 2026-10-13. Its complete native/Lean checkpoint passed, including repeated-output
-effect composition. **Equality, guards and branches** is next proposed; remaining
-predicate/context/API closure is tracked below. No further increment has begun.
+effect composition. The owner has authorized the bounded follow-up to
+[review `9b99d52`](docs/reviews/review-9b99d52.md): correct current documentation,
+add focused regressions for the touched rules, and resolve the recorded dense
+assignment measurements. This work precedes the next proposed language increment,
+**Equality, guards and branches**. It starts no new language goal; remaining
+predicate/context/API closure is tracked below.
 
 The authorized narrow
 [interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
@@ -96,11 +100,13 @@ proof work remains outside this sequence.
 the owner asked to revisit the implemented capabilities, maximize their useful
 scope within the Oracle's automatic Bronze/Silver guarantee, and put this work
 ahead of further isolated feature increments. The
-[current assessment](docs/language-generalization.md) records the closure
-targets. The completed [restriction audit](docs/restrictions-capacity.md)
-classifies all current constructs, records native capacity experiments, repairs
-the catalogue discrepancy, and specifies the proposed binding/expression
-foundation. It does not admit any broader grammar.
+[historical assessment](docs/language-generalization.md) records the closure
+targets at the Copy String Values baseline. The completed
+[restriction audit](docs/restrictions-capacity.md) classifies that baseline's
+constructs, records native capacity experiments, repairs the catalogue discrepancy,
+and proposes the binding/expression foundation since implemented below.
+Those records retain their original scope; current rules are in
+[language.md](language.md).
 
 Here, **closed** means that a feature works throughout an explicitly specified
 fragment of the existing constructs, wherever the shared binding, initialization,
@@ -130,16 +136,18 @@ minimum twelve-byte declaration; it is not another arbitrary count restriction.
 
 Item 2's context-clause order/grouping and visibility closure remains explicitly
 with item 7. The sole immutable argument initializer stays first and unique;
-additional API placements and generic sequencing are not implied. Expression
-initializers and parentheses are now supported by the completed
+additional API placements are not implied by supported statement sequencing.
+Expression initializers and parentheses are now supported by the completed
 [common-expression checkpoint](docs/common-expressions.md), including expression
 equality and fixed-length expression assignment. Broader path-refined assignment
 remains in item 5. The authorized **statement sequencing and assignment** work
 includes repeated-output effect composition from item 6 and the existing fixed
 argument guards from item 7. Its [record](docs/statement-sequencing.md) records
-the passed complete checkpoint and preserved caches. Nested predicates, call associations and context/name closure remain
-future work. The recognizer comment now distinguishes the retained operator
-budget from actual proof cost.
+the passed complete checkpoint and preserved caches. Nested predicates, call
+associations and context/name closure remain future work. The retained operator
+budget counts concatenations; it does not bound total translation time, memory or
+report size. Clarifying the recognizer's older proof-work comment is deferred
+until the next required source edit, with its corresponding source checks.
 
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
@@ -178,7 +186,7 @@ complete assurance and validation described below.
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 5. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
-| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The common-expression checkpoint retains the 262,144-byte report buffer and records dense production-option cases at the thirty-operator budget, including a maximal source. Complete producer/report capacity and solver completion remain explicit tool premises. Sequencing probes now measure 314,746-byte and 469,246-byte reports within the source budget and justify a separate 2 MiB application buffer; the complete producer envelope remains an explicit premise. An 800-assignment run was interrupted before a report: it is neither a solver failure nor a measured overflow. Dense cost remains unresolved; no arbitrary call cap or report truncation is introduced. |
+| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The historical common-expression checkpoint used a 262,144-byte report buffer. Sequencing probes justified a separate 2 MiB application buffer. The external review subsequently completed the static 800-assignment case within it; the earlier interrupted runs remain incomplete observations. The dynamic maximum is still being measured in the authorized bounded follow-up. Exact results and resource costs belong in the [sequencing record](docs/statement-sequencing.md); complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 
@@ -269,9 +277,9 @@ sequence.
 | Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |
 | Compose String Results | Supported | Shared bounded output expressions, repeated static references, tighter safe capacities and one branch-selected fixed-length result; [completed Linux validation](docs/string-results.md). | [samples/composed_result.adb](samples/composed_result.adb) |
 | Copy String Values | Supported | Up to two literal-backed constants in mutable shells, named initialization and equal-length copies, with bounded constant output references; [completed Linux validation](docs/copy-values.md). | [samples/copied_result.adb](samples/copied_result.adb) |
-| Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across existing bodies; [scope and completed validation](docs/shared-bindings.md). Context/API placement and general sequencing remain future work. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
+| Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across the then-existing bodies; [scope and completed validation](docs/shared-bindings.md). Context/API placement remains future work; sequencing is supported below. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
 | Common String expressions | Supported | Shared bounded expressions in every expression position; [completed validation](docs/common-expressions.md). | [samples/common_expressions.adb](samples/common_expressions.adb) |
-| Statement sequencing and assignment | In progress | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
+| Statement sequencing and assignment | Supported | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record and resource follow-up](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -317,10 +325,10 @@ Unequal-length operands simply compare false. Invalid input still reaches the
 terminal rejection branch, and each successful path makes one terminal output
 call with the existing failure semantics.
 
-This added runtime choice without a new library API. Branch assignments are now
-supported by the separate composed-result shell above. General Boolean expressions,
-additional decision nesting, multiple outputs and arbitrary statement sequences
-remain outside the language. A focused native obligation
+This added runtime choice without a new library API. The subsequent sequencing
+increment supports branch assignments, multiple outputs and finite sequences
+under shared rules. General Boolean expressions and additional decision nesting
+remain proposed. The original milestone's focused native obligation
 experiment covered empty strings, unequal lengths, case differences and
 maximum-size sources and confirmed the strict empty-Main report policy. Exact
 membership, branch meaning, binding, complete obligation handling and actual
@@ -333,8 +341,9 @@ non-goal for this work.
 The original 2026-10-10 assessment led to bounded output expressions, tighter
 capacity guards, branch-selected results and compatible constant copies. Those
 increments are supported within their documented scopes. The
-[assessment record](docs/language-generalization.md) preserves that history and
-now begins with the 2026-10-12 review of the remaining composition gaps.
+[assessment record](docs/language-generalization.md) preserves that history,
+including the 2026-10-12 review of the composition gaps at its recorded baseline.
+The current consolidation status is above.
 
 The [consolidation priority](#existing-feature-consolidation) supersedes the earlier
 recommendation to keep repeated assignments, more bindings and repeated dynamic
@@ -469,9 +478,10 @@ subsequently authorized the fixed-length assignment increment recorded above.
 
 ## Output design and next increments
 
-Hello World admits its context clause, literal, and call as one coherent
-capability. A context-only null program would add no behavior and is not admitted;
-there is no artificial `runtime_context.adb` step. The API is
+Hello World originally admitted its context clause, literal, and call as one
+coherent capability, without an artificial `runtime_context.adb` step. Sequencing
+now also admits an output-capable context whose body contains only null or
+assignment statements. The API is
 `Silver_IO.Put_Line`, implemented in verified SPARK over the existing libc
 `putchar` and `fflush` symbols plus GNAT
 `__gnat_set_exit_status`. The [review repairs](docs/hello-review-repairs.md)
@@ -483,8 +493,9 @@ The [language specification](language.md) defines printable ASCII literals,
 quote escaping, empty strings, the source bound, exact LF output, detected
 failure, and the current permitted compositions. The
 [trusted boundary](docs/trusted-boundary.md#literal-output-boundary) defines
-external effects and progress. Repeated calls, additional variable forms, arbitrary concatenation and
-broader library admission remain excluded.
+external effects and progress. Repeated calls, initialized variables and bounded
+common String expressions are now supported. Broader library admission remains
+excluded.
 
 The owner authorized the command-line message task below on 2026-10-09.
 The review repairs are complete in `251dd85`; named strings are committed in

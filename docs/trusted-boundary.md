@@ -23,9 +23,11 @@ The authorized [shared-bindings revision](shared-bindings.md) uses the same
 external dependencies, with explicit range/length obligation channels and
 precisely expanded Main advisory handling. Its complete native/Lean checkpoint
 has passed. The [common-expression revision](common-expressions.md) retains these dependencies
-and adds precisely classified constant-equality advisories. Its record states
-current validation status; the policies below describe its implementation.
-Earlier evidence retains its original input scope.
+and adds precisely classified constant-equality advisories. The completed
+[sequencing revision](statement-sequencing.md) adds finite statement composition,
+precise repeated-output advisories and the larger application report buffer.
+The policies below describe sequencing; earlier evidence retains its original
+input scope.
 
 ## Trusted computing base
 
@@ -53,6 +55,16 @@ reference's stated 255-character default does not describe the pinned tool's
 observed capacity. Native boundary tests compile 4096-byte single-line programs
 and their maximal admitted literals and identifiers. This is a frontend premise,
 not a claim of portability to every conforming Ada compiler.
+
+The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
+and `run`, including the null route, allocate the 2 MiB report buffer on the
+stack; application report auditing also copies the used report slice. The
+exact minimum stack has not been established. The external
+[sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
+status 1 with a 2 MiB stack, before publication. Such resource exceptions are
+not currently mapped to the driver's normal infrastructure-error status 3.
+Sufficient stack and memory are environmental premises; these observations do
+not change language membership or establish automatic proof completion.
 
 ## Compiler implementation and runtime imports
 
@@ -416,6 +428,11 @@ equality, context-clause alternatives and additional argument-call placements
 remain outside this milestone. Every expression obeys its affine capacity bound.
 No new runtime operation or external dependency is introduced; output calls
 return into the sequence, while Reject remains alone in the outer false branch.
+The fixed outer guard/rejection arrangement stages control-flow generalization:
+it supplies one validity/capacity context for the successful sequence and ends
+the invalid-input path without output. Broader placements and branch joins remain
+in [roadmap items 5 and 7](../roadmap.md#existing-feature-consolidation), rather
+than being restrictions inherited from Ada/SPARK.
 
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
@@ -568,9 +585,13 @@ by expression position. [Sequencing probes](statement-sequencing.md) produced
 exceeding the previous application buffer. The application capacity is now 2 MiB;
 the runtime capacity stays 262,144 bytes. Faithful complete producer reports
 fitting that envelope remain an explicit tool premise, not a proved JSON-size
-or solver-time bound. A dense 800-assignment run was externally stopped before
-report generation; it establishes neither solver failure nor measured capacity.
-No statement/output-count restriction is inferred from that interruption.
+or solver-time bound. The initial dense 800-assignment run was externally stopped
+before report generation; the external review subsequently completed that static
+case within the application report buffer. Its measured translation cost and
+memory use, and the pending dynamic-case measurement, are recorded in the
+[sequencing record](statement-sequencing.md). An interrupted experiment establishes
+neither solver failure nor measured capacity. No statement/output-count
+restriction is inferred from those interruptions.
 Native boundary experiments
 corroborate the argument; they do not establish a completeness premise for
 arbitrary SPARK. See the [assurance argument](assurance.md) for the checkpoint's
@@ -619,6 +640,13 @@ checked definitions and executable refinements. This establishes consistency of
 the interface; actual arbitrary-callee correspondence still has the Ada/frontend
 interpretation premise below. These equations are a semantic interface, not
 project axioms or an assumption that membership implies proof success.
+
+In the sequence `Form_Result` evaluator, normalization is interpreted as identity
+and source-length/allowed-character checks use their specified meanings directly.
+The renderer still checks the native calls, but their denotations at this site
+are included in the interpretation premise instead of being routed through the
+arbitrary lexical-callee interface. The concrete sequence witness establishes
+consistency of those meanings; it does not verify the physical Ada frontend.
 
 The remaining interpretation premise is that approved Ada/GNAT frontend
 semantics gives this fixed fragment its modeled predefined operators, indexing,

@@ -77,7 +77,7 @@ interpretation. Faithful complete GNATprove generation, fixed-library proof
 completion, bounded solver completion for the already supported guarded form,
 and the existing external runtime/environment assumptions remain explicit.
 The new form models an empty Main safety-obligation list. See
-[assurance](assurance.md#input-dependent-branching) and
+[assurance](assurance.md#statement-sequences-and-equality-choices) and
 [the trusted boundary](trusted-boundary.md).
 
 ## Local validation checkpoint

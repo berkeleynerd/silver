@@ -15,7 +15,7 @@ end Main;
 ```
 
 The exact grammar is in
-[language.md](../language.md#static-output). The initializer,
+[language.md](../language.md#common-string-expressions). The initializer,
 prefix and suffix may be any existing-domain literals, including empty values
 and escaped quotes. The existing named-constant identifier rules apply. Only
 one reference appears in the result; its binding ignores ASCII case. The

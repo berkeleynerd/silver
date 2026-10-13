@@ -110,7 +110,6 @@ class BranchingTests(unittest.TestCase):
                                     b'Silver_IO.Put_Line("Hi "&Mode&"!");'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Mode:="other";'),
-                  canonical.replace(b';end if;', b';null;end if;'),
                   canonical.replace(b';end Main;', b';Silver_IO.Put_Line("after");end Main;'),
                   canonical.replace(b' then if Mode', b' then if True then if Mode')
                            .replace(b';else Silver_Arguments', b';end if;else Silver_Arguments'),
@@ -122,6 +121,15 @@ class BranchingTests(unittest.TestCase):
                 values[index] = invalid
                 cases.append(source_for(*values))
         self.check_sources(cases, 2)
+
+    def test_inner_arm_sequence_and_outer_reject_arm_have_separate_neighbours(self) -> None:
+        canonical = source_for()
+        inner_sequence = canonical.replace(b'Silver_IO.Put_Line("Ready.");',
+                                           b'Silver_IO.Put_Line("Ready.");null;')
+        self.check_sources([canonical, inner_sequence], 0)
+        outer_sequence = inner_sequence.replace(b'Silver_Arguments.Reject;',
+                                               b'Silver_Arguments.Reject;null;')
+        self.check_sources([outer_sequence], 2)
 
     def test_excluded_declaration_names(self) -> None:
         reserved = '''abort abs abstract accept access aliased all and array at begin body

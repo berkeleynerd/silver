@@ -1,5 +1,39 @@
 # Session memory
 
+## 2026-10-13 — Sequencing review cleanup; dynamic capacity pending
+
+The owner authorized the bounded response to
+[review `9b99d52`](reviews/review-9b99d52.md), then supplied the completed static
+800-assignment result. Native admission, complete reports and successful execution
+were corroborated without repeating its long proof. Timing/RSS remain attributed
+to the reviewer. The [capacity follow-up](statement-sequencing.md#external-review-and-capacity-follow-up)
+records exact evidence, selected fixes and explicit deferrals.
+
+Current docs now disclose dense cost and stack assumptions, correct report-policy
+and proof-scope claims, repair links/status and explain staging restrictions.
+Focused report, admission-neighbour and recoverable-output-failure regressions
+passed; the sequencing sample's new capacity rejection and admitted boundary also
+passed through a real compile. Compiler/library/Lean inputs are unchanged and
+retained complete proof evidence still matches; no broad checkpoint was repeated.
+No selector/storage redesign, diagnostic framework, historical compatibility
+theorem, new cap, Oracle amendment or language expansion was undertaken.
+
+**The reviewer owns the pending 769-assignment argument-input run.** The owner
+replied “OK, will do” to the request for its result and program-directory path.
+Do not duplicate it. Retain/corroborate the result and update documentation before
+closing the capacity follow-up. Recovery/evidence paths are in
+`tmp/sequencing-review-active.json`; the original static directory
+`.silver/linux-x86_64/program-XN9AGm/`, sample workspace and all prior caches/scratch
+are preserved. The review is retained verbatim; later updates remain attributed.
+
+The implementation/review target remains `9b99d52b447a65`; Git identifies the
+separate cleanup commit. Equality, guards and branches remains next proposed,
+without further functional authorization inferred. The live historical Compose
+String Results goal remains complete, with no replacement requested. Publication
+authorization persists, Actions stays disabled and macOS proof work is out of
+scope. CLI memory is unavailable and was not updated; checked-in memory and
+RESUME carry this handoff.
+
 ## 2026-10-13 — Statement sequencing and assignment completed
 
 The authorized sequencing increment is complete, based on `3c1522f540`. Its

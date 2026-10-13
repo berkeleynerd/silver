@@ -276,6 +276,24 @@ class ProofEvidenceTests(unittest.TestCase):
                 with self.subTest(kind=kind, field=field), self.assertRaises(EvidenceError):
                     audit_reports(self.path, {"main"}, application_kind=kind)
 
+    def test_argument_policies_accept_exact_callees_without_output(self) -> None:
+        for kind in ("argument", "selected"):
+            self.prepare_composed(kind)
+            del self.report["entities"][" 2"]  # Producer omitted Put_Line.
+            self.report["assumptions"][0]["assumptions"] = []
+            self.refresh_composed()
+            with self.subTest(kind=kind):
+                self.assertEqual(audit_reports(self.path, {"main"}, application_kind=kind)["proof_checks"], 1)
+            complete = copy.deepcopy(self.report)
+            for missing in (" 3", " 4", " 5"):
+                self.report = copy.deepcopy(complete)
+                del self.report["entities"][missing]
+                # No dependency references the removed callee: only its required
+                # entity-map entry changes.
+                self.refresh_composed()
+                with self.subTest(kind=kind, missing=missing), self.assertRaises(EvidenceError):
+                    audit_reports(self.path, {"main"}, application_kind=kind)
+
     def test_composed_advisories_cannot_reference_callees_or_hide_extra_diagnostics(self) -> None:
         for kind in ("assigned", "selected"):
             for change in ("callee", "unknown", "wrong ghost"):

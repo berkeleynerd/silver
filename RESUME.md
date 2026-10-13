@@ -6,11 +6,38 @@ Updated on 2026-10-13 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Active review follow-up
+
+The owner authorized bounded cleanup of
+[review `9b99d52`](docs/reviews/review-9b99d52.md), before further functional work.
+Documentation corrections and focused regressions are complete; the
+[capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
+discloses dense compilation cost, precise report-policy changes, stack assumptions
+and the original checkpoint's test/cache scope. The static 800-assignment result
+has been corroborated, the 55 affected test methods passed without skips, and the
+sequencing sample passed six execution cases after a real compile.
+
+**Pending: the reviewer owns the 769-assignment argument-input measurement.**
+The owner agreed to provide its result/program directory or update the report.
+Do not start a duplicate run. Corroborate and retain that result, then close the
+capacity follow-up and update its status. No compiler, library or Lean source
+changed in this cleanup; retained proof inputs still match and no blanket proof
+or suite rerun is needed for these docs/tests changes.
+
+Recovery: `tmp/sequencing-review-active.json`; evidence is under
+`.silver/linux-x86_64/sequencing-review-20261013T223033Z/`. Preserve both reviewer
+and local program directories, caches, scratch and prior records. The supplied
+review is retained verbatim as a snapshot; a later reviewer update must remain
+attributed to that review target. Publication remains authorized. The live
+historical Compose String Results goal is complete; no new goal or language
+increment began. CLI memory tools remain unavailable; this handoff and checked-in
+session memory are updated.
+
 ## Latest completed work
 
 **[Statement sequencing and assignment](docs/statement-sequencing.md) is complete**,
-based on `3c1522f540`. The implementation/review target is the commit introducing
-`samples/statement_sequence.adb`. It admits finite sequences of null, compatible
+based on `3c1522f540`. The implementation/review target is `9b99d52b447a65`.
+It admits finite sequences of null, compatible
 fixed-bound assignments, output and one-level String-equality choices, including
 multiple choices and returning output failures. Existing argument guards,
 expression bounds and the source limit remain; no statement/output-count cap
@@ -20,7 +47,8 @@ The complete Linux native audit, build/catalogue checks, full test suite,
 actual-source correspondence and complete Lean build/fresh axiom audit passed.
 The capability record distinguishes the successful final checkpoint, reused
 artifacts, failed proof attempts, native capacity observations and remaining
-external solver/producer premises. Dense assignment cost remains unresolved.
+external solver/producer premises. The static dense case has since completed;
+the argument-input measurement is pending in the follow-up above.
 
 Recovery: `tmp/sequencing-active.json`. The canonical `.silver/linux-x86_64/proof/`
 is the preferred completed warm cache. Preserve prior evidence, isolated lanes,
@@ -200,7 +228,7 @@ The owner requested revisiting the narrow completed increments before accumulati
 more isolated capabilities. The
 [consolidation sequence](roadmap.md#existing-feature-consolidation)
 defines the ordered work and closure criteria; the
-[current assessment](docs/language-generalization.md) records restrictions and
+[historical assessment](docs/language-generalization.md) records restrictions and
 their reasons. The explicit fragment and restriction/capacity inventory are now
 recorded. Implement the shared binding/expression foundations next, then compose
 statements, branches and existing library effects. No new syntax is supported by

@@ -55,9 +55,12 @@ runtime imports, ABI and environmental assumptions used throughout.
 `SequenceAdmission` defines the scanner for three shells, basic statements,
 nonempty lists and one-level choices. `SequenceTokens`, `SequenceBasics`,
 `SequenceLists`, `SequenceConditions`, `SequenceHeader`, `SequenceShell` and
-`SequenceGrammar` connect its token events to the independent typed grammar and
-program validity. The three shells are disjoint; `SequenceSelectors` connects
-argument/output/assignment flags to the decoded program, including occurrences
+`SequenceGrammar` connect its token events to typed statements and program
+validity. The statement reading relations include scanner equalities and
+scanner-computed positions. Their soundness/completeness theorems connect that
+scanner to its readings; they do not independently establish that the scanner
+accepts every source described by the prose grammar. The three shells are disjoint;
+`SequenceSelectors` connects argument/output/assignment flags to the decoded program, including occurrences
 in both conditional arms. Shared `Compose` expression/declaration proofs remain
 in use; their obsolete fixed-shell recognition is not the current language.
 
@@ -300,7 +303,11 @@ required correspondence. The checked chain has these distinct parts:
    legal machine domains. No whole-recognizer-equality premise is introduced.
 5. `SequenceExpressions`, `SequenceEquations` and `SequenceSourceChecks` interpret
    the actual basic/list/conditional scanner, shell tables and selectors. Raw
-   equations and progress/range contracts remain distinct. Their concrete
+   equations and progress/range contracts remain distinct. The `Form_Result`
+   evaluator directly uses identity normalization and the specified source-length
+   and allowed-character checks. At this call site those lexical meanings are
+   part of the Ada/frontend interpretation premise, rather than being derived
+   through the normalization/allowed-source callee projections. Their concrete
    `SequenceModel` witness independently satisfies all fields, including helper
    calls; recursive source interpretation is therefore inhabited. The source
    bridge retains exact authoritative source checks and executable refinements
@@ -332,8 +339,9 @@ unrelated certificates retained identical bytes and modification times. The
 completed Copy String Values checkpoint validates that earlier source/proof
 revision; its exact certificate and cache scope is recorded in
 [the capability record](copy-values.md). The [shared-bindings checkpoint](shared-bindings.md)
-validates its earlier generalized binding source; this revision requires the
-[common-expression checkpoint](common-expressions.md).
+and [common-expression checkpoint](common-expressions.md) validate their earlier
+revisions. The [sequencing checkpoint](statement-sequencing.md) validates the
+current source and proof inputs.
 
 ## Automatic completion and the external boundary
 
@@ -387,8 +395,9 @@ configuration's 10,000-step limit remains an explicit premise. Lean proves
 neither those solvers nor a universal bound on their work. Native experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
-The current expression and resource-policy evidence is in
-[common-expressions.md](common-expressions.md).
+Expression evidence is in [common-expressions.md](common-expressions.md);
+the subsequent [sequencing record](statement-sequencing.md) contains current
+application report-capacity and dense-assignment measurements.
 Solver effort can vary with source size and translation. These measurements do
 not prove completion for arbitrary SPARK, or a host-independent wall-clock bound.
 
@@ -425,8 +434,12 @@ the approved imports. No historical check total substitutes for coverage.
 ### Source-selected application policies
 
 `Uses_Arguments`, `Uses_Assignment` and `Uses_Output` have SPARK-proved refinements to
-the same grammar's selectors. The driver computes one `Application_Kind` and
-uses it consistently in report acceptance and build/publication prerequisites.
+the same grammar's selectors. The driver uses only the argument and assignment
+selectors to compute `Application_Kind`, then uses that kind consistently in
+report acceptance and build/publication prerequisites. `Uses_Output` currently
+has no driver consumer; each policy permits its recorded entity-set alternatives
+with or without a `Put_Line` entity. A genuine producer may omit that entity even
+when the source calls output.
 All output shells use `Complete_Application_Proof`; only null retains
 `Complete_Null_Proof`.
 
@@ -459,9 +472,11 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 "Put_Line" but not used after the call`, with NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
-A bare-Main report is allowed for no-call/static-elimination shapes, retaining
-all Main coverage, checks and dependency validation. Argument policies additionally
-permit exactly Main with First_Or_Default, Input_Is_Valid and Reject when Put_Line
+A bare-Main report may have an empty flow list and may contain proved safety
+checks and approved dependencies. Sequencing removed the earlier nonempty-flow
+and empty-proof/dependency conditions for that entity shape, while retaining
+complete Main coverage and validation of every emitted record. Argument policies
+additionally permit exactly Main with First_Or_Default, Input_Is_Valid and Reject when Put_Line
 is absent. Other accepted entity sets are the complete route-specific sets above;
 unknown, missing-within-a-set or duplicate entities remain rejected. Native tests
 use genuine reports and mutations; the Python evidence helper applies the same
