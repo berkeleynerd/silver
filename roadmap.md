@@ -35,6 +35,15 @@ expressions have passed their [complete checkpoint](docs/common-expressions.md).
 Statement sequencing and assignment are next proposed; remaining context/API
 closure is tracked below.
 
+The authorized narrow
+[interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
+for review M1 is complete, including the combined concrete model witness and
+accurate assurance wording. Existing source-correspondence checks remain intact
+and their caches were reused. For M2, add an admitted sibling when a negative
+admission rule is next touched, rather than converting the full suite now. Additional source pins,
+broader bridge/boundary witnesses, a diagnostic CLI and catalogue/history cleanup
+from the review remain deferred until the affected work needs them.
+
 ### Lean Critical Path
 
 The [latest completed desktop checkpoint](docs/copy-values.md#physical-linux-checkpoint)

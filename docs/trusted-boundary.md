@@ -596,8 +596,14 @@ the helper remains Silver-owned SPARK subject to complete native verification.
 `SourceBridge.CheckedSource` combines the byte, token, declaration, expression,
 catalogue and refinement checks. The recursive expression interpretation is
 parameterized by its callees. Applying the recursive uniqueness lemmas connects
-every interpretation satisfying the checked definition equations to membership;
-an explicit model satisfies those equations. These equations are a semantic
+every interpretation satisfying the checked definition equations to membership.
+The [review repair](common-expressions.md#external-review-of-9b72d36) supplies the
+composed witness missing at `9b72d36`: `Compose.Expressions.modelCalls` satisfies
+the original helper equations, independently proved range contracts and legal
+executed-call domains. `Compose.SourceBridge.model_interpreted` has no premises
+and inhabits their combined interface. This establishes consistency of that
+interface; correspondence for arbitrary actual callees still has the documented
+Ada/frontend interpretation premise below. These equations are a semantic
 interface, not project axioms or an assumption that membership implies proof
 success.
 

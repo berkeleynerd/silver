@@ -15,6 +15,7 @@ public import Silver.GuardedExamples
 public import Silver.AssignmentExamples
 public import Silver.BranchingExamples
 public import Silver.ComposeSourceBridge
+public import Silver.ComposeModel
 public import Silver.ComposeExamples
 
 -- Independent fragment and recursion lemmas retained in the whole-project audit.

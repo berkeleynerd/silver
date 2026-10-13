@@ -315,6 +315,12 @@ required correspondence. The checked chain has these distinct parts:
    checked source, helper interpretation and SPARK executable-refinement facts
    in its membership/selector theorems. The verified Step postcondition carries
    legal state bounds through recursive shell calls.
+   The downstream `ComposeModel` supplies a concrete inhabitant of this same
+   interface: `Compose.Expressions.modelCalls` satisfies all helper equations,
+   independently proved range contracts and executed lexical-call domains.
+   `Compose.SourceBridge.model_interpreted` has no premises. This closes the
+   composed interface's consistency gap; the existing arbitrary-callee theorems
+   still rely on the documented Ada/frontend interpretation boundary.
 6. `ComposeSemantics`, `ComposeDeclarations`, `ComposeGrammar` and `ComposeDecode` connect that grammar
    to canonical decoded programs satisfying all expression, initialization,
    assignment and guard bounds. `ComposeExecution`, `ComposeObligations` and

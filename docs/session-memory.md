@@ -1,5 +1,46 @@
 # Session memory
 
+## 2026-10-13 — Composed interpretation witness repair completed
+
+The authorized narrow repair of review M1 is complete. Based on review target
+`9b72d36015`, its implementation commit adds `proof/Silver/ComposeModel.lean`.
+The [repair record](common-expressions.md#external-review-of-9b72d36) contains the
+scope, independently reviewed proof structure, full cached Linux check and cache
+comparison. `Compose.SourceBridge.model_interpreted` has no premises and supplies
+the original combined equations, range contracts and legal-call domains. The
+physical Ada/frontend interpretation premise remains explicit.
+
+All existing source-certificate/source-check artifacts were reused. Native,
+tooling, tests, samples and catalogue inputs stayed unchanged; retained complete
+GNATprove evidence still matches. No repeated native proof/full-suite run or
+optional replay was needed. Prior evidence, failed attempts, isolated caches and
+the supplied review are preserved through `tmp/compose-witness-active.json`.
+
+M2's admitted/rejected pairs accompany admission rules when touched; extra pins,
+broader boundary witnesses, diagnostics and catalogue/history cleanup remain
+deferred. Statement sequencing is next proposed, without functional work begun.
+Publication authorization persists; Linux remains primary, Actions disabled and
+macOS proofs out of scope. No new harness goal was requested; historical Compose
+String Results remains complete. CLI recall tools remain unavailable; this
+checked-in memory was updated, but no CLI recall entry was written.
+
+## 2026-10-13 — Composed interpretation witness repair authorized
+
+After assessing the [external review of `9b72d36`](reviews/review-9b72d36.md),
+the owner narrowed the recommendation to the missing interpretation witness and
+accurate assurance wording, preserving iteration speed, then instructed completing
+it before further functional work. The [repair record](common-expressions.md#external-review-of-9b72d36)
+distinguishes the missing proof from an actual inconsistency or behavior defect.
+New proof modules should reuse the existing source-check/certificate cache.
+Accepted/rejected test pairs accompany admission rules when later touched;
+broader cleanup, extra pins and new diagnostics remain deferred.
+
+`tmp/compose-witness-active.json` records preserved evidence and isolated proof
+lanes. Keep native inputs, caches, scratch and the supplied report intact.
+Publication authorization persists; Linux is primary, Actions is disabled,
+replay is optional and macOS proofs remain out of scope. No new harness goal
+was requested; the historical Compose String Results goal remains complete.
+
 ## 2026-10-13 — Common String expressions completed
 
 The authorized common-expression increment is complete. The

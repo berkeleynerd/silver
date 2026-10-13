@@ -186,3 +186,75 @@ reused existing sessions and solver cache; this was not a cold proof measurement
 The final integration spent 912 seconds in `ComposeSourceChecks`, compared with
 1.2 seconds in its consuming `ComposeSourceBridge`. This source-fact work is a
 measured remaining cost; the completed certificate objects were already cached.
+
+## External review of `9b72d36`
+
+The [full Linux review](reviews/review-9b72d36.md) reports agreement between the
+native and Lean recognizers on 13,730 sources, successful GNAT checks on 466
+admitted sources, matching retained proof evidence, and a separate clean full
+suite run of 256 tests with no skips. These are reviewer results; they do not
+replace the original full-plus-focused test chronology above.
+
+M1 is independently confirmed: the composed correspondence theorems assume
+`InterpretedSource calls`, but the checkpoint did not construct its combined
+equation/contract/domain witness. This is missing consistency evidence, not a
+proof that the interface is inconsistent or that admitted behavior is wrong.
+The former unqualified model-witness wording was too broad.
+
+On 2026-10-13 the owner authorized the revised narrow repair before more
+functional work: construct the missing witness and state its assurance scope
+accurately. The repair is complete, based on `9b72d36015`; its implementation
+commit is the commit adding `proof/Silver/ComposeModel.lean`. The explicit
+`Compose.Expressions.modelCalls` dispatch satisfies all original helper equations,
+twelve independently proved range contracts, and the original legal-call domains.
+`Compose.SourceBridge.model_interpreted` has no premises. It supplies consistency
+evidence for the combined interpretation interface without replacing the
+Ada/frontend interpretation boundary for actual callees. No original theorem
+statement, native behavior, membership rule or resource bound changed.
+
+Six downstream proof modules separate concrete calls, range/progress proofs,
+recursive equations, the remaining equations, lexical domains and their final
+assembly. The existing proof facade imports the witness, so ordinary complete
+validation covers it. No extra source pins, runner infrastructure or obligatory
+replay were added.
+
+M2's accepted/rejected controls will accompany rules when they are touched;
+this proof-only task does not change admission rules or convert the full test
+suite. Additional source pins, broad boundary witnesses, diagnostic CLI work,
+catalogue/historical cleanup and other low findings remain deferred to ordinary
+development. No mandatory replay, new framework or functional increment is part
+of the repair.
+
+### Witness repair checkpoint
+
+One complete cached Linux check on pinned Lean 4.34.1 passed after the focused
+proof iterations: **120 modules, 34,297 declarations**, with only `propext`,
+`Classical.choice` and `Quot.sound`. Build time was **36.123 seconds**, the fresh
+whole-project audit **2.728 seconds**, and the complete runner **40.495 seconds**.
+The run used the existing all-core defaults (12 workers/12 threads on this
+12-CPU, 31-GiB sandbox). This is a cached integration timing, not a cold rebuild
+or an end-to-end development benchmark. Independent replay was not requested.
+
+All twelve source-certificate modules and `ComposeSourceChecks` retained their
+compiled bytes and timestamps. Of 338 preexisting `.olean`/sidecar artifacts,
+334 were completely unchanged; only the facade's three artifacts and the
+legacy audit's timestamp changed. Native, tooling, test, sample and catalogue
+inputs remained identical to the reviewed checkpoint; `check_evidence.py`
+confirmed the retained complete GNATprove evidence. No native proof or full
+test-suite rerun was needed for this proof-only repair. The separate reviewer
+256/256 test result remains attributed above.
+
+The range/domain and equation work used separate proof workspaces. Independent
+review found no circular assumptions, domain narrowing or weakened source
+claims; the root also inspected the range/progress and legality arguments.
+The supplied external review is preserved verbatim. Evidence, failed iterations,
+prior proof artifacts and all isolated caches remain under
+`.silver/linux-x86_64/compose-witness-20261013T185251Z/`; the recovery pointer is
+`tmp/compose-witness-active.json`. Key records are `lean-complete.log`,
+`lean-complete-evidence.json`, `lean-complete-result.json`, `cache-reuse.json`,
+`native-evidence-check.log` and `independent-review.md`.
+
+This completes the revised recommendation set. Statement sequencing remains
+next proposed functional work. Actions stays disabled; macOS proofs remain out
+of scope. Checked-in handoff/session memory is updated; CLI recall tools were
+unavailable, so no CLI memory entry was written.

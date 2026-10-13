@@ -6,7 +6,27 @@ Updated on 2026-10-13 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Current completed checkpoint
+## Latest completed work
+
+The authorized narrow [composed-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
+is complete, based on review target `9b72d36015`. The implementation commit is
+the commit adding `proof/Silver/ComposeModel.lean`. Its concrete witness satisfies
+the original combined equations, range contracts and legal-call domains without
+premises. Assurance wording retains the actual Ada/frontend interpretation
+boundary. The complete cached Linux Lean build and fresh audit passed; source
+certificates/source checks were reused and retained native evidence still matches.
+
+Recovery pointer: `tmp/compose-witness-active.json`. Preserve its prior evidence,
+canonical cache snapshot, isolated proof lanes, failed logs and supplied review.
+The canonical proof workspace is current and warm. Accepted/rejected controls
+will accompany admission rules when touched; broader review cleanup remains
+deferred in the roadmap. Native behavior and admission rules are unchanged.
+Statement sequencing is next proposed; no further functional work or new harness
+goal began. The historical Compose String Results goal remains complete.
+Publication remains authorized, Actions is disabled and macOS proofs are out of
+scope. CLI recall tools are unavailable; checked-in memory is updated.
+
+## Previous completed checkpoint
 
 **Common String expressions is complete**, authorized by the owner's “Proceed”
 and based on `7547b3d07d`. The [capability record](docs/common-expressions.md)
@@ -41,7 +61,7 @@ Publication authorization persists; Linux is primary, Actions is disabled and
 macOS proof work is out of scope. CLI recall tools were rechecked and remain
 unavailable; no CLI recall entry was written. Checked-in session memory is current.
 
-## Previous completed checkpoint
+## Shared-binding checkpoint
 
 **Declarations, names and copies is complete**, authorized by the owner's
 “Let's proceed with the next unit of work.” The
