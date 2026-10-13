@@ -6,29 +6,33 @@ Updated on 2026-10-13 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Active review follow-up
+## Completed review follow-up
 
 The owner authorized bounded cleanup of
 [review `9b99d52`](docs/reviews/review-9b99d52.md), before further functional work.
-Documentation corrections and focused regressions are complete; the
+Documentation corrections, focused regressions and both selected dense
+measurements are complete. The
 [capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 discloses dense compilation cost, precise report-policy changes, stack assumptions
-and the original checkpoint's test/cache scope. The static 800-assignment result
-has been corroborated, the 55 affected test methods passed without skips, and the
-sequencing sample passed six execution cases after a real compile.
+and the original checkpoint's test/cache scope. The static 800-assignment and
+argument-input 769-assignment results have been corroborated. Both complete
+reports fit the application buffer; the latter leaves 5.4% headroom. Earlier,
+the 55 affected test methods passed without skips, and the sequencing sample
+passed six execution cases after a real compile.
 
-**Pending: the reviewer owns the 769-assignment argument-input measurement.**
-The owner agreed to provide its result/program directory or update the report.
-Do not start a duplicate run. Corroborate and retain that result, then close the
-capacity follow-up and update its status. No compiler, library or Lean source
-changed in this cleanup; retained proof inputs still match and no blanket proof
-or suite rerun is needed for these docs/tests changes.
+The review's M1 is downgraded to low and the remaining disclosure is addressed.
+An admitted single-target 771-assignment variant remains uncompiled, so these
+measurements are not universal worst-case bounds. It is recorded for future
+capacity work, not an open run in this bounded follow-up. No compiler, library or
+Lean source changed; retained proof inputs still match. Neither long proof was
+repeated, and no blanket proof or suite rerun accompanied the documentation closure.
 
 Recovery: `tmp/sequencing-review-active.json`; evidence is under
 `.silver/linux-x86_64/sequencing-review-20261013T223033Z/`. Preserve both reviewer
 and local program directories, caches, scratch and prior records. The supplied
-review is retained verbatim as a snapshot; a later reviewer update must remain
-attributed to that review target. Publication remains authorized. The live
+reviewer update is retained verbatim. Its target remains `9b99d52`; it explicitly
+does not review cleanup commit `138c751` or the later documentation closure.
+Publication remains authorized. The live
 historical Compose String Results goal is complete; no new goal or language
 increment began. CLI memory tools remain unavailable; this handoff and checked-in
 session memory are updated.
@@ -47,8 +51,8 @@ The complete Linux native audit, build/catalogue checks, full test suite,
 actual-source correspondence and complete Lean build/fresh axiom audit passed.
 The capability record distinguishes the successful final checkpoint, reused
 artifacts, failed proof attempts, native capacity observations and remaining
-external solver/producer premises. The static dense case has since completed;
-the argument-input measurement is pending in the follow-up above.
+external solver/producer premises. The two selected dense cases have since
+completed; the follow-up above records their costs and remaining scope limits.
 
 Recovery: `tmp/sequencing-active.json`. The canonical `.silver/linux-x86_64/proof/`
 is the preferred completed warm cache. Preserve prior evidence, isolated lanes,

@@ -221,9 +221,13 @@ even if every statement is null or assignment.
 Compilation cost can be substantial even without concatenation: a 4096-byte
 program containing 800 assignments proved in 36.4 minutes with 8.89 GiB peak
 process-group memory on the reviewer's Linux sandbox. Its Main report was
-1,734,274 bytes of the 2 MiB application capacity. These are observations for
-that program and host, not worst-case bounds. The densest argument-bearing case
-is being measured separately in the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
+1,734,274 bytes of the 2 MiB application capacity. A 4095-byte argument-input
+program with 769 assignments proved in 49.5 minutes with 9.99 GiB peak
+process-group memory. Its 1,983,843-byte report leaves 113,309 bytes (5.4%) of
+headroom. These are observations for those programs and host, not worst-case
+bounds; an admitted 771-assignment variant remains uncompiled. The
+[capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
+records the measured shapes, results and their limits.
 Sufficient host resources and pinned-tool completion remain operational premises;
 failed compilation of admitted source is still a defect, never nonmembership.
 

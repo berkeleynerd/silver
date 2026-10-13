@@ -34,12 +34,13 @@ also passed their [complete checkpoint](docs/shared-bindings.md). Common String
 expressions have passed their [complete checkpoint](docs/common-expressions.md).
 The owner authorized [statement sequencing and assignment](docs/statement-sequencing.md)
 on 2026-10-13. Its complete native/Lean checkpoint passed, including repeated-output
-effect composition. The owner has authorized the bounded follow-up to
-[review `9b99d52`](docs/reviews/review-9b99d52.md): correct current documentation,
-add focused regressions for the touched rules, and resolve the recorded dense
-assignment measurements. This work precedes the next proposed language increment,
-**Equality, guards and branches**. It starts no new language goal; remaining
-predicate/context/API closure is tracked below.
+effect composition. The authorized bounded follow-up to
+[review `9b99d52`](docs/reviews/review-9b99d52.md) is also complete: current
+documentation and focused regressions are repaired, and both selected dense
+assignment measurements passed. Their [capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
+discloses costs, report headroom and the uncompiled 771-assignment variant.
+**Equality, guards and branches** is next proposed. No new language goal has
+begun; remaining predicate/context/API closure is tracked below.
 
 The authorized narrow
 [interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
@@ -186,7 +187,7 @@ complete assurance and validation described below.
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 5. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
-| Dense proof cost and unresolved report capacity | 3: expressions; 4: sequencing; 6: output effects | The historical common-expression checkpoint used a 262,144-byte report buffer. Sequencing probes justified a separate 2 MiB application buffer. The external review subsequently completed the static 800-assignment case within it; the earlier interrupted runs remain incomplete observations. The dynamic maximum is still being measured in the authorized bounded follow-up. Exact results and resource costs belong in the [sequencing record](docs/statement-sequencing.md); complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
+| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs and the admitted but uncompiled 771-assignment variant. Reconsider that variant and the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 

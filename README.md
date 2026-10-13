@@ -92,9 +92,11 @@ remain future work. See [language.md](language.md) for exact rules.
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
 process-group memory**, producing a 1,734,274-byte Main report within the 2 MiB
-buffer. Expression limits do not cap assignment-driven proof work. This is a
-measured case, not a worst-case bound; the densest argument-bearing case is still
-being measured. See the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
+buffer. A 4095-byte argument-input program with 769 assignments took **49.5 minutes
+and 9.99 GiB**, producing a **1,983,843-byte** report with **113,309 bytes (5.4%)**
+of headroom. Expression limits do not cap assignment-driven proof work. These
+measurements are not worst-case bounds; an admitted 771-assignment variant remains
+uncompiled. See the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of

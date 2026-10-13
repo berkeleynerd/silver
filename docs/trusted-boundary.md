@@ -587,9 +587,11 @@ the runtime capacity stays 262,144 bytes. Faithful complete producer reports
 fitting that envelope remain an explicit tool premise, not a proved JSON-size
 or solver-time bound. The initial dense 800-assignment run was externally stopped
 before report generation; the external review subsequently completed that static
-case within the application report buffer. Its measured translation cost and
-memory use, and the pending dynamic-case measurement, are recorded in the
-[sequencing record](statement-sequencing.md). An interrupted experiment establishes
+case within the application report buffer. The subsequent 769-assignment
+argument-input case also completed, using 94.6% of that buffer with 5.4% headroom.
+Their measured translation cost and memory use, and an admitted but uncompiled
+771-assignment variant, are recorded in the [sequencing record](statement-sequencing.md).
+Neither completed case establishes a universal worst-case bound. An interrupted experiment establishes
 neither solver failure nor measured capacity. No statement/output-count
 restriction is inferred from those interruptions.
 Native boundary experiments

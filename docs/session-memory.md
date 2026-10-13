@@ -1,5 +1,37 @@
 # Session memory
 
+## 2026-10-13 — Sequencing capacity follow-up completed
+
+The owner supplied the completed 769-assignment argument-input result and
+authorized retaining the updated [review of `9b99d52`](reviews/review-9b99d52.md)
+with the documentation fixes. The review is preserved verbatim and explicitly
+does not cover the later `138c751` cleanup. Its M1 is now low; both selected
+dense completion measurements are recorded, and the remaining disclosure is
+addressed. The [capacity record](statement-sequencing.md#external-review-and-capacity-follow-up)
+contains timings, memory, report margin, attribution and retained artifact paths.
+
+The argument-input source, complete reports, selected library identity and four
+executable cases were corroborated without another proof run. Earlier static
+evidence, focused regression results and caches are preserved. No source, policy,
+language limit, Oracle or proof input changed; the existing complete proof evidence
+still matches. Documentation links/consistency and whitespace were checked.
+
+The 769-assignment measurement is the maximum for its alternating-target shape,
+not a universal densest-program bound. A 771-assignment single-target variant is
+admitted but uncompiled; its projected report size remains an estimate. The roadmap
+retains it for future producer/report-format or admitted-fragment capacity work,
+without another long run in this bounded task. The external producer/completion
+premises remain explicit. The older pending entry below is now historical.
+
+Recovery is `tmp/sequencing-review-active.json`. Preserve both reviewer program
+directories, their evidence copies, the updated report and all caches/scratch.
+Git identifies this documentation closure separately from implementation/review
+target `9b99d52b447a65` and cleanup `138c751c1d`. Equality, guards and branches is
+next proposed; no further functional work or new harness goal began. The live
+historical Compose String Results goal remains complete. Publication remains
+authorized, Actions disabled and macOS proofs out of scope. CLI memory tools were
+rechecked and remain unavailable; checked-in session memory and RESUME are updated.
+
 ## 2026-10-13 — Sequencing review cleanup; dynamic capacity pending
 
 The owner authorized the bounded response to

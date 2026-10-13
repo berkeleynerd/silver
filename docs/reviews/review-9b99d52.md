@@ -15,6 +15,11 @@ everything after the last review (`9b72d36`): 2 commits, 84 files,
   rewritten recognizer and report policies; a 2 MiB application report buffer;
   the sample `samples/statement_sequence.adb`.
 
+A later commit, `138c751` ("Document sequencing costs and close focused review
+gaps"), landed during this review's final completion run. It records the
+800-assignment result and touches files named in several findings below. It
+is not reviewed here: the findings describe `9b99d52`.
+
 Hand-written Lean changed by +5,225/−387 lines (`Sequence*` +3,874,
 `ComposeModel*` +1,105), generated certificates by +10,990/−9,115, SPARK by
 +430/−461, tests by +298/−54, documentation by +1,405/−384 (631 of them the
@@ -24,13 +29,16 @@ written under `tmp/`.
 
 ## 0. Verdict
 
-**No blocker or high finding. One medium finding: dense-assignment programs,
-now admitted without any count, carry a steep proof cost that the user-facing
-specification does not disclose, and the report fit of the densest dynamic case
-is unmeasured. The maximal static case does prove: this review ran it to
-completion in 36 minutes at 8.9 GiB. This is a completeness and
-resource-disclosure gap, not unsoundness. The previous review's M1 is genuinely
-repaired, and that class of gap does not recur in the new sequencing bridge.**
+**No blocker, high or medium finding remains open. The reviewers raised one
+medium (M1: dense-assignment programs, now admitted without any count, with no
+demonstrated proof completion). This review's two completion runs resolve it to
+a low-severity disclosure gap. The densest static and argument-input programs
+both prove, in 36 and 50 minutes at 8.9 and 10.0 GiB, and their reports fit the
+2 MiB buffer at 82.7% and 94.6%. What remains is disclosure: users are not told
+that a valid 4 KB program can need about 50 minutes and 10 GiB, one
+specification sentence is wrong, and the capability record still calls the
+maximal case unmeasured. The previous review's M1 is genuinely repaired, and
+that class of gap does not recur in the new sequencing bridge.**
 
 **What works.**
 
@@ -114,11 +122,13 @@ repaired, and that class of gap does not recur in the new sequencing bridge.**
 
 **What needs attention**, in order:
 
-1. **Dense assignment (M1)** is an owner decision. The maximal static case
-   proves in 36 minutes at 8.9 GiB. Measure the dynamic argument-shell
-   maximum, whose report projects to 94% of the buffer. Then either disclose
-   the cost as a user-facing premise or adopt a purpose-documented proof-work
-   budget. In every case correct `language.md:166-168`.
+1. **Dense-assignment disclosure (M1, resolved to low).**
+   - Record this review's two completion runs in the capability record.
+   - Disclose the cost envelope in `language.md` and `README.md`: about 50
+     minutes and 10 GiB for the densest 4 KB program, and reports up to about
+     95% of the buffer.
+   - Correct `language.md:166-168`.
+   - A purpose-documented proof-work budget remains the owner's alternative.
 2. **Report-policy wording and the unused `Uses_Output` (L1).** Two sentences
    in the capability record and assurance misdescribe the policy change.
 3. **The M2 follow-through is partial (L3).** Six touched rules have no
@@ -149,7 +159,7 @@ repaired, and that class of gap does not recur in the new sequencing bridge.**
   - analysed the chronology of the full-test record;
   - scanned every intra-repository anchor;
   - checked the deferral records;
-  - ran the 800-assignment compile in the background (§4).
+  - ran the 800- and 769-assignment compiles in the background (§4).
 - **Multi-agent review.** Nine read-only reviewers, all on Opus 5.5, each with
   one lens:
   - Lean trust and the witness;
@@ -171,8 +181,8 @@ repaired, and that class of gap does not recur in the new sequencing bridge.**
 - **Owner's no-routine-rerun rule.** Every agent was bound by it: no Lean
   build, `check_lean.py`, `dev.py prove`, full suite or replay. Only targeted
   `silver check`/`compile`/`run` probes, GNAT `-gnatc`, read-only Lean probe
-  files and single test methods were run. The one long run, the 800-assignment
-  compile, was approved by the owner as research into M1.
+  files and single test methods were run. The two long runs, the 800- and
+  769-assignment compiles, were approved by the owner as research into M1.
 - **Cost.** About 0.75M output tokens: reviewers 0.51M, verifiers 0.10M, lead
   0.15M. About 105M cache reads and about 60 minutes of wall-clock time,
   plus the background compile.
@@ -188,103 +198,111 @@ repaired, and that class of gap does not recur in the new sequencing bridge.**
 | Generated certificates | Byte-identical to regeneration from HEAD `src/` (`test_checked_in_certificates_equal_regeneration`, in the subset above). |
 | Catalogue | `silver catalogue` equals `catalogue/silver.json` as JSON: 24 constructs and 4 compositions, matching the 24 identifiers in the `language.md` capability table. The previous review's L9 (stale `count` fields) is fixed. |
 | Compiler binary | `.silver/linux-x86_64/compiler/bin/silver` (`1f71293c…`) was built at 19:58 from sources identical to HEAD, and every probe used it. The implementer's 2,083-source differential used an earlier binary (`3fb56e8a…`); the only source change after it is the report checker. |
-| Maximal dense assignment (M1) | The implementer's 4,096-byte, 800-assignment source under production options, run by the lead: **proved**. 2,184.9 s; peak 8.89 GiB; 844 checks; report 1,734,274 B (82.7% of the 2 MiB buffer); the executable exits 0. |
+| Maximal dense assignment (M1) | Both run by the lead under production options and both **proved**. Static (the implementer's 800-assignment, 4,096-byte source): 2,184.9 s, peak 8.89 GiB, 844 checks, report 1,734,274 B (82.7% of the 2 MiB buffer). Argument-input (769 assignments, 4,095 bytes): 2,972.1 s, peak 9.99 GiB, 813 checks, report 1,983,843 B (94.6%). Both executables behave as specified. |
 | Oracle | `oracle.md` and `AGENTS.md` are unchanged since `9b72d36`. |
 
 ## 3. Findings
 
-### 3.1 Medium
+### 3.1 Medium (resolved to low)
 
-**M1. Dense-assignment programs are admitted with a steep, undisclosed proof
-cost, and the densest dynamic case is unmeasured.** (Introduced by `9b99d52`.
-Raised independently by three reviewers. The verifier upheld it at medium
-before the lead's completion run, which narrows it.)
+**M1. Dense-assignment programs are admitted with a steep proof cost that is
+not disclosed.** (Introduced by `9b99d52`. Raised independently by three
+reviewers and upheld at medium. This review's two completion runs, approved by
+the owner, resolved it to low: the densest admitted cases prove and fit.)
 
 - **What is admitted.** There is no statement, assignment or proof-work
   count. `language.md:213` says "There is no separate statement or
   output-count limit", and `README.md:87` says the same. The recognizer has no
   counter (`src/silver_output_profile.adb:836-868`). At `3c1522f` each body
   shape allowed one assignment: "additional statements and repeated output
-  remain excluded" (`language.md:236-237` there). `silver check` admits the
-  implementer's 4,096-byte `native-probes/max-assignments/main.adb`, which is
-  800 assignments of the form `A:=B;B:=A;…`.
-- **Measured cost.** Static shell, `A:String:="x";B:String:=A;` followed by N
-  assignments. Other compiles were running at the same time, so the timings
-  are observations, not cold bounds. The lead's 800-assignment run overlapped
-  other work only in its first eight minutes.
+  remain excluded" (`language.md:236-237` there).
+- **Measured cost.** Other compiles were running alongside the smaller probes,
+  so their timings are observations, not cold bounds. The lead's two maximal
+  runs overlapped other work only in the first eight minutes of the first run;
+  the second ran alone.
+
+  Static shell (`A:String:="x";B:String:=A;`, then N assignments
+  `A:=B;B:=A;…`; the 800 case is the implementer's
+  `native-probes/max-assignments/main.adb`):
 
   | Assignments | Source | Result |
   | --- | --- | --- |
   | 100 | 596 B | proved; 46.1 s; 0.45 GiB; report 218,633 B |
-  | 200 | 1,096 B | proved; 179.8 s; 434,348 B |
-  | 400 | 2,096 B | proved; 633.7 s; 2.33 GiB; 400 length checks; 867,112 B |
-  | 800 | 4,096 B | **proved (lead): 2,184.9 s (36.4 min); peak 8.89 GiB, reached within 10 min and flat afterwards; 844 checks, including 800 length checks; report 1,734,274 B; executable exits 0.** Earlier attempts were stopped at 180.5 s (implementer, 8.16 GiB) and 905.2 s (reviewer, 8.88 GiB). |
+  | 200 | 1,096 B | proved; 179.8 s; report 434,348 B |
+  | 400 | 2,096 B | proved; 633.7 s; 2.33 GiB; 400 length checks; report 867,112 B |
+  | 800 | 4,096 B | **proved (lead): 2,184.9 s (36.4 min); peak 8.89 GiB; 844 checks, including 800 length checks; report 1,734,274 B (82.7%); executable exits 0.** Earlier attempts were stopped at 180.5 s (implementer, 8.16 GiB) and 905.2 s (reviewer, 8.88 GiB). |
 
-  - **Scaling.** Time grows with an exponent of about 1.9 between 100 and 400
-    assignments, and about 1.8 between 400 and 800. Peak memory goes from
-    0.45 GiB (100) to 2.33 GiB (400) to 8.89 GiB (800).
+  Argument-input shell (`D:constant String:=Silver_Arguments.First_Or_Default("w");X:String:=D;Y:String:=X;`,
+  then N assignments `X:=Y;Y:=X;…` inside
+  `if Silver_Arguments.Input_Is_Valid then … else Silver_Arguments.Reject;end if;`;
+  each assignment carries a dynamic length check and an unused-assignment
+  advisory):
+
+  | Assignments | Source | Result |
+  | --- | --- | --- |
+  | 100 | 750 B | proved; 60.2 s; 0.46 GiB; report 261,230 B |
+  | 769 (maximum for this shape) | 4,095 B | **proved (lead): 2,972.1 s (49.5 min); peak 9.99 GiB; 813 checks, including 769 length checks, plus 771 unused-assignment advisories; report 1,983,843 B (94.6%). The executable exits 0 with no argument, with a valid argument and with an empty argument, and exits 1 with two arguments.** |
+
+  - **Scaling.** Time grows with an exponent of about 1.9 in both shapes
+    (1.8 from 400 to 800 static assignments).
+  - **Memory.** Peak memory reaches 8.9–10.0 GiB at the maxima. In both long
+    runs it was reached within the first 10–15 minutes and stayed flat
+    afterwards.
   - **Where the time goes.** In the 400-assignment case, `gnatwhy3`
     transformations dominate: `schedule_vcs` 205 s, `introduce_premises` 72 s,
     `inline_trivial` 65 s, `simplify_formula` 56 s. That compares with 165 s
     across 3,600 solver attempts. Neither the 10,000-step limit nor the
     solver-completion premise (`assurance.md:386`) bounds this cost.
-  - **Dynamic variant.** The argument-shell dynamic variant is denser: 100
-    assignments took 60.2 s, at about 2,547 report bytes per assignment.
 - **Report envelope.**
-  - **Static maximum (measured).** The 800-assignment report is 1,734,274
-    bytes, 82.7% of 2,097,152, within 0.15% of the linear projection from the
-    smaller runs. That validates the model.
-  - **Dynamic maximum (unmeasured).** The argument-shell form (769
-    assignments, about 2,547 bytes each) projects to about 1.97 MB, 94% of the
-    buffer. That projection rests on a single 100-assignment data point.
-  - **Overflow.** It is rejected safely with exit status 3. That would still
-    be a rejection of a valid program.
-- **Why it matters.**
-  - **The Oracle.** `oracle.md:1`: "A program expressed as valid Silver can
-    never be rejected. If it compiles, it proves." `:14`: "Rejection or proof
-    failure of a valid Silver program is an implementation defect". `:19`:
-    resource limits "must be explicit, with their purpose documented".
-  - **The project's own gate.** The project made this conditional itself.
-    `docs/restrictions-capacity.md:262-266` says "a follow-up tied to the
-    corresponding implementation must establish both practical proof
-    completion and complete report capacity". `statement-sequencing.md:26-27`
-    requires native capacity experiments to "justify any necessary
-    report-buffer adjustment before the larger fragment is called supported";
-    the 2 MiB buffer was justified by measurement, but not for the densest
-    admitted cases. This review's run meets the static half of that gate, but
-    the project has not recorded it. The dynamic half (report capacity, with a
-    projected 6% margin) is open. The capability is nevertheless declared
-    "complete and supported" (`statement-sequencing.md:5`), while the same
-    record still describes the maximal case as an "incomplete measurement"
-    stopped at 180 s and its cost as an "explicit limitation" (`:100-103`).
-  - **The user-facing spec is silent, and partly wrong.** The only premise
-    covering elapsed time and memory is the generic "sufficient resources"
-    (`assurance.md:396`; `trusted-boundary.md:556-557`). Meanwhile
-    `language.md:166-168` still says the sixteen-leaf and thirty-operator
-    limits "control native proof/translation and report growth". That is no
-    longer true of total growth: 800 assignments use no operators. Nowhere is
-    a user told that a valid 4 KB program can need about 36 minutes and 9 GiB
-    to compile.
-- **What it is not.** It is not unsound, and the maximal static program
-  proves. Nothing unproved is accepted. The remaining risks are a long or
-  memory-heavy compile, and a safe rejection if a dynamic report overflows.
-- **Severity.** Medium, because the open gap concerns a possible rejection of
-  valid programs with a thin projected margin, and the resource behaviour is
-  undisclosed. It drops to low once the dynamic maximum is measured inside the
-  buffer and the cost is documented.
-- **Recommendation.** An owner decision, one of:
-  - (a) record this review's 800-assignment result, or reproduce it. Then
-    run the dynamic argument-shell maximum (769) to completion under
-    production options, and record time, peak memory and report size;
-  - (b) disclose the measured cost envelope in `language.md` and `README.md`
-    as a resource premise, and reconcile that with the gate in
-    `restrictions-capacity.md`;
-  - (c) adopt an explicit proof-work budget for assignments, with its purpose
-    documented and derived from measured cost. The Oracle permits explicit
-    resource limits with a stated purpose; the owner excluded only arbitrary
-    call caps.
-
-  In every case, correct `language.md:166-168`.
+  - **Static maximum.** 1,734,274 bytes, 82.7% of 2,097,152. That is within
+    0.15% of the linear projection from the smaller runs.
+  - **Argument-input maximum.** 1,983,843 bytes, 94.6%, leaving a margin of
+    113,309 bytes (5.4%). That is 0.95% above the single-point projection.
+  - **A denser single-target variant.** `X:String:=D;` followed by 771 copies
+    of `X:=D;` is 4,093 bytes and is also admitted. It projects to about
+    1,988,937 bytes (94.8%); this was not measured.
+  - **Densest pattern.** No admitted shape the reviewers found produces more
+    report bytes per source byte than dense dynamic assignment. For comparison,
+    4 KB of outputs gives 314,746 B and 4 KB of choices 510,739 B.
+  - **Overflow.** It would be rejected safely, with exit status 3. The thin
+    margin rests on the documented pinned-producer premise: a change in
+    producer or format could cross it.
+- **Why it still matters.**
+  - **The core guarantee now holds.** `oracle.md:1` ("valid Silver can never
+    be rejected. If it compiles, it proves") and `:14` are demonstrated for the
+    densest cases on the reference sandbox.
+  - **Disclosure is missing.** `oracle.md:19` requires resource limits to be
+    "explicit, with their purpose documented". No user-facing document states
+    the time, memory or report margin. The only premise covering them is the
+    generic "sufficient resources" (`assurance.md:396`;
+    `trusted-boundary.md:556-557`).
+  - **The gate is met but not recorded.**
+    `docs/restrictions-capacity.md:262-266` makes removing statement
+    restrictions conditional on "both practical proof completion and complete
+    report capacity". This review's runs supply both for the densest static
+    and argument-input shapes. The project has not recorded them: its
+    capability record still lists the maximal case as an "incomplete
+    measurement" stopped at 180 s, with its cost an "explicit limitation"
+    (`statement-sequencing.md:100-103`).
+  - **One spec sentence is wrong.** `language.md:166-168` still says the
+    sixteen-leaf and thirty-operator limits "control native proof/translation
+    and report growth". That is not true of total growth: 800 assignments use
+    no operators.
+- **Severity.** Low, down from medium. The evidence gap is closed. What
+  remains is disclosure, one wrong specification sentence and a stale record.
+  Nothing is unsound, both maxima prove, and nothing unproved is accepted.
+- **Recommendation.**
+  - Record both completion runs in `statement-sequencing.md`: sources,
+    options, time, peak memory and report sizes. They replace the "incomplete
+    measurement" row.
+  - Disclose the cost envelope in `language.md` and `README.md`. For example:
+    "the densest admitted 4 KB programs need about 50 minutes and 10 GiB on
+    the reference sandbox, and their reports use up to about 95% of the 2 MiB
+    application buffer".
+  - Correct `language.md:166-168`.
+  - If that cost is unacceptable, the owner's alternative is an explicit,
+    purpose-documented proof-work budget. The Oracle permits explicit resource
+    limits with a stated purpose; only arbitrary call caps were excluded.
 
 ### 3.2 Low
 
@@ -598,7 +616,8 @@ before the lead's completion run, which narrows it.)
 | Output failure | `LD_PRELOAD` shim failing `putchar` #1 or #20 or `fflush` at each call, closed stdout and `/dev/full`: exit status 1, later output present, non-prefix traces as specified. |
 | Compile probes (about twenty) | All proved and ran as specified. Examples: sample (9.0 s); 25 choices and 100 assignments (38 s); 117 choices (307 s, 1.05 GiB, 510,739 B report); 56 output choices (11.1 s); 253 declarations (11.1 s); 30 dynamic concatenations (43.2 s); 664 unused assignments (12.1 s); Standard-name hiding with run. |
 | Dense assignment (§3.1) | 100: 46 s; 200: 180 s; 400: 634 s / 2.33 GiB; 800: stopped at 180 s (implementer) and at 905 s / 8.88 GiB (reviewer). |
-| Dense assignment to completion (lead) | 800 assignments: exit status 0 after 2,184.9 s. Peak process-group RSS 8.89 GiB, reached by 10 min and flat afterwards. 844 checks proved (823 run-time checks via Z3). Report 1,734,274 B. The executable exits 0. The run overlapped other agents only in its first 8 minutes. |
+| Dense assignment to completion (lead), static | 800 assignments: exit status 0 after 2,184.9 s. Peak process-group RSS 8.89 GiB, reached by 10 min and flat afterwards. 844 checks proved (823 run-time checks via Z3). Report 1,734,274 B. The executable exits 0. The run overlapped other agents only in its first 8 minutes. |
+| Dense assignment to completion (lead), argument-input | 769 assignments, 4,095 bytes; the generator reproduces the reviewer's 100-assignment probe byte for byte. Exit status 0 after 2,972.1 s, run alone. Peak RSS 9.99 GiB, reached by 15 min and flat afterwards. 813 checks proved (792 run-time checks via Z3); 769 `VC_LENGTH_CHECK`; 771 `INEFFECTIVE` advisories. Report 1,983,843 B, margin 113,309 B. The executable exits 0 for no argument, `hello` and `""`, and exits 1 for two arguments. A single-target variant with 771 assignments (4,093 B) is admitted, but was not compiled. |
 | Stack (L2) | `ulimit -s 2048`: `hello_world.adb` and `null.adb` print `Accepted: silver.` and then `STORAGE_ERROR`, exit status 1. |
 | Lean probes | Premise-free `executable_pipeline` instantiation; `#print axioms` on about 40 theorems (standard three only); kernel-checked `Sequence.Member` for `samples/statement_sequence.adb` and a static two-choice source; all 144 canonical traces checked against HEAD. |
 
@@ -644,9 +663,10 @@ findings" as a group.
 ## 6. Side effects and state
 
 - **New:** `.silver/program-*` directories from probe compiles (including two
-  created by the `ulimit` stack probes, which crashed before proof) and from
-  the background dense-assignment run. Scratch is in the session scratchpad
-  only.
+  created by the `ulimit` stack probes, which crashed before proof). The two
+  dense-assignment runs left `program-XN9AGm` (800 assignments) and
+  `program-5Wsxlx` (769 assignments) under `.silver/linux-x86_64/`. Scratch is
+  in the session scratchpad only.
 - **Unchanged:** tracked files, `.tools/`, `.silver/linux-x86_64/proof`, the
   evidence directories, `tmp/`, and the Git refs and index.
 - This report is untracked and uncommitted.
@@ -665,6 +685,7 @@ git ls-remote https://github.com/berkeleynerd/silver.git refs/heads/main
 # Proof/evidence-reading tests at HEAD
 python3 -m unittest tests.test_lean_source tests.test_lean_modules tests.test_lean_evidence \
   tests.test_evidence tests.test_proof_provenance tests.test_platforms tests.test_argument_bounds
-# Maximal dense assignment (capped at 2 h, 20 GiB)
-silver compile native-probes/max-assignments/main.adb   # via a group-RSS sampling harness
+# Maximal dense assignment (each capped at 2 h and 20 GiB, sampled group RSS each second)
+silver compile native-probes/max-assignments/main.adb   # static, 800 assignments
+silver compile dynassign769.adb                          # argument input, 769 assignments
 ```

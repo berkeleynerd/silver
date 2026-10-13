@@ -88,9 +88,11 @@ remain explicit in [trusted-boundary.md](trusted-boundary.md).
 
 The Linux sandbox exposes 12 CPUs, about 31 GiB RAM and no swap. It uses the
 pinned local GNATprove toolchain and Lean 4.34.1. Available physical RAM on the
-owner's machine is not the sandbox's allocation. Probe commands use production
+owner's machine is not the sandbox's allocation. Original probe commands use production
 application proof options plus a separate exploratory output/cache directory.
 They are timed observations with cache reuse permitted, not cold bounds.
+The later dense completion runs used `silver compile` with its production options;
+their time and memory figures are attributed to the external reviewer.
 
 | Source | Proof result/time | Main report |
 | --- | --- | --- |
@@ -100,12 +102,14 @@ They are timed observations with cache reuse permitted, not cold bounds.
 | Assignment/self-copy without output | Passed, 2.01 s | Main-only, one length check |
 | 4096-byte source, 175 output calls | Passed, 2.51 s | 314,746 bytes; 696 ghost-output advisories |
 | 4096-byte source, 60 assignments, 160 outputs, 30 concatenations | Passed, 92.59 s | 469,246 bytes; 60 length and 30 range checks, 636 ghost-output advisories |
-| 4096-byte source, 800 assignments | Externally stopped after 180.49 s | No completed report; about 8.16 GiB sampled peak process-group RSS |
+| 4096-byte static source, 800 assignments | Passed, 2,184.9 s; 8.89 GiB peak process-group RSS | 1,734,274 bytes (82.7%); 844 checks, including 800 Main length checks |
+| 4095-byte argument-input source, 769 assignments | Passed, 2,972.1 s; 9.99 GiB peak process-group RSS | 1,983,843 bytes (94.6%); 813 checks, including 769 Main length checks |
 
-The last row records the original interrupted measurement, not a solver failure.
-The subsequent [external follow-up](#external-review-and-capacity-follow-up)
-completed that static case. Dense assignment cost and the complete producer
-envelope remain explicit limitations.
+The original 800-assignment attempt was externally stopped after 180.49 seconds,
+before a report, with about 8.16 GiB sampled peak process-group RSS. It remains
+an incomplete historical observation, not a solver failure. The
+[external follow-up](#external-review-and-capacity-follow-up) completed both dense
+shapes above; the full producer envelope remains an explicit premise.
 The output/mixed results demonstrate an actual overflow of the earlier 256 KiB
 application capacity, so application reports now use 2 MiB while runtime reports
 retain 256 KiB. The driver accepts an exactly 2 MiB report and rejects one byte
@@ -231,8 +235,12 @@ this capability.
 The owner authorized a bounded response to the
 [external review of `9b99d52`](reviews/review-9b99d52.md): measure the dense cases,
 correct evidence and current-language wording, and add focused regressions.
-Compiler, library and Lean proof inputs remain unchanged. Nested branches and
-other functional work have not begun.
+This bounded follow-up is complete. Documentation/test repairs were published
+in `138c751c1d`; the subsequent reviewer update supplies the argument-input
+measurement and downgrades M1 to low. That review still targets `9b99d52`, and
+does not review `138c751` or this documentation closure. Compiler, library and
+Lean proof inputs remain unchanged. Nested branches and other functional work
+have not begun.
 
 The reviewer completed the original **4096-byte, 800-assignment static source**:
 all **844 checks** passed, including 800 Main length checks; its executable exits
@@ -244,29 +252,52 @@ results, native admission and executable outcome were independently corroborated
 without repeating the long proof. Timing and RSS remain reviewer-attributed.
 The original `.silver/linux-x86_64/program-XN9AGm/` is preserved.
 
-**The 769-assignment argument-input case is pending.** The reviewer owns its
-production-options run with a two-hour observation cap; no duplicate run was
-started here. Its result, report size and program directory must be corroborated
-before this capacity follow-up is closed. Exceeding the report buffer or failing
-to prove admitted source would remain an implementation defect, not grounds to
-call that source a nonmember. The pinned producer's complete-report envelope
-and external-tool completion assumptions remain explicit in
-[trusted-boundary.md](trusted-boundary.md).
+The **4095-byte, 769-assignment argument-input source** also completed: **813
+checks**, including 769 Main length checks, plus 771 classified advisories
+(769 unused assignments and two ineffective initializers).
+The reviewer reports **2,972.1 seconds (49.5 minutes)** and **9.99 GiB
+peak process-group RSS**, running alone. Its **1,983,843-byte** Main report uses
+94.6% of the 2 MiB buffer and leaves **113,309 bytes (5.4%)**. The retained source,
+complete reports, library identity and executable behavior were corroborated:
+no argument, `hello` and an empty argument each exit 0; two arguments exit 1;
+all four cases have empty output. The original
+`.silver/linux-x86_64/program-5Wsxlx/` is preserved. No duplicate proof run was
+started. Commit `138c751` landed during the reviewer's run but changed only docs
+and tests; the compiler and proof inputs remained unchanged.
+
+These runs close the selected measurement gap for the static alternating `A`/`B`
+and argument-input alternating `X`/`Y` shapes. They do not establish a universal
+maximum: the reviewer also admitted a **4093-byte, 771-assignment** variant with
+one mutable target repeatedly assigned from the immutable input, but did not
+compile it. Its projected 94.8% report utilization is an estimate, not evidence
+of completion or measured capacity. No further dense run is required for this
+bounded follow-up. Preserve this unmeasured variant when reconsidering capacity
+for a producer, report-format or admitted-fragment change.
+
+Exceeding the report buffer or failing to prove admitted source would remain an
+implementation defect, not grounds to call that source a nonmember. The pinned
+producer's complete-report envelope and external-tool completion assumptions
+remain explicit in [trusted-boundary.md](trusted-boundary.md).
 
 Follow-up evidence lives in
 `.silver/linux-x86_64/sequencing-review-20261013T223033Z/`, with recovery pointer
 `tmp/sequencing-review-active.json`. `static-capacity-verification.json` binds the
 retained static source, reports and executable; `static800-retained/` preserves
-their copies. The retained complete Lean input digest and native proof provenance
+their copies. `dynamic-capacity-verification.json` and `dynamic769-retained/`
+record and preserve the argument-input evidence. Timing, RSS and original
+concurrency observations remain reviewer-attributed. The retained complete Lean
+input digest and native proof provenance
 still match the current proof/native inputs. No new full audit, complete suite or
 Lean run is claimed for these documentation/test changes.
 
 Review dispositions:
 
-- **M1:** static maximum completion is now recorded and compilation cost is
-  disclosed in README and the language specification. Dynamic capacity remains
-  pending. Expression/operator budgets are no longer described as controlling
-  whole-program proof growth. No assignment cap was added.
+- **M1:** both measured dense cases are recorded and compilation cost/report
+  headroom is disclosed in README and the language specification. The review
+  downgraded the finding to low; the selected disclosure work is now addressed.
+  Expression/operator budgets were already corrected in `138c751` and are not
+  described as controlling whole-program proof growth. No assignment cap was
+  added; the uncompiled variant and universal producer premise remain explicit.
 - **L1–L2:** policy changes, the unused output selector, validated 8 MiB stack
   configuration and possible resource exceptions are documented. A focused
   report fixture covers exactly the argument callees without output and rejects
