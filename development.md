@@ -40,6 +40,15 @@ Prefer a small capability motivated by a sample. Closely coupled syntax may
 arrive together. Do not add extra operations solely to create intermediate
 examples, or turn every anticipated infrastructure component into a project.
 
+When a task cannot be completed as one increment, record the proposed split in
+`roadmap.md` when making that decision. State each increment's order, scope,
+completion criteria and status, and preserve all remaining requirements from
+the parent task. Update that plan as work proceeds or scope changes; do not leave
+the split only in conversation or mark the parent complete after a partial result.
+This is the agent's responsibility. Related increments may share a validation
+checkpoint within the authorized scope; recording a split adds no approval gate
+and does not itself authorize implementation.
+
 For each authorized increment:
 
 1. Specify syntax, behavior, bounds and permitted compositions. For libraries,

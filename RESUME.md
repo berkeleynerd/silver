@@ -60,8 +60,10 @@ private/server sidecars, Lake metadata, failed logs and scratch. The task record
 notes the replaced model-lane rolling focused JSON; its timestamped logs and
 separate witness evidence remain. Do not run concurrent writers in one workspace.
 
-**Equality, guards and branches** is next proposed in the roadmap. No further
-functional work or replacement harness goal began; historical Compose String
+**Conditional statements (5a)** is next proposed in the
+[Equality, guards and branches increment plan](roadmap.md#equality-guards-and-branches-increments).
+Predicate/literal grammar (5b) and path-sensitive composition (5c) remain queued.
+No further functional work or replacement harness goal began; historical Compose String
 Results remains complete. Publication remains authorized, Actions is disabled,
 macOS proofs are out of scope. CLI recall tools are unavailable and were not
 updated; checked-in session memory is current.

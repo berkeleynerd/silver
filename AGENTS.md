@@ -26,6 +26,10 @@ implementation.
 
 - Keep `oracle.md`, `language.md`, `roadmap.md` and `development.md` at the root
   for human review. Current support and future plans must remain distinct.
+- If a task is split into increments, update `roadmap.md` in the same planning
+  step with their order, scope, completion criteria and remaining work. Keep it
+  current as work progresses; a partial increment does not complete its parent.
+  This bookkeeping is the agent's responsibility, without another user reminder.
 - Inspect Git status before editing. Preserve unrelated work and scratch files.
   Follow the current request about staging, committing and publishing; the
   session memory records the current publication authorization.

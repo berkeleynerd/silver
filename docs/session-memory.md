@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-13 — Agent owns roadmap updates when splitting work
+
+The owner explicitly requires the agent to lay out and update `roadmap.md`
+whenever a task is divided into increments instead of completed in one unit.
+Record the split when proposing it, including order, scope, completion criteria,
+status and all remaining parent requirements. Keep those entries current without
+another reminder. A partial increment cannot be reported as parent completion.
+This standing rule is in [AGENTS.md](../AGENTS.md) and
+[development.md](../development.md#admit-one-coherent-capability).
+
+The [item 5 plan](../roadmap.md#equality-guards-and-branches-increments) now records
+5a conditional statements (nested equality, `elsif`, optional `else`), followed
+by 5b predicate/literal grammar and 5c path-sensitive composition. The latter two
+may share a checkpoint where useful, retaining their separate remaining scope.
+All are proposed; this request authorizes planning/guidance updates, not language
+implementation. No new goal or Oracle change was made. Publication authorization
+persists. CLI memory tools remain unavailable; these checked-in documents carry
+the durable instruction. No proof/test rerun is needed for this planning change.
+
 ## 2026-10-13 — Sequencing capacity follow-up completed
 
 The owner supplied the completed 769-assignment argument-input result and
