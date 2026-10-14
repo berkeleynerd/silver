@@ -2,7 +2,7 @@ module
 
 public import Silver.SequenceHeader
 public import Silver.SequenceShell
-public import Silver.SequenceConditions
+public import Silver.SequenceConditionValidity
 
 @[expose] public section
 
@@ -66,7 +66,7 @@ theorem form_reading_valid {source : Source} {form : Form} {events : List Event}
   simp only [initialState, empty_names_shape] at context
   apply prefix_decoded_valid form events items (tokens_kinds parsed.header)
   · simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial
-  · exact nonempty_items parsed.statements
+  · exact body_items parsed.statements
   · rw [context]
     exact bodyValid.2.1
 

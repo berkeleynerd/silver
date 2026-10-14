@@ -423,9 +423,10 @@ object's length, and every dynamic occurrence counts the original input or
 its alias. Predefined String equality compares complete initialized values and
 preserves case; unequal lengths compare false.
 
-The original immutable argument initializer stays first and unique. Nested
-equality, context-clause alternatives and additional argument-call placements
-remain outside this milestone. Every expression obeys its affine capacity bound.
+The original immutable argument initializer stays first and unique. The working
+5a extension adds nested equality, `elsif` and optional `else`, with its complete
+checkpoint tracked in [branches.md](branches.md). Context-clause alternatives
+and additional argument-call placements remain outside that increment. Every expression obeys its affine capacity bound.
 No new runtime operation or external dependency is introduced; output calls
 return into the sequence, while Reject remains alone in the outer false branch.
 The fixed outer guard/rejection arrangement stages control-flow generalization:
@@ -661,7 +662,7 @@ declarations plus the numeric output bound; it does not type-check arbitrary
 Ada statements. The argument bridge renders its entire owned body without
 ghost-erasure slots and checks the pure query contracts and existing GNAT import
 signatures. The sequence language proof connects shared expressions and declarations to
-ordered basic statements and one-level choices, fixed-length state preservation
+ordered statements and recursive choices, fixed-length state preservation
 and cumulative returning-call effects. Its source bridge checks actual helper
 and scanner bodies, token sequences, identifier roles and acceptance/report
 selectors against those models. The retained `OutputSourceBridge`, `NamedSourceBridge`,

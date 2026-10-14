@@ -13,7 +13,7 @@ is
    function Is_Word_Token (Token : Token_Kind) return Boolean is
      (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
         | Arguments_Name | First_Or_Default_Name | If_Keyword
-        | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name
+        | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
         | And_Keyword | Length_Name | Null_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
@@ -44,6 +44,7 @@ is
          when Input_Is_Valid_Name => "input_is_valid",
          when Then_Keyword => "then",
          when Else_Keyword => "else",
+         when Elsif_Keyword => "elsif",
          when Reject_Name => "reject",
          when Ampersand => "&",
          when And_Keyword => "and",
@@ -813,7 +814,8 @@ is
 
    --  A scan records syntactic effects alongside unchanged binding shapes.
    --  Flags accumulate across both arms; they select report policy, not runtime
-   --  execution. Every executable list traversal below uses constant stack.
+   --  execution. Source-bounded statement traversal uses recursive frames containing only
+   --  cursors and flags, sharing the immutable declaration context.
    type Scan_Result is record
       State : Parser_State;
       Assigned, Output : Boolean;
@@ -905,76 +907,228 @@ is
       return Invalid_Scan;
    end Read_Basic_Statements;
 
-   function Conditional_At (Text : String; Scan : Scan_Result) return Scan_Result
+   --  Recursive conditional frames hold only cursors and flags. The common
+   --  declaration environment stays immutable and is passed separately.
+   type Body_Context is record
+      Names : Binding_Environment;
+      Dynamic_First, Dynamic_After : Literal_Position;
+   end record;
+   type Body_Scan is record
+      Position : Literal_Position;
+      Target : Binding_Count;
+      Capacity : Capacity_Value;
+      Assigned, Output : Boolean;
+   end record;
+   Invalid_Body : constant Body_Scan :=
+     (Position => 0, Target => 0, Capacity => 0, Assigned => False, Output => False);
+   type Body_Stop is (End_Only, Else_Only, Arm_Boundary);
+
+   function Context_Of (Scan : Scan_Result) return Body_Context is
+     (Names => Scan.State.Names, Dynamic_First => Scan.State.Dynamic_First,
+      Dynamic_After => Scan.State.Dynamic_After);
+   function Body_Of (Scan : Scan_Result) return Body_Scan is
+     (Position => Scan.State.Position, Target => Scan.State.Target,
+      Capacity => Scan.State.Capacity, Assigned => Scan.Assigned, Output => Scan.Output);
+   function Expand_Body (Context : Body_Context; Scan : Body_Scan) return Scan_Result is
+     (State => (Position => Scan.Position, Names => Context.Names,
+       Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
+       Target => Scan.Target, Capacity => Scan.Capacity),
+      Assigned => Scan.Assigned, Output => Scan.Output);
+   function Compact_Body (Context : Body_Context; Scan : Scan_Result) return Body_Scan is
+     (if Scan.State.Position = 0 or else Scan.State.Target > Context.Names.Count
+      then Invalid_Body else Body_Of (Scan));
+
+   function Valid_Context (Text : String; Context : Body_Context) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
+   function Valid_Context (Text : String; Context : Body_Context) return Boolean is
+     (Valid_Names (Text, Context.Names)
+      and then Valid_Name_State (Text, Context.Dynamic_First, Context.Dynamic_After));
+   function Valid_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Boolean
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
+   function Valid_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Boolean is
+     (Scan.Position <= Text'Last + 1 and then Scan.Target <= Context.Names.Count);
+
+   function Body_Token
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
+      return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Conditional_At'Result.State)
-         and then (Conditional_At'Result.State.Position = 0
-           or else Conditional_At'Result.State.Position > Scan.State.Position);
-   function Conditional_At (Text : String; Scan : Scan_Result) return Scan_Result is
-      Result : Scan_Result := Scan;
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Body_Token'Result)
+         and then (Body_Token'Result.Position = 0
+           or else Body_Token'Result.Position > Scan.Position);
+   function Body_Token
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
+      return Body_Scan is
+      Result : constant Body_Scan := Compact_Body
+        (Context, Scan_Token (Text, Expand_Body (Context, Scan), Token));
    begin
-      Result := Scan_Token (Text, Result, If_Keyword);
-      Result := Scan_Token (Text, Result, Comparison_Expression);
-      Result := Scan_Token (Text, Result, Then_Keyword);
-      Result := Read_Basic_Statements (Text, Result, Else_Keyword);
-      Result := Scan_Token (Text, Result, Else_Keyword);
-      Result := Read_Basic_Statements (Text, Result, End_Keyword);
-      Result := Scan_Token (Text, Result, End_Keyword);
-      Result := Scan_Token (Text, Result, If_Keyword);
-      Result := Scan_Token (Text, Result, Semicolon);
-      if Result.State.Position <= Scan.State.Position then return Invalid_Scan; end if;
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
       return Result;
-   end Conditional_At;
+   end Body_Token;
 
-   function Statement_At (Text : String; Scan : Scan_Result) return Scan_Result
+   function Basic_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Statement_At'Result.State)
-         and then (Statement_At'Result.State.Position = 0
-           or else Statement_At'Result.State.Position > Scan.State.Position);
-   function Statement_At (Text : String; Scan : Scan_Result) return Scan_Result is
-     (if Take_Token (Text, Scan.State.Position, If_Keyword) /= 0
-      then Conditional_At (Text, Scan) else Basic_Statement_At (Text, Scan));
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Basic_Body'Result)
+         and then (Basic_Body'Result.Position = 0
+           or else Basic_Body'Result.Position > Scan.Position);
+   function Basic_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (Compact_Body (Context, Basic_Statement_At (Text, Expand_Body (Context, Scan))));
 
-   function Statements_Tail
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
-     with Ghost => Static, Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Statements_Tail'Result.State),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.State.Position);
-   function Statements_Tail
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
-     (if Scan.State.Position = 0 then Invalid_Scan
-      elsif Take_Token (Text, Scan.State.Position, Stop) /= 0 then Scan
-      elsif Statement_At (Text, Scan).State.Position = 0 then Invalid_Scan
-      else Statements_Tail (Text, Statement_At (Text, Scan), Stop));
-
-   function Read_Statements
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
+   function At_Body_Stop (Text : String; Position : Literal_Position; Stop : Body_Stop)
+      return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => (Static => Valid_State (Text, Read_Statements'Result.State)
-         and then Read_Statements'Result =
-           Statements_Tail (Text, Statement_At (Text, Scan), Stop));
-   function Read_Statements
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
-      Result : Scan_Result := Statement_At (Text, Scan);
+         and then Position <= Text'Last + 1;
+   function At_Body_Stop (Text : String; Position : Literal_Position; Stop : Body_Stop)
+      return Boolean is
+     (case Stop is
+        when End_Only => Take_Token (Text, Position, End_Keyword) /= 0,
+        when Else_Only => Take_Token (Text, Position, Else_Keyword) /= 0,
+        when Arm_Boundary => Take_Token (Text, Position, Elsif_Keyword) /= 0
+          or else Take_Token (Text, Position, Else_Keyword) /= 0
+          or else Take_Token (Text, Position, End_Keyword) /= 0);
+
+   function Statement_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Statement_Body'Result)
+         and then (Statement_Body'Result.Position = 0
+           or else Statement_Body'Result.Position > Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 2);
+   function Conditional_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Conditional_Body'Result)
+         and then (Conditional_Body'Result.Position = 0
+           or else Conditional_Body'Result.Position > Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
+   function Alternative_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Alternative_Body'Result)
+         and then (Alternative_Body'Result.Position = 0
+           or else Alternative_Body'Result.Position >= Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 1);
+
+   function Body_Tail
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => Valid_Body (Text, Context, Body_Tail'Result)
+         and then (Body_Tail'Result.Position = 0
+           or else Body_Tail'Result.Position >= Scan.Position),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
+   function Body_Tail
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan is
+      Result : Body_Scan := Scan;
    begin
-      while Result.State.Position /= 0 loop
-         pragma Loop_Invariant (Valid_State (Text, Result.State));
-         pragma Loop_Invariant (Static =>
-           Statements_Tail (Text, Statement_At (Text, Scan), Stop) =
-             Statements_Tail (Text, Result, Stop));
-         pragma Loop_Variant (Increases => Result.State.Position);
-         if Take_Token (Text, Result.State.Position, Stop) /= 0 then return Result; end if;
-         Result := Statement_At (Text, Result);
-      end loop;
-      return Invalid_Scan;
+      if Result.Position = 0 then return Invalid_Body; end if;
+      if At_Body_Stop (Text, Result.Position, Stop) then return Result; end if;
+      Result := Statement_Body (Text, Context, Result);
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      return Body_Tail (Text, Context, Result, Stop);
+   end Body_Tail;
+
+   function Read_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Context (Text, Context) and then Valid_Body (Text, Context, Scan),
+       Post => (Runtime => Valid_Body (Text, Context, Read_Body'Result)
+         and then (Read_Body'Result.Position = 0
+           or else Read_Body'Result.Position > Scan.Position),
+         Static => Read_Body'Result =
+           (if Statement_Body (Text, Context, Scan).Position = 0 then Invalid_Body
+            else Body_Tail (Text, Context, Statement_Body (Text, Context, Scan), Stop))),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.Position, Decreases => 3);
+   function Read_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan; Stop : Body_Stop)
+      return Body_Scan is
+      Result : constant Body_Scan := Statement_Body (Text, Context, Scan);
+   begin
+      if Result.Position = 0 then return Invalid_Body; end if;
+      return Body_Tail (Text, Context, Result, Stop);
+   end Read_Body;
+
+   function Statement_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+     (if Scan.Position = 0 then Invalid_Body
+      elsif Take_Token (Text, Scan.Position, If_Keyword) /= 0
+      then Conditional_Body (Text, Context, Scan) else Basic_Body (Text, Context, Scan));
+
+   function Conditional_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      Result : Body_Scan := Body_Token (Text, Context, Scan, If_Keyword);
+   begin
+      Result := Body_Token (Text, Context, Result, Comparison_Expression);
+      Result := Body_Token (Text, Context, Result, Then_Keyword);
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      Result := Read_Body (Text, Context, Result, Arm_Boundary);
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      Result := Alternative_Body (Text, Context, Result);
+      Result := Body_Token (Text, Context, Result, End_Keyword);
+      Result := Body_Token (Text, Context, Result, If_Keyword);
+      Result := Body_Token (Text, Context, Result, Semicolon);
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      return Result;
+   end Conditional_Body;
+
+   function Alternative_Body
+     (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
+      Result : Body_Scan := Scan;
+   begin
+      if Scan.Position = 0 then return Invalid_Body; end if;
+      if Take_Token (Text, Scan.Position, Elsif_Keyword) /= 0 then
+         Result := Body_Token (Text, Context, Result, Elsif_Keyword);
+         Result := Body_Token (Text, Context, Result, Comparison_Expression);
+         Result := Body_Token (Text, Context, Result, Then_Keyword);
+         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         Result := Read_Body (Text, Context, Result, Arm_Boundary);
+         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         return Alternative_Body (Text, Context, Result);
+      elsif Take_Token (Text, Scan.Position, Else_Keyword) /= 0 then
+         Result := Body_Token (Text, Context, Result, Else_Keyword);
+         if Result.Position <= Scan.Position then return Invalid_Body; end if;
+         return Read_Body (Text, Context, Result, End_Only);
+      elsif Take_Token (Text, Scan.Position, End_Keyword) /= 0 then
+         return Scan;
+      else
+         return Invalid_Body;
+      end if;
+   end Alternative_Body;
+
+   function Read_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_State (Text, Scan.State) and then Stop in Else_Keyword | End_Keyword,
+       Post => Valid_State (Text, Read_Statements'Result.State);
+   function Read_Statements
+     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
+      Context : constant Body_Context := Context_Of (Scan);
+      Result : constant Body_Scan := Read_Body
+        (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
+   begin
+      return (if Result.Position = 0 then Invalid_Scan else Expand_Body (Context, Result));
    end Read_Statements;
 
    function Scan_Step

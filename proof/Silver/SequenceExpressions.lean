@@ -2,6 +2,7 @@ module
 
 public import Silver.SequenceAdmission
 public import Silver.ComposeExpressions
+public import Silver.SequenceNativeExpressions
 
 @[expose] public section
 
@@ -18,9 +19,7 @@ structure Calls where
   basic : Source → ScanResult → ScanResult
   basicTail : Source → ScanResult → ShellToken → ScanResult
   readBasic : Source → ScanResult → ShellToken → ScanResult
-  conditional : Source → ScanResult → ScanResult
-  statement : Source → ScanResult → ScanResult
-  statementsTail : Source → ScanResult → ShellToken → ScanResult
+  native : Native.Calls
   readStatements : Source → ScanResult → ShellToken → ScanResult
   scanStep : Source → Form → Token → ScanResult → ScanResult
   suffix : Source → Form → Nat → ScanResult → ScanResult
@@ -29,6 +28,11 @@ structure Calls where
   arguments : Source → Bool
   assignment : Source → Bool
   output : Source → Bool
+
+def Calls.bodyPrimitives (calls : Calls) : Native.Primitives where
+  take := calls.helpers.function .takeToken
+  token := calls.scanToken
+  basic := calls.basic
 
 structure Context where
   text : Source
@@ -73,9 +77,6 @@ mutual
     | basic (value : Expr)
     | basicTail (value : Expr)
     | readBasic (stop : HelperRef) (value : Expr)
-    | conditional (value : Expr)
-    | statement (value : Expr)
-    | statementsTail (value : Expr)
     | readStatements (stop : HelperRef) (value : Expr)
     | scanStep (indexed : Bool) (value : Expr)
     | suffix (index : IndexRef) (value : Expr)
@@ -99,9 +100,6 @@ mutual
     | .basic value => calls.basic ctx.text (value.eval calls ctx)
     | .basicTail value => calls.basicTail ctx.text (value.eval calls ctx) ctx.stop
     | .readBasic stop value => calls.readBasic ctx.text (value.eval calls ctx) (stop.eval ctx)
-    | .conditional value => calls.conditional ctx.text (value.eval calls ctx)
-    | .statement value => calls.statement ctx.text (value.eval calls ctx)
-    | .statementsTail value => calls.statementsTail ctx.text (value.eval calls ctx) ctx.stop
     | .readStatements stop value => calls.readStatements ctx.text (value.eval calls ctx) (stop.eval ctx)
     | .scanStep indexed value => calls.scanStep ctx.text ctx.form
         (if indexed then ctx.form.tokens.getD (ctx.nextToken - 1) (.helper (.symbol ";")) else ctx.token)
@@ -138,9 +136,6 @@ mutual
     | .basic value => call "basic_statement_at" [["text"], value.render]
     | .basicTail value => call "basic_tail" [["text"], value.render, ["stop"]]
     | .readBasic stop value => call "read_basic_statements" [["text"], value.render, stop.render]
-    | .conditional value => call "conditional_at" [["text"], value.render]
-    | .statement value => call "statement_at" [["text"], value.render]
-    | .statementsTail value => call "statements_tail" [["text"], value.render, ["stop"]]
     | .readStatements stop value => call "read_statements" [["text"], value.render, stop.render]
     | .scanStep indexed value => call "scan_step" [["text"], ["form"],
         if indexed then ["tokens", "(", "form", ")", "(", "next_token", ")"] else ["token"], value.render]
@@ -218,13 +213,6 @@ def basicBody : Command :=
           (.sequence (.steps BasicKind.assignment.tokens) (.setFlag true))))
       finish)
 
-def conditionalBody : Command :=
-  .sequence (.steps equalityTokens)
-  (.sequence (.assign (.readBasic (.literal (.word "else")) .result))
-  (.sequence (.assign (.scanToken (.literal (.word "else")) .result))
-  (.sequence (.assign (.readBasic (.literal (.word "end")) .result))
-  (.sequence (.steps endIfTokens) finish))))
-
 def Command.run (body : Command) (calls : Calls) (ctx : Context) : ScanResult :=
   ((body.eval calls {ctx with result := ctx.scan}).1).getD invalidScan
 
@@ -239,16 +227,6 @@ def basicTailBody : Expr :=
       (.choose (.zero (.basic .scan)) .invalid (.basicTail (.basic .scan))))
 
 def readBasicBody : Expr := .basicTail (.basic .scan)
-
-def statementBody : Expr :=
-  .choose (.tokenPresent (.literal (.word "if")) .scan) (.conditional .scan) (.basic .scan)
-
-def statementsTailBody : Expr :=
-  .choose (.zero .scan) .invalid
-    (.choose (.tokenPresent .stopToken .scan) .scan
-      (.choose (.zero (.statement .scan)) .invalid (.statementsTail (.statement .scan))))
-
-def readStatementsBody : Expr := .statementsTail (.statement .scan)
 
 def scanStepBody : Expr :=
   .choose .statements (.readStatements .bodyEnd .scan) (.helperStep false .currentToken .scan)

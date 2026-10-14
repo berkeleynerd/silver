@@ -82,12 +82,15 @@ leaves and a program at most thirty concatenation operators.
 
 The completed [statement-sequencing increment](docs/statement-sequencing.md)
 replaces fixed bodies with finite sequences of null, compatible
-assignments, output and one-level String-equality choices. Both equality arms
-contain basic statement sequences; multiple choices can occur sequentially.
+assignments, output and String-equality choices. The working
+[conditional increment](docs/branches.md) extends these to nested statement
+sequences, `elsif` arms and optional `else`; its complete checkpoint is pending.
 There is no separate statement/output-count cap. The
 [sequencing sample](samples/statement_sequence.adb) combines a snapshot, updates,
-repeated output and two choices. Nested equality and broader Boolean guards
-remain future work. See [language.md](language.md) for exact rules.
+repeated output and two choices. The new
+[conditional sample](samples/conditional_statements.adb) exercises nested and
+alternative arms. Broader predicates and path refinement are the next authorized
+parts of the same milestone. See [language.md](language.md) for exact rules.
 
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak

@@ -400,13 +400,20 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""condition"": ""string_expression = string_expression"",");
       Put_Line ("        ""then"": [");
-      Put_Line ("          ""basic_statement_sequence""");
+      Put_Line ("          ""statement_sequence""");
+      Put_Line ("        ],");
+      Put_Line ("        ""elsif"": [");
+      Put_Line ("          ""statement_sequence""");
       Put_Line ("        ],");
       Put_Line ("        ""else"": [");
-      Put_Line ("          ""basic_statement_sequence""");
+      Put_Line ("          ""statement_sequence""");
       Put_Line ("        ],");
       Put_Line ("        ""comparison"": ""case-sensitive decoded String equality"",");
-      Put_Line ("        ""nested_equality_conditionals"": false,");
+      Put_Line ("        ""nested_equality_conditionals"": true,");
+      Put_Line ("        ""elsif_count"": ""finite_within_complete_source_bound"",");
+      Put_Line ("        ""nesting"": ""finite_within_complete_source_bound"",");
+      Put_Line ("        ""else_optional"": true,");
+      Put_Line ("        ""selection"": ""first true condition; otherwise else or unchanged state"",");
       Put_Line ("        ""context"": ""static body or inside the mandatory argument validity/capacity guard"",");
       Put_Line ("        ""assignments_preserve_each_target_bounds"": true");
       Put_Line ("      }");
@@ -677,6 +684,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
            | Silver_Output_Profile.Arguments_Name | Silver_Output_Profile.First_Or_Default_Name
            | Silver_Output_Profile.If_Keyword | Silver_Output_Profile.Input_Is_Valid_Name
            | Silver_Output_Profile.Then_Keyword | Silver_Output_Profile.Else_Keyword
+           | Silver_Output_Profile.Elsif_Keyword
            | Silver_Output_Profile.Reject_Name
            | Silver_Output_Profile.And_Keyword | Silver_Output_Profile.Length_Name
          then
@@ -702,7 +710,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("  ""null_statement_tokens"": [""null"","";""],");
       Put_Line ("  ""assignment_statement_tokens"": [""<assignment_target>"","":="",""<string_expression>"","";""],");
       Put_Line ("  ""output_statement_tokens"": [""silver_io"",""."",""put_line"",""("",""<string_expression>"","")"","";""],");
-      Put_Line ("  ""choice_statement_tokens"": [""if"",""<string_comparison>"",""then"",""<basic_statements>"",""else"",""<basic_statements>"",""end"",""if"","";""],");
+      Put_Line ("  ""choice_statement_tokens"": [""if"",""<string_comparison>"",""then"",""<statements>"",""<elsif_arms>"",""<optional_else>"",""end"",""if"","";""],");
+      Put_Line ("  ""elsif_arm_tokens"": [""elsif"",""<string_comparison>"",""then"",""<statements>""],");
+      Put_Line ("  ""else_arm_tokens"": [""else"",""<statements>""],");
       Form_Tokens ("output_tokens", Silver_Output_Profile.Direct_Form);
       Form_Tokens ("argument_tokens", Silver_Output_Profile.Argument_Form);
       Form_Tokens ("guarded_argument_tokens", Silver_Output_Profile.Guarded_Argument_Form, Last => True);

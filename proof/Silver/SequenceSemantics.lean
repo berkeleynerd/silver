@@ -26,18 +26,28 @@ def executeSimple (input : Source) (values : Values) : List SimpleStatement → 
       let following := executeSimple input first.values rest
       ⟨following.values, first.effects ++ following.effects⟩
 
-def Statement.execute (input : Source) (values : Values) : Statement → Execution
-  | .simple item => item.execute input values
-  | .choice left right yes no =>
-      executeSimple input values
-        (if left.evaluate values input = right.evaluate values input then yes else no)
-
-def executeStatements (input : Source) (values : Values) : List Statement → Execution
-  | [] => ⟨values, []⟩
-  | item :: rest =>
-      let first := item.execute input values
-      let following := executeStatements input first.values rest
-      ⟨following.values, first.effects ++ following.effects⟩
+mutual
+  def Statement.execute (input : Source) (values : Values) : Statement → Execution
+    | .simple item => item.execute input values
+    | .choice left right yes tail =>
+        if left.evaluate values input = right.evaluate values input
+        then executeStatements input values yes else tail.execute input values
+  termination_by item => sizeOf item
+  def Alternative.execute (input : Source) (values : Values) : Alternative → Execution
+    | .absent => ⟨values, []⟩
+    | .otherwise items => executeStatements input values items
+    | .elsif left right yes tail =>
+        if left.evaluate values input = right.evaluate values input
+        then executeStatements input values yes else tail.execute input values
+  termination_by tail => sizeOf tail
+  def executeStatements (input : Source) (values : Values) : List Statement → Execution
+    | [] => ⟨values, []⟩
+    | item :: rest =>
+        let first := item.execute input values
+        let following := executeStatements input first.values rest
+        ⟨following.values, first.effects ++ following.effects⟩
+  termination_by items => sizeOf items
+end
 
 def Shell.guard (input : Source) (arguments : Arguments.Runtime.Arguments) : Shell → Bool
   | .static => true
@@ -94,30 +104,57 @@ theorem simple_sequence_valid {items : List SimpleStatement} {shape : Shape} {ca
       have following := ih (fun item member => valid item (by simp [member])) first.1
       exact ⟨following.1, effects_valid_append first.2 following.2⟩
 
-theorem statement_execution_valid {item : Statement} {shape : Shape} {capacity : Nat}
-    {input : Source} {values : Values} (valid : item.Valid shape capacity)
-    (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
-    Fits shape input (item.execute input values).values ∧
-      EffectsValid (item.execute input values).effects := by
-  cases item with
-  | simple item => exact simple_execution_valid valid state printable bound
-  | choice left right yes no =>
-      simp only [Statement.execute]
-      split
-      · exact simple_sequence_valid valid.2.2.2.2.1 state printable bound
-      · exact simple_sequence_valid valid.2.2.2.2.2 state printable bound
+mutual
+  theorem statement_execution_valid {item : Statement} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : item.Valid shape capacity)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      Fits shape input (item.execute input values).values ∧
+        EffectsValid (item.execute input values).effects := by
+    cases item with
+    | simple item =>
+        simp only [Statement.Valid] at valid
+        simpa only [Statement.execute] using simple_execution_valid valid state printable bound
+    | choice left right yes tail =>
+        simp only [Statement.Valid] at valid
+        simp only [Statement.execute]
+        split
+        · exact statements_execution_valid valid.2.2.2.1 state printable bound
+        · exact alternative_execution_valid valid.2.2.2.2 state printable bound
+  termination_by sizeOf item
 
-theorem statements_execution_valid {items : List Statement} {shape : Shape} {capacity : Nat}
-    {input : Source} {values : Values} (valid : StatementsValid shape capacity items)
-    (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
-    Fits shape input (executeStatements input values items).values ∧
-      EffectsValid (executeStatements input values items).effects := by
-  induction items generalizing values with
-  | nil => exact ⟨state, by simp [executeStatements, EffectsValid]⟩
-  | cons item rest ih =>
-      have first := statement_execution_valid (valid item (by simp)) state printable bound
-      have following := ih (fun item member => valid item (by simp [member])) first.1
-      exact ⟨following.1, effects_valid_append first.2 following.2⟩
+  theorem alternative_execution_valid {tail : Alternative} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : tail.Valid shape capacity)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      Fits shape input (tail.execute input values).values ∧
+        EffectsValid (tail.execute input values).effects := by
+    cases tail with
+    | absent => simpa only [Alternative.execute] using And.intro state (by simp [EffectsValid])
+    | otherwise items =>
+        simp only [Alternative.Valid] at valid
+        simpa only [Alternative.execute] using statements_execution_valid valid.2 state printable bound
+    | elsif left right yes tail =>
+        simp only [Alternative.Valid] at valid
+        simp only [Alternative.execute]
+        split
+        · exact statements_execution_valid valid.2.2.2.1 state printable bound
+        · exact alternative_execution_valid valid.2.2.2.2 state printable bound
+  termination_by sizeOf tail
+
+  theorem statements_execution_valid {items : List Statement} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : StatementsValid shape capacity items)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      Fits shape input (executeStatements input values items).values ∧
+        EffectsValid (executeStatements input values items).effects := by
+    cases items with
+    | nil => simpa only [executeStatements] using And.intro state (by simp [EffectsValid])
+    | cons item rest =>
+        simp only [StatementsValid] at valid
+        have first := statement_execution_valid valid.1 state printable bound
+        have following := statements_execution_valid valid.2 first.1 printable bound
+        simpa only [executeStatements] using
+          And.intro following.1 (effects_valid_append first.2 following.2)
+  termination_by sizeOf items
+end
 
 theorem shell_guard_bound {shell : Shell} {input : Source}
     {arguments : Arguments.Runtime.Arguments} (domain : input.length ≤ maxSourceLength)

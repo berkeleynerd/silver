@@ -73,6 +73,9 @@ class BranchingTests(unittest.TestCase):
         cases += [canonical.replace(b'Mode="verbose"', replacement) for replacement in
                   (b'"verbose"=Mode', b'Mode=Mode', b'Mode=("verbose")', b'Mode="ver"&"bose"')]
         cases.append(canonical.replace(b';begin ', b';Other:constant String:="x";begin '))
+        cases += [canonical.replace(b'else Silver_IO.Put_Line("Ready.");', b''),
+                  canonical.replace(b'else Silver_IO.Put_Line("Ready.");',
+                                    b'elsif Mode="brief" then Silver_IO.Put_Line("Ready.");')]
         cases += [source_for(*maximum_literal(index)) for index in range(4)]
         name = b'X' * ((4096 - len(source_for(b'', b'', b'', b'', b''))) // 2)
         longest_name = source_for(b'', b'', b'', b'', name)
@@ -103,9 +106,6 @@ class BranchingTests(unittest.TestCase):
                   canonical.replace(b'Silver_Arguments.Reject;', b'null;'),
                   canonical.replace(b'Silver_Arguments.Reject;', b'Silver_Arguments.Reject();'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");', b''),
-                  canonical.replace(b'else Silver_IO.Put_Line("Ready.");', b''),
-                  canonical.replace(b'else Silver_IO.Put_Line("Ready.");',
-                                    b'elsif Mode="brief" then Silver_IO.Put_Line("Ready.");'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Silver_IO.Put_Line("Hi "&Mode&"!");'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',

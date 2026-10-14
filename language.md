@@ -1,8 +1,9 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-statement-sequencing language under the [Oracle](oracle.md), with a completed
-[Linux checkpoint](docs/statement-sequencing.md). The
+conditional-statement language under the [Oracle](oracle.md). The
+[conditional-statement delivery record](docs/branches.md) tracks current validation,
+building on the completed [sequencing checkpoint](docs/statement-sequencing.md). The
 [machine-readable catalogue](catalogue/silver.json), compiler, and this
 specification must agree. A discrepancy is a defect to resolve, not an extension
 of the language. Membership depends on source bytes, never on prover success.
@@ -159,8 +160,8 @@ borrow the later body's capacity. Assignment additionally requires exact equalit
 of its affine length and the target's fixed/static or symbolic length.
 
 The source has at most **30 concatenation operators** across all initializers,
-assignment values, equality operands and output expressions, including both
-branches. Ampersands inside literals or comments do not count. This explicit
+assignment values, equality operands and output expressions, including every
+conditional arm. Ampersands inside literals or comments do not count. This explicit
 proof-work resource budget redistributes the earlier two-output form's maximum
 `2 * (16 - 1)` concatenations across the new expression positions. Atomic copies
 and parentheses consume no concatenation budget. The sixteen-leaf and thirty-
@@ -182,8 +183,9 @@ basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | mutable_name ":=" expression ";"
                    | "Silver_IO" "." "Put_Line" "(" expression ")" ";"
-string_choice    ::= "if" expression "=" expression "then" basic_statements
-                     "else" basic_statements "end" "if" ";"
+string_choice    ::= "if" expression "=" expression "then" statements
+                     { "elsif" expression "=" expression "then" statements }
+                     [ "else" statements ] "end" "if" ";"
 ```
 
 The same sequence is used inside an argument shell's successful outer guard.
@@ -233,22 +235,28 @@ failed compilation of admitted source is still a defect, never nonmembership.
 
 ### String equality choices
 
-A choice evaluates both String expressions from the current store and executes
-exactly one nonempty basic statement sequence. Equality compares exact bytes,
-case-sensitive and false for unequal lengths. At least one comparison operand
+A choice evaluates each condition in source order until the first true condition,
+then executes that condition's nonempty statement sequence. If no condition is
+true, it executes the optional `else` sequence; without `else`, it leaves the
+store and output unchanged. Equality compares both String expressions from the
+current store: exact bytes, case-sensitive and false for unequal lengths.
+At least one comparison operand
 must contain an initialized String name so Ada resolves the array type; either
 operand may supply it. Both operands independently satisfy the expression bound.
 
-Each arm may mix null, assignments and output. Arms need not assign the same
-objects or make the same number of calls. Initialization and fixed object bounds
-hold after either arm; following statements observe only the selected updates.
-Multiple choices may occur sequentially, including in the static shell. Nested
-equality choices and new Boolean predicates remain excluded in this increment.
-The mandatory `else` keeps this staged grammar to an explicit pair of nonempty
-arms; it is not an Ada requirement. Else-less, nested and `elsif` choices, broader
-predicates and branch-refined assignment are tracked together in
-[roadmap item 5](roadmap.md#existing-feature-consolidation), where their path facts
-and join rules can be established consistently.
+Each arm may mix null, assignments, output and further choices. Arms need not
+assign the same objects or make the same number of calls. Initialization and
+fixed object bounds hold after every arm and the missing-`else` path; following
+statements observe only the selected updates. Multiple choices may occur
+sequentially, including in the static shell. Nesting and the number of `elsif`
+arms are finite within the complete-source bound, with no separate nesting or
+arm-count limit. Every written arm must contain a statement; an omitted `else`
+differs from an empty explicit `else`.
+
+The [conditional-statement sample](samples/conditional_statements.adb) combines
+nested choices, `elsif`, omitted `else`, mutation and a retained snapshot.
+Broader predicates and branch-refined assignment remain work in
+[roadmap increments 5b and 5c](roadmap.md#equality-guards-and-branches-increments).
 
 ### Guarded command-line initialization
 
@@ -315,7 +323,7 @@ of these rules.
 
 Whitespace around punctuation is optional; adjacent word tokens require a
 separator. Declarations precede the entire executable body. Statements and
-one-level choices compose under the shared state, expression and effect rules;
+recursive choices compose under the shared state, expression and effect rules;
 the outer argument guard and rejection alternative retain their fixed placement.
 No application can call `Ada.Text_IO`, libc imports or an unlisted library API.
 
@@ -330,11 +338,11 @@ The catalogue uses these construct identifiers:
 | `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses; at most thirty concatenations per program. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls anywhere a basic statement is allowed. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and optional bounded capacity clause. |
-| `string_equality`, `string_choice` | One-level equality with nonempty basic sequences in both arms. |
+| `string_equality`, `string_choice` | Nested equality choices with nonempty statement sequences, repeated `elsif` and optional `else`. |
 | `string_assignment` | Compatible fixed-bound expression assignment, including self-copy. |
-| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements, with basic-only sequences inside equality arms. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment and output, and general sequences also contain choices. |
 
-Everything else is excluded, including loops, nested equality, general Boolean
+Everything else is excluded, including loops, general Boolean
 conditions, additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 
@@ -365,8 +373,10 @@ A valid selected value must also satisfy the optional explicit capacity clause;
 otherwise it is rejected with status 1 and no output. This applies equally to a
 default and an actual argument. Declaration initializers execute before the capacity guard. The guard then
 precedes every statement in the successful sequence. Each choice compares the
-current values of its operands, then executes exactly one basic sequence; later
-statements observe its selected updates. Unequal lengths compare false; there is no case folding, truncation or resizing.
+current values of its operands and executes its first matching arm, its `else`
+arm, or no statements when all conditions are false and `else` is absent. Later
+statements observe its selected updates. Unequal lengths compare false; there is
+no case folding, truncation or resizing.
 
 The initializer and validity query observe the same immutable GNAT argument
 vector. Invalid input produces an internal empty initializer value, but the

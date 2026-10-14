@@ -59,384 +59,390 @@ def outputSpecTokens_line_6 : LineCertificate where
   noNewline := by decide +kernel
 
 def outputSpecTokens_line_7 : LineCertificate where
-  text := "   --  Bound total concatenation proof work across declarations and statements."
+  text := "   --  Retain a source-wide operator budget; actual proof cost also depends on"
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
 def outputSpecTokens_line_8 : LineCertificate where
+  text := "   --  expression position, statement density and control-flow context."
+  tokens := []
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def outputSpecTokens_line_9 : LineCertificate where
   text := "   Max_Concatenations : constant Positive := 30;"
   tokens := ["max_concatenations", ":", "constant", "positive", ":=", "30", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_9 : LineCertificate where
+def outputSpecTokens_line_10 : LineCertificate where
   text := "   --  A single-name declaration needs at least twelve bytes (A:String:=B;)."
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_10 : LineCertificate where
+def outputSpecTokens_line_11 : LineCertificate where
   text := "   --  This storage bound cannot constrain a source within the source limit."
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_11 : LineCertificate where
+def outputSpecTokens_line_12 : LineCertificate where
   text := "   Max_Bindings : constant Positive := Max_Source_Length / 12;"
   tokens := ["max_bindings", ":", "constant", "positive", ":=", "max_source_length", "/", "12", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_12 : LineCertificate where
+def outputSpecTokens_line_13 : LineCertificate where
   text := "   Comment_Introducer : constant String (1 .. 2) := \"--\";"
   tokens := ["comment_introducer", ":", "constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\"", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_13 : LineCertificate where
+def outputSpecTokens_line_14 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_14 : LineCertificate where
+def outputSpecTokens_line_15 : LineCertificate where
   text := "   type Token_Kind is"
   tokens := ["type", "token_kind", "is"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_15 : LineCertificate where
+def outputSpecTokens_line_16 : LineCertificate where
   text := "     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,"
   tokens := ["(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_16 : LineCertificate where
+def outputSpecTokens_line_17 : LineCertificate where
   text := "      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
   tokens := ["pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_17 : LineCertificate where
+def outputSpecTokens_line_18 : LineCertificate where
   text := "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,"
   tokens := ["end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_18 : LineCertificate where
+def outputSpecTokens_line_19 : LineCertificate where
   text := "      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,"
   tokens := ["string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_19 : LineCertificate where
+def outputSpecTokens_line_20 : LineCertificate where
   text := "      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,"
   tokens := ["arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_20 : LineCertificate where
-  text := "      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,"
-  tokens := ["then_keyword", ",", "else_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ","]
+def outputSpecTokens_line_21 : LineCertificate where
+  text := "      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,"
+  tokens := ["then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_21 : LineCertificate where
+def outputSpecTokens_line_22 : LineCertificate where
   text := "      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,"
   tokens := ["apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_22 : LineCertificate where
+def outputSpecTokens_line_23 : LineCertificate where
   text := "      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,"
   tokens := ["argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_23 : LineCertificate where
+def outputSpecTokens_line_24 : LineCertificate where
   text := "      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,"
   tokens := ["dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_24 : LineCertificate where
+def outputSpecTokens_line_25 : LineCertificate where
   text := "      Null_Keyword, Statements);"
   tokens := ["null_keyword", ",", "statements", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_25 : LineCertificate where
+def outputSpecTokens_line_26 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_26 : LineCertificate where
+def outputSpecTokens_line_27 : LineCertificate where
   text := "   function Is_Word_Token (Token : Token_Kind) return Boolean"
   tokens := ["function", "is_word_token", "(", "token", ":", "token_kind", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_27 : LineCertificate where
+def outputSpecTokens_line_28 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_28 : LineCertificate where
+def outputSpecTokens_line_29 : LineCertificate where
   text := "       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10"
   tokens := ["post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_29 : LineCertificate where
+def outputSpecTokens_line_30 : LineCertificate where
   text := "         or else Token in Constant_Keyword | String_Name | Arguments_Name"
   tokens := ["or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_30 : LineCertificate where
+def outputSpecTokens_line_31 : LineCertificate where
   text := "           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name"
   tokens := ["|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_31 : LineCertificate where
-  text := "           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name"
-  tokens := ["|", "then_keyword", "|", "else_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name"]
+def outputSpecTokens_line_32 : LineCertificate where
+  text := "           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name"
+  tokens := ["|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_32 : LineCertificate where
+def outputSpecTokens_line_33 : LineCertificate where
   text := "           | Null_Keyword);"
   tokens := ["|", "null_keyword", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_33 : LineCertificate where
+def outputSpecTokens_line_34 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_34 : LineCertificate where
+def outputSpecTokens_line_35 : LineCertificate where
   text := "   type Token_Sequence is array (Positive range <>) of Token_Kind;"
   tokens := ["type", "token_sequence", "is", "array", "(", "positive", "range", "<", ">", ")", "of", "token_kind", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_35 : LineCertificate where
+def outputSpecTokens_line_36 : LineCertificate where
   text := "   --  Shared declaration and statement rules live within three outer shells."
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_36 : LineCertificate where
+def outputSpecTokens_line_37 : LineCertificate where
   text := "   type Form_Kind is"
   tokens := ["type", "form_kind", "is"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_37 : LineCertificate where
+def outputSpecTokens_line_38 : LineCertificate where
   text := "     (Direct_Form, Argument_Form, Guarded_Argument_Form);"
   tokens := ["(", "direct_form", ",", "argument_form", ",", "guarded_argument_form", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_38 : LineCertificate where
+def outputSpecTokens_line_39 : LineCertificate where
   text := "   function Tokens (Form : Form_Kind) return Token_Sequence"
   tokens := ["function", "tokens", "(", "form", ":", "form_kind", ")", "return", "token_sequence"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_39 : LineCertificate where
+def outputSpecTokens_line_40 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_40 : LineCertificate where
+def outputSpecTokens_line_41 : LineCertificate where
   text := "       Post => Tokens'Result'First = 1"
   tokens := ["post", "=>", "tokens", "'", "result", "'", "first", "=", "1"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_41 : LineCertificate where
+def outputSpecTokens_line_42 : LineCertificate where
   text := "         and then Tokens'Result'Length in 1 .. 100;"
   tokens := ["and", "then", "tokens", "'", "result", "'", "length", "in", "1", "..", "100", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_42 : LineCertificate where
+def outputSpecTokens_line_43 : LineCertificate where
   text := "   function Is_Argument_Form (Form : Form_Kind) return Boolean is"
   tokens := ["function", "is_argument_form", "(", "form", ":", "form_kind", ")", "return", "boolean", "is"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_43 : LineCertificate where
+def outputSpecTokens_line_44 : LineCertificate where
   text := "     (Form in Argument_Form | Guarded_Argument_Form);"
   tokens := ["(", "form", "in", "argument_form", "|", "guarded_argument_form", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_44 : LineCertificate where
+def outputSpecTokens_line_45 : LineCertificate where
   text := "   function Spelling (Token : Token_Kind) return String"
   tokens := ["function", "spelling", "(", "token", ":", "token_kind", ")", "return", "string"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_45 : LineCertificate where
+def outputSpecTokens_line_46 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_46 : LineCertificate where
+def outputSpecTokens_line_47 : LineCertificate where
   text := "       Post => Spelling'Result'First = 1"
   tokens := ["post", "=>", "spelling", "'", "result", "'", "first", "=", "1"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_47 : LineCertificate where
+def outputSpecTokens_line_48 : LineCertificate where
   text := "         and then Spelling'Result'Length in 1 .. 16;"
   tokens := ["and", "then", "spelling", "'", "result", "'", "length", "in", "1", "..", "16", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_48 : LineCertificate where
+def outputSpecTokens_line_49 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_49 : LineCertificate where
+def outputSpecTokens_line_50 : LineCertificate where
   text := "   function Is_Member (Source : String) return Boolean"
   tokens := ["function", "is_member", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_50 : LineCertificate where
+def outputSpecTokens_line_51 : LineCertificate where
   text := "     with Ghost => Static, Global => null;"
   tokens := ["with", "ghost", "=>", "static", ",", "global", "=>", "null", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_51 : LineCertificate where
+def outputSpecTokens_line_52 : LineCertificate where
   text := "   function Has_Arguments (Source : String) return Boolean"
   tokens := ["function", "has_arguments", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_52 : LineCertificate where
+def outputSpecTokens_line_53 : LineCertificate where
   text := "     with Ghost => Static, Global => null;"
   tokens := ["with", "ghost", "=>", "static", ",", "global", "=>", "null", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_53 : LineCertificate where
+def outputSpecTokens_line_54 : LineCertificate where
   text := "   function Uses_Arguments (Source : String) return Boolean"
   tokens := ["function", "uses_arguments", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_54 : LineCertificate where
+def outputSpecTokens_line_55 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_55 : LineCertificate where
+def outputSpecTokens_line_56 : LineCertificate where
   text := "       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));"
   tokens := ["post", "=>", "(", "static", "=>", "uses_arguments", "'", "result", "=", "has_arguments", "(", "source", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_56 : LineCertificate where
+def outputSpecTokens_line_57 : LineCertificate where
   text := "   function Has_Assignment (Source : String) return Boolean"
   tokens := ["function", "has_assignment", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_57 : LineCertificate where
+def outputSpecTokens_line_58 : LineCertificate where
   text := "     with Ghost => Static, Global => null;"
   tokens := ["with", "ghost", "=>", "static", ",", "global", "=>", "null", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_58 : LineCertificate where
+def outputSpecTokens_line_59 : LineCertificate where
   text := "   function Uses_Assignment (Source : String) return Boolean"
   tokens := ["function", "uses_assignment", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_59 : LineCertificate where
+def outputSpecTokens_line_60 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_60 : LineCertificate where
+def outputSpecTokens_line_61 : LineCertificate where
   text := "       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));"
   tokens := ["post", "=>", "(", "static", "=>", "uses_assignment", "'", "result", "=", "has_assignment", "(", "source", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_61 : LineCertificate where
+def outputSpecTokens_line_62 : LineCertificate where
   text := "   function Has_Output (Source : String) return Boolean"
   tokens := ["function", "has_output", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_62 : LineCertificate where
+def outputSpecTokens_line_63 : LineCertificate where
   text := "     with Ghost => Static, Global => null;"
   tokens := ["with", "ghost", "=>", "static", ",", "global", "=>", "null", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_63 : LineCertificate where
+def outputSpecTokens_line_64 : LineCertificate where
   text := "   function Uses_Output (Source : String) return Boolean"
   tokens := ["function", "uses_output", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_64 : LineCertificate where
+def outputSpecTokens_line_65 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_65 : LineCertificate where
+def outputSpecTokens_line_66 : LineCertificate where
   text := "       Post => (Static => Uses_Output'Result = Has_Output (Source));"
   tokens := ["post", "=>", "(", "static", "=>", "uses_output", "'", "result", "=", "has_output", "(", "source", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_66 : LineCertificate where
+def outputSpecTokens_line_67 : LineCertificate where
   text := "   function Accepts (Source : String) return Boolean"
   tokens := ["function", "accepts", "(", "source", ":", "string", ")", "return", "boolean"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_67 : LineCertificate where
+def outputSpecTokens_line_68 : LineCertificate where
   text := "     with Global => null,"
   tokens := ["with", "global", "=>", "null", ","]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_68 : LineCertificate where
+def outputSpecTokens_line_69 : LineCertificate where
   text := "       Post => (Static => Accepts'Result = Is_Member (Source));"
   tokens := ["post", "=>", "(", "static", "=>", "accepts", "'", "result", "=", "is_member", "(", "source", ")", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_69 : LineCertificate where
+def outputSpecTokens_line_70 : LineCertificate where
   text := "end Silver_Output_Profile;"
   tokens := ["end", "silver_output_profile", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def outputSpecTokens_line_70 : LineCertificate where
+def outputSpecTokens_line_71 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
@@ -490,68 +496,74 @@ def outputSpecTokens_block_6_7 : ReconstructionCertificate :=
 def outputSpecTokens_block_7_8 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_7
 
-def outputSpecTokens_block_6_8 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_6_7 outputSpecTokens_block_7_8
-    "   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements."
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';']
-      [' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.']))
-
-def outputSpecTokens_block_4_8 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_4_6 outputSpecTokens_block_6_8
-    "is\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements."
-    (by kernel_exact (string_join_ofList ['i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';']
-      [' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.']))
-
-def outputSpecTokens_block_0_8 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_0_4 outputSpecTokens_block_4_8
-    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements."
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n']
-      ['i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.']))
-
 def outputSpecTokens_block_8_9 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_8
+
+def outputSpecTokens_block_7_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_7_8 outputSpecTokens_block_8_9
+    "   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context."
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.']))
+
+def outputSpecTokens_block_6_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_6_7 outputSpecTokens_block_7_9
+    "   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context."
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.']))
+
+def outputSpecTokens_block_4_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_4_6 outputSpecTokens_block_6_9
+    "is\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context."
+    (by kernel_exact (string_join_ofList ['i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';']
+      [' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.']))
+
+def outputSpecTokens_block_0_9 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_0_4 outputSpecTokens_block_4_9
+    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context."
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n']
+      ['i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.']))
 
 def outputSpecTokens_block_9_10 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_9
 
-def outputSpecTokens_block_8_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_8_9 outputSpecTokens_block_9_10
+def outputSpecTokens_block_10_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_10
+
+def outputSpecTokens_block_9_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_9_10 outputSpecTokens_block_10_11
     "   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;)."
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';']
       [' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.']))
 
-def outputSpecTokens_block_10_11 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_10
-
 def outputSpecTokens_block_11_12 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_11
-
-def outputSpecTokens_block_10_12 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_10_11 outputSpecTokens_block_11_12
-    "   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.']
-      [' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';']))
-
-def outputSpecTokens_block_8_12 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_8_10 outputSpecTokens_block_10_12
-    "   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.']
-      [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';']))
 
 def outputSpecTokens_block_12_13 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_12
 
+def outputSpecTokens_block_11_13 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_11_12 outputSpecTokens_block_12_13
+    "   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.']
+      [' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';']))
+
+def outputSpecTokens_block_9_13 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_9_11 outputSpecTokens_block_11_13
+    "   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.']
+      [' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';']))
+
 def outputSpecTokens_block_13_14 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_13
 
-def outputSpecTokens_block_12_14 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_12_13 outputSpecTokens_block_13_14
+def outputSpecTokens_block_14_15 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_14
+
+def outputSpecTokens_block_13_15 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_13_14 outputSpecTokens_block_14_15
     "   Comment_Introducer : constant String (1 .. 2) := \"--\";\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';']
       []))
-
-def outputSpecTokens_block_14_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_14
 
 def outputSpecTokens_block_15_16 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_15
@@ -559,80 +571,80 @@ def outputSpecTokens_block_15_16 : ReconstructionCertificate :=
 def outputSpecTokens_block_16_17 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_16
 
-def outputSpecTokens_block_15_17 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_15_16 outputSpecTokens_block_16_17
+def outputSpecTokens_block_17_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_17
+
+def outputSpecTokens_block_16_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_16_17 outputSpecTokens_block_17_18
     "     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']))
 
-def outputSpecTokens_block_14_17 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_14_15 outputSpecTokens_block_15_17
+def outputSpecTokens_block_15_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_15_16 outputSpecTokens_block_16_18
     "   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's']
       [' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']))
 
-def outputSpecTokens_block_12_17 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_12_14 outputSpecTokens_block_14_17
+def outputSpecTokens_block_13_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_13_15 outputSpecTokens_block_15_18
     "   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n']
       [' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']))
 
-def outputSpecTokens_block_8_17 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_8_12 outputSpecTokens_block_12_17
+def outputSpecTokens_block_9_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_9_13 outputSpecTokens_block_13_18
     "   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';']
       [' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']))
 
-def outputSpecTokens_block_0_17 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_0_8 outputSpecTokens_block_8_17
-    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.']
+def outputSpecTokens_block_0_18 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_0_9 outputSpecTokens_block_9_18
+    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.']
       [' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';', '\n', ' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']))
-
-def outputSpecTokens_block_17_18 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_17
 
 def outputSpecTokens_block_18_19 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_18
 
-def outputSpecTokens_block_17_19 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_17_18 outputSpecTokens_block_18_19
+def outputSpecTokens_block_19_20 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_19
+
+def outputSpecTokens_block_18_20 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_18_19 outputSpecTokens_block_19_20
     "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',']))
 
-def outputSpecTokens_block_19_20 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_19
-
 def outputSpecTokens_block_20_21 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_20
-
-def outputSpecTokens_block_19_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_19_20 outputSpecTokens_block_20_21
-    "      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']))
-
-def outputSpecTokens_block_17_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_17_19 outputSpecTokens_block_19_21
-    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']))
 
 def outputSpecTokens_block_21_22 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_21
 
+def outputSpecTokens_block_20_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_20_21 outputSpecTokens_block_21_22
+    "      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']))
+
+def outputSpecTokens_block_18_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_18_20 outputSpecTokens_block_20_22
+    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']))
+
 def outputSpecTokens_block_22_23 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_22
 
-def outputSpecTokens_block_21_23 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_21_22 outputSpecTokens_block_22_23
+def outputSpecTokens_block_23_24 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_23
+
+def outputSpecTokens_block_22_24 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_22_23 outputSpecTokens_block_23_24
     "      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',']))
-
-def outputSpecTokens_block_23_24 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_23
 
 def outputSpecTokens_block_24_25 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_24
@@ -640,74 +652,74 @@ def outputSpecTokens_block_24_25 : ReconstructionCertificate :=
 def outputSpecTokens_block_25_26 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_25
 
-def outputSpecTokens_block_24_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_24_25 outputSpecTokens_block_25_26
+def outputSpecTokens_block_26_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_26
+
+def outputSpecTokens_block_25_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_25_26 outputSpecTokens_block_26_27
     "      Null_Keyword, Statements);\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';']
       []))
 
-def outputSpecTokens_block_23_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_23_24 outputSpecTokens_block_24_26
+def outputSpecTokens_block_24_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_24_25 outputSpecTokens_block_25_27
     "      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n']))
 
-def outputSpecTokens_block_21_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_21_23 outputSpecTokens_block_23_26
+def outputSpecTokens_block_22_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_22_24 outputSpecTokens_block_24_27
     "      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n']))
 
-def outputSpecTokens_block_17_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_17_21 outputSpecTokens_block_21_26
-    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']
+def outputSpecTokens_block_18_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_18_22 outputSpecTokens_block_22_27
+    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n']))
-
-def outputSpecTokens_block_26_27 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_26
 
 def outputSpecTokens_block_27_28 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_27
 
-def outputSpecTokens_block_26_28 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_26_27 outputSpecTokens_block_27_28
+def outputSpecTokens_block_28_29 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_28
+
+def outputSpecTokens_block_27_29 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_27_28 outputSpecTokens_block_28_29
     "   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
 
-def outputSpecTokens_block_28_29 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_28
-
 def outputSpecTokens_block_29_30 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_29
-
-def outputSpecTokens_block_28_30 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_28_29 outputSpecTokens_block_29_30
-    "       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e']))
-
-def outputSpecTokens_block_26_30 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_26_28 outputSpecTokens_block_28_30
-    "   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e']))
 
 def outputSpecTokens_block_30_31 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_30
 
+def outputSpecTokens_block_29_31 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_29_30 outputSpecTokens_block_30_31
+    "       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e']))
+
+def outputSpecTokens_block_27_31 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_27_29 outputSpecTokens_block_29_31
+    "   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e']))
+
 def outputSpecTokens_block_31_32 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_31
 
-def outputSpecTokens_block_30_32 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_30_31 outputSpecTokens_block_31_32
-    "           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e']))
-
 def outputSpecTokens_block_32_33 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_32
+
+def outputSpecTokens_block_31_33 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_31_32 outputSpecTokens_block_32_33
+    "           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e']))
 
 def outputSpecTokens_block_33_34 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_33
@@ -715,86 +727,86 @@ def outputSpecTokens_block_33_34 : ReconstructionCertificate :=
 def outputSpecTokens_block_34_35 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_34
 
-def outputSpecTokens_block_33_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_33_34 outputSpecTokens_block_34_35
+def outputSpecTokens_block_35_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_35
+
+def outputSpecTokens_block_34_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_34_35 outputSpecTokens_block_35_36
     "\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
     (by kernel_exact (string_join_ofList []
       [' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
-def outputSpecTokens_block_32_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_32_33 outputSpecTokens_block_33_35
+def outputSpecTokens_block_33_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_33_34 outputSpecTokens_block_34_36
     "           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';']
       ['\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
-def outputSpecTokens_block_30_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_30_32 outputSpecTokens_block_32_35
-    "           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e']
+def outputSpecTokens_block_31_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_31_33 outputSpecTokens_block_33_36
+    "           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e']
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
-def outputSpecTokens_block_26_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_26_30 outputSpecTokens_block_30_35
-    "   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
+def outputSpecTokens_block_27_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_27_31 outputSpecTokens_block_31_36
+    "   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
-def outputSpecTokens_block_17_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_17_26 outputSpecTokens_block_26_35
-    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
+def outputSpecTokens_block_18_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_18_27 outputSpecTokens_block_27_36
+    "      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
-def outputSpecTokens_block_0_35 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_0_17 outputSpecTokens_block_17_35
-    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,\n      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';', '\n', ' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
-
-def outputSpecTokens_block_35_36 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_35
+def outputSpecTokens_block_0_36 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_0_18 outputSpecTokens_block_18_36
+    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,\n      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';', '\n', ' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']))
 
 def outputSpecTokens_block_36_37 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_36
 
-def outputSpecTokens_block_35_37 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_35_36 outputSpecTokens_block_36_37
+def outputSpecTokens_block_37_38 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_37
+
+def outputSpecTokens_block_36_38 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_36_37 outputSpecTokens_block_37_38
     "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.']
       [' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's']))
 
-def outputSpecTokens_block_37_38 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_37
-
 def outputSpecTokens_block_38_39 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_38
-
-def outputSpecTokens_block_37_39 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_37_38 outputSpecTokens_block_38_39
-    "     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e']))
-
-def outputSpecTokens_block_35_39 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_35_37 outputSpecTokens_block_37_39
-    "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's']
-      [' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e']))
 
 def outputSpecTokens_block_39_40 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_39
 
+def outputSpecTokens_block_38_40 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_38_39 outputSpecTokens_block_39_40
+    "     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e']))
+
+def outputSpecTokens_block_36_40 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_36_38 outputSpecTokens_block_38_40
+    "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's']
+      [' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e']))
+
 def outputSpecTokens_block_40_41 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_40
 
-def outputSpecTokens_block_39_41 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_39_40 outputSpecTokens_block_40_41
+def outputSpecTokens_block_41_42 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_41
+
+def outputSpecTokens_block_40_42 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_40_41 outputSpecTokens_block_41_42
     "     with Global => null,\n       Post => Tokens'Result'First = 1"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1']))
-
-def outputSpecTokens_block_41_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_41
 
 def outputSpecTokens_block_42_43 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_42
@@ -802,74 +814,74 @@ def outputSpecTokens_block_42_43 : ReconstructionCertificate :=
 def outputSpecTokens_block_43_44 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_43
 
-def outputSpecTokens_block_42_44 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_42_43 outputSpecTokens_block_43_44
+def outputSpecTokens_block_44_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_44
+
+def outputSpecTokens_block_43_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_43_44 outputSpecTokens_block_44_45
     "   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's']
       [' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']))
 
-def outputSpecTokens_block_41_44 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_41_42 outputSpecTokens_block_42_44
+def outputSpecTokens_block_42_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_42_43 outputSpecTokens_block_43_45
     "         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']))
 
-def outputSpecTokens_block_39_44 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_39_41 outputSpecTokens_block_41_44
+def outputSpecTokens_block_40_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_40_42 outputSpecTokens_block_42_45
     "     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1']
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']))
 
-def outputSpecTokens_block_35_44 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_35_39 outputSpecTokens_block_39_44
+def outputSpecTokens_block_36_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_36_40 outputSpecTokens_block_40_45
     "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence\n     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']))
 
-def outputSpecTokens_block_44_45 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_44
-
 def outputSpecTokens_block_45_46 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_45
-
-def outputSpecTokens_block_44_46 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_44_45 outputSpecTokens_block_45_46
-    "   function Spelling (Token : Token_Kind) return String\n     with Global => null,"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g']
-      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
 
 def outputSpecTokens_block_46_47 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_46
 
+def outputSpecTokens_block_45_47 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_45_46 outputSpecTokens_block_46_47
+    "   function Spelling (Token : Token_Kind) return String\n     with Global => null,"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g']
+      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
+
 def outputSpecTokens_block_47_48 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_47
-
-def outputSpecTokens_block_46_48 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_46_47 outputSpecTokens_block_47_48
-    "       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';']))
-
-def outputSpecTokens_block_44_48 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_44_46 outputSpecTokens_block_46_48
-    "   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';']))
 
 def outputSpecTokens_block_48_49 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_48
 
+def outputSpecTokens_block_47_49 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_47_48 outputSpecTokens_block_48_49
+    "       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';']))
+
+def outputSpecTokens_block_45_49 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_45_47 outputSpecTokens_block_47_49
+    "   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';']))
+
 def outputSpecTokens_block_49_50 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_49
 
-def outputSpecTokens_block_48_50 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_48_49 outputSpecTokens_block_49_50
+def outputSpecTokens_block_50_51 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_50
+
+def outputSpecTokens_block_49_51 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_49_50 outputSpecTokens_block_50_51
     "\n   function Is_Member (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList []
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
-
-def outputSpecTokens_block_50_51 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_50
 
 def outputSpecTokens_block_51_52 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_51
@@ -877,80 +889,80 @@ def outputSpecTokens_block_51_52 : ReconstructionCertificate :=
 def outputSpecTokens_block_52_53 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_52
 
-def outputSpecTokens_block_51_53 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_51_52 outputSpecTokens_block_52_53
+def outputSpecTokens_block_53_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_53
+
+def outputSpecTokens_block_52_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_52_53 outputSpecTokens_block_53_54
     "   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']))
 
-def outputSpecTokens_block_50_53 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_50_51 outputSpecTokens_block_51_53
+def outputSpecTokens_block_51_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_51_52 outputSpecTokens_block_52_54
     "     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']))
 
-def outputSpecTokens_block_48_53 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_48_50 outputSpecTokens_block_50_53
+def outputSpecTokens_block_49_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_49_51 outputSpecTokens_block_51_54
     "\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;"
     (by kernel_exact (string_join_ofList ['\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']))
 
-def outputSpecTokens_block_44_53 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_44_48 outputSpecTokens_block_48_53
+def outputSpecTokens_block_45_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_45_49 outputSpecTokens_block_49_54
     "   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;\n\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';']
       ['\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']))
 
-def outputSpecTokens_block_35_53 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_35_44 outputSpecTokens_block_44_53
+def outputSpecTokens_block_36_54 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_36_45 outputSpecTokens_block_45_54
     "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence\n     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);\n   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;\n\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']))
 
-def outputSpecTokens_block_53_54 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_53
-
 def outputSpecTokens_block_54_55 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_54
-
-def outputSpecTokens_block_53_55 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_53_54 outputSpecTokens_block_54_55
-    "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
-      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
 
 def outputSpecTokens_block_55_56 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_55
 
+def outputSpecTokens_block_54_56 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_54_55 outputSpecTokens_block_55_56
+    "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
+      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
+
 def outputSpecTokens_block_56_57 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_56
-
-def outputSpecTokens_block_55_57 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_55_56 outputSpecTokens_block_56_57
-    "       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
-
-def outputSpecTokens_block_53_57 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_53_55 outputSpecTokens_block_55_57
-    "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
 def outputSpecTokens_block_57_58 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_57
 
+def outputSpecTokens_block_56_58 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_56_57 outputSpecTokens_block_57_58
+    "       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
+
+def outputSpecTokens_block_54_58 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_54_56 outputSpecTokens_block_56_58
+    "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
+
 def outputSpecTokens_block_58_59 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_58
 
-def outputSpecTokens_block_57_59 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_57_58 outputSpecTokens_block_58_59
+def outputSpecTokens_block_59_60 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_59
+
+def outputSpecTokens_block_58_60 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_58_59 outputSpecTokens_block_59_60
     "     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
-
-def outputSpecTokens_block_59_60 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_59
 
 def outputSpecTokens_block_60_61 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_60
@@ -958,74 +970,74 @@ def outputSpecTokens_block_60_61 : ReconstructionCertificate :=
 def outputSpecTokens_block_61_62 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_61
 
-def outputSpecTokens_block_60_62 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_60_61 outputSpecTokens_block_61_62
+def outputSpecTokens_block_62_63 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_62
+
+def outputSpecTokens_block_61_63 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_61_62 outputSpecTokens_block_62_63
     "       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
-def outputSpecTokens_block_59_62 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_59_60 outputSpecTokens_block_60_62
+def outputSpecTokens_block_60_63 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_60_61 outputSpecTokens_block_61_63
     "     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
-def outputSpecTokens_block_57_62 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_57_59 outputSpecTokens_block_59_62
+def outputSpecTokens_block_58_63 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_58_60 outputSpecTokens_block_60_63
     "     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
-def outputSpecTokens_block_53_62 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_53_57 outputSpecTokens_block_57_62
+def outputSpecTokens_block_54_63 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_54_58 outputSpecTokens_block_58_63
     "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
-def outputSpecTokens_block_62_63 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_62
-
 def outputSpecTokens_block_63_64 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_63
-
-def outputSpecTokens_block_62_64 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_62_63 outputSpecTokens_block_63_64
-    "     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
 
 def outputSpecTokens_block_64_65 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_64
 
+def outputSpecTokens_block_63_65 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_63_64 outputSpecTokens_block_64_65
+    "     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']))
+
 def outputSpecTokens_block_65_66 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_65
-
-def outputSpecTokens_block_64_66 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_64_65 outputSpecTokens_block_65_66
-    "     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']))
-
-def outputSpecTokens_block_62_66 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_62_64 outputSpecTokens_block_64_66
-    "     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
-      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']))
 
 def outputSpecTokens_block_66_67 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_66
 
+def outputSpecTokens_block_65_67 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_65_66 outputSpecTokens_block_66_67
+    "     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']))
+
+def outputSpecTokens_block_63_67 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_63_65 outputSpecTokens_block_65_67
+    "     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
+      [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']))
+
 def outputSpecTokens_block_67_68 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_67
 
-def outputSpecTokens_block_66_68 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_66_67 outputSpecTokens_block_67_68
+def outputSpecTokens_block_68_69 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_68
+
+def outputSpecTokens_block_67_69 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_67_68 outputSpecTokens_block_68_69
     "   function Accepts (Source : String) return Boolean\n     with Global => null,"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']))
-
-def outputSpecTokens_block_68_69 : ReconstructionCertificate :=
-  ReconstructionCertificate.single outputSpecTokens_line_68
 
 def outputSpecTokens_block_69_70 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_69
@@ -1033,64 +1045,67 @@ def outputSpecTokens_block_69_70 : ReconstructionCertificate :=
 def outputSpecTokens_block_70_71 : ReconstructionCertificate :=
   ReconstructionCertificate.single outputSpecTokens_line_70
 
-def outputSpecTokens_block_69_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_69_70 outputSpecTokens_block_70_71
+def outputSpecTokens_block_71_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.single outputSpecTokens_line_71
+
+def outputSpecTokens_block_70_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_70_71 outputSpecTokens_block_71_72
     "end Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';']
       []))
 
-def outputSpecTokens_block_68_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_68_69 outputSpecTokens_block_69_71
+def outputSpecTokens_block_69_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_69_70 outputSpecTokens_block_70_72
     "       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']
       ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
-def outputSpecTokens_block_66_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_66_68 outputSpecTokens_block_68_71
+def outputSpecTokens_block_67_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_67_69 outputSpecTokens_block_69_72
     "   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',']
       [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
-def outputSpecTokens_block_62_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_62_66 outputSpecTokens_block_66_71
+def outputSpecTokens_block_63_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_63_67 outputSpecTokens_block_67_72
     "     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));\n   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
-def outputSpecTokens_block_53_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_53_62 outputSpecTokens_block_62_71
+def outputSpecTokens_block_54_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_54_63 outputSpecTokens_block_63_72
     "   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));\n   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n']
       [' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
-def outputSpecTokens_block_35_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_35_53 outputSpecTokens_block_53_71
+def outputSpecTokens_block_36_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_36_54 outputSpecTokens_block_54_72
     "   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence\n     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);\n   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;\n\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));\n   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';']
       [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
-def outputSpecTokens_block_0_71 : ReconstructionCertificate :=
-  ReconstructionCertificate.join outputSpecTokens_block_0_35 outputSpecTokens_block_35_71
-    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Bound total concatenation proof work across declarations and statements.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,\n      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;\n   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence\n     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);\n   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;\n\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));\n   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'B', 'o', 'u', 'n', 'd', ' ', 't', 'o', 't', 'a', 'l', ' ', 'c', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'w', 'o', 'r', 'k', ' ', 'a', 'c', 'r', 'o', 's', 's', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';', '\n', ' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']
+def outputSpecTokens_block_0_72 : ReconstructionCertificate :=
+  ReconstructionCertificate.join outputSpecTokens_block_0_36 outputSpecTokens_block_36_72
+    "with Silver_Profile;\n\npackage Silver_Output_Profile\n  with SPARK_Mode => On\nis\n   Max_Source_Length : constant Positive := 4_096;\n   Max_Expression_Operands : constant Positive := 16;\n   --  Retain a source-wide operator budget; actual proof cost also depends on\n   --  expression position, statement density and control-flow context.\n   Max_Concatenations : constant Positive := 30;\n   --  A single-name declaration needs at least twelve bytes (A:String:=B;).\n   --  This storage bound cannot constrain a source within the source limit.\n   Max_Bindings : constant Positive := Max_Source_Length / 12;\n   Comment_Introducer : constant String (1 .. 2) := \"--\";\n\n   type Token_Kind is\n     (With_Keyword, IO_Name, Procedure_Keyword, Main_Name, Is_Keyword,\n      Pragma_Keyword, SPARK_Mode_Name, On_Name, Begin_Keyword, Put_Line_Name,\n      End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,\n      String_Literal, Colon, Constant_Keyword, String_Name, Assignment,\n      Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,\n      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,\n      Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,\n      Argument_Declaration, Declarations, Assignment_Target, Target_Reference,\n      Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,\n      Null_Keyword, Statements);\n\n   function Is_Word_Token (Token : Token_Kind) return Boolean\n     with Global => null,\n       Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10\n         or else Token in Constant_Keyword | String_Name | Arguments_Name\n           | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name\n           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name\n           | Null_Keyword);\n\n   type Token_Sequence is array (Positive range <>) of Token_Kind;\n   --  Shared declaration and statement rules live within three outer shells.\n   type Form_Kind is\n     (Direct_Form, Argument_Form, Guarded_Argument_Form);\n   function Tokens (Form : Form_Kind) return Token_Sequence\n     with Global => null,\n       Post => Tokens'Result'First = 1\n         and then Tokens'Result'Length in 1 .. 100;\n   function Is_Argument_Form (Form : Form_Kind) return Boolean is\n     (Form in Argument_Form | Guarded_Argument_Form);\n   function Spelling (Token : Token_Kind) return String\n     with Global => null,\n       Post => Spelling'Result'First = 1\n         and then Spelling'Result'Length in 1 .. 16;\n\n   function Is_Member (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Has_Arguments (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Arguments (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Arguments'Result = Has_Arguments (Source));\n   function Has_Assignment (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Assignment (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Assignment'Result = Has_Assignment (Source));\n   function Has_Output (Source : String) return Boolean\n     with Ghost => Static, Global => null;\n   function Uses_Output (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Uses_Output'Result = Has_Output (Source));\n   function Accepts (Source : String) return Boolean\n     with Global => null,\n       Post => (Static => Accepts'Result = Is_Member (Source));\nend Silver_Output_Profile;\n"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', '\n', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', '\n', 'i', 's', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '4', '_', '0', '9', '6', ';', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', '_', 'O', 'p', 'e', 'r', 'a', 'n', 'd', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '1', '6', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'R', 'e', 't', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', '-', 'w', 'i', 'd', 'e', ' ', 'o', 'p', 'e', 'r', 'a', 't', 'o', 'r', ' ', 'b', 'u', 'd', 'g', 'e', 't', ';', ' ', 'a', 'c', 't', 'u', 'a', 'l', ' ', 'p', 'r', 'o', 'o', 'f', ' ', 'c', 'o', 's', 't', ' ', 'a', 'l', 's', 'o', ' ', 'd', 'e', 'p', 'e', 'n', 'd', 's', ' ', 'o', 'n', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'e', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ' ', 'p', 'o', 's', 'i', 't', 'i', 'o', 'n', ',', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'd', 'e', 'n', 's', 'i', 't', 'y', ' ', 'a', 'n', 'd', ' ', 'c', 'o', 'n', 't', 'r', 'o', 'l', '-', 'f', 'l', 'o', 'w', ' ', 'c', 'o', 'n', 't', 'e', 'x', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'C', 'o', 'n', 'c', 'a', 't', 'e', 'n', 'a', 't', 'i', 'o', 'n', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', '3', '0', ';', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'A', ' ', 's', 'i', 'n', 'g', 'l', 'e', '-', 'n', 'a', 'm', 'e', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'n', 'e', 'e', 'd', 's', ' ', 'a', 't', ' ', 'l', 'e', 'a', 's', 't', ' ', 't', 'w', 'e', 'l', 'v', 'e', ' ', 'b', 'y', 't', 'e', 's', ' ', '(', 'A', ':', 'S', 't', 'r', 'i', 'n', 'g', ':', '=', 'B', ';', ')', '.', '\n', ' ', ' ', ' ', '-', '-', ' ', ' ', 'T', 'h', 'i', 's', ' ', 's', 't', 'o', 'r', 'a', 'g', 'e', ' ', 'b', 'o', 'u', 'n', 'd', ' ', 'c', 'a', 'n', 'n', 'o', 't', ' ', 'c', 'o', 'n', 's', 't', 'r', 'a', 'i', 'n', ' ', 'a', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'e', ' ', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'l', 'i', 'm', 'i', 't', '.', '\n', ' ', ' ', ' ', 'M', 'a', 'x', '_', 'B', 'i', 'n', 'd', 'i', 'n', 'g', 's', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', ':', '=', ' ', 'M', 'a', 'x', '_', 'S', 'o', 'u', 'r', 'c', 'e', '_', 'L', 'e', 'n', 'g', 't', 'h', ' ', '/', ' ', '1', '2', ';', '\n', ' ', ' ', ' ', 'C', 'o', 'm', 'm', 'e', 'n', 't', '_', 'I', 'n', 't', 'r', 'o', 'd', 'u', 'c', 'e', 'r', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', '2', ')', ' ', ':', '=', ' ', '"', '-', '-', '"', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'W', 'i', 't', 'h', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'O', '_', 'N', 'a', 'm', 'e', ',', ' ', 'P', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'M', 'a', 'i', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 's', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'r', 'a', 'g', 'm', 'a', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', '_', 'N', 'a', 'm', 'e', ',', ' ', 'O', 'n', '_', 'N', 'a', 'm', 'e', ',', ' ', 'B', 'e', 'g', 'i', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'P', 'u', 't', '_', 'L', 'i', 'n', 'e', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'E', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'L', 'e', 'f', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'R', 'i', 'g', 'h', 't', '_', 'P', 'a', 'r', 'e', 'n', 't', 'h', 'e', 's', 'i', 's', ',', ' ', 'S', 'e', 'm', 'i', 'c', 'o', 'l', 'o', 'n', ',', ' ', 'D', 'o', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'C', 'o', 'l', 'o', 'n', ',', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', ',', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ',', ' ', 'A', 'm', 'p', 'e', 'r', 's', 'a', 'n', 'd', ',', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'p', 'o', 's', 't', 'r', 'o', 'p', 'h', 'e', ',', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', ',', ' ', 'L', 'e', 's', 's', '_', 'E', 'q', 'u', 'a', 'l', ',', ' ', 'C', 'a', 'p', 'a', 'c', 'i', 't', 'y', '_', 'L', 'i', 't', 'e', 'r', 'a', 'l', ',', ' ', 'E', 'q', 'u', 'a', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ',', ' ', 'D', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', 's', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'T', 'a', 'r', 'g', 'e', 't', ',', ' ', 'T', 'a', 'r', 'g', 'e', 't', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'y', 'n', 'a', 'm', 'i', 'c', '_', 'R', 'e', 'f', 'e', 'r', 'e', 'n', 'c', 'e', ',', ' ', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '_', 'V', 'a', 'l', 'u', 'e', ',', ' ', 'O', 'u', 't', 'p', 'u', 't', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', ' ', 'C', 'o', 'm', 'p', 'a', 'r', 'i', 's', 'o', 'n', '_', 'E', 'x', 'p', 'r', 'e', 's', 's', 'i', 'o', 'n', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ',', ' ', 'S', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', 's', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'I', 's', '_', 'W', 'o', 'r', 'd', '_', 'T', 'o', 'k', 'e', 'n', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', '(', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', '\'', 'P', 'o', 's', ' ', '(', 'T', 'o', 'k', 'e', 'n', ')', ' ', 'i', 'n', ' ', '0', ' ', '.', '.', ' ', '1', '0', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'r', ' ', 'e', 'l', 's', 'e', ' ', 'T', 'o', 'k', 'e', 'n', ' ', 'i', 'n', ' ', 'C', 'o', 'n', 's', 't', 'a', 'n', 't', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'S', 't', 'r', 'i', 'n', 'g', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'I', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'T', 'h', 'e', 'n', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'e', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'E', 'l', 's', 'i', 'f', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'R', 'e', 'j', 'e', 'c', 't', '_', 'N', 'a', 'm', 'e', ' ', '|', ' ', 'A', 'n', 'd', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ' ', '|', ' ', 'L', 'e', 'n', 'g', 't', 'h', '_', 'N', 'a', 'm', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|', ' ', 'N', 'u', 'l', 'l', '_', 'K', 'e', 'y', 'w', 'o', 'r', 'd', ')', ';', '\n', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', ' ', 'i', 's', ' ', 'a', 'r', 'r', 'a', 'y', ' ', '(', 'P', 'o', 's', 'i', 't', 'i', 'v', 'e', ' ', 'r', 'a', 'n', 'g', 'e', ' ', '<', '>', ')', ' ', 'o', 'f', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ';']
       [' ', ' ', ' ', '-', '-', ' ', ' ', 'S', 'h', 'a', 'r', 'e', 'd', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'a', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 's', 't', 'a', 't', 'e', 'm', 'e', 'n', 't', ' ', 'r', 'u', 'l', 'e', 's', ' ', 'l', 'i', 'v', 'e', ' ', 'w', 'i', 't', 'h', 'i', 'n', ' ', 't', 'h', 'r', 'e', 'e', ' ', 'o', 'u', 't', 'e', 'r', ' ', 's', 'h', 'e', 'l', 'l', 's', '.', '\n', ' ', ' ', ' ', 't', 'y', 'p', 'e', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'D', 'i', 'r', 'e', 'c', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ',', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'S', 'e', 'q', 'u', 'e', 'n', 'c', 'e', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'T', 'o', 'k', 'e', 'n', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '0', '0', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '(', 'F', 'o', 'r', 'm', ' ', ':', ' ', 'F', 'o', 'r', 'm', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'F', 'o', 'r', 'm', ' ', 'i', 'n', ' ', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ' ', '|', ' ', 'G', 'u', 'a', 'r', 'd', 'e', 'd', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'F', 'o', 'r', 'm', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', ' ', '(', 'T', 'o', 'k', 'e', 'n', ' ', ':', ' ', 'T', 'o', 'k', 'e', 'n', '_', 'K', 'i', 'n', 'd', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'F', 'i', 'r', 's', 't', ' ', '=', ' ', '1', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', 'S', 'p', 'e', 'l', 'l', 'i', 'n', 'g', '\'', 'R', 'e', 's', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', 'i', 'n', ' ', '1', ' ', '.', '.', ' ', '1', '6', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'A', 's', 's', 'i', 'g', 'n', 'm', 'e', 'n', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'h', 'o', 's', 't', ' ', '=', '>', ' ', 'S', 't', 'a', 't', 'i', 'c', ',', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'U', 's', 'e', 's', '_', 'O', 'u', 't', 'p', 'u', 't', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'H', 'a', 's', '_', 'O', 'u', 't', 'p', 'u', 't', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', '\n', ' ', ' ', ' ', ' ', ' ', 'w', 'i', 't', 'h', ' ', 'G', 'l', 'o', 'b', 'a', 'l', ' ', '=', '>', ' ', 'n', 'u', 'l', 'l', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'o', 's', 't', ' ', '=', '>', ' ', '(', 'S', 't', 'a', 't', 'i', 'c', ' ', '=', '>', ' ', 'A', 'c', 'c', 'e', 'p', 't', 's', '\'', 'R', 'e', 's', 'u', 'l', 't', ' ', '=', ' ', 'I', 's', '_', 'M', 'e', 'm', 'b', 'e', 'r', ' ', '(', 'S', 'o', 'u', 'r', 'c', 'e', ')', ')', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'P', 'r', 'o', 'f', 'i', 'l', 'e', ';', '\n']))
 
 def outputSpecTokens_certificates : List LineCertificate :=
-  outputSpecTokens_block_0_71.lines
+  outputSpecTokens_block_0_72.lines
 
 def outputSpecTokens : Tokens :=
-  ["with", "silver_profile", ";", "package", "silver_output_profile", "with", "spark_mode", "=>", "on", "is", "max_source_length", ":", "constant", "positive", ":=", "4_096", ";", "max_expression_operands", ":", "constant", "positive", ":=", "16", ";", "max_concatenations", ":", "constant", "positive", ":=", "30", ";", "max_bindings", ":", "constant", "positive", ":=", "max_source_length", "/", "12", ";", "comment_introducer", ":", "constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\"", ";", "type", "token_kind", "is", "(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ")", ";", "function", "is_word_token", "(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "null_keyword", ")", ";", "type", "token_sequence", "is", "array", "(", "positive", "range", "<", ">", ")", "of", "token_kind", ";", "type", "form_kind", "is", "(", "direct_form", ",", "argument_form", ",", "guarded_argument_form", ")", ";", "function", "tokens", "(", "form", ":", "form_kind", ")", "return", "token_sequence", "with", "global", "=>", "null", ",", "post", "=>", "tokens", "'", "result", "'", "first", "=", "1", "and", "then", "tokens", "'", "result", "'", "length", "in", "1", "..", "100", ";", "function", "is_argument_form", "(", "form", ":", "form_kind", ")", "return", "boolean", "is", "(", "form", "in", "argument_form", "|", "guarded_argument_form", ")", ";", "function", "spelling", "(", "token", ":", "token_kind", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "spelling", "'", "result", "'", "first", "=", "1", "and", "then", "spelling", "'", "result", "'", "length", "in", "1", "..", "16", ";", "function", "is_member", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "has_arguments", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_arguments", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_arguments", "'", "result", "=", "has_arguments", "(", "source", ")", ")", ";", "function", "has_assignment", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_assignment", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_assignment", "'", "result", "=", "has_assignment", "(", "source", ")", ")", ";", "function", "has_output", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_output", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_output", "'", "result", "=", "has_output", "(", "source", ")", ")", ";", "function", "accepts", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "accepts", "'", "result", "=", "is_member", "(", "source", ")", ")", ";", "end", "silver_output_profile", ";"]
+  ["with", "silver_profile", ";", "package", "silver_output_profile", "with", "spark_mode", "=>", "on", "is", "max_source_length", ":", "constant", "positive", ":=", "4_096", ";", "max_expression_operands", ":", "constant", "positive", ":=", "16", ";", "max_concatenations", ":", "constant", "positive", ":=", "30", ";", "max_bindings", ":", "constant", "positive", ":=", "max_source_length", "/", "12", ";", "comment_introducer", ":", "constant", "string", "(", "1", "..", "2", ")", ":=", "\"--\"", ";", "type", "token_kind", "is", "(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ")", ";", "function", "is_word_token", "(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "null_keyword", ")", ";", "type", "token_sequence", "is", "array", "(", "positive", "range", "<", ">", ")", "of", "token_kind", ";", "type", "form_kind", "is", "(", "direct_form", ",", "argument_form", ",", "guarded_argument_form", ")", ";", "function", "tokens", "(", "form", ":", "form_kind", ")", "return", "token_sequence", "with", "global", "=>", "null", ",", "post", "=>", "tokens", "'", "result", "'", "first", "=", "1", "and", "then", "tokens", "'", "result", "'", "length", "in", "1", "..", "100", ";", "function", "is_argument_form", "(", "form", ":", "form_kind", ")", "return", "boolean", "is", "(", "form", "in", "argument_form", "|", "guarded_argument_form", ")", ";", "function", "spelling", "(", "token", ":", "token_kind", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "spelling", "'", "result", "'", "first", "=", "1", "and", "then", "spelling", "'", "result", "'", "length", "in", "1", "..", "16", ";", "function", "is_member", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "has_arguments", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_arguments", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_arguments", "'", "result", "=", "has_arguments", "(", "source", ")", ")", ";", "function", "has_assignment", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_assignment", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_assignment", "'", "result", "=", "has_assignment", "(", "source", ")", ")", ";", "function", "has_output", "(", "source", ":", "string", ")", "return", "boolean", "with", "ghost", "=>", "static", ",", "global", "=>", "null", ";", "function", "uses_output", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "uses_output", "'", "result", "=", "has_output", "(", "source", ")", ")", ";", "function", "accepts", "(", "source", ":", "string", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "(", "static", "=>", "accepts", "'", "result", "=", "is_member", "(", "source", ")", ")", ";", "end", "silver_output_profile", ";"]
 
 theorem outputSpecTokens_source :
     String.intercalate "\n" (outputSpecTokens_certificates.map (·.text)) = outputProfileSpec := by
-  exact outputSpecTokens_block_0_71.correct
+  exact outputSpecTokens_block_0_72.correct
 
 theorem outputSpecTokens_values :
     outputSpecTokens_certificates.flatMap (·.tokens) = outputSpecTokens := by rfl
 
 theorem outputSpecTokens_correct : lex outputProfileSpec = some outputSpecTokens := by
   rw [← outputSpecTokens_source, reconstructed_source_lex outputSpecTokens_certificates
-    outputSpecTokens_block_0_71.nonempty]
+    outputSpecTokens_block_0_72.nonempty]
   rw [outputSpecTokens_values]
 
 end Silver.Source

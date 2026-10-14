@@ -53,15 +53,16 @@ runtime imports, ABI and environmental assumptions used throughout.
 `Current.accepts_iff_member` proves decidability; `member_has_meaning` and
 `meaning_unique` give every admitted source exactly one decoded program.
 `SequenceAdmission` defines the scanner for three shells, basic statements,
-nonempty lists and one-level choices. `SequenceTokens`, `SequenceBasics`,
-`SequenceLists`, `SequenceConditions`, `SequenceHeader`, `SequenceShell` and
+nonempty lists and recursive choices. `SequenceTokens`, `SequenceBasics`,
+`SequenceLists`, `SequenceConditions`, `SequenceConditionValidity`,
+`SequenceHeader`, `SequenceShell` and
 `SequenceGrammar` connect its token events to typed statements and program
 validity. The statement reading relations include scanner equalities and
 scanner-computed positions. Their soundness/completeness theorems connect that
 scanner to its readings; they do not independently establish that the scanner
 accepts every source described by the prose grammar. The three shells are disjoint;
 `SequenceSelectors` connects argument/output/assignment flags to the decoded program, including occurrences
-in both conditional arms. Shared `Compose` expression/declaration proofs remain
+in all nested arms and alternatives. Shared `Compose` expression/declaration proofs remain
 in use; their obsolete fixed-shell recognition is not the current language.
 
 Membership covers the entire source, including its 1..4096-byte bound, permitted
@@ -230,13 +231,17 @@ store. Assignment preserves the target's fixed length shape and all other
 bindings. `SequenceExecution` proves that its checked interpreter always succeeds
 for valid programs, including every assignment after earlier updates.
 
-A one-level choice compares two bounded String expressions and executes one
-nonempty sequence of basic statements. At least one operand contains a declared
+A choice compares two bounded String expressions and executes its first matching
+nonempty statement sequence. The working 5a extension permits nested choices,
+`elsif` and omitted `else`; its complete checkpoint remains pending in the
+[conditional record](branches.md). At least one operand contains a declared
 String name for Ada array-type resolution. Equality compares length and element
-bytes, preserving case. Multiple choices may occur in sequence; no nested equality
-or new Boolean language is admitted. Both arms preserve initialized values and
-bounds, so their effects compose with following statements. A failed outer
-argument guard performs only Reject.
+bytes, preserving case. Each `elsif` is evaluated only after earlier conditions
+were false; an omitted final `else` leaves the store and effects unchanged.
+Recursive validity and execution proofs cover all arms, preserving initialized
+values and fixed bounds for following statements. A failed outer argument guard
+still performs only Reject. Broader predicates and branch-refined length facts
+remain the subsequent 5b/c work.
 
 `SequenceMain` relates the parsed token/payload order, explicit conditional arms
 and declaration store to that same program's checked execution and effects. The

@@ -150,7 +150,7 @@ def allTokens : List ShellToken :=
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal,
    .symbol ":", .word "constant", .word "string", .symbol ":=",
    .word "silver_arguments", .word "first_or_default", .word "if", .word "input_is_valid",
-   .word "then", .word "else", .word "reject", .symbol "&", .word "and", .symbol "'",
+   .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and", .symbol "'",
    .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference,
    .assignmentValue, .outputExpression, .comparisonExpression, .word "null"]
@@ -165,10 +165,10 @@ an exact named representation in the native enumeration. -/
 def nativeTokenNames : List String := allTokens.map Expressions.tokenName ++ ["statements"]
 
 def spellingBody : List String := ["case", "token", "is"] ++
-  List.flatten (((allTokens.take 34 ++ [ShellToken.word "null"]).map fun token =>
+  List.flatten (((allTokens.take 35 ++ [ShellToken.word "null"]).map fun token =>
     ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
   [",", "when"] ++
-  List.flatten ((((allTokens.drop 34).take 8).map Expressions.tokenName ++ ["statements"]).map
+  List.flatten ((((allTokens.drop 35).take 8).map Expressions.tokenName ++ ["statements"]).map
     (fun name => [name]) |>.intersperse ["|"]) ++ ["=>", quoted "_"]
 
 def helperForms : List Form := [.direct, .argument, .guardedArgument]
@@ -180,7 +180,7 @@ abbrev HelperCatalogueTranslation : Prop :=
     some (["("] ++ commaNames nativeTokenNames ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") ∧
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") ∧
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
     some (expectedTokens "Form in Argument_Form | Guarded_Argument_Form")
 
@@ -197,7 +197,7 @@ private theorem catalogue_fact_03 :
 
 private theorem catalogue_fact_05 :
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") := by decide +kernel
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") := by decide +kernel
 
 private theorem catalogue_fact_06 :
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
@@ -211,7 +211,7 @@ theorem finite_mapping :
     (∀ index : Fin allTokens.length, Expressions.isWord allTokens[index] =
       (decide (index.val ≤ 10) || decide (allTokens[index] ∈
         [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
-         .word "if", .word "input_is_valid", .word "then", .word "else", .word "reject",
+         .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
          .word "and", .word "length", .word "null"]))) := by decide +kernel
 
 abbrev Declarations : Prop :=

@@ -94,7 +94,9 @@ class ComposedResultsTests(unittest.TestCase):
         cases += [source_for(b'("x")'), source_for(b'Message&(Message)', form='static'),
                   source_for(b'Input&Input', form='argument', capacity=b'0'),
                   source_for(b'""&Input&Input', form='argument', capacity=b'0'),
-                  source_for(b'Message', form='result').replace(b'Input="pick"', b'Message="pick"')]
+                  source_for(b'Message', form='result').replace(b'Input="pick"', b'Message="pick"'),
+                  source_for(b'Message&Input', form='result', capacity=b'40')
+                  .replace(b'else Message:="old";', b'')]
         self.check_sources(cases, 0)
 
     def test_operand_and_expanded_output_boundaries(self) -> None:
@@ -137,7 +139,7 @@ class ComposedResultsTests(unittest.TestCase):
                   (b'00', b'01', b'+1', b'1_0', b'1.0', b'1e0', b'16#1#')]
         result = source_for(b'Message&Input', form='result', capacity=b'40')
         cases += [result.replace(b'Message:="new";', b'Other:="new";'),
-                  result.replace(b'else Message:="old";', b''),
+                  result.replace(b'Message:="new";', b''),
                   result.replace(b'Input\'Length<=40', b'Message\'Length<=40'),
                   result.replace(b'else Silver_Arguments.Reject;', b''),
                   result.replace(b'&', b'&--\x0b invalid\n')]

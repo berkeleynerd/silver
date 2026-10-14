@@ -5,7 +5,8 @@ package Silver_Output_Profile
 is
    Max_Source_Length : constant Positive := 4_096;
    Max_Expression_Operands : constant Positive := 16;
-   --  Bound total concatenation proof work across declarations and statements.
+   --  Retain a source-wide operator budget; actual proof cost also depends on
+   --  expression position, statement density and control-flow context.
    Max_Concatenations : constant Positive := 30;
    --  A single-name declaration needs at least twelve bytes (A:String:=B;).
    --  This storage bound cannot constrain a source within the source limit.
@@ -18,7 +19,7 @@ is
       End_Keyword, Left_Parenthesis, Right_Parenthesis, Semicolon, Dot,
       String_Literal, Colon, Constant_Keyword, String_Name, Assignment,
       Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,
-      Then_Keyword, Else_Keyword, Reject_Name, Ampersand, And_Keyword,
+      Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,
       Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,
       Argument_Declaration, Declarations, Assignment_Target, Target_Reference,
       Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,
@@ -29,7 +30,7 @@ is
        Post => Is_Word_Token'Result = (Token_Kind'Pos (Token) in 0 .. 10
          or else Token in Constant_Keyword | String_Name | Arguments_Name
            | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name
-           | Then_Keyword | Else_Keyword | Reject_Name | And_Keyword | Length_Name
+           | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name
            | Null_Keyword);
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;

@@ -22,9 +22,7 @@ def modelCalls : Calls where
   basic := basicStatementAt
   basicTail := Sequence.basicTail
   readBasic := readBasicStatements
-  conditional := conditionalAt
-  statement := statementAt
-  statementsTail := Sequence.statementsTail
+  native := Native.modelCalls
   readStatements := Sequence.readStatements
   scanStep := Sequence.scanStep
   suffix := fun text form index scan =>
@@ -49,17 +47,6 @@ theorem model_ranges : RangeContracts modelCalls where
     · exact Or.inr (basic_progress zero)
   basicTail text valid scan stop context _ := model_basicTail_valid text valid scan stop context
   readBasic text valid scan stop context _ := model_readBasicStatements_valid text valid scan stop context
-  conditional text valid scan context := by
-    refine ⟨model_conditionalAt_valid text valid scan context, ?_⟩
-    by_cases zero : (conditionalAt text scan).state.position = 0
-    · exact Or.inl zero
-    · exact Or.inr (conditional_progress zero)
-  statement text valid scan context := by
-    refine ⟨model_statementAt_valid text valid scan context, ?_⟩
-    by_cases zero : (statementAt text scan).state.position = 0
-    · exact Or.inl zero
-    · exact Or.inr (statement_progress zero)
-  tail text valid scan stop context _ := model_statementsTail_valid text valid scan stop context
   readStatements text valid scan stop context _ := model_readStatements_valid text valid scan stop context
   step text valid form token scan _ context := model_scanStep_valid text valid form token scan context
 
@@ -88,21 +75,24 @@ theorem model_tail_equation (text : Source) (read : ScanResult → ScanResult)
     (preserves : ∀ scan, ValidScan text scan → ValidScan text (read scan))
     (progress : ∀ scan, (read scan).state.position ≠ 0 → scan.state.position < (read scan).state.position)
     (stop : ShellToken) (scan : ScanResult) (context : ValidScan text scan) :
-    Sequence.tail text read stop scan =
+    Sequence.tail text read (.token stop) scan =
       if scan.state.position = 0 then invalidScan
       else if tokenAfter text scan.state.position stop ≠ 0 then scan
       else if (read scan).state.position = 0 then invalidScan
-      else Sequence.tail text read stop (read scan) := by
+      else Sequence.tail text read (.token stop) (read scan) := by
   rw [Sequence.tail]
-  split
-  · rfl
-  · split
-    · rfl
-    · split
-      · rfl
-      · rename_i success
+  dsimp +instances only [stopAfter]
+  by_cases zero : scan.state.position = 0
+  · simp +instances only [zero, ↓reduceIte]
+  · simp +instances only [zero, ↓reduceIte]
+    by_cases done : tokenAfter text scan.state.position stop ≠ 0
+    · rw [ite_eq_left done, ite_eq_left done]
+    · simp +instances only [done, ↓reduceIte]
+      by_cases failed : (read scan).state.position = 0
+      · simp +instances only [failed, ↓reduceIte]
+      · simp +instances only [failed, ↓reduceIte]
         have bound : (read scan).state.position ≤ text.length + 1 := (preserves scan context).1
-        have advances := progress scan success
+        have advances := progress scan failed
         have decreases : text.length + 1 - (read scan).state.position <
             text.length + 1 - scan.state.position := by omega
         simp +instances only [decreases, ↓reduceDIte]
@@ -116,25 +106,10 @@ theorem model_stop (text : Source) (position : Nat) (stop : ShellToken)
 theorem model_basicTail (text : Source) (valid : ValidText text)
     (scan : ScanResult) (stop : ShellToken) (context : ValidScan text scan) (stopValid : ValidStop stop) :
     modelCalls.basicTail text scan stop = basicTailBody.eval modelCalls {text,scan,stop} := by
-  change Sequence.tail text (basicStatementAt text) stop scan = _
+  change Sequence.tail text (basicStatementAt text) (.token stop) scan = _
   rw [model_tail_equation text (basicStatementAt text) (model_basicStatementAt_valid text valid)
     (fun _ h => basic_progress h) stop scan context]
   dsimp +instances only [basicTailBody, Expr.eval, Condition.eval, HelperRef.eval]
-  simp only [model_stop text _ _ stopValid, decide_eq_true_eq]
-  rfl
-
-theorem model_conditional (text : Source) (scan : ScanResult) :
-    modelCalls.conditional text scan = conditionalBody.run modelCalls {text,scan} := by
-  rw [conditional_eval]
-  rfl
-
-theorem model_tail (text : Source) (valid : ValidText text)
-    (scan : ScanResult) (stop : ShellToken) (context : ValidScan text scan) (stopValid : ValidStop stop) :
-    modelCalls.statementsTail text scan stop = statementsTailBody.eval modelCalls {text,scan,stop} := by
-  change Sequence.tail text (statementAt text) stop scan = _
-  rw [model_tail_equation text (statementAt text) (model_statementAt_valid text valid)
-    (fun _ h => statement_progress h) stop scan context]
-  dsimp +instances only [statementsTailBody, Expr.eval, Condition.eval, HelperRef.eval]
   simp only [model_stop text _ _ stopValid, decide_eq_true_eq]
   rfl
 
@@ -163,14 +138,9 @@ theorem model_definitions : DefinitionEquations modelCalls where
   basic text _ scan _ := model_basic text scan
   basicTail := model_basicTail
   readBasic _ _ _ _ _ _ := rfl
-  conditional text _ scan _ := model_conditional text scan
-  statement text _ scan _ := by
-    change statementAt text scan =
-      if decide (fixedAfter text scan.state.position "if" true ≠ 0)
-      then conditionalAt text scan else basicStatementAt text scan
-    simp only [decide_eq_true_eq, statementAt]
-  tail := model_tail
-  readStatements _ _ _ _ _ _ := rfl
+  native := Native.model_equations
+  readStatements text valid scan stop context stopValid :=
+    (Native.model_adapter text valid scan stop context stopValid).symm
   step text _ form token scan _ _ := by
     cases token <;> rfl
   suffix text _ form index scan _ first _ := model_suffix text form index scan first

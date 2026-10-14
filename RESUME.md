@@ -1,10 +1,23 @@
 # Silver handoff
 
-Updated on 2026-10-13 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
+
+## Active work
+
+The owner has authorized delivering all roadmap **5a–5c**, with operator input
+only for a genuine stop condition. See [the working record](docs/branches.md)
+and [increment plan](roadmap.md#equality-guards-and-branches-increments).
+5a recursive conditionals is complete; 5b predicate/literal grammar and 5c
+path-sensitive composition are in progress within this authorization. Do not stop after
+5a or infer that the earlier planning-only handoff still applies.
+`tmp/branches-active.json` records recovery, preserved evidence and isolated
+proof lanes. Current support includes the completed 5a conditional-statement
+language. Its complete Linux checkpoint is recorded in the working record;
+the coupled predicate/path extension still needs its integrated checkpoint.
 
 ## Completed review follow-up
 
@@ -60,13 +73,12 @@ private/server sidecars, Lake metadata, failed logs and scratch. The task record
 notes the replaced model-lane rolling focused JSON; its timestamped logs and
 separate witness evidence remain. Do not run concurrent writers in one workspace.
 
-**Conditional statements (5a)** is next proposed in the
-[Equality, guards and branches increment plan](roadmap.md#equality-guards-and-branches-increments).
-Predicate/literal grammar (5b) and path-sensitive composition (5c) remain queued.
-No further functional work or replacement harness goal began; historical Compose String
-Results remains complete. Publication remains authorized, Actions is disabled,
-macOS proofs are out of scope. CLI recall tools are unavailable and were not
-updated; checked-in session memory is current.
+**All 5a–5c work is authorized and active**, as described above. The shared tree
+contains 5a while its complete source checkpoint finishes. Predicate/path changes
+remain in isolated drafts until integration. The historical Compose String
+Results harness goal remains complete; no replacement was requested. Publication
+remains authorized, Actions is disabled, and macOS proofs are out of scope. CLI
+recall tools are unavailable and were not updated.
 
 ## Previous completed work
 

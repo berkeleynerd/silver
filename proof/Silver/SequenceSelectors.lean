@@ -37,7 +37,7 @@ theorem basic_flags {text scan item next} (parsed : BasicAt text scan item next)
   rw [same]
   simp only [basicRaw, tokens.1, tokens.2, kinds.1, kinds.2, and_self]
 
-theorem tail_flag {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tail_flag {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} (project : ScanResult → Bool) (select : α → Bool)
     (readingFlags : ∀ {scan item next}, Reading scan item next →
       project next = (project scan || select item))
@@ -50,7 +50,7 @@ theorem tail_flag {text : Source} {read : ScanResult → ScanResult} {stop : She
       rw [ih, readingFlags first]
       simp only [List.any_cons, Bool.or_assoc]
 
-theorem nonempty_flag {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem nonempty_flag {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} (project : ScanResult → Bool) (select : α → Bool)
     (readingFlags : ∀ {scan item next}, Reading scan item next →
       project next = (project scan || select item))
@@ -71,41 +71,95 @@ theorem basicList_flags {text scan stop items final}
    nonempty_flag (Reading := BasicAt text) ScanResult.output SimpleStatement.hasOutput
     (fun parsed => (basic_flags parsed).2) parsed⟩
 
-theorem conditional_flags {text scan item next} (parsed : ConditionalAt text scan item next) :
-    next.assigned = (scan.assigned || item.hasAssignment) ∧
-      next.output = (scan.output || item.hasOutput) := by
-  cases parsed with
-  | choice scanned comparison yes middle no ending =>
-      have compFlags := scanTokens_flags text .direct equalityTokens scan
-      have yesFlags := basicList_flags yes
-      have noFlags := basicList_flags no
-      have accepted : (conditionalAt text scan).state.position ≠ 0 := by
-        rw [scanned]
-        exact (tokens_positive ending).2
-      have same : next = scanTokens text .direct endIfTokens (conditionalNo text scan) :=
-        scanned.symm.trans (conditional_reduction accepted)
-      have endFlags := scanTokens_flags text .direct endIfTokens (conditionalNo text scan)
-      rw [same]
-      simp only [endFlags.1, endFlags.2, noFlags.1, noFlags.2,
-        conditionalNoStart, scanToken, yesFlags.1, yesFlags.2,
-        conditionalComparison, compFlags.1, compFlags.2, Statement.hasAssignment,
-        Statement.hasOutput, Bool.or_assoc, and_self]
+mutual
+  theorem statement_flags {text scan item next} (parsed : StatementAt text scan item next) :
+      next.assigned = (scan.assigned || item.hasAssignment) ∧
+        next.output = (scan.output || item.hasOutput) := by
+    cases parsed with
+    | simple _ basic =>
+        simpa only [Statement.hasAssignment, Statement.hasOutput] using basic_flags basic
+    | conditional _ choice => exact conditional_flags choice
+  termination_by (sizeOf item, 1)
+  decreasing_by all_goals subst_vars <;> exact Prod.Lex.right _ (by decide)
 
-theorem statement_flags {text scan item next} (parsed : StatementAt text scan item next) :
-    next.assigned = (scan.assigned || item.hasAssignment) ∧
-      next.output = (scan.output || item.hasOutput) := by
-  cases parsed with
-  | simple _ basic => exact basic_flags basic
-  | conditional _ choice => exact conditional_flags choice
+  theorem conditional_flags {text scan item next} (parsed : ConditionalAt text scan item next) :
+      next.assigned = (scan.assigned || item.hasAssignment) ∧
+        next.output = (scan.output || item.hasOutput) := by
+    cases parsed with
+    | @choice scan next comparison yesEnd tailEnd left right yes otherwise scanned tokens compSame yesRead tailRead ending =>
+        have positive := (tokens_positive ending).2
+        have rejects : invalidScan ≠ next := by
+          intro equal
+          exact positive (by rw [← equal]; rfl)
+        have returned : next = scanTokens text .direct endIfTokens tailEnd := by
+          rw [conditionalAt] at scanned
+          simp only [← compSame, body_complete yesRead, alternative_complete tailRead] at scanned
+          split at scanned
+          · exact False.elim (rejects scanned)
+          · split at scanned
+            · split at scanned
+              · split at scanned
+                · exact False.elim (rejects scanned)
+                · exact scanned.symm
+              · exact False.elim (rejects scanned)
+            · exact False.elim (rejects scanned)
+        have compFlags := scanTokens_flags text .direct equalityTokens scan
+        have yesFlags := body_flags yesRead
+        have tailFlags := alternative_flags tailRead
+        have endFlags := scanTokens_flags text .direct endIfTokens tailEnd
+        rw [returned]
+        simp only [endFlags.1, endFlags.2, tailFlags.1, tailFlags.2, yesFlags.1, yesFlags.2,
+          compSame, compFlags.1, compFlags.2, Statement.hasAssignment, Statement.hasOutput,
+          statementsHaveAssignment_eq_any, statementsHaveOutput_eq_any, Bool.or_assoc, and_self]
+  termination_by (sizeOf item, 0)
+
+  theorem alternative_flags {text scan item next} (parsed : AlternativeAt text scan item next) :
+      next.assigned = (scan.assigned || item.hasAssignment) ∧
+        next.output = (scan.output || item.hasOutput) := by
+    cases parsed with
+    | absent => simp only [Alternative.hasAssignment, Alternative.hasOutput, Bool.or_false, and_self]
+    | otherwise _ _ _ startSame _ items =>
+        have flags := body_flags items
+        simp only [flags.1, flags.2, startSame, scanToken, Alternative.hasAssignment, Alternative.hasOutput,
+          statementsHaveAssignment_eq_any, statementsHaveOutput_eq_any, and_self]
+    | elsif _ _ compSame _ yes tail =>
+        have compFlags := scanTokens_flags text .direct elsifTokens scan
+        have yesFlags := body_flags yes
+        have tailFlags := alternative_flags tail
+        simp only [tailFlags.1, tailFlags.2, yesFlags.1, yesFlags.2, compSame, compFlags.1, compFlags.2,
+          Alternative.hasAssignment, Alternative.hasOutput, statementsHaveAssignment_eq_any,
+          statementsHaveOutput_eq_any, Bool.or_assoc, and_self]
+  termination_by (sizeOf item, 0)
+
+  theorem body_flags {text scan stop items final} (parsed : BodyAt text scan stop items final) :
+      final.assigned = (scan.assigned || items.any Statement.hasAssignment) ∧
+        final.output = (scan.output || items.any Statement.hasOutput) := by
+    cases parsed with
+    | cons _ first following =>
+        have firstFlags := statement_flags first
+        have tailFlags := tailBody_flags following
+        simp only [tailFlags.1, tailFlags.2, firstFlags.1, firstFlags.2, List.any_cons,
+          Bool.or_assoc, and_self]
+  termination_by (sizeOf items, 0)
+
+  theorem tailBody_flags {text scan stop items final} (parsed : TailBodyAt text scan stop items final) :
+      final.assigned = (scan.assigned || items.any Statement.hasAssignment) ∧
+        final.output = (scan.output || items.any Statement.hasOutput) := by
+    cases parsed with
+    | done => simp
+    | next _ _ _ first following =>
+        have firstFlags := statement_flags first
+        have tailFlags := tailBody_flags following
+        simp only [tailFlags.1, tailFlags.2, firstFlags.1, firstFlags.2, List.any_cons,
+          Bool.or_assoc, and_self]
+  termination_by (sizeOf items, 0)
+end
 
 theorem statements_flags {text scan stop items final}
     (parsed : StatementsAt text scan stop items final) :
     final.assigned = (scan.assigned || items.any Statement.hasAssignment) ∧
       final.output = (scan.output || items.any Statement.hasOutput) :=
-  ⟨nonempty_flag (Reading := StatementAt text) ScanResult.assigned Statement.hasAssignment
-    (fun parsed => (statement_flags parsed).1) parsed,
-   nonempty_flag (Reading := StatementAt text) ScanResult.output Statement.hasOutput
-    (fun parsed => (statement_flags parsed).2) parsed⟩
+  body_flags parsed
 
 theorem decoded_body {form : Form} {events : List Event} {items : List Statement} {program : Program}
     (decoded : decodePrefix form events items = some program) :

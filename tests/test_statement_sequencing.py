@@ -35,9 +35,10 @@ class StatementSequencingTests(unittest.TestCase):
                  (good, good.replace(b'B:=A;', b'B:=A')),
                  (good, good.replace(b'null;', b'null'))]
         branch = program(declarations, b'if A="old" then A:="new";null;else B:=A;end if;')
+        nested = branch.replace(b'null;', b'if B="old" then null;else null;end if;')
         pairs.extend([(branch, branch.replace(b'else B:=A;', b'else B:="x";')),
                       (branch, branch.replace(b'else B:=A;', b'else ')),
-                      (branch, branch.replace(b'null;', b'if B="old" then null;else null;end if;'))])
+                      (nested, nested.replace(b'if B="old"', b'if Absent="old"'))])
         dynamic = program(b'A:String:=Input;B:String:="old";', b'A:=Input;null;', arguments=True)
         pairs.append((dynamic, dynamic.replace(b'A:=Input;', b'A:=B;')))
         sixteen = b'&'.join([b'""'] * 16)
@@ -58,6 +59,7 @@ class StatementSequencingTests(unittest.TestCase):
         static = program(b'', b'null;')
         guarded = program(b'', b'null;', arguments=True)
         branch = program(b'A:String:="old";', b'if A="old" then null;else null;end if;')
+        nested_else = branch.replace(b'else null;', b'else if A="old" then null;end if;')
         bounded = program(b'', output(b'Input') + output(b'Input&Input'),
                           arguments=True, capacity=2048)
         assignment = program(b'A:String:=Input;', b'A:=Input;', arguments=True)
@@ -65,8 +67,8 @@ class StatementSequencingTests(unittest.TestCase):
             ('empty static body', static, static.replace(b'null;', b'')),
             ('empty guard success branch', guarded, guarded.replace(b'null;', b'')),
             ('empty then arm', branch, branch.replace(b'then null;', b'then ')),
-            ('nested else choice', branch,
-             branch.replace(b'else null;', b'else if A="old" then null;else null;end if;')),
+            ('empty nested else choice arm', nested_else,
+             nested_else.replace(b'else if A="old" then null;', b'else if A="old" then ')),
             ('statement before guard', guarded, guarded.replace(b'begin if ', b'begin null;if ')),
             ('later output exceeds capacity', bounded,
              bounded.replace(output(b'Input&Input'), output(b'Input&Input&"!"'))),
@@ -178,12 +180,17 @@ class StatementSequencingTests(unittest.TestCase):
         static, _ = self.compile(program(b'', output(b'"first"') + output(b'"second"')
                                          + output(b'"third"')), 'static')
         guarded_body = (output(b'"first"') + b'if Input="old" then '
-                        + output(b'"matched"') + b'else ' + output(b'"other"') + b'end if;'
+                        b'if Input="" then ' + output(b'"empty"')
+                        + b'elsif Input="old" then ' + output(b'"matched"') + b'end if;'
+                        b'elsif Input="new" then ' + output(b'"other"')
+                        + b'else ' + output(b'"fallback"') + b'end if;'
+                        b'if Input="missing" then ' + output(b'"unexpected"') + b'end if;'
                         + output(b'"third"'))
         guarded, _ = self.compile(program(b'', guarded_body, arguments=True), 'argument')
         cases = [(static, (), b'second\nthird\n'),
                  (guarded, (), b'matched\nthird\n'),
-                 (guarded, ('new',), b'other\nthird\n')]
+                 (guarded, ('new',), b'other\nthird\n'),
+                 (guarded, ('',), b'fallback\nthird\n')]
         # Test-only libc adapter makes one environmental failure recoverable.
         # Actual Silver_IO remains unchanged and executes every subsequent call.
         shim = self.directory / 'failure.c'

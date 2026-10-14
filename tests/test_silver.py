@@ -90,9 +90,12 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertFalse(sequence["output_required"])
         self.assertTrue(sequence["repeated_choices"])
         choice = constructs["string_choice"]["conditions"]
-        self.assertEqual(choice["then"], ["basic_statement_sequence"])
-        self.assertEqual(choice["else"], ["basic_statement_sequence"])
-        self.assertFalse(choice["nested_equality_conditionals"])
+        for arm in ("then", "elsif", "else"):
+            self.assertEqual(choice[arm], ["statement_sequence"])
+        self.assertTrue(choice["nested_equality_conditionals"])
+        self.assertTrue(choice["else_optional"])
+        self.assertEqual(choice["elsif_count"], "finite_within_complete_source_bound")
+        self.assertEqual(choice["nesting"], "finite_within_complete_source_bound")
         initializers = constructs["named_string_variable"]["conditions"]["initializer"]
         self.assertEqual(initializers, ["string_expression"])
         for name, composition in compositions.items():

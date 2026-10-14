@@ -10,19 +10,19 @@ The decreasing premise is precisely the total scanner's recursion guard. -/
 namespace Silver.Sequence
 open Compose
 
-inductive TailAt (text : Source) (read : ScanResult → ScanResult) (stop : ShellToken)
+inductive TailAt (text : Source) (read : ScanResult → ScanResult) (stop : BodyStop)
     (Reading : ScanResult → α → ScanResult → Prop) :
     ScanResult → List α → ScanResult → Prop
-  | done {scan} : scan.state.position ≠ 0 → tokenAfter text scan.state.position stop ≠ 0 →
+  | done {scan} : scan.state.position ≠ 0 → stopAfter text scan.state.position stop ≠ 0 →
       TailAt text read stop Reading scan [] scan
   | next {scan item following rest final} :
-      scan.state.position ≠ 0 → tokenAfter text scan.state.position stop = 0 →
+      scan.state.position ≠ 0 → stopAfter text scan.state.position stop = 0 →
       Reading scan item following → read scan = following →
       text.length + 1 - following.state.position < text.length + 1 - scan.state.position →
       TailAt text read stop Reading following rest final →
       TailAt text read stop Reading scan (item :: rest) final
 
-theorem tailAt_positive {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tailAt_positive {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {scan final : ScanResult} {items : List α}
     (parsed : TailAt text read stop Reading scan items final) :
     scan.state.position ≠ 0 ∧ final.state.position ≠ 0 := by
@@ -30,18 +30,18 @@ theorem tailAt_positive {text : Source} {read : ScanResult → ScanResult} {stop
   | done positive _ => exact ⟨positive, positive⟩
   | next positive _ _ _ _ _ ih => exact ⟨positive, ih.2⟩
 
-theorem tail_zero (text : Source) (read : ScanResult → ScanResult) (stop : ShellToken)
+theorem tail_zero (text : Source) (read : ScanResult → ScanResult) (stop : BodyStop)
     (scan : ScanResult) (zero : scan.state.position = 0) :
     (tail text read stop scan).state.position = 0 := by
   rw [tail]
   simp [zero, invalidScan, invalidState]
 
-theorem tail_positive {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tail_positive {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {scan : ScanResult} (accepted : (tail text read stop scan).state.position ≠ 0) :
     scan.state.position ≠ 0 :=
   fun zero => accepted (tail_zero text read stop scan zero)
 
-theorem tail_complete {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tail_complete {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {scan final : ScanResult} {items : List α}
     (parsed : TailAt text read stop Reading scan items final) : tail text read stop scan = final := by
   induction parsed with
@@ -52,17 +52,17 @@ theorem tail_complete {text : Source} {read : ScanResult → ScanResult} {stop :
       simp only [positive, notStopped, ne_eq, not_true_eq_false, ↓reduceIte, readSame,
         nextPositive, advancing, ↓reduceDIte, ih]
 
-theorem tail_sound (text : Source) (read : ScanResult → ScanResult) (stop : ShellToken)
+theorem tail_sound (text : Source) (read : ScanResult → ScanResult) (stop : BodyStop)
     (Reading : ScanResult → α → ScanResult → Prop)
     (readSound : ∀ scan, (read scan).state.position ≠ 0 → ∃ item, Reading scan item (read scan))
     (scan : ScanResult) (accepted : (tail text read stop scan).state.position ≠ 0) :
     ∃ items, TailAt text read stop Reading scan items (tail text read stop scan) := by
   have positive : scan.state.position ≠ 0 := fun zero => accepted (tail_zero text read stop scan zero)
-  by_cases stopped : tokenAfter text scan.state.position stop ≠ 0
+  by_cases stopped : stopAfter text scan.state.position stop ≠ 0
   · refine ⟨[], ?_⟩
     rw [tail, ite_eq_right positive, ite_eq_left stopped]
     exact TailAt.done positive stopped
-  · have notStopped : tokenAfter text scan.state.position stop = 0 := by simpa using stopped
+  · have notStopped : stopAfter text scan.state.position stop = 0 := by simpa using stopped
     have nextPositive : (read scan).state.position ≠ 0 := by
       intro zero
       rw [tail] at accepted
@@ -84,7 +84,7 @@ theorem tail_sound (text : Source) (read : ScanResult → ScanResult) (stop : Sh
     exact .next positive notStopped first rfl advancing following
 termination_by text.length + 1 - scan.state.position
 
-theorem tail_unique {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tail_unique {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop}
     (readUnique : ∀ {scan left right first second}, Reading scan left first →
       Reading scan right second → left = right ∧ first = second)
@@ -104,7 +104,7 @@ theorem tail_unique {text : Source} {read : ScanResult → ScanResult} {stop : S
           obtain ⟨rfl, rfl⟩ := ih following
           exact ⟨rfl, rfl⟩
 
-inductive NonemptyAt (text : Source) (read : ScanResult → ScanResult) (stop : ShellToken)
+inductive NonemptyAt (text : Source) (read : ScanResult → ScanResult) (stop : BodyStop)
     (Reading : ScanResult → α → ScanResult → Prop) :
     ScanResult → List α → ScanResult → Prop
   | cons {scan item following rest final} :
@@ -112,13 +112,13 @@ inductive NonemptyAt (text : Source) (read : ScanResult → ScanResult) (stop : 
       TailAt text read stop Reading following rest final →
       NonemptyAt text read stop Reading scan (item :: rest) final
 
-theorem nonempty_items {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem nonempty_items {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {scan final : ScanResult} {items : List α}
     (parsed : NonemptyAt text read stop Reading scan items final) : items ≠ [] := by
   cases parsed
   simp
 
-theorem nonempty_sound (text : Source) (read : ScanResult → ScanResult) (stop : ShellToken)
+theorem nonempty_sound (text : Source) (read : ScanResult → ScanResult) (stop : BodyStop)
     (Reading : ScanResult → α → ScanResult → Prop)
     (readSound : ∀ scan, (read scan).state.position ≠ 0 → ∃ item, Reading scan item (read scan))
     (scan : ScanResult) (accepted : (tail text read stop (read scan)).state.position ≠ 0) :
@@ -127,14 +127,14 @@ theorem nonempty_sound (text : Source) (read : ScanResult → ScanResult) (stop 
   obtain ⟨item, first⟩ := readSound scan (tailAt_positive following).1
   exact ⟨item :: rest, .cons first rfl following⟩
 
-theorem nonempty_complete {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem nonempty_complete {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {scan final : ScanResult} {items : List α}
     (parsed : NonemptyAt text read stop Reading scan items final) :
     tail text read stop (read scan) = final := by
   cases parsed with
   | cons _ readSame following => rw [readSame]; exact tail_complete following
 
-theorem nonempty_unique {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem nonempty_unique {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop}
     (readUnique : ∀ {scan left right first second}, Reading scan left first →
       Reading scan right second → left = right ∧ first = second)
@@ -149,7 +149,7 @@ theorem nonempty_unique {text : Source} {read : ScanResult → ScanResult} {stop
           obtain ⟨rfl, rfl⟩ := tail_unique (Reading := Reading) readUnique first second
           exact ⟨rfl, rfl⟩
 
-theorem tail_preserves {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem tail_preserves {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {Invariant : ScanResult → Prop} {Valid : α → Prop}
     (preserves : ∀ {scan item following}, Reading scan item following → Invariant scan →
       Invariant following ∧ Valid item)
@@ -167,7 +167,7 @@ theorem tail_preserves {text : Source} {read : ScanResult → ScanResult} {stop 
       · exact head.2
       · exact rest.2 item member
 
-theorem nonempty_preserves {text : Source} {read : ScanResult → ScanResult} {stop : ShellToken}
+theorem nonempty_preserves {text : Source} {read : ScanResult → ScanResult} {stop : BodyStop}
     {Reading : ScanResult → α → ScanResult → Prop} {Invariant : ScanResult → Prop} {Valid : α → Prop}
     (preserves : ∀ {scan item following}, Reading scan item following → Invariant scan →
       Invariant following ∧ Valid item)

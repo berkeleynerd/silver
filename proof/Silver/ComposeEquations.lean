@@ -48,7 +48,7 @@ def allTokens : List ShellToken :=
    .word "pragma", .word "spark_mode", .word "on", .word "begin", .word "put_line", .word "end",
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal, .symbol ":", .word "constant",
    .word "string", .symbol ":=", .word "silver_arguments", .word "first_or_default", .word "if",
-   .word "input_is_valid", .word "then", .word "else", .word "reject", .symbol "&", .word "and",
+   .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null"]

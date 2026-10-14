@@ -39,9 +39,12 @@ effect composition. The authorized bounded follow-up to
 documentation and focused regressions are repaired, and both selected dense
 assignment measurements passed. Their [capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 discloses costs, report headroom and the uncompiled 771-assignment variant.
-**Conditional statements (5a)** is next proposed within
-[Equality, guards and branches](#equality-guards-and-branches-increments).
-No new language goal has begun; remaining predicate/context/API closure is
+The owner has authorized delivery of all
+[Equality, guards and branches increments](#equality-guards-and-branches-increments).
+**Conditional statements (5a)** is in progress; 5b and 5c follow within the same
+authorized task. Current support remains the completed sequencing language until
+each changed fragment passes its complete checkpoint. See the
+[working record](docs/branches.md). Remaining predicate/context/API closure is
 tracked below.
 
 The authorized narrow
@@ -125,7 +128,7 @@ not newly admitted syntax.
 | 2 | Declarations, names and copies — binding foundation complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
 | 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
 | 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
-| 5 | Equality, guards and branches — proposed increments 5a–5c | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. The [increment plan](#equality-guards-and-branches-increments) retains the full scope. |
+| 5 | Equality, guards and branches — authorized, in progress | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. The [increment plan](#equality-guards-and-branches-increments) retains the full scope. |
 | 6 | Output effects — sequence composition complete; call associations remain | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
 | 7 | Existing argument operations — fixed-guard sequence integration complete | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
 
@@ -179,15 +182,20 @@ existing sequence.
 
 #### Equality, guards and branches increments
 
-Item 5 remains proposed. The first increment recommended on 2026-10-13 is
-conditional structure; the rest of the parent task is explicitly retained below.
-This planning update does not authorize implementation or admit new syntax.
+On 2026-10-13 the owner authorized all three increments through delivery, pausing
+only for a genuine stop condition requiring the operator. Implement conditional
+structure first, followed by predicates and path facts; the latter may share one
+checkpoint. Routine implementation/proof failures require continued work, not
+another approval. Escalate a needed Oracle amendment, conflicting requirements,
+or unavailable external resources with no sound authorized workaround. The
+[working record](docs/branches.md) tracks decisions and evidence; unfinished
+syntax is not yet supported.
 
 | Order | Increment/status | Scope and completion criteria |
 | --- | --- | --- |
-| 5a | Conditional statements — next proposed | Admit nested String-equality conditionals, `elsif` and optional `else`, composed with existing statement sequences. Preserve initialized reads, fixed String bounds, cumulative output and sticky failure status through every arm and join. Retain the current outer argument guard and source/expression limits. Establish decidable admission, universal semantics/discharge and actual-source correspondence, with matching specification/catalogue, a runnable sample, nearby rejection controls and focused obligation/capacity probes. Finish with one stable complete Linux checkpoint. |
-| 5b | Predicate and literal grammar — queued after 5a | Specify and implement the supported String-equality, validity and length predicates and their Boolean compositions. Preserve short-circuit `and then` evaluation and allow each operand only facts established before it executes. Resolve integer-literal alternatives, including separators and based notation, representable bounds and overflow-safe parsing. Document supported alternatives or concrete reasons for exclusions. Prove predicate meaning and safe evaluation; update the specification/catalogue and exercise literal/operand boundaries. |
-| 5c | Path-sensitive composition — queued after 5b | Use established true/false branch facts to admit safe expressions and fixed-bound assignments, including branch-refined length equalities. Track facts through assignments and nested control flow, retain only justified facts at joins, and preserve initialized reads and output-failure semantics. Generalize the fixed argument guard/Reject placement with item 7 while specifying invalid-input and returning-call behavior. Establish universal discharge and actual-source correspondence for the resulting compositions, with interaction and rejection tests. |
+| 5a | Conditional statements — complete | Nested String-equality conditionals, `elsif`, optional `else` and nonempty written arms, preserving the outer input guard and source/expression budgets. Recursive native semantics, inhabited source correspondence, selectors and the complete Linux checkpoint passed; [evidence](docs/branches.md#completed-5a-checkpoint--2026-10-14) records native audit, test repair, warm Lean check and retained failures. |
+| 5b | Predicate and literal grammar — isolated native/model implementation in progress; delivery after 5a | Specify and implement the supported String-equality, validity and length predicates and their Boolean compositions. Preserve short-circuit `and then` evaluation and allow each operand only facts established before it executes. Resolve integer-literal alternatives, including separators and based notation, representable bounds and overflow-safe parsing. Document supported alternatives or concrete reasons for exclusions. Prove predicate meaning and safe evaluation; update the specification/catalogue and exercise literal/operand boundaries. Draft admission, native interaction and maximum-size predicate compiles pass; the isolated output profile proves all 807 SPARK checks. Literal actual-source correspondence is checked in isolation. Predicate native correspondence and the complete checkpoint remain. |
+| 5c | Path-sensitive composition — universal source/model proofs checked in isolation; delivery with 5b | Use established true/false branch facts to admit safe expressions and fixed-bound assignments, including branch-refined length equalities. Track facts through assignments and nested control flow, retain only justified facts at joins, and preserve initialized reads and output-failure semantics. Generalize the fixed argument guard/Reject placement with item 7 while specifying invalid-input and returning-call behavior. Establish universal discharge and actual-source correspondence for the resulting compositions, with interaction and rejection tests. The draft universal execution, source reading and recursive-body uniqueness proofs pass. Exact query-free report shapes are repaired in isolation, and the strengthened invalid-input runtime contract has exact-source evidence. Current examples and routing selectors pass in isolation. Final library/helper/body bridge integration and the complete checkpoint remain. |
 
 Each increment must satisfy the existing complete assurance and validation
 workflow before its added language is supported. Items 5b and 5c may be delivered

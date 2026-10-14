@@ -1,5 +1,48 @@
 # Session memory
 
+## 2026-10-14 — Conditional statements complete; predicates/path work continues
+
+The authorized 5a increment passed its complete Linux checkpoint. The
+[working record](branches.md#completed-5a-checkpoint--2026-10-14) records exact
+inputs, native audit, catalogue/build/sample checks, the full-suite certificate
+repair, source correspondence and complete Lean/fresh axiom audit. It preserves
+failed resource/reduction attempts and distinguishes warm reuse from cold runs.
+Native recursive scanner semantics and model interpretation are inhabited; the
+weighted Nat termination measure also permits concrete kernel computation.
+
+**Do not stop here.** The owner authorized all roadmap 5a–5c; 5b/c continue
+together with predicate/literal grammar, path facts and generalized validity/Reject
+placement. Their isolated source/model/native work is largely checked; final
+helper/body integration, runtime refresh and stable complete validation remain.
+The [roadmap](../roadmap.md#equality-guards-and-branches-increments) is current.
+`tmp/branches-active.json` retains recovery/lane paths; preserve all caches,
+sidecars, earlier evidence and scratch. No Oracle amendment, macOS run, Actions
+enablement or new harness goal is implied. Publication remains authorized.
+The live historical Compose String Results goal is complete; CLI recall is
+unavailable and was not updated. Git identifies this implementation checkpoint
+separately from the remaining authorized integration.
+
+## 2026-10-13 — All branch milestones authorized
+
+The owner instructed delivering **all roadmap 5a–5c**, pausing only for a stop
+condition requiring the operator. This authorizes implementation, assurance,
+tests/docs and existing authorized publication, superseding the planning-only
+status below. The [working record](branches.md) and
+[roadmap](../roadmap.md#equality-guards-and-branches-increments) retain all three
+milestones: recursive conditional structure first, then predicate/literal grammar
+and path-sensitive composition together where useful. Keep both current as work
+progresses; 5a alone cannot close the parent task.
+
+Baseline `7fb1514199`; recovery/evidence/lane paths are in
+`tmp/branches-active.json`. Preserve all existing proof caches, evidence and scratch.
+No Oracle amendment, new API, loops or context/call-association expansion is
+implied. Complete current-language source correspondence and automatic obligation
+discharge remain required. Linux is primary; macOS proofs and Actions are out of
+scope. The historical harness goal remains complete; no new harness goal was
+explicitly requested. CLI memory tools remain unavailable. Routine implementation
+or proof failures require continued work; escalate only the concrete stop
+conditions in the working record.
+
 ## 2026-10-13 — Agent owns roadmap updates when splitting work
 
 The owner explicitly requires the agent to lay out and update `roadmap.md`

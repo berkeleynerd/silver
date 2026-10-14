@@ -26,17 +26,27 @@ def checkedSimple (input : Source) (values : Values) : List SimpleStatement → 
       (checkedSimple input first.values rest).map fun following =>
         ⟨following.values, first.effects ++ following.effects⟩
 
-def Statement.checkedExecute (input : Source) (values : Values) : Statement → Option Execution
-  | .simple item => item.checkedExecute input values
-  | .choice left right yes no =>
-      checkedSimple input values
-        (if left.evaluateLeft values input = right.evaluateLeft values input then yes else no)
-
-def checkedStatements (input : Source) (values : Values) : List Statement → Option Execution
-  | [] => some ⟨values, []⟩
-  | item :: rest => (item.checkedExecute input values).bind fun first =>
-      (checkedStatements input first.values rest).map fun following =>
-        ⟨following.values, first.effects ++ following.effects⟩
+mutual
+  def Statement.checkedExecute (input : Source) (values : Values) : Statement → Option Execution
+    | .simple item => item.checkedExecute input values
+    | .choice left right yes tail =>
+        if left.evaluateLeft values input = right.evaluateLeft values input
+        then checkedStatements input values yes else tail.checkedExecute input values
+  termination_by item => sizeOf item
+  def Alternative.checkedExecute (input : Source) (values : Values) : Alternative → Option Execution
+    | .absent => some ⟨values, []⟩
+    | .otherwise items => checkedStatements input values items
+    | .elsif left right yes tail =>
+        if left.evaluateLeft values input = right.evaluateLeft values input
+        then checkedStatements input values yes else tail.checkedExecute input values
+  termination_by tail => sizeOf tail
+  def checkedStatements (input : Source) (values : Values) : List Statement → Option Execution
+    | [] => some ⟨values, []⟩
+    | item :: rest => (item.checkedExecute input values).bind fun first =>
+        (checkedStatements input first.values rest).map fun following =>
+          ⟨following.values, first.effects ++ following.effects⟩
+  termination_by items => sizeOf items
+end
 
 def Body.checkedExecute (arguments : Arguments.Runtime.Arguments) (input : Source)
     (values : Values) (body : Body) : Option Execution :=
@@ -70,29 +80,55 @@ theorem simple_sequence_refines {items : List SimpleStatement} {shape : Shape} {
       simp only [checkedSimple, simple_execution_refines headValid state, Option.bind_some,
         ih (fun item member => valid item (by simp [member])) first.1, Option.map_some, executeSimple]
 
-theorem statement_execution_refines {item : Statement} {shape : Shape} {capacity : Nat}
-    {input : Source} {values : Values} (valid : item.Valid shape capacity)
-    (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
-    item.checkedExecute input values = some (item.execute input values) := by
-  cases item with
-  | simple item => exact simple_execution_refines valid state
-  | choice left right yes no =>
-      simp only [Statement.checkedExecute, Statement.execute, Expression.left_association]
-      split
-      · exact simple_sequence_refines valid.2.2.2.2.1 state printable bound
-      · exact simple_sequence_refines valid.2.2.2.2.2 state printable bound
+mutual
+  theorem statement_execution_refines {item : Statement} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : item.Valid shape capacity)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      item.checkedExecute input values = some (item.execute input values) := by
+    cases item with
+    | simple item =>
+        simp only [Statement.Valid] at valid
+        simpa only [Statement.checkedExecute, Statement.execute] using simple_execution_refines valid state
+    | choice left right yes tail =>
+        simp only [Statement.Valid] at valid
+        simp only [Statement.checkedExecute, Statement.execute, Expression.left_association]
+        split
+        · exact statements_execution_refines valid.2.2.2.1 state printable bound
+        · exact alternative_execution_refines valid.2.2.2.2 state printable bound
+  termination_by sizeOf item
 
-theorem statements_execution_refines {items : List Statement} {shape : Shape} {capacity : Nat}
-    {input : Source} {values : Values} (valid : StatementsValid shape capacity items)
-    (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
-    checkedStatements input values items = some (executeStatements input values items) := by
-  induction items generalizing values with
-  | nil => rfl
-  | cons item rest ih =>
-      have headValid := valid item (by simp)
-      have first := statement_execution_valid headValid state printable bound
-      simp only [checkedStatements, statement_execution_refines headValid state printable bound, Option.bind_some,
-        ih (fun item member => valid item (by simp [member])) first.1, Option.map_some, executeStatements]
+  theorem alternative_execution_refines {tail : Alternative} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : tail.Valid shape capacity)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      tail.checkedExecute input values = some (tail.execute input values) := by
+    cases tail with
+    | absent => simp only [Alternative.checkedExecute, Alternative.execute]
+    | otherwise items =>
+        simp only [Alternative.Valid] at valid
+        simpa only [Alternative.checkedExecute, Alternative.execute] using
+          statements_execution_refines valid.2 state printable bound
+    | elsif left right yes tail =>
+        simp only [Alternative.Valid] at valid
+        simp only [Alternative.checkedExecute, Alternative.execute, Expression.left_association]
+        split
+        · exact statements_execution_refines valid.2.2.2.1 state printable bound
+        · exact alternative_execution_refines valid.2.2.2.2 state printable bound
+  termination_by sizeOf tail
+
+  theorem statements_execution_refines {items : List Statement} {shape : Shape} {capacity : Nat}
+      {input : Source} {values : Values} (valid : StatementsValid shape capacity items)
+      (state : Fits shape input values) (printable : Bindings.Printable input) (bound : input.length ≤ capacity) :
+      checkedStatements input values items = some (executeStatements input values items) := by
+    cases items with
+    | nil => simp only [checkedStatements, executeStatements]
+    | cons item rest =>
+        simp only [StatementsValid] at valid
+        have first := statement_execution_valid valid.1 state printable bound
+        simp only [checkedStatements, statement_execution_refines valid.1 state printable bound,
+          Option.bind_some, statements_execution_refines valid.2 first.1 printable bound,
+          Option.map_some, executeStatements]
+  termination_by sizeOf items
+end
 
 theorem body_execution_refines {body : Body} {shape : Shape} {input : Source} {values : Values}
     (valid : body.Valid shape) (state : Fits shape input values)

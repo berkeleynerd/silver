@@ -3,6 +3,8 @@ module
 public import Silver.SequenceExpressions
 public import Silver.ComposeEquations
 public import Silver.ComposeLexical
+public import Silver.SequenceNativeUnique
+public import Silver.SequenceNativeCorrespondence
 
 @[expose] public section
 
@@ -35,14 +37,6 @@ structure RangeContracts (calls : Calls) : Prop where
     ValidScan text (calls.basicTail text scan stop)
   readBasic : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
     ValidScan text (calls.readBasic text scan stop)
-  conditional : ∀ text, ValidText text → ∀ scan, ValidScan text scan →
-    ValidScan text (calls.conditional text scan) ∧
-      ((calls.conditional text scan).state.position = 0 ∨ scan.state.position < (calls.conditional text scan).state.position)
-  statement : ∀ text, ValidText text → ∀ scan, ValidScan text scan →
-    ValidScan text (calls.statement text scan) ∧
-      ((calls.statement text scan).state.position = 0 ∨ scan.state.position < (calls.statement text scan).state.position)
-  tail : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
-    ValidScan text (calls.statementsTail text scan stop)
   readStatements : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
     ValidScan text (calls.readStatements text scan stop)
   step : ∀ text, ValidText text → ∀ form token scan, ValidToken token → ValidScan text scan →
@@ -71,14 +65,9 @@ structure DefinitionEquations (calls : Calls) : Prop where
     calls.basicTail text scan stop = basicTailBody.eval calls {text,scan,stop}
   readBasic : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
     calls.readBasic text scan stop = readBasicBody.eval calls {text,scan,stop}
-  conditional : ∀ text, ValidText text → ∀ scan, ValidScan text scan →
-    calls.conditional text scan = conditionalBody.run calls {text,scan}
-  statement : ∀ text, ValidText text → ∀ scan, ValidScan text scan →
-    calls.statement text scan = statementBody.eval calls {text,scan}
-  tail : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
-    calls.statementsTail text scan stop = statementsTailBody.eval calls {text,scan,stop}
+  native : Native.Equations calls.bodyPrimitives calls.native
   readStatements : ∀ text, ValidText text → ∀ scan stop, ValidScan text scan → ValidStop stop →
-    calls.readStatements text scan stop = readStatementsBody.eval calls {text,scan,stop}
+    calls.readStatements text scan stop = Native.Adapter.statements.eval calls.native text scan stop
   step : ∀ text, ValidText text → ∀ form token scan, ValidToken token → ValidScan text scan →
     calls.scanStep text form token scan = scanStepBody.eval calls {text,scan,form,token}
   suffix : ∀ text, ValidText text → ∀ form index scan, ValidScan text scan →
@@ -198,8 +187,9 @@ theorem tail_unique (text : Source) (read recurse : ScanResult → ScanResult) (
       else if tokenAfter text scan.state.position stop ≠ 0 then scan
       else if (read scan).state.position = 0 then invalidScan else recurse (read scan))
     (scan : ScanResult) (context : ValidScan text scan) :
-    recurse scan = tail text read stop scan := by
+    recurse scan = tail text read (.token stop) scan := by
   rw [equation scan context, tail]
+  simp only [stopAfter]
   by_cases zero : scan.state.position = 0
   · simp [zero]
   · simp only [zero, ↓reduceIte]
@@ -247,83 +237,26 @@ theorem interpreted_readBasic (calls : Calls) (helpers : HelperMeaning calls)
     interpreted_basic calls helpers equations text valid scan context]
   rfl
 
-def conditionalRawCalls (calls : Calls) (text : Source) (scan : ScanResult) : ScanResult :=
-  let comparison := callTokens calls text equalityTokens scan
-  let yes := calls.readBasic text comparison (.word "else")
-  let no := calls.readBasic text (calls.scanToken text yes (.word "else")) (.word "end")
-  callTokens calls text endIfTokens no
-
-theorem conditional_eval (calls : Calls) (text : Source) (scan : ScanResult) :
-    conditionalBody.run calls {text,scan} =
-      if (conditionalRawCalls calls text scan).state.position ≤ scan.state.position then invalidScan
-      else conditionalRawCalls calls text scan := by
-  unfold conditionalRawCalls
-  by_cases advance : (callTokens calls text endIfTokens
-    (calls.readBasic text (calls.scanToken text
-      (calls.readBasic text (callTokens calls text equalityTokens scan) (.word "else")) (.word "else")) (.word "end"))).state.position ≤ scan.state.position <;>
-    simp [conditionalBody, Command.run, Command.eval, Expr.eval, HelperRef.eval,
-      steps_eval, finish, guardReturn, Condition.eval, advance]
-
-theorem interpreted_conditional (calls : Calls) (helpers : HelperMeaning calls)
-    (equations : DefinitionEquations calls) (text : Source) (valid : ValidText text)
-    (scan : ScanResult) (context : ValidScan text scan) :
-    calls.conditional text scan = conditionalAt text scan := by
-  rw [equations.conditional text valid scan context, conditional_eval]
-  have comparison := interpreted_tokens calls helpers equations text valid equalityTokens scan context (by simp [equalityTokens, ValidHelperToken, Compose.Expressions.ValidToken, Compose.Expressions.allTokens])
-  have yesValid := equations.ranges.readBasic text valid _ (.word "else") comparison.2 (by exact Or.inl rfl)
-  have yes := interpreted_readBasic calls helpers equations text valid _ (.word "else") comparison.2 (by exact Or.inl rfl)
-  have middleValid := equations.ranges.token text valid _ (.word "else") yesValid (by unfold ValidHelperToken Compose.Expressions.ValidToken; decide)
-  have middle := interpreted_scanToken calls helpers equations text valid _ (.word "else") yesValid (by unfold ValidHelperToken Compose.Expressions.ValidToken; decide)
-  have noValid := equations.ranges.readBasic text valid _ (.word "end") middleValid (by exact Or.inr rfl)
-  have no := interpreted_readBasic calls helpers equations text valid _ (.word "end") middleValid (by exact Or.inr rfl)
-  have ending := interpreted_tokens calls helpers equations text valid endIfTokens _ noValid (by simp [endIfTokens, ValidHelperToken, Compose.Expressions.ValidToken, Compose.Expressions.allTokens])
-  have raw : conditionalRawCalls calls text scan = conditionalRaw text scan := by
-    unfold conditionalRawCalls conditionalRaw
-    rw [ending.1, no, middle, yes, comparison.1]
-  rw [raw]
-  rfl
-
-theorem interpreted_statement (calls : Calls) (helpers : HelperMeaning calls)
-    (equations : DefinitionEquations calls) (text : Source) (valid : ValidText text)
-    (scan : ScanResult) (context : ValidScan text scan) :
-    calls.statement text scan = statementAt text scan := by
-  rw [equations.statement text valid scan context]
-  dsimp +instances only [statementBody, Expr.eval, Condition.eval, HelperRef.eval]
-  simp only [decide_eq_true_eq]
-  rw [Compose.Expressions.interpreted_take calls.helpers helpers.equations text valid
-    scan.state.position (.word "if") context.1 (by unfold Compose.Expressions.ValidToken; decide),
-    interpreted_basic calls helpers equations text valid scan context,
-    interpreted_conditional calls helpers equations text valid scan context]
-  rfl
-
-theorem interpreted_statementsTail (calls : Calls) (helpers : HelperMeaning calls)
-    (equations : DefinitionEquations calls) (text : Source) (valid : ValidText text)
-    (scan : ScanResult) (stop : ShellToken) (context : ValidScan text scan) (stopValid : ValidStop stop) :
-    calls.statementsTail text scan stop = statementsTail text scan stop := by
-  apply tail_unique text (statementAt text) (fun value => calls.statementsTail text value stop) stop
-  · intro value range
-    rw [← interpreted_statement calls helpers equations text valid value range]
-    exact (equations.ranges.statement text valid value range).1
-  · intro value accepted
-    exact statement_progress accepted
-  · intro value range
-    rw [equations.tail text valid value stop range stopValid]
-    dsimp +instances only [statementsTailBody, Expr.eval, Condition.eval, HelperRef.eval]
-    simp only [decide_eq_true_eq]
-    rw [interpreted_stop calls helpers text valid value range stop stopValid,
-      interpreted_statement calls helpers equations text valid value range]
-  · exact context
+theorem body_primitives (calls : Calls) (helpers : HelperMeaning calls)
+    (equations : DefinitionEquations calls) :
+    Native.PrimitiveAgreement calls.bodyPrimitives Native.modelPrimitives where
+  take text valid position token bound tokenValid :=
+    Compose.Expressions.interpreted_take calls.helpers helpers.equations text valid position token bound tokenValid
+  token text valid scan token scanValid tokenValid :=
+    interpreted_scanToken calls helpers equations text valid scan token scanValid tokenValid
+  basic text valid scan scanValid :=
+    interpreted_basic calls helpers equations text valid scan scanValid
 
 theorem interpreted_readStatements (calls : Calls) (helpers : HelperMeaning calls)
     (equations : DefinitionEquations calls) (text : Source) (valid : ValidText text)
     (scan : ScanResult) (stop : ShellToken) (context : ValidScan text scan) (stopValid : ValidStop stop) :
     calls.readStatements text scan stop = readStatements text scan stop := by
   rw [equations.readStatements text valid scan stop context stopValid]
-  change calls.statementsTail text (calls.statement text scan) stop = _
-  rw [interpreted_statementsTail calls helpers equations text valid _ stop
-    (equations.ranges.statement text valid scan context).1 stopValid,
-    interpreted_statement calls helpers equations text valid scan context]
-  rfl
+  dsimp only [Native.Adapter.eval]
+  have parts := Native.parts_valid text scan context
+  rw [Native.read_unique (body_primitives calls helpers equations) equations.native Native.model_equations
+    text valid (Native.contextOf scan) parts.1 (Native.bodyOf scan) parts.2]
+  exact Native.model_adapter text valid scan stop context stopValid
 
 theorem interpreted_scanStep (calls : Calls) (helpers : HelperMeaning calls)
     (equations : DefinitionEquations calls) (text : Source) (valid : ValidText text)
