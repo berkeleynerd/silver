@@ -6,7 +6,39 @@ Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Completed branches milestone
+## Completed branch review repair
+
+The owner-authorized bounded repair of [review `4503d17`](docs/reviews/review-4503d17.md)
+is complete. Static/static assignment lengths must agree even on unreachable
+paths, while dynamic path refinement remains. Native admission, Lean source and
+semantic proofs, specification and catalogue are aligned. The
+[checkpoint](docs/branches.md#completed-repair-checkpoint) records successful
+full native proof, 294 tests over stable final inputs, complete Lean/source
+correspondence and fresh axiom audit, and independent cross-review. No independent
+kernel replay was run. The review remains unchanged at its original target;
+Git identifies the repair commit containing this handoff.
+
+The three regression cases reuse the existing harness and dynamic assignment
+method; no broad compile matrix or new test framework was added. The bounded
+source links and documentation corrections are complete. Remaining low findings
+and an observed source-import rebuild cost are explicitly deferred in the
+[roadmap](roadmap.md#branch-review-repair--complete).
+
+Recovery: `tmp/branch-repair-active.json`; evidence:
+`.silver/linux-x86_64/branch-repair-20261014T144008Z/`. Preserve all caches,
+sidecars, previous-object backups, isolated lanes, scratch and program directories.
+Normal Lake invalidation repeated the baseline-native guard lane's expensive
+source checks during integration; the record keeps both scopes and timings.
+The final native/Lean evidence matches current source inputs, and final test
+input snapshots have no changes. Subsequent completion edits are documentation.
+
+Next proposed functional work is context/name rules and existing-call associations;
+this completion does not authorize it. Publication remains authorized. The
+historical live goal is complete and no new harness goal was requested. CLI memory
+is unavailable and was not updated; checked-in session memory is current. Earlier
+sections below retain the preceding deliveries' historical evidence and scope.
+
+## Completed branches milestone (before review)
 
 All authorized roadmap **5a–5c** are complete. The [delivery record](docs/branches.md)
 and [roadmap](roadmap.md#equality-guards-and-branches-increments) record nested

@@ -291,7 +291,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""value"": [");
       Put_Line ("          ""string_expression""");
       Put_Line ("        ],");
-      Put_Line ("        ""decoded_length"": ""equal to target fixed length on every reachable input length; path-refined equality permitted"",");
+      Put_Line ("        ""decoded_length"": ""equal static lengths even on unreachable paths; otherwise equal to target fixed length on every reachable input length using path facts"",");
       Put_Line ("        ""output_must_reference_result"": false,");
       Put_Line ("        ""self_assignment"": true,");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -460,7 +460,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          ""integer_literal"",");
       Put_Line ("          ""initialized_name Length attribute""");
       Put_Line ("        ],");
-      Put_Line ("        ""fixed_bounds_survive_assignment"": true");
+      Put_Line ("        ""fixed_bounds_survive_assignment"": true,");
+      Put_Line ("        ""scope_purpose"": ""Length-left comparisons are the current bounded grammar; arithmetic, other attributes and literal-left forms remain unimplemented""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -485,7 +486,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ],");
       Put_Line ("        ""right_operand_path"": ""left true for and then; left false for or else"",");
       Put_Line ("        ""boolean_literals"": false,");
-      Put_Line ("        ""eager_operators"": false");
+      Put_Line ("        ""eager_operators"": false,");
+      Put_Line ("        ""scope_purpose"": ""short-circuit path refinement only; Boolean literals and other Boolean operators remain unimplemented""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -517,6 +519,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("          4096");
       Put_Line ("        ],");
       Put_Line ("        ""exponent_bound_purpose"": ""frontend resource limit, including zero literals"",");
+      Put_Line ("        ""value_bound_purpose"": ""current String length domain is 0 through 4096"",");
+      Put_Line ("        ""scope_purpose"": ""integer lengths only; unary signs remain outside the current grammar"",");
       Put_Line ("        ""negative_exponent"": false,");
       Put_Line ("        ""fractions"": false,");
       Put_Line ("        ""unary_signs"": false,");

@@ -72,6 +72,20 @@ class PathRefinementTests(unittest.TestCase):
         # exact-length fact. Logical safety alone does not establish admission.
         self.check(program(declarations, rejected, arguments=True), 2)
 
+    def test_unreachable_static_assignment_requires_equal_lengths(self) -> None:
+        declarations = b'Fixed:String:="abc";'
+        body = (b'if not ' + VALID + b' then ' + REJECT
+                + b"elsif Input'Length>4096 then Fixed:=\"toolong\";end if;")
+        self.check(argument_program(declarations, body), 2)
+        sibling = argument_program(declarations, body.replace(b'"toolong"', b'"xyz"'))
+        self.check(sibling)
+        # GNAT's frontend-only check misses this regression: exercise proof,
+        # code generation and execution through the normal compiler helper.
+        executable, _ = self.compile(sibling, 'selected')
+        self.run_program(executable, b'')
+        self.run_program(executable, b'', (b'x' * 4096,))
+        self.run_program(executable, b'', (b'old', b'extra'), 1)
+
     def test_affine_lengths_and_alias_bounds_refine_together(self) -> None:
         declarations = b'Work:String:=Input;Fixed:String:="ok";Copy:constant String:=Input;'
         body = b'if Input&"x"="old" then Work:=Fixed;end if;'

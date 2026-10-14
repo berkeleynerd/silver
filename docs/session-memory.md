@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-10-14 — Branch review repair complete
+
+The owner-authorized bounded repair of [review `4503d17`](reviews/review-4503d17.md)
+is complete. Static/static assignment lengths must agree even on unreachable
+paths; dynamic path refinement is retained. Native admission, catalogue,
+specification and source/semantic proofs agree. The original review is preserved
+unchanged; Git identifies the subsequent repair commit containing this entry.
+The [completed checkpoint](branches.md#completed-repair-checkpoint) records the
+full native audit, all tests on stable final inputs, complete incremental Lean
+source correspondence and fresh axiom/module audit, plus independent cross-review.
+No source/proof input changed after that checkpoint; final edits are documentation.
+
+Regression work stayed at the agreed three cases: one new method rejects B1 and
+compiles/runs its equal-length sibling; the existing dynamic assignment method
+supplies the third case. No blanket differential-corpus compilation, new testing
+framework or dense rerun was added. Local token, literal-byte and precedence
+links are checked; bounded documentation findings and the completed dense specimen
+are recorded. Remaining low findings are explicitly deferred in the capability
+record and roadmap. There is no Oracle amendment or new language feature.
+
+Recovery: `tmp/branch-repair-active.json`, with evidence under
+`.silver/linux-x86_64/branch-repair-20261014T144008Z/`. Preserve canonical caches,
+previous-object backups, isolated proof lanes, program directories and scratch.
+The guard lane used baseline native bytes and normal Lake invalidation repeated
+its composed source checks at integration. This cost and the narrower-import
+follow-up are recorded; do not bypass cache invalidation. Freeze coupled source
+edits before expensive source checks in later work.
+
+Context/name rules and existing-call associations remain the next proposed
+functional work. Publication remains authorized; independent replay, macOS proofs
+and hosted Actions remain out of scope. The historical Compose String Results
+harness goal is complete; no new harness goal was requested. CLI memory tools
+were rechecked and unavailable, so no CLI entry was updated. The checked-in
+memory, roadmap and RESUME carry the handoff.
+
 ## 2026-10-14 — All equality, guard and branch milestones complete
 
 The owner-authorized roadmap **5a–5c** is complete. Conditional statements (5a)

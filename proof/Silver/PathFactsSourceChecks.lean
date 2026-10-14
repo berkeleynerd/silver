@@ -1,6 +1,7 @@
 module
 
 public import Silver.PathNativeEquations
+public import Silver.PathNativePrecedence
 public import Silver.PathFactsSpecCertificate
 public import Silver.PathFactsSourceShape
 public import Silver.SourceDeclarations

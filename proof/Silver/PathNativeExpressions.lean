@@ -258,9 +258,12 @@ def fitsBody : Expr .truth := .andThen
   (.group (.orElse (.not (fld .validReachable facts)) (.le (app2 .lengthAt (v "value") (fld .upper facts)) .maxLength)))
   (.group (.orElse (.not (fld .invalidReachable facts)) (.le (app2 .lengthAt (v "value") zero) .maxLength)))
 def sameLengthBody : Expr .truth := .andThen
-  (.group (.orElse (.not (fld .validReachable facts))
+  (.andThen
+    (.group (.orElse (.orElse (.ne (fld .dynamicCount left) zero)
+      (.ne (fld .dynamicCount right) zero)) (.eq (fld .summaryStatic left) (fld .summaryStatic right))))
+    (.group (.orElse (.not (fld .validReachable facts))
     (.group (.andThen (.eq (app2 .lengthAt left (fld .lower facts)) (app2 .lengthAt right (fld .lower facts)))
-      (.eq (app2 .lengthAt left (fld .upper facts)) (app2 .lengthAt right (fld .upper facts)))))))
+      (.eq (app2 .lengthAt left (fld .upper facts)) (app2 .lengthAt right (fld .upper facts))))))))
   (.group (.orElse (.not (fld .invalidReachable facts)) (.eq (app2 .lengthAt left zero) (app2 .lengthAt right zero))))
 def equalIncreasingBody : Expr .context := .locals <|
   .local "numerator" "length_value" (.group (.ite (.ge (fld .summaryStatic right) (fld .summaryStatic left))

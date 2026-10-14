@@ -155,7 +155,10 @@ Here `C = 4096` for declaration initializers. Body expressions use the greatest
 selected-input length still reachable on the current path. Valid-input lengths
 are represented by a closed interval; invalid input has length zero and is
 tracked separately. If no path reaches an expression, its evaluation bound is
-vacuous, but names, mutability and expression grammar must still be valid.
+vacuous only for the dynamic contribution: the static contribution must always
+fit within 4096 bytes. Names, mutability and expression grammar must still be
+valid, and an assignment between two statically known lengths must have equal
+lengths even on an unreachable path.
 Repeated dynamic references are permitted when the applicable bound holds. The total bound covers all
 intermediate groups because operand lengths are nonnegative. Initializers cannot
 borrow the later body's capacity. Assignment additionally requires equality of its affine length and the target's
@@ -200,6 +203,10 @@ bounds and every other object's value. Only initialized mutable names are target
 constants and the original argument binding cannot be assigned. Assignment
 requires equal lengths on every reachable input: equal static lengths, the same
 symbolic input length `d`, or equality established by a preceding predicate.
+If both lengths are statically known, they must be equal regardless of
+reachability. This explicit pre-1.0 restriction prevents GNAT's SPARK code
+generation from rejecting a statically mismatched assignment in a dead arm;
+admission does not depend on whether GNAT happens to fold that arm away.
 Empty values and self-copy are legal. For example, inside `if Input'Length = 3`,
 a variable initialized from Input can receive a three-byte static value. `:=` is one
 contiguous token.
@@ -233,9 +240,11 @@ process-group memory on the reviewer's Linux sandbox. Its Main report was
 program with 769 assignments proved in 49.5 minutes with 9.99 GiB peak
 process-group memory. Its 1,983,843-byte report leaves 113,309 bytes (5.4%) of
 headroom. These are observations for those programs and host, not worst-case
-bounds. Relaxed guard placement now admits a 782-assignment argument-input
-specimen that remains uncompiled. Its projected report uses 96.2% of the buffer;
-that is an estimate, not a measured maximum. The
+bounds. A later review compiled the 4095-byte, 782-assignment argument-input
+specimen: all 826 checks proved and its 2,013,253-byte report uses 96.0% of the
+buffer, leaving 83,899 bytes (4.0%). The reviewer reported 33.6 minutes and
+6.1 GiB peak memory while other probes ran; this is not a clean performance
+benchmark or a universal report-size bound. The
 [current capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
@@ -264,11 +273,16 @@ bounds before the comparison can establish any further facts.
 
 Length predicates may read any earlier initialized binding, including an alias or
 mutable object. Length remains fixed after initialization. The left operand must
-be a binding's Length; reversing a literal and Length, arithmetic, other
-attributes and ordering String bytes are excluded from this bounded predicate
-fragment. The validity query is available only in the argument-input shell and
+be a binding's Length. Reversing a literal and Length is excluded to keep one
+canonical comparison orientation in this initial predicate fragment. Arithmetic
+and other attributes are excluded because their evaluation and path-refinement
+rules are outside its fixed-length analysis. Ordering String bytes is excluded
+because this fragment refines lengths, not lexical order. These are current
+scope limits, not inherited Ada restrictions. The validity query is available
+only in the argument-input shell and
 has no parentheses of its own. Boolean literals are not admitted; True and False
-remain legal String binding names.
+remain legal String binding names. This scope choice adds only predicates over
+the existing String/input operations, without a Boolean value-expression grammar.
 
 `and then` evaluates its right operand only after a true left operand; `or else`
 evaluates it only after a false left operand. That path's facts justify the right
@@ -295,7 +309,10 @@ these deliberate analysis limits keep composition and automatic discharge bounde
 
 ### Integer literals in length predicates
 
-An integer literal has value 0 through 4096. Decimal digits and leading zeroes
+An integer literal has value 0 through 4096. This scope limit keeps comparison
+thresholds within the admitted String-length domain; larger thresholds and their
+constant-result simplification are not part of the current analysis. Decimal
+digits and leading zeroes
 are admitted, with single underscores only between digits. Based literals use a
 base from 2 through 16, decimal base spelling and appropriate case-insensitive
 extended digits; both matching `#...#` and `:...:` delimiters are admitted under
@@ -308,7 +325,9 @@ resource limit, not Ada's universal-integer range. Parsing checks each operation
 before overflow. There is no separate digit-count limit within the source bound.
 Negative exponents (including `E-0`), fractions and mismatched delimiters are
 excluded by integer-literal rules. Unary plus/minus are expressions rather than
-literal spelling and remain outside this length-operand fragment.
+literal spelling and remain outside this length-operand fragment, which does
+not yet interpret general integer expressions. These exclusions do not claim
+that Ada itself forbids signed expressions or larger integer values.
 
 ### Command-line initialization and path requirements
 

@@ -43,12 +43,16 @@ mutual
 end
 
 /-- Check an affine equality at both endpoints of each reachable valid interval
-and at zero on reachable invalid inputs. Empty path sets contribute no demand. -/
+and at zero on reachable invalid inputs. Statically known lengths must also
+agree on empty paths, since the pinned Ada compiler can diagnose those assignments
+before eliminating an unreachable arm. -/
 def equalSummary (context : Context) (left right : Summary) : Bool :=
-  (match context.validLengths with
+  (((decide (left.dynamicCount ≠ 0) || decide (right.dynamicCount ≠ 0)) ||
+      decide (left.staticLength = right.staticLength)) &&
+    (match context.validLengths with
     | none => true
     | some interval => decide (left.length interval.lower = right.length interval.lower ∧
-        left.length interval.upper = right.length interval.upper)) &&
+        left.length interval.upper = right.length interval.upper))) &&
     (!context.invalidReachable || decide (left.length 0 = right.length 0))
 
 theorem equalSummary_sound {context : Context} {left right : Summary} {length : Nat}
@@ -66,7 +70,7 @@ theorem equalSummary_sound {context : Context} {left right : Summary} {length : 
           have within : interval.Contains length := by
             simpa only [Context.Allows, found, Region.Contains, ↓reduceIte] using allowed
           apply Interval.equal_sound (length := length) _ within
-          simpa only [found, decide_eq_true_eq, Interval.Equal] using checked.1
+          simpa only [found, decide_eq_true_eq, Interval.Equal] using checked.1.2
 
 def checkAssignment (shape : Shape) (context : Context) (update : Assignment) : Bool :=
   match shape update.target with

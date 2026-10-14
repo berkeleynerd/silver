@@ -1,7 +1,7 @@
 module
 
 public import Silver.LexicalSourceBridge
-public import Silver.ComposeExpressions
+public import Silver.ComposeEquations
 import all Init.Data.Repr
 
 @[expose] public section
@@ -144,17 +144,20 @@ theorem actual_expressions : ExpressionTranslation := by
     expression_fact_24,
     expression_fact_25⟩
 
-def allTokens : List ShellToken :=
-  [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
-   .word "pragma", .word "spark_mode", .word "on", .word "begin", .word "put_line", .word "end",
-   .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal,
-   .symbol ":", .word "constant", .word "string", .symbol ":=",
-   .word "silver_arguments", .word "first_or_default", .word "if", .word "input_is_valid",
-   .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
-   .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=", .symbol "'",
-   .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
-   .declarations, .assignmentTarget, .targetReference, .dynamicReference,
-   .assignmentValue, .outputExpression, .comparisonExpression, .word "null"]
+abbrev allTokens : List ShellToken := Expressions.allTokens
+
+/-- The native membership expression contains one enumeration range followed
+by these alternatives. Rendering and classification share this inventory. -/
+def wordTokenAlternatives : List ShellToken :=
+  [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
+   .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
+   .word "and", .word "length", .word "or", .word "not", .word "null"]
+
+def wordTokens : List ShellToken := allTokens.take 11 ++ wordTokenAlternatives
+
+def wordTokenBody : List String :=
+  ["token", "in", Expressions.tokenName (.word "with"), "..", Expressions.tokenName (.word "end")] ++
+    wordTokenAlternatives.flatMap (fun token => ["|", Expressions.tokenName token])
 
 def commaNames (names : List String) : List String := List.flatten ((names.map fun name => [name]).intersperse [","])
 
@@ -180,8 +183,7 @@ abbrev HelperCatalogueTranslation : Prop :=
   typeDeclaration "token_kind" Source.outputSpecTokens =
     some (["("] ++ commaNames nativeTokenNames ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody ∧
-  Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword") ∧
+  Source.expressionBody "is_word_token" Source.outputBodyTokens = some wordTokenBody ∧
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
     some (expectedTokens "Form = Argument_Form")
 
@@ -197,8 +199,7 @@ private theorem catalogue_fact_03 :
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody := by decide +kernel
 
 private theorem catalogue_fact_05 :
-  Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword") := by decide +kernel
+  Source.expressionBody "is_word_token" Source.outputBodyTokens = some wordTokenBody := by decide +kernel
 
 private theorem catalogue_fact_06 :
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
@@ -207,13 +208,17 @@ private theorem catalogue_fact_06 :
 theorem actual_catalogue : HelperCatalogueTranslation :=
   ⟨catalogue_forms, catalogue_fact_01, catalogue_fact_03, catalogue_fact_05, catalogue_fact_06⟩
 
-theorem finite_mapping :
-    (∀ token ∈ allTokens, 1 ≤ (Expressions.spelling token).length ∧ (Expressions.spelling token).length ≤ 16) ∧
-    (∀ index : Fin allTokens.length, Expressions.isWord allTokens[index] =
-      (decide (index.val ≤ 10) || decide (allTokens[index] ∈
-        [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
-         .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
-         .word "and", .word "or", .word "not", .word "length", .word "null"]))) := by decide +kernel
+/-- The checked enumeration order gives the exact meaning of With .. End;
+every valid model token has the same word classification as that native set. -/
+abbrev TokenMapping : Prop :=
+  allTokens = Expressions.allTokens ∧
+  allTokens.take 11 =
+    [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",
+     .word "pragma", .word "spark_mode", .word "on", .word "begin", .word "put_line", .word "end"] ∧
+  (∀ token ∈ allTokens, 1 ≤ (Expressions.spelling token).length ∧ (Expressions.spelling token).length ≤ 16) ∧
+  (∀ token ∈ allTokens, Expressions.isWord token = decide (token ∈ wordTokens))
+
+theorem finite_mapping : TokenMapping := by decide +kernel
 
 abbrev Declarations : Prop :=
   Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 16") ∧

@@ -4,7 +4,128 @@ The owner authorized delivery of roadmap **5a–5c** on 2026-10-13, based on
 `7fb1514199`, continuing autonomously through implementation, validation and
 publication. All three milestones are complete. Milestone 5a was published in `dc5295eabe`;
 the coupled 5b/c extension passed its [combined Linux checkpoint](#completed-5bc-checkpoint--2026-10-14).
-The original Oracle and external-tool assumptions remain in force.
+The original Oracle and external-tool assumptions remain in force. These
+checkpoints describe the original delivery. The subsequent review and authorized
+repair below address a build-completeness defect in that delivered admission rule.
+
+## Review of 4503d17 and bounded repair — 2026-10-14
+
+The second-party review found one blocker: an unreachable assignment between
+unequal statically known lengths could pass admission and GNATprove, then fail
+GNAT code generation under the required `SPARK_Mode (On)`. Independent local
+reproduction proved all 45 checks before the build failed; replacing the RHS
+with an equal-length literal proved 44 checks and built successfully. The
+retained reproduction is local-only at
+`tmp/review-4503d17-assessment-3gawq7tr/`. This is a build-completeness defect,
+not evidence of unsafe execution or a false Lean safety theorem.
+
+The owner authorized this bounded repair before further language features:
+
+- Require equality whenever both assignment lengths are statically known,
+  even on unreachable paths. Preserve dynamic path-refined assignments. This
+  explicit pre-1.0 rule avoids depending on which dead arms GNAT folds away;
+  it does not amend the Oracle, rewrite source or weaken SPARK mode.
+- Exercise three cases in the existing test harness: the rejected mismatch,
+  an admitted equal-length sibling that compiles/runs, and the existing dynamic
+  assignment test justified by path facts that compiles/runs. The latter two need
+  actual code generation because `-gnatc` missed the defect. Existing sample
+  tests already compile/run their programs; no duplicate stage or blanket
+  differential-corpus compilation is added.
+- Strengthen the existing source claims with token-list agreement, integer
+  literal byte bindings, and local precedence/scope checks (review L10).
+  These are source-correspondence repairs, not a new parser framework.
+- Correct static-bound wording, restriction purposes, stack premises, source
+  binding counts, local evidence paths and historical validation scope
+  (L2–L8), and record the completed dense specimen below.
+
+Broader negative-test cross-products (L1), historical-language retention
+theorems and expensive concrete sample witnesses (L11), informative catalogue-template declarations and
+manifest-tag cleanup (L12–L13), stack redesign, legacy-module cleanup and
+the `silver run` failure-message improvement (L9) remain deferred. These low
+items can be revisited when their grammar, samples or driver behavior are next
+touched; they are not required to repair static assignment compatibility. The latter
+can report a specified Reject as an external failure; it does not alter the
+program's defined rejection behavior. Source comments that predate the generalized
+guard/report policy are retained for now to avoid unrelated certificate rebuilds;
+current rules are in the specification and assurance documents.
+
+Two review qualifications matter. Its “warm replay” was an incremental build
+and fresh axiom/module audit; no independent kernel replay ran. The 53,422
+declarations are the axiom-audit population. Its I10 missing-anchor claim does
+not hold: `RESUME.md` has an explicit `recover-and-preserve-the-old-vm-evidence`
+anchor. The reported foreign `tmp/greeting-example-9rp5sciv/` directory is our
+preserved scratch from the owner's example request, not unexplained review work.
+
+The repair uses focused checks while inputs change and one stable final Linux
+checkpoint. Earlier caches, failed evidence and the original review are preserved.
+The [roadmap](../roadmap.md) records the completed repair and deferred work;
+the original delivery checkpoints below do not validate this repair.
+
+
+### Completed repair checkpoint
+
+Review target: `4503d17a93d97af62d0fea9f61990ed1df23a882`. The repair is a
+subsequent explicit pre-1.0 admission change; the original review is preserved
+unchanged. Local-only evidence is under
+`.silver/linux-x86_64/branch-repair-20261014T144008Z/`, with recovery pointer
+`tmp/branch-repair-active.json`.
+
+- The new mismatch regression failed against the old binary, then passed after
+  the repair. Its equal-length sibling proved, compiled and ran; the existing
+  dynamic path-refined assignment test also passed. One new test method supplies
+  the first two cases; the third reuses an existing method. An initial focused
+  command named the catalogue test class incorrectly; both behavior methods
+  passed, and the corrected catalogue invocation passed separately. All logs
+  remain retained.
+- The full native audit passed **3,049 checks** across 19 units and 301 entities:
+  549 flow and 2,500 proof checks, with 74 classified limitation notes and 14
+  imported entities. The normal solver cache was reused; this is full validation,
+  not a cold timing measurement. `native-proof-evidence.json` and `gnatprove.out`
+  retain the provenance and totals.
+- The complete suite passed **294/294 methods**, without failures or skips, in
+  **1,011.244 seconds** (the wrapper recorded 1,011.532 seconds). Its preceding
+  build and catalogue equality check passed. `final-tests/results.json` records
+  native/script/test/sample/catalogue/project and proof source hashes before and
+  after; both changed-input lists are empty. No later code or proof edit is
+  included under this result.
+- Focused Lean validation checked the repaired source shape, semantic safety,
+  native/model equality and all 22 path precedence guards. Only the path source
+  certificate changed; its isolated rebuild took 165 seconds. The separate guard
+  lane checked the aggregate token, literal-byte and predicate precedence/scope
+  claims; its composed source-check module took 1,159 seconds. One earlier path
+  equation attempt failed on Boolean grouping; the corrected left-associated
+  interpretation passed, without changing the native condition. The frozen final
+  tree includes that correction.
+
+The integrated complete Lean/source-correspondence checkpoint **passed** with
+**242 modules and 53,490 declarations axiom-audited**, using only `propext`,
+`Classical.choice` and `Quot.sound`. It took **1,127.623 seconds**: 1,121.572
+seconds for the incremental build and 3.355 seconds for the fresh axiom/module
+audit. The run used two Lake workers, four threads per Lean process and a
+24,576 MiB per-process threshold on the twelve-CPU, 31 GiB Linux sandbox.
+`lean-evidence.json`, `lean-proof.log` and `lean-complete.log` retain exact scope.
+This is neither a cold build nor an independent kernel replay.
+
+Matched-source objects were copied with private/server sidecars and Lake traces,
+preserving previous canonical objects under `cache-before-promotion/`. The guard
+lane used reviewed-baseline native bytes. Normal Lake dependency invalidation
+therefore rebuilt its transitive importers against the repaired path source,
+including `ComposeSourceChecks` in 920 seconds; no traces were rewritten to claim
+a cache hit. Both isolated and integrated results are preserved, and their times
+must not be represented as one cached invocation. The public source-certificate
+import chain caused that extra work; narrower imports are a proposed roadmap
+follow-up, not part of this repair.
+
+The final native and Lean evidence input identities match the repaired tree;
+recorded native reports are unchanged. The full suite's frozen code/proof inputs
+remain the final inputs. Completion edits are documentation only. B1 and the
+selected bounded follow-up are complete; the low items explicitly deferred above
+remain deferred. No dense application proof, independent replay, macOS proof or
+hosted CI run was added.
+
+Independent read-only cross-review found no issue in the static compatibility
+rule, retained dynamic behavior, source links or regression/catalogue changes.
+The complete original review is retained separately from these repair results.
 
 ## Delivery sequence
 
@@ -39,7 +160,7 @@ mutable byte-equality tracking is not required by this fragment.
 Continue through ordinary implementation, resource tuning and proof failures.
 Summon the operator only for a required Oracle amendment, conflicting owner
 requirements, or missing external access/resources with no sound authorized
-workaround. Do not suppress obligations, narrow existing admitted inputs or
+workaround. Do not suppress obligations, silently narrow admitted inputs or
 declare partial work complete to avoid a failure.
 
 `tmp/branches-active.json` records the baseline, evidence directory and isolated
@@ -290,11 +411,13 @@ source or assumed scanner equality. Native contracts and GNATprove establish
 executed-call legality. An explicit simultaneous model witness remains required
 and is checked with the full interface.
 
-The final native audit and source-certificate run are in progress. Catalogue
-review identified stale guard metadata left over from the former fixed shells;
-its correction and final test/Lean checkpoints remain pending. Earlier 5a
-source-specific bridge modules are retired from the current source assertion;
-useful source-independent sequence mathematics remains audited and reused.
+At this stage of integration the final native audit and source-certificate run
+were still in progress. Catalogue review identified stale guard metadata left
+over from the former fixed shells; its correction and final test/Lean checkpoints
+were completed below. Earlier 5a source-specific bridge modules were retired
+from the current source assertion. Retained sequence mathematics remains audited;
+some effect/store lemmas are reused, while other legacy modules currently have
+no consumers.
 
 
 ## Bounded 5b/c capacity assessment — 2026-10-14
@@ -305,35 +428,51 @@ by unconditional `Silver_Arguments.Reject`. The single-target shape uses 185
 fixed bytes plus five per assignment. Both maximal specimens pass native
 admission; one extra assignment exceeds the unchanged 4096-byte source limit.
 The static alternating shape still fits 800 assignments; the 802 self-assignment
-shape was already available. The [count record and source specimens](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/compact-counts.json)
-retain the exact inputs, hashes and admission results. The new
-[782-assignment specimen](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/argument_single_reject.adb)
-has **not** been compiled or proved.
+shape was already available. Evidence paths in this section are **local-only**,
+under the ignored directory
+`.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/`.
+`compact-counts.json` retains exact inputs, hashes and admission results;
+`argument_single_reject.adb` is the 782-assignment specimen. It was uncompiled
+at the delivery checkpoint and was subsequently proved and built during the
+review of `4503d17`, as recorded below.
 
-One isolated [16-assignment source](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/dynamic16/main.adb)
+One isolated 16-assignment source, `dynamic16/main.adb`,
 using the current runtime contract completed the normal application proof command
 in 7.426 seconds: all 60 checks proved and the five-unit report audit passed.
 Its 44,939-byte Main report contains 16 length checks and 17 classified advisories.
 Each length check has three proof subgoals, matching the retained 769-assignment
-report. The [command, inputs and result](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/dynamic16/result.json)
-and [report audit](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/audit.json)
-are preserved. Scaling the retained 769-case record sizes to 782 estimates
+report. Its command, inputs and result are in `dynamic16/result.json`, and its
+report audit is in `audit.json`. At that checkpoint, scaling the retained
+769-case record sizes to 782 estimated
 **2,017,312 bytes (96.2% of 2 MiB), leaving 79,840 bytes**. This is an estimate,
-not measured dense completion or a universal report bound. The historical
+superseded for this specimen by the review's measured report, not a universal
+report bound. The historical
 800/769 completion measurements remain distinct.
 
 Seven additional exact-4096-byte admitted sources passed native admission and
 GNAT syntax/type frontend checks, each in under a second. Their 3982-byte numerals
 cover isolated separators in decimal, base, mantissa and exponent positions,
 leading-zero based mantissas, and colon-delimited base/mantissa variants. The
-[commands, source hashes and results](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/literal-frontends/results.json)
+commands, source hashes and results in `literal-frontends/results.json`
 complement the retained plain leading-zero decimal/base/exponent and exponent-4096
 frontend probes. These are frontend checks, not full application proof runs.
 
-The [bounded assessment](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/assessment.json)
-found no demonstrated report overflow, new per-check splitting or frontend defect.
-The long dense rerun remains deferred; no membership or resource cap was added.
-The narrower estimated margin and uncompiled specimen remain explicit. Every
+The original bounded assessment in `assessment.json` found no demonstrated report
+overflow, new per-check splitting or frontend defect. The later review's normal
+compile of the dense specimen proved **826 checks**, including 782 Main length
+checks, and built its executable. Its **2,013,253-byte** Main report uses **96.0%**
+of the 2 MiB buffer and leaves **83,899 bytes (4.0%)**. The source and proof
+report were independently corroborated in the retained local program directory
+`.silver/linux-x86_64/program-a90pEV/`: the source is byte-identical to the
+4095-byte specimen and the report has 782 Main proof records and 783 advisories.
+
+The reviewer reported **2,014.5 seconds (33.6 minutes), 6.1 GiB peak memory**,
+and executable status 1 with no output for no argument, `hello`, an empty
+argument and two arguments, as specified by its unconditional Reject. The run
+overlapped review probes; timing and peak memory are reviewer-attributed
+observations, not an independently rerun or clean performance benchmark.
+This closes the selected specimen's completion/capacity caveat. No dense rerun
+or new membership/resource cap was added. It is not a universal report bound. Every
 admitted source must still fit the producer/report envelope and complete under
 the documented external-tool assumptions; an actual overflow or proof failure
 would be an implementation defect.
@@ -364,8 +503,20 @@ input scope are preserved separately. Source changes are prepared in isolated
 lanes while the full test suite retains its frozen inputs. No warning is newly
 allowed or suppressed.
 
-The integrated full suite completed 293 methods in 1,108.297 seconds against
-stable source/script/test/proof inputs. Three subtest assertions were stale: one
+The integrated full suite completed 293 methods in 1,108.297 seconds and exited
+1. Its source/script/test/proof inputs were stable during that run, but twelve
+files changed before the published `4503d17` tree:
+
+- Native: `src/silver_integer_literals.adb` and `src/silver_output_profile.adb`;
+  later edits added parentheses in variant, invariant and termination expressions.
+- Proof: `ComposeSourceChecks.lean`, `IntegerLiteralBodyCertificate.lean`,
+  `IntegerLiteralSourceChecks.lean`, `IntegerLiteralSourceShape.lean`,
+  `OutputBodyCertificate.lean`, `PredicateNativeSourceChecks.lean`,
+  `PredicateSourceBridge.lean` and `ReviewedOutputShape.lean`, all under
+  `proof/Silver/`.
+- Tests: `tests/test_arguments.py` and `tests/test_evidence.py`.
+
+Three subtest assertions were stale: one
 rejected a safe trailing null after an argument conditional, and two required
 Input_Is_Valid in otherwise complete query-free reports. Every other case,
 including the new predicate/path runtime tests and all manifest samples, passed.
@@ -390,11 +541,12 @@ source-certificate policy after the final grouping batch. Native, script, test,
 proof, sample, generated and project input hashes remained unchanged throughout
 both the successful full native audit and this focused rerun. The compiler
 rebuilt in 1.479 seconds, and its catalogue still matched the tracked JSON.
-The [final native handoff](../.silver/linux-x86_64/branches-20261013T234331Z/native-final-handoff.md)
-and [phase results](../.silver/linux-x86_64/branches-20261013T234331Z/native-variant-final/results.json)
-record that exact scope; preserved final reports and their hashes are in the same
-evidence directory. The earlier full-suite invocation and failed audit attempts
-remain preserved as separate records.
+The local-only `native-final-handoff.md` and `native-variant-final/results.json`
+under `.silver/linux-x86_64/branches-20261013T234331Z/` record that exact scope;
+preserved final reports and their hashes are in the same evidence directory.
+The earlier full-suite invocation and failed audit attempts remain preserved as
+separate records. This focused rerun preceded the two proof-only changes recorded
+next; it was not a test run over the final published proof tree.
 
 
 The first canonical complete Lean attempt exposed one stale inherited
@@ -422,7 +574,7 @@ unchanged. Successful source checks stayed cached for the resumed complete run.
 ## Completed 5b/c checkpoint — 2026-10-14
 
 All authorized milestones **5a–5c are complete**. The final canonical Linux
-check passed with **241 modules and 53,422 declarations**, using only
+check passed with **241 modules and 53,422 declarations axiom-audited**, using only
 `propext`, `Classical.choice` and `Quot.sound`. The build took
 8.508 seconds, the fresh axiom/module audit 3.337 seconds,
 and the complete runner 14.214 seconds. These are warm timings
@@ -444,15 +596,23 @@ Optional independent `leanchecker --fresh` replay was not requested or run.
 The final native build and catalogue equality check passed. The complete warm
 native audit proved **3,049 checks** across 19 units and 301 entities, with the
 strict evidence audit accepting every required report. The initial complete
-suite ran **293 methods** with three stale subtest assertions; the repaired
+suite ran **293 methods**, exited 1 and had three stale subtest assertions; the
+repaired
 argument/report/source-policy suites then passed **52/52 methods**, without
 skips. All other full-suite cases, including new predicate/path tests and all
 fifteen manifest samples, passed. This is combined full-suite and focused-repair
-evidence, not a claim that the original full-suite invocation was failure-free.
-The final native inputs are unchanged. The later Lean assertion and bridge-import repairs
+evidence, not a failure-free full-suite run over the published tree. The twelve
+files changed after the full suite are listed above. The final native inputs are
+unchanged after the successful native checkpoint. The later Lean assertion and
+bridge-import repairs
 are recorded separately in `post-native-input-delta.json`; the successful final
 Lean run checked its exact frozen proof inputs. No duplicate native audit was
 needed for those proof-only repairs or these completion documentation edits.
+The second-party review subsequently reran all 140 tests that read proof or
+evidence files at `4503d17`; it reported 140/140 passing in 173 seconds across
+`test_lean_source`, `test_lean_modules`, `test_lean_evidence`, `test_evidence`,
+`test_proof_provenance`, `test_platforms` and `test_argument_bounds`.
+This is attributed review evidence, distinct from the implementer's checkpoints.
 
 Independent source/pin reviews and the final read-only bridge/policy review found
 no material issue; `final-read-only-review.json` records their scope. The complete
@@ -463,8 +623,10 @@ effects compose with the existing explicit frontend/native/tool contracts.
 No project-specific axiom, unchecked proof shortcut, weakened source check or
 relaxed diagnostic policy was introduced. The Oracle is unchanged.
 
-The bounded capacity assessment above remains an estimate for the uncompiled
-782-assignment specimen. Context/name rules and positional/named associations
+At this delivery checkpoint the bounded capacity assessment above was an estimate
+for the uncompiled 782-assignment specimen; the later review completed that run
+and its measured report fits, as recorded above. Context/name rules and
+positional/named associations
 for existing calls remain proposed consolidation work; new APIs remain separate.
 The [roadmap](../roadmap.md#equality-guards-and-branches-increments) now closes
 the parent item and all three increments without erasing those remaining areas.

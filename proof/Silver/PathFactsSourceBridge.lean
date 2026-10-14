@@ -10,6 +10,7 @@ open Native Predicate Bindings Silver.SourceBridge Silver.Lexical.SourceBridge
 /-- Exact authoritative bytes, all function bodies, declared ranges/records and
 all headers, including the nonzero-divisor precondition. -/
 structure ActualSource : Prop where
+  precedence : Native.WellFormedTrees
   source : Source.lex Source.pathFactsSpec = some Source.pathFactsSpecTokens
   actual_reviewed_shape : Source.pathFactsSpecTokens = SourceShape.spec
   body_00 : Source.expressionBody "compare" Source.pathFactsSpecTokens = some compareBody.renderBody
@@ -100,6 +101,7 @@ structure ActualSource : Prop where
         some ["(", "facts", ":", "context", ";", "left", ",", "right", ":", "summary", ")", "return", "context"]
 
 theorem actual_source : ActualSource where
+  precedence := Native.checked_precedence
   source := Source.pathFactsSpecTokens_correct
   actual_reviewed_shape := actual_reviewed_shape
   body_00 := body_00

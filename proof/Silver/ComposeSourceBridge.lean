@@ -20,6 +20,7 @@ structure CheckedSource : Prop where
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   catalogue : HelperCatalogueTranslation
+  tokens : TokenMapping
   declarations : Declarations
   refinement : Refinement
   adapters : AdapterTranslation
@@ -33,6 +34,7 @@ theorem checked_source : CheckedSource where
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
   catalogue := actual_catalogue
+  tokens := finite_mapping
   declarations := actual_declarations
   refinement := actual_refinement
   adapters := actual_adapters

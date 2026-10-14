@@ -168,6 +168,8 @@ theorem body_header_22 :
       some ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "literal_result"] := by decide +kernel
 
 structure CheckedSource : Prop where
+  specification : Source.lex Source.integerLiteralSpec = some Source.integerLiteralSpecTokens
+  implementation : Source.lex Source.integerLiteralBody = some Source.integerLiteralBodyTokens
   reviewedShape : ReviewedShape
   expressions : ExpressionTranslation
   numeric : NumericDeclarations
@@ -198,6 +200,8 @@ structure CheckedSource : Prop where
   body_header_22 : functionHeader "read_integer" "is" Source.integerLiteralBodyTokens = some ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "literal_result"]
 
 theorem checked_source : CheckedSource where
+  specification := Source.integerLiteralSpecTokens_correct
+  implementation := Source.integerLiteralBodyTokens_correct
   reviewedShape := actual_reviewed_shape
   expressions := actual_expressions
   numeric := actual_numeric_declarations

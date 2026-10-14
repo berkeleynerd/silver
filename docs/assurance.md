@@ -115,8 +115,11 @@ proof/translation resource policies.
 For static contribution `S`, dynamic occurrence count `K`, and capacity `C`,
 membership requires `S + K*C <= 4096`. Declaration initializers precede guards
 and use `C = 4096`; body expressions use their current reachable input interval
-and the separate invalid-input case. Unreachable evaluations have vacuous length
-bounds while still requiring legal syntax, names and mutable assignment targets.
+and the separate invalid-input case. An unreachable evaluation has no dynamic
+length obligation, but its static contribution must still fit within 4096 bytes.
+Assignments between two statically known lengths require equality even there,
+so admission does not rely on GNAT folding a dead length mismatch away. Syntax,
+names and mutable assignment targets must remain legal on all paths.
 `Bindings` and `ComposeExpression` prove exact evaluated length, printable bytes,
 and equality between flattened operand evaluation and grouped concatenation.
 Nonnegative operand lengths bound every prefix and subtree by the complete
@@ -296,8 +299,9 @@ startup remain trusted dependencies.
 A correct separate model or a matching source pin alone does not establish the
 required correspondence. The checked chain has these distinct parts:
 
-1. Twelve handwritten source-binding modules fix `include_str` paths for both
-   recognizers, both lexical-helper units and the six selected runtime files.
+1. Fifteen handwritten source-binding modules fix `include_str` paths for the
+   specifications and bodies of both recognizers, both lexical-helper units, the integer-literal specification and
+   body, the path-fact specification, and the six selected runtime files.
    Generated candidates reconstruct their exact included bytes and checked
    tokens. The generator cannot select replacement source bindings. Source
    alphabet checks include comments and literals.
@@ -402,9 +406,10 @@ static folding may eliminate checks, and translation may split or repeat them.
 
 `Current.Tools` and `Current.ToolContract` state external operations and their
 contracts as theorem parameters, without project-specific axioms. They require
-faithful completed parsing, obligation generation, completion of proof on the
-concrete bounded range/length fragment, fixed-library proof completion, same-source
-build completion, and preservation and realization of modeled execution.
+faithful completed parsing, obligation generation, completion of proof for every
+source schema accepted by the Lean endpoint-discharge checker, fixed-library
+proof completion, same-source build completion, and preservation and realization
+of modeled execution.
 The generation relation must associate every emitted range/length check with
 its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
@@ -426,8 +431,10 @@ neither those solvers nor a universal bound on their work. Native experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
 Expression evidence is in [common-expressions.md](common-expressions.md);
-the subsequent [sequencing record](statement-sequencing.md) contains current
-application report-capacity and dense-assignment measurements.
+the [sequencing record](statement-sequencing.md) contains its application
+report-capacity and dense-assignment measurements. The later
+[branch record](branches.md#bounded-5bc-capacity-assessment--2026-10-14) records
+the completed 782-assignment specimen and its narrower report margin.
 Solver effort can vary with source size and translation. These measurements do
 not prove completion for arbitrary SPARK, or a host-independent wall-clock bound.
 

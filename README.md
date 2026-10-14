@@ -51,8 +51,9 @@ contain any printable ASCII character, with quotes doubled as in Ada.
 The original [null program](samples/null.adb) and a
 [named string constant](samples/string_constant.adb) are also supported. The
 [command-line sample](samples/command_line.adb) initializes that constant from
-`Silver_Arguments.First_Or_Default` and uses a required validity guard before
-printing it.
+`Silver_Arguments.First_Or_Default` and uses a validity guard before printing it.
+The current language also admits other path predicates that establish valid
+input and reject every invalid input without output.
 The [greeting sample](samples/greeting.adb) adds a literal prefix and suffix to a
 literal-initialized constant using `"Hello, " & Name & "!"`.
 The [command-line greeting](samples/command_line_greeting.adb) combines that
@@ -103,9 +104,11 @@ process-group memory**, producing a 1,734,274-byte Main report within the 2 MiB
 buffer. A 4095-byte argument-input program with 769 assignments took **49.5 minutes
 and 9.99 GiB**, producing a **1,983,843-byte** report with **113,309 bytes (5.4%)**
 of headroom. Expression limits do not cap assignment-driven proof work. These
-measurements are not worst-case bounds. Relaxed guard placement now admits a
-782-assignment argument-input specimen that remains uncompiled; its projected
-report uses 96.2% of the buffer. That estimate is not a measured maximum. See the
+measurements are not worst-case bounds. A later review proved all 826 checks and
+built a 4095-byte, 782-assignment argument-input specimen. Its 2,013,253-byte
+report uses **96.0%** of the buffer, leaving **83,899 bytes (4.0%)**. The reviewer
+reported **33.6 minutes and 6.1 GiB** while other probes ran; this is not a clean
+performance benchmark or a universal report bound. See the
 [original capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 and the [current bounded assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14).
 
@@ -155,8 +158,11 @@ native package is `libc6-dev`.
 Use the validated **8 MiB process stack** configuration for the compiler on Linux
 (`ulimit -s 8192` in a shell where that limit is permitted). The 2 MiB application
 report buffer and report-sized checker storage require stack headroom; a 2 MiB
-stack produced `Storage_Error` even for the null and Hello World samples. An
-exact minimum has not been established. Adequate memory and normal runtime
+stack produced `Storage_Error` even for the null and Hello World samples.
+The recursive statement/predicate recognizer also uses the stack: a review's
+deepest 4096-byte check needed about 3.6 MiB, and compiling its deepest parse
+passed at 6 MiB but failed at 5.5 MiB. These observations do not establish a
+universal exact minimum. Adequate memory and normal runtime
 startup remain [environmental requirements](docs/trusted-boundary.md#trusted-computing-base).
 
 ```sh

@@ -4,7 +4,12 @@ Authorized on 2026-10-13 by the owner's “Proceed”, following the completed
 [interpretation-witness repair](common-expressions.md#external-review-of-9b72d36)
 at `3c1522f540`. This capability is **complete and supported**. Its implementation
 and review target is `9b99d52b447a65ea39016c597b8bb8d1859765a1`;
-the evidence below identifies the exact checked inputs.
+the evidence below identifies the exact checked inputs. This is the historical
+sequencing scope: the later [branch delivery](branches.md) supersedes its
+one-level choices and fixed outer guard with recursive predicates and
+path-sensitive composition. References below to `SequenceSourceBridge` and
+`SequenceCorrespondence` describe that earlier checkpoint; the current source
+chain uses the predicate bridge described in [assurance.md](assurance.md).
 
 ## Scope
 

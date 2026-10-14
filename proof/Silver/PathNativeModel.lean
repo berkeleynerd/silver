@@ -82,8 +82,10 @@ def fits (facts : Context) (value : Summary) : Bool :=
   (!facts.validReachable || decide (lengthAt value facts.upper ≤ maxSourceLength)) &&
     (!facts.invalidReachable || decide (lengthAt value 0 ≤ maxSourceLength))
 def sameLength (facts : Context) (left right : Summary) : Bool :=
-  (!facts.validReachable || ((lengthAt left facts.lower == lengthAt right facts.lower) &&
-      (lengthAt left facts.upper == lengthAt right facts.upper))) &&
+  (((decide (left.dynamicCount ≠ 0) || decide (right.dynamicCount ≠ 0)) ||
+      decide (left.staticLength = right.staticLength)) &&
+    (!facts.validReachable || ((lengthAt left facts.lower == lengthAt right facts.lower) &&
+      (lengthAt left facts.upper == lengthAt right facts.upper)))) &&
     (!facts.invalidReachable || (lengthAt left 0 == lengthAt right 0))
 def equalIncreasing (facts : Context) (left right : Summary) : Context :=
   let numerator := if right.staticLength ≥ left.staticLength then right.staticLength - left.staticLength else 0
@@ -168,6 +170,6 @@ theorem sameLength_sound {facts : Context} {left right : Summary} {valid rejecte
           have within : facts.lower ≤ length ∧ length ≤ facts.upper := by
             simpa [PathFacts.Context.Allows, Context.model, reachable, Region.Contains, Interval.Contains] using allowed
           simp [sameLength, reachable, lengthAt_model] at equal
-          exact affine_equal_between equal.1.1 equal.1.2 within
+          exact affine_equal_between equal.1.2.1 equal.1.2.2 within
 
 end Silver.PathFacts.Native

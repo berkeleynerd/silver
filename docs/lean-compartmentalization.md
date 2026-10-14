@@ -43,10 +43,14 @@ checking.
 Each handwritten source binding has its own Lean module and binary Lake input.
 The `AuthoritativeSource` facade still imports every binding. Each generated
 certificate imports only its own binding; downstream source bridges retain their
-normal imports. The twelve exact binding libraries follow the umbrella library
+normal imports. The exact binding libraries follow the umbrella library
 because Lake resolves overlapping module owners in reverse declaration order.
 Native tests exercise this ownership with source-byte changes, preserved
 modification times and unrelated object checks.
+The original checkpoint below had twelve bindings; the predicate/path extension
+adds the integer-literal specification and body and the path-fact specification,
+for fifteen current bindings and certificates. Historical counts and timings
+below retain their original scope.
 
 `Silver_Output_Lexical` holds lexical, identifier and bounded literal/decimal
 helpers. Ghost expression functions remain visible in its specification so the

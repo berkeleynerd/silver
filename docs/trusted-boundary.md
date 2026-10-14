@@ -40,7 +40,7 @@ that a configured pathname selects the intended executable.
 | Component | What the assurance argument relies on | Controls and remaining scope |
 | --- | --- | --- |
 | GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |
-| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion on the concrete bounded range/length fragment | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 10,000 steps, and no completeness claim for arbitrary SPARK is made. |
+| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion for every source schema accepted by Lean's endpoint-discharge checker | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 10,000 steps, and no completeness claim for arbitrary SPARK is made. |
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
@@ -61,7 +61,11 @@ not a claim of portability to every conforming Ada compiler.
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
 and `run`, including the null route, allocate the 2 MiB report buffer on the
 stack; application report auditing also copies the used report slice. The
-exact minimum stack has not been established. The external
+recursive statement/predicate recognizer consumes stack even for `check`.
+The review of `4503d17` measured 3,688 KiB for a 4096-byte source with 1,994
+condition parentheses; its deepest compile failed at 5,632 KiB and passed at
+6,144 KiB. These measurements include the existing assertions-enabled build;
+they do not establish a universal exact minimum. The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
 status 1 with a 2 MiB stack, before publication. Such resource exceptions are
 not currently mapped to the driver's normal infrastructure-error status 3.
@@ -585,8 +589,9 @@ frontend/flow work, operating-system delays or total elapsed time. The bounded
 composition argument must establish the generated range and exact-length
 schemas for every permitted declaration, expression, assignment and control-flow
 path. It does not prove that the
-bundled external solvers complete within 10,000 steps; that concrete pinned
-fragment's completion remains an explicit tool-contract premise. The bound of
+bundled external solvers complete within 10,000 steps for every source schema
+accepted by Lean's endpoint-discharge checker; that completion remains an
+explicit tool-contract premise. The bound of
 sixteen leaves limits each expression to fifteen concatenations. A separate
 thirty-operator source budget includes initializers, predicate operands and all
 body arms, retaining the earlier two-output operator-count ceiling. Proof cost can differ
@@ -601,8 +606,13 @@ case within the application report buffer. The subsequent 769-assignment
 argument-input case also completed, using 94.6% of that buffer with 5.4% headroom.
 Their measured translation cost and memory use, and an admitted but uncompiled
 771-assignment variant, are recorded in the [sequencing record](statement-sequencing.md).
-Neither completed case establishes a universal worst-case bound. An interrupted experiment establishes
-neither solver failure nor measured capacity. No statement/output-count
+The later review of `4503d17` proved and built the 782-assignment specimen:
+826 checks, a 2,013,253-byte Main report (96.0% of the buffer), and 83,899 bytes
+(4.0%) remaining. The reviewer reported 33.6 minutes and 6.1 GiB while other
+probes ran; the [branch record](branches.md#bounded-5bc-capacity-assessment--2026-10-14)
+distinguishes the corroborated source/report from those reported measurements.
+None of these cases establishes a universal worst-case bound. An interrupted
+experiment establishes neither solver failure nor measured capacity. No statement/output-count
 restriction is inferred from those interruptions.
 Native boundary experiments
 corroborate the argument; they do not establish a completeness premise for
@@ -742,7 +752,7 @@ are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
 The Lean proof tree is private to the host and reads the authoritative `src/`
-through a checked link. Twelve generated source-certificate modules, Lake
+through a checked link. Fifteen generated source-certificate modules, Lake
 artifacts and manifests are written there. Shared proof inputs are fingerprinted
 and must remain unchanged throughout a run; tools and protected workspace
 copies are also checked for stability. Routine evidence contains an aggregate

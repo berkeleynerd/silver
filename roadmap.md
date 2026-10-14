@@ -14,6 +14,32 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Branch review repair — complete
+
+The owner authorized the bounded response to
+[review `4503d17`](docs/reviews/review-4503d17.md) on 2026-10-14, with the
+regression scope narrowed to three cases using the existing harness. This
+corrective unit takes priority over the proposed context/name and call-association
+work. B1 independently reproduced an admitted, proved static-length mismatch in
+an unreachable arm that GNAT could not build; the completed repair restores static
+compatibility before further feature work.
+
+| Order | Scope | Completion criterion and status |
+| --- | --- | --- |
+| 1 | Static assignment compatibility | **Complete:** require equal lengths when both sides have statically known lengths regardless of reachability; retain dynamic path refinement. Align native admission, Lean semantics/source correspondence, specification and catalogue as an explicit pre-1.0 change. |
+| 2 | Bounded review follow-up | **Complete:** reject the reported mismatch, compile/run its equal-length sibling and retain a dynamic path-refined assignment compile. Reuse existing tests; no blanket differential-corpus compilation or new framework. Add the identified local token, literal-byte and precedence links; correct restriction purposes, stack/evidence disclosures and stale counts; record the completed dense specimen without rerunning it. |
+| 3 | Stable Linux checkpoint and handoff | **Complete:** one stable-input native proof/build/full-test and complete cached Lean/source-correspondence checkpoint, independent diff review, documented dispositions and authorized publication. Preserve caches, scratch and review evidence; independent replay, macOS and hosted CI remain out of scope. |
+
+The [completed checkpoint](docs/branches.md#completed-repair-checkpoint) records
+3,049 native checks, 294 tests and complete Lean/source correspondence with a
+fresh axiom audit. Historical
+language-retention proofs, broad test matrices, informative catalogue-template
+declarations and manifest-tag cleanup, stack redesign and unrelated cleanup
+remain deferred until the affected area is next touched. This repair changes no Oracle
+guarantee and adds no language feature.
+
+### Completed foundation work
+
 **Shared bindings, String expressions, statement sequencing, predicates and path-sensitive branches are complete.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
@@ -41,7 +67,8 @@ assignment measurements passed. Their [capacity record](docs/statement-sequencin
 discloses costs, report headroom and the then-uncompiled 771-assignment variant.
 The [current bounded assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 retains the larger 782-assignment specimen admitted by relaxed guard placement;
-its 96.2% report projection remains unmeasured.
+the later review completed it with a 2,013,253-byte report (96.0% of the buffer).
+The reported 33.6 minutes and 6.1 GiB are specimen measurements, not worst-case bounds.
 The owner has authorized delivery of all
 [Equality, guards and branches increments](#equality-guards-and-branches-increments).
 **All 5a–5c milestones are complete.** Conditional statements (5a) was published
@@ -103,6 +130,14 @@ hotspot warrants it. `native_decide` and ordinary `bv_decide` do not preserve th
 current axiom boundary. Blanket opacity or lower heartbeat limits are not
 general speedups. Keep GitHub Actions disabled and validation local; macOS
 proof work remains outside this sequence.
+
+A remaining iteration-cost observation from the branch repair is the public
+`SourceCertificates` import chain: a path-source byte change also invalidates
+`ComposeSourceChecks`, whose own assertions concern other source files. Narrower
+source-check imports are a proposed performance follow-up, with unchanged
+correspondence and normal Lake invalidation required; no import restructuring is
+part of the repair. Until then, freeze coupled native/proof edits before expensive
+source-check builds so isolated lanes do not repeat those checks at integration.
 
 ### Existing-feature consolidation
 
@@ -199,7 +234,7 @@ checkpoints. All three increments below are now supported.
 | --- | --- | --- |
 | 5a | Conditional statements — complete | Nested String-equality conditionals, `elsif`, optional `else` and nonempty written arms, preserving the outer input guard and source/expression budgets. Recursive native semantics, inhabited source correspondence, selectors and the complete Linux checkpoint passed; [evidence](docs/branches.md#completed-5a-checkpoint--2026-10-14) records native audit, test repair, warm Lean check and retained failures. |
 | 5b | Predicate and literal grammar — complete | String equality/inequality, validity and Length comparisons compose with grouped short-circuit logic and `not` primaries. Decimal/based integer literals, separators, matching delimiters and bounded exponents preserve Ada meaning with overflow-safe parsing. Predicate meaning, safe evaluation, actual source correspondence, literal/operand boundaries, catalogue and samples passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14). Supported alternatives and exclusions are explicit in the language specification. |
-| 5c | Path-sensitive composition — complete | Branch facts justify bounded expressions and fixed-bound assignments; joins preserve only justified interval/validity/rejection facts. Invalid inputs reject without output, and Reject/output failures return with sticky failure status. The simultaneous concrete source-model witness, native selector refinements, universal discharge and source correspondence passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14), with interaction and rejection tests. |
+| 5c | Path-sensitive composition — complete | Branch facts justify bounded expressions and fixed-bound assignments; static/static assignment lengths must also agree on unreachable paths after the review repair; joins preserve only justified interval/validity/rejection facts. Invalid inputs reject without output, and Reject/output failures return with sticky failure status. The simultaneous concrete source-model witness, native selector refinements, universal discharge and source correspondence passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14), with interaction and rejection tests. |
 
 Items 5b and 5c shared one complete checkpoint, preserving both scopes. Together
 with the published 5a checkpoint, they close item 5. Context/name closure and
@@ -218,7 +253,7 @@ complete assurance and validation described below.
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
-| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) retains a now-admitted 782-assignment specimen, estimates 96.2% report use from the unchanged small-probe split shape, and defers its long compile. Reconsider that specimen and the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
+| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the subsequently completed 782-assignment specimen: 826 proved checks, 2,013,253-byte report (96.0%), 83,899 bytes remaining; reviewer-reported 33.6 minutes and 6.1 GiB. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 
