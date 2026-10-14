@@ -13,6 +13,8 @@ import json
 from pathlib import Path
 
 SOURCE_BINDINGS = (
+    ("silver_names.ads", "namesSpec", "namesSpecTokens"),
+    ("silver_names.adb", "namesBody", "namesBodyTokens"),
     ("silver_path_facts.ads", "pathFactsSpec", "pathFactsSpecTokens"),
     ("silver_integer_literals.ads", "integerLiteralSpec", "integerLiteralSpecTokens"),
     ("silver_integer_literals.adb", "integerLiteralBody", "integerLiteralBodyTokens"),

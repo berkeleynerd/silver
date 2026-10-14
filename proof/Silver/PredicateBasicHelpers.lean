@@ -26,6 +26,10 @@ def TargetDomain (text : Source) (state : ParserState) : Prop :=
 already have unconditional scalar projections in PathFactsSourceBridge and
 sameLength_project; no out-of-domain Compose helper equality is assumed. -/
 structure HelperMeaning (primitive : Primitives) : Prop where
+  callAfter : ∀ text names position operation, ExpressionDomain text position names →
+    primitive.callAfter text names position operation = Compose.callAfter text names position operation
+  associationAfter : ∀ text position formal, Expressions.ValidText text → Expressions.ValidCursor text position →
+    primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
     primitive.token text position token = tokenAfter text position token
   expression : ∀ text position names, ExpressionDomain text position names →
@@ -42,6 +46,10 @@ typed source equations use this extension. All legal call values are retained. -
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
+    callAfter := fun text names position operation => if ExpressionDomain text position names then
+      primitive.callAfter text names position operation else Compose.callAfter text names position operation
+    associationAfter := fun text position formal => if Expressions.ValidText text ∧ Expressions.ValidCursor text position then
+      primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
       primitive.token text position token else tokenAfter text position token
     expression := fun text position names => if ExpressionDomain text position names then
@@ -51,6 +59,16 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     fits := primitive.fits
     sameLength := primitive.sameLength
     reject := primitive.reject }
+
+theorem totalize_callAfter (primitive : Primitives) (text : Source) (names : Compose.BindingEnvironment)
+    (position : Nat) (operation : Names.Operation) (valid : ExpressionDomain text position names) :
+    (totalize primitive).callAfter text names position operation = primitive.callAfter text names position operation := by
+  simp only [totalize, valid, ↓reduceIte]
+
+theorem totalize_associationAfter (primitive : Primitives) (text : Source) (position : Nat) (formal : Bool)
+    (valid : Expressions.ValidText text ∧ Expressions.ValidCursor text position) :
+    (totalize primitive).associationAfter text position formal = primitive.associationAfter text position formal := by
+  simp only [totalize, valid, and_self, ↓reduceIte]
 
 theorem totalize_token (primitive : Primitives) (text : Source) (position : Nat) (token : ShellToken)
     (valid : TokenDomain text position token) :
@@ -69,6 +87,18 @@ theorem totalize_target (primitive : Primitives) (text : Source) (state : Parser
 
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
+  callAfter := by
+    funext text names position operation
+    dsimp only [totalize]
+    split
+    · exact meaning.callAfter text names position operation ‹_›
+    · rfl
+  associationAfter := by
+    funext text position formal
+    dsimp only [totalize]
+    split
+    · exact meaning.associationAfter text position formal (And.left ‹_›) (And.right ‹_›)
+    · rfl
   token := by
     funext text position token
     dsimp only [totalize]
@@ -99,6 +129,8 @@ theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning p
   basicEval_of_equations (totalize_equations meaning) text context scan
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
+  callAfter _ _ _ _ _ := rfl
+  associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
   expression _ _ _ _ := rfl
   target _ _ _ _ := rfl
@@ -141,6 +173,8 @@ theorem basic_tokens_complete :
 typed path-library bodies. Native path records are projected only after body
 evaluation; the independent path meanings are derived below. -/
 structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop where
+  callAfter : primitive.callAfter = inherited.function .callAfter
+  associationAfter : primitive.associationAfter = inherited.names.associationAfter
   token : primitive.token = inherited.function .takeToken
   expression : primitive.expression = inherited.function .expression
   target : primitive.target = inherited.function .target
@@ -157,6 +191,12 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
 theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
     (source : Expressions.HelperEquations inherited) (links : Links primitive inherited) :
     HelperMeaning primitive where
+  callAfter text names position operation valid := by
+    rw [links.callAfter]
+    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation valid.2.2 valid.2.1
+  associationAfter text position formal valid bounded := by
+    rw [links.associationAfter]
+    exact Names.interpreted_association inherited.names source.names text valid position formal bounded
   token text position token valid := by
     rw [links.token, Expressions.interpreted_take inherited source text valid.1 position token
       valid.2.1 (basicToken_valid token valid.2.2)]

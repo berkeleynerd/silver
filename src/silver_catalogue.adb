@@ -73,8 +73,13 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""with_clause"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""package"": ""Silver_IO"",");
-      Put_Line ("        ""use_clause"": false,");
-      Put_Line ("        ""count"": 1");
+      Put_Line ("        ""use_clause"": true,");
+      Put_Line ("        ""use_requires_preceding_with"": true,");
+      Put_Line ("        ""grouped_packages"": true,");
+      Put_Line ("        ""context_order"": ""arbitrary subject to with-before-use"",");
+      Put_Line ("        ""repeated_clauses_and_packages"": true,");
+      Put_Line ("        ""position"": ""context before procedure Main"",");
+      Put_Line ("        ""count"": ""one_or_more_within_complete_source_bound""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -82,7 +87,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
+      Put_Line ("        ""formal_parameter"": ""Item"",");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_literal""");
       Put_Line ("        ],");
@@ -141,7 +149,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
+      Put_Line ("        ""formal_parameter"": ""Item"",");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""declared_string_identifier""");
       Put_Line ("        ],");
@@ -158,8 +169,13 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""with_clause"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""package"": ""Silver_Arguments"",");
-      Put_Line ("        ""use_clause"": false,");
-      Put_Line ("        ""count"": 1");
+      Put_Line ("        ""use_clause"": true,");
+      Put_Line ("        ""use_requires_preceding_with"": true,");
+      Put_Line ("        ""grouped_packages"": true,");
+      Put_Line ("        ""context_order"": ""arbitrary subject to with-before-use"",");
+      Put_Line ("        ""repeated_clauses_and_packages"": true,");
+      Put_Line ("        ""position"": ""context before procedure Main"",");
+      Put_Line ("        ""count"": ""one_or_more_within_complete_source_bound""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -167,7 +183,11 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""function_call"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_Arguments.First_Or_Default"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
+      Put_Line ("        ""formal_parameter"": ""Default"",");
+      Put_Line ("        ""own_binding_hides_unqualified_call"": true,");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_literal""");
       Put_Line ("        ],");
@@ -181,7 +201,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""function_call"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_Arguments.Input_Is_Valid"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parentheses"": false,");
       Put_Line ("        ""arguments"": [],");
       Put_Line ("        ""context"": ""argument-input predicate primary"",");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -193,7 +215,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_Arguments.Reject"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parentheses"": false,");
       Put_Line ("        ""arguments"": [],");
       Put_Line ("        ""exit_status"": 1,");
       Put_Line ("        ""stdout"": """",");
@@ -228,7 +252,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
+      Put_Line ("        ""formal_parameter"": ""Item"",");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_concatenation""");
       Put_Line ("        ],");
@@ -351,7 +378,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
-      Put_Line ("        ""qualification_required"": true,");
+      Put_Line ("        ""qualification_required"": false,");
+      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
+      Put_Line ("        ""formal_parameter"": ""Item"",");
       Put_Line ("        ""arguments"": [");
       Put_Line ("          ""string_expression""");
       Put_Line ("        ],");
@@ -549,6 +579,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("    },");
       Put_Line ("    {");
       Put_Line ("      ""name"": ""static_statements"",");
+      Put_Line ("      ""context_is_exact_package_set"": true,");
       Put_Line ("      ""context"": [");
       Put_Line ("        ""runtime_context""");
       Put_Line ("      ],");
@@ -584,6 +615,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("    },");
       Put_Line ("    {");
       Put_Line ("      ""name"": ""argument_statements"",");
+      Put_Line ("      ""context_is_exact_package_set"": true,");
       Put_Line ("      ""context"": [");
       Put_Line ("        ""runtime_context"",");
       Put_Line ("        ""argument_context""");
@@ -697,6 +729,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
          case Sequence (Index) is
             when String_Literal => Put ("""<string_literal>""");
             when Argument_Declaration => Put ("""<argument_declaration>""");
+            when Context_Clauses => Put ("""<context_clauses>""");
             when Declarations => Put ("""<declarations>""");
             when Statements => Put ("""<statements>""");
             when Assignment_Target => Put ("""<assignment_target>""");
@@ -739,7 +772,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
       end loop;
-      Put_Line ("],");
+      Put_Line (",""use"",""item"",""default""],");
       Put ("  ""casefold_bytes"": [");
       for Item in Character loop
          if Item /= Character'First then Put (","); end if;
@@ -752,6 +785,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
          Put ("""" & Silver_Profile.Spelling (Silver_Profile.Required_Tokens (Index)) & """");
       end loop;
       Put_Line ("],");
+      Put_Line ("  ""with_clause_tokens"": [""with"",""<package_list>"","";""],");
+      Put_Line ("  ""use_clause_tokens"": [""use"",""<previously_withed_package_list>"","";""],");
+      Put_Line ("  ""named_output_actual_tokens"": [""item"",""=>"",""<string_expression>""],");
+      Put_Line ("  ""named_argument_actual_tokens"": [""default"",""=>"",""<string_literal>""],");
       Put_Line ("  ""constant_declaration_tokens"": [""<declaration_name>"","":"",""constant"",""string"","":="",""<string_expression>"","";""],");
       Put_Line ("  ""variable_declaration_tokens"": [""<declaration_name>"","":"",""string"","":="",""<string_expression>"","";""],");
       Put_Line ("  ""argument_declaration_tokens"": [""<declaration_name>"","":"",""constant"",""string"","":="",""silver_arguments"",""."",""first_or_default"",""("",""<string_literal>"","")"","";""],");

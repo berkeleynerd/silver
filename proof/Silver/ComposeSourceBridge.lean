@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeSourceChecks
+public import Silver.NamesSourceBridge
 public import Silver.ComposeEvaluation
 
 @[expose] public section
@@ -17,6 +18,7 @@ open Silver.SourceBridge
 open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
+  names : Names.SourceBridge.CheckedSource
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   catalogue : HelperCatalogueTranslation
@@ -31,6 +33,7 @@ structure CheckedSource : Prop where
     (names.extend info).active = names.active ++ [info]
 
 theorem checked_source : CheckedSource where
+  names := Names.SourceBridge.checked_source
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
   catalogue := actual_catalogue
@@ -82,6 +85,7 @@ theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource
     (Expressions.Context.locals {text,form,token,state}) Expressions.stepBody
     (source.stepLegal text valid form token state native tokenValid context)
   rw [source.step text valid form token state native tokenValid context, normalized]
+  have contextAfter := Names.interpreted_context calls.names equations.names text valid form.hasArguments
   have argument := interpreted_argument calls equations text valid state context
   have declarations := interpreted_declarations calls equations text valid state form.hasArguments context
   have read := (equations.readDeclarations text valid state form.hasArguments context).trans declarations
@@ -98,7 +102,7 @@ theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource
   have literal := interpreted_literal calls equations text valid (skipAt text state.position) skipDomain
   have taken := interpreted_take calls equations text valid state.position token context.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
-  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken]
+  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken, contextAfter]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]
 
 end Silver.Compose.SourceBridge

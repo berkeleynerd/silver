@@ -55,8 +55,7 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
   | reject kind =>
       rw [← resultEq]
       simp only [bodyToken_flags, basicRaw, kind, Flag.source, Bool.or_false]
-      have equal := bodyTokens_flags text scan [ShellToken.word "silver_arguments", .symbol ".", .word "reject"] flag
-      cases flag <;> simpa only [Flag.observe] using equal
+      cases flag <;> simp only [Flag.observe]
   | output kind expression =>
       simp only [basicRaw, kind] at raw resultEq
       split at raw
@@ -67,8 +66,7 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
         simp only [bodyToken_flags, Flag.source]
         cases flag with
         | assignment =>
-            simpa only [Flag.observe, bodyToken_assigned, Flag.simple, Bool.or_false] using
-              bodyTokens_flags text scan _ .assignment
+            simp only [Flag.observe, bodyToken_assigned, Flag.simple, Bool.or_false]
         | output => simp only [Flag.observe, Flag.simple, Bool.or_true]
   | assignment kind target expression =>
       simp only [basicRaw, kind] at raw resultEq

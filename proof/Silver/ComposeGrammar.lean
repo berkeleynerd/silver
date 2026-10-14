@@ -157,7 +157,7 @@ theorem step_payload (text : Source) (form : Form) (token : ShellToken) (state :
     (positive : state.position ≠ 0) (accepted : (step text form token state).position ≠ 0) :
     ∃ event, PayloadAt text form token state (step text form token state) event := by
   cases token with
-  | fixed spelling word => exact ⟨none, rfl⟩
+  | contextClauses | fixed spelling word => exact ⟨none, rfl⟩
   | dynamicReference => exact ⟨none, rfl⟩
   | assignmentTarget => exact ⟨none, rfl⟩
   | targetReference => exact ⟨none, rfl⟩
@@ -407,7 +407,7 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
             exact ⟨bounds.2, Nat.le_trans bounds.1 domain⟩
       intro rest remaining
       exact ⟨fallbackDomain.1, fallbackDomain.2, names ▸ capacity ▸ remaining⟩
-  | fixed spelling word =>
+  | contextClauses | fixed spelling word =>
       simp only [PayloadAt] at payload
       subst event
       simp only [step, positive, ↓reduceIte] at scanned

@@ -8,8 +8,10 @@ public import Silver.PredicateConditionUnique
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
-abbrev outputStart (text : Source) (scan : BodyScan) : BodyScan :=
-  bodyTokens text scan [.word "silver_io", .symbol ".", .word "put_line", .symbol "("]
+abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  {scan with
+    position := Names.associationAfter text
+      (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
 abbrev assignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
   targetAt text (parserState context scan) false
 abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -20,8 +22,8 @@ cursor scanner. The successful trace supplies only concrete admission guards. -/
 inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan) : SourceStatement → Prop
   | null : basicKind text context scan = .null → BasicPayload text context scan (.simple .null)
   | output {expression} : basicKind text context scan = .output →
-      ExpressionAt text context.names (outputStart text scan).position expression
-        (expressionAt text (outputStart text scan).position context.names) →
+      ExpressionAt text context.names (outputStart text context scan).position expression
+        (expressionAt text (outputStart text context scan).position context.names) →
       BasicPayload text context scan (.simple (.output expression))
   | reject : basicKind text context scan = .reject → BasicPayload text context scan .reject
   | assignment {expression} : basicKind text context scan = .assignment →
@@ -68,7 +70,7 @@ theorem basic_sound {text context scan}
       split at raw
       · exact False.elim (raw rfl)
       · rename_i good
-        have positive : (expressionAt text (outputStart text scan).position context.names).after ≠ 0 :=
+        have positive : (expressionAt text (outputStart text context scan).position context.names).after ≠ 0 :=
           fun zero => good (Or.inl zero)
         obtain ⟨expression, parsed⟩ := expressionAt_sound text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .output kind parsed⟩⟩
@@ -125,10 +127,10 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (outputStart text scan).position context.names)) = true := by
+        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (outputStart text context scan).position context.names)) = true := by
           apply true_of_not_neg
-          simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (outputStart text scan).facts
-              (summaryOf (expressionAt text (outputStart text scan).position context.names))) = true from
+          simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (outputStart text context scan).facts
+              (summaryOf (expressionAt text (outputStart text context scan).position context.names))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         have valid : scan.facts.invalidReachable = false := by
           cases h : scan.facts.invalidReachable with

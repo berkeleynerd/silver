@@ -19,6 +19,8 @@ open Silver.SourceBridge
 abbrev ExpressionTranslation : Prop :=
   Expressions.WellFormedTrees ∧
   Expressions.WellScopedTrees ∧
+  Source.expressionBody "call_after" Source.outputBodyTokens =
+    some Expressions.callAfterBody.render ∧
   Source.expressionBody "fixed_after" Source.outputBodyTokens =
     some Expressions.fixedBody.render ∧
   Source.expressionBody "lookup_from" Source.outputBodyTokens =
@@ -52,6 +54,10 @@ abbrev ExpressionTranslation : Prop :=
   Source.expressionBody "work_tail" Source.outputBodyTokens = some Expressions.workTailBody.render ∧
   Source.expressionBody "fits" Source.outputBodyTokens = some Expressions.fitsBody.render ∧
   Source.expressionBody "comparison_at" Source.outputBodyTokens = some Expressions.comparisonBody.render
+
+private theorem expression_call_after :
+  Source.expressionBody "call_after" Source.outputBodyTokens =
+    some Expressions.callAfterBody.render := by decide +kernel
 
 private theorem expression_fact_03 :
   Source.expressionBody "fixed_after" Source.outputBodyTokens =
@@ -125,6 +131,7 @@ private theorem expression_fact_25 :
 theorem actual_expressions : ExpressionTranslation := by
   exact ⟨Expressions.checked_precedence,
     Expressions.checked_scopes,
+    expression_call_after,
     expression_fact_03,
     expression_fact_04,
     expression_fact_05,
@@ -166,13 +173,13 @@ def quoted (text : String) : String :=
 
 /-- Statements is a scanner nonterminal; all lexical/helper tokens retain
 an exact named representation in the native enumeration. -/
-def nativeTokenNames : List String := allTokens.map Expressions.tokenName ++ ["statements"]
+def nativeTokenNames : List String := (allTokens.dropLast.map Expressions.tokenName) ++ ["statements", "context_clauses"]
 
 def spellingBody : List String := ["case", "token", "is"] ++
   List.flatten (((allTokens.take 41 ++ [ShellToken.word "null"]).map fun token =>
     ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
   [",", "when"] ++
-  List.flatten ((((allTokens.drop 41).take 8).map Expressions.tokenName ++ ["statements"]).map
+  List.flatten ((((allTokens.drop 41).take 8).map Expressions.tokenName ++ ["statements", "context_clauses"]).map
     (fun name => [name]) |>.intersperse ["|"]) ++ ["=>", quoted "_"]
 
 def helperForms : List Form := [.direct, .argument]
@@ -365,6 +372,7 @@ theorem actual_declarations : Declarations := by
     declaration_fact_28⟩
 
 abbrev Refinement : Prop :=
+  functionHeader "call_after" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") ∧
   functionHeader "skip_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") ∧
   functionHeader "name_after" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( name_after ' result = 0 or else name_after ' result in position + 1 .. text ' last + 1 ) and then ( name_after ' result = ( if position = 0 then 0 else identifier_end ( text , position ) ) ) )") ∧
   functionHeader "take_token" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ; token : token_kind ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => ( take_token ' result = 0 or else take_token ' result in position + 1 .. text ' last + 1 ) and then ( take_token ' result = fixed_after ( text , position , token ) ) )") ∧
@@ -389,6 +397,9 @@ abbrev Refinement : Prop :=
   functionHeader "within_work_budget" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ) return boolean with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length , post => ( static => within_work_budget ' result = work_tail ( text , 1 , max_concatenations ) )") ∧
   functionHeader "comparison_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; state : parser_state ) return parser_state with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_state ( text , state ) , post => valid_state ( text , comparison_at ' result )") ∧
   functionHeader "fits" ";" Source.outputBodyTokens = some (expectedTokens "( value : expression_result ; capacity : capacity_value ) return boolean with global => null")
+
+private theorem refinement_call_after :
+  functionHeader "call_after" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; environment : binding_environment ; position : literal_position ; operation : names . operation_kind ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then valid_names ( text , environment ) and then position <= text ' last + 1 , post => call_after ' result = 0 or else call_after ' result in position + 1 .. text ' last + 1") := by decide +kernel
 
 private theorem refinement_fact_05 :
   functionHeader "skip_at" ";" Source.outputBodyTokens = some (expectedTokens "( text : string ; position : literal_position ) return literal_position with global => null , pre => text ' first = 1 and then text ' length in 1 .. max_source_length and then position <= text ' last + 1 , post => ( static => skip_at ' result <= text ' last + 1 and then ( skip_at ' result = ( if position = 0 then 0 else trivia_end ( text , position ) ) ) )") := by decide +kernel
@@ -463,7 +474,7 @@ private theorem refinement_fact_29 :
   functionHeader "fits" ";" Source.outputBodyTokens = some (expectedTokens "( value : expression_result ; capacity : capacity_value ) return boolean with global => null") := by decide +kernel
 
 theorem actual_refinement : Refinement := by
-  exact ⟨refinement_fact_05,
+  exact ⟨refinement_call_after, refinement_fact_05,
     refinement_fact_06,
     refinement_fact_07,
     refinement_fact_08,

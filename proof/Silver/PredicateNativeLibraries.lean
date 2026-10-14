@@ -64,6 +64,7 @@ functions; Read_Integer uses its runtime wrapper; path calls use the exact typed
 library bodies. No independent predicate meaning occurs in these links. -/
 structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     (integer : Source → Nat → IntegerLiteral.Result) : Prop where
+  callAfter : calls.callAfter = composed.function .callAfter
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = composed.function .takeToken text position token.shell
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -106,6 +107,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
+  callAfter text tv names position operation nv pv := by
+    rw [links.callAfter]
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]
@@ -144,6 +148,7 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
 
 /-- The callee wiring itself has a concrete inhabitant. -/
 theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls IntegerLiteral.read where
+  callAfter := rfl
   take text _ position token _ := by cases token <;> rfl
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl

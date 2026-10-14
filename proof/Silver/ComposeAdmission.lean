@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeExpression
+public import Silver.Names
 
 @[expose] public section
 
@@ -75,7 +76,7 @@ def Form.hasAssignment : Form → Bool
 
 inductive ShellToken
   | fixed (spelling : String) (word : Bool)
-  | declarations | argumentDeclaration | assignmentTarget | targetReference | dynamicReference
+  | contextClauses | declarations | argumentDeclaration | assignmentTarget | targetReference | dynamicReference
   | assignmentValue | outputExpression | comparisonExpression | literal | capacity
   deriving DecidableEq, Repr
 
@@ -116,6 +117,13 @@ def lookupFrom (text : Source) (names : BindingEnvironment) (first after index :
 
 def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) : Nat :=
   if first = 0 ∨ after ≤ first then 0 else lookupFrom text names first after 1
+
+def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
+    (operation : Names.Operation) : Nat :=
+  let first := skipAt text position
+  let after := nameAfter text first
+  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0))
+
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
   if position ≠ 0 ∧ position ≤ text.length ∧ Cursor.byteAt text position = 34 ∧
@@ -292,9 +300,15 @@ def argumentFirst (text : Source) (state : ParserState) : Nat := skipAt text sta
 def argumentAfter (text : Source) (state : ParserState) : Nat := nameAfter text (argumentFirst text state)
 
 def argumentDefaultPosition (text : Source) (state : ParserState) : Nat :=
-  skipAt text ([ShellToken.symbol ":", .word "constant", .word "string", .symbol ":=",
-    .word "silver_arguments", .symbol ".", .word "first_or_default", .symbol "("].foldl
-    (fun position token => tokenAfter text position token) (argumentAfter text state))
+  let start := [ShellToken.symbol ":", .word "constant", .word "string", .symbol ":="].foldl
+    (fun position token => tokenAfter text position token) (argumentAfter text state)
+  let first := argumentFirst text state
+  let after := argumentAfter text state
+  let hidden := (decide (first ≠ 0) && decide (after > first)) &&
+    decide (fixedAfter text first "first_or_default" true = after)
+  let operation := Names.operationAfter text start .argument hidden
+  let opening := fixedAfter text operation "(" false
+  skipAt text (Names.associationAfter text opening true)
 
 def argumentParts (text : Source) (state : ParserState) : ArgumentParts :=
   ⟨argumentFirst text state, argumentAfter text state, argumentDefaultPosition text state,
@@ -324,6 +338,13 @@ def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : Pa
 def header (arguments : Bool) : List ShellToken :=
   [.word "with", .word "silver_io", .symbol ";"] ++
     (if arguments then [.word "with", .word "silver_arguments", .symbol ";"] else []) ++
+    [.word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode",
+      .symbol "(", .word "on", .symbol ")", .symbol ";"] ++
+    (if arguments then [.argumentDeclaration] else []) ++ [.declarations, .word "begin"]
+
+/-- Current native contexts replace the retained fixed-shell context prefix. -/
+def currentHeader (arguments : Bool) : List ShellToken :=
+  [.contextClauses] ++
     [.word "procedure", .word "main", .word "is", .word "pragma", .word "spark_mode",
       .symbol "(", .word "on", .symbol ")", .symbol ";"] ++
     (if arguments then [.argumentDeclaration] else []) ++ [.declarations, .word "begin"]
@@ -398,6 +419,7 @@ def capacityAt (text : Source) (state : ParserState) : ParserState :=
 def step (text : Source) (form : Form) (token : ShellToken) (state : ParserState) : ParserState :=
   if state.position = 0 then invalidState else
   match token with
+  | .contextClauses => {state with position := Names.contextAfter text form.hasArguments}
   | .fixed spelling word => {state with position := fixedAfter text state.position spelling word}
   | .declarations => declarationsAt text state form.hasArguments
   | .argumentDeclaration => argumentAt text state

@@ -1,7 +1,9 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-predicate and path-sensitive language under the [Oracle](oracle.md). The
+predicate and path-sensitive language under the [Oracle](oracle.md), including
+the context, visibility and association rules validated in the
+[Names and Calls checkpoint](docs/names-and-calls.md). The
 [conditional-statement delivery record](docs/branches.md) records the completed
 Linux milestone, building on the earlier [sequencing checkpoint](docs/statement-sequencing.md). The
 [machine-readable catalogue](catalogue/silver.json), compiler, and this
@@ -62,15 +64,68 @@ begin
 end Main;
 ```
 
-Every output-capable shell has `with Silver_IO;`. The argument-input shell
-adds exactly `with Silver_Arguments;` after that clause. There are no `use`
-clauses or additional application units. Context-clause reordering/grouping and
-broader visibility rules remain explicit later work with the existing argument
-operations. The grammar below uses `L` for a literal, `S` for an assignment's
+Every output-capable shell has a `with` clause naming `Silver_IO`. The
+argument-input shell also names `Silver_Arguments`; the static shell cannot
+name that package in its context. These exact package sets remain part of shell
+membership, regardless of which body operations are used. There are no additional
+application units. The grammar below uses `L` for a literal, `S` for an assignment's
 mutable target, `D` for the original immutable argument binding, and `E` for a String
 expression. Initializers, assignment values, comparison operands and output
 share that expression grammar.
 These are grammar metavariables; authors write ordinary Ada source.
+
+### Context clauses and call names
+
+Before `procedure Main`, output-capable programs may arrange the two approved
+packages in grouped or separate clauses:
+
+```text
+context_clause ::= "with" package_name { "," package_name } ";"
+                 | "use" package_name { "," package_name } ";"
+package_name   ::= "Silver_IO" | "Silver_Arguments"
+```
+
+The shell's required packages must each occur in a `with` clause. Any package
+in a `use` clause must already have occurred in an earlier `with` clause.
+Subject to those rules, clauses and names may be reordered or repeated without
+an independent count limit; all bytes count toward the complete-source bound.
+Context clauses cannot occur inside Main. Other packages, `use type`, renamings,
+and limited/private `with` clauses remain outside this fragment: the current
+name rules cover only the existing library operations and a single declaration
+region, not general Ada visibility.
+
+Each operation may use its qualified name. It may instead use its unqualified
+name when a context `use` clause names its package and no local declaration hides
+that operation, ignoring ASCII case:
+
+| Operation | Qualified name | Optional named actual |
+| --- | --- | --- |
+| Output | `Silver_IO.Put_Line` | `Item => expression` |
+| Input initialization | `Silver_Arguments.First_Or_Default` | `Default => L` |
+| Validity | `Silver_Arguments.Input_Is_Valid` | None; no parentheses |
+| Rejection | `Silver_Arguments.Reject` | None; no parentheses |
+
+The two calls taking arguments accept exactly one actual, either positional or
+named with the formal parameter shown. The `=>` delimiter is contiguous; trivia
+may surround it. Formal names compare without ASCII case distinctions and are
+not affected by a local object named `Item` or `Default`. Named association does
+not expand the admitted argument expressions or API placements.
+
+Operation names remain legal local object names. Such an object hides the
+unqualified operation but remains available for ordinary String expressions and
+assignments. Qualified calls remain available because the package names cannot
+be redeclared in the corresponding shell. An input declaration named
+`First_Or_Default` must itself use the qualified initializer: Ada already hides
+the unqualified function inside that object's declaration. For example,
+`First_Or_Default : constant String :=
+Silver_Arguments.First_Or_Default (Default => "world");` is legal, whereas
+removing `Silver_Arguments.` is not.
+
+A `use` clause admits no additional operation or package object. Names such as
+`Max_Length` and `Written_Bytes` can be read only when independently declared as
+local Strings; visibility of the library entities does not admit their use.
+The [Names and Calls sample](samples/names_calls.adb) combines grouped clauses,
+unqualified existing calls and named actuals.
 
 ### Literals and names
 
@@ -187,13 +242,16 @@ statements       ::= statement { statement }
 statement        ::= basic_statement | string_choice
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
-                   | "Silver_Arguments" "." "Reject" ";"
+                   | reject_name ";"
                    | mutable_name ":=" expression ";"
-                   | "Silver_IO" "." "Put_Line" "(" expression ")" ";"
+                   | output_name "(" [ "Item" "=>" ] expression ")" ";"
 string_choice    ::= "if" condition "then" statements
                      { "elsif" condition "then" statements }
                      [ "else" statements ] "end" "if" ";"
 ```
+
+`output_name` and `reject_name` are the corresponding qualified or unqualified
+names under the context and hiding rules above.
 
 The same sequence forms an argument-input body; its own predicates and rejection
 calls must meet the path rules below. Reject is available only in that shell.
@@ -260,11 +318,13 @@ condition        ::= relation { "and" "then" relation }
 relation         ::= expression ( "=" | "/=" ) expression
                    | name "'" "Length" comparison length_operand
                    | primary | "not" primary
-primary          ::= "Silver_Arguments" "." "Input_Is_Valid"
+primary          ::= validity_name
                    | "(" condition ")"
 comparison       ::= "=" | "/=" | "<" | "<=" | ">" | ">="
 length_operand   ::= integer_literal | name "'" "Length"
 ```
+
+`validity_name` follows the same context and hiding rules as the other calls.
 
 String equality/inequality compares current bytes, case-sensitively. Unequal
 lengths compare unequal. At least one operand must contain an initialized String
@@ -331,11 +391,14 @@ that Ada itself forbids signed expressions or larger integer values.
 
 ### Command-line initialization and path requirements
 
-One declaration `D : constant String :=
-Silver_Arguments.First_Or_Default (L);` follows the pragma before all other
+One declaration `D : constant String := initializer_name ([Default =>] L);`
+follows the pragma before all other
 declarations. It is the only initializer API call. Its immutable, one-based
 String may be copied by later ordinary declarations. Initializers run before
 body predicates, so later facts cannot justify earlier initialization.
+Here `initializer_name` is `Silver_Arguments.First_Or_Default` or its unqualified
+name under the context and hiding rules; square brackets describe the optional
+named association and are not written Ada syntax.
 
 The body may place predicates, assignments and returning Reject calls within
 ordinary sequences and nested branches. Every possible invalid-input execution
@@ -382,12 +445,12 @@ The catalogue uses these construct identifiers:
 | Capability | Admitted scope |
 | --- | --- |
 | `main_procedure`, `spark_mode_on`, `null_statement` | Fixed Main skeleton, required pragma, separate null shell and basic null statements. |
-| `runtime_context`, `argument_context` | Fixed qualified output/argument package context clauses. |
+| `runtime_context`, `argument_context` | Grouped, reordered or repeated with/use clauses for the shell's exact package set; with precedes use. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses; at most thirty concatenations per program. |
-| `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls anywhere a basic statement is allowed. |
-| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, path-derived validity/capacity and returning rejection with no output on invalid inputs. |
+| `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
+| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
 | `length_predicate`, `boolean_predicate`, `integer_literal` | Fixed-bound length comparisons, grouped short-circuit logic and bounded decimal/based integer spelling. |
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
@@ -396,6 +459,9 @@ The catalogue uses these construct identifiers:
 Everything else is excluded, including loops, Boolean values outside the specified predicate grammar,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
+The catalogue's token arrays are informative skeletons, including qualified,
+positional call examples; their construct conditions specify the context,
+visibility and association alternatives. They are not a separate complete grammar.
 
 ## Meaning and assurance
 

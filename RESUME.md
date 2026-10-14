@@ -6,7 +6,43 @@ Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Completed branch review repair
+## Completed Names and Calls
+
+The owner-authorized Names and Calls delivery is complete, closing roadmap items
+2, 6 and 7 within their stated fragment. Context clauses may be reordered,
+grouped and repeated; `use` makes existing calls visible subject to local-name
+hiding. `Put_Line (Item => ...)` and `First_Or_Default (Default => ...)` are
+supported alongside positional actuals. Exact package sets, existing operation
+semantics and the first/unique immutable argument initializer are retained.
+See the [sample](samples/names_calls.adb), [language specification](language.md)
+and [completed checkpoint](docs/names-and-calls.md).
+
+The full native proof audit, build and catalogue checks passed. All test methods
+have passing results for their relevant final inputs: the record distinguishes
+the full run's certificate-copy parity failures from their repairs and focused
+rechecks. Complete cached Lean/source validation and the fresh whole-project
+axiom audit passed against the final content digest. The declaration count is
+an axiom inventory, not independent kernel replay. Final proof repairs included
+kernel-computable call rendering, direct flag simplification and shell uniqueness
+from exact package sets; the semantic conclusions remain intact.
+
+Recovery: `tmp/names-calls-active.json`; evidence:
+`.silver/linux-x86_64/names-calls-20261014T153711Z/`. Preserve the canonical cache,
+its prior-build backup, all isolated lanes, sidecars, traces, reports and scratch.
+The tracked generated candidates now match regeneration exactly. The checkpoint
+records the development proof timings separately from the short final cached run.
+
+The bounded existing-feature consolidation is complete. Resource/capacity and
+source-import performance follow-ups remain proposed in the roadmap; no new API
+or next capability is automatically authorized. Publication remains authorized;
+macOS proofs, hosted CI and independent replay remain outside this delivery.
+The live historical Compose String Results goal is complete; no new harness goal
+was requested. CLI memory is unavailable and was not updated. The checked-in
+session memory carries this handoff; Git identifies the implementation commit
+separately from baseline `04171a604b` and the earlier review targets.
+The sections below retain earlier handoffs as history.
+
+## Completed branch review repair (before Names and Calls)
 
 The owner-authorized bounded repair of [review `4503d17`](docs/reviews/review-4503d17.md)
 is complete. Static/static assignment lengths must agree even on unreachable
@@ -448,7 +484,8 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
 capability's evidence is under
-`.silver/linux-x86_64/branches-20261013T234331Z/`. Earlier common-expression
+`.silver/linux-x86_64/names-calls-20261014T153711Z/`. The preceding branch evidence
+remains under `.silver/linux-x86_64/branches-20261013T234331Z/`. Earlier common-expression
 evidence remains under `.silver/linux-x86_64/common-expressions-20261013T152350Z/` and
 `.silver/linux-x86_64/common-expressions-probes/20261013T152332Z/`.
 Earlier Copy String Values evidence is under `.silver/linux-x86_64/copy-values/`; the preceding

@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeAdmission
+public import Silver.NamesEquations
 
 @[expose] public section
 
@@ -25,14 +26,14 @@ structure Primitives where
   allowed : Source → Bool
 
 inductive Ty
-  | number | truth | source | spelling | token | form
+  | number | truth | source | spelling | token | form | operation
   | binding | names | state | value | result | scan | decimal
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
   | .number => Nat | .truth => Bool | .source => Source | .spelling => String
-  | .token => ShellToken | .form => Form | .binding => BindingInfo
+  | .token => ShellToken | .form => Form | .operation => Names.Operation | .binding => BindingInfo
   | .names => BindingEnvironment | .state => ParserState
   | .value => ValueResult | .result => ExpressionResult | .scan => ExpressionState
   | .decimal => Guarded.DecimalResult
@@ -40,7 +41,7 @@ inductive Ty
 
 def Ty.default : (ty : Ty) → ty.meaning
   | Ty.number => 0 | Ty.truth => false | Ty.source => [] | Ty.spelling => ""
-  | Ty.token => .symbol ";" | Ty.form => .direct | Ty.binding => {}
+  | Ty.token => .symbol ";" | Ty.form => .direct | Ty.operation => .output | Ty.binding => {}
   | Ty.names => [] | Ty.state => invalidState | Ty.value => invalidValue
   | Ty.result => invalidExpression | Ty.scan => invalidExpressionState | Ty.decimal => ⟨0, 0⟩
   | Ty.arrow _ b => fun _ => b.default
@@ -57,6 +58,7 @@ inductive Function
   | tokenAt
   | normalize
   | allowed
+  | contextAfter | operationAfter | associationAfter | callAfter
   | skip
   | nameAfter
   | fixedAfter
@@ -103,6 +105,10 @@ def Function.name : Function → String
   | .tokenAt => "token_at"
   | .normalize => "normalized"
   | .allowed => "allowed_source"
+  | .contextAfter => "names.context_after"
+  | .operationAfter => "names.operation_after"
+  | .associationAfter => "names.association_after"
+  | .callAfter => "call_after"
   | .skip => "skip_at"
   | .nameAfter => "name_after"
   | .fixedAfter => "fixed_after"
@@ -148,6 +154,10 @@ def Function.name : Function → String
   | .tokenAt => .arrow .source (.arrow .number (.arrow .spelling (.arrow .truth (.truth))))
   | .normalize => .arrow .source (.source)
   | .allowed => .arrow .source (.truth)
+  | .contextAfter => .arrow .source (.arrow .truth .number)
+  | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth .number)))
+  | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation .number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .fixedAfter => .arrow .source (.arrow .number (.arrow .token (.number)))
@@ -182,6 +192,7 @@ def Function.name : Function → String
   | .assignment => .arrow .source (.truth)
 
 structure Calls where
+  names : Names.Calls
   primitive : Primitives
   function : (symbol : Function) → symbol.type.meaning
 
@@ -199,6 +210,10 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .tokenAt => calls.primitive.token
   | .normalize => calls.primitive.normalize
   | .allowed => calls.primitive.allowed
+  | .contextAfter => calls.names.contextAfter
+  | .operationAfter => calls.names.operationAfter
+  | .associationAfter => calls.names.associationAfter
+  | .callAfter => calls.function .callAfter
   | .skip => calls.function .skip
   | .nameAfter => calls.function .nameAfter
   | .fixedAfter => calls.function .fixedAfter
@@ -343,6 +358,7 @@ inductive Expr : Ty → Type
   | lexTokenAt : Expr .source → Expr .number → Expr .spelling → Expr .truth → Expr .truth
   | lexNormalize : Expr .source → Expr .source
   | lexAllowed : Expr .source → Expr .truth
+  | operation (value : Names.Operation) : Expr .operation
   | number (n : Nat) : Expr .number
   | truth (b : Bool) : Expr .truth
   | variable (name : String) : Expr ty
@@ -426,6 +442,7 @@ def formName : Form → String
   | .result => "result_form" | .guardedResult => "guarded_result_form"
 
 def tokenName : ShellToken → String
+  | .contextClauses => "context_clauses"
   | .declarations => "declarations" | .argumentDeclaration => "argument_declaration"
   | .assignmentTarget => "assignment_target" | .targetReference => "target_reference"
   | .dynamicReference => "dynamic_reference" | .assignmentValue => "assignment_value"
@@ -470,9 +487,14 @@ def Expr.render : Expr ty → List String
   | .lexTokenAt a b c d => call "token_at" [a.render, b.render, c.render, d.render]
   | .lexNormalize a => call "normalized" [a.render]
   | .lexAllowed a => call "allowed_source" [a.render]
+  | .operation op => ["names", ".", match op with
+      | .output => "output_call" | .argument => "argument_call" | .validity => "validity_call" | .reject => "reject_call"]
   | .number n => [toString n]
   | .truth b => [if b then "true" else "false"]
   | .variable name => [name]
+  | .function .contextAfter => ["names", ".", "context_after"]
+  | .function .operationAfter => ["names", ".", "operation_after"]
+  | .function .associationAfter => ["names", ".", "association_after"]
   | .function symbol => [symbol.name]
   | .app f x =>
       match f with
@@ -568,6 +590,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .lexTokenAt a b c d => calls.primitive.token (a.eval calls locals) (b.eval calls locals) (c.eval calls locals) (d.eval calls locals)
   | .lexNormalize a => calls.primitive.normalize (a.eval calls locals)
   | .lexAllowed a => calls.primitive.allowed (a.eval calls locals)
+  | .operation op => op
   | .number n => n | .truth b => b | .variable name => locals _ name
   | .function symbol => calls.get symbol
   | .app f x => f.eval calls locals (x.eval calls locals)
@@ -699,8 +722,38 @@ def declarationBody : Expr .state :=
           (.eq (.field .resultDynamic value) (.number 1)) (.number 0)))
         (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
+def callAfterBody : Expr .number :=
+  let text : Expr .source := .variable "text"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
+    .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
+    .app (.app (.app (.app (.function .operationAfter) text) (.variable "position")) (.variable "operation"))
+      (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0))
+
 def argumentBody : Expr .state :=
-  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "prefix" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.variable "after")) (.token (.fixed ":" false)))) (.token (.fixed "constant" true)))) (.token (.fixed "string" true)))) (.token (.fixed ":=" false)))) (.token (.fixed "silver_arguments" true)))) (.token (.fixed "." false)))) (.token (.fixed "first_or_default" true)))) (.token (.fixed "(" false))) (.local "default_value" "value_result" (.app (.app (.function .literal) (.variable "text")) (.app (.app (.function .skip) (.variable "text")) (.variable "prefix"))) (.local "following" "literal_position" (.app (.app (.app (.function .takeToken) (.variable "text")) (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .valueAfter (.variable "default_value"))) (.token (.fixed ")" false)))) (.token (.fixed ";" false))) (.group (.ite (.orElse (.orElse (.not (.app (.app (.app (.app (.app (.function .newName) (.variable "text")) (.variable "state")) (.variable "first")) (.variable "after")) (.truth true))) (.eq (.variable "following") (.number 0))) (.ne (.count (.field .stateNames (.variable "state"))) (.number 0))) (.invalid) (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) (.variable "state")) (.variable "first")) (.variable "after")) (.value (.variable "following") (.number 0) (.number 0) (.truth true) (.number 0))) (.truth false)) (.variable "following")) (.variable "first") (.variable "after"))))))))))
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let fallback : Expr .value := .variable "default_value"
+  let following : Expr .number := .variable "following"
+  let take (position : Expr .number) (token : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) position) (.token token)
+  .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.field .statePosition state)) <|
+    .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
+    .local "start" "literal_position" (take (take (take (take after (.symbol ":")) (.word "constant")) (.word "string")) (.symbol ":=")) <|
+    .local "hidden" "boolean" (.andThen (.andThen (.ne first (.number 0)) (.gt after first))
+      (.eq (take first (.word "first_or_default")) after)) <|
+    .local "prefix" "literal_position" (.app (.app (.app (.function .associationAfter) text)
+      (take (.app (.app (.app (.app (.function .operationAfter) text) (.variable "start")) (.operation .argument)) (.variable "hidden")) (.symbol "("))) (.truth true)) <|
+    .local "default_value" "value_result" (.app (.app (.function .literal) text)
+      (.app (.app (.function .skip) text) (.variable "prefix"))) <|
+    .local "following" "literal_position" (take (take (.field .valueAfter fallback) (.symbol ")")) (.symbol ";")) <|
+    .group <| .ite (.orElse (.orElse
+      (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.truth true))
+      (.eq following (.number 0))) (.ne (.count (.field .stateNames state)) (.number 0))) .invalid
+      (.stateDynamic (.app (.app (.app (.app (.app (.app (.function .addBinding) state) first) after)
+        (.value following (.number 0) (.number 0) (.truth true) (.number 0))) (.truth false)) following) first after)
 
 def declarationsBody : Expr .state :=
   (.ite (.eq (.field .statePosition (.variable "state")) (.number 0)) (.invalid) (.elsif (.ne (.app (.app (.app (.function .takeToken) (.variable "text")) (.field .statePosition (.variable "state"))) (.token (.fixed "begin" true))) (.number 0)) (.variable "state") (.elsif (.eq (.field .statePosition (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.number 0)) (.invalid) (.app (.app (.app (.function .declarations) (.variable "text")) (.app (.app (.app (.function .declaration) (.variable "text")) (.variable "state")) (.variable "arguments"))) (.variable "arguments")))))
@@ -815,6 +868,7 @@ def stepBody : Expr .state :=
   let action (f : Function) (h : f.type = .arrow .source (.arrow .state .state)) : Expr .state :=
     .app (.app (h ▸ Expr.function f) text) state
   .ite (.eq (.field .statePosition state) (.number 0)) .invalid <|
+    .elsif (is .contextClauses) (.statePosition state (.app (.app (.function .contextAfter) text) (.hasArguments (.variable "form")))) <|
     .elsif (is .argumentDeclaration) (action .argument rfl) <|
     .elsif (is .declarations) (.app (.app (.app (.function .readDeclarations) text) state) (.hasArguments (.variable "form"))) <|
     .elsif (is .assignmentTarget) (.app (.app (.app (.function .target) text) state) (.truth false)) <|
@@ -907,6 +961,7 @@ def Expr.functionSpine : Expr ty → Bool
 
 def localType : (ty : Ty) → String → Bool
   | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count"])
+  | .truth, name => name == "boolean"
   | .value, name => name == "value_result"
   | .result, name => name == "expression_result"
   | .scan, name => name == "expression_state"
@@ -968,6 +1023,7 @@ def Expr.wellFormed : Expr ty → Bool
   | .stateBinding s p info => s.wellFormed && p.wellFormed && info.wellFormed
   | .someForm source => source.wellFormed
   | .firstForm _ source => source.wellFormed
+  | .operation _ => true
   | .number _ => true
   | .truth _ => true
   | .variable _ => true
@@ -990,6 +1046,7 @@ def Expr.wellFormed : Expr ty → Bool
       localValue.simple && rest.wellFormed
 
 abbrev WellFormedTrees : Prop :=
+  callAfterBody.wellFormed = true ∧
   skipBody.wellFormed = true ∧
   nameBody.wellFormed = true ∧
   fixedBody.wellFormed = true ∧
@@ -1087,6 +1144,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .stateBinding s p info => s.scoped scope && p.scoped scope && info.scoped scope
   | .someForm source => source.scoped scope
   | .firstForm _ source => source.scoped scope
+  | .operation _ => true
   | .number _ => true
   | .truth _ => true
   | .maxLength  => true
@@ -1106,6 +1164,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .local (a := ty) name _ localValue rest => localValue.scoped scope && rest.scoped ((name,ty) :: scope)
 
 abbrev WellScopedTrees : Prop :=
+  callAfterBody.scoped [("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
   skipBody.scoped [("text", .source), ("position", .number)] = true ∧
   nameBody.scoped [("text", .source), ("position", .number)] = true ∧
   fixedBody.scoped [("text", .source), ("position", .number), ("token", .token)] = true ∧

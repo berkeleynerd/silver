@@ -87,8 +87,7 @@ mutual
         {result with after := fixedAfter text result.after ")" false}
       else invalidCondition
     else if !context.hasArguments then invalidCondition
-    else ⟨fixedAfter text (fixedAfter text (fixedAfter text position "silver_arguments" true) "." false)
-        "input_is_valid" true, facts.assumeValid, facts.assumeInvalid⟩
+    else ⟨callAfter text context.names position .validity, facts.assumeValid, facts.assumeInvalid⟩
   termination_by remainingAt text position * 5 + 1
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 

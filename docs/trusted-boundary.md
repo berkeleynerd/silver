@@ -630,7 +630,7 @@ these contracts do not constitute verification of libc or GNAT itself.
 ## Source correspondence and semantic assumptions
 
 Handwritten modules fix the source bindings for both actual recognizer
-specifications/bodies, the lexical and integer-literal helpers, the path-fact
+specifications/bodies, the lexical, context/name and integer-literal helpers, the path-fact
 specification and the six selected runtime library files. The `Silver.AuthoritativeSource` facade imports
 all bindings; each certificate imports only its own binding. The certificate
 generator emits candidate reconstruction data and cannot select replacement bindings. Lean
@@ -645,7 +645,12 @@ ordinary helper-body checks refer to its implementation. The helper imports
 `Silver_Profile` lexical primitives, and the bridge checks equality of its source
 bound and comment introducer with the output profile. Composed expressions, predicate/body scanners and shell recognition remain in
 the output recognizer; bounded numeral and path arithmetic live in their checked
-helper units. Resolving these reviewed package
+helper units. `Silver_Names` reads context clauses and resolves only the existing
+packages and operations. Its unchanged lexical callees retain their established
+meanings; checked expression trees and recursive uniqueness establish the new
+helpers, while native proof connects executable loops to their contracts.
+Named associations select the actual library formal (`Item` or `Default`); no
+author-source rewriting is involved. Resolving these reviewed package
 imports and declarations retains the existing Ada/GNAT interpretation premise;
 the helper remains Silver-owned SPARK subject to complete native verification.
 
@@ -752,7 +757,7 @@ are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
 The Lean proof tree is private to the host and reads the authoritative `src/`
-through a checked link. Fifteen generated source-certificate modules, Lake
+through a checked link. Seventeen generated source-certificate modules, Lake
 artifacts and manifests are written there. Shared proof inputs are fingerprinted
 and must remain unchanged throughout a run; tools and protected workspace
 copies are also checked for stability. Routine evidence contains an aggregate
@@ -786,7 +791,7 @@ for hostile metaprograms or forged artifacts.
 for toolchain/cache investigations or explicit audits. It cannot be combined
 with `--target`. `--clean` discards the local proof workspace without implying
 replay. The Oracle requires complete proofs and correspondence, not this
-additional standalone recheck. Each of the fifteen
+additional standalone recheck. Each of the seventeen
 embedded Ada files is a binary input dependency of its own handwritten binding
 module, rehashed on each invocation. Changing one file invalidates that binding,
 its certificate and transitive importers. Unrelated certificates and models can
@@ -800,7 +805,7 @@ paths and tool selections cannot redirect it. Artifact restoration is disabled
 for proof checking; this does not disable the local Lake build cache.
 
 The handwritten import facade is protected like other proof inputs; only the
-fifteen enumerated candidate modules may be regenerated. After generation and
+seventeen enumerated candidate modules may be regenerated. After generation and
 again after checking, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot

@@ -8,22 +8,35 @@ public import Silver.SequenceFormDisjoint
 namespace Silver.Predicate
 open Compose
 
-/-- The two current shells differ at the first token following the shared
-Silver_IO context. Existing generic token-prefix reasoning proves uniqueness. -/
-theorem distinct_form_prefixes (first second : Form) (different : first ≠ second) :
-    Sequence.PrefixConflict first.helper second.helper first.prefix second.prefix := by
-  cases first <;> cases second
-  all_goals try contradiction
-  all_goals repeat apply Sequence.PrefixConflict.common (by intros; rfl)
-  all_goals exact Sequence.PrefixConflict.mismatch (by decide) (by decide) (by decide)
+/-- The context's imported packages fix the shell independently of clause order
+and grouping: exactly the argument shell requires Silver_Arguments. -/
+private theorem header_arguments {source : Source} {form : Form}
+    {events : List Event} {final : ParserState}
+    (parsed : Sequence.TokensAt source form.helper form.prefix initialState events final) :
+    (Names.readContext source).argumentsWith = form.hasArguments := by
+  obtain ⟨tokens, spelling⟩ : ∃ tokens, form.prefix = .contextClauses :: tokens := by
+    cases form <;> exact ⟨_, rfl⟩
+  rw [spelling] at parsed
+  cases parsed with
+  | next first _ =>
+      have accepted := first.following
+      rw [← first.scanned] at accepted
+      have contextAccepted : Names.contextAfter source form.helper.hasArguments ≠ 0 := by
+        simpa [step, initialState] using accepted
+      dsimp only [Names.contextAfter] at contextAccepted
+      split at contextAccepted
+      · rename_i matched
+        simp only [Bool.and_eq_true, beq_iff_eq] at matched
+        have required := matched.2
+        cases form <;> exact required
+      · exact False.elim (contextAccepted rfl)
 
 theorem form_reading_unique {source : Source} {first second : Form}
     {firstEvents secondEvents : List Event} {firstItems secondItems : List SourceStatement}
     (a : FormReading source first firstEvents firstItems)
     (b : FormReading source second secondEvents secondItems) : first = second := by
-  by_cases same : first = second
-  · exact same
-  · exact False.elim (Sequence.prefix_conflict_impossible (distinct_form_prefixes first second same) a.header b.header)
+  have same := (header_arguments a.header).symm.trans (header_arguments b.header)
+  cases first <;> cases second <;> simp_all [Form.hasArguments]
 
 theorem accepted_form_unique {source : Source} {first second : Form}
     (a : (formResult source first).state.position ≠ 0)

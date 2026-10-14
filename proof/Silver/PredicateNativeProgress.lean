@@ -33,17 +33,10 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
         cases arguments : context.hasArguments with
         | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
         | true => rfl
-      have finalPositive : fixedAfter text (fixedAfter text (fixedAfter text position "silver_arguments" true) "." false)
-          "input_is_valid" true ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
-      have dotPositive := fixedAfter_nonzero finalPositive
-      have namePositive := fixedAfter_nonzero dotPositive
-      have start := model_fixed_advances text position "silver_arguments" true bounded (by decide) namePositive
-      have nameBound := model_fixed_valid text position "silver_arguments" true bounded
-      have dot := model_fixed_advances text _ "." false nameBound (by decide) dotPositive
-      have dotBound := model_fixed_valid text _ "." false nameBound
-      have stop := model_fixed_advances text _ "input_is_valid" true dotBound (by decide) finalPositive
-      simp only [readPrimary, zero, noOpening, arguments, ne_eq, not_true_eq_false, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
-      omega
+      have finalPositive : callAfter text context.names position .validity ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
+      have progress := model_callAfter_advances text context.names position .validity bounded finalPositive
+      simpa only [readPrimary, zero, noOpening, arguments, ne_eq, not_true_eq_false,
+        Bool.not_true, Bool.false_eq_true, ↓reduceIte] using progress
 
 theorem relation_progress (text : Source) (context : ParseContext) (position : Nat) (facts : PathFacts.Context)
     (textValid : ValidText text) (namesValid : ValidNames text context.names)

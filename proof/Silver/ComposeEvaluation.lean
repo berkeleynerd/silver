@@ -83,6 +83,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .stateBinding s p info => s.Legal calls locals ∧ p.Legal calls locals ∧ info.Legal calls locals
   | .someForm source => source.Legal calls locals
   | .firstForm _ source => source.Legal calls locals
+  | .operation _ => True
   | .number n => True
   | .truth b => True
   | .variable name => True
@@ -656,6 +657,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h0]
     all_goals rfl
 
+  | .operation _, _ => rfl
   | .number n, _ => rfl
   | .truth b, _ => rfl
   | .variable name, _ => rfl
@@ -710,6 +712,9 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) : Prop where
+  callAfter : ∀ text, ValidText text → ∀ names position operation,
+    ValidNames text names → ValidCursor text position →
+    callAfterBody.Legal calls (Context.locals {text,names,position,operation})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     skipBody.Legal calls (Context.locals {text,position})
@@ -805,6 +810,13 @@ theorem normalized_helpers (calls : Calls)
     (source : HelperEquations calls calls) (legal : LegalHelpers calls) :
     HelperEquations calls where
   ranges := source.ranges
+  names := source.names
+  callAfter := by
+    intros
+    apply Eq.trans
+    · apply source.callAfter <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.callAfter <;> assumption
   readDeclarations := source.readDeclarations
   skip := by
     intros

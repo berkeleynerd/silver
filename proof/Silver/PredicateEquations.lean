@@ -102,6 +102,8 @@ def modelCalls : Calls where
   basic text context scan := basicBody text context.model scan
 
 theorem model_basic_links : BasicNative.Links modelCalls.basicPrimitives modelCalls.outer.helpers where
+  callAfter := rfl
+  associationAfter := rfl
   token := by funext text position token; rfl
   expression := rfl
   target := rfl

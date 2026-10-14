@@ -56,6 +56,8 @@ class BranchingTests(unittest.TestCase):
         canonical = source_for()
         printable = bytes(range(32, 127))
         cases = [canonical, canonical.upper(), canonical + b'-- final comment',
+                 canonical.replace(b'with Silver_IO;with Silver_Arguments;',
+                                   b'with Silver_Arguments;with Silver_IO;'),
                   canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                     b'Silver_IO.Put_Line(Mode);'),
 
@@ -91,8 +93,7 @@ class BranchingTests(unittest.TestCase):
                   (b'Mode=="verbose"', b'Mode:="verbose"',
                    b'Mode="verbose" and then True', b'True', b'not Mode="verbose"')]
         cases += [canonical.replace(b'with Silver_Arguments;', b''),
-                  canonical.replace(b'with Silver_IO;with Silver_Arguments;',
-                                    b'with Silver_Arguments;with Silver_IO;'),
+                  b'use Silver_Arguments;' + canonical,
                   canonical.replace(b':constant String', b':String'),
                   canonical.replace(b'First_Or_Default("brief")', b'First_Or_Default()'),
                   canonical.replace(b'Silver_Arguments.First_Or_Default("brief")', b'"brief"'),

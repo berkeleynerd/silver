@@ -68,7 +68,7 @@ def primaryBody : Expr .condition :=
         (.updateAfter result (.callTake text (.field .conditionAfter result) (.token .rightParenthesis))))
       (.elsif (.eq (.field .dynamicFirst context) (.number 0)) .invalid
         (.condition
-          (.callTake text (.callTake text (.callTake text position (.token .argumentsName)) (.token .dot)) (.token .inputIsValid))
+          (.callOperation text (.field .contextNames context) position (.operation .validity))
           (.callAssumeValid facts) (.callAssumeInvalid facts)))
 
 def relationBody : Expr .condition :=

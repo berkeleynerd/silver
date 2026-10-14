@@ -70,6 +70,8 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
+  callAfter : primitive.callAfter = Compose.callAfter
+  associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
   expression : primitive.expression = expressionAt
   target : primitive.target = targetAt
@@ -77,7 +79,7 @@ structure PrimitiveEquations (primitive : Primitives) : Prop where
   sameLength : primitive.sameLength = equalSummary
   reject : primitive.reject = PathFacts.Context.reject
 
-theorem modelEquations : PrimitiveEquations modelPrimitives := ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
+theorem modelEquations : PrimitiveEquations modelPrimitives := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 theorem PrimitiveEquations.eq_model {primitive : Primitives} (equations : PrimitiveEquations primitive) :
     primitive = modelPrimitives := by

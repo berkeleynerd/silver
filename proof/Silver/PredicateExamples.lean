@@ -32,4 +32,19 @@ theorem length_branch_has_one_meaning :
   obtain ⟨program, meaning⟩ := Current.member_has_meaning ((Current.accepts_iff_member _).mp length_branch_admitted)
   exact ⟨program, meaning, fun _ other => Current.meaning_unique other meaning⟩
 
+def namedOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); begin Put_Line(Item=>\"\"); end Main;"
+
+theorem named_unqualified_output_admitted : Current.accepts namedOutputSource = true := by decide +kernel
+
+def hiddenOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); Put_Line:String:=\"\"; begin Put_Line(\"\"); end Main;"
+
+theorem hidden_unqualified_output_rejected : Current.accepts hiddenOutputSource = false := by decide +kernel
+
+def qualifiedHiddenOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); Put_Line:String:=\"\"; begin Silver_IO.Put_Line(Item=>\"\"); end Main;"
+
+theorem qualified_hidden_output_admitted : Current.accepts qualifiedHiddenOutputSource = true := by decide +kernel
+
 end Silver.Predicate

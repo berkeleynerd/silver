@@ -52,7 +52,7 @@ def allTokens : List ShellToken :=
    .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
-   .outputExpression, .comparisonExpression, .word "null"]
+   .outputExpression, .comparisonExpression, .word "null", .contextClauses]
 
 def ValidToken (token : ShellToken) : Prop := token ∈ allTokens
 
@@ -80,6 +80,7 @@ structure Context where
   capacity : Nat := 0
   form : Form := .direct
   token : ShellToken := .symbol ";"
+  operation : Names.Operation := .output
   arguments : Bool := false
   mutable : Bool := false
   sameTarget : Bool := false
@@ -101,6 +102,7 @@ def Context.locals (ctx : Context) : Locals
   | .scan, _ => ctx.scan
   | .form, _ => ctx.form
   | .token, _ => ctx.token
+  | .operation, _ => ctx.operation
   | ty, _ => ty.default
 
 /-- Consequences of the native subtype declarations and proved routine contracts.
@@ -148,6 +150,11 @@ structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
 postconditions. The evaluator's primitive meanings may be normalized later. -/
 structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) : Prop where
   ranges : HelperRanges calls
+  names : Names.InterpretedSource calls.names
+  callAfter : ∀ text, ValidText text → ∀ names position operation,
+    ValidNames text names → ValidCursor text position →
+    calls.function .callAfter text names position operation =
+      callAfterBody.eval evaluator (Context.locals {text,names,position,operation})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     calls.function .skip text position =
@@ -340,6 +347,26 @@ decreasing_by omega
     have afterGreater : first < after := Nat.lt_of_not_ge (fun low => outside (Or.inr low))
     apply interpreted_lookupFrom calls equations text valid names first after 1 namesValid
         (by exact ⟨firstPositive, afterGreater, afterValid⟩) (by omega) (by omega)
+
+@[simp] theorem interpreted_callAfter (calls : Calls) (equations : HelperEquations calls)
+    (text : Source) (valid : ValidText text) (names : BindingEnvironment) (position : Nat)
+    (operation : Names.Operation) (namesValid : ValidNames text names) (bound : ValidCursor text position) :
+    calls.function .callAfter text names position operation = callAfter text names position operation := by
+  let first := calls.function .skip text position
+  let after := calls.function .nameAfter text first
+  have firstBound := equations.ranges.skip text valid position bound
+  have afterBound := equations.ranges.name text valid first firstBound
+  have firstEq : first = skipAt text position := interpreted_skip calls equations text valid position bound
+  have afterEq : after = nameAfter text first := interpreted_name calls equations text valid first firstBound
+  have lookupEq := interpreted_lookup calls equations text valid names first after namesValid firstBound afterBound
+  rw [equations.callAfter text valid names position operation namesValid bound]
+  simp only [callAfterBody, Expr.eval, Context.locals, Locals.set, lexical, Calls.get,
+    reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
+  rw [Names.interpreted_operation calls.names equations.names text valid position operation _ bound]
+  change Names.operationAfter text position operation
+    (decide (calls.function .lookupName text names first after ≠ 0)) = _
+  rw [lookupEq, afterEq, firstEq]
+  rfl
 
 @[simp] theorem interpreted_workTail (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (position remaining : Nat)
@@ -578,6 +605,7 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     rw [declarationAt, parts]
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
+set_option backward.dsimp.instances true in
 @[simp] theorem interpreted_argument (calls : Calls) (equations : HelperEquations calls)
     (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) :
@@ -604,31 +632,35 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
   have bp3 : ValidCursor text p3 := equations.ranges.token text valid _ _ bp2 (by unfold ValidToken; decide)
   have ep3 : p3 = fixedAfter text p2 ":=" false :=
     interpreted_take calls equations text valid _ _ bp2 (by unfold ValidToken; decide)
-  let p4 := calls.function .takeToken text p3 (.word "silver_arguments")
-  have bp4 : ValidCursor text p4 := equations.ranges.token text valid _ _ bp3 (by unfold ValidToken; decide)
-  have ep4 : p4 = fixedAfter text p3 "silver_arguments" true :=
-    interpreted_take calls equations text valid _ _ bp3 (by unfold ValidToken; decide)
-  let p5 := calls.function .takeToken text p4 (.symbol ".")
+  let nameCheck := calls.function .takeToken text first (.word "first_or_default")
+  have echeck : nameCheck = fixedAfter text first "first_or_default" true :=
+    interpreted_take calls equations text valid _ _ bfirst (by unfold ValidToken; decide)
+  let hidden := (decide (first ≠ 0) && decide (after > first)) && decide (nameCheck = after)
+  let p4 := calls.names.operationAfter text p3 .argument hidden
+  have ep4 : p4 = Names.operationAfter text p3 .argument hidden :=
+    Names.interpreted_operation calls.names equations.names text valid p3 .argument hidden bp3
+  have bp4 : ValidCursor text p4 := by
+    rw [ep4]
+    exact Names.operationAfter_bound text p3 .argument hidden bp3
+  let p5 := calls.function .takeToken text p4 (.symbol "(")
   have bp5 : ValidCursor text p5 := equations.ranges.token text valid _ _ bp4 (by unfold ValidToken; decide)
-  have ep5 : p5 = fixedAfter text p4 "." false :=
+  have ep5 : p5 = fixedAfter text p4 "(" false :=
     interpreted_take calls equations text valid _ _ bp4 (by unfold ValidToken; decide)
-  let p6 := calls.function .takeToken text p5 (.word "first_or_default")
-  have bp6 : ValidCursor text p6 := equations.ranges.token text valid _ _ bp5 (by unfold ValidToken; decide)
-  have ep6 : p6 = fixedAfter text p5 "first_or_default" true :=
-    interpreted_take calls equations text valid _ _ bp5 (by unfold ValidToken; decide)
-  let p7 := calls.function .takeToken text p6 (.symbol "(")
-  have bp7 : ValidCursor text p7 := equations.ranges.token text valid _ _ bp6 (by unfold ValidToken; decide)
-  have ep7 : p7 = fixedAfter text p6 "(" false :=
-    interpreted_take calls equations text valid _ _ bp6 (by unfold ValidToken; decide)
-  let defaultPosition := calls.function .skip text p7
+  let p6 := calls.names.associationAfter text p5 true
+  have ep6 : p6 = Names.associationAfter text p5 true :=
+    Names.interpreted_association calls.names equations.names text valid p5 true bp5
+  have bp6 : ValidCursor text p6 := by
+    rw [ep6]
+    exact Names.associationAfter_bound text p5 true bp5
+  let defaultPosition := calls.function .skip text p6
   let fallback := calls.function .literal text defaultPosition
   let close := calls.function .takeToken text fallback.after (.symbol ")")
   let following := calls.function .takeToken text close (.symbol ";")
-  have bdefault : ValidCursor text defaultPosition := equations.ranges.skip text valid _ bp7
+  have bdefault : ValidCursor text defaultPosition := equations.ranges.skip text valid _ bp6
   have bfallback : ValidValue text fallback := equations.ranges.literal text valid _ bdefault
   have bclose : ValidCursor text close := equations.ranges.token text valid _ _ bfallback.1 (by unfold ValidToken; decide)
   have bfollowing : ValidCursor text following := equations.ranges.token text valid _ _ bclose (by unfold ValidToken; decide)
-  have edefault : defaultPosition = skipAt text p7 := interpreted_skip calls equations text valid _ bp7
+  have edefault : defaultPosition = skipAt text p6 := interpreted_skip calls equations text valid _ bp6
   have efallback : fallback = literalAt text defaultPosition := interpreted_literal calls equations text valid _ bdefault
   have eclose : close = fixedAfter text fallback.after ")" false := interpreted_take calls equations text valid _ _ bfallback.1 (by unfold ValidToken; decide)
   have efollowing : following = fixedAfter text close ";" false := interpreted_take calls equations text valid _ _ bclose (by unfold ValidToken; decide)
@@ -644,9 +676,10 @@ private theorem declarationGate {α : Type} (a : Bool) (b c : Prop) [Decidable b
     have bvalue : ValidValue text ⟨following, 0, 0, true, 0⟩ := ⟨bfollowing, Nat.zero_le _, Nat.zero_le _, Nat.zero_le _⟩
     rw [interpreted_addBinding calls equations text valid state first after _ false following
       stateValid bfirst bafter bvalue bfollowing room, ename]
-    simp only [efollowing, eclose, efallback, edefault, ep7, ep6, ep5, ep4, ep3, ep2, ep1, ep0, eafter, efirst]
-    simp [argumentAt, argumentParts, argumentFirst, argumentAfter, argumentDefaultPosition,
-      tokenAfter, ShellToken.word, ShellToken.symbol, empty]
+    simp only [efollowing, eclose, efallback, edefault, ep6, ep5, ep4, ep3, ep2, ep1, ep0, hidden, echeck, eafter, efirst]
+    dsimp +instances only [argumentAt, argumentParts, argumentFirst, argumentAfter, argumentDefaultPosition,
+      tokenAfter, ShellToken.word, ShellToken.symbol]
+    simp [empty]
   · simp [empty, argumentAt]
 
 @[simp] theorem interpreted_declarations (calls : Calls) (equations : HelperEquations calls)

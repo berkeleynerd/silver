@@ -35,11 +35,9 @@ mutual
           {result with after := fixedAfter text result.after ")" false}
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
         context.hasArguments = true →
-        fixedAfter text (fixedAfter text (fixedAfter text position "silver_arguments" true) "." false)
-          "input_is_valid" true ≠ 0 →
+        callAfter text context.names position .validity ≠ 0 →
         PrimaryAt text context position facts .inputValid
-          ⟨fixedAfter text (fixedAfter text (fixedAfter text position "silver_arguments" true) "." false)
-            "input_is_valid" true, facts.assumeValid, facts.assumeInvalid⟩
+          ⟨callAfter text context.names position .validity, facts.assumeValid, facts.assumeInvalid⟩
 
   inductive RelationAt (text : Source) (context : ParseContext) : Nat → Context → Condition → ConditionResult → Prop
     | negated {position facts inner result} : position ≠ 0 →

@@ -30,6 +30,7 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
     (state : ParserState) (tokenValid : ValidToken token) (context : ValidState text state) :
     calls.function .step text form token state = step text form token state := by
   rw [source.step text valid form token state tokenValid context]
+  have contextAfter := Names.interpreted_context calls.names source.toHelperEquations.names text valid form.hasArguments
   have argument := interpreted_argument calls source.toHelperEquations text valid state context
   have declarations := interpreted_declarations calls source.toHelperEquations text valid state form.hasArguments context
   have read := (source.readDeclarations text valid state form.hasArguments context).trans declarations
@@ -46,7 +47,7 @@ theorem interpreted_step (calls : Calls) (source : DefinitionEquations calls)
   have literal := interpreted_literal calls source.toHelperEquations text valid (skipAt text state.position) skipDomain
   have taken := interpreted_take calls source.toHelperEquations text valid state.position token context.1 tokenValid
   dsimp +instances only [stepBody, Expr.eval, Calls.get, Field.get, Context.locals, lexical, modelPrimitives]
-  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken]
+  rw [skipped, literal, argument, read, target, targetSame, dynamic, assignment, output, comparison, capacity, taken, contextAfter]
   cases token <;> simp +instances [step, spelling, isWord, BEq.beq]
 
 def suffixEquation (recurse : Nat → ParserState → Bool) (text : Source)

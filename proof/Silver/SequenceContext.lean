@@ -38,7 +38,7 @@ theorem step_context {text form token state next event}
       rw [← parsed.scanned] at following ⊢
       simp only [step, parsed.positive, ↓reduceIte, capacityAt] at following ⊢
       split <;> simp_all [invalidState, eventsContext, eventContext]
-  | fixed | assignmentTarget | targetReference | dynamicReference =>
+  | contextClauses | fixed | assignmentTarget | targetReference | dynamicReference =>
       have shape := step_shape (by trivial) parsed
       change event = none at payload
       subst event

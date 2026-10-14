@@ -10,6 +10,7 @@ witness downstream of the existing model preserves the source-check cache. -/
 namespace Silver.Compose.Expressions
 
 def modelCalls : Calls where
+  names := Names.modelCalls
   primitive := modelPrimitives
   function
     | .trivia => Cursor.triviaPosition
@@ -23,6 +24,10 @@ def modelCalls : Calls where
     | .tokenAt => fixedAt
     | .normalize => id
     | .allowed => fun text => text.all allowedCharacter
+    | .contextAfter => Names.contextAfter
+    | .operationAfter => Names.operationAfter
+    | .associationAfter => Names.associationAfter
+    | .callAfter => callAfter
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)

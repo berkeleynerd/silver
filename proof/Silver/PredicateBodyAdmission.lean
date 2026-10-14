@@ -38,8 +38,8 @@ inductive BasicKind | null | output | reject | assignment
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if fixedAfter text scan.position "silver_io" true ≠ 0 then .output
-  else if context.hasArguments && decide (fixedAfter text scan.position "silver_arguments" true ≠ 0)
+  else if callAfter text context.names scan.position .output ≠ 0 then .output
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject ≠ 0)
     then .reject
   else .assignment
 
@@ -47,14 +47,14 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := bodyTokens text scan [.word "silver_io", .symbol ".", .word "put_line", .symbol "("]
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
       let value := expressionAt text call.position context.names
       if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := bodyTokens text scan [.word "silver_arguments", .symbol ".", .word "reject"]
+      let call := {scan with position := callAfter text context.names scan.position .reject}
       {call with facts := call.facts.reject}
   | .assignment =>
       let state := targetAt text (parserState context scan) false
@@ -211,7 +211,7 @@ def Form.helper : Form → Compose.Form | .direct => .direct | .argument => .arg
 inductive Token | helper (token : ShellToken) | statements
   deriving DecidableEq, Repr
 
-def Form.prefix (form : Form) : List ShellToken := header form.hasArguments
+def Form.prefix (form : Form) : List ShellToken := currentHeader form.hasArguments
 
 def Form.footer (_form : Form) : List ShellToken := [.word "end", .word "main", .symbol ";"]
 

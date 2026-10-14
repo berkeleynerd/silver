@@ -11,12 +11,25 @@ contracts are supplied separately, without assuming any definition equations. -/
 namespace Silver.Compose.Expressions
 open Named
 set_option maxRecDepth 10000
-set_option maxHeartbeats 2000000
+set_option maxHeartbeats 4000000
 set_option backward.dsimp.instances true
+
+private theorem model_argument_definition (text : Source) (state : ParserState) :
+    modelCalls.function .argument text state = argumentBody.eval modelCalls (Context.locals {text,state}) := by
+  dsimp +instances only [modelCalls, Names.modelCalls, argumentBody, Expr.eval, Context.locals,
+    Locals.set, Calls.get, Field.get, spelling, isWord]
+  dsimp +instances only [argumentAt, argumentParts, argumentFirst, argumentAfter,
+    argumentDefaultPosition, tokenAfter, ShellToken.symbol, ShellToken.word]
+  simp [or_assoc]
 
 theorem model_definitions (ranges : RangeContracts modelCalls) :
     DefinitionEquations modelCalls modelCalls where
   ranges := ranges.toHelperRanges
+  names := Names.model_interpreted
+  callAfter := by
+    intros
+    simp +instances [modelCalls, Names.modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set,
+      callAfterBody, callAfter]
   stepRange := ranges.step
   skip := by
     intros
@@ -83,9 +96,7 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
         Bool.not_eq_true', decide_eq_true_eq, ne_eq, ite_not]
     rw [body]
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
-  argument := by
-    intros
-    simp +instances [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, argumentBody, spelling, isWord, Bool.or_eq_true, or_assoc, argumentAt, argumentParts, argumentFirst, argumentAfter, argumentDefaultPosition, tokenAfter, ShellToken.symbol, ShellToken.word]
+  argument := fun text _ state _ => model_argument_definition text state
   declarations := by
     intro text valid state arguments stateValid
     rw [show modelCalls.function .declarations text state arguments = declarationsAt text state arguments from rfl,
@@ -128,7 +139,7 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
   capacity := model_capacity_equation
   step := by
     intro text valid form token state tokenValid stateValid
-    cases token <;> dsimp +instances only [modelCalls, stepBody, Expr.eval, Context.locals, Calls.get, Field.get, step, spelling, isWord, BEq.beq] <;> simp only [decide_eq_true_eq, reduceCtorEq, ↓reduceIte]
+    cases token <;> dsimp +instances only [modelCalls, Names.modelCalls, stepBody, Expr.eval, Context.locals, Calls.get, Field.get, step, spelling, isWord, BEq.beq] <;> simp only [decide_eq_true_eq, reduceCtorEq, ↓reduceIte]
 
   suffix := by
     intro text valid form index state stateValid positive bounded

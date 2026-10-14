@@ -167,7 +167,7 @@ lower settings for CPU quotas, competing workloads or memory pressure. Worker
 pools can multiply across modules; these settings are not strict OS-thread caps
 or a promise that every proof uses every core. The
 [concurrency record](docs/lean-concurrency.md) measures the selected settings and
-explains the remaining serial certificate and kernel work. The fifteen independent
+explains the remaining serial certificate and kernel work. The seventeen independent
 source-certificate modules can still build concurrently. The runner re-elaborates
 Lake configuration
 so each invocation actually applies its requested thread and memory settings.

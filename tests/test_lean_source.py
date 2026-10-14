@@ -18,7 +18,7 @@ EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.a
             "silver_io.ads", "silver_io.adb",
             "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
             "silver_runtime.ads", "silver_integer_literals.ads", "silver_integer_literals.adb",
-            "silver_path_facts.ads")
+            "silver_path_facts.ads", "silver_names.ads", "silver_names.adb")
 CERTIFICATE_MODULES = (
     "ProfileSpecCertificate", "ProfileBodyCertificate",
     "OutputSpecCertificate", "OutputBodyCertificate",
@@ -26,6 +26,7 @@ CERTIFICATE_MODULES = (
     "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
     "ArgumentsSpecCertificate", "ArgumentsBodyCertificate", "RuntimeSpecCertificate",
     "IntegerLiteralSpecCertificate", "IntegerLiteralBodyCertificate", "PathFactsSpecCertificate",
+    "NamesSpecCertificate", "NamesBodyCertificate",
 )
 SPEC = importlib.util.spec_from_file_location(
     "silver_source_certificate", ROOT / "proof" / "generate_source_certificate.py")

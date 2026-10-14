@@ -24,7 +24,7 @@ is
       Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,
       Argument_Declaration, Declarations, Assignment_Target, Target_Reference,
       Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,
-      Null_Keyword, Statements);
+      Null_Keyword, Statements, Context_Clauses);
 
    function Is_Word_Token (Token : Token_Kind) return Boolean
      with Global => null,

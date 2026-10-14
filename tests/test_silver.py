@@ -86,6 +86,27 @@ class SilverIntegrationTests(unittest.TestCase):
                          "every invalid-input execution rejects without any output call")
         self.assertEqual(compositions["argument_statements"]["declarative_items"],
                          ["spark_mode_on", "argument_initialization"])
+        for identifier in ("runtime_context", "argument_context"):
+            context = constructs[identifier]["conditions"]
+            for field in ("use_clause", "use_requires_preceding_with", "grouped_packages",
+                          "repeated_clauses_and_packages"):
+                self.assertTrue(context[field])
+            self.assertEqual(context["count"], "one_or_more_within_complete_source_bound")
+        for identifier in ("literal_output", "named_output", "concatenated_output",
+                           "expression_output", "argument_initialization", "input_guard",
+                           "argument_rejection"):
+            call = constructs[identifier]["conditions"]
+            self.assertFalse(call["qualification_required"])
+            self.assertEqual(call["unqualified_requires"],
+                             "use clause for operation package and no local same-name binding")
+            if identifier in ("input_guard", "argument_rejection"):
+                self.assertFalse(call["parentheses"])
+            else:
+                self.assertEqual(call["parameter_associations"], ["positional", "named"])
+                self.assertEqual(call["formal_parameter"],
+                                 "Default" if identifier == "argument_initialization" else "Item")
+        self.assertTrue(constructs["argument_initialization"]["conditions"]
+                        ["own_binding_hides_unqualified_call"])
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output",
@@ -107,6 +128,7 @@ class SilverIntegrationTests(unittest.TestCase):
         for name, composition in compositions.items():
             if name == "null":
                 continue
+            self.assertTrue(composition["context_is_exact_package_set"])
             declarations = composition["declaration_list"]
             self.assertEqual(declarations["items"], ["named_string_constant", "named_string_variable"])
             self.assertEqual(declarations["minimum"], 0)
@@ -178,12 +200,11 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",
                          ";", "end", "main", ";"])
-        self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
+        self.assertEqual(catalogue["output_tokens"], ["<context_clauses>", "procedure",
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
                          "<declarations>", "begin", "<statements>", "end", "main", ";"])
         self.assertEqual(catalogue["argument_tokens"],
-                         ["with", "silver_io", ";", "with", "silver_arguments", ";",
-                          "procedure", "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
+                         ["<context_clauses>", "procedure", "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
                           "<argument_declaration>", "<declarations>", "begin", "<statements>",
                           "end", "main", ";"])
         self.assertNotIn("guarded_argument_tokens", catalogue)

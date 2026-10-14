@@ -73,6 +73,17 @@ theorem model_fixed_advances (text : Source) (position : Nat) (spelling : String
       omega
     · contradiction
 
+theorem model_callAfter_valid (text : Source) (names : BindingEnvironment) (position : Nat)
+    (operation : Names.Operation) (bound : ValidCursor text position) :
+    ValidCursor text (callAfter text names position operation) :=
+  Names.operationAfter_bound text position operation _ bound
+
+theorem model_callAfter_advances (text : Source) (names : BindingEnvironment) (position : Nat)
+    (operation : Names.Operation) (bound : ValidCursor text position)
+    (nonzero : callAfter text names position operation ≠ 0) :
+    position < callAfter text names position operation :=
+  Names.operationAfter_progress text position operation _ bound nonzero
+
 theorem model_lookup_valid (text : Source) (names : BindingEnvironment) (first after : Nat) :
     lookupName text names first after ≤ names.length := by
   by_cases zero : lookupName text names first after = 0
@@ -511,6 +522,9 @@ theorem model_step_valid (text : Source) (valid : ValidText text)
   split
   · exact model_invalid_state_valid text
   · cases token with
+    | contextClauses =>
+      exact model_state_position_valid text state stateValid _
+        (Names.contextAfter_bound text form.hasArguments)
     | fixed spelling word =>
       exact model_state_position_valid text state stateValid _
         (model_fixed_valid text _ _ _ stateValid.1)

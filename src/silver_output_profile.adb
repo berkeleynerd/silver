@@ -5,12 +5,14 @@ with Silver_Profile;
 with Silver_Output_Lexical;
 with Silver_Path_Facts;
 with Silver_Integer_Literals;
+with Silver_Names;
 
 package body Silver_Output_Profile
   with SPARK_Mode => On
 is
    use Silver_Profile;
    use Silver_Output_Lexical;
+   package Names renames Silver_Names;
 
    function Is_Word_Token (Token : Token_Kind) return Boolean is
      (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
@@ -64,18 +66,17 @@ is
          when Null_Keyword => "null",
          when Argument_Declaration | Declarations | Assignment_Target
             | Target_Reference | Dynamic_Reference | Assignment_Value
-            | Output_Expression | Comparison_Expression | Statements => "_");
+            | Output_Expression | Comparison_Expression | Statements | Context_Clauses => "_");
 
    function Tokens (Form : Form_Kind) return Token_Sequence is
      (case Form is
       when Direct_Form =>
-         (With_Keyword, IO_Name, Semicolon, Procedure_Keyword,
+         (Context_Clauses, Procedure_Keyword,
           Main_Name, Is_Keyword, Pragma_Keyword, SPARK_Mode_Name,
           Left_Parenthesis, On_Name, Right_Parenthesis, Semicolon,
           Declarations, Begin_Keyword, Statements, End_Keyword, Main_Name, Semicolon),
       when Argument_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
+         (Context_Clauses, Procedure_Keyword, Main_Name,
           Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
           On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
           Declarations, Begin_Keyword, Statements, End_Keyword, Main_Name, Semicolon));
@@ -296,6 +297,22 @@ is
       end loop;
       return 0;
    end Lookup_Name;
+
+   function Call_After
+     (Text : String; Environment : Binding_Environment; Position : Literal_Position;
+      Operation : Names.Operation_Kind) return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Valid_Names (Text, Environment) and then Position <= Text'Last + 1,
+       Post => Call_After'Result = 0
+         or else Call_After'Result in Position + 1 .. Text'Last + 1;
+   function Call_After
+     (Text : String; Environment : Binding_Environment; Position : Literal_Position;
+      Operation : Names.Operation_Kind) return Literal_Position is
+     (declare First : constant Literal_Position := Skip_At (Text, Position);
+              After : constant Literal_Position := Name_After (Text, First);
+      begin Names.Operation_After
+        (Text, Position, Operation, Lookup_Name (Text, Environment, First, After) /= 0));
 
    type Value_Result is record
       After, Value_First : Literal_Position;
@@ -638,11 +655,14 @@ is
    function Argument_At (Text : String; State : Parser_State) return Parser_State is
      (declare First : constant Literal_Position := Skip_At (Text, State.Position);
               After : constant Literal_Position := Name_After (Text, First);
-              Prefix : constant Literal_Position := Take_Token (Text,
-                Take_Token (Text, Take_Token (Text, Take_Token (Text,
-                  Take_Token (Text, Take_Token (Text, Take_Token (Text,
-                    Take_Token (Text, After, Colon), Constant_Keyword), String_Name),
-                  Assignment), Arguments_Name), Dot), First_Or_Default_Name), Left_Parenthesis);
+              Start : constant Literal_Position := Take_Token (Text,
+                Take_Token (Text, Take_Token (Text, Take_Token (Text, After, Colon),
+                  Constant_Keyword), String_Name), Assignment);
+              Hidden : constant Boolean := First /= 0 and then After > First
+                and then Take_Token (Text, First, First_Or_Default_Name) = After;
+              Prefix : constant Literal_Position := Names.Association_After (Text,
+                Take_Token (Text, Names.Operation_After
+                  (Text, Start, Names.Argument_Call, Hidden), Left_Parenthesis), True);
               Default_Value : constant Value_Result := Literal_At (Text, Skip_At (Text, Prefix));
               Following : constant Literal_Position := Take_Token (Text,
                 Take_Token (Text, Default_Value.After, Right_Parenthesis), Semicolon);
@@ -793,6 +813,8 @@ is
      (Text : String; Form : Form_Kind; Token : Token_Kind; State : Parser_State)
       return Parser_State is
      (if State.Position = 0 then Invalid_State
+      elsif Token = Context_Clauses then
+        (State with delta Position => Names.Context_After (Text, Is_Argument_Form (Form)))
       elsif Token = Argument_Declaration then Argument_At (Text, State)
       elsif Token = Declarations then Read_Declarations (Text, State, Is_Argument_Form (Form))
       elsif Token = Assignment_Target then Target_At (Text, State, False)
@@ -994,8 +1016,8 @@ is
               (declare Result : constant Condition_Result := Read_Condition (Text, Context, After, Facts);
                begin (Result with delta After => Take_Token (Text, Result.After, Right_Parenthesis)))
             elsif Context.Dynamic_First = 0 then Invalid_Condition
-            else (Take_Token (Text, Take_Token (Text, Take_Token (Text, Position, Arguments_Name), Dot),
-                    Input_Is_Valid_Name), Paths.Assume_Valid (Facts), Paths.Assume_Invalid (Facts)))));
+            else (Call_After (Text, Context.Names, Position, Names.Validity_Call),
+                    Paths.Assume_Valid (Facts), Paths.Assume_Invalid (Facts)))));
 
    function Read_Relation
      (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
@@ -1119,11 +1141,10 @@ is
       if Result.Position = 0 then return Invalid_Body; end if;
       if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Null_Keyword);
-      elsif Take_Token (Text, Result.Position, IO_Name) /= 0 then
-         Result := Body_Token (Text, Context, Result, IO_Name);
-         Result := Body_Token (Text, Context, Result, Dot);
-         Result := Body_Token (Text, Context, Result, Put_Line_Name);
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Output_Call) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Output_Call);
          Result := Body_Token (Text, Context, Result, Left_Parenthesis);
+         Result.Position := Names.Association_After (Text, Result.Position, False);
          Value := Expression_At (Text, Result.Position, Context.Names);
          if Value.After = 0 or else Result.Facts.Invalid_Reachable
            or else not Paths.Fits (Result.Facts, Summary_Of (Value))
@@ -1132,11 +1153,9 @@ is
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
       elsif Context.Dynamic_First /= 0
-        and then Take_Token (Text, Result.Position, Arguments_Name) /= 0
+        and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call) /= 0
       then
-         Result := Body_Token (Text, Context, Result, Arguments_Name);
-         Result := Body_Token (Text, Context, Result, Dot);
-         Result := Body_Token (Text, Context, Result, Reject_Name);
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Reject_Call);
          Result.Facts := Paths.Rejected (Result.Facts);
       else
          State := Target_At (Text, Expand_Body (Context, Result).State, False);

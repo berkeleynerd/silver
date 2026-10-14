@@ -27,7 +27,9 @@ assignment, comparison and output. The completed [sequencing increment](statemen
 replaced those fixed bodies with nonempty sequences and one-level equality choices.
 The completed [conditional milestone](branches.md) adds recursive choices,
 `elsif`, optional `else`, bounded predicates and path-sensitive composition.
-The rules and proof interfaces below describe its current inputs. The delivery
+The completed [Names and Calls checkpoint](names-and-calls.md) adds context
+visibility, resolved call names and named actuals for the existing operations.
+The rules and proof interfaces below describe the current inputs. Each delivery
 record distinguishes the combined Linux checkpoint's canonical Lean audit,
 cache-preserving native proof audit, full-suite results and focused repairs.
 Earlier capability and performance records retain their original input scope.
@@ -156,8 +158,9 @@ values. Constants and mutable objects may remain unused.
 This generalizes the earlier [named-string](named-strings.md),
 [literal-backed greeting](greeting.md) and [copy](copy-values.md) cases. It does
 not generalize declaration placement or admit arbitrary Ada names/context
-clauses. Those remaining closures stay in
-the [roadmap](../roadmap.md#existing-feature-consolidation).
+clauses. The [Names and Calls extension](names-and-calls.md) adds the shared
+context visibility and association rules for the existing packages and APIs;
+additional declaration regions and general Ada visibility remain excluded.
 
 ### Command-line initialization and path validity
 
@@ -299,9 +302,10 @@ startup remain trusted dependencies.
 A correct separate model or a matching source pin alone does not establish the
 required correspondence. The checked chain has these distinct parts:
 
-1. Fifteen handwritten source-binding modules fix `include_str` paths for the
-   specifications and bodies of both recognizers, both lexical-helper units, the integer-literal specification and
-   body, the path-fact specification, and the six selected runtime files.
+1. Seventeen handwritten source-binding modules fix `include_str` paths for the
+   specifications and bodies of both recognizers, both lexical-helper units,
+   the context/name and integer-literal helpers, the path-fact specification,
+   and the six selected runtime files.
    Generated candidates reconstruct their exact included bytes and checked
    tokens. The generator cannot select replacement source bindings. Source
    alphabet checks include comments and literals.
@@ -321,7 +325,12 @@ required correspondence. The checked chain has these distinct parts:
    `interpreted_primitives` proves trivia, literals, identifiers, exclusions,
    name equality, capacities, tokens, normalization and allowed bytes on their
    legal machine domains. No whole-recognizer-equality premise is introduced.
-5. `IntegerLiteralSourceBridge` and `PathFactsSourceBridge` interpret the checked
+5. `NamesSourceBridge` interprets context visibility, operation spelling and
+   named/positional association through the checked source trees and recursive
+   equations. Its concrete model inhabits all equations. Local binding lookup
+   establishes hiding before use-visible operations are selected; the
+   argument initializer also accounts for its own declaration name.
+   `IntegerLiteralSourceBridge` and `PathFactsSourceBridge` interpret the checked
    integer parser and path algebra. Predicate native/basic/body/outer equation
    modules connect actual recursive scanners, tables and selectors to the
    mathematical parser. `PredicateSourceChecks` checks their source definitions;
@@ -368,6 +377,9 @@ and [common-expression checkpoint](common-expressions.md) validate their earlier
 revisions. The [sequencing checkpoint](statement-sequencing.md) validates its
 recorded inputs; [branches.md](branches.md) records the completed 5a–5c
 integration and the exact scope of its combined Linux validation.
+The [Names and Calls checkpoint](names-and-calls.md) records the current source
+revision, its seventeen bindings/certificates, test repairs and complete cached
+Lean build with a fresh axiom audit.
 
 ## Automatic completion and the external boundary
 

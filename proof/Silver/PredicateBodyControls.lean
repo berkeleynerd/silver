@@ -28,10 +28,8 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
       dsimp only
       split
       · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
-      · have raw := bodyTokens_controls text context scan
-          [.word "silver_io", .symbol ".", .word "put_line", .symbol "("] valid
-        exact raw
-  | reject => exact bodyTokens_controls text context scan _ valid
+      · exact valid
+  | reject => exact valid
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).target ≤ context.names.length := by
         unfold targetAt

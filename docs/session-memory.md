@@ -1,5 +1,48 @@
 # Session memory
 
+## 2026-10-14 — Names and Calls complete
+
+The owner-authorized bounded Names and Calls delivery is complete. The
+[roadmap](../roadmap.md#names-and-calls--complete) closes items 2, 6 and 7 within
+the specified fragment. Grouped/reordered/repeated contexts, use-visible calls
+with Ada hiding and named Item/Default actuals preserve exact package sets,
+existing API meaning and first/unique immutable argument initialization.
+No Oracle amendment, new operation or broader declaration region was added.
+
+The [checkpoint](names-and-calls.md) records native proof/build/catalogue success,
+the full suite and certificate-copy repairs, final focused test scopes, complete
+Lean source/model validation and fresh axiom/module auditing. The final digest
+matches the current inputs. Preserve the unsuccessful attempts and distinguish
+development builds from the short cached final check. The local selector repair
+derives uniqueness from required package sets, retaining the public semantic
+conclusions without new assumptions; independent review found no issue.
+
+Recovery is `tmp/names-calls-active.json`, with evidence under
+`.silver/linux-x86_64/names-calls-20261014T153711Z/`. Preserve canonical and isolated
+proof caches, previous-object backups, complete sidecars/traces, native reports,
+program directories and unrelated scratch. All seventeen tracked generated
+certificates match regeneration; the runner still regenerates and checks them.
+No late native or tooling edits invalidated the full native proof audit.
+
+Existing-feature consolidation is complete in its stated bounds. Remaining
+capacity/expression and source-import performance follow-ups stay proposed;
+this handoff authorizes no new capability. Publication remains authorized.
+macOS proofs, independent replay and hosted Actions remain out of scope.
+The live historical Compose String Results goal is complete and no replacement
+goal was explicitly requested. CLI memory tools were rechecked and unavailable,
+so no CLI recall entry was updated. RESUME and this checked-in memory are current.
+
+## 2026-10-14 — Names and Calls authorized
+
+The owner authorized the proposed single bounded Names and Calls delivery.
+The [roadmap](../roadmap.md#names-and-calls--complete) and
+[working record](names-and-calls.md) retain scope and completion criteria.
+Preserve current API semantics, exact shell package sets, first/unique argument
+initialization and all caches. Use focused development checks followed by one
+stable complete Linux checkpoint; publication authorization persists.
+No new harness goal was explicitly requested; the historical goal remains complete.
+
+
 ## 2026-10-14 — Branch review repair complete
 
 The owner-authorized bounded repair of [review `4503d17`](reviews/review-4503d17.md)

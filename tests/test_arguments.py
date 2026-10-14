@@ -36,6 +36,11 @@ class ArgumentTests(unittest.TestCase):
                     valid.replace(b'Put_Line(Message)', b'Put_Line("fixed")'), valid, named_source(b"local name", b"Silver_Arguments"), source_for(b'', b'Main', b'mAiN'),
                     source_for(b'" -- quoted', b'Name_2', b'nAME_2'),
                     valid.replace(b' then ', b' -- true branch\r\nthen\t'),
+                    valid.replace(b'with Silver_IO; with Silver_Arguments;',
+                                  b'with Silver_Arguments; with Silver_IO;'),
+                    valid.replace(b'with Silver_IO; with Silver_Arguments;',
+                                  b'with Silver_IO, Silver_Arguments;'),
+                    valid.replace(b'procedure Main', b'use Silver_Arguments; procedure Main'),
                     source_for(b'x' * (4096 - len(source_for(b''))))]
         name = b'X' * ((4096 - len(source_for(b'', b''))) // 2)
         maximum = source_for(b'', name)
@@ -45,11 +50,7 @@ class ArgumentTests(unittest.TestCase):
                     source_for(name=b'Silver_IO'), source_for(name=b'if'),
                     source_for(reference=b'Other'),
                     valid.replace(b'with Silver_Arguments; ', b''),
-                    valid.replace(b'with Silver_IO; with Silver_Arguments;',
-                                  b'with Silver_Arguments; with Silver_IO;'),
-                    valid.replace(b'with Silver_IO; with Silver_Arguments;',
-                                  b'with Silver_IO, Silver_Arguments;'),
-                    valid.replace(b'procedure Main', b'use Silver_Arguments; procedure Main'),
+                    b'use Silver_Arguments;' + valid,
                     valid.replace(b'if Silver_Arguments.Input_Is_Valid then ', b'')
                          .replace(b'else Silver_Arguments.Reject;end if;', b''),
                     valid.replace(b'Input_Is_Valid', b'Input_Is_Valid()'),

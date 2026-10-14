@@ -14,6 +14,9 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
+  callAfter : ∀ text, ValidText text → ∀ names position operation,
+    ValidNames text names → position ≤ text.length + 1 →
+    calls.callAfter text names position operation = Compose.callAfter text names position operation
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -130,9 +133,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
   have openingBound := takeModel_valid text position .leftParenthesis bounded
   have innerBound := (contracts.condition text tv context cv _ openingBound facts fv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
-    helpers.take text tv position .argumentsName bounded,
-    helpers.take text tv _ .dot (takeModel_valid text position .argumentsName bounded),
-    helpers.take text tv _ .inputIsValid (takeModel_valid text _ .dot (takeModel_valid text position .argumentsName bounded)),
+    helpers.callAfter text tv context.names position .validity cv.1 bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   rfl
 
@@ -196,6 +197,7 @@ theorem condition_of_source_equations (contracts : Contracts calls) (text : Sour
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
+  callAfter _ _ _ _ _ _ _ := rfl
   take _ _ _ _ _ := rfl
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl

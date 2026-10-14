@@ -9,7 +9,7 @@ namespace Silver.Predicate
 open Compose Bindings PathFacts
 
 private def HeaderToken : ShellToken → Prop
-  | .fixed _ _ | .declarations | .argumentDeclaration => True
+  | .contextClauses | .fixed _ _ | .declarations | .argumentDeclaration => True
   | _ => False
 
 private def eventArguments (arguments : Bool) : Event → Bool
@@ -24,7 +24,7 @@ private theorem step_arguments {text form token state next event}
     eventsArguments (decide (state.dynamicFirst ≠ 0)) event.toList = decide (next.dynamicFirst ≠ 0) := by
   have payload := parsed.payload
   cases token with
-  | fixed spelling word =>
+  | contextClauses | fixed spelling word =>
       change event = none at payload
       subst event
       rw [← parsed.scanned]
@@ -56,7 +56,7 @@ private theorem tokens_arguments {text form tokens state events final}
 theorem prefix_arguments {source form events}
     (parsed : Sequence.TokensAt source form.helper form.prefix initialState events (prefixScan source form).state) :
     (contextOf (prefixScan source form)).hasArguments = form.hasArguments := by
-  have flag := tokens_arguments (by cases form <;> simp [Form.prefix, Form.hasArguments, header, HeaderToken, ShellToken.word, ShellToken.symbol]) parsed
+  have flag := tokens_arguments (by cases form <;> simp [Form.prefix, Form.hasArguments, currentHeader, HeaderToken, ShellToken.word, ShellToken.symbol]) parsed
   have shape := Sequence.tokens_kinds parsed
   change eventsArguments false events = decide ((prefixScan source form).state.dynamicFirst ≠ 0) at flag
   change decide ((prefixScan source form).state.dynamicFirst ≠ 0) = form.hasArguments

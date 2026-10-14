@@ -12,13 +12,14 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | source | token | comparison | binding | names | context | result | literal | length | compared | condition | summary | bound | facts | arrow (domain codomain : Ty)
+  | number | truth | source | token | operation | comparison | binding | names | context | result | literal | length | compared | condition | summary | bound | facts | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
   | .number => Nat
   | .truth => Bool
   | .source => Source
+  | .operation => Names.Operation
   | .token => Token
   | .comparison => Comparison
   | .binding => Bindings.BindingInfo
@@ -38,6 +39,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .number => 0
   | .truth => false
   | .source => []
+  | .operation => .validity
   | .token => .endKeyword
   | .comparison => .eq
   | .binding => {}
@@ -54,10 +56,11 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | take | skip | nameAfter | lookup | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | callAfter | take | skip | nameAfter | lookup | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
+  | .callAfter => ["call_after"]
   | .take => ["take_token"]
   | .skip => ["skip_at"]
   | .nameAfter => ["name_after"]
@@ -84,6 +87,7 @@ def Function.name : Function → List String
   | .join => ["paths", ".", "join"]
 
 @[reducible] def Function.type : Function → Ty
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation .number)))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
@@ -110,6 +114,7 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → Nat
   take : Source → Nat → Token → Nat
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
@@ -136,6 +141,7 @@ structure Calls where
   join : PathFacts.Context → PathFacts.Context → PathFacts.Context
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
+  | .callAfter => calls.callAfter
   | .take => calls.take
   | .skip => calls.skip
   | .nameAfter => calls.nameAfter
@@ -219,6 +225,7 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .whenFalse, value => value.whenFalse
 
 inductive Expr : Ty → Type
+  | operation (value : Names.Operation) : Expr .operation
   | number (value : Nat) : Expr .number
   | truth (value : Bool) : Expr .truth
   | token (value : Token) : Expr .token
@@ -267,6 +274,7 @@ def aggregate (items : List (List String)) : List String :=
   ["("] ++ List.flatten (List.intersperse [","] items) ++ [")"]
 
 def Expr.render : Expr ty → List String
+  | .operation value => (Compose.Expressions.Expr.operation value).render
   | .number value => [toString value]
   | .truth value => [if value then "true" else "false"]
   | .token value => [value.name]
@@ -301,6 +309,7 @@ def Expr.render : Expr ty → List String
   | .invalid => ["invalid_condition"]
 
 def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
+  | .operation value => value
   | .number value => value
   | .truth value => value
   | .token value => value
@@ -335,6 +344,9 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .invalid => invalidCondition
 
 namespace Expr
+def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) : Expr .number :=
+  .app (.app (.app (.app (.function .callAfter) text) names) position) operation
+
 def callTake (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
   .app (.app (.app (.function .take) x0) x1) x2
 

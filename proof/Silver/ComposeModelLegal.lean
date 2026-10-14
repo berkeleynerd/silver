@@ -47,6 +47,9 @@ private theorem fixed_legal (text : Source) (valid : ValidText text)
     token_spelling token tokenValid⟩, fun _ => lexical_cursor valid bound nonzero⟩
 
 theorem model_legal : LegalBodies modelCalls where
+  callAfter := by
+    intros
+    simp +instances [callAfterBody, Expr.Legal, Function.isLexical]
   skip := by
     intro text valid position bound
     simp +instances [skipBody, Expr.Legal, Expr.eval, Context.locals]

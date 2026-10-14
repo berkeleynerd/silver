@@ -59,6 +59,10 @@ literal-initialized constant using `"Hello, " & Name & "!"`.
 The [command-line greeting](samples/command_line_greeting.adb) combines that
 expression with command-line initialization and an explicit remaining-capacity
 guard, `Name'Length <= 4088` for these decorations.
+The [Names and Calls sample](samples/names_calls.adb) writes the same greeting
+with grouped `with`/`use` clauses, `First_Or_Default (Default => "world")` and
+`Put_Line (Item => ...)`. Its [completed checkpoint](docs/names-and-calls.md)
+records validation of these context and call alternatives.
 The [assignment sample](samples/string_assignment.adb) initializes a variable
 with `"Hello"`, assigns the equal-length literal `"World"`, then prints it.
 
@@ -291,6 +295,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The completed [Names and Calls checkpoint](docs/names-and-calls.md) records
+context visibility, call resolution and named associations, including the exact
+native, test-repair and cached Lean validation scope.
 The completed conditional, predicate and path-sensitive work and its Linux
 validation are recorded in [branches.md](docs/branches.md). Earlier sequencing,
 shared-binding, expression and copy checkpoints retain their input scope in

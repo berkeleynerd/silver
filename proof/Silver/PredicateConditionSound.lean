@@ -72,11 +72,10 @@ mutual
           cases arguments : context.hasArguments with
           | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
           | true => rfl
-        have finalPositive : fixedAfter text (fixedAfter text (fixedAfter text position "silver_arguments" true) "." false)
-            "input_is_valid" true ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
+        have finalPositive : callAfter text context.names position .validity ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
         simp [readPrimary, zero, noOpening, arguments]
         exact ⟨⟨.inputValid, .valid zero noOpening arguments finalPositive⟩,
-          model_fixed_valid text _ _ _ (model_fixed_valid text _ _ _ (model_fixed_valid text _ _ _ bounded))⟩
+          model_callAfter_valid text context.names position .validity bounded⟩
   termination_by (remainingAt text position, 1)
   decreasing_by all_goals exact Prod.Lex.left _ _ (by assumption)
 

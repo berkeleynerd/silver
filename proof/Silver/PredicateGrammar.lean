@@ -146,17 +146,21 @@ theorem source_obligations_discharge {source : Source} {program : Program}
 theorem null_predicate_disjoint (source : Source) : ¬ (Silver.Member source ∧ Member source) := by
   rintro ⟨nullMember, form, _, events, items, parsed⟩
   have headRead := parsed.header
-  obtain ⟨tokens, spelling⟩ : ∃ tokens, form.prefix = .fixed "with" true :: tokens := by
+  obtain ⟨tokens, spelling⟩ : ∃ tokens, form.prefix = .contextClauses :: tokens := by
     cases form <;> exact ⟨_, rfl⟩
   rw [spelling] at headRead
   cases headRead with
   | next first _ =>
       have accepted := first.following
       rw [← first.scanned] at accepted
+      have contextAccepted : Names.contextAfter source form.helper.hasArguments ≠ 0 := by
+        simpa [step, initialState] using accepted
+      have firstWith := Names.contextAfter_firstWith source form.helper.hasArguments contextAccepted
       have matched : fixedAt source (Cursor.triviaPosition source 1) "with" true = true := by
         by_cases found : fixedAt source (Cursor.triviaPosition source 1) "with" true = true
         · exact found
-        · simp [step, initialState, fixedAfter, found] at accepted
+        · have absent : Names.fixedAt source (Cursor.triviaPosition source 1) "with" true ≠ true := found
+          simp [Names.take, absent] at firstWith
       have nullParsed := (Cursor.isMember_iff source).mpr nullMember
       change (_ && _ && (Cursor.tokenAt source (Cursor.triviaPosition source 1)
         .procedureKeyword && _)) = true at nullParsed

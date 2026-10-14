@@ -149,3 +149,21 @@ lean_lib PathFactsSpecSource where
   roots := #[]
   globs := #[.one `Silver.PathFactsSpecSource]
   needs := #[pathFactsSpecSource]
+
+input_file namesSpecSource where
+  path := "../src/silver_names.ads"
+  text := false
+
+lean_lib NamesSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.NamesSpecSource]
+  needs := #[namesSpecSource]
+
+input_file namesBodySource where
+  path := "../src/silver_names.adb"
+  text := false
+
+lean_lib NamesBodySource where
+  roots := #[]
+  globs := #[.one `Silver.NamesBodySource]
+  needs := #[namesBodySource]

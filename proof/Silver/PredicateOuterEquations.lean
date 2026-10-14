@@ -79,7 +79,7 @@ def suffixEquation (recurse : Nat → ScanResult → ScanResult) (text : Source)
   else recurse (index + 1) (Predicate.scanStep text form (tokenAtIndex form index) scan)
 
 theorem form_tokens_valid (form : Form) : ∀ token ∈ form.tokens, ValidToken token := by
-  cases form <;> simp [Form.tokens, Form.prefix, Form.footer, Form.hasArguments, header, ValidToken, ValidHelperToken, Compose.Expressions.ValidToken, Compose.Expressions.allTokens]
+  cases form <;> simp [Form.tokens, Form.prefix, Form.footer, Form.hasArguments, currentHeader, ValidToken, ValidHelperToken, Compose.Expressions.ValidToken, Compose.Expressions.allTokens]
 
 theorem tokenAtIndex_valid (form : Form) (index : Nat) (first : 1 ≤ index)
     (last : index ≤ form.tokens.length) : ValidToken (tokenAtIndex form index) := by

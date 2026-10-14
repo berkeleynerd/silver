@@ -14,13 +14,35 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Names and Calls — complete
+
+The owner authorized this single bounded delivery on 2026-10-14, completing the
+remaining context/name and existing-call association work in items 2, 6 and 7.
+The completed language supports reordered/grouped/repeated `with` clauses and
+context `use` clauses for the existing shells' packages, resolves qualified and
+use-visible calls with Ada's local-name hiding rules, and admits positional and
+named `Item`/`Default` associations for the
+existing single-parameter operations. Parameterless operations and the sole,
+first immutable argument initializer retain their existing meaning and placement.
+
+Matching native admission, inhabited Lean source correspondence and semantic/
+discharge proofs, specification/catalogue/sample updates, and admitted/rejected
+sibling and compile/run regressions are complete. The Linux checkpoint passed
+native proof/build/catalogue checks and complete Lean validation; the
+[delivery record](docs/names-and-calls.md) distinguishes the full test run,
+certificate-copy repairs, focused final rechecks and cache reuse. New APIs, package renaming,
+additional declaration regions and general Ada overload resolution remain separate.
+Items 2, 6 and 7 are now closed within their specified fragment. Existing
+resource/capacity and source-import performance follow-ups remain explicit below;
+this completion does not authorize a new capability.
+
 ### Branch review repair — complete
 
 The owner authorized the bounded response to
 [review `4503d17`](docs/reviews/review-4503d17.md) on 2026-10-14, with the
 regression scope narrowed to three cases using the existing harness. This
-corrective unit takes priority over the proposed context/name and call-association
-work. B1 independently reproduced an admitted, proved static-length mismatch in
+corrective unit preceded the later context/name and call-association delivery.
+B1 independently reproduced an admitted, proved static-length mismatch in
 an unreachable arm that GNAT could not build; the completed repair restores static
 compatibility before further feature work.
 
@@ -40,7 +62,7 @@ guarantee and adds no language feature.
 
 ### Completed foundation work
 
-**Shared bindings, String expressions, statement sequencing, predicates and path-sensitive branches are complete.**
+**Shared bindings, String expressions, statement sequencing, predicates, path-sensitive branches, and existing context/call rules are complete.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
@@ -75,8 +97,9 @@ The owner has authorized delivery of all
 in `dc5295eabe`; predicates and path-sensitive composition (5b/c) passed their
 shared complete Linux checkpoint. The [delivery record](docs/branches.md)
 distinguishes native proofs, the full-suite run and focused repairs, complete
-Lean validation and reused caches. Context/name rules and call associations
-remain the next proposed consolidation work; new APIs remain separate.
+Lean validation and reused caches. The subsequent
+[Names and Calls checkpoint](docs/names-and-calls.md) completes context/name rules
+and existing-call associations; new APIs remain separate.
 
 The authorized narrow
 [interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
@@ -102,7 +125,7 @@ module visibility can separately reduce unnecessary rebuilds after proof edits.
 | 2 | Source reconstruction and equality proofs — complete | Adopt checked explicit join witnesses, preserving exact source bytes, final statements and accepted axioms. Complete integration and reconstructed feature-workload checks passed; runner time fell from 130.5 to 14.9 minutes (observed 8.75×, with baseline concurrency caveat). Structural alternatives timed out and remain rejected. The [record](docs/lean-join-optimization.md) covers tests, audits, memory and retained optimized caches. |
 | 3 | Module-system pilot and coherent migration — complete | Adopt module boundaries across all 107 ordinary proof files, retaining both legacy audit roots. The same complete proof-only check falls from 213.563 to 9.573 seconds; nineteen ordinary consumers retain their artifacts. Complete source correspondence, fresh audits and public/source-byte invalidation controls pass. The [migration record](docs/lean-modules.md) explains compatibility repairs, scope and retained caches; the [pilot](docs/lean-module-pilot.md) remains historical evidence. |
 | 4 | Selective proof-authoring improvements — complete | Adopt twelve separately checked declaration facts in the existing composed-source proof. The matched two-file rebuild falls from 171.569 to 158.564 seconds and peak child RSS from 11.466 to 4.323 GiB. Reject marginal lexical-proof reuse; defer example/tactic rewrites and persistent proof-state infrastructure without a measured need. Statements, source correspondence and axioms are unchanged. See the [proof-tuning record](docs/lean-proof-authoring.md). |
-| 5 | Integration and measurement — complete | The final complete cached source-correspondence check and fresh axiom/module audit pass. Independent reviews confirm the measured scope and unchanged dependency artifacts; source-invalidation machinery is unchanged. Preserve all caches and the unfinished language edit. The [record](docs/lean-proof-authoring.md) distinguishes focused timings, the final checkpoint, rejected work and limits. The bounded performance investigation is closed; consolidation remains next proposed work. |
+| 5 | Integration and measurement — complete | The final complete cached source-correspondence check and fresh axiom/module audit pass. Independent reviews confirm the measured scope and unchanged dependency artifacts; source-invalidation machinery is unchanged. Preserve all caches and the retained language draft. The [record](docs/lean-proof-authoring.md) distinguishes focused timings, the final checkpoint, rejected work and limits. The bounded performance investigation is closed; the subsequent consolidation is complete within the fragment below. |
 
 The [earlier reconstruction trials](docs/certificate-performance.md) remain
 failed/interrupted experiments, not speedup evidence. Their memory constraints
@@ -158,18 +181,18 @@ fragment of the existing constructs, wherever the shared binding, initialization
 length, control-flow and effect rules permit it. It does not mean support for all
 Ada/SPARK or a claim to recognize every program that an external prover might
 prove. A completed narrow milestone is not evidence of that broader closure.
-The existing language retains its assurance; the extensions below are targets,
-not newly admitted syntax.
+The bounded consolidation entries below have completed their stated scopes.
+Remaining resource extensions and additional APIs are proposals, not admitted syntax.
 
 | Order | Work item | Required result before calling the area closed |
 | --- | --- | --- |
 | 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
-| 2 | Declarations, names and copies — binding foundation complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
+| 2 | Declarations, names and copies — complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. The [Names and Calls checkpoint](docs/names-and-calls.md) completes context-clause order/grouping/repetition, qualification and visibility for the existing packages together with item 7. |
 | 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
 | 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches — complete | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. All three [increments](#equality-guards-and-branches-increments) passed their checkpoints; the [delivery record](docs/branches.md) retains exact evidence and scope. |
-| 6 | Output effects — sequence composition complete; call associations remain | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
-| 7 | Existing argument operations — path-sensitive integration complete; context/name rules and call associations remain | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
+| 6 | Output effects — complete | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Positional and named `Item` associations for `Put_Line` passed the [Names and Calls checkpoint](docs/names-and-calls.md), retaining its effect contract. |
+| 7 | Existing argument operations — complete | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. The [Names and Calls checkpoint](docs/names-and-calls.md) completes positional/named `Default` associations and context/name rules with item 2. The immutable argument initializer remains first and unique; new positional-argument APIs are a separate capability. |
 
 The authorized [shared-binding milestone](docs/shared-bindings.md) implements
 ordered literal/name declarations, snapshots, mutability, compatible static or
@@ -179,8 +202,8 @@ complete native/Lean checkpoint and independent review passed.
 The native 341-slot capacity derives from the 4096-byte source limit and the
 minimum twelve-byte declaration; it is not another arbitrary count restriction.
 
-Item 2's context-clause order/grouping and visibility closure remains explicitly
-with item 7. The sole immutable argument initializer stays first and unique;
+Items 2 and 7's context-clause order/grouping and visibility closure is complete
+in Names and Calls. The sole immutable argument initializer stays first and unique;
 additional API placements are not implied by supported statement sequencing.
 Expression initializers and parentheses are now supported by the completed
 [common-expression checkpoint](docs/common-expressions.md), including expression
@@ -188,8 +211,8 @@ equality and fixed-length expression assignment. The completed item 5 adds
 path-refined assignments, nested predicates and generalized validity/Reject
 placement. The completed **statement sequencing and assignment** work includes
 repeated-output effect composition from item 6; its [record](docs/statement-sequencing.md)
-retains the original fixed-guard checkpoint. Context/name closure and call
-associations remain future work. The retained operator budget counts
+retains the original fixed-guard checkpoint. Names and Calls completes context/name
+closure and call associations for the existing operations. The retained operator budget counts
 concatenations; it does not bound total translation time, memory or report size.
 The recognizer's source comment now describes only that lexical budget, so the
 older wording follow-up is closed.
@@ -237,8 +260,9 @@ checkpoints. All three increments below are now supported.
 | 5c | Path-sensitive composition — complete | Branch facts justify bounded expressions and fixed-bound assignments; static/static assignment lengths must also agree on unreachable paths after the review repair; joins preserve only justified interval/validity/rejection facts. Invalid inputs reject without output, and Reject/output failures return with sticky failure status. The simultaneous concrete source-model witness, native selector refinements, universal discharge and source correspondence passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14), with interaction and rejection tests. |
 
 Items 5b and 5c shared one complete checkpoint, preserving both scopes. Together
-with the published 5a checkpoint, they close item 5. Context/name closure and
-positional/named call associations remain in items 2, 6 and 7. New argument APIs
+with the published 5a checkpoint, they close item 5. The later Names and Calls
+checkpoint completes context/name closure and positional/named call associations
+in items 2, 6 and 7. New argument APIs
 retain their separate roadmap placement; this completion does not authorize them.
 
 #### Audit follow-ups
@@ -285,8 +309,8 @@ Declaration-time expressions cannot rely on facts established only by a later
 body guard. The earlier unfinished **Repeated Output** draft remains preserved as
 history; its proposed four-call cap was rejected. Ordinary returning calls
 continue execution, and a detected output failure leaves exit status failed even
-if later output succeeds. Predicate/path facts are complete in item 5. Call associations and context/name
-closure are the remaining consolidation work listed above.
+if later output succeeds. Predicate/path facts are complete in item 5. Call
+associations and context/name closure are complete in Names and Calls.
 
 Loops, additional library APIs, resizable strings and unrelated language
 constructs are outside this consolidation. The existing assurance guarantees
@@ -344,10 +368,11 @@ sequence.
 | Input-dependent branching | Supported | One equality comparison between validated command-line input and a literal, choosing between two terminal literal outputs. [Completed Linux validation](docs/input-branching.md). | [samples/input_branching.adb](samples/input_branching.adb) |
 | Compose String Results | Supported | Shared bounded output expressions, repeated static references, tighter safe capacities and one branch-selected fixed-length result; [completed Linux validation](docs/string-results.md). | [samples/composed_result.adb](samples/composed_result.adb) |
 | Copy String Values | Supported | Up to two literal-backed constants in mutable shells, named initialization and equal-length copies, with bounded constant output references; [completed Linux validation](docs/copy-values.md). | [samples/copied_result.adb](samples/copied_result.adb) |
-| Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across the then-existing bodies; [scope and completed validation](docs/shared-bindings.md). Context/API placement remains future work; sequencing is supported below. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
+| Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across the then-existing bodies; [scope and completed validation](docs/shared-bindings.md). Sequencing and context rules are supported below; broader API placement remains separate. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
 | Common String expressions | Supported | Shared bounded expressions in every expression position; [completed validation](docs/common-expressions.md). | [samples/common_expressions.adb](samples/common_expressions.adb) |
 | Statement sequencing and assignment | Supported | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record and resource follow-up](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
 | Equality, guards and branches | Supported | Nested conditionals, `elsif`, optional `else`, bounded predicates/integer literals and path-sensitive assignments, output and rejection; [completed 5a–5c validation](docs/branches.md). | [samples/conditional_statements.adb](samples/conditional_statements.adb), [samples/path_guards.adb](samples/path_guards.adb) |
+| Names and Calls | Supported | Reordered/grouped/repeated contexts, use-visible calls with local-name hiding, and named `Item`/`Default` actuals for existing operations; [completed validation](docs/names-and-calls.md). | [samples/names_calls.adb](samples/names_calls.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

@@ -1,5 +1,8 @@
 module
 
+public import Silver.NamesSpecSource
+public import Silver.NamesBodySource
+
 public import Silver.PathFactsSpecSource
 
 public import Silver.IntegerLiteralSpecSource

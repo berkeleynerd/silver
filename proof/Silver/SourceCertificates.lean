@@ -1,5 +1,8 @@
 module
 
+public import Silver.NamesSpecCertificate
+public import Silver.NamesBodyCertificate
+
 public import Silver.PathFactsSpecCertificate
 
 public import Silver.IntegerLiteralSpecCertificate
