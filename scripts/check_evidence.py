@@ -190,6 +190,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             if key not in main_entities]
             if application_kind in ("argument", "selected") and not bare and "Silver_IO.Put_Line" not in actual_names:
                 expected_names.remove("Silver_IO.Put_Line")
+            if application_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
+                expected_names.remove("Silver_Arguments.Input_Is_Valid")
             require(len(main_entities) == 1 and set(actual_names) == expected_names
                     and len(actual_names) == len(expected_names)
                     and coverage.keys() == main_entities.keys()

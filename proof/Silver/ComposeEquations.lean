@@ -49,6 +49,7 @@ def allTokens : List ShellToken :=
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal, .symbol ":", .word "constant",
    .word "string", .symbol ":=", .word "silver_arguments", .word "first_or_default", .word "if",
    .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
+   .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=",
    .symbol "'", .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference, .assignmentValue,
    .outputExpression, .comparisonExpression, .word "null"]

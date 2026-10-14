@@ -121,6 +121,12 @@ class ComposedResultsTests(unittest.TestCase):
         self.check_sources([padded], 0)
         self.check_sources([padded + b' '], 2)
 
+    def test_generalized_capacity_literals_keep_the_bound(self) -> None:
+        self.check_sources([source_for(b'Input', form='argument', capacity=value)
+                            for value in (b'00', b'01', b'1_0', b'1e0', b'16#1#')], 0)
+        self.check_sources([source_for(b'Input', form='argument', capacity=value)
+                            for value in (b'0_0_', b'1E-0', b'16#G#', b'4097')], 2)
+
     def test_rejected_operand_guard_and_binding_neighbours(self) -> None:
         cases = [source_for(expr, form='static') for expr in
                  (b'', b'&Message', b'Message&', b'Message&&Message', b'Message+Message',
@@ -136,7 +142,7 @@ class ComposedResultsTests(unittest.TestCase):
                   source_for(b'Message', form='result', input_name=b'MESSAGE'),
                   source_for(b'Silver_Arguments', form='result', name=b'Silver_Arguments')]
         cases += [source_for(b'Input', form='argument', capacity=value) for value in
-                  (b'00', b'01', b'+1', b'1_0', b'1.0', b'1e0', b'16#1#')]
+                  (b'+1', b'1.0')]
         result = source_for(b'Message&Input', form='result', capacity=b'40')
         cases += [result.replace(b'Message:="new";', b'Other:="new";'),
                   result.replace(b'Message:="new";', b''),

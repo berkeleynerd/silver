@@ -440,7 +440,8 @@ def tokenName : ShellToken → String
     | "silver_arguments" => "arguments_name" | "first_or_default" => "first_or_default_name"
     | "if" => "if_keyword" | "input_is_valid" => "input_is_valid_name" | "then" => "then_keyword"
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
-    | "and" => "and_keyword" | "'" => "apostrophe" | "length" => "length_name"
+    | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
+    | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
     | "<=" => "less_equal" | "null" => "null_keyword" | _ => "equal"
 
 def spelling : ShellToken → String

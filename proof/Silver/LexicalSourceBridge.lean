@@ -1,6 +1,7 @@
 module
 
 public import Silver.ArgumentsSourceBridge
+public import Silver.SourceDeclarations
 public import Silver.GuardedExpressions
 import all Init.Data.Repr
 
@@ -28,46 +29,6 @@ abbrev ExpressionTranslation : Prop :=
     some Guarded.Expressions.literalLengthBody.render
 
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
-
-/-- Unique subtype declaration lookup, retaining its entire range expression. -/
-def subtypeDeclarations (name : String) : List String → List (List String)
-  | [] => []
-  | "subtype" :: actual :: "is" :: tokens =>
-      let later := subtypeDeclarations name (actual :: "is" :: tokens)
-      if actual == name then
-        match Source.declarationEnd 0 tokens with
-        | some body => body :: later
-        | none => later
-      else later
-  | _ :: tokens => subtypeDeclarations name tokens
-
-def subtypeDeclaration (name : String) (tokens : List String) : Option (List String) :=
-  match subtypeDeclarations name tokens with
-  | [body] => some body
-  | _ => none
-
-/-- Record fields cannot contain a nested record declaration in this subset.
-Retain every token through the matching fixed record terminator. -/
-def recordEnd : List String → Option (List String)
-  | [] => none
-  | "end" :: "record" :: ";" :: _ => some ["end", "record"]
-  | token :: rest => (recordEnd rest).map (token :: ·)
-
-def recordDeclarations (name : String) : List String → List (List String)
-  | [] => []
-  | "type" :: actual :: "is" :: "record" :: tokens =>
-      let later := recordDeclarations name (actual :: "is" :: "record" :: tokens)
-      if actual == name then
-        match recordEnd tokens with
-        | some body => ("record" :: body) :: later
-        | none => later
-      else later
-  | _ :: tokens => recordDeclarations name tokens
-
-def recordDeclaration (name : String) (tokens : List String) : Option (List String) :=
-  match recordDeclarations name tokens with
-  | [body] => some body
-  | _ => none
 
 abbrev NumericDeclarations : Prop :=
   subtypeDeclaration "capacity_value" Source.outputLexicalSpecTokens =

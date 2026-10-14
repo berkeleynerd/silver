@@ -1,4 +1,4 @@
-"""Closed command-line composition and total input/failure behavior."""
+"""Argument-input composition and total input/failure behavior."""
 from __future__ import annotations
 
 import json
@@ -30,9 +30,10 @@ class ArgumentTests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.source = Path(temp.name).resolve() / 'arguments.adb'
 
-    def test_closed_guard_admission(self) -> None:
+    def test_argument_shell_admission(self) -> None:
         valid = source_for()
-        accepted = [valid.replace(b'Put_Line(Message)', b'Put_Line("fixed")'), valid, named_source(b"local name", b"Silver_Arguments"), source_for(b'', b'Main', b'mAiN'),
+        accepted = [valid.replace(b'end if;', b'end if;null;'),
+                    valid.replace(b'Put_Line(Message)', b'Put_Line("fixed")'), valid, named_source(b"local name", b"Silver_Arguments"), source_for(b'', b'Main', b'mAiN'),
                     source_for(b'" -- quoted', b'Name_2', b'nAME_2'),
                     valid.replace(b' then ', b' -- true branch\r\nthen\t'),
                     source_for(b'x' * (4096 - len(source_for(b''))))]
@@ -62,7 +63,7 @@ class ArgumentTests(unittest.TestCase):
                     valid.replace(b'Silver_Arguments.Reject', b'null'),
                     valid.replace(b'Silver_Arguments.Reject', b'Silver_Arguments.Reject()'),
                     valid.replace(b'First_Or_Default', b'Argument'),
-                    valid.replace(b'end if;', b'end if;null;'),
+                    valid.replace(b'end if;', b'end if;null '),
                     source_for(b'\n'),
                     source_for(b'x' * (4097 - len(source_for(b''))))]
         for expected, cases in ((0, accepted), (2, rejected)):

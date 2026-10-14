@@ -1,5 +1,17 @@
 module
 
+public import Silver.PredicateCorrespondence
+public import Silver.PredicateNativeSourceBridge
+public import Silver.PathFactsSourceBridge
+
+public import Silver.PredicateExamples
+
+public import Silver.PredicateSelectors
+
+public import Silver.PredicateGrammar
+
+public import Silver.IntegerLiteralSourceBridge
+
 public import Silver.Admission
 public import Silver.Cursor
 public import Silver.Semantics
@@ -18,9 +30,8 @@ public import Silver.ComposeSourceBridge
 public import Silver.ComposeModel
 public import Silver.ComposeExamples
 public import Silver.SequenceMain
+public import Silver.SequenceObligations
 public import Silver.SequenceModel
-public import Silver.SequenceSourceBridge
-public import Silver.SequenceCorrespondence
 
 -- Independent fragment and recursion lemmas retained in the whole-project audit.
 public import Silver.ComposeExecution

@@ -82,15 +82,20 @@ leaves and a program at most thirty concatenation operators.
 
 The completed [statement-sequencing increment](docs/statement-sequencing.md)
 replaces fixed bodies with finite sequences of null, compatible
-assignments, output and String-equality choices. The working
-[conditional increment](docs/branches.md) extends these to nested statement
-sequences, `elsif` arms and optional `else`; its complete checkpoint is pending.
+assignments, output and String-equality choices. The [conditional increment](docs/branches.md) adds nested statement sequences,
+`elsif` arms and optional `else`, followed by bounded predicates and
+path-sensitive composition. Its combined Linux checkpoint records the source,
+proof, test and cache scope.
 There is no separate statement/output-count cap. The
 [sequencing sample](samples/statement_sequence.adb) combines a snapshot, updates,
 repeated output and two choices. The new
 [conditional sample](samples/conditional_statements.adb) exercises nested and
-alternative arms. Broader predicates and path refinement are the next authorized
-parts of the same milestone. See [language.md](language.md) for exact rules.
+alternative arms. The [path-guard sample](samples/path_guards.adb) adds String inequality, length
+comparisons, short-circuit predicates, based integer literals and an assignment
+justified by an exact-length branch. Path facts bound each expression and ensure
+every invalid-input execution rejects without output. Reject returns, so later
+statements still need their own safety facts. These additions complete the
+5a–5c milestone. See [language.md](language.md) for exact rules.
 
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
@@ -98,8 +103,11 @@ process-group memory**, producing a 1,734,274-byte Main report within the 2 MiB
 buffer. A 4095-byte argument-input program with 769 assignments took **49.5 minutes
 and 9.99 GiB**, producing a **1,983,843-byte** report with **113,309 bytes (5.4%)**
 of headroom. Expression limits do not cap assignment-driven proof work. These
-measurements are not worst-case bounds; an admitted 771-assignment variant remains
-uncompiled. See the [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up).
+measurements are not worst-case bounds. Relaxed guard placement now admits a
+782-assignment argument-input specimen that remains uncompiled; its projected
+report uses 96.2% of the buffer. That estimate is not a measured maximum. See the
+[original capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
+and the [current bounded assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14).
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -124,7 +132,7 @@ application report policy: static, argument, assigned or selected result. Emitte
 Main safety checks must all be proved range or length checks. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
-two exact constant-equality advisories and four exact overwritten ghost-output
+two exact statically known predicate advisories and four exact overwritten ghost-output
 messages.
 Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
@@ -265,7 +273,7 @@ JSON exported by the compiler; formatting and key order may differ. Recognition
 and export share the null token and character rules. Output word selection and
 construct metadata are explicit fields checked against the specification. It also
 lists admitted constructs and operations, literal and argument domains,
-and the three statement shells plus null. Structural metadata is written explicitly in
+and the two statement shells plus null. Structural metadata is written explicitly in
 SPARK and reviewed with the specification. Tests
 compare the exported JSON with the checked-in file. Regenerate it after an
 intentional language change:
@@ -277,10 +285,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
-The current statement-sequencing work and its validation are recorded in
-[statement-sequencing.md](docs/statement-sequencing.md). Earlier shared-binding,
-expression and copy checkpoints retain their input scope in their capability
-records.
+The completed conditional, predicate and path-sensitive work and its Linux
+validation are recorded in [branches.md](docs/branches.md). Earlier sequencing,
+shared-binding, expression and copy checkpoints retain their input scope in
+their capability records.
 
 The combined expression/result work and its validation are recorded in
 [string-results.md](docs/string-results.md).
@@ -339,7 +347,7 @@ inherited Lean, Lake, and Elan overrides cannot select another installation.
 For focused iteration, select a module and its dependencies:
 
 ```sh
-python3 scripts/check_lean.py --target Silver.SequenceMain
+python3 scripts/check_lean.py --target Silver.PredicateGrammar
 ```
 
 Repeat `--target` for additional modules. The runner synchronizes inputs and

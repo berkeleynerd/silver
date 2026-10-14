@@ -1,45 +1,42 @@
 module
 
-public import Silver.SequenceGrammar
-public import Silver.SequenceExecution
-public import Silver.SequenceObligations
-public import Silver.SequenceEffects
+public import Silver.PredicateChecks
 public import Silver.Cursor
 
 @[expose] public section
 
-/-! One current language: null plus shared statement sequencing. Every admitted
+/-! One current language: null plus path-checked predicate statements. Every admitted
 source has one selected meaning. The explicit external tool contract retains
 faithful obligation generation and bounded-fragment solver completion; source
 membership never depends on the solver. -/
 
 namespace Silver.Current
 
-def Member (source : Source) : Prop := Silver.Member source ∨ Sequence.Member source
+def Member (source : Source) : Prop := Silver.Member source ∨ Predicate.Member source
 
-def accepts (source : Source) : Bool := Silver.accepts source || Sequence.accepts source
+def accepts (source : Source) : Bool := Silver.accepts source || Predicate.accepts source
 
 theorem accepts_iff_member (source : Source) : accepts source = true ↔ Member source := by
-  simp [accepts, Member, Silver.accepts_iff_member, Sequence.accepts_iff_member]
+  simp [accepts, Member, Silver.accepts_iff_member, Predicate.accepts_iff_member]
 
 instance memberDecidable (source : Source) : Decidable (Member source) :=
   decidable_of_iff (accepts source = true) (accepts_iff_member source)
 
 inductive Program
   | nullMain
-  | sequence (program : Sequence.Program)
-  deriving DecidableEq, Repr
+  | sequence (program : Predicate.Program)
+  deriving Repr
 
 inductive SourceMeaning : Source → Program → Prop
   | nullMain {source : Source} : Silver.Member source → SourceMeaning source .nullMain
-  | sequence {source : Source} {program : Sequence.Program} :
-      Sequence.SourceMeaning source program → SourceMeaning source (.sequence program)
+  | sequence {source : Source} {program : Predicate.Program} :
+      Predicate.SourceMeaning source program → SourceMeaning source (.sequence program)
 
 theorem member_has_meaning {source : Source} (member : Member source) :
     ∃ program, SourceMeaning source program := by
   rcases member with nullMember | sequenceMember
   · exact ⟨.nullMain, .nullMain nullMember⟩
-  · obtain ⟨program, meaning⟩ := Sequence.member_has_meaning sequenceMember
+  · obtain ⟨program, meaning⟩ := Predicate.member_has_meaning sequenceMember
     exact ⟨.sequence program, .sequence meaning⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
@@ -49,28 +46,24 @@ theorem meaning_unique {source : Source} {left right : Program}
       cases second with
       | nullMain => rfl
       | sequence meaning =>
-          exact False.elim (Sequence.null_sequence_disjoint source ⟨member, Sequence.meaning_member meaning⟩)
+          exact False.elim (Predicate.null_predicate_disjoint source ⟨member, Predicate.meaning_member meaning⟩)
   | sequence meaning =>
       cases second with
       | nullMain member =>
-          exact False.elim (Sequence.null_sequence_disjoint source ⟨member, Sequence.meaning_member meaning⟩)
-      | sequence other => exact congrArg Program.sequence (Sequence.meaning_unique meaning other)
+          exact False.elim (Predicate.null_predicate_disjoint source ⟨member, Predicate.meaning_member meaning⟩)
+      | sequence other => exact congrArg Program.sequence (Predicate.meaning_unique meaning other)
 
-theorem sequence_valid {source : Source} {program : Sequence.Program}
+theorem sequence_valid {source : Source} {program : Predicate.Program}
     (meaning : SourceMeaning source (.sequence program)) : program.Valid := by
   cases meaning with
-  | sequence parsed => exact Sequence.meaning_valid parsed
+  | sequence parsed => exact Predicate.meaning_valid parsed
 
-def rangeObligations : Program → List Guarded.RangeObligation
+def checks : Program → List Predicate.Check
   | .nullMain => []
-  | .sequence program => Sequence.rangeObligations program
-
-def checks : Program → List Compose.Check
-  | .nullMain => []
-  | .sequence program => Sequence.checks program
+  | .sequence program => program.checks
 
 def obligations (program : Program) : List Semantics.Obligation :=
-  (checks program).map Compose.Check.toObligation
+  (checks program).map Predicate.Check.toObligation
 
 def uniformObligations : List Semantics.Obligation :=
   Compose.uniformRangeObligations.map Guarded.RangeObligation.toObligation ++
@@ -78,9 +71,10 @@ def uniformObligations : List Semantics.Obligation :=
 
 theorem uniform_discharge : Semantics.discharge uniformObligations = true := by decide +kernel
 
-/-- The uniform range certificate and reflexive symbolic-length certificate
-cover the two checked arithmetic forms. Source-specific obligations are proved
-below to lie in that fragment, independently of external solver success. -/
+/-- Admission supplies the complete source-derived endpoint certificate. This
+small decision retains the declaration certificate; all source-specific
+path schemas are separately proved discharged below. It does not invoke or
+predict the external solver. -/
 def automaticDischarge (source : Source) : Option Bool :=
   if accepts source then some (Semantics.discharge uniformObligations) else none
 
@@ -88,19 +82,19 @@ theorem automatic_discharge_complete {source : Source} (member : Member source) 
     automaticDischarge source = some true := by
   simp [automaticDischarge, (accepts_iff_member source).mpr member, uniform_discharge]
 
-def BoundedFragment (checks : List Compose.Check) : Prop :=
+def BoundedFragment (checks : List Predicate.Check) : Prop :=
   ∀ check ∈ checks, check.InFragment
 
 theorem admitted_fragment {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : BoundedFragment (checks program) := by
   cases program with
   | nullMain => simp [BoundedFragment, checks]
-  | sequence program => exact Sequence.program_checks_fragment (sequence_valid meaning)
+  | sequence program => exact Predicate.Program.checks_fragment (sequence_valid meaning)
 
-theorem fragment_checks_valid {checks : List Compose.Check}
+theorem fragment_checks_valid {checks : List Predicate.Check}
     (fragment : BoundedFragment checks) : ∀ check ∈ checks, check.Valid := by
   intro check member
-  exact Compose.Check.fragment_valid (fragment check member)
+  exact Predicate.Check.fragment_valid (fragment check member)
 
 theorem all_obligations_discharge {source : Source} {program : Program}
     (meaning : SourceMeaning source program) :
@@ -111,8 +105,7 @@ theorem all_obligations_discharge {source : Source} {program : Program}
     apply (Semantics.discharge_iff _).mpr
     intro check member
     obtain ⟨schema, present, rfl⟩ := List.mem_map.mp member
-    exact (Compose.Check.discharge_iff _).mpr
-      (fragment_checks_valid (admitted_fragment meaning) schema present)
+    exact Predicate.Check.fragment_discharge (admitted_fragment meaning schema present)
   have steps := Semantics.discharge_terminates (obligations program)
   rw [discharged] at steps
   exact ⟨discharged, steps⟩
@@ -121,7 +114,7 @@ abbrev Environment := Sequence.Environment
 
 def effects (environment : Environment) : Program → List Sequence.Effect
   | .nullMain => []
-  | .sequence program => program.effects environment.arguments
+  | .sequence program => (program.execute environment.arguments).effects
 
 def execute (environment : Environment) (program : Program) : Output.Runtime.ProcessResult :=
   Sequence.executeEffects environment.output 0 (effects environment program)
@@ -146,7 +139,7 @@ theorem effects_domain {source : Source} {program : Program}
   cases program with
   | nullMain => simp [effects, Sequence.EffectsValid]
   | sequence program =>
-      exact (Sequence.program_execution_valid (sequence_valid meaning) environment.arguments).2
+      exact (Predicate.Program.execution_sound (sequence_valid meaning) environment.arguments).2.1
 
 theorem healthy_execution {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (environment : Environment)
@@ -186,8 +179,8 @@ theorem every_meaning_assured {source : Source} {program : Program}
 
 structure Tools (Artifact : Type) where
   parse : Source → Program → Nat → Prop
-  generate : Program → List Compose.Check → Nat → Prop
-  prove : List Compose.Check → Nat → Prop
+  generate : Program → List Predicate.Check → Nat → Prop
+  prove : List Predicate.Check → Nat → Prop
   verifyFixedLibrary : Nat → Prop
   build : Source → Artifact → Nat → Prop
   execute : Artifact → Environment → Output.Runtime.ProcessResult → Prop
@@ -199,16 +192,19 @@ def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Pro
   | .nullMain => True
   | .sequence _ => ∃ steps, tools.verifyFixedLibrary steps
 
-/-- Generic external-tool contracts, with no arbitrary-SPARK solver completeness.
-Each generated check normalizes to a source concatenation range schema or an
-exact-length schema for declaration initialization or assignment; emitted checks
-may be simplified, repeated or omitted by optimization.
-This relation does not certify the producer's obligation completeness, which
-remains a trusted GNATprove premise audited through complete reports. The pinned
-provers must complete on the concrete range and exact-length fragment. These facts
-are external-tool premises, not results about their implementation or a measured
-universal solver step bound. Compilation uses the same source as parsing, and preserves and realizes the
-checked runtime semantics under the documented external-call interpretation. -/
+/-- Generic external-tool contracts, without arbitrary-SPARK solver
+completeness. Declaration obligations retain the uniform range/exact-length
+fragment. Executable-body obligations normalize to source-derived affine range,
+affine length and input-validity schemas under the exact refined path context.
+The endpoint certificate is checked in Lean. Generation may omit or repeat
+schemas; its coverage of every native Bronze/Silver obligation remains a
+trusted GNATprove premise audited through complete reports.
+
+The pinned solvers must finish this concrete fragment. This is an external
+completion premise, not a theorem about the solver implementation or a measured
+universal step bound. Compilation consumes the same source and preserves and
+realizes the checked runtime semantics under the documented external-call
+interpretation. -/
 structure ToolContract {Artifact : Type} (tools : Tools Artifact) : Prop where
   parseCompletes : ∀ source program, SourceMeaning source program →
     ∃ steps, tools.parse source program steps
@@ -247,7 +243,7 @@ theorem model_tool_contract : ToolContract modelTools where
   generationFaithful := by
     intro program checks steps generated
     intro check member
-    exact ⟨check, by simpa [generated.1] using member, Compose.Check.refines_refl _⟩
+    exact ⟨check, by simpa [generated.1] using member, Predicate.Check.refines_refl _⟩
   boundedProofCompletes := fun checks fragment => ⟨checks.length + 1, fragment, rfl⟩
   fixedLibraryProofCompletes := ⟨1, rfl⟩
   buildCompletes := fun _ program _ parsed => ⟨program, 1, parsed.1, rfl⟩
@@ -261,7 +257,7 @@ theorem model_tool_contract : ToolContract modelTools where
     simp [modelTools, same]
 
 inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artifact → Nat → Prop
-  | complete {source : Source} {program : Program} {checks : List Compose.Check}
+  | complete {source : Source} {program : Program} {checks : List Predicate.Check}
       {artifact : Artifact} {parseSteps generateSteps proofSteps buildSteps : Nat} :
       tools.parse source program parseSteps → tools.generate program checks generateSteps →
       tools.prove checks proofSteps → LibraryEvidence tools program →
@@ -270,11 +266,11 @@ inductive Pipeline {Artifact : Type} (tools : Tools Artifact) : Source → Artif
 
 theorem generated_fragment {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) {checks : List Compose.Check} {steps : Nat}
+    (meaning : SourceMeaning source program) {checks : List Predicate.Check} {steps : Nat}
     (generated : tools.generate program checks steps) : BoundedFragment checks := by
   intro check member
   obtain ⟨schema, present, bounded⟩ := contract.generationFaithful program checks steps generated check member
-  exact Compose.Check.fragment_of_refines bounded (admitted_fragment meaning schema present)
+  exact Predicate.Check.fragment_of_refines bounded (admitted_fragment meaning schema present)
 
 theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} (member : Member source) :
@@ -293,7 +289,7 @@ theorem automatic_pipeline {Artifact : Type} {tools : Tools Artifact}
 
 theorem pipeline_checks_valid {Artifact : Type} {tools : Tools Artifact}
     (contract : ToolContract tools) {source : Source} {program : Program}
-    (meaning : SourceMeaning source program) {checks : List Compose.Check}
+    (meaning : SourceMeaning source program) {checks : List Predicate.Check}
     {steps : Nat} (generated : tools.generate program checks steps) :
     ∀ check ∈ checks, check.Valid :=
   fragment_checks_valid (generated_fragment contract meaning generated)

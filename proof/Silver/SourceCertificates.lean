@@ -1,5 +1,10 @@
 module
 
+public import Silver.PathFactsSpecCertificate
+
+public import Silver.IntegerLiteralSpecCertificate
+public import Silver.IntegerLiteralBodyCertificate
+
 public import Silver.OutputLexicalBodyCertificate
 public import Silver.OutputLexicalSpecCertificate
 public import Silver.AuthoritativeSource

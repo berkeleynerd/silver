@@ -19,7 +19,7 @@ theorem example_admitted : accepts exampleSource = true :=
     ⟨.guardedResult, (formAccepts_iff exampleSource .guardedResult).mp example_form_admitted⟩
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr ⟨.guardedArgument, Sequence.form_reading_sound (by decide +kernel)⟩
+  Or.inr ⟨.argument, Predicate.form_reading_sound (by decide +kernel)⟩
 
 def repeatedStatic : Expression := List.replicate 16 (.reference 1)
 

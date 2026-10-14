@@ -8,7 +8,7 @@ import all Init.Data.Repr
 
 /-! Exact source checks for the lexical, declaration and expression helpers
 shared by the current statement scanner. Whole-shell recognition belongs to
-the sequence source bridge; no old shell is asserted to be current source. -/
+the predicate source bridge; no old shell is asserted to be current source. -/
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
@@ -150,7 +150,8 @@ def allTokens : List ShellToken :=
    .symbol "(", .symbol ")", .symbol ";", .symbol ".", .literal,
    .symbol ":", .word "constant", .word "string", .symbol ":=",
    .word "silver_arguments", .word "first_or_default", .word "if", .word "input_is_valid",
-   .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and", .symbol "'",
+   .word "then", .word "else", .word "elsif", .word "reject", .symbol "&", .word "and",
+   .word "or", .word "not", .symbol "/=", .symbol "<", .symbol ">", .symbol ">=", .symbol "'",
    .word "length", .symbol "<=", .capacity, .symbol "=", .argumentDeclaration,
    .declarations, .assignmentTarget, .targetReference, .dynamicReference,
    .assignmentValue, .outputExpression, .comparisonExpression, .word "null"]
@@ -165,13 +166,13 @@ an exact named representation in the native enumeration. -/
 def nativeTokenNames : List String := allTokens.map Expressions.tokenName ++ ["statements"]
 
 def spellingBody : List String := ["case", "token", "is"] ++
-  List.flatten (((allTokens.take 35 ++ [ShellToken.word "null"]).map fun token =>
+  List.flatten (((allTokens.take 41 ++ [ShellToken.word "null"]).map fun token =>
     ["when", Expressions.tokenName token, "=>", quoted (Expressions.spelling token)]).intersperse [","]) ++
   [",", "when"] ++
-  List.flatten ((((allTokens.drop 35).take 8).map Expressions.tokenName ++ ["statements"]).map
+  List.flatten ((((allTokens.drop 41).take 8).map Expressions.tokenName ++ ["statements"]).map
     (fun name => [name]) |>.intersperse ["|"]) ++ ["=>", quoted "_"]
 
-def helperForms : List Form := [.direct, .argument, .guardedArgument]
+def helperForms : List Form := [.direct, .argument]
 
 abbrev HelperCatalogueTranslation : Prop :=
   typeDeclaration "form_kind" Source.outputSpecTokens =
@@ -180,9 +181,9 @@ abbrev HelperCatalogueTranslation : Prop :=
     some (["("] ++ commaNames nativeTokenNames ++ [")"]) ∧
   Source.expressionBody "spelling" Source.outputBodyTokens = some spellingBody ∧
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") ∧
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword") ∧
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Argument_Form | Guarded_Argument_Form")
+    some (expectedTokens "Form = Argument_Form")
 
 private theorem catalogue_forms :
   typeDeclaration "form_kind" Source.outputSpecTokens =
@@ -197,11 +198,11 @@ private theorem catalogue_fact_03 :
 
 private theorem catalogue_fact_05 :
   Source.expressionBody "is_word_token" Source.outputBodyTokens = some (expectedTokens
-    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Null_Keyword") := by decide +kernel
+    "Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name | Arguments_Name | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword") := by decide +kernel
 
 private theorem catalogue_fact_06 :
   Source.expressionBody "is_argument_form" Source.outputSpecTokens =
-    some (expectedTokens "Form in Argument_Form | Guarded_Argument_Form") := by decide +kernel
+    some (expectedTokens "Form = Argument_Form") := by decide +kernel
 
 theorem actual_catalogue : HelperCatalogueTranslation :=
   ⟨catalogue_forms, catalogue_fact_01, catalogue_fact_03, catalogue_fact_05, catalogue_fact_06⟩
@@ -212,7 +213,7 @@ theorem finite_mapping :
       (decide (index.val ≤ 10) || decide (allTokens[index] ∈
         [.word "constant", .word "string", .word "silver_arguments", .word "first_or_default",
          .word "if", .word "input_is_valid", .word "then", .word "else", .word "elsif", .word "reject",
-         .word "and", .word "length", .word "null"]))) := by decide +kernel
+         .word "and", .word "or", .word "not", .word "length", .word "null"]))) := by decide +kernel
 
 abbrev Declarations : Prop :=
   Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 16") ∧

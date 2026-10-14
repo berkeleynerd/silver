@@ -18,6 +18,9 @@ package body Silver_Arguments with SPARK_Mode => On is
 
    function First_Or_Default (Default : String) return String is
    begin
+      if not Input_Is_Valid then
+         return "";
+      end if;
       if Silver_Runtime.Argument_Count = 0 then
          if Is_Message (Default) then
             return Result : String (1 .. Default'Length) := Default;

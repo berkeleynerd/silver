@@ -14,7 +14,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr ⟨.direct, Sequence.form_reading_sound (by decide +kernel)⟩
+  Or.inr ⟨.direct, Predicate.form_reading_sound (by decide +kernel)⟩
 
 def repeatedReference : Source :=
   "with Silver_IO; procedure Main is pragma SPARK_Mode (On); Name : constant String := \"world\"; begin Silver_IO.Put_Line (Name & Name & \"!\"); end Main;".toList.map Char.toNat

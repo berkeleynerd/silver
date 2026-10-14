@@ -1,5 +1,10 @@
 module
 
+public import Silver.PathFactsSpecSource
+
+public import Silver.IntegerLiteralSpecSource
+public import Silver.IntegerLiteralBodySource
+
 public import Silver.OutputLexicalBodySource
 public import Silver.OutputLexicalSpecSource
 public import Silver.ProfileSpecSource

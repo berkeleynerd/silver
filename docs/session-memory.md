@@ -1,5 +1,41 @@
 # Session memory
 
+## 2026-10-14 — All equality, guard and branch milestones complete
+
+The owner-authorized roadmap **5a–5c** is complete. Conditional statements (5a)
+was published in `dc5295eabe`; the commit containing this entry delivers the
+coupled predicate/literal grammar and path-sensitive composition (5b/c). The
+[combined checkpoint](branches.md#completed-5bc-checkpoint--2026-10-14) records
+actual Linux proof, test, cache and review scope. The roadmap marks the parent
+and all three increments complete; context/name rules and call associations
+remain proposed consolidation work, with new APIs separate.
+
+Source membership, native selector refinements, typed source interpretation and
+universal semantics/discharge are integrated. The complete simultaneous concrete
+model witness inhabits all helper, literal, path, predicate, statement and scanner
+interfaces. Invalid input initializes an empty String; every admitted invalid
+path rejects without output. Reject and output failures return with sticky
+failure status. The Oracle is unchanged and the existing external-tool premises
+remain explicit. No source check or diagnostic policy was weakened.
+
+The final warm native audit and complete Lean source-correspondence build/fresh
+axiom/module audit passed. The earlier full suite had three stale subtest
+assertions; their repairs passed the affected suites. The delivery record retains
+those distinct scopes and all failed attempts. Optional independent replay,
+macOS proofs and hosted Actions were not run. The bounded capacity assessment
+retains the uncompiled 782-assignment specimen and its explicitly estimated
+report margin; no new limit or duplicate long compile was introduced.
+
+Recovery/evidence is under `.silver/linux-x86_64/branches-20261013T234331Z/`,
+with pointer `tmp/branches-active.json`. The canonical proof workspace is warm;
+preserve isolated lanes, native reports, previous canonical objects, private/server
+sidecars, Lake metadata and scratch. Native/script/test inputs stayed unchanged
+after their final checkpoint; two later proof-only repairs passed the final Lean
+check. Completion edits are documentation only. Publication
+remains authorized. The live historical Compose String Results goal is complete;
+no replacement goal was requested. CLI memory tools were rechecked and unavailable,
+so no CLI entry was updated; this checked-in memory and RESUME are current.
+
 ## 2026-10-14 — Conditional statements complete; predicates/path work continues
 
 The authorized 5a increment passed its complete Linux checkpoint. The

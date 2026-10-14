@@ -26,8 +26,10 @@ has passed. The [common-expression revision](common-expressions.md) retains thes
 and adds precisely classified constant-equality advisories. The completed
 [sequencing revision](statement-sequencing.md) adds finite statement composition,
 precise repeated-output advisories and the larger application report buffer.
-The policies below describe sequencing; earlier evidence retains its original
-input scope.
+The policies below include the completed predicate/path integration. The
+[conditional delivery record](branches.md) distinguishes the earlier 5a evidence
+from the combined 5a–5c Linux checkpoint and records the native/Lean cache and
+test scope. Earlier evidence retains its original input scope.
 
 ## Trusted computing base
 
@@ -161,10 +163,10 @@ ordinary diagnostic path.
 The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
 `String` parameter has no precondition. An executable length guard handles
 arguments exceeding 4096; membership bounds each admitted expression by counting
-every literal and static-name occurrence, plus the guarded capacity for its
-dynamic occurrences. Every repeated reference contributes its length independently. Assignments preserve the initialized object's fixed bounds;
-a selected result has equal-length assignments on both branches before common
-output. GNATprove verifies the same runtime input bound for values selected by
+every literal and static-name occurrence, plus the current path's maximum length
+for its dynamic occurrences. Every repeated reference contributes its length
+independently. Assignments preserve the initialized object's fixed bounds on
+every path that reaches them, including after earlier branch updates. GNATprove verifies the same runtime input bound for values selected by
 `Silver_Arguments`. It verifies
 initialization, arbitrary String lower bounds, byte-loop bounds and a
 conditional success postcondition. Static observations record accepted bytes,
@@ -206,8 +208,10 @@ abrupt program exit is modeled or hidden, and application authors need no
 program-exit annotation. Wrapper return alone does not imply output success.
 Output calls can be followed by further statements and calls. The sequence
 effect proof concatenates accepted bytes in call order and preserves failure
-status across successful later calls. Reject remains alone in the outer false
-branch. No failure is treated as successful completion of the requested effect.
+status across successful later calls. Reject may occur within argument-shell
+sequences and branches; it sets failed status and returns, without ending the
+path or justifying later unsafe operations. No failure is treated as successful
+completion of the requested effect.
 
 Physical effects rely on faithful statuses, initialized standard output, no
 concurrent writers or stream rebinding, and ordinary GNAT finalization. Healthy
@@ -237,7 +241,9 @@ is bounded by the checked total. Literal/constant evaluation and ordinary
 mutable/dynamic concatenation use the approved Ada/GNAT semantics, including
 index bounds. The verified argument wrapper normalizes its returned lower bound
 to one. Initialized objects and their copies retain fixed one-based bounds under
-assignments with equal static lengths or the same symbolic input length. Storage for intermediate values and the trusted runtime
+assignments whose exact lengths agree throughout their reachable path, including
+length equality established by a predicate. Storage for intermediate values and
+the trusted runtime
 remains environmental; a result-length bound is not a storage guarantee.
 
 ## Command-line boundary
@@ -254,26 +260,30 @@ invalid. There is no truncation or successful fallback for invalid input.
 postcondition ensure a bounded, printable result with lower bound 1 for every
 default and input vector under the import contracts. Extended return objects
 copy values into `String (1 .. Item'Length)`, preserving bytes. GNATprove proves
-this normalization in owned SPARK; it is not an assumed bound on imported Strings. Invalid input, or an invalid default when
-there are no arguments, produces an internal empty String. Admitted defaults always satisfy the required
-domain by source membership, so the invalid-default case cannot occur in a
-Silver application. The required validity guard ensures that an invalid input
-never prints the internal empty result: its false branch calls `Reject`, which
-sets status 1 through the existing returning setter, then Main returns without
-application output. This is distinct from a valid empty argument, which prints
-one LF in the undecorated form and succeeds under healthy output conditions.
-An optional capacity clause tests the selected String before output evaluation
-or the inner choice. Its canonical decimal value lies in 0 through 4096, and
-each body expression's static length plus its dynamic occurrence count times
-that capacity must fit 4096. Initializers execute before guards and must fit
-with the full 4096-byte input domain. With no clause the assumed capacity is 4096. A tighter
-safe bound is permitted, including zero. Any selected value exceeding the explicit
-capacity is rejected with status 1 and no output, including an oversized default
-on a launch without arguments. This is rejection at the source's executable
-guard, never silent truncation or a changed input domain. The dynamic value may
-occur repeatedly at any operand positions, subject to the complete affine bound. Runtime concatenation uses owned lower-bound
-normalization and predefined String semantics, rather than an assumption that
-all operands are compile-time constants.
+this normalization in owned SPARK; it is not an assumed bound on imported Strings.
+The postcondition also establishes an empty result for invalid input. An invalid
+default with no arguments likewise produces an internal empty String; source
+membership ensures admitted defaults satisfy the library domain.
+
+The path checker tracks invalid input separately, using its empty initializer
+value. Every admitted invalid-input execution must call Reject and must make no
+output call. A validity query or a positive selected-input length can exclude
+that case from a path. Reject returns after setting status 1; following statements
+remain subject to the same safety and no-output requirements. An explicitly
+empty valid argument is still distinct and may produce one LF in an undecorated
+output program under healthy conditions.
+
+Length comparisons and short-circuit predicates establish each body expression's
+reachable length interval. Decimal/based literals in 0..4096 and name Length
+operands are admitted as specified in [language.md](../language.md); a numeric
+exponent has a separate 4096 bound to limit frontend work. Every initializer
+executes before these facts and must fit the full 4096-byte input domain. A body
+expression's static length plus each dynamic occurrence's selected length must
+fit 4096 on every path reaching it. Valid input may be rejected by the written
+program, including a smaller capacity rule; this never truncates or silently
+changes the library input domain. Runtime concatenation uses owned lower-bound
+normalization and predefined String semantics, rather than assuming all operands
+are compile-time constants.
 
 The wrapper uses the existing `Silver_Runtime.Argument_Count` and `Argument`
 imports above. Its count checks establish each argument-index precondition.
@@ -301,10 +311,10 @@ case. See the [review record](command-line-review-repairs.md).
 The typed Lean wrapper model's whole-body rendering is checked against the
 authoritative `Silver_Arguments` body, and the bridge checks the query,
 postcondition and import declarations. The composed Main argument must connect
-initialization, the guard and the selected output/assignment path to this same
+initialization, path predicates and selected output/assignment/rejection effects to this same
 immutable-vector model. Interpreting the fixed library and Main nodes as Ada
 still uses the reviewed frontend and GNAT premises. See the
-[assurance argument](assurance.md#guarded-command-line-initialization) and
+[assurance argument](assurance.md#command-line-initialization-and-path-validity) and
 [capability record](command-line.md).
 
 ## Audit of the boundary
@@ -402,38 +412,37 @@ are never interpolated into shell command text. Failed I/O, missing or incomplet
 reports, changed snapshots, and unsuccessful tools prevent a success result.
 Regression tests exercise these failures using the actual SPARK executable.
 
-The working catalogue has null and three statement shells: static, argument
-validity and argument validity/capacity. They share ordered declarations, bounded
-String expressions and nonempty statement sequences.
-Identifier parsing excludes reserved/shadowing names and binds complete names
-ignoring ASCII case. Argument-bearing shapes protect `Silver_Arguments` for every
-declaration. Expression initializers evaluate literals and earlier initialized
-bindings before any body guard. Constants and mutable objects retain their own
-snapshots and fixed bounds. The
-native array's 341 entries follow from the source bound and the twelve-byte
-minimum declaration, without another language count limit. This is not a general
-verified Ada name resolver.
+The working catalogue has null and two statement shells: static and argument
+input. They share ordered declarations, bounded String expressions and nonempty
+statement sequences. Identifier parsing excludes reserved/shadowing names and
+binds complete names ignoring ASCII case. Argument-bearing shapes protect
+`Silver_Arguments` for every declaration. Expression initializers evaluate
+literals and earlier initialized bindings before body predicates. Constants and
+mutable objects retain their own snapshots and fixed bounds. The native array's
+341 entries follow from the source bound and twelve-byte minimum declaration,
+without another language count limit. This is not a general verified Ada name
+resolver.
 
-Equal static lengths or the same symbolic input length establish assignment
-compatibility under Ada RM 3.3.1/5.2. Each assignment can target any initialized
-mutable object with the required length shape. Constants cannot be targets. Self-copy is legal, and the target need not occur in output. Current
-reads observe the selected branch's store; earlier declaration copies remain
-unchanged by a later write to their source. Each static reference counts its
-object's length, and every dynamic occurrence counts the original input or
-its alias. Predefined String equality compares complete initialized values and
-preserves case; unequal lengths compare false.
+Assignment requires exact length agreement with the target on every reachable
+input under Ada RM 3.3.1/5.2. Equal static lengths, the same symbolic input length
+or path-established equality can justify it. Constants cannot be targets.
+Self-copy is legal, and the target need not occur in output. Current reads observe
+the selected branch's store; earlier declaration copies remain unchanged by
+later writes to their source. Dynamic aliases keep their initial length even
+when their bytes change. Predefined String equality/inequality compares complete
+initialized values and preserves case; unequal lengths compare unequal.
 
-The original immutable argument initializer stays first and unique. The working
-5a extension adds nested equality, `elsif` and optional `else`, with its complete
-checkpoint tracked in [branches.md](branches.md). Context-clause alternatives
-and additional argument-call placements remain outside that increment. Every expression obeys its affine capacity bound.
-No new runtime operation or external dependency is introduced; output calls
-return into the sequence, while Reject remains alone in the outer false branch.
-The fixed outer guard/rejection arrangement stages control-flow generalization:
-it supplies one validity/capacity context for the successful sequence and ends
-the invalid-input path without output. Broader placements and branch joins remain
-in [roadmap items 5 and 7](../roadmap.md#existing-feature-consolidation), rather
-than being restrictions inherited from Ada/SPARK.
+The original immutable argument initializer stays first and unique. Nested
+conditionals, `elsif`, optional `else`, String/length predicates and short-circuit
+logic feed a conservative path analysis. Valid lengths use an interval, invalid
+input is tracked separately, and joins preserve facts true on all incoming paths.
+Assignment preserves length facts; the analysis does not retain arbitrary mutable
+byte equalities or disjoint length sets. Every invalid-input execution must
+reject without output, including paths without an explicit validity query.
+Reject is a returning status effect, so rejecting one arm cannot justify an
+unsafe expression after a join. No new runtime operation or external dependency
+is introduced. Context alternatives and extra initializer-call placements remain
+later work. [branches.md](branches.md) tracks the final integrated checkpoint.
 
 Every output composition selects the verified `Silver_IO` and
 `Silver_Arguments` specifications/bodies and the `Silver_Output_Libc` and
@@ -515,10 +524,10 @@ Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Ever
 emitted safety record must be proved/info `VC_RANGE_CHECK` or `VC_LENGTH_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
-with or without Put_Line. Argument/selected shapes additionally permit exactly
-Main and First_Or_Default, Input_Is_Valid and Reject without Put_Line, or Main
-alone after producer elimination. Otherwise the complete argument/output set
-is required; each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
+with or without Put_Line. Argument/selected shapes additionally permit Main with First_Or_Default and
+Reject, independently including or omitting Input_Is_Valid and Put_Line, or Main
+alone after producer elimination. A path can establish validity without a query;
+a shell need not output. Each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
 postcondition or absence-of-runtime-error claim.
 
 All output kinds permit finite lists of exact `INEFFECTIVE` initializer advisories:
@@ -551,8 +560,8 @@ own semantic/discharge argument and successful solver records. Matching fields
 alone cannot establish that no obligation was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
 defect, not permission to weaken membership or suppress obligations. Native
-binding discovery corroborates these classes; the [capability checkpoint](statement-sequencing.md)
-includes implementation and source-correspondence validation.
+binding discovery corroborates these classes; the [current delivery record](branches.md)
+tracks implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
 --prover=cvc5,z3,altergo --steps=10000 --timeout=0 --memlimit=0 -j0`. All output
@@ -579,8 +588,8 @@ path. It does not prove that the
 bundled external solvers complete within 10,000 steps; that concrete pinned
 fragment's completion remains an explicit tool-contract premise. The bound of
 sixteen leaves limits each expression to fifteen concatenations. A separate
-thirty-operator source budget includes initializers and both body branches,
-retaining the earlier two-output operator-count ceiling. Proof cost can differ
+thirty-operator source budget includes initializers, predicate operands and all
+body arms, retaining the earlier two-output operator-count ceiling. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. The application capacity is now 2 MiB;
@@ -610,9 +619,9 @@ these contracts do not constitute verification of libc or GNAT itself.
 
 ## Source correspondence and semantic assumptions
 
-Twelve handwritten modules fix the source bindings for both actual recognizer
-specifications/bodies, the `Silver_Output_Lexical` specification/body and the six
-selected runtime library files. The `Silver.AuthoritativeSource` facade imports
+Handwritten modules fix the source bindings for both actual recognizer
+specifications/bodies, the lexical and integer-literal helpers, the path-fact
+specification and the six selected runtime library files. The `Silver.AuthoritativeSource` facade imports
 all bindings; each certificate imports only its own binding. The certificate
 generator emits candidate reconstruction data and cannot select replacement bindings. Lean
 checks that every source byte, including comments and literals, belongs to
@@ -624,8 +633,9 @@ The output bridge's complete source shape includes both lexical helper units.
 Moved ghost expression and header checks refer to the helper specification;
 ordinary helper-body checks refer to its implementation. The helper imports
 `Silver_Profile` lexical primitives, and the bridge checks equality of its source
-bound and comment introducer with the output profile. Composed expression and
-shell recognition remain in the output recognizer. Resolving these reviewed package
+bound and comment introducer with the output profile. Composed expressions, predicate/body scanners and shell recognition remain in
+the output recognizer; bounded numeral and path arithmetic live in their checked
+helper units. Resolving these reviewed package
 imports and declarations retains the existing Ada/GNAT interpretation premise;
 the helper remains Silver-owned SPARK subject to complete native verification.
 
@@ -636,20 +646,29 @@ every interpretation satisfying the checked definition equations to membership.
 The [review repair](common-expressions.md#external-review-of-9b72d36) supplied
 the composed witness missing at `9b72d36`. Its helper equations remain reusable;
 the obsolete fixed-shell equations are separate from the new scanner. The current
-sequence interpretation has its own independent `SequenceModel` witness for
-raw scanner equations and range/progress contracts, built from concrete shared
-helper meanings. The combined source bridge retains the actual-byte checks,
-checked definitions and executable refinements. This establishes consistency of
-the interface; actual arbitrary-callee correspondence still has the Ada/frontend
-interpretation premise below. These equations are a semantic interface, not
-project axioms or an assumption that membership implies proof success.
+predicate interpretation combines independent concrete models for the integer,
+path, condition, basic statement, recursive body and outer-shell equations.
+`PredicateSourceChecks`, `PredicateSourceBridge` and `PredicateCorrespondence`
+join their checked source definitions and executable refinements to recognition
+and report-selector conclusions. The native models inhabit their range/progress
+contracts as well as the raw equations. This establishes interface consistency;
+arbitrary-callee correspondence still has the Ada/frontend interpretation premise
+below. These equations are semantic interfaces, not project axioms or an
+assumption that membership implies proof success.
 
-In the sequence `Form_Result` evaluator, normalization is interpreted as identity
-and source-length/allowed-character checks use their specified meanings directly.
-The renderer still checks the native calls, but their denotations at this site
-are included in the interpretation premise instead of being routed through the
-arbitrary lexical-callee interface. The concrete sequence witness establishes
-consistency of those meanings; it does not verify the physical Ada frontend.
+In the `Form_Result` evaluator, normalization is interpreted as identity and
+source-length/allowed-character checks use their specified meanings directly.
+The renderer checks the native calls, but their denotations at this site remain
+part of the frontend interpretation premise rather than being routed through
+arbitrary lexical-callee projections. Concrete witnesses establish consistency
+of those meanings; they do not verify the physical Ada frontend.
+
+Lean functions are total even outside the checked native domains. Their
+out-of-domain totalizations are modeling artifacts, not equivalence claims for
+arbitrary Ada executions. The interpretation preserves actual values inside the
+native domains. Source contracts, machine types and GNATprove establish that
+every executed helper call stays inside them. Neither a concrete witness nor a
+totalized value replaces those domain obligations.
 
 The remaining interpretation premise is that approved Ada/GNAT frontend
 semantics gives this fixed fragment its modeled predefined operators, indexing,
@@ -661,11 +680,11 @@ allows only fixed ghost actions and loop annotations and checks their Static
 declarations plus the numeric output bound; it does not type-check arbitrary
 Ada statements. The argument bridge renders its entire owned body without
 ghost-erasure slots and checks the pure query contracts and existing GNAT import
-signatures. The sequence language proof connects shared expressions and declarations to
-ordered statements and recursive choices, fixed-length state preservation
-and cumulative returning-call effects. Its source bridge checks actual helper
-and scanner bodies, token sequences, identifier roles and acceptance/report
-selectors against those models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
+signatures. The predicate language proof connects shared expressions and declarations
+to ordered statements, short-circuit conditions, recursive choices, path-sensitive
+fixed-bound preservation and cumulative returning-call effects. Its source bridge
+checks actual helper and scanner bodies, token sequences, identifier roles and
+acceptance/report selectors against those models. The retained `OutputSourceBridge`, `NamedSourceBridge`,
 `ArgumentsSourceBridge` and `LexicalSourceBridge` supply lexical/runtime
 correspondence; obsolete fixed-production suffix claims are removed when their
 Ada functions are replaced. The preceding Compose String Results Linux checkpoint
@@ -681,7 +700,7 @@ and the conditionally executed control flow. Source operand order determines
 concatenated byte order without asserting an Ada operand evaluation order.
 Literal decoding and case-insensitive binding remain exact. The argument runtime
 models byte values and its SPARK contract establishes canonical lower bounds;
-fixed-length assignment and the join of both selected-result branches preserve
+path-justified fixed-length assignment and conservative branch joins preserve
 initialized bounds. A separate model or matching token-shape pin alone does not
 establish correspondence with the actual recognizer.
 GNATprove establishes normalization, bounds and
@@ -757,7 +776,7 @@ for hostile metaprograms or forged artifacts.
 for toolchain/cache investigations or explicit audits. It cannot be combined
 with `--target`. `--clean` discards the local proof workspace without implying
 replay. The Oracle requires complete proofs and correspondence, not this
-additional standalone recheck. Each of the twelve
+additional standalone recheck. Each of the fifteen
 embedded Ada files is a binary input dependency of its own handwritten binding
 module, rehashed on each invocation. Changing one file invalidates that binding,
 its certificate and transitive importers. Unrelated certificates and models can
@@ -771,7 +790,7 @@ paths and tool selections cannot redirect it. Artifact restoration is disabled
 for proof checking; this does not disable the local Lake build cache.
 
 The handwritten import facade is protected like other proof inputs; only the
-twelve enumerated candidate modules may be regenerated. After generation and
+fifteen enumerated candidate modules may be regenerated. After generation and
 again after checking, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot

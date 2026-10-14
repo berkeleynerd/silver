@@ -1,0 +1,60 @@
+module
+
+public import Silver.PredicateAdapter
+
+@[expose] public section
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+namespace Silver.Predicate.Adapter
+
+/-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
+
+def context_ofCandidate : List String :=
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+
+theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
+  simp only [contextExpr, Expr.render, Field.name, record]
+  decide +kernel
+
+
+def body_ofCandidate : List String :=
+  ["(", "facts", "=>", "paths", ".", "initial", "(", "scan", ".", "state", ".", "dynamic_first", "/=", "0", ")", ",", "position", "=>", "scan", ".", "state", ".", "position", ",", "target", "=>", "scan", ".", "state", ".", "target", ",", "capacity", "=>", "scan", ".", "state", ".", "capacity", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+
+theorem body_of_candidate : bodyExpr.render = body_ofCandidate := by
+  simp only [bodyExpr, Expr.render, Field.name, record]
+  decide +kernel
+
+
+def expand_bodyCandidate : List String :=
+  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+
+theorem expand_body_candidate : expandExpr.render = expand_bodyCandidate := by
+  simp only [expandExpr, Expr.render, Field.name, record]
+  decide +kernel
+
+
+def body_tokenCandidate : List String :=
+  ["(", "scan", "with", "delta", "position", "=>", "take_token", "(", "text", ",", "scan", ".", "position", ",", "token", ")", ")"]
+
+theorem body_token_candidate : tokenExpr.render = body_tokenCandidate := by
+  simp only [tokenExpr, Expr.render]
+  decide +kernel
+
+
+def at_body_stopCandidate : List String :=
+  ["(", "case", "stop", "is", "when", "end_only", "=>", "take_token", "(", "text", ",", "position", ",", "end_keyword", ")", "/=", "0", ",", "when", "else_only", "=>", "take_token", "(", "text", ",", "position", ",", "else_keyword", ")", "/=", "0", ",", "when", "arm_boundary", "=>", "take_token", "(", "text", ",", "position", ",", "elsif_keyword", ")", "/=", "0", "or", "else", "take_token", "(", "text", ",", "position", ",", "else_keyword", ")", "/=", "0", "or", "else", "take_token", "(", "text", ",", "position", ",", "end_keyword", ")", "/=", "0", ")"]
+
+theorem at_body_stop_candidate : atStopExpr.render = at_body_stopCandidate := by
+  simp only [atStopExpr, Expr.render]
+  decide +kernel
+
+
+def read_statementsCandidate : List String :=
+  ["context", ":", "constant", "body_context", ":=", "context_of", "(", "scan", ")", ";", "result", ":", "constant", "body_scan", ":=", "read_body", "(", "text", ",", "context", ",", "body_of", "(", "scan", ")", ",", "(", "if", "stop", "=", "else_keyword", "then", "else_only", "else", "end_only", ")", ")", ";", "begin", "return", "(", "if", "result", ".", "position", "=", "0", "or", "else", "not", "paths", ".", "completed", "(", "result", ".", "facts", ")", "then", "invalid_scan", "else", "expand_body", "(", "context", ",", "result", ")", ")", ";", "end", "read_statements", ";"]
+
+theorem read_statements_candidate : adapterFunction.render = read_statementsCandidate := by
+  simp only [adapterFunction, Function.render, Expr.render, Field.name]
+  decide +kernel
+
+
+end Silver.Predicate.Adapter

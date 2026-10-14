@@ -38,6 +38,12 @@ theorem message_iff (item : Source) : message item = true ↔
 
 @[simp] theorem message_empty : message [] = true := by decide
 
+/-- Independent case specification of valid process arguments. -/
+def inputIsValid : Arguments → Bool
+  | [] => true
+  | [item] => message item
+  | _ => false
+
 inductive Kind | boolean | bytes
   deriving DecidableEq
 
@@ -53,9 +59,11 @@ inductive Expr : Kind → Type
   | empty : Expr .bytes
   | countEquals (value : Nat) : Expr .boolean
   | isMessage (value : Expr .bytes) : Expr .boolean
+  | inputInvalid : Expr .boolean
 
 def Expr.render : {kind : Kind} → Expr kind → List String
   | _, .boolean value => [if value then "true" else "false"]
+  | _, .inputInvalid => ["not", "input_is_valid"]
   | _, .defaultValue => ["default"]
   | _, .localItem => ["item"]
   | _, .argumentOne => ["silver_runtime", ".", "argument", "(", "1", ")"]
@@ -70,6 +78,7 @@ structure Context where
 
 def Expr.evaluate (context : Context) : {kind : Kind} → Expr kind → Option (Value kind)
   | _, .boolean value => some value
+  | _, .inputInvalid => some (!inputIsValid context.arguments)
   | _, .defaultValue => some context.defaultValue
   | _, .localItem => context.localItem
   | _, .argumentOne => context.arguments.head?
@@ -149,6 +158,7 @@ def validityProgram : Statement .boolean :=
     (.returnValue (.boolean false))
 
 def initializerProgram : Statement .bytes :=
+  .sequence (.ifThen .inputInvalid (.returnValue .empty)) <|
   .sequence
     (.ifElsif (.countEquals 0)
       (.ifThen (.isMessage .defaultValue) (.returnRebased .defaultValue))
@@ -156,14 +166,8 @@ def initializerProgram : Statement .bytes :=
       (.localItem .argumentOne (.ifThen (.isMessage .localItem) (.returnRebased .localItem))))
     (.returnValue .empty)
 
-/-- Independent case specification of valid process arguments. -/
-def inputIsValid : Arguments → Bool
-  | [] => true
-  | [item] => message item
-  | _ => false
-
-/-- The empty value on an invalid input is internal: the mandatory Main guard
-rejects that input before calling the output wrapper. -/
+/-- Invalid input normalizes to empty. Admitted control flow must reject it
+and prevent output on every invalid-input path. -/
 def firstOrDefault (defaultValue : Source) : Arguments → Source
   | [] => if message defaultValue then defaultValue else []
   | [item] => if message item then item else []
@@ -184,14 +188,25 @@ theorem initializer_refines (arguments : Arguments) (defaultValue : Source) :
   cases arguments with
   | nil =>
     cases domain : message defaultValue <;>
-      simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, firstOrDefault, Option.map, domain]
+      simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, inputIsValid, firstOrDefault, Option.map, domain]
   | cons item rest =>
     cases rest with
     | nil =>
       cases domain : message item <;>
-        simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, firstOrDefault, Option.map, domain]
+        simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, inputIsValid, firstOrDefault, Option.map, domain]
     | cons other rest =>
-      simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, firstOrDefault]
+      simp [initializerProgram, Statement.execute, Expr.evaluate, Result.thenNext, inputIsValid, firstOrDefault]
+
+/-- The initializer contract exposes invalid-input normalization to application
+proofs; it does not change which arguments count as valid. -/
+theorem invalid_initializer_empty (arguments : Arguments) (defaultValue : Source)
+    (invalid : inputIsValid arguments = false) : firstOrDefault defaultValue arguments = [] := by
+  cases arguments with
+  | nil => simp [inputIsValid] at invalid
+  | cons item rest =>
+    cases rest with
+    | nil => simp only [inputIsValid] at invalid; simp [firstOrDefault, invalid]
+    | cons other rest => rfl
 
 inductive Effect | setExitStatus (status : Nat)
 

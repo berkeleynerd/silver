@@ -45,7 +45,7 @@ abbrev RuntimeDeclarations : Prop :=
   functionHeader "input_is_valid" ";" Source.argumentsSpecTokens = some (expectedTokens
     "return Boolean with Global => null") ∧
   functionHeader "first_or_default" ";" Source.argumentsSpecTokens = some (expectedTokens
-    "(Default : String) return String with Global => null, Post => First_Or_Default'Result'First = 1 and then First_Or_Default'Result'Length <= Silver_IO.Max_Length and then (for all Ch of First_Or_Default'Result => Character'Pos (Ch) in 32 .. 126)") ∧
+    "(Default : String) return String with Global => null, Post => First_Or_Default'Result'First = 1 and then First_Or_Default'Result'Length <= Silver_IO.Max_Length and then (Input_Is_Valid or else First_Or_Default'Result'Length = 0) and then (for all Ch of First_Or_Default'Result => Character'Pos (Ch) in 32 .. 126)") ∧
   Output.SourceBridge.procedureHeader "reject" Source.argumentsSpecTokens = some (expectedTokens
     "with Global => (In_Out => Ada.Text_IO.File_System), Always_Terminates") ∧
   functionHeader "argument_count" ";" Source.runtimeSpecTokens = some (expectedTokens
@@ -100,5 +100,12 @@ theorem authoritative_argument_runtime_correct (environment : Output.Runtime.Env
         Runtime.outputMain environment (Runtime.firstOrDefault defaultValue arguments) else ⟨1, []⟩) :=
   ⟨checked_source, Runtime.validity_refines arguments defaultValue,
     Runtime.initializer_refines arguments defaultValue, Runtime.main_refines environment arguments defaultValue⟩
+
+/-- The source-bound contract makes invalid-input normalization available to
+application path proofs, for every immutable argument vector and default. -/
+theorem authoritative_invalid_initializer_empty (arguments : Runtime.Arguments) (defaultValue : Source)
+    (invalid : Runtime.inputIsValid arguments = false) :
+    CheckedSource ∧ Runtime.firstOrDefault defaultValue arguments = [] :=
+  ⟨checked_source, Runtime.invalid_initializer_empty arguments defaultValue invalid⟩
 
 end Silver.Arguments.SourceBridge

@@ -20,6 +20,7 @@ is
       String_Literal, Colon, Constant_Keyword, String_Name, Assignment,
       Arguments_Name, First_Or_Default_Name, If_Keyword, Input_Is_Valid_Name,
       Then_Keyword, Else_Keyword, Elsif_Keyword, Reject_Name, Ampersand, And_Keyword,
+      Or_Keyword, Not_Keyword, Not_Equal, Less, Greater, Greater_Equal,
       Apostrophe, Length_Name, Less_Equal, Capacity_Literal, Equal,
       Argument_Declaration, Declarations, Assignment_Target, Target_Reference,
       Dynamic_Reference, Assignment_Value, Output_Expression, Comparison_Expression,
@@ -31,18 +32,18 @@ is
          or else Token in Constant_Keyword | String_Name | Arguments_Name
            | First_Or_Default_Name | If_Keyword | Input_Is_Valid_Name
            | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name | And_Keyword | Length_Name
-           | Null_Keyword);
+           | Or_Keyword | Not_Keyword | Null_Keyword);
 
    type Token_Sequence is array (Positive range <>) of Token_Kind;
-   --  Shared declaration and statement rules live within three outer shells.
+   --  Shared declaration and statement rules live within two outer shells.
    type Form_Kind is
-     (Direct_Form, Argument_Form, Guarded_Argument_Form);
+     (Direct_Form, Argument_Form);
    function Tokens (Form : Form_Kind) return Token_Sequence
      with Global => null,
        Post => Tokens'Result'First = 1
          and then Tokens'Result'Length in 1 .. 100;
    function Is_Argument_Form (Form : Form_Kind) return Boolean is
-     (Form in Argument_Form | Guarded_Argument_Form);
+     (Form = Argument_Form);
    function Spelling (Token : Token_Kind) return String
      with Global => null,
        Post => Spelling'Result'First = 1

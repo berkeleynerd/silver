@@ -17,13 +17,15 @@ EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.a
             "silver_output_profile.adb", "silver_output_lexical.ads", "silver_output_lexical.adb",
             "silver_io.ads", "silver_io.adb",
             "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
-            "silver_runtime.ads")
+            "silver_runtime.ads", "silver_integer_literals.ads", "silver_integer_literals.adb",
+            "silver_path_facts.ads")
 CERTIFICATE_MODULES = (
     "ProfileSpecCertificate", "ProfileBodyCertificate",
     "OutputSpecCertificate", "OutputBodyCertificate",
     "OutputLexicalSpecCertificate", "OutputLexicalBodyCertificate",
     "IOSpecCertificate", "IOBodyCertificate", "OutputLibcCertificate",
     "ArgumentsSpecCertificate", "ArgumentsBodyCertificate", "RuntimeSpecCertificate",
+    "IntegerLiteralSpecCertificate", "IntegerLiteralBodyCertificate", "PathFactsSpecCertificate",
 )
 SPEC = importlib.util.spec_from_file_location(
     "silver_source_certificate", ROOT / "proof" / "generate_source_certificate.py")
@@ -79,7 +81,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             module = binding[0].upper() + binding[1:] + "Source"
             self.assertEqual(source_modules[filename], module)
 
-    def test_include_str_is_confined_to_the_twelve_source_bindings(self):
+    def test_include_str_is_confined_to_the_source_bindings(self):
         proof = ROOT / "proof"
         expected = {
             Path("Silver") / f"{binding[0].upper() + binding[1:]}Source.lean": 1
@@ -93,7 +95,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             count = len(re.findall(r'\binclude_str\s*"', path.read_text()))
             if count:
                 actual[path.relative_to(proof)] = count
-        self.assertEqual(len(expected), 12)
+        self.assertEqual(len(expected), len(EMBEDDED))
         self.assertEqual(actual, expected)
 
     def test_only_audit_roots_use_legacy_full_imports(self):

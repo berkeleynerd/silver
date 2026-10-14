@@ -1,6 +1,7 @@
 module
 
 public import Silver.Source
+public import Silver.SourceDeclarations
 public import Silver.Precedence
 public import Silver.Uniqueness
 public import Silver.SupportedTools
@@ -73,51 +74,6 @@ def quotedSpelling (token : Token) : String :=
 
 def spellingExpression : List String := ["case", "token", "is"] ++
   List.flatten ((allTokens.map (fun token => ["when", tokenName token, "=>", quotedSpelling token])).intersperse [","])
-
-def typeDeclarations (name : String) : List String → List (List String)
-  | [] => []
-  | "type" :: actual :: "is" :: tokens =>
-    let later := typeDeclarations name (actual :: "is" :: tokens)
-    if actual == name then
-      match Source.declarationEnd 0 tokens with
-      | some body => body :: later
-      | none => later
-    else later
-  | _ :: tokens => typeDeclarations name tokens
-
-def typeDeclaration (name : String) (tokens : List String) : Option (List String) :=
-  match typeDeclarations name tokens with
-  | [body] => some body
-  | _ => none
-
-/-- The complete header ends at a top-level `is` or semicolon. -/
-def headerEnd : Nat → List String → Option (List String × String)
-  | _, [] => none
-  | depth, token :: tokens =>
-    if depth == 0 && (token == "is" || token == ";") then some ([], token)
-    else do
-      let next := if token == "(" then depth + 1 else if token == ")" then depth - 1 else depth
-      let (header, stop) ← headerEnd next tokens
-      pure (token :: header, stop)
-
-def functionHeaders (name stop : String) : List String → List (List String)
-  | [] => []
-  | "function" :: actual :: tokens =>
-    let later := functionHeaders name stop (actual :: tokens)
-    if actual == name then
-      match headerEnd 0 tokens with
-      | some (header, terminator) => if terminator == stop then header :: later else later
-      | none => later
-    else later
-  | _ :: tokens => functionHeaders name stop tokens
-
-def functionHeader (name stop : String) (tokens : List String) : Option (List String) :=
-  match functionHeaders name stop tokens with
-  | [header] => some header
-  | _ => none
-
-/-- All expected headers below are single physical lines. -/
-def expectedTokens (text : String) : List String := (Source.lexLine text).getD []
 
 abbrev NumericTranslation (name : String) (expression : Number) : Prop :=
   expression.wellFormed = true ∧

@@ -2,9 +2,9 @@
 
 The owner authorized delivery of roadmap **5a–5c** on 2026-10-13, based on
 `7fb1514199`, continuing autonomously through implementation, validation and
-publication. All three milestones are required; completing 5a alone does not
-complete this task. Milestone 5a is supported at its complete Linux checkpoint;
-the coupled 5b/c extension remains in progress.
+publication. All three milestones are complete. Milestone 5a was published in `dc5295eabe`;
+the coupled 5b/c extension passed its [combined Linux checkpoint](#completed-5bc-checkpoint--2026-10-14).
+The original Oracle and external-tool assumptions remain in force.
 
 ## Delivery sequence
 
@@ -12,10 +12,10 @@ the coupled 5b/c extension remains in progress.
    `else`, retaining the existing outer input guard and expression/source limits.
    Branches contain existing statement sequences. Retain exact source syntax in
    the model, including the distinction between `elsif` and a nested `if`.
-2. **5b — in progress:** explicit predicate/Boolean grammar and integer-literal
+2. **5b — complete:** explicit predicate/Boolean grammar and integer-literal
    spellings, preserving Ada evaluation and lexical rules. Establish safe
    short-circuit evaluation, overflow-safe parsing and justified exclusions.
-3. **5c — in progress with 5b:** path-sensitive expression/assignment checking,
+3. **5c — complete with 5b:** path-sensitive expression/assignment checking,
    branch joins and generalized input-guard/Reject placement. Every invalid-input
    execution must retain the specified rejection/no-output behavior. `Reject`
    returns; it must never be treated as terminating later execution.
@@ -49,9 +49,10 @@ proof cache, private/server sidecars, Lake metadata and the saved pre-task nativ
 reports/compiler/Lean evidence. Input/model/source changes must be reviewed
 together; source-pin regeneration alone is not correspondence.
 
-The 5a checkpoint below is complete. This record and the
-[roadmap](../roadmap.md#equality-guards-and-branches-increments) retain the coupled
-5b/c work, including failures, actual input scope and remaining requirements.
+The checkpoints below complete all three increments. This record and the
+[roadmap](../roadmap.md#equality-guards-and-branches-increments) preserve the
+development chronology, failed attempts, actual input scope and remaining
+consolidation work outside item 5.
 
 ## 5a development evidence (chronological)
 
@@ -254,3 +255,220 @@ The Oracle and existing expression/source limits are unchanged. It does **not**
 close roadmap item 5: predicates, integer literals, path-sensitive checks,
 generalized input-guard/Reject placement, their integrated source correspondence,
 and their stable final Linux checkpoint remain required and authorized.
+
+
+## Coupled 5b/c integration — 2026-10-14
+
+The isolated predicate/literal grammar, path-sensitive semantics, source reading,
+unique meaning, report selectors and all seven Current example modules pass
+focused kernel checks. The final executable predicate-tail implementation
+proves all 766 output-profile checks in its isolated native unit run. It preserves
+the typed recursive equations while avoiding duplicated loop/refinement work.
+The integrated runtime normalizes invalid input to empty bytes under its verified
+contract; its source binding and exact runtime proof are refreshed together.
+
+The final recursive parser passed ten exact-4096-byte recognition shapes at the
+documented 8 MiB stack, including mixed condition grouping, Boolean chains,
+nested statement bodies, `elsif` arms and dense null sequences. Their 4097-byte
+neighbours were rejected. The 1994-parenthesis 2 MiB negative stack control still
+raises Storage_Error; 2 MiB is not the supported configuration for this extension.
+`boundaries-executable-tail-20261014T0200/` under `native-predicates/` records exact
+build inputs and measurements, preserving the earlier implementation's records.
+
+An independent review exercised 76 mutations of genuine query-free Main reports
+against the integrated native checker. Required callees, complete coverage,
+approved dependencies, diagnostic classes and proved safety records remain
+enforced. Positive program proof evidence is reused with its actual inputs;
+these mutations are report handling tests, not new program proof runs.
+
+The complete source interface explicitly composes inherited lexical/expression
+helpers, literal equations and refinement, native path-body projections, predicate
+meaning, basic statements, recursive bodies, adapters and outer scanning.
+Formal totalizations choose model values only outside checked native call domains
+and retain all in-domain values. They introduce no executable check, replacement
+source or assumed scanner equality. Native contracts and GNATprove establish
+executed-call legality. An explicit simultaneous model witness remains required
+and is checked with the full interface.
+
+The final native audit and source-certificate run are in progress. Catalogue
+review identified stale guard metadata left over from the former fixed shells;
+its correction and final test/Lean checkpoints remain pending. Earlier 5a
+source-specific bridge modules are retired from the current source assertion;
+useful source-independent sequence mathematics remains audited and reused.
+
+
+## Bounded 5b/c capacity assessment — 2026-10-14
+
+Removing the fixed guard permits **782 single-target dynamic assignments** in
+4095 bytes, or **779 alternating-target assignments** in 4092 bytes, followed
+by unconditional `Silver_Arguments.Reject`. The single-target shape uses 185
+fixed bytes plus five per assignment. Both maximal specimens pass native
+admission; one extra assignment exceeds the unchanged 4096-byte source limit.
+The static alternating shape still fits 800 assignments; the 802 self-assignment
+shape was already available. The [count record and source specimens](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/compact-counts.json)
+retain the exact inputs, hashes and admission results. The new
+[782-assignment specimen](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/argument_single_reject.adb)
+has **not** been compiled or proved.
+
+One isolated [16-assignment source](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/dynamic16/main.adb)
+using the current runtime contract completed the normal application proof command
+in 7.426 seconds: all 60 checks proved and the five-unit report audit passed.
+Its 44,939-byte Main report contains 16 length checks and 17 classified advisories.
+Each length check has three proof subgoals, matching the retained 769-assignment
+report. The [command, inputs and result](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/dynamic16/result.json)
+and [report audit](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/audit.json)
+are preserved. Scaling the retained 769-case record sizes to 782 estimates
+**2,017,312 bytes (96.2% of 2 MiB), leaving 79,840 bytes**. This is an estimate,
+not measured dense completion or a universal report bound. The historical
+800/769 completion measurements remain distinct.
+
+Seven additional exact-4096-byte admitted sources passed native admission and
+GNAT syntax/type frontend checks, each in under a second. Their 3982-byte numerals
+cover isolated separators in decimal, base, mantissa and exponent positions,
+leading-zero based mantissas, and colon-delimited base/mantissa variants. The
+[commands, source hashes and results](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/literal-frontends/results.json)
+complement the retained plain leading-zero decimal/base/exponent and exponent-4096
+frontend probes. These are frontend checks, not full application proof runs.
+
+The [bounded assessment](../.silver/linux-x86_64/branches-20261013T234331Z/capacity-bounded-review/assessment.json)
+found no demonstrated report overflow, new per-check splitting or frontend defect.
+The long dense rerun remains deferred; no membership or resource cap was added.
+The narrower estimated margin and uncompiled specimen remain explicit. Every
+admitted source must still fit the producer/report envelope and complete under
+the documented external-tool assumptions; an actual overflow or proof failure
+would be an implementation defect.
+
+
+## Final checkpoint repairs — 2026-10-14
+
+The first integrated native run proved all 3,049 SPARK checks, then the evidence
+audit correctly rejected two `operator-reassociation` warnings in the new
+integer-literal helper. Explicit parentheses around each character-position
+subtraction preserve its computation. The corresponding typed source expressions,
+complete body pin and generated certificate are updated together; the strict
+warning policy is unchanged. The failed run, reports, sessions and original
+sources are preserved under `native-catalogue-final/`. The refreshed native
+audit also incorporates the final catalogue correction.
+
+Independent final bridge review restricted the statement adapter's stop-token
+premise to the native `else`/`end` contract. The scanner uses `end`; the model
+witness and focused axiom audit still pass. No out-of-contract adapter equality
+is needed. `documentation-proof/final-bridge-review.json` records this repair.
+
+The refreshed run also proved all 3,049 checks, but its complete diagnostic scan
+found seven more reassociation warnings: one literal-scanner termination measure,
+one literal-scaling loop invariant, and five predicate-scanner termination
+measures. These are grouped explicitly in one repair batch, including all exact
+source-header and certificate checks. The second failed audit and its unchanged
+input scope are preserved separately. Source changes are prepared in isolated
+lanes while the full test suite retains its frozen inputs. No warning is newly
+allowed or suppressed.
+
+The integrated full suite completed 293 methods in 1,108.297 seconds against
+stable source/script/test/proof inputs. Three subtest assertions were stale: one
+rejected a safe trailing null after an argument conditional, and two required
+Input_Is_Valid in otherwise complete query-free reports. Every other case,
+including the new predicate/path runtime tests and all manifest samples, passed.
+The prepared fixture repairs admit those newly supported cases while retaining
+a malformed-statement neighbour and missing-required-callee controls. Final
+focused reruns cover both repaired modules and the source-certificate policy;
+the suite is not described as a clean, failure-free invocation.
+
+The final grouped-source native build and catalogue equality check passed. Its
+warm complete GNATprove audit passed in 59.894 seconds: 3,049 checks across
+19 units and 301 entities, comprising 549 flow and 2,500 proof checks, with
+74 classified limitation notes and 14 imported entities. The complete evidence
+audit accepts these reports. This is cache-preserving full analysis, not a cold
+proof measurement; captured inputs were stable. Exact provenance, reports and
+phase input scopes are retained under `native-variant-final/`.
+
+
+The final focused rerun passed **52/52 tests** in 98.413 seconds, with no errors
+or skips, across `tests.test_arguments`, `tests.test_evidence` and
+`tests.test_lean_source`. It covers the repaired admission/report fixtures and
+source-certificate policy after the final grouping batch. Native, script, test,
+proof, sample, generated and project input hashes remained unchanged throughout
+both the successful full native audit and this focused rerun. The compiler
+rebuilt in 1.479 seconds, and its catalogue still matched the tracked JSON.
+The [final native handoff](../.silver/linux-x86_64/branches-20261013T234331Z/native-final-handoff.md)
+and [phase results](../.silver/linux-x86_64/branches-20261013T234331Z/native-variant-final/results.json)
+record that exact scope; preserved final reports and their hashes are in the same
+evidence directory. The earlier full-suite invocation and failed audit attempts
+remain preserved as separate records.
+
+
+The first canonical complete Lean attempt exposed one stale inherited
+`finite_mapping` assertion: its expected word-token list omitted `or` and `not`,
+although both the native enumeration and model already included them. The build
+reported that false proposition, retained the successful unrelated modules and
+exited after 1,550.404 seconds. The exact failed input and logs are preserved in
+`failed-final-token-mapping/`. The assertion now includes both words; independent
+review confirmed there was no second omitted enumeration. This proof-only repair
+followed the native and affected-test checkpoint; it changed no native source,
+source pin, runner, sample or test. The complete Lean check resumed with the
+same settings and caches. No assertion or source check was removed.
+
+
+The next complete attempt passed `ComposeSourceChecks` in 853 seconds and its
+source bridge, then found the final predicate bridge lacked an explicit import
+of `IntegerLiteralSourceBridge`. The declaration already existed and had passed
+its isolated source check; adding the import makes that dependency available to
+the composed bridge. The failed attempt lasted 860.354 seconds and is retained
+in `failed-final-bridge-import/`. This is the second proof-only integration
+repair after the native checkpoint; native/script/test/sample inputs remain
+unchanged. Successful source checks stayed cached for the resumed complete run.
+
+
+## Completed 5b/c checkpoint — 2026-10-14
+
+All authorized milestones **5a–5c are complete**. The final canonical Linux
+check passed with **241 modules and 53,422 declarations**, using only
+`propext`, `Classical.choice` and `Quot.sound`. The build took
+8.508 seconds, the fresh axiom/module audit 3.337 seconds,
+and the complete runner 14.214 seconds. These are warm timings
+for the successful final attempt, excluding earlier isolated checks and the
+preserved failed attempts; they are not cold-build or total-development timings.
+Exact results and streamed logs are in `complete-5bc-lean-evidence.json`,
+`complete-5bc-lean-proof.log` and `lean-complete-final.log` under
+`.silver/linux-x86_64/branches-20261013T234331Z/`.
+
+The run used one Lake worker, four threads per Lean process and the explicit
+24,576 MiB per-process threshold on the twelve-CPU, 31 GiB Linux sandbox. It
+reused checked isolated-lane objects and earlier successful canonical objects,
+including private/server sidecars, IR and Lake traces. The previous canonical
+cache and promotion inventory remain preserved in `final-cache-promotion.json`
+and its linked backup. The complete source bindings/certificates and all current
+bridges passed; the final fresh audit covered the complete imported module set.
+Optional independent `leanchecker --fresh` replay was not requested or run.
+
+The final native build and catalogue equality check passed. The complete warm
+native audit proved **3,049 checks** across 19 units and 301 entities, with the
+strict evidence audit accepting every required report. The initial complete
+suite ran **293 methods** with three stale subtest assertions; the repaired
+argument/report/source-policy suites then passed **52/52 methods**, without
+skips. All other full-suite cases, including new predicate/path tests and all
+fifteen manifest samples, passed. This is combined full-suite and focused-repair
+evidence, not a claim that the original full-suite invocation was failure-free.
+The final native inputs are unchanged. The later Lean assertion and bridge-import repairs
+are recorded separately in `post-native-input-delta.json`; the successful final
+Lean run checked its exact frozen proof inputs. No duplicate native audit was
+needed for those proof-only repairs or these completion documentation edits.
+
+Independent source/pin reviews and the final read-only bridge/policy review found
+no material issue; `final-read-only-review.json` records their scope. The complete
+simultaneous model witness inhabits the literal, path, predicate, statement and
+outer scanner interpretation. Membership, selectors, unique source meaning,
+checked execution, modeled discharge, invalid-input rejection and cumulative
+effects compose with the existing explicit frontend/native/tool contracts.
+No project-specific axiom, unchecked proof shortcut, weakened source check or
+relaxed diagnostic policy was introduced. The Oracle is unchanged.
+
+The bounded capacity assessment above remains an estimate for the uncompiled
+782-assignment specimen. Context/name rules and positional/named associations
+for existing calls remain proposed consolidation work; new APIs remain separate.
+The [roadmap](../roadmap.md#equality-guards-and-branches-increments) now closes
+the parent item and all three increments without erasing those remaining areas.
+5a was published as `dc5295eabe`; Git identifies the following integration commit
+containing this final record. Earlier reviews retain their original targets.
+All caches, scratch and failed evidence are preserved. Linux is primary;
+macOS proofs and hosted Actions remain outside this delivery.

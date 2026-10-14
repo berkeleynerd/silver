@@ -23,12 +23,14 @@ The completed [shared-bindings increment](shared-bindings.md) replaced fixed
 slots with ordered initialized declarations and eight concrete body/capacity
 forms. The [common-expression increment](common-expressions.md) extends those
 same arrangements with parentheses and shared expressions in initialization,
-assignment, comparison and output. The current [sequencing increment](statement-sequencing.md)
-replaces those fixed bodies with nonempty sequences and one-level equality choices.
-Its complete Linux native/Lean checkpoint passed, including actual-source
-correspondence and a fresh whole-project axiom/module audit. The rules and proof
-interfaces below describe this supported language. Earlier capability and
-performance records retain their original input scope.
+assignment, comparison and output. The completed [sequencing increment](statement-sequencing.md)
+replaced those fixed bodies with nonempty sequences and one-level equality choices.
+The completed [conditional milestone](branches.md) adds recursive choices,
+`elsif`, optional `else`, bounded predicates and path-sensitive composition.
+The rules and proof interfaces below describe its current inputs. The delivery
+record distinguishes the combined Linux checkpoint's canonical Lean audit,
+cache-preserving native proof audit, full-suite results and focused repairs.
+Earlier capability and performance records retain their original input scope.
 
 The [language specification](../language.md) defines the precise admitted syntax
 and behavior; the [catalogue](../catalogue/silver.json) and compiler must agree
@@ -49,21 +51,21 @@ runtime imports, ABI and environmental assumptions used throughout.
 
 ## Membership and composition
 
-`Current.Member` is the union of the null grammar and `Sequence.Member`.
+`Current.Member` is the union of the null grammar and `Predicate.Member`.
 `Current.accepts_iff_member` proves decidability; `member_has_meaning` and
 `meaning_unique` give every admitted source exactly one decoded program.
-`SequenceAdmission` defines the scanner for three shells, basic statements,
-nonempty lists and recursive choices. `SequenceTokens`, `SequenceBasics`,
-`SequenceLists`, `SequenceConditions`, `SequenceConditionValidity`,
-`SequenceHeader`, `SequenceShell` and
-`SequenceGrammar` connect its token events to typed statements and program
-validity. The statement reading relations include scanner equalities and
-scanner-computed positions. Their soundness/completeness theorems connect that
-scanner to its readings; they do not independently establish that the scanner
-accepts every source described by the prose grammar. The three shells are disjoint;
-`SequenceSelectors` connects argument/output/assignment flags to the decoded program, including occurrences
-in all nested arms and alternatives. Shared `Compose` expression/declaration proofs remain
-in use; their obsolete fixed-shell recognition is not the current language.
+`PredicateAdmission` and `PredicateBodyAdmission` define the two output-shell
+scanners, predicates, basic statements, nonempty lists and recursive choices.
+The condition/body readings, soundness, meaning and uniqueness modules connect
+scanner events to an explicit source AST retaining written `elsif` and omitted
+`else`. `PredicateGrammar` connects those readings to faithful lowering and
+normalized program validity. The reading relations include scanner equalities
+and scanner-computed positions; their theorems do not independently establish
+that the scanner accepts every source described by the prose grammar.
+The static and argument shells are disjoint. `PredicateSelectors` connects
+argument/output/assignment flags to the decoded program, including all nested
+arms. Shared `Compose` expression/declaration proofs remain in use; their obsolete
+fixed-shell recognition is not the current language.
 
 Membership covers the entire source, including its 1..4096-byte bound, permitted
 ASCII alphabet, comments, trivia, case-insensitive identifiers and whole-word
@@ -104,7 +106,7 @@ Every initializer, assignment RHS, equality operand and output uses one grammar
 of literals, initialized names, concatenation and parentheses. Expressions have
 1..16 leaves, counting empty values and each repeated static/dynamic reference.
 The program additionally has at most thirty syntactic concatenations, including
-both branches. A source precheck skips complete literals and trivia/comments;
+all predicate operands and conditional arms. A source precheck skips complete literals and trivia/comments;
 its verified traversal counts only operator ampersands. This retains the previous
 two-output form's maximum concatenation count while allowing it in new positions;
 equal counts do not imply equal proof costs. The limits are explicit native
@@ -112,7 +114,9 @@ proof/translation resource policies.
 
 For static contribution `S`, dynamic occurrence count `K`, and capacity `C`,
 membership requires `S + K*C <= 4096`. Declaration initializers precede guards
-and use `C = 4096`; guarded body expressions use the established capacity.
+and use `C = 4096`; body expressions use their current reachable input interval
+and the separate invalid-input case. Unreachable evaluations have vacuous length
+bounds while still requiring legal syntax, names and mutable assignment targets.
 `Bindings` and `ComposeExpression` prove exact evaluated length, printable bytes,
 and equality between flattened operand evaluation and grouped concatenation.
 Nonnegative operand lengths bound every prefix and subtree by the complete
@@ -152,32 +156,34 @@ not generalize declaration placement or admit arbitrary Ada names/context
 clauses. Those remaining closures stay in
 the [roadmap](../roadmap.md#existing-feature-consolidation).
 
-### Guarded command-line initialization
+### Command-line initialization and path validity
 
-The argument shapes initialize one immutable String first through
-`Silver_Arguments.First_Or_Default`, then elaborate their ordinary declaration
-list, and execute the mandatory
-`Input_Is_Valid` guard before their output or inner choice. Both queries observe
-the same immutable argument vector. Zero arguments selects the admitted default;
-one argument is valid exactly when it contains at most 4096 printable ASCII
-bytes. An explicit empty argument remains empty. Extra arguments, unsupported
-bytes and oversized arguments are invalid.
+The argument shell initializes one immutable String first through
+`Silver_Arguments.First_Or_Default`, then elaborates ordinary declarations before
+its statement sequence. The initializer and `Input_Is_Valid` observe the same
+immutable argument vector. Zero arguments selects the admitted default; one
+argument is valid exactly when it contains at most 4096 printable ASCII bytes.
+An explicit empty argument remains empty. Extra arguments, unsupported bytes and
+oversized arguments are invalid.
 
 `Arguments.Runtime` models the whole owned wrapper. Its checked rendering and
-SPARK contracts establish bounded printable results with lower bound one.
-The extended-return copy preserves bytes while normalizing imported String
-bounds. Invalid input produces an internal empty value, but the guard executes
-`Reject` rather than printing it. `Reject` sets status 1 and returns, producing
-no application output. Admitted defaults always satisfy the library's domain;
-the wrapper also safely handles arbitrary defaults outside the application
-grammar.
+SPARK contracts establish bounded printable results with lower bound one and an
+empty result for invalid input. The extended-return copy preserves bytes while
+normalizing imported String bounds. The predicate context tracks that invalid
+case separately from the interval of valid selected lengths. Every admitted
+invalid-input path must execute Reject and cannot output. A validity query may
+establish a safe path; a positive selected-input length also excludes invalid
+input. `Predicate.Program.invalid_trace` and `invalid_run` cover these outcomes.
+Reject sets status 1 and returns, so it does not erase a reachable path or supply
+new length/validity facts. Admitted defaults satisfy the library's domain; the
+wrapper also handles arbitrary defaults outside the application grammar safely.
 
-An optional canonical capacity in 0..4096 strengthens the executable guard on
-the selected String. A value exceeding it is rejected even when it came from
-the default. This is observable source behavior, not truncation or a hidden
-change to the argument domain. Without an explicit clause, the library's
-4096-byte bound suffices. `Sequence.shell_guard_bound` connects successful guard
-evaluation to the capacity used in each expression's bound.
+Length predicates refine the path's selected-input interval. Bounded decimal or
+based integer literals denote values in 0..4096; the source may express a smaller
+capacity or an exact length using the admitted comparisons and short-circuit
+operators. A source may reject valid input by its own logic. This is observable
+source behavior, without truncation or a hidden change to the argument domain.
+Each body expression is bounded under the facts established before its evaluation.
 
 Retrieving an oversized process argument can allocate storage before Silver
 checks its length. The language bound is therefore not an allocation guarantee.
@@ -197,21 +203,23 @@ its fixed two-concatenation grammar is no longer the current composition rule.
 
 Every initialized mutable String has a fixed length shape: a known static
 length, or the symbolic length of the sole selected argument/default. An expression
-can replace it only when its exact affine length agrees with that shape. This admits
-constant/mutable copies and self-copy, including dynamic-to-dynamic copies. It
-does not infer a new static/dynamic equality from a branch condition or capacity.
-Declaration initializers execute before those body facts are available.
+can replace it only when its exact affine length agrees with that shape on every
+reachable input. This admits constant/mutable copies, self-copy and a
+static/dynamic assignment justified by an exact-length predicate or true String
+equality. `PathBounds` and `PredicateExecution` extend the shared fixed-bound
+argument to those facts. Declaration initializers execute before body facts are
+available and must remain safe across the full input domain.
 
 `Bindings.assignment_length`, `assignment_preserves` and
 `assignment_preserves_other` establish exact length compatibility, preserved
 initialization/bounds and unchanged other objects. Output reads the resulting
-store. Assignments may occur throughout the sequence and either equality arm.
-Both arms start from the pre-choice store; only the chosen one executes. Later
+store. Assignments may occur throughout sequences and conditional arms.
+Each conditional arm starts from the pre-choice store; only the chosen one executes. Later
 statements observe its updates. Output may omit every assignment target.
 
 The source interpretation connects declaration elaboration and each parsed
-read/write to these generic store operations; the [capability checkpoint](statement-sequencing.md)
-includes that correspondence. No path may read an uninitialized binding.
+read/write to these generic store operations; the [current delivery record](branches.md)
+tracks its integrated validation. No path may read an uninitialized binding.
 Ada RM 3.3.1 and 5.2 supply the inherited object/assignment constraint semantics.
 The assigned bytes can change, but the target's bounds cannot.
 
@@ -224,34 +232,37 @@ corroborates these check and diagnostic classes; it does not prove a universal
 solver bound. Precisely classified unused-initializer/assignment advisories do
 not waive either safety class.
 
-### Statement sequences and equality choices
+### Statement sequences, predicates and path facts
 
-`SequenceSemantics` executes statements in order over the current initialized
-store. Assignment preserves the target's fixed length shape and all other
-bindings. `SequenceExecution` proves that its checked interpreter always succeeds
-for valid programs, including every assignment after earlier updates.
+`PredicateStatements` executes ordered statements over the current initialized
+store. `PredicateExecution` proves that the checked interpreter succeeds for
+valid programs, preserves initialized bounds and carries the path context through
+assignments, branches and joins. Repeated `elsif` selects the first true arm;
+an omitted `else` leaves the false-path store and effects unchanged. Each written
+arm is nonempty and may contain nested conditionals.
 
-A choice compares two bounded String expressions and executes its first matching
-nonempty statement sequence. The working 5a extension permits nested choices,
-`elsif` and omitted `else`; its complete checkpoint remains pending in the
-[conditional record](branches.md). At least one operand contains a declared
-String name for Ada array-type resolution. Equality compares length and element
-bytes, preserving case. Each `elsif` is evaluated only after earlier conditions
-were false; an omitted final `else` leaves the store and effects unchanged.
-Recursive validity and execution proofs cover all arms, preserving initialized
-values and fixed bounds for following statements. A failed outer argument guard
-still performs only Reject. Broader predicates and branch-refined length facts
-remain the subsequent 5b/c work.
+Conditions include String equality/inequality, fixed-bound length comparisons,
+validity queries, grouping, `not`, `and then` and `or else`. Short-circuiting passes
+only the applicable path facts to its right operand. True String equality (or
+false inequality) can establish equal lengths; unequal bytes do not establish
+unequal lengths. Operands must already be safe when evaluated. At least one
+String comparison operand contains a declared name for Ada array-type resolution.
+`IntegerLiteral` connects bounded Ada decimal/based spelling to exact values.
 
-`SequenceMain` relates the parsed token/payload order, explicit conditional arms
-and declaration store to that same program's checked execution and effects. The
-sequence source bridge combines this with checked native scanner equations and
-refinement contracts. The earlier [branching record](input-branching.md) retains
-its narrower terminal-output scope.
+The context conservatively joins valid-length intervals and separately records
+invalid-input reachability and rejection. Fixed bounds survive byte updates;
+mutable byte equality and arbitrary disjoint sets of lengths are not retained.
+Those explicit analysis limits affect membership, not inherited Ada meaning.
+`PredicateConditionMeaning`, `PredicateBodyMeaning` and `PredicateGrammar`
+connect the parsed source AST and faithful lowering to that same program's
+execution and effects. `PredicateSourceBridge` and `PredicateCorrespondence`
+combine those arguments with checked native equations and refinements. The
+[delivery record](branches.md) records the completed 5a–5c milestone and keeps
+focused evidence distinct from the final combined Linux checkpoint.
 
 ## Output effects and failure outcomes
 
-`Sequence.program_execution_valid` and `Current.effects_domain` prove that every
+`Predicate.Program.execution_sound` and `Current.effects_domain` prove that every
 executed output value is printable and at most 4096 bytes. `OutputRuntime`
 interprets the whole `Silver_IO` body: length guard, byte writes, LF write, flush,
 checked statuses, failure-status assignment and early return. Its renderer matches
@@ -265,13 +276,13 @@ later success does not clear the failure status. `SequenceEffects` combines
 per-call traces in execution order with sticky failure. Under failure, the
 combined bytes need not be a prefix of the entire intended output. Its cumulative
 bound is the actual number of output effects times 4097; there is no separate
-call-count cap. Guard rejection returns status 1 without output. Null returns
+call-count cap. Reject records status 1 and returns without output of its own. Null returns
 status 0 without output.
 
 `Current.execution_specified` proves the per-call trace relation for every
 modeled completed execution. `healthy_execution` gives the concatenation of all
 requested outputs and expected status under healthy per-call environments;
-invalid or over-capacity input remains a rejection. `every_meaning_assured`
+invalid input remains a rejection, and valid input follows the program’s written rejection logic. `every_meaning_assured`
 quantifies over every admitted meaning and environment, not just samples.
 
 The observation is host C stream acceptance, not reader consumption or durable
@@ -306,27 +317,32 @@ required correspondence. The checked chain has these distinct parts:
    `interpreted_primitives` proves trivia, literals, identifiers, exclusions,
    name equality, capacities, tokens, normalization and allowed bytes on their
    legal machine domains. No whole-recognizer-equality premise is introduced.
-5. `SequenceExpressions`, `SequenceEquations` and `SequenceSourceChecks` interpret
-   the actual basic/list/conditional scanner, shell tables and selectors. Raw
-   equations and progress/range contracts remain distinct. The `Form_Result`
-   evaluator directly uses identity normalization and the specified source-length
-   and allowed-character checks. At this call site those lexical meanings are
-   part of the Ada/frontend interpretation premise, rather than being derived
-   through the normalization/allowed-source callee projections. Their concrete
-   `SequenceModel` witness independently satisfies all fields, including helper
-   calls; recursive source interpretation is therefore inhabited. The source
-   bridge retains exact authoritative source checks and executable refinements
-   alongside arbitrary-callee recognition and selector conclusions.
-6. The sequence grammar modules connect recognition to initialized, bounded
-   programs. `SequenceMain`, `SequenceExecution`, `SequenceObligations`,
-   `SequenceEffects` and `Current` connect source-order execution, every assignment
-   and output call, specified failure outcomes and modeled automatic discharge.
+5. `IntegerLiteralSourceBridge` and `PathFactsSourceBridge` interpret the checked
+   integer parser and path algebra. Predicate native/basic/body/outer equation
+   modules connect actual recursive scanners, tables and selectors to the
+   mathematical parser. `PredicateSourceChecks` checks their source definitions;
+   `PredicateSourceBridge` combines those checks and executable refinements;
+   `PredicateCorrespondence` supplies arbitrary-callee recognition and selector
+   conclusions. Concrete models independently inhabit the equation and native
+   range/progress interfaces. `Form_Result` uses identity normalization and the
+   specified source-length/allowed-character checks at that call site; their
+   denotations remain part of the Ada/frontend interpretation premise.
+6. The predicate grammar connects recognition to initialized, path-valid programs.
+   `PredicateExecution`, `PredicateComposition`, `PredicateObligations`,
+   `PredicateChecks`, `SequenceEffects` and `Current` connect source-order
+   execution, every assignment/output/rejection, specified failure outcomes and
+   modeled automatic discharge.
 
 The interpretation of the checked restricted Ada fragment as these equations
 uses the approved frontend's predefined operators, indexing, short-circuit
 evaluation, scope and machine arithmetic. GNATprove proves actual caller
 preconditions, numeric bounds, normalization and executable refinement;
-these facts justify using lexical meanings only on legal call domains.
+these facts justify using helper meanings only on legal call domains.
+Lean totalizations outside native checked domains are modeling artifacts, not
+claims of equality with arbitrary Ada executions. Actual values are preserved
+inside those domains; source contracts, machine types and GNATprove establish
+that executed calls stay inside them. The concrete interpretation witnesses do
+not remove the frontend premise.
 Interpreting rendered statements additionally uses ordinary Ada initialization,
 assignment, branches, sequence, return and verified Static ghost erasure.
 This is a constrained semantic interface with explicit premises, not a verified
@@ -334,7 +350,7 @@ general Ada parser, arbitrary overload resolution or a theorem about GNAT's
 implementation. The source-equation conclusions quantify over interpretations
 satisfying their checked equations; they do not assume recognition correctness.
 
-The current proof facade uses the sequence scanner and shared expression rules. Historical model
+The current proof facade uses the predicate scanner and shared expression rules. Historical model
 modules can remain as reusable mathematical developments, but obsolete
 fixed-production source bridges do not establish correspondence for replaced
 Ada functions. Source-pin changes must be reviewed together with these semantic
@@ -345,21 +361,27 @@ completed Copy String Values checkpoint validates that earlier source/proof
 revision; its exact certificate and cache scope is recorded in
 [the capability record](copy-values.md). The [shared-bindings checkpoint](shared-bindings.md)
 and [common-expression checkpoint](common-expressions.md) validate their earlier
-revisions. The [sequencing checkpoint](statement-sequencing.md) validates the
-current source and proof inputs.
+revisions. The [sequencing checkpoint](statement-sequencing.md) validates its
+recorded inputs; [branches.md](branches.md) records the completed 5a–5c
+integration and the exact scope of its combined Linux validation.
 
 ## Automatic completion and the external boundary
 
-`SequenceObligations` reuses the shared declaration/expression schemas and
-associates every expression in the statement sequence
-with conservative range schemas. They count the static contribution plus every
-dynamic occurrence times the selected input length. Initializers use the full
-4096-byte domain; later body sites use the executable guard's capacity.
-Prefix/grouping results cover intermediate concatenations; the sequence fold
-covers every comparison operand, assignment RHS and both alternative branches.
-A separate exact-length schema covers assignment compatibility with the target's
-fixed bounds. Every emitted safety obligation must correspond to the appropriate
-range or length channel; accepting its report is not that correspondence proof.
+`PredicateObligations` associates each body expression and assignment with its
+path's range or exact-length schema. `PredicateChecks` combines those with the
+shared declaration schemas. Initializers use the full 4096-byte input domain;
+body sites use the valid-length interval and separate invalid-input case that
+reach them, including the right operands of short-circuit predicates. Prefix
+and grouping results cover intermediate concatenations. The recursive statement
+fold covers every assignment, condition, nested arm and subsequent join.
+Assignment schemas require compatibility with the target's fixed bounds across
+the entire reachable path. The model also generates a validity schema at each
+output site, ruling out invalid-input output; this semantic schema does not add
+another accepted native safety-record class. Path-check refinement preserves the
+exact normalized schema and context; declaration checks retain their shared
+refinement rules.
+Every emitted safety obligation must correspond to the appropriate range or
+length channel; report acceptance is not that correspondence proof.
 
 The arithmetic argument bounds each admitted String value by 4096 bytes and
 accounts for predefined concatenation's range arithmetic. Its conservative
@@ -368,10 +390,13 @@ range bound fits Ada's required minimum `Integer'Last` of 32767. The existing
 nonempty ranges. Literal/object bounds and the normalized argument result supply
 the inherited lower-bound behavior. No fixed prefix/suffix grammar is required.
 
-`Current.all_obligations_discharge` proves validity and terminating mathematical
-discharge for every admitted meaning. `automatic_discharge_complete` returns a
-uniform successful certificate for every member. Its step bound concerns this
-Lean-defined checker, **not** the runtime or step count of CVC5, Z3 or Alt-Ergo.
+`Current.all_obligations_discharge` proves terminating mathematical discharge
+for every admitted meaning; `fragment_checks_valid` supplies schema validity.
+`automatic_discharge_complete` returns the small uniform declaration-fragment
+certificate after admission. Source-specific path schemas are discharged by the
+separate universal theorem, not by that uniform calculation. The step bound in
+`all_obligations_discharge` concerns the Lean-defined checker, **not** the runtime
+or step count of CVC5, Z3 or Alt-Ergo.
 A schema is not a prediction of the number of emitted GNATprove records:
 static folding may eliminate checks, and translation may split or repeat them.
 
@@ -450,10 +475,10 @@ All output shells use `Complete_Application_Proof`; only null retains
 
 | Policy | Source composition | Expected call-report entities | Advisory allowance |
 | --- | --- | --- | --- |
-| Static | Static sequence without assignment | Main, optionally Put_Line | Initializer, constant-equality and exact ghost-output advisories |
-| Argument | Argument-guarded sequence without assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Same exact messages |
+| Static | Static sequence without assignment | Main, optionally Put_Line | Initializer, statically known predicate and exact ghost-output advisories |
+| Argument | Argument-input sequence without assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Same exact messages |
 | Assigned | Static sequence containing assignment | Main, optionally Put_Line | Above plus exact unused-assignment advisory |
-| Selected | Argument-guarded sequence containing assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
+| Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` or
 `VC_LENGTH_CHECK`, with the expected Main filename/entity, valid positive
@@ -468,7 +493,7 @@ All four policies permit finite lists of the exact `INEFFECTIVE` message
 identifier shape. Only Assigned/Selected policies additionally permit the exact
 message `unused assignment`. All four policies additionally permit
 `INEFFECTIVE` / `statement has no effect` and `DEAD_CODE` /
-`this statement is never reached`, observed for constant String equality.
+`this statement is never reached`, observed for statically known predicates.
 Every allowed advisory must have warning severity,
 flow provenance, Main filename/entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
@@ -481,8 +506,10 @@ A bare-Main report may have an empty flow list and may contain proved safety
 checks and approved dependencies. Sequencing removed the earlier nonempty-flow
 and empty-proof/dependency conditions for that entity shape, while retaining
 complete Main coverage and validation of every emitted record. Argument policies
-additionally permit exactly Main with First_Or_Default, Input_Is_Valid and Reject when Put_Line
-is absent. Other accepted entity sets are the complete route-specific sets above;
+additionally permit exactly Main with First_Or_Default and Reject, with either,
+both or neither of Input_Is_Valid and Put_Line. Positive-length predicates can
+establish validity without a query, and a shell need not output. Main alone
+remains the producer-elimination alternative. Each permitted set is exact;
 unknown, missing-within-a-set or duplicate entities remain rejected. Native tests
 use genuine reports and mutations; the Python evidence helper applies the same
 policies and additionally checks SARIF consistency and totals. The finite sets

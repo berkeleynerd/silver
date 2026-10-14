@@ -63,13 +63,15 @@ class StatementSequencingTests(unittest.TestCase):
         bounded = program(b'', output(b'Input') + output(b'Input&Input'),
                           arguments=True, capacity=2048)
         assignment = program(b'A:String:=Input;', b'A:=Input;', arguments=True)
+        before_guard = guarded.replace(b'begin if ', b'begin null;if ')
+        self.check(before_guard)
+        self.check(before_guard.replace(b'begin null;if ', b'begin null if '), 2)
         pairs = [
             ('empty static body', static, static.replace(b'null;', b'')),
             ('empty guard success branch', guarded, guarded.replace(b'null;', b'')),
             ('empty then arm', branch, branch.replace(b'then null;', b'then ')),
             ('empty nested else choice arm', nested_else,
              nested_else.replace(b'else if A="old" then null;', b'else if A="old" then ')),
-            ('statement before guard', guarded, guarded.replace(b'begin if ', b'begin null;if ')),
             ('later output exceeds capacity', bounded,
              bounded.replace(output(b'Input&Input'), output(b'Input&Input&"!"'))),
             ('immutable argument target', assignment, assignment.replace(b'A:=Input;', b'Input:=Input;')),

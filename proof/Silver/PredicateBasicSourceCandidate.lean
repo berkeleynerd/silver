@@ -1,0 +1,23 @@
+module
+
+public import Silver.PredicateBasicExpressions
+import all Init.Data.Repr
+
+@[expose] public section
+
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+namespace Silver.Predicate.BasicNative
+
+/-- Candidate tokens from the native prototype. The final source bridge must
+also extract this block from the complete authoritative source certificate. -/
+def candidateBody : List String :=
+  ["result", ":", "body_scan", ":=", "scan", ";", "value", ":", "expression_result", ";", "state", ":", "parser_state", ";", "begin", "if", "result", ".", "position", "=", "0", "then", "return", "invalid_body", ";", "end", "if", ";", "if", "take_token", "(", "text", ",", "result", ".", "position", ",", "null_keyword", ")", "/=", "0", "then", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "null_keyword", ")", ";", "elsif", "take_token", "(", "text", ",", "result", ".", "position", ",", "io_name", ")", "/=", "0", "then", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "io_name", ")", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "dot", ")", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "put_line_name", ")", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "left_parenthesis", ")", ";", "value", ":=", "expression_at", "(", "text", ",", "result", ".", "position", ",", "context", ".", "names", ")", ";", "if", "value", ".", "after", "=", "0", "or", "else", "result", ".", "facts", ".", "invalid_reachable", "or", "else", "not", "paths", ".", "fits", "(", "result", ".", "facts", ",", "summary_of", "(", "value", ")", ")", "then", "return", "invalid_body", ";", "end", "if", ";", "result", ".", "position", ":=", "value", ".", "after", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "right_parenthesis", ")", ";", "result", ".", "output", ":=", "true", ";", "elsif", "context", ".", "dynamic_first", "/=", "0", "and", "then", "take_token", "(", "text", ",", "result", ".", "position", ",", "arguments_name", ")", "/=", "0", "then", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "arguments_name", ")", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "dot", ")", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "reject_name", ")", ";", "result", ".", "facts", ":=", "paths", ".", "rejected", "(", "result", ".", "facts", ")", ";", "else", "state", ":=", "target_at", "(", "text", ",", "expand_body", "(", "context", ",", "result", ")", ".", "state", ",", "false", ")", ";", "result", ".", "position", ":=", "state", ".", "position", ";", "result", ".", "target", ":=", "state", ".", "target", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "assignment", ")", ";", "value", ":=", "expression_at", "(", "text", ",", "result", ".", "position", ",", "context", ".", "names", ")", ";", "if", "value", ".", "after", "=", "0", "or", "else", "result", ".", "target", "=", "0", "or", "else", "not", "paths", ".", "fits", "(", "result", ".", "facts", ",", "summary_of", "(", "value", ")", ")", "or", "else", "not", "paths", ".", "same_length", "(", "result", ".", "facts", ",", "summary_of", "(", "value", ")", ",", "binding_summary", "(", "context", ".", "names", ".", "items", "(", "result", ".", "target", ")", ")", ")", "then", "return", "invalid_body", ";", "end", "if", ";", "result", ".", "position", ":=", "value", ".", "after", ";", "result", ".", "assigned", ":=", "true", ";", "end", "if", ";", "result", ":=", "body_token", "(", "text", ",", "context", ",", "result", ",", "semicolon", ")", ";", "if", "result", ".", "position", "<=", "scan", ".", "position", "then", "return", "invalid_body", ";", "end", "if", ";", "return", "result", ";", "end", "basic_body", ";"]
+
+theorem rendered_candidate : basicRender = candidateBody := by
+  simp only [basicRender, basicCommands, dispatchCommands, outputCommands, rejectCommands,
+    assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
+    Command.render, Command.renderElse, Test.render, Update.render]
+  decide +kernel
+
+end Silver.Predicate.BasicNative

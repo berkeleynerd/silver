@@ -14,7 +14,7 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-**Shared bindings, common String expressions and statement sequencing are complete.**
+**Shared bindings, String expressions, statement sequencing, predicates and path-sensitive branches are complete.**
 On 2026-10-12 the owner requested placing all recommended
 performance work at the beginning of the roadmap, then authorized the baseline
 and declaration-level profiling item. That [measurement](docs/lean-baseline.md)
@@ -38,14 +38,18 @@ effect composition. The authorized bounded follow-up to
 [review `9b99d52`](docs/reviews/review-9b99d52.md) is also complete: current
 documentation and focused regressions are repaired, and both selected dense
 assignment measurements passed. Their [capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
-discloses costs, report headroom and the uncompiled 771-assignment variant.
+discloses costs, report headroom and the then-uncompiled 771-assignment variant.
+The [current bounded assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
+retains the larger 782-assignment specimen admitted by relaxed guard placement;
+its 96.2% report projection remains unmeasured.
 The owner has authorized delivery of all
 [Equality, guards and branches increments](#equality-guards-and-branches-increments).
-**Conditional statements (5a)** is in progress; 5b and 5c follow within the same
-authorized task. Current support remains the completed sequencing language until
-each changed fragment passes its complete checkpoint. See the
-[working record](docs/branches.md). Remaining predicate/context/API closure is
-tracked below.
+**All 5a–5c milestones are complete.** Conditional statements (5a) was published
+in `dc5295eabe`; predicates and path-sensitive composition (5b/c) passed their
+shared complete Linux checkpoint. The [delivery record](docs/branches.md)
+distinguishes native proofs, the full-suite run and focused repairs, complete
+Lean validation and reused caches. Context/name rules and call associations
+remain the next proposed consolidation work; new APIs remain separate.
 
 The authorized narrow
 [interpretation-witness repair](docs/common-expressions.md#external-review-of-9b72d36)
@@ -128,9 +132,9 @@ not newly admitted syntax.
 | 2 | Declarations, names and copies — binding foundation complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. Resolve context-clause order/grouping, qualification and visibility for the existing packages together with item 7. |
 | 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
 | 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
-| 5 | Equality, guards and branches — authorized, in progress | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. The [increment plan](#equality-guards-and-branches-increments) retains the full scope. |
+| 5 | Equality, guards and branches — complete | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. All three [increments](#equality-guards-and-branches-increments) passed their checkpoints; the [delivery record](docs/branches.md) retains exact evidence and scope. |
 | 6 | Output effects — sequence composition complete; call associations remain | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Resolve positional and named parameter associations for `Put_Line` alongside its effect contract. |
-| 7 | Existing argument operations — fixed-guard sequence integration complete | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
+| 7 | Existing argument operations — path-sensitive integration complete; context/name rules and call associations remain | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. Resolve positional and named parameter associations where applicable to these existing calls, and their context/name rules with item 2. New positional-argument APIs are a separate capability. |
 
 The authorized [shared-binding milestone](docs/shared-bindings.md) implements
 ordered literal/name declarations, snapshots, mutability, compatible static or
@@ -145,15 +149,15 @@ with item 7. The sole immutable argument initializer stays first and unique;
 additional API placements are not implied by supported statement sequencing.
 Expression initializers and parentheses are now supported by the completed
 [common-expression checkpoint](docs/common-expressions.md), including expression
-equality and fixed-length expression assignment. Broader path-refined assignment
-remains in item 5. The authorized **statement sequencing and assignment** work
-includes repeated-output effect composition from item 6 and the existing fixed
-argument guards from item 7. Its [record](docs/statement-sequencing.md) records
-the passed complete checkpoint and preserved caches. Nested predicates, call
-associations and context/name closure remain future work. The retained operator
-budget counts concatenations; it does not bound total translation time, memory or
-report size. Clarifying the recognizer's older proof-work comment is deferred
-until the next required source edit, with its corresponding source checks.
+equality and fixed-length expression assignment. The completed item 5 adds
+path-refined assignments, nested predicates and generalized validity/Reject
+placement. The completed **statement sequencing and assignment** work includes
+repeated-output effect composition from item 6; its [record](docs/statement-sequencing.md)
+retains the original fixed-guard checkpoint. Context/name closure and call
+associations remain future work. The retained operator budget counts
+concatenations; it does not bound total translation time, memory or report size.
+The recognizer's source comment now describes only that lexical budget, so the
+older wording follow-up is closed.
 
 These are dependency priorities, not seven isolated implementations. Shared
 declaration, expression and statement rules should replace the need to enumerate
@@ -188,21 +192,19 @@ structure first, followed by predicates and path facts; the latter may share one
 checkpoint. Routine implementation/proof failures require continued work, not
 another approval. Escalate a needed Oracle amendment, conflicting requirements,
 or unavailable external resources with no sound authorized workaround. The
-[working record](docs/branches.md) tracks decisions and evidence; unfinished
-syntax is not yet supported.
+[delivery record](docs/branches.md) tracks decisions, evidence and the completed
+checkpoints. All three increments below are now supported.
 
 | Order | Increment/status | Scope and completion criteria |
 | --- | --- | --- |
 | 5a | Conditional statements — complete | Nested String-equality conditionals, `elsif`, optional `else` and nonempty written arms, preserving the outer input guard and source/expression budgets. Recursive native semantics, inhabited source correspondence, selectors and the complete Linux checkpoint passed; [evidence](docs/branches.md#completed-5a-checkpoint--2026-10-14) records native audit, test repair, warm Lean check and retained failures. |
-| 5b | Predicate and literal grammar — isolated native/model implementation in progress; delivery after 5a | Specify and implement the supported String-equality, validity and length predicates and their Boolean compositions. Preserve short-circuit `and then` evaluation and allow each operand only facts established before it executes. Resolve integer-literal alternatives, including separators and based notation, representable bounds and overflow-safe parsing. Document supported alternatives or concrete reasons for exclusions. Prove predicate meaning and safe evaluation; update the specification/catalogue and exercise literal/operand boundaries. Draft admission, native interaction and maximum-size predicate compiles pass; the isolated output profile proves all 807 SPARK checks. Literal actual-source correspondence is checked in isolation. Predicate native correspondence and the complete checkpoint remain. |
-| 5c | Path-sensitive composition — universal source/model proofs checked in isolation; delivery with 5b | Use established true/false branch facts to admit safe expressions and fixed-bound assignments, including branch-refined length equalities. Track facts through assignments and nested control flow, retain only justified facts at joins, and preserve initialized reads and output-failure semantics. Generalize the fixed argument guard/Reject placement with item 7 while specifying invalid-input and returning-call behavior. Establish universal discharge and actual-source correspondence for the resulting compositions, with interaction and rejection tests. The draft universal execution, source reading and recursive-body uniqueness proofs pass. Exact query-free report shapes are repaired in isolation, and the strengthened invalid-input runtime contract has exact-source evidence. Current examples and routing selectors pass in isolation. Final library/helper/body bridge integration and the complete checkpoint remain. |
+| 5b | Predicate and literal grammar — complete | String equality/inequality, validity and Length comparisons compose with grouped short-circuit logic and `not` primaries. Decimal/based integer literals, separators, matching delimiters and bounded exponents preserve Ada meaning with overflow-safe parsing. Predicate meaning, safe evaluation, actual source correspondence, literal/operand boundaries, catalogue and samples passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14). Supported alternatives and exclusions are explicit in the language specification. |
+| 5c | Path-sensitive composition — complete | Branch facts justify bounded expressions and fixed-bound assignments; joins preserve only justified interval/validity/rejection facts. Invalid inputs reject without output, and Reject/output failures return with sticky failure status. The simultaneous concrete source-model witness, native selector refinements, universal discharge and source correspondence passed the [combined checkpoint](docs/branches.md#completed-5bc-checkpoint--2026-10-14), with interaction and rejection tests. |
 
-Each increment must satisfy the existing complete assurance and validation
-workflow before its added language is supported. Items 5b and 5c may be delivered
-together when their shared proof work makes one checkpoint more useful; retain
-both statuses and outstanding requirements in that case. Completing 5a alone
-does not close item 5. Context/name closure, call associations and new argument
-APIs retain their existing roadmap placement.
+Items 5b and 5c shared one complete checkpoint, preserving both scopes. Together
+with the published 5a checkpoint, they close item 5. Context/name closure and
+positional/named call associations remain in items 2, 6 and 7. New argument APIs
+retain their separate roadmap placement; this completion does not authorize them.
 
 #### Audit follow-ups
 
@@ -213,10 +215,10 @@ complete assurance and validation described below.
 
 | Finding | Work items | Required follow-up |
 | --- | --- | --- |
-| New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Broader path-refined assignments remain in item 5. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
+| New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
-| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs and the admitted but uncompiled 771-assignment variant. Reconsider that variant and the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
+| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) retains a now-admitted 782-assignment specimen, estimates 96.2% report use from the unchanged small-probe split shape, and defers its long compile. Reconsider that specimen and the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 
@@ -248,7 +250,7 @@ Declaration-time expressions cannot rely on facts established only by a later
 body guard. The earlier unfinished **Repeated Output** draft remains preserved as
 history; its proposed four-call cap was rejected. Ordinary returning calls
 continue execution, and a detected output failure leaves exit status failed even
-if later output succeeds. Predicate/path facts, call associations and context/name
+if later output succeeds. Predicate/path facts are complete in item 5. Call associations and context/name
 closure are the remaining consolidation work listed above.
 
 Loops, additional library APIs, resizable strings and unrelated language
@@ -310,6 +312,7 @@ sequence.
 | Shared declarations, names and copies | Supported | Ordered initialized bindings, literal/name snapshots, mutability and fixed static/dynamic bounds across the then-existing bodies; [scope and completed validation](docs/shared-bindings.md). Context/API placement remains future work; sequencing is supported below. | [Shared-binding sample](samples/shared_bindings.adb), native tests and universal/source proofs passed |
 | Common String expressions | Supported | Shared bounded expressions in every expression position; [completed validation](docs/common-expressions.md). | [samples/common_expressions.adb](samples/common_expressions.adb) |
 | Statement sequencing and assignment | Supported | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record and resource follow-up](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
+| Equality, guards and branches | Supported | Nested conditionals, `elsif`, optional `else`, bounded predicates/integer literals and path-sensitive assignments, output and rejection; [completed 5a–5c validation](docs/branches.md). | [samples/conditional_statements.adb](samples/conditional_statements.adb), [samples/path_guards.adb](samples/path_guards.adb) |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for
@@ -479,7 +482,7 @@ example therefore reserves 4088 bytes for `Name`. Only this use of `'Length`,
 `<=`, canonical decimal and `and then` is admitted. Both references bind to the
 same constant. Missing input selects the default; empty input prints the
 decorations; invalid, extra, oversized or over-capacity input returns status 1
-without output. The [language specification](language.md#guarded-command-line-initialization)
+without output. The [language specification](language.md#command-line-initialization-and-path-requirements)
 contains the exact rules.
 
 The obligation experiment exposed a String lower-bound requirement for empty

@@ -137,132 +137,150 @@ def argumentsBodyTokens_line_19 : LineCertificate where
   noNewline := by decide +kernel
 
 def argumentsBodyTokens_line_20 : LineCertificate where
-  text := "      if Silver_Runtime.Argument_Count = 0 then"
-  tokens := ["if", "silver_runtime", ".", "argument_count", "=", "0", "then"]
+  text := "      if not Input_Is_Valid then"
+  tokens := ["if", "not", "input_is_valid", "then"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
 def argumentsBodyTokens_line_21 : LineCertificate where
-  text := "         if Is_Message (Default) then"
-  tokens := ["if", "is_message", "(", "default", ")", "then"]
+  text := "         return \"\";"
+  tokens := ["return", "\"\"", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
 def argumentsBodyTokens_line_22 : LineCertificate where
-  text := "            return Result : String (1 .. Default'Length) := Default;"
-  tokens := ["return", "result", ":", "string", "(", "1", "..", "default", "'", "length", ")", ":=", "default", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_23 : LineCertificate where
-  text := "         end if;"
-  tokens := ["end", "if", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_24 : LineCertificate where
-  text := "      elsif Silver_Runtime.Argument_Count = 1 then"
-  tokens := ["elsif", "silver_runtime", ".", "argument_count", "=", "1", "then"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_25 : LineCertificate where
-  text := "         declare"
-  tokens := ["declare"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_26 : LineCertificate where
-  text := "            Item : constant String := Silver_Runtime.Argument (1);"
-  tokens := ["item", ":", "constant", "string", ":=", "silver_runtime", ".", "argument", "(", "1", ")", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_27 : LineCertificate where
-  text := "         begin"
-  tokens := ["begin"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_28 : LineCertificate where
-  text := "            if Is_Message (Item) then"
-  tokens := ["if", "is_message", "(", "item", ")", "then"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_29 : LineCertificate where
-  text := "               return Result : String (1 .. Item'Length) := Item;"
-  tokens := ["return", "result", ":", "string", "(", "1", "..", "item", "'", "length", ")", ":=", "item", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_30 : LineCertificate where
-  text := "            end if;"
-  tokens := ["end", "if", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_31 : LineCertificate where
-  text := "         end;"
-  tokens := ["end", ";"]
-  correct := by decide +kernel
-  noNewline := by decide +kernel
-
-def argumentsBodyTokens_line_32 : LineCertificate where
   text := "      end if;"
   tokens := ["end", "if", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
+def argumentsBodyTokens_line_23 : LineCertificate where
+  text := "      if Silver_Runtime.Argument_Count = 0 then"
+  tokens := ["if", "silver_runtime", ".", "argument_count", "=", "0", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_24 : LineCertificate where
+  text := "         if Is_Message (Default) then"
+  tokens := ["if", "is_message", "(", "default", ")", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_25 : LineCertificate where
+  text := "            return Result : String (1 .. Default'Length) := Default;"
+  tokens := ["return", "result", ":", "string", "(", "1", "..", "default", "'", "length", ")", ":=", "default", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_26 : LineCertificate where
+  text := "         end if;"
+  tokens := ["end", "if", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_27 : LineCertificate where
+  text := "      elsif Silver_Runtime.Argument_Count = 1 then"
+  tokens := ["elsif", "silver_runtime", ".", "argument_count", "=", "1", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_28 : LineCertificate where
+  text := "         declare"
+  tokens := ["declare"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_29 : LineCertificate where
+  text := "            Item : constant String := Silver_Runtime.Argument (1);"
+  tokens := ["item", ":", "constant", "string", ":=", "silver_runtime", ".", "argument", "(", "1", ")", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_30 : LineCertificate where
+  text := "         begin"
+  tokens := ["begin"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_31 : LineCertificate where
+  text := "            if Is_Message (Item) then"
+  tokens := ["if", "is_message", "(", "item", ")", "then"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_32 : LineCertificate where
+  text := "               return Result : String (1 .. Item'Length) := Item;"
+  tokens := ["return", "result", ":", "string", "(", "1", "..", "item", "'", "length", ")", ":=", "item", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
 def argumentsBodyTokens_line_33 : LineCertificate where
+  text := "            end if;"
+  tokens := ["end", "if", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_34 : LineCertificate where
+  text := "         end;"
+  tokens := ["end", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_35 : LineCertificate where
+  text := "      end if;"
+  tokens := ["end", "if", ";"]
+  correct := by decide +kernel
+  noNewline := by decide +kernel
+
+def argumentsBodyTokens_line_36 : LineCertificate where
   text := "      return \"\";"
   tokens := ["return", "\"\"", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_34 : LineCertificate where
+def argumentsBodyTokens_line_37 : LineCertificate where
   text := "   end First_Or_Default;"
   tokens := ["end", "first_or_default", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_35 : LineCertificate where
+def argumentsBodyTokens_line_38 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_36 : LineCertificate where
+def argumentsBodyTokens_line_39 : LineCertificate where
   text := "   procedure Reject is"
   tokens := ["procedure", "reject", "is"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_37 : LineCertificate where
+def argumentsBodyTokens_line_40 : LineCertificate where
   text := "   begin"
   tokens := ["begin"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_38 : LineCertificate where
+def argumentsBodyTokens_line_41 : LineCertificate where
   text := "      Silver_Output_Libc.Set_Exit_Status (1);"
   tokens := ["silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_39 : LineCertificate where
+def argumentsBodyTokens_line_42 : LineCertificate where
   text := "   end Reject;"
   tokens := ["end", "reject", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_40 : LineCertificate where
+def argumentsBodyTokens_line_43 : LineCertificate where
   text := "end Silver_Arguments;"
   tokens := ["end", "silver_arguments", ";"]
   correct := by decide +kernel
   noNewline := by decide +kernel
 
-def argumentsBodyTokens_line_41 : LineCertificate where
+def argumentsBodyTokens_line_44 : LineCertificate where
   text := ""
   tokens := []
   correct := by decide +kernel
@@ -313,14 +331,20 @@ def argumentsBodyTokens_block_5_6 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_6_7 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_6
 
-def argumentsBodyTokens_block_5_7 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_5_6 argumentsBodyTokens_block_6_7
-    "     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';']))
-
 def argumentsBodyTokens_block_7_8 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_7
+
+def argumentsBodyTokens_block_6_8 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_6_7 argumentsBodyTokens_block_7_8
+    "      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';']
+      []))
+
+def argumentsBodyTokens_block_5_8 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_5_6 argumentsBodyTokens_block_6_8
+    "     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n']))
 
 def argumentsBodyTokens_block_8_9 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_8
@@ -328,44 +352,44 @@ def argumentsBodyTokens_block_8_9 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_9_10 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_9
 
-def argumentsBodyTokens_block_8_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_8_9 argumentsBodyTokens_block_9_10
-    "   function Input_Is_Valid return Boolean is\n   begin"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's']
-      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']))
-
-def argumentsBodyTokens_block_7_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_7_8 argumentsBodyTokens_block_8_10
-    "\n   function Input_Is_Valid return Boolean is\n   begin"
-    (by kernel_exact (string_join_ofList []
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']))
-
-def argumentsBodyTokens_block_5_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_5_7 argumentsBodyTokens_block_7_10
-    "     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';']
-      ['\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']))
-
-def argumentsBodyTokens_block_0_10 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_0_5 argumentsBodyTokens_block_5_10
-    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's']
-      [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']))
-
 def argumentsBodyTokens_block_10_11 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_10
+
+def argumentsBodyTokens_block_9_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_9_10 argumentsBodyTokens_block_10_11
+    "   begin\n      if Silver_Runtime.Argument_Count = 0 then"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
+
+def argumentsBodyTokens_block_8_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_8_9 argumentsBodyTokens_block_9_11
+    "   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's']
+      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
+
+def argumentsBodyTokens_block_5_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_5_8 argumentsBodyTokens_block_8_11
+    "     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n']
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
+
+def argumentsBodyTokens_block_0_11 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_0_5 argumentsBodyTokens_block_5_11
+    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's']
+      [' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
 
 def argumentsBodyTokens_block_11_12 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_11
 
-def argumentsBodyTokens_block_10_12 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_10_11 argumentsBodyTokens_block_11_12
-    "      if Silver_Runtime.Argument_Count = 0 then\n         return True;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';']))
-
 def argumentsBodyTokens_block_12_13 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_12
+
+def argumentsBodyTokens_block_11_13 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_11_12 argumentsBodyTokens_block_12_13
+    "         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n']))
 
 def argumentsBodyTokens_block_13_14 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_13
@@ -373,26 +397,26 @@ def argumentsBodyTokens_block_13_14 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_14_15 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_14
 
-def argumentsBodyTokens_block_13_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_13_14 argumentsBodyTokens_block_14_15
-    "         return Is_Message (Silver_Runtime.Argument (1));\n      end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
-def argumentsBodyTokens_block_12_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_12_13 argumentsBodyTokens_block_13_15
-    "      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
-def argumentsBodyTokens_block_10_15 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_10_12 argumentsBodyTokens_block_12_15
-    "      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
 def argumentsBodyTokens_block_15_16 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_15
+
+def argumentsBodyTokens_block_14_16 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_14_15 argumentsBodyTokens_block_15_16
+    "      end if;\n      return False;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';']))
+
+def argumentsBodyTokens_block_13_16 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_13_14 argumentsBodyTokens_block_14_16
+    "         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';']))
+
+def argumentsBodyTokens_block_11_16 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_11_13 argumentsBodyTokens_block_13_16
+    "         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';']))
 
 def argumentsBodyTokens_block_16_17 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_16
@@ -400,20 +424,20 @@ def argumentsBodyTokens_block_16_17 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_17_18 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_17
 
-def argumentsBodyTokens_block_16_18 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_16_17 argumentsBodyTokens_block_17_18
-    "   end Input_Is_Valid;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';']
-      []))
-
-def argumentsBodyTokens_block_15_18 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_15_16 argumentsBodyTokens_block_16_18
-    "      return False;\n   end Input_Is_Valid;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';']
-      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n']))
-
 def argumentsBodyTokens_block_18_19 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_18
+
+def argumentsBodyTokens_block_17_19 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_17_18 argumentsBodyTokens_block_18_19
+    "\n   function First_Or_Default (Default : String) return String is"
+    (by kernel_exact (string_join_ofList []
+      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's']))
+
+def argumentsBodyTokens_block_16_19 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_16_17 argumentsBodyTokens_block_17_19
+    "   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';']
+      ['\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's']))
 
 def argumentsBodyTokens_block_19_20 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_19
@@ -421,50 +445,50 @@ def argumentsBodyTokens_block_19_20 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_20_21 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_20
 
-def argumentsBodyTokens_block_19_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_19_20 argumentsBodyTokens_block_20_21
-    "   begin\n      if Silver_Runtime.Argument_Count = 0 then"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
-
-def argumentsBodyTokens_block_18_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_18_19 argumentsBodyTokens_block_19_21
-    "   function First_Or_Default (Default : String) return String is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's']
-      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
-
-def argumentsBodyTokens_block_15_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_15_18 argumentsBodyTokens_block_18_21
-    "      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n']
-      [' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
-
-def argumentsBodyTokens_block_10_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_10_15 argumentsBodyTokens_block_15_21
-    "      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
-
-def argumentsBodyTokens_block_0_21 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_0_10 argumentsBodyTokens_block_10_21
-    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
-
 def argumentsBodyTokens_block_21_22 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_21
+
+def argumentsBodyTokens_block_20_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_20_21 argumentsBodyTokens_block_21_22
+    "      if not Input_Is_Valid then\n         return \"\";"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']))
+
+def argumentsBodyTokens_block_19_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_19_20 argumentsBodyTokens_block_20_22
+    "   begin\n      if not Input_Is_Valid then\n         return \"\";"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']))
+
+def argumentsBodyTokens_block_16_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_16_19 argumentsBodyTokens_block_19_22
+    "   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if not Input_Is_Valid then\n         return \"\";"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's']
+      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']))
+
+def argumentsBodyTokens_block_11_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_11_16 argumentsBodyTokens_block_16_22
+    "         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if not Input_Is_Valid then\n         return \"\";"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';']
+      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']))
+
+def argumentsBodyTokens_block_0_22 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_0_11 argumentsBodyTokens_block_11_22
+    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if not Input_Is_Valid then\n         return \"\";"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']))
 
 def argumentsBodyTokens_block_22_23 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_22
 
-def argumentsBodyTokens_block_21_23 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_21_22 argumentsBodyTokens_block_22_23
-    "         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';']))
-
 def argumentsBodyTokens_block_23_24 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_23
+
+def argumentsBodyTokens_block_22_24 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_22_23 argumentsBodyTokens_block_23_24
+    "      end if;\n      if Silver_Runtime.Argument_Count = 0 then"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']))
 
 def argumentsBodyTokens_block_24_25 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_24
@@ -472,35 +496,29 @@ def argumentsBodyTokens_block_24_25 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_25_26 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_25
 
-def argumentsBodyTokens_block_24_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_24_25 argumentsBodyTokens_block_25_26
-    "      elsif Silver_Runtime.Argument_Count = 1 then\n         declare"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e']))
-
-def argumentsBodyTokens_block_23_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_23_24 argumentsBodyTokens_block_24_26
-    "         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e']))
-
-def argumentsBodyTokens_block_21_26 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_21_23 argumentsBodyTokens_block_23_26
-    "         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e']))
-
 def argumentsBodyTokens_block_26_27 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_26
 
+def argumentsBodyTokens_block_25_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_25_26 argumentsBodyTokens_block_26_27
+    "            return Result : String (1 .. Default'Length) := Default;\n         end if;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
+
+def argumentsBodyTokens_block_24_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_24_25 argumentsBodyTokens_block_25_27
+    "         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
+
+def argumentsBodyTokens_block_22_27 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_22_24 argumentsBodyTokens_block_24_27
+    "      end if;\n      if Silver_Runtime.Argument_Count = 0 then\n         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
+
 def argumentsBodyTokens_block_27_28 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_27
-
-def argumentsBodyTokens_block_26_28 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_26_27 argumentsBodyTokens_block_27_28
-    "            Item : constant String := Silver_Runtime.Argument (1);\n         begin"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']))
 
 def argumentsBodyTokens_block_28_29 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_28
@@ -508,32 +526,20 @@ def argumentsBodyTokens_block_28_29 : ReconstructionCertificate :=
 def argumentsBodyTokens_block_29_30 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_29
 
+def argumentsBodyTokens_block_28_30 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_28_29 argumentsBodyTokens_block_29_30
+    "         declare\n            Item : constant String := Silver_Runtime.Argument (1);"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';']))
+
+def argumentsBodyTokens_block_27_30 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_27_28 argumentsBodyTokens_block_28_30
+    "      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';']))
+
 def argumentsBodyTokens_block_30_31 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_30
-
-def argumentsBodyTokens_block_29_31 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_29_30 argumentsBodyTokens_block_30_31
-    "               return Result : String (1 .. Item'Length) := Item;\n            end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
-def argumentsBodyTokens_block_28_31 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_28_29 argumentsBodyTokens_block_29_31
-    "            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
-def argumentsBodyTokens_block_26_31 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_26_28 argumentsBodyTokens_block_28_31
-    "            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
-
-def argumentsBodyTokens_block_21_31 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_21_26 argumentsBodyTokens_block_26_31
-    "         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
 
 def argumentsBodyTokens_block_31_32 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_31
@@ -543,9 +549,27 @@ def argumentsBodyTokens_block_32_33 : ReconstructionCertificate :=
 
 def argumentsBodyTokens_block_31_33 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_31_32 argumentsBodyTokens_block_32_33
-    "         end;\n      end if;"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
+    "            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']))
+
+def argumentsBodyTokens_block_30_33 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_30_31 argumentsBodyTokens_block_31_33
+    "         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']))
+
+def argumentsBodyTokens_block_27_33 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_27_30 argumentsBodyTokens_block_30_33
+    "      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']))
+
+def argumentsBodyTokens_block_22_33 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_22_27 argumentsBodyTokens_block_27_33
+    "      end if;\n      if Silver_Runtime.Argument_Count = 0 then\n         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']))
 
 def argumentsBodyTokens_block_33_34 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_33
@@ -558,21 +582,15 @@ def argumentsBodyTokens_block_35_36 : ReconstructionCertificate :=
 
 def argumentsBodyTokens_block_34_36 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_34_35 argumentsBodyTokens_block_35_36
-    "   end First_Or_Default;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';']
-      []))
+    "         end;\n      end if;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
 
 def argumentsBodyTokens_block_33_36 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_33_34 argumentsBodyTokens_block_34_36
-    "      return \"\";\n   end First_Or_Default;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']
-      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']))
-
-def argumentsBodyTokens_block_31_36 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_31_33 argumentsBodyTokens_block_33_36
-    "         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']))
+    "            end if;\n         end;\n      end if;"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']))
 
 def argumentsBodyTokens_block_36_37 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_36
@@ -585,15 +603,21 @@ def argumentsBodyTokens_block_38_39 : ReconstructionCertificate :=
 
 def argumentsBodyTokens_block_37_39 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_37_38 argumentsBodyTokens_block_38_39
-    "   begin\n      Silver_Output_Libc.Set_Exit_Status (1);"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']))
+    "   end First_Or_Default;\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';']
+      []))
 
 def argumentsBodyTokens_block_36_39 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_36_37 argumentsBodyTokens_block_37_39
-    "   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's']
-      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']))
+    "      return \"\";\n   end First_Or_Default;\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']
+      [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']))
+
+def argumentsBodyTokens_block_33_39 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_33_36 argumentsBodyTokens_block_36_39
+    "            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']))
 
 def argumentsBodyTokens_block_39_40 : ReconstructionCertificate :=
   ReconstructionCertificate.single argumentsBodyTokens_line_39
@@ -606,56 +630,77 @@ def argumentsBodyTokens_block_41_42 : ReconstructionCertificate :=
 
 def argumentsBodyTokens_block_40_42 : ReconstructionCertificate :=
   ReconstructionCertificate.join argumentsBodyTokens_block_40_41 argumentsBodyTokens_block_41_42
+    "   begin\n      Silver_Output_Libc.Set_Exit_Status (1);"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']))
+
+def argumentsBodyTokens_block_39_42 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_39_40 argumentsBodyTokens_block_40_42
+    "   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's']
+      [' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']))
+
+def argumentsBodyTokens_block_42_43 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsBodyTokens_line_42
+
+def argumentsBodyTokens_block_43_44 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsBodyTokens_line_43
+
+def argumentsBodyTokens_block_44_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.single argumentsBodyTokens_line_44
+
+def argumentsBodyTokens_block_43_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_43_44 argumentsBodyTokens_block_44_45
     "end Silver_Arguments;\n"
     (by kernel_exact (string_join_ofList ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';']
       []))
 
-def argumentsBodyTokens_block_39_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_39_40 argumentsBodyTokens_block_40_42
+def argumentsBodyTokens_block_42_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_42_43 argumentsBodyTokens_block_43_45
     "   end Reject;\nend Silver_Arguments;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';']
       ['e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
 
-def argumentsBodyTokens_block_36_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_36_39 argumentsBodyTokens_block_39_42
+def argumentsBodyTokens_block_39_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_39_42 argumentsBodyTokens_block_42_45
     "   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
     (by kernel_exact (string_join_ofList [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';']
       [' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
 
-def argumentsBodyTokens_block_31_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_31_36 argumentsBodyTokens_block_36_42
-    "         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']
+def argumentsBodyTokens_block_33_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_33_39 argumentsBodyTokens_block_39_45
+    "            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n']
       [' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
 
-def argumentsBodyTokens_block_21_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_21_31 argumentsBodyTokens_block_31_42
-    "         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
-    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
+def argumentsBodyTokens_block_22_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_22_33 argumentsBodyTokens_block_33_45
+    "      end if;\n      if Silver_Runtime.Argument_Count = 0 then\n         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
+    (by kernel_exact (string_join_ofList [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
 
-def argumentsBodyTokens_block_0_42 : ReconstructionCertificate :=
-  ReconstructionCertificate.join argumentsBodyTokens_block_0_21 argumentsBodyTokens_block_21_42
-    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then\n         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
-    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n']
-      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
+def argumentsBodyTokens_block_0_45 : ReconstructionCertificate :=
+  ReconstructionCertificate.join argumentsBodyTokens_block_0_22 argumentsBodyTokens_block_22_45
+    "with Silver_Runtime;\nwith Silver_Output_Libc;\n\npackage body Silver_Arguments with SPARK_Mode => On is\n   function Is_Message (Item : String) return Boolean is\n     (Item'Length <= Silver_IO.Max_Length\n      and then (for all Ch of Item => Character'Pos (Ch) in 32 .. 126));\n\n   function Input_Is_Valid return Boolean is\n   begin\n      if Silver_Runtime.Argument_Count = 0 then\n         return True;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         return Is_Message (Silver_Runtime.Argument (1));\n      end if;\n      return False;\n   end Input_Is_Valid;\n\n   function First_Or_Default (Default : String) return String is\n   begin\n      if not Input_Is_Valid then\n         return \"\";\n      end if;\n      if Silver_Runtime.Argument_Count = 0 then\n         if Is_Message (Default) then\n            return Result : String (1 .. Default'Length) := Default;\n         end if;\n      elsif Silver_Runtime.Argument_Count = 1 then\n         declare\n            Item : constant String := Silver_Runtime.Argument (1);\n         begin\n            if Is_Message (Item) then\n               return Result : String (1 .. Item'Length) := Item;\n            end if;\n         end;\n      end if;\n      return \"\";\n   end First_Or_Default;\n\n   procedure Reject is\n   begin\n      Silver_Output_Libc.Set_Exit_Status (1);\n   end Reject;\nend Silver_Arguments;\n"
+    (by kernel_exact (string_join_ofList ['w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', ';', '\n', 'w', 'i', 't', 'h', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', ';', '\n', '\n', 'p', 'a', 'c', 'k', 'a', 'g', 'e', ' ', 'b', 'o', 'd', 'y', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ' ', 'w', 'i', 't', 'h', ' ', 'S', 'P', 'A', 'R', 'K', '_', 'M', 'o', 'd', 'e', ' ', '=', '>', ' ', 'O', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', ' ', ' ', '(', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ' ', '<', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'I', 'O', '.', 'M', 'a', 'x', '_', 'L', 'e', 'n', 'g', 't', 'h', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 't', 'h', 'e', 'n', ' ', '(', 'f', 'o', 'r', ' ', 'a', 'l', 'l', ' ', 'C', 'h', ' ', 'o', 'f', ' ', 'I', 't', 'e', 'm', ' ', '=', '>', ' ', 'C', 'h', 'a', 'r', 'a', 'c', 't', 'e', 'r', '\'', 'P', 'o', 's', ' ', '(', 'C', 'h', ')', ' ', 'i', 'n', ' ', '3', '2', ' ', '.', '.', ' ', '1', '2', '6', ')', ')', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'B', 'o', 'o', 'l', 'e', 'a', 'n', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'T', 'r', 'u', 'e', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'F', 'a', 'l', 's', 'e', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ';', '\n', '\n', ' ', ' ', ' ', 'f', 'u', 'n', 'c', 't', 'i', 'o', 'n', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ')', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'n', 'o', 't', ' ', 'I', 'n', 'p', 'u', 't', '_', 'I', 's', '_', 'V', 'a', 'l', 'i', 'd', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';']
+      [' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '0', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'D', 'e', 'f', 'a', 'u', 'l', 't', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'l', 's', 'i', 'f', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', '_', 'C', 'o', 'u', 'n', 't', ' ', '=', ' ', '1', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'd', 'e', 'c', 'l', 'a', 'r', 'e', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', 't', 'e', 'm', ' ', ':', ' ', 'c', 'o', 'n', 's', 't', 'a', 'n', 't', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', ':', '=', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'R', 'u', 'n', 't', 'i', 'm', 'e', '.', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i', 'f', ' ', 'I', 's', '_', 'M', 'e', 's', 's', 'a', 'g', 'e', ' ', '(', 'I', 't', 'e', 'm', ')', ' ', 't', 'h', 'e', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', 'R', 'e', 's', 'u', 'l', 't', ' ', ':', ' ', 'S', 't', 'r', 'i', 'n', 'g', ' ', '(', '1', ' ', '.', '.', ' ', 'I', 't', 'e', 'm', '\'', 'L', 'e', 'n', 'g', 't', 'h', ')', ' ', ':', '=', ' ', 'I', 't', 'e', 'm', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'i', 'f', ';', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'r', 'e', 't', 'u', 'r', 'n', ' ', '"', '"', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'F', 'i', 'r', 's', 't', '_', 'O', 'r', '_', 'D', 'e', 'f', 'a', 'u', 'l', 't', ';', '\n', '\n', ' ', ' ', ' ', 'p', 'r', 'o', 'c', 'e', 'd', 'u', 'r', 'e', ' ', 'R', 'e', 'j', 'e', 'c', 't', ' ', 'i', 's', '\n', ' ', ' ', ' ', 'b', 'e', 'g', 'i', 'n', '\n', ' ', ' ', ' ', ' ', ' ', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'O', 'u', 't', 'p', 'u', 't', '_', 'L', 'i', 'b', 'c', '.', 'S', 'e', 't', '_', 'E', 'x', 'i', 't', '_', 'S', 't', 'a', 't', 'u', 's', ' ', '(', '1', ')', ';', '\n', ' ', ' ', ' ', 'e', 'n', 'd', ' ', 'R', 'e', 'j', 'e', 'c', 't', ';', '\n', 'e', 'n', 'd', ' ', 'S', 'i', 'l', 'v', 'e', 'r', '_', 'A', 'r', 'g', 'u', 'm', 'e', 'n', 't', 's', ';', '\n']))
 
 def argumentsBodyTokens_certificates : List LineCertificate :=
-  argumentsBodyTokens_block_0_42.lines
+  argumentsBodyTokens_block_0_45.lines
 
 def argumentsBodyTokens : Tokens :=
-  ["with", "silver_runtime", ";", "with", "silver_output_libc", ";", "package", "body", "silver_arguments", "with", "spark_mode", "=>", "on", "is", "function", "is_message", "(", "item", ":", "string", ")", "return", "boolean", "is", "(", "item", "'", "length", "<=", "silver_io", ".", "max_length", "and", "then", "(", "for", "all", "ch", "of", "item", "=>", "character", "'", "pos", "(", "ch", ")", "in", "32", "..", "126", ")", ")", ";", "function", "input_is_valid", "return", "boolean", "is", "begin", "if", "silver_runtime", ".", "argument_count", "=", "0", "then", "return", "true", ";", "elsif", "silver_runtime", ".", "argument_count", "=", "1", "then", "return", "is_message", "(", "silver_runtime", ".", "argument", "(", "1", ")", ")", ";", "end", "if", ";", "return", "false", ";", "end", "input_is_valid", ";", "function", "first_or_default", "(", "default", ":", "string", ")", "return", "string", "is", "begin", "if", "silver_runtime", ".", "argument_count", "=", "0", "then", "if", "is_message", "(", "default", ")", "then", "return", "result", ":", "string", "(", "1", "..", "default", "'", "length", ")", ":=", "default", ";", "end", "if", ";", "elsif", "silver_runtime", ".", "argument_count", "=", "1", "then", "declare", "item", ":", "constant", "string", ":=", "silver_runtime", ".", "argument", "(", "1", ")", ";", "begin", "if", "is_message", "(", "item", ")", "then", "return", "result", ":", "string", "(", "1", "..", "item", "'", "length", ")", ":=", "item", ";", "end", "if", ";", "end", ";", "end", "if", ";", "return", "\"\"", ";", "end", "first_or_default", ";", "procedure", "reject", "is", "begin", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "end", "reject", ";", "end", "silver_arguments", ";"]
+  ["with", "silver_runtime", ";", "with", "silver_output_libc", ";", "package", "body", "silver_arguments", "with", "spark_mode", "=>", "on", "is", "function", "is_message", "(", "item", ":", "string", ")", "return", "boolean", "is", "(", "item", "'", "length", "<=", "silver_io", ".", "max_length", "and", "then", "(", "for", "all", "ch", "of", "item", "=>", "character", "'", "pos", "(", "ch", ")", "in", "32", "..", "126", ")", ")", ";", "function", "input_is_valid", "return", "boolean", "is", "begin", "if", "silver_runtime", ".", "argument_count", "=", "0", "then", "return", "true", ";", "elsif", "silver_runtime", ".", "argument_count", "=", "1", "then", "return", "is_message", "(", "silver_runtime", ".", "argument", "(", "1", ")", ")", ";", "end", "if", ";", "return", "false", ";", "end", "input_is_valid", ";", "function", "first_or_default", "(", "default", ":", "string", ")", "return", "string", "is", "begin", "if", "not", "input_is_valid", "then", "return", "\"\"", ";", "end", "if", ";", "if", "silver_runtime", ".", "argument_count", "=", "0", "then", "if", "is_message", "(", "default", ")", "then", "return", "result", ":", "string", "(", "1", "..", "default", "'", "length", ")", ":=", "default", ";", "end", "if", ";", "elsif", "silver_runtime", ".", "argument_count", "=", "1", "then", "declare", "item", ":", "constant", "string", ":=", "silver_runtime", ".", "argument", "(", "1", ")", ";", "begin", "if", "is_message", "(", "item", ")", "then", "return", "result", ":", "string", "(", "1", "..", "item", "'", "length", ")", ":=", "item", ";", "end", "if", ";", "end", ";", "end", "if", ";", "return", "\"\"", ";", "end", "first_or_default", ";", "procedure", "reject", "is", "begin", "silver_output_libc", ".", "set_exit_status", "(", "1", ")", ";", "end", "reject", ";", "end", "silver_arguments", ";"]
 
 theorem argumentsBodyTokens_source :
     String.intercalate "\n" (argumentsBodyTokens_certificates.map (·.text)) = argumentsBody := by
-  exact argumentsBodyTokens_block_0_42.correct
+  exact argumentsBodyTokens_block_0_45.correct
 
 theorem argumentsBodyTokens_values :
     argumentsBodyTokens_certificates.flatMap (·.tokens) = argumentsBodyTokens := by rfl
 
 theorem argumentsBodyTokens_correct : lex argumentsBody = some argumentsBodyTokens := by
   rw [← argumentsBodyTokens_source, reconstructed_source_lex argumentsBodyTokens_certificates
-    argumentsBodyTokens_block_0_42.nonempty]
+    argumentsBodyTokens_block_0_45.nonempty]
   rw [argumentsBodyTokens_values]
 
 end Silver.Source

@@ -2,7 +2,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
       Static_Main, Main_Body, Argument_Effects, Binding_Main, Argument_Binding_Main,
-      Assignment_Main, Assignment_Effects, Selected_Main, Selected_Effects, Selected_Binding_Main);
+      Argument_Without_Query, Argument_Effects_Without_Query,
+      Assignment_Main, Assignment_Effects, Selected_Main, Selected_Effects,
+      Selected_Without_Query, Selected_Effects_Without_Query, Selected_Binding_Main);
    subtype Application_Audit is Audit_Kind range Static_Main .. Selected_Binding_Main;
    subtype Mutable_Audit is Audit_Kind range Assignment_Main .. Selected_Binding_Main;
    function Audit_Of (Kind : Report_Kind) return Audit_Kind is
@@ -1108,6 +1110,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Argv_Interface => Name in Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status,
         when Main_Body | Selected_Main =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put_Line,
+        when Argument_Without_Query | Selected_Without_Query =>
+          Name in Main_Entity | First_Or_Default | Reject | Put_Line,
+        when Argument_Effects_Without_Query | Selected_Effects_Without_Query =>
+          Name in Main_Entity | First_Or_Default | Reject,
         when Argument_Effects | Selected_Effects =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject,
         when Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main =>
@@ -1343,8 +1349,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
-          (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main then Argument_Diagnostics
-           elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main then Selected_Diagnostics
+          (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main
+                 | Argument_Without_Query | Argument_Effects_Without_Query then Argument_Diagnostics
+           elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main
+                 | Selected_Without_Query | Selected_Effects_Without_Query then Selected_Diagnostics
            elsif Kind in Mutable_Audit then Assignment_Diagnostics
            elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
@@ -1380,12 +1388,16 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           or else Report_Policy (Report, Static_Main),
         when Argument_Output => Report_Policy (Report, Argument_Binding_Main)
           or else Report_Policy (Report, Argument_Effects)
-          or else Report_Policy (Report, Main_Body),
+          or else Report_Policy (Report, Main_Body)
+          or else Report_Policy (Report, Argument_Without_Query)
+          or else Report_Policy (Report, Argument_Effects_Without_Query),
         when Assigned_Output => Report_Policy (Report, Assignment_Main)
           or else Report_Policy (Report, Assignment_Effects),
         when Selected_Output => Report_Policy (Report, Selected_Binding_Main)
           or else Report_Policy (Report, Selected_Effects)
-          or else Report_Policy (Report, Selected_Main));
+          or else Report_Policy (Report, Selected_Main)
+          or else Report_Policy (Report, Selected_Without_Query)
+          or else Report_Policy (Report, Selected_Effects_Without_Query));
 
    function Audit_Report (Report : String; Kind : Audit_Kind) return Boolean
      with Post => (Static => Audit_Report'Result = Report_Policy (Report, Kind))
@@ -1416,8 +1428,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)
            and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,
-             (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main then Argument_Diagnostics
-              elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main then Selected_Diagnostics
+             (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main
+                 | Argument_Without_Query | Argument_Effects_Without_Query then Argument_Diagnostics
+              elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main
+                 | Selected_Without_Query | Selected_Effects_Without_Query then Selected_Diagnostics
               elsif Kind in Mutable_Audit then Assignment_Diagnostics
               elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
            and then List_OK (Text, Field (Text, Object, JSON_proof), Entities,
@@ -1444,11 +1458,15 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           or else Audit_Report (Report, Static_Main),
         when Argument_Output => Audit_Report (Report, Argument_Binding_Main)
           or else Audit_Report (Report, Argument_Effects)
-          or else Audit_Report (Report, Main_Body),
+          or else Audit_Report (Report, Main_Body)
+          or else Audit_Report (Report, Argument_Without_Query)
+          or else Audit_Report (Report, Argument_Effects_Without_Query),
         when Assigned_Output => Audit_Report (Report, Assignment_Main)
           or else Audit_Report (Report, Assignment_Effects),
         when Selected_Output => Audit_Report (Report, Selected_Binding_Main)
           or else Audit_Report (Report, Selected_Effects)
-          or else Audit_Report (Report, Selected_Main));
+          or else Audit_Report (Report, Selected_Main)
+          or else Audit_Report (Report, Selected_Without_Query)
+          or else Audit_Report (Report, Selected_Effects_Without_Query));
    end Complete_Application_Proof;
 end Silver_Library_Reports;

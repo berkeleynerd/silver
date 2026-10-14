@@ -120,9 +120,11 @@ class SharedBindingsTests(unittest.TestCase):
             with self.subTest(assignment=assignment):
                 self.check(program(declarations, assignment + output(b'B')), 2)
         dynamic = b'Copy:String:=Input;Fixed:String:="old";'
-        self.check(program(dynamic,
-                           b'if Input="old" then Copy:=Fixed;else Copy:=Input;end if;'
-                           + output(b'Copy'), arguments=True), 2)
+        refined = (b'if Input="old" then Copy:=Fixed;else Copy:=Input;end if;'
+                   + output(b'Copy'))
+        self.check(program(dynamic, refined, arguments=True))
+        self.check(program(dynamic, refined.replace(b'Input="old"', b'Input/="old"'),
+                           arguments=True), 2)
 
     def test_alias_occurrences_keep_expression_capacity_limits(self) -> None:
         declarations = b'A:String:=' + literal(b'x' * 2048) + b';B:constant String:=A;'

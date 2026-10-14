@@ -685,6 +685,32 @@ end Probe;
                     with self.subTest(kind=kind, name=name, field=field, value=value):
                         self.assertFalse(self.accepts(changed, kind=kind))
 
+    def test_query_free_reports_retain_exact_coverage_and_check_requirements(self):
+        for with_output in (False, True):
+            baseline = main_report()
+            baseline['entities'].pop(' 3')
+            if not with_output:
+                baseline['entities'].pop(' 5')
+            baseline['assumptions'] = []
+            for kind in ('main', 'selected'):
+                with self.subTest(output=with_output, kind=kind):
+                    self.assertTrue(self.accepts(baseline, kind=kind))
+                    for key in (' 2', ' 4'):
+                        missing = copy.deepcopy(baseline)
+                        missing['entities'].pop(key)
+                        self.assertFalse(self.accepts(missing, kind=kind))
+                    duplicate = copy.deepcopy(baseline)
+                    duplicate['entities'][' 6'] = duplicate['entities'][' 2']
+                    self.assertFalse(self.accepts(duplicate, kind=kind))
+                    unproved = copy.deepcopy(baseline)
+                    unproved['proof'][0]['severity'] = 'medium'
+                    self.assertFalse(self.accepts(unproved, kind=kind))
+                    missing_coverage = copy.deepcopy(baseline)
+                    missing_coverage['spark'] = {}
+                    self.assertFalse(self.accepts(missing_coverage, kind=kind))
+            for kind in ('static', 'assignment'):
+                self.assertFalse(self.accepts(baseline, kind=kind))
+
 
 if __name__ == "__main__":
     unittest.main()

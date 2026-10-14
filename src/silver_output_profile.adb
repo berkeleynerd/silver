@@ -3,6 +3,8 @@
 --  statement sequencing and branch joins preserve all binding length shapes.
 with Silver_Profile;
 with Silver_Output_Lexical;
+with Silver_Path_Facts;
+with Silver_Integer_Literals;
 
 package body Silver_Output_Profile
   with SPARK_Mode => On
@@ -14,7 +16,7 @@ is
      (Token in With_Keyword .. End_Keyword | Constant_Keyword | String_Name
         | Arguments_Name | First_Or_Default_Name | If_Keyword
         | Input_Is_Valid_Name | Then_Keyword | Else_Keyword | Elsif_Keyword | Reject_Name
-        | And_Keyword | Length_Name | Null_Keyword);
+        | And_Keyword | Length_Name | Or_Keyword | Not_Keyword | Null_Keyword);
 
    function Spelling (Token : Token_Kind) return String is
      (case Token is
@@ -48,6 +50,12 @@ is
          when Reject_Name => "reject",
          when Ampersand => "&",
          when And_Keyword => "and",
+         when Or_Keyword => "or",
+         when Not_Keyword => "not",
+         when Not_Equal => "/=",
+         when Less => "<",
+         when Greater => ">",
+         when Greater_Equal => ">=",
          when Apostrophe => "'",
          when Length_Name => "length",
          when Less_Equal => "<=",
@@ -70,21 +78,7 @@ is
           Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
           Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
           On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, Then_Keyword, Statements, Else_Keyword,
-          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon),
-      when Guarded_Argument_Form =>
-         (With_Keyword, IO_Name, Semicolon, With_Keyword,
-          Arguments_Name, Semicolon, Procedure_Keyword, Main_Name,
-          Is_Keyword, Pragma_Keyword, SPARK_Mode_Name, Left_Parenthesis,
-          On_Name, Right_Parenthesis, Semicolon, Argument_Declaration,
-          Declarations, Begin_Keyword, If_Keyword, Arguments_Name,
-          Dot, Input_Is_Valid_Name, And_Keyword, Then_Keyword,
-          Dynamic_Reference, Apostrophe, Length_Name, Less_Equal,
-          Capacity_Literal, Then_Keyword, Statements, Else_Keyword,
-          Arguments_Name, Dot, Reject_Name, Semicolon, End_Keyword,
-          If_Keyword, Semicolon, End_Keyword, Main_Name, Semicolon));
+          Declarations, Begin_Keyword, Statements, End_Keyword, Main_Name, Semicolon));
 
    function Normalized (Source : String) return String
      with Global => null, Pre => Source'Length <= Max_Source_Length,
@@ -825,119 +819,38 @@ is
    Invalid_Scan : constant Scan_Result :=
      (State => Invalid_State, Assigned => False, Output => False);
 
-   function Scan_Token
-     (Text : String; Scan : Scan_Result; Token : Token_Kind) return Scan_Result
-     with Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Scan_Token'Result.State);
-   function Scan_Token
-     (Text : String; Scan : Scan_Result; Token : Token_Kind) return Scan_Result is
-     (Scan with delta State => Step (Text, Direct_Form, Token, Scan.State));
-
-   function Basic_Statement_At (Text : String; Scan : Scan_Result) return Scan_Result
-     with Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Basic_Statement_At'Result.State)
-         and then (Basic_Statement_At'Result.State.Position = 0
-           or else Basic_Statement_At'Result.State.Position > Scan.State.Position);
-   function Basic_Statement_At (Text : String; Scan : Scan_Result) return Scan_Result is
-      Result : Scan_Result := Scan;
-   begin
-      if Scan.State.Position = 0 then return Invalid_Scan; end if;
-      if Take_Token (Text, Scan.State.Position, Null_Keyword) /= 0 then
-         Result := Scan_Token (Text, Result, Null_Keyword);
-         Result := Scan_Token (Text, Result, Semicolon);
-      elsif Take_Token (Text, Scan.State.Position, IO_Name) /= 0 then
-         Result := Scan_Token (Text, Result, IO_Name);
-         Result := Scan_Token (Text, Result, Dot);
-         Result := Scan_Token (Text, Result, Put_Line_Name);
-         Result := Scan_Token (Text, Result, Left_Parenthesis);
-         Result := Scan_Token (Text, Result, Output_Expression);
-         Result := Scan_Token (Text, Result, Right_Parenthesis);
-         Result := Scan_Token (Text, Result, Semicolon);
-         Result.Output := True;
-      else
-         Result := Scan_Token (Text, Result, Assignment_Target);
-         Result := Scan_Token (Text, Result, Assignment);
-         Result := Scan_Token (Text, Result, Assignment_Value);
-         Result := Scan_Token (Text, Result, Semicolon);
-         Result.Assigned := True;
-      end if;
-      if Result.State.Position <= Scan.State.Position then return Invalid_Scan; end if;
-      return Result;
-   end Basic_Statement_At;
-
-   function Basic_Tail
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
-     with Ghost => Static, Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => Valid_State (Text, Basic_Tail'Result.State),
-       Subprogram_Variant => (Decreases => (Text'Last + 1) - Scan.State.Position);
-   function Basic_Tail
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
-     (if Scan.State.Position = 0 then Invalid_Scan
-      elsif Take_Token (Text, Scan.State.Position, Stop) /= 0 then Scan
-      elsif Basic_Statement_At (Text, Scan).State.Position = 0 then Invalid_Scan
-      else Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop));
-
-   function Read_Basic_Statements
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result
-     with Global => null,
-       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
-         and then Valid_State (Text, Scan.State),
-       Post => (Static => Valid_State (Text, Read_Basic_Statements'Result.State)
-         and then Read_Basic_Statements'Result =
-           Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop));
-   function Read_Basic_Statements
-     (Text : String; Scan : Scan_Result; Stop : Token_Kind) return Scan_Result is
-      Result : Scan_Result := Basic_Statement_At (Text, Scan);
-   begin
-      while Result.State.Position /= 0 loop
-         pragma Loop_Invariant (Valid_State (Text, Result.State));
-         pragma Loop_Invariant (Static =>
-           Basic_Tail (Text, Basic_Statement_At (Text, Scan), Stop) =
-             Basic_Tail (Text, Result, Stop));
-         pragma Loop_Variant (Increases => Result.State.Position);
-         if Take_Token (Text, Result.State.Position, Stop) /= 0 then return Result; end if;
-         Result := Basic_Statement_At (Text, Result);
-      end loop;
-      return Invalid_Scan;
-   end Read_Basic_Statements;
-
    --  Recursive conditional frames hold only cursors and flags. The common
    --  declaration environment stays immutable and is passed separately.
    type Body_Context is record
       Names : Binding_Environment;
       Dynamic_First, Dynamic_After : Literal_Position;
    end record;
+   package Paths renames Silver_Path_Facts;
+   use type Paths.Context;
+   use type Paths.Comparison;
    type Body_Scan is record
+      Facts : Paths.Context;
       Position : Literal_Position;
       Target : Binding_Count;
       Capacity : Capacity_Value;
       Assigned, Output : Boolean;
    end record;
    Invalid_Body : constant Body_Scan :=
-     (Position => 0, Target => 0, Capacity => 0, Assigned => False, Output => False);
+     (Facts => Paths.Empty_Context, Position => 0, Target => 0, Capacity => 0, Assigned => False, Output => False);
    type Body_Stop is (End_Only, Else_Only, Arm_Boundary);
 
    function Context_Of (Scan : Scan_Result) return Body_Context is
      (Names => Scan.State.Names, Dynamic_First => Scan.State.Dynamic_First,
       Dynamic_After => Scan.State.Dynamic_After);
    function Body_Of (Scan : Scan_Result) return Body_Scan is
-     (Position => Scan.State.Position, Target => Scan.State.Target,
+     (Facts => Paths.Initial (Scan.State.Dynamic_First /= 0),
+      Position => Scan.State.Position, Target => Scan.State.Target,
       Capacity => Scan.State.Capacity, Assigned => Scan.Assigned, Output => Scan.Output);
    function Expand_Body (Context : Body_Context; Scan : Body_Scan) return Scan_Result is
      (State => (Position => Scan.Position, Names => Context.Names,
        Dynamic_First => Context.Dynamic_First, Dynamic_After => Context.Dynamic_After,
        Target => Scan.Target, Capacity => Scan.Capacity),
       Assigned => Scan.Assigned, Output => Scan.Output);
-   function Compact_Body (Context : Body_Context; Scan : Scan_Result) return Body_Scan is
-     (if Scan.State.Position = 0 or else Scan.State.Target > Context.Names.Count
-      then Invalid_Body else Body_Of (Scan));
-
    function Valid_Context (Text : String; Context : Body_Context) return Boolean
      with Global => null,
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length;
@@ -964,12 +877,230 @@ is
    function Body_Token
      (Text : String; Context : Body_Context; Scan : Body_Scan; Token : Token_Kind)
       return Body_Scan is
-      Result : constant Body_Scan := Compact_Body
-        (Context, Scan_Token (Text, Expand_Body (Context, Scan), Token));
-   begin
-      if Result.Position <= Scan.Position then return Invalid_Body; end if;
-      return Result;
-   end Body_Token;
+     (Scan with delta Position => Take_Token (Text, Scan.Position, Token));
+
+   function Summary_Of (Value : Expression_Result) return Paths.Summary is
+     (Value.Static_Length, Value.Dynamic_Count);
+   function Bound_Of (Value : Binding_Info) return Paths.Bound is
+     (Value.Static_Length, Value.Dynamic);
+   function Binding_Summary (Value : Binding_Info) return Paths.Summary is
+     ((if Value.Dynamic then 0 else Value.Static_Length), (if Value.Dynamic then 1 else 0));
+
+   type Comparison_Result is record
+      After : Literal_Position;
+      Operator : Paths.Comparison;
+   end record;
+   function Scalar_Comparison_At (Text : String; Position : Literal_Position)
+      return Comparison_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1,
+       Post => Scalar_Comparison_At'Result.After = 0
+         or else Scalar_Comparison_At'Result.After in Position + 1 .. Text'Last + 1;
+   function Scalar_Comparison_At (Text : String; Position : Literal_Position)
+      return Comparison_Result is
+     (if Take_Token (Text, Position, Not_Equal) /= 0 then
+        (Take_Token (Text, Position, Not_Equal), Paths.Unequal)
+      elsif Take_Token (Text, Position, Less_Equal) /= 0 then
+        (Take_Token (Text, Position, Less_Equal), Paths.Less_Equal)
+      elsif Take_Token (Text, Position, Greater_Equal) /= 0 then
+        (Take_Token (Text, Position, Greater_Equal), Paths.Greater_Equal)
+      elsif Take_Token (Text, Position, Equal) /= 0 then
+        (Take_Token (Text, Position, Equal), Paths.Equal)
+      elsif Take_Token (Text, Position, Less) /= 0 then
+        (Take_Token (Text, Position, Less), Paths.Less)
+      elsif Take_Token (Text, Position, Greater) /= 0 then
+        (Take_Token (Text, Position, Greater), Paths.Greater)
+      else (0, Paths.Equal));
+
+   type Length_Result is record
+      After : Literal_Position;
+      Value : Paths.Bound;
+   end record;
+   function Length_At
+     (Text : String; Context : Body_Context; Position : Literal_Position; Literal : Boolean)
+      return Length_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Length_At'Result.After = 0
+         or else Length_At'Result.After in Position + 1 .. Text'Last + 1;
+   function Length_At
+     (Text : String; Context : Body_Context; Position : Literal_Position; Literal : Boolean)
+      return Length_Result is
+     (declare
+        First : constant Literal_Position := Skip_At (Text, Position);
+        After : constant Literal_Position := Name_After (Text, First);
+        Index : constant Binding_Count := Lookup_Name (Text, Context.Names, First, After);
+        Number : constant Silver_Integer_Literals.Literal_Result :=
+          Silver_Integer_Literals.Read_Integer (Text, First);
+      begin
+        (if Literal and then Number.After /= 0 then (Number.After, (Number.Value, False))
+         elsif Index = 0 then (0, (0, False))
+         else (Take_Token (Text, Take_Token (Text, After, Apostrophe), Length_Name),
+           Bound_Of (Context.Names.Items (Index)))));
+
+   type Condition_Result is record
+      After : Literal_Position;
+      When_True, When_False : Paths.Context;
+   end record;
+   Invalid_Condition : constant Condition_Result :=
+     (0, Paths.Empty_Context, Paths.Empty_Context);
+   function Condition_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Condition_Model'Result.After = 0
+         or else Condition_Model'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 3);
+   function Read_Condition
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => (Runtime => Read_Condition'Result.After = 0
+         or else Read_Condition'Result.After in Position + 1 .. Text'Last + 1,
+         Static => Read_Condition'Result = Condition_Model (Text, Context, Position, Facts)),
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 5);
+   function Read_Primary
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Read_Primary'Result.After = 0
+         or else Read_Primary'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 1);
+   function Read_Relation
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Valid_Context (Text, Context),
+       Post => Read_Relation'Result.After = 0
+         or else Read_Relation'Result.After in Position + 1 .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Position, Decreases => 2);
+
+   function Read_Primary
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result is
+     (if Position = 0 then Invalid_Condition else
+        (declare After : constant Literal_Position := Take_Token (Text, Position, Left_Parenthesis);
+         begin
+           (if After /= 0 then
+              (declare Result : constant Condition_Result := Read_Condition (Text, Context, After, Facts);
+               begin (Result with delta After => Take_Token (Text, Result.After, Right_Parenthesis)))
+            elsif Context.Dynamic_First = 0 then Invalid_Condition
+            else (Take_Token (Text, Take_Token (Text, Take_Token (Text, Position, Arguments_Name), Dot),
+                    Input_Is_Valid_Name), Paths.Assume_Valid (Facts), Paths.Assume_Invalid (Facts)))));
+
+   function Read_Relation
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result is
+     (if Position = 0 then Invalid_Condition else
+        (declare
+           After : constant Literal_Position := Take_Token (Text, Position, Not_Keyword);
+           Left_Length : constant Length_Result := Length_At (Text, Context, Position, False);
+         begin
+           (if After /= 0 then
+              (declare Result : constant Condition_Result := Read_Primary (Text, Context, After, Facts);
+               begin (Result.After, Result.When_False, Result.When_True))
+            elsif Left_Length.After /= 0 then
+              (declare
+                 Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left_Length.After);
+                 Right_Length : constant Length_Result := Length_At (Text, Context, Operator.After, True);
+               begin
+                 (if Right_Length.After <= Position then Invalid_Condition else
+                    (Right_Length.After,
+                     Paths.Refine_Bounds (Facts, Operator.Operator, Left_Length.Value, Right_Length.Value, True),
+                     Paths.Refine_Bounds (Facts, Operator.Operator, Left_Length.Value, Right_Length.Value, False))))
+            else
+              (declare Left : constant Expression_Result := Expression_At (Text, Position, Context.Names);
+               begin
+                 (if Left.After /= 0 then
+                    (declare Operator : constant Comparison_Result := Scalar_Comparison_At (Text, Left.After);
+                     begin
+                       (if Operator.After = 0 or else Operator.Operator not in Paths.Equal | Paths.Unequal
+                        then Invalid_Condition else
+                          (declare Right : constant Expression_Result := Expression_At (Text, Operator.After, Context.Names);
+                           begin
+                             (if Right.After <= Position or else not (Left.Named_Seen or else Right.Named_Seen)
+                                or else not Paths.Fits (Facts, Summary_Of (Left))
+                                or else not Paths.Fits (Facts, Summary_Of (Right))
+                              then Invalid_Condition else
+                                (declare Equal_Facts : constant Paths.Context :=
+                                   Paths.Refine_Equal (Facts, Summary_Of (Left), Summary_Of (Right));
+                                 begin (Right.After,
+                                   (if Operator.Operator = Paths.Equal then Equal_Facts else Facts),
+                                   (if Operator.Operator = Paths.Equal then Facts else Equal_Facts)))))))
+                  else Read_Primary (Text, Context, Position, Facts))))));
+
+   function Chain_Token (Text : String; Position : Literal_Position) return Token_Kind
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1;
+   function Chain_Token (Text : String; Position : Literal_Position) return Token_Kind is
+     (if Take_Token (Text, Position, And_Keyword) /= 0 then And_Keyword
+      elsif Take_Token (Text, Position, Or_Keyword) /= 0 then Or_Keyword
+      else End_Keyword);
+
+   function Chain_After (Text : String; Position : Literal_Position; Operator : Token_Kind)
+      return Literal_Position
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Position <= Text'Last + 1 and then Operator in And_Keyword | Or_Keyword,
+       Post => Chain_After'Result = 0 or else Chain_After'Result in Position + 1 .. Text'Last + 1;
+   function Chain_After (Text : String; Position : Literal_Position; Operator : Token_Kind)
+      return Literal_Position is
+     (Take_Token (Text, Take_Token (Text, Position, Operator),
+                  (if Operator = And_Keyword then Then_Keyword else Else_Keyword)));
+
+   function Condition_Tail
+     (Text : String; Context : Body_Context; Result : Condition_Result;
+      Operator : Token_Kind; Chained : Boolean) return Condition_Result
+     with Global => null,
+       Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
+         and then Result.After <= Text'Last + 1 and then Valid_Context (Text, Context)
+         and then Operator in And_Keyword | Or_Keyword,
+       Post => Condition_Tail'Result.After = 0
+         or else Condition_Tail'Result.After in Result.After .. Text'Last + 1,
+       Subprogram_Variant => (Decreases => (Text'Last + 1) - Result.After, Decreases => 4);
+   function Condition_Tail
+     (Text : String; Context : Body_Context; Result : Condition_Result;
+      Operator : Token_Kind; Chained : Boolean) return Condition_Result is
+     (if Result.After = 0 then Invalid_Condition else
+        (declare Selected : constant Token_Kind := Chain_Token (Text, Result.After);
+         begin
+           (if Selected not in And_Keyword | Or_Keyword then Result
+            elsif Chained and then Operator /= Selected then Invalid_Condition
+            else
+              (declare After : constant Literal_Position := Chain_After (Text, Result.After, Selected);
+               begin
+                 (if After = 0 then Invalid_Condition else
+                    (declare Right : constant Condition_Result := Read_Relation (Text, Context, After,
+                       (if Selected = And_Keyword then Result.When_True else Result.When_False));
+                     begin
+                       (if Right.After = 0 then Invalid_Condition else
+                          Condition_Tail (Text, Context,
+                            (if Selected = And_Keyword then
+                               (Right.After, Right.When_True, Paths.Join (Result.When_False, Right.When_False))
+                             else (Right.After, Paths.Join (Result.When_True, Right.When_True), Right.When_False)),
+                            Selected, True))))))));
+
+   function Condition_Model
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result is
+     (declare Result : constant Condition_Result := Read_Relation (Text, Context, Position, Facts);
+      begin (if Result.After = 0 then Invalid_Condition
+        else Condition_Tail (Text, Context, Result, And_Keyword, False)));
+
+   function Read_Condition
+     (Text : String; Context : Body_Context; Position : Literal_Position; Facts : Paths.Context)
+      return Condition_Result is
+     (Condition_Model (Text, Context, Position, Facts));
 
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan
@@ -981,7 +1112,50 @@ is
            or else Basic_Body'Result.Position > Scan.Position);
    function Basic_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
-     (Compact_Body (Context, Basic_Statement_At (Text, Expand_Body (Context, Scan))));
+      Result : Body_Scan := Scan;
+      Value : Expression_Result;
+      State : Parser_State;
+   begin
+      if Result.Position = 0 then return Invalid_Body; end if;
+      if Take_Token (Text, Result.Position, Null_Keyword) /= 0 then
+         Result := Body_Token (Text, Context, Result, Null_Keyword);
+      elsif Take_Token (Text, Result.Position, IO_Name) /= 0 then
+         Result := Body_Token (Text, Context, Result, IO_Name);
+         Result := Body_Token (Text, Context, Result, Dot);
+         Result := Body_Token (Text, Context, Result, Put_Line_Name);
+         Result := Body_Token (Text, Context, Result, Left_Parenthesis);
+         Value := Expression_At (Text, Result.Position, Context.Names);
+         if Value.After = 0 or else Result.Facts.Invalid_Reachable
+           or else not Paths.Fits (Result.Facts, Summary_Of (Value))
+         then return Invalid_Body; end if;
+         Result.Position := Value.After;
+         Result := Body_Token (Text, Context, Result, Right_Parenthesis);
+         Result.Output := True;
+      elsif Context.Dynamic_First /= 0
+        and then Take_Token (Text, Result.Position, Arguments_Name) /= 0
+      then
+         Result := Body_Token (Text, Context, Result, Arguments_Name);
+         Result := Body_Token (Text, Context, Result, Dot);
+         Result := Body_Token (Text, Context, Result, Reject_Name);
+         Result.Facts := Paths.Rejected (Result.Facts);
+      else
+         State := Target_At (Text, Expand_Body (Context, Result).State, False);
+         Result.Position := State.Position;
+         Result.Target := State.Target;
+         Result := Body_Token (Text, Context, Result, Assignment);
+         Value := Expression_At (Text, Result.Position, Context.Names);
+         if Value.After = 0 or else Result.Target = 0
+           or else not Paths.Fits (Result.Facts, Summary_Of (Value))
+           or else not Paths.Same_Length
+             (Result.Facts, Summary_Of (Value), Binding_Summary (Context.Names.Items (Result.Target)))
+         then return Invalid_Body; end if;
+         Result.Position := Value.After;
+         Result.Assigned := True;
+      end if;
+      Result := Body_Token (Text, Context, Result, Semicolon);
+      if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      return Result;
+   end Basic_Body;
 
    function At_Body_Stop (Text : String; Position : Literal_Position; Stop : Body_Stop)
       return Boolean
@@ -1078,13 +1252,20 @@ is
    function Conditional_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
       Result : Body_Scan := Body_Token (Text, Context, Scan, If_Keyword);
+      Condition : constant Condition_Result :=
+        Read_Condition (Text, Context, Result.Position, Result.Facts);
+      Yes : Paths.Context;
    begin
-      Result := Body_Token (Text, Context, Result, Comparison_Expression);
+      Result.Position := Condition.After;
+      Result.Facts := Condition.When_True;
       Result := Body_Token (Text, Context, Result, Then_Keyword);
       if Result.Position <= Scan.Position then return Invalid_Body; end if;
       Result := Read_Body (Text, Context, Result, Arm_Boundary);
       if Result.Position <= Scan.Position then return Invalid_Body; end if;
+      Yes := Result.Facts;
+      Result.Facts := Condition.When_False;
       Result := Alternative_Body (Text, Context, Result);
+      Result.Facts := Paths.Join (Yes, Result.Facts);
       Result := Body_Token (Text, Context, Result, End_Keyword);
       Result := Body_Token (Text, Context, Result, If_Keyword);
       Result := Body_Token (Text, Context, Result, Semicolon);
@@ -1095,16 +1276,24 @@ is
    function Alternative_Body
      (Text : String; Context : Body_Context; Scan : Body_Scan) return Body_Scan is
       Result : Body_Scan := Scan;
+      Condition : Condition_Result;
+      Yes : Paths.Context;
    begin
       if Scan.Position = 0 then return Invalid_Body; end if;
       if Take_Token (Text, Scan.Position, Elsif_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Elsif_Keyword);
-         Result := Body_Token (Text, Context, Result, Comparison_Expression);
+         Condition := Read_Condition (Text, Context, Result.Position, Result.Facts);
+         Result.Position := Condition.After;
+         Result.Facts := Condition.When_True;
          Result := Body_Token (Text, Context, Result, Then_Keyword);
          if Result.Position <= Scan.Position then return Invalid_Body; end if;
          Result := Read_Body (Text, Context, Result, Arm_Boundary);
          if Result.Position <= Scan.Position then return Invalid_Body; end if;
-         return Alternative_Body (Text, Context, Result);
+         Yes := Result.Facts;
+         Result.Facts := Condition.When_False;
+         Result := Alternative_Body (Text, Context, Result);
+         Result.Facts := Paths.Join (Yes, Result.Facts);
+         return Result;
       elsif Take_Token (Text, Scan.Position, Else_Keyword) /= 0 then
          Result := Body_Token (Text, Context, Result, Else_Keyword);
          if Result.Position <= Scan.Position then return Invalid_Body; end if;
@@ -1128,7 +1317,8 @@ is
       Result : constant Body_Scan := Read_Body
         (Text, Context, Body_Of (Scan), (if Stop = Else_Keyword then Else_Only else End_Only));
    begin
-      return (if Result.Position = 0 then Invalid_Scan else Expand_Body (Context, Result));
+      return (if Result.Position = 0 or else not Paths.Completed (Result.Facts)
+              then Invalid_Scan else Expand_Body (Context, Result));
    end Read_Statements;
 
    function Scan_Step
@@ -1142,7 +1332,7 @@ is
      (Text : String; Form : Form_Kind; Token : Token_Kind; Scan : Scan_Result)
       return Scan_Result is
      (if Token = Statements then Read_Statements
-        (Text, Scan, (if Is_Argument_Form (Form) then Else_Keyword else End_Keyword))
+        (Text, Scan, End_Keyword)
       else (Scan with delta State => Step (Text, Form, Token, Scan.State)));
 
    subtype Token_Index is Positive range 1 .. 101;

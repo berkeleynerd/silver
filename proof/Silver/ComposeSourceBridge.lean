@@ -43,7 +43,7 @@ theorem checked_source : CheckedSource where
 def NativeForm (form : Form) : Prop := form ∈ helperForms
 
 /-- Helper definitions and executed lexical-call domains, with Step restricted
-to the three shell tags actually declared by the native implementation. -/
+to the two shell tags actually declared by the native implementation. -/
 structure InterpretedSource (calls : Expressions.Calls) : Prop where
   lexical : ∃ (helpers : Guarded.Expressions.Calls)
       (token : Source → Nat → String → Bool → Bool),

@@ -6,18 +6,30 @@ Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Active work
+## Completed branches milestone
 
-The owner has authorized delivering all roadmap **5a–5c**, with operator input
-only for a genuine stop condition. See [the working record](docs/branches.md)
-and [increment plan](roadmap.md#equality-guards-and-branches-increments).
-5a recursive conditionals is complete; 5b predicate/literal grammar and 5c
-path-sensitive composition are in progress within this authorization. Do not stop after
-5a or infer that the earlier planning-only handoff still applies.
-`tmp/branches-active.json` records recovery, preserved evidence and isolated
-proof lanes. Current support includes the completed 5a conditional-statement
-language. Its complete Linux checkpoint is recorded in the working record;
-the coupled predicate/path extension still needs its integrated checkpoint.
+All authorized roadmap **5a–5c** are complete. The [delivery record](docs/branches.md)
+and [roadmap](roadmap.md#equality-guards-and-branches-increments) record nested
+conditionals, predicates/integer literals and path-sensitive composition.
+5a was published in `dc5295eabe`; Git identifies the following 5b/c integration
+commit. The combined Linux checkpoint passed with complete native and Lean
+source correspondence. The full-suite run had three stale assertions, since
+repaired and covered by the passing affected suites; the delivery record keeps
+that scope explicit. The Oracle is unchanged.
+
+The canonical `.silver/linux-x86_64/proof/` is the completed warm cache.
+`tmp/branches-active.json` identifies recovery and retained evidence under
+`.silver/linux-x86_64/branches-20261013T234331Z/`. Preserve earlier caches,
+private/server sidecars, Lake traces, isolated lanes, failed attempts and scratch.
+No optional independent replay or macOS run was performed for this checkpoint.
+
+Next proposed consolidation work is **context/name rules and positional/named
+call associations** for the existing packages and APIs, in roadmap items 2, 6
+and 7. Their predicate/path integration is complete; new argument APIs remain
+separate. This handoff does not authorize that next work. The historical Compose
+String Results harness goal remains complete, without a newly requested goal.
+Publication remains authorized, Actions is disabled and CLI memory is unavailable
+and was not updated. Checked-in session memory records this completion.
 
 ## Completed review follow-up
 
@@ -50,7 +62,7 @@ historical Compose String Results goal is complete; no new goal or language
 increment began. CLI memory tools remain unavailable; this handoff and checked-in
 session memory are updated.
 
-## Latest completed work
+## Earlier completed sequencing work
 
 **[Statement sequencing and assignment](docs/statement-sequencing.md) is complete**,
 based on `3c1522f540`. The implementation/review target is `9b99d52b447a65`.
@@ -73,12 +85,8 @@ private/server sidecars, Lake metadata, failed logs and scratch. The task record
 notes the replaced model-lane rolling focused JSON; its timestamped logs and
 separate witness evidence remain. Do not run concurrent writers in one workspace.
 
-**All 5a–5c work is authorized and active**, as described above. The shared tree
-contains 5a while its complete source checkpoint finishes. Predicate/path changes
-remain in isolated drafts until integration. The historical Compose String
-Results harness goal remains complete; no replacement was requested. Publication
-remains authorized, Actions is disabled, and macOS proofs are out of scope. CLI
-recall tools are unavailable and were not updated.
+The later 5a–5c checkpoint above supersedes this sequencing checkpoint as the
+current-language validation. Its evidence and source/cache scope remain intact.
 
 ## Previous completed work
 
@@ -389,7 +397,7 @@ python3 scripts/dev.py test -- -p test_branching.py
 
 Choose tests for the affected behavior and batch edits before expensive
 source-certificate rebuilds. Use `python3 scripts/check_lean.py --target
-Silver.ComposeMain --memory-mb 16384` for focused model feedback. Without a
+Silver.PredicateChecks --memory-mb 16384` for focused model feedback. Without a
 target, a changed embedded Ada source still triggers its certificate rebuild.
 Once a capability's inputs are stable, normally at the end of the session or
 day, run the full test suite, `dev.py prove --full`, and `check_lean.py` without
@@ -408,7 +416,8 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
 capability's evidence is under
-`.silver/linux-x86_64/common-expressions-20261013T152350Z/` and
+`.silver/linux-x86_64/branches-20261013T234331Z/`. Earlier common-expression
+evidence remains under `.silver/linux-x86_64/common-expressions-20261013T152350Z/` and
 `.silver/linux-x86_64/common-expressions-probes/20261013T152332Z/`.
 Earlier Copy String Values evidence is under `.silver/linux-x86_64/copy-values/`; the preceding
 composed-result evidence is under `.silver/linux-x86_64/compose-results/`.

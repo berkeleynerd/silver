@@ -122,3 +122,30 @@ lean_lib OutputLexicalBodySource where
   roots := #[]
   globs := #[.one `Silver.OutputLexicalBodySource]
   needs := #[outputLexicalBodySource]
+
+input_file integerLiteralSpecSource where
+  path := "../src/silver_integer_literals.ads"
+  text := false
+
+lean_lib IntegerLiteralSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.IntegerLiteralSpecSource]
+  needs := #[integerLiteralSpecSource]
+
+input_file integerLiteralBodySource where
+  path := "../src/silver_integer_literals.adb"
+  text := false
+
+lean_lib IntegerLiteralBodySource where
+  roots := #[]
+  globs := #[.one `Silver.IntegerLiteralBodySource]
+  needs := #[integerLiteralBodySource]
+
+input_file pathFactsSpecSource where
+  path := "../src/silver_path_facts.ads"
+  text := false
+
+lean_lib PathFactsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.PathFactsSpecSource]
+  needs := #[pathFactsSpecSource]

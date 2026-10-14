@@ -80,14 +80,15 @@ class BranchingTests(unittest.TestCase):
         name = b'X' * ((4096 - len(source_for(b'', b'', b'', b'', b''))) // 2)
         longest_name = source_for(b'', b'', b'', b'', name)
         cases.append(longest_name + b' ' * (4096 - len(longest_name)))
+        cases += [canonical.replace(b'Mode="verbose"', predicate) for predicate in
+                  (b'Mode/="verbose"', b'(Mode="verbose")')]
         self.check_sources(cases, 0)
 
     def test_rejected_guard_equality_and_branch_neighbours(self) -> None:
         canonical = source_for()
         cases = [source_for(reference=b'Other'), source_for(reference=b'Mode_2')]
         cases += [canonical.replace(b'Mode="verbose"', replacement) for replacement in
-                  (b'Mode/="verbose"', b'Mode=="verbose"', b'Mode:="verbose"',
-                   b'(Mode="verbose")',
+                  (b'Mode=="verbose"', b'Mode:="verbose"',
                    b'Mode="verbose" and then True', b'True', b'not Mode="verbose"')]
         cases += [canonical.replace(b'with Silver_Arguments;', b''),
                   canonical.replace(b'with Silver_IO;with Silver_Arguments;',
@@ -122,14 +123,16 @@ class BranchingTests(unittest.TestCase):
                 cases.append(source_for(*values))
         self.check_sources(cases, 2)
 
-    def test_inner_arm_sequence_and_outer_reject_arm_have_separate_neighbours(self) -> None:
+    def test_inner_and_reject_arm_sequences_have_rejected_neighbours(self) -> None:
         canonical = source_for()
         inner_sequence = canonical.replace(b'Silver_IO.Put_Line("Ready.");',
                                            b'Silver_IO.Put_Line("Ready.");null;')
         self.check_sources([canonical, inner_sequence], 0)
         outer_sequence = inner_sequence.replace(b'Silver_Arguments.Reject;',
                                                b'Silver_Arguments.Reject;null;')
-        self.check_sources([outer_sequence], 2)
+        self.check_sources([outer_sequence], 0)
+        self.check_sources([outer_sequence.replace(b'Silver_Arguments.Reject;null;',
+                                                   b'Silver_Arguments.Reject;null')], 2)
 
     def test_excluded_declaration_names(self) -> None:
         reserved = '''abort abs abstract accept access aliased all and array at begin body

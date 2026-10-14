@@ -14,6 +14,7 @@ package Silver_Arguments with SPARK_Mode => On is
      with Global => null,
           Post => First_Or_Default'Result'First = 1
             and then First_Or_Default'Result'Length <= Silver_IO.Max_Length
+            and then (Input_Is_Valid or else First_Or_Default'Result'Length = 0)
             and then (for all Ch of First_Or_Default'Result =>
               Character'Pos (Ch) in 32 .. 126);
 

@@ -15,7 +15,7 @@ def exampleSource : Source :=
 theorem example_admitted : accepts exampleSource = true := by decide +kernel
 
 theorem example_current : Current.Member exampleSource :=
-  Or.inr ⟨.direct, Sequence.form_reading_sound (by decide +kernel)⟩
+  Or.inr ⟨.direct, Predicate.form_reading_sound (by decide +kernel)⟩
 
 /-- Escaped source width differs while decoded value lengths agree. -/
 def escapedSource : Source :=

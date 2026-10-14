@@ -60,6 +60,10 @@ class CommandLineGreetingTests(unittest.TestCase):
                  canonical.replace(b"'Length<=", b" ' -- attr\r\nLength <="),
                  canonical.replace(b'and then', b'and--short circuit\r\nthen'),
                  canonical.replace(b'&', b'--concat\r\n&\t')]
+        cases += [source_for(capacity=value) for value in
+                  (b'04088', b'4_088', b'4088e0', b'16#FF8#')]
+        cases += [canonical.replace(b"Name'Length<=4088", predicate) for predicate in
+                  (b"Name'Length<4088", b"(Name'Length<=4088)")]
         for side in ('default', 'prefix', 'suffix'):
             source = source_for(*largest(side))
             cases.append(source + b' ' * (4096 - len(source)))
@@ -77,15 +81,15 @@ class CommandLineGreetingTests(unittest.TestCase):
     def test_rejected_guard_and_expression_neighbours(self) -> None:
         canonical = source_for()
         cases = [source_for(capacity=value) for value in
-                 (b'4089', b'04088', b'+4088', b'4_088', b'4088.0',
-                  b'4.088E3', b'4088e0', b'16#FF8#', b'4088_0', b'4097',
+                 (b'4089', b'+4088', b'4088.0',
+                  b'4.088E3', b'4088_0', b'4097',
                   b'4088X', b'999999999999999999999999999')]
         cases += [canonical.replace(b'and then', replacement) for replacement in
                   (b'and', b'or else', b'or', b'andthen')]
         cases += [canonical.replace(b"Name'Length<=4088", replacement) for replacement in
-                  (b"Name'Length<4088", b"Name'Length>=4088", b"Name'Last<=4088",
+                  (b"Name'Length>=4088", b"Name'Last<=4088",
                    b"Other'Length<=4088", b"Name'Length<=4096-8", b"Name'Length< =4088",
-                   b"Name'Length<=4088then", b"(Name'Length<=4088)")]
+                   b"Name'Length<=4088then")]
         cases += [canonical.replace(b'&Name&', replacement) for replacement in
                   (b'&Other&', b'&Name&Name&')]
         cases += [source_for(name=name) for name in

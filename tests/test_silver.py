@@ -74,25 +74,31 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
         self.assertEqual(catalogue["max_expression_operands"], 16)
-        self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence"} <= set(constructs))
+        self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence",
+                         "length_predicate", "boolean_predicate", "integer_literal"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
-        self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements",
-                         "guarded_argument_statements"})
+        self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
         self.assertEqual(compositions["null"]["context"], [])
         self.assertEqual(compositions["static_statements"]["statements"], ["statement_sequence"])
-        self.assertEqual(compositions["argument_statements"]["guarded_body"], "statement_sequence")
-        self.assertEqual(compositions["guarded_argument_statements"]["declarative_items"],
+        self.assertEqual(compositions["argument_statements"]["statements"], ["statement_sequence"])
+        self.assertEqual(compositions["argument_statements"]["path_requirement"],
+                         "every invalid-input execution rejects without any output call")
+        self.assertEqual(compositions["argument_statements"]["declarative_items"],
                          ["spark_mode_on", "argument_initialization"])
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
-        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output", "string_choice"])
+        self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output",
+                                             "string_choice", "argument_rejection"])
+        self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
         self.assertTrue(sequence["repeated_choices"])
         choice = constructs["string_choice"]["conditions"]
         for arm in ("then", "elsif", "else"):
             self.assertEqual(choice[arm], ["statement_sequence"])
+        self.assertEqual(choice["condition"], "boolean_predicate")
         self.assertTrue(choice["nested_equality_conditionals"])
+        self.assertEqual(choice["path_join"], "interval hull and guaranteed invalid-input rejection intersection")
         self.assertTrue(choice["else_optional"])
         self.assertEqual(choice["elsif_count"], "finite_within_complete_source_bound")
         self.assertEqual(choice["nesting"], "finite_within_complete_source_bound")
@@ -129,10 +135,45 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
         self.assertIs(equality["at_least_one_bound_name_across_operands"], True)
         self.assertIs(equality["both_operands_independently_bounded"], True)
+        self.assertEqual(equality["inequality_operator"], "/=")
+        self.assertTrue(equality["true_equality_refines_affine_lengths"])
+        self.assertFalse(equality["false_equality_implies_length_inequality"])
+        length = constructs["length_predicate"]["conditions"]
+        self.assertEqual(length["operators"], ["=", "/=", "<", "<=", ">", ">="])
+        self.assertEqual(length["right"], ["integer_literal", "initialized_name Length attribute"])
+        self.assertTrue(length["fixed_bounds_survive_assignment"])
+        boolean = constructs["boolean_predicate"]["conditions"]
+        self.assertEqual(boolean["chains"], ["and then", "or else"])
+        self.assertTrue(boolean["mixed_operators_require_parentheses"])
+        self.assertEqual(boolean["not_operand"], ["input_guard", "parenthesized_condition"])
+        self.assertFalse(boolean["boolean_literals"])
+        self.assertFalse(boolean["eager_operators"])
+        numeral = constructs["integer_literal"]["conditions"]
+        self.assertEqual(numeral["value_range"], [0, 4096])
+        self.assertEqual(numeral["forms"], ["decimal", "based"])
+        self.assertEqual(numeral["based_range"], [2, 16])
+        self.assertEqual(numeral["based_delimiters"], ["#", ":"])
+        self.assertEqual(numeral["exponent_range"], [0, 4096])
+        for key in ("matching_delimiters_required", "leading_zeroes", "overflow_safe"):
+            self.assertTrue(numeral[key])
+        for key in ("negative_exponent", "fractions", "unary_signs"):
+            self.assertFalse(numeral[key])
+        rejection = constructs["argument_rejection"]["conditions"]
+        self.assertTrue(rejection["returns"])
+        self.assertTrue(rejection["failure_status_sticky"])
+        self.assertFalse(rejection["provides_validity_fact"])
         self.assertEqual(expression["max_result_bytes"], 4096)
         self.assertIs(constructs["string_assignment"]["conditions"]["output_must_reference_result"], False)
         self.assertIs(choice["assignments_preserve_each_target_bounds"], True)
-        self.assertEqual(constructs["capacity_guard"]["conditions"]["capacity_range"], [0, 4096])
+        capacity = constructs["capacity_guard"]["conditions"]
+        self.assertEqual(capacity["capacity_range"], [0, 4096])
+        self.assertEqual(capacity["capacity_literal_syntax"], "integer_literal")
+        self.assertEqual(capacity["condition"], "length_predicate")
+        validity = constructs["input_guard"]["conditions"]
+        self.assertEqual(constructs["input_guard"]["ada_kind"], "function_call")
+        self.assertEqual(validity["context"], "argument-input predicate primary")
+        self.assertFalse(validity["required"])
+        self.assertEqual(validity["count"], "finite_within_complete_source_bound")
         self.assertEqual(constructs["string_literal"]["conditions"]["quote_escape"], '\"\"')
         self.assertEqual(catalogue["null_tokens"], ["procedure", "main", "is", "pragma",
                          "spark_mode", "(", "on", ")", ";", "begin", "null",
@@ -140,12 +181,12 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual(catalogue["output_tokens"], ["with", "silver_io", ";", "procedure",
                          "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
                          "<declarations>", "begin", "<statements>", "end", "main", ";"])
-        for plain, guarded in (("argument_tokens", "guarded_argument_tokens"),):
-            tokens = catalogue[plain]
-            end = tokens.index("input_is_valid") + 1
-            self.assertEqual(catalogue[guarded], tokens[:end] +
-                             ["and", "then", "<dynamic_reference>", "'", "length", "<=", "<capacity_literal>"] +
-                             tokens[end:])
+        self.assertEqual(catalogue["argument_tokens"],
+                         ["with", "silver_io", ";", "with", "silver_arguments", ";",
+                          "procedure", "main", "is", "pragma", "spark_mode", "(", "on", ")", ";",
+                          "<argument_declaration>", "<declarations>", "begin", "<statements>",
+                          "end", "main", ";"])
+        self.assertNotIn("guarded_argument_tokens", catalogue)
         grammar_words = {
             token for key, tokens in catalogue.items()
             if key.endswith("_tokens") and key != "word_tokens" and isinstance(tokens, list)

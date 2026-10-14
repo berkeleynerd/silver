@@ -1,9 +1,9 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-conditional-statement language under the [Oracle](oracle.md). The
-[conditional-statement delivery record](docs/branches.md) tracks current validation,
-building on the completed [sequencing checkpoint](docs/statement-sequencing.md). The
+predicate and path-sensitive language under the [Oracle](oracle.md). The
+[conditional-statement delivery record](docs/branches.md) records the completed
+Linux milestone, building on the earlier [sequencing checkpoint](docs/statement-sequencing.md). The
 [machine-readable catalogue](catalogue/silver.json), compiler, and this
 specification must agree. A discrepancy is a defect to resolve, not an extension
 of the language. Membership depends on source bytes, never on prover success.
@@ -44,9 +44,8 @@ Ada's minimum implementation requirements alone do not establish it. See the
 
 ## Grammar and capabilities
 
-The language has the separate null program and three output-capable shells:
-static statements, argument-guarded statements, and argument/capacity-guarded
-statements. They share ordered declarations and finite statement sequences.
+The language has the separate null program and two output-capable shells:
+static statements and argument-input statements. They share ordered declarations and finite statement sequences.
 An output-capable shell need not actually call output. Earlier output, assignment
 and branch-selected samples are instances of these shared rules.
 
@@ -63,8 +62,8 @@ begin
 end Main;
 ```
 
-Every output-capable shell has `with Silver_IO;`. The two argument-bearing shells
-add exactly `with Silver_Arguments;` after that clause. There are no `use`
+Every output-capable shell has `with Silver_IO;`. The argument-input shell
+adds exactly `with Silver_Arguments;` after that clause. There are no `use`
 clauses or additional application units. Context-clause reordering/grouping and
 broader visibility rules remain explicit later work with the existing argument
 operations. The grammar below uses `L` for a literal, `S` for an assignment's
@@ -126,7 +125,7 @@ independent declaration-count restriction.
 
 ### Common String expressions
 
-Initialization, assignment, both operands of the inner equality, and output use:
+Initialization, assignment, both operands of String equality/inequality, and output use:
 
 ```text
 expression ::= atom { "&" atom }
@@ -152,16 +151,20 @@ String value must fit within 4096 bytes. Admission requires:
 S + K*C <= 4096
 ```
 
-Here `C = 4096` for declaration initializers and unguarded bodies. Guarded body
-expressions use the explicit capacity, or 4096 if absent. Repeated dynamic
-references are permitted when that bound holds. The total bound covers all
+Here `C = 4096` for declaration initializers. Body expressions use the greatest
+selected-input length still reachable on the current path. Valid-input lengths
+are represented by a closed interval; invalid input has length zero and is
+tracked separately. If no path reaches an expression, its evaluation bound is
+vacuous, but names, mutability and expression grammar must still be valid.
+Repeated dynamic references are permitted when the applicable bound holds. The total bound covers all
 intermediate groups because operand lengths are nonnegative. Initializers cannot
-borrow the later body's capacity. Assignment additionally requires exact equality
-of its affine length and the target's fixed/static or symbolic length.
+borrow the later body's capacity. Assignment additionally requires equality of its affine length and the target's
+fixed/static or symbolic length throughout the reachable interval, and at zero
+if invalid input remains reachable.
 
 The source has at most **30 concatenation operators** across all initializers,
 assignment values, equality operands and output expressions, including every
-conditional arm. Ampersands inside literals or comments do not count. This explicit
+conditional arm and predicate operand. Ampersands inside literals or comments do not count. This explicit
 proof-work resource budget redistributes the earlier two-output form's maximum
 `2 * (16 - 1)` concatenations across the new expression positions. Atomic copies
 and parentheses consume no concatenation budget. The sixteen-leaf and thirty-
@@ -174,28 +177,31 @@ records measured whole-program cost and the remaining external-tool premises.
 
 ### Statement sequences and fixed-bound assignment
 
-A static body contains a nonempty sequence of these statements:
+Every output-capable body contains a nonempty sequence of these statements:
 
 ```text
 statements       ::= statement { statement }
 statement        ::= basic_statement | string_choice
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
+                   | "Silver_Arguments" "." "Reject" ";"
                    | mutable_name ":=" expression ";"
                    | "Silver_IO" "." "Put_Line" "(" expression ")" ";"
-string_choice    ::= "if" expression "=" expression "then" statements
-                     { "elsif" expression "=" expression "then" statements }
+string_choice    ::= "if" condition "then" statements
+                     { "elsif" condition "then" statements }
                      [ "else" statements ] "end" "if" ";"
 ```
 
-The same sequence is used inside an argument shell's successful outer guard.
+The same sequence forms an argument-input body; its own predicates and rejection
+calls must meet the path rules below. Reject is available only in that shell.
 Statements execute in source order. Null does nothing. Assignment evaluates the
 RHS using the current store, replaces the target's bytes and preserves its fixed
 bounds and every other object's value. Only initialized mutable names are targets;
 constants and the original argument binding cannot be assigned. Assignment
-requires equal affine length shapes: equal static lengths, or the same symbolic
-input length `d`. Empty values and self-copy are legal. Branch-refined equality
-of otherwise different length shapes is not used for admission. `:=` is one
+requires equal lengths on every reachable input: equal static lengths, the same
+symbolic input length `d`, or equality established by a preceding predicate.
+Empty values and self-copy are legal. For example, inside `if Input'Length = 3`,
+a variable initialized from Input can receive a three-byte static value. `:=` is one
 contiguous token.
 
 For example, snapshots remain unchanged across later updates:
@@ -227,104 +233,129 @@ process-group memory on the reviewer's Linux sandbox. Its Main report was
 program with 769 assignments proved in 49.5 minutes with 9.99 GiB peak
 process-group memory. Its 1,983,843-byte report leaves 113,309 bytes (5.4%) of
 headroom. These are observations for those programs and host, not worst-case
-bounds; an admitted 771-assignment variant remains uncompiled. The
+bounds. Relaxed guard placement now admits a 782-assignment argument-input
+specimen that remains uncompiled. Its projected report uses 96.2% of the buffer;
+that is an estimate, not a measured maximum. The
+[current capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
+records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 records the measured shapes, results and their limits.
 Sufficient host resources and pinned-tool completion remain operational premises;
 failed compilation of admitted source is still a defect, never nonmembership.
 
-### String equality choices
+### Predicates and conditional statements
 
-A choice evaluates each condition in source order until the first true condition,
-then executes that condition's nonempty statement sequence. If no condition is
-true, it executes the optional `else` sequence; without `else`, it leaves the
-store and output unchanged. Equality compares both String expressions from the
-current store: exact bytes, case-sensitive and false for unequal lengths.
-At least one comparison operand
-must contain an initialized String name so Ada resolves the array type; either
-operand may supply it. Both operands independently satisfy the expression bound.
+```text
+condition        ::= relation { "and" "then" relation }
+                   | relation { "or" "else" relation }
+relation         ::= expression ( "=" | "/=" ) expression
+                   | name "'" "Length" comparison length_operand
+                   | primary | "not" primary
+primary          ::= "Silver_Arguments" "." "Input_Is_Valid"
+                   | "(" condition ")"
+comparison       ::= "=" | "/=" | "<" | "<=" | ">" | ">="
+length_operand   ::= integer_literal | name "'" "Length"
+```
 
-Each arm may mix null, assignments, output and further choices. Arms need not
-assign the same objects or make the same number of calls. Initialization and
-fixed object bounds hold after every arm and the missing-`else` path; following
-statements observe only the selected updates. Multiple choices may occur
-sequentially, including in the static shell. Nesting and the number of `elsif`
-arms are finite within the complete-source bound, with no separate nesting or
-arm-count limit. Every written arm must contain a statement; an omitted `else`
-differs from an empty explicit `else`.
+String equality/inequality compares current bytes, case-sensitively. Unequal
+lengths compare unequal. At least one operand must contain an initialized String
+name so Ada resolves the array type. Both operands must fit their incoming path
+bounds before the comparison can establish any further facts.
 
-The [conditional-statement sample](samples/conditional_statements.adb) combines
-nested choices, `elsif`, omitted `else`, mutation and a retained snapshot.
-Broader predicates and branch-refined assignment remain work in
-[roadmap increments 5b and 5c](roadmap.md#equality-guards-and-branches-increments).
+Length predicates may read any earlier initialized binding, including an alias or
+mutable object. Length remains fixed after initialization. The left operand must
+be a binding's Length; reversing a literal and Length, arithmetic, other
+attributes and ordering String bytes are excluded from this bounded predicate
+fragment. The validity query is available only in the argument-input shell and
+has no parentheses of its own. Boolean literals are not admitted; True and False
+remain legal String binding names.
 
-### Guarded command-line initialization
+`and then` evaluates its right operand only after a true left operand; `or else`
+evaluates it only after a false left operand. That path's facts justify the right
+operand. Mixing these operators requires parentheses, following Ada's grammar.
+`not` takes a primary, so write `not (A = B)`, not `not A = B`. Eager `and`, `or`
+and `xor` remain excluded because the current predicate fragment models
+short-circuit facts and has no need for their separate evaluation rules.
+
+A conditional executes the first true arm, its optional else, or no statements
+if every condition is false and else is absent. Each written arm is nonempty and
+may contain null, assignment, output, Reject in an argument shell, and nested
+conditionals. Multiple conditionals and elsif arms are permitted up to the
+complete-source bound, without a separate count or nesting cap.
+
+True String equality (or false inequality) implies equality of operand lengths
+and can refine `S + K*d`. False String equality does not imply unequal lengths.
+Length comparisons refine the valid-input interval and the invalid-input case.
+An assignment preserves length facts because it preserves bounds, even when the
+bytes change. A join keeps an interval covering both arms and retains guaranteed
+invalid-input rejection only when every reachable invalid arm has rejected.
+An omitted else joins the unchanged false path. Admission does not track general
+mutable byte equalities across statements or disjoint sets of valid lengths;
+these deliberate analysis limits keep composition and automatic discharge bounded.
+
+### Integer literals in length predicates
+
+An integer literal has value 0 through 4096. Decimal digits and leading zeroes
+are admitted, with single underscores only between digits. Based literals use a
+base from 2 through 16, decimal base spelling and appropriate case-insensitive
+extended digits; both matching `#...#` and `:...:` delimiters are admitted under
+Ada 2022 J.2(3). Examples include `4_096`, `016#0_FF#` and `2:11:`.
+
+An optional `E` exponent contains decimal digits, may have a leading `+`, and
+may use separators and leading zeroes. It multiplies by the numeral's base.
+The exponent value is at most 4096, even for zero; this is an explicit frontend
+resource limit, not Ada's universal-integer range. Parsing checks each operation
+before overflow. There is no separate digit-count limit within the source bound.
+Negative exponents (including `E-0`), fractions and mismatched delimiters are
+excluded by integer-literal rules. Unary plus/minus are expressions rather than
+literal spelling and remain outside this length-operand fragment.
+
+### Command-line initialization and path requirements
 
 One declaration `D : constant String :=
 Silver_Arguments.First_Or_Default (L);` follows the pragma before all other
-declarations. It is the only such call. Its returned String is immutable and
-one-based; ordinary declarations may copy it. The body is exactly an outer
-guard whose successful branch contains a nonempty statement sequence and whose
-false branch contains
-`Silver_Arguments.Reject;`. The guard establishes validity and capacity before
-body expressions, and the rejection arm preserves the specified no-output
-outcome for invalid input. Requiring the guard to enclose the entire body, with
-no surrounding statements and `Reject` alone in its false arm, is a staging
-restriction that avoids partially guarded effects. It is not required for every
-safe Ada statement; broader placement belongs to
-[roadmap items 5 and 7](roadmap.md#existing-feature-consolidation).
+declarations. It is the only initializer API call. Its immutable, one-based
+String may be copied by later ordinary declarations. Initializers run before
+body predicates, so later facts cannot justify earlier initialization.
 
-For example:
+The body may place predicates, assignments and returning Reject calls within
+ordinary sequences and nested branches. Every possible invalid-input execution
+must perform Reject and must make no output call. An explicit validity query is
+one way to establish a safe path; a positive input length also excludes invalid
+input because its initializer is empty. Output still needs the expression bound.
+Reject sets failed status and returns: it does not terminate the path or provide
+any validity/length fact. Later statements must remain safe and preserve the
+invalid-input no-output requirement. A program may reject valid input by its own
+logic, including an input-capacity rule.
+
+The familiar outer guard is an instance of these rules:
 
 ```ada
-with Silver_IO;
-with Silver_Arguments;
-procedure Main is
-   pragma SPARK_Mode (On);
-   Name : constant String := Silver_Arguments.First_Or_Default ("world");
-begin
-   if Silver_Arguments.Input_Is_Valid and then Name'Length <= 4088 then
-      Silver_IO.Put_Line ("Hello, " & Name & "!");
-   else
-      Silver_Arguments.Reject;
-   end if;
-end Main;
+if Silver_Arguments.Input_Is_Valid and then Name'Length <= 4088 then
+   Silver_IO.Put_Line ("Hello, " & Name & "!");
+else
+   Silver_Arguments.Reject;
+end if;
 ```
 
-The outer condition is exactly one of:
+The guard may use a smaller capacity, other admitted literal spellings or an
+alias's fixed Length. Repeated dynamic references require the corresponding
+bound, such as `Name'Length <= 2048` before `Name & Name`. Safety facts apply
+only where established; joining a small-length arm with an unrestricted arm
+does not retain the small bound. Reject in an oversized arm also cannot justify
+an unsafe expression after that join because Reject returns.
 
-```text
-silver_arguments . input_is_valid
-silver_arguments . input_is_valid and then D ' length <= C
-```
-
-The capacity is a canonical decimal integer from 0 through 4096: `0` or a
-nonzero digit followed by decimal digits. Leading zeroes, signs, underscores,
-exponents, based literals and arithmetic are excluded. `<=` is contiguous.
-The capacity reference must bind the original `D`, not an alias. Parameterless calls have no parentheses.
-The conditions cannot be reordered, negated or extended.
-
-A capacity can be smaller than the maximum allowed by `E`; equality with the
-remaining output capacity is no longer required. Without a capacity clause,
-`C = 4096`, so a dynamic expression has exactly one dynamic occurrence and
-zero total static length.
-An expression without any dynamic operand may still occur under either guard. The explicit
-capacity applies to the selected argument/default even when output omits it.
-A default longer than the capacity is legal and reaches `Reject` when selected.
-Every statement in the successful branch uses the same established capacity.
-
-The [sequencing sample](samples/statement_sequence.adb) combines guarded input,
-mutable objects, a snapshot, repeated output, and two sequential equality choices.
-The existing [input-branching](samples/input_branching.adb) and
-[branch-selected-result](samples/composed_result.adb) samples are smaller instances
-of these rules.
+The [path-guard sample](samples/path_guards.adb) combines length alternatives,
+short-circuiting, a branch-refined assignment, snapshots and rejection. The
+[conditional-statement sample](samples/conditional_statements.adb) and older
+fixed-guard samples remain instances of the same rules.
 
 ### Shared composition rules
 
 Whitespace around punctuation is optional; adjacent word tokens require a
 separator. Declarations precede the entire executable body. Statements and
 recursive choices compose under the shared state, expression and effect rules;
-the outer argument guard and rejection alternative retain their fixed placement.
+path facts and rejection requirements apply at each executed operation and join.
 No application can call `Ada.Text_IO`, libc imports or an unlisted library API.
 
 The catalogue uses these construct identifiers:
@@ -337,13 +368,14 @@ The catalogue uses these construct identifiers:
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
 | `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses; at most thirty concatenations per program. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls anywhere a basic statement is allowed. |
-| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, mandatory validity/rejection and optional bounded capacity clause. |
-| `string_equality`, `string_choice` | Nested equality choices with nonempty statement sequences, repeated `elsif` and optional `else`. |
-| `string_assignment` | Compatible fixed-bound expression assignment, including self-copy. |
-| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment and output, and general sequences also contain choices. |
+| `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | Immutable input, path-derived validity/capacity and returning rejection with no output on invalid inputs. |
+| `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
+| `length_predicate`, `boolean_predicate`, `integer_literal` | Fixed-bound length comparisons, grouped short-circuit logic and bounded decimal/based integer spelling. |
+| `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices. |
 
-Everything else is excluded, including loops, general Boolean
-conditions, additional declaration regions, resizable strings, other array
+Everything else is excluded, including loops, Boolean values outside the specified predicate grammar,
+additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 
 ## Meaning and assurance
@@ -354,8 +386,8 @@ conditions remain within the [trusted boundary](docs/trusted-boundary.md).
 
 An output expression concatenates its operands' values in order; no separators
 are inserted. Each name contributes its current bytes; declaration copies keep
-their own snapshots when the original is later assigned. A dynamic-length binding
-contributes the selected argument/default; each occurrence counts independently.
+their own snapshots when the original is later assigned. A dynamic-length binding contributes its current bytes, which assignments may
+change while preserving its initially selected length. Each occurrence counts independently.
 Literals preserve decoded bytes, including empty Strings and
 escaped quotes. Each output call requests the resulting bytes followed by
 exactly LF (byte 10). An empty expression value therefore requests one LF.
@@ -369,21 +401,13 @@ which normal supported startup supplies (`argc >= 1`):
 | Exactly one argument of 0 through 4096 printable ASCII bytes | Select those exact bytes, including an explicitly empty argument. |
 | Extra arguments, an argument longer than 4096 bytes, or any byte outside 32 through 126 | Reject with status 1 and no application output. |
 
-A valid selected value must also satisfy the optional explicit capacity clause;
-otherwise it is rejected with status 1 and no output. This applies equally to a
-default and an actual argument. Declaration initializers execute before the capacity guard. The guard then
-precedes every statement in the successful sequence. Each choice compares the
-current values of its operands and executes its first matching arm, its `else`
-arm, or no statements when all conditions are false and `else` is absent. Later
-statements observe its selected updates. Unequal lengths compare false; there is
-no case folding, truncation or resizing.
-
-The initializer and validity query observe the same immutable GNAT argument
-vector. Invalid input produces an internal empty initializer value, but the
-mandatory rejection branch never prints that fallback. Retrieving an argument
-precedes its length check; the input limit does not bound GNAT's allocation.
-Storage exhaustion remains environmental. See the
-[argument boundary](docs/trusted-boundary.md#command-line-boundary).
+Valid input follows the written body predicates; a program may impose a smaller
+capacity or reject for another specified condition. The initializer and validity
+query observe the same immutable GNAT argument vector. Invalid input produces an
+empty initializer, which may participate in safe assignments, but every admitted
+invalid path must reject and cannot output. Retrieving an argument precedes its
+length check; the input limit does not bound GNAT's allocation. Storage exhaustion
+remains environmental. See the [argument boundary](docs/trusted-boundary.md#command-line-boundary).
 
 Successful output requires every byte write and the final `fflush(NULL)` to
 succeed. Completion means host-stream acceptance, not reader consumption or
@@ -392,7 +416,7 @@ durable storage. A detected write/flush failure sets status 1 and returns from
 success never clears a failed status. Accepted bytes concatenate in call order;
 under failure the cumulative bytes need not be a prefix of the full intended
 output. For `n` executed output calls the accepted trace has at most `n * 4097`
-bytes. Reject sets status 1 and returns through the fixed false branch. Partial output may
+bytes. Reject sets status 1 and returns to the following statement. Partial output may
 remain, including bytes flushed by runtime finalization. Signals such as SIGPIPE
 may terminate the process before an imported call returns. External blocking,
 storage exhaustion and process failure remain environmental; progress is an
@@ -401,12 +425,12 @@ concurrently written or rebound. These
 [external effect assumptions](docs/trusted-boundary.md#literal-output-boundary)
 are unchanged.
 
-Membership decides source shape, binding, operand counts, fixed assignment
-length shapes and every initializer/body/intermediate value bound before invoking a prover. Initialization
+Membership decides source shape, binding, operand counts, assignment
+length equality and every initializer/body/intermediate value bound before invoking a prover. Initialization
 establishes bytes and fixed bounds; assignments preserve each target's bounds
 and other objects' snapshots. Argument normalization establishes a one-based
-String of at most 4096 printable bytes. The validity/capacity guard establishes
-the output-domain bound for `D` and its dynamic aliases. The universal argument
+String of at most 4096 printable bytes. Path-sensitive predicates establish
+validity and output-domain bounds for `D` and its dynamic aliases. The universal argument
 must cover all admitted names, declarations, copies, argument vectors and paths.
 
 Literal/static expressions and plain name output may have no Main safety checks.
@@ -420,7 +444,7 @@ All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
 advisory. All output-capable policies also classify the exact
 `INEFFECTIVE` message `statement has no effect` and `DEAD_CODE` message
-`this statement is never reached`, produced by statically known String equality.
+`this statement is never reached`, produced by statically known predicates.
 Repeated output additionally permits only the four exact `INEFFECTIVE`
 messages naming the overwritten ghost outputs `Written_Count`, `Flushed`,
 `Succeeded` and `Written_Bytes` of `Put_Line`. Every accepted advisory retains
@@ -434,8 +458,8 @@ range/length fragment remain explicit
 [tool premises](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.
-See [assurance.md](docs/assurance.md) and the completed
-[checkpoint](docs/statement-sequencing.md) for exact validation scope.
+See [assurance.md](docs/assurance.md) and the
+[current delivery record](docs/branches.md) for exact validation scope.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
 compilation use the same source bytes, snapshotted as `main.adb`. Every output
