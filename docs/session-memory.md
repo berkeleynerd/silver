@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-10-14 — Focused Source Checks complete
+
+The owner-authorized single source-import performance milestone following Names
+and Calls is complete. The [roadmap](../roadmap.md#focused-source-checks--complete)
+and [delivery record](focused-source-checks.md) record six import-only Lean edits,
+unchanged statements/proof bodies and retained complete audit coverage. The
+composed source checks now depend only on their output certificates rather than
+the whole source facade. Source correspondence and invalidation remain required.
+
+The complete Linux Lean checkpoint, focused tests and isolated cache controls
+passed. Unrelated path edits preserve the composed proof objects, while path
+and output source changes still invalidate their relevant checks. The record
+distinguishes one-time rebuild cost, focused timings, the corrected metadata
+comparison and reused native evidence; no matched whole-build speedup is claimed.
+No language, Oracle, runner or new cache mechanism change is included.
+
+Recovery is `tmp/focused-source-checks-active.json`. Preserve canonical and
+isolated caches, sidecars, traces, control scripts and unrelated scratch.
+Publication remains authorized. No next capability or new harness goal was
+requested; the historical goal remains complete. CLI memory tools were checked
+and are unavailable, so no CLI memory entry was updated. macOS, hosted CI and
+independent kernel replay remain outside this delivery.
+
 ## 2026-10-14 — Names and Calls complete
 
 The owner-authorized bounded Names and Calls delivery is complete. The

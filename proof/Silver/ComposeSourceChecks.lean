@@ -1,6 +1,8 @@
 module
 
-public import Silver.LexicalSourceBridge
+public import Silver.SourceDeclarations
+public import Silver.OutputSpecCertificate
+public import Silver.OutputBodyCertificate
 public import Silver.ComposeEquations
 import all Init.Data.Repr
 

@@ -6,6 +6,27 @@ Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Focused Source Checks complete
+
+The owner-authorized single [roadmap milestone](roadmap.md#focused-source-checks--complete)
+after Names and Calls is complete. Six import-only Lean edits narrow composed-source checks
+to their relevant source certificates; statements, definitions and proof bodies
+are unchanged. The whole-project module set is retained. See the
+[delivery record](docs/focused-source-checks.md).
+
+The complete Linux Lean check and fresh axiom/module audit passed, as did all
+62 focused tests and isolated cache controls. The composed proof objects stay
+cached after unrelated path edits; relevant source edits still invalidate the
+appropriate checks. The existing native proof manifest matches its inputs,
+reports and tools. The delivery record distinguishes reused evidence and the
+metadata-comparison correction from fresh proof work and measured timings.
+
+Recovery: `tmp/focused-source-checks-active.json`; it locates evidence and the
+isolated baseline/control scripts. Preserve the canonical cache, sidecars and
+all scratch. Publication remains authorized. No next language capability or
+harness goal was requested. CLI memory is unavailable and was not updated.
+The following sections retain earlier delivery handoffs as history.
+
 ## Completed Names and Calls
 
 The owner-authorized Names and Calls delivery is complete, closing roadmap items

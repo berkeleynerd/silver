@@ -1,6 +1,9 @@
 module
 
 public import Silver.NamedSourceBridge
+public import Silver.ArgumentsSpecCertificate
+public import Silver.ArgumentsBodyCertificate
+public import Silver.RuntimeSpecCertificate
 public import Silver.ArgumentsRuntime
 public import Silver.ArgumentsExpressions
 import all Init.Data.Repr

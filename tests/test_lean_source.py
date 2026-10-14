@@ -112,6 +112,31 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         }
         self.assertEqual(legacy, {Path("Silver/Audit.lean"), Path("Silver/AxiomAudit.lean")})
 
+    def test_compose_source_checks_retain_only_relevant_source_dependencies(self):
+        # Guard the production dependency graph, rather than an exact spelling
+        # of direct imports. An umbrella reintroduced anywhere upstream would
+        # make unrelated path-source edits rebuild this expensive check again.
+        proof = ROOT / "proof"
+        pending = ["Silver.ComposeSourceChecks"]
+        closure = set()
+        while pending:
+            module = pending.pop()
+            if module in closure:
+                continue
+            closure.add(module)
+            path = proof.joinpath(*module.split(".")).with_suffix(".lean")
+            pending.extend(re.findall(
+                r"^(?:public )?(?:meta )?import(?: all)? (Silver(?:\.\w+)*)\b",
+                path.read_text(), re.MULTILINE))
+
+        for required in ("OutputSpecCertificate", "OutputBodyCertificate",
+                         "OutputProfileSpecSource", "OutputProfileBodySource"):
+            with self.subTest(required=required):
+                self.assertIn("Silver." + required, closure)
+        for unrelated in ("PathFactsSpecCertificate", "PathFactsSpecSource"):
+            with self.subTest(unrelated=unrelated):
+                self.assertNotIn("Silver." + unrelated, closure)
+
     def test_all_bytes_have_the_explicit_compiler_alphabet(self):
         allowed = {9, 10, 13, *range(32, 127)}
         for byte in range(256):

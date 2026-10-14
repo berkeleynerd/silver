@@ -295,6 +295,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The [Focused Source Checks record](docs/focused-source-checks.md) covers narrower
+Lean dependencies, cache-invalidation controls and the complete Linux proof check.
+
 The completed [Names and Calls checkpoint](docs/names-and-calls.md) records
 context visibility, call resolution and named associations, including the exact
 native, test-repair and cached Lean validation scope.

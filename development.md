@@ -147,7 +147,10 @@ Lean retains Lake artifacts and rebuilds changed dependencies. The
 embedded Ada file its own handwritten binding and binary Lake dependency.
 Changing just that file invalidates its binding, certificate and transitive
 importers; unrelated certificates and source-independent model modules can
-remain cached. Shared Lean changes can invalidate additional modules. The stable
+remain cached. Shared Lean changes can invalidate additional modules. Import
+only the certificates a source check uses; retain the complete facade at the
+project root. The [focused source-check record](docs/focused-source-checks.md)
+documents the dependency reduction and invalidation controls. The stable
 checkpoint and complete source-correspondence requirement remain. The module/axiom
 audit executes on every invocation, including cache hits, with the selected
 import scope. Ordinary proof files use Lean's `module` system, preserving existing

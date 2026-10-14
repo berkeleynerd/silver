@@ -1,6 +1,7 @@
 module
 
-public import Silver.Source
+public import Silver.ProfileSpecCertificate
+public import Silver.ProfileBodyCertificate
 public import Silver.SourceDeclarations
 public import Silver.Precedence
 public import Silver.Uniqueness

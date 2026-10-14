@@ -1,6 +1,13 @@
 module
 
 public import Silver.SourceBridge
+public import Silver.OutputSpecCertificate
+public import Silver.OutputBodyCertificate
+public import Silver.OutputLexicalSpecCertificate
+public import Silver.OutputLexicalBodyCertificate
+public import Silver.IOSpecCertificate
+public import Silver.IOBodyCertificate
+public import Silver.OutputLibcCertificate
 public import Silver.OutputExpressions
 public import Silver.OutputRuntime
 public import Silver.ReviewedOutputShape

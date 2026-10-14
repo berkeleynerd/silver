@@ -1,5 +1,6 @@
 module
 
+public import Silver.Source
 public import Silver.PredicateCorrespondence
 public import Silver.PredicateNativeSourceBridge
 public import Silver.PathFactsSourceBridge

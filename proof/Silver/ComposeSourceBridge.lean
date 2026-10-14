@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeSourceChecks
+public import Silver.LexicalSourceBridge
 public import Silver.NamesSourceBridge
 public import Silver.ComposeEvaluation
 

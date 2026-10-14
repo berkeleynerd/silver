@@ -14,6 +14,24 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Focused Source Checks — complete
+
+The owner authorized this single bounded performance milestone on 2026-10-14.
+Six import-only edits remove accidental source-certificate dependencies while
+preserving theorem statements, accepted axioms, exact source correspondence,
+complete audit coverage and normal Lake invalidation. No language or Oracle
+change is included.
+
+The baseline unrelated-source edit made the composed target stale; the narrowed
+target remains cached. Relevant source edits still invalidate their certificates
+and checks. All 62 focused tests and the complete 252-module Lean check passed.
+The [delivery record](docs/focused-source-checks.md) distinguishes the one-time
+904-second composed rebuild, the 7.326-second focused check after an unrelated
+edit, and the 129.990-second combined check that rebuilds the changed path proofs.
+These are scoped measurements, not a matched whole-build speedup ratio. Existing
+caches and still-current native proof evidence are preserved. This milestone
+adds no new cache mechanism and does not authorize another language capability.
+
 ### Names and Calls — complete
 
 The owner authorized this single bounded delivery on 2026-10-14, completing the
@@ -33,7 +51,8 @@ native proof/build/catalogue checks and complete Lean validation; the
 certificate-copy repairs, focused final rechecks and cache reuse. New APIs, package renaming,
 additional declaration regions and general Ada overload resolution remain separate.
 Items 2, 6 and 7 are now closed within their specified fragment. Existing
-resource/capacity and source-import performance follow-ups remain explicit below;
+resource/capacity follow-ups remain explicit below; the source-import performance
+follow-up is completed above;
 this completion does not authorize a new capability.
 
 ### Branch review repair — complete
@@ -154,12 +173,12 @@ current axiom boundary. Blanket opacity or lower heartbeat limits are not
 general speedups. Keep GitHub Actions disabled and validation local; macOS
 proof work remains outside this sequence.
 
-A remaining iteration-cost observation from the branch repair is the public
+A recorded iteration-cost observation from the branch repair was the public
 `SourceCertificates` import chain: a path-source byte change also invalidates
-`ComposeSourceChecks`, whose own assertions concern other source files. Narrower
-source-check imports are a proposed performance follow-up, with unchanged
-correspondence and normal Lake invalidation required; no import restructuring is
-part of the repair. Until then, freeze coupled native/proof edits before expensive
+`ComposeSourceChecks`, whose own assertions concern other source files. The
+[Focused Source Checks milestone](docs/focused-source-checks.md) removes this
+accidental dependency, preserving correspondence and normal Lake invalidation.
+No import restructuring was part of the earlier repair. Freeze coupled native/proof edits before expensive
 source-check builds so isolated lanes do not repeat those checks at integration.
 
 ### Existing-feature consolidation
