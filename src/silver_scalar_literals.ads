@@ -4,6 +4,7 @@ package Silver_Scalar_Literals with SPARK_Mode => On is
    use Silver_Profile;
    subtype Literal_Position is Natural range 0 .. Max_Source_Length + 1;
    Max_Magnitude : constant := 2_147_483_648;
+   Max_Exponent : constant := 4_096;
    subtype Literal_Value is Long_Long_Integer range 0 .. Max_Magnitude;
    subtype Literal_Base is Long_Long_Integer range 2 .. 16;
    type Literal_Result is record
@@ -20,8 +21,8 @@ package Silver_Scalar_Literals with SPARK_Mode => On is
        Pre => Text'First = 1 and then Text'Length in 1 .. Max_Source_Length
          and then Position <= Text'Last + 1;
 
-   --  Ada integer spellings, with magnitude and nonnegative exponent each
-   --  bounded by 2**31. Unary signs and the signed value check belong to the
+   --  Ada integer spellings, with magnitude bounded by 2**31 and nonnegative
+   --  exponent bounded by Max_Exponent. Unary signs and the signed value check belong to the
    --  expression parser; this admits the magnitude of Integer'First.
    --  Whitespace belongs to the caller, never inside a literal.
    function Read_Integer (Text : String; Position : Literal_Position)

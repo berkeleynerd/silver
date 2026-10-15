@@ -189,7 +189,7 @@ package body Silver_Scalar_Literals with SPARK_Mode => On is
      (if Number.After <= Text'Last and then Text (Number.After) in 'e' | 'E' then
         (declare Exponent : constant Literal_Result :=
            Numeral_Model (Text, Exponent_Start (Text, Number.After + 1), 10);
-         begin (if Exponent.After = 0 then Invalid else
+         begin (if Exponent.After = 0 or else Exponent.Value > Max_Exponent then Invalid else
            (declare Scaled : constant Scale_Result := Scale_Model (Number.Base, Number.Value, Exponent.Value);
             begin (if not Scaled.Valid then Invalid else (After => Exponent.After, Value => Scaled.Value)))))
       else (After => Number.After, Value => Number.Value));
@@ -208,7 +208,7 @@ package body Silver_Scalar_Literals with SPARK_Mode => On is
             Exponent : constant Literal_Result :=
               Numeral (Text, Exponent_Start (Text, Number.After + 1), 10);
          begin
-            if Exponent.After = 0 then return Invalid; end if;
+            if Exponent.After = 0 or else Exponent.Value > Max_Exponent then return Invalid; end if;
             declare
                Scaled : constant Scale_Result := Power (Number.Base, Number.Value, Exponent.Value);
             begin
