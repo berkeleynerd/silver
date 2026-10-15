@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeAdmission
 public import Silver.NamesEquations
+public import Silver.ScalarExpressionEnvironment
 
 @[expose] public section
 
@@ -28,6 +29,7 @@ structure Primitives where
 inductive Ty
   | number | truth | source | spelling | token | form | operation
   | binding | names | state | value | result | scan | decimal
+  | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
@@ -37,6 +39,9 @@ inductive Ty
   | .names => BindingEnvironment | .state => ParserState
   | .value => ValueResult | .result => ExpressionResult | .scan => ExpressionState
   | .decimal => Guarded.DecimalResult
+  | .scalarNames => ScalarExpression.Environment | .scalarBinding => ScalarExpression.Binding
+  | .scalarResult => ScalarExpression.Result | .scalarLiteral => ScalarLiteral.Result
+  | .interval => Integer.Interval
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
@@ -44,6 +49,9 @@ def Ty.default : (ty : Ty) → ty.meaning
   | Ty.token => .symbol ";" | Ty.form => .direct | Ty.operation => .output | Ty.binding => {}
   | Ty.names => [] | Ty.state => invalidState | Ty.value => invalidValue
   | Ty.result => invalidExpression | Ty.scan => invalidExpressionState | Ty.decimal => ⟨0, 0⟩
+  | Ty.scalarNames => [] | Ty.scalarBinding => ScalarExpression.emptyBinding
+  | Ty.scalarResult => ScalarExpression.invalid | Ty.scalarLiteral => ScalarLiteral.invalid
+  | Ty.interval => Integer.Interval.empty
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -72,6 +80,7 @@ inductive Function
   | newName
   | addBinding
   | declaration
+  | stringDeclaration | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
   | argument
   | declarations
   | readDeclarations
@@ -122,6 +131,14 @@ def Function.name : Function → String
   | .newName => "new_name_allowed"
   | .addBinding => "add_binding"
   | .declaration => "declaration_at"
+  | .stringDeclaration => "string_declaration_at"
+  | .scalarDeclaration => "scalar_declaration_at"
+  | .scalarLookup => "scalar_expressions.lookup"
+  | .scalarRead => "scalar_expressions.read_expression"
+  | .scalarAppend => "scalar_expressions.append"
+  | .scalarEmpty => "scalars.is_empty"
+  | .scalarLiteral => "silver_scalar_literals.read_integer"
+  | .nameIs => "name_is"
   | .argument => "argument_at"
   | .declarations => "declarations_at"
   | .readDeclarations => "read_declarations"
@@ -157,7 +174,7 @@ def Function.name : Function → String
   | .contextAfter => .arrow .source (.arrow .truth .number)
   | .operationAfter => .arrow .source (.arrow .number (.arrow .operation (.arrow .truth .number)))
   | .associationAfter => .arrow .source (.arrow .number (.arrow .truth .number))
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation .number)))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames .number))))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .fixedAfter => .arrow .source (.arrow .number (.arrow .token (.number)))
@@ -167,18 +184,25 @@ def Function.name : Function → String
   | .literal => .arrow .source (.arrow .number (.value))
   | .workTail => .arrow .source (.arrow .number (.arrow .number .truth))
   | .workBudget => .arrow .source .truth
-  | .value => .arrow .source (.arrow .number (.arrow .names (.value)))
+  | .value => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames .value)))
   | .newName => .arrow .source (.arrow .state (.arrow .number (.arrow .number (.arrow .truth (.truth)))))
   | .addBinding => .arrow .state (.arrow .number (.arrow .number (.arrow .value (.arrow .truth (.arrow .number (.state))))))
   | .declaration => .arrow .source (.arrow .state (.arrow .truth (.state)))
+  | .stringDeclaration | .scalarDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .scalarLookup => .arrow .source (.arrow .scalarNames (.arrow .number (.arrow .number .number)))
+  | .scalarRead => .arrow .source (.arrow .number (.arrow .scalarNames .scalarResult))
+  | .scalarAppend => .arrow .scalarNames (.arrow .scalarBinding .scalarNames)
+  | .scalarEmpty => .arrow .interval .truth
+  | .scalarLiteral => .arrow .source (.arrow .number .scalarLiteral)
+  | .nameIs => .arrow .source (.arrow .number (.arrow .number (.arrow .spelling .truth)))
   | .argument => .arrow .source (.arrow .state (.state))
   | .declarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .readDeclarations => .arrow .source (.arrow .state (.arrow .truth (.state)))
-  | .expressionStep => .arrow .source (.arrow .names (.arrow .scan .scan))
+  | .expressionStep => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames .scan)))
   | .fits => .arrow .result (.arrow .number .truth)
   | .comparison => .arrow .source (.arrow .state .state)
-  | .tail => .arrow .source (.arrow .names (.arrow .scan .result))
-  | .expression => .arrow .source (.arrow .number (.arrow .names (.result)))
+  | .tail => .arrow .source (.arrow .names (.arrow .scan (.arrow .scalarNames .result)))
+  | .expression => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames .result)))
   | .target => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .dynamic => .arrow .source (.arrow .state (.state))
   | .assignmentValue => .arrow .source (.arrow .state (.state))
@@ -227,6 +251,14 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .newName => calls.function .newName
   | .addBinding => calls.function .addBinding
   | .declaration => calls.function .declaration
+  | .stringDeclaration => calls.function .stringDeclaration
+  | .scalarDeclaration => calls.function .scalarDeclaration
+  | .scalarLookup => calls.function .scalarLookup
+  | .scalarRead => calls.function .scalarRead
+  | .scalarAppend => calls.function .scalarAppend
+  | .scalarEmpty => calls.function .scalarEmpty
+  | .scalarLiteral => calls.function .scalarLiteral
+  | .nameIs => calls.function .nameIs
   | .argument => calls.function .argument
   | .declarations => calls.function .declarations
   | .readDeclarations => calls.function .readDeclarations
@@ -256,6 +288,11 @@ inductive Field : Ty → Ty → Type
   | bindingMutable : Field .binding .truth
   | statePosition : Field .state .number
   | stateNames : Field .state .names
+  | stateScalarNames : Field .state .scalarNames
+  | scalarAfter : Field .scalarResult .number
+  | scalarBounds : Field .scalarResult .interval
+  | scalarStatic : Field .scalarResult .truth
+  | scalarLiteralAfter : Field .scalarLiteral .number
   | stateDynamicFirst : Field .state .number
   | stateDynamicAfter : Field .state .number
   | stateTarget : Field .state .number
@@ -289,6 +326,9 @@ def Field.name : Field a b → String
   | .bindingMutable => "mutable"
   | .statePosition => "position"
   | .stateNames => "names"
+  | .stateScalarNames => "scalar_names"
+  | .scalarAfter => "after" | .scalarBounds => "bounds" | .scalarStatic => "static"
+  | .scalarLiteralAfter => "after"
   | .stateDynamicFirst => "dynamic_first"
   | .stateDynamicAfter => "dynamic_after"
   | .stateTarget => "target"
@@ -322,6 +362,9 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .bindingMutable, value => value.mutable
   | .statePosition, value => value.position
   | .stateNames, value => value.names
+  | .stateScalarNames, value => value.scalarNames
+  | .scalarAfter, value => value.after | .scalarBounds, value => value.bounds
+  | .scalarStatic, value => value.isStatic | .scalarLiteralAfter, value => value.after
   | .stateDynamicFirst, value => value.dynamicFirst
   | .stateDynamicAfter, value => value.dynamicAfter
   | .stateTarget, value => value.target
@@ -366,6 +409,12 @@ inductive Expr : Ty → Type
   | app : Expr (.arrow a b) → Expr a → Expr b
   | field : Field a b → Expr a → Expr b
   | count : Expr .names → Expr .number
+  | scalarCount : Expr .scalarNames → Expr .number
+  | word (value : String) : Expr .spelling
+  | operatorByte : Expr .number → Expr .truth
+  | maxScalarBindings : Expr .number
+  | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .scalarBinding
+  | stateScalar : Expr .state → Expr .number → Expr .scalarNames → Expr .state
   | item : Expr .names → Expr .number → Expr .binding
   | add : Expr .number → Expr .number → Expr .number
   | sub : Expr .number → Expr .number → Expr .number
@@ -459,7 +508,9 @@ def tokenName : ShellToken → String
     | "else" => "else_keyword" | "elsif" => "elsif_keyword" | "reject" => "reject_name" | "&" => "ampersand"
     | "and" => "and_keyword" | "or" => "or_keyword" | "not" => "not_keyword"
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
-    | "<=" => "less_equal" | "null" => "null_keyword" | _ => "equal"
+    | "<=" => "less_equal" | "null" => "null_keyword" | "integer" => "integer_name"
+    | "for" => "for_keyword" | "in" => "in_keyword" | "reverse" => "reverse_keyword"
+    | "loop" => "loop_keyword" | ".." => "range_delimiter" | _ => "equal"
 
 def spelling : ShellToken → String
   | .fixed word _ => word
@@ -495,12 +546,23 @@ def Expr.render : Expr ty → List String
   | .function .contextAfter => ["names", ".", "context_after"]
   | .function .operationAfter => ["names", ".", "operation_after"]
   | .function .associationAfter => ["names", ".", "association_after"]
+  | .function .scalarLookup => ["scalar_expressions", ".", "lookup"]
+  | .function .scalarRead => ["scalar_expressions", ".", "read_expression"]
+  | .function .scalarAppend => ["scalar_expressions", ".", "append"]
+  | .function .scalarEmpty => ["scalars", ".", "is_empty"]
+  | .function .scalarLiteral => ["silver_scalar_literals", ".", "read_integer"]
   | .function symbol => [symbol.name]
   | .app f x =>
       match f with
       | .app _ _ => f.render.dropLast ++ [","] ++ x.render ++ [")"]
       | _ => f.render ++ ["("] ++ x.render ++ [")"]
   | .field projection x => x.render ++ [".", projection.name]
+  | .scalarCount x => x.render ++ [".", "count"]
+  | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
+  | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'"]
+  | .maxScalarBindings => ["scalar_expressions", ".", "max_bindings"]
+  | .scalarBinding a b c d => ["("] ++ a.render ++ [","] ++ b.render ++ [","] ++ c.render ++ [","] ++ d.render ++ [")"]
+  | .stateScalar state position names => updated state.render [("position",position.render),("scalar_names",names.render)]
   | .count x => x.render ++ [".", "count"]
   | .item x i => x.render ++ [".", "items", "("] ++ i.render ++ [")"]
   | .add x y => x.render ++ ["+"] ++ y.render
@@ -521,7 +583,9 @@ def Expr.render : Expr ty → List String
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
   | .elsif c a b => ["elsif"] ++ c.render ++ ["then"] ++ a.render ++
       (match b with | .elsif _ _ _ => b.render | _ => ["else"] ++ b.render)
-  | .local name typeName localValue rest => [name, ":", "constant", typeName, ":="] ++ localValue.render ++ [";"] ++
+  | .local name typeName localValue rest => [name, ":", "constant"] ++ (if typeName == "scalar_expressions.expression_result" then ["scalar_expressions", ".", "expression_result"]
+        else if typeName == "silver_scalar_literals.literal_result" then ["silver_scalar_literals", ".", "literal_result"]
+        else [typeName]) ++ [":="] ++ localValue.render ++ [";"] ++
       (match rest with | .local _ _ _ _ => rest.render | _ => ["begin"] ++ rest.render)
   | .locals body => ["declare"] ++ body.render
   | .byteAt text position => text.render ++ ["("] ++ position.render ++ [")"]
@@ -595,6 +659,12 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .function symbol => calls.get symbol
   | .app f x => f.eval calls locals (x.eval calls locals)
   | .field projection x => projection.get (x.eval calls locals)
+  | .scalarCount x => (x.eval calls locals).length
+  | .word spellingValue => spellingValue
+  | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42])
+  | .maxScalarBindings => ScalarExpression.maxBindings
+  | .scalarBinding a b c d => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals⟩
+  | .stateScalar state position names => {state.eval calls locals with position := position.eval calls locals, scalarNames := names.eval calls locals}
   | .count x => (x.eval calls locals).length
   | .item x i => ((x.eval calls locals).get (i.eval calls locals)).getD {}
   | .add x y => x.eval calls locals + y.eval calls locals
@@ -670,16 +740,19 @@ def workTailBody : Expr .truth :=
   let text : Expr .source := .variable "text"
   let first : Expr .number := .variable "first"
   let quoted : Expr .value := .variable "quoted"
+  let number : Expr .scalarLiteral := .variable "number"
   let remaining : Expr .number := .variable "remaining"
   let recurse (p r : Expr .number) := Expr.app (.app (.app (.function .workTail) text) p) r
   .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
     .local "quoted" "value_result" (.app (.app (.function .literal) text) first) <|
+    .local "number" "silver_scalar_literals.literal_result" (.app (.app (.function .scalarLiteral) text) first) <|
     .group <| .ite (.eq first (.number 0)) (.truth false) <|
     .elsif (.gt first (.sourceLast text)) (.truth true) <|
     .elsif (.eq (.byteAt text first) (.characterVal (.number 34)))
       (.andThen (.ne (.field .valueAfter quoted) (.number 0))
         (recurse (.field .valueAfter quoted) remaining)) <|
-    .elsif (.eq (.byteAt text first) (.characterVal (.number 38)))
+    .elsif (.ne (.field .scalarLiteralAfter number) (.number 0)) (recurse (.field .scalarLiteralAfter number) remaining) <|
+    .elsif (.operatorByte (.byteAt text first))
       (.andThen (.ne remaining (.number 0))
         (recurse (.add first (.number 1)) (.sub remaining (.number 1))))
       (recurse (.add first (.number 1)) remaining)
@@ -688,15 +761,15 @@ def workBudgetBody : Expr .truth :=
   .app (.app (.app (.function .workTail) (.variable "text")) (.number 1)) .maxConcatenations
 
 def valueBody : Expr .value :=
-  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.variable "position")) (.local "quoted" "value_result" (.app (.app (.function .literal) (.variable "text")) (.variable "first")) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.variable "names")) (.variable "first")) (.variable "after")) (.group (.ite (.ne (.field .valueAfter (.variable "quoted")) (.number 0)) (.variable "quoted") (.elsif (.ne (.variable "index") (.number 0)) (.value (.variable "after") (.field .bindingValueFirst (.item (.variable "names") (.variable "index"))) (.field .bindingLength (.item (.variable "names") (.variable "index"))) (.field .bindingDynamic (.item (.variable "names") (.variable "index"))) (.variable "index")) (.invalidValue)))))))))
+  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.variable "position")) (.local "quoted" "value_result" (.app (.app (.function .literal) (.variable "text")) (.variable "first")) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.variable "names")) (.variable "first")) (.variable "after")) (.group (.ite (.ne (.field .valueAfter (.variable "quoted")) (.number 0)) (.variable "quoted") (.elsif (.andThen (.ne (.variable "index") (.number 0)) (.eq (.app (.app (.app (.app (.function .scalarLookup) (.variable "text")) (.variable "scalar_names")) (.variable "first")) (.variable "after")) (.number 0))) (.value (.variable "after") (.field .bindingValueFirst (.item (.variable "names") (.variable "index"))) (.field .bindingLength (.item (.variable "names") (.variable "index"))) (.field .bindingDynamic (.item (.variable "names") (.variable "index"))) (.variable "index")) (.invalidValue)))))))))
 
 def newNameBody : Expr .truth :=
-  (.andThen (.andThen (.andThen (.andThen (.ne (.variable "first") (.number 0)) (.gt (.variable "after") (.variable "first"))) (.not (.lexForbidden (.variable "text") (.variable "first") (.variable "after")))) (.group (.orElse (.not (.variable "arguments")) (.not (.lexForbiddenArgument (.variable "text") (.variable "first") (.variable "after")))))) (.eq (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.field .stateNames (.variable "state"))) (.variable "first")) (.variable "after")) (.number 0)))
+  .andThen (.andThen (.andThen (.andThen (.andThen (.ne (.variable "first") (.number 0)) (.gt (.variable "after") (.variable "first"))) (.not (.lexForbidden (.variable "text") (.variable "first") (.variable "after")))) (.group (.orElse (.not (.variable "arguments")) (.not (.lexForbiddenArgument (.variable "text") (.variable "first") (.variable "after")))))) (.eq (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.field .stateNames (.variable "state"))) (.variable "first")) (.variable "after")) (.number 0))) (.eq (.app (.app (.app (.app (.function .scalarLookup) (.variable "text")) (.field .stateScalarNames (.variable "state"))) (.variable "first")) (.variable "after")) (.number 0))
 
 def addBindingBody : Expr .state :=
   (.stateBinding (.variable "state") (.variable "following") (.binding (.variable "first") (.variable "after") (.field .valueFirst (.variable "value")) (.field .valueLength (.variable "value")) (.field .valueDynamic (.variable "value")) (.variable "mutable")))
 
-def declarationBody : Expr .state :=
+def stringDeclarationBody : Expr .state :=
   let text : Expr .source := .variable "text"
   let state : Expr .state := .variable "state"
   let value : Expr .result := .variable "value"
@@ -707,8 +780,8 @@ def declarationBody : Expr .state :=
     .local "constant_after" "literal_position" (take (.variable "colon_after") (.word "constant")) <|
     .local "type_after" "literal_position" (take (.group <| .ite (.ne (.variable "constant_after") (.number 0))
       (.variable "constant_after") (.variable "colon_after")) (.word "string")) <|
-    .local "value" "expression_result" (.app (.app (.app (.function .expression) text)
-      (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) <|
+    .local "value" "expression_result" (.app (.app (.app (.app (.function .expression) text)
+      (take (.variable "type_after") (.symbol ":="))) (.field .stateNames state)) (.field .stateScalarNames state)) <|
     .local "following" "literal_position" (take (.field .resultAfter value) (.symbol ";")) <|
     .group <| .ite (.orElse (.orElse (.orElse
       (.not <| .app (.app (.app (.app (.app (.function .newName) text) state)
@@ -722,6 +795,48 @@ def declarationBody : Expr .state :=
           (.eq (.field .resultDynamic value) (.number 1)) (.number 0)))
         (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
+def scalarDeclarationBody : Expr .state :=
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let first : Expr .number := .variable "first"
+  let after : Expr .number := .variable "after"
+  let value : Expr .scalarResult := .variable "value"
+  let following : Expr .number := .variable "following"
+  let take (p : Expr .number) (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) p) (.token t)
+  let skip (p : Expr .number) := Expr.app (.app (.function .skip) text) p
+  let hidden (f : Expr (.arrow .source (.arrow .scalarNames (.arrow .number (.arrow .number .number))))) :=
+    Expr.app (.app (.app (.app f text) (.field .stateScalarNames state)) (.variable "type_first")) (.variable "type_after")
+  .locals <| .local "first" "literal_position" (skip (.field .statePosition state)) <|
+    .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
+    .local "type_first" "literal_position" (skip (take (take after (.symbol ":")) (.word "constant"))) <|
+    .local "type_after" "literal_position" (take (.variable "type_first") (.word "integer")) <|
+    .local "value" "scalar_expressions.expression_result"
+      (.app (.app (.app (.function .scalarRead) text) (take (.variable "type_after") (.symbol ":="))) (.field .stateScalarNames state)) <|
+    .local "following" "literal_position" (take (.field .scalarAfter value) (.symbol ";")) <|
+    .group <| .ite
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+        (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
+        (.eq (.variable "type_after") (.number 0)))
+        (.le following (.field .statePosition state)))
+        (.eq (.scalarCount (.field .stateScalarNames state)) .maxScalarBindings))
+        (.not (.field .scalarStatic value)))
+        (.app (.function .scalarEmpty) (.field .scalarBounds value)))
+        (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")))
+        (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) (.variable "type_first")) (.variable "type_after")) (.number 0)))
+        (.ne (hidden (.function .scalarLookup)) (.number 0)))
+      .invalid
+      (.stateScalar state following (.app (.app (.function .scalarAppend) (.field .stateScalarNames state))
+        (.scalarBinding first after (.field .scalarBounds value) (.truth true))))
+
+def declarationBody : Expr .state :=
+  let text : Expr .source := .variable "text"
+  let state : Expr .state := .variable "state"
+  let arguments : Expr .truth := .variable "arguments"
+  let scalar : Expr .state := .variable "scalar_state"
+  .locals <| .local "scalar_state" "parser_state" (.app (.app (.app (.function .scalarDeclaration) text) state) arguments) <|
+    .group <| .ite (.ne (.field .statePosition scalar) (.number 0)) scalar
+      (.app (.app (.app (.function .stringDeclaration) text) state) arguments)
+
 def callAfterBody : Expr .number :=
   let text : Expr .source := .variable "text"
   let first : Expr .number := .variable "first"
@@ -729,7 +844,7 @@ def callAfterBody : Expr .number :=
   .locals <| .local "first" "literal_position" (.app (.app (.function .skip) text) (.variable "position")) <|
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
     .app (.app (.app (.app (.function .operationAfter) text) (.variable "position")) (.variable "operation"))
-      (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0))
+      (.orElse (.ne (.app (.app (.app (.app (.function .lookupName) text) (.variable "environment")) first) after) (.number 0)) (.ne (.app (.app (.app (.app (.function .scalarLookup) text) (.variable "scalar_names")) first) after) (.number 0)))
 
 def argumentBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -765,8 +880,8 @@ def expressionStepBody : Expr .scan :=
   let take (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text)
     (.field .scanPosition state)) (.token t)
   .locals <| .local "open_after" "literal_position" (take (.symbol "(")) <|
-    .local "atom" "value_result" (.app (.app (.app (.function .value) text)
-      (.field .scanPosition state)) (.variable "names")) <|
+    .local "atom" "value_result" (.app (.app (.app (.app (.function .value) text)
+      (.field .scanPosition state)) (.variable "names")) (.variable "scalar_names")) <|
     .local "join_after" "literal_position" (take (.symbol "&")) <|
     .local "close_after" "literal_position" (take (.symbol ")")) <|
     .group <| .ite (.eq (.field .scanPosition state) (.number 0)) .invalidScan <|
@@ -795,15 +910,15 @@ def tailBody : Expr .result :=
   .ite (.eq (.field .scanPosition state) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete state) (result state) <|
     .group <| .locals <| .local "next" "expression_state"
-      (.app (.app (.app (.function .expressionStep) (.variable "text")) (.variable "names")) state) <|
+      (.app (.app (.app (.app (.function .expressionStep) (.variable "text")) (.variable "names")) state) (.variable "scalar_names")) <|
     .group <| .ite (.eq (.field .scanPosition next) (.number 0)) .invalidResult <|
     .elsif (.field .scanComplete next) (result next)
-      (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names")) next)
+      (.app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names")) next) (.variable "scalar_names"))
 
 def expressionBody : Expr .result :=
-  .app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
+  .app (.app (.app (.app (.function .tail) (.variable "text")) (.variable "names"))
     (.scan (.variable "position") (.number 0) (.number 0) (.number 0) (.number 0)
-      (.truth false) (.truth true) (.truth false))
+      (.truth false) (.truth true) (.truth false))) (.variable "scalar_names")
 
 def fitsBody : Expr .truth :=
   let value : Expr .result := .variable "value"
@@ -811,7 +926,7 @@ def fitsBody : Expr .truth :=
     (.le (.add (.field .resultLength value) (.mul (.field .resultDynamic value) (.variable "capacity"))) .maxLength)
 
 def targetBody : Expr .state :=
-  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.field .stateNames (.variable "state"))) (.variable "first")) (.variable "after")) (.group (.ite (.orElse (.orElse (.eq (.variable "index") (.number 0)) (.not (.field .bindingMutable (.item (.field .stateNames (.variable "state")) (.variable "index"))))) (.group (.andThen (.variable "same_target") (.ne (.variable "index") (.field .stateTarget (.variable "state")))))) (.invalid) (.stateTarget (.variable "state") (.variable "after") (.variable "index"))))))))
+  (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.local "index" "binding_count" (.app (.app (.app (.app (.function .lookupName) (.variable "text")) (.field .stateNames (.variable "state"))) (.variable "first")) (.variable "after")) (.group (.ite (.orElse (.orElse (.orElse (.eq (.variable "index") (.number 0)) (.ne (.app (.app (.app (.app (.function .scalarLookup) (.variable "text")) (.field .stateScalarNames (.variable "state"))) (.variable "first")) (.variable "after")) (.number 0))) (.not (.field .bindingMutable (.item (.field .stateNames (.variable "state")) (.variable "index"))))) (.group (.andThen (.variable "same_target") (.ne (.variable "index") (.field .stateTarget (.variable "state")))))) (.invalid) (.stateTarget (.variable "state") (.variable "after") (.variable "index"))))))))
 
 def dynamicBody : Expr .state :=
   (.locals (.local "first" "literal_position" (.app (.app (.function .skip) (.variable "text")) (.field .statePosition (.variable "state"))) (.local "after" "literal_position" (.app (.app (.function .nameAfter) (.variable "text")) (.variable "first")) (.group (.ite (.orElse (.orElse (.orElse (.eq (.variable "first") (.number 0)) (.eq (.variable "after") (.number 0))) (.eq (.field .stateDynamicFirst (.variable "state")) (.number 0))) (.not (.lexEqual (.variable "text") (.field .stateDynamicFirst (.variable "state")) (.field .stateDynamicAfter (.variable "state")) (.variable "first") (.variable "after")))) (.invalid) (.statePosition (.variable "state") (.variable "after")))))))
@@ -822,7 +937,7 @@ def assignmentBody : Expr .state :=
   let value : Expr .result := .variable "value"
   let target := Expr.item (.field .stateNames state) (.field .stateTarget state)
   .locals <| .local "value" "expression_result"
-    (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) <|
+    (.app (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) (.field .stateScalarNames state)) <|
     .group <| .ite (.orElse (.orElse (.orElse
       (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       (.eq (.field .stateTarget state) (.number 0)))
@@ -834,7 +949,7 @@ def outputBody : Expr .state :=
   let state : Expr .state := .variable "state"
   let value : Expr .result := .variable "value"
   .locals <| .local "value" "expression_result"
-    (.app (.app (.app (.function .expression) (.variable "text")) (.field .statePosition state)) (.field .stateNames state)) <|
+    (.app (.app (.app (.app (.function .expression) (.variable "text")) (.field .statePosition state)) (.field .stateNames state)) (.field .stateScalarNames state)) <|
     .group <| .ite (.not <| .app (.app (.function .fits) value) (.field .stateCapacity state))
       .invalid (.statePosition state (.field .resultAfter value))
 
@@ -844,9 +959,9 @@ def comparisonBody : Expr .state :=
   let lhs : Expr .result := .variable "left"
   let rhs : Expr .result := .variable "right"
   .locals <| .local "left" "expression_result"
-    (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) <|
-    .local "right" "expression_result" (.app (.app (.app (.function .expression) text)
-      (.app (.app (.app (.function .takeToken) text) (.field .resultAfter lhs)) (.token (.symbol "=")))) (.field .stateNames state)) <|
+    (.app (.app (.app (.app (.function .expression) text) (.field .statePosition state)) (.field .stateNames state)) (.field .stateScalarNames state)) <|
+    .local "right" "expression_result" (.app (.app (.app (.app (.function .expression) text)
+      (.app (.app (.app (.function .takeToken) text) (.field .resultAfter lhs)) (.token (.symbol "=")))) (.field .stateNames state)) (.field .stateScalarNames state)) <|
     .group <| .ite (.orElse (.orElse
       (.not <| .app (.app (.function .fits) lhs) (.field .stateCapacity state))
       (.not <| .app (.app (.function .fits) rhs) (.field .stateCapacity state)))
@@ -927,7 +1042,7 @@ def Function.isLexical : Function → Bool
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
   | .add _ _ | .sub _ _ | .mul _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
-  | .range _ _ _ | .andThen _ _ | .orElse _ _ | .not _ | .ite _ _ _ | .elsif _ _ _
+  | .operatorByte _ | .range _ _ _ | .andThen _ _ | .orElse _ _ | .not _ | .ite _ _ _ | .elsif _ _ _
   | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
   | _ => true
 
@@ -961,6 +1076,9 @@ def Expr.functionSpine : Expr ty → Bool
 
 def localType : (ty : Ty) → String → Bool
   | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count"])
+  | .state, name => name == "parser_state"
+  | .scalarResult, name => name == "scalar_expressions.expression_result"
+  | .scalarLiteral, name => name == "silver_scalar_literals.literal_result"
   | .truth, name => name == "boolean"
   | .value, name => name == "value_result"
   | .result, name => name == "expression_result"
@@ -981,6 +1099,11 @@ def Expr.wellFormed : Expr ty → Bool
   | .lexAllowed a => a.wellFormed
   | .app f x => f.wellFormed && x.wellFormed && f.functionSpine && x.simple
   | .field _ x => x.wellFormed && x.primary
+  | .scalarCount x => x.wellFormed
+  | .word _ | .maxScalarBindings => true
+  | .operatorByte x => x.wellFormed && x.simple
+  | .scalarBinding a b c d => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed
+  | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .count x => x.wellFormed
   | .item x i => x.wellFormed && i.wellFormed
   | .add x y => x.wellFormed && y.wellFormed && x.simple && y.term
@@ -1059,6 +1182,8 @@ abbrev WellFormedTrees : Prop :=
   newNameBody.wellFormed = true ∧
   addBindingBody.wellFormed = true ∧
   declarationBody.wellFormed = true ∧
+  stringDeclarationBody.wellFormed = true ∧
+  scalarDeclarationBody.wellFormed = true ∧
   argumentBody.wellFormed = true ∧
   declarationsBody.wellFormed = true ∧
   expressionStepBody.wellFormed = true ∧
@@ -1102,6 +1227,11 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .lexAllowed a => a.scoped scope
   | .app f x => f.scoped scope && x.scoped scope
   | .field _ x => x.scoped scope
+  | .scalarCount x => x.scoped scope
+  | .word _ | .maxScalarBindings => true
+  | .operatorByte x => x.scoped scope
+  | .scalarBinding a b c d => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope
+  | .stateScalar a b c => a.scoped scope && b.scoped scope && c.scoped scope
   | .count x => x.scoped scope
   | .item x i => x.scoped scope && i.scoped scope
   | .add x y => x.scoped scope && y.scoped scope
@@ -1164,7 +1294,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .local (a := ty) name _ localValue rest => localValue.scoped scope && rest.scoped ((name,ty) :: scope)
 
 abbrev WellScopedTrees : Prop :=
-  callAfterBody.scoped [("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
+  callAfterBody.scoped [("scalar_names", .scalarNames), ("text", .source), ("environment", .names), ("position", .number), ("operation", .operation)] = true ∧
   skipBody.scoped [("text", .source), ("position", .number)] = true ∧
   nameBody.scoped [("text", .source), ("position", .number)] = true ∧
   fixedBody.scoped [("text", .source), ("position", .number), ("token", .token)] = true ∧
@@ -1173,17 +1303,19 @@ abbrev WellScopedTrees : Prop :=
   literalBody.scoped [("text", .source), ("position", .number)] = true ∧
   workTailBody.scoped [("text", .source), ("position", .number), ("remaining", .number)] = true ∧
   workBudgetBody.scoped [("text", .source)] = true ∧
-  valueBody.scoped [("text", .source), ("position", .number), ("names", .names)] = true ∧
+  valueBody.scoped [("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
   addBindingBody.scoped [("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
+  stringDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
+  scalarDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   declarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   argumentBody.scoped [("text", .source), ("state", .state)] = true ∧
   declarationsBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
-  expressionStepBody.scoped [("text", .source), ("names", .names), ("state", .scan)] = true ∧
-  tailBody.scoped [("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  expressionStepBody.scoped [("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
+  tailBody.scoped [("scalar_names", .scalarNames), ("text", .source), ("names", .names), ("state", .scan)] = true ∧
   fitsBody.scoped [("value", .result), ("capacity", .number)] = true ∧
   comparisonBody.scoped [("text", .source), ("state", .state)] = true ∧
-  expressionBody.scoped [("text", .source), ("position", .number), ("names", .names)] = true ∧
+  expressionBody.scoped [("scalar_names", .scalarNames), ("text", .source), ("position", .number), ("names", .names)] = true ∧
   targetBody.scoped [("text", .source), ("state", .state), ("same_target", .truth)] = true ∧
   dynamicBody.scoped [("text", .source), ("state", .state)] = true ∧
   assignmentBody.scoped [("text", .source), ("state", .state)] = true ∧
