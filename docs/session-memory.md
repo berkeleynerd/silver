@@ -1,5 +1,17 @@
 # Session memory
 
+## 2026-10-15 — Audit of e2c4fc2 to 343c2f8
+
+The owner received [review-343c2f8](reviews/review-343c2f8.md), the audit of
+every change from `e2c4fc2` to `343c2f8`, and decided:
+
+- Publish the report and file its findings: blocker B1 and lows L1 to L15 as
+  issues #17 to #32, the 26 info items as #33, and L8's scope question as
+  decision #34.
+- Make the B1 repair (#17, report capacity) the first work package of For loops
+  and integers, before that milestone admits any new construct. This does not
+  resume the milestone, which stays paused at scoping as recorded on #10.
+
 ## 2026-10-15 — Coding-agent recall and shared-work decisions
 
 The owner requested this Silver-scoped recall for future development of
