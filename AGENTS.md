@@ -2,9 +2,10 @@
 
 Read [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the dated
-[session memory](docs/session-memory.md) before substantial work. Follow the
-current human request; a proposal or roadmap entry alone does not authorize
-implementation.
+[session memory](docs/session-memory.md) before substantial work, then check the
+open issues of the current milestone as [planning](docs/planning.md) describes.
+Follow the current human request; a proposal, roadmap entry or issue alone does
+not authorize implementation.
 
 ## Authority and priorities
 
@@ -26,10 +27,13 @@ implementation.
 
 - Keep `oracle.md`, `language.md`, `roadmap.md` and `development.md` at the root
   for human review. Current support and future plans must remain distinct.
-- If a task is split into increments, update `roadmap.md` in the same planning
-  step with their order, scope, completion criteria and remaining work. Keep it
-  current as work progresses; a partial increment does not complete its parent.
-  This bookkeeping is the agent's responsibility, without another user reminder.
+- If a task is split into increments, create one issue per increment in its
+  milestone, with scope and completion criteria, in the same planning step, and
+  record the milestone's order and remaining decisions in `roadmap.md`. Keep
+  issue status current on the board as work progresses; a partial increment does
+  not complete its parent. Reference the issue in every commit and close it with
+  `Fixes #<n>` in the commit that completes it. This bookkeeping is the agent's
+  responsibility, without another user reminder; see [planning](docs/planning.md).
 - Inspect Git status before editing. Preserve unrelated work and scratch files.
   Follow the current request about staging, committing and publishing; the
   session memory records the current publication authorization.
@@ -52,8 +56,9 @@ implementation.
 
 ## Durable memory
 
-Record decisions and handoffs in `docs/session-memory.md`, with dates and links
-to detailed evidence. Memories cannot override the Oracle or newer human
+Record owner decisions and authorizations in `docs/session-memory.md`, with
+dates and links to detailed evidence. Record work status and handoffs on the
+affected GitHub issues. Memories cannot override the Oracle or newer human
 instructions. Keep volatile totals and artifact hashes in their evidence record
 instead of copying them into session rules. Preserve historical records as history.
 

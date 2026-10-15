@@ -298,9 +298,11 @@ source binding is part of correspondence, not deferred binary attestation.
   harness goal. Mark completion only when its actual work, validation and any
   required local commit are finished.
 - At completion or handoff, update the affected documents under the workflow
-  above and add a concise dated memory entry. Identify the implementation commit,
-  any relevant later documentation commit, the exact review target, evidence
-  links, unresolved items and next authorized step. Report the closing commit
+  above and comment on the affected issues, closing those that are complete. The
+  comment identifies the implementation commit, any relevant later documentation
+  commit, the exact review target, evidence links, unresolved items and next
+  authorized step. Add a concise dated memory entry for owner decisions and
+  authorizations, as [planning](docs/planning.md) describes. Report the closing commit
   and remaining Git state, preserving unrelated files. Git history identifies
   the commit containing an entry; do not create another commit merely to insert
   that entry's own commit hash. Keep volatile results in the evidence record.
@@ -308,6 +310,6 @@ source binding is part of correspondence, not deferred binary attestation.
   advance HEAD. In the existing capability or repair record, retain a short
   disposition of material findings: independently confirmed or unconfirmed,
   fixed, deferred with a reason, or rejected with a reason, with supporting
-  evidence. External validation keeps its actual host/input scope. Carry open
-  actions into the roadmap or dated handoff without treating every suggestion
-  as mandatory work. Reuse existing records and ordinary validation rules.
+  evidence. External validation keeps its actual host/input scope. File open
+  actions as `type: finding` or `type: follow-up` issues without treating every
+  suggestion as mandatory work. Reuse existing records and ordinary validation rules.
