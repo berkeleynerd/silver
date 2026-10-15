@@ -3,8 +3,8 @@
 Adopted on 2026-10-15. Work items and their status live in GitHub issues on the
 Silver board; direction and decisions stay in the repository, versioned with the
 code they govern. This record defines where each kind of fact lives, the board's
-structure and the routine agents follow. The board and its labels are created
-only after the owner has reviewed this structure; see [Migration](#migration).
+structure and the routine agents follow. The owner reviewed and agreed this
+structure on 2026-10-15; [Migration](#migration) records how it is applied.
 
 ## Where each fact lives
 
@@ -36,8 +36,13 @@ pull requests, parent issue and sub-issue progress):
 | Field | Type | Values |
 | --- | --- | --- |
 | Status | Single select | Backlog, Ready, In progress, In review, Done |
-| Stage | Number | Progression stage, for stage issues |
+| Stage | Number | A stage issue's current position in the progression |
 | Constructs | Text | Construct identifiers a stage adds, as in `rosetta/assess.js` |
+
+Backlog holds proposed items the owner has not authorized, and Ready holds
+authorized items not yet started. An agent moves an item to Ready only when the
+session memory records the owner's authorization. In review means awaiting
+validation or an independent review.
 
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.
@@ -71,15 +76,15 @@ linked pull request merges.
 
 - Title a work package `<milestone>: <work package>`, a finding
   `review-<commit> <id>: <summary>` (for example `review-e2c4fc2 L1: ...`), and a
-  stage `Stage <n>: <constructs>`.
+  stage `Stage: <constructs>`.
 - The body states the scope and completion criteria and links the roadmap
   section, the capability record and any evidence or review report. Detailed
   evidence stays in its record; the issue links it.
 - Use sub-issues when one work package splits further. A milestone's order is
   recorded once, in the roadmap.
-- Reference the issue in every commit message with `Refs #<n>`. The commit that
-  completes it uses `Fixes #<n>`, which closes the issue when the commit reaches
-  `main`.
+- A commit that advances an issue references it with `Refs #<n>`, and the commit
+  that completes it uses `Fixes #<n>`, which closes the issue when the commit
+  reaches `main`. Housekeeping with no issue needs no reference.
 
 ## Agent routine
 
@@ -113,11 +118,12 @@ linked pull request merges.
 ## Rosetta progression
 
 Each progression stage that becomes a near-term target gets one `type: stage`
-issue, with Stage and Constructs set and a link to its section of
-[rosetta/progression.md](../rosetta/progression.md), which carries its admission
-questions, failure paths and driver samples. Create stage issues for the next few
-stages only, and sample sub-issues only for the active stage: stage boundaries
-move whenever the progression is re-rendered.
+issue, titled by the constructs it adds, with Constructs set and Stage holding its
+current position. [rosetta/progression.md](../rosetta/progression.md) carries its
+admission questions, failure paths and driver samples. Stage numbers change
+whenever the progression is re-rendered, so update the Stage field after each
+re-render and do not put stage numbers in titles or links. Create stage issues
+for the next few stages only, and sample sub-issues only for the active stage.
 
 When a milestone admits a construct, add its identifier to `supported` in
 [rosetta/coverage.json](../rosetta/coverage.json), update the description of
@@ -133,15 +139,18 @@ cannot be created through the API and are configured in the web interface.
 
 ## Migration
 
-After the owner reviews this structure:
+Agreed with the owner on 2026-10-15:
 
-1. Create the board with its fields, replace the default labels with the set
-   above, and create the milestone for the work in progress.
-2. Configure the views and workflows in the web interface.
-3. Convert each row of the roadmap's
-   [known outstanding work](../roadmap.md#known-outstanding-work) into a
-   `type: follow-up` issue and replace the table with a link to the board.
-4. Create the in-progress milestone's work-package issues, coordinating with the
-   agent doing that work.
-5. Create stage issues for the next progression stages.
-6. Record the adoption in the session memory.
+1. Create the private board with the fields above, and replace GitHub's default
+   labels with the families above.
+2. The owner configures the views and workflows in the web interface.
+3. File the seven conditional rows of the roadmap's
+   [known outstanding work](../roadmap.md#known-outstanding-work) as
+   `type: follow-up` issues. The direction row stays in the roadmap as prose.
+4. Partial Output, already in progress, finishes under the roadmap rules it
+   started with; later milestones start as GitHub milestones.
+5. File stage issues for Stage 1's runnable samples and the next three construct
+   stages: integers and for loops; procedures, ranged subtypes and `'Image`; and
+   arrays.
+6. Merge this structure through a pull request once Partial Output is delivered,
+   and record the adoption in the session memory then.

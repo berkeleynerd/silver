@@ -31,9 +31,10 @@ not authorize implementation.
   milestone, with scope and completion criteria, in the same planning step, and
   record the milestone's order and remaining decisions in `roadmap.md`. Keep
   issue status current on the board as work progresses; a partial increment does
-  not complete its parent. Reference the issue in every commit and close it with
-  `Fixes #<n>` in the commit that completes it. This bookkeeping is the agent's
-  responsibility, without another user reminder; see [planning](docs/planning.md).
+  not complete its parent. Reference the issue in each commit that advances it,
+  and close it with `Fixes #<n>` in the commit that completes it. This
+  bookkeeping is the agent's responsibility, without another user reminder; see
+  [planning](docs/planning.md).
 - Inspect Git status before editing. Preserve unrelated work and scratch files.
   Follow the current request about staging, committing and publishing; the
   session memory records the current publication authorization.
