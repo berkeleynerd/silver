@@ -14,6 +14,57 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Larger Expressions — proposed next unit
+
+The 100,000-step application allowance is implemented. The next proposed unit is
+to expand the bounded String-expression fragment, starting with **64 leaves per
+expression as a candidate**, across initialization, assignment, comparison and
+output. Current support remains sixteen leaves and thirty concatenations per
+source until the complete extension passes validation.
+
+Keep this one capability milestone. First select the source-wide concatenation
+budget using bounded current-runtime composition experiments: it must accommodate
+the candidate expression, but must not be scaled mechanically from thirty.
+Exercise grouping, repeated static/dynamic references, path guards and sequences;
+measure practical proof completion, memory and report capacity. The two successful
+64-leaf specimens motivate this work but do not establish its whole fragment.
+
+Then align native admission, Lean membership/composition/discharge and actual-source
+proofs, specification, catalogue, samples and boundary/sibling tests. Retain the
+4096-byte source/value bounds and the assignment/literal admission repairs. Complete
+one stable Linux native proof/build/test and complete cached Lean checkpoint,
+including actual GNAT code generation for affected admitted cases. Record resource
+costs and the final justified limits. If the candidate cannot be justified, retain
+current support and report the specific unresolved case; an interrupted experiment
+does not establish a new language restriction. No new API or proof framework is
+part of this proposal. See the [headroom evidence](docs/expression-headroom.md).
+
+### Known outstanding work
+
+Reconciled on 2026-10-15 against the completed handoffs and review dispositions.
+Larger Expressions is the next proposed delivery; its capacity work is required
+within that milestone. The other entries below are conditional follow-ups, not
+prerequisites to it. The linked records retain detailed findings,
+reasons and historical scope. Closed or rejected review suggestions are not new tasks.
+
+| Work | Status and trigger |
+| --- | --- |
+| Larger-fragment proof and report capacity | Part of Larger Expressions above. Reassess dense workloads when the admitted fragment, producer or report format changes; preserve the [latest completed dense specimen](docs/names-and-calls.md#dense-assignment-review-evidence). Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
+| Names lexical-call adapter and other source-bridge refinements | Deferred until the relevant helper/interface changes or an assurance gap is established. The [Names identity guard](docs/admission-repairs.md#scope-and-dispositions) is complete; its interpretation premise remains. Additional explicit header/source guards, facade statement strengthening and broader boundary/sample witnesses remain indexed by the [Lean dispositions](docs/lean-iteration.md#external-review-of-d375aec) and [expression review disposition](docs/common-expressions.md#external-review-of-9b72d36). Existing correspondence remains required. |
+| Negative-test siblings and broader matrices | Add admitted/rejected siblings when a rule changes, including the next expression limits. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
+| Driver rejection diagnostics and argument forwarding | When CLI behavior is next improved, distinguish a specified `Reject` from output/external failure in `silver run`, and consider argument forwarding. Both remain conveniences separate from language admission; see the [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [command-line milestone](#hello-world-with-a-command-line-message). |
+| Report-policy and stack cleanup | Revisit call-sensitive report selection and the unused `Uses_Output` selector together when policy work warrants it. Stack/storage redesign remains deferred unless the documented resource premise becomes a practical problem. Preserve complete required-report checks; see the [sequencing dispositions](docs/statement-sequencing.md#external-review-and-capacity-follow-up). |
+| Catalogue, sample metadata and legacy cleanup | Revisit informative template declarations, manifest tags, historical wording and legacy helper/module cleanup when their consumers change. The [branch dispositions](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [optional architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer), including the [catalogue-renderer proposal](docs/architecture-review.md#4-extract-the-repeated-catalogue-token-renderer-when-convenient), retain scope. These do not mandate a general catalogue or parser framework. |
+| Intermittent GNATprove `DOC_END` failure | Diagnose on recurrence: preserve the failed inputs/logs before another run replaces them. The [workflow record](docs/proof-workflow.md#cold-mode-and-exploratory-state-follow-up) establishes neither memory exhaustion nor a concurrency cause; do not add automatic retries or describe cold success as a fix. |
+| Further proof-performance work | Only for a measured bottleneck. Preserve caches and focused checks; optional helper factoring, runtime-proof reuse, tactic tuning, persistent proof states and `SymM`/`vcgen` remain conditional, as recorded in [Lean Critical Path](#lean-critical-path) and the [architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer). |
+| New language/API capabilities and release tooling | Additional argument APIs, broader API placement, loops and resizable strings need their own motivating scope and assurance; none is selected next. Distribution/provenance and extra provers remain [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its dormant wording is revisited only if reactivation is authorized. macOS validation remains independent and nonblocking. |
+
+The prior kernel-bypass repair, default-runner drift tests, real axiom-audit
+regression and branch correspondence guards are complete. The theorem-name
+registry was deliberately rejected, historical-language retention is not required
+before 1.0, and the Python provenance check is intentionally retained. These are
+dispositions, not unfinished milestones.
+
 ### Production solver allowance — complete
 
 On 2026-10-15 the owner authorized raising application GNATprove's step allowance
@@ -44,8 +95,9 @@ The result favors a modest solver-budget adjustment as the first candidate for
 larger-expression work; these failures do not justify a broad proof refactor or
 more RAM. That experiment left the 16-leaf/30-concatenation admission limits and
 production solver options unchanged; the later production change is tracked above.
-The retained runtime is historical; current-runtime
-and larger-fragment assurance remain follow-ups before any admission expansion.
+The original retained runtime is historical; production adoption subsequently
+completed current-runtime confirmation. Larger-fragment assurance remains required
+before any admission expansion.
 See the [experiment record](docs/expression-headroom.md) for exact scope and memory
 accounting. The broader expression-capacity item remains proposed.
 
@@ -363,7 +415,7 @@ complete assurance and validation described below.
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
 | Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. The [step-budget experiment and adoption](docs/expression-headroom.md) resolve both retained 64-leaf failures with historical and current runtimes; production now uses 100,000 steps. Larger expressions remain deferred pending full-fragment assurance, including compositions and report capacity; two successful specimens are not universal solver bounds. |
-| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the subsequently completed 782-assignment specimen: 826 proved checks, 2,013,253-byte report (96.0%), 83,899 bytes remaining; reviewer-reported 33.6 minutes and 6.1 GiB. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
+| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the completed 782-assignment specimen. The later [785-assignment specimen](docs/names-and-calls.md#dense-assignment-review-evidence) proved all 829 checks, with a 2,020,723-byte report (96.36%), 76,429 bytes remaining and reviewer-measured 32-minute compilation. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 
@@ -506,8 +558,8 @@ call with the existing failure semantics.
 
 This added runtime choice without a new library API. The subsequent sequencing
 increment supports branch assignments, multiple outputs and finite sequences
-under shared rules. General Boolean expressions and additional decision nesting
-remain proposed. The original milestone's focused native obligation
+under shared rules. The later predicates and path-sensitive milestone also
+supports bounded Boolean compositions and nested decisions. The original milestone's focused native obligation
 experiment covered empty strings, unequal lengths, case differences and
 maximum-size sources and confirmed the strict empty-Main report policy. Exact
 membership, branch meaning, binding, complete obligation handling and actual

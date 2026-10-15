@@ -1,5 +1,22 @@
 # Session memory
 
+## 2026-10-15 — Roadmap reconciliation
+
+The owner asked for the next unit and complete capture of known outstanding work.
+The [roadmap](../roadmap.md#larger-expressions--proposed-next-unit) now proposes
+Larger Expressions as one capability milestone, with 64 leaves as a candidate
+and its source-wide budget to be justified across compositions. This planning
+update does not authorize implementation or replace the completed harness goal.
+The [backlog index](../roadmap.md#known-outstanding-work) makes deferred review,
+CLI, policy, capacity, tool-failure and maintenance actions explicit with triggers;
+fixed/rejected findings stay closed. Current-runtime confirmation is complete,
+and the latest dense specimen is recorded without claiming a universal maximum.
+
+This is documentation-only reconciliation against implementation `7d427b5595`,
+with independent read-only review and link/consistency/whitespace checks. Preserve
+all scratch and caches. Standing publication authorization persists; CLI memory
+tools are unavailable and were not updated. No new proofs or tests are needed.
+
 ## 2026-10-15 — Production solver allowance complete
 
 The owner-requested application GNATprove allowance is now 100,000 steps. The

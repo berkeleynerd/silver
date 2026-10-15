@@ -6,6 +6,16 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Next proposed unit and outstanding work
+
+The [roadmap](roadmap.md#larger-expressions--proposed-next-unit) proposes Larger
+Expressions next, using 64 leaves as a candidate and justifying the source-wide
+budget, compositions and capacity before admission. Its
+[backlog index](roadmap.md#known-outstanding-work) records known deferred actions
+and triggers. Current-runtime confirmation is complete; the production language
+still has sixteen leaves per expression and thirty concatenations per source.
+This documentation reconciliation authorizes no new implementation or harness goal.
+
 ## Production solver allowance complete
 
 Application compilation now uses `--steps=100000`. The owner-authorized change
