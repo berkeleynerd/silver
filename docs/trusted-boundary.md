@@ -40,7 +40,7 @@ that a configured pathname selects the intended executable.
 | Component | What the assurance argument relies on | Controls and remaining scope |
 | --- | --- | --- |
 | GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |
-| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion for every source schema accepted by Lean's endpoint-discharge checker | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove the external solvers complete within 100,000 steps, and no completeness claim for arbitrary SPARK is made. |
+| GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion for every source schema accepted by Lean's endpoint-discharge checker | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove completion within 100,000 normalized steps and 1,000 MiB per prover process with sufficient environmental resources, and no completeness claim for arbitrary SPARK is made. |
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
@@ -621,7 +621,7 @@ binding discovery corroborates these classes; the [current delivery record](bran
 tracks implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=0 -j0`. All output
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0`. All output
 routes use `--warnings=continue` to classify their exact permitted advisories
 from complete reports; null retains `--warnings=error`. Unexpected audited
 diagnostics prevent publication, and all selected library reports remain strict.
@@ -641,10 +641,21 @@ nonmembership or successful verification. Prover step limits do not bound
 frontend/flow work, operating-system delays or total elapsed time. The bounded
 composition argument must establish the generated range and exact-length
 schemas for every permitted declaration, expression, assignment and control-flow
-path. It does not prove that the
-bundled external solvers complete within 100,000 steps for every source schema
-accepted by Lean's endpoint-discharge checker; that completion remains an
-explicit tool-contract premise. The bound of
+path. It does not prove that the bundled proof portfolio automatically
+discharges every source schema accepted by Lean's endpoint-discharge checker.
+Completion within the 100,000
+normalized steps and 1,000 MiB per-prover-process memory cap, with sufficient
+environmental resources, remains an explicit tool-contract premise. GNATprove
+16.1 had already selected that cap for `--level=2 --memlimit=0`; the explicit
+nonzero option preserves the effective policy and makes it testable. The pinned
+Why3 runner enforces 1,048,576,000 bytes of address space per external prover on
+Linux, not a bound on all concurrent proof processes or frontend/flow work.
+GNATprove converts normalized steps to Why3 limits of 100,000 for Alt-Ergo,
+3,515,000 for CVC5 and 80,450,000 for Z3. The
+[policy repair record](proof-policy-repairs.md) records actual limits and the
+64-leaf regression. The review found Alt-Ergo out of memory on an admitted goal;
+Z3 proved every measured hard goal within the cap. No universal memory headroom
+or success of every selected solver is established. The bound of
 sixty-four leaves limits each expression to sixty-three concatenations. A separate
 sixty-three-operator source budget includes initializers, predicate operands and all
 body arms, allowing one maximal expression or that total spread across positions.

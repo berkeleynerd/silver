@@ -116,7 +116,7 @@ procedure Silver with SPARK_Mode => On is
            " -U --mode=all --report=all" &
            (if Output_Mode then " --warnings=continue" else " --warnings=error") &
            " --checks-as-errors=on" &
-           " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=0 -j0";
+           " --level=2 --prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0";
          Build_Command : constant String :=
            Silver_Build.Alire_Exec & "gprbuild -P " & Shell_Directory & "/program.gpr -p";
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=

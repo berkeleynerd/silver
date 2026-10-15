@@ -465,9 +465,11 @@ preservation; neither follows from an empty Main report. `model_tool_contract`
 shows that the interface is jointly inhabited, not that physical tools have
 been verified. The null specialization retains its empty-obligation argument.
 
-In particular, completion of the pinned external solvers within the application
-configuration's 100,000-step limit remains an explicit premise. Lean proves
-neither those solvers nor a universal bound on their work. Native experiments
+In particular, automatic discharge by the pinned proof portfolio within the application
+configuration's 100,000 normalized steps and 1,000 MiB per-prover-process memory
+limit, with sufficient environmental resources, remains an explicit premise.
+Lean proves neither those solvers nor a universal bound on their work. Native
+experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
 Expression evidence is in [common-expressions.md](common-expressions.md);
@@ -601,12 +603,24 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=0 -j0`.
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0`.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a
 catch-all list of frontend compiler warnings, and this policy does not claim
 that GNAT emits no such warnings.
+
+The explicit memory allowance preserves GNATprove 16.1's previous effective
+level-2 policy: `--memlimit=0` was treated as unset and still selected 1,000 MiB.
+This caps each external prover process, not aggregate compilation memory;
+frontend/flow work and concurrent prover processes require additional host
+resources. On Linux the pinned Why3 runner applies an address-space limit of
+1,048,576,000 bytes. The 100,000-step setting is normalized by GNATprove: the
+effective Why3 step limits are 100,000 for Alt-Ergo, 3,515,000 for CVC5, and
+80,450,000 for Z3. The [proof-policy repair record](proof-policy-repairs.md)
+records the regression and measured limits. This policy does not assert that
+each solver succeeds within its allowance: the review observed Alt-Ergo running
+out of memory on an admitted goal, while Z3 proved every measured hard goal.
 
 Every fresh output compilation proves its selected libraries as well as Main.
 Zero wall-clock timeout does not prevent crashes or resource failure, and the
