@@ -1,0 +1,84 @@
+=={{header|Ada}}==
+
+{{works with|GNAT|13}}
+
+It is much faster to generate the sequence of numbers with strictly ascending digits first and check if they are prime numbers. This solution uses code from Ada task '''Queue/Definition''' at https://rosettacode.org/wiki/Queue/Definition#Ada for implementing a queue to help generate the ascending digit sequence of numbers. It's the generic package '''Fifo''' but with a small modification making '''Fifo_Type''' tagged to allow dot notation when using it.
+ type Fifo_Type is tagged private;
+and then
+ type Fifo_Type is tagged record
+   Head : Fifo_Ptr := null;
+   Tail : Fifo_Ptr := null;
+ end record;
+
+The prime test is done by defining a Prime subtype that has a dynamic predicate that specifies the properties of prime numbers, a very nice Ada feature!
+    subtype Prime is Positive range 2 .. Positive'Last with
+       Dynamic_Predicate =>
+       (for all I in 2 .. (Prime / 2) => (Prime mod I) /= 0);
+
+<syntaxhighlight lang="ada">pragma Ada_2022;
+
+with Ada.Text_IO;
+with Ada.Containers.Vectors;
+with Fifo;
+
+procedure Ascending_Primes is
+
+   subtype Prime is Positive range 2 .. Positive'Last with
+       Dynamic_Predicate =>
+       (for all I in 2 .. (Prime / 2) => (Prime mod I) /= 0);
+
+   package Prime_Vectors is new
+     Ada.Containers.Vectors
+       (Index_Type => Natural,
+       Element_Type => Prime);
+
+   package Positive_Fifo is new Fifo (Positive);
+   use Positive_Fifo;
+
+   --  Helper queue and vector for primes found
+   Queue : Fifo_Type;
+   Primes : Prime_Vectors.Vector;
+
+begin
+   --  Initialise the queue with the first nine numbers
+   for Index in 1 .. 9 loop
+      Queue.Push (Index);
+   end loop;
+
+   --  Read the canditate numbers from the queue
+   --  check if they are prime and generate
+   --  the next possible candidates from them
+   while not Queue.Is_Empty loop
+      declare
+         Candidate  : Positive;
+         Next_Digit : Positive;
+      begin
+         Queue.Pop (Candidate);
+
+         if Candidate in Prime then
+            Primes.Append (Candidate);
+         end if;
+
+         --  Generate the next possible candidates
+         --  from the current one
+         Next_Digit := Candidate mod 10 + 1;
+         while Next_Digit <= 9 loop
+            Queue.Push (Candidate * 10 + Next_Digit);
+            Next_Digit := @ + 1;
+         end loop;
+
+      end;
+   end loop;
+
+   --  Print the final list of prime numbers
+   for P of Primes loop
+      Ada.Text_IO.Put (P'Image);
+   end loop;
+   Ada.Text_IO.New_Line;
+   
+end Ascending_Primes;</syntaxhighlight>
+{{out}}
+<pre>
+ 2 3 5 7 13 17 19 23 29 37 47 59 67 79 89 127 137 139 149 157 167 179 239 257 269 347 349 359 367 379 389 457 467 479 569 1237 1249 1259 1279 1289 1367 1459 1489 1567 1579 1789 2347 2357 2389 2459 2467 2579 2689 2789 3457 3467 3469 4567 4679 4789 5689 12347 12379 12457 12479 12569 12589 12689 13457 13469 13567 13679 13789 15679 23459 23567 23689 23789 25679 34589 34679 123457 123479 124567 124679 125789 134789 145679 234589 235679 235789 245789 345679 345689 1234789 1235789 1245689 1456789 12356789 23456789
+[2024-06-19 09:58:51] process terminated successfully, elapsed time: 00.90s
+</pre>

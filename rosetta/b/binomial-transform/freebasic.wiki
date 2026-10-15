@@ -1,0 +1,173 @@
+=={{header|FreeBASIC}}==
+{{trans|Wren}}
+<syntaxhighlight lang="vbnet">Type LongNumber
+    As Double value
+End Type
+
+' Calculate binomial coefficient
+Function binomial(n As Integer, k As Integer) As Double
+    If k > n Then Return 0
+    If k = 0 Or k = n Then Return 1
+    
+    Dim As Double result = 1
+    k = Iif(k > n - k, n - k, k)
+    
+    For i As Integer = 0 To k - 1
+        result *= (n - i)
+        result /= (i + 1)
+    Next
+    
+    Return result
+End Function
+
+' Forward binomial transform
+Sub binomialFwd(seq() As Double, result() As Double, longit As Integer)
+    Dim As Integer n, k
+    For n = 0 To longit - 1
+        result(n) = 0
+        For k = 0 To n
+            result(n) += binomial(n, k) * seq(k)
+        Next
+    Next
+End Sub
+
+' Inverse binomial transform
+Sub binomialInv(seq() As Double, result() As Double, longit As Integer)
+    Dim As Integer n, k, sign
+    For n = 0 To longit - 1
+        result(n) = 0
+        For k = 0 To n
+            sign = Iif((n - k) Mod 2 = 0, 1, -1)
+            result(n) += sign * binomial(n, k) * seq(k)
+        Next
+    Next
+End Sub
+
+' Self-inverting binomial transform
+Sub binomialSelfInv(seq() As Double, result() As Double, longit As Integer)
+    Dim As Integer n, k, sign
+    For n = 0 To longit - 1
+        result(n) = 0
+        For k = 0 To n
+            sign = Iif(k Mod 2 = 0, 1, -1)
+            result(n) += sign * binomial(n, k) * seq(k)
+        Next
+    Next
+End Sub
+
+' Print array helper
+Sub printSequence(seq() As Double, longit As Integer)
+    For i As Integer = 0 To longit - 1
+        Print Str(Int(seq(i))); " ";
+    Next
+    Print
+End Sub
+
+' Test sequences
+Const LIM = 20
+Dim Shared As Double catalan(LIM-1) = {1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700, 1767263190}
+Dim Shared As Double primes(LIM-1) = {0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0}
+Dim Shared As Double fibonacci(LIM-1) = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181}
+Dim Shared As Double padovan(LIM-1) = {1, 0, 0, 1, 0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12, 16, 21, 28, 37}
+
+Dim As Double forwardResult(LIM-1)
+Dim As Double inverseResult(LIM-1)
+Dim As Double selfResult(LIM-1)
+Dim As Double tempResult(LIM-1)
+Dim As Double tempSeq(LIM-1)
+
+' Test each sequence
+Dim As String sequences(3) = { _
+"Catalan number sequence:", "Prime flip-flop sequence:", _
+"Fibonacci number sequence:", "Padovan number sequence:" }
+
+Dim As Integer i, j
+For i = 0 To 3
+    Print sequences(i)
+    
+    ' Copy the appropriate sequence to tempSeq
+    Select Case i
+        Case 0: For j = 0 To LIM-1: tempSeq(j) = catalan(j)  : Next
+        Case 1: For j = 0 To LIM-1: tempSeq(j) = primes(j)   : Next
+        Case 2: For j = 0 To LIM-1: tempSeq(j) = fibonacci(j): Next
+        Case 3: For j = 0 To LIM-1: tempSeq(j) = padovan(j)  : Next
+    End Select
+    
+    printSequence(tempSeq(), LIM)
+    
+    Print "Forward binomial transform:"
+    binomialFwd(tempSeq(), forwardResult(), LIM)
+    printSequence(forwardResult(), LIM)
+    
+    Print "Inverse binomial transform:"
+    binomialInv(tempSeq(), inverseResult(), LIM)
+    printSequence(inverseResult(), LIM)
+    
+    Print "Round trip:"
+    binomialInv(forwardResult(), tempResult(), LIM)
+    printSequence(tempResult(), LIM)
+    
+    Print "Self-inverting:"
+    binomialSelfInv(tempSeq(), selfResult(), LIM)
+    printSequence(selfResult(), LIM)
+    
+    Print "Re-inverted:"
+    binomialSelfInv(selfResult(), tempResult(), LIM)
+    printSequence(tempResult(), LIM)
+    
+    If i < 3 Then Print
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Catalan number sequence:
+1 1 2 5 14 42 132 429 1430 4862 16796 58786 208012 742900 2674440 9694845 35357670 129644790 477638700 1767263190
+Forward binomial transform:
+1 2 5 15 51 188 731 2950 12235 51822 223191 974427 4302645 19181100 86211885 390248055 1777495635 8140539950 37463689775 173164232965
+Inverse binomial transform:
+1 0 1 1 3 6 15 36 91 232 603 1585 4213 11298 30537 83097 227475 625992 1730787 4805595
+Round trip:
+1 1 2 5 14 42 132 429 1430 4862 16796 58786 208012 742900 2674440 9694845 35357670 129644790 477638700 1767263190
+Self-inverting:
+1 0 1 -1 3 -6 15 -36 91 -232 603 -1585 4213 -11298 30537 -83097 227475 -625992 1730787 -4805595
+Re-inverted:
+1 1 2 5 14 42 132 429 1430 4862 16796 58786 208012 742900 2674440 9694845 35357670 129644790 477638700 1767263190
+
+Prime flip-flop sequence:
+0 1 1 0 1 0 1 0 0 0 1 0 1 0 0 0 1 0 1 0
+Forward binomial transform:
+0 1 3 6 11 20 37 70 134 255 476 869 1564 2821 5201 9948 19793 40562 84271 174952
+Inverse binomial transform:
+0 1 -1 0 3 -10 25 -56 118 -237 456 -847 1540 -2795 5173 -9918 19761 -40528 84235 -174914
+Round trip:
+0 1 1 0 1 0 1 0 0 0 1 0 1 0 0 0 1 0 1 0
+Self-inverting:
+0 -1 -1 0 3 10 25 56 118 237 456 847 1540 2795 5173 9918 19761 40528 84235 174914
+Re-inverted:
+0 1 1 0 1 0 1 0 0 0 1 0 1 0 0 0 1 0 1 0
+
+Fibonacci number sequence:
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181
+Forward binomial transform:
+0 1 3 8 21 55 144 377 987 2584 6765 17711 46368 121393 317811 832040 2178309 5702887 14930352 39088169
+Inverse binomial transform:
+0 1 -1 2 -3 5 -8 13 -21 34 -55 89 -144 233 -377 610 -987 1597 -2584 4181
+Round trip:
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181
+Self-inverting:
+0 -1 -1 -2 -3 -5 -8 -13 -21 -34 -55 -89 -144 -233 -377 -610 -987 -1597 -2584 -4181
+Re-inverted:
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181
+
+Padovan number sequence:
+1 0 0 1 0 1 1 1 2 2 3 4 5 7 9 12 16 21 28 37
+Forward binomial transform:
+1 1 1 2 5 12 28 65 151 351 816 1897 4410 10252 23833 55405 128801 299426 696081 1618192
+Inverse binomial transform:
+1 -1 1 0 -3 10 -24 49 -89 145 -208 245 -174 -176 1121 -3185 7137 -13920 24301 -37926
+Round trip:
+1 0 0 1 0 1 1 1 2 2 3 4 5 7 9 12 16 21 28 37
+Self-inverting:
+1 1 1 0 -3 -10 -24 -49 -89 -145 -208 -245 -174 176 1121 3185 7137 13920 24301 37926
+Re-inverted:
+1 0 0 1 0 1 1 1 2 2 3 4 5 7 9 12 16 21 28 37</pre>

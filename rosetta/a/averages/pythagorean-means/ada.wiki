@@ -1,0 +1,59 @@
+=={{header|Ada}}==
+
+pythagorean_means.ads:
+<syntaxhighlight lang="ada">package Pythagorean_Means is
+   type Set is array (Positive range <>) of Float;
+   function Arithmetic_Mean (Data : Set) return Float;
+   function Geometric_Mean  (Data : Set) return Float;
+   function Harmonic_Mean   (Data : Set) return Float;
+end Pythagorean_Means;</syntaxhighlight>
+
+pythagorean_means.adb:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Elementary_Functions;
+package body Pythagorean_Means is
+   package Math is new Ada.Numerics.Generic_Elementary_Functions (Float);
+   function "**" (Left, Right : Float) return Float renames Math."**";
+
+   function Arithmetic_Mean (Data : Set) return Float is
+      Sum : Float := 0.0;
+   begin
+      for I in Data'Range loop
+         Sum := Sum + Data (I);
+      end loop;
+      return Sum / Float (Data'Length);
+   end Arithmetic_Mean;
+
+   function Geometric_Mean (Data : Set) return Float is
+      Product : Float := 1.0;
+   begin
+      for I in Data'Range loop
+         Product := Product * Data (I);
+      end loop;
+      return Product**(1.0/Float(Data'Length));
+   end Geometric_Mean;
+
+   function Harmonic_Mean (Data : Set) return Float is
+      Reciprocal_Sum : Float := 0.0;
+   begin
+      for I in Data'Range loop
+         Reciprocal_Sum := Reciprocal_Sum + Data (I)**(-1);
+      end loop;
+      return Float (Data'Length) / Reciprocal_Sum;
+   end Harmonic_Mean;
+
+end Pythagorean_Means;</syntaxhighlight>
+
+example main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Pythagorean_Means;
+procedure Main is
+   My_Set : Pythagorean_Means.Set := (1.0, 2.0, 3.0, 4.0,  5.0,
+                                      6.0, 7.0, 8.0, 9.0, 10.0);
+   Arithmetic_Mean : Float := Pythagorean_Means.Arithmetic_Mean (My_Set);
+   Geometric_Mean  : Float := Pythagorean_Means.Geometric_Mean  (My_Set);
+   Harmonic_Mean   : Float := Pythagorean_Means.Harmonic_Mean   (My_Set);
+begin
+   Ada.Text_IO.Put_Line (Float'Image (Arithmetic_Mean) & " >= " &
+                         Float'Image (Geometric_Mean)  & " >= " &
+                         Float'Image (Harmonic_Mean));
+end Main;</syntaxhighlight>

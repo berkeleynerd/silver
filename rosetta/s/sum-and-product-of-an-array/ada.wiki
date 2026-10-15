@@ -1,0 +1,18 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">type Int_Array is array(Integer range <>) of Integer;
+
+array : Int_Array := (1,2,3,4,5,6,7,8,9,10);
+Sum : Integer := 0;
+for I in array'range loop
+   Sum := Sum + array(I);
+end loop;</syntaxhighlight>
+Define the product function
+<syntaxhighlight lang="ada">function Product(Item : Int_Array) return Integer is
+  Prod : Integer := 1;
+begin
+  for I in Item'range loop
+     Prod := Prod * Item(I);
+  end loop;
+  return Prod;
+end Product;</syntaxhighlight>
+This function will raise the predefined exception Constraint_Error if the product overflows the values represented by type Integer

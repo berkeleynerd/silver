@@ -1,0 +1,20 @@
+=={{header|Ada}}==
+In Ada you can define functions local to other functions/procedures. This makes it invisible to outside and prevents namespace pollution.
+
+Better would be to use type Natural instead of Integer, which lets Ada do the magic of checking the valid range.
+<syntaxhighlight lang="ada">   function Fib (X: in Integer) return Integer is
+      function Actual_Fib (N: in Integer) return Integer is
+      begin
+         if N < 2 then
+            return N;
+         else
+            return Actual_Fib (N-1) + Actual_Fib (N-2);
+         end if;
+      end Actual_Fib;
+   begin
+      if X < 0 then
+         raise Constraint_Error;
+      else
+         return Actual_Fib (X);
+      end if;
+   end Fib;</syntaxhighlight>

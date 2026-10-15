@@ -1,0 +1,143 @@
+=={{header|Ada}}==
+
+The solution is based on an open-ended counter, named "Current" counting up to the limit from the Compiler, namely 2**63-1.
+
+The solution uses the package Miller_Rabin from the [[Miller-Rabin primality test]]. When using the gnat Ada compiler, the largest integer we can deal with is 2**63-1. For anything larger, we could use a big-num package. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Miller_Rabin;
+
+procedure Prime_Gen is
+   
+   type Num is range 0 .. 2**63-1; -- maximum for the gnat Ada compiler
+   
+   MR_Iterations: constant Positive := 25; 
+     -- the probability Pr[Is_Prime(N, MR_Iterations) = Probably_Prime] 
+     -- is 1 for prime N and < 4**(-MR_Iterations) for composed N
+   
+   function Next(P: Num) return Num is
+      N: Num := P+1;
+      package MR is new Miller_Rabin(Num); use MR;
+   begin
+      while not (Is_Prime(N, MR_Iterations) = Probably_Prime) loop
+	 N := N + 1;
+      end loop;
+      return N;
+   end Next;
+   
+   Current: Num;
+   Count: Num := 0;
+   
+begin
+   -- show the first twenty primes
+   Ada.Text_IO.Put("First 20 primes:");
+   Current := 1;
+   for I in 1 .. 20 loop
+      Current := Next(Current);
+      Ada.Text_IO.Put(Num'Image(Current));
+   end loop;
+   Ada.Text_IO.New_Line;
+   
+   -- show the primes between 100 and 150
+   Ada.Text_IO.Put("Primes between 100 and 150:");
+   Current := 99;
+   loop
+      Current := Next(Current);
+      exit when Current > 150;
+      Ada.Text_IO.Put(Num'Image(Current));
+   end loop;
+   Ada.Text_IO.New_Line;
+   
+   -- count primes between 7700 and 8000
+   Ada.Text_IO.Put("Number of primes between 7700 and 8000:");
+   Current := 7699;
+   loop
+      Current := Next(Current);
+      exit when Current > 8000;
+      Count := Count + 1;
+   end loop;
+   Ada.Text_IO.Put_Line(Num'Image(Count));
+   
+   Count := 10;
+   Ada.Text_IO.Put_Line("Print the K_i'th prime, for $K=10**i:");
+   begin
+      loop
+	 Current := 1;
+	 for I in 1 .. Count loop
+	    Current := Next(Current);
+	 end loop;
+	 Ada.Text_IO.Put(Num'Image(Count) & "th prime:" & 
+			Num'Image(Current));
+	 Count := Count * 10;
+      end loop;
+   exception
+      when Constraint_Error => 
+	 Ada.Text_IO.Put_Line(" can't compute the" & Num'Image(Count) &
+				"th prime:");
+   end;
+end;</syntaxhighlight>
+
+{{out}}
+
+<pre>First 20 primes: 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71
+Primes between 100 and 150: 101 103 107 109 113 127 131 137 139 149
+Number of primes between 7700 and 8000: 30
+Print the K_i'th prime, for $K=10**i:
+ 10th prime: 29 100th prime: 541 1000th prime: 7919 10000th prime: 104729 100000th prime: 1299709 1000000th prime: 15485863</pre>
+(The program has been stopped after running several days.)
+
+This version is based on arbitrary-precision arithmetic and fast primality tests. Calculating 1_000_000th prime takes 37s with -O2 compilation flag.
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+with Strings_Edit.Unbounded_Unsigned_Edit;
+use  Strings_Edit.Unbounded_Unsigned_Edit;
+
+procedure Extensible_Prime_Generator is
+   Step   : Half_Word := 2;
+   P      : Unbounded_Unsigned := Five;
+   Count  : Integer   := 2;
+   N      : Natural   := 0;
+begin
+   Put_Line ("First 20 primes:");
+   Put (" 2 3");
+   loop
+      if Is_Prime (P, 10) = Prime then
+         Count := Count + 1;
+         if Count in 1..20 then
+            Put (' ' & Image (P));
+            if Count = 20 then
+               New_Line;
+               Put_Line ("Primes between 100 and 150:");
+            end if;
+         elsif P >= 100 and then P <= 150 then
+            Put (' ' & Image (P));
+         elsif P >= 7700 and then P <= 8000 then
+            N := N + 1;
+         end if;
+         exit when Count = 10_000;
+      end if;
+      Add (P, Step);
+      if Step = 2 then
+         Step := 4;
+      else
+         Step := 2;
+      end if;
+   end loop;
+   New_Line;
+   Put_Line ("Primes between 7700 and 8000:" & Integer'Image (N));
+   Put_Line ("Prime no." & Integer'Image (Count) & ": " & Image (P));
+end Extensible_Prime_Generator;
+</syntaxhighlight>
+
+{{out}}
+<pre>
+First 20 primes:
+ 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71
+Primes between 100 and 150:
+ 101 103 107 109 113 127 131 137 139 149
+Primes between 7700 and 8000: 30
+Prime no. 10000: 104729
+</pre>

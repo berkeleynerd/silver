@@ -1,0 +1,6 @@
+=={{header|Ada}}==
+* As of Ada 2005, all source/identifiers/keywords/literals/etc can be in up to 32bit characters as long as the compiler is told what encoding you are using.
+* Unicode input/output has been in ada for much longer, only unicode source/literals are recent additions to the standard.
+* Manipulation is the same as any other strings, but operates from *_Wide_Text_* modules rather than *_Text_*
+* Supports the entire set of characters from ISO/IEC 10646:2003
+* Extensive support of Unicode (including normalization, collation, etc.) and text codecs are provided by [http://forge.ada-ru.org/matreshka Matreshka].

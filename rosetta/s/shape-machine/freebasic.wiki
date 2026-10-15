@@ -1,0 +1,41 @@
+==={{header|FreeBASIC}}===
+<syntaxhighlight lang="vbnet">Dim As Double prev, sgte
+Dim As Integer cnt = 1
+
+Input " ", prev
+
+Do
+    sgte = (prev + 3) * 0.86
+    If prev = sgte Then Exit Do
+    Print sgte
+    prev = sgte
+    cnt += 1
+Loop
+
+Print !"\nTook"; cnt; " iterations."
+
+Sleep</syntaxhighlight>
+{{out}}
+With 4 as the input
+<pre> 6.02
+ 7.757199999999999
+ 9.251192
+ 10.53602512
+ 11.6409816032
+ 12.591244178752
+ 13.40846999372672
+ 14.11128419460498
+ 14.71570440736028
+ ...
+ 18.42857142857134
+ 18.42857142857135
+ 18.42857142857136
+ 18.42857142857137
+ 18.42857142857138
+ 18.42857142857139
+ 18.4285714285714
+ 18.4285714285714
+ 18.42857142857141
+ 18.42857142857141
+Took 227 iterations.
+</pre>

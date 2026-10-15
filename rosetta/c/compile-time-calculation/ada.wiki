@@ -1,0 +1,53 @@
+=={{header|Ada}}==
+Here's a hardcoded version:
+<syntaxhighlight lang="ada">
+with Ada.Text_Io;
+procedure CompileTimeCalculation is
+   Factorial : constant Integer := 10*9*8*7*6*5*4*3*2*1;
+   
+begin
+   Ada.Text_Io.Put(Integer'Image(Factorial));
+end CompileTimeCalculation;
+</syntaxhighlight>
+And here's a recursive function version that prints the exact same thing.
+<syntaxhighlight lang="ada">
+with Ada.Text_Io;
+procedure CompileTimeCalculation is
+   
+   function Factorial (Int : in Integer) return Integer is
+   begin
+      if Int > 1 then
+         return Int * Factorial(Int-1);
+      else
+         return 1;
+      end if;
+   end;
+     
+     Fact10 : Integer := Factorial(10);
+begin
+   Ada.Text_Io.Put(Integer'Image(Fact10));
+end CompileTimeCalculation;</syntaxhighlight>
+
+===Unbounded Compile-Time Calculation===
+
+An interesting property of Ada is that such calculations at compile time are performed with mathematical (i.e., unbounded) integers for intermediate results. On a compiler with 32-bit integers (gcc), the following code prints the value of '20 choose 10' = 184756:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Unbounded_Compile_Time_Calculation is
+   F_10 : constant Integer := 10*9*8*7*6*5*4*3*2*1;
+   A_11_15 : constant Integer := 15*14*13*12*11;
+   A_16_20 : constant Integer := 20*19*18*17*16;
+begin
+   Ada.Text_IO.Put_Line -- prints out
+     ("20 choose 10 =" & Integer'Image((A_11_15 * A_16_20 * F_10) / (F_10 * F_10)));
+--   Ada.Text_IO.Put_Line -- would not compile
+--     ("Factorial(20) =" & Integer'Image(A_11_15 * A_16_20 * F_10));
+end Unbounded_Compile_Time_Calculation;</syntaxhighlight>
+
+The same compiler refuses to compile the two two lines 
+
+<syntaxhighlight lang="ada">   Ada.Text_IO.Put_Line -- would not compile
+      ("Factorial(20) =" & Integer'Image(A_11_15 * A_16_20 * F_10));</syntaxhighlight>
+
+because the final result A_11_15 * A_16_20 * F_10 is a '''value not in range of type "Standard.Integer"''' -- the same intermediate value that was used above to compute '20 choose 10'.

@@ -1,0 +1,6 @@
+=={{header|Ada}}==
+{{works with|GCC|4.1.2}}
+<syntaxhighlight lang="ada">procedure Empty is 
+begin 
+   null; 
+end;</syntaxhighlight>

@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+{{works with|GNAT}}
+
+Ada language provides attribute 'Valid used to check if a scalar value is valid. An invalid value may appear as a result of unchecked type conversion, input, access through a dangling pointer etc.
+The language also provides the configuration pragma Normalize_Scalars which instructs the compiler to initialize uninitialized scalars with values, which when possible, would have the attribute 'Valid false.
+This pragma is required to be applied to the whole partition, which would require recompilation of the run-time library. For this reason, the presented example uses another pragma Initialize_Scalars.
+This one has the effect similar to Normalize_Scalars, but is [[GNAT]]-specific:
+<syntaxhighlight lang="ada">
+pragma Initialize_Scalars; 
+with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Invalid_Value is
+   type Color is (Red, Green, Blue);
+   X : Float;
+   Y : Color;
+begin
+   if not X'Valid then
+      Put_Line ("X is not valid");
+   end if;
+   X := 1.0;
+   if X'Valid then
+      Put_Line ("X is" & Float'Image (X));
+   end if;   
+   if not Y'Valid then
+      Put_Line ("Y is not valid");
+   end if;
+   Y := Green;
+   if Y'Valid then
+      Put_Line ("Y is " & Color'Image (Y));
+   end if;
+end Invalid_Value;
+</syntaxhighlight>
+Sample output:
+<pre>
+X is not valid
+X is 1.00000E+00
+Y is not valid
+Y is GREEN
+</pre>
+Note that some types are always initialized valid. E.g. pointers, which are formally non-scalar, are initialized null. Another example are scalar types of which representation does not leave free bit patterns for invalid value. For instance a 32-bit integer will likely valid under any circumstances.

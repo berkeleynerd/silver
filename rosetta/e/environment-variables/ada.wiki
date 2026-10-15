@@ -1,0 +1,42 @@
+=={{header|Ada}}==
+Print a single environment variable.
+<syntaxhighlight lang="ada">with Ada.Environment_Variables; use Ada.Environment_Variables;
+with Ada.Text_Io; use Ada.Text_Io;
+
+procedure Print_Path is
+begin
+   Put_Line("Path : " & Value("PATH"));
+end Print_Path;</syntaxhighlight>
+Print all environment variable names and values.
+<syntaxhighlight lang="ada">with Ada.Environment_Variables; use Ada.Environment_Variables;
+with Ada.Text_Io; use Ada.Text_Io;
+
+procedure Env_Vars is
+   procedure Print_Vars(Name, Value : in String) is
+   begin
+      Put_Line(Name & " : " & Value);
+   end Print_Vars;
+begin
+   Iterate(Print_Vars'access);
+end Env_Vars;</syntaxhighlight>
+
+
+=== Alternative version using Matreshka ===
+
+Uses [http://forge.ada-ru.org/matreshka Matreshka].
+
+<syntaxhighlight lang="ada">with Ada.Wide_Wide_Text_IO;
+
+with League.Application;
+with League.Strings;
+
+procedure Main is
+
+   function "+"
+    (Item : Wide_Wide_String) return League.Strings.Universal_String
+       renames League.Strings.To_Universal_String;
+
+begin
+   Ada.Wide_Wide_Text_IO.Put_Line
+    (League.Application.Environment.Value (+"HOME").To_Wide_Wide_String);
+end Main;</syntaxhighlight>

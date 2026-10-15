@@ -1,0 +1,62 @@
+=={{header|Ada}}==
+{{libheader|AWS}}
+<syntaxhighlight lang="ada">with AWS.URL;
+with Ada.Text_IO; use Ada.Text_IO;
+procedure Decode is
+   Encoded : constant String := "http%3A%2F%2Ffoo%20bar%2F";
+begin
+   Put_Line (AWS.URL.Decode (Encoded));
+end Decode;
+</syntaxhighlight>
+
+Without external libraries:
+
+<syntaxhighlight lang="ada">package URL is
+   function Decode (URL : in String) return String;
+end URL;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">package body URL is
+   function Decode (URL : in String) return String is
+      Buffer   : String (1 .. URL'Length);
+      Filled   : Natural := 0;
+      Position : Positive := URL'First;
+   begin
+      while Position in URL'Range loop
+         Filled := Filled + 1;
+ 
+        case URL (Position) is
+            when '+' =>
+               Buffer (Filled) := ' ';
+               Position := Position + 1;
+            when '%' =>
+               Buffer (Filled) :=
+                 Character'Val
+                   (Natural'Value
+                      ("16#" & URL (Position + 1 .. Position + 2) & "#"));
+               Position := Position + 3;
+            when others =>
+               Buffer (Filled) := URL (Position);
+               Position := Position + 1;
+         end case;
+      end loop;
+
+      return Buffer (1 .. Filled);
+   end Decode;
+end URL;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">with Ada.Command_Line,
+     Ada.Text_IO;
+
+with URL;
+
+procedure Test_URL_Decode is
+   use Ada.Command_Line, Ada.Text_IO;
+begin
+   if Argument_Count = 0 then
+      Put_Line (URL.Decode ("http%3A%2F%2Ffoo%20bar%2F"));
+   else
+      for I in 1 .. Argument_Count loop
+         Put_Line (URL.Decode (Argument (I)));
+      end loop;
+   end if;
+end Test_URL_Decode;</syntaxhighlight>

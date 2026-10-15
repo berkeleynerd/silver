@@ -1,0 +1,27 @@
+=={{header|Ada}}==
+There can be newlines before or between numbers. The pairs may be on separate lines or the same line.
+<syntaxhighlight lang="ada">with Ada.Text_IO;         use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
+procedure Main is
+   count  : Integer;
+   First  : Integer;
+   Second : Integer;
+begin
+   Get (count);
+   for I in 1 .. count loop
+      Get (First);
+      Get (Second);
+      Put (Item => First + Second, Width => 1);
+      New_Line;
+   end loop;
+end Main;</syntaxhighlight>
+{{output}}
+Output using the example input:
+<pre>
+3
+30
+2
+102
+10
+</pre>

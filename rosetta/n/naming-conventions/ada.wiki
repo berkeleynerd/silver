@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+;Program Text
+* Ada syntax is descended from Pascal and delimits program blocks with English words.
+* Ada is completely case-insensitive, so `if` and `IF` are the same reserved word and `x` and `X` are the same variable.
+* Reserved words (e.g. `if`,`for`, `function`, `begin`) are written in all lowercase.
+* Program blocks are expected to end with the same keyword or label (e.g. `if`...`end if;`)
+* Identifiers (e.g. variables, types, functions, packages) use Capital_Snake_Case
+* Use full English words rather than abbreviations (e.g. `Time_Of_Day` rather than `TOD`)
+* Use custom types to encode information about variables rather than tagging conventions (e.g. `Paid : Amount` instead of `Paid_Amount : Integer`
+* Avoid using the same identifier for different syntactic elements (e.g. don't have both a type and variable named `Day`)
+* Ada supports function overloading, so multiple functions with the same name and different arguments are encouraged.
+
+For example:
+<syntaxhighlight lang="ada">
+function Max (Left, Right : Integer) return Integer is
+begin
+   if Left < Right then
+      return Right;
+   else
+      return Left;
+   end if;
+end Max;
+</syntaxhighlight>
+
+;File Names
+Though not a language requirement, every package should have a spec file `.ads` and containing publicly visible declarations and a body file `.adb` containing matching definitions with file names matching the package name in lowercase.
+
+In `my_package.ads`:
+<syntaxhighlight lang="ada">
+package My_Package is
+...
+end My_Package;
+</syntaxhighlight>
+
+In `my_package.adb`:
+<syntaxhighlight lang="ada">
+package body My_Package is
+...
+end My_Package;
+</syntaxhighlight>

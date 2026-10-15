@@ -1,0 +1,134 @@
+=={{header|Ada}}==
+This example implements the pseudocode in the reference Wiki page. The pseudocode states that the index values for the array to multiply begin at 0 while the cost and order matrices employ index values beginning at 1. Ada supports this pseudocode directly because Ada allows the programmer to define the index range for any array type.
+This Ada example is implemented using a simple package and a main procedure. The package specification is:
+<syntaxhighlight lang="ada">
+package mat_chain is
+   type Vector is array (Natural range <>) of Integer;
+   procedure Chain_Multiplication (Dims : Vector);
+end mat_chain;
+</syntaxhighlight>
+The implementation or body of the package is:
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;           use Ada.Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+package body mat_chain is
+   type Result_Matrix is
+     array (Positive range <>, Positive range <>) of Integer;
+
+   --------------------------
+   -- Chain_Multiplication --
+   --------------------------
+
+   procedure Chain_Multiplication (Dims : Vector) is
+      n : Natural := Dims'Length - 1;
+      S : Result_Matrix (1 .. n, 1 .. n);
+      m : Result_Matrix (1 .. n, 1 .. n);
+      procedure Print (Item : Vector) is
+      begin
+         Put ("Array Dimension  = (");
+         for I in Item'Range loop
+            Put (Item (I)'Image);
+            if I < Item'Last then
+               Put (",");
+            else
+               Put (")");
+            end if;
+         end loop;
+         New_Line;
+      end Print;
+
+      procedure Chain_Order (Item : Vector) is
+         J    : Natural;
+         Cost : Natural;
+         Temp : Natural;
+
+      begin
+         for idx in 1 .. n loop
+            m (idx, idx) := 0;
+         end loop;
+
+         for Len in 2 .. n loop
+            for I in 1 .. n - Len + 1 loop
+               J        := I + Len - 1;
+               m (I, J) := Integer'Last;
+               for K in I .. J - 1 loop
+                  Temp := Item (I - 1) * Item (K) * Item (J);
+                  Cost := m (I, K) + m (K + 1, J) + Temp;
+                  if Cost < m (I, J) then
+                     m (I, J) := Cost;
+                     S (I, J) := K;
+                  end if;
+               end loop;
+            end loop;
+         end loop;
+      end Chain_Order;
+
+      function Optimal_Parens return String is
+         function Construct
+           (S : Result_Matrix; I : Natural; J : Natural)
+            return Unbounded_String
+         is
+            Us         : Unbounded_String := Null_Unbounded_String;
+            Char_Order : Character;
+         begin
+            if I = J then
+               Char_Order := Character'Val (I + 64);
+               Append (Source => Us, New_Item => Char_Order);
+               return Us;
+            else
+               Append (Source => Us, New_Item => '(');
+               Append (Source => Us, New_Item => Construct (S, I, S (I, J)));
+               Append (Source => Us, New_Item => '*');
+               Append
+                 (Source => Us, New_Item => Construct (S, S (I, J) + 1, J));
+               Append (Source => Us, New_Item => ')');
+               return Us;
+            end if;
+         end Construct;
+
+      begin
+         return To_String (Construct (S, 1, n));
+
+      end Optimal_Parens;
+
+   begin
+      Chain_Order (Dims);
+      Print (Dims);
+      Put_Line ("Cost             = " & Integer'Image (m (1, n)));
+      Put_Line ("Optimal Multiply = " & Optimal_Parens);
+   end Chain_Multiplication;
+
+end mat_chain;
+</syntaxhighlight>
+The main procedure is:
+<syntaxhighlight lang="ada">
+with Mat_Chain; use Mat_Chain;
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure chain_main is
+   V1 : Vector := (5, 6, 3, 1);
+   V2 : Vector := (1, 5, 25, 30, 100, 70, 2, 1, 100, 250, 1, 1000, 2);
+   V3 : Vector := (1000, 1, 500, 12, 1, 700, 2500, 3, 2, 5, 14, 10);
+begin
+   Chain_Multiplication(V1);
+   New_Line;
+   Chain_Multiplication(V2);
+   New_Line;
+   Chain_Multiplication(V3);
+end chain_main;
+</syntaxhighlight>
+{{output}}
+<pre>
+Array Dimension  = ( 5, 6, 3, 1)
+Cost             =  48
+Optimal Multiply = (A*(B*C))
+
+Array Dimension  = ( 1, 5, 25, 30, 100, 70, 2, 1, 100, 250, 1, 1000, 2)
+Cost             =  38120
+Optimal Multiply = ((((((((A*B)*C)*D)*E)*F)*G)*(H*(I*J)))*(K*L))
+
+Array Dimension  = ( 1000, 1, 500, 12, 1, 700, 2500, 3, 2, 5, 14, 10)
+Cost             =  1773740
+Optimal Multiply = (A*((((((B*C)*D)*(((E*F)*G)*H))*I)*J)*K))
+</pre>

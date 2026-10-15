@@ -1,0 +1,39 @@
+=={{header|Ada}}==
+This is a generic implementation of the shell sort. Ada allows arrays to be indexed by integer or enumeration types starting at any value. This version deals with any kind or value of valid index type.
+<syntaxhighlight lang="ada">generic
+   type Element_Type is digits <>;
+   type Index_Type is (<>);
+   type Array_Type is array(Index_Type range <>) of Element_Type;
+package Shell_Sort is
+   procedure Sort(Item : in out Array_Type);
+end Shell_Sort;</syntaxhighlight>
+<syntaxhighlight lang="ada">package body Shell_Sort is
+   
+   ----------
+   -- Sort --
+   ----------
+
+   procedure Sort (Item : in out Array_Type) is
+      Increment : Natural := Index_Type'Pos(Item'Last) / 2;
+      J : Index_Type;
+      Temp : Element_Type;
+   begin
+      while Increment > 0 loop
+         for I in Index_Type'Val(Increment) .. Item'Last loop
+            J := I;
+            Temp := Item(I);
+            while J > Index_Type'val(Increment) and then Item (Index_Type'Val(Index_Type'Pos(J) - Increment)) > Temp loop
+               Item(J) := Item (Index_Type'Val(Index_Type'Pos(J) - Increment));
+               J := Index_Type'Val(Index_Type'Pos(J) - Increment);
+            end loop;
+            Item(J) := Temp;
+         end loop;
+         if Increment = 2 then
+            Increment := 1;
+         else
+            Increment := Increment * 5 / 11;
+         end if;
+      end loop;
+   end Sort;
+
+end Shell_Sort;</syntaxhighlight>

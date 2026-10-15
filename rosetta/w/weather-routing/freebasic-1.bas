@@ -1,0 +1,522 @@
+#include "crt/math.bi"
+
+Const ER As Double = 6372800.0   ' Earth radius in meters
+
+Type SailingPolar
+    winds(Any)   As Double
+    degrees(Any) As Double
+    speeds(Any)  As Double
+    nwinds       As Integer
+    ndegrees     As Integer
+End Type
+
+Type SurfaceParameters
+    windDeg    As Double
+    windKts    As Double
+    currentDeg As Double
+    currentKts As Double
+End Type
+
+Type Point2
+    x As Integer
+    y As Integer
+End Type
+
+Type Position
+    lat As Double
+    lon As Double
+End Type
+
+Type GridPoint
+    pt As Position
+    sp As SurfaceParameters
+End Type
+
+Type RoutingProblem
+    timeInterval      As Double
+    timeFrame(Any)    As GridPoint
+    nslices           As Integer
+    obstacleIdx(Any)  As Point2
+    nobstacles        As Integer
+    startIndex        As Integer
+    start             As Point2
+    finish            As Point2
+    allowRepeatVisits As Integer
+End Type
+
+Type TimedPath
+    duration  As Double
+    path(Any) As Point2
+    npoints   As Integer
+End Type
+
+Function SplitStr(Byref s As String, Byref delim As String, salida() As String) As Integer
+    Dim As Integer cnt = 0, posic = 1, p
+    Redim salida(0)
+    Do
+        p = Instr(posic, s, delim)
+        If p = 0 Then
+            cnt += 1
+            Redim Preserve salida(cnt - 1)
+            salida(cnt - 1) = Mid(s, posic)
+            Exit Do
+        Else
+            cnt += 1
+            Redim Preserve salida(cnt - 1)
+            salida(cnt - 1) = Mid(s, posic, p - posic)
+            posic = p + Len(delim)
+        End If
+    Loop
+    Return cnt
+End Function
+
+' ---------- Degree helpers ----------
+Function Deg2Rad(Byval deg As Double) As Double
+    Dim As Double r = deg * M_PI / 180.0
+    r = fmod(r + 2.0 * M_PI, 2.0 * M_PI)
+    Return r
+End Function
+
+Function Rad2Deg(Byval rad As Double) As Double
+    Dim As Double d = rad * 180.0 / M_PI
+    d = fmod(d + 360.0, 360.0)
+    Return d
+End Function
+
+Function SinD(Byval d As Double) As Double
+    Return Sin(Deg2Rad(d))
+End Function
+
+Function CosD(Byval d As Double) As Double
+    Return Cos(Deg2Rad(d))
+End Function
+
+Function AsinD(Byval v As Double) As Double
+    Return Rad2Deg(Asin(v))
+End Function
+
+Function Atan2D(Byval x As Double, Byval y As Double) As Double
+    Return Rad2Deg(Atan2(x, y))
+End Function
+
+Sub Haversine(Byval lat1 As Double, Byval lon1 As Double, _
+    Byval lat2 As Double, Byval lon2 As Double, _
+    Byref distance As Double, Byref theta As Double)
+    
+    Dim As Double rlat1 = Deg2Rad(lat1), rlat2 = Deg2Rad(lat2)
+    Dim As Double rlon1 = Deg2Rad(lon1), rlon2 = Deg2Rad(lon2)
+    
+    Dim As Double dlat = rlat2 - rlat1, dlon = rlon2 - rlon1
+    
+    Dim As Double a = Sin(dlat / 2.0) ^ 2 + Cos(rlat1) * Cos(rlat2) * (Sin(dlon / 2.0) ^ 2)
+    Dim As Double c = 2.0 * Asin(Sqr(a))
+    
+    distance = ER * c * 0.5399565
+    
+    Dim As Double t = Atan2(Sin(dlon) * Cos(rlat2), _
+    Cos(rlat1) * Sin(rlat2) - Sin(rlat1) * Cos(rlat2) * Cos(dlon))
+    theta = Rad2Deg(t)
+End Sub
+
+' ---------- Search helpers ----------
+Function findLastLE(a() As Double, Byval n As Integer, Byval v As Double) As Integer
+    For i As Integer = n - 1 To 0 Step -1
+        If a(i) <= v Then Return i
+    Next
+    Return -1
+End Function
+
+Function findFirstGE(a() As Double, Byval n As Integer, Byval v As Double) As Integer
+    For i As Integer = 0 To n - 1
+        If a(i) >= v Then Return i
+    Next
+    Return -1
+End Function
+
+' ---------- Sailing polar CSV ----------
+Function getPolarData(Byref fileName As String) As SailingPolar
+    Dim As SailingPolar sp
+    Dim As Integer ff = Freefile
+    If Open(fileName For Input As #ff) <> 0 Then
+        Print "Cannot open polar file."
+        Return sp
+    End If
+    
+    Dim As String linea
+    Dim As String cols()
+    Dim As Integer i
+    
+    ' Read header
+    Line Input #ff, linea
+    linea = Trim(linea)
+    Dim As Integer ncols = SplitStr(linea, ";", cols())
+    Dim As Integer nwinds = ncols - 1
+    Redim sp.winds(nwinds - 1)
+    For i = 1 To ncols - 1
+        sp.winds(i - 1) = Val(cols(i))
+    Next
+    
+    ' Read rows
+    Dim As Double degreesTmp(), speedsTmp()
+    Redim degreesTmp(0) : Redim speedsTmp(0)
+    Dim As Integer ndegrees = 0
+    
+    Do While Not Eof(ff)
+        Line Input #ff, linea
+        linea = Trim(linea)
+        If linea = "" Then Exit Do
+        ncols = SplitStr(linea, ";", cols())
+        ndegrees += 1
+        Redim Preserve degreesTmp(ndegrees - 1)
+        degreesTmp(ndegrees - 1) = Val(cols(0))
+        ' append nwinds speeds
+        Dim As Integer bbase = (ndegrees - 1) * nwinds
+        Redim Preserve speedsTmp(bbase + nwinds - 1)
+        For i = 1 To ncols - 1
+            speedsTmp(bbase + (i - 1)) = Val(cols(i))
+        Next
+    Loop
+    Close #ff
+    
+    sp.ndegrees = ndegrees
+    sp.nwinds = nwinds
+    Redim sp.degrees(ndegrees - 1)
+    Redim sp.speeds(ndegrees * nwinds - 1)
+    For i = 0 To ndegrees - 1
+        sp.degrees(i) = degreesTmp(i)
+    Next
+    For i = 0 To ndegrees * nwinds - 1
+        sp.speeds(i) = speedsTmp(i)
+    Next
+    
+    Return sp
+End Function
+
+Function speedAt(Byref sp As SailingPolar, Byval ideg As Integer, Byval iw As Integer) As Double
+    Return sp.speeds(ideg * sp.nwinds + iw)
+End Function
+
+Function boatSpeed(Byref sp As SailingPolar, Byval pointOfSail As Double, Byval windSpeed As Double) As Double
+    Dim As Integer udeg = findLastLE(sp.degrees(), sp.ndegrees, pointOfSail)
+    Dim As Integer odeg = findFirstGE(sp.degrees(), sp.ndegrees, pointOfSail)
+    Dim As Integer uvel = findLastLE(sp.winds(), sp.nwinds, windSpeed)
+    Dim As Integer ovel = findFirstGE(sp.winds(), sp.nwinds, windSpeed)
+    
+    If udeg = -1 Or odeg = -1 Or uvel = -1 Or ovel = -1 Then Return -1
+    
+    Dim As Double frac_
+    If (odeg = udeg) And (uvel = ovel) Then
+        frac_ = 1.0
+    Elseif (odeg = udeg) Then
+        frac_ = (windSpeed - sp.winds(uvel)) / (sp.winds(ovel) - sp.winds(uvel))
+    Elseif (uvel = ovel) Then
+        frac_ = (pointOfSail - sp.degrees(udeg)) / (sp.degrees(odeg) - sp.degrees(udeg))
+    Else
+        Dim As Double f1 = (pointOfSail - sp.degrees(udeg)) / (sp.degrees(odeg) - sp.degrees(udeg))
+        Dim As Double f2 = (windSpeed - sp.winds(uvel)) / (sp.winds(ovel) - sp.winds(uvel))
+        frac_ = (f1 + f2) / 2.0
+    End If
+    
+    Dim As Double bbase = speedAt(sp, udeg, uvel)
+    Dim As Double target = speedAt(sp, odeg, ovel)
+    
+    Return bbase + frac_ * (target - bbase)
+End Function
+
+Function sailingSpeed(Byref sp As SailingPolar, Byval azimuth As Double, _
+    Byval pointos As Double, Byval ws As Double) As Double
+    Dim As Double bs = boatSpeed(sp, pointos, ws)
+    Return bs * CosD(Abs(pointos - azimuth))
+End Function
+
+Function bestVectorSpeed(Byref sp As SailingPolar, Byval dirTravel As Double, _
+    Byval dirWind As Double, Byval windSpeed As Double, _
+    Byval dirCur As Double, Byval velCur As Double, Byref outDir As Double) As Double
+    
+    Dim As Double bestVMG = -1, bestAngle = 0
+    
+    For i As Integer = 0 To sp.ndegrees - 1
+        Dim As Double sailAngle = sp.degrees(i)
+        Dim boatDir As Double = fmod(dirWind + sailAngle + 360.0, 360.0)
+        Dim boatSpeed_ As Double = boatSpeed(sp, sailAngle, windSpeed)
+
+        Dim VMG As Double = boatSpeed_ * CosD(Abs(boatDir - dirTravel))        
+        If VMG > bestVMG Then
+            bestVMG = VMG
+            bestAngle = sailAngle
+        End If
+    Next
+    
+    Dim As Double boatDir = fmod(dirWind + bestAngle, 360.0)
+    Dim As Double wx = bestVMG * SinD(boatDir)
+    Dim As Double wy = bestVMG * CosD(boatDir)
+    Dim As Double cx = velCur * SinD(dirCur)
+    Dim As Double cy = velCur * CosD(dirCur)
+    Dim As Double vx = wx + cx, vy = wy + cy
+    
+    outDir = Rad2Deg(Atan2(vx, vy))
+    
+    Return Sqr(vx * vx + vy * vy)
+End Function
+
+Function sailSegmentTime(Byref sp As SailingPolar, Byref p As SurfaceParameters, _
+    Byval lat1 As Double, Byval lon1 As Double, _
+    Byval lat2 As Double, Byval lon2 As Double) As Double
+    
+    Dim As Double distNM, dirTravel
+    Haversine(lat1, lon1, lat2, lon2, distNM, dirTravel)
+    
+    Dim As Double vdir, velTotal
+    velTotal = bestVectorSpeed(sp, dirTravel, p.windDeg, p.windKts, p.currentDeg, p.currentKts, vdir)
+
+    Dim As Double VMG = velTotal   
+    If VMG < 0.1 Then VMG = 0.1    
+
+    Return distNM / VMG
+End Function
+
+' ---------- Helpers ----------
+Function containsPoint(arr() As Point2, Byval n As Integer, Byref p As Point2) As Boolean
+    For i As Integer = 0 To n - 1
+        If arr(i).x = p.x And arr(i).y = p.y Then Return True
+    Next
+    Return False
+End Function
+
+Sub findMinD(a() As Double, Byval n As Integer, Byref minVal As Double, Byref idx As Integer)
+    minVal = a(0)
+    idx = 0
+    For i As Integer = 1 To n - 1
+        If a(i) < minVal Then
+            minVal = a(i)
+            idx = i
+        End If
+    Next
+End Sub
+
+' neighbors
+Dim Shared neighbors(7) As Point2
+
+Sub InitNeighbors()
+    neighbors(0) = Type<Point2>(-1, -1)
+    neighbors(1) = Type<Point2>(-1,  0)
+    neighbors(2) = Type<Point2>(-1,  1)
+    neighbors(3) = Type<Point2>( 0, -1)
+    neighbors(4) = Type<Point2>( 0,  1)
+    neighbors(5) = Type<Point2>( 1, -1)
+    neighbors(6) = Type<Point2>( 1,  0)
+    neighbors(7) = Type<Point2>( 1,  1)
+End Sub
+
+Sub Surround(Byref p As Point2, mat() As GridPoint, Byval xmax As Integer, _
+    Byval ymax As Integer, excluded() As Point2, Byval nexcl As Integer, _
+    salida() As Point2, Byref nout As Integer)
+    
+    nout = 0
+    Redim salida(0)
+    For i As Integer = 0 To 7
+        Dim As Point2 q = Type<Point2>(p.x + neighbors(i).x, p.y + neighbors(i).y)
+        If (q.x >= 0 And q.x < xmax) And (q.y >= 0 And q.y < ymax) Then
+            If containsPoint(excluded(), nexcl, q) = False Then
+                nout += 1
+                Redim Preserve salida(nout - 1)
+                salida(nout - 1) = q
+            End If
+        End If
+    Next
+End Sub
+
+Function minimumTimeRoute(Byref rp As RoutingProblem, Byref sp As SailingPolar, Byval verbose As Boolean) As TimedPath
+    Dim As TimedPath minPath
+    minPath.duration = 1e9
+    minPath.npoints = 0
+    
+    Dim As TimedPath pq()
+    Redim pq(0)   
+    pq(0).duration = 0
+    pq(0).npoints = 1
+    
+    Dim As TimedPath tmp = pq(0)
+    Redim tmp.path(0)
+    pq(0) = tmp
+    pq(0).path(0) = rp.start
+    
+    Dim As Integer visited(9,9)
+    
+    Dim As Integer i, k
+    Do While Ubound(pq) >= 0
+        Dim As Integer bestIdx = 0
+        Dim As Double bestDur = pq(0).duration
+        
+        For i = 1 To Ubound(pq)
+            If pq(i).duration < bestDur Then
+                bestDur = pq(i).duration
+                bestIdx = i
+            End If
+        Next
+        
+        Dim current As TimedPath = pq(bestIdx)
+        
+        For i = bestIdx To Ubound(pq)-1
+            pq(i) = pq(i+1)
+        Next
+        Redim Preserve pq(Ubound(pq)-1)
+        
+        Dim As Point2 lastp = current.path(current.npoints - 1)
+        If lastp.x = rp.finish.x And lastp.y = rp.finish.y Then
+            minPath = current
+            Exit Do
+        End If
+        
+        If visited(lastp.x, lastp.y) = 1 Then Continue Do
+        visited(lastp.x, lastp.y) = 1
+        
+        Dim As Point2 neighs()
+        Dim As Integer nneigh
+        Surround(lastp, rp.timeFrame(), 9, 9, rp.obstacleIdx(), rp.nobstacles, neighs(), nneigh)
+        
+        Dim As Integer sliceIdx = Cint(current.duration / rp.timeInterval)
+        If sliceIdx >= rp.nslices Then sliceIdx = rp.nslices - 1
+        
+        For ni As Integer = 0 To nneigh - 1
+            Dim As Point2 p2 = neighs(ni)
+            
+            Dim As Integer idx1 = sliceIdx * 81 + lastp.x * 9 + lastp.y
+            Dim As Integer idx2 = sliceIdx * 81 + p2.x * 9 + p2.y
+            
+            Dim As GridPoint gp1 = rp.timeFrame(idx1)
+            Dim As GridPoint gp2 = rp.timeFrame(idx2)
+            
+            Dim As Double t = sailSegmentTime(sp, gp1.sp, gp1.pt.lat, gp1.pt.lon, gp2.pt.lat, gp2.pt.lon)
+            
+            Dim As TimedPath newPath
+            newPath.duration = current.duration + t
+            newPath.npoints = current.npoints + 1
+            Redim newPath.path(newPath.npoints - 1)
+            
+            For k = 0 To current.npoints - 1
+                newPath.path(k) = current.path(k)
+            Next
+            newPath.path(newPath.npoints - 1) = p2
+            
+            k = Ubound(pq) + 1
+            Redim Preserve pq(k)
+            pq(k) = newPath
+        Next
+    Loop
+    
+    Return minPath
+End Function
+
+Function surfaceByLongitude(Byval lon As Double) As SurfaceParameters
+    Dim sp As SurfaceParameters
+    
+    If lon < -155.05 Then
+        sp.windDeg = -5
+        sp.windKts = 8
+        sp.currentDeg = 150
+        sp.currentKts = 0.5
+    Elseif lon < -155.00 Then
+        sp.windDeg = -90
+        sp.windKts = 20
+        sp.currentDeg = 150
+        sp.currentKts = 0.4
+    Else
+        sp.windDeg = 180
+        sp.windKts = 25
+        sp.currentDeg = 150
+        sp.currentKts = 0.3
+    End If
+    
+    Return sp
+End Function
+
+Sub mutateTimeSlices(slices() As GridPoint, Byval nslices As Integer)
+    Dim As Integer s, i, j, idx
+    Dim As Integer counter = 1
+    For s = 0 To nslices - 1
+        For i = 0 To 8
+            For j = 0 To 8
+                idx = s * 81 + i * 9 + j
+                Dim As GridPoint gp = slices(idx)
+                gp.sp.windKts = gp.sp.windKts * (1.0 + 0.002 * counter)
+                slices(idx) = gp
+            Next
+        Next
+        counter += 1
+    Next
+End Sub
+
+' ---------- Main ----------
+InitNeighbors()
+
+' Forbidden points
+Dim ftuples(28, 1) As Integer = { _
+{1,8}, {2,1}, {2,8}, {3,5}, {3,8}, _
+{4,1}, {4,5}, {4,6}, {4,8}, {5,1}, _
+{5,5}, {5,6}, {5,8}, {6,3}, {6,4}, _
+{6,5}, {6,6}, {6,8}, {6,9}, {7,1}, _
+{7,4}, {7,5}, {7,6}, {8,8}, {8,9}, _
+{9,1}, {9,7}, {9,9} }
+
+Dim As Integer i, nf = 29
+Dim forbidden(nf - 1) As Point2
+For i = 0 To nf - 1
+    forbidden(i).x = ftuples(i, 0) - 1
+    forbidden(i).y = ftuples(i, 1) - 1
+Next
+
+Dim As Point2 startPos
+startPos.x = 0 : startPos.y = 3
+Dim As Point2 endPos
+endPos.x = 8 : endPos.y = 3
+
+Dim As Integer nslices = 200
+Dim As GridPoint slices(nslices * 81 - 1)
+
+Dim As Integer s, x, y, idx
+For s = 0 To nslices - 1
+    For x = 0 To 8
+        For y = 0 To 8
+            idx = s * 81 + x * 9 + y
+            Dim As GridPoint gp
+            gp.pt.lat = 19.78 - 1.0 / 60.0 + x / 60.0
+            gp.pt.lon = -155.0 - 5.0 / 60.0 + y / 60.0
+            gp.sp = surfaceByLongitude(gp.pt.lon)
+            slices(idx) = gp
+        Next
+    Next
+Next
+
+mutateTimeSlices(slices(), nslices)
+
+Dim As RoutingProblem rp
+rp.timeInterval = 10.0
+rp.nslices = nslices
+Redim rp.timeFrame(nslices * 81 - 1)
+For i = 0 To nslices * 81 - 1
+    rp.timeFrame(i) = slices(i)
+Next
+rp.nobstacles = nf
+Redim rp.obstacleIdx(nf - 1)
+For i = 0 To nf - 1
+    rp.obstacleIdx(i) = forbidden(i)
+Next
+rp.startIndex = 0
+rp.start = startPos
+rp.finish = endPos
+rp.allowRepeatVisits = True
+
+Dim As String fileName = "polar.csv"
+Dim As SailingPolar sp = getPolarData(fileName)
+
+Dim As TimedPath tp = minimumTimeRoute(rp, sp, 0)
+
+Print !"The route taking the least time found was:\n    ";
+For i = 0 To tp.npoints - 1
+    Print "(" & tp.path(i).x & "," & tp.path(i).y & ") ";
+Next
+Print !"\nwhich has duration " & Int(tp.duration / 60.0) & " hours, " & _
+Int(tp.duration - 60.0 * Int(tp.duration / 60.0)) & " minutes."
+
+Sleep

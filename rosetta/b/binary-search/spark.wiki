@@ -1,0 +1,326 @@
+=={{header|SPARK}}==
+SPARK does not allow recursion, so only the iterative solution is provided. This example shows the use of a loop assertion.
+
+All the code for this task validates with SPARK GPL 2010 and compiles and executes with GPS GPL 2010.
+
+The Binary_Searches package is shown first. Search is a procedure, rather than a function, so that it can return a Found flag and a Position for Item, if found. This is better design than having a Position value that means 'item not found'.
+
+There are two versions of the package provided, although the Ada code of the two versions is identical.
+
+The first version has a postcondition that if Found is True the Position value returned is correct. This version also has a number of 'check' annotations. These are inserted to allow the Simplifier to prove all the verification conditions. See [[SPARK_Proof_Process|the SPARK Proof Process]].
+<syntaxhighlight lang="ada">package Binary_Searches is
+
+   subtype Item_Type is Integer; -- From specs.
+   subtype Index_Type is Integer range 1 .. 100;
+   type Array_Type is array (Index_Type range <>) of Item_Type;
+
+   procedure Search (Source   : in     Array_Type;
+                     Item     : in     Item_Type;
+                     Found    :     out Boolean;
+                     Position :     out Index_Type);
+   --# derives Found,
+   --#         Position from
+   --#            Source,
+   --#            Item;
+   --# post Found -> Source (Position) = Item;
+   -- If Found is False then Position is undefined.
+
+end Binary_Searches;
+
+
+package body Binary_Searches is
+
+   procedure Search (Source   : in     Array_Type;
+                     Item     : in     Item_Type;
+                     Found    :     out Boolean;
+                     Position :     out Index_Type)
+   is
+      Lower      : Index_Type; -- Lower bound of Subrange.
+      Upper      : Index_Type; -- Upper bound of Subrange.
+      Terminated : Boolean;
+   begin
+      Found := False;
+      -- Default status updated on success.
+
+      Lower      := Source'First;
+      Upper      := Source'Last;
+      Position   := (Lower + Upper) / 2;
+      Terminated := False;
+
+      while not Terminated loop
+      --# assert Lower >= Source'First
+      --#  and   Upper <= Source'Last
+      --#  and   Position in Lower .. Upper
+      --#  and   not Found;
+         if Item < Source (Position) then
+            if Position = Lower then
+               -- No lower subrange.
+               Terminated := True;
+            else
+               --# check Position > Lower;
+               -- For the two following proofs.
+
+               --# check Position - 1 >= Lower;
+               --# check Lower + Position - 1 >= Lower * 2;
+               --# check (Lower + Position - 1) / 2 >= Lower;
+               -- For "Position >= Lower" in loop assertion.
+
+               --# check Lower < Position;
+               --# check Lower + Position - 1 <= (Position - 1) * 2;
+               --# check (Lower + Position - 1) / 2 <= (Position - 1);
+               -- For "Position <= Upper" in loop assertion.
+
+               -- Switch to lower half subrange.
+               Upper := Position - 1;
+               Position := (Lower + Upper) / 2;
+            end if;
+
+         elsif Item > Source (Position) then
+            if Position = Upper then
+               -- No upper subrange.
+               Terminated := True;
+            else
+               --# check Position < Upper;
+               -- For the two following proofs.
+
+               --# check Upper >= Position + 1;
+               --# check Position + 1 + Upper >= (Position + 1) * 2;
+               --# check (Position + 1 + Upper) / 2 >= (Position + 1);
+               -- For "Position >= Lower" in loop assertion.
+
+               --# check Position + 1 <= Upper;
+               --# check Position + 1 + Upper <= Upper * 2;
+               --# check (Position + 1 + Upper) / 2 <= Upper;
+               -- For "Position <= Upper" in loop assertion.
+
+               -- Switch to upper half subrange.
+               Lower := Position + 1;
+               Position := (Lower + Upper) / 2;
+            end if;
+         else
+            Found      := True;
+            Terminated := True;
+         end if;
+      end loop;
+   end Search;
+
+end Binary_Searches;</syntaxhighlight>
+The second version of the package has a stronger postcondition on Search, which also states that if Found is False then there is no value in Source equal to Item. This postcondition cannot be proved without a precondition that Source is ordered. This version needs four user rules (see [[SPARK_Proof_Process|the SPARK Proof Process]]) to be provided to the Simplifier so that it can prove all the verification conditions.
+<syntaxhighlight lang="ada">package Binary_Searches is
+
+   subtype Item_Type is Integer; -- From specs.
+   subtype Index_Type is Integer range 1 .. 100;
+   type Array_Type is array (Index_Type range <>) of Item_Type;
+
+   --  Ordered_Between is a 'proof function'.  It does not have a code
+   --  body, but its meaning is defined by a proof rule:
+   --
+   --    Ordered_Between (Source, Low_Bound, High_Bound)
+   --      <->
+   --    for all I in Index_Type range Low_Bound .. High_Bound - 1 =>
+   --             (Source(I) < Source(I + 1)) ;
+   --
+   --# function Ordered_Between (Source               : Array_Type;
+   --#                           Range_From, Range_To : Index_Type)
+   --#    return Boolean;
+
+   procedure Search (Source   : in     Array_Type;
+                     Item     : in     Item_Type;
+                     Found    :     out Boolean;
+                     Position :     out Index_Type);
+   --# derives Found,
+   --#         Position from
+   --#            Source,
+   --#            Item;
+   --# pre  Ordered_Between (Source, Source'First, Source'Last);
+   --# post (Found -> (Source (Position) = Item))
+   --#  and (not Found ->
+   --#         (for all I in Index_Type range Source'Range
+   --#                                  => (Source(I) /= Item)));
+
+end Binary_Searches;
+
+
+package body Binary_Searches is
+
+   procedure Search (Source   : in     Array_Type;
+                     Item     : in     Item_Type;
+                     Found    :     out Boolean;
+                     Position :     out Index_Type)
+   is
+      Lower      : Index_Type; -- Lower bound of Subrange.
+      Upper      : Index_Type; -- Upper bound of Subrange.
+      Terminated : Boolean;
+   begin
+      Found := False;
+      -- Default status updated on success.
+
+      Lower      := Source'First;
+      Upper      := Source'Last;
+      Position   := (Lower + Upper) / 2;
+      Terminated := False;
+
+      while not Terminated loop
+      --# assert not Terminated
+      --#   and  not Found
+      --#   and  Lower >= Source'First
+      --#   and  Upper <= Source'Last
+      --#   and  Position in Lower .. Upper
+      --#   and  (Lower = Source'First or
+      --#         (Lower > Source'First and Source(Lower - 1) < Item))
+      --#   and  (Upper = Source'Last or
+      --#         (Upper < Source'Last and Source(Upper + 1) > Item));
+         if Item < Source (Position) then
+            if Position = Lower then
+               -- No lower subrange.
+               Terminated := True;
+            else
+               -- Switch to lower half subrange.
+               Upper := Position - 1;
+               Position := (Lower + Upper) / 2;
+            end if;
+         elsif Item > Source (Position) then
+            if Position = Upper then
+               -- No upper subrange.
+               Terminated := True;
+            else
+               -- Switch to upper half subrange.
+               Lower := Position + 1;
+               Position := (Lower + Upper) / 2;
+            end if;
+         else
+            Found      := True;
+            Terminated := True;
+         end if;
+      end loop;
+   end Search;
+
+end Binary_Searches;</syntaxhighlight>
+The user rules for this version of the package (written in FDL, a language for modelling algorithms).
+<pre>binary_search_rule(1): (X + Y) div 2 >= X
+                         may_be_deduced_from
+                       [ X <= Y,
+                         X >= 1,
+                         Y >= 1] .
+
+binary_search_rule(2): (X + Y) div 2 <= Y
+                         may_be_deduced_from
+                       [ X <= Y,
+                         X >= 1,
+                         Y >= 1] .
+
+binary_search_rule(3): for_all(I_ : integer, First <= I_ and I_ <= Last
+                                  -> element(S, [I_]) <> X)
+                         may_be_deduced_from
+                       [ ordered_between(S, First, Last),
+                         P >= First,
+                         P <= Last,
+                         element(S, [P]) > X,
+                         P = First or (P > First and element(S, [P - 1]) < X) ] .
+
+binary_search_rule(4): for_all(I_ : integer, First <= I_ and I_ <= Last
+                                  -> element(S, [I_]) <> X)
+                         may_be_deduced_from
+                       [ ordered_between(S, First, Last),
+                         P >= First,
+                         P <= Last,
+                         element(S, [P]) < X,
+                         P = Last or (P < Last and element(S, [P + 1]) > X) ] .
+</pre>
+The test program:
+<syntaxhighlight lang="ada">with Binary_Searches;
+with SPARK_IO;
+
+--# inherit  Binary_Searches,
+--#          SPARK_IO;
+
+--# main_program;
+procedure Test_Binary_Search
+--# global in out SPARK_IO.Outputs;
+--# derives SPARK_IO.Outputs from *;
+is
+
+   subtype Index_Type5 is Binary_Searches.Index_Type range 1 .. 5;
+   subtype Index_Type7 is Binary_Searches.Index_Type range 1 .. 7;
+   subtype Index_Type9 is Binary_Searches.Index_Type range 91 .. 99;
+   -- Needed to define a constrained Array_Type.
+
+   subtype Array_Type5 is Binary_Searches.Array_Type (Index_Type5);
+   subtype Array_Type7 is Binary_Searches.Array_Type (Index_Type7);
+   subtype Array_Type9 is Binary_Searches.Array_Type (Index_Type9);
+   -- Needed to pass an array literal to Run_Search.
+   -- SPARK does not allow an unconstrained type mark for that purpose.
+
+   procedure Run_Search (Source : in     Binary_Searches.Array_Type;
+                         Item   : in     Binary_Searches.Item_Type)
+   --# global in out SPARK_IO.Outputs;
+   --# derives SPARK_IO.Outputs from *,
+   --#                               Item,
+   --#                               Source;
+   is
+      Found    : Boolean;
+      Position : Binary_Searches.Index_Type;
+   begin
+      SPARK_IO.Put_String (File => SPARK_IO.Standard_Output,
+                           Item => "Searching for ",
+                           Stop => 0);
+      SPARK_IO.Put_Integer (File  => SPARK_IO.Standard_Output,
+                            Item  => Item,
+                            Width => 3,
+                            Base  => 10);
+      SPARK_IO.Put_String (File => SPARK_IO.Standard_Output,
+                           Item => " in (",
+                           Stop => 0);
+      for Source_Index in Binary_Searches.Index_Type range Source'Range loop
+         SPARK_IO.Put_Integer (File  => SPARK_IO.Standard_Output,
+                               Item  => Source (Source_Index),
+                               Width => 3,
+                               Base  => 10);
+      end loop;
+      SPARK_IO.Put_String (File => SPARK_IO.Standard_Output,
+                           Item => "): ",
+                           Stop => 0);
+      Binary_Searches.Search (Source   => Source,    -- in
+                              Item     => Item,      -- in
+                              Found    => Found,     -- out
+                              Position => Position); -- out
+      if Found then
+         SPARK_IO.Put_String (File => SPARK_IO.Standard_Output,
+                              Item => "found as #",
+                              Stop => 0);
+         SPARK_IO.Put_Integer (File  => SPARK_IO.Standard_Output,
+                               Item  => Position,
+                               Width => 0, -- to stick to the sibling '#' sign.
+                               Base  => 10);
+         SPARK_IO.Put_Line (File => SPARK_IO.Standard_Output,
+                            Item => ".",
+                            Stop => 0);
+      else
+         SPARK_IO.Put_Line (File => SPARK_IO.Standard_Output,
+                            Item => "not found.",
+                            Stop => 0);
+      end if;
+   end Run_Search;
+
+begin
+   SPARK_IO.New_Line (File => SPARK_IO.Standard_Output, Spacing => 1);
+   Run_Search (Source => Array_Type5'(0, 1, 2, 3, 4), Item => 3);
+   Run_Search (Source => Array_Type5'(2, 4, 6, 8, 10), Item => 3);
+   Run_Search (Source => Array_Type7'(1, 2, 3, 4, 5, 6, 7), Item => 0);
+   Run_Search (Source => Array_Type7'(1, 2, 3, 4, 5, 6, 7), Item => 7);
+   Run_Search (Source => Array_Type9'(1, 2, 3, 4, 5, 6, 7, 8, 9), Item => 10);
+   Run_Search (Source => Array_Type9'(1, 2, 3, 4, 5, 6, 7, 8, 9), Item => 1);
+   Run_Search (Source => Array_Type9'(1, 2, 3, 4, 5, 6, 7, 8, 9), Item => 6);
+end Test_Binary_Search;
+</syntaxhighlight>
+
+Test output (for the last three tests the array is indexed from 91):
+<pre>
+Searching for   3 in (  0  1  2  3  4): found as #4.
+Searching for   3 in (  2  4  6  8 10): not found.
+Searching for   0 in (  1  2  3  4  5  6  7): not found.
+Searching for   7 in (  1  2  3  4  5  6  7): found as #7.
+Searching for  10 in (  1  2  3  4  5  6  7  8  9): not found.
+Searching for   1 in (  1  2  3  4  5  6  7  8  9): found as #91.
+Searching for   6 in (  1  2  3  4  5  6  7  8  9): found as #96.
+</pre>

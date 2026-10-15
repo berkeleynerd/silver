@@ -1,0 +1,19 @@
+=={{header|SPARK}}==
+The function definition (multiplies two standard Integer):
+<syntaxhighlight lang="ada">package Functions is
+   function Multiply (A, B : Integer) return Integer;
+   --# pre A * B in Integer; -- See note below
+   --# return A * B; -- Implies commutativity on Multiply arguments
+end Functions;</syntaxhighlight>
+Note: how do you ensure then “A * B in Integer” ? Either with a proof prior to Multiply invokation or using another form of Multiply where input A and B would be restricted to a range which ensures the resulting product is always valid. Exemple :
+<syntaxhighlight lang="ada">type Input_Type is range 0 .. 10;
+type Result_Type is range 0 .. 100;</syntaxhighlight>
+and had a version of Multiply using these types. On the other hand, if arguments of Multiply are constants, this is provable straight away.
+
+The Multiply's implementation:
+<syntaxhighlight lang="ada">package body Functions is
+   function Multiply (A, B : Integer) return Integer is
+   begin
+      return A * B;
+   end Multiply;
+end Functions;</syntaxhighlight>

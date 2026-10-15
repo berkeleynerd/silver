@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Test_Recursion_Depth is
+   function Recursion (Depth : Positive) return Positive is
+   begin
+      return Recursion (Depth + 1);
+   exception
+      when Storage_Error =>
+         return Depth;
+   end Recursion;
+begin
+   Put_Line ("Recursion depth on this system is" & Integer'Image (Recursion (1)));
+end Test_Recursion_Depth;</syntaxhighlight>
+Note that unlike some solutions in other languages this one does not crash (though usefulness of this task is doubtful).
+
+In Ada Storage_Error exception is propagated when there is no free memory to accomplish the requested action.
+In particular it is propagated upon stack overflow within the task where this occurs.
+Storage_Error can be handled without termination of the task.
+In the solution the function Recursion calls itself or else catches Storage_Error indicating stack overflow.
+
+Note that this technique requires some care, because there must be enough stack space for the handler to work.
+In this case it works because the handler just return the current call depth.
+In real-life Storage_Error is usually fatal.
+
+{{out}}
+<pre>
+Recursion depth on this system is 524091
+</pre>

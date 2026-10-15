@@ -1,0 +1,49 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+procedure Test_All_Chars_Are_Same is
+   procedure All_Chars_Are_Same (S : in String) is
+      First_Diff : Natural := 0;
+   begin
+      Put_Line ("Input = """ & S & """, length =" & S'Length'Image);
+      for I in S'First + 1 .. S'Last loop
+         if S(I) /= S(S'First) then
+            First_Diff := I;
+            exit;
+         end if;
+      end loop;
+      if First_Diff = 0 then
+         Put_Line (" All characters are the same.");
+      else
+         Put (" First difference at position" & First_Diff'Image &
+              ", character = '" & S(First_Diff) &
+              "', hex = ");
+         Put (Character'Pos (S(First_Diff)), Width => 0, Base => 16);
+         New_Line;
+      end if;
+   end All_Chars_Are_Same;
+begin
+   All_Chars_Are_Same ("");
+   All_Chars_Are_Same ("   ");
+   All_Chars_Are_Same ("2");
+   All_Chars_Are_Same ("333");
+   All_Chars_Are_Same (".55");
+   All_Chars_Are_Same ("tttTTT");
+   All_Chars_Are_Same ("4444 444k");
+end Test_All_Chars_Are_Same;</syntaxhighlight>
+
+{{out}}
+<pre>Input = "", length = 0
+ All characters are the same.
+Input = "   ", length = 3
+ All characters are the same.
+Input = "2", length = 1
+ All characters are the same.
+Input = "333", length = 3
+ All characters are the same.
+Input = ".55", length = 3
+ First difference at position 2, character = '5', hex = 16#35#
+Input = "tttTTT", length = 6
+ First difference at position 4, character = 'T', hex = 16#54#
+Input = "4444 444k", length = 9
+ First difference at position 5, character = ' ', hex = 16#20#</pre>

@@ -1,0 +1,98 @@
+=={{header|Ada}}==
+'''Signal Handler'''
+
+Ada signal handlers must be defined at the library level. 
+The following package defines a simple signal handler for the SigInt signal.
+<syntaxhighlight lang="ada">with Ada.Interrupts; use Ada.Interrupts;
+with Ada.Interrupts.Names; use Ada.Interrupts.Names;
+
+package Sigint_Handler is
+      protected Handler is
+      entry Wait;
+      procedure Handle;
+      pragma Interrupt_Handler(Handle);
+      pragma Attach_Handler(Handle, Sigint);
+      private
+      Call_Count : Natural := 0;
+   end Handler;
+
+end Sigint_Handler;</syntaxhighlight>
+<syntaxhighlight lang="ada">package body Sigint_Handler is
+
+   -------------
+   -- Handler --
+   -------------
+
+   protected body Handler is
+
+      ----------
+      -- Wait --
+      ----------
+
+      entry Wait when Call_Count > 0 is
+      begin
+         Call_Count := Call_Count - 1;
+      end Wait;
+
+      ------------
+      -- Handle --
+      ------------
+
+      procedure Handle is
+      begin
+         Call_Count := Call_Count + 1;
+      end Handle;
+
+   end Handler;
+
+end Sigint_Handler;</syntaxhighlight>
+A signal may be received at any time in a program. Ada signal handling requires a task to suspend on an entry call for the handler which is executed only when the signal has been received. The following program uses the interrupt handler defined above to deal with receipt of SigInt.
+<syntaxhighlight lang="ada">with Ada.Calendar; use Ada.Calendar;
+with Ada.Text_Io; use Ada.Text_Io;
+with Sigint_Handler; use Sigint_Handler;
+
+procedure Signals is
+   task Counter is
+      entry Stop;
+   end Counter;
+   task body Counter is
+      Current_Count : Natural := 0;
+   begin
+      loop
+         select
+            accept Stop;
+            exit;
+         or delay 0.5;
+         end select;
+         Current_Count := Current_Count + 1;
+         Put_Line(Natural'Image(Current_Count));
+      end loop;
+   end Counter;
+   task Sig_Handler;
+   
+   task body Sig_Handler is
+      Start_Time : Time := Clock;
+      Sig_Time : Time;
+   begin
+      Handler.Wait;
+      Sig_Time := Clock;
+      Counter.Stop;
+      Put_Line("Program execution took" & Duration'Image(Sig_Time - Start_Time) & " seconds");
+   end Sig_Handler;
+      
+begin
+   null;
+         
+end Signals;</syntaxhighlight>
+{{out}}
+<pre>
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+Program execution took 4.348057086 seconds
+</pre>

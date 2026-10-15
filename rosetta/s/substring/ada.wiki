@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+String in [[Ada]] is an array of Character elements indexed by Positive:
+<syntaxhighlight lang="ada">type String is array (Positive range <>) of Character;</syntaxhighlight>
+Substring is a first-class object in [[Ada]], an anonymous subtype of String. The language uses the term '''slice''' for it. Slices can be retrieved, assigned and passed as a parameter to subprograms in mutable or immutable mode. A slice is specified as:
+<syntaxhighlight lang="ada">A (<first-index>..<last-index>)</syntaxhighlight>
+
+A string array in [[Ada]] can start with any positive index. This is why the implementation below uses Str'First in all slices, which in this concrete case is 1, but intentionally left in the code because the task refers to N as an ''offset'' to the string beginning rather than an ''index'' in the string. In [[Ada]] it is unusual to deal with slices in such way. One uses plain string index instead.
+<syntaxhighlight lang="ada">with Ada.Text_IO;        use Ada.Text_IO;
+with Ada.Strings.Fixed;  use Ada.Strings.Fixed;
+
+procedure Test_Slices is
+   Str : constant String := "abcdefgh";
+   N : constant := 2;
+   M : constant := 3;
+begin
+   Put_Line (Str (Str'First + N - 1..Str'First + N + M - 2));
+   Put_Line (Str (Str'First + N - 1..Str'Last));
+   Put_Line (Str (Str'First..Str'Last - 1));
+   Put_Line (Head (Tail (Str, Str'Last - Index (Str, "d", 1)), M));
+   Put_Line (Head (Tail (Str, Str'Last - Index (Str, "de", 1) - 1), M));
+end Test_Slices;</syntaxhighlight>
+{{out}}
+<pre>
+bcd
+bcdefgh
+abcdefg
+efg
+fgh
+</pre>

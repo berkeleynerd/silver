@@ -1,0 +1,53 @@
+=={{header|Ada}}==
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Numerics.Generic_Elementary_Functions;
+
+procedure Trabb_Pardo_Knuth is
+
+   type Real is digits 6 range -400.0 .. 400.0;
+
+   package TIO renames Ada.Text_IO;
+   package FIO is new TIO.Float_IO(Real);
+   package Math is new  Ada.Numerics.Generic_Elementary_Functions(Real);
+
+   function F(X: Real) return Real is
+   begin
+      return (Math.Sqrt(abs(X)) + 5.0 * X**3);
+   end F;
+
+   Values: array(1 .. 11) of Real;
+
+begin
+   TIO.Put("Please enter 11 Numbers:");
+   for I in Values'Range loop
+      FIO.Get(Values(I));
+   end loop;
+
+   for I in reverse Values'Range loop
+      TIO.Put("f(");
+      FIO.Put(Values(I), Fore => 2, Aft => 3, Exp => 0);
+      TIO.Put(")=");
+      begin
+         FIO.Put(F(Values(I)), Fore=> 4, Aft => 3, Exp => 0);
+      exception
+         when Constraint_Error => TIO.Put("-->too large<--");
+      end;
+      TIO.New_Line;
+   end loop;
+
+end Trabb_Pardo_Knuth;</syntaxhighlight>
+
+{{out}}
+<pre>> ./trabb_pardo_knuth 
+Please enter 11 Numbers:10 -1 1 2 3 4 4.3 4.305 4.303 4.302 4.301
+f( 4.301)= 399.886
+f( 4.302)=-->too large<--
+f( 4.303)=-->too large<--
+f( 4.305)=-->too large<--
+f( 4.300)= 399.609
+f( 4.000)= 322.000
+f( 3.000)= 136.732
+f( 2.000)=  41.414
+f( 1.000)=   6.000
+f(-1.000)=  -4.000
+f(10.000)=-->too large<--</pre>

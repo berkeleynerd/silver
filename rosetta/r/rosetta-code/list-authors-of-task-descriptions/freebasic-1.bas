@@ -1,0 +1,252 @@
+#include once "windows.bi"
+#include once "vbcompat.bi"
+#include once "win/wininet.bi"
+
+Type AuthorPair
+    As String  autor
+    As Integer count
+End Type
+
+Type MapNode
+    As String  key
+    As Integer value
+    As MapNode Ptr nxt
+End Type
+
+Dim Shared mapHead As MapNode Ptr = NULL
+Dim Shared As AuthorPair list()
+Dim Shared As Integer taskCnt = 0
+Dim Shared As Integer authorCnt = 0
+
+Sub MapInc(Byref k As String)
+    Dim As MapNode Ptr curr = mapHead
+    While curr <> NULL
+        If curr->key = k Then
+            curr->value += 1
+            Exit Sub
+        End If
+        curr = curr->nxt
+    Wend
+    
+    Dim As MapNode Ptr newNode = New MapNode
+    newNode->key = k
+    newNode->value = 1
+    newNode->nxt = mapHead
+    mapHead = newNode
+End Sub
+
+Function GetURLContent(url As String) As String
+    Dim buffer As String = Space(4096)
+    Dim bytesRead As Long
+    Dim result As String = ""
+    
+    Dim hInternet As Any Ptr = InternetOpenA("FreeBASIC", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0)
+    If hInternet = NULL Then Return ""
+    
+    Dim hUrl As Any Ptr = InternetOpenUrlA(hInternet, url, NULL, 0, INTERNET_FLAG_RELOAD, 0)
+    If hUrl = NULL Then
+        InternetCloseHandle(hInternet)
+        Return ""
+    End If
+    
+    Do
+        If InternetReadFile(hUrl, Strptr(buffer), 4096, @bytesRead) = 0 Then Exit Do
+        If bytesRead = 0 Then Exit Do
+        result &= Left(buffer, bytesRead)
+    Loop
+    
+    InternetCloseHandle(hUrl)
+    InternetCloseHandle(hInternet)
+    
+    Return result
+End Function
+
+Function ExtractTasks(html As String, tasks() As String) As Integer
+    Dim count As Integer = 0
+    Dim posic As Integer = 1
+    
+    Do
+        Dim liPos As Integer = Instr(posic, html, "<li><a href=""/wiki/")
+        If liPos = 0 Then Exit Do
+        
+        Dim iniPos As Integer = liPos + Len("<li><a href=""/wiki/")
+        Dim endPos As Integer = Instr(iniPos, html, """")
+        If endPos = 0 Then Exit Do
+        
+        Dim taskName As String = Mid(html, iniPos, endPos - iniPos)
+        ' Exclude categories
+        If Left(taskName, 9) <> "Category:" Then
+            Redim Preserve tasks(count)
+            tasks(count) = taskName
+            count += 1
+        End If
+        
+        posic = endPos + 1
+    Loop
+    
+    Return count
+End Function
+
+Function ExtractAuthors(html As String, authors() As String) As Integer
+    Dim count As Integer = 0
+    Dim posic As Integer = 1
+    
+    Do
+        Dim tagPos As Integer = Instr(posic, html, "<bdi>")
+        If tagPos = 0 Then Exit Do
+        
+        Dim iniPos As Integer = tagPos + Len("<bdi>")
+        Dim endPos As Integer = Instr(iniPos, html, "</bdi>")
+        If endPos = 0 Then Exit Do
+        
+        Dim autor As String = Mid(html, iniPos, endPos - iniPos)
+        Redim Preserve authors(count)
+        authors(count) = autor
+        count += 1
+        
+        posic = endPos + 1
+    Loop
+    
+    Return count
+End Function
+
+Sub SortAuthors(arr() As AuthorPair, Byval size As Integer)
+    For i As Integer = 0 To size - 2
+        For j As Integer = i + 1 To size - 1
+            If arr(i).count < arr(j).count Then Swap arr(i), arr(j)
+        Next
+    Next
+End Sub
+
+Function CleanAuthor(a As String) As String
+    Dim As String s = a
+    Dim As Integer i
+    
+    If Left(s, 15) = "rosettacode&gt;" Then s = Mid(s, 16)
+    
+    Do
+        i = Instr(s, "&gt;")
+        If i = 0 Then Exit Do
+        s = Left(s, i - 1) & ">" & Mid(s, i + 4)
+    Loop
+    
+    For i = 1 To Len(s)
+        If Mid(s, i, 1) = "_" Then Mid(s, i, 1) = " "
+    Next
+    
+    Return s
+End Function
+
+Sub PrintFinalReport(list() As AuthorPair, authorCnt As Integer, totalTasks As Integer, minTasks As Integer)
+    Print 
+    Print "As at "; Format(Now, "dd mmmm yyyy"); ":"
+    Print 
+    Print "Total tasks   : "; totalTasks
+    Print "Total authors : "; authorCnt
+    Print
+    Print "The authors who have created at least "; minTasks; " tasks are:"
+    Print
+    Print "Pos    Tasks  Author"
+    Print "====   =====  =============="
+    
+    Dim lastTasks As Integer = -1
+    Dim lastPos As Integer = 0
+    Dim posic As Integer = 1
+    Dim posToShow As Integer
+    Dim posStr As String = ""
+    
+    For i As Integer = 0 To authorCnt - 1
+        If list(i).count < minTasks Then Exit For
+        
+        If list(i).count = lastTasks Then
+            posToShow = lastPos
+        Else
+            posToShow = posic
+            lastPos = posic
+        End If
+        
+        posStr = Str(posToShow) & Iif(list(i).count = lastTasks, "=", "")
+        
+        Print Left(posStr & Space(7), 7); Left(Str(list(i).count) & Space(7), 7); list(i).autor
+        lastTasks = list(i).count
+        posic += 1
+    Next
+End Sub
+
+Sub main()
+    Redim As String tasks(0)
+    Dim As String pageUrl = "https://rosettacode.org/wiki/Category:Programming_Tasks"
+    
+    Print "1. Retrieving the list of tasks from Rosetta Code..."
+    
+    Do
+        Dim As String html = GetURLContent(pageUrl)
+        If Len(html) = 0 Then Exit Do
+        
+        ' Extract tasks from this page
+        Redim As String pageMatches(0)
+        Dim As Integer found = ExtractTasks(html, pageMatches())
+        
+        For j As Integer = 0 To found - 1
+            Redim Preserve tasks(taskCnt)
+            tasks(taskCnt) = pageMatches(j)
+            taskCnt += 1
+        Next
+        
+        ' Look for a link to the next page
+        Dim As Integer nextPos = Instr(html, "Category:Programming_Tasks?pagefrom=")
+        If nextPos = 0 Then Exit Do
+        
+        Dim As Integer hrefPos = Instrrev(html, "href=""", nextPos)
+        If hrefPos = 0 Then Exit Do
+        
+        hrefPos += Len("href=""")
+        Dim As Integer endPos = Instr(hrefPos, html, """")
+        If endPos = 0 Then Exit Do
+        
+        Dim As String nextHref = Mid(html, hrefPos, endPos - hrefPos)
+        pageUrl = "https://rosettacode.org" & nextHref
+    Loop
+    
+    Print "2. Analyzing original authors (this may take some time)"
+    Print "   Processing sequentially..."
+    
+    For i As Integer = 0 To taskCnt - 1
+        Dim As String histUrl = "https://rosettacode.org/wiki/" & tasks(i) & "?dir=prev&action=history"
+        Dim As String histHtml = GetURLContent(histUrl)
+        If Len(histHtml) = 0 Then Continue For
+        
+        Redim As String userMatches(0)
+        Dim As Integer foundUsers = ExtractAuthors(histHtml, userMatches())
+        
+        If foundUsers > 0 Then MapInc(CleanAuthor(userMatches(foundUsers - 1))) ' añadimos autor
+        
+        If (i + 1) Mod 50 = 0 Or i = taskCnt - 1 Then
+            Print "   Progress: " & (i + 1) & "/" & taskCnt & " tasks analyzed."
+        End If
+    Next
+    
+    Dim As MapNode Ptr curr = mapHead
+    
+    While curr <> NULL
+        Redim Preserve list(authorCnt)
+        list(authorCnt).autor = curr->key
+        list(authorCnt).count = curr->value
+        authorCnt += 1
+        curr = curr->nxt
+    Wend
+End Sub
+
+main()
+SortAuthors(list(), authorCnt)
+PrintFinalReport(list(), authorCnt, taskCnt, 9)
+
+' Final memory deallocation of the dynamic list
+Dim As MapNode Ptr currNode = mapHead
+While currNode <> NULL
+    Dim As MapNode Ptr tempNode = currNode->nxt
+    Delete currNode
+    currNode = tempNode
+Wend
+
+Sleep

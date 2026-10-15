@@ -1,0 +1,12 @@
+[[Category:Simple]]
+{{task}}  
+
+;Task:
+Determine the number of elements in an array.
+
+
+As an example use an array holding the strings 'apple' and 'orange'.
+
+
+{{Template:Strings}}
+<br><br>

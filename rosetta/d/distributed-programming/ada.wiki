@@ -1,0 +1,106 @@
+=={{header|Ada}}==
+{{works with|GNAT GPL|2010}}
+{{works with|PolyORB}}
+
+Ada defines facilities for distributed systems in its standard (Annex E, also called DSA).
+
+This example works with PolyORB and the GNAT GPL 2010 compiler from AdaCore.
+
+server.ads:
+<syntaxhighlight lang="ada">package Server is
+   pragma Remote_Call_Interface;
+   procedure Foo;
+   function Bar return Natural;
+end Server;</syntaxhighlight>
+
+server.adb:
+<syntaxhighlight lang="ada">package body Server is
+   Count : Natural := 0;
+
+   procedure Foo is
+   begin
+      Count := Count + 1;
+   end Foo;
+
+   function Bar return Natural is
+   begin
+      return Count;
+   end Bar;
+end Server;</syntaxhighlight>
+
+client.adb:
+<syntaxhighlight lang="ada">with Server;
+with Ada.Text_IO;
+
+procedure Client is
+begin
+   Ada.Text_IO.Put_Line ("Calling Foo...");
+   Server.Foo;
+   Ada.Text_IO.Put_Line ("Calling Bar: " & Integer'Image (Server.Bar));
+end Client;</syntaxhighlight>
+
+required config (dsa.cfg):
+<syntaxhighlight lang="ada">configuration DSA is
+   pragma Starter (None);
+
+   -- Server
+   Server_Partition : Partition := (Server);
+   procedure Run_Server is in Server_Partition;
+
+   -- Client
+   Client_Partition : Partition;
+   for Client_Partition'Termination use Local_Termination;
+   procedure Client;
+   for Client_Partition'Main use Client;
+end DSA;</syntaxhighlight>
+
+compilation:
+<pre>$po_gnatdist dsa.cfg
+[...]
+ ------------------------------
+ ---- Configuration report ----
+ ------------------------------
+Configuration :
+   Name        : dsa
+   Main        : run_server
+   Starter     : none
+
+Partition server_partition
+   Main        : run_server
+   Units       :
+             - server (rci)
+             - run_server (normal)
+             - polyorb.dsa_p.partitions (rci, from PCS)
+
+   Environment variables :
+             - "POLYORB_DSA_NAME_SERVICE"
+
+Partition client_partition
+   Main        : client
+   Termination : local
+   Units       :
+             - client (normal)
+
+   Environment variables :
+             - "POLYORB_DSA_NAME_SERVICE"
+
+ -------------------------------
+[...]</pre>
+
+preparation (run PolyORB name service):
+<pre>$ po_ioc_naming
+POLYORB_CORBA_NAME_SERVICE=IOR:010000002b00000049444[...]
+POLYORB_CORBA_NAME_SERVICE=corbaloc:iiop:1.2@10.200.[...]</pre>
+
+You have to set the environment variable POLYORB_DSA_NAME_SERVICE to one of the two values given by po_ioc_naming for the server/client partitions.
+
+running server:
+<pre>$ ./server_partition</pre>
+
+running client:
+<pre>$ ./client_partition
+Calling Foo...
+Calling Bar:  1
+$ ./client_partition
+Calling Foo...
+Calling Bar:  2</pre>

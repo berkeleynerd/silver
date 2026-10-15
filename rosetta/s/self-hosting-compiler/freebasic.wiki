@@ -1,0 +1,9 @@
+=={{header|FreeBASIC}}==
+Essentially, FreeBASIC consists of two parts:
+
+  1. The FreeBASIC compiler, written in FreeBASIC (self-hosting). Compiling this requires a working FreeBASIC installation.
+  2. The FreeBASIC runtime libraries, written in C. Compiling this requires a C compiler such as gcc, the GNU C compiler (Native gcc on Linux, MinGW on Windows, DJGPP for DOS).
+
+FreeBASIC is a self-hosting compiler, being roughly 120,000 lines of code (compiler core only, not including libraries).
+
+Source code can be downloaded from [https://freebasic.net/wiki/DevBuild https://freebasic.net/wiki/DevBuild].

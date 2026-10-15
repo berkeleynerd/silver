@@ -1,0 +1,75 @@
+=={{header|Ada}}==
+Uses package Population_Count from [[Population count#Ada]]. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Population_Count; use Population_Count;
+
+procedure Pernicious is
+   
+   Prime: array(0 .. 64) of Boolean; 
+     -- we are using 64-bit numbers, so the population count is between 0 and 64
+   X: Num; use type Num;
+   Cnt: Positive;
+begin
+   -- initialize array Prime; Prime(I) must be true if and only if I is a prime
+   Prime := (0 => False, 1 => False, others => True);
+   for I in 2 .. 8 loop
+      if Prime(I) then
+	 Cnt := I + I;
+	 while Cnt <= 64 loop
+	    Prime(Cnt) := False;
+	    Cnt := Cnt + I;
+	 end loop;
+      end if;
+   end loop;
+   
+   -- print first 25 pernicious numbers 
+   X := 1;
+   for I in 1 .. 25 loop
+      while not Prime(Pop_Count(X)) loop 
+	 X := X + 1;
+      end loop;
+      Ada.Text_IO.Put(Num'Image(X));
+      X := X + 1;
+   end loop;
+   Ada.Text_IO.New_Line;
+   
+   -- print pernicious numbers between  888_888_877 and 888_888_888 (inclusive)
+   for Y in Num(888_888_877) .. 888_888_888 loop
+      if Prime(Pop_Count(Y)) then
+	 Ada.Text_IO.Put(Num'Image(Y));
+      end if;
+   end loop;
+   Ada.Text_IO.New_Line;   
+end;</syntaxhighlight>
+
+
+{{out}}
+
+<pre> 3 5 6 7 9 10 11 12 13 14 17 18 19 20 21 22 24 25 26 28 31 33 34 35 36
+ 888888877 888888878 888888880 888888883 888888885 888888886</pre>
+
+A small modification allows to count all the pernicious numbers between 1 and 2**32 in about 32 seconds:
+
+<syntaxhighlight lang="ada">   Counter: Natural;
+begin
+   -- initialize array Prime; Prime(I) must be true if and only if I is a prime
+   ...
+
+   Counter := 0;
+   -- count p. numbers below 2**32 
+   for Y in Num(2) .. 2**32 loop
+      if Prime(Pop_Count(Y)) then
+	 Counter := Counter + 1;
+      end if;
+   end loop;
+   Ada.Text_IO.Put_Line(Natural'Image(Counter));
+end Count_Pernicious;</syntaxhighlight>
+
+{{out}}
+
+<pre>> time ./count_pernicious 
+ 1421120880
+
+real    0m33.375s
+user    0m33.372s
+sys     0m0.000s</pre>

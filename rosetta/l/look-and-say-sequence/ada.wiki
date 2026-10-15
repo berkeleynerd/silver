@@ -1,0 +1,38 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Strings.Fixed;
+use  Ada.Text_IO, Ada.Strings, Ada.Strings.Fixed;
+
+function "+" (S : String) return String is
+   Item : constant Character := S (S'First);
+begin
+   for Index in S'First + 1..S'Last loop
+      if Item /= S (Index) then
+         return Trim (Integer'Image (Index - S'First), Both) & Item & (+(S (Index..S'Last)));
+      end if;
+   end loop;
+   return Trim (Integer'Image (S'Length), Both) & Item;
+end "+";</syntaxhighlight>
+This function can be used as follows:
+<syntaxhighlight lang="ada">Put_Line (+"1");
+Put_Line (+(+"1"));
+Put_Line (+(+(+"1")));
+Put_Line (+(+(+(+"1"))));
+Put_Line (+(+(+(+(+"1")))));
+Put_Line (+(+(+(+(+(+"1"))))));
+Put_Line (+(+(+(+(+(+(+"1")))))));
+Put_Line (+(+(+(+(+(+(+(+"1"))))))));
+Put_Line (+(+(+(+(+(+(+(+(+"1")))))))));
+Put_Line (+(+(+(+(+(+(+(+(+(+"1"))))))))));</syntaxhighlight>
+{{out}}
+<pre>
+11
+21
+1211
+111221
+312211
+13112221
+1113213211
+31131211131221
+13211311123113112211
+11131221133112132113212221
+</pre>

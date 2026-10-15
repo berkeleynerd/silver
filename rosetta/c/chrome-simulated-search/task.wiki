@@ -1,0 +1,4 @@
+{{task|Simulated search}}
+The task is to programmatically open any browser and search something using a shortcut that does not include:
+*The mouse
+*Typing out what you wish to search

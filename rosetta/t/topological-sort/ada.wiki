@@ -1,0 +1,380 @@
+=={{header|Ada}}==
+
+'''Digraphs: A package for directed graphs, representing nodes as positive numbers'''
+
+The specification:
+
+<syntaxhighlight lang="ada">with Ada.Containers.Vectors; use Ada.Containers;
+
+package Digraphs is
+
+   type Node_Idx_With_Null is new Natural;
+   subtype Node_Index is Node_Idx_With_Null range 1 .. Node_Idx_With_Null'Last;
+   -- a Node_Index is a number from 1, 2, 3, ... and the representative of a node
+
+   type Graph_Type is tagged private;
+
+   -- make sure Node is in Graph (possibly without connections)
+   procedure Add_Node
+     (Graph: in out Graph_Type'Class; Node: Node_Index);
+
+   -- insert an edge From->To into Graph; do nothing if already there
+   procedure Add_Connection
+     (Graph: in out Graph_Type'Class; From, To: Node_Index);
+
+   -- get the largest Node_Index used in any Add_Node or Add_Connection op.
+   -- iterate over all nodes of Graph: "for I in 1 .. Graph.Node_Count loop ..."
+   function Node_Count(Graph: Graph_Type) return Node_Idx_With_Null;
+
+   -- remove an edge From->To from Fraph; do nothing if not there
+   -- Graph.Node_Count is not changed
+   procedure Del_Connection
+     (Graph: in out Graph_Type'Class; From, To: Node_Index);
+
+   -- check if an edge From->to exists in Graph
+   function Connected
+     (Graph: Graph_Type; From, To: Node_Index) return Boolean;
+
+   -- data structure to store a list of nodes
+   package Node_Vec is new Vectors(Positive, Node_Index);
+
+   -- get a list of all nodes From->Somewhere in Graph
+   function All_Connections
+     (Graph: Graph_Type; From: Node_Index) return Node_Vec.Vector;
+
+   Graph_Is_Cyclic: exception;
+
+   -- a depth-first search to find a topological sorting of the nodes
+   -- raises Graph_Is_Cyclic if no topological sorting is possible
+   function Top_Sort
+     (Graph: Graph_Type) return Node_Vec.Vector;
+
+private
+
+   package Conn_Vec is new Vectors(Node_Index, Node_Vec.Vector, Node_Vec."=");
+
+   type Graph_Type is new Conn_Vec.Vector with null record;
+
+end Digraphs;</syntaxhighlight>
+
+The implementation:
+
+<syntaxhighlight lang="ada">package body Digraphs is
+
+   function Node_Count(Graph: Graph_Type) return Node_Idx_With_Null is
+   begin
+      return Node_Idx_With_Null(Graph.Length);
+   end Node_Count;
+
+   procedure Add_Node(Graph: in out Graph_Type'Class; Node: Node_Index) is
+   begin
+      for I in Node_Index range Graph.Node_Count+1 .. Node loop
+         Graph.Append(Node_Vec.Empty_Vector);
+      end loop;
+   end Add_Node;
+
+   procedure Add_Connection
+     (Graph: in out Graph_Type'Class; From, To: Node_Index) is
+   begin
+      Graph.Add_Node(Node_Index'Max(From, To));
+      declare
+         Connection_List: Node_Vec.Vector := Graph.Element(From);
+      begin
+         for I in Connection_List.First_Index .. Connection_List.Last_Index loop
+            if Connection_List.Element(I) >= To then
+               if Connection_List.Element(I) = To then
+                  return; -- if To is already there, don't add it a second time
+               else -- I is the first index with Element(I)>To, insert To here
+                  Connection_List.Insert(Before => I, New_Item => To);
+                  Graph.Replace_Element(From, Connection_List);
+                  return;
+               end if;
+            end if;
+         end loop;
+         -- there was  no I with no Element(I) > To, so insert To at the end
+         Connection_List.Append(To);
+         Graph.Replace_Element(From, Connection_List);
+         return;
+      end;
+   end Add_Connection;
+
+   procedure Del_Connection
+     (Graph: in out Graph_Type'Class; From, To: Node_Index) is
+      Connection_List: Node_Vec.Vector := Graph.Element(From);
+   begin
+      for I in Connection_List.First_Index .. Connection_List.Last_Index loop
+         if Connection_List.Element(I) = To then
+            Connection_List.Delete(I);
+            Graph.Replace_Element(From, Connection_List);
+            return; -- we are done
+         end if;
+      end loop;
+   end Del_Connection;
+
+   function Connected
+     (Graph: Graph_Type; From, To: Node_Index) return Boolean is
+      Connection_List: Node_Vec.Vector renames Graph.Element(From);
+   begin
+      for I in Connection_List.First_Index .. Connection_List.Last_Index loop
+         if Connection_List.Element(I) = To then
+            return True;
+         end if;
+      end loop;
+      return False;
+   end Connected;
+
+   function All_Connections
+     (Graph: Graph_Type; From: Node_Index) return Node_Vec.Vector is
+   begin
+      return Graph.Element(From);
+   end All_Connections;
+
+   function Top_Sort
+     (Graph: Graph_Type) return Node_Vec.Vector is
+
+      Result: Node_Vec.Vector;
+      Visited: array(1 .. Graph.Node_Count) of Boolean := (others => False);
+      Active:  array(1 .. Graph.Node_Count) of Boolean := (others => False);
+
+      procedure Visit(Node: Node_Index) is
+      begin
+         if not Visited(Node) then
+            Visited(Node) := True;
+            Active(Node)  := True;
+            declare
+               Cons: Node_Vec.Vector := All_Connections(Graph, Node);
+            begin
+               for Idx in Cons.First_Index .. Cons.Last_Index loop
+                  Visit(Cons.Element(Idx));
+               end loop;
+            end;
+            Active(Node) := False;
+            Result.Append(Node);
+         else
+            if Active(Node) then
+               raise Constraint_Error with "Graph is Cyclic";
+            end if;
+         end if;
+      end Visit;
+
+   begin
+      for Some_Node in Visited'Range loop
+         Visit(Some_Node);
+      end loop;
+      return Result;
+   end Top_Sort;
+
+end Digraphs;</syntaxhighlight>
+
+'''Set_of_Names: Translating strings into numbers and vice versa'''
+
+The specification:
+
+<syntaxhighlight lang="ada">private with Ada.Containers.Indefinite_Vectors;
+
+generic
+   type Index_Type_With_Null is new Natural;
+package Set_Of_Names is
+   subtype Index_Type is Index_Type_With_Null
+       range 1 .. Index_Type_With_Null'Last;
+   -- manage a set of strings;
+   -- each string in the set is assigned a unique index of type Index_Type
+
+   type Set is tagged private;
+
+   -- inserts Name into Names; do nothing if already there;
+   procedure Add(Names: in out Set; Name: String);
+
+   -- Same operation, additionally emiting Index=Names.Idx(Name)
+   procedure Add(Names: in out Set; Name: String; Index: out Index_Type);
+
+   -- remove Name from Names; do nothing if not found
+   -- the removal may change the index of other strings in Names
+   procedure Sub(Names: in out Set; Name: String);
+
+   -- returns the unique index of Name in Set; or 0 if Name is not there
+   function Idx(Names: Set; Name: String) return Index_Type_With_Null;
+
+   -- returns the unique name of Index;
+   function Name(Names: Set; Index: Index_Type) return String;
+
+   -- first index, last index and total number of names in set
+   -- to iterate over Names, use "for I in Names.Start .. Names.Stop loop ...
+   function Start(Names: Set) return Index_Type;
+   function Stop(Names: Set) return Index_Type_With_Null;
+   function Size(Names: Set) return Index_Type_With_Null;
+
+private
+
+   package Vecs is new Ada.Containers.Indefinite_Vectors
+     (Index_Type => Index_Type, Element_Type => String);
+
+   type Set is new Vecs.Vector with null record;
+
+end Set_Of_Names;</syntaxhighlight>
+
+The implementation
+
+<syntaxhighlight lang="ada">package body Set_Of_Names is
+
+   use type Ada.Containers.Count_Type, Vecs.Cursor;
+
+   function Start(Names: Set) return Index_Type is
+   begin
+      if Names.Length = 0 then
+         return 1;
+      else
+         return Names.First_Index;
+      end if;
+   end Start;
+
+   function Stop(Names: Set) return Index_Type_With_Null is
+   begin
+      if Names.Length=0 then
+         return 0;
+      else
+         return Names.Last_Index;
+      end if;
+   end Stop;
+
+   function Size(Names: Set) return Index_Type_With_Null is
+   begin
+      return Index_Type_With_Null(Names.Length);
+   end Size;
+
+   procedure Add(Names: in out Set; Name: String; Index: out Index_Type) is
+      I: Index_Type_With_Null := Names.Idx(Name);
+   begin
+      if I = 0 then -- Name is not yet in Set
+         Names.Append(Name);
+         Index := Names.Stop;
+      else
+        Index := I;
+      end if;
+   end Add;
+
+   procedure Add(Names: in out Set; Name: String) is
+      I: Index_Type;
+   begin
+      Names.Add(Name, I);
+   end Add;
+
+   procedure Sub(Names: in out Set; Name: String) is
+      I: Index_Type_With_Null := Names.Idx(Name);
+   begin
+      if I /= 0 then -- Name is in set
+         Names.Delete(I);
+      end if;
+   end Sub;
+
+   function Idx(Names: Set; Name: String) return Index_Type_With_Null is
+   begin
+      for I in Names.First_Index .. Names.Last_Index loop
+         if Names.Element(I) = Name then
+            return I;
+         end if;
+      end loop;
+      return 0;
+   end Idx;
+
+   function Name(Names: Set; Index: Index_Type) return String is
+   begin
+      return Names.Element(Index);
+   end Name;
+
+end Set_Of_Names;</syntaxhighlight>
+
+'''Toposort: Putting things together for the main program'''
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Digraphs, Set_Of_Names, Ada.Command_Line;
+
+procedure Toposort is
+
+   -- shortcuts for package names, intantiation of generic package
+   package TIO renames Ada.Text_IO;
+   package DG renames Digraphs;
+   package SN is new Set_Of_Names(DG.Node_Idx_With_Null);
+
+   -- reat the graph from the file with the given Filename
+   procedure Read(Filename: String; G: out DG.Graph_Type; N: out SN.Set) is
+
+      -- finds the first word in S(Start .. S'Last), delimited by spaces
+      procedure Find_Token(S: String; Start: Positive;
+                           First: out Positive; Last: out Natural) is
+
+      begin
+         First := Start;
+         while First <= S'Last and then S(First)= ' ' loop
+            First := First + 1;
+         end loop;
+         Last := First-1;
+         while Last < S'Last and then S(Last+1) /= ' ' loop
+            Last := Last + 1;
+         end loop;
+      end Find_Token;
+
+      File: TIO.File_Type;
+   begin
+      TIO.Open(File, TIO.In_File, Filename);
+      TIO.Skip_Line(File, 2);
+      -- the first two lines contain header and "===...==="
+      while not TIO.End_Of_File(File) loop
+         declare
+            Line: String := TIO.Get_Line(File);
+            First: Positive;
+            Last: Natural;
+            To, From: DG.Node_Index;
+         begin
+            Find_Token(Line, Line'First, First, Last);
+            if Last >= First then
+               N.Add(Line(First .. Last), From);
+               G.Add_Node(From);
+               loop
+                  Find_Token(Line, Last+1, First, Last);
+                  exit when Last < First;
+                     N.Add(Line(First .. Last), To);
+                     G.Add_Connection(From, To);
+                  end loop;
+            end if;
+         end;
+      end loop;
+      TIO.Close(File);
+   end Read;
+
+   Graph: DG.Graph_Type;
+   Names: SN.Set;
+
+begin
+   Read(Ada.Command_Line.Argument(1), Graph, Names);
+
+   -- eliminat self-cycles
+   for Start in 1 .. Graph.Node_Count loop
+      Graph.Del_Connection(Start, Start);
+   end loop;
+
+   -- perform the topological sort and output the result
+   declare
+      Result:  DG.Node_Vec.Vector;
+   begin
+      Result := Graph.Top_Sort;
+      for Index in Result.First_Index .. Result.Last_Index loop
+         TIO.Put(Names.Name(Result.Element(Index)));
+         if Index < Result.Last_Index then
+            TIO.Put(" -> ");
+         end if;
+      end loop;
+      TIO.New_Line;
+   exception
+      when DG.Graph_Is_Cyclic =>
+         TIO.Put_Line("There is no topological sorting -- the Graph is cyclic!");
+   end;
+end Toposort;</syntaxhighlight>
+
+{{out}}
+Given the name of the file with the dependencies as the parameter, 
+Toposort generates the following output:
+<pre>std -> synopsys -> ieee -> std_cell_lib -> dware -> dw02 -> gtech -> dw01 -> ramlib ->  des_system_lib -> dw03 -> dw04 -> dw05 -> dw06 -> dw07</pre>
+
+If the dependencies is circular, the the Toposort tells that:
+
+<pre>There is no topological sorting -- the Graph is cyclic!</pre>

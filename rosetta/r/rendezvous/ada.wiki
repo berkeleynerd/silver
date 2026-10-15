@@ -1,0 +1,112 @@
+=={{header|Ada}}==
+Ada has integrated [http://www.iuma.ulpgc.es/users/jmiranda/gnat-rts/node20.htm rendezvous support]. The caller calls to a rendezvous using the name of the task suffixed by the entry point name and the parameters. An entry point can be called using timed entry call statement which allow limit waiting time:
+<syntaxhighlight lang="ada">select
+   Server.Wake_Up (Parameters);
+or delay 5.0;
+   -- No response, try something else
+   ...
+end select;</syntaxhighlight>
+The task accepts a rendezvous using accept statement. The statement can contain body which implements the rendezvous. When several rendezvous need to be accepted a selective accept statement can be used. For example:
+<syntaxhighlight lang="ada">select
+   accept Wake_Up (Parameters : Work_Item) do
+      Current_Work_Item := Parameters;
+   end;
+   Process (Current_Work_Item);
+or accept Shut_Down;
+   exit;       -- Shut down requested
+end select;</syntaxhighlight>
+Entry points in the selective accept can be guarded by Boolean expressions which close the entry point when the expression yield false.
+
+A task may requeue rendezvous request from the body of an accept statement to an entry point of the same or another task if the parameter profile of the entry point is compatible. The requeue statement may contain clause '''with abort'' which allows the caller to abort the request when it waits for other task to accept it. Without the clause the request is protected from abortion. This might be useful when the first task initiates processing of the request and the side effect of this action need to be removed when processing is completed.
+===The task===
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Rendezvous is
+   Out_Of_Ink : exception;
+
+   type Printer;
+   type Printer_Ptr is access all Printer;
+   task type Printer (ID : Natural; Backup : Printer_Ptr) is
+      entry Print (Line : String);
+   end Printer;
+
+   task body Printer is
+      Ink : Natural := 5;
+   begin
+      loop
+         begin
+            select
+               accept Print (Line : String) do
+                  if Ink = 0 then
+                     if Backup = null then
+                        raise Out_Of_Ink;
+                     else
+                        requeue Backup.Print with abort;
+                     end if;
+                  else
+                     Put (Integer'Image (ID) & ": ");
+                     for I in Line'Range loop
+                        Put (Line (I));
+                     end loop;
+                     New_Line;
+                     Ink := Ink - 1;
+                  end if;
+               end Print;
+            or terminate;
+            end select;
+         exception
+            when Out_Of_Ink =>
+               null;
+         end;
+      end loop;
+   end Printer;
+
+   Reserve : aliased Printer (2, null);
+   Main    : Printer (1, Reserve'Access);
+   
+   task Humpty_Dumpty;
+   task Mother_Goose;
+   
+   task body Humpty_Dumpty is
+   begin
+      Main.Print ("Humpty Dumpty sat on a wall.");
+      Main.Print ("Humpty Dumpty had a great fall.");
+      Main.Print ("All the king's horses and all the king's men");
+      Main.Print ("Couldn't put Humpty together again.");
+   exception
+      when Out_Of_Ink =>
+         Put_Line ("      Humpty Dumpty out of ink!");
+   end Humpty_Dumpty;
+
+   task body Mother_Goose is
+   begin
+      Main.Print ("Old Mother Goose");
+      Main.Print ("When she wanted to wander,");
+      Main.Print ("Would ride through the air");
+      Main.Print ("On a very fine gander.");
+      Main.Print ("Jack's mother came in,");
+      Main.Print ("And caught the goose soon,");
+      Main.Print ("And mounting its back,");
+      Main.Print ("Flew up to the moon.");
+   exception
+      when Out_Of_Ink =>
+         Put_Line ("      Mother Goose out of ink!");
+   end Mother_Goose;
+
+begin
+   null;   
+end Rendezvous;</syntaxhighlight>
+Sample output:
+<pre>
+ 1: Old Mother Goose
+ 1: Humpty Dumpty sat on a wall.
+ 1: When she wanted to wander,
+ 1: Humpty Dumpty had a great fall.
+ 1: Would ride through the air
+ 2: All the king's horses and all the king's men
+ 2: On a very fine gander.
+ 2: Couldn't put Humpty together again.
+ 2: Jack's mother came in,
+ 2: And caught the goose soon,
+      Mother Goose out of ink!
+</pre>

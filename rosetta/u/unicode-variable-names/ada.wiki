@@ -1,0 +1,13 @@
+=={{header|Ada}}==
+As of Ada 2005, all source code can be made of up to 32bit characters.
+Unless you have made it a default, GNAT would require the -gnatW8 flag to understand you are using UTF8 for the code below, other encodings are possible.
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+procedure main is
+   Δ : Integer; 
+begin
+   Δ := 41;
+   Δ := Δ + 1;
+   Ada.Text_IO.Put_Line (Δ'Img);
+end main;</syntaxhighlight>
+{{out}}
+<pre> 42</pre>

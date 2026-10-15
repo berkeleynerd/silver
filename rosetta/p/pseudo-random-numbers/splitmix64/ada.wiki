@@ -1,0 +1,94 @@
+=={{header|Ada}}==
+The random number functions are written in a stand-alone package. The package is split into a package specification defining the interfaces to the public subprograms and a body containing the implementation of the random number generator.
+
+'''package specification:'''
+<syntaxhighlight lang="ada">with Interfaces; use Interfaces;
+
+package Random_Splitmix64 is
+
+   function next_Int return Unsigned_64;
+   function next_float return Float;
+   procedure Set_State (Seed : in Unsigned_64);
+end Random_Splitmix64;</syntaxhighlight>
+'''package body:'''
+<syntaxhighlight lang="ada">package body Random_Splitmix64 is
+   Internal : Unsigned_64 := 1234567;
+
+   --------------
+   -- next_Int --
+   --------------
+
+   function next_Int return Unsigned_64 is
+      Z : Unsigned_64;
+   begin
+      Internal := Internal + 16#9e3779b97f4a7c15#;
+      Z := Internal;
+      Z := (Z xor Shift_Right(Z, 30)) * 16#bf58476d1ce4e5b9#;
+      Z := (Z xor Shift_Right(Z, 27)) * 16#94d049bb133111eb#;
+      return Z xor Shift_Right(Z, 31);
+   end next_Int;
+
+   ----------------
+   -- next_float --
+   ----------------
+
+   function next_float return Float is
+   begin
+      return float(next_int) / (2.0 ** 64);
+   end next_float;
+
+   ---------------
+   -- Set_State --
+   ---------------
+
+   procedure Set_State (Seed : in Unsigned_64) is
+   begin
+      Internal := Seed;
+   end Set_State;
+
+end Random_Splitmix64;</syntaxhighlight>
+'''Main procedure:'''
+<syntaxhighlight lang="ada">with Interfaces;        use Interfaces;
+with Random_Splitmix64; use Random_Splitmix64;
+with Ada.Text_IO;       use Ada.Text_IO;
+
+procedure Main is
+   subtype idx is Integer range 0 .. 4;
+   type answer_arr is array (idx) of Natural;
+   Vec : answer_arr := (others => 0);
+   J   : Integer;
+   fj  : Float;
+begin
+   Set_State (1_234_567);
+   for I in 1 .. 5 loop
+      Put (Unsigned_64'Image (next_Int));
+      New_Line;
+   end loop;
+
+   Set_State (987_654_321);
+
+   for I in 1 .. 100_000 loop
+      fj      := Float'Truncation (next_float * 5.0);
+      J       := Integer (fj);
+      Vec (J) := Vec (J) + 1;
+   end loop;
+
+   for I in Vec'Range loop
+      Put_Line (I'Image & ":" & Integer'Image (Vec (I)));
+   end loop;
+
+end Main;
+</syntaxhighlight>
+{{out}}
+<pre>
+ 6457827717110365317
+ 3203168211198807973
+ 9817491932198370423
+ 4593380528125082431
+ 16408922859458223821
+ 0: 20027
+ 1: 19892
+ 2: 20073
+ 3: 19978
+ 4: 20030
+</pre>

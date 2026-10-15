@@ -1,0 +1,167 @@
+=={{header|Ada}}==
+
+The solution is generic. 
+
+The package '''Prime_Numbers''' is instantiated by a type that supports necessary operations +, *, /, mod, >. The constants 0, 1, 2 are parameters too, because the type might have no literals.  The same package is used for [[Almost prime#Ada]], [[Semiprime#Ada]], [[Count in factors#Ada]], [[Primality by Trial Division#Ada]], [[Sequence of primes by Trial Division#Ada]], and [[Ulam_spiral_(for_primes)#Ada]].
+
+This is the specification of the generic package '''Prime_Numbers''':
+
+<syntaxhighlight lang="ada">generic
+   type Number is private;
+   Zero : Number;
+   One  : Number;
+   Two  : Number;
+   with function "+"   (X, Y : Number) return Number is <>;
+   with function "*"   (X, Y : Number) return Number is <>;
+   with function "/"   (X, Y : Number) return Number is <>;
+   with function "mod" (X, Y : Number) return Number is <>;
+   with function ">"   (X, Y : Number) return Boolean is <>;
+package Prime_Numbers is
+   type Number_List is array (Positive range <>) of Number;
+   function Decompose (N : Number) return Number_List;
+   function Is_Prime (N : Number) return Boolean;
+end Prime_Numbers;</syntaxhighlight>
+
+The function Decompose first estimates the maximal result length as log<sub>2</sub> of the argument. Then it allocates the result and starts to enumerate divisors. It does not care to check if the divisors are prime, because non-prime divisors will be automatically excluded. 
+
+This is the implementation of the generic package '''Prime_Numbers''':
+
+<syntaxhighlight lang="ada">package body Prime_Numbers is
+ -- auxiliary (internal) functions
+   function First_Factor (N : Number; Start : Number) return Number is
+      K    : Number  := Start;
+   begin
+      while ((N mod K) /= Zero) and then (N > (K*K))  loop 
+         K := K + One;
+      end loop;
+      if (N mod K) = Zero then
+         return K;
+      else
+         return N;
+      end if;
+   end First_Factor;
+   
+   function Decompose (N : Number; Start : Number) return Number_List is
+      F: Number := First_Factor(N, Start);
+      M: Number := N / F;
+   begin
+      if M = One then -- F is the last factor
+         return (1 => F);
+      else
+         return F & Decompose(M, Start);
+      end if;
+   end Decompose;
+   
+ -- functions visible from the outside
+   function Decompose (N : Number) return Number_List is (Decompose(N, Two));
+   function Is_Prime (N : Number) return Boolean is
+      (N > One and then First_Factor(N, Two)=N);
+end Prime_Numbers;</syntaxhighlight> 
+
+In the example provided, the package '''Prime_Numbers''' is instantiated with plain integer type:
+
+<syntaxhighlight lang="ada">with Prime_Numbers, Ada.Text_IO; 
+ 
+procedure Test_Prime is
+
+   package Integer_Numbers is new 
+     Prime_Numbers (Natural, 0, 1, 2); 
+   use Integer_Numbers;
+     
+   procedure Put (List : Number_List) is
+   begin
+      for Index in List'Range loop
+         Ada.Text_IO.Put (Positive'Image (List (Index)));
+      end loop;
+   end Put;
+     
+begin
+   Put (Decompose (12));
+end Test_Prime;</syntaxhighlight>
+
+{{out}} (decomposition of 12):
+<pre>
+ 2 2 3
+</pre>
+
+The following solution is based on arbitrary precision numbers.
+
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+with Strings_Edit.Unbounded_Unsigned_Edit;
+use  Strings_Edit.Unbounded_Unsigned_Edit;
+
+with Generic_Unbounded_Array;
+
+procedure Prime_Decomposition is
+   type Unbounded_Unsigned_Array is
+      array (Positive range <>) of Unbounded_Unsigned;
+   function Decompose (X : Unbounded_Unsigned)
+      return Unbounded_Unsigned_Array is
+      package Unbounded_Arrays is
+         new Generic_Unbounded_Array
+             (  Positive,
+                Unbounded_Unsigned,
+                Unbounded_Unsigned_Array,
+                Zero
+             );
+      Result : Unbounded_Arrays.Unbounded_Array;
+      Count  : Natural            := 0;
+      Factor : Unbounded_Unsigned := Two;
+      Value  : Unbounded_Unsigned := X;
+      Limit  : Unbounded_Unsigned := Sqrt (X);
+   begin
+      loop
+         if Is_Zero (Value mod Factor) then
+            loop
+               Count := Count + 1;
+               Result.Put (Count, Factor);
+               Div (Value, Factor);
+               exit when not Is_Zero (Value mod Factor);
+            end loop;
+            if Is_Prime (Value, 10) = Prime then
+               Count := Count + 1;
+               Result.Put (Count, Value);
+               exit;
+            end if;
+         end if;
+         Next_Prime (Factor, 10);
+         exit when Factor > Limit;
+      end loop;
+      if Count = 0 then
+         return (1..0 => Zero);
+      else
+         return Result.Vector (1..Count);
+      end if;
+   end Decompose;
+
+   procedure Print (A : Unbounded_Unsigned_Array) is
+   begin
+      for I in A'Range loop
+         if I > A'First then
+            Put (", ");
+         end if;
+         Put (Image (A (I)));
+      end loop;
+      New_Line;
+   end Print;
+begin
+   Print (Decompose (Two * 2 * 3));
+   Print (Decompose (Two * 3 * 5 * 7 * 11 * 11 * 13 * 17));
+   Print (Decompose (From_Half_Word (233) * 1103 * 2089));
+   Print (Decompose (From_Half_Word (431) * 9719 * 2099863));
+   Print (Decompose (From_Half_Word (179951) * 16860167264933));
+end Prime_Decomposition;
+</syntaxhighlight>
+{{out}}
+<pre>
+2, 2, 3
+2, 3, 5, 7, 11, 11, 13, 17
+233, 1103, 2089
+431, 9719, 2099863
+179951, 16860167264933
+</pre>

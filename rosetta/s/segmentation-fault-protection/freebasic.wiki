@@ -1,0 +1,27 @@
+=={{header|FreeBASIC}}==
+<b>1. Default Behavior (No Protections)</b>
+
+By default, FreeBASIC does not check the bounds of an array at runtime. This means that if your code attempts to access an array element outside its declared bounds (such as accessing <code>myArray(500)</code> when there are only 6 elements), the compiler will not stop, and the program will likely cause a segmentation fault or general protection fault at runtime. This is because this out-of-bounds access generates undefined behavior, and the operating system might terminate the program to avoid further problems.
+<syntaxhighlight lang="vbnet">Dim myArray(0 To 5) As Integer = {1, 2, 3, 4, 5, 6}
+
+myArray(500) = 42  ' There is no compile-time error
+
+Print "Acceso válido: "; myArray(3)      ' Print 4
+Print "Acceso inválido: "; myArray(500)  ' Crash with a segmentation fault or general protection fault upon execution.
+</syntaxhighlight>
+
+
+<b>2. Compiling with Bounds Checking</b>
+
+FreeBASIC allows you to add runtime array bounds checking via special options (<code>-exx</code> or <code>-earray</code>) that tell the compiler to insert array bounds checking code at runtime. If an out-of-bounds access is detected, a runtime error is generated, and the program will exit gracefully with an error message instead of crashing.
+
+How to Use: Compile your program with one of the following commands:
+
+<code>fbc -exx myprogram.bas</code>  or  <code>fbc -earray myprogram.bas</code>
+
+With these options enabled, the same out-of-bounds code:
+
+<syntaxhighlight lang="vbnet">Dim myArray(5) As Integer
+myArray(500) = 42</syntaxhighlight>
+
+will generate a clear runtime error message about an array bounds violation, rather than a segmentation fault.

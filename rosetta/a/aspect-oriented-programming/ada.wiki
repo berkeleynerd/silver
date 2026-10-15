@@ -1,0 +1,57 @@
+=={{header|Ada}}==
+The primary unit of modularity in Ada is the package. Ada provides the ability to create child packages with visibility into portions of their parent package without modifying the parent package. The child package can provided extended capabilities based upon the data types, data elements and subprograms defined in the parent package.
+
+Example parent package specification:
+<syntaxhighlight lang="ada">package parent is
+   function Add2 (X : in Integer) return Integer;
+end parent;</syntaxhighlight>
+Example parent package body:
+<syntaxhighlight lang="ada">package body parent is
+
+   function Add2 (X : in Integer) return Integer is
+   begin
+      return X + 2;
+   end Add2;
+
+end parent;</syntaxhighlight>
+Example child package specification:
+<syntaxhighlight lang="ada">package parent.child is
+   function Add2 (X : in Integer) return Integer;
+end parent.child;</syntaxhighlight>
+Example child package specification:
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+package body parent.child is
+
+   function Add2 (X : in Integer) return Integer is
+   begin
+      Put_Line ("Added 2 to " & X'Image);
+      return parent.Add2 (X);
+   end Add2;
+
+end parent.child;</syntaxhighlight>
+The following program demonstrates calling both the Add2 function from the parent package and calling the Add2 function from the child package. The child package has visibility to the public portion of the parent package and can therefore call the parent's Add2 function directly.
+<syntaxhighlight lang="ada">with parent.child;
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Main is
+   Num    : Integer := 5;
+   Result : Integer;
+begin
+   Put_Line ("Calling parent Add2 function:");
+   Result := parent.Add2 (Num);
+   Put_Line ("Result : " & Result'Image);
+   New_Line;
+   Put_Line ("Calling parent.child Add2 function");
+   Result := parent.child.Add2 (Num);
+   Put_Line ("Result : " & Result'Image);
+end Main;</syntaxhighlight>
+{{output}}
+<pre>
+Calling parent Add2 function:
+Result :  7
+
+Calling parent.child Add2 function
+Added 2 to  5
+Result :  7
+</pre>

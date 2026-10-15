@@ -1,0 +1,70 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Infinities is
+   function Sup return Float is -- Only for predefined types
+      Result : Float := Float'Last;
+   begin
+      if not Float'Machine_Overflows then
+         Result := Float'Succ (Result);
+      end if;
+      return Result;
+   end Sup;
+
+   function Inf return Float is -- Only for predefined types
+      Result : Float := Float'First;
+   begin
+      if not Float'Machine_Overflows then
+         Result := Float'Pred (Result);
+      end if;
+      return Result;
+   end Inf;
+begin
+   Put_Line ("Supremum" & Float'Image (Sup));
+   Put_Line ("Infimum " & Float'Image (Inf));
+end Infinities;</syntaxhighlight>
+The language-defined attribute Machine_Overflows is defined for each floating-point type. It is true when an overflow or divide-by-zero results in Constraint_Error exception propagation. When the underlying machine type is incapable to implement this semantics the attribute is false. It is to expect that on the machines with [[IEEE]] 754 hardware Machine_Overflows is true. The language-defined attributes Succ and Pred yield the value next or previous to the argument, correspondingly.
+
+Sample output on a machine where Float is [[IEEE]] 754:
+<pre>
+Supremum +Inf*******
+Infimum -Inf*******
+</pre>
+Note that the code above does not work for user-defined types, which may have range of values narrower than one of the underlying hardware type. This case represents one of the reasons why [[Ada]] programmers are advised not to use predefined floating-point types. There is a danger that the implementation of might be [[IEEE]] 754, and so the program semantics could be broken.
+
+Here is the code that should work for any type on any machine:
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Infinities is
+   type Real is digits 5 range -10.0..10.0;
+   
+   function Sup return Real is
+      Result : Real := Real'Last;
+   begin
+      return Real'Succ (Result);
+   exception
+      when Constraint_Error =>
+         return Result;
+   end Sup;
+
+   function Inf return Real is
+      Result : Real := Real'First;
+   begin
+      return Real'Pred (Result);
+   exception
+      when Constraint_Error =>
+         return Result;
+   end Inf;
+begin
+   Put_Line ("Supremum" & Real'Image (Sup));
+   Put_Line ("Infimum " & Real'Image (Inf));
+end Infinities;</syntaxhighlight>
+Sample output. Note that the compiler is required to generate Constraint_Error even if the hardware is [[IEEE]] 754. So the upper and lower bounds are 10.0 and -10.0:
+<pre>
+Supremum 1.0000E+01
+Infimum -1.0000E+01
+</pre>
+===Getting rid of IEEE ideals===
+There is a simple way to strip [[IEEE]] 754 ideals (non-numeric values) from a predefined floating-point type such as Float or Long_Float:
+<syntaxhighlight lang="ada">subtype Safe_Float is Float range Float'Range;</syntaxhighlight>
+The subtype Safe_Float keeps all the range of Float, yet behaves properly upon overflow, underflow and zero-divide.

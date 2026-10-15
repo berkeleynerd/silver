@@ -1,0 +1,9 @@
+=={{header|Ada}}==
+
+In Ada, the "Main" procedure doesn't have to follow a special naming scheme. Any parameterless procedure will do.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+procedure Foo is
+begin
+   Ada.Text_IO.Put_Line("Bar");
+end Foo;</syntaxhighlight>

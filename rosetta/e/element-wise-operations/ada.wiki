@@ -1,0 +1,113 @@
+=={{header|Ada}}==
+
+Using Generics, the task is quite trivial in Ada. Here is the main program:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Matrix_Scalar;
+
+procedure Scalar_Ops is
+
+   subtype T is Integer range 1 .. 3;
+
+   package M is new Matrix_Scalar(T, T, Integer);
+
+   -- the functions to solve the task
+        function "+" is new M.Func("+");
+        function "-" is new M.Func("-");
+        function "*" is new M.Func("*");
+        function "/" is new M.Func("/");
+        function "**" is new M.Func("**");
+        function "mod" is new M.Func("mod");
+
+   -- for output purposes, we need a Matrix->String conversion
+        function Image is new M.Image(Integer'Image);
+
+   A: M.Matrix := ((1,2,3),(4,5,6),(7,8,9)); -- something to begin with
+
+begin
+   Ada.Text_IO.Put_Line("  Initial M=" & Image(A));
+   Ada.Text_IO.Put_Line("        M+2=" & Image(A+2));
+   Ada.Text_IO.Put_Line("        M-2=" & Image(A-2));
+   Ada.Text_IO.Put_Line("        M*2=" & Image(A*2));
+   Ada.Text_IO.Put_Line("        M/2=" & Image(A/2));
+   Ada.Text_IO.Put_Line("  square(M)=" & Image(A ** 2));
+   Ada.Text_IO.Put_Line("    M mod 2=" & Image(A mod 2));
+   Ada.Text_IO.Put_Line("(M*2) mod 3=" & Image((A*2) mod 3));
+end Scalar_Ops;</syntaxhighlight>
+
+{{out}}
+<pre>  Initial M=((1,2,3),(4,5,6),(7,8,9))                                                      
+        M+2=((3,4,5),(6,7,8),(9,10,11))                                                    
+        M-2=((-1,0,1),(2,3,4),(5,6,7))
+        M*2=((2,4,6),(8,10,12),(14,16,18))                                                 
+        M/2=((0,1,1),(2,2,3),(3,4,4))
+  square(M)=((1,4,9),(16,25,36),(49,64,81))
+    M mod 2=((1,0,1),(0,1,0),(1,0,1))
+(M*2) mod 3=((2,1,0),(2,1,0),(2,1,0))</pre>
+
+
+Our main program uses a generic package Matrix_Scalar. Here is the specification:
+
+<syntaxhighlight lang="ada">generic
+   type Rows is (<>);
+   type Cols is (<>);
+   type Num is private;
+package Matrix_Scalar is
+   type Matrix is array(Rows, Cols) of Num;
+
+   generic
+      with function F(L, R: Num) return Num;
+   function Func(Left: Matrix; Right: Num) return Matrix;
+
+   generic
+      with function Image(N: Num) return String;
+   function Image(M: Matrix) return String;
+
+end Matrix_Scalar;</syntaxhighlight>
+
+And here is the corresponding implementation. Note that the function Image (which we just use to output the results) takes much more lines than the function Func we need for actually solving the task:
+
+<syntaxhighlight lang="ada">package body Matrix_Scalar is
+
+   function Func(Left: Matrix; Right: Num) return Matrix is
+      Result: Matrix;
+   begin
+      for R in Rows loop
+         for C in Cols loop
+            Result(R,C) := F(Left(R,C), Right);
+         end loop;
+      end loop;
+      return Result;
+   end Func;
+
+   function Image(M: Matrix) return String is
+
+      function Img(R: Rows) return String is
+
+         function I(C: Cols) return String is
+            S: String := Image(M(R,C));
+            L: Positive := S'First;
+         begin
+            while S(L) = ' ' loop
+               L := L + 1;
+            end loop;
+            if C=Cols'Last then
+               return S(L .. S'Last);
+            else
+               return S(L .. S'Last) & "," & I(Cols'Succ(C));
+            end if;
+         end I;
+
+         Column: String := I(Cols'First);
+      begin
+         if R=Rows'Last then
+            return "(" & Column & ")";
+         else
+            return "(" & Column & ")," & Img(Rows'Succ(R));
+         end if;
+      end Img;
+
+   begin
+      return("(" & Img(Rows'First) & ")");
+   end Image;
+
+end Matrix_Scalar;</syntaxhighlight>

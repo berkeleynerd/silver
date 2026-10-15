@@ -1,0 +1,20 @@
+=={{header|FreeBASIC}}==
+Yes! FreeBASIC has a safer mode of execution.
+
+Safe mode in FreeBASIC is activated using the <CODE>-lang fb</CODE> or <CODE>-lang deprecated</CODE> compilation flag, and provides the following restrictions:
+
+# Does not allow direct use of pointers
+# Disables direct memory access using <CODE>PEEK</CODE> and <CODE>POKE</CODE>
+# Restricts the use of <CODE>ASM</CODE> (inline assembly code)
+# Does not allow direct calls to operating system functions
+# Limits the use of variables without explicit declaration
+# Requires variable declaration with <CODE>DIM</CODE>
+# Implements stricter array bounds checking
+
+To activate this safer mode, compile like this:
+
+<CODE>fbc -lang fb program.bas</CODE>
+
+This mode is especially useful for educational environments or when greater control over the code is needed, although it should not be considered a total guarantee of security for code from untrusted sources.
+
+The term '''"safer mode"''' is more accurate than "safe mode", since it does add layers of protection but does not guarantee absolute security.

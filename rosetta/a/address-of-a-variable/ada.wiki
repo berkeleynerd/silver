@@ -1,0 +1,13 @@
+=={{header|Ada}}==
+===Get The Address===
+<syntaxhighlight lang="ada">The_Address : System.Address;
+I : Integer;
+The_Address := I'Address;</syntaxhighlight>
+===Set The Address===
+Set the address of a variable to address A100 in hexadecimal
+<syntaxhighlight lang="ada">I : Integer;
+for I'Address use 16#A100#;</syntaxhighlight>
+Set the address of one variable to the address of another variable, creating an overlay.
+<syntaxhighlight lang="ada">I : Integer;
+J : Integer;
+for I'Address use J'Address;</syntaxhighlight>

@@ -1,0 +1,178 @@
+=={{header|FreeBASIC}}==
+{{trans|MiniScript}}
+<syntaxhighlight lang="vbnet">Sub showBoard(board() As Integer, w As Integer, nq As Integer)
+    Dim black As Integer = 0
+    For i As Integer = 0 To w*w - 1
+        Dim p1 As String = Iif(i Mod w <> 0, "", Chr(10) & "    ")
+        
+        Dim p2 As String
+        If board(i) < 0 Then
+            p2 = "W "
+        Else
+            If board(i) = 0 And black < nq Then
+                p2 = "B "
+            Elseif ((i \ w) Xor (i Mod w)) Mod 2 <> 0 Then
+                p2 = "o "
+            Else
+                p2 = ". "
+            End If
+            If board(i) = 0 Then black += 1
+        End If
+        
+        Print p1 & p2;
+    Next
+    Print Chr(10)
+End Sub
+
+Function placeQueen(attackTable() As Integer, board() As Integer, _
+    w As Integer, nq As Integer, depth As Integer, _
+    posic As Integer, available As Integer) As Integer
+    
+    If depth = nq Then Return True
+    
+    For p As Integer = posic To w*w - 1
+        Dim ix As Integer = p * w * 4
+        Dim attacked As Integer = 0
+        Dim i As Integer = 0
+        
+        While attackTable(ix + i) >= 0
+            Dim v As Integer = attackTable(ix + i)
+            Dim vv As Integer = board(v)
+            If vv >= 0 Then
+                If vv = 0 Then attacked += 1
+                board(v) += 1
+            End If
+            i += 1
+        Wend
+        
+        If available - attacked >= nq Then
+            board(p) = -board(p) - 1
+            Dim aa As Integer = available - attacked
+            
+            If placeQueen(attackTable(), board(), w, nq, depth + 1, p + 1, aa) Then
+                Return True
+            End If
+            
+            board(p) = -board(p) - 1
+        End If
+        
+        i = 0
+        While attackTable(ix + i) >= 0
+            Dim v As Integer = attackTable(ix + i)
+            If board(v) > 0 Then board(v) -= 1
+            i += 1
+        Wend
+    Next
+    
+    Return False
+End Function
+
+Function makeBoard(w As Integer, nq As Integer) As Integer
+    Print "Size " & w & " board, " & nq & " queens:";
+    
+    Dim attackTable(0 To w*w*w*4 - 1) As Integer
+    Dim board(0 To w*w - 1) As Integer
+    
+    For p As Integer = 0 To w*w - 1
+        Dim row As Integer = p \ w
+        Dim col As Integer = p Mod w
+        Dim ix As Integer = p * 4 * w
+        
+        attackTable(ix) = p
+        ix += 1
+        
+        Dim r(0 To 2) As Integer = {-1, 0, 1}
+        
+        For di As Integer = 0 To 2
+            For dj As Integer = 0 To 2
+                If r(di) = 0 And r(dj) = 0 Then Continue For
+                
+                Dim l As Integer = 1
+                Do
+                    Dim i As Integer = row + l * r(di)
+                    Dim j As Integer = col + l * r(dj)
+                    If i < 0 Or i >= w Or j < 0 Or j >= w Then Exit Do
+                    
+                    attackTable(ix) = i*w + j
+                    ix += 1
+                    l += 1
+                Loop
+            Next
+        Next
+        
+        attackTable(ix) = -1
+        ix += 1
+    Next
+    
+    Dim found As Integer = placeQueen(attackTable(), board(), w, nq, 0, 0, w*w)
+    
+    If found Then
+        Print
+        showBoard(board(), w, nq)
+    Else
+        Print !" No solution.\n"
+    End If
+    
+    Return found
+End Function
+
+
+'Task requirement
+makeBoard(5, 4)
+makeBoard(8, 9)
+'Stretch task
+makeBoard(8,10)
+makeBoard(9, 9)
+makeBoard(9, 12)
+makeBoard(9, 13)
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Size 5 board, 4 queens:
+
+    W o W o .
+    o . o . B
+    W o W o .
+    o . o . B
+    . B . B .
+
+Size 8 board, 9 queens:
+
+    W W W o . o . o
+    W W W W o . o .
+    . o . o . B B B
+    o . o . o . B B
+    . o . o . o . B
+    W W o . o . o .
+    . o . o B o . o
+    o . o . B B o .
+
+Size 8 board, 10 queens: No solution.
+
+Size 9 board, 9 queens:
+
+    W W W W W o . o .
+    o W W W W . o . o
+    . o . o . o . B B
+    o . o . o . o . B
+    . o . o . o . o .
+    o . o . o . o . o
+    . o . o . B . o .
+    o . o . o B B . o
+    . o . o . B B B .
+
+Size 9 board, 12 queens:
+
+    W o W o W o W o .
+    o . o . o . o . B
+    W o W o W o W o .
+    o . o . o . o . B
+    W o W o W o W o .
+    o . o . o . o . B
+    . B . B . B . B .
+    o . o . o . o . B
+    . B . B . B . B .
+
+Size 9 board, 13 queens: No solution.
+
+</pre>

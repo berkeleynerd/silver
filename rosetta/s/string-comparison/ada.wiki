@@ -1,0 +1,44 @@
+=={{header|Ada}}==
+Ada uses the usual comparison operators ("=" for equality, "/=" for not being equal, etc.) for strings. One uses the same comparison operators to compare variables of other types (integers, floating point numbers, etc.). 
+But, as Ada is strongly typed, comparing two objects of different type is not possible. 
+To compare, say, a string and an integer, one would need to call an explicit type conversion for one of these objects.
+
+String comparisons are case sensitive. Case insensitive comparisons have to use some conversion operation, such as Ada.Characters.Handling.To_Lower from the standard library, cf. [[http://rosettacode.org/wiki/String_case#Ada]]
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Strings.Equal_Case_Insensitive;
+
+procedure String_Compare is
+
+   procedure Print_Comparison (A, B : String) is
+   begin
+      Ada.Text_IO.Put_Line
+         ("""" & A & """ and """ & B & """: " &
+          (if A = B then
+              "equal, "
+           elsif Ada.Strings.Equal_Case_Insensitive (A, B) then
+              "case-insensitive-equal, "
+           else "not equal at all, ")                   &
+          (if A /= B then "/=, "     else "")           &
+          (if A <  B then "before, " else "")           &
+          (if A >  B then "after, "  else "")           &
+          (if A <= B then "<=, "     else "(not <=), ") &
+          (if A >= B then ">=. "     else "(not >=)."));
+   end Print_Comparison;
+begin
+   Print_Comparison ("this", "that");
+   Print_Comparison ("that", "this");
+   Print_Comparison ("THAT", "That");
+   Print_Comparison ("this", "This");
+   Print_Comparison ("this", "this");
+   Print_Comparison ("the", "there");
+   Print_Comparison ("there", "the");
+end String_Compare;</syntaxhighlight>
+
+{{out}}
+<pre>"this" and "that": not equal at all, /=, after, (not <=), and >=. 
+"that" and "this": not equal at all, /=, before, <=, and (not >=).
+"THAT" and "That": case-insensitive-equal, /=, before, <=, and (not >=).
+"this" and "This": case-insensitive-equal, /=, after, (not <=), and >=. 
+"this" and "this": equal, <=, and >=. 
+"the" and "there": not equal at all, /=, before, <=, and (not >=).
+"there" and "the": not equal at all, /=, after, (not <=), and >=.</pre>

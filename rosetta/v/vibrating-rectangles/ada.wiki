@@ -1,0 +1,340 @@
+=={{header|Ada}}==
+The solution below relies on `Rasters`, a work-in-progress custom package not listed here.
+It generates many frames and outputs them in PPM format.
+From there one can use several tools to generate the following image
+(and they could be generated from the program as well by invoking those system commands).
+
+[[File:Anim.gif|thumb|center|alt=vibrating rectangles|Result of the Ada solution to the Vibrating Rectangles task]]
+
+<syntaxhighlight lang="ada">
+--  modern Ada
+pragma Ada_2022;
+--  extra-modern Ada ;-)
+pragma Extensions_Allowed (On);
+
+--  imports
+with Rasters;
+
+procedure Vibrating_Rectangles is
+
+   Dimension : constant Positive := 256;
+   --  canvas size
+   Step      : constant Positive := Integer'Max (1, 256 / (Dimension / 2));
+   --  amount to step the color each frame
+
+   package R is new Rasters.RGB_Raster
+     (Width => Dimension, Height => Dimension);
+   --  initialize a new raster handling package with the desired dimension
+   Raster : R.Raster;
+   --  the raster itself
+   --  we'll write onto one canvas, since that will suffice
+
+begin
+   --  first clear it
+   Raster.Choose_Pen (R.Colors.White);
+   Raster.Clear;
+   --  now draw onto it
+   --  we will fade blue boxes in (1 * Dimension),
+   --  then fade them out (1 * Dimension), giving 2 * Dimension
+   for Ith in 1 .. 2 * Dimension loop
+      if Ith <= Dimension then   --  fade in
+         --  Jth mod 2 = 0 draws every other rectangle
+         for Jth in 1 .. Natural'Min (Ith, Dimension / 2) when Jth mod 2 = 0
+         loop
+            --  this mildly complicated formula fades from outermost rectangle in
+            Raster.Choose_Pen
+              ((Red | Green => Integer'Max (0, 255 - (Ith - Jth + 1) * Step),
+                others => 255));
+            Raster.Move_To ((Col => Jth, Row => Jth));
+            Raster.Draw_Rectangle_To
+              ((Col => Dimension - Jth + 1, Row => Dimension - Jth + 1));
+         end loop;
+      else  --  fade out
+         for Jth in
+           1 .. Natural'Min (Ith - Dimension, Dimension / 2) when Jth mod 2 = 0
+         loop
+            Raster.Choose_Pen
+              ((Red | Green =>
+                  Integer'Min (255, ((Ith - Dimension) - Jth + 1) * Step),
+                others => 255));
+            Raster.Move_To ((Col => Jth, Row => Jth));
+            Raster.Draw_Rectangle_To
+              ((Col => Dimension - Jth + 1, Row => Dimension - Jth + 1));
+         end loop;
+      end if;
+      --  save individual frames to combine into an animation
+      declare
+         Suffix    : String          := "_0000";
+         --  appended to output filenames
+         To_Suffix : constant String := Ith'Image;
+         --  Ada's 'Image attribute sticks a space before positive numbers alas
+         --  that requires us to handle the suffixes a little delicately
+      begin
+         for Jth in reverse 1 .. To_Suffix'Length loop
+            if To_Suffix (Jth) /= ' ' then
+               Suffix (Suffix'Length - (To_Suffix'Length - Jth)) :=
+                 To_Suffix (Jth);
+            end if;
+         end loop;
+         Raster.Save ("frame" & Suffix & ".ppm", R.PPM);
+      end;
+   end loop;
+end Vibrating_Rectangles;
+</syntaxhighlight>
+The solution based on [[GTK]]. It creates a layered widget holding rectangles. On each periodic redraw the opacity of the lines are modified.
+{{libheader|AICWL}}
+<syntaxhighlight lang="Ada">
+with Cairo;                        use Cairo;
+with Cairo.Ellipses;               use Cairo.Ellipses;
+with Gdk.Color;                    use Gdk.Color;
+with GLib;                         use GLib;
+with Gtk.Layered;                  use Gtk.Layered;
+with Gtk.Layered.Line;             use Gtk.Layered.Line;
+with Gtk.Layered.Refresh_Engine;   use Gtk.Layered.Refresh_Engine;
+with Gtk.Missed;                   use Gtk.Missed;
+with Gtk.Window;                   use Gtk.Window;
+with Gtk.Widget;                   use Gtk.Widget;
+
+with GLib.Object.Checked_Destroy;
+with Gtk.Main;
+
+procedure Fading_Rectangles is
+
+   type Refresher is new Layered_Refresh_Engine with null record;
+   overriding
+      procedure Refresh (Engine : in out Refresher);
+
+   Window  : Gtk_Window;
+   Size    : constant := 130;
+   Color   : constant Gdk_Color := RGB (0.0, 0.0, 1.0);
+   Engine  : Refresher;
+
+   type Rectangle is array (1..4) of access Line_Layer;
+   function Create
+            (  Widget    : Gtk_Layered;
+               Center    : Cairo_Tuple;
+               Half_Size : GDouble
+            )  return Rectangle is
+   begin
+      return
+      (  Add_Line
+         (  Under => Widget,
+            From  => (Center.X - Half_Size, Center.Y - Half_Size),
+            To    => (Center.X - Half_Size, Center.Y + Half_Size),
+            Color => Color
+         ),
+         Add_Line
+         (  Under => Widget,
+            From  => (Center.X + Half_Size, Center.Y - Half_Size),
+            To    => (Center.X + Half_Size, Center.Y + Half_Size),
+            Color => Color
+         ),
+         Add_Line
+         (  Under => Widget,
+            From  => (Center.X - Half_Size, Center.Y - Half_Size),
+            To    => (Center.X + Half_Size, Center.Y - Half_Size),
+            Color => Color
+         ),
+         Add_Line
+         (  Under => Widget,
+            From  => (Center.X - Half_Size, Center.Y + Half_Size),
+            To    => (Center.X + Half_Size, Center.Y + Half_Size),
+            Color => Color
+      )  );
+   end Create;
+
+   type Rectangle_No is mod 20;
+   type Vibration    is mod 10;
+   List    : array (Rectangle_No) of Rectangle;
+   Current : Rectangle_No := 0;
+   Opacity : Vibration    := Vibration'Last;
+
+   function Create return Gtk_Widget is
+      Widget  : Gtk_Layered;
+      Center  : constant Cairo_Tuple :=
+                         (GDouble (Size / 2), GDouble (Size / 2));
+   begin
+      Gtk_New (Widget);
+      for Index in List'Range loop
+         List (Index) :=
+            Create (Widget, Center, 3.0 * GDouble (Index - 1) + 1.0);
+      end loop;
+      Engine.Add (Widget);
+      return Widget.all'Unchecked_Access;
+   end Create;
+
+   procedure Refresh (Engine : in out Refresher) is
+   begin
+      Current := Current - 1;
+      declare
+         This : Rectangle renames List (Current);
+      begin
+         for Index in This'Range loop
+            declare
+               Line : Line_Layer renames This (Index).all;
+            begin
+               Line.Set
+               (  From    => Line.Get_From,
+                  To      => Line.Get_To,
+                  Line    => Line.Get_Line,
+                  Opacity => GDouble (Opacity) / GDouble (Vibration'Last)
+               );
+            end;
+         end loop;
+         if Current = 0 then
+            Opacity := Opacity - 1;
+         end if;
+      end;
+      Layered_Refresh_Engine (Engine).Refresh;
+   end Refresh;
+
+begin
+   Gtk.Main.Init;
+   Gtk.Window.Gtk_New (Window);
+   Window.Set_Title ("Fading");
+   Window.On_Delete_Event (Gtk.Missed.Delete_Event_Handler'Access);
+   Window.On_Destroy (Gtk.Missed.Destroy_Handler'Access);
+   Window.Set_Size_Request (Size, Size);
+   Window.Add (Create);
+   Set_Period (Engine, 0.02);
+   Window.Show_All;
+   Gtk.Main.Main;
+end Fading_Rectangles;
+</syntaxhighlight>
+
+A solution based on [https://github.com/jrcarter/Ada_GUI Ada GUI]. This implements the task pointed to by the "Create [https://1drv.ms/v/s!AqDUIunCqVnIg1MxKPi5DzwUbJEf Vibrating rectangles]" part of the task description.
+
+<syntaxhighlight lang="ada">
+-- The Vibrating Rectangles Rosetta Code task
+-- J. Carter    2026 Jul
+-- This implements the version pointed to by the "Create" link in the task statement
+-- Uses Ada_GUI (https://github.com/jrcarter/Ada_GUI)
+
+with Ada.Real_Time;
+with Ada_GUI;
+
+procedure Vibrating_Rectangles is
+   protected Signalling is
+      procedure Start;
+      -- Releases Wait_For_Start
+
+      procedure Stop;
+      -- Releases Wait_For_Stop
+
+      entry Wait_For_Start;
+      -- Waits until Start is called
+
+      entry Wait_For_Stop;
+      -- Waits until Stop is called
+   private -- Signalling
+      Running : Boolean := False;
+   end Signalling;
+
+   task Artist;
+   -- Draws the rectangles
+
+   protected body Signalling is
+      procedure Start is
+         -- Empty
+      begin -- Start
+         Running := True;
+      end Start;
+
+      procedure Stop is
+         -- Empty
+      begin -- Stop
+         Running := False;
+      end Stop;
+
+      entry Wait_For_Start when Running is
+         -- Empty
+      begin -- Wait_For_Start
+         null;
+      end Wait_For_Start;
+
+      entry Wait_For_Stop when not Running is
+         -- Empty
+      begin -- Wait_For_Stop
+         null;
+      end Wait_For_Stop;
+   end Signalling;
+
+   Display : Ada_GUI.Widget_ID;
+
+   task body Artist is
+      Max_Size : constant := 45;
+      Min_Size : constant :=  3;
+
+      Interval : constant Ada.Real_Time.Time_Span := Ada.Real_Time.To_Time_Span (0.5);
+
+      type Color_Number is mod 3;
+
+      type Color_Map is array (Color_Number) of Ada_GUI.Color_Info;
+
+      Map : constant Color_Map := (0 => (Red => 255, Green =>   0, Blue =>   0, Alpha => 1.0),
+                                   1 => (Red =>   0, Green => 255, Blue =>   0, Alpha => 1.0),
+                                   2 => (Red =>   0, Green =>   0, Blue => 255, Alpha => 1.0) );
+
+      Center :  Natural; -- Constant after intialization
+
+      Next  : Ada.Real_Time.Time := Ada.Real_Time.Clock;
+      Size  : Integer;
+      Color : Color_Number := 0;
+
+      use type Ada.Real_Time.Time;
+   begin -- Artist
+      Signalling.Wait_For_Start;
+      Center := Display.Width / 2;
+
+      Forever : loop
+         All_Colors : loop
+            Size := Max_Size;
+
+            All_Rectangles : loop
+               exit All_Rectangles when Size < Min_Size;
+
+               Display.Draw_Rectangle (From_X     => Center - Size,
+                                       From_Y     => Center - Size,
+                                       To_X       => Center + Size,
+                                       To_Y       => Center + Size,
+                                       Line_Color => (None => False, Color => Map (Color) ) );
+               Next := Next + Interval;
+               Size := Size - Min_Size;
+
+               select
+                  Signalling.Wait_For_Stop;
+
+                  exit Forever;
+               or
+                  delay until Next;
+               end select;
+            end loop All_Rectangles;
+
+            Color := Color + 1;
+         end loop All_Colors;
+      end loop Forever;
+   end Artist;
+
+   Event : Ada_GUI.Next_Result_Info;
+
+   use type Ada_GUI.Event_Kind_ID;
+begin -- Vibrating_Rectangles
+   Ada_GUI.Set_Up (Title => "Vibrating Rectangles");
+   Display := Ada_GUI.New_Graphic_Area (Width => 100, Height => 100);
+   Signalling.Start;
+
+   Wait_For_End : loop
+      Event := Ada_GUI.Next_Event;
+
+      exit Wait_For_End when not Event.Timed_Out and then Event.Event.Kind = Ada_GUI.Window_Closed;
+   end loop Wait_For_End;
+
+   Signalling.Stop;
+
+   delay 1.0;
+
+   Ada_GUI.End_GUI;
+end Vibrating_Rectangles;
+</syntaxhighlight>
+{{out}}
+[[File:Vibrating Rectangles.png|100x100px|]]

@@ -1,0 +1,57 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Strange_Numbers is
+
+   function Is_Strange (A : Natural) return Boolean is
+      Last     : Natural := A mod 10;
+      Reminder : Natural := A / 10;
+      Current  : Natural;
+   begin
+      while Reminder /= 0 loop
+         Current := Reminder mod 10;
+         exit when abs (Current - Last) not in 2 | 3 | 5 | 7;
+         Last     := Current;
+         Reminder := Reminder / 10;
+      end loop;
+      return Reminder = 0;
+   end Is_Strange;
+
+   Count : Natural := 0;
+begin
+   for A in 101 .. 499 loop
+      if Is_Strange (A) then
+         Put (A'Image);
+         Count := Count + 1;
+         if Count mod 10 = 0 then
+            New_Line;
+         end if;
+      end if;
+   end loop;
+   New_Line;
+   Put_Line ("Strange numbers in range 101 .. 499: " & Count'Image);
+   New_Line;
+
+   Count := 0;
+   for A in 1_000_000_000 .. 1_999_999_999 loop
+      if Is_Strange (A) then
+         Count := Count + 1;
+      end if;
+   end loop;
+   Put_Line ("Strange numbers in range 1_000_000_000 .. 1_999_999_999: " & Count'Image);
+end Strange_Numbers;</syntaxhighlight>
+{{out}}
+<pre>
+ 130 131 135 136 138 141 142 146 147 149
+ 161 163 164 168 169 181 183 185 186 202
+ 203 205 207 241 242 246 247 249 250 252
+ 253 257 258 270 272 274 275 279 292 294
+ 296 297 302 303 305 307 313 314 316 318
+ 350 352 353 357 358 361 363 364 368 369
+ 381 383 385 386 413 414 416 418 420 424
+ 425 427 429 461 463 464 468 469 470 472
+ 474 475 479 492 494 496 497
+Strange numbers in range 101 .. 499:  87
+
+Strange numbers in range 1_000_000_000 .. 1_999_999_999:  853423
+</pre>

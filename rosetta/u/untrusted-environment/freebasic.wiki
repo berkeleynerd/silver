@@ -1,0 +1,7 @@
+=={{header|FreeBASIC}}==
+FreeBASIC does not have built-in functions specifically designed to handle untrusted input or code. However, there are general practices that can be followed to mitigate the risks associated with untrusted input:
+# '''Input Validation''': Always validate user input before using it. This can help prevent issues like SQL injection, buffer overflow, etc.
+# Prevent execution of untrusted code: FreeBASIC does not have a function to execute code dynamically (such as eval in JavaScript). But this is a good thing from a security point of view, as it reduces the risk of arbitrary code execution.
+# Error Handling: Always include error handling in your code. This can prevent unexpected behavior and give you more control over what happens when an error occurs.
+# '''Limiting system access''': Be careful when using system-level commands (such as SHELL). These can potentially be exploited to execute arbitrary commands on the host system.
+# '''Safe Libraries and Functions''': Use libraries and functions that are known to be safe. Avoid using outdated or insecure features.

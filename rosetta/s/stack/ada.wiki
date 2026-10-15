@@ -1,0 +1,60 @@
+=={{header|Ada}}==
+This is a generic stack implementation.
+<syntaxhighlight lang="ada">generic
+   type Element_Type is private; 
+package Generic_Stack is
+   type Stack is private; 
+   procedure Push (Item : Element_Type; Onto : in out Stack); 
+   procedure Pop (Item : out Element_Type; From : in out Stack); 
+   function Create return Stack;
+   Stack_Empty_Error : exception;
+private
+   type Node; 
+   type Stack is access Node; 
+   type Node is record 
+      Element : Element_Type;  
+      Next    : Stack        := null;  
+   end record; 
+end Generic_Stack;</syntaxhighlight>
+<syntaxhighlight lang="ada">with Ada.Unchecked_Deallocation;
+
+package body Generic_Stack is
+   
+   ------------
+   -- Create --
+   ------------
+   
+   function Create return Stack is
+   begin
+      return (null);
+   end Create;
+
+   ----------
+   -- Push --
+   ----------
+
+   procedure Push(Item : Element_Type; Onto : in out Stack) is
+      Temp : Stack := new Node;
+   begin
+      Temp.Element := Item;
+      Temp.Next := Onto;
+      Onto := Temp; 
+   end Push;
+
+   ---------
+   -- Pop --
+   ---------
+
+   procedure Pop(Item : out Element_Type; From : in out Stack) is
+      procedure Free is new Ada.Unchecked_Deallocation(Node, Stack);
+      Temp : Stack := From;
+   begin
+      if Temp = null then
+         raise Stack_Empty_Error;
+      end if;
+      Item := Temp.Element;
+      From := Temp.Next;
+      Free(Temp);
+   end Pop;
+
+end Generic_Stack;</syntaxhighlight>

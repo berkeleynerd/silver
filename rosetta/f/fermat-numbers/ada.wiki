@@ -1,0 +1,38 @@
+=={{header|Ada}}==
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+with Strings_Edit.Integers;       use Strings_Edit.Integers;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+with Strings_Edit.Unbounded_Unsigned_Edit;
+use  Strings_Edit.Unbounded_Unsigned_Edit;
+
+procedure Fermat_Numbers is
+   P : Unbounded_Unsigned;
+begin
+   for N in 0..10 loop
+      P := Power_Of_Two (2 ** N) + 1;
+      Put ("F(" & Image (N) & ") = " & Image (P));
+      if Is_Prime (P, 10) = Prime then
+         Put (" is prime");
+      end if;
+      New_Line;
+   end loop;
+end Fermat_Numbers;
+</syntaxhighlight>
+{{out}}
+<pre>
+F(0) = 3 is prime
+F(1) = 5 is prime
+F(2) = 17 is prime
+F(3) = 257 is prime
+F(4) = 65537 is prime
+F(5) = 4294967297
+F(6) = 18446744073709551617
+F(7) = 340282366920938463463374607431768211457
+F(8) = 115792089237316195423570985008687907853269984665640564039457584007913129639937
+F(9) = 13407807929942597099574024998205846127479365820592393377723561443721764030073546976801874298166903427690031858186486050853753882811946569946433649006084097
+F(10) = 179769313486231590772930519078902473361797697894230657273430081157732675805500963132708477322407536021120113879871393357658789768814416622492847430639474124377767893424865485276302219601246094119453082952085005768838150682342462881473913110540827237163350510684586298239947245938479716304835356329624224137217
+</pre>

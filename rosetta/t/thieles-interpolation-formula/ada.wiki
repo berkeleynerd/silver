@@ -1,0 +1,128 @@
+=={{header|Ada}}==
+thiele.ads:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Real_Arrays;
+
+generic
+   type Real is digits <>;
+package Thiele is
+   package Real_Arrays is new Ada.Numerics.Generic_Real_Arrays (Real);
+   subtype Real_Array is Real_Arrays.Real_Vector;
+
+   type Thiele_Interpolation (Length : Natural) is private;
+
+   function Create (X, Y : Real_Array) return Thiele_Interpolation;
+   function Inverse (T : Thiele_Interpolation; X : Real) return Real;
+private
+   type Thiele_Interpolation (Length : Natural) is record
+      X, Y, RhoX : Real_Array (1 .. Length);
+   end record;
+end Thiele;</syntaxhighlight>
+
+thiele.adb:
+<syntaxhighlight lang="ada">package body Thiele is
+   use type Real_Array;
+
+   function "/" (Left, Right : Real_Array) return Real_Array is
+      Result : Real_Array (Left'Range);
+   begin
+      if Left'Length /= Right'Length then
+         raise Constraint_Error with "arrays not same size";
+      end if;
+      for I in Result'Range loop
+         Result (I) := Left (I) / Right (I);
+      end loop;
+      return Result;
+   end "/";
+
+   function Rho (X, Y : Real_Array) return Real_Array is
+      N      : constant Natural                      := X'Length;
+      P      : array (1 .. N) of Real_Array (1 .. N) :=
+        (others => (others => 9.9));
+      Result : Real_Array (1 .. N);
+   begin
+      P (1) (1 .. N)      := Y (1 .. N);
+      P (2) (1 .. N - 1)  := (X (1 .. N - 1) - X (2 .. N)) /
+        (P (1) (1 .. N - 1) - P (1) (2 .. N));
+      for I in 3 .. N loop
+         P (I) (1 .. N - I + 1)  := P (I - 2) (2 .. N - I + 2) +
+           (X (1 .. N - I + 1) - X (I .. N)) /
+           (P (I - 1) (1 .. N - I + 1) - P (I - 1) (2 .. N - I + 2));
+      end loop;
+      for I in X'Range loop
+         Result (I) := P (I) (1);
+      end loop;
+      return Result;
+   end Rho;
+
+   function Create (X, Y : Real_Array) return Thiele_Interpolation is
+   begin
+      if X'Length < 3 then
+         raise Constraint_Error with "at least 3 values";
+      end if;
+      if X'Length /= Y'Length then
+         raise Constraint_Error with "input arrays not same size";
+      end if;
+      return (Length => X'Length, X => X, Y => Y, RhoX => Rho (X, Y));
+   end Create;
+
+   function Inverse (T : Thiele_Interpolation; X : Real) return Real is
+      A : Real := 0.0;
+   begin
+      for I in reverse 3 .. T.Length loop
+         A := (X - T.X (I - 1)) / (T.RhoX (I) - T.RhoX (I - 2) + A);
+      end loop;
+      return T.Y (1) + (X - T.X (1)) / (T.RhoX (2) + A);
+   end Inverse;
+
+end Thiele;</syntaxhighlight>
+
+example:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Numerics.Generic_Elementary_Functions;
+with Thiele;
+
+procedure Main is
+   package Math is new Ada.Numerics.Generic_Elementary_Functions
+     (Long_Float);
+   package Float_Thiele is new Thiele (Long_Float);
+   use Float_Thiele;
+
+   Row_Count : Natural := 32;
+
+   X_Values   : Real_Array (1 .. Row_Count);
+   Sin_Values : Real_Array (1 .. Row_Count);
+   Cos_Values : Real_Array (1 .. Row_Count);
+   Tan_Values : Real_Array (1 .. Row_Count);
+begin
+   -- build table
+   for I in 1 .. Row_Count loop
+      X_Values (I)   := Long_Float (I) * 0.05 - 0.05;
+      Sin_Values (I) := Math.Sin (X_Values (I));
+      Cos_Values (I) := Math.Cos (X_Values (I));
+      Tan_Values (I) := Math.Tan (X_Values (I));
+   end loop;
+   declare
+      Sin : Thiele_Interpolation := Create (Sin_Values, X_Values);
+      Cos : Thiele_Interpolation := Create (Cos_Values, X_Values);
+      Tan : Thiele_Interpolation := Create (Tan_Values, X_Values);
+   begin
+      Ada.Text_IO.Put_Line
+        ("Internal Math.Pi:    " &
+         Long_Float'Image (Ada.Numerics.Pi));
+      Ada.Text_IO.Put_Line
+        ("Thiele 6*InvSin(0.5):" &
+         Long_Float'Image (6.0 * Inverse (Sin, 0.5)));
+      Ada.Text_IO.Put_Line
+        ("Thiele 3*InvCos(0.5):" &
+         Long_Float'Image (3.0 * Inverse (Cos, 0.5)));
+      Ada.Text_IO.Put_Line
+        ("Thiele 4*InvTan(1):  " &
+         Long_Float'Image (4.0 * Inverse (Tan, 1.0)));
+   end;
+end Main;</syntaxhighlight>
+
+output:
+<pre>Internal Math.Pi:     3.14159265358979E+00
+Thiele 6*InvSin(0.5): 3.14159265358979E+00
+Thiele 3*InvCos(0.5): 3.14159265358979E+00
+Thiele 4*InvTan(1):   3.14159265358979E+00</pre>

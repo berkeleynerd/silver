@@ -1,0 +1,19 @@
+=={{header|FreeBASIC}}==
+FreeBASIC is a fully compiled language which does not support reflection as such.
+
+Nevertheless, the language does have a number of built-in macros which can be used to map certain entities back to the source code file.
+This is mainly useful for debugging purposes. Here's a simple example :
+
+<syntaxhighlight lang="freebasic">' FB 1.05.0 Win64 (getsource.bas)
+
+Sub Proc()
+  Print __Function__  & " is defined in " & __Path__ & "\" & __File__ & " at line " & ( __line__ - 1) 
+End Sub 
+
+Proc()
+Sleep</syntaxhighlight>
+
+{{out}}
+<pre>
+PROC is defined in c:\FreeBasic\getsource.bas at line 3
+</pre>

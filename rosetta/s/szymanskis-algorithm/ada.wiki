@@ -1,0 +1,137 @@
+=={{header|Ada}}==
+Since Ada has high-level concurrency primitives, the implementation here implements the Szymański's concept directly. The protected object represents the room. When a task needs to seize the resource it calls the ''Seize'' entry point. This causes it to enter the room if the door is open and await the resource there (the entry point ''Entry''). When in the room and the resource is free waiting completes (entry ''Lock'') and the task owns the resource. The task waits holding the resource, because otherwise the OS scheduler would not keep up. Then it releases the resource calling ''Release''. If that was the last task in the room, it opens the door.
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Szymanski_Algorithm is
+
+   protected Room is
+      function Get_Count return Natural; -- Tasks in the room
+      entry Seize;                       -- Seize resource
+      procedure Release;                 -- Release resoruce
+   private
+      Open  : Boolean := True;
+      Owned : Boolean := False;
+      Count : Natural := 0;
+      entry Enter;
+      entry Lock;
+   end Room;
+
+   protected body Room is
+      function Get_Count return Natural is
+      begin
+         return Count;
+      end Get_Count;
+
+      procedure Release is
+      begin
+         Open  := Count = 0;
+         Owned := False;
+      end Release;
+
+      entry Seize when True is
+      begin
+         requeue Enter;
+      end Seize;
+
+      entry Enter when Open is
+      begin
+         Open  := Seize'Count + Enter'Count /= 0;
+         Count := Count + 1;
+         requeue Lock;
+      end Enter;
+
+      entry Lock when not Open and not Owned is
+      begin
+         Count := Count - 1;
+         Owned := True;
+      end Lock;
+   end Room;
+
+   task type Setter (Value : Integer);
+   task body Setter is
+   begin
+      for I in 1..10 loop
+         Room.Seize;
+         Put (Integer'Image (Value) & " is owning the resource");
+         Put (Integer'Image (Room.Get_Count) & " tasks in the room...");
+         delay 0.001;
+         Put ("done");
+         New_Line;
+         Room.Release;
+      end loop;
+   end Setter;
+
+   A : Setter (1);
+   B : Setter (2);
+   C : Setter (3);
+   D : Setter (4);
+   E : Setter (5);
+   F : Setter (6);
+begin
+   null;
+end Szymanski_Algorithm;
+</syntaxhighlight>
+{{out}}
+<pre>
+ 4 is owning the resource 0 tasks in the room...done
+ 1 is owning the resource 4 tasks in the room...done
+ 6 is owning the resource 3 tasks in the room...done
+ 5 is owning the resource 2 tasks in the room...done
+ 2 is owning the resource 1 tasks in the room...done
+ 3 is owning the resource 0 tasks in the room...done
+ 4 is owning the resource 4 tasks in the room...done
+ 1 is owning the resource 3 tasks in the room...done
+ 6 is owning the resource 2 tasks in the room...done
+ 5 is owning the resource 1 tasks in the room...done
+ 2 is owning the resource 0 tasks in the room...done
+ 3 is owning the resource 4 tasks in the room...done
+ 4 is owning the resource 3 tasks in the room...done
+ 1 is owning the resource 2 tasks in the room...done
+ 6 is owning the resource 1 tasks in the room...done
+ 5 is owning the resource 0 tasks in the room...done
+ 2 is owning the resource 4 tasks in the room...done
+ 3 is owning the resource 3 tasks in the room...done
+ 4 is owning the resource 2 tasks in the room...done
+ 1 is owning the resource 1 tasks in the room...done
+ 6 is owning the resource 0 tasks in the room...done
+ 5 is owning the resource 4 tasks in the room...done
+ 2 is owning the resource 3 tasks in the room...done
+ 3 is owning the resource 2 tasks in the room...done
+ 4 is owning the resource 1 tasks in the room...done
+ 1 is owning the resource 0 tasks in the room...done
+ 6 is owning the resource 4 tasks in the room...done
+ 5 is owning the resource 3 tasks in the room...done
+ 2 is owning the resource 2 tasks in the room...done
+ 3 is owning the resource 1 tasks in the room...done
+ 4 is owning the resource 0 tasks in the room...done
+ 1 is owning the resource 4 tasks in the room...done
+ 6 is owning the resource 3 tasks in the room...done
+ 5 is owning the resource 2 tasks in the room...done
+ 2 is owning the resource 1 tasks in the room...done
+ 3 is owning the resource 0 tasks in the room...done
+ 4 is owning the resource 4 tasks in the room...done
+ 1 is owning the resource 3 tasks in the room...done
+ 6 is owning the resource 2 tasks in the room...done
+ 5 is owning the resource 1 tasks in the room...done
+ 2 is owning the resource 0 tasks in the room...done
+ 3 is owning the resource 4 tasks in the room...done
+ 4 is owning the resource 3 tasks in the room...done
+ 1 is owning the resource 2 tasks in the room...done
+ 6 is owning the resource 1 tasks in the room...done
+ 5 is owning the resource 0 tasks in the room...done
+ 2 is owning the resource 4 tasks in the room...done
+ 3 is owning the resource 3 tasks in the room...done
+ 4 is owning the resource 2 tasks in the room...done
+ 1 is owning the resource 1 tasks in the room...done
+ 6 is owning the resource 0 tasks in the room...done
+ 5 is owning the resource 4 tasks in the room...done
+ 2 is owning the resource 3 tasks in the room...done
+ 3 is owning the resource 2 tasks in the room...done
+ 4 is owning the resource 1 tasks in the room...done
+ 1 is owning the resource 0 tasks in the room...done
+ 6 is owning the resource 3 tasks in the room...done
+ 5 is owning the resource 2 tasks in the room...done
+ 2 is owning the resource 1 tasks in the room...done
+ 3 is owning the resource 0 tasks in the room...done
+</pre>

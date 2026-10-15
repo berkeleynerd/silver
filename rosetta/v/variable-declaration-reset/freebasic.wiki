@@ -1,0 +1,17 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">Dim As Integer s(1 To 7) => {1,2,2,3,4,4,5}
+For i As Integer = 1 To Ubound(s)
+    Dim As Integer curr = s(i), prev
+    If i > 1 And curr = prev Then Print i
+    prev = curr
+Next i
+Sleep</syntaxhighlight>
+{{out}}
+<pre>
+3
+6
+</pre>
+<!-- PL: I assume these comments were incorrectly copied, as you can see there *is* output...
+Like the first/unchanged JavaScript example, no output.<br>
+Obviously you can achieve consistent results by manually hoisting the declaration of prev to before/outside the loop.
+-->

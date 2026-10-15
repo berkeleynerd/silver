@@ -1,0 +1,65 @@
+=={{header|Ada}}==
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+with Strings_Edit.Integers;       use Strings_Edit.Integers;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+with Strings_Edit.Unbounded_Unsigned_Edit;
+use  Strings_Edit.Unbounded_Unsigned_Edit;
+
+procedure One_Two_Primes is
+   Start : Unbounded_Unsigned := From_Half_Word (10);
+   P, X  : Unbounded_Unsigned;
+   N     : Natural   := 2;
+begin
+   for N in 1..30 loop
+Outer :
+      for I in 0..2**N - 1 loop
+         P := (Start - 1) / 9;
+         for M in 0..Natural'Last loop
+            X := P + Value (Image (M, Base => 2));
+            if Is_Prime (X, 10) = Prime then
+               Put_Line (Image (N) & ": " & Image (X));
+               exit Outer;
+            end if;
+         end loop;
+      end loop Outer;
+      Mul (Start, 10);
+   end loop;
+end One_Two_Primes;
+</syntaxhighlight>
+{{out}}
+<pre>
+1: 2
+2: 11
+3: 211
+4: 2111
+5: 12211
+6: 111121
+7: 1111211
+8: 11221211
+9: 111112121
+10: 1111111121
+11: 11111121121
+12: 111111211111
+13: 1111111121221
+14: 11111111112221
+15: 111111112111121
+16: 1111111112122111
+17: 11111111111112121
+18: 111111111111112111
+19: 1111111111111111111
+20: 11111111111111212121
+21: 111111111111111121111
+22: 1111111111111111211111
+23: 11111111111111111111111
+24: 111111111111111112111111
+25: 1111111111111111112122111
+26: 11111111111111111111212211
+27: 111111111111111111111222211
+28: 1111111111111111111111112221
+29: 11111111111111111111111211121
+30: 111111111111111111111112121111
+</pre>

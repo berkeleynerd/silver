@@ -1,0 +1,142 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="vbnet">Dim Shared arr(0 To 1000000) As Ulongint
+
+Sub sievePrimes(limit As Ulongint, primes() As Ulongint)
+    Dim As Boolean isPrime()
+    Redim isPrime(0 To limit)
+    Dim As Ulongint i, j
+    For i = 2 To limit
+        isPrime(i) = True
+    Next
+    For i = 2 To Sqr(limit)
+        If isPrime(i) Then
+            For j = i * i To limit Step i
+                isPrime(j) = False
+            Next
+        End If
+    Next
+    Dim As Ulongint cnt = 0
+    For i = 2 To limit
+        If isPrime(i) Then cnt += 1
+    Next
+    Redim primes(0 To cnt - 1)
+    Dim As Ulongint idx = 0
+    For i = 2 To limit
+        If isPrime(i) Then
+            primes(idx) = i
+            idx += 1
+        End If
+    Next
+End Sub
+
+Sub QuickSort(arr() As Ulongint, first As Long, last As Long)
+    Dim As Long i = first, j = last
+    Dim As Ulongint pivot = arr((first + last) \ 2)
+    While i <= j
+        While arr(i) < pivot : i += 1 : Wend
+        While arr(j) > pivot : j -= 1 : Wend
+        If i <= j Then
+            Swap arr(i), arr(j)
+            i += 1
+            j -= 1
+        End If
+    Wend
+    If first < j Then QuickSort(arr(), first, j)
+    If i < last Then QuickSort(arr(), i, last)
+End Sub
+
+Sub generateKpowerful(n As Ulongint, k As Integer, primes() As Ulongint, idx As Integer, current As Ulongint, Byref cnt As Ulongint)
+    If current > n Then Exit Sub
+    arr(cnt) = current
+    cnt += 1
+    For i As Integer = idx To Ubound(primes)
+        Dim As Ulongint p = primes(i)
+        Dim As Ulongint power = p ^ k
+        While current <= n \ power
+            generateKpowerful(n, k, primes(), i + 1, current * power, cnt)
+            If power > n \ p Then Exit While ' Prevent overflow
+            power *= p
+        Wend
+    Next
+End Sub
+
+Function countKpowerful(n As Ulongint, k As Integer) As Ulongint
+    Dim As Ulongint limit = n ^ (1.0 / k)
+    Dim primes() As Ulongint
+    sievePrimes(limit, primes())
+    Dim As Ulongint cnt = 0
+    generateKpowerful(n, k, primes(), 0, 1, cnt)
+    If cnt > 1 Then QuickSort(arr(), 0, cnt - 1)
+    Dim As Ulongint uniqueCount = 1
+    For i As Ulongint = 1 To cnt - 1
+        If arr(i) <> arr(i - 1) Then
+            arr(uniqueCount) = arr(i)
+            uniqueCount += 1
+        End If
+    Next
+    Return uniqueCount
+End Function
+
+Dim As Integer i, j, k, kmax
+Dim As Ulongint cnt, power
+Dim As String sep
+
+' --- BLOCK 1: extremes of k-powers for k=2..10 ---
+For k = 2 To 10
+    power = 1
+    For i = 1 To k
+        power *= 10
+    Next
+    cnt = countKpowerful(power, k)
+    Print Using "## "; cnt;
+    Print Using "##_-powerful numbers <= 10^& : ["; k; k;
+
+    For i = 0 To 4
+        If i < cnt Then Print Using "& "; arr(i);
+    Next
+    Print Chr(8); "] ... [";
+
+    For i = cnt-5 To cnt-1
+        If i >= 0 Then Print arr(i); " ";
+    Next
+    Print Chr(8); "]"
+Next
+Print
+
+' --- BLOCK 2: counts for 10^j ---
+For k = 2 To 10
+    kmax = k+10
+    Print Using "Count of ##_-powerful numbers <= 10^j, j in [0, ##): ["; k; kmax;
+    For j = 0 To kmax-1
+        power = 1
+        For i = 1 To j
+            power *= 10
+        Next
+        cnt = countKpowerful(power, k)
+        Print cnt;
+        If j < kmax-1 Then Print " ";
+    Next
+    Print "]"
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>14  2-powerful numbers <= 10^2  : [1 4 8 9 16 ... 49 64 72 81 100]
+20  3-powerful numbers <= 10^3  : [1 8 16 27 32 ... 625 648 729 864 1000]
+25  4-powerful numbers <= 10^4  : [1 16 32 64 81 ... 5184 6561 7776 8192 10000]
+32  5-powerful numbers <= 10^5  : [1 32 64 128 243 ... 65536 69984 78125 93312 100000]
+38  6-powerful numbers <= 10^6  : [1 64 128 256 512 ... 559872 746496 823543 839808 1000000]
+46  7-powerful numbers <= 10^7  : [1 128 256 512 1024 ... 7558272 8388608 8957952 9765625 10000000]
+52  8-powerful numbers <= 10^8  : [1 256 512 1024 2048 ... 60466176 67108864 80621568 90699264 100000000]
+59  9-powerful numbers <= 10^9  : [1 512 1024 2048 4096 ... 644972544 725594112 816293376 967458816 1000000000]
+68 10-powerful numbers <= 10^10 : [1 1024 2048 4096 8192 ... 7739670528 8589934592 8707129344 9795520512 10000000000]
+
+Count of  2-powerful numbers <= 10^(0..11) : [1 4 14 54 185 619 2027 6553 21044 67231 214122 680330]
+Count of  3-powerful numbers <= 10^(0..12) : [1 2 7 20 51 129 307 713 1645 3721 8348 18589 41136]
+Count of  4-powerful numbers <= 10^(0..13) : [1 1 5 11 25 57 117 235 464 906 1741 3312 6236 11654]
+Count of  5-powerful numbers <= 10^(0..14) : [1 1 3 8 16 32 63 117 211 375 659 1153 2000 3402 5770]
+Count of  6-powerful numbers <= 10^(0..15) : [1 1 2 6 12 21 38 70 121 206 335 551 900 1451 2326 3706]
+Count of  7-powerful numbers <= 10^(0..16) : [1 1 1 4 10 16 26 46 77 129 204 318 495 761 1172 1799 2740]
+Count of  8-powerful numbers <= 10^(0..17) : [1 1 1 3 8 13 19 32 52 85 135 211 315 467 689 1016 1496 2191]
+Count of  9-powerful numbers <= 10^(0..18) : [1 1 1 2 6 11 16 24 38 59 94 145 217 317 453 644 919 1308 1868]
+Count of 10-powerful numbers <= 10^(0..19) : [1 1 1 1 5 9 14 21 28 43 68 104 155 227 322 447 621 858 1192 1651]</pre>

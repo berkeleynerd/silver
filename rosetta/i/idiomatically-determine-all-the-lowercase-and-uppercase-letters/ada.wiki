@@ -1,0 +1,26 @@
+=={{header|Ada}}==
+Creates two subtypes of the standard type Character. Subtype Lower is defined to be all the characters from 'a' to 'z'. Subtype Upper is defined to be all characters from 'A' to 'Z'. This program works with any version of Ada.
+<syntaxhighlight lang="ada">
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Main is
+   subtype Lower is Character range 'a' .. 'z';
+   subtype Upper is Character range 'A' .. 'Z';
+begin
+   Put ("Lower: ");
+   for c in Lower'range loop
+      Put (c);
+   end loop;
+   New_Line;
+   Put ("Upper: ");
+   for c in Upper'range loop
+      Put (c);
+   end loop;
+   New_Line;
+end Main;
+</syntaxhighlight>
+{{Output}}
+<pre>
+Lower: abcdefghijklmnopqrstuvwxyz
+Upper: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+</pre>

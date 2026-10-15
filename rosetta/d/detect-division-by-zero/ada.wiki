@@ -1,0 +1,70 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">-- Divide By Zero Detection
+
+with Ada.Text_Io; use Ada.Text_Io;
+with Ada.Float_Text_Io; use Ada.Float_Text_Io;
+with Ada.Integer_Text_Io; use Ada.Integer_Text_Io;
+
+procedure Divide_By_Zero is
+   Fnum : Float := 1.0;
+   Fdenom : Float := 0.0;
+   Fresult : Float;
+   Inum : Integer := 1;
+   Idenom : Integer := 0;
+   Iresult : Integer;
+begin
+   begin
+      Put("Integer divide by zero: ");
+      Iresult := Inum / Idenom;
+      Put(Item => Iresult);
+   exception
+      when Constraint_Error =>
+         Put("Division by zero detected.");
+   end;
+   New_Line;
+   Put("Floating point divide by zero: ");
+   Fresult := Fnum / Fdenom;
+   if Fresult > Float'Last or Fresult < Float'First then
+      Put("Division by zero detected (infinite value).");
+   else
+      Put(Item => Fresult, Aft => 9, Exp => 0);
+   end if;
+   New_Line;
+end Divide_By_Zero;</syntaxhighlight>
+{{out}}
+<pre>
+Integer divide by zero: Division by zero detected.
+Floating point divide by zero: Division by zero detected (infinite value).
+</pre>
+Here is an alternative solution based on disabling IEEE 754 semantics for making floating-point to behave properly.
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Divide_By_Zero is
+begin
+   declare
+      N : Integer := 1;
+      D : Integer := 0;
+   begin
+      N := N / D;
+   exception
+      when Constraint_Error =>
+         Put_Line ("Integer zero divide");
+   end;
+   declare
+      type Sane_Float is new Float range Float'First..Float'Last;
+      N : Sane_Float := 1.0;
+      D : Sane_Float := 0.0;
+   begin
+      N := N / D;
+   exception
+      when Constraint_Error =>
+         Put_Line ("Floating-point zero divide");
+   end;
+end Divide_By_Zero;
+</syntaxhighlight>
+{{out}}
+<pre>
+Integer zero divide
+Floating-point zero divide
+</pre>

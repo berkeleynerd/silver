@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+
+We will store the "list" of strings in a vector. The vector will hold "indefinite" strings, i.e., the strings can have different lengths. 
+<syntaxhighlight lang="ada">  package String_Vec is new Ada.Containers.Indefinite_Vectors
+     (Index_Type => Positive, Element_Type => String);
+   
+   use type String_Vec.Vector;</syntaxhighlight>
+
+The equality test iterates from the first to the last-but one index. For index Idx,
+it checks checks if Strings(Idx) and Strings(Idx+1) are different. If the answer is
+yes for any Idx, the function immediately returns False. If the answer is no for all Idx,
+the function finally returns True. 
+<syntaxhighlight lang="ada">   function All_Are_The_Same(Strings: String_Vec.Vector) return Boolean is
+   begin
+      for Idx in Strings.First_Index .. Strings.Last_Index-1 loop
+	 if Strings(Idx) /= Strings(Idx+1) then
+	    return False;
+	 end if;
+      end loop;
+      return True;
+   end All_Are_The_Same;</syntaxhighlight>
+
+Similarily, the strictly ascending test checks if Strings(Idx) is greater or equal Strings(Idx+1). 
+<syntaxhighlight lang="ada">   function Strictly_Ascending(Strings: String_Vec.Vector) return Boolean is
+   begin
+      for Idx in Strings.First_Index+1 .. Strings.Last_Index loop
+	 if Strings(Idx-1) >= Strings(Idx) then
+	    return False;
+	 end if;
+      end loop;
+      return True;
+   end Strictly_Ascending;</syntaxhighlight>
+
+If the variable Strings is of the type String_Vec.vector, one can call these two functions
+as usual.
+<syntaxhighlight lang="ada">Put_Line(Boolean'Image(All_Are_The_Same(Strings)) & ", " &
+         Boolean'Image(Strictly_Ascending(Strings)));</syntaxhighlight>
+If Strings holds two or more strings, the result will be either of TRUE, FALSE, or FALSE, TRUE, or FALSE, FALSE, indicating all strings are the same, or they are strictly ascending, or neither. 
+
+However, if Strings only holds zero or one string, the result will be TRUE, TRUE.

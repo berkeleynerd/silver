@@ -1,0 +1,49 @@
+=={{header|Ada}}==
+===Pointers===
+In Ada pointer types are called access types. Access types are subject of so-called accessibility checks, which in Ada are intended to prevent appearance of dangling pointers. (Though accessibility checks can be circumvented)
+
+Create a pool specific access type for an integer
+<syntaxhighlight lang="ada">type Int_Access is access Integer;
+Int_Acc : Int_Access := new Integer'(5);</syntaxhighlight>
+A pool specific access type can be constrained to never be null. For such pointers the compiler can omit checks of being null upon dereferencing.
+<syntaxhighlight lang="ada">type Safe_Int_Access is not null access Integer;</syntaxhighlight>
+General access types can deal with objects allocated in any pool as well as ones on the stack. For example, create a pointer to a stack-allocated integer
+<syntaxhighlight lang="ada">declare
+   type Int_Ptr is access all Integer;
+   Ref : Int_Ptr;
+   Var : aliased Integer := 3;
+   Val : Integer := Var;
+begin
+   Ref := Var'Access; -- "Ref := Val'Access;" would be a syntax error</syntaxhighlight>
+The attribute 'Access (and also 'Unchecked_Access) is used to get a pointer to the object. Note that the object has to be declared ''aliased '' when it has to be referenced by a pointer, which is why one cannot write Val'Access. General access types can also be constrained to exclude null:
+<syntaxhighlight lang="ada">type Safe_Int_Ptr is not null access all Integer;</syntaxhighlight>
+
+===Addresses===
+Ada does not provide pointer arithmetic, but does allow evaluation of the address
+<syntaxhighlight lang="ada">Var : Integer;
+Var_Address : Address := Var'Address;</syntaxhighlight>
+Addresses support operations of comparison, addition, and subtraction. Ada also supports conversion between address types and a predefined subtype of Integer named Integer_Address. This accommodates the conversion to a linear addressing of any hardware address scheme including address:offset used in the 8086 processor.
+
+Ada allows the specification of a starting address for any object
+<syntaxhighlight lang="ada">-- Demonstrate the overlay of one object on another
+A : Integer;
+B : Integer;
+for B'Address use A'Address;
+-- A and B start at the same address</syntaxhighlight>
+===References===
+References in Ada are achieved through object renaming declarations. A renaming produces a new view to the object:
+<syntaxhighlight lang="ada">type Container is array (Positive range <>) of Element;
+for I in Container'Range loop
+   declare
+      Item : Element renames Container (I);
+   begin
+      Do_Something(Item); -- Here Item is a reference to Container (I)
+   end;
+end loop;</syntaxhighlight>
+
+The forthcoming standard (Ada 2012) allows a more direct way to reference all the items in a container or an array:
+
+<syntaxhighlight lang="ada">type Container is array (Positive range <>) of Element;
+for Item of Container loop 
+      Do_Something(Item);  
+end loop;</syntaxhighlight>

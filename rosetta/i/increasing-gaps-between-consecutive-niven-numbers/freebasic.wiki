@@ -1,0 +1,69 @@
+=={{header|FreeBASIC}}==
+{{trans|AWK}}
+<syntaxhighlight lang="freebasic">
+Function digit_sum(n As Uinteger, sum As Ulong) As Ulong
+    ' devuelve la suma de los dígitos de n dada la suma de los dígitos de n - 1
+    sum += 1
+    While (n > 0 And n Mod 10 = 0)
+        sum -= 9
+        n = Int(n / 10)
+    Wend
+    Return sum
+End Function
+
+Function divisible(n As Uinteger, d As Uinteger) As Boolean
+    If ((d Mod 1) = 0) And ((n Mod 1) = 1) Then
+        Return 0
+    End If
+    Return (n Mod d = 0)
+End Function
+
+Dim As Ulong gap_index = 0
+Dim As Ulong previous  = 1
+Dim As Uinteger gap
+Dim As Ulong niven_index
+Print "Gap index  Gap  Niven index  Niven number" 
+Print "---------  ---  -----------  ------------" 
+
+For niven As Uinteger = 1 To 100000000
+    Dim As Ulong sum = digit_sum(niven,sum)
+    If divisible(niven, sum) Then
+        If (niven > previous + gap) Then
+            gap_index += 1
+            gap = niven - previous
+            Print Using "#########  ###  ###,###,###  ####,###,###"; gap_index; gap; niven_index; previous
+        End If
+        previous = niven
+        niven_index += 1
+    End If
+Next niven
+Sleep
+</syntaxhighlight>
+{{out}}
+<pre>
+Gap index  Gap  Niven index  Niven number
+---------  ---  -----------  ------------
+        1    1            1             1
+        2    2           10            10
+        3    6           11            12
+        4    7           26            63
+        5    8           28            72
+        6   10           32            90
+        7   12           83           288
+        8   14          102           378
+        9   18          143           558
+       10   23          561         2,889
+       11   32          716         3,784
+       12   36        1,118         6,480
+       13   44        2,948        19,872
+       14   45        4,194        28,971
+       15   54        5,439        38,772
+       16   60       33,494       297,864
+       17   66       51,544       478,764
+       18   72       61,588       589,860
+       19   88       94,748       989,867
+       20   90      265,336     2,879,865
+       21   99      800,054     9,898,956
+       22  108    3,750,017    49,989,744
+       23  126    6,292,149    88,996,914
+</pre>

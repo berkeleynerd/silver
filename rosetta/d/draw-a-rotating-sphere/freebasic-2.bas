@@ -1,0 +1,94 @@
+#include once "SDL2/SDL.bi"
+
+Const ScrW = 800, ScrH = 600
+Const As Single PI = 4 * Atn(1.0)
+
+Dim Shared angleX As Double = 0.0
+Dim Shared angleY As Double = 0.0
+
+' Inicializar SDL
+If SDL_Init(SDL_INIT_VIDEO Or SDL_INIT_TIMER) <> 0 Then
+    Print "SDL_Init error: "; *SDL_GetError()
+    Sleep: End
+End If
+
+Dim ventana As SDL_Window Ptr = SDL_CreateWindow("Rotating Sphere - FreeBASIC + SDL2", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScrW, ScrH, 0)
+If ventana = 0 Then
+    Print "SDL_CreateWindow error: "; *SDL_GetError()
+    SDL_Quit()
+    Sleep: End
+End If
+
+Dim renderer As SDL_Renderer Ptr = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED Or SDL_RENDERER_PRESENTVSYNC)
+If renderer = 0 Then
+    Print "SDL_CreateRenderer error: "; *SDL_GetError()
+    SDL_DestroyWindow(ventana)
+    SDL_Quit()
+    Sleep: End
+End If
+
+' Main loop
+Dim running As Boolean = True
+Dim event As SDL_Event
+
+While running
+    While SDL_PollEvent(@event) <> 0
+        If event.type = SDL_QUIT_ Then running = False
+    Wend
+    
+    angleX += 0.02
+    angleY += 0.03
+    
+    SDL_SetRenderDrawColor(renderer, 26, 26, 36, 255)
+    SDL_RenderClear(renderer)
+    
+    SDL_SetRenderDrawColor(renderer, 0, 255, 200, 255)
+    
+    Dim As Double r = 180
+    Dim As Double prevX, prevY
+    Dim As Integer pointsCnt
+    
+    For u As Integer = 0 To 20
+        Dim lat As Double = (u * PI) / 20
+        pointsCnt = 0
+        
+        For v As Integer = 0 To 20
+            Dim lon As Double = (v * 2 * PI) / 20
+            
+            ' 1. Base coordinates on a sphere
+            Dim x0 As Double = r * Sin(lat) * Cos(lon)
+            Dim y0 As Double = r * Sin(lat) * Sin(lon)
+            Dim z0 As Double = r * Cos(lat)
+            
+            ' 2. X Rotation
+            Dim y1 As Double = y0 * Cos(angleX) - z0 * Sin(angleX)
+            Dim z1 As Double = y0 * Sin(angleX) + z0 * Cos(angleX)
+            
+            ' 3. Y Rotation
+            Dim x2 As Double =  x0 * Cos(angleY) + z1 * Sin(angleY)
+            Dim z2 As Double = -x0 * Sin(angleY) + z1 * Cos(angleY)
+            
+            ' 4. Perspective projection
+            Dim dist As Double = 400
+            Dim persp As Double = dist / (dist - z2)
+            
+            Dim sx As Integer = ScrW \ 2 + Cint(x2 * persp)
+            Dim sy As Integer = ScrH \ 2 + Cint(y1 * persp)
+            
+            ' 5. Draw lines between consecutive points
+            If v > 0 And pointsCnt > 0 Then
+                SDL_RenderDrawLine(renderer, prevX, prevY, sx, sy)
+            End If
+            
+            prevX = sx : prevY = sy
+            pointsCnt += 1
+        Next
+    Next
+    
+    SDL_RenderPresent(renderer)
+    SDL_Delay(16)
+Wend
+
+SDL_DestroyRenderer(renderer)
+SDL_DestroyWindow(ventana)
+SDL_Quit()

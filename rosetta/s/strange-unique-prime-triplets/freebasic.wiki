@@ -1,0 +1,64 @@
+=={{header|FreeBASIC}}==
+Use the function at [[Primality by trial division#FreeBASIC]] as an include; I can't be bothered reproducing it here.
+<syntaxhighlight lang="freebasic">#include"isprime.bas"
+
+dim as uinteger c = 0
+
+for p as uinteger = 3 to 997
+    if not isprime(p) then continue for
+    for m as uinteger = p + 1 to 998
+        if not isprime(m) then continue for
+        for n as uinteger = m + 1 to 999
+            if not isprime(n) then continue for
+            if isprime(p + n + m) then
+                c = c + 1
+                if n < 30 then print p;" + ";m;" + ";n;" = "; p + m + n
+            end if
+        next n
+    next m
+next p
+
+print "There are ";c;" triples below 1000."</syntaxhighlight>
+{{out}}<pre>3 + 5 + 11 = 19
+3 + 5 + 23 = 31
+3 + 5 + 29 = 37
+3 + 7 + 13 = 23
+3 + 7 + 19 = 29
+3 + 11 + 17 = 31
+3 + 11 + 23 = 37
+3 + 11 + 29 = 43
+3 + 17 + 23 = 43
+5 + 7 + 11 = 23
+5 + 7 + 17 = 29
+5 + 7 + 19 = 31
+5 + 7 + 29 = 41
+5 + 11 + 13 = 29
+5 + 13 + 19 = 37
+5 + 13 + 23 = 41
+5 + 13 + 29 = 47
+5 + 17 + 19 = 41
+5 + 19 + 23 = 47
+5 + 19 + 29 = 53
+7 + 11 + 13 = 31
+7 + 11 + 19 = 37
+7 + 11 + 23 = 41
+7 + 11 + 29 = 47
+7 + 13 + 17 = 37
+7 + 13 + 23 = 43
+7 + 17 + 19 = 43
+7 + 17 + 23 = 47
+7 + 17 + 29 = 53
+7 + 23 + 29 = 59
+11 + 13 + 17 = 41
+11 + 13 + 19 = 43
+11 + 13 + 23 = 47
+11 + 13 + 29 = 53
+11 + 17 + 19 = 47
+11 + 19 + 23 = 53
+11 + 19 + 29 = 59
+13 + 17 + 23 = 53
+13 + 17 + 29 = 59
+13 + 19 + 29 = 61
+17 + 19 + 23 = 59
+19 + 23 + 29 = 71
+There are 241580 triples below 1000.</pre>

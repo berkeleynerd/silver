@@ -1,0 +1,87 @@
+=={{header|Ada}}==
+We first specify a Package "Generic_Root" with a generic procedure "Compute". The package is reduced for the implementation of multiplicative digital roots [[http://rosettacode.org/wiki/Digital_root/Multiplicative_digital_root#Ada]]. Further note the tunable parameter for the number base (default 10). 
+
+<syntaxhighlight lang="ada">package Generic_Root is 
+   type Number is range 0 .. 2**63-1;
+   type Number_Array is array(Positive range <>) of Number;
+   type Base_Type is range 2 .. 16; -- any reasonable base to write down numb
+   
+   generic
+      with function "&"(X, Y: Number) return Number;
+      -- instantiate with "+" for additive digital roots
+      -- instantiate with "*" for multiplicative digital roots
+   procedure Compute_Root(N: Number; 
+                     Root, Persistence: out Number;
+                     Base: Base_Type := 10);
+   -- computes Root and Persistence of N;
+   
+end Generic_Root;</syntaxhighlight>
+
+The implementation is straightforward: If the input N is a digit, then the root is N and the persistence is zero. Else, commute the digit-sum DS. The root of N is the root of DS, the persistence of N is 1 + (the persistence of DS).
+
+<syntaxhighlight lang="ada">package body Generic_Root is
+   
+   procedure Compute_Root(N: Number; 
+                     Root, Persistence: out Number;
+                     Base: Base_Type := 10) is
+      
+      function Digit_Sum(N: Number) return Number is
+      begin
+         if N < Number(Base) then
+            return N;
+         else
+            return (N mod Number(Base)) & Digit_Sum(N / Number(Base));
+         end if;
+      end Digit_Sum;
+ 
+   begin
+      if N < Number(Base) then
+         Root := N;
+         Persistence := 0;
+      else
+         Compute_Root(Digit_Sum(N), Root, Persistence, Base);
+         Persistence := Persistence + 1;
+      end if;
+   end Compute_Root;
+   
+end Generic_Root;</syntaxhighlight>
+
+Finally the main program.  The procedure "Print_Roots" is for our convenience. 
+
+<syntaxhighlight lang="ada">with Generic_Root, Ada.Text_IO; use Generic_Root;
+
+procedure Digital_Root is
+
+   procedure Compute is new Compute_Root("+");
+     -- "+" for additive digital roots
+   
+   package TIO renames Ada.Text_IO;
+
+    procedure Print_Roots(Inputs: Number_Array; Base: Base_Type) is 
+      package NIO is new TIO.Integer_IO(Number);
+      Root, Pers: Number;
+   begin
+      for I in Inputs'Range loop
+         Compute(Inputs(I), Root, Pers, Base);
+         NIO.Put(Inputs(I), Base => Integer(Base), Width => 12);
+         NIO.Put(Root, Base => Integer(Base), Width => 9);
+         NIO.Put(Pers, Base => Integer(Base), Width => 12);
+         TIO.Put_Line("   " & Base_Type'Image(Base));
+      end loop;
+   end Print_Roots;
+begin 
+   TIO.Put_Line("      Number     Root Persistence  Base");
+   Print_Roots((961038, 923594037444, 670033, 448944221089), Base => 10);
+   Print_Roots((16#7e0#, 16#14e344#, 16#12343210#), Base => 16);
+end Digital_Root;</syntaxhighlight>
+
+{{out}}
+
+<pre>      Number     Root Persistence  Base
+      961038        9           2    10
+923594037444        9           2    10
+      670033        1           3    10
+448944221089        1           3    10
+     16#7E0#    16#6#       16#2#    16
+  16#14E344#    16#F#       16#2#    16
+16#12343210#    16#1#       16#2#    16</pre>

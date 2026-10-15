@@ -1,0 +1,15 @@
+=={{header|Ada}}==
+{{works with|GCC|4.1.2}}
+===Byte Length===
+<syntaxhighlight lang="ada">Str    : String := "Hello World";
+Length : constant Natural := Str'Size / 8;</syntaxhighlight>
+The 'Size attribute returns the size of an object in bits. Provided that under "byte" one understands an octet of bits, the length in "bytes" will be 'Size divided to 8. Note that this  is not necessarily the machine storage unit. In order to make the program portable, System.Storage_Unit should be used instead of "magic number" 8. System.Storage_Unit yields the number of bits in a storage unit on the current machine. Further, the length of a string object is not the length of what the string contains in whatever measurement units. String as an object may have a "dope" to keep the array bounds. In fact the object length can even be 0, if the compiler optimized the object away. So in most cases "byte length" makes no sense in Ada.
+
+===Character Length===
+<syntaxhighlight lang="ada">Latin_1_Str    : String           := "Hello World";
+UCS_16_Str     : Wide_String      := "Hello World";
+Unicode_Str    : Wide_Wide_String := "Hello World";
+Latin_1_Length : constant Natural := Latin_1_Str'Length;
+UCS_16_Length  : constant Natural := UCS_16_Str'Length;
+Unicode_Length : constant Natural := Unicode_Str'Length;</syntaxhighlight>
+The attribute 'Length yields the number of elements of an [[array]]. Since strings in Ada are arrays of characters, 'Length is the string length. Ada supports strings of [[Latin-1]], [[UCS-16]] and full [[Unicode]] characters. In the example above character length of all three strings is 11. The length of the objects in bits will differ.

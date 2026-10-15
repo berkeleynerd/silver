@@ -1,0 +1,48 @@
+=={{header|Ada}}==
+In Ada, prototypes are called specifications.
+* Specifications must be an exact copy of everything prior to the "is" statement for a function or procedure.
+* All specifications must appear in a declarative section, ie: before a "begin" statement.
+* For a main program, specifications are only necessary if a function call appears in the source before the function definition.
+* For a package, specifications must appear as part of the specification(.ads) file, and do not appear in the body file(.adb) (The file extensions apply to Gnat Ada and may not apply to all compilers).
+<syntaxhighlight lang="ada">function noargs return Integer;
+function twoargs (a, b : Integer) return Integer;
+--  varargs do not exist
+function optionalargs (a, b : Integer := 0) return Integer;
+--  all parameters are always named, only calling by name differs
+procedure dostuff (a : Integer);</syntaxhighlight>
+Other Prototyping: Since pointers are not generic in Ada, a type must be defined before one can have a pointer to that type, thus for making linked-list type semantics another trivial prototyping exists:
+<syntaxhighlight lang="ada">type Box; --  tell Ada a box exists (undefined yet)
+type accBox is access Box; --  define a pointer to a box
+type Box is record --  later define what a box is
+   next : accBox; --  including that a box holds access to other boxes
+end record;</syntaxhighlight>
+Example of a package specification (i.e. prototype):
+<syntaxhighlight lang="ada">package Stack is
+   procedure Push(Object:Integer);
+   function Pull return Integer;
+end Stack;</syntaxhighlight>
+
+Example of a package body:
+<syntaxhighlight lang="ada">package body Stack is
+
+   procedure Push(Object:Integer) is
+   begin
+      -- implementation goes here
+   end;
+
+   function Pull return Integer;
+   begin
+      -- implementation goes here
+   end;
+
+end Stack;</syntaxhighlight>
+
+To use the package and function:
+<syntaxhighlight lang="ada">with Stack;
+procedure Main is
+   N:integer:=5;
+begin
+   Push(N);
+   ...
+   N := Pull;
+end Main;</syntaxhighlight>

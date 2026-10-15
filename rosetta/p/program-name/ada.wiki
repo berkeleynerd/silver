@@ -1,0 +1,8 @@
+=={{header|Ada}}==
+Being a compiled language, Ada has difficulties accessing source code filenames. But it is easy to access the executable's filename, using the function Command_Name defined in Ada.Command_Line:
+<syntaxhighlight lang="ada">with Ada.Command_Line, Ada.Text_IO;
+
+procedure Command_Name is
+begin
+   Ada.Text_IO.Put_Line(Ada.Command_Line.Command_Name);
+end Command_Name;</syntaxhighlight>

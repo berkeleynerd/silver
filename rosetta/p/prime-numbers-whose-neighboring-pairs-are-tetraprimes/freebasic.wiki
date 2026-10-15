@@ -1,0 +1,123 @@
+=={{header|FreeBASIC}}==
+{{trans|XPL0}}
+<syntaxhighlight lang="vb">#include "isprime.bas"
+
+Dim Shared As Boolean Have7              'A tetraprime factor is 7
+
+Function isTetraprime(n As Integer) As Boolean
+    Dim As Boolean distinto
+    Dim As Integer div = 2, count = 0
+    While n >= div*div
+        distinto = True
+        While n Mod div = 0
+            If Not distinto Then Return False
+            distinto = False
+            count += 1
+            If div = 7 Then Have7 = True
+            n /= div
+        Wend
+        div += 1
+    Wend
+    If n > 1 Then count += 1
+    Return count = 4
+End Function
+
+Dim As Integer signo = -1
+Dim As Integer TenPower = 1e5
+Dim As Integer f, g, n, m, count, count7
+Dim As Integer Gap, GapMin, GapMax, GapSum
+For f = 5 To 7
+    For g = 1 To 2       'preceding or following neighboring pairs
+        count = 0  
+        count7 = 0 
+        m = 0 
+        GapMin = -1
+        GapMax = 0  
+        GapSum = 0
+        If f = 5 Then Print '100_000
+        For n = 3 To TenPower-1
+            If isPrime(n) Then
+                Have7 = False
+                If isTetraprime(n+1*signo) Then
+                    If isTetraprime(n+2*signo) Then
+                        count += 1
+                        If f = 5 Then
+                            Print Using "#######"; n;
+                            If count Mod 10 = 0 Then Print
+                        End If
+                        If Have7 Then count7 += 1
+                        If m <> 0 Then
+                            Gap = n - m
+                            If Gap <= GapMin Then GapMin = Gap
+                            If Gap > GapMax Then GapMax = Gap
+                            GapSum += Gap
+                        End If
+                        m = n
+                    End If
+                End If
+                n += 1
+            End If
+        Next n
+        Print Using !"\nFound ##,### primes under ##,###,### whose preceding neighboring pair are tetraprimes"; count; TenPower
+        Print Using "of which #,### have a neighboring pair, one of whose factors is 7."; count7
+        Print Using !"\nMinimum gap between & primes : ##,###"; count; GapMin
+        Print Using "Average gap between & primes : ##,###"; count; (GapSum / (count-1))
+        Print Using "Maximum gap between & primes : ##,###"; count; GapMax
+        signo = signo * -1
+    Next g
+    TenPower *= 10
+Next f
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>   8647  15107  20407  20771  21491  23003  23531  24767  24971  27967
+  29147  33287  34847  36779  42187  42407  42667  43331  43991  46807
+  46867  51431  52691  52747  53891  54167  58567  63247  63367  69379
+  71711  73607  73867  74167  76507  76631  76847  80447  83591  84247
+  86243  87187  87803  89387  93887  97547  97847  98347  99431
+Found     49 primes under    100,000 whose preceding neighboring pair are tetraprimes
+of which    31 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 49 primes :     56
+Average gap between 49 primes :  1,891
+Maximum gap between 49 primes :  6,460
+
+   8293  16553  17389  18289  22153  26893  29209  33409  35509  36293
+  39233  39829  40493  41809  45589  48109  58393  59629  59753  59981
+  60493  60913  64013  64921  65713  66169  69221  71329  74093  75577
+  75853  77689  77933  79393  79609  82913  84533  85853  87589  87701
+  88681  91153  93889  96017  97381  98453
+Found     46 primes under    100,000 whose preceding neighboring pair are tetraprimes
+of which    36 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 46 primes :    112
+Average gap between 46 primes :  2,004
+Maximum gap between 46 primes : 10,284
+
+Found    885 primes under  1,000,000 whose preceding neighboring pair are tetraprimes
+of which   503 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 885 primes :      4
+Average gap between 885 primes :  1,119
+Maximum gap between 885 primes :  7,712
+
+Found    866 primes under  1,000,000 whose preceding neighboring pair are tetraprimes
+of which   492 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 866 primes :      4
+Average gap between 866 primes :  1,146
+Maximum gap between 866 primes : 10,284
+
+Found 10,815 primes under 10,000,000 whose preceding neighboring pair are tetraprimes
+of which 5,176 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 10815 primes :      4
+Average gap between 10815 primes :    924
+Maximum gap between 10815 primes :  9,352
+
+Found 10,551 primes under 10,000,000 whose preceding neighboring pair are tetraprimes
+of which 5,069 have a neighboring pair, one of whose factors is 7.
+
+Minimum gap between 10551 primes :      4
+Average gap between 10551 primes :    947
+Maximum gap between 10551 primes : 10,284</pre>

@@ -1,0 +1,8 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Directories;  use Ada.Directories;</syntaxhighlight>
+and then
+<syntaxhighlight lang="ada">Delete_File ("input.txt");
+Delete_File ("/input.txt");
+Delete_Tree ("docs");
+Delete_Tree ("/docs");</syntaxhighlight>
+Naming conventions for the file path are [[OS]]-specific. The language does not specify the encoding of the file paths, the directory separators or brackets, the file extension delimiter, the file version delimiter and syntax. The example provided works under [[Linux]] and [[Windows]].

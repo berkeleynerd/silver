@@ -1,0 +1,6 @@
+{{draft task}}
+
+Remove vowels from a string
+
+{{Template:Strings}}
+<br><br>

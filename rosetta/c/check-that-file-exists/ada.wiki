@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+This example should work with any Ada 95 compiler.
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure File_Exists is
+   function Does_File_Exist (Name : String) return Boolean is
+      The_File : Ada.Text_IO.File_Type;
+   begin
+      Open (The_File, In_File, Name);
+      Close (The_File);
+      return True;
+   exception
+      when Name_Error =>
+         return False;
+   end Does_File_Exist;
+begin
+   Put_Line (Boolean'Image (Does_File_Exist ("input.txt" )));
+   Put_Line (Boolean'Image (Does_File_Exist ("\input.txt")));
+end File_Exists;</syntaxhighlight>
+This example should work with any Ada 2005 compiler.
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Directories; use Ada.Directories;
+
+procedure File_Exists is
+   procedure Print_File_Exist (Name : String) is
+   begin
+      Put_Line ("Does " & Name & " exist? " &
+                  Boolean'Image (Exists (Name)));
+   end Print_File_Exist;
+   procedure Print_Dir_Exist (Name : String) is
+   begin
+      Put_Line ("Does directory " & Name & " exist? " &
+                  Boolean'Image (Exists (Name) and then Kind (Name) = Directory));
+   end Print_Dir_Exist;
+begin
+   Print_File_Exist ("input.txt" );
+   Print_File_Exist ("/input.txt");
+   Print_Dir_Exist ("docs");
+   Print_Dir_Exist ("/docs");
+end File_Exists;</syntaxhighlight>

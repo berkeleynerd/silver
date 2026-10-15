@@ -1,0 +1,139 @@
+=={{header|Ada}}==
+
+We first specify a package "Logic" for three-valued logic. Observe that predefined Boolean functions, "and" "or" and "not" are overloaded:
+<syntaxhighlight lang="ada">package Logic is
+   type Ternary is (True, Unknown, False); 
+
+   -- logic functions
+   function "and"(Left, Right: Ternary) return Ternary;
+   function "or"(Left, Right: Ternary) return Ternary;
+   function "not"(T: Ternary) return Ternary;
+   function Equivalent(Left, Right: Ternary) return Ternary;
+   function Implies(Condition, Conclusion: Ternary) return Ternary;
+
+   -- conversion functions
+   function To_Bool(X: Ternary) return Boolean;
+   function To_Ternary(B: Boolean) return Ternary;
+   function Image(Value: Ternary) return Character;
+end Logic;</syntaxhighlight>
+
+Next, the implementation of the package:
+
+<syntaxhighlight lang="ada">package body Logic is
+   -- type Ternary is (True, Unknown, False);
+
+   function Image(Value: Ternary) return Character is
+   begin
+      case Value is
+         when True    => return 'T';
+         when False   => return 'F';
+         when Unknown => return '?';
+      end case;
+   end Image;
+
+   function "and"(Left, Right: Ternary) return Ternary is
+   begin
+      return Ternary'max(Left, Right);
+   end "and";
+
+   function "or"(Left, Right: Ternary) return Ternary is
+   begin
+      return Ternary'min(Left, Right);
+   end "or";
+
+   function "not"(T: Ternary) return Ternary is
+   begin
+      case T is
+         when False   => return True;
+         when Unknown => return Unknown;
+         when True    => return False;
+      end case;
+   end "not";
+
+   function To_Bool(X: Ternary) return Boolean is
+   begin
+      case X is
+         when True  => return True;
+         when False => return False;
+         when Unknown => raise Constraint_Error;
+      end case;
+   end To_Bool;
+
+   function To_Ternary(B: Boolean) return Ternary is
+   begin
+      if B then
+         return True;
+      else
+         return False;
+      end if;
+   end To_Ternary;
+
+   function Equivalent(Left, Right: Ternary) return Ternary is
+   begin
+      return To_Ternary(To_Bool(Left) = To_Bool(Right));
+   exception
+      when Constraint_Error => return Unknown;
+   end Equivalent;
+
+   function Implies(Condition, Conclusion: Ternary) return Ternary is
+   begin
+      return (not Condition) or Conclusion;
+   end Implies;
+
+end Logic;</syntaxhighlight>
+
+Finally, a sample program:
+<syntaxhighlight lang="ada">with Ada.Text_IO, Logic;
+
+procedure Test_Tri_Logic is
+
+   use Logic;
+
+   type F2 is access function(Left, Right: Ternary) return Ternary;
+   type F1 is access function(Trit: Ternary) return Ternary;
+
+   procedure Truth_Table(F: F1; Name: String) is
+   begin
+      Ada.Text_IO.Put_Line("X | " & Name & "(X)");
+      for T in Ternary loop
+         Ada.Text_IO.Put_Line(Image(T) & " |  " & Image(F(T)));
+      end loop;
+   end Truth_Table;
+
+   procedure Truth_Table(F: F2; Name: String) is
+   begin
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line("X | Y | " & Name & "(X,Y)");
+      for X in Ternary loop
+         for Y in Ternary loop
+            Ada.Text_IO.Put_Line(Image(X) & " | " & Image(Y) & " |  " & Image(F(X,Y)));
+         end loop;
+      end loop;
+   end Truth_Table;
+
+begin
+   Truth_Table(F => "not"'Access, Name => "Not");
+   Truth_Table(F => "and"'Access, Name => "And");
+   Truth_Table(F => "or"'Access, Name => "Or");
+   Truth_Table(F => Equivalent'Access, Name => "Eq");
+   Truth_Table(F => Implies'Access, Name => "Implies");
+end Test_Tri_Logic;</syntaxhighlight>
+
+{{out}}
+<pre>X | Not(X)
+T |  F
+? |  ?
+F |  T
+
+X | Y | And(X,Y)
+T | T |  T
+T | ? |  ?
+T | F |  F
+? | T |  ?
+? | ? |  ?
+? | F |  F
+F | T |  F
+F | ? |  F
+F | F |  F
+
+... (and so on)</pre>

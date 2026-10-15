@@ -1,0 +1,237 @@
+=={{header|Ada}}==
+polygons.ads:
+<syntaxhighlight lang="ada">package Polygons is
+
+   type Point is record
+      X, Y : Float;
+   end record;
+   type Point_List is array (Positive range <>) of Point;
+   subtype Segment is Point_List (1 .. 2);
+   type Polygon is array (Positive range <>) of Segment;
+
+   function Create_Polygon (List : Point_List) return Polygon;
+
+   function Is_Inside (Who : Point; Where : Polygon) return Boolean;
+
+end Polygons;</syntaxhighlight>
+
+polygons.adb:
+<syntaxhighlight lang="ada">package body Polygons is
+   EPSILON : constant := 0.00001;
+
+   function Ray_Intersects_Segment
+     (Who   : Point;
+      Where : Segment)
+      return  Boolean
+   is
+      The_Point        : Point   := Who;
+      Above            : Point;
+      Below            : Point;
+      M_Red            : Float;
+      Red_Is_Infinity  : Boolean := False;
+      M_Blue           : Float;
+      Blue_Is_Infinity : Boolean := False;
+   begin
+      if Where (1).Y < Where (2).Y then
+         Above := Where (2);
+         Below := Where (1);
+      else
+         Above := Where (1);
+         Below := Where (2);
+      end if;
+      if The_Point.Y = Above.Y or The_Point.Y = Below.Y then
+         The_Point.Y := The_Point.Y + EPSILON;
+      end if;
+      if The_Point.Y < Below.Y or The_Point.Y > Above.Y then
+         return False;
+      elsif The_Point.X > Above.X and The_Point.X > Below.X then
+         return False;
+      elsif The_Point.X < Above.X and The_Point.X < Below.X then
+         return True;
+      else
+         if Above.X /= Below.X then
+            M_Red := (Above.Y - Below.Y) / (Above.X - Below.X);
+         else
+            Red_Is_Infinity := True;
+         end if;
+         if Below.X /= The_Point.X then
+            M_Blue := (The_Point.Y - Below.Y) / (The_Point.X - Below.X);
+         else
+            Blue_Is_Infinity := True;
+         end if;
+         if Blue_Is_Infinity then
+            return True;
+         elsif Red_Is_Infinity then
+            return False;
+         elsif M_Blue >= M_Red then
+            return True;
+         else
+            return False;
+         end if;
+      end if;
+   end Ray_Intersects_Segment;
+
+   function Create_Polygon (List : Point_List) return Polygon is
+      Result : Polygon (List'Range);
+      Side   : Segment;
+   begin
+      for I in List'Range loop
+         Side (1) := List (I);
+         if I = List'Last then
+            Side (2) := List (List'First);
+         else
+            Side (2) := List (I + 1);
+         end if;
+         Result (I) := Side;
+      end loop;
+      return Result;
+   end Create_Polygon;
+
+   function Is_Inside (Who : Point; Where : Polygon) return Boolean is
+      Count : Natural := 0;
+   begin
+      for Side in Where'Range loop
+         if Ray_Intersects_Segment (Who, Where (Side)) then
+            Count := Count + 1;
+         end if;
+      end loop;
+      if Count mod 2 = 0 then
+         return False;
+      else
+         return True;
+      end if;
+   end Is_Inside;
+
+end Polygons;</syntaxhighlight>
+
+Example use:
+
+main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Polygons;
+procedure Main is
+   package Float_IO is new Ada.Text_IO.Float_IO (Float);
+   Test_Points : Polygons.Point_List :=
+     ((  5.0,  5.0),
+      (  5.0,  8.0),
+      (-10.0,  5.0),
+      (  0.0,  5.0),
+      ( 10.0,  5.0),
+      (  8.0,  5.0),
+      ( 10.0, 10.0));
+   Square      : Polygons.Polygon    :=
+     ((( 0.0,  0.0), (10.0,  0.0)),
+      ((10.0,  0.0), (10.0, 10.0)),
+      ((10.0, 10.0), ( 0.0, 10.0)),
+      (( 0.0, 10.0), ( 0.0,  0.0)));
+   Square_Hole : Polygons.Polygon    :=
+     ((( 0.0,  0.0), (10.0,  0.0)),
+      ((10.0,  0.0), (10.0, 10.0)),
+      ((10.0, 10.0), ( 0.0, 10.0)),
+      (( 0.0, 10.0), ( 0.0,  0.0)),
+      (( 2.5,  2.5), ( 7.5,  2.5)),
+      (( 7.5,  2.5), ( 7.5,  7.5)),
+      (( 7.5,  7.5), ( 2.5,  7.5)),
+      (( 2.5,  7.5), ( 2.5,  2.5)));
+   Strange     : Polygons.Polygon    :=
+     ((( 0.0,  0.0), ( 2.5,  2.5)),
+      (( 2.5,  2.5), ( 0.0, 10.0)),
+      (( 0.0, 10.0), ( 2.5,  7.5)),
+      (( 2.5,  7.5), ( 7.5,  7.5)),
+      (( 7.5,  7.5), (10.0, 10.0)),
+      ((10.0, 10.0), (10.0,  0.0)),
+      ((10.0,  0.0), ( 2.5,  2.5)));
+   Exagon      : Polygons.Polygon    :=
+     ((( 3.0,  0.0), ( 7.0,  0.0)),
+      (( 7.0,  0.0), (10.0,  5.0)),
+      ((10.0,  5.0), ( 7.0, 10.0)),
+      (( 7.0, 10.0), ( 3.0, 10.0)),
+      (( 3.0, 10.0), ( 0.0,  5.0)),
+      (( 0.0,  5.0), ( 3.0,  0.0)));
+begin
+   Ada.Text_IO.Put_Line ("Testing Square:");
+   for Point in Test_Points'Range loop
+      Ada.Text_IO.Put ("Point(");
+      Float_IO.Put (Test_Points (Point).X, 0, 0, 0);
+      Ada.Text_IO.Put (",");
+      Float_IO.Put (Test_Points (Point).Y, 0, 0, 0);
+      Ada.Text_IO.Put
+        ("): " &
+         Boolean'Image (Polygons.Is_Inside (Test_Points (Point), Square)));
+      Ada.Text_IO.New_Line;
+   end loop;
+   Ada.Text_IO.New_Line;
+   Ada.Text_IO.Put_Line ("Testing Square_Hole:");
+   for Point in Test_Points'Range loop
+      Ada.Text_IO.Put ("Point(");
+      Float_IO.Put (Test_Points (Point).X, 0, 0, 0);
+      Ada.Text_IO.Put (",");
+      Float_IO.Put (Test_Points (Point).Y, 0, 0, 0);
+      Ada.Text_IO.Put
+        ("): " &
+         Boolean'Image
+            (Polygons.Is_Inside (Test_Points (Point), Square_Hole)));
+      Ada.Text_IO.New_Line;
+   end loop;
+   Ada.Text_IO.New_Line;
+   Ada.Text_IO.Put_Line ("Testing Strange:");
+   for Point in Test_Points'Range loop
+      Ada.Text_IO.Put ("Point(");
+      Float_IO.Put (Test_Points (Point).X, 0, 0, 0);
+      Ada.Text_IO.Put (",");
+      Float_IO.Put (Test_Points (Point).Y, 0, 0, 0);
+      Ada.Text_IO.Put
+        ("): " &
+         Boolean'Image (Polygons.Is_Inside (Test_Points (Point), Strange)));
+      Ada.Text_IO.New_Line;
+   end loop;
+   Ada.Text_IO.New_Line;
+   Ada.Text_IO.Put_Line ("Testing Exagon:");
+   for Point in Test_Points'Range loop
+      Ada.Text_IO.Put ("Point(");
+      Float_IO.Put (Test_Points (Point).X, 0, 0, 0);
+      Ada.Text_IO.Put (",");
+      Float_IO.Put (Test_Points (Point).Y, 0, 0, 0);
+      Ada.Text_IO.Put
+        ("): " &
+         Boolean'Image (Polygons.Is_Inside (Test_Points (Point), Exagon)));
+      Ada.Text_IO.New_Line;
+   end loop;
+end Main;</syntaxhighlight>
+
+Output:
+<pre>Testing Square:
+Point(5.0,5.0): TRUE
+Point(5.0,8.0): TRUE
+Point(-10.0,5.0): FALSE
+Point(0.0,5.0): FALSE
+Point(10.0,5.0): TRUE
+Point(8.0,5.0): TRUE
+Point(10.0,10.0): FALSE
+
+Testing Square_Hole:
+Point(5.0,5.0): FALSE
+Point(5.0,8.0): TRUE
+Point(-10.0,5.0): FALSE
+Point(0.0,5.0): FALSE
+Point(10.0,5.0): TRUE
+Point(8.0,5.0): TRUE
+Point(10.0,10.0): FALSE
+
+Testing Strange:
+Point(5.0,5.0): TRUE
+Point(5.0,8.0): FALSE
+Point(-10.0,5.0): FALSE
+Point(0.0,5.0): FALSE
+Point(10.0,5.0): TRUE
+Point(8.0,5.0): TRUE
+Point(10.0,10.0): FALSE
+
+Testing Exagon:
+Point(5.0,5.0): TRUE
+Point(5.0,8.0): TRUE
+Point(-10.0,5.0): FALSE
+Point(0.0,5.0): FALSE
+Point(10.0,5.0): TRUE
+Point(8.0,5.0): TRUE
+Point(10.0,10.0): FALSE</pre>

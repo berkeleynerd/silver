@@ -1,0 +1,98 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Integer_Text_IO, Ada.Strings.Unbounded,
+  Ada.Strings.Unbounded.Text_IO, Ada.Numerics.Long_Elementary_Functions,
+  Ada.Long_Float_Text_IO;
+use  Ada.Text_IO, Ada.Integer_Text_IO, Ada.Strings.Unbounded,
+  Ada.Strings.Unbounded.Text_IO, Ada.Numerics.Long_Elementary_Functions,
+  Ada.Long_Float_Text_IO;
+
+procedure Fibonacci_Words is
+
+   function Entropy (S : Unbounded_String) return Long_Float is
+      CF    : array (Character) of Natural := (others => 0);
+      Len   : constant Natural             := Length (S);
+      H     : Long_Float                   := 0.0;
+      Ratio : Long_Float;
+   begin
+      for I in 1 .. Len loop
+         CF (Element (S, I)) := CF (Element (S, I)) + 1;
+      end loop;
+      for C in Character loop
+         Ratio := Long_Float (CF (C)) / Long_Float (Len);
+         if Ratio /= 0.0 then
+            H := H - Ratio * Log (Ratio, 2.0);
+         end if;
+      end loop;
+      return H;
+   end Entropy;
+
+   procedure Print_Line (Word : Unbounded_String; Number : Integer) is
+   begin
+      Put (Number, 4);
+      Put (Length (Word), 10);
+      Put (Entropy (Word), 2, 15, 0);
+      if Length (Word) < 35 then
+         Put ("  " & Word);
+      end if;
+      New_Line;
+   end Print_Line;
+
+   First, Second, Result : Unbounded_String;
+
+begin
+   Set_Col (4);  Put ("N");
+   Set_Col (9);  Put ("Length");
+   Set_Col (16); Put ("Entropy");
+   Set_Col (35); Put_Line ("Word");
+   First := To_Unbounded_String ("1");
+   Print_Line (First, 1);
+   Second := To_Unbounded_String ("0");
+   Print_Line (Second, 2);
+   for N in 3 .. 37 loop
+      Result := Second & First;
+      Print_Line (Result, N);
+      First  := Second;
+      Second := Result;
+   end loop;
+end Fibonacci_Words;
+</syntaxhighlight>
+Output
+<pre>   N    Length Entropy            Word
+   1         1 0.000000000000000  1
+   2         1 0.000000000000000  0
+   3         2 1.000000000000000  01
+   4         3 0.918295834054490  010
+   5         5 0.970950594454669  01001
+   6         8 0.954434002924965  01001010
+   7        13 0.961236604722876  0100101001001
+   8        21 0.958711882977132  010010100100101001010
+   9        34 0.959686893774217  0100101001001010010100100101001001
+  10        55 0.959316032054378
+  11        89 0.959457915838670
+  12       144 0.959403754221023
+  13       233 0.959424446955987
+  14       377 0.959416543740441
+  15       610 0.959419562603144
+  16       987 0.959418409515224
+  17      1597 0.959418849957810
+  18      2584 0.959418681724032
+  19      4181 0.959418745983664
+  20      6765 0.959418721438675
+  21     10946 0.959418730814028
+  22     17711 0.959418727232962
+  23     28657 0.959418728600807
+  24     46368 0.959418728078337
+  25     75025 0.959418728277903
+  26    121393 0.959418728201675
+  27    196418 0.959418728230792
+  28    317811 0.959418728219670
+  29    514229 0.959418728223918
+  30    832040 0.959418728222296
+  31   1346269 0.959418728222916
+  32   2178309 0.959418728222679
+  33   3524578 0.959418728222769
+  34   5702887 0.959418728222735
+  35   9227465 0.959418728222748
+  36  14930352 0.959418728222743
+  37  24157817 0.959418728222745
+</pre>

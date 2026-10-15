@@ -1,0 +1,108 @@
+=={{header|FreeBASIC}}==
+{{trans|Wren}}
+<syntaxhighlight lang="vb">#define pi 4 * Atn(1)
+
+Function gamma (x As Double) As Double
+    Dim As Integer k
+    Dim As Double p(12)
+    Dim As Double accm = p(1)
+    
+    If accm = 0 Then
+        accm = Sqr(2 * pi)
+        p(1) = accm
+        Dim As Double k1factrl = 1
+        For k = 2 To 12
+            p(k) = Exp(13 - k) * (13 - k)^(k - 1.5) / k1factrl
+            k1factrl *= -(k - 1)
+        Next k
+    End If
+    For k = 2 To 12
+        accm += p(k) / (x + k - 1)
+    Next
+    accm *= Exp(-(x + 12)) * (x + 12)^(x + .5)
+    Return accm / x
+End Function
+
+Function pdf(x As Double, k As Double) As Double
+    'probability density function
+    Return Iif(x <= 0, 0, x^(k / 2 - 1) * Exp(-x / 2) / (2^(k / 2) * gamma(k / 2)))
+End Function
+
+Function cpdf(x As Double, k As Double) As Double
+    'cumulative probability distribution function
+    Dim As Double t = Exp(-x / 2) * (x / 2)^(k / 2)
+    Dim As Double s, term
+    Dim As Uinteger m = 0
+    
+    Do
+        term = (x / 2)^m / gamma(k / 2 + m + 1)
+        s += term
+        m += 1
+    Loop Until Abs(term) < 1e-15
+    Return t * s
+End Function
+
+Dim As Integer x, k, i, j
+Print "    Values of the Chi-squared probability distribution function"
+Print " x           k = 1           k = 2           k = 3           k = 4           k = 5"
+
+For x = 0 To 10
+    Print Using "##  "; x;
+    For k = 1 To 5
+        Print Using "#.############  "; pdf(x, k);
+    Next
+    Print
+Next
+
+Print !"\n    Values for Chi-squared with 3 degrees of freedom"
+Print "Chi-squared   cum pdf            P value"
+
+Dim As Uinteger tt(5) = {1, 2, 4, 8, 16, 32}
+For x = 0 To Ubound(tt)
+    Dim As Double cpdff = cpdf(tt(x), 3)
+    Print Using "     ##       #.############     #.############"; tt(x); cpdff; 1-cpdff
+Next
+
+Dim As Uinteger airport(3,1) = {{77, 23}, {88, 12}, {79, 21}, {81, 19}}
+Dim As Double expected(1) = {81.25, 18.75}
+Dim As Double dsum = 0
+For i = 0 To Ubound(airport,1)
+    For j = 0 To Ubound(airport,2)
+        dsum += (airport(i, j) - expected(j))^2 / expected(j)
+    Next
+Next
+Dim As Double dof = Ubound(airport,1) / Ubound(airport,2)
+Print Using !"\nFor the airport data, diff total is #.############"; dsum
+Print Spc(14); "degrees of freedom is"; dof
+Print Spc(21); Using "Chi-squared is #.############"; pdf(dsum, dof)
+Print Spc(25); Using "P value is #.############"; cpdf(dsum, dof)
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>    Values of the Chi-squared probability distribution function
+ x           k = 1           k = 2           k = 3           k = 4           k = 5
+ 0  0.000000000000  0.000000000000  0.000000000000  0.000000000000  0.000000000000
+ 1  0.241970724519  0.303265329856  0.241970724519  0.151632664928  0.080656908173
+ 2  0.103776874355  0.183939720586  0.207553748710  0.183939720586  0.138369165807
+ 3  0.051393443268  0.111565080074  0.154180329804  0.167347620111  0.154180329804
+ 4  0.026995483257  0.067667641618  0.107981933026  0.135335283237  0.143975910702
+ 5  0.014644982562  0.041042499312  0.073224912810  0.102606248280  0.122041521349
+ 6  0.008108695555  0.024893534184  0.048652173330  0.074680602552  0.097304346659
+ 7  0.004553342922  0.015098691711  0.031873400451  0.052845420989  0.074371267720
+ 8  0.002583373169  0.009157819444  0.020666985354  0.036631277777  0.055111960944
+ 9  0.001477282804  0.005554498269  0.013295545236  0.024995242211  0.039886635707
+10  0.000850036660  0.003368973500  0.008500366603  0.016844867498  0.028334555342
+
+    Values for Chi-squared with 3 degrees of freedom
+Chi-squared   cum pdf            P value
+      1       0.198748043099     0.801251956901
+      2       0.427593295529     0.572406704471
+      4       0.738535870051     0.261464129949
+      8       0.953988294311     0.046011705689
+     16       0.998866015710     0.001133984290
+     32       0.999999476654     0.000000523346
+
+For the airport data, diff total is 4.512820512821
+              degrees of freedom is 3
+                     Chi-squared is 0.088753925984
+                         P value is 0.788850426319</pre>

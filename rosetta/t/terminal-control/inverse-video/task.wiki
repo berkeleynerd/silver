@@ -1,0 +1,6 @@
+{{task|Terminal control}}
+[[Category:Terminal control]]
+
+;Task:
+Display a word in inverse video &nbsp; (or reverse video) &nbsp; followed by a word in normal video.
+<br><br>

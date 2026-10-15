@@ -1,0 +1,89 @@
+=={{header|FreeBASIC}}==
+{{trans|Ring}}
+<syntaxhighlight lang="freebasic">
+Open "unixdict.txt" For Input As #1
+Dim As String cStr, wordList()
+Dim As Integer n, p = 0, posic = 0
+Do While Not Eof(1)
+    Line Input #1, cStr
+    p += 1
+    If Len(cStr) > 8 Then
+        posic += 1
+        Redim Preserve wordList(posic)
+        wordList(posic) = cStr
+    End If
+Loop
+Close #1
+
+Print p; " palabras en el archivo de diccionario: unixdict.txt"
+Print Ubound(wordList); " palabras utilizables en el archivo del diccionario."
+
+Dim As String char(1 To 9), palabra
+Dim As String nextwords(Ubound(wordList))
+
+Print !"\ntrabajando...\n"
+Print !"Las nuevas palabras son:\n"
+
+posic = 0
+For n = 1 To Ubound(wordList)-8
+    palabra = ""
+    For p = 1 To 9
+        char(p) = Mid(wordList(n+p-1),p,1)
+        palabra += char(p)
+    Next p
+    
+    For p = 1 To Ubound(wordList)
+        If wordList(p) = palabra Then
+            posic += 1
+            nextwords(posic) = palabra
+        End If
+    Next p
+Next n
+
+posic = 0
+For n = 2 To Ubound(nextwords)
+    If nextwords(n) <> nextwords(n-1) Then
+        posic += 1
+        Print ""; posic; ". "; nextwords(n-1)
+    End If
+Next n
+
+Print !"\nterminado..."
+Sleep
+</syntaxhighlight>
+{{out}}
+<pre>
+ 25104 palabras en el archivo de diccionario: unixdict.txt
+ 7250 palabras utilizables en el archivo del diccionario.
+
+trabajando...
+
+Las nuevas palabras son:
+
+ 1. applicate
+ 2. architect
+ 3. astronomy
+ 4. christine
+ 5. christoph
+ 6. committee
+ 7. composite
+ 8. constrict
+ 9. construct
+ 10. different
+ 11. extensive
+ 12. greenwood
+ 13. implement
+ 14. improvise
+ 15. intercept
+ 16. interpret
+ 17. interrupt
+ 18. philosoph
+ 19. prescript
+ 20. receptive
+ 21. telephone
+ 22. transcend
+ 23. transport
+ 24. transpose
+
+terminado...
+</pre>

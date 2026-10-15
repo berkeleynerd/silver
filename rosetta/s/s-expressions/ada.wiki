@@ -1,0 +1,291 @@
+=={{header|Ada}}==
+
+Uses Ada 2005 (Ada.Containers). 
+
+Specification of package S_Expr:
+
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded;
+private with Ada.Containers.Indefinite_Vectors;
+
+generic
+   with procedure Print_Line(Indention: Natural; Line: String);
+package S_Expr is
+
+   function "-"(S: String) return Ada.Strings.Unbounded.Unbounded_String
+     renames Ada.Strings.Unbounded.To_Unbounded_String;
+
+   function "+"(U: Ada.Strings.Unbounded.Unbounded_String) return String
+     renames Ada.Strings.Unbounded.To_String;
+
+   type Empty_Data is tagged null record;
+   subtype Data is Empty_Data'Class;
+   procedure Print(This: Empty_Data; Indention: Natural);
+   -- any object form class Data knows how to print itself
+   -- objects of class data are either List of Data or Atomic
+   -- atomic objects hold either an integer or a float or a string
+
+   type List_Of_Data is new Empty_Data with private;
+   overriding procedure Print(This: List_Of_Data; Indention: Natural);
+   function First(This: List_Of_Data) return Data;
+   function Rest(This: List_Of_Data) return List_Of_Data;
+   function Empty(This: List_Of_Data) return Boolean;
+
+   type Atomic is new Empty_Data with null record;
+
+   type Str_Data is new Atomic with record
+      Value: Ada.Strings.Unbounded.Unbounded_String;
+      Quoted: Boolean := False;
+   end record;
+   overriding procedure Print(This: Str_Data; Indention: Natural);
+
+   type Int_Data is new Atomic with record
+      Value: Integer;
+   end record;
+   overriding procedure Print(This: Int_Data; Indention: Natural);
+
+   type Flt_Data is new Atomic with record
+      Value: Float;
+   end record;
+   overriding procedure Print(This: Flt_Data; Indention: Natural);
+
+private
+
+   package Vectors is new Ada.Containers.Indefinite_Vectors
+     (Index_Type   => Positive,
+      Element_Type => Data);
+
+   type List_Of_Data is new Empty_Data with record
+      Values: Vectors.Vector;
+   end record;
+
+end S_Expr;</syntaxhighlight>
+
+The implementation of S_Expr:
+
+<syntaxhighlight lang="ada">with Ada.Integer_Text_IO, Ada.Float_Text_IO;
+
+package body S_Expr is
+
+   function First(This: List_Of_Data) return Data is
+   begin
+      return This.Values.First_Element;
+   end First;
+
+   function Rest(This: List_Of_Data) return List_Of_Data is
+      List: List_Of_Data := This;
+   begin
+      List.Values.Delete_First;
+      return List;
+   end Rest;
+
+   function Empty(This: List_Of_Data) return Boolean is
+   begin
+      return This.Values.Is_Empty;
+   end Empty;
+
+   procedure Print(This: Empty_Data; Indention: Natural) is
+   begin
+      Print_Line(Indention, "");
+   end Print;
+
+   procedure Print(This: Int_Data; Indention: Natural) is
+   begin
+      Print_Line(Indention, Integer'Image(This.Value));
+   end Print;
+
+   procedure Print(This: Flt_Data; Indention: Natural) is
+   begin
+      Print_Line(Indention, Float'Image(This.Value));
+   end Print;
+
+   procedure Print(This: Str_Data; Indention: Natural) is
+   begin
+      if This.Quoted then
+         Print_Line(Indention, """" & (+This.Value) & """");
+      else
+         Print_Line(Indention, +This.Value);
+      end if;
+   end Print;
+
+   procedure Print(This: List_Of_Data; Indention: Natural) is
+   begin
+      Print_Line(Indention, " ( ");
+      for I in This.Values.First_Index .. This.Values.Last_Index loop
+         This.Values.Element(I).Print(Indention + 1);
+      end loop;
+      Print_Line(Indention, " ) ");
+   end Print;
+
+end S_Expr;</syntaxhighlight>
+
+Specification and Implementation of S_Expr.Parser (a child package of S_Expr):
+
+<syntaxhighlight lang="ada">generic -- child of a generic package must be a generic unit
+package S_Expr.Parser is
+
+   function Parse(Input: String) return List_Of_Data;
+   -- the result of a parse process is always a list of expressions
+
+end S_Expr.Parser;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">with Ada.Integer_Text_IO, Ada.Float_Text_IO;
+
+package body S_Expr.Parser is
+
+   function Parse(Input: String) return List_Of_Data is
+
+      procedure First_Token(S: String;
+                            Start_Of_Token, End_Of_Token: out Positive) is
+      begin
+         Start_Of_Token := S'First;
+         while Start_Of_Token <= S'Last and then S(Start_Of_Token) = ' ' loop
+            Start_Of_Token := Start_Of_Token + 1; -- skip spaces
+         end loop;
+         if Start_Of_Token > S'Last then
+            End_Of_Token := Start_Of_Token - 1;
+            -- S(Start_Of_Token .. End_Of_Token) is the empty string
+         elsif (S(Start_Of_Token) = '(') or (S(Start_Of_Token) = ')') then
+            End_OF_Token := Start_Of_Token; -- the bracket is the token
+         elsif S(Start_Of_Token) = '"' then -- " -- begin quoted string
+            End_Of_Token := Start_Of_Token + 1;
+            while S(End_Of_Token) /= '"' loop -- " -- search for closing bracket
+               End_Of_Token := End_Of_Token + 1;
+            end loop; -- raises Constraint_Error if closing bracket not found
+         else -- Token is some kind of string
+            End_Of_Token := Start_Of_Token;
+            while End_Of_Token < S'Last and then
+           ((S(End_Of_Token+1) /= ' ') and (S(End_Of_Token+1) /= '(') and
+              (S(End_Of_Token+1) /= ')') and (S(End_Of_Token+1) /= '"')) loop  -- "
+               End_Of_Token := End_Of_Token + 1;
+            end loop;
+         end if;
+      end First_Token;
+
+      procedure To_Int(Token: String; I: out Integer; Found: out Boolean) is
+         Last: Positive;
+      begin
+         Ada.Integer_Text_IO.Get(Token, I, Last);
+         Found := Last = Token'Last;
+      exception
+         when others => Found := False;
+      end To_Int;
+
+      procedure To_Flt(Token: String; F: out Float; Found: out Boolean) is
+         Last: Positive;
+      begin
+         Ada.Float_Text_IO.Get(Token, F, Last);
+         Found := Last = Token'Last;
+      exception
+         when others => Found := False;
+      end To_Flt;
+
+      function Quoted_String(Token: String) return Boolean is
+      begin
+         return
+           Token'Length >= 2 and then Token(Token'First)='"' -- "
+                             and then Token(Token'Last) ='"'; -- "
+      end Quoted_String;
+
+      Start, Stop: Positive;
+
+      procedure Recursive_Parse(This: in out List_Of_Data) is
+
+      Found: Boolean;
+
+      Flt: Flt_Data;
+      Int: Int_Data;
+      Str: Str_Data;
+      Lst: List_Of_Data;
+
+      begin
+         while Input(Start .. Stop) /= "" loop
+            if Input(Start .. Stop) = ")" then
+               return;
+            elsif Input(Start .. Stop) = "(" then
+               First_Token(Input(Stop+1 .. Input'Last), Start, Stop);
+               Recursive_Parse(Lst);
+               This.Values.Append(Lst);
+            else
+               To_Int(Input(Start .. Stop), Int.Value, Found);
+               if Found then
+                  This.Values.Append(Int);
+               else
+                  To_Flt(Input(Start .. Stop), Flt.Value, Found);
+                  if Found then
+                     This.Values.Append(Flt);
+                  else
+                     if Quoted_String(Input(Start .. Stop)) then
+                        Str.Value  := -Input(Start+1 .. Stop-1);
+                        Str.Quoted := True;
+                     else
+                        Str.Value  := -Input(Start .. Stop);
+                        Str.Quoted := False;
+                     end if;
+                     This.Values.Append(Str);
+                  end if;
+               end if;
+            end if;
+            First_Token(Input(Stop+1 .. Input'Last), Start, Stop);
+         end loop;
+      end Recursive_Parse;
+
+      L: List_Of_Data;
+
+   begin
+      First_Token(Input, Start, Stop);
+      Recursive_Parse(L);
+      return L;
+   end Parse;
+
+end S_Expr.Parser;</syntaxhighlight>
+
+The main program Test_S_Expr:
+
+<syntaxhighlight lang="ada">with S_Expr.Parser, Ada.Text_IO;
+
+procedure Test_S_Expr is
+
+   procedure Put_Line(Indention: Natural; Line: String) is
+   begin
+      for I in 1 .. 3*Indention loop
+         Ada.Text_IO.Put(" ");
+      end loop;
+      Ada.Text_IO.Put_Line(Line);
+   end Put_Line;
+
+   package S_Exp is new S_Expr(Put_Line);
+   package S_Par is new S_Exp.Parser;
+
+   Input: String := "((data ""quoted data"" 123 4.5)" &
+                    "(data (!@# (4.5) ""(more"" ""data)"")))";
+   Expression_List: S_Exp.List_Of_Data := S_Par.Parse(Input);
+
+begin
+   Expression_List.First.Print(Indention => 0);
+   -- Parse will output a list of S-Expressions. We need the first Expression.
+end Test_S_Expr;</syntaxhighlight>
+
+{{out}}
+<pre> ( 
+    ( 
+      data
+      "quoted data"
+       123
+       4.50000E+00
+    ) 
+    ( 
+      data
+      "quoted data"
+       123
+       4.50000E+00
+      data
+       ( 
+         !@#
+          ( 
+             4.50000E+00
+          ) 
+         "(more"
+         "data)"
+       ) 
+    ) 
+ ) </pre>

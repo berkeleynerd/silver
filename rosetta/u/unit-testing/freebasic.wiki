@@ -1,0 +1,7 @@
+=={{header|FreeBASIC}}==
+'''fbcunit''' - FreeBASIC Compiler Unit Testing Component<br>
+Copyright (C) 2017-2020 Jeffery R. Marshall (coder[at]execulink[dot]com)
+
+Unit testing component for fbc compiler. Provides macros and common code for unit testing fbc compiled sources.
+
+See https://github.com/jayrm/fbcunit.

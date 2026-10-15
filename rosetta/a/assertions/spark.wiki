@@ -1,0 +1,24 @@
+=={{header|SPARK}}==
+Works with SPARK GPL 2010
+
+Assertions are analysed statically, before compilation or execution.  They can appear in various places:
+:inline in the code, either
+<syntaxhighlight lang="ada">-# check X = 42;</syntaxhighlight>
+::or
+<syntaxhighlight lang="ada">-# assert X = 42;</syntaxhighlight>
+:as a precondition on an operation:
+<syntaxhighlight lang="ada">procedure P (X : in out Integer);
+--# derives X from *;
+--# pre  X = 42;</syntaxhighlight>
+:or as a postcondition on an operation:
+<syntaxhighlight lang="ada">procedure P (X : in out Integer);
+--# derives X from *;
+--# post X = 42;</syntaxhighlight>
+Example:
+<syntaxhighlight lang="ada">X := 7;
+--# check X = 42;</syntaxhighlight>
+produces the following output:
+<pre>H1:    true .
+       ->
+C1:    false .</pre>
+which is an unprovable theorem that tells you that there is a guaranteed failure.

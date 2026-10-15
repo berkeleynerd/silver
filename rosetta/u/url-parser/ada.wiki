@@ -1,0 +1,169 @@
+=={{header|Ada}}==
+{{libheader|AWS}}
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+with AWS.URL;
+with AWS.Parameters;
+with AWS.Containers.Tables;
+
+procedure URL_Parser is
+
+   procedure Parse (URL : in String) is
+
+      use AWS.URL, Ada.Text_IO;
+      use AWS.Containers.Tables;
+
+      procedure Put_Cond (Item     : in String;
+                          Value    : in String;
+                          When_Not : in String := "") is
+      begin
+         if Value /= When_Not then
+            Put ("  ");  Put (Item);  Put_Line (Value);
+         end if;
+      end Put_Cond;
+
+      Obj  : Object;
+      List : Table_Type;
+   begin
+      Put_Line ("Parsing " & URL);
+
+      Obj  := Parse (URL);
+      List := Table_Type (AWS.Parameters.List'(AWS.URL.Parameters (Obj)));
+
+      Put_Cond ("Scheme:    ", Protocol_Name (Obj));
+      Put_Cond ("Domain:    ", Host     (Obj));
+      Put_Cond ("Port:      ", Port     (Obj), When_Not => "0");
+      Put_Cond ("Path:      ", Path     (Obj));
+      Put_Cond ("File:      ", File     (Obj));
+      Put_Cond ("Query:     ", Query    (Obj));
+      Put_Cond ("Fragment:  ", Fragment (Obj));
+      Put_Cond ("User:      ", User     (Obj));
+      Put_Cond ("Password:  ", Password (Obj));
+
+      if List.Count /= 0 then
+         Put_Line ("  Parameters:");
+      end if;
+      for Index in 1 .. List.Count loop
+         Put ("    "); Put (Get_Name  (List, N => Index));
+         Put ("    "); Put ("'" & Get_Value (List, N => Index) & "'");
+         New_Line;
+      end loop;
+      New_Line;
+   end Parse;
+
+begin
+   Parse ("foo://example.com:8042/over/there?name=ferret#nose");
+   Parse ("urn:example:animal:ferret:nose");
+   Parse ("jdbc:mysql://test_user:ouupppssss@localhost:3306/sakila?profileSQL=true");
+   Parse ("ftp://ftp.is.co.za/rfc/rfc1808.txt");
+   Parse ("http://www.ietf.org/rfc/rfc2396.txt#header1");
+   Parse ("ldap://[2001:db8::7]/c=GB?objectClass=one&objectClass=two");
+   Parse ("mailto:John.Doe@example.com");
+   Parse ("news:comp.infosystems.www.servers.unix");
+   Parse ("tel:+1-816-555-1212");
+   Parse ("telnet://192.0.2.16:80/");
+   Parse ("urn:oasis:names:specification:docbook:dtd:xml:4.1.2");
+   Parse ("ssh://alice@example.com");
+   Parse ("https://bob:pass@example.com/place");
+   Parse ("http://example.com/?a=1&b=2+2&c=3&c=4&d=%65%6e%63%6F%64%65%64");
+end URL_Parser;</syntaxhighlight>
+{{out}}
+<pre>
+Parsing foo://example.com:8042/over/there?name=ferret#nose
+  Scheme:    foo
+  Domain:    example.com
+  Port:      8042
+  Path:      /over/
+  File:      there
+  Query:     name=ferret
+  Fragment:  #nose
+  Parameters:
+    name    'ferret'
+
+Parsing urn:example:animal:ferret:nose
+  Scheme:    urn
+  File:      example:animal:ferret:nose
+
+Parsing jdbc:mysql://test_user:ouupppssss@localhost:3306/sakila?profileSQL=true
+  Scheme:    jdbc
+  Path:      mysql://test_user:ouupppssss@localhost:3306/
+  File:      sakila
+  Query:     profileSQL=true
+  Parameters:
+    profileSQL    'true'
+
+Parsing ftp://ftp.is.co.za/rfc/rfc1808.txt
+  Scheme:    ftp
+  Domain:    ftp.is.co.za
+  Port:      21
+  Path:      /rfc/
+  File:      rfc1808.txt
+
+Parsing http://www.ietf.org/rfc/rfc2396.txt#header1
+  Scheme:    http
+  Domain:    www.ietf.org
+  Port:      80
+  Path:      /rfc/
+  File:      rfc2396.txt
+  Fragment:  #header1
+
+Parsing ldap://[2001:db8::7]/c=GB?objectClass=one&objectClass=two
+  Scheme:    ldap
+  Domain:    2001:db8::7
+  Path:      /
+  File:      c=GB
+  Query:     objectClass=one&objectClass=two
+  Parameters:
+    objectClass    'one'
+    objectClass    'two'
+
+Parsing mailto:John.Doe@example.com
+  Scheme:    mailto
+  File:      John.Doe@example.com
+
+Parsing news:comp.infosystems.www.servers.unix
+  Scheme:    news
+  File:      comp.infosystems.www.servers.unix
+
+Parsing tel:+1-816-555-1212
+  Scheme:    tel
+  File:       1-816-555-1212
+
+Parsing telnet://192.0.2.16:80/
+  Scheme:    telnet
+  Domain:    192.0.2.16
+  Port:      80
+  Path:      /
+
+Parsing urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+  Scheme:    urn
+  File:      oasis:names:specification:docbook:dtd:xml:4.1.2
+
+Parsing ssh://alice@example.com
+  Scheme:    ssh
+  Domain:    alice@example.com
+  Path:      /
+
+Parsing https://bob:pass@example.com/place
+  Scheme:    https
+  Domain:    example.com
+  Port:      443
+  Path:      /
+  File:      place
+  User:      bob
+  Password:  pass
+
+Parsing http://example.com/?a=1&b=2+2&c=3&c=4&d=%65%6e%63%6F%64%65%64
+  Scheme:    http
+  Domain:    example.com
+  Port:      80
+  Path:      /
+  Query:     a=1&b=2%202&c=3&c=4&d=encoded
+  Parameters:
+    a    '1'
+    b    '2 2'
+    c    '3'
+    c    '4'
+    d    'encoded'
+
+</pre>

@@ -1,0 +1,12 @@
+{{task|Probability_and_statistics}} 
+[[Category:Randomness]]
+
+;Task:
+Open a text file and count the occurrences of each letter.
+
+Some of these programs count all characters (including punctuation), 
+but some only count letters A to Z.
+
+
+{{Template:Strings}}
+<br><br>

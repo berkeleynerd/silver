@@ -1,0 +1,75 @@
+=={{header|Ada}}==
+In Ada, both predefined and user-defined integer types are in a given range, between Type'First and Type'Last, inclusive. The range of predefined types is implementation specific. When the result of a computation is out of the type's range, the program <b>does not continue with a wrong result, but</b> instead <b>raises an exception</b>. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Overflow is
+   
+   generic 
+      type T is Range <>;
+      Name_Of_T: String;
+   procedure Print_Bounds; -- first instantiate this with T, Name
+                           -- then call the instantiation
+   procedure Print_Bounds is
+   begin
+      Put_Line("   " & Name_Of_T & " " & T'Image(T'First) 
+     & " .." & T'Image(T'Last));
+   end Print_Bounds;
+   
+   procedure P_Int  is new Print_Bounds(Integer,      "Integer ");
+   procedure P_Nat  is new Print_Bounds(Natural,      "Natural ");
+   procedure P_Pos  is new Print_Bounds(Positive,     "Positive");
+   procedure P_Long is new Print_Bounds(Long_Integer, "Long    ");
+   
+   type Unsigned_Byte is range 0 .. 255;
+   type Signed_Byte   is range -128 .. 127;
+   type Unsigned_Word is range 0 .. 2**32-1;
+   type Thousand is range 0 .. 999;
+   type Signed_Double is range - 2**63 .. 2**63-1;
+   type Crazy is range -11 .. -3;
+   
+   procedure P_UB is new Print_Bounds(Unsigned_Byte, "U 8  ");
+   procedure P_SB is new Print_Bounds(Signed_Byte, "S 8  ");
+   procedure P_UW is new Print_Bounds(Unsigned_Word, "U 32 ");
+   procedure P_Th is new Print_Bounds(Thousand, "Thous");
+   procedure P_SD is new Print_Bounds(Signed_Double, "S 64 ");
+   procedure P_Cr is new Print_Bounds(Crazy, "Crazy");
+   
+   A: Crazy := Crazy'First;
+   
+begin
+   Put_Line("Predefined Types:");
+   P_Int; P_Nat; P_Pos; P_Long; 
+   New_Line;
+   
+   Put_Line("Types defined by the user:");
+   P_UB; P_SB; P_UW; P_Th; P_SD; P_Cr;
+   New_Line;
+   
+   Put_Line("Forcing a variable of type Crazy to overflow:");
+   loop -- endless loop
+      Put("  " & Crazy'Image(A) &  "+1");
+      A := A + 1; -- line 49 -- this will later raise a CONSTRAINT_ERROR
+   end loop;
+end Overflow;</syntaxhighlight>
+
+{{out}}
+
+<pre>Predefined Types:
+   Integer  -2147483648 .. 2147483647
+   Natural   0 .. 2147483647
+   Positive  1 .. 2147483647
+   Long     -9223372036854775808 .. 9223372036854775807
+
+Types defined by the user:
+   U 8    0 .. 255
+   S 8   -128 .. 127
+   U 32   0 .. 4294967295
+   Thous  0 .. 999
+   S 64  -9223372036854775808 .. 9223372036854775807
+   Crazy -11 ..-3
+
+Forcing a variable of type Crazy to overflow:
+  -11+1  -10+1  -9+1  -8+1  -7+1  -6+1  -5+1  -4+1  -3+1
+
+raised CONSTRAINT_ERROR : overflow.adb:49 range check failed</pre>

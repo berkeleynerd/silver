@@ -1,0 +1,34 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">type Grayscale_Image is array (Positive range <>, Positive range <>) of Luminance;</syntaxhighlight>
+Conversion to a grayscale image:
+<syntaxhighlight lang="ada">function Grayscale (Picture : Image) return Grayscale_Image is
+   type Extended_Luminance is range 0..10_000_000;
+   Result : Grayscale_Image (Picture'Range (1), Picture'Range (2));
+   Color  : Pixel;
+begin
+   for I in Picture'Range (1) loop
+      for J in Picture'Range (2) loop
+         Color := Picture (I, J);
+         Result (I, J) :=
+            Luminance
+            (  (  2_126 * Extended_Luminance (Color.R)
+               +  7_152 * Extended_Luminance (Color.G)
+               +    722 * Extended_Luminance (Color.B)
+               )
+            /  10_000
+            );
+      end loop;
+   end loop;
+   return Result;
+end Grayscale;</syntaxhighlight>
+Conversion to a color image:
+<syntaxhighlight lang="ada">function Color (Picture : Grayscale_Image) return Image is
+   Result : Image (Picture'Range (1), Picture'Range (2));
+begin
+   for I in Picture'Range (1) loop
+      for J in Picture'Range (2) loop
+         Result (I, J) := (others => Picture (I, J));
+      end loop;
+   end loop;
+   return Result;
+end Color;</syntaxhighlight>

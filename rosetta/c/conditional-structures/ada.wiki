@@ -1,0 +1,104 @@
+=={{header|Ada}}==
+===if-then-else===
+<syntaxhighlight lang="ada">type Restricted is range 1..10;
+My_Var : Restricted;
+
+if My_Var = 5 then
+  -- do something
+elsif My_Var > 5 then
+  -- do something
+else
+  -- do something
+end if;</syntaxhighlight>
+===conditional expressions===
+Ada 2012 introduces conditional expressions, which are allowed anywhere an expression is allowed (e.g.: in a numeric literal, aggregate, etc.). A conditional expression can either be an if expression or case expression. Conditional expressions must be surrounded by parentheses.
+====if expression====
+<syntaxhighlight lang="ada">type Operation is (Add, Subtract, Multiply, Divide);
+Op : Operation;
+Result : Integer;
+-- we assume that A and B are inputs.
+Result := (if Op = Add then
+  A + B
+elsif Op = Subtract then
+  A - B
+elsif Op = Multiply then
+  A * B
+elsif Op = Divide then
+  A / B
+);</syntaxhighlight>
+====case expressions====
+Using the same example above, we assume that the ''Operation'', ''Op'', and ''Result'' variables are declared. A case expression over the enumeration of operations might look like:
+<syntaxhighlight lang="ada">Result := (case Op is
+  Add => A + B,
+  Subtract => A - B,
+  Multiply => A * B,
+  Divide => A / B
+);
+</syntaxhighlight>
+Note: some websites (particularly [https://www.radford.edu/nokie/classes/320/abe/operators.html#:~:text=if%20and%20case-,Examples%3A,1%2C%20others%20%3D%3E%200)%3B this one]) contain a different variant of a case expression (<syntaxhighlight lang="ada">case Op of...</syntaxhighlight>). The Ada Reference Manual indicates this is incorrect, and we use the [http://www.ada-auth.org/standards/12rm/html/RM-4-5-7.html formal version] here.
+
+===case with a default alternative===
+<syntaxhighlight lang="ada">type Days is (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday);
+Today : Days;
+
+case Today is
+  when Saturday | Sunday =>
+     null;
+  when Monday =>
+     Compute_Starting_Balance;
+  when Friday =>
+     Compute_Ending_Balance;
+  when others =>
+     Accumulate_Sales;
+end case;</syntaxhighlight>
+
+===case without a default===
+When there is no '''when others''' clause, the compiler will complain about any uncovered alternative. This defends against a common reason for bugs in other languages. 
+I.e., the following code is incorrect:
+
+<syntaxhighlight lang="ada">case Today is
+  when Monday =>
+     Compute_Starting_Balance;
+  when Friday =>
+     Compute_Ending_Balance;
+  when Tuesday .. Thursday =>
+     Accumulate_Sales;
+  -- ignore Saturday and Sunday
+end case;</syntaxhighlight>
+
+The correct version:
+
+<syntaxhighlight lang="ada">case Today is
+  when Saturday | Sunday =>
+     null; -- don't do anything, if Today is Saturday or Sunday
+  when Monday =>
+     Compute_Starting_Balance;
+  when Friday =>
+     Compute_Ending_Balance;
+  when Tuesday .. Thursday =>
+     Accumulate_Sales;
+end case;</syntaxhighlight>
+
+===select===
+Select provides conditional acceptance of entry calls. 
+Select can also be used to conditionally call an entry
+
+====Conditional Accept====
+<syntaxhighlight lang="ada">select
+   accept first_entry;
+   -- do something
+   or accept second_entry;
+   -- do something
+   or terminate;
+end select;</syntaxhighlight>
+
+====Conditional entry call====
+A selective entry call provides a way to time-out an entry call. 
+Without the time-out the calling task will suspend until the entry call is accepted.
+<syntaxhighlight lang="ada">select
+  My_Task.Start;
+or
+  delay Timeout_Period;
+end select;</syntaxhighlight>
+The entry Start on the task My_Task will be called. 
+If My_Task accepts the entry call before the timer expires the timer is canceled. If the timeout expires before the entry call is accepted the entry call is canceled.

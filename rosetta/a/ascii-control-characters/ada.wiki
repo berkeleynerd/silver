@@ -1,0 +1,33 @@
+=={{header|Ada}}==
+In Ada, a ''character type'' is an enumeration type with at least one literal that is a character literal. The predefined type <code>Character</code> is a character type with 256 values representing the Latin-1 character set; the first 128 values of Character are the ASCII character set. However, Character is a magic enumeration type: the values which are control characters have no literals. A user of the language cannot declare such a type. This makes naming the control characters more difficult than if they had literals.
+
+Each value of an enumeration type has an associated ''position number''. The first value has position number zero, increasing by one for each subsequent value. These correspond to the numeric values of ASCII, and may be used to refer to the control characters using the <code>'Val</code> attribute. For example, the line-feed control character may be referred to with <code>Character'Val (10)</code>. (The position number for a character can be obtained using the <code>'Pos</code> attribute.)
+
+The predefined package <code>Ada.Characters.Latin_1</code> contains constants that give names to all the ASCII control characters (and many other characters as well). The first few are
+<syntaxhighlight lang="ada">
+   NUL                  : constant Character := Character'Val (0);
+   SOH                  : constant Character := Character'Val (1);
+   STX                  : constant Character := Character'Val (2);
+   ETX                  : constant Character := Character'Val (3);
+   EOT                  : constant Character := Character'Val (4);
+</syntaxhighlight>
+Of course, one can also declare character types:
+<syntaxhighlight lang="ada">
+type ASCII is (NUL, SOH, STX, ETX, EOT, ENQ, ACK, BEL,
+               BS,  HT,  LF,  VT,  FF,  CR,  SO,  SI,
+               DLE, DC1, DC2, DC3, DC4, NAK, SYN, ETB,
+               CAN, EM,  SUB, ESC, FS,  GS,  RS,  US,
+               ' ', '!', '"', '#', '$', '%', '&', ''',
+               '(', ')', '*', '+', ',', '-', '.', '/',
+               '0', '1', '2', '3', '4', '5', '6', '7',
+               '8', '9', ':', ';', '<', '=', '>', '?',
+               '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+               'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
+               'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+               'X', 'Y', 'Z', '[', '\', ']', '^', '_',
+               '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+               'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+               'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+               'x', 'y', 'z', '{', '|', '}', '~', DEL);
+</syntaxhighlight>
+You can then refer to the control characters by their enumeration literals: <code>LF</code>.

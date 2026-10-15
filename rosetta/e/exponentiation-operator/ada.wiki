@@ -1,0 +1,92 @@
+=={{header|Ada}}==
+
+First we declare the specifications of the two procedures and the two corresponding operators (written as functions with quoted operators as their names):
+<syntaxhighlight lang="ada">package Integer_Exponentiation is
+   --  int^int
+   procedure Exponentiate (Argument : in     Integer;
+                           Exponent : in     Natural;
+                           Result   :    out Integer);
+   function "**" (Left  : Integer;
+                  Right : Natural) return Integer;
+
+   --  real^int
+   procedure Exponentiate (Argument : in     Float;
+                           Exponent : in     Integer;
+                           Result   :    out Float);
+   function "**" (Left  : Float;
+                  Right : Integer) return Float;
+end Integer_Exponentiation;</syntaxhighlight>
+
+Now we can create a test program:
+
+<syntaxhighlight lang="ada">with Ada.Float_Text_IO, Ada.Integer_Text_IO, Ada.Text_IO;
+with Integer_Exponentiation;
+
+procedure Test_Integer_Exponentiation is
+   use Ada.Float_Text_IO, Ada.Integer_Text_IO, Ada.Text_IO;
+   use Integer_Exponentiation;
+   R : Float;
+   I : Integer;
+begin
+   Exponentiate (Argument => 2.5, Exponent => 3, Result => R);
+   Put ("2.5 ^ 3 = ");
+   Put (R, Fore => 2, Aft => 4, Exp => 0);
+   New_Line;
+
+   Exponentiate (Argument => -12, Exponent => 3, Result => I);
+   Put ("-12 ^ 3 = ");
+   Put (I, Width => 7);
+   New_Line;
+end Test_Integer_Exponentiation;</syntaxhighlight>
+
+Finally we can implement the procedures and operations:
+
+<syntaxhighlight lang="ada">package body Integer_Exponentiation is
+   --  int^int
+   procedure Exponentiate (Argument : in     Integer;
+                           Exponent : in     Natural;
+                           Result   :    out Integer) is
+   begin
+      Result := 1;
+      for Counter in 1 .. Exponent loop
+         Result := Result * Argument;
+      end loop;
+   end Exponentiate;
+
+   function "**" (Left  : Integer;
+                  Right : Natural) return Integer is
+      Result : Integer;
+   begin
+      Exponentiate (Argument => Left,
+                    Exponent => Right,
+                    Result   => Result);
+      return Result;
+   end "**";
+
+   --  real^int
+   procedure Exponentiate (Argument : in     Float;
+                           Exponent : in     Integer;
+                           Result   :    out Float) is
+   begin
+      Result := 1.0;
+      if Exponent < 0 then
+         for Counter in Exponent .. -1 loop
+            Result := Result / Argument;
+         end loop;
+      else
+         for Counter in 1 .. Exponent loop
+            Result := Result * Argument;
+         end loop;
+      end if;
+   end Exponentiate;
+
+   function "**" (Left  : Float;
+                  Right : Integer) return Float is
+      Result : Float;
+   begin
+       Exponentiate (Argument => Left,
+                    Exponent => Right,
+                    Result   => Result);
+      return Result;
+   end "**";
+end Integer_Exponentiation;</syntaxhighlight>

@@ -1,0 +1,30 @@
+=={{header|Ada}}==
+
+As described in [[Named_parameters]], all parameters have to be named. You can use positional or keyed association. Optional parameters are the ones with default values.
+
+<syntaxhighlight lang="ada">package Tables is
+
+   type Table is private;
+
+   type Ordering is (Lexicographic, Psionic, ...); -- add others
+
+   procedure Sort (It               : in out Table;
+                   Order_By         : in Ordering := Lexicographic;
+                   Column           : in Positive := 1;
+                   Reverse_Ordering : in Boolean  := False);
+
+private
+   ... -- implementation specific
+end Tables;</syntaxhighlight>
+
+example of use:
+<syntaxhighlight lang="ada">with Tables;
+procedure Table_Test is
+   My_Table : Tables.Table;
+begin
+   ... -- insert stuff in table
+   Sort (My_Table); -- use default sorting
+   Sort (My_Table, Psionic, 5, True); -- use psionic sorting by 5th column in reverse order
+   Sort (It => My_Table, Reverse_Ordering => True); -- use default sorting in reverse order
+   ... -- other stuff
+end Table_Test;</syntaxhighlight>

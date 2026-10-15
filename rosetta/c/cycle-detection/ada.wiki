@@ -1,0 +1,93 @@
+=={{header|Ada}}==
+This implementation is split across three files. The first is the specification of a generic package:
+<syntaxhighlight lang="ada">
+generic
+   type Element_Type is private;
+package Brent is
+   type Brent_Function is access function (X : Element_Type) return Element_Type;
+   procedure Brent(F : Brent_Function; X0 : Element_Type; Lambda : out Integer; Mu : out Integer);
+end Brent;
+</syntaxhighlight>
+The second is the body of the generic package:
+<syntaxhighlight lang="ada">
+package body Brent is
+   procedure Brent (F : Brent_Function; X0 : Element_Type; Lambda : out Integer; Mu : out Integer) is
+      Power : Integer := 1;
+      Tortoise : Element_Type := X0;
+      Hare : Element_Type := F(X0);
+   begin
+      Lambda := 1;
+      Mu := 0;
+      while Tortoise /= Hare loop
+         if Power = Lambda then
+            Tortoise := Hare;
+            Power := Power * 2;
+            Lambda := 0;
+         end if;
+         Hare := F(Hare);
+         Lambda := Lambda + 1;
+      end loop;
+      Tortoise := X0;
+      Hare := X0;
+      for I in 0..(Lambda-1) loop
+         Hare := F(Hare);
+      end loop;
+      while Hare /= Tortoise loop
+         Tortoise := F(Tortoise);
+         Hare := F(Hare);
+         Mu := Mu + 1;
+      end loop;
+   end Brent;
+end Brent;
+</syntaxhighlight>
+By using a generic package, this implementation can be made to work for any unary function, not just integers. As a demonstration two instances of the test function are created and two instances of the generic package. These are produced inside the main procedure:
+<syntaxhighlight lang="ada">
+with Brent;
+with Text_Io;
+use Text_Io;
+procedure Main is
+   package Integer_Brent is new Brent(Element_Type => Integer);
+   use Integer_Brent;
+   function F (X : Integer) return Integer is
+     ((X * X + 1) mod 255);
+   type Mod255 is mod 255;
+   package Mod255_Brent is new Brent(Element_Type => Mod255);
+   function F255 (X : Mod255) return Mod255 is
+      (X * X + 1);
+   lambda : Integer;
+   Mu : Integer;
+   X : Integer := 3;
+begin
+   for I in 1..41 loop
+      Put(Integer'Image(X));
+      if I < 41 then
+         Put(",");
+      end if;
+      X := F(X);
+   end loop;
+   New_Line;
+   Integer_Brent.Brent(F'Access, 3, Lambda, Mu);
+   Put_Line("Cycle Length: " & Integer'Image(Lambda));
+   Put_Line("Start Index : " & Integer'Image(Mu));
+
+   Mod255_Brent.Brent(F255'Access, 3, Lambda, Mu);
+   Put_Line("Cycle Length: " & Integer'Image(Lambda));
+   Put_Line("Start Index : " & Integer'Image(Mu));
+
+   Put("Cycle       : ");
+   X := 3;
+   for I in 0..(Mu + Lambda) loop
+      if Mu <= I and I < (Lambda + Mu) then
+         Put(Integer'Image(X));
+      end if;
+      X := F(X);
+   end loop;
+end Main;
+</syntaxhighlight>
+{{out}}
+<pre> 3, 10, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5, 26, 167, 95, 101, 2, 5
+Cycle Length:  6
+Start Index :  2
+Cycle Length:  6
+Start Index :  2
+Cycle       :  101 2 5 26 167 95</pre>

@@ -1,0 +1,7 @@
+=={{header|Ada}}==
+[[Ada 83]] and [[Ada 95]] do not provide a standard sort utility.
+
+[[Ada 2005]] provides two generic procedures for sorting arrays. One (<code>Ada.Containers.Generic_Array_Sort</code>) is for unconstrained array types and one (<code>Ada.Containers.Generic_Constrained_Array_Sort</code>) is for constrained array types.
+Both are not guaranteed stable and in all implementation they are not.
+
+Also, <code>Vectors</code> and <code>Doubly_Linked_Lists</code> containers have their own internal generic sort. <code>Doubly_Linked_Lists</code> sort is stable.

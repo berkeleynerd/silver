@@ -1,0 +1,71 @@
+=={{header|Ada}}==
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+
+with Unbounded_Integers;          use Unbounded_Integers;
+with Unbounded_Rationals;         use Unbounded_Rationals;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+with Strings_Edit.Unbounded_Unsigned_Edit;
+use  Strings_Edit.Unbounded_Unsigned_Edit;
+
+with Strings_Edit.Unbounded_Rational_Edit;
+use  Strings_Edit.Unbounded_Rational_Edit;
+
+procedure Prime_Reciprocal_Sum is
+
+   Count : Natural := 0;
+   Sum   : Unbounded_Rational := Unbounded_Rationals.One / 2;
+   P     : Unbounded_Unsigned := Unbounded_Unsigneds.Two;
+   function "+" (N : Unbounded_Unsigned) return String is
+      Result : constant String := Image (N);
+   begin
+      if Result'Length > 60 then
+         return Result (1..20)                         &
+                "..."                                  &
+                Result (Result'Last - 19..Result'Last) &
+                Integer'Image (Result'Length)          &
+                " digits";
+      else
+         return Result;
+      end if;
+   end "+";
+begin
+   Put_Line ("2");
+   while Count <= 13 loop
+      P := Get_Mantissa (Ceiling (Invert (1 - Sum)));
+      if Is_Even (P) then
+         Add (P, 1);
+      end if;
+      loop
+         if Is_Prime (P, 10) = Prime then
+            Sum := Sum + Unbounded_Rationals.One / P;
+            Put_Line (+P);
+            Count := Count + 1;
+            exit;
+         end if;
+         Add (P, 2);
+      end loop;
+   end loop;
+end Prime_Reciprocal_Sum;
+</syntaxhighlight>
+{{out}}
+<pre>
+2
+3
+7
+43
+1811
+654149
+27082315109
+153694141992520880899
+337110658273917297268061074384231117039
+84241975970641143191...13803869133407474043 76 digits
+20300753813848234767...91313959045797597991 150 digits
+20323705381471272842...21649394434192763213 297 digits
+12748246592672078196...20708715953110886963 592 digits
+46749025165138838243...65355869250350888941 1180 digits
+11390125639471674628...31060548964273180103 2358 digits
+</pre>

@@ -1,0 +1,171 @@
+=={{header|Ada}}==
+
+===The Package Sum_To===
+
+Between any two consecutive digits, there can be a "+", a "-", or no operator. E.g., the digits "4" and "5" occur in the string as either of the following three substrings: "4+5", "4-5", or "45". For the first digit, we only have two choices: "+1" (written as "1"), and "-1". This makes 2*3^8 (two times (three to the power of eight)) different strings. Essential is the generic function Eval in the package Sum_To calls the procedure Callback for each such string Str, with the number Int holding the sum corresponding to the evaluation of Str. The second generic procedure Print is for convenience. If the Sum fits the condition, i.e., if Print_If(Sum, Number), then Print writes Sum = Str to the output. 
+
+<syntaxhighlight lang="ada">package Sum_To is
+   
+   generic
+      with procedure Callback(Str: String; Int: Integer);
+   procedure Eval;
+   
+   generic
+      Number: Integer;
+      with function Print_If(Sum, Number: Integer) return Boolean; 
+   procedure Print(S: String; Sum: Integer);
+
+end Sum_To;</syntaxhighlight>
+
+The implementation of Eval follows the observation above: Eval calls Rec_Eval with the initial string "1" and "-1". For each call, Rec_Eval recursively evaluates a ternary tree with 3^8 leafs. At each leaf, Rec_Eval calls Callback. The implementation of Print is straightforward.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Containers.Ordered_Maps;
+
+package body Sum_To is
+   
+   procedure Eval is
+   
+      procedure Rec_Eval(Str: String; Previous, Current, Next: Integer) is
+	 Next_Image: String := Integer'Image(Next); 
+	 -- Next_Image(1) holds a blank, Next_Image(2) a digit
+	 
+	 function Sign(N: Integer) return Integer is 
+	    (if N<0 then -1 elsif N>0 then 1 else 0);
+	 
+      begin
+	 if Next = 10 then -- end of recursion
+	    Callback(Str, Previous+Current);
+	 else -- Next < 10
+	    Rec_Eval(Str & Next_Image(2), -- concatenate current and Next 
+		 Previous, Sign(Current)*(10*abs(Current)+Next), Next+1);
+	    Rec_Eval(Str & "+" & Next_Image(2), -- add Next 
+		 Previous+Current, Next, Next+1);
+	    Rec_Eval(Str & "-" & Next_Image(2), -- subtract Next 
+		 Previous+Current, -Next, Next+1);
+	 end if;
+      end Rec_Eval;
+      
+   begin -- Eval
+      Rec_Eval("1", 0, 1, 2);  -- unary "+", followed by "1"
+      Rec_Eval("-1", 0, -1, 2); -- unary "-", followed by "1"
+   end Eval;
+   
+   procedure Print(S: String; Sum: Integer) is
+      -- print solution (S,N), if N=Number
+   begin
+      if Print_If(Sum, Number) then 
+	 Ada.Text_IO.Put_Line(Integer'Image(Sum) & " = " & S & ";");
+      end if;
+   end Print;
+   
+end Sum_To;</syntaxhighlight>
+
+===The First Subtask===
+
+Given the package Sum_To, the solution to the first subtask (print all solution for the sum 100) is trivial: Eval_100 calls Print_100 for all 2*3^8 strings, and Print_100 writes the output if the sum is equal to 100.
+
+<syntaxhighlight lang="ada">with Sum_To; 
+
+procedure Sum_To_100 is
+   
+   procedure Print_100 is new Sum_To.Print(100, "=");
+   procedure Eval_100 is new Sum_To.Eval(Print_100);
+   
+begin
+   Eval_100;
+end Sum_To_100;</syntaxhighlight>
+
+{{out}}
+<pre> 100 = 123+45-67+8-9;
+ 100 = 123+4-5+67-89;
+ 100 = 123-45-67+89;
+ 100 = 123-4-5-6-7+8-9;
+ 100 = 12+3+4+5-6-7+89;
+ 100 = 12+3-4+5+67+8+9;
+ 100 = 12-3-4+5-6+7+89;
+ 100 = 1+23-4+56+7+8+9;
+ 100 = 1+23-4+5+6+78-9;
+ 100 = 1+2+34-5+67-8+9;
+ 100 = 1+2+3-4+5+6+78+9;
+ 100 = -1+2-3+4+5+6+78+9;</pre>
+
+===The other subtasks (including the extra credit)===
+
+For the three other subtasks, we maintain an ordered map of sums (as the keys) and counters for the number of solutions (as the elements). The procedure Generate_Map generates the Map by calling the procedure Insert_Solution for all 2*3^8 solutions. Finding (1) the sum with the maximal number of solutions, (2) the first sum>=0 without a solution and (3) the ten largest sums with a solution (extra credit) are done by iterating this map.  
+
+<syntaxhighlight lang="ada">with Sum_To, Ada.Containers.Ordered_Maps, Ada.Text_IO;
+use Ada.Text_IO;
+
+procedure Three_Others is
+   
+   package Num_Maps is new Ada.Containers.Ordered_Maps
+     (Key_Type => Integer, Element_Type => Positive);
+   use Num_Maps;
+   
+   Map: Num_Maps.Map;
+   -- global Map stores how often a sum did occur
+   
+   procedure Insert_Solution(S: String; Sum: Integer) is
+      -- inserts a solution into global Map
+      use Num_Maps;
+      -- use type Num_Maps.Cursor;
+      Position: Cursor := Map.Find(Sum);
+   begin
+      if Position = No_Element then -- first solutions for Sum
+	 Map.Insert(Key => Sum, New_Item => 1); -- counter is 1
+      else -- increase counter for Sum
+	 Map.Replace_Element(Position => Position,
+			     New_Item => (Element(Position))+1);
+      end if;
+   end Insert_Solution;
+   
+   procedure Generate_Map is new Sum_To.Eval(Insert_Solution); 
+   
+   Current: Cursor; -- Points into Map
+   Sum: Integer;    -- current Sum of interest
+   Max: Natural; 
+begin
+   Generate_Map;
+   
+   -- find Sum >= 0  with maximum number of solutions
+   Max := 0; -- number of solutions for Sum (so far, none)
+   Current := Map.Ceiling(0); -- first element in Map with Sum >= 0
+   while Has_Element(Current) loop
+      if Element(Current) > Max then
+	 Max := Element(Current); -- the maximum of solutions, so far
+	 Sum := Key(Current);     -- the Sum with Max solutions
+      end if;
+      Next(Current);
+   end loop;
+   Put_Line("Most frequent result:" & Integer'Image(Sum));
+   Put_Line("Frequency of" & Integer'Image(Sum) & ":" & 
+	      Integer'Image(Max));
+   New_Line;
+   
+   -- find smallest Sum >= 0 with no solution
+   Sum := 0;
+   while Map.Find(Sum) /= No_Element loop
+      Sum := Sum + 1;
+   end loop;
+   Put_Line("Smallest nonnegative impossible sum:" & Integer'Image(Sum));
+   New_Line;
+   
+   -- find ten highest numbers with a solution 
+   Current := Map.Last; -- highest element in Map with a solution
+   Put_Line("Highest sum:" & Integer'Image(Key(Current)));
+   Put("Next nine:");
+   for I in 1 .. 9 loop -- 9 steps backward
+      Previous(Current);
+      Put(Integer'Image(Key(Current)));
+   end loop; 
+   New_Line;
+end Three_others;</syntaxhighlight>
+
+{{out}}
+<pre>Most frequent result: 9
+Frequency of 9: 46
+
+Smallest nonnegative impossible sum: 211
+
+Highest sum: 123456789
+Next nine: 23456790 23456788 12345687 12345669 3456801 3456792 3456790 3456788 3456786</pre>

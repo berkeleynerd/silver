@@ -1,0 +1,103 @@
+==={{header|FreeBASIC}}===
+{{trans|XPLo}}
+<syntaxhighlight lang="vbnet">Dim Shared Factors(3) As Uinteger
+
+Function Sphenic(N As Uinteger) As Boolean
+    Dim As Uinteger C, F, L, Q
+    L = Sqr(N)
+    C = 0
+    F = 2
+    Do
+        Q = N / F
+        If N Mod F = 0 Then
+            Factors(C) = F
+            C += 1
+            If C > 3 Then Return False
+            N = Q
+            If N Mod F = 0 Then Return False
+            If F > N Then Exit Do
+        Else
+            F += 1
+            If F > L Then
+                Factors(C) = N
+                C += 1
+                Exit Do
+            End If
+        End If
+    Loop
+    Return Iif(C = 3, True, False)
+End Function
+
+Dim As Double t0 = Timer
+Dim As Uinteger C, N, I
+C = 0
+N = 2 * 3 * 5
+Print "Sphenic numbers less than 1,000:"
+Do
+    If Sphenic(N) Then
+        C += 1
+        If N < 1000 Then
+            Print Using "####"; N;
+            If C Mod 15 = 0 Then Print
+        End If
+        If C = 200000 Then
+            Print "The 200,000th sphenic number is "; N; " = ";
+            For I = 0 To 2
+                Print Factors(I);
+                If I < 2 Then Print " * ";
+            Next I
+            Print
+        End If
+    End If
+    N += 1
+    If N >= 1e6 Then Exit Do
+Loop
+Print "There are "; C; " sphenic numbers less than 1,000,000"
+
+C = 0
+N = 2 * 3 * 5
+Print !"\nSphenic triplets less than 10,000:"
+Do
+    If Sphenic(N) Andalso Sphenic(N+1) Andalso Sphenic(N+2) Then
+        C += 1
+        If N < 10000 Then
+            Print "[" & N & ", " & N+1 & ", " & N+2 & "]";
+            If C Mod 3 = 0 Then Print Else Print ", ";
+        End If
+        If C = 5000 Then
+            Print "The 5000th sphenic triplet is [" & N & ", " & N+1 & ", " & N+2 & "]"
+        End If
+    End If
+    N += 1
+    If N+2 >= 1e6 Then Exit Do
+Loop
+Print "There are "; C; " sphenic triplets less than 1,000,000"
+
+Print Using "##.##sec."; Timer - t0
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Sphenic numbers less than 1,000:
+  30  42  66  70  78 102 105 110 114 130 138 154 165 170 174
+ 182 186 190 195 222 230 231 238 246 255 258 266 273 282 285
+ 286 290 310 318 322 345 354 357 366 370 374 385 399 402 406
+ 410 418 426 429 430 434 435 438 442 455 465 470 474 483 494
+ 498 506 518 530 534 555 561 574 582 590 595 598 602 606 609
+ 610 615 618 627 638 642 645 646 651 654 658 663 665 670 678
+ 682 705 710 715 730 741 742 754 759 762 777 782 786 790 795
+ 805 806 814 822 826 830 834 854 861 874 885 890 894 897 902
+ 903 906 915 935 938 942 946 957 962 969 970 978 986 987 994
+The 200,000th sphenic number is 966467 = 17 * 139 * 409
+There are 206964 sphenic numbers less than 1,000,000
+
+Sphenic triplets less than 10,000:
+[1309, 1310, 1311], [1885, 1886, 1887], [2013, 2014, 2015]
+[2665, 2666, 2667], [3729, 3730, 3731], [5133, 5134, 5135]
+[6061, 6062, 6063], [6213, 6214, 6215], [6305, 6306, 6307]
+[6477, 6478, 6479], [6853, 6854, 6855], [6985, 6986, 6987]
+[7257, 7258, 7259], [7953, 7954, 7955], [8393, 8394, 8395]
+[8533, 8534, 8535], [8785, 8786, 8787], [9213, 9214, 9215]
+[9453, 9454, 9455], [9821, 9822, 9823], [9877, 9878, 9879]
+The 5000th sphenic triplet is [918005, 918006, 918007]
+There are 5457 sphenic triplets less than 1,000,000
+33.90sec.</pre>

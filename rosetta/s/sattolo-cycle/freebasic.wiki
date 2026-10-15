@@ -1,0 +1,53 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">' version 22-10-2016
+' compile with: fbc -s console
+' for boundry checks on array's compile with: fbc -s console -exx
+
+' sort from lower bound to the highter bound
+' array's can have subscript range from -2147483648 to +2147483647
+
+Sub sattolo_cycle(a() As Long)
+
+    Dim As Long lb = LBound(a)
+    Dim As ULong n = UBound(a) - lb +1
+    Dim As ULong i, j
+
+    Randomize Timer
+
+    For i = n -1 To 1 Step -1
+        j =Fix(Rnd * (i))       ' 0 <= j < i
+        Swap a(lb + i), a(lb + j)
+    Next
+
+End Sub
+
+' ------=< MAIN >=------
+
+Dim As Long i, array(1 To 52)
+
+For i = 1 To 52 : array(i) = i : Next
+
+Print "Starting array from 1 to 52"
+For i = 1 To 52
+    Print Using " ###";array(i);
+Next : Print : Print
+
+sattolo_cycle(array())
+
+Print "After Sattolo_Cycle"
+For i = 1 To 52
+    Print Using " ###";array(i);
+Next : Print : Print
+
+
+' empty keyboard buffer 
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>Starting array from 1 to 52
+   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52
+
+After Sattolo_Cycle
+  40  48   7  25  32  17  44   4   8  13  18  47   5  29  10  20  49  39  11  51   3  21  46   2  38  16  28  37  12  50   1   9  52  19  22  30  36  27  45  15  24  23  33  41  14  31  43  26  35  34  42   6</pre>

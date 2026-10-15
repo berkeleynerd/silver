@@ -1,0 +1,122 @@
+=={{header|Ada}}==
+Similar to [[#C|C method]]:
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+procedure hailstone is
+	type int_arr is array(Positive range <>) of Integer;
+	type int_arr_pt is access all int_arr;
+
+	function hailstones(num:Integer; pt:int_arr_pt) return Integer is
+		stones : Integer := 1;
+		n : Integer := num;
+		begin
+		if pt /= null then pt(1) := num; end if;
+		while (n/=1) loop
+			stones := stones + 1;
+			if n mod 2 = 0 then n := n/2;
+			else n := (3*n)+1;
+			end if;
+			if pt /= null then pt(stones) := n; end if;
+		end loop;
+		return stones;
+	end hailstones;
+	
+	nmax,stonemax,stones : Integer := 0;
+	list : int_arr_pt;
+begin
+	stones := hailstones(27,null);
+	list := new int_arr(1..stones);
+	stones := hailstones(27,list);
+	put(" 27: "&Integer'Image(stones)); new_line;
+	for n in 1..4 loop put(Integer'Image(list(n)));	end loop;
+	put(" .... ");
+	for n in stones-3..stones loop put(Integer'Image(list(n))); end loop;
+	new_line;
+	for n in 1..100000 loop
+		stones := hailstones(n,null);
+		if stones>stonemax then
+			nmax := n; stonemax := stones;
+		end if;
+	end loop;
+	put_line(Integer'Image(nmax)&" max @ n= "&Integer'Image(stonemax));
+end hailstone;</syntaxhighlight>
+{{out}}
+<pre>
+ 27:  112
+ 27 82 41 124 ....  8 4 2 1
+ 77031 max @ n=  351
+</pre>
+
+===Alternative method===
+A method without pointers or dynamic memory allocation, but slower for simply counting. This is also used for the "executable library" task [[Executable library#Ada]].
+
+hailstones.ads:
+<syntaxhighlight lang="ada">package Hailstones is
+   type Integer_Sequence is array(Positive range <>) of Integer;
+   function Create_Sequence (N : Positive) return Integer_Sequence;
+end Hailstones;</syntaxhighlight>
+hailstones.adb:
+<syntaxhighlight lang="ada">package body Hailstones is
+   function Create_Sequence (N : Positive) return Integer_Sequence is
+   begin
+      if N = 1 then
+         -- terminate
+         return (1 => N);
+      elsif N mod 2 = 0 then
+         -- even
+         return (1 => N) & Create_Sequence (N / 2);
+      else
+         -- odd
+         return (1 => N) & Create_Sequence (3 * N + 1);
+      end if;
+   end Create_Sequence;
+end Hailstones;</syntaxhighlight>
+example main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Hailstones;
+
+procedure Main is
+   package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
+
+   procedure Print_Sequence (X : Hailstones.Integer_Sequence) is
+   begin
+      for I in X'Range loop
+         Integer_IO.Put (Item => X (I), Width => 0);
+         if I < X'Last then
+            Ada.Text_IO.Put (", ");
+         end if;
+      end loop;
+      Ada.Text_IO.New_Line;
+   end Print_Sequence;
+
+   Hailstone_27 : constant Hailstones.Integer_Sequence :=
+     Hailstones.Create_Sequence (N => 27);
+
+begin
+   Ada.Text_IO.Put_Line ("Length of 27:" & Integer'Image (Hailstone_27'Length));
+   Ada.Text_IO.Put ("First four: ");
+   Print_Sequence (Hailstone_27 (Hailstone_27'First .. Hailstone_27'First + 3));
+   Ada.Text_IO.Put ("Last four: ");
+   Print_Sequence (Hailstone_27 (Hailstone_27'Last - 3 .. Hailstone_27'Last));
+
+   declare
+      Longest_Length : Natural := 0;
+      Longest_N      : Positive;
+      Length         : Natural;
+   begin
+      for I in 1 .. 99_999 loop
+         Length := Hailstones.Create_Sequence (N => I)'Length;
+         if Length > Longest_Length then
+            Longest_Length := Length;
+            Longest_N := I;
+         end if;
+      end loop;
+      Ada.Text_IO.Put_Line ("Longest length is" & Integer'Image (Longest_Length));
+      Ada.Text_IO.Put_Line ("with N =" & Integer'Image (Longest_N));
+   end;
+end Main;</syntaxhighlight>
+{{out}}
+<pre>Length of 27: 112
+First four: 27, 82, 41, 124
+Last four: 8, 4, 2, 1
+Longest length is 351
+with N = 77031</pre>

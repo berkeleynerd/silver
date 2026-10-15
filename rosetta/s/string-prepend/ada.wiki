@@ -1,0 +1,15 @@
+=={{header|Ada}}==
+
+In Ada, a variable of type String cannot change its length. So the variable S which we will change, need to be of the type Unbounded_String. Thus the need for conversions from String literal to Unbounded_String for initialization, and from Unbounded_String to String for printing. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+
+procedure Prepend_String is   
+   S: Unbounded_String := To_Unbounded_String("World!"); 
+begin
+   S := "Hello " & S;-- this is the operation to prepend "Hello " to S. 
+   Ada.Text_IO.Put_Line(To_String(S));
+end Prepend_String;</syntaxhighlight>
+
+{{out}}
+<pre>Hello World!</pre>

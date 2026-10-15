@@ -1,0 +1,49 @@
+=={{header|Ada}}==
+The Ada calendar package handles dates for years 1901 through 2399. This program outputs all the long years within that range.
+<syntaxhighlight lang="ada">-------------------------------------------------------------
+-- Calculate long years
+-- Reference: https://en.wikipedia.org/wiki/ISO_week_date#Weeks_per_year
+-------------------------------------------------------------
+with Ada.Text_IO;             use Ada.Text_IO;
+with Ada.Calendar;            use Ada.Calendar;
+with Ada.Calendar.Formatting; use Ada.Calendar.Formatting;
+
+procedure Main is
+   First_Day : Time;
+   Last_Day  : Time;
+   package AC renames Ada.Calendar;
+   type Counter is mod 10;
+   Count : Counter := 0;
+begin
+   for Yr in Year_Number loop
+
+      First_Day := AC.Time_Of (Year => Yr, Month => 1, Day => 1);
+      Last_Day  := AC.Time_Of (Year => Yr, Month => 12, Day => 31);
+      
+      -- If Jan 1 is Thursday or Dec 31 is Thursday then
+      -- the year is a long year
+      
+      if Day_Of_Week (First_Day) = Thursday
+        or else Day_Of_Week (Last_Day) = Thursday
+      then
+         if Count = 0 then
+            New_Line;
+         end if;
+         Put (Yr'Image);
+         Count := Count + 1;
+      end if;
+   end loop;
+end Main;
+</syntaxhighlight>
+{{output}}
+<pre>
+ 1903 1908 1914 1920 1925 1931 1936 1942 1948 1953
+ 1959 1964 1970 1976 1981 1987 1992 1998 2004 2009
+ 2015 2020 2026 2032 2037 2043 2048 2054 2060 2065
+ 2071 2076 2082 2088 2093 2099 2105 2111 2116 2122
+ 2128 2133 2139 2144 2150 2156 2161 2167 2172 2178
+ 2184 2189 2195 2201 2207 2212 2218 2224 2229 2235
+ 2240 2246 2252 2257 2263 2268 2274 2280 2285 2291
+ 2296 2303 2308 2314 2320 2325 2331 2336 2342 2348
+ 2353 2359 2364 2370 2376 2381 2387 2392 2398
+</pre>

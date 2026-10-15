@@ -1,0 +1,201 @@
+=={{header|FreeBASIC}}==
+{{trans|Ring}}
+{{libheader|big_integer}}
+<syntaxhighlight lang="vbnet">#include "big_int/big_integer.bi"
+
+Dim Shared As BigInt zero, one, two
+zero = 0: one = 1: two = 2
+
+Function isOddBigInt(Byref valor As BigInt) As Boolean
+    Return ((valor Mod two) = 1)
+End Function
+
+Function BitLenBigInt(Byref a As BigInt) As Integer
+    If a <= zero Then Return 0
+    
+    Dim As BigInt log2a = zero
+    Dim As BigInt tmp = a
+    Dim As Integer bits = 0
+    
+    While tmp > zero
+        tmp Shr= 1
+        bits += 1
+    Wend
+    
+    Return bits
+End Function
+
+' Exponentiation function (x^y mod m)
+Function ExpBigInt(Byref x As BigInt, Byref y As BigInt, Byref m As BigInt) As BigInt
+    Dim As BigInt result = 1
+    Dim As BigInt x_mod_m = x Mod m
+    Dim As BigInt y_copy = y
+    
+    If m = one Then Return zero
+    
+    While y_copy > zero
+        If isOddBigInt(y_copy) Then result = (result * x_mod_m) Mod m
+        y_copy Shr= 1
+        x_mod_m = (x_mod_m * x_mod_m) Mod m
+    Wend
+    
+    Return result
+End Function
+
+' Montgomery object type
+Type Montgomery
+    m As BigInt     ' Modulus; must be odd
+    n As Integer    ' m.bitLen()
+    r As BigInt     ' R = 2^n
+    rrm As BigInt   ' R^2 mod m
+End Type
+
+Function initMontgomery(Byref m As BigInt) As Montgomery
+    Dim As Montgomery result
+    
+    ' Check that m is positive and odd
+    Dim As Boolean isPositive = (m > zero)
+    Dim As Boolean isOdd = isOddBigInt(m)
+    
+    If (Not isPositive) Or (Not isOdd) Then
+        Print "Error: modulus must be positive and odd"
+        Sleep: End
+    End If
+    
+    result.m = m
+    result.n = BitLenBigInt(m)
+    
+    ' R = 2^n
+    Dim As BigInt r = one
+    For i As Integer = 1 To result.n
+        r *= two
+    Next
+    result.r = r
+    
+    Dim As BigInt shift_amount = one
+    For i As Integer = 1 To 2 * result.n
+        shift_amount *= two
+    Next
+    result.rrm = shift_amount Mod m
+    
+    Return result
+End Function
+
+Function Reduce(Byref mont As Montgomery, Byref t As BigInt) As BigInt
+    Dim As BigInt result = t
+    
+    For i As Integer = 0 To mont.n - 1
+        If (result Mod two) = one Then result += mont.m
+        
+        result Shr= 1
+    Next
+    
+    If result >= mont.m Then result -= mont.m
+    
+    Return result
+End Function
+
+Function BigIntToStr(Byref n As BigInt) As String
+    If n = 0 Then Return "0"
+    
+    Dim As String result
+    Dim As BigInt tmp = n
+    Dim As BigInt ten = 10
+    Dim As BigInt digit
+    
+    While tmp <> 0
+        digit = tmp Mod ten
+        result = Chr(Cint(digit) + Asc("0")) & result
+        tmp \= ten
+    Wend
+    
+    Return result
+End Function
+
+' Main program
+Sub main()
+    Const base2 = 2
+    
+    ' Create big integers
+    Dim As BigInt m, x1, x2
+    m = "750791094644726559640638407699"
+    x1 = "540019781128412936473322405310"
+    x2 = "515692107665463680305819378593"
+    
+    ' Initialize Montgomery object
+    Dim As Montgomery mont = initMontgomery(m)
+    
+    ' Calculate Montgomery representations
+    Dim As BigInt t1 = x1 * mont.rrm
+    Dim As BigInt t2 = x2 * mont.rrm
+    
+    ' Reduce
+    Dim As BigInt r1 = Reduce(mont, t1)
+    Dim As BigInt r2 = Reduce(mont, t2)
+    
+    ' Calculate r = 1 << n
+    Dim As BigInt r = 1
+    For i As Integer = 1 To mont.n
+        r *= two
+    Next
+    
+    ' Print results
+    Print "b : "; base2
+    Print "n : "; mont.n
+    Print "r :  "; BigIntToStr(r)
+    Print "m :  "; BigIntToStr(m)
+    Print "t1:  "; BigIntToStr(t1)
+    Print "t2:  "; BigIntToStr(t2)
+    Print "r1:  "; BigIntToStr(r1)
+    Print "r2:  "; BigIntToStr(r2)
+    
+    Print !"\nOriginal x1       : "; BigIntToStr(x1)
+    Print "Recovered from r1 : "; BigIntToStr(Reduce(mont, r1))
+    Print "Original x2       : "; BigIntToStr(x2)
+    Print "Recovered from r2 : "; BigIntToStr(Reduce(mont, r2))
+    
+    Print !"\nMontgomery computation of x1^x2 mod m:"
+    
+    ' Calculate x1^x2 mod m using Montgomery multiplication
+    Dim As BigInt prod = Reduce(mont, mont.rrm)
+    Dim As BigInt basenum = Reduce(mont, x1 * mont.rrm)
+    Dim As BigInt e = x2
+    
+    While e > zero
+        If isOddBigInt(e) Then prod = Reduce(mont, prod * basenum)
+        
+        e Shr= 1
+        basenum = Reduce(mont, basenum * basenum)
+    Wend
+    
+    Dim As BigInt finalResult = Reduce(mont, prod)
+    Print BigIntToStr(finalResult)
+    
+    Print !"\nAlternate computation of x1^x2 mod m:"
+    Dim As BigInt altResult = ExpBigInt(x1, x2, m)
+    Print BigIntToStr(altResult)   
+End Sub
+
+main()
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>b :  2
+n :  100
+r :  1267650600228229401496703205376
+m :  750791094644726559640638407699
+t1:  323165824550862327179367294465482435542970161392400401329100
+t2:  308607334419945011411837686695175944083084270671482464168730
+r1:  440160025148131680164261562101
+r2:  435362628198191204145287283255
+
+Original x1       : 540019781128412936473322405310
+Recovered from r1 : 540019781128412936473322405310
+Original x2       : 515692107665463680305819378593
+Recovered from r2 : 515692107665463680305819378593
+
+Montgomery computation of x1^x2 mod m:
+151232511393500655853002423778
+
+Alternate computation of x1^x2 mod m:
+151232511393500655853002423778</pre>

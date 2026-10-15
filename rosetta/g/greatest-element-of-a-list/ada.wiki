@@ -1,0 +1,45 @@
+=={{header|Ada}}==
+The keys for this task are initializing the compared value to the 'First value of the element type, and use of an unconstrained array type.
+<syntaxhighlight lang="ada">with Ada.Text_Io;
+
+procedure Max_Test isco
+   -- substitute any array type with a scalar element
+   type Flt_Array is array (Natural range <>) of Float;
+   
+   -- Create an exception for the case of an empty array
+   Empty_Array : Exception;
+   
+   function Max(Item : Flt_Array) return Float is
+      Max_Element : Float := Float'First;
+   begin
+      if Item'Length = 0 then 
+         raise Empty_Array;
+      end if;
+  
+      for I in Item'range loop
+         if Item(I) > Max_Element then
+            Max_Element := Item(I);
+         end if;
+      end loop;
+      return Max_Element;
+   end Max;
+    
+   Buf : Flt_Array := (-275.0, -111.19, 0.0, -1234568.0, 3.14159, -3.14159);
+begin
+   Ada.Text_IO.Put_Line(Float'Image(Max(Buf)));
+end Max_Test;</syntaxhighlight>
+A generic function Max to deal with any floating-point type.
+<syntaxhighlight lang="ada">generic
+   type Item is digits <>;
+   type Items_Array is array (Positive range <>) of Item;
+function Generic_Max (List : Items_Array) return Item;</syntaxhighlight>
+Implementation of:
+<syntaxhighlight lang="ada">function Generic_Max (List : Items_Array) return Item is
+   Result : Item := List (List'First);
+begin
+   for Index in List'First + 1..List'Last loop
+      Result := Item'Max (Result, List (Index));
+   end loop;
+   return Result;
+end Generic_Max;</syntaxhighlight>
+When the argument array is empty, Constraint_Error exception is propagated, because array indexing is checked in Ada. Note also use of the floating-type attribute Max.

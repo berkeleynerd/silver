@@ -1,0 +1,102 @@
+=={{header|Ada}}==
+===Simple Technique (Brute Force)===
+<syntaxhighlight lang="ada">with Ada.Text_IO, Base_Conversion;
+
+procedure Brute is
+
+   type Long is range 0 .. 2**63-1;
+   package BC is new Base_Conversion(Long);
+
+   function Palindrome (S : String) return Boolean is
+      (if S'Length < 2 then True
+      elsif S(S'First) /= S(S'Last) then False
+      else Palindrome(S(S'First+1 .. S'Last-1)));
+
+   function Palindrome(N: Long; Base: Natural) return Boolean is
+      (Palindrome(BC.Image(N, Base =>Base)));
+	
+  package IIO is new Ada.Text_IO.Integer_IO(Long);
+
+begin
+   for I in Long(1) .. 10**8 loop
+      if Palindrome(I, 3) and then Palindrome(I, 2) then
+	 IIO.Put(I, Width => 12); -- prints I (Base 10)
+	 Ada.Text_IO.Put_Line(": " & BC.Image(I, Base => 2) & "(2)" &
+			      ", " & BC.Image(I, Base => 3) & "(3)");
+	 -- prints I (Base 2 and Base 3)
+      end if;
+      end loop;
+end Brute;</syntaxhighlight>
+{{out}}
+<pre>           0: 0(2), 0(3)
+           1: 1(2), 1(3)
+        6643: 1100111110011(2), 100010001(3)
+     1422773: 101011011010110110101(2), 2200021200022(3)
+     5415589: 10100101010001010100101(2), 101012010210101(3)</pre>
+For larger numbers, this is a bit slow.
+
+===Advanced Technique===
+To speed this up, we directly generate palindromes to the base 3 and then check if these are also
+palindromes to the base 2. We use the fact that these palindromes (to the base 3) must have an odd number of digits (to the base 2 and 3) and that the number in the middle is a 1 (to the base 3).
+We use unsigned 64 bits integers that we consider as array of 64 bits thanks to a function Int_To_Bits (an instantiation of a generic conversion function) that goes from one type to the other immediately. We can now access the i'th bit of an Int in a very efficient way (since it is chosen by the compiler itself). This trick gives us a very efficient function to test if a number is a base-2 palindrome.
+
+The code is then very fast and also very much readable than if we had done the bit manipulations by hand.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Unchecked_Conversion;use Ada.Text_IO;
+procedure Palindromic is
+  type Int is mod 2**64; -- the size of the unsigned values we will test doesn't exceed 64 bits
+
+  type Bits is array (0..63) of Boolean;
+    for Bits'Component_Size use 1;
+
+  -- This function allows us to get the i'th bit of an Int k by writing Int_To_Bits(k)(i)
+  function Int_To_Bits is new Ada.Unchecked_Conversion(Int,Bits);
+
+  -- an inline function to test if k is palindromic in a very efficient way since we leave the loop
+  -- as soon as two bits are not symmetric). Number_Of_Digits is the number of digits (in base 2) of k minus 1
+  function Is_Pal2 (k : Int;Number_Of_Digits : Natural) return Boolean is
+  (for all i in 0..Number_Of_Digits=>Int_To_Bits(k)(i)=Int_To_Bits(k)(Number_Of_Digits-i));
+
+  function Reverse_Number (k : Int) return Int is --returns the symmetric representation of k (base-3)
+    n : Int := 0;
+    p : Int := k;
+  begin
+    while 0<p loop
+      n := n * 3 + p mod 3;
+      p := p / 3;
+    end loop;
+    return n;
+  end reverse_number;
+
+  procedure Print (n : Int) is
+    package BC is new Ada.Text_IO.Modular_IO (Int); use BC; -- allows us to express a variable of modular type in a given base
+  begin
+     Put (n, Base=>2, Width=>65); Put (n, Base=>3, Width=>45); put_line (" " & n'Img);
+  end Print;
+
+  p3, n, bound, count_pal: Int := 1;
+begin
+  Print (0); -- because 0 is the special case asked to be treated, that is why count_pal=1
+  Process_Each_Power_Of_4 : for p in 0..31 loop -- because 4^p < 2^64
+    -- adjust the 3-power of the number to test so that the palindrome built with it has an odd number of digits in base-2
+    while (3*p3+1)*p3 < 2**(2*p) loop p3 := 3*p3;end loop;
+    bound := 2**(2*p)/(3*p3);
+    for k in Int range Int'Max(p3/3, bound) .. Int'Min (2*bound,p3-1) loop
+      n := (3*k+1)*p3 + Reverse_Number (k); -- n is a 2p+1 digits number in base 2 and is a palindrome in base 3.
+      if Is_Pal2 (n, 2*p) then
+        Print (n);
+        count_pal := count_pal + 1;
+        exit Process_Each_Power_Of_4 when count_pal = 7;
+      end if;
+    end loop;
+  end loop Process_Each_Power_Of_4;
+end Palindromic;</syntaxhighlight>
+{{out}}
+On a modern machine, (core i5 for example), this code, compiled with the -O3 and -gnatp options, takes less than 5 seconds to give the seven first palindromes smaller than 2^64.
+<pre>                                                             2#0#                                         3#0#  0
+                                                             2#1#                                         3#1#  1
+                                                 2#1100111110011#                                 3#100010001#  6643
+                                         2#101011011010110110101#                             3#2200021200022#  1422773
+                                       2#10100101010001010100101#                           3#101012010210101#  5415589
+                         2#1010100001100000100010000011000010101#                   3#22122022220102222022122#  90396755477
+   2#10101001100110110110001110011011001110001101101100110010101#     3#2112200222001222121212221002220022112#  381920985378904469</pre>

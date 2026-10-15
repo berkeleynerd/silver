@@ -1,0 +1,121 @@
+=={{header|Ada}}==
+A set of tutorials to learn the Ada programming language are found at [https://learn.adacore.com/]. The learn.adacore.com site also contains a tutorial on the use of the GNAT toolchain downloaded with the GNAT compiler.
+
+The GNAT Community Edition Ada development tools can be downloaded from [https://www.adacore.com/download].
+The README.txt file contains the following information concerning installation of the GNAT tools:
+<pre>
+GNAT Community                                                                  
+--------------                                                                  
+                                                                                
+This contains the GNAT Community edition.                                       
+                                                                                
+The packages for the native platforms contain:                                  
+                                                                                
+  - the GNAT compiler toolchain                                                 
+  - the SPARK Ada verification and prover toolset                               
+  - the Libadalang library                                                      
+  - the GNAT Studio IDE                                                         
+                                                                                
+The packages for the embedded platforms (ARM and RISC-V) only contain the       
+GNAT compiler toolchain for that target, so we recommend installing the         
+native package as well.                                                         
+                                                                                
+Installing                                                                      
+----------                                                                      
+                                                                                
+On Windows:                                                                     
+                                                                                
+  Simply run the .exe and follow the instructions.                              
+                                                                                
+On Linux:                                                                       
+                                                                                
+  You will need to make the package executable before running it. In a command  
+  prompt, execute                                                               
+                                                                                
+     chmod +x path_to_the_package-bin                                           
+                                                                                
+  then execute the package.                                                     
+                                                                                
+Automated installation                                                          
+----------------------                                                          
+                                                                                
+To automate the installation, use the scripts provided here:                    
+                                                                                
+  https://github.com/AdaCore/gnat_community_install_script                      
+                                                                                
+Using                                                                           
+-----                                                                           
+                                                                                                                                            1,14          
+To start using the tools in command-line mode, you will need to add             
+                                                                                
+   <install_prefix>/bin                                                         
+                                                                                
+to your PATH environment variable. Alternatively, you can simply launch         
+                                                                                
+   <install_prefix>/bin/gnatstudio                                              
+                                                                                
+and GNAT Studio will automatically add itself to the PATH - it will also        
+find the cross compiler, if you have installed everything in the default        
+locations. Note that GNAT Studio will add this at the *end* of the PATH,        
+meaning that it will find first any other GNAT installations that you           
+have in your PATH.                                                              
+                                                                                
+Platform-specific notes                                                         
+-----------------------                                                         
+                                                                                
+== OpenSUSE: use the system ld ==                                               
+                                                                                
+On OpenSUSE, the ld shipped with GNAT Community is not compatible               
+with the system libraries: use the system-provided ld instead, by               
+removing the file                                                               
+                                                                                
+   libexec/gcc/x86_64-pc-linux-gnu/8.3.1/ld                                     
+                                                                                
+from your installation.                                                         
+                                                                                
+== Fedora ==                                                                    
+                                                                                
+If developer packages are not yet installed, you might need to                  
+install extra packages, by executing the following in a terminal:               
+                                                                                
+  sudo dnf install make                                                         
+  sudo dnf install ncurses-compat-libs                                          
+                                                                                
+== Flashing to boards on Linux ==   
+
+To flash boards (such as the BBC micro:bit board) using the pyocd integration   
+in GNAT Studio under Linux, you might need privileges to access the USB ports,  
+without which the flash program will say "No connected boards".                 
+                                                                                
+To do this on Ubuntu, you can do it by creating (as administrator) the file     
+/etc/udev/rules.d/mbed.rules and add the line:                                  
+                                                                                
+   SUBSYSTEM=="usb",MODE:="666"                                                 
+                                                                                
+then restarting the service by doing                                            
+                                                                                
+   sudo udevadm control --reload                                                
+   sudo udevadm trigger 
+</pre>
+An Ada program can be stored anywhere your file system permits, but it is useful to use the GNAT Studio IDE which is part of the installation. This IDE interacts seamlessly with the compiler, providing necessary error messages as well as automated support for compiling programs employing multiple Ada packages.
+
+Upon starting GNAT Studio you will be presented with a window allowing you to automate the creation of a new Ada project.
+Choose the "+ Create New Project" option. 
+
+A new window will be presented asking for the directory in which the project will be created and the name of the project. Fill in those fields in the window. GNAT Studio will then create the directories "src" and "obj" within the directory you specified. There will also be a file named using the project name you specified. This filename will end with ".gpr". This is the GNAT Project file which keeps track of your file dependencies and facilitates automatic compilation of your program without needing a makefile.
+
+The IDE window will open. Within the list of files in the SRC directory you will find one file already created named "main.adb". This file will already be tagged as a compilation main file. The contents of the initial main.adb file will be:
+
+<syntaxhighlight lang="ada">procedure Main is
+
+begin
+   --  Insert code here.
+   null;
+end Main;</syntaxhighlight>
+
+Simply edit this file for simple programs or add additional files if you are creating your own Ada packages. This file can be edited to create the Ada hello-world program:
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+procedure Main is
+begin
+   Put_Line("Hello World!");
+end Main;</syntaxhighlight>

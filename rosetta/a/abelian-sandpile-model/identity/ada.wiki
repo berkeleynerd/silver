@@ -1,0 +1,219 @@
+=={{header|Ada}}==
+{{trans|C++}}
+This Ada example works with Ada 2012 because of the use the aspect '''with Default_Component_Value'''.
+
+The package specification for Abelian_Sandpile is:
+<syntaxhighlight lang="ada">-- Works with Ada 2012
+
+package Abelian_Sandpile is
+   Limit : constant Integer := 4;
+
+   type Sandpile is array (0 .. 2, 0 .. 2) of Natural with
+      Default_Component_Value => 0;
+
+   procedure Stabalize (Pile : in out Sandpile);
+   function Is_Stable (Pile : in Sandpile) return Boolean;
+   procedure Topple (Pile : in out Sandpile);
+   function "+" (Left, Right : Sandpile) return Sandpile;
+   procedure Print(PIle : in Sandpile);
+
+end Abelian_Sandpile;
+</syntaxhighlight>
+The package body for Abelian_Sandpile is
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_IO;
+
+package body Abelian_Sandpile is
+
+   ---------------
+   -- Stabalize --
+   ---------------
+
+   procedure Stabalize (Pile : in out Sandpile) is
+   begin
+      while not Is_Stable(Pile) loop
+         Topple(Pile);
+      end loop;
+   end Stabalize;
+
+   ---------------
+   -- Is_Stable --
+   ---------------
+
+   function Is_Stable (Pile : in Sandpile) return Boolean is
+   begin
+     return (for all E of Pile => E < Limit);
+   end Is_Stable;
+
+   ------------
+   -- Topple --
+   ------------
+
+   procedure Topple (Pile : in out Sandpile) is
+   begin
+      outer:
+      for Row in Pile'Range(1) loop
+         for Col in Pile'Range(2) loop
+            if Pile(Row, Col) >= Limit then
+               Pile(Row, Col) := Pile(Row, Col) - Limit;
+               if Row > 0 then
+                  Pile(Row - 1, Col) := Pile(Row -1, Col) + 1;
+               end if;
+               if Row < Pile'Last(1) then
+                  Pile(Row + 1, Col) := Pile(Row + 1, Col) + 1;
+               end if;
+               if Col > 0 then
+                  Pile(Row, Col - 1) := Pile(Row, Col - 1) + 1;
+               end if;
+               if Col < Pile'Last(2) then
+                  Pile(Row, Col + 1) := Pile(Row, Col + 1) + 1;
+               end if;
+
+               exit outer;
+            end if;
+         end loop;
+      end loop outer;
+   end Topple;
+
+   ---------
+   -- "+" --
+   ---------
+
+   function "+" (Left, Right : Sandpile) return Sandpile is
+      Result : Sandpile;
+   begin
+      for I in Sandpile'Range(1) loop
+         for J in Sandpile'Range(2) loop
+            Result(I, J) := Left(I, J) + Right(I, J);
+         end loop;
+      end loop;
+      Stabalize(Result);
+      return Result;
+   end "+";
+
+   -----------
+   -- Print --
+   -----------
+
+   procedure Print(Pile : in Sandpile) is
+   begin
+      for row in Pile'Range(1) loop
+         for col in Pile'Range(2) loop
+            Put(Integer'Image(Pile(row, col)));
+         end loop;
+         New_Line;
+      end loop;
+      New_Line;
+   end Print;
+end Abelian_Sandpile;
+</syntaxhighlight>
+The main procedure performing the same tests as the C++ example is
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;      use Ada.Text_IO;
+with Abelian_Sandpile; use Abelian_Sandpile;
+
+procedure Main is
+   sp    : Sandpile := ((4, 3, 3), (3, 1, 2), (0, 2, 3));
+   s1    : Sandpile := ((1, 2, 0), (2, 1, 1), (0, 1, 3));
+   s2    : Sandpile := ((2, 1, 3), (1, 0, 1), (0, 1, 0));
+   s3    : Sandpile := ((3, 3, 3), (3, 3, 3), (3, 3, 3));
+   s3_id : Sandpile := ((2, 1, 2), (1, 0, 1), (2, 1, 2));
+   sum1  : Sandpile := s1 + s2;
+   sum2  : Sandpile := s2 + s1;
+   sum3  : Sandpile := s3 + s3_id;
+   sum4  : Sandpile := s3_id + s3_id;
+
+begin
+   Put_Line ("Avalanche:");
+   while not Is_Stable (sp) loop
+      Print (sp);
+      Put_Line ("stable? " & Boolean'Image (Is_Stable (sp)));
+      New_Line;
+      Topple (sp);
+   end loop;
+   Print (sp);
+   Put_Line ("stable? " & Boolean'Image (Is_Stable (sp)));
+   New_Line;
+
+   Put_Line ("Commutivity:");
+   Put_Line ("s1 + s2 equals s2 + s2? " & Boolean'Image (sum1 = sum2));
+   New_Line;
+   Put_Line ("S1 : s2 =");
+   Print (sum1);
+   New_Line;
+   Put_Line ("s2 + s1 =");
+   Print (sum2);
+   New_Line;
+   
+   Put_Line ("Identity:");
+   Put_Line ("s3 + s3_id equals s3? " & Boolean'Image (sum3 = s3));
+   Put_Line ("s3_id + s3_id equals s3_id? " & Boolean'Image (sum4 = s3_id));
+   New_Line;
+   Put_Line ("s3 + s3_id =");
+   Print (sum3);
+   Put_Line ("s3_id + s3_id =");
+   Print (sum4);
+
+end Main;
+</syntaxhighlight>
+{{out}}
+<pre>
+Avalanche:
+ 4 3 3
+ 3 1 2
+ 0 2 3
+
+stable? FALSE
+
+ 0 4 3
+ 4 1 2
+ 0 2 3
+
+stable? FALSE
+
+ 1 0 4
+ 4 2 2
+ 0 2 3
+
+stable? FALSE
+
+ 1 1 0
+ 4 2 3
+ 0 2 3
+
+stable? FALSE
+
+ 2 1 0
+ 0 3 3
+ 1 2 3
+
+stable? TRUE
+
+Commutivity:
+s1 + s2 equals s2 + s2? TRUE
+
+S1 : s2 =
+ 3 3 3
+ 3 1 2
+ 0 2 3
+
+
+s2 + s1 =
+ 3 3 3
+ 3 1 2
+ 0 2 3
+
+
+Identity:
+s3 + s3_id equals s3? TRUE
+s3_id + s3_id equals s3_id? TRUE
+
+s3 + s3_id =
+ 3 3 3
+ 3 3 3
+ 3 3 3
+
+s3_id + s3_id =
+ 2 1 2
+ 1 0 1
+ 2 1 2
+</pre>

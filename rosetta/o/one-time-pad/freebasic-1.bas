@@ -1,0 +1,397 @@
+#include "vbcompat.bi"
+
+Const CHARS_PER_LINE = 48
+Const CHUNK_SIZE = 6
+Const COLS = 8
+Const DEMO = True    ' It would normally be set to False
+
+Enum FileType
+    OTP = 0
+    ENC
+    DEC
+End Enum
+
+Type FileContent
+    text As String
+    lines As Integer
+    firstUnused As Integer
+End Type
+
+'Helper functions
+Function toAlpha(s As String) As String
+    Static As String result, c
+    
+    result = ""
+    For i As Integer = 1 To Len(s)
+        c = Mid(s, i, 1)
+        If c >= "A" Andalso c <= "Z" Then result &= c
+    Next
+    Return result
+End Function
+
+Function isOtpRelated(filename As String) As Integer
+    Return (Right(filename, 4) = ".1tp" Orelse _
+    Right(filename, 8) = ".1tp_cpy" Orelse _
+    Right(filename, 8) = ".1tp_enc" Orelse _
+    Right(filename, 8) = ".1tp_dec")
+End Function
+
+Function inChunks(s As String, nLines As Integer, ft As FileType) As String
+    Static As String result, chunks(COLS-1), lineStr
+    Static As Integer startPos
+    
+    result = ""
+    'Add header based on file type
+    Select Case ft
+        Case FileType.OTP: result = "# OTP file" & Chr(10)
+        Case FileType.ENC: result = "# Encrypted file" & Chr(10)
+        Case FileType.DEC: result = "# Decrypted file" & Chr(10)
+    End Select
+    
+    'Split into chunks
+    For linea As Integer = 0 To nLines-1
+        lineStr = " "
+        For col As Integer = 0 To COLS-1
+            startPos = (linea * CHARS_PER_LINE) + (col * CHUNK_SIZE)
+            chunks(col) = Mid(s, startPos + 1, CHUNK_SIZE)
+            lineStr &= chunks(col) & " "
+        Next
+        result &= Rtrim(lineStr) & Chr(10)
+    Next
+    
+    Return result
+End Function
+
+Function makePad(nLines As Integer) As String
+    Static As String pad
+    Static As Integer nChars
+    
+    pad = ""
+    nChars = nLines * CHARS_PER_LINE
+    
+    For i As Integer = 1 To nChars
+        pad &= Chr(65 + Int(Rnd * 26))
+    Next
+    
+    Return inChunks(pad, nLines, FileType.OTP)
+End Function
+
+Function vigenere(text As String, key As String, encrypt As Integer) As String
+    Static As String result
+    Static As Integer c, k, i, nChars, padding
+    
+    result = ""
+    i = 0
+    'Calculate full length needed for OTP
+    nChars = ((Len(text) + CHARS_PER_LINE - 1) \ CHARS_PER_LINE) * CHARS_PER_LINE
+    
+    For posic As Integer = 1 To nChars
+        If posic <= Len(text) Then
+            c = Asc(Mid(text, posic, 1)) - 65
+            k = Asc(Mid(key, (i Mod Len(key)) + 1, 1)) - 65
+            
+            If encrypt <> 0 Then
+                result &= Chr(((c + k) Mod 26) + 65)
+            Else
+                result &= Chr(((c - k + 26) Mod 26) + 65)
+            End If
+        Else
+            'Pad remaining space with random letters
+            result &= Chr(65 + Int(Rnd * 26))
+        End If
+        i += 1
+    Next
+    
+    Return inChunks(result, (nChars \ CHARS_PER_LINE), Iif(encrypt, FileType.ENC, FileType.DEC))
+End Function
+
+Function ReadFileContent(filename As String) As FileContent
+    Static As FileContent content
+    Static As String lineText
+    
+    content.text = ""
+    content.lines = 0
+    content.firstUnused = 0
+    
+    Open filename For Input As #1
+    Do Until Eof(1)
+        Line Input #1, lineText
+        If content.firstUnused = 0 Andalso Left(lineText, 1) = " " Then 
+            content.firstUnused = content.lines
+        End If
+        If lineText > "" Then content.text &= lineText & Chr(10)
+        content.lines += 1
+    Loop
+    Close #1
+    
+    Return content
+End Function
+
+Sub WriteProcessedFile(filename As String, content As String, firstUnused As Integer, nLines As Integer)
+    Static As Integer lineStart, lineEnd, currentLine
+    Static As String lineText
+    
+    lineStart = 1
+    currentLine = 0
+    
+    Open filename For Output As #1
+    Do 
+        lineEnd = Instr(lineStart, content, Chr(10))
+        If lineEnd = 0 Then Exit Do
+        
+        lineText = Mid(content, lineStart, lineEnd - lineStart)
+        If currentLine >= firstUnused Andalso currentLine < (firstUnused + nLines) Then
+            Print #1, "-" & Mid(lineText, 2)
+        Else
+            Print #1, lineText
+        End If
+        
+        lineStart = lineEnd + 1
+        currentLine += 1
+    Loop
+    Close #1
+End Sub
+
+Sub HandleCreateOTP()
+    Static As String fname, pad, fname2
+    Static As Integer nLines
+    
+    Color 10: Print !"\nNote that encrypted lines always contain"; CHARS_PER_LINE; " characters."
+    Color 7 : Print !"\nOTP file name to create (without extension) : ";
+    Input "", fname
+    fname &= ".1tp"
+    
+    Do
+        Input "Number of lines in OTP (max 1000) : ", nLines
+    Loop Until nLines > 0 Andalso nLines <= 1000
+    
+    pad = makePad(nLines)
+    Open fname For Output As #1
+    Print #1, pad;
+    Close #1
+    
+    Color 10: Print !"\n'" & fname & "' has been created.": Color 7
+    
+    If DEMO Then
+        fname2 = fname & "_cpy"
+        Open fname2 For Output As #1
+        Print #1, pad;
+        Close #1
+        
+        Color 10: Print "'" & fname2 & "' has been created."
+        Color 7:  Print !"\nThe contents of these files are :\n"
+        Print pad
+    End If
+End Sub
+
+Sub HandleDeleteOTP()
+    Static As String fname, toDelete(3)
+    Static As Integer i, deleted
+    
+    Color 12: Print !"\nNote that this will also delete ALL associated files.\n"
+    Color 7:  Input "OTP file name to delete (without extension) : ", fname
+    
+    toDelete(0) = fname & ".1tp"
+    toDelete(1) = fname & ".1tp_cpy"
+    toDelete(2) = fname & ".1tp_enc"
+    toDelete(3) = fname & ".1tp_dec"
+    
+    deleted = 0
+    Print
+    For i = 0 To 3
+        If Fileexists(toDelete(i)) Then
+            Kill toDelete(i)
+            deleted += 1
+            Color 12: Print "'" & toDelete(i) & "' has been deleted."
+        End If
+    Next
+    
+    Print
+    If deleted = 0 Then Color 12: Print !"No files to delete.\n"
+    Color 7
+End Sub
+
+Sub HandleListOTP()
+    Static As String filename
+    
+    Print !"\nThe OTP (and related) files are:\n"
+    
+    filename = Dir("*.1tp*")
+    Do While Len(filename) > 0
+        If isOtpRelated(filename) Then Print filename
+        filename = Dir()
+    Loop
+End Sub
+
+Sub HandleEncrypt()
+    Static As String fname, text, key, encrypted, encFile, lineText
+    Static As Integer nLines, currentLine
+    Static As FileContent content
+    
+    Print !"\nOTP file name to use (without extension) : ";
+    Input "", fname
+    fname &= ".1tp"
+    
+    If Fileexists(fname) Then
+        content = ReadFileContent(fname)
+        
+        If content.firstUnused = 0 Then
+            Print !"\nThat file has no unused lines."
+            Exit Sub
+        End If
+        
+        Print !"Text to encrypt :-\n"
+        Line Input "", text   ' o simplemente: Line Input text
+        text = Ucase(text)
+        text = toAlpha(text)
+        
+        nLines = (Len(text) + CHARS_PER_LINE - 1) \ CHARS_PER_LINE
+        
+        If (content.lines - content.firstUnused) >= nLines Then
+            'Extract key from unused lines - improved version
+            key = ""
+            Open fname For Input As #1
+            currentLine = 0
+            
+            Do Until Eof(1)
+                Line Input #1, lineText
+                If currentLine >= content.firstUnused Andalso currentLine < (content.firstUnused + nLines) Then
+                    key &= toAlpha(lineText)
+                End If
+                currentLine += 1
+            Loop
+            Close #1
+            
+            encrypted = vigenere(text, key, -1)
+            encFile = fname & "_enc"
+            
+            Open encFile For Output As #1
+            Print #1, encrypted;
+            Close #1
+            
+            Color 10: Print !"\n'" & encFile & "' has been created.": Color 7
+            
+            WriteProcessedFile(fname, content.text, content.firstUnused, nLines)
+            
+            If DEMO Then
+                Print !"\nThe contents of the encrypted file are:\n"
+                Color 13: Print encrypted: Color 7
+            End If
+        Else
+            Print "Not enough lines left in that file to do encryption"
+        End If
+    Else
+        Color 12: Print !"\nThat file does not exist.\n": Color 7
+    End If
+End Sub
+
+Sub HandleDecrypt()
+    Static As String fname, encFile, encrypted, dummy, key, decrypted, decFile
+    Static As Integer nLines, currentLine, lineStart, lineEnd
+    Static As FileContent content
+    Dim As String encLine
+    
+    Print !"\nOTP file name to use (without extension) : ";
+    Input "", fname
+    fname &= ".1tp_cpy"
+    
+    If Fileexists(fname) Then
+        content = ReadFileContent(fname)
+        
+        If content.firstUnused = 0 Then
+            Print !"\nThat file has no unused lines."
+            Exit Sub
+        End If
+        
+        encFile = Left(fname, Len(fname)-4) & "_enc"
+        
+        If Fileexists(encFile) Then
+            'Read encrypted file
+            encrypted = ""
+            Open encFile For Input As #1
+            Line Input #1, dummy 'Skip header
+            Do Until Eof(1)
+                Line Input #1, encLine
+                encrypted &= toAlpha(encLine)
+            Loop
+            Close #1
+            
+            nLines = (Len(encrypted) + CHARS_PER_LINE - 1) \ CHARS_PER_LINE
+            
+            If (content.lines - content.firstUnused) >= nLines Then
+                'Extract key and process decryption
+                key = ""
+                currentLine = 0
+                lineStart = 1
+                
+                Do
+                    lineEnd = Instr(lineStart, content.text, Chr(10))
+                    If lineEnd = 0 Then Exit Do
+                    
+                    If currentLine >= content.firstUnused Andalso currentLine < (content.firstUnused + nLines) Then
+                        key &= toAlpha(Mid(content.text, lineStart, lineEnd - lineStart))
+                    End If
+                    
+                    lineStart = lineEnd + 1
+                    currentLine += 1
+                Loop
+                
+                decrypted = vigenere(encrypted, key, 0)
+                decFile = Left(fname, Len(fname)-4) & "_dec"
+                
+                Open decFile For Output As #1
+                Print #1, decrypted;
+                Close #1
+                
+                Color 10: Print !"\n'" & decFile & "' has been created.": Color 7
+                
+                WriteProcessedFile(fname, content.text, content.firstUnused, nLines)
+                
+                If DEMO Then
+                    Print !"\nThe contents of the decrypted file are :\n"
+                    Print decrypted
+                End If
+            Else
+                Print "Not enough lines left in that file to do decryption"
+            End If
+        Else
+            Print !"\n'" & encFile & "' is missing."
+        End If
+    Else
+        Color 12: Print !"\nThat file does not exist.": Color 7
+    End If
+End Sub
+
+Function showMenu() As Integer
+    Static As Integer choice
+    
+    Color 14
+    Print "1. Create one time pad file."
+    Print "2. Delete one time pad file."
+    Print "3. List one time pad files."
+    Print "4. Encrypt plain text."
+    Print "5. Decrypt cipher text."
+    Print !"6. Quit program.\n"
+    
+    Do
+        Input "Your choice (1 to 6) : ", choice
+    Loop Until choice >= 1 Andalso choice <= 6
+    Color 7
+    
+    Return choice
+End Function
+
+'Main program
+Randomize Timer
+Do
+    Select Case showMenu()
+        Case 1: HandleCreateOTP()
+        Case 2: HandleDeleteOTP()
+        Case 3: HandleListOTP()
+        Case 4: HandleEncrypt()
+        Case 5: HandleDecrypt()
+        Case 6: Exit Do
+    End Select
+Loop
+
+Sleep

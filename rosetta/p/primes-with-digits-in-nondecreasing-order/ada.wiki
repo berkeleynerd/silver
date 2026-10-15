@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+{{libheader|Simple components for Ada}}
+<syntaxhighlight lang="Ada">
+with Ada.Text_IO;                 use Ada.Text_IO;
+with Unbounded_Unsigneds;         use Unbounded_Unsigneds;
+with Unbounded_Unsigneds.Primes;  use Unbounded_Unsigneds.Primes;
+
+procedure Primes_with_Nondecreasing_Digits is
+
+   procedure Check (P : Half_Word) is
+   begin
+      if Is_Prime (P) = Prime then
+         declare
+            Value   : Half_Word := P / 10;
+            Last    : Half_Word := P mod 10;
+            Current : Half_Word;
+         begin
+            while Value > 0 loop
+               Current := Value mod 10;
+               if Current > Last then
+                  return;
+               end if;
+               Last  := Current;
+               Value := Value / 10;
+            end loop;
+            Put (Half_Word'Image (P));
+         end;
+      end if;
+   end Check;
+begin
+   Put ("2 3");
+   for I in Half_Word range 1..167 loop
+      Check (I * 6 - 1);
+      Check (I * 6 + 1);
+   end loop;
+end Primes_with_Nondecreasing_Digits;</syntaxhighlight>
+{{out}}
+<pre>
+2 3 5 7 11 13 17 19 23 29 37 47 59 67 79 89 113 127 137 139 149 157 167 179 199 223 227 229 233 239 257 269 277 337 347 349 359 367 379 389 449 457 467 479 499 557 569 577 599 677
+</pre>

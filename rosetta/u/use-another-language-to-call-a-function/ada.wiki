@@ -1,0 +1,34 @@
+=={{header|Ada}}==
+The interface package Exported specification:
+<syntaxhighlight lang="ada">with Interfaces.C;          use Interfaces.C;
+with Interfaces.C.Strings;  use Interfaces.C.Strings;
+
+package Exported is
+   function Query (Data : chars_ptr; Size : access size_t)
+      return int;
+   pragma Export (C, Query, "Query");
+end Exported;</syntaxhighlight>
+The package implementation:
+<syntaxhighlight lang="ada">package body Exported is
+   function Query (Data : chars_ptr; Size : access size_t)
+      return int is
+      Result : char_array := "Here am I";
+   begin
+      if Size.all < Result'Length then
+         return 0;
+      else
+         Update (Data, 0, Result);
+         Size.all := Result'Length;
+         return 1;
+      end if;
+   end Query;
+end Exported;</syntaxhighlight>
+With [[GNAT]] it can be built as follows:
+<syntaxhighlight lang="ada">gcc -c main.c
+gnatmake -c exported.adb
+gnatbind -n exported.ali
+gnatlink exported.ali main.o -o main</syntaxhighlight>
+Sample output:
+<pre>
+Here am I
+</pre>

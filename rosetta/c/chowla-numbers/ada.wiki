@@ -1,0 +1,123 @@
+=={{header|Ada}}==
+{{trans|C}}
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Chowla_Numbers is
+
+   function Chowla (N : Positive) return Natural is
+      Sum : Natural  := 0;
+      I   : Positive := 2;
+      J   : Positive;
+   begin
+      while I * I <= N loop
+         if N mod I = 0 then
+            J   := N / I;
+            Sum := Sum + I + (if I = J then 0 else J);
+            end if;
+            I := I + 1;
+      end loop;
+      return Sum;
+   end Chowla;
+
+   procedure Put_37_First is
+      use Ada.Text_IO;
+   begin
+      for A in Positive range 1 .. 37 loop
+         Put_Line ("chowla(" & A'Image & ") = " & Chowla (A)'Image);
+      end loop;
+   end Put_37_First;
+
+   procedure Put_Prime is
+      use Ada.Text_IO;
+      Count : Natural  := 0;
+      Power : Positive := 100;
+   begin
+      for N in Positive range 2 .. 10_000_000 loop
+         if Chowla (N) = 0 then
+            Count := Count + 1;
+         end if;
+         if N mod Power = 0 then
+            Put_Line ("There are " & Count'Image & " primes < " & Power'Image);
+            Power := Power * 10;
+         end if;
+      end loop;
+   end Put_Prime;
+
+   procedure Put_Perfect is
+      use Ada.Text_IO;
+      Count : Natural  := 0;
+      Limit : constant := 350_000_000;
+      K     : Natural := 2;
+      Kk    : Natural := 3;
+      P     : Natural;
+   begin
+      loop
+         P := K * Kk;
+         exit when P > Limit;
+
+         if Chowla (P) = P - 1 then
+            Put_Line (P'Image & " is a perfect number");
+            Count := Count + 1;
+         end if;
+         K  := Kk + 1;
+         Kk := Kk + K;
+      end loop;
+      Put_Line ("There are " & Count'Image & " perfect numbers < " & Limit'Image);
+   end Put_Perfect;
+
+begin
+   Put_37_First;
+   Put_Prime;
+   Put_Perfect;
+end Chowla_Numbers;</syntaxhighlight>
+
+{{out}}
+<pre>chowla( 1) =  0
+chowla( 2) =  0
+chowla( 3) =  0
+chowla( 4) =  2
+chowla( 5) =  0
+chowla( 6) =  5
+chowla( 7) =  0
+chowla( 8) =  6
+chowla( 9) =  3
+chowla( 10) =  7
+chowla( 11) =  0
+chowla( 12) =  15
+chowla( 13) =  0
+chowla( 14) =  9
+chowla( 15) =  8
+chowla( 16) =  14
+chowla( 17) =  0
+chowla( 18) =  20
+chowla( 19) =  0
+chowla( 20) =  21
+chowla( 21) =  10
+chowla( 22) =  13
+chowla( 23) =  0
+chowla( 24) =  35
+chowla( 25) =  5
+chowla( 26) =  15
+chowla( 27) =  12
+chowla( 28) =  27
+chowla( 29) =  0
+chowla( 30) =  41
+chowla( 31) =  0
+chowla( 32) =  30
+chowla( 33) =  14
+chowla( 34) =  19
+chowla( 35) =  12
+chowla( 36) =  54
+chowla( 37) =  0
+There is  25 primes <  100
+There is  168 primes <  1000
+There is  1229 primes <  10000
+There is  9592 primes <  100000
+There is  78498 primes <  1000000
+There is  664579 primes <  10000000
+ 6 is a perfect number
+ 28 is a perfect number
+ 496 is a perfect number
+ 8128 is a perfect number
+ 33550336 is a perfect number
+There are  5 perfect numbers <  350000000</pre>

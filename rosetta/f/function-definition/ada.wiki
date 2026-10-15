@@ -1,0 +1,33 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">function Multiply (A, B : Float) return Float;</syntaxhighlight>
+and an implementation of:
+<syntaxhighlight lang="ada">function Multiply (A, B : Float) return Float is
+begin
+   return A * B;
+end Multiply;</syntaxhighlight>
+
+
+The Ada 2012 standard provides an even simpler way to define and implement functions:
+
+<syntaxhighlight lang="ada">function Multiply(A, B: Float) return Float is (A * B);</syntaxhighlight>
+
+
+Ada supports generic functions which can take generic formal parameters like the numeric type to use:
+<syntaxhighlight lang="ada">generic
+   type Number is digits <>;
+function Multiply (A, B : Number) return Number;</syntaxhighlight>
+implemented as:
+<syntaxhighlight lang="ada">function Multiply (A, B : Number) return Number is
+begin
+   return A * B;
+end Multiply;</syntaxhighlight>
+To use this, you need to instantiate the function for each type e.g.
+<syntaxhighlight lang="ada">
+with Multiply;
+...
+function Multiply_Integer is new Multiply(Number => Integer);
+use Multiply_Integer; -- If you must
+
+type My_Integer is Range -100..100;
+function Multiply_My_Integer is new Multiply(My_Integer);
+</syntaxhighlight>

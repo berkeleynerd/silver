@@ -1,0 +1,92 @@
+=={{header|Ada}}==
+{{works with|GNAT|GPL 2006}}
+
+The interface for the counting semaphore is defined in an Ada package specification:
+<syntaxhighlight lang="ada">package Semaphores is
+   protected type Counting_Semaphore(Max : Positive) is
+      entry Acquire;
+      procedure Release;
+      function Count return Natural;
+   private
+      Lock_Count : Natural := 0;
+   end Counting_Semaphore;
+end Semaphores;</syntaxhighlight>
+The ''Acquire'' entry has a condition associated with it. A task can only execute the ''Acquire'' entry when ''Lock_Count'' is less than ''Max''. This is the key to making this structure behave as a counting semaphore. This condition, and all the other aspects of ''Counting_Semaphore'' are contained in the package body.
+<syntaxhighlight lang="ada">package body Semaphores is
+
+   ------------------------
+   -- Counting_Semaphore --
+   ------------------------ 
+
+   protected body Counting_Semaphore is
+
+      -------------
+      -- Acquire --
+      -------------
+
+      entry Acquire when Lock_Count < Max is
+      begin
+         Lock_Count := Lock_Count + 1;
+      end Acquire;
+
+      -----------
+      -- Count --
+      -----------
+
+      function Count return Natural is
+      begin
+         return Lock_Count;
+      end Count;
+
+      -------------
+      -- Release --
+      -------------
+
+      procedure Release is
+      begin
+         if Lock_Count > 0 then
+            Lock_Count := Lock_Count - 1;
+         end if;
+      end Release;
+
+   end Counting_Semaphore;
+
+end Semaphores;</syntaxhighlight>
+We now need a set of tasks to properly call an instance of ''Counting_Semaphore''.
+<syntaxhighlight lang="ada">with Semaphores;
+with Ada.Text_Io; use Ada.Text_Io;
+
+procedure Semaphores_Main is
+   -- Create an instance of a Counting_Semaphore with Max set to 3
+   Lock : Semaphores.Counting_Semaphore(3);
+
+   -- Define a task type to interact with the Lock object declared above
+   task type Worker is
+      entry Start (Sleep : in Duration; Id : in Positive);
+   end Worker;
+
+   task body Worker is
+      Sleep_Time : Duration;
+      My_Id : Positive;
+   begin
+      accept Start(Sleep : in Duration; Id : in Positive) do
+         My_Id := Id;
+         Sleep_Time := Sleep;
+      end Start;
+      --Acquire the lock. The task will suspend until the Acquire call completes
+      Lock.Acquire;
+      Put_Line("Task #" & Positive'Image(My_Id) & " acquired the lock.");
+      -- Suspend the task for Sleep_Time seconds
+      delay Sleep_Time;
+      -- Release the lock. Release is unconditional and happens without suspension
+      Lock.Release;
+   end Worker;
+
+   -- Create an array of 5 Workers
+   type Staff is array(Positive range 1..5) of Worker;
+   Crew : Staff;
+begin
+   for I in Crew'range loop
+      Crew(I).Start(2.0, I);
+   end loop;
+end Semaphores_Main;</syntaxhighlight>

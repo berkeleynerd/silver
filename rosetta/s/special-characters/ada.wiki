@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+Ada uses the following characters:
+The alphabet A-Z
+The digits 0-9
+The following characters "#&'()*+,-./:;<=>_|
+The space character
+The following compound characters => .. ** := /= >= <= << >> <>
+
+Identifiers consist of a letter followed by any number of letters or Numbers, which may be separated by a single underscore.
+
+There is no escape sequences in character literals. Any character supported by the source encoding is allowed. The only escape sequence of string literals is "" (doubled double quotation marks) which denotes ". When characters need to be specified by their code positions (in Unicode), this is made using the 'Val attribute:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Test is
+begin
+   Put ("Quote """ & ''' & """" & Character'Val (10));
+end Test;</syntaxhighlight>
+{{out}}
+<pre>
+Quote "'"
+
+</pre>
+Note that character and string literals serve all character and string types. For example with Wide_Wide characters (32-bit) and strings:
+<syntaxhighlight lang="ada">with Ada.Wide_Wide_Text_IO;  use Ada.Wide_Wide_Text_IO;
+
+procedure Test is
+begin
+   Put ("Unicode """ & ''' & """" & Wide_Wide_Character'Val (10));
+end Test;</syntaxhighlight>

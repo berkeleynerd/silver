@@ -1,0 +1,930 @@
+-- demo/rosetta/blackjack.exw
+with javascript_semantics
+ 
+function NewDeck()
+    return {4, 4, 4, 4, 4, 4, 4, 4, 4, 16, 52}
+end function
+ 
+function dealerProbs(integer upCard, sequence startDeck)
+--
+-- Returns probabilities of dealer eventually getting:
+-- 1: 17, 2: 18, 3: 19, 4: 20, 5: 21 (non-blackjack), 6: blackjack (nil), 7: bust.
+-- It is assumed that the dealer has already checked for blackjack, that one deck is used
+-- and that the dealer stands on 'soft' 17.
+--
+    sequence res := repeat(0.0, 7)  // results
+    sequence decks := repeat({}, 9) // decks for each level
+    sequence scores := repeat(0, 9) // scores for each level
+    sequence elevens := repeat(0, 9)    // number of aces for each level scored as 11
+    sequence probs := repeat(0.0, 9) // probs for each level
+    decks[1] = startDeck
+    scores[1] = upCard
+    if upCard == 1 then // an ace
+        scores[1] = 11
+        elevens[1] = 1
+    end if
+    probs[1] = 1.0
+    integer lev = 1
+    sequence cs = repeat(0,9)
+    while lev do
+        cs[lev] += 1
+        integer c = cs[lev]
+        if c>10 then
+            lev -= 1
+        elsif decks[lev][c]!=0 then -- card still present in deck
+            // temporary variables for current level
+            sequence deck := deep_copy(decks[lev])
+            integer score := scores[lev]
+            integer eleven := elevens[lev]
+            atom prob := probs[lev]
+            score += c  // add card to score
+            if c == 1 then // score all aces initially as 11
+                score += 10
+                eleven += 1
+            end if
+            prob *= deck[c]/deck[11]
+            if score > 21 and eleven > 0 then
+                score -= 10 // bust but can demote an ace
+                eleven -= 1
+            end if
+            if lev == 1 and ((upCard == 1 and c == 10) or (upCard == 10 and c == 1)) then
+                res[6] += prob // blackjack, allow for now
+            elsif score >= 17 and score  21 then
+                res[score-16] += prob // 17 to (non-blackjack) 21
+            elsif score > 21 and eleven == 0 then
+                res[7] += prob // bust
+            else
+                deck[c] -= 1 // remove card from deck
+                deck[11] -= 1 // decrement deck size
+                lev += 1
+                decks[lev] = deck
+                scores[lev] = score
+                elevens[lev] = eleven
+                probs[lev] = prob
+                -- get another card:
+                cs[lev] = 0
+            end if
+        end if
+    end while
+    // but can't have blackjack, so adjust probabilities accordingly
+    atom pnbj := 1 - res[6]
+    for i=1 to 7 do 
+        res[i] /= pnbj
+    end for
+    res[6] = 0
+    return res
+end function
+
+procedure dealerChart()
+    // Prints chart of dealer probabilities (as a check against an external source).
+    printf(1,"Dealer Probabilities, Stands on Soft 17, 1 Deck, U.S Rules\n")
+    printf(1,"Up Card     17        18        19        20        21       Bust\n")
+    printf(1,"-------------------------------------------------------------------\n")
+    sequence deck := NewDeck()
+    deck[11] = 51
+    for uc=1 to 10 do
+        sequence deck2 := deep_copy(deck)
+        deck2[uc] -= 1
+        sequence dp := dealerProbs(uc, deck2)
+        if uc > 1 then
+            printf(1,"%3d      ", uc)
+        else
+            printf(1,"Ace      ")
+        end if
+        dp[6] = dp[7]
+        printf(1,"%f  %f  %f  %f  %f  %f\n", dp)
+    end for
+end procedure
+ 
+// Calculates gain per unit staked for a given scenario (helper function).
+function calcGain(integer pscore, sequence dp)
+    atom eg := 0.0
+    switch pscore do
+    case 17:
+        eg += dp[7]                         // dealer is bust
+        eg -= dp[2] + dp[3] + dp[4] + dp[5] // dealer has 18 to 21
+    case 18:
+        eg += dp[1] + dp[7]         // dealer has 17 or is bust
+        eg -= dp[3] + dp[4] + dp[5] // dealer has 19 to 21
+    case 19:
+        eg += dp[1] + dp[2] + dp[7] // dealer has 17, 18 or is bust
+        eg -= dp[4] + dp[5]         // dealer has 20 or 21
+    case 20:
+        eg += dp[1] + dp[2] + dp[3] + dp[7] // dealer has 17 to 19 or is bust
+        eg -= dp[5]                         // dealer has (non-blackjack) 21
+    case 21:
+        eg += dp[1] + dp[2] + dp[3] + dp[4] + dp[7] // dealer has 17 to 20 or is bust
+    case 22: // notional
+        eg += 1.5 // player blackjack
+    case 23: // notional
+        eg -= 1 // player bust, loses stake irrespective of what dealer has
+    default: // player has less than 17
+        eg += dp[7]       // dealer is bust
+        eg -= (1 - dp[7]) // dealer isn't bust
+    end switch
+    return eg
+end function
+ 
+function playerGain(integer card1, card2, uc, sequence startDeck)
+// Returns player's expected gain per unit staked after hitting once and then standing.
+    atom eg := 0.0
+    sequence deck := startDeck
+    integer score := card1 + card2
+    bool eleven := false
+    if card1 == 1 or card2 == 1 then // an ace
+        score += 10
+        eleven = true
+    end if
+    for c=1 to 10 do // get another card
+        if deck[c] != 0 then // card still present in deck
+            // temporary variables for current card
+            sequence deck2 := deep_copy(deck)
+            integer score2 := score
+--DEV shouldn't this be false?
+            bool eleven2 := eleven
+            score2 += c // add card to score
+            if c == 1 then // score all aces initially as 11
+                score2 += 10
+                eleven2 = true
+            end if
+            atom prob := deck2[c] / deck2[11]
+            deck2[c] -= 1 // remove card from deck
+            deck2[11] -= 1 // decrement deck size
+            if score2 > 21 and eleven2 then
+                score2 -= 10 // bust but can demote an ace
+            end if
+            if score2  21 then
+                sequence dp := dealerProbs(uc, deck2)
+                eg += calcGain(score2, dp) * prob
+            else  // bust
+                eg -= prob
+            end if
+        end if
+    end for
+    return eg
+end function
+ 
+function playerGain2(integer card1, card2, uc, sequence startDeck)
+// Returns player's expected gain per unit staked after hitting once and then continuing in accordance
+// with the tables for rounds >= 2.
+    atom eg := 0.0                  // result
+    sequence decks := repeat({}, 9) // decks for each level
+    sequence scores := repeat(0, 9) // scores for each level
+    sequence elevens := repeat(0, 9)    // number of aces for each level scored as 11
+    sequence probs := repeat(0.0, 9) // probs for each level
+    decks[1] = startDeck
+    scores[1] = card1 + card2
+    if card1 == 1 or card2 == 1 then // an ace
+        scores[1] += 10
+        elevens[1] = 1
+    end if
+    probs[1] = 1.0
+    integer lev = 1
+    sequence cs = repeat(0,9)
+    while lev do
+        cs[lev] += 1
+        integer c = cs[lev]
+        if c>10 then
+            lev -= 1
+        elsif decks[lev][c]!=0 then -- card still present in deck
+            // temporary variables for current level
+            sequence deck := deep_copy(decks[lev])
+            integer score := scores[lev]
+            integer eleven := elevens[lev]
+            atom prob := probs[lev]
+            score += c  // add card to score
+            if c == 1 then // score all aces initially as 11
+                score += 10
+                eleven += 1
+            end if
+            prob *= deck[c] / deck[11]
+            if score > 21 and eleven > 0 then
+                score -= 10 // bust but can demote an ace
+                eleven -= 1
+            end if
+            deck[c] -= 1 // remove card from deck
+            deck[11] -= 1 // decrement deck size
+            if ((eleven == 0 and (score >= 17 or (score >= 13 and uc  7))) or
+                (eleven == 0 and score == 12 and uc >= 4 and uc  6) or
+                (eleven > 0 and score == 18 and uc != 9 and uc != 10) or
+                (eleven > 0 and score >= 19)) and score  21 then
+                sequence dp := dealerProbs(uc, deck)
+                eg += calcGain(score, dp) * prob
+            elsif score > 21 and eleven == 0 then // bust
+                eg -= prob
+            else
+                lev += 1
+                decks[lev] = deck
+                scores[lev] = score
+                elevens[lev] = eleven
+                probs[lev] = prob
+                // get another card:
+                cs[lev] = 0
+            end if
+        end if
+    end while
+    return eg
+end function
+ 
+function stand(integer card1, card2)
+// Returns player's expected gains per unit staked, for each dealer up-card, after standing.
+    sequence deck := NewDeck()
+    deck[card1] -= 1
+    deck[card2] -= 1
+    deck[11] = 50
+    integer pscore := card1 + card2 // player score
+    if card1 == 1 or card2 == 1 then
+        pscore += 10
+    end if
+    sequence egs = repeat(0,10)          // results
+    for uc=1 to 10 do // dealer's up-card
+        sequence deck2 := deep_copy(deck)
+        deck2[uc] -= 1
+        deck2[11] -= 1
+        sequence dp := dealerProbs(uc, deck2)
+        atom eg := calcGain(pscore, dp) // expected gain for this up-card
+        if uc > 1 then
+            egs[uc-1] = eg
+        else  // dealer has Ace
+            egs[10] = eg // ace comes last in tables
+        end if
+    end for
+    return egs
+end function
+ 
+function hit(integer card1, card2, bool once)
+// Returns player's expected gains per unit staked, for each dealer up-card, after hitting once and
+// then either standing (once == true) or continuing as per the round >= 2 tables (once == false).
+    sequence deck := NewDeck()
+    deck[card1] -= 1
+    deck[card2] -= 1
+    deck[11] = 50
+    sequence egs =repeat(0,10)       // results
+    for uc=1 to 10 do // dealer's up-card
+        sequence deck2 := deep_copy(deck)
+        deck2[uc] -= 1
+        deck2[11] = 49
+        atom peg // player's expected gain for this up-card
+        if once then
+            peg = playerGain(card1, card2, uc, deck2)
+        else
+            peg = playerGain2(card1, card2, uc, deck2)
+        end if
+        if uc > 1 then
+            egs[uc-1] = peg
+        else  // dealer has Ace
+            egs[10] = peg
+        end if
+    end for
+    return egs
+end function
+ 
+function double(integer card1, card2)
+// Returns player's expected gains per unit oiginally staked, for each dealer up-card, after
+// doubling i.e. hitting once and then standing with a doubled stake.
+    sequence egs := hit(card1, card2, true) // hit once and then stand
+    for i=1 to 10 do
+        egs[i] *= 2
+    end for
+    return egs
+end function
+
+// Computed strategy tables.
+sequence hTable = repeat(repeat("",10),15) // hard strategy table (round 1)
+sequence sTable = repeat(repeat("",10),8)  // soft strategy table (round 1)
+sequence pTable = repeat(repeat("",10),10) // pairs strategy table (round 1)
+sequence hTable2 = repeat(repeat("",10),18) // hard strategy table (round >= 2, no doubling)
+sequence sTable2 = repeat(repeat("",10),10) // soft strategy table (round >= 2, no doubling)
+ 
+function splitt(integer card)
+// Returns player's expected gains per unit originally staked, for each dealer up-card, after
+// splitting a pair and doubling the stake, getting a second card for each hand  and then continuing
+// in accordace with the rounds >= 2 tables. It is assumed that a player cannot double or re-split
+// following a split. It is also assumed (in the interests of simplicity) that the expected gains
+// for each split hand (after calculating the gains for the first hand as though the second hand
+// is not completed) are exactly the same.
+    sequence deck := NewDeck()
+    deck[card] -= 2 // must be a pair
+    deck[11] = 50
+    sequence egs = repeat(0,10) // overall results
+ 
+    // now play a single hand
+    integer score := card,
+            eleven := 0
+    if card == 1 then // an ace
+        score = 11
+        eleven = 1
+    end if
+    for uc=1 to 10 do // collect results for each dealer up-card
+        if deck[uc] != 0 then // card still present in deck
+            sequence deck2 := deep_copy(deck)
+            deck2[uc] -= 1
+            deck2[11] -= 1
+            integer ix := uc - 1
+            if ix == 0 then
+                ix = 10 // in tables ace comes last
+            end if
+            atom peg = 0 // player expected gain for this up-card
+            // get second player card
+            for c=1 to 10 do
+                if deck2[c] != 0 then // card still present in deck
+                    atom prob := deck2[c] / deck2[11]
+                    sequence deck3 := deep_copy(deck2)
+                    deck3[c] -= 1
+                    deck3[11] -= 1
+                    integer score2 := score + c,
+                            eleven2 := eleven
+                    if c == 1 then // score all aces initially as 11
+                        score2 += 10
+                        eleven2 += 1
+                    end if
+                    if score2 == 21 then // player has blackjack & we know dealer hasn't
+                        peg += 1.5 * prob
+                    else
+                        if score2 > 21 and eleven2 > 0 then
+                            score2 -= 10 // bust but can demote an ace
+                            eleven2 -= 1
+                        end if
+                        string action
+                        if eleven2 > 0 then
+                            action = sTable2[score2-11][ix] // use soft strategy table, no doubling
+                        else  // including pairs as no re-splitting
+                            action = hTable2[score2-3][ix] // use hard strategy table, no doubling
+                        end if
+                        atom peg2
+                        if action == "S" then
+                            sequence dp := dealerProbs(uc, deck3)
+                            peg2 = calcGain(score2, dp)
+                        else
+                            peg2 = playerGain2(card, c, uc, deck3)
+                        end if
+                        peg += peg2 * prob
+                    end if
+                end if
+            end for
+            if uc > 1 then
+                egs[uc-1] = peg * 2 // allow for both hands in overall results
+            else
+                egs[10] = peg * 2 // ditto
+            end if
+        end if
+    end for
+    return egs
+end function
+
+function bestAction(sequence ags)
+// Returns the action with the highest expected gain.
+    atom best := ags[1][2]
+    integer besti := 1
+    for i=2 to length(ags) do
+        if ags[i][2] > best then
+            best = ags[i][2]
+            besti = i
+        end if
+    end for
+    return ags[besti][1]
+end function
+ 
+procedure printHeader(string title)
+// Prints title and header for a given chart.
+    printf(1,"%s\n",title)
+    printf(1,"P/D     2      3      4      5      6      7      8      9      T      A\n")
+    printf(1,"--------------------------------------------------------------------------\n")
+end procedure
+ 
+procedure printPair(integer c)
+// Prints header for a pair of cards.
+    c = "A23456789T"[c]
+    printf(1,"%c%c   ",c)
+end procedure
+
+sequence cards, fscores
+integer next, score, aces, uc
+string action
+
+function dealerPlay(integer pscore, sequence d)
+// Simulates a dealer's play for a given player's hand and state of deck.
+// Returns the player's gain (positive or negative) per unit staked.
+    integer dscore := d[1] + d[2],
+            aces := 0
+    if d[1] == 1 or d[2] == 1 then // dealer has an ace
+        dscore += 10
+        aces += 1
+    end if
+    while true do
+        if dscore > 21 and aces > 0 then
+            dscore -= 10 // bust but we can demote an ace
+            aces -= 1
+        end if
+        if dscore > 21 then
+            return 1 // dealer is bust and player gains stake
+        end if
+        if dscore >= 17 then // dealer must stick on 17 or above, hard or not
+            if dscore > pscore then
+                return -1 // dealer wins and player loses stake
+            elsif dscore == pscore then
+                exit // player breaks even
+            else
+                return 1 // dealer loses and player gains stake
+            end if
+        end if
+        integer nc := cards[next] // get new card from pack
+        next += 1
+        dscore += nc
+        if nc == 1 then // count aces initially as 11
+            dscore += 10
+            aces += 1
+        end if
+    end while
+    return 0
+end function
+
+
+procedure h(integer hand)
+    // simulate a 'hit'
+    while true do
+        integer nc := cards[next] // get new card from pack
+        next += 1
+        score += nc
+        if nc == 1 then // count aces initially as 11
+            score += 10
+            aces += 1
+        end if
+        if score > 21 and aces > 0 then
+            score -= 10 // bust but we can demote an ace
+            aces -= 1
+        end if
+        if score > 21 then
+            fscores[hand] = 22 // player is bust and loses stake
+            return
+        end if
+        if action == "D" then
+            fscores[hand] = score
+            return
+        end if
+        // get further strategy and act accordingly
+        if aces == 0 then
+            action = hTable2[score-3][uc]
+        else
+            action = sTable2[score-11][uc]
+        end if
+        if action == "S" then // stand
+            fscores[hand] = score
+            return
+        end if
+    end while
+end procedure
+
+function playerPlay()
+// Simulates the playing of a random player's hand according to the strategy tables.
+// Returns both the gain (positive or negative) and the stake (1 or 2).
+    sequence perm = shuffle(tagset(52)) // randomizes integers from 1 to 52 inclusive
+    cards := repeat(0,52)
+    for i=1 to length(perm) do
+        integer r = perm[i]
+        integer card := floor((r-1)/4) + 1
+        if card > 10 then
+            card = 10
+        end if
+        cards[i] = card
+    end for
+    sequence p = {}, d = {} // player and dealer hands
+    // initial deal
+    for i=1 to 4 do
+        if i  2 then
+            p = append(p, cards[i])
+        else
+            d = append(d, cards[i])
+        end if
+    end for
+    next := 5 // index of next card to be dealt
+ 
+    // check if dealer and/or player have blackjack
+    bool dbj := (d[1] == 1 and d[2] == 10) or (d[1] == 10 and d[2] == 1),
+         pbj := (p[1] == 1 and p[2] == 10) or (p[1] == 10 and p[2] == 1)
+    if dbj then
+        if pbj then
+            return {0.0, 1.0} // player neither wins nor loses
+        end if
+        return {-1.0, 1.0} // player loses stake
+    end if
+    if pbj then
+        return {1.5, 1.0} // player wins 1.5 x stake
+    end if
+ 
+    uc := d[1] // dealer's up-card for accessing tables
+    if uc == 1 then
+        uc = 10 // move ace to last place
+    else
+        uc -= 1 // move others down 1
+    end if
+    atom stake := 1.0      // player's initial stake
+    fscores = {0,0} // final player scores (one or, after split, two hands)
+ 
+    score = p[1] + p[2]
+    aces = 0
+    // get kind of player hand: hard, soft, pair
+    string kind
+    if p[1] == p[2] then
+        kind = "pair"
+    elsif p[1] == 1 or p[2] == 1 then
+        kind = "soft"
+    else
+        kind = "hard"
+    end if
+    switch kind do
+    case "hard":
+        action = hTable[score-4][uc]
+    case "soft": // includes one ace
+        integer otherCard := p[1]
+        if otherCard == 1 then
+            otherCard = p[2]
+        end if
+        score += 10
+        aces = 1
+        action = sTable[otherCard-1][uc]
+    case "pair":
+        if p[1] == 1 then // pair of aces
+            score += 10
+            aces = 2
+        end if
+        action = pTable[p[1]][uc]
+    end switch
+    switch action do
+    case "S": // stand
+        fscores[1] = score
+    case "H": // hit
+        h(1)
+    case "D": // double
+        h(1)
+        stake = 2
+    case "P": // split
+        for hand=1 to 2 do
+            score = p[1]
+            aces = 0
+            if score == 1 then // count aces initially as 11
+                score = 11
+                aces += 1
+            end if
+            h(hand)
+        end for
+    end switch
+    atom tot := 0.0
+    if fscores[1]  22 then
+        tot += dealerPlay(fscores[1], d) * stake
+    else
+        tot -= 1 * stake // this hand is bust
+    end if
+    if fscores[2] > 0 then // pair
+        if fscores[1]  22 then
+            tot += dealerPlay(fscores[2], d)
+        else
+            tot -= 1 // this hand is bust
+        end if
+        stake = 2
+    end if
+    return {tot, stake}
+end function
+ 
+procedure simulate(integer perDay, days)
+// Simulates 'perDay' blackjack games for 'days' days.
+    integer winDays = 0, loseDays = 0, evenDays = 0
+    atom bigWin = 0.0, bigLoss = 0.0,
+         totalGain = 0.0, totalStake = 0.0
+    for d=1 to days do
+        atom dailyGain = 0.0, dailyStake = 0.0
+        for p=1 to perDay do
+            atom {gain, stake} := playerPlay()
+            dailyGain += gain
+            dailyStake += stake
+        end for
+        if dailyGain > 0 then
+            winDays += 1
+        elsif dailyGain  0 then
+            loseDays += 1
+        else
+            evenDays += 1
+        end if
+        if dailyGain > bigWin then
+            bigWin = dailyGain
+        elsif -dailyGain > bigLoss then
+            bigLoss = -dailyGain
+        end if
+        totalGain += dailyGain
+        totalStake += dailyStake
+    end for
+    printf(1,"\nAfter playing %d times a day for %d days:\n", {perDay, days})
+    printf(1,"Winning days   :%d\n", winDays)
+    printf(1,"Losing days    :%d\n", loseDays)
+    printf(1,"Breakeven days :%d\n", evenDays)
+    printf(1,"Biggest win    :%.2f\n", bigWin)
+    printf(1,"Biggest loss   :%.2f\n", bigLoss)
+    if totalGain  0 then
+        printf(1,"Total loss     :%.2f\n", -totalGain)
+        printf(1,"Total staked   :%.2f\n", totalStake)
+        printf(1,"Loss %% staked  : %0.3f\n", -totalGain/totalStake*100)
+    else
+        printf(1,"Total win      :%.2f\n", totalGain)
+        printf(1,"Total staked   :%.2f\n", totalStake)
+        printf(1,"Win %% staked   : %0.3f\n", totalGain/totalStake*100)
+    end if
+end procedure
+ 
+procedure main()
+    // print dealer probabilities chart
+    dealerChart()
+ 
+    // for hard scores (i.e. different cards, no aces)
+    sequence tuples := {
+        {2, 3},
+        {2, 4},
+        {2, 5}, {3, 4},
+        {2, 6}, {3, 5},
+        {2, 7}, {3, 6}, {4, 5},
+        {2, 8}, {3, 7}, {4, 6},
+        {2, 9}, {3, 8}, {4, 7}, {5, 6},
+        {2, 10}, {3, 9}, {4, 8}, {5, 7},
+        {3, 10}, {4, 9}, {5, 8}, {6, 7},
+        {4, 10}, {5, 9}, {6, 8},
+        {5, 10}, {6, 9}, {7, 8},
+        {6, 10}, {7, 9},
+        {7, 10}, {8, 9},
+        {8, 10},
+        {9, 10},
+    }
+    // number of tuples for each player score from 5 to 19
+    sequence counts := {1, 1, 2, 2, 3, 3, 4, 4, 4, 3, 3, 2, 2, 1, 1}
+    // expected gains for each player score & for each dealer up-card
+    sequence segs := repeat(repeat(0,10),15) // if stands
+    sequence hegs := repeat(repeat(0,10),15) // if hits
+    sequence degs := repeat(repeat(0,10),15) // if doubles
+    for t = 1 to length(tuples) do
+        if platform()!=JS then
+            progress("%d/%d\r",{t,length(tuples)})
+        end if
+        sequence tuple := tuples[t]
+        integer i := tuple[1] + tuple[2]
+        sequence sg := stand(tuple[1], tuple[2])
+        sequence hg := hit(tuple[1], tuple[2], false)
+        sequence dg := double(tuple[1], tuple[2])
+        for j=1 to 10 do
+            segs[i-4][j] += sg[j]
+            hegs[i-4][j] += hg[j]
+            degs[i-4][j] += dg[j]
+        end for
+    end for
+    if platform()!=JS then
+        progress("")
+    end if
+    // calculate the average per tuple for each score
+    for i=1 to 15 do
+        for j=1 to 10 do
+            segs[i][j] /= counts[i]
+            hegs[i][j] /= counts[i]
+            degs[i][j] /= counts[i]
+        end for
+    end for
+ 
+    printHeader("\nHard Chart - Player Expected Gains per unit (Stand)")
+    for i=5 to 19 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", segs[i-4][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nHard Chart - Player Expected Gains per unit (Hit)")
+    for i=5 to 19 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", hegs[i-4][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nHard Chart - Player Expected Gains per original unit (Double)")
+    for i=5 to 19 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", degs[i-4][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nHard Chart - Player Strategy (Round 1)")
+    for i=5 to 19 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            sequence ags := {{"S", segs[i-4][j]}, {"H", hegs[i-4][j]}, {"D", degs[i-4][j]}}
+            string action := bestAction(ags)
+            hTable[i-4][j] = action
+            printf(1,"%4s   ", action)
+        end for
+        printf(1,"\n")
+    end for
+ 
+    // for hard scores (no aces) - after round 1 (no doubling or splitting)
+    // based on hard table figures (round 1) with scores of 4, 20, and 21 added
+    sequence segs2 := repeat(repeat(0,10),18) // expected gains if stands
+    sequence hegs2 := repeat(repeat(0,10),18) // expected gains if hits
+    for i=5 to 19 do
+        segs2[i-3] = segs[i-4]
+        hegs2[i-3] = hegs[i-4]
+    end for
+    sequence sg4 = stand(2, 2), hg4 = hit(2, 2, false),
+             sg20 = stand(10, 10), hg20 = hit(10, 10, false),
+             sg21 = stand(1, 10), hg21 = hit(1, 10, false)
+    for j=1 to 10 do
+        segs2[1][j] += sg4[j]
+        hegs2[1][j] += hg4[j]
+        segs2[17][j] += sg20[j]
+        hegs2[17][j] += hg20[j]
+        segs2[18][j] += sg21[j]
+        hegs2[18][j] += hg21[j]
+    end for
+ 
+    printHeader("\nHard Chart - Player Strategy (Round >= 2, No Doubling)")
+    for i=4 to 21 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            string action := "S"
+            if hegs2[i-3][j] > segs2[i-3][j] then
+                action = "H"
+            end if
+            hTable2[i-3][j] = action
+            printf(1,"%4s   ", action)
+        end for
+        printf(1,"\n")
+    end for
+ 
+    // for soft scores (i.e. including exactly one ace)
+ 
+    // expected gains for each player second card (2 to 9) & for each dealer up-card
+    sequence segs3 = repeat(repeat(0,10),8), // if stands
+             hegs3 = repeat(repeat(0,10),8), // if hits
+             degs3 = repeat(repeat(0,10),8)  // if doubles
+    for c=2 to 9 do
+        sequence sg := stand(1, c),
+                 hg := hit(1, c, false),
+                 dg := double(1, c)
+        for j=1 to 10 do
+            segs3[c-1][j] += sg[j]
+            hegs3[c-1][j] += hg[j]
+            degs3[c-1][j] += dg[j]
+        end for
+    end for
+ 
+    printHeader("\nSoft Chart - Player Expected Gains per unit (Stand)")
+    for c=2 to 9 do
+        printf(1,"A%d   ", c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", segs3[c-1][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nSoft Chart - Player Expected Gains per unit (Hit)")
+    for c=2 to 9 do
+        printf(1,"A%d   ", c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", hegs3[c-1][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nSoft Chart - Player Expected Gains per original unit (Double)")
+    for c=2 to 9 do
+        printf(1,"A%d   ", c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", degs3[c-1][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nSoft Chart - Player Strategy (Round 1)")
+    for c=2 to 9 do
+        printf(1,"A%d   ", c)
+        for j=1 to 10 do
+            sequence ags := {{"S", segs3[c-1][j]}, {"H", hegs3[c-1][j]}, {"D", degs3[c-1][j]}}
+            string action := bestAction(ags)
+            sTable[c-1][j] = action
+            printf(1,"%4s   ", action)
+        end for
+        printf(1,"\n")
+    end for
+ 
+    // for soft scores (at least one ace) - after round 1 (no doubling or splitting)
+    // based on soft table figures (round 1) with scores of 12 and 21 added
+    // assumes one ace counted as 11
+    sequence segs4 := repeat(repeat(0,10),10), // expected gains if stands
+             hegs4 := repeat(repeat(0,10),10)  // expected gains if hits
+    for i=2 to 9 do
+        segs4[i] = segs3[i-1]
+        hegs4[i] = hegs3[i-1]
+    end for
+    sequence sg12 = stand(1, 1), hg12 = hit(1, 1, false)
+    for j=1 to 10 do
+        segs4[1][j] += sg12[j]
+        hegs4[1][j] += hg12[j]
+        segs4[10][j] += sg21[j]
+        hegs4[10][j] += hg21[j]
+    end for
+ 
+    printHeader("\nSoft Chart - Player Strategy (Round >= 2, No Doubling)")
+    for i=12 to 21 do
+        printf(1,"%2d   ", i)
+        for j=1 to 10 do
+            string action := "S"
+            if hegs4[i-11][j] > segs4[i-11][j] then
+                action = "H"
+            end if
+            sTable2[i-11][j] = action
+            printf(1,"%4s   ", action)
+        end for
+        printf(1,"\n")
+    end for
+ 
+    // for pairs
+ 
+    // expected gains for each pair (A to 10) & for each dealer up-card
+    sequence segs5 := repeat(repeat(0,10),10), // if stands
+             hegs5 := repeat(repeat(0,10),10), // if hits
+             degs5 := repeat(repeat(0,10),10), // if doubles
+             pegs5 := repeat(repeat(0,10),10)  // if splits
+    for c=1 to 10 do
+        if platform()!=JS then
+            progress("%d/10",{c})
+        end if
+        sequence sg := stand(c, c),
+                 hg := hit(c, c, false),
+                 dg := double(c, c),
+                 pg := splitt(c)
+        for j=1 to 10 do
+            segs5[c][j] += sg[j]
+            hegs5[c][j] += hg[j]
+            degs5[c][j] += dg[j]
+            pegs5[c][j] += pg[j]
+        end for
+    end for
+    if platform()!=JS then
+        progress("")
+    end if 
+
+    printHeader("\nPairs Chart - Player Expected Gains per unit (Stand)")
+    for c=1 to 10 do
+        printPair(c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", segs5[c][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nPairs Chart - Player Expected Gains per unit (Hit)")
+    for c=1 to 10 do
+        printPair(c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", hegs5[c][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nPairs Chart - Player Expected Gains per original unit (Double)")
+    for c=1 to 10 do
+        printPair(c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", degs5[c][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nPairs Chart - Player Expected Gains per original unit (Split)")
+    for c=1 to 10 do
+        printPair(c)
+        for j=1 to 10 do
+            printf(1,"%6.3f ", pegs5[c][j])
+        end for
+        printf(1,"\n")
+    end for
+ 
+    printHeader("\nPairs Chart - Player Strategy (Round 1)")
+    for c=1 to 10 do
+        printPair(c)
+        for j=1 to 10 do
+            sequence ags := {{"S", segs5[c][j]}, {"H", hegs5[c][j]}, {"D", degs5[c][j]}, {"P", pegs5[c][j]}}
+            string action := bestAction(ags)
+            pTable[c][j] = action
+            printf(1,"%4s   ", action)
+        end for
+        printf(1,"\n")
+    end for
+
+    // do 10 years of simulations
+    for i=1 to 10 do
+        printf(1,"\nSimulation for Year %d:\n", i)
+        simulate(50, 365)
+    end for
+end procedure
+main()
+?"done"
+{} = wait_key()

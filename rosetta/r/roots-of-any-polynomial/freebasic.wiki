@@ -1,0 +1,563 @@
+=={{header|FreeBASIC}}==
+{{trans|Pluto}}
+<syntaxhighlight lang="vbnet">Const As Single PI = 4 * Atn(1.0)
+
+Type Complex
+    re As Double
+    im As Double
+End Type
+
+Function CAdd(a As Complex, b As Complex) As Complex
+    Dim As Complex result
+    result.re = a.re + b.re
+    result.im = a.im + b.im
+    Return result
+End Function
+
+Function CSub(a As Complex, b As Complex) As Complex
+    Dim As Complex result
+    result.re = a.re - b.re
+    result.im = a.im - b.im
+    Return result
+End Function
+
+Function CMul(a As Complex, b As Complex) As Complex
+    Dim As Complex result
+    result.re = a.re * b.re - a.im * b.im
+    result.im = a.re * b.im + a.im * b.re
+    Return result
+End Function
+
+Function CDiv(a As Complex, b As Complex) As Complex
+    Dim As Complex result
+    Dim As Double denom = b.re * b.re + b.im * b.im
+    If denom = 0 Then
+        result.re = 1e308
+        result.im = 0
+    Else
+        result.re = (a.re * b.re + a.im * b.im) / denom
+        result.im = (a.im * b.re - a.re * b.im) / denom
+    End If
+    Return result
+End Function
+
+Function CMag(a As Complex) As Double
+    Return Sqr(a.re * a.re + a.im * a.im)
+End Function
+
+Function CStr(a As Complex) As String
+    Dim As String s
+    If a.im = 0 Then
+        s = Str(a.re)
+    Elseif a.im > 0 Then
+        s = Str(a.re) & " + " & Str(a.im) & "i"
+    Else
+        s = Str(a.re) & " - " & Str(-a.im) & "i"
+    End If
+    Return s
+End Function
+
+Function EvalPoly(coeffs() As Double, degree As Integer, x As Complex) As Complex
+    Dim As Complex result
+    result.re = coeffs(0)
+    result.im = 0
+    
+    For i As Integer = 1 To degree
+        Dim As Double new_re = result.re * x.re - result.im * x.im + coeffs(i)
+        Dim As Double new_im = result.re * x.im + result.im * x.re
+        result.re = new_re
+        result.im = new_im
+    Next
+    
+    Return result
+End Function
+
+Sub FindRoots(coeffs() As Double, degree As Integer, roots() As Complex)
+    Dim As Integer i, j, n = degree
+    
+    If n <= 0 Then
+        Redim roots(0 To -1)
+        Exit Sub
+    End If
+    
+    Redim roots(0 To n - 1)
+    
+    If n = 1 Then
+        If coeffs(0) <> 0 Then
+            roots(0).re = -coeffs(1) / coeffs(0)
+            roots(0).im = 0
+        Else
+            roots(0).re = 0
+            roots(0).im = 0
+        End If
+        Exit Sub
+    End If
+    
+    Dim As Double lead = coeffs(0)
+    Dim As Double norm(0 To n)
+    For i = 0 To n
+        norm(i) = coeffs(i) / lead
+    Next
+    
+    Dim As Double radius = 1.0
+    
+    For i = 0 To n - 1
+        Dim As Double angle = 2 * PI * (i + 0.1) / n
+        roots(i).re = radius * Cos(angle)
+        roots(i).im = radius * Sin(angle)
+    Next
+    
+    Dim As Integer max_iter = 1000
+    Dim As Double tolerance = 1e-12
+    
+    For iter As Integer = 1 To max_iter
+        Dim As Double max_change = 0
+        
+        Dim As Complex old_roots(0 To n - 1)
+        For i = 0 To n - 1
+            old_roots(i) = roots(i)
+        Next
+        
+        For i = 0 To n - 1
+            Dim As Complex p_val = EvalPoly(norm(), n, old_roots(i))
+            
+            Dim As Complex denom
+            denom.re = 1
+            denom.im = 0
+            
+            For j = 0 To n - 1
+                If i <> j Then
+                    Dim As Complex diff = CSub(old_roots(i), roots(j))
+                    denom = CMul(denom, diff)
+                End If
+            Next
+            
+            Dim As Double denom_mag = CMag(denom)
+            If denom_mag > 1e-200 Then
+                Dim As Complex correction = CDiv(p_val, denom)
+                Dim As Complex new_root = CSub(old_roots(i), correction)
+                
+                Dim As Double change = CMag(CSub(new_root, old_roots(i)))
+                If change > max_change Then max_change = change
+                
+                roots(i) = new_root
+            End If
+        Next
+        
+        If max_change < tolerance Then Exit For
+    Next
+End Sub
+
+Function PolyStr(coeffs() As Double, degree As Integer) As String
+    Dim As String result = ""
+    Dim As Integer first = 1
+    
+    For i As Integer = 0 To degree
+        If coeffs(i) = 0 Then Continue For
+        
+        Dim As Double abs_coeff = Abs(coeffs(i))
+        Dim As String sign
+        If first Then
+            If coeffs(i) < 0 Then sign = "-"
+        Else
+            sign = Iif(coeffs(i) >= 0, " + ", " - ")
+        End If
+        
+        result &= sign
+        
+        If abs_coeff <> 1 Or degree - i = 0 Then result &= Str(abs_coeff)
+        
+        If degree - i > 0 Then
+            result &= "x"
+            If degree - i > 1 Then result &= "^" & Str(degree - i)
+        End If
+        
+        first = 0
+    Next
+    
+    If result = "" Then result = "0"
+    
+    Return result
+End Function
+
+
+' Main program
+' Each row: [degree, coefficients...]
+Dim Shared polys(1 To 38, 1 To 72) As Double
+Dim Shared poly_degrees(1 To 38) As Integer
+
+' Linear
+poly_degrees(1) = 1: polys(1,1) = 1: polys(1,2) = 0
+poly_degrees(2) = 1: polys(2,1) = 1: polys(2,2) = -1
+poly_degrees(3) = 1: polys(3,1) = 1: polys(3,2) = PI
+
+' Quadratic
+poly_degrees(4) = 2: polys(4,1) = 1: polys(4,2) = -1E9: polys(4,3) = 1
+poly_degrees(5) = 2: polys(5,1) = 1: polys(5,2) = 0: polys(5,3) = 1
+poly_degrees(6) = 2: polys(6,1) = 1: polys(6,2) = 2: polys(6,3) = 1
+poly_degrees(7) = 2: polys(7,1) = 2: polys(7,2) = -1: polys(7,3) = -6
+poly_degrees(8) = 2: polys(8,1) = 1: polys(8,2) = 2: polys(8,3) = -2
+poly_degrees(9) = 2: polys(9,1) = 1: polys(9,2) = 3: polys(9,3) = 2
+poly_degrees(10) = 2: polys(10,1) = 3: polys(10,2) = 4: polys(10,3) = 5
+poly_degrees(11) = 2: polys(11,1) = 2: polys(11,2) = -1.00000001: polys(11,3) = 1E9
+poly_degrees(12) = 2: polys(12,1) = 1E9: polys(12,2) = 1.23456789: polys(12,3) = -1E9
+
+' Cubic
+poly_degrees(13) = 3: polys(13,1) = 1: polys(13,2) = -3: polys(13,3) = 3: polys(13,4) = -1
+poly_degrees(14) = 3: polys(14,1) = 1: polys(14,2) = -4: polys(14,3) = -27: polys(14,4) = 90
+poly_degrees(15) = 3: polys(15,1) = 1: polys(15,2) = 0: polys(15,3) = -3: polys(15,4) = -2
+poly_degrees(16) = 3: polys(16,1) = 1: polys(16,2) = -14: polys(16,3) = 35: polys(16,4) = -22
+poly_degrees(17) = 3: polys(17,1) = 1: polys(17,2) = -2.41421356: polys(17,3) = 2.41421356: polys(17,4) = -1
+
+' Quartic
+poly_degrees(18) = 4: polys(18,1) = 3: polys(18,2) = 6: polys(18,3) = -123: polys(18,4) = -126: polys(18,5) = 1080
+poly_degrees(19) = 4: polys(19,1) = -20: polys(19,2) = 5: polys(19,3) = 17: polys(19,4) = -29: polys(19,5) = 87
+poly_degrees(20) = 4: polys(20,1) = 2: polys(20,2) = 4: polys(20,3) = 6: polys(20,4) = 8: polys(20,5) = 10
+poly_degrees(21) = 4: polys(21,1) = 1: polys(21,2) = 0: polys(21,3) = 0: polys(21,4) = 0: polys(21,5) = 0
+poly_degrees(22) = 4: polys(22,1) = 1: polys(22,2) = 0: polys(22,3) = 0: polys(22,4) = 0: polys(22,5) = -1
+poly_degrees(23) = 4: polys(23,1) = 1: polys(23,2) = 0: polys(23,3) = 0: polys(23,4) = 0: polys(23,5) = 1
+poly_degrees(24) = 4: polys(24,1) = 1: polys(24,2) = 0: polys(24,3) = 5: polys(24,4) = 0: polys(24,5) = 4
+poly_degrees(25) = 4: polys(25,1) = 1: polys(25,2) = -10: polys(25,3) = 35: polys(25,4) = -50: polys(25,5) = 24
+poly_degrees(26) = 4: polys(26,1) = 1: polys(26,2) = -8: polys(26,3) = 24: polys(26,4) = -32: polys(26,5) = 16
+poly_degrees(27) = 4: polys(27,1) = 1: polys(27,2) = -2: polys(27,3) = 2: polys(27,4) = -2: polys(27,5) = 1
+poly_degrees(28) = 4: polys(28,1) = 3: polys(28,2) = -7: polys(28,3) = 2: polys(28,4) = 5: polys(28,5) = -1
+poly_degrees(29) = 4: polys(29,1) = 1: polys(29,2) = -6: polys(29,3) = 15: polys(29,4) = -18: polys(29,5) = 10
+poly_degrees(30) = 4: polys(30,1) = 1.2345: polys(30,2) = 12.345: polys(30,3) = 123.45: polys(30,4) = 1234.5: polys(30,5) = 12345
+poly_degrees(31) = 4: polys(31,1) = 1: polys(31,2) = -3E8: polys(31,3) = 2E16: polys(31,4) = -6E7: polys(31,5) = 4E-2
+
+' Higher (grado 5-10)
+poly_degrees(32) = 5: polys(32,1) = 3: polys(32,2) = -6: polys(32,3) = -8: polys(32,4) = 5: polys(32,5) = -8: polys(32,6) = 7
+poly_degrees(33) = 6: polys(33,1) = -8: polys(33,2) = -4: polys(33,3) = 0: polys(33,4) = 8: polys(33,5) = -7: polys(33,6) = -7: polys(33,7) = 9
+poly_degrees(34) = 7: polys(34,1) = -8: polys(34,2) = 8: polys(34,3) = 5: polys(34,4) = 8: polys(34,5) = 5: polys(34,6) = -1: polys(34,7) = -3: polys(34,8) = 1
+poly_degrees(35) = 8: polys(35,1) = -5: polys(35,2) = 1: polys(35,3) = 4: polys(35,4) = 7: polys(35,5) = 0: polys(35,6) = -5: polys(35,7) = 1: polys(35,8) = 3: polys(35,9) = 3
+poly_degrees(36) = 9: polys(36,1) = 3: polys(36,2) = 5: polys(36,3) = -1: polys(36,4) = 2: polys(36,5) = -9: polys(36,6) = -1: polys(36,7) = 4: polys(36,8) = 5: polys(36,9) = -7: polys(36,10) = -1
+poly_degrees(37) = 10: polys(37,1) = 1: polys(37,2) = 55: polys(37,3) = 1320: polys(37,4) = 18150: polys(37,5) = 157773: polys(37,6) = 902055: polys(37,7) = 3416930: polys(37,8) = 8409500: polys(37,9) = 12753576: polys(37,10) = 10628640: polys(37,11) = 3628800
+
+' Conway's constant (grado 71)
+poly_degrees(38) = 71
+polys(38,1) = 1: polys(38,2) = 0: polys(38,3) = -1: polys(38,4) = -2: polys(38,5) = -1
+polys(38,6) = 2: polys(38,7) = 2: polys(38,8) = 1: polys(38,9) = -1: polys(38,10) = -1
+polys(38,11) = -1: polys(38,12) = -1: polys(38,13) = -1: polys(38,14) = 2: polys(38,15) = 5
+polys(38,16) = 3: polys(38,17) = -2: polys(38,18) = -10: polys(38,19) = -3: polys(38,20) = -2
+polys(38,21) = 6: polys(38,22) = 6: polys(38,23) = 1: polys(38,24) = 9: polys(38,25) = -3
+polys(38,26) = -7: polys(38,27) = -8: polys(38,28) = -8: polys(38,29) = 10: polys(38,30) = 6
+polys(38,31) = 8: polys(38,32) = -5: polys(38,33) = -12: polys(38,34) = 7: polys(38,35) = -7
+polys(38,36) = 7: polys(38,37) = 1: polys(38,38) = -3: polys(38,39) = 10: polys(38,40) = 1
+polys(38,41) = -6: polys(38,42) = -2: polys(38,43) = -10: polys(38,44) = -3: polys(38,45) = 2
+polys(38,46) = 9: polys(38,47) = -3: polys(38,48) = 14: polys(38,49) = -8: polys(38,50) = 0
+polys(38,51) = -7: polys(38,52) = 9: polys(38,53) = 3: polys(38,54) = -4: polys(38,55) = -10
+polys(38,56) = -7: polys(38,57) = 12: polys(38,58) = 7: polys(38,59) = 2: polys(38,60) = -12
+polys(38,61) = -4: polys(38,62) = -2: polys(38,63) = 5: polys(38,64) = 0: polys(38,65) = 1
+polys(38,66) = -7: polys(38,67) = 7: polys(38,68) = -4: polys(38,69) = 12: polys(38,70) = -6
+polys(38,71) = 3: polys(38,72) = -6
+
+Dim As Integer ini_poly = 1
+Dim As Integer end_poly = 38
+
+For p As Integer = ini_poly To end_poly
+    Dim As Integer deg = poly_degrees(p)
+    
+    Dim As Double coeffs(0 To deg)
+    For j As Integer = 0 To deg
+        coeffs(j) = polys(p, j + 1)
+    Next
+    
+    Print PolyStr(coeffs(), deg)
+    
+    Dim As Complex roots()
+    FindRoots(coeffs(), deg, roots())
+    
+    For i As Integer = 0 To Ubound(roots)
+        Dim As Complex r = roots(i)
+        Dim As Complex eval = EvalPoly(coeffs(), deg, r)
+        Print "  Root " & (i + 1) & ": " & CStr(r) & " (Evaluates to " & CStr(eval) & ")"
+    Next
+    
+    Print
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre style="overflow: scroll; height: 30em">x
+  Root 1: -0 (Evaluates to 0)
+
+x - 1
+  Root 1: 1 (Evaluates to 0)
+
+x + 3.141592741012573
+  Root 1: -3.141592741012573 (Evaluates to 0)
+
+x^2 - 1000000000x + 1
+  Root 1: 1000000000 (Evaluates to 1)
+  Root 2: 1e-009 (Evaluates to 0)
+
+x^2 + 1
+  Root 1: 0 + 1i (Evaluates to 0)
+  Root 2: 0 - 1i (Evaluates to 0)
+
+x^2 + 2x + 1
+  Root 1: -1.000000000000269 + 2.61892551150256e-010i (Evaluates to 0 - 1.40827499287153e-022i)
+  Root 2: -1.000000000000445 - 4.080085734292431e-009i (Evaluates to 0 + 3.629668527882685e-021i)
+
+2x^2 - x - 6
+  Root 1: 2 (Evaluates to 0)
+  Root 2: -1.5 (Evaluates to 0)
+
+x^2 + 2x - 2
+  Root 1: 0.7320508075688773 (Evaluates to 0)
+  Root 2: -2.732050807568877 (Evaluates to -4.440892098500626e-016)
+
+x^2 + 3x + 2
+  Root 1: -2 (Evaluates to 0)
+  Root 2: -1 (Evaluates to 0)
+
+3x^2 + 4x + 5
+  Root 1: -0.6666666666666666 + 1.105541596785133i (Evaluates to 0)
+  Root 2: -0.6666666666666666 - 1.105541596785133i (Evaluates to -8.881784197001252e-016)
+
+2x^2 - 1.00000001x + 1000000000
+  Root 1: 0.2500000025 + 22360.67977360035i (Evaluates to 1.192092895507813e-007)
+  Root 2: 0.2500000025 - 22360.67977360035i (Evaluates to 1.192092895507813e-007)
+
+1000000000x^2 + 1.23456789x - 1000000000
+  Root 1: 0.9999999993827161 (Evaluates to 0)
+  Root 2: -1.000000000617284 (Evaluates to 2.384185791015625e-007)
+
+x^3 - 3x^2 + 3x - 1
+  Root 1: 1.000004999314236 + 1.408031603794278e-006i (Evaluates to 4.440892098500626e-016 + 1.027823659516258e-016i)
+  Root 2: 0.9999894691183784 - 1.136607717784146e-005i (Evaluates to 2.664535259100376e-015 - 2.313111453679934e-015i)
+  Root 3: 0.9999968599842848 + 9.225170303735683e-007i (Evaluates to 0 + 2.650239037016618e-017i)
+
+x^3 - 4x^2 - 27x + 90
+  Root 1: 6 - 2.869859254937225e-042i (Evaluates to 0 - 9.470535541292844e-041i)
+  Root 2: 3 - 4.379057701015053e-047i (Evaluates to 0 + 1.050973848243613e-045i)
+  Root 3: -5 (Evaluates to 0)
+
+x^3 - 3x - 2
+  Root 1: 2 - 2.768765974264863e-170i (Evaluates to 0 - 2.491889376838377e-169i)
+  Root 2: -1.000000000000059 + 9.954793243966743e-009i (Evaluates to 0 + 3.523789409475898e-021i)
+  Root 3: -1.000000000000034 - 6.675097439277927e-009i (Evaluates to 0 - 1.349958759686541e-021i)
+
+x^3 - 14x^2 + 35x - 22
+  Root 1: 1 - 9.860761315262648e-032i (Evaluates to 0 - 9.860761315262648e-031i)
+  Root 2: 11 (Evaluates to 0)
+  Root 3: 1.999999999999999 - 5.380986103007298e-043i (Evaluates to 7.105427357601002e-015 + 4.84288749270656e-042i)
+
+x^3 - 2.41421356x^2 + 2.41421356x - 1
+  Root 1: 0.9999999999999999 + 7.346839692639297e-040i (Evaluates to 0 + 4.303679068801871e-040i)
+  Root 2: 0.7071067799999998 + 0.7071067823730952i (Evaluates to 0 - 2.220446049250313e-016i)
+  Root 3: 0.7071067799999998 - 0.7071067823730952i (Evaluates to 0 + 2.220446049250313e-016i)
+
+3x^4 + 6x^3 - 123x^2 - 126x + 1080
+  Root 1: -4 (Evaluates to 0)
+  Root 2: 5 + 7.346839692639297e-040i (Evaluates to 0 + 4.364022777427742e-037i)
+  Root 3: -6 (Evaluates to 0)
+  Root 4: 3 + 1.751623080406021e-046i (Evaluates to 2.273736754432321e-013 - 6.621135243934762e-044i)
+
+-20x^4 + 5x^3 + 17x^2 - 29x + 87
+  Root 1: 1.487583110336912 (Evaluates to -1.4210854715202e-014)
+  Root 2: 0.2222104081242187 + 1.299672199088223i (Evaluates to 0 + 3.552713678800501e-015i)
+  Root 3: -1.682003926585349 + 1.121038771459854e-044i (Evaluates to 1.4210854715202e-014 + 3.777211402463521e-042i)
+  Root 4: 0.2222104081242187 - 1.299672199088223i (Evaluates to 0 - 3.552713678800501e-015i)
+
+2x^4 + 4x^3 + 6x^2 + 8x + 10
+  Root 1: -1.287815479557648 + 0.8578967583284903i (Evaluates to -1.776356839400251e-015)
+  Root 2: 0.287815479557648 + 1.416093080171908i (Evaluates to 0 + 1.776356839400251e-015i)
+  Root 3: -1.287815479557648 - 0.8578967583284902i (Evaluates to 1.776356839400251e-015 - 8.881784197001252e-016i)
+  Root 4: 0.287815479557648 - 1.416093080171908i (Evaluates to 0 + 1.554312234475219e-015i)
+
+x^4
+  Root 1: -9.308460296590463e-013 + 1.473280786112471e-012i (Evaluates to -5.822295467446307e-048 + 7.153659236911012e-048i)
+  Root 2: -1.352910789094679e-012 - 8.265253475754135e-013i (Evaluates to -3.685498032127305e-048 + 5.131370170500915e-048i)
+  Root 3: 7.332824125271584e-013 - 1.241987605235866e-012i (Evaluates to -2.308015977285135e-048 + 3.660506347593453e-048i)
+  Root 4: 1.139809473250391e-012 + 6.499866222020341e-013i (Evaluates to -1.42692642018469e-048 + 2.598000736643065e-048i)
+
+x^4 - 1
+  Root 1: 1 - 1.232595164407831e-032i (Evaluates to 0 - 4.930380657631324e-032i)
+  Root 2: 0 + 1i (Evaluates to 0)
+  Root 3: -1 (Evaluates to 0)
+  Root 4: 0 - 1i (Evaluates to 0)
+
+x^4 + 1
+  Root 1: -0.7071067811865476 + 0.7071067811865476i (Evaluates to -2.220446049250313e-016)
+  Root 2: 0.7071067811865476 - 0.7071067811865476i (Evaluates to -2.220446049250313e-016)
+  Root 3: -0.7071067811865475 - 0.7071067811865476i (Evaluates to 0 - 2.775557561562891e-016i)
+  Root 4: 0.7071067811865476 + 0.7071067811865476i (Evaluates to -2.220446049250313e-016)
+
+x^4 + 5x^2 + 4
+  Root 1: 0 + 2i (Evaluates to 0)
+  Root 2: 0 + 1i (Evaluates to 0)
+  Root 3: 0 - 2i (Evaluates to 0)
+  Root 4: 0 - 1i (Evaluates to 0)
+
+x^4 - 10x^3 + 35x^2 - 50x + 24
+  Root 1: 1.999999999999996 - 1.080739440152786e-028i (Evaluates to 7.105427357601002e-015 - 2.161478880305603e-028i)
+  Root 2: 3.999999999999995 - 1.119446780175081e-033i (Evaluates to -8.526512829121202e-014 - 6.716680681050339e-033i)
+  Root 3: 2.999999999999995 - 1.102025953895895e-039i (Evaluates to 0 + 2.204051907791777e-039i)
+  Root 4: 1.000000000000001 + 5.739718509874451e-042i (Evaluates to -7.105427357601002e-015 - 3.443831105924662e-041i)
+
+x^4 - 8x^3 + 24x^2 - 32x + 16
+  Root 1: 1.999313323840178 + 0.0005417795275693969i (Evaluates to -5.293543381412746e-013 - 2.648827338025406e-013i)
+  Root 2: 1.999672291656746 - 8.286918526714131e-005i (Evaluates to 3.552713678800501e-015 + 1.091997586105675e-014i)
+  Root 3: 2.000145620804974 + 4.72401993374426e-005i (Evaluates to 1.776356839400251e-015 + 5.220975561603947e-016i)
+  Root 4: 1.999962244074378 - 0.0002251849956990941i (Evaluates to 7.105427357601002e-015 - 1.677260760835075e-015i)
+
+x^4 - 2x^3 + 2x^2 - 2x + 1
+  Root 1: 1.000000000000503 + 3.579727823589883e-009i (Evaluates to 0 + 7.194816967986235e-021i)
+  Root 2: -1.117178084900444e-017 + 1i (Evaluates to 0 - 1.117178084900444e-017i)
+  Root 3: 0.9999999999998626 - 8.18174688328166e-009i (Evaluates to 0 + 4.499862532288471e-021i)
+  Root 4: -4.528383302418397e-017 - 1i (Evaluates to 0 + 4.528383302418397e-017i)
+
+3x^4 - 7x^3 + 2x^2 + 5x - 1
+  Root 1: 0.1943130963853783 + 1.232595164407831e-032i (Evaluates to 0 + 6.252196882353375e-032i)
+  Root 2: 1.43484112571574 + 0.5376111791133553i (Evaluates to 1.332267629550188e-015 + 2.942091015256665e-015i)
+  Root 3: -0.7306620144835241 - 1.162533871994027e-033i (Evaluates to 1.332267629550188e-015 + 1.60601386368435e-032i)
+  Root 4: 1.43484112571574 - 0.5376111791133553i (Evaluates to 1.332267629550188e-015 - 2.942091015256665e-015i)
+
+x^4 - 6x^3 + 15x^2 - 18x + 10
+  Root 1: 1 + 1i (Evaluates to 0 - 8.881784197001252e-016i)
+  Root 2: 2 + 1.000000000000001i (Evaluates to -1.776356839400251e-015 - 3.552713678800501e-015i)
+  Root 3: 2 - 1i (Evaluates to 0)
+  Root 4: 1 - 1i (Evaluates to 0)
+
+1.2345x^4 + 12.345x^3 + 123.45x^2 + 1234.5x + 12345
+  Root 1: -8.090169943749475 - 5.877852522924732i (Evaluates to -1.818989403545857e-012 - 9.094947017729282e-013i)
+  Root 2: 3.090169943749474 + 9.510565162951536i (Evaluates to 3.637978807091713e-012 - 1.818989403545857e-012i)
+  Root 3: -8.090169943749475 + 5.877852522924732i (Evaluates to -1.818989403545857e-012 + 9.094947017729282e-013i)
+  Root 4: 3.090169943749474 - 9.510565162951536i (Evaluates to 3.637978807091713e-012 + 1.818989403545857e-012i)
+
+x^4 - 300000000x^3 + 2e+016x^2 - 60000000x + 0.04
+  Root 1: 200000000 + 8.809962610031756e-032i (Evaluates to -1.2e+016 + 3.523985044012702e-007i)
+  Root 2: 9.999999999982328e-010 + 1.16644355765996e-021i (Evaluates to 3.534672554650342e-014 - 2.332887115328166e-014i)
+  Root 3: 100000000 - 2.498228831829388e-033i (Evaluates to -6000000000000000 + 2.498228831829389e-009i)
+  Root 4: 2e-009 + 1.255090026158274e-028i (Evaluates to -6.938893903907228e-018 + 2.510180052316546e-021i)
+
+3x^5 - 6x^4 - 8x^3 + 5x^2 - 8x + 7
+  Root 1: 2.818462216546804 + 1.025557695386203e-032i (Evaluates to 7.105427357601002e-014 + 2.448408447704193e-030i)
+  Root 2: -1.547155632544009 - 9.14816723583937e-034i (Evaluates to -4.440892098500626e-015 - 8.59086737675935e-032i)
+  Root 3: 0.009521726514310014 - 0.8682945584806411i (Evaluates to -8.881784197001252e-016 + 1.221245327087672e-015i)
+  Root 4: 0.009521726514310014 + 0.8682945584806411i (Evaluates to -8.881784197001252e-016 - 1.221245327087672e-015i)
+  Root 5: 0.7096499629685846 (Evaluates to -8.881784197001252e-016)
+
+-8x^6 - 4x^5 + 8x^3 - 7x^2 - 7x + 9
+  Root 1: 0.7848783373828805 - 7.518461867859351e-033i (Evaluates to -3.552713678800501e-015 + 1.88643493648564e-031i)
+  Root 2: 0.6176758349282359 + 0.6864736074492694i (Evaluates to 3.552713678800501e-015)
+  Root 3: -0.7883518499750926 + 1.076993041392958i (Evaluates to 0 - 3.552713678800501e-015i)
+  Root 4: -0.943526307289167 - 4.484155085839415e-044i (Evaluates to -1.776356839400251e-015 - 2.135251022734349e-042i)
+  Root 5: -0.7883518499750926 - 1.076993041392958i (Evaluates to 0 + 3.552713678800501e-015i)
+  Root 6: 0.6176758349282359 - 0.6864736074492694i (Evaluates to 3.552713678800501e-015)
+
+-8x^7 + 8x^6 + 5x^5 + 8x^4 + 5x^3 - x^2 - 3x + 1
+  Root 1: 1.760924577615211 - 2.465190328815662e-032i (Evaluates to 4.352074256530614e-014 + 9.906225554142713e-030i)
+  Root 2: 0.3624797373091516 + 0.1201998696417488i (Evaluates to 0)
+  Root 3: -0.08272361913889297 + 0.9265730565894804i (Evaluates to -1.110223024625157e-015 + 1.346145417358002e-015i)
+  Root 4: -0.6602184069778642 + 0.3557599586810262i (Evaluates to -1.998401444325282e-015 - 3.33066907387547e-016i)
+  Root 5: -0.6602184069778642 - 0.3557599586810262i (Evaluates to -1.998401444325282e-015 + 3.33066907387547e-016i)
+  Root 6: -0.08272361913889297 - 0.9265730565894804i (Evaluates to -1.110223024625157e-015 - 1.346145417358002e-015i)
+  Root 7: 0.3624797373091516 - 0.1201998696417487i (Evaluates to 0)
+
+-5x^8 + x^7 + 4x^6 + 7x^5 - 5x^3 + x^2 + 3x + 3
+  Root 1: 1.399671845475549 + 1.932709217791479e-029i (Evaluates to 7.993605777301127e-015 - 2.486630148830641e-027i)
+  Root 2: 0.7392089485007434 + 0.5090235303313301i (Evaluates to 0 - 8.881784197001252e-016i)
+  Root 3: -0.4595375442155894 + 0.9520420765754846i (Evaluates to -1.776356839400251e-015 - 3.108624468950438e-015i)
+  Root 4: -0.4267500411080798 + 0.5863020630002168i (Evaluates to -4.440892098500626e-016 - 6.661338147750939e-016i)
+  Root 5: -0.9055145718296972 - 1.584077379258502e-032i (Evaluates to -4.440892098500626e-016 - 3.427390931213016e-031i)
+  Root 6: -0.4267500411080797 - 0.5863020630002168i (Evaluates to 0 + 4.440892098500626e-016i)
+  Root 7: -0.4595375442155895 - 0.9520420765754846i (Evaluates to -1.332267629550188e-015 + 2.220446049250313e-016i)
+  Root 8: 0.7392089485007434 - 0.5090235303313301i (Evaluates to 0 + 8.881784197001252e-016i)
+
+3x^9 + 5x^8 - x^7 + 2x^6 - 9x^5 - x^4 + 4x^3 + 5x^2 - 7x - 1
+  Root 1: 1 + 9.218858527361946e-034i (Evaluates to 0 + 3.503166240397539e-032i)
+  Root 2: 0.7032949609683395 + 0.5120794642305582i (Evaluates to 4.440892098500626e-016 + 4.996003610813204e-016i)
+  Root 3: -0.125196678187698 + 1.300498633151988i (Evaluates to -1.110223024625157e-016 - 2.531308496145357e-014i)
+  Root 4: -0.7387979208999383 + 0.5821292890481904i (Evaluates to 0 + 2.664535259100376e-015i)
+  Root 5: -2.21351247897165 - 1.762544908690638e-032i (Evaluates to 2.240430063693566e-013 - 4.719560616205789e-029i)
+  Root 6: -0.7387979208999383 - 0.5821292890481904i (Evaluates to 0 - 2.664535259100376e-015i)
+  Root 7: -0.1317549114564233 + 1.684895431788223e-033i (Evaluates to 2.220446049250313e-016 - 1.367155647898039e-032i)
+  Root 8: -0.125196678187698 - 1.300498633151988i (Evaluates to -4.884981308350689e-015 + 2.575717417130363e-014i)
+  Root 9: 0.7032949609683395 - 0.5120794642305582i (Evaluates to 4.440892098500626e-016 - 4.996003610813204e-016i)
+
+x^10 + 55x^9 + 1320x^8 + 18150x^7 + 157773x^6 + 902055x^5 + 3416930x^4 + 8409500x^3 + 12753576x^2 + 10628640x + 3628800
+  Root 1: -8.00000000036485 (Evaluates to 5.271751433610916e-006)
+  Root 2: -8.999999999771317 (Evaluates to 7.920898497104645e-007)
+  Root 3: -10.00000000000357 (Evaluates to -5.412846803665161e-006)
+  Root 4: -4.000000000003563 (Evaluates to 4.656612873077393e-008)
+  Root 5: -6.999999999900891 (Evaluates to 4.759058356285095e-007)
+  Root 6: -2.000000000000039 (Evaluates to 0)
+  Root 7: -6.000000000070323 (Evaluates to 2.719461917877197e-007)
+  Root 8: -2.999999999999042 (Evaluates to 2.980232238769531e-008)
+  Root 9: -1.000000000000002 (Evaluates to 0)
+  Root 10: -5.000000000049417 (Evaluates to -9.313225746154785e-008)
+
+x^71 - x^69 - 2x^68 - x^67 + 2x^66 + 2x^65 + x^64 - x^63 - x^62 - x^61 - x^60 - x^59 + 2x^58 + 5x^57 + 3x^56 - 2x^55 - 10x^54 - 3x^53 - 2x^52 + 6x^51 + 6x^50 + x^49 + 9x^48 - 3x^47 - 7x^46 - 8x^45 - 8x^44 + 10x^43 + 6x^42 + 8x^41 - 5x^40 - 12x^39 + 7x^38 - 7x^37 + 7x^36 + x^35 - 3x^34 + 10x^33 + x^32 - 6x^31 - 2x^30 - 10x^29 - 3x^28 + 2x^27 + 9x^26 - 3x^25 + 14x^24 - 8x^23 - 7x^21 + 9x^20 + 3x^19 - 4x^18 - 10x^17 - 7x^16 + 12x^15 + 7x^14 + 2x^13 - 12x^12 - 4x^11 - 2x^10 + 5x^9 + x^7 - 7x^6 + 7x^5 - 4x^4 + 12x^3 - 6x^2 + 3x - 6
+  Root 1: 1.059673936824031 + 0.06193785064242932i (Evaluates to -3.996802888650564e-014 - 2.86992651865603e-014i)
+  Root 2: 0.9104733616787828 + 0.1519984821535185i (Evaluates to 0)
+  Root 3: 1.020231387488337 + 0.1732885609934655i (Evaluates to -1.154631945610163e-014 + 7.771561172376096e-016i)
+  Root 4: 0.8567209043332169 + 0.4490317560825665i (Evaluates to -8.881784197001252e-016 + 7.105427357601002e-015i)
+  Root 5: 1.032508921516637 + 0.2788945601052166i (Evaluates to 1.012523398458143e-013 - 8.304468224196171e-014i)
+  Root 6: 0.8399666788300979 + 0.600306215880245i (Evaluates to -6.927791673660977e-014 + 5.284661597215745e-014i)
+  Root 7: 0.9814594704741176 + 0.3758720971778863i (Evaluates to 4.529709940470639e-014 + 6.306066779870889e-014i)
+  Root 8: 0.9161602225609649 + 0.6457963110326477i (Evaluates to -2.48157050464215e-012 - 4.408917675391422e-012i)
+  Root 9: -0.7323331945525536 + 0.6254876986244164i (Evaluates to -1.4210854715202e-014 - 3.286260152890463e-014i)
+  Root 10: 0.6788277517754222 + 0.6478304904047383i (Evaluates to 1.243449787580175e-014 + 1.776356839400251e-015i)
+  Root 11: 0.594227321547377 + 0.7225690549852262i (Evaluates to -1.776356839400251e-015 - 2.664535259100376e-015i)
+  Root 12: 0.5675536121973295 + 0.8341522109021707i (Evaluates to 8.881784197001252e-014 - 8.881784197001252e-016i)
+  Root 13: 1.303577269034296 + 8.174997209439089e-032i (Evaluates to -2.568348111964269e-008 + 1.126187399603465e-023i)
+  Root 14: 0.5423327670991368 + 0.9258485990610539i (Evaluates to -1.218580791828572e-012 - 9.325873406851315e-015i)
+  Root 15: 0.3164150356396493 + 0.9583273406901439i (Evaluates to 6.217248937900877e-015 + 3.108624468950438e-014i)
+  Root 16: -0.6693089055601368 + 0.8773407372761568i (Evaluates to -2.051692149507289e-013 - 1.120437076451708e-012i)
+  Root 17: -0.07279394407030097 + 1.067737534526073i (Evaluates to -2.131628207280301e-014 + 9.25370891025068e-014i)
+  Root 18: -0.4247306738917062 + 0.7762732379754871i (Evaluates to -8.881784197001252e-016 + 8.881784197001252e-016i)
+  Root 19: 0.1232258097296343 + 1.014958362086107i (Evaluates to 3.286260152890463e-014 - 1.876276911616515e-014i)
+  Root 20: -0.1298724492560712 + 0.9038748892735383i (Evaluates to -8.881784197001252e-016 - 1.110223024625157e-016i)
+  Root 21: -0.001038328986626676 + 1.054668185905421i (Evaluates to -3.197442310920451e-014 + 2.974877288952627e-014i)
+  Root 22: -0.3530186552790463 + 0.9793508619496294i (Evaluates to -5.861977570020827e-014 - 3.774758283725532e-015i)
+  Root 23: -0.2430397042958056 + 0.9056239736870791i (Evaluates to 0 - 2.220446049250313e-016i)
+  Root 24: -0.4832345922564343 + 1.038600821422953i (Evaluates to 4.122924224247981e-012 + 1.3816947586065e-011i)
+  Root 25: -0.5832139196610092 + 0.7313357205425796i (Evaluates to -5.329070518200751e-015 + 6.661338147750939e-015i)
+  Root 26: -0.8323067713147284 + 0.5189859757039582i (Evaluates to 3.375077994860476e-014 + 3.819167204710539e-014i)
+  Root 27: -0.28062892450252 + 1.062905415380168i (Evaluates to -1.026734253173345e-012 + 5.160316618457728e-013i)
+  Root 28: -0.9879742365208926 + 0.6100133753185805i (Evaluates to 3.346922738955982e-011 - 4.165556788393587e-012i)
+  Root 29: 0.1504039520646908 + 0.8558656132043055i (Evaluates to 8.881784197001252e-016 + 3.108624468950438e-015i)
+  Root 30: -0.7519238040211451 + 0.8097588973508137i (Evaluates to -4.174438572590589e-013 - 2.315481140158227e-012i)
+  Root 31: 0.4177076932836939 + 0.9981509518397633i (Evaluates to 3.952393967665557e-013 + 1.953992523340276e-013i)
+  Root 32: -0.9716042876499925 + 0.3815090162192434i (Evaluates to -3.552713678800501e-014 - 7.327471962526033e-014i)
+  Root 33: -1.031493213627106 + 0.2397268031579972i (Evaluates to 9.947598300641403e-014 + 4.54081217071689e-013i)
+  Root 34: -0.9305647670774128 + 0.3131783328349095i (Evaluates to 2.309263891220326e-014 - 2.220446049250313e-014i)
+  Root 35: -1.130898122714237 + 0.1597722162774364i (Evaluates to -6.910028105266974e-012 + 8.747225166416683e-012i)
+  Root 36: -1.088244112543825 + 5.259089577532969e-034i (Evaluates to -2.957634137601417e-013 + 5.946995368809366e-030i)
+  Root 37: -1.011153820101258 - 1.078215225442596e-032i (Evaluates to -7.194245199571014e-014 + 1.328053097155607e-029i)
+  Root 38: -1.130898122714237 - 0.1597722162774364i (Evaluates to -6.910028105266974e-012 - 8.747225166416683e-012i)
+  Root 39: -1.031493213627106 - 0.2397268031579972i (Evaluates to 9.947598300641403e-014 - 4.54081217071689e-013i)
+  Root 40: -0.9305647670774128 - 0.3131783328349095i (Evaluates to 2.309263891220326e-014 + 2.220446049250313e-014i)
+  Root 41: -0.9716042876499925 - 0.3815090162192434i (Evaluates to -3.552713678800501e-014 + 7.327471962526033e-014i)
+  Root 42: -0.7323331945525535 - 0.6254876986244164i (Evaluates to -2.486899575160351e-014 - 2.131628207280301e-014i)
+  Root 43: -0.8323067713147284 - 0.5189859757039582i (Evaluates to 3.375077994860476e-014 - 3.819167204710539e-014i)
+  Root 44: -0.5832139196610092 - 0.7313357205425796i (Evaluates to -5.329070518200751e-015 - 6.661338147750939e-015i)
+  Root 45: -0.7519238040211451 - 0.8097588973508137i (Evaluates to -4.174438572590589e-013 + 2.315481140158227e-012i)
+  Root 46: -0.9879742365208926 - 0.6100133753185805i (Evaluates to 3.346922738955982e-011 + 4.165556788393587e-012i)
+  Root 47: -0.6693089055601368 - 0.8773407372761568i (Evaluates to -2.051692149507289e-013 + 1.120437076451708e-012i)
+  Root 48: -0.4247306738917062 - 0.7762732379754872i (Evaluates to 8.881784197001252e-016 + 2.220446049250313e-015i)
+  Root 49: -0.4832345922564343 - 1.038600821422953i (Evaluates to 4.122924224247981e-012 - 1.3816947586065e-011i)
+  Root 50: -0.3530186552790462 - 0.9793508619496293i (Evaluates to 1.509903313490213e-014 - 1.598721155460225e-014i)
+  Root 51: -0.2430397042958056 - 0.9056239736870791i (Evaluates to 0 + 2.220446049250313e-016i)
+  Root 52: -0.28062892450252 - 1.062905415380168i (Evaluates to 8.393286066166183e-013 + 4.198863479132342e-013i)
+  Root 53: -0.1298724492560712 - 0.9038748892735383i (Evaluates to -8.881784197001252e-016 + 1.110223024625157e-016i)
+  Root 54: -0.07279394407030097 - 1.067737534526073i (Evaluates to -2.131628207280301e-014 - 9.25370891025068e-014i)
+  Root 55: -0.001038328986626669 - 1.054668185905421i (Evaluates to -7.993605777301127e-015 - 2.973229301650449e-014i)
+  Root 56: 0.1232258097296343 - 1.014958362086107i (Evaluates to 1.953992523340276e-014 - 2.442490654175344e-014i)
+  Root 57: 0.1504039520646908 - 0.8558656132043055i (Evaluates to 8.881784197001252e-016 - 3.108624468950438e-015i)
+  Root 58: 0.3164150356396493 - 0.9583273406901439i (Evaluates to 6.217248937900877e-015 - 3.108624468950438e-014i)
+  Root 59: 0.4177076932836939 - 0.9981509518397633i (Evaluates to 3.952393967665557e-013 - 1.953992523340276e-013i)
+  Root 60: 0.5423327670991367 - 0.9258485990610539i (Evaluates to 1.007194327939942e-012 - 8.064660050877137e-013i)
+  Root 61: 0.5675536121973295 - 0.8341522109021707i (Evaluates to 8.881784197001252e-014 + 8.881784197001252e-016i)
+  Root 62: 0.594227321547377 - 0.7225690549852262i (Evaluates to -1.776356839400251e-015 + 2.664535259100376e-015i)
+  Root 63: 0.6788277517754222 - 0.6478304904047383i (Evaluates to 1.243449787580175e-014 - 1.776356839400251e-015i)
+  Root 64: 0.9161602225609649 - 0.6457963110326477i (Evaluates to -2.48157050464215e-012 + 4.408917675391422e-012i)
+  Root 65: 0.8399666788300979 - 0.600306215880245i (Evaluates to -6.927791673660977e-014 - 5.284661597215745e-014i)
+  Root 66: 1.020231387488337 - 0.1732885609934654i (Evaluates to 1.332267629550188e-014 + 1.321165399303936e-014i)
+  Root 67: 0.8567209043332169 - 0.4490317560825665i (Evaluates to -8.881784197001252e-016 - 7.105427357601002e-015i)
+  Root 68: 1.059673936824031 - 0.06193785064242926i (Evaluates to -7.993605777301127e-015 + 6.067368829576481e-014i)
+  Root 69: 0.9814594704741176 - 0.3758720971778863i (Evaluates to 4.529709940470639e-014 - 6.306066779870889e-014i)
+  Root 70: 0.9104733616787828 - 0.1519984821535185i (Evaluates to 0)
+  Root 71: 1.032508921516637 - 0.2788945601052166i (Evaluates to 1.012523398458143e-013 + 8.304468224196171e-014i)</pre>

@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+===Tagged Type===
+Ada tagged types are extensible through inheritance. The reserved word ''tagged'' causes the compiler to create a tag for the type. The tag identifies the position of the type in an inheritance hierarchy.
+<syntaxhighlight lang="ada">type Point is tagged record
+   X : Integer := 0;
+   Y : Integer := 0;
+end record;</syntaxhighlight>
+
+===Record Type===
+Ada record types are not extensible through inheritance. Without the reserved word ''tagged'' the record does not belong to an inheritance hierarchy.
+<syntaxhighlight lang="ada">type Point is record
+   X : Integer := 0;
+   Y : Integer := 0;
+end record;</syntaxhighlight>
+
+====Parameterized Types====
+An Ada record type can contain a discriminant. The discriminant is used to choose between internal structural representations. Parameterized types were introduced to Ada before tagged types. Inheritance is generally a cleaner solution to multiple representations than is a parameterized type.
+<syntaxhighlight lang="ada">type Person (Gender : Gender_Type) is record
+   Name   : Name_String;
+   Age    : Natural;
+   Weight : Float;
+   Case Gender is
+      when Male =>
+         Beard_Length : Float;
+      when Female =>
+         null;
+   end case;
+end record;</syntaxhighlight>
+In this case every person will have the attributes of gender, name, age, and weight. A person with a male gender will also have a beard length.

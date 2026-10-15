@@ -1,0 +1,121 @@
+==={{header|FreeBASIC}}===
+<syntaxhighlight lang="freebasic">' version 06-07-2018
+' compile with: fbc -s console
+
+Const As ULongInt trillion = 1000000000000ull
+Const As ULong max = Sqr(trillion + 145)
+
+Dim As UByte list(), sieve()
+Dim As ULong prime()
+ReDim list(max), prime(max\12), sieve(max)
+
+Dim As ULong a, b, c, i, k, stop_ = Sqr(max)
+
+For i = 4 To max Step 2   ' prime sieve remove even numbers except 2
+    sieve(i) = 1
+Next
+For i = 3 To stop_ Step 2 ' proces odd numbers
+    If sieve(i) = 0 Then
+        For a = i * i To max Step i * 2
+            sieve(a) = 1
+        Next
+    End If
+Next
+
+For i = 2 To max          ' move primes to a list
+    If sieve(i) = 0 Then
+        c += 1
+        prime(c) = i
+    End If
+Next
+
+ReDim sieve(145): ReDim Preserve prime(c)
+
+For i = 1 To c  ' find all square free integers between 1 and 1000000
+    a = prime(i) * prime(i)
+    If a > 1000000 Then Exit For
+    For k = a To 1000000 Step a
+        list(k) = 1
+    Next
+Next
+
+k = 0
+For i = 1 To 145          ' show all between 1 and 145
+    If list(i) = 0 Then
+        Print Using"####"; i;
+        k +=1
+        If k Mod 20 = 0 Then Print 
+    End If
+Next
+Print : Print
+
+sieve(0) = 1              ' = trillion
+For i = 1 To 5            ' process primes 2, 3, 5, 7, 11
+    a = prime(i) * prime(i)
+    b = a - trillion Mod a
+    For k = b To 145 Step a
+        sieve(k) = 1
+    Next
+Next
+
+For i = 6 To c            ' process the rest of the primes
+    a = prime(i) * prime(i)
+    k = a - trillion Mod a
+    If k <= 145 Then sieve(k) = 1
+Next
+
+k = 0
+For i = 0 To 145
+    If sieve(i) = 0 Then
+        Print Using "################"; (trillion + i);
+        k += 1
+        If k Mod 5 = 0 Then print
+    End If
+Next
+Print : Print
+
+a = 1 : b = 100 : k = 0
+Do Until b > 1000000      ' count them
+    For i = a To b
+        If list(i) = 0 Then k += 1
+    Next
+    Print "There are "; k; " square free integers between 1 and "; b
+    a = b : b *= 10
+Loop
+
+' empty keyboard buffer
+While Inkey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>   1   2   3   5   6   7  10  11  13  14  15  17  19  21  22  23  26  29  30  31
+  33  34  35  37  38  39  41  42  43  46  47  51  53  55  57  58  59  61  62  65
+  66  67  69  70  71  73  74  77  78  79  82  83  85  86  87  89  91  93  94  95
+  97 101 102 103 105 106 107 109 110 111 113 114 115 118 119 122 123 127 129 130
+ 131 133 134 137 138 139 141 142 143 145
+
+   1000000000001   1000000000002   1000000000003   1000000000005   1000000000006
+   1000000000007   1000000000009   1000000000011   1000000000013   1000000000014
+   1000000000015   1000000000018   1000000000019   1000000000021   1000000000022
+   1000000000023   1000000000027   1000000000029   1000000000030   1000000000031
+   1000000000033   1000000000037   1000000000038   1000000000039   1000000000041
+   1000000000042   1000000000043   1000000000045   1000000000046   1000000000047
+   1000000000049   1000000000051   1000000000054   1000000000055   1000000000057
+   1000000000058   1000000000059   1000000000061   1000000000063   1000000000065
+   1000000000066   1000000000067   1000000000069   1000000000070   1000000000073
+   1000000000074   1000000000077   1000000000078   1000000000079   1000000000081
+   1000000000082   1000000000085   1000000000086   1000000000087   1000000000090
+   1000000000091   1000000000093   1000000000094   1000000000095   1000000000097
+   1000000000099   1000000000101   1000000000102   1000000000103   1000000000105
+   1000000000106   1000000000109   1000000000111   1000000000113   1000000000114
+   1000000000115   1000000000117   1000000000118   1000000000119   1000000000121
+   1000000000122   1000000000123   1000000000126   1000000000127   1000000000129
+   1000000000130   1000000000133   1000000000135   1000000000137   1000000000138
+   1000000000139   1000000000141   1000000000142   1000000000145
+
+There are 61 square free integers between 1 and 100
+There are 608 square free integers between 1 and 1000
+There are 6083 square free integers between 1 and 10000
+There are 60794 square free integers between 1 and 100000
+There are 607926 square free integers between 1 and 1000000</pre>

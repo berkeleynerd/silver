@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+
+Ada supports the input format <BASE>#<VALUE>#, for example 16#AF42# or 2#1010110# or 8#777#. This can be used for input through Ada.Text_IO.Integer_IO or for conversion through Integer'Value. More details on this format can be found here: [http://www.adaic.com/standards/05rm/html/RM-2-4-2.html Ada 2005 Reference Manual - 2.4.2 Based Literals].
+
+Limited to Bases 2 to 16.
+
+Works with Float values, too.
+
+numbers.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+procedure Numbers is
+   package Int_IO is new Ada.Text_IO.Integer_IO (Integer);
+   package Float_IO is new Ada.Text_IO.Float_IO (Float);
+begin
+   Int_IO.Put (Integer'Value ("16#ABCF123#"));
+   Ada.Text_IO.New_Line;
+   Int_IO.Put (Integer'Value ("8#7651#"));
+   Ada.Text_IO.New_Line;
+   Int_IO.Put (Integer'Value ("2#1010011010#"));
+   Ada.Text_IO.New_Line;
+   Float_IO.Put (Float'Value ("16#F.FF#E+2"));
+   Ada.Text_IO.New_Line;
+end Numbers;</syntaxhighlight>
+
+Output:
+<pre>  180154659
+       4009
+        666
+ 4.09500E+03</pre>

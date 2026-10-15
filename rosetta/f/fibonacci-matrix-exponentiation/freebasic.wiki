@@ -1,0 +1,97 @@
+=={{header|FreeBASIC}}==
+=== Fast doubling Fibonacci ===
+{{libheader|big_int}}
+<syntaxhighlight lang="vbnet">#include "big_int/big_integer.bi"
+
+Dim Shared As BigInt zero, one, two
+zero = 0 : one = 1 : two = 2
+
+Function BigIntToStr(Byref n As BigInt) As String
+    If n = 0 Then Return "0"
+    Dim As String result
+    Dim As BigInt tmp = n
+    Dim As BigInt digit
+    
+    While tmp <> 0
+        digit = tmp Mod 10
+        result = Chr(Cint(digit) + Asc("0")) & result
+        tmp \= 10
+    Wend
+    
+    Return result
+End Function
+
+Sub FibFast(n As Ulongint, Byref fn As BigInt)
+    Dim As BigInt a, b, c, d, t1, t2
+    a = 0
+    b = 1
+    
+    Dim As Ulongint bit_ = 1ULL Shl 63
+    While bit_ > 0 Andalso (n And bit_) = 0
+        bit_ Shr=1
+    Wend
+    
+    While bit_ > 0
+        ' c = F(2k) = F(k)*(2*F(k+1) - F(k))
+        t1 = b * 2
+        t1 -= a
+        c = a * t1
+        
+        ' d = F(2k+1) = F(k)^2 + F(k+1)^2
+        t1 = a * a
+        t2 = b * b
+        d = t1 + t2
+        
+        If (n And bit_) <> 0 Then
+            ' (a,b) = (d, c+d)
+            t1 = c + d
+            a = d
+            b = t1
+        Else
+            ' (a,b) = (c, d)
+            a = c
+            b = d
+        End If
+        
+        bit_ Shr=1
+    Wend
+    
+    fn = a
+End Sub
+
+Sub ShowFib(label As String, n As Ulongint)
+    Dim As BigInt f
+    FibFast(n, f)
+    Dim As String fs = BigIntToStr(f)
+    If Len(fs) <= 20 Then 
+        Print "Fibonacci(" & label & ") = " & fs
+    Else
+        Print "Fibonacci(" & label & ") = " & Left(fs, 20) & " ... " & Right(fs, 20)
+    End If
+End Sub
+
+' Main program
+Print !"Computing Fibonacci numbers using fast doubling:\n"
+ShowFib("10", 10)
+ShowFib("10^2", 100)
+ShowFib("10^3", 1000)
+ShowFib("10^4", 10000)
+ShowFib("10^5", 100000)
+ShowFib("10^6", 1000000)
+ShowFib("10^7", 10000000)
+ShowFib("2^16", 2^16)
+ShowFib("2^32", 2^32)
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Computing Fibonacci numbers using matrix exponentiation:
+
+Fibonacci(10) = 55
+Fibonacci(10^2) = 35422484817926191507 ... 54224848179261915075
+Fibonacci(10^3) = 43466557686937456435 ... 76137795166849228875
+Fibonacci(10^4) = 33644764876431783266 ... 66073310059947366875
+Fibonacci(10^5) = 25974069347221724166 ... 49895374653428746875
+Fibonacci(10^6) = 19532821287077577316 ... 68996526838242546875
+Fibonacci(10^7) = 11298343782253997603 ... 86998673686380546875
+Fibonacci(2^16) = 73199214460290552832 ... 97270190955307463227
+Fibonacci(2^32) = 61999319689381859818 ... 39623735538208076347</pre>

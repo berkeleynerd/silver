@@ -1,0 +1,289 @@
+=={{header|Ada}}==
+
+===Using properly range-checked integers===
+
+(The source text for these examples can also be found on [https://bitbucket.org/ada_on_rosetta_code/solutions Bitbucket].)
+
+First we specify the required operations and declare our number type as an array of digits (in base 2^16):
+<syntaxhighlight lang="ada">package Long_Multiplication is
+   type Number (<>) is private;
+
+   Zero : constant Number;
+   One  : constant Number;
+
+   function Value (Item : in String) return Number;
+   function Image (Item : in Number) return String;
+
+   overriding
+   function "=" (Left, Right : in Number) return Boolean;
+
+   function "+" (Left, Right : in Number) return Number;
+   function "*" (Left, Right : in Number) return Number;
+
+   function Trim (Item : in Number) return Number;
+private
+   Bits : constant := 16;
+   Base : constant := 2 ** Bits;
+
+   type Accumulated_Value is range 0 .. (Base - 1) * Base;
+   subtype Digit is Accumulated_Value range 0 .. Base - 1;
+
+   type Number is array (Natural range <>) of Digit;
+   for Number'Component_Size use Bits; -- or pragma Pack (Number);
+
+   Zero : constant Number := (1 .. 0 => 0);
+   One  : constant Number := (0 => 1);
+
+   procedure Divide (Dividend  : in     Number;
+                     Divisor   : in     Digit;
+                     Result    :    out Number;
+                     Remainder :    out Digit);
+end Long_Multiplication;</syntaxhighlight>
+Some of the operations declared above are useful helper operations for the conversion of numbers to and from base 10 digit strings.
+
+Then we implement the operations:
+<syntaxhighlight lang="ada">package body Long_Multiplication is
+   function Value (Item : in String) return Number is
+      subtype Base_Ten_Digit is Digit range 0 .. 9;
+      Ten : constant Number := (0 => 10);
+   begin
+      case Item'Length is
+         when 0 =>
+            raise Constraint_Error;
+         when 1 =>
+            return (0 => Base_Ten_Digit'Value (Item));
+         when others =>
+            return (0 => Base_Ten_Digit'Value (Item (Item'Last .. Item'Last)))
+              + Ten * Value (Item (Item'First .. Item'Last - 1));
+      end case;
+   end Value;
+
+   function Image (Item : in Number) return String is
+      Base_Ten  : constant array (Digit range 0 .. 9) of String (1 .. 1) :=
+                    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+      Result    : Number (0 .. Item'Last);
+      Remainder : Digit;
+   begin
+      if Item = Zero then
+         return "0";
+      else
+         Divide (Dividend  => Item,
+                 Divisor   => 10,
+                 Result    => Result,
+                 Remainder => Remainder);
+
+         if Result = Zero then
+            return Base_Ten (Remainder);
+         else
+            return Image (Trim (Result)) & Base_Ten (Remainder);
+         end if;
+      end if;
+   end Image;
+
+   overriding
+   function "=" (Left, Right : in Number) return Boolean is
+   begin
+      for Position in Integer'Min (Left'First, Right'First) ..
+                      Integer'Max (Left'Last,  Right'Last) loop
+         if Position in Left'Range and Position in Right'Range then
+            if Left (Position) /= Right (Position) then
+               return False;
+            end if;
+         elsif Position in Left'Range then
+            if Left (Position) /= 0 then
+               return False;
+            end if;
+         elsif Position in Right'Range then
+            if Right (Position) /= 0 then
+               return False;
+            end if;
+         else
+            raise Program_Error;
+         end if;
+      end loop;
+
+      return True;
+   end "=";
+
+   function "+" (Left, Right : in Number) return Number is
+      Result      : Number (Integer'Min (Left'First, Right'First) ..
+                            Integer'Max (Left'Last , Right'Last) + 1);
+      Accumulator : Accumulated_Value := 0;
+      Used        : Integer := Integer'First;
+   begin
+      for Position in Result'Range loop
+         if Position in Left'Range then
+            Accumulator := Accumulator + Left (Position);
+         end if;
+
+         if Position in Right'Range then
+            Accumulator := Accumulator + Right (Position);
+         end if;
+
+         Result (Position) := Accumulator mod Base;
+         Accumulator := Accumulator / Base;
+
+         if Result (Position) /= 0 then
+            Used := Position;
+         end if;
+      end loop;
+
+      if Accumulator = 0 then
+         return Result (Result'First .. Used);
+      else
+         raise Constraint_Error;
+      end if;
+   end "+";
+
+   function "*" (Left, Right : in Number) return Number is
+      Accumulator : Accumulated_Value;
+      Result      : Number (Left'First + Right'First ..
+                            Left'Last  + Right'Last + 1) := (others => 0);
+      Used        : Integer := Integer'First;
+   begin
+      for L in Left'Range loop
+         for R in Right'Range loop
+            Accumulator := Left (L) * Right (R);
+
+            for Position in L + R .. Result'Last loop
+               exit when Accumulator = 0;
+
+               Accumulator := Accumulator + Result (Position);
+               Result (Position) := Accumulator mod Base;
+               Accumulator := Accumulator / Base;
+               Used := Position;
+            end loop;
+         end loop;
+      end loop;
+
+      return Result (Result'First .. Used);
+   end "*";
+
+   procedure Divide (Dividend  : in     Number;
+                     Divisor   : in     Digit;
+                     Result    :    out Number;
+                     Remainder :    out Digit) is
+      Accumulator : Accumulated_Value := 0;
+   begin
+      Result := (others => 0);
+
+      for Position in reverse Dividend'Range loop
+         Accumulator := Accumulator * Base + Dividend (Position);
+         Result (Position) := Accumulator / Divisor;
+         Accumulator := Accumulator mod Divisor;
+      end loop;
+
+      Remainder := Accumulator;
+   end Divide;
+
+   function Trim (Item : in Number) return Number is
+   begin
+      for Position in reverse Item'Range loop
+         if Item (Position) /= 0 then
+            return Item (Item'First .. Position);
+         end if;
+      end loop;
+
+      return Zero;
+   end Trim;
+end Long_Multiplication;</syntaxhighlight>
+
+And finally we have the requested test application:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Long_Multiplication;
+
+procedure Test_Long_Multiplication is
+   use Ada.Text_IO, Long_Multiplication;
+
+   N : Number := Value ("18446744073709551616");
+   M : Number := N * N;
+begin
+   Put_Line (Image (N) & " * " & Image (N) & " = " & Image (M));
+end Test_Long_Multiplication;</syntaxhighlight>
+
+{{out}}
+<pre>18446744073709551616 * 18446744073709551616 = 340282366920938463463374607431768211456</pre>
+
+===Using modular types===
+
+The following implementation uses representation of a long number by an array of 32-bit elements:
+<syntaxhighlight lang="ada">type Long_Number is array (Natural range <>) of Unsigned_32;
+
+function "*" (Left, Right : Long_Number) return Long_Number is
+   Result : Long_Number (0..Left'Length + Right'Length - 1) := (others => 0);
+   Accum  : Unsigned_64;
+begin
+   for I in Left'Range loop
+      for J in Right'Range loop
+         Accum := Unsigned_64 (Left (I)) * Unsigned_64 (Right (J));
+         for K in I + J..Result'Last loop
+            exit when Accum = 0;
+            Accum := Accum + Unsigned_64 (Result (K));
+            Result (K) := Unsigned_32 (Accum and 16#FFFF_FFFF#);
+            Accum := Accum / 2**32;
+         end loop;
+      end loop;
+   end loop;
+   for Index in reverse Result'Range loop -- Normalization
+      if Result (Index) /= 0 then
+         return Result (0..Index);
+      end if;
+   end loop;
+   return (0 => 0);
+end "*";</syntaxhighlight>
+
+The task requires conversion into decimal base. For this we also need division to short number with a remainder. Here it is:
+<syntaxhighlight lang="ada">procedure Div
+          (  Dividend  : in out Long_Number;
+             Last      : in out Natural;
+             Remainder : out Unsigned_32;
+             Divisor   : Unsigned_32
+          )  is
+   Div   : constant Unsigned_64 := Unsigned_64 (Divisor);
+   Accum : Unsigned_64 := 0;
+   Size  : Natural     := 0;
+begin
+   for Index in reverse Dividend'First..Last loop
+      Accum := Accum * 2**32 + Unsigned_64 (Dividend (Index));
+      Dividend (Index) := Unsigned_32 (Accum / Div);
+      if Size = 0 and then Dividend (Index) /= 0 then
+         Size := Index;
+      end if;
+      Accum := Accum mod Div;
+   end loop;
+   Remainder := Unsigned_32 (Accum);
+   Last := Size;
+end Div;</syntaxhighlight>
+
+With the above the test program:
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded;  use Ada.Strings.Unbounded;
+with Ada.Text_IO;            use Ada.Text_IO;
+with Interfaces;             use Interfaces;
+
+procedure Long_Multiplication is
+   -- Insert definitions above here
+   procedure Put (Value : Long_Number) is
+      X      : Long_Number := Value;
+      Last   : Natural     := X'Last;
+      Digit  : Unsigned_32;
+      Result : Unbounded_String;
+   begin
+      loop
+         Div (X, Last, Digit, 10);
+         Append (Result, Character'Val (Digit + Character'Pos ('0')));
+         exit when Last = 0 and then X (0) = 0;
+      end loop;
+      for Index in reverse 1..Length (Result) loop
+         Put (Element (Result, Index));
+      end loop;
+   end Put;
+   
+   X : Long_Number := (0 => 0, 1 => 0, 2 => 1) * (0 => 0, 1 => 0, 2 => 1);
+begin
+   Put (X);
+end Long_Multiplication;</syntaxhighlight>
+
+Sample output:
+<pre>
+340282366920938463463374607431768211456
+</pre>

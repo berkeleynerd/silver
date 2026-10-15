@@ -1,0 +1,70 @@
+=={{header|Ada}}==
+Ada programs execute in one or more tasks. All tasks created during the execution of a program depend in a hierarchical manner on the task that create them, except for the environment task which executes the "main" procedure for the program. 
+Each task will abort (terminate abnormally) if the task upon which it depends is aborted. 
+This approach to task termination is not recommended because it does not allow tasks to terminate in a known state.
+
+However, this Rosetta Code task requires a simple stoppage of the program including all tasks. The simple way to achieve this is to abort the environment task.
+<syntaxhighlight lang="ada">with Ada.Task_Identification;  use Ada.Task_Identification;
+
+procedure Main is
+   -- Create as many task objects as your program needs
+begin
+   -- whatever logic is required in your Main procedure
+   if some_condition then
+      Abort_Task (Current_Task);
+   end if;
+end Main;</syntaxhighlight>
+Aborting a task with Abort_Task is equivalent to ''abort'' statement, 
+which is not used here because the environment task object is anonymous.  
+The semantics of ''abort'' is as follows:
+
+* Abort is deferred until certain unbreakable actions are accomplished. These are protected actions on shared objects, initialization, assignment, and finalization of controlled objects, waiting for dependent tasks to be aborted;
+* Local objects of the task are finalized;
+* The tasks dependent on the aborted task are aborted.
+* The state of external files will depend on the [[OS]]
+
+The above is a preemptive way to abort tasks, which is not recommended to use, unless you firmly know what you are doing. A standard approach to such termination is either (or a combination of):
+
+* to provide an entry in each task created by the environment task which, when called by the task upon which it depends, causes the called task to terminate in a known state;
+* to provide "terminate" alternative open in each of such tasks.
+
+In both cases the task objects are made local or otherwise destroyed upon completion of the main task. Note that destruction of a task always waits for its termination. If the task refuses to terminate it deadlocks.
+
+With the first approach:
+<syntaxhighlight lang="ada">procedure Main is
+   -- Create as many task objects as your program needs
+begin
+   -- whatever logic is required in your Main procedure
+   if some_condition then
+      -- for each task created by the Main procedure
+      The_task.Stop;
+      -- end the Main procedure
+      return;  -- actually, this is not needed
+   end if;
+end Main;</syntaxhighlight>
+A task might look like:
+<syntaxhighlight lang="ada">task body Some_Task is
+begin
+   loop
+      select
+         -- Some alternatives
+         ...
+      or accept Stop do
+            -- Some cleanup while holding the caller is here
+         end Stop;
+            -- A cleanup asynchronous to the caller is here
+         exit; -- We are through
+      end select
+   end loop;
+end Some_Task;</syntaxhighlight>
+With the second approach one simply returns from Main and all tasks are terminated by selecting the terminate alternative. Such tasks might look like:
+<syntaxhighlight lang="ada">task body Some_Task is
+begin
+   loop
+      select
+         -- Some alternatives
+         ...
+      or terminate; -- We are through
+      end select
+   end loop;
+end Some_Task;</syntaxhighlight>

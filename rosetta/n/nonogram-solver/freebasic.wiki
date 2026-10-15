@@ -1,0 +1,473 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="vbnet">Const MAX_LINE_SIZE As Integer = 127
+Const MAX_CANDIDATES As Integer = 10000
+
+Type SetBit
+    arr(0 To MAX_LINE_SIZE) As Byte
+    size As Integer
+End Type
+
+Type SetBitList
+    bits(0 To MAX_CANDIDATES - 1) As SetBit
+    cnt As Integer
+End Type
+
+Dim Shared As String rowDato(0 To MAX_LINE_SIZE)
+Dim Shared As String colDato(0 To MAX_LINE_SIZE)
+
+Dim Shared As Integer rowCnt, colCnt
+
+Dim Shared As SetBitList rows(0 To MAX_LINE_SIZE)
+Dim Shared As SetBitList cols(0 To MAX_LINE_SIZE)
+
+Dim Shared As Boolean candidateOverflow
+
+Function stringRepeat(Byref c As String, Byval n As Integer) As String
+    Dim result As String = ""
+    
+    If n <= 0 Then Return result
+    For i As Integer = 1 To n
+        result &= c
+    Next
+    
+    Return result
+End Function
+
+Sub SplitWords(Byref s As String, arr() As String, Byref cnt As Integer)
+    Dim word As String = ""
+    
+    cnt = 0
+    For i As Integer = 1 To Len(s)
+        Dim ch As String = Mid(s, i, 1)
+        
+        If ch <> " " Andalso ch <> Chr(9) Then
+            word &= ch
+        Elseif Len(word) > 0 Then
+            If cnt <= Ubound(arr) Then
+                arr(cnt) = word
+                cnt += 1
+            End If
+            
+            word = ""
+        End If
+    Next
+    
+    If Len(word) > 0 Andalso cnt <= Ubound(arr) Then
+        arr(cnt) = word
+        cnt += 1
+    End If
+End Sub
+
+Sub appendStringArray(arr() As String, Byref cnt As Integer, Byref s As String)
+    If cnt > Ubound(arr) Then 
+        candidateOverflow = True
+        Exit Sub
+    End If
+    
+    arr(cnt) = s
+    cnt += 1
+End Sub
+
+'Generates the possible sequences.
+Sub genSequence(ones() As String, Byval onesCnt As Integer, Byval numZeros As Integer, result() As String, Byref resultCnt As Integer)
+    resultCnt = 0
+    
+    If onesCnt = 0 Then
+        Dim emptySequence As String = stringRepeat("0", numZeros)
+        appendStringArray(result(), resultCnt, emptySequence)
+        Exit Sub
+    End If
+    
+    ' At a minimum, onesCnt zeros are needed:
+    ' one between each block and the two ends represented by the generation scheme.
+    If numZeros < onesCnt Then Exit Sub
+    
+    Dim maxInitialZeros As Integer = numZeros - onesCnt + 1
+    If maxInitialZeros < 1 Then Exit Sub
+    
+    For x As Integer = 1 To maxInitialZeros
+        Dim remainingOnes(0 To MAX_LINE_SIZE) As String
+        Dim remainingOnesCnt As Integer = 0
+        
+        For i As Integer = 1 To onesCnt - 1
+            remainingOnes(remainingOnesCnt) = ones(i)
+            remainingOnesCnt += 1
+        Next
+        
+        Dim tails(0 To MAX_CANDIDATES - 1) As String
+        Dim tailsCnt As Integer = 0
+        
+        genSequence(remainingOnes(), remainingOnesCnt, numZeros - x, tails(), tailsCnt)
+        
+        For j As Integer = 0 To tailsCnt - 1
+            If resultCnt >= MAX_CANDIDATES Then 
+                candidateOverflow = True
+                Exit For
+            End If
+            
+            Dim candidate As String = stringRepeat("0", x) & ones(0) & tails(j)
+            
+            appendStringArray(result(), resultCnt, candidate)
+        Next
+    Next
+End Sub
+
+Sub getCandidates(dato() As String, Byval datoCnt As Integer, Byval lineLength As Integer, result() As SetBitList)
+    For si As Integer = 0 To datoCnt - 1
+        Dim clue As String = dato(si)
+        Dim clueLength As Integer = Len(clue)
+        
+        Dim block(0 To MAX_LINE_SIZE) As String
+        Dim totalOnes As Integer = 0
+        
+        Dim invalidClue As Boolean = False
+        
+        For i As Integer = 1 To clueLength           
+            Dim blockLength As Integer = Asc(Mid(clue, i, 1)) - Asc("A") + 1
+            If blockLength <= 0 Then
+                invalidClue = True
+                Exit For
+            End If
+            
+            block(i - 1) = stringRepeat("1", blockLength)
+            totalOnes += blockLength
+        Next
+        
+        result(si).cnt = 0
+        
+        If invalidClue Then Continue For
+        
+        ' It is not possible to place the blocks if they do not fit.
+        If totalOnes + clueLength - 1 > lineLength Then Continue For
+        
+        Dim sequences(0 To MAX_CANDIDATES - 1) As String
+        Dim sequenceCnt As Integer = 0
+        
+        genSequence(block(), clueLength, lineLength - totalOnes + 1, sequences(), sequenceCnt)
+        
+        For ri As Integer = 0 To sequenceCnt - 1
+            If result(si).cnt >= MAX_CANDIDATES Then 
+                candidateOverflow = True
+                Exit For
+            End If
+            
+            Dim sequence As String = sequences(ri)
+            
+            ' The first position is the auxiliary zero.
+            ' The rest actually represents the line.
+            If Len(sequence) - 1 <> lineLength Then Continue For
+            
+            With result(si).bits(result(si).cnt)
+                .size = lineLength
+                
+                For i As Integer = 0 To lineLength - 1
+                    If Mid(sequence, i + 2, 1) = "1" Then
+                        .arr(i) = 1
+                    Else
+                        .arr(i) = 0
+                    End If
+                Next
+            End With
+            
+            result(si).cnt += 1
+        Next
+    Next
+End Sub
+
+Sub setBitAnd(Byref sb As SetBit, Byref other As SetBit)
+    Dim n As Integer = sb.size
+    If other.size < n Then n = other.size
+    
+    For i As Integer = 0 To n - 1
+        If sb.arr(i) = 1 Andalso other.arr(i) = 1 Then
+            sb.arr(i) = 1
+        Else
+            sb.arr(i) = 0
+        End If
+    Next
+End Sub
+
+Sub setBitOr(Byref sb As SetBit, Byref other As SetBit)
+    Dim n As Integer = sb.size
+    If other.size < n Then n = other.size
+    
+    For i As Integer = 0 To n - 1
+        If sb.arr(i) = 1 Orelse other.arr(i) = 1 Then
+            sb.arr(i) = 1
+        Else
+            sb.arr(i) = 0
+        End If
+    Next
+End Sub
+
+Function reduce(a() As SetBitList, Byval aCnt As Integer, b() As SetBitList, Byval bCnt As Integer) As Integer
+    Dim removed As Integer = 0
+    
+    For i As Integer = 0 To aCnt - 1
+        If a(i).cnt = 0 Then Return -1
+        
+        Dim commonOn As SetBit
+        commonOn.size = bCnt
+        
+        For j As Integer = 0 To bCnt - 1
+            commonOn.arr(j) = 1
+        Next
+        
+        Dim commonOff As SetBit
+        commonOff.size = bCnt
+        
+        For j As Integer = 0 To bCnt - 1
+            commonOff.arr(j) = 0
+        Next
+        
+        For ci As Integer = 0 To a(i).cnt - 1
+            setBitAnd(commonOn, a(i).bits(ci))
+            setBitOr(commonOff, a(i).bits(ci))
+        Next
+        
+        For j As Integer = 0 To bCnt - 1
+            Dim k As Integer = b(j).cnt - 1
+            Do While k >= 0
+                Dim mustRemove As Boolean = False
+                Dim cnd As SetBit = b(j).bits(k)
+                
+                If commonOn.arr(j) = 1 Andalso cnd.arr(i) = 0 Then mustRemove = True
+                If commonOff.arr(j) = 0 Andalso cnd.arr(i) = 1 Then mustRemove = True
+                
+                If mustRemove Then
+                    For m As Integer = k To b(j).cnt - 2
+                        b(j).bits(m) = b(j).bits(m + 1)
+                    Next
+                    
+                    b(j).cnt -= 1
+                    removed += 1
+                End If
+                
+                k -= 1
+            Loop
+            
+            If b(j).cnt = 0 Then Return -1
+        Next
+    Next
+    
+    Return removed
+End Function
+
+Function reduceMutual(cols() As SetBitList, Byval colCnt As Integer, rows() As SetBitList, Byval rowCnt As Integer) As Integer
+    Dim removed1 As Integer = reduce(cols(), colCnt, rows(), rowCnt)
+    If removed1 = -1 Then Return -1
+    
+    Dim removed2 As Integer = reduce(rows(), rowCnt, cols(), colCnt)
+    If removed2 = -1 Then Return -1
+    
+    Return removed1 + removed2
+End Function
+
+Sub cleanCandidates()
+    For i As Integer = 0 To MAX_LINE_SIZE
+        rows(i).cnt = 0
+        cols(i).cnt = 0
+        
+        For j As Integer = 0 To MAX_CANDIDATES - 1
+            rows(i).bits(j).size = 0
+            cols(i).bits(j).size = 0
+        Next
+    Next
+End Sub
+
+' Returns:
+' 1 if all possibilities are 1
+' 0 if all possibilities are 0
+' -1 if it cannot yet be determined
+Function cellState(Byref list As SetBitList, Byval position As Integer) As Integer
+    If list.cnt = 0 Then Return -1
+    
+    Dim canBeOne As Boolean = False
+    Dim canBeZero As Boolean = False
+    
+    For i As Integer = 0 To list.cnt - 1
+        If list.bits(i).arr(position) = 1 Then
+            canBeOne = True
+        Else
+            canBeZero = True
+        End If
+    Next
+    
+    If canBeOne Andalso Not canBeZero Then Return 1
+    If canBeZero Andalso Not canBeOne Then Return 0
+    
+    Return -1
+End Function
+
+Sub printSolution()
+    For r As Integer = 0 To rowCnt - 1
+        For c As Integer = 0 To colCnt - 1
+            Dim state As Integer = cellState(rows(r), c)
+            
+            If state = 1 Then
+                Print "# ";
+            Elseif state = 0 Then
+                Print ". ";
+            Else
+                Print "? ";
+            End If
+        Next
+        
+        Print
+    Next
+    Print
+End Sub
+
+Sub newPuzzle(dato() As String)
+    candidateOverflow = False
+    cleanCandidates()
+    
+    SplitWords(dato(0), rowDato(), rowCnt)
+    SplitWords(dato(1), colDato(), colCnt)
+    
+    If rowCnt <= 0 Orelse colCnt <= 0 Then
+        Print "Empty puzzle."
+        Exit Sub
+    End If
+    
+    If rowCnt > MAX_LINE_SIZE + 1 Orelse colCnt > MAX_LINE_SIZE + 1 Then
+        Print "The puzzle exceeds the maximum size."
+        Exit Sub
+    End If
+    
+    getCandidates(rowDato(), rowCnt, colCnt, rows())
+    If candidateOverflow Then
+        Print "MAX_CANDIDATES was exceeded while generating the rows."
+        Exit Sub
+    End If
+    
+    getCandidates(colDato(), colCnt, rowCnt, cols())
+    If candidateOverflow Then
+        Print "The MAX_CANDIDATES limit was exceeded when generating the columns."
+        Exit Sub
+    End If
+    
+    For i As Integer = 0 To rowCnt - 1
+        If rows(i).cnt = 0 Then
+            Print "There are no candidates for the line "; i
+            Exit Sub
+        End If
+    Next
+    
+    For i As Integer = 0 To colCnt - 1
+        If cols(i).cnt = 0 Then
+            Print "There are no candidates for the column "; i
+            Exit Sub
+        End If
+    Next
+    
+    Do
+        Dim changed As Integer = reduceMutual(cols(), colCnt, rows(), rowCnt)
+        
+        If changed = -1 Then
+            Print "No solution."
+            Exit Sub
+        End If
+        
+        If changed = 0 Then Exit Do
+    Loop
+    
+    ' Display the current status.
+    ' Undetermined cells appear as '?'.
+    printSolution()
+End Sub
+
+' Main program
+Dim As String puzzles(0 To 3, 0 To 1)
+puzzles(0, 0) = "C BA CB BB F AE F A B"
+puzzles(0, 1) = "AB CA AE GA E C D C"
+
+puzzles(1, 0) = "F CAC ACAC CN AAA AABB EBB EAA ECCC HCCC"
+puzzles(1, 1) = "D D AE CD AE A DA BBB CC AAB BAA AAB DA AAB AAA BAB AAA CD BBA DA"
+
+puzzles(2, 0) = "CA BDA ACC BD CCAC CBBAC BBBBB BAABAA ABAD AABB BBH BBBD ABBAAA CCEA AACAAB BCACC ACBH DCH ADBE ADBB DBE ECE DAA DB CC"
+puzzles(2, 1) = "BC CAC CBAB BDD CDBDE BEBDF ADCDFA DCCFB DBCFC ABDBA BBF AAF BADB DBF AAAAD BDG CEF CBDB BBB FC"
+
+puzzles(3, 0) = "E BCB BEA BH BEK AABAF ABAC BAA BFB OD JH BADCF Q Q R AN AAN EI H G"
+puzzles(3, 1) = "E CB BAB AAA AAA AC BB ACC ACCA AGB AIA AJ AJ ACE AH BAF CAG DAG FAH FJ GJ ADK ABK BL CM"
+
+For p As Integer = Lbound(puzzles, 1) To Ubound(puzzles, 1)
+    Dim puzzle(0 To 1) As String
+    puzzle(0) = puzzles(p, 0)
+    puzzle(1) = puzzles(p, 1)
+    
+    candidateOverflow = False
+    Print "Puzle "; p + 1
+    newPuzzle(puzzle())
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>. # # # . . . . 
+# # . # . . . . 
+. # # # . . # # 
+. . # # . . # # 
+. . # # # # # # 
+# . # # # # # . 
+# # # # # # . . 
+. . . . # . . . 
+. . . # # . . . 
+
+. . . . . . . . . . # # # # # # . . . . 
+. . . . . . . . # # # . # . . # # # . . 
+. . . # . . # # # . . . # . . . . # # # 
+. . # # # . # # # # # # # # # # # # # # 
+. . . # . . # . . . . . . . . . . . . # 
+. . # . # . # # . . . . . . . . . . # # 
+# # # # # . . # # . . . . . . . . # # . 
+# # # # # . . . # . . . . . . . . # . . 
+# # # # # . . # # # . # # # . # # # . . 
+# # # # # # # # . # # # . # # # . # # # 
+
+. . . . # # # . # . . . . . . . . . . . 
+. . . . # # . # # # # . # . . . . . . . 
+. . . . # . # # # . # # # . . . . . . . 
+. . # # . # # # # . . . . . . . . . . . 
+. # # # . # # # . # . . . . # # # . . . 
+# # # . . # # . # # . . . # . # # # . . 
+# # . . # # . # # . . . . # # . # # . . 
+. . . . # # . # . # . . # # . # . # . . 
+. . . . # . # # . # . . . # # # # . . . 
+. . . . # . # . # # . . . . . # # . . . 
+. . . . . # # . # # . . # # # # # # # # 
+. . . . # # . # # . . . # # . . # # # # 
+. . . . # . # # . # # . # . . . # . . # 
+# # # . . # # # . # # # # # . . . . . # 
+# . # . # # # . # . . . . # . . . . # # 
+# # . . # # # . # . . . . # # # . # # # 
+. # . # # # . # # . # # # # # # # # . . 
+. # # # # . # # # . # # # # # # # # . . 
+. . . # . # # # # . # # . # # # # # . . 
+. . . # . # # # # . # # . . . # # . . . 
+. . . . # # # # . . # # . . . # # # # # 
+. . . # # # # # . # # # . . . # # # # # 
+. . . # # # # . # . . . . . . . . . . # 
+. . # # # # . # # . . . . . . . . . . . 
+. . # # # . # # # . . . . . . . . . . . 
+
+. . . . . . . . . . . . . . . . . . . . # # # # # 
+. . # # . . . . . . . . . . . . . . # # # . . # # 
+. # # . . . . . . . . . . . . . . # # # # # . . # 
+# # . . . . . . . . . . . . . # # # # # # # # . . 
+# # . . . . # # # # # . # # # # # # # # # # # . . 
+# . # . . # # . . . . # . . . . # # # # # # . . . 
+# . . # # . . . . . # . . . . . . . # # # . . . . 
+# # . . . . . . . . # . . . . . . . . . . . . . # 
+. # # . . . . . # # # # # # . . . . . . . . . # # 
+. . # # # # # # # # # # # # # # # . . . . # # # # 
+. . . . . # # # # # # # # # # . . # # # # # # # # 
+. . . . # # . # . # # # # . # # # . . # # # # # # 
+. . . . . . . . # # # # # # # # # # # # # # # # # 
+. . . . . . . . # # # # # # # # # # # # # # # # # 
+. . . . . . . # # # # # # # # # # # # # # # # # # 
+. . . . . . . # . . . # # # # # # # # # # # # # # 
+. . . . . . . # . # . # # # # # # # # # # # # # # 
+. . . . . . . . # # # # # . . . # # # # # # # # # 
+. . . . . . . . . . . . . . . . . # # # # # # # # 
+. . . . . . . . . . . . . . . . . . # # # # # # # 
+</pre>

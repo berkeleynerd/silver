@@ -1,0 +1,21 @@
+=={{header|Ada}}==
+This example will implicitly include a final, implementation defined, terminator (usually a linefeed) if the output is a file (RM A.10.7-8) such as <code>stdout</code> on UNIX systems.
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;
+
+procedure Goodbye_World is
+begin
+   Ada.Text_IO.Put("Goodbye, World!");
+end Goodbye_World;
+</syntaxhighlight>
+Using <code>Ada.Text_IO.Text_Streams</code> instead allows us to control the termination.
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;
+with Ada.Text_IO.Text_Streams;
+
+procedure Goodbye_World is
+    stdout: Ada.Text_IO.File_Type := Ada.Text_IO.Standard_Output;
+begin
+    String'Write(Ada.Text_IO.Text_Streams.Stream(stdout), "Goodbye World");
+end Goodbye_World;
+</syntaxhighlight>

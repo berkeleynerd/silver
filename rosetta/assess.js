@@ -1,0 +1,163 @@
+export const meta = {
+  name: 'rosetta-silver-coverage',
+  description: 'Assess Rosetta Code tasks for Silver: language surface, proof outlook and size, one agent per task',
+  phases: [{ title: 'Assess', detail: 'one agent per task at its tier' },
+           { title: 'Escalate', detail: 'confirm unlikely outlooks, conflicts and low-confidence verdicts' }],
+}
+
+// Run through `python3 rosetta/assess.py prepare`, which fills in TASKS and writes a runnable copy.
+const TASKS = [] // assess.py prepare fills this in
+const ROOT = '' // assess.py prepare fills this in
+const TIERS = {
+  standard: { model: 'sonnet', effort: 'medium' },
+  deep: { model: 'opus', effort: 'high' },
+}
+const EFFECTS = ['console-output', 'arguments', 'exit-status', 'stdin', 'files', 'directories', 'clock', 'delay',
+  'entropy', 'environment', 'processes', 'terminal', 'gui', 'graphics', 'sound', 'network', 'hardware',
+  'os-services', 'other']
+const SURFACE = {
+  'integers': 'integer variables and constants with +, -, * and comparisons (Integer or declared ranges)',
+  'integer-division': '/, mod, rem and abs on integers',
+  'exponentiation': '** on integers',
+  'modular-types': 'unsigned wraparound types and bitwise operations',
+  'ranged-subtypes': 'declared integer or enumeration subtypes with ranges, and conversions between types',
+  'booleans': 'Boolean variables, constants and Boolean-valued functions',
+  'characters': "Character values and literals, 'Pos, 'Val and comparisons",
+  'enumerations': "user-defined enumeration types, 'Image, 'Succ, 'Pred and iteration over them",
+  'floating-point': 'floating-point types, arithmetic and elementary functions',
+  'fixed-point': 'fixed-point or decimal types',
+  'arrays': 'one-dimensional constrained arrays, indexing and aggregates',
+  'multidim-arrays': 'arrays of two or more dimensions',
+  'unconstrained-arrays': "unconstrained array types and parameters, slices, 'First, 'Last and 'Range",
+  'records': 'record types, components and aggregates',
+  'variant-records': 'discriminated or variant records',
+  'string-indexing': 'reading characters and slices of a String by index',
+  'string-building': 'building strings of computed length in bounded buffers',
+  'string-ordering': '<, <=, > and >= on strings',
+  'scalar-image': "converting integers or other discrete values to text ('Image)",
+  'float-image': 'formatting floating-point values as text',
+  'text-parsing': 'converting text to numbers, with validation',
+  'case-statements': 'case statements',
+  'conditional-expressions': 'if and case expressions',
+  'membership-tests': 'in and not in tests against ranges or choice lists',
+  'for-loops': 'for loops over discrete ranges, including reverse',
+  'while-loops': 'while loops and loops with exit when',
+  'block-statements': 'declare blocks',
+  'procedures': 'user-defined procedures with in, out and in out parameters',
+  'functions': 'user-defined functions without side effects',
+  'recursive-procedures': 'procedures that call themselves directly or indirectly',
+  'recursive-functions': 'functions that call themselves directly or indirectly',
+  'generics': 'generic subprograms or packages and their instances',
+  'packages': 'user-defined packages and private types',
+  'tagged-types': 'tagged types, dispatching and interfaces',
+  'access-types': 'access types and allocation',
+  'tasking': 'tasks and protected objects',
+  'big-numbers': 'integer values beyond 64 bits, in fixed-capacity digit arrays or an admitted library',
+  'put': 'output without a line terminator',
+  'standard-error': 'output to standard error',
+  'more-arguments': 'the argument count and arguments beyond the first',
+  'exit-status': 'setting the process exit status explicitly',
+  'stdin-lines': 'reading lines or characters from standard input',
+  'file-input': 'reading named files',
+  'file-output': 'writing named files, including binary formats',
+}
+const RISKS = ['overflow', 'range', 'index', 'division', 'length', 'discriminant', 'initialization', 'termination',
+  'stack', 'heap', 'floating-point', 'tasking', 'other']
+const CONFLICTS = ['runtime-error', 'exception-handling', 'annotations', 'outside-spark', 'unsafe', 'other']
+const SCHEMA = {
+  type: 'object',
+  properties: {
+    conflicts: { type: 'array', items: { type: 'object', properties: {
+      kind: { type: 'string', enum: CONFLICTS }, explanation: { type: 'string' } }, required: ['kind', 'explanation'] } },
+    effects: { type: 'array', items: { type: 'object', properties: {
+      effect: { type: 'string', enum: EFFECTS }, explanation: { type: 'string' } }, required: ['effect', 'explanation'] } },
+    surface: { type: 'array', items: { type: 'string', enum: Object.keys(SURFACE) } },
+    outlook: { type: 'string', enum: ['likely', 'plausible', 'unlikely'] },
+    risks: { type: 'array', items: { type: 'object', properties: {
+      obligation: { type: 'string', enum: RISKS }, explanation: { type: 'string' } }, required: ['obligation', 'explanation'] } },
+    size: { type: 'integer', minimum: 1 },
+    approach: { type: 'string' },
+    summary: { type: 'string' },
+    confidence: { type: 'string', enum: ['high', 'medium', 'low'] },
+  },
+  required: ['conflicts', 'effects', 'surface', 'outlook', 'risks', 'size', 'approach', 'summary', 'confidence'],
+}
+
+const RUBRIC = `You are assessing one Rosetta Code task for Silver, a language being designed as a subtractive profile of SPARK (Ada 2022) under an Oracle. The aim is to plan how Silver's surface grows, one Rosetta sample at a time in order of increasing complexity, to its natural conclusion under the Oracle. Judge whether a Silver program solving this task could be written so that its proofs would likely discharge automatically. No tools are run; this is an expert judgment.
+
+The Oracle's rules for every Silver program:
+1. A Silver program is ordinary Ada/SPARK source. Silver only removes or restricts constructs; it never adds syntax or changes meaning.
+2. Every admitted program must prove automatically, with no developer intervention, at SPARK's Bronze level (initialization and data flow) and Silver level (absence of run-time errors: no overflow, range, index, length, division-by-zero or discriminant check can fail, no exception is raised, no assertion fails).
+3. Program authors write no contracts or proof annotations of any kind (no Pre, Post, Contract_Cases, Global, Depends, Loop_Invariant, Loop_Variant, Subprogram_Variant, Always_Terminates or Side_Effects) and no pragma except pragma SPARK_Mode (On). Safety must follow from declarations, types, expressions and executable control flow (explicit guards wherever necessary), plus the verified contracts of admitted library operations.
+4. Proof must never be obtained by silently changing behavior, narrowing the input domain or suppressing checks. A guard must lead to a specified, visible outcome (for example rejecting an input), never quietly alter a result the task requires.
+5. Guarantees cover every permitted input and execution path: input is validated and invalid input has a specified outcome.
+6. External effects happen only through admitted library operations with specified behavior, failure outcomes and environmental assumptions.
+7. Explicit, documented resource limits are allowed: bounded strings and arrays, integer ranges, fixed-capacity big numbers.
+8. Constructs SPARK excludes (exception handlers, goto, unrestricted aliasing) are never available.
+
+What GNATprove establishes without annotations decides the outlook:
+- With no loop invariant, after the first iteration it knows only the types of the variables a loop modifies. A check on a loop-carried value (an accumulator, a computed index) discharges only if that value's type range, or a guard just before the use, makes it safe.
+- Checks that follow from declared ranges, static bounds, for-loop indexes over an array's own range, and conditions tested just before the operation discharge reliably.
+- Nonlinear integer arithmetic and floating point are harder for the provers. They discharge when types or guards bound the operands so that results cannot overflow.
+- Every loop and call inside a function (a subprogram without side effects) gets a termination check. For loops terminate by themselves, but while loops and recursive calls need a variant annotation, which Silver authors cannot write. Procedures get no termination check.
+- Functions cannot have side effects (that needs the Side_Effects annotation), so input and output happen in procedures.
+- GNATprove does not check stack or heap exhaustion (Storage_Error). Recursion whose depth depends on input, and heap allocation, leave that risk outside any proof; Silver treats sufficient memory as a fixed environmental premise, which does not cover unbounded depth.
+- SPARK permits tasks and protected objects only when the Ravenscar or Jorvik profile is specified, which takes a pragma that Silver source cannot contain.
+
+Silver today supports only: a parameterless Main procedure with pragma SPARK_Mode (On); with and use clauses for Silver_IO and Silver_Arguments; String literals, String constants and fixed-length String variables with equal-length assignment; bounded concatenation; String equality and 'Length comparisons with integer literals; Boolean conditions with and then, or else and not; if, elsif and else; statement sequences and null; output with Silver_IO.Put_Line; and the first command-line argument through Silver_Arguments.First_Or_Default, with Input_Is_Valid and Reject.
+
+Plan the most Silver-friendly faithful program: iteration rather than recursion, arrays rather than pointers, for loops where they fit, while loops only in procedures, a deterministic pseudo-random generator rather than system randomness, text or file output rather than a display, and fixed bounds sized for the outputs the task requires. Treat optional and extra-credit parts as optional. When a task asks to draw, plot or render a picture without requiring a window or an on-screen display, text art or an image file meets it. The existing solution is only evidence of what the task involves; it is not Silver and need not be followed.
+
+Use the smallest surface that keeps the program faithful: prefer what Silver already supports and the plainer of two equivalent constructs (if statements rather than conditional expressions, ordinary declarations rather than declare blocks, comparisons rather than membership tests), and embed the task's example data in the program unless the task requires reading input.
+
+Report only what the program you settled on needs. Never list an item and then explain that it is not needed, not real or only an alternative; leave it out instead. Base conflicts only on what the task requires, never on how the existing solution happens to be written.
+
+Fields:
+- conflicts: requirements that break a fixed Oracle rule, so that no future Silver could meet them. Kinds: runtime-error (the task requires raising, demonstrating or observing a run-time error, exception, overflow behavior, undefined behavior, or stack or memory exhaustion), exception-handling (the task requires raising or handling exceptions), annotations (the task requires assertions, contracts, pragmas or other compiler directives in program source), outside-spark (the task requires something Ada/SPARK cannot express, such as evaluating code at run time, reflection or introspection of program structure, dynamic typing, closures, handling unknown method calls, self-modifying code or extending the syntax), unsafe (the task requires unchecked conversion, address arithmetic, unrestricted aliasing, foreign-language calls or machine code) and other (explain). Needing an external effect Silver lacks is an effect, never a conflict. Leave conflicts empty when the task only needs constructs or effects Silver does not have yet.
+- effects: every external effect the program needs, each with a short explanation: console-output, arguments, exit-status, stdin, files, directories (listing, creating or inspecting directories or file metadata), clock, delay, entropy (system randomness, only when a deterministic generator would not satisfy the task), environment, processes, terminal (cursor control, colors, screen size, raw keystrokes), gui, graphics (drawing on a display), sound, network, hardware, os-services or other.
+- surface: every construct or library operation beyond today's Silver that the program needs, from this list:
+${Object.entries(SURFACE).map(([id, text]) => `  ${id}: ${text}`).join('\n')}
+  List recursive-procedures, recursive-functions, access-types or tasking only when the task requires them, not when the program could avoid them.
+- outlook: likely when every check follows from types, static bounds and guards placed just before the operation; plausible when discharge depends on careful program shape (many loop-carried values need guards, nonlinear or floating-point arithmetic needs range guards, or fixed-capacity big numbers carry arithmetic through loops) but nothing needs an annotation; unlikely when the program needs a fact only an annotation could supply (a variant for a loop or recursive call inside a function that cannot be restructured into a procedure, or a bound that only an invariant could establish and no guard can express without changing required behavior), or depends on recursion depth or heap use that grows with input, or on tasking.
+- risks: the proof obligations that are not routine for this program, each explaining how the program discharges it or why it would not. Use overflow, range, index, division, length, discriminant, initialization, termination, stack, heap, floating-point, tasking or other. Leave it empty when every check is routine.
+- size: the estimated number of lines of the Silver program.
+- approach: two or three sentences describing the program: its data representation, control flow and guards.
+- summary: one or two sentences a reader can check, explaining the outlook.
+- confidence: high, medium or low.
+Keep every explanation to one sentence.
+
+Use only the Read tool, on the files named below, reading at most the first 400 lines of each. Do not run commands (in particular no Lean, GNATprove or test runs), write files or browse the web.`
+
+function prompt(t) {
+  const files = t.files.map(f => `- ${ROOT}${t.path}/${f}`
+    + (f === 'task.wiki' ? ' (the task description)' : ' (an existing solution, as evidence only)')).join('\n')
+  return `${RUBRIC}\n\nTask: "${t.title}" (a Rosetta Code ${t.status}). Files:\n${files}`
+}
+
+function run(t, tier, phase) {
+  return agent(prompt(t), { label: `${tier}:${t.title}@${t.revision}`, phase, schema: SCHEMA,
+                            model: TIERS[tier].model, effort: TIERS[tier].effort })
+}
+
+function escalation(t, r) {
+  if (!r) return t.tier
+  if (t.tier === 'deep') return null
+  if (r.confidence === 'low' || r.outlook === 'unlikely' || r.conflicts.length > 0) return 'deep'
+  return null
+}
+
+const start = (args && args.start) || 0
+const end = (args && args.end) || TASKS.length
+const chosen = TASKS.slice(start, end)
+log(`Assessing tasks ${start} to ${start + chosen.length - 1} of ${TASKS.length}`)
+const outcomes = await pipeline(chosen,
+  t => run(t, t.tier, 'Assess').then(r => ({ t, r })),
+  ({ t, r }) => {
+    const tier = escalation(t, r)
+    if (!tier) return { done: !!r, escalated: false }
+    return run(t, tier, 'Escalate').then(x => ({ done: !!(x || r), escalated: true }))
+  })
+// Results are read from the run's journal by `assess.py import`, so only counts come back here.
+const finished = outcomes.filter(o => o && o.done)
+return { tasks: chosen.length, finished: finished.length,
+         escalated: finished.filter(o => o.escalated).length, missing: chosen.length - finished.length }

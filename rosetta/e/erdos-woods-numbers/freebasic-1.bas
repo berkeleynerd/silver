@@ -1,0 +1,61 @@
+Const LIMIT = 20000000   ' search limit for a
+Const TARGET = 20
+
+Function GCD(n As Integer, d As Integer) As Integer
+    Dim As Ulongint t
+    While d <> 0
+        t = d
+        d = n Mod d
+        n = t
+    Wend
+    Return n
+End Function
+
+Function isErdosWoods(k As Integer, Byref aMin As Ulongint) As Boolean
+    Dim ak As Ulongint
+    
+    For a As Ulongint = 2 To LIMIT
+        ak = a + k
+        
+        ' Pruning: if a and ak are coprime, impossible
+        If gcd(a, ak) = 1 Then Continue For
+
+        Dim ok As Boolean = True
+        
+        ' Internal check
+        For i As Integer = 1 To k - 1
+            If GCD(a, i) = 1 And GCD(ak, i) = 1 Then
+                ok = False
+                Exit For
+            End If
+        Next
+        
+        If ok Then
+            aMin = a
+            Return True
+        End If
+    Next
+    
+    Return False
+End Function
+
+Sub main ()
+    Dim cnt As Integer = 0
+    Dim k As Integer = 2
+    Dim aMin As Ulongint
+    
+    Print "First "; TARGET; " Erdos-Woods numbers and their minimum interval start values:"
+    
+    While cnt < TARGET
+        If isErdosWoods(k, aMin) Then
+            cnt += 1
+            Print Using " ### -> "; k;
+            Print aMin
+        End If
+        k += 1
+    Wend
+End Sub
+
+main()
+
+Sleep

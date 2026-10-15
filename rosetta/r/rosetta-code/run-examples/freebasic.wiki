@@ -1,0 +1,358 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="vbnet">#include "windows.bi"
+#include "win/wininet.bi"
+
+Dim Shared As String Urls(1)
+Urls(0) = "http://rosettacode.org/wiki/Category:Programming_Tasks"
+Urls(1) = "http://rosettacode.org/wiki/Category:Draft_Programming_Tasks"
+
+Function GetContent(url As String) As String
+    Dim As HINTERNET hOpen, hConnect
+    Dim As String result
+    
+    hOpen = InternetOpen("Mozilla/5.0", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0)
+    hConnect = InternetOpenUrl(hOpen, url, NULL, 0, INTERNET_FLAG_RELOAD, 0)
+    
+    If hConnect Then
+        Dim As Ubyte buffer(4095)
+        Dim As DWORD bytesRead
+        Do
+            InternetReadFile(hConnect, @buffer(0), Sizeof(buffer), @bytesRead)
+            If bytesRead = 0 Then Exit Do
+            result &= Left(*Cast(ZString Ptr, @buffer(0)), bytesRead)
+        Loop
+        InternetCloseHandle(hConnect)
+    End If
+    
+    InternetCloseHandle(hOpen)
+    Return result
+End Function
+
+Function ReplaceString(text As String, find As String, replace As String) As String
+    Dim As String result = ""
+    Dim As Integer i = 1, j
+    
+    Do While i <= Len(text)
+        j = Instr(i, text, find)
+        If j = 0 Then
+            result &= Mid(text, i)
+            Exit Do
+        End If
+        result &= Mid(text, i, j - i) & replace
+        i = j + Len(find)
+    Loop
+    
+    Return result
+End Function
+
+Function ReplaceHtmlEntities(text As String) As String
+    Dim As String result = text
+    result = ReplaceString(result, "&lt;", "<")
+    result = ReplaceString(result, "&gt;", ">")
+    result = ReplaceString(result, "&amp;", "&")
+    result = ReplaceString(result, "&quot;", """")
+    result = ReplaceString(result, "&#39;", "'")
+    Return result
+End Function
+
+Function GetAllTasks() As String Ptr
+    Dim As String Ptr tasks = Callocate(1, Sizeof(String))
+    Dim As Integer i, taskCnt = 0, start = 0
+    Dim As String regex = "<li><a href=""/wiki/(.*?)"""
+    Dim As String body, matches(1)
+    
+    For i = 0 To 1
+        body = GetContent(Urls(i))
+        Do
+            start = Instr(start + 1, body, regex)
+            If start = 0 Then Exit Do
+            matches(0) = Mid(body, start + 15, Instr(start + 15, body, """") - start - 15)
+            If Left(matches(0), 9) <> "Category:" Then
+                taskCnt += 1
+                tasks = Reallocate(tasks, taskCnt * Sizeof(String))
+                tasks[taskCnt - 1] = matches(0)
+            End If
+        Loop
+    Next
+    Return tasks
+End Function
+
+' Main program
+Dim As String Ptr tasks = GetAllTasks()
+Dim As String task, url, body, lang1, lang2, ext, fileName, header, language, regex, source, kbd
+Dim As Integer i, idx, sourceStart, sourceEnd
+
+Do
+    Input "Enter the exact name of the task: ", task
+    For i = 1 To Len(task)
+        If Mid(task, i, 1) = " " Then Mid(task, i, 1) = "_"
+    Next
+    
+    url = "https://rosettacode.org/w/index.php?title=" & task & "&action=edit"
+    body = GetContent(url)
+    
+    body = ReplaceHtmlEntities(body)
+    
+    Do
+        Input "Enter the language FreeBASIC/Julia/Python: ", lang1
+        lang1 = Lcase(lang1)
+        If lang1 = "freebasic" Or lang1 = "julia" Or lang1 = "python" Then Exit Do
+        Print !"Sorry that language is not supported.\n"
+    Loop
+    
+    Select Case lang1
+    Case "freebasic"
+        lang2 = "FreeBASIC"
+        ext = "bas"
+    Case "julia"
+        lang2 = "Julia"
+        ext = "jl"
+    Case "python"
+        lang2 = "Python"
+        ext = "py"
+    End Select
+    
+    fileName = "rc_temp." & ext
+    header = "=={{header|" & lang2 & "}}=="
+    language = "<syntaxhighlight lang=" & Chr(34) & Lcase(lang2) & Chr(34) & ">"
+    regex = language
+    
+    idx = Instr(body, regex)   
+    If idx = 0 Then
+        Print !"No runnable task entry for that language was detected.\n"
+        Continue Do
+    End If
+    
+    sourceStart = Instr(idx + Len(header), body, ">") + 1   
+    sourceEnd = Instr(sourceStart, body, "</syntax highlight>") - 1
+    
+    If sourceStart > 0 And sourceEnd > sourceStart Then
+        source = Mid(body, sourceStart, sourceEnd - sourceStart + 1)
+        source = Trim(source)
+        Print !"\nThis is the source code for the first or only runnable program:\n"
+        Print source & Chr(10)
+    Else
+        Print "Unable to extract source code."
+        Continue Do
+    End If
+    
+    Input "Do you want to run it (y/n)? ", kbd
+    If Lcase(kbd) = "y" Then
+        Open fileName For Output As #1
+        Print #1, source
+        Close #1
+        Select Case lang1
+        Case "freebasic"
+            Shell "fbc " & fileName & " && rc_temp"
+        Case "julia"
+            Shell "julia " & fileName
+        Case "python"
+            Shell "python " & fileName
+        End Select
+        Kill fileName
+        If lang1 = "freebasic" Then Kill "rc_temp.exe"
+    End If
+    
+    Print 
+    Input "Do another one (y/n)? ", kbd
+    If Lcase(kbd) <> "y" Then Exit Do
+Loop</syntaxhighlight>
+{{out}}
+Sample output (same shortish task used for all 3 languages): 
+<pre style="height:40ex;overflow:scroll;">Enter the exact name of the task: Palindrome dates
+Enter the language FreeBASIC/Julia/Python: FreeBASIC
+
+This is the source code for the first or only runnable program:
+
+
+Dim As String dateTest = ""
+Dim As Integer Pal =0, total = 0
+Print "Siguientes 15 fechas palindr-ómicas al 2020-02-02:"
+For anno As Integer = 2021 To 9999
+    dateTest = Ltrim(Str(anno))
+    For mes As Integer = 1 To 12
+        If mes < 10 Then dateTest = dateTest + "0"
+        dateTest += Ltrim(Str(mes))
+        For dia As Integer = 1 To 31
+            If mes = 2 And dia > 28 Then Exit For
+            If (mes = 4 Or mes = 6 Or mes = 9 Or mes = 11) And dia > 30 Then Exit For
+            If dia < 10 Then dateTest += "0"
+            dateTest = dateTest + Ltrim(Str(dia))
+            For Pal = 1 To 4
+                If Mid(dateTest, Pal, 1) <> Mid(dateTest, 9 - Pal, 1) Then Exit For
+            Next Pal
+            If Pal = 5 Then
+                total += 1
+                If total <= 15 Then Print Left(dateTest,4);"-";Mid(dateTest,5,2);"-";Right(dateTest,2)
+            End If
+            if total > 15 then Exit For : Exit For : Exit For
+            dateTest = Left(dateTest, 6)
+        Next dia
+        dateTest = Left(dateTest, 4)
+    Next mes
+    dateTest = ""
+Next anno
+Sleep
+
+
+Do you want to run it (y/n)? y
+Siguientes 15 fechas palindr-ómicas al 2020-02-02:
+2021-12-02
+2030-03-02
+2040-04-02
+2050-05-02
+2060-06-02
+2070-07-02
+2080-08-02
+2090-09-02
+2101-10-12
+2110-01-12
+2111-11-12
+2120-02-12
+2121-12-12
+2130-03-12
+2140-04-12
+
+Do another one (y/n)? y
+Enter the exact name of the task: Palindrome dates
+Enter the language FreeBASIC/Julia/Python: Julia
+
+This is the source code for the first or only runnable program:
+
+using Dates
+
+function datepalindromes(nextcount=20)
+    println("Date palindromes:")
+    count, d = 0, Date(1000, 1, 1)
+    for year in 2021:9200
+        try
+            dig = digits(year)
+            month = 10 * dig[1] + dig[2]
+            day = 10 * dig[3] + dig[4]
+            d = Date(year, month, day)
+        catch
+            continue
+        end
+        println(d)
+        count += 1
+        if count >= nextcount
+            break
+        end
+    end
+end
+
+datepalindromes()
+
+
+Do you want to run it (y/n)? y
+Date palindromes:
+2021-12-02
+2030-03-02
+2040-04-02
+2050-05-02
+2060-06-02
+2070-07-02
+2080-08-02
+2090-09-02
+2101-10-12
+2110-01-12
+2111-11-12
+2120-02-12
+2121-12-12
+2130-03-12
+2140-04-12
+2150-05-12
+2160-06-12
+2170-07-12
+2180-08-12
+2190-09-12
+
+Do another one (y/n)? y
+Enter the exact name of the task: Palindrome dates
+Enter the language FreeBASIC/Julia/Python: Python
+
+This is the source code for the first or only runnable program:
+
+'''Palindrome dates'''
+
+from datetime import datetime
+from itertools import chain
+
+
+# palinDay :: Int -> [ISO Date]
+def palinDay(y):
+    '''A possibly empty list containing the palindromic
+       date for the given year, if such a date exists.
+    '''
+    s = str(y)
+    r = s[::-1]
+    iso = '-'.join([s, r[0:2], r[2:]])
+    try:
+        datetime.strptime(iso, '%Y-%m-%d')
+        return [iso]
+    except ValueError:
+        return []
+
+
+# --------------------------TEST---------------------------
+# main :: IO ()
+def main():
+    '''Count and samples of palindromic dates [2021..9999]
+    '''
+    palinDates = list(chain.from_iterable(
+        map(palinDay, range(2021, 10000))
+    ))
+    for x in [
+            'Count of palindromic dates [2021..9999]:',
+            len(palinDates),
+            '\nFirst 15:',
+            '\n'.join(palinDates[0:15]),
+            '\nLast 15:',
+            '\n'.join(palinDates[-15:])
+    ]:
+        print(x)
+
+
+# MAIN ---
+if __name__ == '__main__':
+    main()
+
+Do you want to run it (y/n)? y
+Count of palindromic dates [2021..9999]:
+284
+
+First 15:
+2021-12-02
+2030-03-02
+2040-04-02
+2050-05-02
+2060-06-02
+2070-07-02
+2080-08-02
+2090-09-02
+2101-10-12
+2110-01-12
+2111-11-12
+2120-02-12
+2121-12-12
+2130-03-12
+2140-04-12
+
+Last 15:
+9170-07-19
+9180-08-19
+9190-09-19
+9201-10-29
+9210-01-29
+9211-11-29
+9220-02-29
+9221-12-29
+9230-03-29
+9240-04-29
+9250-05-29
+9260-06-29
+9270-07-29
+9280-08-29
+9290-09-29
+
+Do another one (y/n)? n</pre>

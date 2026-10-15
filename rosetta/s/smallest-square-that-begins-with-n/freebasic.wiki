@@ -1,0 +1,73 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">dim as uinteger ssq(1 to 49), count = 0, curr = 1, curr2
+dim as string scurr2
+while count < 49
+    curr2 = curr^2
+    scurr2 = str(curr2)
+    for j as uinteger = 1 to 49
+        if val(left(scurr2, len(str(j)))) = j and ssq(j) = 0 then
+            ssq(j) = curr2
+            count += 1
+        end if
+    next j
+    curr += 1
+wend
+
+print "Prefix        n^2            n"
+print "------------------------------"
+
+for j as uinteger = 1 to 49
+    print j, ssq(j), sqr(ssq(j))
+next j</syntaxhighlight>
+{{out}}<pre style="height:16em">Prefix        n^2            n
+------------------------------
+1             1              1
+2             25             5
+3             36             6
+4             4              2
+5             529            23
+6             64             8
+7             729            27
+8             81             9
+9             9              3
+10            100            10
+11            1156           34
+12            121            11
+13            1369           37
+14            144            12
+15            1521           39
+16            16             4
+17            1764           42
+18            1849           43
+19            196            14
+20            2025           45
+21            2116           46
+22            225            15
+23            2304           48
+24            2401           49
+25            25             5
+26            2601           51
+27            2704           52
+28            289            17
+29            2916           54
+30            3025           55
+31            3136           56
+32            324            18
+33            3364           58
+34            3481           59
+35            35344          188
+36            36             6
+37            3721           61
+38            3844           62
+39            3969           63
+40            400            20
+41            41209          203
+42            4225           65
+43            4356           66
+44            441            21
+45            45369          213
+46            4624           68
+47            4761           69
+48            484            22
+49            49             7
+</pre>

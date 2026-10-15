@@ -1,0 +1,75 @@
+Type WikiParser
+    LanguageMark As String
+    Target As Integer
+    words(Any) As String
+    wordCount As Integer
+End Type
+
+Function initParser(mark As String, target As Integer) As WikiParser
+    Dim As WikiParser p
+    With p
+        .LanguageMark = mark
+        .Target = target
+        .wordCount = 0
+    End With
+    Redim p.words(0)
+    Return p
+End Function
+
+Function procesarXML(ruta As String, Byref parser As WikiParser) As Boolean
+    Dim As Integer ff = Freefile()
+    If Open(ruta For Binary Access Read As #ff) <> 0 Then
+        Print "The file could not be opened: " & ruta
+        Return False
+    End If
+    
+    Dim As String linea, titulo = ""
+    Dim As Boolean enTexto = False
+    
+    While Not Eof(ff)
+        Line Input #ff, linea
+        
+        Dim As Integer p = Instr(linea, "<title>")
+        If p > 0 Then
+            p += 7
+            Dim As Integer q = Instr(p, linea, "</title>")
+            If q > 0 Then
+                titulo = Mid(linea, p, q - p)
+            Else
+                titulo = ""
+            End If
+        End If
+        
+        If Instr(linea, "<text") > 0 Then enTexto = True
+        If Instr(linea, "</text>") > 0 Then enTexto = False
+        
+        If enTexto And Instr(linea, parser.LanguageMark) > 0 Then
+            Redim Preserve parser.words(parser.wordCount)
+            
+            parser.words(parser.wordCount) = titulo
+            parser.wordCount += 1
+            
+            If parser.wordCount >= parser.Target Then
+                Close #ff
+                Return True
+            End If
+        End If
+    Wend
+    
+    Close #ff
+    Return parser.wordCount > 0
+End Function
+
+' Main program
+Dim As String ruta = "wiktionary.xml"
+Dim As WikiParser parser = initParser("==French==", 20)
+
+If procesarXML(ruta, parser) Then
+    For i As Integer = 0 To parser.wordCount - 1
+        Print parser.words(i)
+    Next
+Else
+    Print "No words were found."
+End If
+
+Sleep

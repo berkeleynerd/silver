@@ -1,0 +1,125 @@
+=={{header|Ada}}==
+===With sorting===
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Containers.Vectors;
+
+procedure Last_List_Item_Sorted is
+
+   package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
+
+   package Vectors is
+     new Ada.Containers.Vectors (Index_Type   => Positive,
+                                 Element_Type => Integer);
+   package Vector_Sorting is
+     new Vectors.Generic_Sorting;
+   use Ada.Containers, Vectors, Ada.Text_IO, Integer_IO;
+
+   procedure Put (List : Vector) is
+   begin
+      Put ("[");
+      for V of List loop
+         Put (" "); Put (V, Width => 0);
+      end loop;
+      Put ("]");
+   end Put;
+
+   List : Vector := 6 & 81 & 243 & 14 & 25 & 49 & 123 & 69 & 11;
+
+begin
+   Default_Width := 0;
+   while List.Length >= 2 loop
+      Vector_Sorting.Sort (List);
+      Put (List);
+      declare
+         Small_1 : constant Integer := List (List.First_Index + 0);
+         Small_2 : constant Integer := List (List.First_Index + 1);
+         Sum     : constant Integer := Small_1 + Small_2;
+      begin
+         List.Delete_First (2);
+         Put (". Smallest: ");  Put (Small_1);  Put (" and ");  Put (Small_2);
+         Put (". Sum: ");  Put (Sum);  New_Line;
+         List.Append (Sum);
+      end;
+   end loop;
+   Put (List); New_Line;
+end Last_List_Item_Sorted;</syntaxhighlight>
+{{out}}
+<pre>
+[ 6 11 14 25 49 69 81 123 243]. Smallest: 6 and 11. Sum: 17
+[ 14 17 25 49 69 81 123 243]. Smallest: 14 and 17. Sum: 31
+[ 25 31 49 69 81 123 243]. Smallest: 25 and 31. Sum: 56
+[ 49 56 69 81 123 243]. Smallest: 49 and 56. Sum: 105
+[ 69 81 105 123 243]. Smallest: 69 and 81. Sum: 150
+[ 105 123 150 243]. Smallest: 105 and 123. Sum: 228
+[ 150 228 243]. Smallest: 150 and 228. Sum: 378
+[ 243 378]. Smallest: 243 and 378. Sum: 621
+[ 621]
+</pre>
+
+===Without sorting===
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Containers.Vectors;
+
+procedure Last_List_Item is
+
+   package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
+
+   package Element_Vectors is
+     new Ada.Containers.Vectors (Index_Type   => Positive,
+                                 Element_Type => Integer);
+   use Ada.Containers, Element_Vectors, Ada.Text_IO, Integer_IO;
+
+   function Pick_Smallest (List : in out Vector) return Integer is
+      Value : Integer := Integer'Last;
+   begin
+      if List.Is_Empty then
+         raise Constraint_Error;
+      end if;
+
+      for V of List loop
+         Value := Integer'Min (Value, V);
+      end loop;
+      List.Delete (List.Find_Index (Value));
+      return Value;
+   end Pick_Smallest;
+
+   procedure Put (List : Vector) is
+   begin
+      Put ("[");
+      for V of List loop
+         Put (" "); Put (V, Width => 0);
+      end loop;
+      Put ("]");
+   end Put;
+
+   List : Vector := 6 & 81 & 243 & 14 & 25 & 49 & 123 & 69 & 11;
+
+begin
+   Default_Width := 0;
+   while List.Length >= 2 loop
+      Put (List); Put (". Smallest: ");
+      declare
+         Small_1 : constant Integer := Pick_Smallest (List);
+         Small_2 : constant Integer := Pick_Smallest (List);
+         Sum     : constant Integer := Small_1 + Small_2;
+      begin
+         Put (Small_1);  Put (" and ");  Put (Small_2);
+         Put (". Sum: ");  Put (Sum);  New_Line;
+
+         List.Append (Sum);
+      end;
+   end loop;
+   Put (List); New_Line;
+end Last_List_Item;</syntaxhighlight>
+{{out}}
+<pre>
+[ 6 81 243 14 25 49 123 69 11]. Smallest: 6 and 11. Sum: 17
+[ 81 243 14 25 49 123 69 17]. Smallest: 14 and 17. Sum: 31
+[ 81 243 25 49 123 69 31]. Smallest: 25 and 31. Sum: 56
+[ 81 243 49 123 69 56]. Smallest: 49 and 56. Sum: 105
+[ 81 243 123 69 105]. Smallest: 69 and 81. Sum: 150
+[ 243 123 105 150]. Smallest: 105 and 123. Sum: 228
+[ 243 150 228]. Smallest: 150 and 228. Sum: 378
+[ 243 378]. Smallest: 243 and 378. Sum: 621
+[ 621]
+</pre>

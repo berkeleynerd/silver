@@ -1,0 +1,321 @@
+=={{header|FreeBASIC}}==
+===Up to 20 objects===
+<syntaxhighlight lang="freebasic">' version 31-03-2017
+' compile with: fbc -s console
+
+' Myrvold and Ruskey
+' only for up to 20 elements, 21! > 2^64 -1
+Function Factorial(n As Integer) As ULongInt
+
+    Dim As ULongInt tmp = 1
+
+    For i As ULong = 2 To n
+        tmp *= i
+    Next
+
+    Return tmp
+
+End Function
+
+Sub unrank1(n As ULong, r As ULongInt , pi() As UByte)
+
+    If n > 0 Then
+        Swap pi(n -1), pi(r Mod n)
+        unrank1(n -1, (r \ n), pi())
+    End If
+
+End Sub
+
+Function rank1(n As ULongInt, pi() As UByte, pi_inv() As UByte) As ULongInt
+
+    If n = 1 Then Return 0
+
+    Dim As UByte s = pi(n -1)
+
+    Swap pi(n -1), pi(pi_inv(n -1))
+    Swap pi_inv(s), pi_inv(n -1)
+
+    Return (s + n * rank1(n -1, pi(), pi_inv()))
+
+End Function
+
+Sub unrank2(n As ULong, r As ULongInt, pi() As ubyte)
+
+    If n > 0 Then
+        Dim As ULongInt fac = Factorial(n - 1)
+        Dim As ULongint s = r \ fac
+        Swap pi(n -1), pi(s)
+        unrank2(n -1, r - s * fac, pi())
+    End If
+
+End Sub
+
+Function rank2(n As ULong, pi() As UByte, pi_inv() As UByte) As ULongInt
+    
+    If n = 1 Then Return 0
+    Dim As UByte s = pi(n -1)
+    Swap pi(n -1), pi(pi_inv(n -1))
+    Swap pi_inv(s), pi_inv(n -1)
+    Return (s * Factorial(n -1) + rank2(n -1, pi(), pi_inv()))
+    
+End Function
+
+' ------=< MAIN >=------
+
+Dim As ULongInt i, i1, j, n, n1
+Dim As UByte pi(), pi_inv()
+Dim As String frmt1, frmt2
+Randomize timer
+
+n = 3 : n1 = Factorial(n) 
+ReDim pi(n -1), pi_inv(n - 1)
+frmt1 = " ###"
+frmt2 = "##"
+
+Print "Rank:     unrank1       rank1"
+
+For i = 0 To n1 -1
+    For j = 0 To n -1
+        pi(j) = j
+    Next
+    Print Using frmt1 & ": --> "; i;
+    unrank1(n, i, pi())
+    For j = 0 To n -1
+        Print Using frmt2; pi(j);
+        pi_inv(pi(j))= j
+    Next
+
+    Print Using "  -->" & frmt1; rank1(n, pi(), pi_inv())
+
+Next
+
+n = 12 : n1 = Factorial(n)
+ReDim pi(n -1), pi_inv(n - 1)
+frmt1 = "###########"
+frmt2 = "###"
+Print : Print "4 random samples of permutations from 12 objects"
+Print "  Rank:                     unrank1                         rank1"
+
+For i = 1 To 4
+    i1 = Int(Rnd * n1)
+    For j = 0 To n -1 : pi(j) = j : Next
+    Print Using frmt1 & ": --> "; i1; : unrank1(n, i1, pi())
+    For j = 0 To n -1 : Print Using frmt2; pi(j);
+    pi_inv(pi(j))= j : Next
+    Print Using "  -->" & frmt1; rank1(n, pi(), pi_inv())
+Next
+
+Print : Print String(69,"-") : Print
+Print "Rank:     unrank2       rank2"
+
+n = 3 : n1 = Factorial(n) 
+ReDim pi(n -1), pi_inv(n - 1)
+frmt1 = " ###"
+frmt2 = "##"
+
+
+For i = 0 To n1 -1
+    For j = 0 To n -1
+        pi(j) = j
+    Next
+    Print Using  frmt1 & ": --> "; i;
+    unrank2(n, i, pi())
+    For j = 0 To n -1
+        Print Using frmt2; pi(j);
+        pi_inv(pi(j))= j
+    Next
+    
+    Print Using "  -->" & frmt1; rank2(n, pi(), pi_inv())
+
+Next
+
+n = 12 : n1 = Factorial(n)
+ReDim pi(n -1), pi_inv(n - 1)
+frmt1 = "###########"
+frmt2 = "###"
+Print : Print "4 random samples of permutations from 12 objects"
+Print "  Rank:                     unrank2                         rank2"
+
+For i = 1 To 4
+    i1 = Int(Rnd * n1)
+    For j = 0 To n -1 : pi(j) = j : Next
+    Print Using frmt1 & ": --> "; i1; : unrank2(n, i1, pi())
+    For j = 0 To n -1 : Print Using frmt2; pi(j);
+    pi_inv(pi(j))= j : Next
+    Print Using "  -->" & frmt1; rank2(n, pi(), pi_inv())
+Next
+
+' empty keyboard buffer
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>Rank:     unrank1       rank1
+   0: -->  1 2 0  -->   0
+   1: -->  2 0 1  -->   1
+   2: -->  1 0 2  -->   2
+   3: -->  2 1 0  -->   3
+   4: -->  0 2 1  -->   4
+   5: -->  0 1 2  -->   5
+
+4 random samples of permutations from 12 objects
+  Rank:                     unrank1                         rank1
+   60255761: -->   1  2  6  9 11  7  4  8 10  3  0  5  -->   60255761
+  165590690: -->   9  3  8  0  1  7  6 11  5  4 10  2  -->  165590690
+  163838188: -->  10  3  2  5  6  9  1  7  0  8 11  4  -->  163838188
+  116369064: -->   2  5  7  1  4 11  6  8 10  3  9  0  -->  116369064
+
+---------------------------------------------------------------------
+
+Rank:     unrank2       rank2
+   0: -->  1 2 0  -->   0
+   1: -->  2 1 0  -->   1
+   2: -->  2 0 1  -->   2
+   3: -->  0 2 1  -->   3
+   4: -->  1 0 2  -->   4
+   5: -->  0 1 2  -->   5
+
+4 random samples of permutations from 12 objects
+  Rank:                     unrank2                         rank2
+  112880724: -->  10  5  8 11  3  7  6  4  0  1  9  2  -->  112880724
+  414249353: -->   7  8  3  6 11  9  2  0  5  1  4 10  -->  414249353
+  436729447: -->   2  9  5  1  0  6  7  8  4  3 11 10  -->  436729447
+  198756321: -->   0  8 11  1  9  2  5  3  6  7 10  4  -->  198756321</pre>
+===Using GMP for the big numbers===
+{{libheader|GMP}}
+<syntaxhighlight lang="freebasic">' version 31-03-2017
+' compile with: fbc -s console
+
+' Myrvold and Ruskey
+#Include Once "gmp.bi"
+' next two gmp integer are made shared to make things a little easier
+Dim Shared As Mpz_ptr _tmp1_, _tmp2_
+_tmp1_ = Allocate(Len( __mpz_struct)) : Mpz_init(_tmp1_)
+_tmp2_ = Allocate(Len( __mpz_struct)) : Mpz_init(_tmp2_)
+
+Sub unrank1(n As ULong, rank As Mpz_ptr, pi As String)
+
+    If n > 0 Then
+        ' _tmp1_ = quotient, _tmp2_ = remainder
+        Mpz_fdiv_qr_ui(_tmp1_, _tmp2_, rank, n)
+        Dim As UInteger r = Mpz_get_ui(_tmp2_)
+        Swap pi[n -1], pi[r]
+        unrank1(n -1, _tmp1_, pi)
+    End If
+
+End Sub
+
+Function rank1(n As ULong, pi As String, pi_inv As String) As Mpz_ptr
+
+    Dim As Mpz_ptr ret_val = Allocate( Len( __mpz_struct)) : Mpz_init(ret_val)
+
+    If n = 1 Then Return ret_val ' ret_val = 0
+
+    Dim As UByte s = pi[n -1]
+
+    Swap pi[n -1], pi[pi_inv[n -1]]
+    Swap pi_inv[s], pi_inv[n -1]
+
+    _tmp1_ = rank1(n -1, pi, pi_inv)
+    Mpz_mul_ui(_tmp1_, _tmp1_, n)
+    Mpz_add_ui(_tmp1_, _tmp1_, s)
+
+    Return _tmp1_
+
+End Function
+
+' ------=< MAIN >=------
+Dim As Mpz_ptr rank_nr = Allocate( Len( __mpz_struct)) : Mpz_init(rank_nr)
+Dim As Mpz_ptr max_nr  = Allocate( Len( __mpz_struct)) : Mpz_init(max_nr)
+
+Dim As ULong i, j, n = 144
+Dim As String tmp, pi_start, pi = Space(144), pi_inv = pi
+Dim As ZString Ptr gmp_str : gmp_str = Allocate(1000)
+
+Mpz_fac_ui(max_nr, n)
+
+Randomize Timer
+Dim Shared As __gmp_randstate_struct rnd_
+Gmp_randinit_mt(@rnd_) ' Mersenne Twister
+
+For i = 0 To 200 ' create seed
+    tmp += Str(Int(Rnd * 10))
+Next
+
+Mpz_set_str(_tmp1_, tmp, 10)
+Gmp_randseed(@rnd_, _tmp1_)   ' seed the random generator
+
+' set random generator give number from 0 to max_nr -1
+Mpz_fac_ui(max_nr, n)
+
+' setup the starting position
+For j = 0 To n -1
+    pi[j] = j
+Next
+
+pi_start = pi
+
+For i = 1 To 4
+
+    pi = pi_start
+
+    Mpz_urandomm(rank_nr, @rnd_, max_nr)
+    ' comment out the next 2 lines if you don't want the rank number
+    gmp_str = Mpz_get_str(0, 10, rank_nr)
+    Print *gmp_str
+
+    unrank1(n, rank_nr, pi)
+    For j = 0 To n -1
+        Print pi[j]; " ";
+    Next
+    Print : Print
+    
+Next
+
+' test rank1
+For j = 0 To n -1
+    pi_inv[pi[j]] = j
+Next
+
+Print "Calculate rank from last return of unrank1" : Print
+
+_tmp2_ = rank1(n, pi, pi_inv)
+gmp_str = Mpz_get_str(0, 10, _tmp2_)
+Print *gmp_str
+
+Print
+If Mpz_cmp(rank_nr, _tmp2_) = 0 Then
+    Print "Both numbers are equal"
+Else
+    Print "Oh no, they are different"
+End If
+
+' clean up 
+Gmp_randclear(@rnd_): DeAllocate(gmp_str)
+Mpz_clear(_tmp1_)  : Mpz_clear(_tmp2_)
+Mpz_clear(rank_nr) : Mpz_clear(max_nr)
+
+' empty keyboard buffer
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>862993243747395020367391904490190117106585269146708404403331561502140758428008657463653366643611155380240799622282374456087743515643868809722278635878978733132591027133490410275442362000562723356064257191755491520940533177124123076535632269113257248
+84 75 30 143 96 137 6 93 1 7 139 13 128 26 54 53 58 80 49 121 48 57 110 18 65 39 28 123 104 74 0 115 118 55 94 124 79 3 40 37 31 19 91 15 45 4 99 85 12 125 73 105 50 103 2 72 100 106 140 59 131 111 132 71 87 101 33 83 116 61 117 46 23 102 22 78 34 122 97 67 21 66 38 95 133 56 51 119 134 130 76 136 10 5 108 86 98 64 68 14 89 127 36 126 29 32 42 135 107 47 88 141 109 82 90 138 41 44 9 113 81 43 77 25 17 52 69 70 20 60 129 92 120 142 24 11 112 27 63 8 114 62 35 16 
+
+47917723140095432157221855096154499194255080002636063395350120073895688582070571512322163408396671848674709640997560726617711987824266984538507398611573887009966471806599805673347764192963174688919909816413311485279097811517332552325468088920570999
+51 66 35 132 62 41 85 11 102 10 8 77 47 86 67 133 7 113 68 63 55 14 2 53 136 123 120 134 98 44 82 135 38 56 33 3 18 73 59 39 24 87 60 49 100 130 54 125 142 12 143 36 108 79 88 52 48 40 70 121 97 106 27 50 84 81 101 103 69 104 65 80 127 21 129 138 71 83 0 31 109 61 91 42 9 89 25 28 37 1 57 111 94 64 90 58 128 139 72 17 22 29 78 137 34 95 45 122 43 4 112 32 105 119 116 114 46 140 5 126 117 141 99 75 74 16 92 93 30 15 76 124 131 19 6 118 115 13 110 107 26 20 96 23 
+
+637688984437952365760382441209327118273063325774553997216592843807533086351173589568994187460815088373920825908715346187961371659995682060813263279599005102426783594559898201756229325528014412155293729428911717526485652807912451026347128904648868007
+19 83 140 55 33 120 47 36 25 67 88 37 96 56 81 45 0 119 40 136 118 132 106 4 51 21 94 124 115 48 43 14 50 65 117 6 12 42 91 135 69 101 125 113 93 1 100 63 139 8 85 134 22 44 38 92 107 18 29 73 123 78 59 137 16 98 114 103 58 80 57 77 84 129 102 17 111 46 76 122 13 141 68 143 23 74 90 20 70 7 61 53 121 99 52 126 133 72 34 15 30 75 3 27 116 86 54 105 32 95 97 41 110 71 79 62 131 9 128 26 49 109 35 2 130 82 104 142 66 138 127 60 24 64 112 11 31 5 10 108 89 28 39 87 
+
+535399200299805723659842638329571779126013359471038683394020671731433287381148973163739727170996720550440081854802426694781596591608094704788192315510887507170772714624651896802083185333111090759049957219000637867635603301395042723152111042332094947
+57 21 94 2 117 69 46 105 86 43 109 25 101 62 50 89 121 7 142 95 113 136 51 15 14 111 54 66 61 1 138 116 23 19 123 129 12 134 82 127 73 100 78 39 37 135 63 90 139 28 67 58 122 49 125 99 60 4 44 141 76 71 11 108 59 110 9 112 5 92 16 124 131 56 48 72 68 40 74 34 130 55 133 42 119 132 97 22 118 52 140 83 103 27 32 84 96 65 10 107 88 18 30 87 115 120 93 70 35 64 75 91 8 126 20 31 98 128 104 13 80 77 0 106 6 33 17 36 41 24 102 137 81 38 45 53 79 143 29 26 114 47 85 3 
+
+Calculate rank from last return of unrank1
+
+535399200299805723659842638329571779126013359471038683394020671731433287381148973163739727170996720550440081854802426694781596591608094704788192315510887507170772714624651896802083185333111090759049957219000637867635603301395042723152111042332094947
+
+Both numbers are equal</pre>

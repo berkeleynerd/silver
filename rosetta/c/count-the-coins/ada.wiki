@@ -1,0 +1,82 @@
+=={{header|Ada}}==
+
+{{Works with|gnat/gcc}}
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Count_The_Coins is
+
+   type Counter_Type is range 0 .. 2**63-1; -- works with gnat
+   type Coin_List is array(Positive range <>) of Positive;
+
+   function Count(Goal: Natural; Coins: Coin_List) return Counter_Type is
+      Cnt: array(0 .. Goal) of Counter_Type := (0 => 1, others => 0);
+      -- 0 => we already know one way to choose (no) coins that sum up to zero
+      -- 1 .. Goal => we do not (yet) other ways to choose coins
+   begin
+      for C in Coins'Range loop
+         for Amount in 1 .. Cnt'Last loop
+            if Coins(C) <= Amount then
+               Cnt(Amount) := Cnt(Amount) + Cnt(Amount-Coins(C));
+               -- Amount-Coins(C) plus Coins(C) sums up to Amount;
+            end if;
+         end loop;
+      end loop;
+      return Cnt(Goal);
+   end Count;
+
+   procedure Print(C: Counter_Type) is
+   begin
+      Ada.Text_IO.Put_Line(Counter_Type'Image(C));
+   end Print;
+
+begin
+   Print(Count(   1_00,          (25, 10, 5, 1)));
+   Print(Count(1000_00, (100, 50, 25, 10, 5, 1)));
+end Count_The_Coins;</syntaxhighlight>
+
+Output:<pre> 242
+ 13398445413854501</pre>
+
+Alternate method that keeps track of the specific combinations of coins:
+<syntaxhighlight lang="ada">
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Main is
+   count: Integer;
+begin
+   count := 0;
+   for penny in 0 .. 100 loop
+      for nickel in 0 .. 20 loop
+        for dime in 0 .. 10 loop
+           for quarter in 0 .. 4 loop
+              if (penny + 5 * nickel + 10 * dime + 25 * quarter = 100)
+              then
+                 Put_Line(Integer'Image(count+1) & ": " &
+                          Integer'Image(penny)   & " pennies, " &
+                          Integer'Image(nickel)  & " nickels, " &
+                          Integer'Image(dime)    & " dimes, "   &
+                          Integer'Image(quarter) & " quarters");
+                 count := count + 1;
+              end if;
+           end loop;
+        end loop;
+      end loop;
+   end loop;
+   
+  Put_Line("The number of ways to make change for a dollar is: " &  Integer'Image(count));
+end Main;
+</syntaxhighlight>
+Output:<pre>
+ 1:  0 pennies,  0 nickels,  0 dimes,  4 quarters
+ 2:  0 pennies,  0 nickels,  5 dimes,  2 quarters
+ 3:  0 pennies,  0 nickels,  10 dimes,  0 quarters
+ 4:  0 pennies,  1 nickels,  2 dimes,  3 quarters
+ 5:  0 pennies,  1 nickels,  7 dimes,  1 quarters
+.....................
+ 239:  90 pennies,  0 nickels,  1 dimes,  0 quarters
+ 240:  90 pennies,  2 nickels,  0 dimes,  0 quarters
+ 241:  95 pennies,  1 nickels,  0 dimes,  0 quarters
+ 242:  100 pennies,  0 nickels,  0 dimes,  0 quarters
+The number of ways to make change for a dollar is:  242
+</pre>

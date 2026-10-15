@@ -1,0 +1,158 @@
+=={{header|Ada}}==
+{{works with|Ada 2012}}
+
+Here is the main program, using a generic package Logic. 
+The expression function introduced by the new standard Ada 2012 
+are very handy for this task.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Logic; 
+
+procedure Twelve_Statements is
+   
+   package L is new Logic(Number_Of_Statements => 12); use L;
+   
+   -- formally define the 12 statements as expression function predicates
+   function P01(T: Table) return Boolean is (T'Length = 12);              -- list of 12 statements
+   function P02(T: Table) return Boolean is (Sum(T(7 .. 12)) = 3);        -- three of last six 
+   function P03(T: Table) return Boolean is (Sum(Half(T, Even)) = 2);     -- two of the even
+   function P04(T: Table) return Boolean is (if T(5) then T(6) and T(7)); -- if 5 is true, then ...
+   function P05(T: Table) return Boolean is 
+      ( (not T(2)) and (not T(3)) and (not T(4)) );                       -- none of preceding three
+   function P06(T: Table) return Boolean is (Sum(Half(T, Odd)) = 4);      -- four of the odd 
+   function P07(T: Table) return Boolean is (T(2) xor T(3));              -- either 2 or 3, not both
+   function P08(T: Table) return Boolean is (if T(7) then T(5) and T(6)); -- if 7 is true, then ...
+   function P09(T: Table) return Boolean is (Sum(T(1 .. 6)) = 3);         -- three of first six 
+   function P10(T: Table) return Boolean is (T(11) and T(12));            -- next two 
+   function P11(T: Table) return Boolean is (Sum(T(7..9)) = 1);           -- one of 7, 8, 9
+   function P12(T: Table) return Boolean is (Sum(T(1 .. 11)) = 4);        -- four of the preding
+   
+   -- define a global list of statements
+   Statement_List: constant Statements :=
+     (P01'Access, P02'Access, P03'Access, P04'Access, P05'Access, P06'Access, 
+      P07'Access, P08'Access, P09'Access, P10'Access, P11'Access, P12'Access);
+   
+   -- try out all 2^12 possible choices for the table
+   procedure Try(T: Table; Fail: Natural; Idx: Indices'Base := Indices'First) is
+      
+      procedure Print_Table(T: Table) is
+	 use Ada.Text_IO;
+      begin
+	 Put("    ");
+	 if Fail > 0 then
+	    Put("(wrong at");
+	    for J in T'Range loop
+	       if Statement_List(J)(T) /= T(J) then
+		  Put(Integer'Image(J) & (if J < 10 then ")  " else ") "));
+	       end if;
+	    end loop;
+	 end if;
+	 if T = (1..12 => False) then
+	    Put_Line("All false!");
+	 else
+	    Put("True are");
+	    for J in T'Range loop
+	       if T(J) then 
+		  Put(Integer'Image(J));
+	       end if;
+	    end loop;
+	    New_Line;
+	 end if;
+      end Print_Table;
+      
+      Wrong_Entries: Natural := 0; 
+	  
+   begin
+      if Idx <= T'Last then 
+	 Try(T(T'First .. Idx-1) & False & T(Idx+1 .. T'Last), Fail, Idx+1);
+	 Try(T(T'First .. Idx-1) & True  & T(Idx+1 .. T'Last), Fail, Idx+1);
+      else -- now Index > T'Last and we have one of the 2^12 choices to test
+	 for J in T'Range loop 	 
+	    if Statement_List(J)(T) /= T(J) then 
+	       Wrong_Entries := Wrong_Entries + 1;
+	    end if;
+	 end loop;
+	 if Wrong_Entries = Fail then 
+	    Print_Table(T);
+	 end if;
+      end if;
+   end Try;
+			 
+begin
+   Ada.Text_IO.Put_Line("Exact hits:");
+   Try(T => (1..12 => False), Fail => 0);
+   Ada.Text_IO.New_Line;
+   Ada.Text_IO.Put_Line("Near Misses:");
+   Try(T => (1..12 => False), Fail => 1);
+end Twelve_Statements;</syntaxhighlight>
+
+{{out}}
+
+<pre>Exact hits:
+    True are 1 3 4 6 7 11
+
+Near Misses:
+    (wrong at 1)  True are 5 8 11
+    (wrong at 1)  True are 5 8 10 11 12
+    (wrong at 1)  True are 4 8 10 11 12
+    (wrong at 8)  True are 1 5
+    (wrong at 11) True are 1 5 8
+    (wrong at 12) True are 1 5 8 11
+    (wrong at 12) True are 1 5 8 10 11 12
+    (wrong at 8)  True are 1 5 6 9 11
+    (wrong at 8)  True are 1 4
+    (wrong at 12) True are 1 4 8 10 11 12
+    (wrong at 6)  True are 1 4 6 8 9
+    (wrong at 7)  True are 1 3 4 8 9
+    (wrong at 9)  True are 1 3 4 6 7 9
+    (wrong at 12) True are 1 2 4 7 9 12
+    (wrong at 10) True are 1 2 4 7 9 10
+    (wrong at 8)  True are 1 2 4 7 8 9</pre>
+
+Here is the definition the package Logic:
+
+<syntaxhighlight lang="ada">generic
+   Number_Of_Statements: Positive;
+package Logic is   
+   
+   --types
+   subtype Indices is Natural range 1 .. Number_Of_Statements;
+   type Table is array(Indices range <>) of Boolean;
+   type Predicate is access function(T: Table) return Boolean;
+   type Statements is array(Indices) of Predicate;
+   type Even_Odd is (Even, Odd);
+   
+   -- convenience functions
+   function Sum(T: Table) return Natural; 
+   function Half(T: Table; Which: Even_Odd) return Table;
+   
+end Logic;</syntaxhighlight>
+
+And here is the implementation of the "convenience functions" in Logic:
+
+<syntaxhighlight lang="ada">package body Logic is   
+   
+   function Sum(T: Table) return Natural is
+      Result: Natural := 0;
+   begin
+      for I in T'Range loop
+         if T(I) then 
+            Result := Result + 1;
+         end if;
+      end loop;
+      return Result;
+   end Sum;
+   
+   function Half(T: Table; Which: Even_Odd) return Table is
+      Result: Table(T'Range);
+      Last: Natural := Result'First - 1;
+   begin
+      for I in T'Range loop
+         if I mod 2 = (if (Which=Odd) then 1 else 0) then
+            Last := Last+1;
+            Result(Last) := T(I);
+         end if;
+      end loop;
+      return Result(Result'First .. Last);
+   end Half;
+
+end Logic;</syntaxhighlight>

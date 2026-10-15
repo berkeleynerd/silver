@@ -1,0 +1,81 @@
+=={{header|Ada}}==
+
+Ada has no build-in or predefined functions to read or write CSV tables. We thus define a (very simplistic) package CSV, which allows to read a row (function Line), to step from column to column (function Next), and to get the items in the column (function Item):
+
+<syntaxhighlight lang=Ada>package CSV is
+   
+   type Row(<>) is tagged private;
+   
+   function Line(S: String; Separator: Character := ',') return Row;
+   function Next(R: in out Row) return Boolean; 
+     -- if there is still an item in R, Next advances to it and returns True
+   function Item(R: Row) return String;
+     -- after calling R.Next i times, this returns the i'th item (if any)
+   
+private
+   type Row(Length: Natural) is tagged record
+      Str: String(1 .. Length);
+      Fst: Positive;
+      Lst: Natural;
+      Nxt: Positive;
+      Sep: Character;
+   end record;
+end CSV;</syntaxhighlight>
+
+The implementation of the package is
+
+<syntaxhighlight lang=Ada>package body CSV is
+   
+   function Line(S: String; Separator: Character := ',')
+                return Row is
+      (Length => S'Length, Str => S, 
+       Fst => S'First, Lst => S'Last, Nxt => S'First, Sep => Separator);
+      
+   function Item(R: Row) return String is 
+      (R.Str(R.Fst .. R.Lst));
+
+   function Next(R: in out Row) return Boolean is
+      Last: Natural := R.Nxt;
+   begin
+      R.Fst := R.Nxt;
+      while Last <= R.Str'Last and then R.Str(Last) /= R.Sep loop 
+         -- find Separator
+         Last := Last + 1;
+      end loop;
+      R.Lst := Last - 1;
+      R.Nxt := Last + 1;
+      return (R.Fst <= R.Str'Last);
+   end Next;
+      
+end CSV;</syntaxhighlight>
+
+Finally, the main program which uses the package CSV:
+
+<syntaxhighlight lang=Ada>with CSV, Ada.Text_IO; use Ada.Text_IO;
+
+procedure CSV_Data_Manipulation is
+   Header: String := Get_Line;
+begin
+   Put_Line(Header & ", SUM");
+   while not End_Of_File loop
+      declare
+         R: CSV.Row := CSV.Line(Get_Line);
+         Sum: Integer := 0;
+      begin
+         while R.Next loop
+            Sum := Sum + Integer'Value(R.Item);
+            Put(R.Item & ",");
+         end loop;
+         Put_Line(Integer'Image(Sum));
+      end;
+   end loop;
+end CSV_Data_Manipulation;</syntaxhighlight>
+
+{{out}}
+
+<pre>>./csv_data_manipulation < csv_sample.csv 
+C1,C2,C3,C4,C5, SUM
+1,5,9,13,17, 45
+2,6,10,14,18, 50
+3,7,11,15,19, 55
+4,8,12,16,20, 60</pre>

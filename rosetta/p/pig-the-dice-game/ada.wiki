@@ -1,0 +1,154 @@
+=={{header|Ada}}==
+
+Uses Ada 2012. 
+
+===The Package Pig===
+
+We first define a package Pig, which we also use in the player task [[Pig the dice game/Player]].
+
+Essentially, this package specifies two classes: Player provides the record keeping of the player's score saved so far, the points accumulated in the current round that may be added to the score, and the most recent roll. Actor is an abstract class to model the decision of rolling the dice once more or to save the current points into the score. 
+
+Also, there is a procedure Play to play the game, following whatever the actors do.
+
+<syntaxhighlight lang="ada">package Pig is
+   
+   type Dice_Score is range 1 .. 6;
+   
+   type Player is tagged private; 
+   function Recent(P: Player) return Natural;
+   function All_Recent(P: Player) return Natural;
+   function Score(P: Player) return Natural;
+   
+   type Actor is abstract tagged null record;
+   function Roll_More(A: Actor; Self, Opponent: Player'Class) 
+		     return Boolean is abstract;
+   
+   procedure Play(First, Second: Actor'Class; First_Wins: out Boolean);
+   
+private
+   type Player is tagged record
+      Score: Natural := 0;
+      All_Recent: Natural := 0;
+      Recent_Roll: Dice_Score := 1;
+   end record;
+
+end Pig;</syntaxhighlight>
+
+The implementation of Pig is as follows:
+
+<syntaxhighlight lang="ada">with Ada.Numerics.Discrete_Random;
+package body Pig is
+   
+   function Score(P: Player) return Natural is (P.Score);
+   function All_Recent(P: Player) return Natural is (P.All_Recent);
+   function Recent(P: Player) return Natural is (Natural(P.Recent_Roll));
+   function Has_Won(P: Player) return Boolean is (P.Score >= 100);
+   
+   package RND is new Ada.Numerics.Discrete_Random(Dice_Score);
+   Gen: RND.Generator; 
+ 
+   procedure Roll(P: in out Player) is
+   begin
+      P.Recent_Roll := RND.Random(Gen);
+      if P.Recent = 1 then 
+	 P.All_Recent := 0;
+      else
+	 P.All_Recent := P.All_Recent + P.Recent;
+      end if;
+   end Roll;
+   
+   procedure Add_To_Score(P: in out Player) is
+   begin
+      P.Score := P.Score + P.All_Recent;
+      P.All_Recent := 0;
+   end Add_To_Score;
+   
+   procedure Play(First, Second: Actor'Class; 
+		  First_Wins: out Boolean) is
+      P1, P2: Player;
+   begin
+      loop
+	 Roll(P1);
+	 while First.Roll_More(P1, P2) and then P1.Recent > 1 loop
+	    Roll(P1);
+	 end loop;
+	 Add_To_Score(P1);
+	 exit when P1.Score >= 100;
+	 Roll(P2);
+	 while Second.Roll_More(P2, P1) and then P2.Recent > 1 loop
+	    Roll(P2);
+	 end loop;
+	 Add_To_Score(P2);
+	 exit when P2.Score >= 100;
+      end loop;
+      First_Wins := P1.Score >= 100;
+   end Play;
+   
+begin   
+   RND.Reset(Gen);
+end Pig;</syntaxhighlight>
+
+===Solving the Task===
+
+Now, to actually '''play''' the game, we need a procedure Play_Pig. Mainly, we derive a
+class Hand from the class Actor to implement manually playing the game.  
+
+<syntaxhighlight lang="ada">with Pig, Ada.Text_IO;
+
+procedure Play_Pig is
+   
+   use Pig;
+   
+   type Hand is new Actor with record
+      Name: String(1 .. 5);
+   end record;
+   function Roll_More(A: Hand; Self, Opponent: Player'Class) return Boolean;
+   
+   function Roll_More(A: Hand; Self, Opponent: Player'Class) return Boolean is
+      Ch: Character := ' ';
+      use Ada.Text_IO;
+   begin
+      Put(A.Name & " you:" & Natural'Image(Self.Score) &
+            " (opponent:" & Natural'Image(Opponent.Score) &
+            ") this round:" & Natural'Image(Self.All_Recent) &
+            " this roll:" & Natural'Image(Self.Recent) &
+            ";  add to score(+)?");
+      Get(Ch);
+      return Ch /= '+';
+   end Roll_More;
+   
+   A1: Hand := (Name => "Alice");
+   A2: Hand := (Name => "Bob  ");
+   
+   Alice: Boolean;
+begin
+   Play(A1, A2, Alice);
+   Ada.Text_IO.Put_Line("Winner = " & (if Alice then "Alice!" else "Bob!"));
+end Play_Pig;</syntaxhighlight>
+
+{{out}}
+<pre>Alice you: 0 (opponent: 0) this round: 3 this roll: 3;  add to score(+)? 
+Alice you: 0 (opponent: 0) this round: 5 this roll: 2;  add to score(+)? 
+Alice you: 0 (opponent: 0) this round: 10 this roll: 5;  add to score(+)? 
+Alice you: 0 (opponent: 0) this round: 13 this roll: 3;  add to score(+)?+
+Bob   you: 0 (opponent: 13) this round: 6 this roll: 6;  add to score(+)? 
+Bob   you: 0 (opponent: 13) this round: 8 this roll: 2;  add to score(+)? 
+Bob   you: 0 (opponent: 13) this round: 11 this roll: 3;  add to score(+)? 
+Bob   you: 0 (opponent: 13) this round: 16 this roll: 5;  add to score(+)? 
+Bob   you: 0 (opponent: 13) this round: 18 this roll: 2;  add to score(+)? 
+Bob   you: 0 (opponent: 13) this round: 20 this roll: 2;  add to score(+)?+
+Alice you: 13 (opponent: 20) this round: 2 this roll: 2;  add to score(+)?
+
+... lots of more lines ...
+
+Alice you: 76 (opponent: 66) this round: 8 this roll: 5;  add to score(+)? 
+Alice you: 76 (opponent: 66) this round: 13 this roll: 5;  add to score(+)?+
+Bob   you: 66 (opponent: 89) this round: 4 this roll: 4;  add to score(+)? 
+Bob   you: 66 (opponent: 89) this round: 7 this roll: 3;  add to score(+)? 
+Bob   you: 66 (opponent: 89) this round: 12 this roll: 5;  add to score(+)? 
+Bob   you: 66 (opponent: 89) this round: 15 this roll: 3;  add to score(+)? 
+Bob   you: 66 (opponent: 89) this round: 21 this roll: 6;  add to score(+)? 
+Bob   you: 66 (opponent: 89) this round: 0 this roll: 1;  add to score(+)? 
+Alice you: 89 (opponent: 66) this round: 6 this roll: 6;  add to score(+)? 
+Alice you: 89 (opponent: 66) this round: 11 this roll: 5;  add to score(+)?+
+Winner = Alice!</pre>

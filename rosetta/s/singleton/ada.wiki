@@ -1,0 +1,95 @@
+=={{header|Ada}}==
+===Non Thread Safe===
+<syntaxhighlight lang="ada">package Global_Singleton is
+   procedure Set_Data (Value : Integer);
+   function Get_Data return Integer;
+private
+   type Instance_Type is record
+      -- Define instance data elements
+      Data : Integer := 0;
+   end record;
+   Instance : Instance_Type;
+end Global_Singleton;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">package body Global_Singleton is
+
+   --------------
+   -- Set_Data --
+   --------------
+
+   procedure Set_Data (Value : Integer) is
+   begin
+      Instance.Data := Value;
+   end Set_Data;
+
+   --------------
+   -- Get_Data --
+   --------------
+
+   function Get_Data return Integer is
+   begin
+      return Instance.Data;
+   end Get_Data;
+
+end Global_Singleton;</syntaxhighlight>
+
+===Thread Safe===
+<syntaxhighlight lang="ada">package Protected_Singleton is
+   procedure Set_Data (Value : Integer);
+   function Get_Data return Integer;
+private
+   protected Instance is
+      procedure Set(Value : Integer);
+      function Get return Integer;
+   private
+      Data : Integer := 0;
+   end Instance_Type;
+end Protected_Singleton;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">package body Protected_Singleton is
+
+   --------------
+   -- Set_Data --
+   --------------
+
+   procedure Set_Data (Value : Integer) is
+   begin
+      Instance.Set(Value);
+   end Set_Data;
+
+   --------------
+   -- Get_Data --
+   --------------
+
+   function Get_Data return Integer is
+   begin
+      return Instance.Get;
+   end Get_Data;
+
+   --------------
+   -- Instance --
+   --------------
+
+   protected body Instance is
+
+      ---------
+      -- Set --
+      ---------
+
+      procedure Set (Value : Integer) is
+      begin
+         Data := Value;
+      end Set;
+
+      ---------
+      -- Get --
+      ---------
+
+      function Get return Integer is
+      begin
+         return Data;
+      end Get;
+
+   end Instance;
+
+end Protected_Singleton;</syntaxhighlight>

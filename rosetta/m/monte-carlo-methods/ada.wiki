@@ -1,0 +1,34 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;                use Ada.Text_IO;
+with Ada.Numerics.Float_Random;  use Ada.Numerics.Float_Random;
+
+procedure Test_Monte_Carlo is
+   Dice : Generator;
+   
+   function Pi (Throws : Positive) return Float is
+      Inside : Natural := 0;
+   begin
+      for Throw in 1..Throws loop
+         if Random (Dice) ** 2 + Random (Dice) ** 2 <= 1.0 then
+            Inside := Inside + 1;
+         end if;
+      end loop;
+      return 4.0 * Float (Inside) / Float (Throws);
+   end Pi;
+begin
+   Put_Line ("     10_000:" & Float'Image (Pi (     10_000)));
+   Put_Line ("    100_000:" & Float'Image (Pi (    100_000)));
+   Put_Line ("  1_000_000:" & Float'Image (Pi (  1_000_000)));
+   Put_Line (" 10_000_000:" & Float'Image (Pi ( 10_000_000)));
+   Put_Line ("100_000_000:" & Float'Image (Pi (100_000_000)));
+end Test_Monte_Carlo;</syntaxhighlight>
+The implementation uses built-in uniformly distributed on [0,1] random numbers. 
+Note that the accuracy of the result depends on the quality of the pseudo random generator: its circle length and correlation to the function being simulated. 
+{{out}}
+<pre>
+     10_000: 3.13920E+00
+    100_000: 3.14684E+00
+  1_000_000: 3.14197E+00
+ 10_000_000: 3.14215E+00
+100_000_000: 3.14151E+00
+</pre>

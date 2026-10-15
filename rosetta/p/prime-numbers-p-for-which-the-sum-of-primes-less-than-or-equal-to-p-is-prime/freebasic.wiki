@@ -1,0 +1,34 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">
+Dim As Integer column = 0, sum = 0, limit = 1000
+
+Color 10 : Print !"N£meros primos 'p' menores de"; limit; _
+!"\ncuya suma de todos los n£meros "; _
+!"\nprimos <= p tambi‚n es primo:\n" : Color 7
+
+For n As Integer = 1 To limit
+    If isprime(n) Then
+        sum += n
+        If isPrime(sum) Then  
+            Print Using " ###"; n;
+            column += 1
+            If column Mod 7 = 0 Then Print : End If
+        End If
+    End If
+Next n
+
+Color 10 : Print !"\n\nEncontrados "; column; " n£meros."
+Sleep
+</syntaxhighlight>
+{{out}}
+<pre>
+Números primos 'p' menores de 1000
+cuya suma de todos los números
+primos <= p también es primo:
+
+    2   3   7  13  37  43 281
+  311 503 541 557 593 619 673
+  683 733 743 839 881 929 953
+
+Encontrados  21 números.
+</pre>

@@ -1,0 +1,60 @@
+=={{header|Ada}}==
+Histogram of an image:
+<syntaxhighlight lang="ada">type Pixel_Count is mod 2**64;
+type Histogram is array (Luminance) of Pixel_Count;
+   
+function Get_Histogram (Picture : Grayscale_Image) return Histogram is
+   Result : Histogram := (others => 0);
+begin
+   for I in Picture'Range (1) loop
+      for J in Picture'Range (2) loop
+         declare
+            Count : Pixel_Count renames Result (Picture (I, J));
+         begin
+            Count := Count + 1;
+         end;
+      end loop;
+   end loop;
+   return Result;
+end Get_Histogram;</syntaxhighlight>
+Median of a histogram:
+<syntaxhighlight lang="ada">function Median (H : Histogram) return Luminance is
+   From  : Luminance   := Luminance'First;
+   To    : Luminance   := Luminance'Last;
+   Left  : Pixel_Count := H (From);
+   Right : Pixel_Count := H (To);
+begin
+   while From /= To loop
+      if Left < Right then
+         From := From + 1;
+         Left := Left + H (From);
+      else
+         To    := To    - 1;
+         Right := Right + H (To);         
+      end if;
+   end loop;
+   return From;
+end Median;</syntaxhighlight>
+Conversion of an image to black and white art:
+<syntaxhighlight lang="ada">   F1, F2 : File_Type;
+begin
+   Open (F1, In_File, "city.ppm");
+   declare
+      X : Image := Get_PPM (F1);
+      Y : Grayscale_Image := Grayscale (X);
+      T : Luminance := Median (Get_Histogram (Y));
+   begin
+      Close (F1);
+      Create (F2, Out_File, "city_art.ppm");
+      for I in Y'Range (1) loop
+         for J in Y'Range (2) loop
+            if Y (I, J) < T then
+               X (I, J) := Black;
+            else
+               X (I, J) := White;
+            end if;
+         end loop;
+      end loop;      
+      Put_PPM (F2, X);
+   end;
+   Close (F2);</syntaxhighlight>

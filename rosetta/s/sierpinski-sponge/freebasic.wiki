@@ -1,0 +1,164 @@
+=={{header|FreeBASIC}}==
+{{trans|Ring}}
+{{libheader|SDL2}}
+{{libheader|OpenGL}}
+<syntaxhighlight lang="vbnet">
+#include once "SDL2/SDL.bi"
+#include once "GL/gl.bi"
+#include once "GL/glu.bi"
+
+Const ScrW = 800, ScrH = 600
+Const As Single PI = 4 * Atn(1.0)
+
+Sub InitGL()
+    glViewport(0, 0, ScrW, ScrH)
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(45.0, ScrW / ScrH, 0.1, 100.0)
+    
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_CULL_FACE)
+    glCullFace(GL_BACK)
+    
+    glEnable(GL_LIGHTING)
+    glEnable(GL_LIGHT0)
+    
+    Dim lightPos(3) As Single = {10.0, 10.0, 10.0, 1.0}
+    glLightfv(GL_LIGHT0, GL_POSITION, @lightPos(0))
+    
+    Dim ambient(3) As Single = {0.2, 0.2, 0.2, 1.0}
+    Dim diffuse(3) As Single = {0.8, 0.8, 0.8, 1.0}
+    glLightfv(GL_LIGHT0, GL_AMBIENT, @ambient(0))
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, @diffuse(0))
+    
+    glClearColor(245.0/255.0, 247.0/255.0, 250.0/255.0, 1.0)
+End Sub
+
+Sub DrawCube(size As Single)
+    Dim s As Single = size / 2
+    
+    glBegin(GL_QUADS)
+    ' Front (z+)
+    glNormal3f(0, 0, 1)
+    glVertex3f(-s, -s, s)
+    glVertex3f( s, -s, s)
+    glVertex3f( s,  s, s)
+    glVertex3f(-s,  s, s)
+    
+    ' Back (z-)
+    glNormal3f(0, 0, -1)
+    glVertex3f( s, -s, -s)
+    glVertex3f(-s, -s, -s)
+    glVertex3f(-s,  s, -s)
+    glVertex3f( s,  s, -s)
+    
+    ' Left (x-)
+    glNormal3f(-1, 0, 0)
+    glVertex3f(-s, -s, -s)
+    glVertex3f(-s, -s,  s)
+    glVertex3f(-s,  s,  s)
+    glVertex3f(-s,  s, -s)
+    
+    ' Right (x+)
+    glNormal3f(1, 0, 0)
+    glVertex3f( s, -s,  s)
+    glVertex3f( s, -s, -s)
+    glVertex3f( s,  s, -s)
+    glVertex3f( s,  s,  s)
+    
+    ' Down (y-)
+    glNormal3f(0, -1, 0)
+    glVertex3f(-s, -s, -s)
+    glVertex3f( s, -s, -s)
+    glVertex3f( s, -s,  s)
+    glVertex3f(-s, -s,  s)
+    
+    ' Up (y+)
+    glNormal3f(0, 1, 0)
+    glVertex3f(-s,  s,  s)
+    glVertex3f( s,  s,  s)
+    glVertex3f( s,  s, -s)
+    glVertex3f(-s,  s, -s)
+    glEnd()
+End Sub
+
+Sub DrawMenger(size As Single, level As Integer)
+    If level = 0 Then
+        DrawCube(size)
+        Exit Sub
+    End If
+    
+    Dim newSize As Single = size / 3
+    
+    For dx As Integer = -1 To 1
+        For dy As Integer = -1 To 1
+            For dz As Integer = -1 To 1
+                
+                Dim cx As Integer = Iif(dx = 0, 1, 0)
+                Dim cy As Integer = Iif(dy = 0, 1, 0)
+                Dim cz As Integer = Iif(dz = 0, 1, 0)
+                
+                Dim hollow As Integer = cx + cy + cz
+                
+                If hollow >= 2 Then
+                    ' hole
+                Else
+                    glPushMatrix()
+                    glTranslatef(dx * newSize, dy * newSize, dz * newSize)
+                    DrawMenger(newSize, level - 1)
+                    glPopMatrix()
+                End If
+                
+            Next dz
+        Next dy
+    Next dx
+End Sub
+
+' Main program
+If SDL_Init(SDL_INIT_VIDEO Or SDL_INIT_TIMER) <> 0 Then
+    Print "SDL_Init error: "; *SDL_GetError()
+    Sleep: End
+End If
+
+Dim ventana As SDL_Window Ptr = SDL_CreateWindow("Menger Sponge - FreeBASIC + SDL2 + OpenGL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScrW, ScrH, SDL_WINDOW_OPENGL Or SDL_WINDOW_SHOWN)
+
+Dim glContext As SDL_GLContext = SDL_GL_CreateContext(ventana)
+SDL_GL_SetSwapInterval(1)
+
+InitGL()
+
+' Main loop
+Dim running As Boolean = True
+Dim event As SDL_Event
+Dim angle As Single = 0
+
+While running
+    While SDL_PollEvent(@event) <> 0
+        If event.type = SDL_QUIT_ Then
+            running = False
+        Elseif event.type = SDL_KEYDOWN Then
+            If event.key.keysym.sym = SDLK_ESCAPE Then running = False
+        End If
+    Wend
+    
+    angle += 0.5
+    
+    glClear(GL_COLOR_BUFFER_BIT Or GL_DEPTH_BUFFER_BIT)
+    
+    glLoadIdentity()
+    gluLookAt(10, 10, 10, 0, 0, 0, 0, 1, 0)
+    
+    glRotatef(angle, 0, 1, 0)
+    
+    DrawMenger(5.0, 2)
+    
+    SDL_GL_SwapWindow(ventana)
+Wend
+
+SDL_GL_DeleteContext(glContext)
+SDL_DestroyWindow(ventana)</syntaxhighlight>
+{{out}}
+[https://www.dropbox.com/scl/fi/osaswo0hcfq7jlrmdmqj6/sponge_FreeBASIC.mp4?rlkey=fhigzxjx4d97su0odv4e6u5gu&dl=0 FreeBasic Sierpinski sponge video]

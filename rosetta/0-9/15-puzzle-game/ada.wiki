@@ -1,0 +1,197 @@
+=={{header|Ada}}==
+
+We fist define a generic package Generic_Puzzle. Upon instantiation, it can take any number of rows, any number of columns for a rows*columns-1 game. Instead of plain numbers, the tiles on the board can have arbitrary names (but they should all be of the same length). The package user can request the name for the tile at a certain (row,column)-point, and the set of possible moves. The user can move the empty space up, down, left and right (if possible). If the user makes the attempt to perform an impossible move, a Constraint_Error is raised.
+
+<syntaxhighlight lang="ada">generic
+   Rows, Cols: Positive;
+   with function Name(N: Natural) return String; -- with Pre => (N < Rows*Cols);
+   -- Name(0) shall return the name for the empty tile
+package Generic_Puzzle is
+
+   subtype Row_Type is Positive range 1 .. Rows;
+   subtype Col_Type is Positive range 1 .. Cols;
+   type Moves is (Up, Down, Left, Right);
+   type Move_Arr is array(Moves) of Boolean;
+   
+   function Get_Point(Row: Row_Type; Col: Col_Type) return String;
+   function Possible return Move_Arr;
+   procedure Move(The_Move: Moves);
+
+end Generic_Puzzle;</syntaxhighlight>
+
+The package implementation is as follows.
+
+<syntaxhighlight lang="ada">package body Generic_Puzzle is
+   
+   Field: array(Row_Type, Col_Type) of Natural;
+   Current_R: Row_Type := Rows;
+   Current_C: Col_Type := Cols;
+   -- invariant: Field(Current_R, Current_C=0) 
+   -- and for all R, C: Field(R, C) < R*C
+   -- and for all (R, C) /= (RR, CC): Field(R, C) /= Field(RR, CC)
+   
+   function Get_Point(Row: Row_Type; Col: Col_Type) return String is
+      (Name(Field(Row, Col)));
+      
+   function Possible return Move_Arr is
+      (Up => Current_R > 1, Down => Current_R < Rows,
+       Left => Current_C > 1, Right => Current_C < Cols);
+      
+   procedure Move(The_Move: Moves) is
+      Old_R: Row_Type; Old_C: Col_Type; N: Natural;
+   begin
+      if not Possible(The_Move) then
+	 raise Constraint_Error with "attempt to make impossible move";
+      else
+	 -- remember current row and column
+	 Old_R := Current_R;
+	 Old_C := Current_C;
+	 
+	 -- move the virtual cursor to a new position
+	 case The_Move is 
+	   when Up    => Current_R := Current_R - 1;
+	   when Down  => Current_R := Current_R + 1;
+	   when Left  => Current_C := Current_C - 1;
+	   when Right => Current_C := Current_C + 1;
+	 end case;
+	 
+	 -- swap the tiles on the board
+	 N := Field(Old_R, Old_C);
+	 Field(Old_R, Old_C) := Field(Current_R, Current_C);
+	 Field(Current_R, Current_C) := N;
+      end if;
+   end Move;
+
+begin
+   declare   -- set field to its basic setting
+      N: Positive := 1;
+   begin
+      for R in Row_Type loop
+	 for C in Col_Type loop
+	    if (R /= Current_R) or else (C /= Current_C) then 
+	       Field(R, C) := N;
+	       N := N + 1;
+	    else
+	       Field(R, C) := 0;
+	    end if;
+	 end loop;
+      end loop;
+   end;
+end Generic_Puzzle;</syntaxhighlight>
+
+The main program reads the level from the command line. A larger level implies a more difficult instance. The default level is 10, which is fairly simple. After randomizing the board, the user can move the tiles. 
+
+<syntaxhighlight lang="ada">with Generic_Puzzle, Ada.Text_IO, 
+     Ada.Numerics.Discrete_Random, Ada.Command_Line;
+
+procedure Puzzle_15 is
+   
+   function Image(N: Natural) return String is
+      (if N=0 then "   " elsif N < 10 then " " & Integer'Image(N)
+	else Integer'Image(N));
+	
+   package Puzzle is new Generic_Puzzle(Rows => 4, Cols => 4, Name => Image);
+    
+   package Rnd is new Ada.Numerics.Discrete_Random(Puzzle.Moves);
+   Rand_Gen: Rnd.Generator;
+    
+   Level: Natural := (if Ada.Command_Line.Argument_Count = 0 then 10 
+                      else Natural'Value(Ada.Command_Line.Argument(1)));
+   Initial_Moves: Natural := (2**(Level/2) + 2**((1+Level)/2))/2;
+   Texts: constant array(Puzzle.Moves) of String(1..9) :=
+       ("u,U,^,8: ", "d,D,v,2: ", "l,L,<,4: ", "r,R,>,6: ");
+   Move_Counter: Natural := 0;    
+   Command: Character;
+       
+ begin
+    -- randomize board
+    for I in 1 .. Initial_Moves loop
+       declare
+	  M: Puzzle.Moves := Rnd.Random(Rand_Gen);
+       begin
+	  if Puzzle.Possible(M) then
+	     Puzzle.Move(M);
+	  end if;
+       end;
+    end loop;
+    
+    -- read command and perform move	  
+    loop
+      -- Print board
+      for R in Puzzle.Row_Type loop
+	 for C in Puzzle.Col_Type loop
+	    Ada.Text_IO.Put(Puzzle.Get_Point(R, C));
+	 end loop;
+	 Ada.Text_IO.New_Line;
+      end loop;
+      Ada.Text_IO.Get(Command);
+      begin
+	 case Command is
+	    when 'u' | 'U' | '^' | '8' =>
+	       Ada.Text_IO.Put_Line("Up!"); Puzzle.Move(Puzzle.Up);
+	    when 'd' | 'D' | 'v' | '2' =>
+	       Ada.Text_IO.Put_Line("Down!"); Puzzle.Move(Puzzle.Down);
+	    when 'l' | 'L' | '<' | '4' =>
+	       Ada.Text_IO.Put_Line("Left!"); Puzzle.Move(Puzzle.Left);
+	    when 'r' | 'R' | '>' | '6' =>
+	       Ada.Text_IO.Put_Line("Right!"); Puzzle.Move(Puzzle.Right);
+	    when '!' => 
+	       Ada.Text_IO.Put_Line(Natural'Image(Move_Counter) & " moves!"); 
+	       exit;
+	    when others => 
+	       raise Constraint_Error with "wrong input";
+	 end case;
+	 Move_Counter := Move_Counter + 1;
+      exception when Constraint_Error => 
+	 Ada.Text_IO.Put_Line("Possible Moves and Commands:");
+	 for M in Puzzle.Moves loop
+	    if Puzzle.Possible(M) then
+	       Ada.Text_IO.Put(Texts(M) & Puzzle.Moves'Image(M) & "   ");
+	    end if;
+	 end loop;
+	 Ada.Text_IO.Put_Line("!: Quit");
+      end;
+   end loop;
+end Puzzle_15;</syntaxhighlight>
+
+{{out}}
+<pre>>./puzzle_15 4
+  1  2  3  4
+  5  6  7  8
+  9 14 10 11
+ 13    15 12
+8
+Up!
+  1  2  3  4
+  5  6  7  8
+  9    10 11
+ 13 14 15 12
+6
+Right!
+  1  2  3  4
+  5  6  7  8
+  9 10    11
+ 13 14 15 12
+5
+Possible Moves and Commands:
+u,U,^,8: UP   d,D,v,2: DOWN   l,L,<,4: LEFT   r,R,>,6: RIGHT   !: Quit
+  1  2  3  4
+  5  6  7  8
+  9 10    11
+ 13 14 15 12
+6
+Right!
+  1  2  3  4
+  5  6  7  8
+  9 10 11   
+ 13 14 15 12
+2
+Down!
+  1  2  3  4
+  5  6  7  8
+  9 10 11 12
+ 13 14 15   
+!
+ 4 moves!</pre>
+
+For other puzzles, one must just the single line with the package instantiation. E.g., for an 8-puzzle, we would write the following. <syntaxhighlight lang="ada">   package Puzzle is new Generic_Puzzle(Rows => 3, Cols => 3, Name => Image);</syntaxhighlight>

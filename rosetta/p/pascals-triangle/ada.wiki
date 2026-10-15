@@ -1,0 +1,81 @@
+=={{header|Ada}}==
+
+The specification of auxiliary package "Pascal". "First_Row" outputs a row with a single "1", "Next_Row" computes the next row from a given row, and "Length" gives the number of entries in a row. The package is also used for the Catalan numbers solution [[http://rosettacode.org/wiki/Catalan_numbers/Pascal%27s_triangle]]
+
+<syntaxhighlight lang="ada">package Pascal is
+   
+   type Row is array (Natural range <>) of Natural;
+   
+   function Length(R: Row) return Positive;
+   
+   function First_Row(Max_Length: Positive) return Row;
+   
+   function Next_Row(R: Row) return Row;
+   
+end Pascal;</syntaxhighlight>
+
+The implementation of that auxiliary package "Pascal":
+
+<syntaxhighlight lang="ada">package body Pascal is
+   
+   function First_Row(Max_Length: Positive) return Row is
+      R: Row(0 .. Max_Length) := (0 | 1 => 1, others => 0);
+   begin
+      return R;
+   end First_Row;
+   
+   function Next_Row(R: Row) return Row is
+      S: Row(R'Range);
+   begin
+      S(0) := Length(R)+1;
+      S(Length(S)) := 1;
+      for J in reverse 2 .. Length(R) loop
+         S(J) := R(J)+R(J-1);
+      end loop;
+      S(1) := 1;
+      return S;
+   end Next_Row;
+   
+   function Length(R: Row) return Positive is
+   begin
+      return R(0);
+   end Length;
+   
+end Pascal;</syntaxhighlight>
+
+The main program, using "Pascal". It prints the desired number of rows. The number is read from the command line. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Integer_Text_IO, Ada.Command_Line, Pascal; use Pascal;
+
+procedure Triangle is
+   
+   Number_Of_Rows: Positive := Integer'Value(Ada.Command_Line.Argument(1));
+   Row: Pascal.Row := First_Row(Number_Of_Rows);
+      
+begin
+   loop
+      -- print one row
+      for J in 1 .. Length(Row) loop
+	 Ada.Integer_Text_IO.Put(Row(J), 5);
+      end loop;
+      Ada.Text_IO.New_Line;
+      exit when Length(Row) >= Number_Of_Rows;
+      Row := Next_Row(Row);
+   end loop;
+end Triangle;</syntaxhighlight>
+
+{{out}}
+
+<pre>>./triangle 12
+    1
+    1    1
+    1    2    1
+    1    3    3    1
+    1    4    6    4    1
+    1    5   10   10    5    1
+    1    6   15   20   15    6    1
+    1    7   21   35   35   21    7    1
+    1    8   28   56   70   56   28    8    1
+    1    9   36   84  126  126   84   36    9    1
+    1   10   45  120  210  252  210  120   45   10    1
+    1   11   55  165  330  462  462  330  165   55   11    1</pre>

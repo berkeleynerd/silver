@@ -1,0 +1,18 @@
+=={{header|Ada}}==
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Characters.Latin_1;
+
+procedure Pound is
+begin
+   Put(Ada.Characters.Latin_1.Pound_Sign);
+end Pound;</syntaxhighlight>
+
+Ada allows Unicode characters in the source, and provides output functions on "wide characters".
+
+<syntaxhighlight lang="ada">with Ada.Wide_Text_IO; use Ada.Wide_Text_IO;
+
+procedure Unicode is
+begin
+   Put("札幌");
+end Unicode;</syntaxhighlight>

@@ -1,0 +1,60 @@
+=={{header|Ada}}==
+{{works with|GCC|4.1.2}}
+<syntaxhighlight lang="ada">function Get_String return String is
+  Line : String (1 .. 1_000);
+  Last : Natural;
+begin
+  Get_Line (Line, Last);
+  return Line (1 .. Last);
+end Get_String;
+
+function Get_Integer return Integer is
+  S : constant String := Get_String;
+begin
+  return Integer'Value (S);
+  --  may raise exception Constraint_Error if value entered is not a well-formed integer
+end Get_Integer;
+</syntaxhighlight>
+
+The functions above may be called as shown below
+<syntaxhighlight lang="ada">My_String  : String  := Get_String;
+My_Integer : Integer := Get_Integer;</syntaxhighlight>
+
+Another:
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Integer_Text_IO;
+
+procedure User_Input is
+   I : Integer;
+begin
+   Ada.Text_IO.Put ("Enter a string: ");
+   declare
+      S : String := Ada.Text_IO.Get_Line;
+   begin
+      Ada.Text_IO.Put_Line (S);
+   end;
+   Ada.Text_IO.Put ("Enter an integer: ");
+   Ada.Integer_Text_IO.Get(I);
+   Ada.Text_IO.Put_Line (Integer'Image(I));
+end User_Input;
+</syntaxhighlight>
+
+Unbounded IO:
+<syntaxhighlight lang="ada">with
+  Ada.Text_IO,
+  Ada.Integer_Text_IO,
+  Ada.Strings.Unbounded,
+  Ada.Text_IO.Unbounded_IO;
+
+procedure User_Input2 is
+   S : Ada.Strings.Unbounded.Unbounded_String;
+   I : Integer;
+begin
+   Ada.Text_IO.Put("Enter a string: ");
+   S := Ada.Strings.Unbounded.To_Unbounded_String(Ada.Text_IO.Get_Line);
+   Ada.Text_IO.Put_Line(Ada.Strings.Unbounded.To_String(S));
+   Ada.Text_IO.Unbounded_IO.Put_Line(S);
+   Ada.Text_IO.Put("Enter an integer: ");
+   Ada.Integer_Text_IO.Get(I);
+   Ada.Text_IO.Put_Line(Integer'Image(I));
+end User_Input2;
+</syntaxhighlight>

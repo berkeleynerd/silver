@@ -1,0 +1,102 @@
+Function Jaccard(a() As Integer, b() As Integer) As Single
+    Dim As Integer i, j
+    Dim As Boolean found
+    
+    ' --- construct set A ---
+    Redim setA() As Integer
+    
+    For i = 0 To Ubound(a)
+        If a(i) <> 0 Then
+            found = False
+            For j = 0 To Ubound(setA)
+                If a(i) = setA(j) Then found = True : Exit For
+            Next
+            If found = False Then
+                Redim Preserve setA(Ubound(setA) + 1)
+                setA(Ubound(setA)) = a(i)
+            End If
+        End If
+    Next
+    
+    ' --- construct set B ---
+    Redim setB() As Integer
+    
+    For i = 0 To Ubound(b)
+        If b(i) <> 0 Then
+            found = False
+            For j = 0 To Ubound(setB)
+                If b(i) = setB(j) Then found = True : Exit For
+            Next
+            If found = False Then
+                Redim Preserve setB(Ubound(setB) + 1)
+                setB(Ubound(setB)) = b(i)
+            End If
+        End If
+    Next
+    
+    ' --- intersection ---
+    Dim As Integer intersectionCount = 0
+    For i = 0 To Ubound(setA)
+        For j = 0 To Ubound(setB)
+            If setA(i) = setB(j) Then
+                intersectionCount += 1
+                Exit For
+            End If
+        Next
+    Next
+    
+    ' --- union ---
+    Redim unionSet() As Integer
+    ' add A
+    For i = 0 To Ubound(setA)
+        Redim Preserve unionSet(Ubound(unionSet) + 1)
+        unionSet(Ubound(unionSet)) = setA(i)
+    Next
+    
+    ' add B without duplicates
+    For i = 0 To Ubound(setB)
+        found = False
+        For j = 0 To Ubound(unionSet)
+            If setB(i) = unionSet(j) Then found = True : Exit For
+        Next
+        If Not found Then
+            Redim Preserve unionSet(Ubound(unionSet) + 1)
+            unionSet(Ubound(unionSet)) = setB(i)
+        End If
+    Next
+    
+    Dim As Integer unionCount = Ubound(unionSet) + 1
+    
+    If unionCount = 0 Then Return 1.0
+    Return Csng(intersectionCount) / unionCount
+End Function
+
+Sub Main()
+    Dim As Integer i, j, k
+    Dim a(4) As Integer, b(4) As Integer
+    Dim jij As Single, jji As Single
+    Dim tests(6, 5) As Integer => { _
+    {0}, {1, 2, 3, 4, 5}, {1, 3, 5, 7, 9}, _
+    {2, 4, 6, 8, 10}, {2, 3, 5, 7}, {8} }
+    
+    For i = 0 To Ubound(tests, 2)
+        For j = i To Ubound(tests, 2)
+            Dim s As String = "J(" & Chr(Asc("A") + i) & "," & Chr(Asc("A") + j) & ")"
+            
+            For k = 0 To 4
+                a(k) = tests(i, k)
+                b(k) = tests(j, k)
+            Next
+            jij = Jaccard(a(), b())
+            If i <> j Then
+                jji = Jaccard(b(), a())
+                s &= " = J(" & Chr(Asc("A") + j) & "," & Chr(Asc("A") + i) & ")"
+            End If
+            Print s & " = " & jij
+        Next
+    Next
+End Sub
+
+Main()
+
+Sleep

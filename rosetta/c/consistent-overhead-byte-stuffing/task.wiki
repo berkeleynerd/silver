@@ -1,0 +1,15 @@
+{{draft task|Consistent overhead byte stuffing}}
+
+The Consistent Overhead Byte Stuffing (COBS) algorithm is used to demarcate a byte stream into frames. Examples can be found in its [https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing#Encoding_examples Wikipedia article].
+
+;Task:
+
+To encode, instances of the byte <code>0x00</code> in the unencoded stream are substituted with the number of bytes until the next instance of <code>0x00</code> (we'll call this a milestone).
+If <code>0x00</code> does not appear within the next 254 bytes after a milestone the algorithm must emit an extra milestone at the 255th byte.
+Of the encoded output, the first byte is the first milestone, and the final milestone will be the number of bytes until the final byte - <code>0x00</code>.
+
+;Bonus tasks:
+
+* &nbsp; Decode an encoded packet
+** &nbsp; Report an error if the final milestone exceeds the length of the end of the packet
+* &nbsp; Support encoding with a non-zero marker

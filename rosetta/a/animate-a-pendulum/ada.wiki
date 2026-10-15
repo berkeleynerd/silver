@@ -1,0 +1,127 @@
+=={{header|Ada}}==
+This does not use a GUI, it simply animates the pendulum and prints out the positions. If you want, you can replace the output method with graphical update methods.
+
+X and Y are relative positions of the pendulum to the anchor.
+
+pendulums.ads:
+<syntaxhighlight lang="ada">generic
+   type Float_Type is digits <>;
+   Gravitation : Float_Type;
+package Pendulums is
+   type Pendulum is private;
+   function New_Pendulum (Length : Float_Type;
+                          Theta0 : Float_Type) return Pendulum;
+   function Get_X (From : Pendulum) return Float_Type;
+   function Get_Y (From : Pendulum) return Float_Type;
+   procedure Update_Pendulum (Item : in out Pendulum; Time : in Duration);
+private
+   type Pendulum is record
+      Length   : Float_Type;
+      Theta    : Float_Type;
+      X        : Float_Type;
+      Y        : Float_Type;
+      Velocity : Float_Type;
+   end record;
+end Pendulums;</syntaxhighlight>
+
+pendulums.adb:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Elementary_Functions;
+package body Pendulums is
+   package Math is new Ada.Numerics.Generic_Elementary_Functions (Float_Type);
+
+   function New_Pendulum (Length : Float_Type;
+                          Theta0 : Float_Type) return Pendulum is
+      Result : Pendulum;
+   begin
+      Result.Length   := Length;
+      Result.Theta    := Theta0 / 180.0 * Ada.Numerics.Pi;
+      Result.X        := Math.Sin (Theta0) * Length;
+      Result.Y        := Math.Cos (Theta0) * Length;
+      Result.Velocity := 0.0;
+      return Result;
+   end New_Pendulum;
+
+   function Get_X (From : Pendulum) return Float_Type is
+   begin
+      return From.X;
+   end Get_X;
+
+   function Get_Y (From : Pendulum) return Float_Type is
+   begin
+      return From.Y;
+   end Get_Y;
+
+   procedure Update_Pendulum (Item : in out Pendulum; Time : in Duration) is
+      Acceleration : constant Float_Type := Gravitation / Item.Length *
+                                            Math.Sin (Item.Theta);
+   begin
+         Item.X        := Math.Sin (Item.Theta) * Item.Length;
+         Item.Y        := Math.Cos (Item.Theta) * Item.Length;
+         Item.Velocity := Item.Velocity +
+                          Acceleration  * Float_Type (Time);
+         Item.Theta    := Item.Theta +
+                          Item.Velocity * Float_Type (Time);
+   end Update_Pendulum;
+end Pendulums;</syntaxhighlight>
+
+example main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Calendar;
+with Pendulums;
+
+procedure Main is
+   package Float_Pendulum is new Pendulums (Float, -9.81);
+   use Float_Pendulum;
+   use type Ada.Calendar.Time;
+
+   My_Pendulum : Pendulum := New_Pendulum (10.0, 30.0);
+   Now, Before : Ada.Calendar.Time;
+begin
+   Before := Ada.Calendar.Clock;
+   loop
+      Delay 0.1;
+      Now := Ada.Calendar.Clock;
+      Update_Pendulum (My_Pendulum, Now - Before);
+      Before := Now;
+      -- output positions relative to origin
+      -- replace with graphical output if wanted
+      Ada.Text_IO.Put_Line (" X: " & Float'Image (Get_X (My_Pendulum)) &
+                            " Y: " & Float'Image (Get_Y (My_Pendulum)));
+   end loop;
+end Main;</syntaxhighlight>
+
+{{out}}
+<pre> X:  5.00000E+00 Y:  8.66025E+00
+ X:  4.95729E+00 Y:  8.68477E+00
+ X:  4.87194E+00 Y:  8.73294E+00
+ X:  4.74396E+00 Y:  8.80312E+00
+ X:  4.57352E+00 Y:  8.89286E+00
+ X:  4.36058E+00 Y:  8.99919E+00
+ X:  4.10657E+00 Y:  9.11790E+00
+ X:  3.81188E+00 Y:  9.24498E+00
+ X:  3.47819E+00 Y:  9.37562E+00
+ X:  3.10714E+00 Y:  9.50504E+00
+ X:  2.70211E+00 Y:  9.62801E+00
+ X:  2.26635E+00 Y:  9.73980E+00
+ X:  1.80411E+00 Y:  9.83591E+00
+ X:  1.32020E+00 Y:  9.91247E+00
+ X:  8.20224E-01 Y:  9.96630E+00
+ X:  3.10107E-01 Y:  9.99519E+00
+ X: -2.03865E-01 Y:  9.99792E+00
+ X: -7.15348E-01 Y:  9.97438E+00
+ X: -1.21816E+00 Y:  9.92553E+00
+ X: -1.70581E+00 Y:  9.85344E+00
+ X: -2.17295E+00 Y:  9.76106E+00
+ X: -2.61452E+00 Y:  9.65216E+00
+ X: -3.02618E+00 Y:  9.53112E+00
+ X: -3.40427E+00 Y:  9.40271E+00
+ X: -3.74591E+00 Y:  9.27190E+00
+ X: -4.04873E+00 Y:  9.14373E+00
+ X: -4.31141E+00 Y:  9.02285E+00
+ X: -4.53271E+00 Y:  8.91373E+00
+ X: -4.71186E+00 Y:  8.82034E+00
+ X: -4.84868E+00 Y:  8.74587E+00
+ X: -4.94297E+00 Y:  8.69293E+00
+ X: -4.99459E+00 Y:  8.66337E+00
+ X: -5.00352E+00 Y:  8.65822E+00
+...</pre>

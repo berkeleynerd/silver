@@ -1,0 +1,264 @@
+=={{header|Ada}}==
+
+===The specification of the universal machine===
+Note that due to Ada's strict type system, a machine cannot be compiled 
+if there is not _exactly_ one rule for each state/symbol pair. 
+Thus, the specified machine is always deterministic. 
+
+The execution of the machine, i.e., the procedure Run, allows to define a number Max_Steps, after which the execution stops -- when, e.g., the specified machine runs infinitively. The procedure also allows to optionally output the configuration of the machine before every step. 
+
+<syntaxhighlight lang="ada">private with Ada.Containers.Doubly_Linked_Lists;
+
+generic
+   type State is (<>);   -- State'First is starting state
+   type Symbol is (<>);  -- Symbol'First is blank
+package Turing is
+
+   Start: constant State := State'First;
+   Halt:  constant State := State'Last;
+   subtype Action_State is State range Start .. State'Pred(Halt);
+
+   Blank: constant Symbol := Symbol'First;
+
+   type Movement is (Left, Stay, Right);
+
+   type Action is record
+      New_State: State;
+      Move_To: Movement;
+      New_Symbol: Symbol;
+   end record;
+
+   type Rules_Type is array(Action_State, Symbol) of Action;
+
+   type Tape_Type is limited private;
+
+   type Symbol_Map is array(Symbol) of Character;
+
+   function To_String(Tape: Tape_Type; Map: Symbol_Map) return String;
+   function Position_To_String(Tape: Tape_Type; Marker: Character := '^')
+                              return String;
+   function To_Tape(Str: String; Map: Symbol_Map) return Tape_Type;
+
+   procedure Single_Step(Current: in out State;
+                         Tape: in out Tape_Type;
+                         Rules: Rules_Type);
+
+   procedure Run(The_Tape: in out Tape_Type;
+                 Rules: Rules_Type;
+                 Max_Steps: Natural := Natural'Last;
+                 Print: access procedure(Tape: Tape_Type; Current: State));
+   -- runs from Start State until either Halt or # Steps exceeds Max_Steps
+   -- if # of steps exceeds Max_Steps, Constrained_Error is raised;
+   -- if Print is not null, Print is called at the beginning of each step
+
+private
+   package Symbol_Lists is new Ada.Containers.Doubly_Linked_Lists(Symbol);
+   subtype List is Symbol_Lists.List;
+
+   type Tape_Type is record
+      Left:  List;
+      Here:  Symbol;
+      Right: List;
+   end record;
+end Turing;</syntaxhighlight>
+
+===The implementation of the universal machine===
+
+<syntaxhighlight lang="ada">package body Turing is
+
+   function List_To_String(L: List; Map: Symbol_Map) return String is
+      LL: List := L;
+      use type List;
+   begin
+      if L = Symbol_Lists.Empty_List then
+         return "";
+      else
+         LL.Delete_First;
+         return Map(L.First_Element) & List_To_String(LL, Map);
+      end if;
+   end List_To_String;
+
+   function To_String(Tape: Tape_Type; Map: Symbol_Map) return String is
+
+   begin
+      return List_To_String(Tape.Left, Map) & Map(Tape.Here) &
+        List_To_String(Tape.Right, Map);
+   end To_String;
+
+   function Position_To_String(Tape: Tape_Type; Marker: Character := '^')
+                              return String is
+      Blank_Map: Symbol_Map := (others => ' ');
+   begin
+      return List_To_String(Tape.Left, Blank_Map) & Marker &
+        List_To_String(Tape.Right, Blank_Map);
+   end Position_To_String;
+
+   function To_Tape(Str: String; Map: Symbol_Map) return Tape_Type is
+      Char_Map: array(Character) of Symbol := (others => Blank);
+      Tape: Tape_Type;
+   begin
+      if Str = "" then
+         Tape.Here := Blank;
+      else
+         for S in Symbol loop
+            Char_Map(Map(S)) := S;
+         end loop;
+         Tape.Here := Char_Map(Str(Str'First));
+         for I in Str'First+1 .. Str'Last loop
+            Tape.Right.Append(Char_Map(Str(I)));
+         end loop;
+      end if;
+      return Tape;
+      end To_Tape;
+
+   procedure Single_Step(Current: in out State;
+                         Tape: in out Tape_Type;
+                         Rules: Rules_Type) is
+      Act: Action := Rules(Current, Tape.Here);
+      use type List; -- needed to compare Tape.Left/Right to the Empty_List
+   begin
+      Current := Act.New_State;     -- 1. update State
+      Tape.Here := Act.New_Symbol;  -- 2. write Symbol to Tape
+      case Act.Move_To is           -- 3. move Tape to the Left/Right or Stay
+         when Left =>
+            Tape.Right.Prepend(Tape.Here);
+            if Tape.Left /= Symbol_Lists.Empty_List then
+               Tape.Here := Tape.Left.Last_Element;
+               Tape.Left.Delete_Last;
+            else
+               Tape.Here := Blank;
+            end if;
+        when Stay =>
+            null; -- Stay where you are!
+         when Right =>
+            Tape.Left.Append(Tape.Here);
+            if Tape.Right /= Symbol_Lists.Empty_List then
+               Tape.Here := Tape.Right.First_Element;
+               Tape.Right.Delete_First;
+            else
+               Tape.Here := Blank;
+            end if;
+      end case;
+   end Single_Step;
+
+   procedure Run(The_Tape: in out Tape_Type;
+                 Rules: Rules_Type;
+                 Max_Steps: Natural := Natural'Last;
+                 Print: access procedure (Tape: Tape_Type; Current: State)) is
+      The_State: State     := Start;
+      Steps:     Natural   := 0;
+   begin
+      Steps := 0;
+      while (Steps <= Max_Steps) and (The_State /= Halt) loop
+         if Print /= null then
+            Print(The_Tape, The_State);
+         end if;
+         Steps := Steps + 1;
+         Single_Step(The_State, The_Tape, Rules);
+      end loop;
+      if The_State /= Halt then
+         raise Constraint_Error;
+      end if;
+   end Run;
+
+end Turing;</syntaxhighlight>
+
+
+===The implementation of the simple incrementer===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Turing;
+
+procedure Simple_Incrementer is
+
+   type States is (Start, Stop);
+   type Symbols is (Blank, One);
+
+   package UTM is new Turing(States, Symbols);
+   use UTM;
+
+   Map: Symbol_Map := (One => '1', Blank => '_');
+
+   Rules: Rules_Type :=
+     (Start => (One   => (Start, Right,  One),
+                Blank => (Stop,  Stay,  One)));
+   Tape:  Tape_Type := To_Tape("111", Map);
+
+   procedure Put_Tape(Tape: Tape_Type; Current: States) is
+   begin
+     Ada.Text_IO.Put_Line(To_String(Tape, Map) & "  " & States'Image(Current));
+     Ada.Text_IO.Put_Line(Position_To_String(Tape));
+   end Put_Tape;
+
+begin
+   Run(Tape, Rules, 20, null); -- don't print the configuration during running
+   Put_Tape(Tape, Stop);       -- print the final configuration
+end Simple_Incrementer;</syntaxhighlight>
+
+{{out}}
+
+<pre>1111  STOP
+   ^</pre>
+
+===The implementation of the busy beaver===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Turing;
+
+procedure Busy_Beaver_3 is
+
+   type States is (A, B, C, Stop);
+   type Symbols is range 0 .. 1;
+   package UTM is new Turing(States, Symbols); use UTM;
+
+   Map: Symbol_Map := (1 => '1', 0 => '0');
+
+   Rules: Rules_Type :=
+     (A => (0 => (New_State => B, Move_To => Right, New_Symbol => 1),
+            1 => (New_State => C, Move_To => Left,  New_Symbol => 1)),
+      B => (0 => (New_State => A, Move_To => Left,  New_Symbol => 1),
+            1 => (New_State => B, Move_To => Right, New_Symbol => 1)),
+      C => (0 => (New_State => B, Move_To => Left,  New_Symbol => 1),
+            1 => (New_State => Stop, Move_To => Stay, New_Symbol => 1)));
+
+   Tape:  Tape_Type := To_Tape("", Map);
+
+   procedure Put_Tape(Tape: Tape_Type; Current: States) is
+   begin
+      Ada.Text_IO.Put_Line(To_String(Tape, Map) & "  " &
+                             States'Image(Current));
+      Ada.Text_IO.Put_Line(Position_To_String(Tape));
+   end Put_Tape;
+
+begin
+   Run(Tape, Rules, 20, Put_Tape'Access); -- print configuration before each step
+   Put_Tape(Tape, Stop);                  -- and print the final configuration
+end Busy_Beaver_3;</syntaxhighlight>
+
+{{out}}
+<pre>0  A
+^
+10  B
+ ^
+11  A
+^
+011  C
+^
+0111  B
+^
+01111  A
+^
+11111  B
+ ^
+11111  B
+  ^
+11111  B
+   ^
+11111  B
+    ^
+111110  B
+     ^
+111111  A
+    ^
+111111  C
+   ^
+111111  STOP
+   ^</pre>

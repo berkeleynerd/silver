@@ -1,0 +1,78 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_Io;
+with Ada.Integer_Text_Io;
+with Ada.Strings.Fixed;
+
+procedure Concat_Is_Prime is
+
+   Columns : constant := 10;
+
+   subtype Full_Range is Integer range 2 .. 9_999;
+   subtype Low_Range  is Full_Range range Full_Range'First .. 99;
+
+   function Concat (Left, Right : Low_Range) return Full_Range is
+      use Ada.Strings;
+   begin
+      return Full_Range'Value (Fixed.Trim (Left'Image, Both) &
+                                  Fixed.Trim (Right'Image, Both));
+   end Concat;
+
+   use Ada.Text_Io, Ada.Integer_Text_Io;
+
+   Is_Prime        : array (Full_Range) of Boolean := (others => True);
+   Is_Concat_Prime : array (Full_Range) of Boolean := (others => False);
+   Count           : Natural := 0;
+
+begin
+   for A in Full_Range loop
+      if Is_Prime (A) then
+         for B in 2 .. Integer'Last loop
+            exit when A * B not in Full_Range;
+            Is_Prime (A * B) := False;
+         end loop;
+      end if;
+   end loop;
+
+   for P1 in Low_Range loop
+      for P2 in Low_Range loop
+         if
+           Is_Prime (P1) and Is_Prime (P2) and Is_Prime (Concat (P1, P2))
+         then
+            Is_Concat_Prime (Concat (P1, P2)) := True;
+         end if;
+      end loop;
+   end loop;
+
+   for A in Is_Concat_Prime'Range loop
+      if Is_Concat_Prime (A) then
+         Put (A, Width => 6);
+         Count := Count + 1;
+         if Count mod Columns = 0 then
+            New_Line;
+         end if;
+      end if;
+   end loop;
+   New_Line;
+
+   Put ("There are ");
+   Put (Natural'Image (Count));
+   Put (" concat primes.");
+   New_Line;
+end Concat_Is_Prime;</syntaxhighlight>
+{{out}}
+<pre>
+    23    37    53    73   113   137   173   193   197   211
+   223   229   233   241   271   283   293   311   313   317
+   331   337   347   353   359   367   373   379   383   389
+   397   433   523   541   547   571   593   613   617   673
+   677   719   733   743   761   773   797   977  1117  1123
+  1129  1153  1171  1319  1361  1367  1373  1723  1741  1747
+  1753  1759  1783  1789  1913  1931  1973  1979  1997  2311
+  2341  2347  2371  2383  2389  2917  2953  2971  3119  3137
+  3167  3719  3761  3767  3779  3797  4111  4129  4153  4159
+  4337  4373  4397  4723  4729  4759  4783  4789  5323  5347
+  5923  5953  6113  6131  6143  6173  6197  6719  6737  6761
+  6779  7129  7159  7331  7919  7937  8311  8317  8329  8353
+  8389  8923  8929  8941  8971  9719  9743  9767
+There are  128 concat primes.
+</pre>

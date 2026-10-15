@@ -1,0 +1,60 @@
+=={{header|Ada}}==
+This Ada example starts by creating a package defining a single instance of a printing task. Ada requires packages to be separated into two parts. The package specification defines the interface to all public members of the package. 
+<syntaxhighlight lang="ada">package Synchronous_Concurrent is
+   task Printer is
+      entry Put(Item : in String);
+      entry Get_Count(Count : out Natural);
+   end Printer;
+end Synchronous_Concurrent;</syntaxhighlight>
+The package body contains the implementation of all the subprograms and tasks defined in the specification.
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_Io;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded; 
+ 
+package body Synchronous_Concurrent is 
+ 
+   task body Printer is
+      Num_Iter : Natural := 0;
+      Line     : Unbounded_String;
+   begin
+      loop
+         select
+            accept Put(Item : in String) do
+               Line := To_Unbounded_String(Item);
+            end Put;
+            Put_Line(To_String(Line));
+            Num_Iter := Num_Iter + 1;
+         or
+            accept Get_Count(Count : out Natural) do
+               Count := Num_Iter;
+            end Get_Count;
+         or terminate;
+         end select;
+      end loop;
+   end Printer;
+ 
+end Synchronous_Concurrent;</syntaxhighlight>
+Note that the task body contains an ''accept'' block for each ''entry'' defined in the task specification. When some other task calls an entry in the Printer task the communication between the tasks is synchronized. 
+
+This example uses an infinite loop in the printer task. There is no way to know ahead of time how many lines the printer task will need to print. Each iteration through the loop causes the task to execute a selective ''accept''. That means that it can either ''accept'' a call on the Put entry, or it can ''accept'' a call on the Get_Count entry. The terminate option is execute only when the program contains no more tasks that can call the entries in the Printer task. If no task has called either entry the Printer task will wait for a task to call one of the entries, or for the terminate option to apply.
+
+The next file contains the ''main'' procedure for this program. The main or entry-point procedure for a program always runs in the ''environment'' task. For this program, the ''environment'' task is takes on the role of the file reading concurrent unit while the Printer task takes on the role of the printing concurrent unit.
+<syntaxhighlight lang="ada">with Synchronous_Concurrent; use Synchronous_Concurrent;
+with Ada.Text_Io; use Ada.Text_Io;
+ 
+procedure Synchronous_Concurrent_Main is
+   Num_Strings : Natural;
+   The_File : File_Type;
+   Line : String(1..255);
+   Length : Natural;
+begin
+   Open(File => The_File, Mode => In_File, Name => "input.txt");
+   while not End_Of_File(The_File) loop
+      Get_Line(File => The_File, Item => Line, Last => Length);
+      Printer.Put(Line(1..Length));
+   end loop;
+   Close(The_File);
+   Printer.Get_Count(Num_Strings);
+   New_Line;
+   Put_Line("The task wrote" & Natural'Image(Num_Strings) & " strings.");
+end Synchronous_Concurrent_Main;</syntaxhighlight>
+In this example only the environment task can call the entries on the Printer task. When the environment task completes the ''terminate'' option of the Printer task applies, terminating the Printer task. The environment task completes right after printing the number of lines sent through the Printer task. Because of the ''terminate'' option, the Printer task terminates just after the environment task prints the count.

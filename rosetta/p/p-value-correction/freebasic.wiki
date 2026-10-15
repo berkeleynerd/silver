@@ -1,0 +1,398 @@
+=={{header|FreeBASIC}}==
+{{trans|Go}}
+<syntaxhighlight lang="vbnet">#include "string.bi"
+
+#define MIN(a, b) iif((a) < (b), (a), (b))
+
+Enum Direction
+    UP
+    DOWN
+End Enum
+
+Type Sequence
+    As Integer length
+    As Double values(Any)
+End Type
+
+' Constants for correction types
+Dim As String correctionTypes(7) = { _
+"Benjamini-Hochberg", "Benjamini-Yekutieli", "Bonferroni", "Hochberg", _
+"Holm", "Hommel", "Sidak", "Unknown" }
+
+' Test p-values
+Dim Shared As Double test_values(49) = { _
+4.533744e-01, 7.296024e-01, 9.936026e-02, 9.079658e-02, 1.801962e-01, _
+8.752257e-01, 2.922222e-01, 9.115421e-01, 4.355806e-01, 5.324867e-01, _
+4.926798e-01, 5.802978e-01, 3.485442e-01, 7.883130e-01, 2.729308e-01, _
+8.502518e-01, 4.268138e-01, 6.442008e-01, 3.030266e-01, 5.001555e-02, _
+3.194810e-01, 7.892933e-01, 9.991834e-01, 1.745691e-01, 9.037516e-01, _
+1.198578e-01, 3.966083e-01, 1.403837e-02, 7.328671e-01, 6.793476e-02, _
+4.040730e-03, 3.033349e-04, 1.125147e-02, 2.375072e-02, 5.818542e-04, _
+3.075482e-04, 8.251272e-03, 1.356534e-03, 1.360696e-02, 3.764588e-04, _
+1.801145e-05, 2.504456e-07, 3.310253e-02, 9.427839e-03, 8.791153e-04, _
+2.177831e-04, 9.693054e-04, 6.610250e-05, 2.900813e-02, 5.735490e-03 }
+
+Function minimum(p As Sequence) As Double
+    Dim m As Double = p.values(0)
+    For i As Integer = 1 To p.length - 1
+        If p.values(i) < m Then m = p.values(i)
+    Next
+    Return m
+End Function
+
+Function maximum(p As Sequence) As Double
+    Dim m As Double = p.values(0)
+    For i As Integer = 1 To p.length - 1
+        If p.values(i) > m Then m = p.values(i)
+    Next
+    Return m
+End Function
+
+Sub ratchet(p As Sequence, direcc As Integer)
+    Dim m As Double = p.values(0)
+    Dim i As Integer
+    
+    If direcc = UP Then
+        For i = 1 To p.length - 1
+            ' Corrected logic: only update if greater than minimum
+            If p.values(i) > m Then p.values(i) = m
+            m = p.values(i)
+        Next
+    Else
+        For i = 1 To p.length - 1
+            If p.values(i) < m Then p.values(i) = m
+            m = p.values(i)
+        Next
+    End If
+    
+    ' Cap at 1.0
+    For i = 0 To p.length - 1
+        If p.values(i) > 1.0 Then p.values(i) = 1.0
+    Next
+End Sub
+
+Function schwartzian(p As Sequence, mult As Sequence, direcc As Integer) As Sequence
+    Dim As Sequence result
+    result.length = p.length
+    Redim result.values(p.length-1)
+    Dim As Integer i, j
+    
+    ' Sort with indices
+    Dim As Integer indices(p.length-1)
+    For i = 0 To p.length-1
+        indices(i) = i
+    Next
+    
+    ' Sort based on direccection
+    For i = 0 To p.length-2
+        For j = 0 To p.length-2-i
+            Dim As Boolean cond
+            If direcc = UP Then
+                cond = p.values(indices(j)) < p.values(indices(j+1))
+            Else
+                cond = p.values(indices(j)) > p.values(indices(j+1))
+            End If
+            If cond Then Swap indices(j), indices(j+1)
+        Next
+    Next
+    
+    ' Apply multipliers
+    For i = 0 To p.length-1
+        result.values(i) = p.values(indices(i)) * mult.values(i)
+    Next
+    
+    ratchet(result, direcc)
+    
+    ' Restore original order
+    Dim As Sequence final
+    final.length = p.length
+    Redim final.values(p.length-1)
+    
+    For i = 0 To p.length-1
+        final.values(indices(i)) = result.values(i)
+    Next
+    
+    Return final
+End Function
+
+Function adjust(p As Sequence, method As String) As Sequence
+    Dim As Sequence result
+    result.length = p.length
+    Redim result.values(p.length-1)
+    
+    Dim As Sequence mult
+    mult.length = p.length
+    Redim mult.values(p.length-1)
+    
+    Dim As Integer i
+    Dim As Double tmp
+    
+    Select Case method
+    Case "Benjamini-Hochberg"
+        For i = 0 To p.length-1
+            mult.values(i) = p.length / (p.length - i)
+        Next
+        Return schwartzian(p, mult, UP)
+        
+    Case "Benjamini-Yekutieli"
+        tmp = 0
+        For i = 1 To p.length
+            tmp += 1.0 / i
+        Next
+        
+        For i = 0 To p.length-1
+            mult.values(i) = tmp * p.length / (p.length - i)
+        Next
+        Return schwartzian(p, mult, UP)
+        
+    Case "Bonferroni"
+        For i = 0 To p.length-1
+            result.values(i) = Min(p.values(i) * p.length, 1.0)
+        Next
+        Return result
+        
+    Case "Hochberg"
+        For i = 0 To p.length-1
+            mult.values(i) = i + 1
+        Next
+        Return schwartzian(p, mult, UP)
+        
+    Case "Holm"
+        For i = 0 To p.length-1
+            mult.values(i) = p.length - i
+        Next
+        Return schwartzian(p, mult, DOWN)
+        
+    Case "Hommel"
+        Dim As Integer order(p.length-1), j
+        Dim As Double s(p.length-1)
+        
+        ' Sort and get order
+        For i = 0 To p.length-1
+            order(i) = i
+        Next
+        For i = 0 To p.length-2
+            For j = 0 To p.length-2-i
+                If p.values(order(j)) > p.values(order(j+1)) Then Swap order(j), order(j+1)
+            Next
+        Next
+        
+        ' Get sorted values
+        For i = 0 To p.length-1
+            s(i) = p.values(order(i))
+        Next
+        
+        ' Calculate initial minimum
+        Dim As Double m(p.length-1)
+        For i = 0 To p.length-1
+            m(i) = s(i) * p.length / (i + 1)
+        Next
+        
+        Dim As Double min_val = m(0)
+        For i = 1 To p.length-1
+            If m(i) < min_val Then min_val = m(i)
+        Next
+        
+        Dim As Double pa(p.length-1), q(p.length-1)
+        For i = 0 To p.length-1
+            pa(i) = min_val
+            q(i) = min_val
+        Next
+        
+        ' Hommel algorithm
+        For j = p.length-1 To 2 Step -1
+            Dim As Integer lower_count = p.length - j + 1
+            Dim As Integer upper_count = j - 1
+            
+            ' Initialize qmin with first upper value
+            Dim As Double qmin = j * s(p.length - j + 1) / 2.0
+            
+            ' Check remaining upper values
+            For i = 1 To upper_count-1
+                Dim As Double tmp = s(p.length - j + 1 + i) * j / (2.0 + i)
+                qmin = MIN(qmin, tmp)
+            Next
+            
+            ' Update lower values
+            For i = 0 To lower_count-1
+                q(i) = MIN(s(i) * j, qmin)
+            Next
+            
+            ' Update upper values
+            For i = lower_count To p.length-1
+                q(i) = q(p.length - j)
+            Next
+            
+            ' Update pa with maximum between current and new values
+            For i = 0 To p.length-1
+                If q(i) > pa(i) Then pa(i) = q(i)
+            Next
+        Next
+        
+        ' Map back to original order
+        For i = 0 To p.length-1
+            result.values(order(i)) = MIN(pa(i), 1.0)
+        Next
+        Return result
+        
+    Case "Šidák", "Sidak"
+        For i = 0 To p.length-1
+            result.values(i) = 1.0 - (1.0 - p.values(i)) ^ p.length
+        Next
+        Return result
+        
+    Case Else
+        result.length = 0
+    End Select
+    
+    Return result
+End Function
+
+Function formatOutput(values As Sequence) As String
+    Dim As String result = ""
+    Dim As Integer i, j
+    
+    For i = 0 To values.length -1 Step 5
+        result &= "[" & Format(i, "00") & "]  "
+        For j = 0 To 4
+            If i + j < values.length Then
+                result &= Format(values.values(i+j), "0.0000000000") & " "
+            End If
+        Next
+        result &= !"\n"
+    Next
+    Return result
+End Function
+
+'Main program    
+Dim As Sequence p
+p.length = 50
+Redim p.values(49)
+Dim As Integer i
+
+' Initialize p-values
+For i = 0 To 49
+    p.values(i) = test_values(i)
+Next
+
+' Check p-values
+If p.length = 0 Orelse minimum(p) < 0 Orelse maximum(p) > 1 Then
+    Print "p-values must be in range 0.0 to 1.0"
+    End
+End If
+
+' Apply each correction method
+For i = 0 To 7
+    Dim As String method = correctionTypes(i)
+    
+    Print method
+    
+    Dim As Sequence result = adjust(p, method)
+    
+    If result.length > 0 Then
+        Print formatOutput(result)
+    Else
+        Print "Sorry, do not know how to do '" & method & "' correction."
+        Print "Perhaps you want one of these?:"
+        For j As Integer = 0 To 6
+            Print "  " & correctionTypes(j)
+        Next
+    End If
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre style="height:40ex;overflow:scroll;">Benjamini-Hochberg
+[00]  0,6126681081 0,8521710465 0,1987205200 0,1891595417 0,3217789286
+[05]  0,9301450000 0,4870370000 0,9301450000 0,6049730556 0,6826752564
+[10]  0,6482628947 0,7253722500 0,5280972727 0,8769925556 0,4705703448
+[15]  0,9241867391 0,6049730556 0,7856107317 0,4887525806 0,1136717045
+[20]  0,4991890625 0,8769925556 0,9991834000 0,3217789286 0,9301450000
+[25]  0,2304957692 0,5832475000 0,0389954722 0,8521710465 0,1476842609
+[30]  0,0168363750 0,0025629017 0,0351608437 0,0625018947 0,0036365887
+[35]  0,0025629017 0,0294688286 0,0061660636 0,0389954722 0,0026889914
+[40]  0,0004502862 0,0000125223 0,0788155476 0,0314261300 0,0048465270
+[45]  0,0025629017 0,0048465270 0,0011017083 0,0725203250 0,0220595769
+
+Benjamini-Yekutieli
+[00]  1,0000000000 1,0000000000 0,8940844244 0,8510676197 1,0000000000
+[05]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[10]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[15]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 0,5114323399
+[20]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[25]  1,0000000000 1,0000000000 0,1754486368 1,0000000000 0,6644618149
+[30]  0,0757503083 0,0115310209 0,1581958559 0,2812088585 0,0163617595
+[35]  0,0115310209 0,1325863108 0,0277423864 0,1754486368 0,0120983246
+[40]  0,0020259303 0,0000563403 0,3546073326 0,1413926119 0,0218055202
+[45]  0,0115310209 0,0218055202 0,0049568120 0,3262838334 0,0992505663
+
+Bonferroni
+[00]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[05]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[10]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[15]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[20]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[25]  1,0000000000 1,0000000000 0,7019185000 1,0000000000 1,0000000000
+[30]  0,2020365000 0,0151667450 0,5625735000 1,0000000000 0,0290927100
+[35]  0,0153774100 0,4125636000 0,0678267000 0,6803480000 0,0188229400
+[40]  0,0009005725 0,0000125223 1,0000000000 0,4713919500 0,0439557650
+[45]  0,0108891550 0,0484652700 0,0033051250 1,0000000000 0,2867745000
+
+Hochberg
+[00]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[05]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[10]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[15]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[20]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[25]  0,9991834000 0,9991834000 0,4632662100 0,9991834000 0,9991834000
+[30]  0,1575884700 0,0138396690 0,3938014500 0,7600230400 0,0250197306
+[35]  0,0138396690 0,3052970640 0,0542613600 0,4626366400 0,0165641872
+[40]  0,0008825610 0,0000125223 0,9930759000 0,3394022040 0,0369228426
+[45]  0,0102358057 0,0397415214 0,0031729200 0,8992520300 0,2179486200
+
+Holm
+[00]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[05]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[10]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[15]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[20]  1,0000000000 1,0000000000 1,0000000000 1,0000000000 1,0000000000
+[25]  1,0000000000 1,0000000000 0,4632662100 1,0000000000 1,0000000000
+[30]  0,1575884700 0,0139534054 0,3938014500 0,7600230400 0,0250197306
+[35]  0,0139534054 0,3052970640 0,0542613600 0,4626366400 0,0165641872
+[40]  0,0008825610 0,0000125223 0,9930759000 0,3394022040 0,0369228426
+[45]  0,0102358057 0,0397415214 0,0031729200 0,8992520300 0,2179486200
+
+Hommel
+[00]  0,9991834000 0,9991834000 0,9991834000 0,9987623800 0,9991834000
+[05]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[10]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[15]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9595180000
+[20]  0,9991834000 0,9991834000 0,9991834000 0,9991834000 0,9991834000
+[25]  0,9991834000 0,9991834000 0,4351894700 0,9991834000 0,9766522500
+[30]  0,1414255500 0,0130434007 0,3530936533 0,6887708800 0,0238560222
+[35]  0,0132245726 0,2722919760 0,0542613600 0,4218157600 0,0158112696
+[40]  0,0008825610 0,0000125223 0,8743649143 0,3016908480 0,0351646120
+[45]  0,0095824564 0,0387722160 0,0031729200 0,8122276400 0,1950066600
+
+Sidak
+[00]  1,0000000000 1,0000000000 0,9946598274 0,9914285749 0,9999515274
+[05]  1,0000000000 0,9999999688 1,0000000000 1,0000000000 1,0000000000
+[10]  1,0000000000 1,0000000000 0,9999999995 1,0000000000 0,9999998801
+[15]  1,0000000000 1,0000000000 1,0000000000 0,9999999855 0,9231179729
+[20]  0,9999999956 1,0000000000 1,0000000000 0,9999317605 1,0000000000
+[25]  0,9983109511 1,0000000000 0,5068253940 1,0000000000 0,9703301333
+[30]  0,1832692440 0,0150545753 0,4320729669 0,6993672225 0,0286818157
+[35]  0,0152621104 0,3391808707 0,0656206307 0,4959194266 0,0186503726
+[40]  0,0009001752 0,0000125222 0,8142104886 0,3772612062 0,0430222116
+[45]  0,0108312558 0,0473319661 0,0032997780 0,7705015898 0,2499384839
+
+Unknown
+Sorry, do not know how to do 'Unknown' correction.
+Perhaps you want one of these?:
+  Benjamini-Hochberg
+  Benjamini-Yekutieli
+  Bonferroni
+  Hochberg
+  Holm
+  Hommel
+  Sidak</pre>

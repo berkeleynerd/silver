@@ -1,0 +1,147 @@
+=={{header|Ada}}==
+Ada array definition notation requires the specification of the index range for each dimension of the array. Index ranges must be contiguous and may start at any discrete value. Ada discrete types include integer types, modular types, and enumerated types.
+
+All Ada arrays are instances of some array type. The array type may be explicitly declared, or if undeclared is said to be an anonymous type.
+
+'''Ranges'''
+
+Ada array indices employ the concept of a range. A range is specified as Low_Value .. High_Value. The range is inclusive of both the low value and the high value. 
+<syntaxhighlight lang="ada">
+type Grade is range 0..100;
+subtype Lower_Case is Character range 'a'..'z';
+subtype Natural is Integer range 0..Integer'Last;
+subtype Positive is Integer range 1..Integer'Last;
+type Deflection is range -180..180;
+</syntaxhighlight>
+Grade is defined as a distinct integer type with valid values from 0 through 100.
+ 
+Lower_Case is defined as a subset of the type Character with a minimum value of 'a' and a maximum value of 'z'.
+
+Natural is defined as a subset of Integer with a minimum value of 0 and a maximum value of the highest valid Integer value.
+
+Positive is defined as a subset of Integer with a minimum value of 1 and a maximum value of the highest valid Integer value.
+
+Deflection is defined as a distinct integer type with a minimum value of -180 and a maximum value of 180.
+
+'''Constrained vs Unconstrained'''
+
+Ada array types may be constrained types or unconstrained types. A constrained type is defined with a constrained index range. An unconstrained type is defined with an unconstrained index range. All instances of an unconstrained array type are themselves constrained.
+{{Single dimensional arrays}}
+<syntaxhighlight lang="ada">
+type Char_Array is array (0..9) of Character;  -- A constrained array of characters
+type String is array (Positive range <>) of Character;  -- An unconstrained array of characters
+</syntaxhighlight>
+All instances of Char_Array as defined above have a length of 10 characters with a lower index bound of 0 and an upper index bound of 9. The definition of the type String above is the standard Ada definition for a fixed length string type. Within the index definition we see "Positive range <>". This indicates that an instance of type String must have an index range within the valid range for the pre-defined integer subtype named Positive. Positive is defined as all integer values beginning at 1 and continuing to the highest integer value. The definition of Positive is
+<syntaxhighlight lang="ada">
+subtype Positive is Integer range 1..Integer'Last;
+</syntaxhighlight>
+String literals are indexed beginning at index value 1.
+<syntaxhighlight lang="ada">
+Name : String := "Rosetta Code";
+</syntaxhighlight>
+The instance of string identified as Name above is created and initialized to hold the value "Rosetta Code". The first index value for Name is 1. The last index value for Name is 12.
+
+'''Array Attributes'''
+
+Every array has a set of attributes which are implemented as implicitly defined functions.
+
+''''Length''' This attribute returns the number of array elements of a single-dimensional array.
+<syntaxhighlight lang="ada">
+Num_Elements : Natural := Char_Array'Length;
+</syntaxhighlight>
+
+''''Length(N)''' This attribute returns the number of elements for the Nth of an array.
+
+''''First''' This attribute returns the minimum value of the index range for a single-dimensional array.
+
+''''First(N)''' This attribute returns the minimum value of the index range for the Nth dimension of an array.
+
+''''Last'''  This attribute returns the maximum value of the index range for a single-dimensional array.
+
+''''Last(N)''' This attribute returns the maximum value of the index range for the Nth dimension of an array.
+
+''''Range''' This attribute returns the range of the index for a single-dimensional array. It is equivalent to writing 'Last ..'First. 
+
+''''Range(N)''' This attribute returns the index range of the Nth dimension of an array.
+
+''''Size''' This attribute returns the size in bits of the array in memory.
+
+'''Arrays of Arrays'''
+
+Ada allows the definition of an array type which is any array of another array type.
+<syntaxhighlight lang="ada">
+type Vector is array (1..10) of Integer;
+type Table is array (0..99) of Vector;
+</syntaxhighlight>
+In this example, one can access the second element of an instance of type Vector using the notation
+<syntaxhighlight lang="ada">
+V : Vector;
+...
+V(2) := 10;
+</syntaxhighlight>
+Accessing the second element of the vector on the second row of Table is done as
+<syntaxhighlight lang="ada">
+T : Table;
+...
+T(1)(2) := 10;
+</syntaxhighlight>
+Each element of Table is an instance of Vector. Each element of Vector is an Integer.
+
+'''Multi-Dimensional Arrays'''
+
+Ada also allows the definition of multi-dimensional arrays.
+<syntaxhighlight lang="ada">
+type Matrix is array (0..99, 1..10) of Integer;
+M : Matrix;
+...
+M(1,2) := 10;
+</syntaxhighlight>
+The example above shows how to access the element in the second row and second column of an instance of Matrix.
+
+Whole array instances can be assigned to other arrays of the same type.
+<syntaxhighlight lang="ada">
+Mat1 : Matrix;
+Mat2 : Matrix;
+...
+Mat1 := Mat2;
+</syntaxhighlight>
+The above assignment creates a deep copy. After the assignment Mat1 and Mat2 are separate instances of Matrix containing the same values.
+
+Slices of arrays can also be assigned to instances of the same array type such as
+<syntaxhighlight lang="ada">
+V1 : Vector := (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+V2 : Vector := (2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+...
+V2(3..6) := V1(7..10);
+</syntaxhighlight>
+When assigning whole arrays or slices of arrays the sizes must match, but the index ranges can be different. In the example above each slice contains 4 data elements. The value of V2 after the assignment is (2, 2, 7, 8, 9, 10, 2, 2, 2, 2).
+
+'''Looping through Arrays'''
+
+The Ada "for" loop is used to iterate through arrays without danger of index bounds violations
+<syntaxhighlight lang="ada">
+function "*" (Left : Vector; Right : Integer) return Vector is
+   Result : Vector;
+begin
+   for I in Vector'Range loop
+      Result(I) := Left(I) * Right;
+   end loop;
+   return Result;
+end "*"
+</syntaxhighlight>
+The function definition above overloads the multiplication operator "*" allowing the multiplication of every element of and instance of Vector by an Integer value. The "for" loop within the function iterates over each value of the range produced using the 'Range attribute. Unlike some languages such as C or C++, no additional parameter specifying the number of elements in the array is passed. This approach works well for constrained array types. A small variation is used for unconstrained array types.
+<syntaxhighlight lang="ada">
+type Unconstrained_Vector is array (Positive range <>) of Integer;
+U1 : Unconstrained_Vector := (1,2,3,4,5,6,7,8,9,10);
+U2 : Unconstrained_Vector := (10,11,12,13);
+...
+function "*" (Left : Unconstrained_Vector; Right : Integer) return Unconstrained_Vector is
+   Result : Unconstrained_Vector(Left'Range);
+begin
+   for I in Left'Range loop
+      Result(I) := Left(I) * Right;
+   end loop;
+   return Result;
+end "*";
+</syntaxhighlight>
+The instance of Unconstrained_Vector defined within the function is initialized to have the same index values as the formal parameter named Left. This version of the function allows the programmer to pass any instance of Unconstrained_Vector to the function "*". In the example above one may pass both U1 and U2 to the function without experiencing index boundary violation.

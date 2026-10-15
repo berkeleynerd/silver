@@ -1,0 +1,8 @@
+=={{header|Ada}}==
+All callable entities (procedures, functions, entries) require named arguments. All of them can be called using either positional or keyed association of the actual arguments. The arguments supplied with default values can be omitted.
+<syntaxhighlight lang="ada">procedure Foo (Arg_1 : Integer; Arg_2 : Float := 0.0);</syntaxhighlight>
+It can be equivalently called as:
+<syntaxhighlight lang="ada">Foo (1, 0.0);
+Foo (1);
+Foo (Arg_2 => 0.0, Arg_1 => 1);
+Foo (Arg_1 => 1);</syntaxhighlight>

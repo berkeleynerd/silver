@@ -1,0 +1,41 @@
+=={{header|Ada}}==
+An interval type based on Float:
+<syntaxhighlight lang="ada">type Interval is record
+   Lower : Float;
+   Upper : Float;
+end record;</syntaxhighlight>
+Implementation of safe addition:
+<syntaxhighlight lang="ada">function "+" (A, B : Float) return Interval is
+   Result : constant Float := A + B;
+begin
+   if Result < 0.0 then
+      if Float'Machine_Rounds then
+         return (Float'Adjacent (Result, Float'First), Float'Adjacent (Result, 0.0));
+      else
+         return (Float'Adjacent (Result, Float'First), Result);
+      end if;         
+   elsif Result > 0.0 then   
+      if Float'Machine_Rounds then
+         return (Float'Adjacent (Result, 0.0), Float'Adjacent (Result, Float'Last));
+      else
+         return (Result, Float'Adjacent (Result, Float'Last));
+      end if;         
+   else -- Underflow
+      return (Float'Adjacent (0.0, Float'First), Float'Adjacent (0.0, Float'Last));
+   end if;
+end "+";</syntaxhighlight>
+The implementation uses the attribute T'Machine_Rounds to determine if rounding is performed on inexact results. If the machine rounds a symmetric interval around the result is used. When the machine does not round, it truncates. Truncating is rounding towards zero. In this case the implementation is twice better (in terms of the result interval width), because depending on its sign, the outcome of addition can be taken for either of the bounds. Unfortunately most of modern processors are rounding.
+
+Test program:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+procedure Test_Interval_Addition is
+   -- Definitions from above
+   procedure Put (I : Interval) is
+   begin
+      Put (Long_Float'Image (Long_Float (I.Lower)) & "," & Long_Float'Image (Long_Float (I.Upper)));
+   end Put;
+begin
+   Put (1.14 + 2000.0);
+end Test_Interval_Addition;</syntaxhighlight>
+Sample output:
+<pre> 2.00113989257813E+03, 2.00114013671875E+03</pre>

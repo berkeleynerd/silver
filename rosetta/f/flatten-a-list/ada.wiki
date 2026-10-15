@@ -1,0 +1,147 @@
+=={{header|Ada}}==
+nestable_lists.ads:
+<syntaxhighlight lang="ada">generic
+   type Element_Type is private;
+   with function To_String (E : Element_Type) return String is <>;
+package Nestable_Lists is
+
+   type Node_Kind is (Data_Node, List_Node);
+   
+   type Node (Kind : Node_Kind);
+   
+   type List is access Node;
+   
+   type Node (Kind : Node_Kind) is record
+      Next : List;
+      case Kind is
+         when Data_Node =>
+            Data    : Element_Type;
+         when List_Node =>
+            Sublist : List;
+      end case;
+   end record;
+   
+   procedure Append (L : in out List; E : Element_Type);
+   procedure Append (L : in out List; N : List);
+   
+   function Flatten (L : List) return List;
+
+   function New_List (E : Element_Type) return List;
+   function New_List (N : List) return List;
+   
+   function To_String (L : List) return String;
+   
+end Nestable_Lists;</syntaxhighlight>
+nestable_lists.adb:
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded;
+
+package body Nestable_Lists is
+
+   procedure Append (L : in out List; E : Element_Type) is
+   begin
+      if L = null then
+         L := new Node (Kind => Data_Node);
+         L.Data := E;
+      else
+         Append (L.Next, E);
+      end if;
+   end Append;
+
+   procedure Append (L : in out List; N : List) is
+   begin
+      if L = null then
+         L := new Node (Kind => List_Node);
+         L.Sublist := N;
+      else
+         Append (L.Next, N);
+      end if;
+   end Append;
+
+   function Flatten (L : List) return List is
+      Result  : List;
+      Current : List := L;
+      Temp    : List;
+   begin
+      while Current /= null loop
+         case Current.Kind is
+            when Data_Node =>
+               Append (Result, Current.Data);
+            when List_Node =>
+               Temp := Flatten (Current.Sublist);
+               while Temp /= null loop
+                  Append (Result, Temp.Data);
+                  Temp := Temp.Next;
+               end loop;
+         end case;
+         Current := Current.Next;
+      end loop;
+      return Result;
+   end Flatten;
+   
+   function New_List (E : Element_Type) return List is
+   begin
+      return  new Node'(Kind => Data_Node, Data => E, Next => null);
+   end New_List;
+
+   function New_List (N : List) return List is
+   begin
+      return new Node'(Kind => List_Node, Sublist => N, Next => null);
+   end New_List;
+
+   function To_String (L : List) return String is
+      Current : List := L;
+      Result  : Ada.Strings.Unbounded.Unbounded_String;
+   begin
+      Ada.Strings.Unbounded.Append (Result, "[");
+      while Current /= null loop
+         case Current.Kind is
+            when Data_Node =>
+               Ada.Strings.Unbounded.Append
+                 (Result, To_String (Current.Data));
+            when List_Node =>
+               Ada.Strings.Unbounded.Append
+                 (Result, To_String (Current.Sublist));
+         end case;
+         if Current.Next /= null then
+            Ada.Strings.Unbounded.Append (Result, ", ");
+         end if;
+         Current := Current.Next;
+      end loop;
+      Ada.Strings.Unbounded.Append (Result, "]");
+      return Ada.Strings.Unbounded.To_String (Result);
+   end To_String;
+
+end Nestable_Lists;</syntaxhighlight>
+example usage:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Nestable_Lists;
+
+procedure Flatten_A_List is
+   package Int_List is new Nestable_Lists
+     (Element_Type => Integer,
+      To_String    => Integer'Image);
+
+   List : Int_List.List := null;
+begin
+   Int_List.Append (List, Int_List.New_List (1));
+   Int_List.Append (List, 2);
+   Int_List.Append (List, Int_List.New_List (Int_List.New_List (3)));
+   Int_List.Append (List.Next.Next.Sublist.Sublist, 4);
+   Int_List.Append (List.Next.Next.Sublist, 5);
+   Int_List.Append (List, Int_List.New_List (Int_List.New_List (null)));
+   Int_List.Append (List, Int_List.New_List (Int_List.New_List
+                    (Int_List.New_List (6))));
+   Int_List.Append (List, 7);
+   Int_List.Append (List, 8);
+   Int_List.Append (List, null);
+   
+   declare
+      Flattened : constant Int_List.List := Int_List.Flatten (List);
+   begin
+      Ada.Text_IO.Put_Line (Int_List.To_String (List));
+      Ada.Text_IO.Put_Line (Int_List.To_String (Flattened));
+   end;
+end Flatten_A_List;</syntaxhighlight>
+Output:
+<pre>[[ 1],  2, [[ 3,  4],  5], [[[]]], [[[ 6]]],  7,  8, []]
+[ 1,  2,  3,  4,  5,  6,  7,  8]</pre>

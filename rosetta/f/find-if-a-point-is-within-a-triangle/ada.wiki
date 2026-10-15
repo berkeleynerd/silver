@@ -1,0 +1,86 @@
+=={{header|Ada}}==
+
+This uses a determinant method to calculate the area of triangles, and tests whether or not a point is in a triangle by adding up the areas of the triangles formed by each side of the triangle with the point in question, and seeing if the sum matches the whole.
+
+It uses a generic two-dimensional geometry, that could be affine, euclidean, or a lot stranger than that. You only need to specify the type of one dimension, and the library ''should'' handle the rest. Edge cases probably exist where they shouldn't, as the area formula might add some imprecision.
+
+<syntaxhighlight lang="ada">-- triangle.ads
+generic
+	type Dimension is private;
+	Zero, Two: Dimension;
+	with function "*"(Left, Right: in Dimension) return Dimension is <>;
+	with function "/"(Left, Right: in Dimension) return Dimension is <>;
+	with function "+"(Left, Right: in Dimension) return Dimension is <>;
+	with function "-"(Left, Right: in Dimension) return Dimension is <>;
+	with function ">"(Left, Right: in Dimension) return Boolean is <>;
+	with function "="(Left, Right: in Dimension) return Boolean is <>;
+	with function Image(D: in Dimension) return String is <>;
+package Triangle is
+
+	type Point is record
+		X: Dimension;
+		Y: Dimension;
+	end record;
+
+	type Triangle_T is record
+		A,B,C: Point;
+	end record;
+
+	function Area(T: in Triangle_T) return Dimension;
+
+	function IsPointInTriangle(P: Point; T: Triangle_T) return Boolean;
+
+	function Image(P: Point) return String is
+		("(X="&Image(P.X)&", Y="&Image(P.Y)&")")
+		with Inline;
+
+	function Image(T: Triangle_T) return String is
+		("(A="&Image(T.A)&", B="&Image(T.B)&", C="&Image(T.C)&")")
+		with Inline;
+end;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">-- triangle.adb
+
+package body Triangle is
+	function Area(T: in Triangle_T) return Dimension
+	is
+		tmp: Dimension;
+	begin
+		tmp:=((T.B.X*T.C.Y-T.C.X*T.B.Y)-(T.A.X*T.C.Y-T.C.X*T.A.Y)+(T.A.X*T.B.Y-T.B.X*T.A.Y))/Two;
+		if tmp>Zero then
+			return tmp;
+		else
+			return Zero-tmp;
+		end if;
+	end Area;
+
+	function IsPointInTriangle(P: Point; T: Triangle_T) return Boolean
+	is
+	begin
+		return Area(T)=Area((T.A,T.B,P))+Area((T.A,P,T.C))+Area((P,T.B,T.C));
+	end IsPointInTriangle;
+end;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">-- test_triangle.adb
+with Ada.Text_IO;
+use Ada.Text_IO;
+with Triangle;
+
+procedure test_triangle
+is
+	package affine_tri is new Triangle(Dimension=>Integer, Zero=>0,Two=>2, Image=>Integer'Image);
+	use affine_tri;
+	tri1: Triangle_T:=((1,0),(2,0),(0,2));
+	tri2: Triangle_T:=((-1,0),(-1,-1),(2,2));
+	origin: Point:=(0,0);
+begin
+	Put_Line("IsPointInTriangle("&Image(origin)&", "&Image(tri1)&") yields "&IsPointInTriangle(origin,tri1)'Image);
+	Put_Line("IsPointInTriangle("&Image(origin)&", "&Image(tri2)&") yields "&IsPointInTriangle(origin,tri2)'Image);
+end test_triangle;
+</syntaxhighlight>
+
+{{out}}
+<pre>
+IsPointInTriangle((X= 0, Y= 0), (A=(X= 1, Y= 0), B=(X= 2, Y= 0), C=(X= 0, Y= 2))) yields FALSE
+IsPointInTriangle((X= 0, Y= 0), (A=(X=-1, Y= 0), B=(X=-1, Y=-1), C=(X= 2, Y= 2))) yields TRUE
+</pre>

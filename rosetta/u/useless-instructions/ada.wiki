@@ -1,0 +1,22 @@
+=={{header|Ada}}==
+The Ada Language Reference Manual Appendix J explains all the features of the language which are largely redundant and are discouraged in newly developed source code.
+The features are:
+<pre>
+- Renaming of library units
+- Allowed Replacement of Characters
+- Reduced Accuracy Subtypes
+- The Constrained Attribute
+- The package ASCII defined within the package Standard
+- The exception Numeric_Error
+- At Clauses
+- Interrupt Entries
+- Mod Clauses
+- The Storage_Size Attribute
+- Specific Suppression of Checks
+- The Class Attribute of Untagged Incomplete Types
+- Pragma Interface
+- Dependence Restriction Identifiers
+- Character and Wide_Character Conversion Functions
+- Aspect-related Pragmas
+</pre>
+The full description of these obsolescent features is described in [http://www.ada-auth.org/standards/12rm/html/RM-J.html]

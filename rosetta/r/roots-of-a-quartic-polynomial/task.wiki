@@ -1,0 +1,14 @@
+{{draft task}}
+Write a function to find the roots of a quartic equation, that is solve the equation <math>ax^4 + bx^3 + cx^2 + dx + e = 0</math>.<br>
+This equation has a solution in closed form. Your program must handle complex, real and duplicate roots. Input checking and error display is optional.<br><br>
+The internet shows many, many quartic equation solvers and algorithms. A few examples.<br>
+<br>
+[https://en.wikipedia.org/wiki/Quartic%20equation Wikipedia] Very extensive article, including several algorithms.<br>
+[https://www.1728.org/quartic2.htm 1728.org] Step-by-step solution with examples and a calculator.<br>
+[https://mathworld.wolfram.com/QuarticFormula.html Wolfram Mathworld] No examples.<br>
+[https://planetcalc.com/7715/ PlanetCalc] No step-by-step, but with a calculator.<br>
+<br>
+Whatever algorithm you choose, it's very likely you'll need:<br>
+[[Arithmetic/Complex]]<br>
+[[Roots of a quadratic function]]<br>
+[[Roots of a cubic polynomial]]<br>

@@ -1,0 +1,47 @@
+=={{header|Ada}}==
+This implementation is a generic shuffle routine, able to shuffle an array of any type.
+<syntaxhighlight lang="ada">generic
+   type Element_Type is private;
+   type Array_Type is array (Positive range <>) of Element_Type;
+   
+procedure Generic_Shuffle (List : in out Array_Type);</syntaxhighlight>
+<syntaxhighlight lang="ada">with Ada.Numerics.Discrete_Random;
+
+procedure Generic_Shuffle (List : in out Array_Type) is
+   package Discrete_Random is new Ada.Numerics.Discrete_Random(Result_Subtype => Integer);
+   use Discrete_Random;
+   K : Integer;
+   G : Generator;
+   T : Element_Type;
+begin
+   Reset (G);
+   for I in reverse List'Range loop
+      K := (Random(G) mod I) + 1;
+      T := List(I);
+      List(I) := List(K);
+      List(K) := T;
+   end loop;
+end Generic_Shuffle;</syntaxhighlight>
+An example using Generic_Shuffle. 
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Generic_Shuffle;
+
+procedure Test_Shuffle is
+   
+   type Integer_Array is array (Positive range <>) of Integer;
+
+   Integer_List : Integer_Array
+     := (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18);
+   procedure Integer_Shuffle is new Generic_Shuffle(Element_Type => Integer,
+                                                    Array_Type => Integer_Array);
+begin
+
+   for I in Integer_List'Range loop
+      Ada.Text_IO.Put(Integer'Image(Integer_List(I)));
+   end loop;
+   Integer_Shuffle(List => Integer_List);
+   Ada.Text_IO.New_Line;
+   for I in Integer_List'Range loop
+      Ada.Text_IO.Put(Integer'Image(Integer_List(I)));
+   end loop;
+end Test_Shuffle;</syntaxhighlight>

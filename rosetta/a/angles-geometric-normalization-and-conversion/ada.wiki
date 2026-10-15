@@ -1,0 +1,293 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="Ada">
+-- Rosetta Code Task written in Ada
+-- Angles (geometric), normalization and conversion
+-- https://rosettacode.org/wiki/Angles_(geometric),_normalization_and_conversion
+-- translation from C (conversion functions) and (loosely) Lua (output table formatting)
+-- July 2024, R. B. E.
+
+-- To Do:
+-- Specific float format/precision rather than generic?
+
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+with Ada.Numerics;
+
+procedure Angles_Geometric_Normalization_and_Conversion is
+  Pi : constant := Ada.Numerics.Pi;
+  Two_Pi : constant := 2.0 * Ada.Numerics.Pi;
+
+  function Normalize_to_Deg (a : Float) return Float is 
+    tmp : Float := a;
+  begin
+--    while (tmp < 0.0) loop
+    while (tmp < -360.0) loop -- task description says to preserve negative input angles
+      tmp := tmp + 360.0;
+    end loop;
+    while (tmp >= 360.0) loop
+      tmp := tmp - 360.0;
+    end loop;
+    return tmp;    
+  end Normalize_to_Deg;
+
+  function Normalize_to_Grad (a : Float) return Float is 
+    tmp : Float := a;
+  begin
+    while (tmp < 0.0) loop -- task description says to preserve negative input angles (punting)
+      tmp := tmp + 400.0;
+    end loop;
+    while (tmp >= 400.0) loop
+      tmp := tmp - 400.0;
+    end loop;
+    return tmp;    
+  end Normalize_to_Grad;
+
+  function Normalize_to_Mil (a : Float) return Float is 
+    tmp : Float := a;
+  begin
+    while (tmp < 0.0) loop -- task description says to preserve negative input angles (punting)
+      tmp := tmp + 6400.0;
+    end loop;
+    while (tmp >= 6400.0) loop
+      tmp := tmp - 6400.0;
+    end loop;
+    return tmp;    
+  end Normalize_to_Mil;
+
+  function Normalize_to_Rad (a : Float) return Float is 
+    tmp : Float := a;
+  begin
+    while (tmp < 0.0) loop -- task description says to preserve negative input angles (punting)
+      tmp := tmp + Two_Pi;
+    end loop;
+    while (tmp >= Two_Pi) loop
+      tmp := tmp - Two_Pi;
+    end loop;
+    return tmp;    
+  end Normalize_to_Rad;
+
+  function Deg_to_Grad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (10.0 / 9.0);
+    return tmp;
+  end Deg_to_Grad;
+
+  function Deg_to_Mil (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (160.0 / 9.0);
+    return tmp;
+  end Deg_to_Mil;
+
+  function Deg_to_Rad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (Pi / 180.0);
+    return tmp;
+  end Deg_to_Rad;
+
+  function Grad_to_Deg (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (9.0 / 10.0);
+    return tmp;
+  end Grad_to_Deg;
+
+  function Grad_to_Mil (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * 16.0;
+    return tmp;
+  end Grad_to_Mil;
+
+  function Grad_to_Rad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (Pi / 200.0);
+    return tmp;
+  end Grad_to_Rad;
+
+  function Mil_to_Deg (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (9.0 / 160.0);
+    return tmp;
+  end Mil_to_Deg;
+
+  function Mil_to_Grad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a / 16.0;
+    return tmp;
+  end Mil_to_Grad;
+
+  function Mil_to_Rad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (Pi / 3200.0);
+    return tmp;
+  end Mil_to_Rad;
+
+  function Rad_to_Deg (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (180.0 / Pi);
+    return tmp;
+  end Rad_to_Deg;
+
+  function Rad_to_Grad (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (200.0 / Pi);
+    return tmp;
+  end Rad_to_Grad;
+
+  function Rad_to_Mil (a : Float) return Float is
+    tmp : Float := a;
+  begin
+    tmp := a * (3200.0 / Pi);
+    return tmp;
+  end Rad_to_Mil;
+
+  Three_Spaces : constant String := 3 * " ";
+
+  type Index is range 1 .. 12;
+  type Test_Values_Array is array (Index) of Float;
+  Test_Values : Test_Values_Array :=
+    (Float (-2), Float (-1), Float (0), Float (1), Float (2),
+     6.2831853, Float (16), 57.2957795, Float (359),
+     Float (399), Float (6399), Float (1000000));
+
+begin
+  Put_Line ("                        DEGREES         GRADIANS         MILS          RADIANS");
+  Put_Line ("      TEST VALUE      Normalized       Converted       Converted      Converted");
+  for I in Index loop
+    Put (Test_Values (I), Exp => 0, Aft => 8, Fore => 8);
+    Put (Three_Spaces);
+    Put (Normalize_to_Deg (Test_Values (I)), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Deg_to_Grad (Normalize_to_Deg (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Deg_to_Mil (Normalize_to_Deg (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Deg_to_Rad (Normalize_to_Deg (Test_Values (I))), Exp => 0, Aft => 8, Fore => 2);
+    New_Line;
+  end loop;
+
+  New_Line;
+  Put_Line ("                       GRADIANS           MILS        RADIANS        DEGREES");
+  Put_Line ("      TEST VALUE      Normalized       Converted     Converted      Converted");
+  for I in Index loop
+    Put (Test_Values (I), Exp => 0, Aft => 8, Fore => 8);
+    Put (Three_Spaces);
+    Put (Normalize_to_Grad (Test_Values (I)), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Grad_to_Mil (Normalize_to_Grad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Grad_to_Rad (Normalize_to_Grad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 2);
+    Put (Three_Spaces);
+    Put (Grad_to_Deg (Normalize_to_Grad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    New_Line;
+  end loop;
+
+  New_Line;
+  Put_Line ("                         MILS           RADIANS       DEGREES        GRADIANS");
+  Put_Line ("      TEST VALUE      Normalized       Converted     Converted      Converted");
+  for I in Index loop
+    Put (Test_Values (I), Exp => 0, Aft => 8, Fore => 8);
+    Put (Three_Spaces);
+    Put (Normalize_to_Mil (Test_Values (I)), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Mil_to_Rad (Normalize_to_Mil (Test_Values (I))), Exp => 0, Aft => 8, Fore => 2);
+    Put (Three_Spaces);
+    Put (Mil_to_Deg (Normalize_to_Mil (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Mil_to_Grad (Normalize_to_Mil (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    New_Line;
+  end loop;
+
+  New_Line;
+  Put_Line ("                         RADIANS          DEGREES       GRADIANS        MILS");
+  Put_Line ("      TEST VALUE       Normalized        Converted     Converted      Converted");
+  for I in Index loop
+    Put (Test_Values (I), Exp => 0, Aft => 8, Fore => 8);
+    Put (Three_Spaces);
+    Put (Normalize_to_Rad (Test_Values (I)), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Rad_to_Deg (Normalize_to_Rad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Rad_to_Grad (Normalize_to_Rad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    Put (Three_Spaces);
+    Put (Rad_to_Mil (Normalize_to_Rad (Test_Values (I))), Exp => 0, Aft => 8, Fore => 4);
+    New_Line;
+  end loop;
+
+end Angles_Geometric_Normalization_and_Conversion;
+</syntaxhighlight>
+{{out}}
+<pre>
+./angles_geometric_normalization_and_conversion
+                        DEGREES         GRADIANS         MILS          RADIANS
+      TEST VALUE      Normalized       Converted       Converted      Converted
+      -2.00000000     -2.00000000     -2.22222233    -35.55555725   -0.03490658
+      -1.00000000     -1.00000000     -1.11111116    -17.77777863   -0.01745329
+       0.00000000      0.00000000      0.00000000      0.00000000    0.00000000
+       1.00000000      1.00000000      1.11111116     17.77777863    0.01745329
+       2.00000000      2.00000000      2.22222233     35.55555725    0.03490658
+       6.28318548      6.28318548      6.98131752    111.70108032    0.10966227
+      16.00000000     16.00000000     17.77777863    284.44445801    0.27925268
+      57.29578018     57.29578018     63.66197968   1018.59167480    1.00000000
+     359.00000000    359.00000000    398.88891602   6382.22265625    6.26573181
+     399.00000000     39.00000000     43.33333588    693.33337402    0.68067843
+    6399.00000000    279.00000000    310.00000000   4960.00000000    4.86946869
+ 1000000.00000000    280.00000000    311.11111450   4977.77783203    4.88692188
+
+                       GRADIANS           MILS        RADIANS        DEGREES
+      TEST VALUE      Normalized       Converted     Converted      Converted
+      -2.00000000    398.00000000   6368.00000000    6.25176954    358.19998169
+      -1.00000000    399.00000000   6384.00000000    6.26747751    359.09997559
+       0.00000000      0.00000000      0.00000000    0.00000000      0.00000000
+       1.00000000      1.00000000     16.00000000    0.01570796      0.89999998
+       2.00000000      2.00000000     32.00000000    0.03141593      1.79999995
+       6.28318548      6.28318548    100.53096771    0.09869605      5.65486670
+      16.00000000     16.00000000    256.00000000    0.25132743     14.39999962
+      57.29578018     57.29578018    916.73248291    0.90000004     51.56620026
+     359.00000000    359.00000000   5744.00000000    5.63915920    323.10000610
+     399.00000000    399.00000000   6384.00000000    6.26747751    359.09997559
+    6399.00000000    399.00000000   6384.00000000    6.26747751    359.09997559
+ 1000000.00000000      0.00000000      0.00000000    0.00000000      0.00000000
+
+                         MILS           RADIANS       DEGREES        GRADIANS
+      TEST VALUE      Normalized       Converted     Converted      Converted
+      -2.00000000   6398.00000000    6.28122234    359.88748169    399.87500000
+      -1.00000000   6399.00000000    6.28220367    359.94372559    399.93750000
+       0.00000000      0.00000000    0.00000000      0.00000000      0.00000000
+       1.00000000      1.00000000    0.00098175      0.05625000      0.06250000
+       2.00000000      2.00000000    0.00196350      0.11250000      0.12500000
+       6.28318548      6.28318548    0.00616850      0.35342917      0.39269909
+      16.00000000     16.00000000    0.01570796      0.89999998      1.00000000
+      57.29578018     57.29578018    0.05625000      3.22288752      3.58098626
+     359.00000000    359.00000000    0.35244745     20.19375038     22.43750000
+     399.00000000    399.00000000    0.39171734     22.44374847     24.93750000
+    6399.00000000   6399.00000000    6.28220367    359.94372559    399.93750000
+ 1000000.00000000   1600.00000000    1.57079637     90.00000000    100.00000000
+
+                         RADIANS          DEGREES       GRADIANS        MILS
+      TEST VALUE       Normalized        Converted     Converted      Converted
+      -2.00000000      4.28318548    245.40844727    272.67605591   4362.81689453
+      -1.00000000      5.28318548    302.70422363    336.33801270   5381.40820313
+       0.00000000      0.00000000      0.00000000      0.00000000      0.00000000
+       1.00000000      1.00000000     57.29578018     63.66197586   1018.59161377
+       2.00000000      2.00000000    114.59156036    127.32395172   2037.18322754
+       6.28318548      0.00000000      0.00000000      0.00000000      0.00000000
+      16.00000000      3.43362856    196.73242188    218.59158325   3497.46533203
+      57.29578018      0.74711514     42.80654526     47.56282425    761.00518799
+     359.00000000      0.85856915     49.19239044     54.65820694    874.53131104
+     399.00000000      3.15952921    181.02769470    201.14187622   3218.27001953
+    6399.00000000      2.70112467    154.76304626    171.95893860   2751.34301758
+ 1000000.00000000      2.72260904    155.99400330    173.32667542   2773.22680664
+
+</pre>

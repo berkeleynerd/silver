@@ -1,0 +1,51 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">function padto( i as ubyte, j as integer ) as string
+    return wspace(i-len(str(j)))+str(j)
+end function
+
+dim as integer M( 1 to 1000 ), n, col, k, psum
+dim as integer num_zeroes = 0, num_cross = 0
+dim as string outstr
+
+M(1) = 1
+for n = 2 to 1000
+    psum = 0
+    for k = 2 to n
+        psum += M(int(n/k))
+    next k
+    M(n) = 1 - psum
+    if M(n) = 0 then
+        num_zeroes += 1
+        if M(n-1)<>0 then
+            num_cross += 1
+        end if
+    end if
+next n
+
+print using "There are ### zeroes in the range 1 to 1000."; num_zeroes
+print using "There are ### crossings in the range 1 to 1000."; num_cross
+print "The first 100 Mertens numbers are: "
+
+for n=1 to 100
+    outstr += padto(3, M(n))+"  "
+    if n mod 10 = 0 then
+        print outstr
+        outstr = ""
+    end if
+next n</syntaxhighlight>
+{{out}}
+<pre>
+There are  92 zeroes in the range 1 to 1000.
+There are  59 crossings in the range 1 to 1000.
+The first 100 Mertens numbers are: 
+  1    0   -1   -1   -2   -1   -2   -2   -2   -1  
+ -2   -2   -3   -2   -1   -1   -2   -2   -3   -3  
+ -2   -1   -2   -2   -2   -1   -1   -1   -2   -3  
+ -4   -4   -3   -2   -1   -1   -2   -1    0    0  
+ -1   -2   -3   -3   -3   -2   -3   -3   -3   -3  
+ -2   -2   -3   -3   -2   -2   -1    0   -1   -1  
+ -2   -1   -1   -1    0   -1   -2   -2   -1   -2  
+ -3   -3   -4   -3   -3   -3   -2   -3   -4   -4  
+ -4   -3   -4   -4   -3   -2   -1   -1   -2   -2  
+ -1   -1    0    1    2    2    1    1    1    1
+</pre>

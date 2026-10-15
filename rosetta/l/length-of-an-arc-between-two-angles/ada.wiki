@@ -1,0 +1,84 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_Io;
+with Ada.Numerics;
+
+procedure Calculate_Arc_Length is
+   use Ada.Text_Io;
+
+   type Angle_Type is new Float range 0.0 .. 360.0;       -- In degrees
+   type Distance   is new Float range 0.0 .. Float'Last;  -- In units
+
+   function Major_Arc_Length (Angle_1, Angle_2 : Angle_Type;
+                              Radius           : Distance)
+                             return Distance
+   is
+      Pi            : constant := Ada.Numerics.Pi;
+      Circumference : constant Distance   := 2.0 * Pi * Radius;
+      Major_Angle   : constant Angle_Type := 360.0 - abs (Angle_2 - Angle_1);
+      Arc_Length    : constant Distance   :=
+        Distance (Major_Angle) / 360.0 * Circumference;
+   begin
+      return Arc_Length;
+   end Major_Arc_Length;
+
+   package Distance_Io is new Ada.Text_Io.Float_Io (Distance);
+
+   Arc_Length : constant Distance := Major_Arc_Length (Angle_1 =>  10.0,
+                                                       Angle_2 => 120.0,
+                                                       Radius  =>  10.0);
+begin
+   Put ("Arc length : ");
+   Distance_Io.Put (Arc_Length, Exp => 0, Aft => 4);
+   New_Line;
+end Calculate_Arc_Length;</syntaxhighlight>
+{{out}}
+<pre>
+Arc length : 43.6332
+</pre>
+
+Ada can be simple and concise:
+<syntaxhighlight lang="ada">
+with ada.float_text_io; use ada.float_text_io; -- for put()
+with ada.numerics; use ada.numerics;           -- for pi
+with ada.text_io; use ada.text_io;             -- for new_line
+
+procedure arc_length_simple is
+
+   function arc_length(radius, deg1, deg2: Float) return Float is
+      ((360.0 - abs(deg1 - deg2)) * pi * radius / 180.0);
+
+begin
+   put(arc_length(10.0, 120.0, 10.0), fore=>0, aft=>15, exp=>0);
+   new_line;
+end arc_length_simple;
+</syntaxhighlight>
+
+Ada can do automatic compile-time checking of types.  In this example, degrees and radians cannot be accidentally mixed:
+<syntaxhighlight lang="ada">
+with ada.float_text_io; use ada.float_text_io; -- for put()
+with ada.numerics; use ada.numerics;           -- for pi
+with ada.text_io; use ada.text_io;             -- for new_line
+
+procedure arc_length_both is
+   type Degree is new Float;
+   type Radian is new Float;
+
+   function arc_length(radius: Float; deg1, deg2: Degree) return Float is
+      ((360.0 - abs(Float(deg1) - Float(deg2))) * radius * pi / 180.0);
+
+   function arc_length(radius: Float; rad1, rad2: Radian) return Float is
+      ((2.0 * pi - abs(Float(rad1) - Float(rad2))) * radius);
+
+  d1 : Degree := 120.0;
+  d2 : Degree :=  10.0;
+  r1 : Radian := Radian(d1) * pi / 180.0;
+  r2 : Radian := Radian(d2) * pi / 180.0;
+begin
+   put(arc_length(10.0, d1, d2), fore=>0, aft=>15, exp=>0);
+   new_line;
+   put(arc_length(10.0, r1, r2), fore=>0, aft=>15, exp=>0);
+   new_line;
+   -- Next line will not compile as you cannot mix Degree and Radian
+   -- put(arc_length(10.0, d1, r2), fore=>0, aft=>15, exp=>0);
+end arc_length_both;
+</syntaxhighlight>

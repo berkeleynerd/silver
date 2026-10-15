@@ -1,0 +1,103 @@
+=={{header|Ada}}==
+The first part of the task is to ''create a routine to generate a list of the proper divisors''. To ease the re-use of this routine for other tasks, such as ''Abundant, Deficient and Perfect Number Classification'' 
+[[http://rosettacode.org/wiki/Abundant,_deficient_and_perfect_number_classifications#Ada]],
+''Abundant Odd Number''
+[[http://rosettacode.org/wiki/Abundant_odd_numbers#Ada]], 
+and ''Amicable Pairs'' 
+[[http://rosettacode.org/wiki/Amicable_pairs#Ada]], we define this routine as a function of a generic package:
+
+<syntaxhighlight lang="ada">generic
+   type Result_Type (<>) is limited private;
+   None: Result_Type;
+   with function One(X: Positive) return Result_Type;
+   with function Add(X, Y: Result_Type) return Result_Type 
+      is <>;
+package Generic_Divisors is
+  
+  function Process
+    (N: Positive; First: Positive := 1) return Result_Type is      
+      (if First**2 > N or First = N then None 
+      elsif (N mod First)=0 then 
+	(if First = 1 or First*First = N 
+	   then Add(One(First), Process(N, First+1))
+	   else Add(One(First), 
+		    Add(One((N/First)), Process(N, First+1))))
+      else Process(N, First+1));
+      
+end Generic_Divisors;</syntaxhighlight>
+
+Now we instantiate the ''generic package'' to solve the other two parts of the task. Observe that there are two different instantiations of the package: one to generate a list of proper divisors, another one to count the number of proper divisors without actually generating such a list:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Containers.Generic_Array_Sort, Generic_Divisors;
+
+procedure Proper_Divisors is
+   
+begin
+   -- show the proper divisors of the numbers 1 to 10 inclusive.
+   declare
+      type Pos_Arr is array(Positive range <>) of Positive;
+      subtype Single_Pos_Arr is Pos_Arr(1 .. 1);
+      Empty: Pos_Arr(1 .. 0); 
+      
+      function Arr(P: Positive) return Single_Pos_Arr is ((others => P));
+      
+      package Divisor_List is new Generic_Divisors
+	(Result_Type => Pos_Arr, None => Empty, One => Arr, Add =>  "&");
+      
+      procedure Sort is new Ada.Containers.Generic_Array_Sort
+	(Positive, Positive, Pos_Arr);
+   begin
+      for I in 1 .. 10 loop
+	 declare
+	    List: Pos_Arr := Divisor_List.Process(I);
+	 begin
+	    Ada.Text_IO.Put
+	      (Positive'Image(I) & " has" & 
+		 Natural'Image(List'Length) & " proper divisors:");
+	    Sort(List);
+	    for Item of List loop
+	       Ada.Text_IO.Put(Positive'Image(Item));
+	    end loop;
+	    Ada.Text_IO.New_Line;
+	 end;
+      end loop;
+   end;
+   
+   -- find a number 1 .. 20,000 with the most proper divisors
+   declare
+      Number: Positive := 1;
+      Number_Count: Natural := 0;
+      Current_Count: Natural;
+      
+      function Cnt(P: Positive) return Positive is (1);
+   
+      package Divisor_Count is new Generic_Divisors
+	(Result_Type => Natural, None => 0, One => Cnt, Add =>  "+");
+      
+   begin
+      for Current in 1 .. 20_000 loop
+	 Current_Count := Divisor_Count.Process(Current);
+	 if Current_Count > Number_Count then
+	    Number := Current;
+	    Number_Count := Current_Count;
+	 end if;
+      end loop;
+      Ada.Text_IO.Put_Line
+	(Positive'Image(Number) & " has the maximum number of" & 
+	   Natural'Image(Number_Count) & " proper divisors.");
+   end;
+end Proper_Divisors; </syntaxhighlight>
+
+{{out}}
+<pre> 1 has 0 proper divisors:
+ 2 has 1 proper divisors: 1
+ 3 has 1 proper divisors: 1
+ 4 has 2 proper divisors: 1 2
+ 5 has 1 proper divisors: 1
+ 6 has 3 proper divisors: 1 2 3
+ 7 has 1 proper divisors: 1
+ 8 has 3 proper divisors: 1 2 4
+ 9 has 2 proper divisors: 1 3
+ 10 has 3 proper divisors: 1 2 5
+
+ 15120 has the maximum number of 79 proper divisors.</pre>

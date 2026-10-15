@@ -1,0 +1,18 @@
+{{task}}
+
+A [https://en.wiktionary.org/wiki/semordnilap#Noun semordnilap] is a word (or phrase) that spells a different word (or phrase) backward. "Semordnilap" is a word that itself is a semordnilap.
+
+Example: ''lager'' and ''regal''
+<br><br> 
+;Task
+This task does not consider semordnilap phrases, only single words.
+Using only words from the <code>unixdict.txt</code> word list (<u>[https://raw.githubusercontent.com/thundergnat/rc-run/refs/heads/master/rc/resources/unixdict.txt here]</u> is a copy), report the total number of unique semordnilap pairs, and print 5 examples.
+Two matching semordnilaps, such as ''lager'' and ''regal'', should be counted as one unique pair.
+(Note that the word "semordnilap" is not in the above dictionary.)
+
+
+{{alertbox|#80FF00|A number of solutions download the word list directly from http://www.puzzlers.org/pub/wordlists/unixdict.txt which, unfortunately, is no longer available and so those solutions no longer work. <br> If you know any of the languages concerned, please either update the solution to download from the latest link above or, in the interests of future-proofing, consider using a local copy instead.}}
+
+
+{{Template:Strings}}
+<br><br>

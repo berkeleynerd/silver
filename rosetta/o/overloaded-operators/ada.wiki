@@ -1,0 +1,97 @@
+=={{header|Ada}}==
+Many Ada standard libraries overload operators. The following examples are taken from the Ada Language Reference Manual describing operators for vector and matrix types:
+
+<syntaxhighlight lang="ada">type Real_Vector is array (Integer range <>) of Real'Base;
+type Real_Matrix is array (Integer range <>, Integer range <>) of Real'Base;
+-- Real_Vector arithmetic operations
+   function "+"   (Right : Real_Vector)       return Real_Vector;
+   function "-"   (Right : Real_Vector)       return Real_Vector;
+   function "abs" (Right : Real_Vector)       return Real_Vector;
+   function "+"   (Left, Right : Real_Vector) return Real_Vector;
+   function "-"   (Left, Right : Real_Vector) return Real_Vector;
+   function "*"   (Left, Right : Real_Vector) return Real'Base;
+   function "abs" (Right : Real_Vector)       return Real'Base;
+   -- Real_Vector scaling operations
+   function "*" (Left : Real'Base;   Right : Real_Vector)
+      return Real_Vector;
+   function "*" (Left : Real_Vector; Right : Real'Base)
+      return Real_Vector;
+   function "/" (Left : Real_Vector; Right : Real'Base)
+      return Real_Vector;
+   -- Real_Matrix arithmetic operations
+   function "+"       (Right : Real_Matrix) return Real_Matrix;
+   function "-"       (Right : Real_Matrix) return Real_Matrix;
+   function "abs"     (Right : Real_Matrix) return Real_Matrix;
+   function Transpose (X     : Real_Matrix) return Real_Matrix;
+   function "+" (Left, Right : Real_Matrix) return Real_Matrix;
+   function "-" (Left, Right : Real_Matrix) return Real_Matrix;
+   function "*" (Left, Right : Real_Matrix) return Real_Matrix;
+   function "*" (Left, Right : Real_Vector) return Real_Matrix;
+   function "*" (Left : Real_Vector; Right : Real_Matrix)
+      return Real_Vector;
+   function "*" (Left : Real_Matrix; Right : Real_Vector)
+      return Real_Vector;
+   -- Real_Matrix scaling operations
+   function "*" (Left : Real'Base;   Right : Real_Matrix)
+      return Real_Matrix;
+   function "*" (Left : Real_Matrix; Right : Real'Base)
+      return Real_Matrix;
+   function "/" (Left : Real_Matrix; Right : Real'Base)
+      return Real_Matrix;</syntaxhighlight>
+
+The following examples are from the Ada package Ada.Numerics.Generic_Complex_Types
+
+<syntaxhighlight lang="ada">   function "+"       (Right : Complex) return Complex;
+   function "-"       (Right : Complex) return Complex;
+   function Conjugate (X     : Complex) return Complex;
+
+   function "+" (Left, Right : Complex) return Complex;
+   function "-" (Left, Right : Complex) return Complex;
+   function "*" (Left, Right : Complex) return Complex;
+   function "/" (Left, Right : Complex) return Complex;
+
+   function "**" (Left : Complex; Right : Integer) return Complex;
+
+   function "+"       (Right : Imaginary) return Imaginary;
+   function "-"       (Right : Imaginary) return Imaginary;
+   function Conjugate (X     : Imaginary) return Imaginary renames "-";
+   function "abs"     (Right : Imaginary) return Real'Base;
+
+   function "+" (Left, Right : Imaginary) return Imaginary;
+   function "-" (Left, Right : Imaginary) return Imaginary;
+   function "*" (Left, Right : Imaginary) return Real'Base;
+   function "/" (Left, Right : Imaginary) return Real'Base;
+
+   function "**" (Left : Imaginary; Right : Integer) return Complex;
+
+   function "<"  (Left, Right : Imaginary) return Boolean;
+   function "<=" (Left, Right : Imaginary) return Boolean;
+   function ">"  (Left, Right : Imaginary) return Boolean;
+   function ">=" (Left, Right : Imaginary) return Boolean;
+
+   function "+" (Left : Complex;   Right : Real'Base) return Complex;
+   function "+" (Left : Real'Base; Right : Complex)   return Complex;
+   function "-" (Left : Complex;   Right : Real'Base) return Complex;
+   function "-" (Left : Real'Base; Right : Complex)   return Complex;
+   function "*" (Left : Complex;   Right : Real'Base) return Complex;
+   function "*" (Left : Real'Base; Right : Complex)   return Complex;
+   function "/" (Left : Complex;   Right : Real'Base) return Complex;
+   function "/" (Left : Real'Base; Right : Complex)   return Complex;
+
+   function "+" (Left : Complex;   Right : Imaginary) return Complex;
+   function "+" (Left : Imaginary; Right : Complex)   return Complex;
+   function "-" (Left : Complex;   Right : Imaginary) return Complex;
+   function "-" (Left : Imaginary; Right : Complex)   return Complex;
+   function "*" (Left : Complex;   Right : Imaginary) return Complex;
+   function "*" (Left : Imaginary; Right : Complex)   return Complex;
+   function "/" (Left : Complex;   Right : Imaginary) return Complex;
+   function "/" (Left : Imaginary; Right : Complex)   return Complex;
+
+   function "+" (Left : Imaginary; Right : Real'Base) return Complex;
+   function "+" (Left : Real'Base; Right : Imaginary) return Complex;
+   function "-" (Left : Imaginary; Right : Real'Base) return Complex;
+   function "-" (Left : Real'Base; Right : Imaginary) return Complex;
+   function "*" (Left : Imaginary; Right : Real'Base) return Imaginary;
+   function "*" (Left : Real'Base; Right : Imaginary) return Imaginary;
+   function "/" (Left : Imaginary; Right : Real'Base) return Imaginary;
+   function "/" (Left : Real'Base; Right : Imaginary) return Imaginary;</syntaxhighlight>

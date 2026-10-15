@@ -1,0 +1,13 @@
+=={{header|Ada}}==
+Some common language defined pragmas:
+* pragma assert(expression, error_message)
+* pragma Import(...) and pragma Export(...) to interface other languages, commonly C
+* pragma Inline(function_name) perform inline expansion of the function
+* pragma Optimize(Time/Space/Off) Implementation defined, attempts to optimize memory usage for speed or time.
+* pragma Pack(type) attempts to minimize memory usage for the type, even if it means slower memory access. A representation clause specifying bit size is usually used instead of this.
+* pragma Suppress(identifier) and pragma Unsuppress(identifier) for enabling/disabling any of the many language checks.
+Some pragmas are also implementation defined, the commonly used GNAT provides many, such as:
+* pragma Unreferenced(name) suppresses warnings about unused entities, and raises warnings if they are in fact referenced. 
+There are far too many pragmas to list here, but a standard informative list can be found in Annex L of the documentation if you have it installed. Or found at:
+* [http://www.adaic.org/resources/add_content/standards/05rm/html/RM-L.html Annex L - Language-Defined Pragmas]
+* [http://gcc.gnu.org/onlinedocs/gnat_rm/Implementation-Defined-Pragmas.html GNAT Implementation Defined Pragmas]

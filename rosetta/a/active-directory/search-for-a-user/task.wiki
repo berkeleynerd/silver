@@ -1,0 +1,4 @@
+[[Category:Active Directory]]
+{{task|Programming environment operations}}
+
+Make sure you [[Connect to Active Directory]]

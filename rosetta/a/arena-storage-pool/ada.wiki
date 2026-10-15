@@ -1,0 +1,71 @@
+=={{header|Ada}}==
+In [[Ada]] the choice of storage pool is controlled by the type of the pointer. Objects pointed by anonymous access types are allocated in the default storage pool. Pool-specific pointer types may get a pool assigned to them:
+<syntaxhighlight lang="ada">type My_Pointer is access My_Object;
+for My_Pointer'Storage_Pool use My_Pool;</syntaxhighlight>
+The following example illustrates implementation of an arena pool. Specification:
+<syntaxhighlight lang="ada">with System.Storage_Elements;  use System.Storage_Elements;
+with System.Storage_Pools;     use System.Storage_Pools;
+
+package Arena_Pools is
+   type Arena (Size : Storage_Count) is new Root_Storage_Pool with private;
+   overriding
+      procedure Allocate
+                (  Pool      : in out Arena;
+                   Address   : out System.Address;
+                   Size      : Storage_Count;
+                   Alignment : Storage_Count
+                );
+   overriding
+      procedure Deallocate
+                (  Pool      : in out Arena;
+                   Address   : System.Address;
+                   Size      : Storage_Count;
+                   Alignment : Storage_Count
+                )  is null;
+   overriding
+      function Storage_Size (Pool : Arena) return Storage_Count;
+private
+   type Arena (Size : Storage_Count) is new Root_Storage_Pool with record
+      Free : Storage_Offset := 1;
+      Core : Storage_Array (1..Size);
+   end record;
+end Arena_Pools;</syntaxhighlight>
+Here is an implementation of the package:
+<syntaxhighlight lang="ada">package body Arena_Pools is
+   procedure Allocate
+             (  Pool      : in out Arena;
+                Address   : out System.Address;
+                Size      : Storage_Count;
+                Alignment : Storage_Count
+             )  is
+      Free : constant Storage_Offset :=
+         Pool.Free + Alignment - Pool.Core (Pool.Free)'Address mod Alignment + Size;
+   begin
+      if Free - 1 > Pool.Size then
+         raise Storage_Error;
+      end if;
+      Pool.Free := Free;
+      Address := Pool.Core (Pool.Free - Size)'Address;
+   end Allocate;
+
+   function Storage_Size (Pool : Arena) return Storage_Count is
+   begin
+      return Pool.Size;
+   end Storage_Size;
+end Arena_Pools;</syntaxhighlight>
+The following is a test program that uses the pool:
+<syntaxhighlight lang="ada">with Arena_Pools;
+use  Arena_Pools;
+
+procedure Test_Allocator is
+   Pool : Arena_Pools.Arena (1024);
+   type Integer_Ptr is access Integer;
+   for Integer_Ptr'Storage_Pool use Pool;
+   
+   X : Integer_Ptr := new Integer'(1);
+   Y : Integer_Ptr := new Integer'(2);
+   Z : Integer_Ptr;
+begin
+   Z := new Integer;
+   Z.all := X.all + Y.all;
+end Test_Allocator;</syntaxhighlight>

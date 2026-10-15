@@ -1,0 +1,46 @@
+==={{header|FreeBASIC}}===
+<syntaxhighlight lang="freebasic">Function isPrime(Byval ValorEval As Integer) As Boolean
+    If ValorEval <= 1 Then Return False
+    For i As Integer = 2 To Int(Sqr(ValorEval))
+        If ValorEval Mod i = 0 Then Return False
+    Next i
+    Return True
+End Function
+
+Dim As Integer n = 0, num = 0, suma
+print "The first 20 pairs of numbers whose sum is prime:"
+Do
+    n += 1
+    suma = 2*n+1
+    If isPrime(suma) Then
+        num += 1
+        If num < 21 Then
+            Print using "## + ## = ##"; n; (n+1); suma
+        Else
+            Exit Do
+        End If
+    End If
+Loop
+Sleep</syntaxhighlight>
+{{out}}
+<pre>The first 20 pairs of numbers whose sum is prime:
+ 1 +  2 =  3
+ 2 +  3 =  5
+ 3 +  4 =  7
+ 5 +  6 = 11
+ 6 +  7 = 13
+ 8 +  9 = 17
+ 9 + 10 = 19
+11 + 12 = 23
+14 + 15 = 29
+15 + 16 = 31
+18 + 19 = 37
+20 + 21 = 41
+21 + 22 = 43
+23 + 24 = 47
+26 + 27 = 53
+29 + 30 = 59
+30 + 31 = 61
+33 + 34 = 67
+35 + 36 = 71
+36 + 37 = 73</pre>

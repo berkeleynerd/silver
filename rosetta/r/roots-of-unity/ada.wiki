@@ -1,0 +1,101 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;                 use Ada.Text_IO;
+with Ada.Float_Text_IO;           use Ada.Float_Text_IO;
+with Ada.Numerics.Complex_Types;  use Ada.Numerics.Complex_Types;
+
+procedure Roots_Of_Unity is
+   Root : Complex;
+begin
+   for N in 2..10 loop
+      Put_Line ("N =" & Integer'Image (N));
+      for K in 0..N - 1 loop
+         Root :=
+             Compose_From_Polar
+             (  Modulus  => 1.0,
+                Argument => Float (K),
+                Cycle    => Float (N)
+             );
+            -- Output
+         Put ("   k =" & Integer'Image (K) & ", ");
+         if Re (Root) < 0.0 then
+            Put ("-");
+         else
+            Put ("+");
+         end if;
+         Put (abs Re (Root), Fore => 1, Exp => 0);
+         if Im (Root) < 0.0 then
+            Put ("-");
+         else
+            Put ("+");
+         end if;
+         Put (abs Im (Root), Fore => 1, Exp => 0);
+         Put_Line ("i");
+      end loop;
+   end loop;
+end Roots_Of_Unity;</syntaxhighlight>
+[[Ada]] provides a direct implementation of polar composition of complex numbers ''x e''<sup>2&pi;''i y''</sup>. The function Compose_From_Polar is used to compose roots. The third argument of the function is the cycle. Instead of the standard cycle 2&pi;, N is used. Sample output:
+<pre style="height:25ex;overflow:scroll">
+N = 2
+   k = 0, +1.00000+0.00000i
+   k = 1, -1.00000+0.00000i
+N = 3
+   k = 0, +1.00000+0.00000i
+   k = 1, -0.50000+0.86603i
+   k = 2, -0.50000-0.86603i
+N = 4
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.00000+1.00000i
+   k = 2, -1.00000+0.00000i
+   k = 3, +0.00000-1.00000i
+N = 5
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.30902+0.95106i
+   k = 2, -0.80902+0.58779i
+   k = 3, -0.80902-0.58779i
+   k = 4, +0.30902-0.95106i
+N = 6
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.50000+0.86603i
+   k = 2, -0.50000+0.86603i
+   k = 3, -1.00000+0.00000i
+   k = 4, -0.50000-0.86603i
+   k = 5, +0.50000-0.86603i
+N = 7
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.62349+0.78183i
+   k = 2, -0.22252+0.97493i
+   k = 3, -0.90097+0.43388i
+   k = 4, -0.90097-0.43388i
+   k = 5, -0.22252-0.97493i
+   k = 6, +0.62349-0.78183i
+N = 8
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.70711+0.70711i
+   k = 2, +0.00000+1.00000i
+   k = 3, -0.70711+0.70711i
+   k = 4, -1.00000+0.00000i
+   k = 5, -0.70711-0.70711i
+   k = 6, +0.00000-1.00000i
+   k = 7, +0.70711-0.70711i
+N = 9
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.76604+0.64279i
+   k = 2, +0.17365+0.98481i
+   k = 3, -0.50000+0.86603i
+   k = 4, -0.93969+0.34202i
+   k = 5, -0.93969-0.34202i
+   k = 6, -0.50000-0.86603i
+   k = 7, +0.17365-0.98481i
+   k = 8, +0.76604-0.64279i
+N = 10
+   k = 0, +1.00000+0.00000i
+   k = 1, +0.80902+0.58779i
+   k = 2, +0.30902+0.95106i
+   k = 3, -0.30902+0.95106i
+   k = 4, -0.80902+0.58779i
+   k = 5, -1.00000+0.00000i
+   k = 6, -0.80902-0.58779i
+   k = 7, -0.30902-0.95106i
+   k = 8, +0.30902-0.95106i
+   k = 9, +0.80902-0.58779i
+</pre>

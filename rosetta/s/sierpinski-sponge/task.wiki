@@ -1,0 +1,5 @@
+{{draft task}}
+
+;Task
+Draw a 3D [https://en.wikipedia.org/wiki/Menger_sponge Sierpinski sponge] on this page in your language.
+</br>

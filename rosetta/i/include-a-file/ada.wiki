@@ -1,0 +1,10 @@
+=={{header|Ada}}==
+Some remarks are necessary here.
+Ada does not define how the source code is stored in files. The language rather talks about compilation units. A compilation unit "imports" another compilation unit by using context clauses - these have the syntax "with CU1, CU2, ...;". All compilers I know of require in their standard mode exactly one compilation unit per file; also file naming conventions vary. However GNAT e.g. has a mode that can deal with files holding several compilation units and any file name conventions.
+<syntaxhighlight lang="ada">with Ada.Text_IO, Another_Package; use Ada.Text_IO;    
+  -- the with-clause tells the compiler to include the Text_IO package from the Ada standard 
+  -- and Another_Package. Subprograms from these packages may be called as follows: 
+  --               Ada.Text_IO.Put_Line("some text");
+  --               Another_Package.Do_Something("some text"); 
+  -- The use-clause allows the program author to write a subprogram call shortly as 
+  --               Put_Line("some text");</syntaxhighlight>

@@ -1,0 +1,8 @@
+=={{header|Ada}}==
+Ada 2005 has added interfaces, allowing a limited form of multiple inheritance.
+<syntaxhighlight lang="ada">package Multiple_Interfaces is
+   type Camera is tagged null record;
+   type Mobile_Phone is limited Interface;
+   type Camera_Phone is new Camera and Mobile_Phone with null record;
+end Multiple_Interfaces;</syntaxhighlight>
+{{omit from|Modula-2}}

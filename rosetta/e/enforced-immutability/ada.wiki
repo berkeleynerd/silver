@@ -1,0 +1,12 @@
+=={{header|Ada}}==
+Ada provides the <code>constant</code> keyword:
+<syntaxhighlight lang="ada">Foo : constant := 42;
+Foo : constant Blahtype := Blahvalue;</syntaxhighlight>
+Types can be declared as limited: Objects of these types cannot be changed and also not compared nor copied:
+<syntaxhighlight lang="ada">type T is limited private;  -- inner structure is hidden
+X, Y: T;
+B: Boolean;
+-- The following operations do not exist:
+X := Y;  -- illegal (cannot be compiled
+B := X = Y;  -- illegal
+</syntaxhighlight>

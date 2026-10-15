@@ -1,0 +1,58 @@
+=={{header|Ada}}==
+
+<syntaxhighlight lang="ada">with Ada.Command_Line, Ada.Text_IO, Ada.Strings.Fixed;
+
+procedure Rep_String is
+   
+   function Find_Largest_Rep_String(S:String) return String is
+      L: Natural := S'Length;
+   begin
+      for I in reverse 1 .. L/2 loop
+	 declare
+	    use Ada.Strings.Fixed;
+	    T: String := S(S'First .. S'First + I-1); -- the first I characters of S
+	    U: String := (1+(L/I)) * T; -- repeat T so often that U'Length >= L
+	 begin -- compare first L characers of U with S
+	    if U(U'First .. U'First + S'Length -1) = S then
+	       return T; -- T is a rep-string
+	    end if;
+	 end;
+      end loop;
+      return ""; -- no rep string;
+   end Find_Largest_Rep_String;
+   
+   X: String := Ada.Command_Line.Argument(1);
+   Y: String := Find_Largest_Rep_String(X);
+   
+begin
+   if Y="" then
+      Ada.Text_IO.Put_Line("No rep-string for """ & X & """");
+   else
+      Ada.Text_IO.Put_Line("Longest rep-string for """& X &""": """& Y &"""");
+   end if;
+end Rep_String;</syntaxhighlight>
+
+{{out}}
+
+<pre>> ./rep_string 1001110011
+Longest rep-string for "1001110011": "10011"
+> ./rep_string 1110111011
+Longest rep-string for "1110111011": "1110"
+> ./rep_string 0010010010
+Longest rep-string for "0010010010": "001"
+> ./rep_string 1010101010
+Longest rep-string for "1010101010": "1010"
+> ./rep_string 1111111111
+Longest rep-string for "1111111111": "11111"
+> ./rep_string 0100101101
+No rep-string for "0100101101"
+> ./rep_string 0100100
+Longest rep-string for "0100100": "010"
+> ./rep_string 101
+No rep-string for "101"
+> ./rep_string 11
+Longest rep-string for "11": "1"
+> ./rep_string 00
+Longest rep-string for "00": "0"
+> ./rep_string 1
+No rep-string for "1"</pre>

@@ -1,0 +1,42 @@
+=={{header|FreeBASIC}}==
+FreeBASIC does not support object-oriented programming, but we can handle the invocation of an undefined method on an object using a data structure such as a dictionary that maps method names to functions. If the method is not defined in the dictionary, you can provide a default response.
+<syntaxhighlight lang="vbnet">Type Method
+    Func As Function() As String
+End Type
+
+Function DefaultMethod() As String
+    Return "no such method"
+End Function
+
+Type Objeto
+    Methods As Method Ptr
+End Type
+
+Sub Invoke(obj As Objeto, methodName As String)
+    If methodName = "exists" Then
+        Print obj.Methods->Func()
+    Else
+        Print DefaultMethod()
+    End If
+End Sub
+
+Function exists() As String
+    Return "exists"
+End Function
+
+Function CreateObject() As Objeto
+    Dim As Objeto obj
+    Dim As Method met
+    met.Func = @exists
+    obj.Methods = @met
+    Return obj
+End Function
+
+Dim As Objeto o = CreateObject()
+Invoke(o, "exists")
+Invoke(o, "non_existent_method")
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>exists
+no such method</pre>

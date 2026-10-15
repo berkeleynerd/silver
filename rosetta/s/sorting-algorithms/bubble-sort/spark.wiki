@@ -1,0 +1,358 @@
+=={{header|SPARK}}==
+{{works with|SPARK GPL|2010}}
+
+The first version is based on the Ada version, with Integer for both the array index and the array element.
+
+Static analysis of this code shows that it is guaranteed free of any run-time error when called from any other SPARK code.
+<syntaxhighlight lang="ada">package Bubble
+is
+
+   type Arr is array(Integer range <>) of Integer;
+
+   procedure Sort (A : in out Arr);
+   --# derives A from *;
+
+end Bubble;
+
+
+package body Bubble
+is
+   procedure Sort (A : in out Arr)
+   is
+      Finished : Boolean;
+      Temp     : Integer;
+   begin
+      if A'Last /= A'First then
+         loop
+            Finished := True;
+            for J in Integer range A'First .. A'Last - 1 loop
+               if A (J + 1) < A (J) then
+                  Finished := False;
+                  Temp := A (J + 1);
+                  A (J + 1) := A (J);
+                  A (J) := Temp;
+               end if;
+            end loop;
+            --# assert A'Last /= A'First;
+            exit when Finished;
+         end loop;
+      end if;
+   end Sort;
+
+end Bubble;
+</syntaxhighlight>
+The next version has a postcondition to guarantee that the returned array is sorted correctly.  This requires the two proof rules that follow the source.  The Ada code is identical with the first version.
+<syntaxhighlight lang="ada">package Bubble
+is
+   
+   type Arr is array(Integer range <>) of Integer;
+
+   --  Sorted is a proof function with the definition:
+   --    Sorted(A, From_I, To_I)
+   --      <->
+   --    (for all I in Integer range From_I .. To_I - 1 =>
+   --               (A(I) <= A(I + 1))) .
+   --
+   --# function Sorted (A            : Arr;
+   --#                  From_I, To_I : Integer) return Boolean;
+   
+   procedure Sort (A : in out Arr);
+   --# derives A from *;
+   --# post Sorted(A, A'First, A'Last);
+   
+end Bubble;
+
+
+package body Bubble
+is
+   procedure Sort (A : in out Arr)
+   is
+      Finished : Boolean;
+      Temp     : Integer;
+   begin
+      if A'Last > A'First then
+         loop
+            Finished := True;
+            for J in Integer range A'First .. A'Last - 1
+            --# assert Finished -> Sorted(A, A'First, J);
+            loop
+               if A (J + 1) < A (J) then
+                  Finished := False;
+                  Temp := A (J + 1);
+                  A (J + 1) := A (J);
+                  A (J) := Temp;
+               end if;
+            end loop;
+            --# assert A'Last /= A'First
+            --#   and  (Finished -> Sorted(A, A'First, A'Last));
+            exit when Finished;
+         end loop;
+      end if;
+   end Sort;
+   
+end Bubble;
+</syntaxhighlight>
+The proof rules are stated here without justification (but they are fairly obvious). A formal proof of these rules from the definition of Sorted has been completed.
+<pre>
+bubble_sort_rule(1): sorted(A, I, J)
+                       may_be_deduced_from
+                     [ J <= I ] .
+
+bubble_sort_rule(2): Fin -> sorted(A, I, J + 1)
+                       may_be_deduced_from
+                     [ Fin -> sorted(A, I, J),
+                       element(A, [J]) <= element(A, [J + 1]) ] .
+</pre>
+Both of the two versions above use an inner loop that scans over all the array on every pass of the outer loop.  This makes the proof in the second version very simple.
+
+The final version scans over a reducing portion of the array in the inner loop, consequently the proof becomes more complex. The package specification for this version is the same as the second version above. The package body defines two more proof functions.
+<syntaxhighlight lang="ada">package body Bubble
+is
+   procedure Sort (A : in out Arr)
+   is
+      Finished : Boolean;
+
+      --  In_Position is a proof function with the definition:
+      --    In_Position(A, A_Start, A_I, A_End)
+      --      <->
+      --    ((for all K in Integer range A_Start .. A_I - 1 =>
+      --                (A(K) <= A(A_I)))
+      --     and
+      --     Sorted(A, A_I, A_End) .
+      --
+      --# function In_Position (A                  : Arr;
+      --#                       A_Start, A_I, A_End : Integer) return Boolean;
+
+      --  Swapped is a proof function with the definition:
+      --    Swapped(A_In, A_Out, I1, I2)
+      --      <->
+      --    (A_Out = A_In[I1 => A_In(I2); I2 => A_In(I1)]).
+      --
+      --# function Swapped (A_In, A_Out : Arr;
+      --#                   I1, I2      : Integer) return Boolean;
+
+      procedure Swap (A  : in out Arr;
+                      I1 : in     Integer;
+                      I2 : in     Integer)
+      --# derives A from *, I1, I2;
+      --# pre  I1 in A'First .. A'Last
+      --#  and I2 in A'First .. A'Last;
+      --# post Swapped(A~, A, I1, I2);
+      is
+         Temp : Integer;
+      begin
+         Temp  := A(I2);
+         A(I2) := A(I1);
+         A(I1) := Temp;
+      end Swap;
+      pragma Inline (Swap);
+
+   begin
+      if A'Last > A'First then
+         for I in reverse Integer range A'First + 1 .. A'Last loop
+            Finished := True;
+            for J in Integer range A'First .. I - 1 loop
+               if A (J + 1) < A (J) then
+                  Finished := False;
+                  Swap (A, J, J + 1);
+               end if;
+               --# assert I% = I  --  I is unchanged by execution of the loop
+               --#   and  (for all K in Integer range A'First .. J =>
+               --#                    (A(K) <= A(J + 1)))
+               --#   and  (I < A'Last -> In_Position(A, A'First, I + 1, A'Last))
+               --#   and  (Finished -> Sorted(A, A'First, J + 1));
+            end loop;
+            exit when Finished;
+            --# assert In_Position(A, A'First, I, A'Last);
+         end loop;
+      end if;
+   end Sort;
+
+end Bubble;
+</syntaxhighlight>
+Completion of the proof of this version requires more rules than the previous version and they are rather more complex. Creation of these rules is quite straightforward - I tend to write whatever rules the Simplifier needs first and then validate them afterwards. A formal proof of these rules from the definition of Sorted, In_Position and Swapped has been completed.
+<pre>bubble_sort_rule(1):  sorted(A, I, J)
+                        may_be_deduced_from
+                      [ J <= I ] .
+
+bubble_sort_rule(2):  sorted(A, I - 1, J)
+                        may_be_deduced_from
+                      [ sorted(A, I, J),
+                        element(A, [I - 1]) <= element(A, [I]) ] .
+
+bubble_sort_rule(3):  Fin -> sorted(A, I, J + 1)
+                        may_be_deduced_from
+                      [ Fin -> sorted(A, I, J),
+                        element(A, [J]) <= element(A, [J + 1]) ] .
+
+bubble_sort_rule(4):  sorted(A, Fst, Lst)
+                        may_be_deduced_from
+                      [ sorted(A, Fst, I),
+                        I < Lst -> in_position(A, Fst, I + 1, Lst),
+                        I <= Lst ] .
+
+bubble_sort_rule(5):  in_position(A, Fst, I, Lst)
+                        may_be_deduced_from
+                      [ I < Lst -> in_position(A, Fst, I + 1, Lst),
+                        for_all(K : integer, Fst <= K and K <= I - 1
+                                  -> element(A, [K]) <= element(A, [I])),
+                        I >= Fst,
+                        I <= Lst ] .
+
+bubble_sort_rule(6):  I < Lst -> in_position(A2, Fst, I + 1, Lst)
+                        may_be_deduced_from
+                      [ I < Lst -> in_position(A1, Fst, I + 1, Lst),
+                        swapped(A1, A2, J + 1, J + 2),
+                        J + 2 < I + 1,
+                        J >= Fst ] .
+
+bubble_sort_rule(7):  I - 1 < Lst -> in_position(A2, Fst, I, Lst)
+                        may_be_deduced_from
+                      [ in_position(A1, Fst, I, Lst),
+                        swapped(A1, A2, J, J + 1),
+                        J + 1 < I,
+                        J >= Fst ] .
+
+bubble_sort_rule(8):  for_all(K : integer, I <= K and K <= I
+                                 -> element(A, [K]) <= element(A, [I + 1]))
+                        may_be_deduced_from
+                      [ element(A, [I]) <= element(A, [I + 1]) ] .
+
+bubble_sort_rule(9):  for_all(K : integer, I <= K and K <= I
+                                 -> element(A2, [K]) <= element(A2, [I + 1]))
+                        may_be_deduced_from
+                      [ element(A1, [I]) > element(A1, [I + 1]),
+                        swapped(A1, A2, I, I + 1) ] .
+
+bubble_sort_rule(10): for_all(K2 : integer, Fst <= K2 and K2 <= J + 1
+                                 -> element(A, [K2]) <= element(A, [J + 2]))
+                        may_be_deduced_from
+                      [ for_all(K1 : integer, Fst <= K1 and K1 <= J
+                                   -> element(A, [K1]) <= element(A, [J + 1])),
+                        element(A, [J + 1]) <= element(A, [J + 2]) ] .
+
+bubble_sort_rule(11): for_all(K2 : integer, Fst <= K2 and K2 <= J + 1
+                                 -> element(A2, [K2]) <= element(A2, [J + 2]))
+                        may_be_deduced_from
+                      [ for_all(K1 : integer, Fst <= K1 and K1 <= J
+                                   -> element(A1, [K1]) <= element(A1, [J + 1])),
+                        element(A1, [J + 1]) > element(A1, [J + 2]),
+                        swapped(A1, A2, J + 1, J + 2) ] .
+</pre>
+
+{{works with|SPARK GPL|2014}}
+
+File '''bubble.ads''':
+<syntaxhighlight lang="ada">package Bubble with SPARK_Mode is
+
+   type Arr is array (Integer range <>) of Integer;
+   
+   function Sorted (A : Arr) return Boolean is 
+     (for all I in A'First .. A'Last - 1 => A(I) <= A(I + 1))
+       with 
+         Ghost,
+         Pre => A'Last > Integer'First;
+      
+   function Bubbled (A : Arr) return Boolean is 
+     (for all I in A'First .. A'Last - 1 => A(I) <= A(A'Last))
+       with 
+         Ghost,
+         Pre => A'Last > Integer'First;
+    
+   procedure Sort (A : in out Arr) 
+     with 
+       Pre => A'Last > Integer'First and A'Last < Integer'Last,
+     Post => Sorted (A);
+    
+end Bubble;
+</syntaxhighlight>
+
+File '''bubble.adb''':
+<syntaxhighlight lang="ada">package body Bubble with SPARK_Mode is
+        
+   procedure Sort (A : in out Arr) 
+   is
+      Prev : Arr (A'Range) with Ghost;
+      Done : Boolean;   
+   begin
+      for I in reverse A'First .. A'Last - 1 loop
+         Prev := A;
+         Done := True;
+         for J in A'First .. I loop
+            if A(J) > A(J + 1) then
+               declare 
+                  TMP : Integer := A(J);
+               begin
+                  A(J) := A(J + 1);
+                  A(J + 1) := TMP;
+                  Done := False;
+               end;
+            end if;
+            pragma Loop_Invariant (if Done then Sorted (A(A'First .. J + 1)));
+            pragma Loop_Invariant (Bubbled (A(A'First .. J + 1)));
+            pragma Loop_Invariant (A(J + 2 .. A'Last) = Prev(J + 2 .. A'Last));
+            pragma Loop_Invariant (for some K in A'First .. J + 1 => 
+                                     A(J + 1) = Prev(K));
+         end loop;
+         exit when Done;
+         pragma Loop_Invariant (if Done then Sorted (A));
+         pragma Loop_Invariant (Bubbled (A(A'First .. I + 1)));
+         pragma Loop_Invariant (Sorted (A(I + 1 .. A'Last)));
+      end loop;
+   end Sort;
+   
+end Bubble;
+</syntaxhighlight>
+
+File '''main.adb''':
+<syntaxhighlight lang="ada">with Ada.Integer_Text_IO;
+with Bubble;
+
+procedure Main is
+   A : Bubble.Arr := (5,4,6,3,7,2,8,1,9);
+begin
+   Bubble.Sort (A);
+   for I in A'Range loop
+      Ada.Integer_Text_IO.Put (A(I));
+   end loop;
+end Main;
+</syntaxhighlight>
+
+File '''bubble.gpr''':
+<syntaxhighlight lang="ada">project Bubble is
+
+   for Main use ("main.adb");
+
+end Bubble;
+</syntaxhighlight>
+
+To verify the program, execute the command: '''gnatprove -P bubble.gpr -j0 --level=2'''
+
+File '''gnatprove/gnatprove.out''':
+<pre>Summary of SPARK analysis
+=========================
+
+--------------------------------------------------------------------------------------------------------------------
+SPARK Analysis results        Total       Flow   Interval   CodePeer                  Provers   Justified   Unproved
+--------------------------------------------------------------------------------------------------------------------
+Data Dependencies                 .          .          .          .                        .           .          .
+Flow Dependencies                 .          .          .          .                        .           .          .
+Initialization                    6          6          .          .                        .           .          .
+Non-Aliasing                      .          .          .          .                        .           .          .
+Run-time Checks                  36          .          .          .                36 (CVC4)           .          .
+Assertions                       14          .          .          .    14 (CVC4 64%, Z3 36%)           .          .
+Functional Contracts              7          .          .          .     7 (CVC4 89%, Z3 11%)           .          .
+LSP Verification                  .          .          .          .                        .           .          .
+--------------------------------------------------------------------------------------------------------------------
+Total                            63    6 (10%)          .          .                 57 (90%)           .          .
+
+
+Analyzed 2 units
+in unit bubble, 4 subprograms and packages out of 4 analyzed
+  Bubble at bubble.ads:1 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (0 checks)
+  Bubble.Bubbled at bubble.ads:11 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (3 checks)
+  Bubble.Sort at bubble.ads:17 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (50 checks)
+  Bubble.Sorted at bubble.ads:5 flow analyzed (0 errors, 0 checks and 0 warnings) and proved (4 checks)
+in unit main, 0 subprograms and packages out of 1 analyzed
+  Main at main.adb:4 skipped
+</pre>

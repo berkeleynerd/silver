@@ -1,0 +1,45 @@
+#include "vbcompat.bi"
+
+Function nthWeekday (anno As Integer, mes As Integer, dia_laborable As Integer, n As Integer) As Double
+    ' Day 1 of the month
+    Dim d As Double = Dateserial(anno, mes, 1)
+    
+    ' Weekday(): 1 = Sunday, 2 = Monday ... 7 = Saturday
+    Dim fdow As Integer = Weekday(d)
+    fdow = ((fdow + 5) Mod 7) + 1
+    
+    Dim diff As Integer = dia_laborable - fdow
+    Dim fwd As Double = d + diff + Iif(diff >= 0, 0, 7)
+    
+    Select Case n
+    Case 1
+        Return fwd
+    Case 2, 3
+        Return fwd + (n - 1) * 7
+        
+    Case 4, 5
+        Dim nwd As Double = fwd + (n - 1) * 7
+        If Month(nwd) = mes Then Return nwd
+    End Select
+    
+    Print "No such weekday exists for that month"
+    Exit Function
+End Function
+
+Function fmtDate(d As Double) As String
+    Dim m As String = Left(Monthname(Month(d)), 3)
+    Dim dd As String = Right("0" & Day(d), 2)
+    Return m & " " & dd
+End Function
+
+Print "     Thanksgiving Day"
+Print "Year  Canadian   American"
+Print String (25, "-")
+
+For anno As Integer = 2020 To 2029
+    Dim canadian As String = fmtDate(nthWeekday(anno, 10, 1, 2))
+    Dim american As String = fmtDate(nthWeekday(anno, 11, 4, 4))
+    Print Using "####   \    \     \    \"; anno; canadian; american
+Next
+
+Sleep

@@ -1,0 +1,6 @@
+{{task|Programming environment operations}}
+[[Category:Networking and Web Interaction]]
+
+;Task:
+Find the name of the host on which the routine is running.
+<br><br>

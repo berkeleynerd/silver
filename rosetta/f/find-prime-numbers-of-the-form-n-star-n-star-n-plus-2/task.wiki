@@ -1,0 +1,4 @@
+{{Draft task|Prime Numbers}}
+
+;Task: Find prime numbers of the form &nbsp; <big> n<sup>''3''</sup>+2</big>, &nbsp; where 0 < n < 200
+<br><br>

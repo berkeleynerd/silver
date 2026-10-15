@@ -1,0 +1,177 @@
+=={{header|Ada}}==
+===Task 1: Converging Sequence===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Converging_Sequence is
+   
+   generic
+      type Num is digits <>;
+      After: Positive;
+   procedure Task_1;
+      
+   procedure Task_1 is
+      package FIO is new Ada.Text_IO.Float_IO(Num);
+      package IIO is new Ada.Text_IO.Integer_IO(Integer);
+   
+      procedure Output (I: Integer; N: Num) is
+      begin
+	 IIO.Put(Item => I, Width => 4);
+	 FIO.Put(Item => N, Fore => 4, Aft =>  After, Exp => 0);
+	 Ada.Text_IO.New_Line;
+      end Output;
+   
+      Very_Old: Num :=  2.0;
+      Old:      Num := -4.0;
+      Now:        Num;
+   begin
+      Ada.Text_IO.Put_Line("Converging Sequence with" & Integer'Image(After) & 
+			     " digits");
+      for I in 3 .. 100 loop
+	 Now := 111.0  - 1130.0   /   Old   + 3000.0  /   (Old * Very_Old);
+	 Very_Old := Old;
+	 Old := Now;
+	 if (I < 9) or else (I=20 or I=30 or I=50 or I=100) then
+	    Output(I, Now);
+	 end if;
+      end loop;
+      Ada.Text_IO.New_Line;
+   end Task_1;
+   
+   type Short is digits(8);
+   type Long  is digits(16);
+   
+   procedure Task_With_Short is new Task_1(Short, 8);
+   procedure Task_With_Long  is new Task_1(Long, 16);
+begin
+   Task_With_Short;
+   Task_With_Long;
+end Converging_Sequence;</syntaxhighlight>
+
+{{out}}
+<pre>Converging Sequence with 8 digits
+   3  18.50000000
+   4   9.37837838
+   5   7.80115274
+   6   7.15441448
+   7   6.80678474
+   8   6.59263277
+  20  98.34950312
+  30 100.00000000
+  50 100.00000000
+ 100 100.00000000
+
+Converging Sequence with 16 digits
+   3  18.5000000000000000
+   4   9.3783783783783784
+   5   7.8011527377521614
+   6   7.1544144809752494
+   7   6.8067847369236337
+   8   6.5926327687044483
+  20   8.9530549789723472
+  30  99.9999999981565451
+  50 100.0000000000000000
+ 100 100.0000000000000000</pre>
+
+===Task 2: Chaotic Bank Society===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Numerics;
+
+procedure Chaotic_Bank is
+   
+   generic
+     type Num is digits <>;
+     After: Positive;
+   procedure Task_2;
+   
+   procedure Task_2 is
+      package IIO is new Ada.Text_IO.Integer_IO(Integer);
+      package FIO is new Ada.Text_IO.Float_IO(Num);
+      Balance: Num :=  Ada.Numerics.E - 1.0;
+   begin
+      Ada.Text_IO.Put_Line("Chaotic Bank Society with" & 
+			     Integer'Image(After) & " digits");
+      Ada.Text_IO.Put_Line("year        balance");
+      for year in 1 .. 25 loop
+	 Balance := (Balance * Num(year))- 1.0;
+	 IIO.Put(Item => Year, Width => 2);
+	 FIO.Put(Balance, Fore => 11, Aft => After, Exp => 0);
+	 Ada.Text_IO.New_Line;
+      end loop;
+      Ada.Text_IO.New_Line;
+   end Task_2;
+   
+   type Short is digits(8);
+   type Long  is digits(16);
+   
+   procedure Task_With_Short is new Task_2(Short, 8);
+   procedure Task_With_Long  is new Task_2(Long, 16);
+   
+begin
+   Task_With_Short;
+   Task_With_Long;
+end Chaotic_Bank;</syntaxhighlight>
+
+{{out}}
+
+<pre>Chaotic Bank Socienty with 8 digits
+year        balance
+ 1          0.71828183
+ 2          0.43656366
+ 3          0.30969097
+ 4          0.23876388
+...         ...
+16          0.06389363
+17          0.08619166
+18          0.55144980
+19          9.47754622
+20        188.55092437
+21       3958.56941176
+22      87087.52705873
+23    2003012.12235075
+24   48072289.93641794
+25 1201807247.41044855
+
+Chaotic Bank Socienty with 16 digits
+year        balance
+ 1          0.7182818284590452
+ 2          0.4365636569180905
+ 3          0.3096909707542714
+ 4          0.2387638830170856
+...         ...
+17          0.0586186042274583
+18          0.0551348760942503
+19          0.0475626457907552
+20         -0.0487470841848960
+21         -2.0236887678828168
+22        -45.5211528934219700
+23      -1047.9865165487053100
+24     -25152.6763971689275000
+25    -628817.9099292231860000</pre>
+
+===Task 3: Rump's Example===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;                                                                        
+                                                                                                          
+procedure Rumps_example is                                                                                
+                                                                                                          
+   type Short is digits(8);                                                                               
+   type Long  is digits(16);                                                                              
+                                                                                                          
+   A: constant := 77617.0;                                                                                
+   B: constant := 33096.0;                                                                                
+   C: constant := 333.75*B**6 + A**2*(11.0*A**2*B**2 - B**6 - 121.0*B**4 - 2.0) + 5.5*B**8 + A/(2.0*B);   
+                                                                                                          
+   package LIO is new Float_IO(Long);                                                                     
+   package SIO is new Float_IO(Short);                                                                    
+begin                                                                                                     
+   Put("Rump's Example, Short: ");                                                                        
+   SIO.Put(C, Fore => 1, Aft => 8, Exp => 0);  New_Line;                                                  
+   Put("Rump's Example, Long:  ");                                                                        
+   LIO.Put(C, Fore => 1, Aft => 16, Exp => 0); New_Line;                                                  
+end Rumps_example;  </syntaxhighlight>
+
+{{out}}
+
+<pre>Rump's Example, Short: -0.82739606
+Rump's Example, Long:  -0.827396059946821</pre>

@@ -1,0 +1,125 @@
+=={{header|Ada}}==
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; with Iterate_Subsets;
+
+procedure Permutation_Test is
+
+   type Group_Type is array(Positive range <>) of Positive;
+
+   Treat_Group: constant Group_Type := (85, 88, 75, 66, 25, 29, 83, 39, 97);
+   Ctrl_Group:  constant Group_Type := (68, 41, 10, 49, 16, 65, 32, 92, 28, 98);
+
+   package Iter is new Iterate_Subsets(Treat_Group'Length, Ctrl_Group'Length);
+
+   Full_Group: constant Group_Type(1 .. Iter.All_Elements)
+     := Treat_Group & Ctrl_Group;
+
+   function Mean(S: Iter.Subset) return Float is
+      Sum: Natural := 0;
+   begin
+      for I in S'Range loop
+         Sum := Sum + Full_Group(S(I));
+      end loop;
+      return Float(Sum)/Float(S'Length);
+   end Mean;
+
+   package FIO is new Ada.Text_IO.Float_IO(Float);
+
+   T_Avg: Float := Mean(Iter.First);
+   S_Avg: Float;
+   S:     Iter.Subset := Iter.First;
+   Equal:  Positive := 1; -- Mean(Iter'First) = Mean(Iter'First)
+   Higher: Natural  := 0;
+   Lower:  Natural  := 0;
+
+begin -- Permutation_Test;
+   -- first, count the subsets with a higher, an equal or a lower mean
+   loop
+      Iter.Next(S);
+      S_Avg := Mean(S);
+      if S_Avg = T_Avg then
+         Equal := Equal + 1;
+      elsif S_Avg >= T_Avg then
+         Higher := Higher + 1;
+      else
+         Lower := Lower + 1;
+      end if;
+      exit when Iter.Last(S);
+   end loop;
+
+   -- second, output the results
+   declare
+      use Ada.Text_IO;
+      Sum: Float := Float(Higher + Equal + Lower);
+   begin
+      Put("Less or Equal: ");
+      FIO.Put(100.0*Float(Lower+Equal) / Sum, Fore=>3, Aft=>1, Exp=>0);
+      Put(Integer'Image(Lower+Equal));
+      New_Line;
+      Put("More:          ");
+      FIO.Put(100.0*Float(Higher) / Sum,      Fore=>3, Aft=>1, Exp=>0);
+      Put(Integer'Image(Higher));
+      New_Line;
+   end;
+end Permutation_Test;</syntaxhighlight>
+
+This solution uses an auxiliary package Iterate_Subsets. Here is the Spec:
+<syntaxhighlight lang="ada">generic
+   Subset_Size, More_Elements: Positive;
+package Iterate_Subsets is
+
+   All_Elements: Positive := Subset_Size + More_Elements;
+   subtype Index is Integer range 1 .. All_Elements;
+   type Subset is array (1..Subset_Size) of Index;
+
+   -- iterate over all subsets of size Subset_Size
+   -- from the set {1, 2, ..., All_Element}
+
+   function First return Subset;
+   procedure Next(S: in out Subset);
+   function Last(S: Subset) return Boolean;
+
+end Iterate_Subsets;
+</syntaxhighlight>
+
+And here is the implementation:
+
+<syntaxhighlight lang="ada">package body Iterate_Subsets is
+
+   function First return Subset is
+      S: Subset;
+   begin
+      for I in S'Range loop
+         S(I) := I;
+      end loop;
+      return S;
+   end First;
+
+   procedure Next(S: in out Subset) is
+      I: Natural := S'Last;
+   begin
+      if S(I) < Index'Last then
+         S(I) := S(I) + 1;
+      else
+         while S(I-1)+1 = S(I) loop
+            I := I - 1;
+         end loop;
+         S(I-1) := S(I-1) + 1;
+         for J in I .. S'Last loop
+            S(J) := S(J-1) + 1;
+         end loop;
+      end if;
+      return;
+   end Next;
+
+   function Last(S: Subset) return Boolean is
+   begin
+      return S(S'First) = Index'Last-S'Length+1;
+   end Last;
+
+end Iterate_Subsets;</syntaxhighlight>
+
+{{out}}
+<pre>Less or Equal:  87.2 80551
+More:           12.8 11827
+</pre>

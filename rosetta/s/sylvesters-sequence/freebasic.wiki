@@ -1,0 +1,32 @@
+==={{header|FreeBASIC}}===
+'''precisión estándar'''
+<syntaxhighlight lang="freebasic">
+Dim As Double sylvester, suma = 0
+
+Print "10 primeros t‚rminos de la sucesi¢n de Sylvester:"
+
+For i As Byte = 1 To 10
+    sylvester = Iif(i=1, 2, sylvester*sylvester-sylvester+1)
+    Print Using "##: &"; i; sylvester
+    suma += 1 / sylvester
+Next i
+
+Print !"\nSuma de sus rec¡procos:"; suma
+Sleep
+</syntaxhighlight>
+{{out}}
+<pre>
+10 primeros términos de la sucesión de Sylvester:
+ 1: 2
+ 2: 3
+ 3: 7
+ 4: 43
+ 5: 1807
+ 6: 3263443
+ 7: 10650056950807
+ 8: 1.134237130554218E+26
+ 9: 1.286493868327867E+52
+10: 1.6550664732452E+104
+
+Suma de sus recíprocos: 0.9999999999999999
+</pre>

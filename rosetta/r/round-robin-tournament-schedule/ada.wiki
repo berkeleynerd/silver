@@ -1,0 +1,131 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">
+-- Create a round-robin schedule
+-- J. Carter     2023 May
+-- Circle method
+
+with Ada.Text_IO;
+
+procedure Round_Robin is
+   type Player_ID is range 1 .. 12;
+   
+   type Player_List is array (Player_ID) of Player_ID;
+
+   Circle : Player_List;
+   J      : Player_ID;
+begin -- Round_Robin
+   Fill : for I in Circle'Range loop
+      Circle (I) := I;
+   end loop Fill;
+   
+   All_Rounds : for Round in 1 .. Player_ID'Last - 1 loop
+      Ada.Text_IO.Put_Line (Item => "Round" & Round'Image);
+      J := Player_ID'Last;
+
+      Pairs : for I in 1 .. Player_ID'Last / 2 loop
+         Order : declare
+            Min : constant Player_ID := Player_ID'Min (Circle (I), Circle (J) );
+            Max : constant Player_ID := Player_ID'Max (Circle (I), Circle (J) );
+         begin -- Order
+            Ada.Text_IO.Put_Line (Item => Min'Image & " v" & Max'Image);
+            J := J - 1;
+         end Order;
+      end loop Pairs;
+      
+      Ada.Text_IO.New_Line;
+      Circle := Circle (Circle'First) & Circle (Circle'Last) & Circle (Circle'First + 1 .. Circle'Last - 1);
+   end loop All_Rounds;
+end Round_Robin;
+</syntaxhighlight>
+
+{{out}}
+<pre>
+Round 1
+ 1 v 12
+ 2 v 11
+ 3 v 10
+ 4 v 9
+ 5 v 8
+ 6 v 7
+
+Round 2
+ 1 v 11
+ 10 v 12
+ 2 v 9
+ 3 v 8
+ 4 v 7
+ 5 v 6
+
+Round 3
+ 1 v 10
+ 9 v 11
+ 8 v 12
+ 2 v 7
+ 3 v 6
+ 4 v 5
+
+Round 4
+ 1 v 9
+ 8 v 10
+ 7 v 11
+ 6 v 12
+ 2 v 5
+ 3 v 4
+
+Round 5
+ 1 v 8
+ 7 v 9
+ 6 v 10
+ 5 v 11
+ 4 v 12
+ 2 v 3
+
+Round 6
+ 1 v 7
+ 6 v 8
+ 5 v 9
+ 4 v 10
+ 3 v 11
+ 2 v 12
+
+Round 7
+ 1 v 6
+ 5 v 7
+ 4 v 8
+ 3 v 9
+ 2 v 10
+ 11 v 12
+
+Round 8
+ 1 v 5
+ 4 v 6
+ 3 v 7
+ 2 v 8
+ 9 v 12
+ 10 v 11
+
+Round 9
+ 1 v 4
+ 3 v 5
+ 2 v 6
+ 7 v 12
+ 8 v 11
+ 9 v 10
+
+Round 10
+ 1 v 3
+ 2 v 4
+ 5 v 12
+ 6 v 11
+ 7 v 10
+ 8 v 9
+
+Round 11
+ 1 v 2
+ 3 v 12
+ 4 v 11
+ 5 v 10
+ 6 v 9
+ 7 v 8
+
+</pre>

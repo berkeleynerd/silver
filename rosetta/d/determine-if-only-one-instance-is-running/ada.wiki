@@ -1,0 +1,33 @@
+=={{header|Ada}}==
+The following solution tries to open a file for reading. If the file does ''not'' exist, a 'Name_Error' is raised. The exception handler creates that file, allows the program to perform its task, and, eventually, makes sure the file is deleted. If no exception is raised, the file exists, so another instance is running, and the program stops. It also stops if the wrong exception is raised, i.e., any exception other than 'Name_Error'. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Single_Instance is
+
+   package IO renames Ada.Text_IO;
+   Lock_File: IO.File_Type;
+   Lock_File_Name: String := "single_instance.magic_lock";
+
+begin
+   begin
+      IO.Open(File => Lock_File, Mode=> IO.In_File, Name => Lock_File_Name);
+      IO.Close(Lock_File);
+      IO.Put_Line("I can't -- another instance of me is running ...");
+   exception
+      when IO.Name_Error =>
+         IO.Put_Line("I can run!");
+         IO.Create(File => Lock_File, Name => Lock_File_Name);
+         for I in 1 .. 10 loop
+            IO.Put(Integer'Image(I));
+            delay 1.0; -- wait one second
+         end loop;
+         IO.Delete(Lock_File);
+         IO.New_Line;
+         IO.Put_Line("I am done!");
+   end;
+exception
+   when others => IO.Delete(Lock_File);
+end Single_Instance;</syntaxhighlight>
+
+Note that there is a race condition: If another instance tries to open the file for reading, before the first one has created it, then more than one instance will actually run.

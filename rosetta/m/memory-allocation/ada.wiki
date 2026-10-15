@@ -1,0 +1,39 @@
+=={{header|Ada}}==
+===Stack===
+[[Stack]] in [[Ada]] is allocated by declaration of an object in some scope of a block or else a subprogram:
+<syntaxhighlight lang="ada">declare
+   X : Integer; -- Allocated on the stack
+begin
+   ...
+end; -- X is freed</syntaxhighlight>
+===Heap===
+[[Heap]] is allocated with the allocator '''new''' on the context where a pool-unspecific pointer is expected:
+<syntaxhighlight lang="ada">declare
+   type Integer_Ptr is access Integer;
+   Ptr : Integer_Ptr := new Integer; -- Allocated in the heap
+begin
+   ...
+end; -- Memory is freed because Integer_Ptr is finalized</syntaxhighlight>
+The memory allocated by '''new''' is freed when:
+* the type of the pointer leaves the scope;
+* the memory pool is finalized
+* an instance of Ada.Unchecked_Deallocation is explicitly called on the pointer
+<syntaxhighlight lang="ada">declare
+   type Integer_Ptr is access Integer;
+   procedure Free is new Ada.Unchecked_Deallocation (Integer, Integer_Ptr)
+   Ptr : Integer_Ptr := new Integer; -- Allocated in the heap
+begin
+   Free (Ptr); -- Explicit deallocation
+   ...
+end;</syntaxhighlight>
+===User pool===
+The allocator '''new''' also allocates memory in the user-defined storage pool when the pointer bound to the pool.
+===External memory===
+An object can be specified as allocated at the specific memory location, see [[Machine Address|machine address]].
+
+===Implicit allocation===
+Elaboration of compilation units may result in allocation of the objects declared in these units. For example:
+<syntaxhighlight lang="ada">package P is
+   X : Integer; -- Allocated in the result the package elaboration
+end P;</syntaxhighlight>
+The memory required by the object may be allocated statically or dynamically depending on the time of elaboration and its context. Objects declared in the library level packages are equivalent to what in some languages is called ''static'' object.

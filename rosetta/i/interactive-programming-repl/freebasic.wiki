@@ -1,0 +1,25 @@
+=={{header|FreeBASIC}}==
+
+FreeBASIC is a compiler rather than an interpreter and doesn't have an interactive mode as such.
+
+However, as simple programs can be written in a few lines and compile and execute very quickly, I think it's fair to say that the lack of an interpreter is not considered much of a drawback by most FB developers. 
+
+For example, the current task can be coded as follows and compiles/runs instantly :
+
+<syntaxhighlight lang="freebasic">' FB 1.05.0 Win64
+
+Dim As String s1, s2, sep
+Input "First string  "; s1
+Input "Second string "; s2
+Input "Separator     "; sep
+Print : Print  s1 + sep + sep + s2
+Sleep</syntaxhighlight>
+
+{{out}}
+<pre>
+First string  ? Rosetta
+Second string ? Code
+Separator     ? :
+
+Rosetta::Code
+</pre>

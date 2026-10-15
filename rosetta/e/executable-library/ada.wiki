@@ -1,0 +1,126 @@
+=={{header|Ada}}==
+
+In Ada, '''any parameterless procedure''' can either '''run as a (stand-alone) main program''', or can '''be called from another program''' like a library function. 
+For the task at hand, this appears useful -- except for the following two obstacles:
+
+1. There are neither ingoing parameters into a parameterless procedure, nor is there a return value.
+
+2. The procedure does not know how it has been called: is it running as a main program, or has it been called from another program?
+
+To overcome the first obstacle, we implement a very simplistic parameter passing mechanism in a package Parameter (''parameter.ads''): The global variable Parameter.X will hold the ingoing parameter, the other global variable Parameter.Y will take the return value. To overcome the second obstacle, we ensure that Parameter.X is 0 by default.
+
+<syntaxhighlight lang="ada">package Parameter is
+   X: Natural := 0;
+   Y: Natural;
+end Parameter;</syntaxhighlight>
+
+Now comes our parameterless procedure Hailstone (''hailstone.adb''). Note that we are 
+using the the package Hailstones (''hailstones.adb/hailstones.ads'') from 
+[[Hailstone sequence#Alternative method]] to perform the real computation. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Parameter, Hailstones;
+
+procedure Hailstone is
+   -- if Parameter.X > 0, the length of Hailstone(Parameter.X)
+   -- is computed and written into Parameter.Y
+
+   -- if Parameter.X = 0, Hailstone(27) and N <= 100_000 with maximal
+   -- Hailstone(N) are computed and printed.
+
+   procedure Show_Sequence(N: Natural) is
+      Seq: Hailstones.Integer_Sequence := Hailstones.Create_Sequence(N);
+   begin
+      Ada.Text_IO.Put("Hailstone(" & Integer'Image(N) & " ) = (");
+      if Seq'Length < 8 then
+         for I in Seq'First .. Seq'Last-1 loop
+            Ada.Text_IO.Put(Integer'Image(Seq(I)) & ",");
+         end loop;
+      else
+         for I in Seq'First .. Seq'First+3 loop
+            Ada.Text_IO.Put(Integer'Image(Seq(I)) & ",");
+         end loop;
+         Ada.Text_IO.Put(" ...,");
+         for I in Seq'Last-3 .. Seq'Last-1 loop
+            Ada.Text_IO.Put(Integer'Image(Seq(I)) &",");
+         end loop;
+      end if;
+      Ada.Text_IO.Put_Line(Integer'Image(Seq(Seq'Last)) & " ); Length: " &
+                             Integer'Image(seq'Length));
+   end Show_Sequence;
+begin
+   if Parameter.X>0 then
+      Parameter.Y := Hailstones.Create_Sequence(Parameter.X)'Length;
+   else
+      Show_Sequence(27);
+      declare
+         Longest: Natural := 0;
+         Longest_Length: Natural := 0;
+      begin
+         for I in 2 .. 100_000 loop
+            if Hailstones.Create_Sequence(I)'Length > Longest_Length then
+               Longest := I;
+               Longest_Length :=  Hailstones.Create_Sequence(I)'Length;
+            end if;
+         end loop;
+         Ada.Text_IO.Put("Longest<=100_000: ");
+         Show_Sequence(Longest);
+      end;
+   end if;
+end Hailstone;</syntaxhighlight>
+
+If we compile this and run it, we get the following output:
+<pre>> ./hailstone
+Hailstone( 27 ) = ( 27, 82, 41, 124, ..., 8, 4, 2, 1 ); Length:  112
+Longest<=100_000: Hailstone( 77031 ) = ( 77031, 231094, 115547, 346642, ..., 8, 4, 2, 1 ); Length:  351</pre>
+
+To use the same procedure like a library function, we need a specification (file ''hailstone.ads''),
+that essentially repeats the parameter profile. As our procedure is actually parameterless, this specification is more than trivial.
+
+<syntaxhighlight lang="ada">procedure Hailstone;</syntaxhighlight>
+
+Finally, we write another parameterless procedure (''hailstone_test.adb''), that will call the procedure Hailstone. Note that we '''must''' change the Parameter.X to a value > 0 before calling Hailstone, otherwise, Hailstone would act as if it where the main program.
+
+<syntaxhighlight lang="ada">with Hailstone, Parameter, Ada.Text_IO;
+
+procedure Hailstone_Test is
+   Counts: array (1 .. 100_000) of Natural := (others => 0);
+   Max_Count: Natural := 0;
+   Most_Common: Positive := Counts'First;
+   Length: Natural renames Parameter.Y;
+   Sample: Natural := 0;
+begin
+   for I in Counts'Range loop
+      Parameter.X := I;
+      Hailstone; -- compute the length of Hailstone(I)
+      Counts(Length) := Counts(Length)+1;
+   end loop;
+   for I in Counts'Range loop
+      if Counts(I) > Max_Count then
+         Max_Count := Counts(I);
+         Most_Common := I;
+      end if;
+   end loop;
+   Ada.Text_IO.Put_Line("Most frequent length:"
+                          & Integer'Image(Most_Common)
+                          & ";" & Integer'Image(Max_Count)
+                          & " sequences of that length.");
+   for I in Counts'Range loop
+       Parameter.X := I;
+       Hailstone; -- compute the length of Hailstone(I)
+       if Length = Most_Common then
+          Sample := I;
+          exit;
+       end if;
+   end loop;
+   Ada.Text_IO.Put_Line("The first such sequence: Hailstone("
+                          & Integer'Image(Sample) & " ).");
+end Hailstone_Test;</syntaxhighlight>.
+
+Compiling and running this gives the following output:
+<pre>> ./hailstone_test 
+Most frequent length: 72; 1467 sequences of that length.
+The first such sequence: Hailstone( 444 ).</pre>
+
+Note that using global variables for parameter and return value passing works here, but is bad programming practice. Ada is a compiled language, and it is not clear how useful an executable library written in a compiled language is, anyway. 
+
+In fact, except for the constraints imposed by this task, there is no reason to ask the procedure Hailstone for the length of a Hailstone sequence -- solid software engineering practice would require to directly call the parameterized function Hailstones.Create_Sequence.

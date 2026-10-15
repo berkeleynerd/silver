@@ -1,0 +1,214 @@
+#Include Once "fbgfx.bi"
+Using FB
+
+Screenres 725, 230, 32, 2
+Windowtitle "Virtual Keyboard"
+
+Type KeyButton
+    label     As String
+    scancode  As Integer
+    x         As Integer
+    y         As Integer
+    w         As Integer
+    h         As Integer
+    img       As Any Ptr
+End Type
+
+Const keyW = 40, keyH = 40, margin = 5
+
+Function SC(key As String) As Integer
+    Select Case Ucase(key)
+    Case "`"        : Return SC_TILDE
+    Case "1"        : Return SC_1
+    Case "2"        : Return SC_2
+    Case "3"        : Return SC_3
+    Case "4"        : Return SC_4
+    Case "5"        : Return SC_5
+    Case "6"        : Return SC_6
+    Case "7"        : Return SC_7
+    Case "8"        : Return SC_8
+    Case "9"        : Return SC_9
+    Case "0"        : Return SC_0
+    Case "-"        : Return SC_MINUS
+    Case "="        : Return SC_EQUALS
+    Case "["        : Return SC_LEFTBRACKET
+    Case "]"        : Return SC_RIGHTBRACKET
+    Case "\"        : Return SC_BACKSLASH
+    Case ";"        : Return SC_SEMICOLON
+    Case "'"        : Return SC_QUOTE
+    Case ","        : Return SC_COMMA
+    Case "."        : Return SC_PERIOD
+    Case "/"        : Return SC_SLASH
+    
+    Case "BACKSPACE": Return SC_BACKSPACE
+    Case "TAB"      : Return SC_TAB
+    Case "CAPSLOCK" : Return SC_CAPSLOCK
+    Case "ENTER"    : Return SC_ENTER
+    Case "LSHIFT"   : Return SC_LSHIFT
+    Case "SHIFT"    : Return SC_RSHIFT
+    Case "CTRL"     : Return SC_CONTROL
+    Case "ALT"      : Return SC_ALT
+    Case "ALTGR"    : Return SC_ALTGR
+    Case "LWIN"     : Return SC_LWIN
+    Case "RWIN"     : Return SC_RWIN
+    Case "APPSKEY"  : Return SC_MENU
+    Case "SPACE"    : Return SC_SPACE
+    
+    Case "Q"        : Return SC_Q
+    Case "W"        : Return SC_W
+    Case "E"        : Return SC_E
+    Case "R"        : Return SC_R
+    Case "T"        : Return SC_T
+    Case "Y"        : Return SC_Y
+    Case "U"        : Return SC_U
+    Case "I"        : Return SC_I
+    Case "O"        : Return SC_O
+    Case "P"        : Return SC_P
+    
+    Case "A"        : Return SC_A
+    Case "S"        : Return SC_S
+    Case "D"        : Return SC_D
+    Case "F"        : Return SC_F
+    Case "G"        : Return SC_G
+    Case "H"        : Return SC_H
+    Case "J"        : Return SC_J
+    Case "K"        : Return SC_K
+    Case "L"        : Return SC_L
+    
+    Case "Z"        : Return SC_Z
+    Case "X"        : Return SC_X
+    Case "C"        : Return SC_C
+    Case "V"        : Return SC_V
+    Case "B"        : Return SC_B
+    Case "N"        : Return SC_N
+    Case "M"        : Return SC_M
+    End Select
+    
+    Return -1
+End Function
+
+Sub AddKey(k() As KeyButton, Byref idx As Integer, _
+    label As String, size As Integer, row As Integer, Byref x As Integer)
+    
+    Dim y As Integer = margin + (row - 1) * (keyH + margin)
+    
+    k(idx).label     = label
+    k(idx).scancode  = SC(label)
+    k(idx).x         = x
+    k(idx).y         = y
+    k(idx).w         = keyW * size
+    k(idx).h         = keyH
+    
+    ' Create individual image of the key
+    k(idx).img = Imagecreate(k(idx).w, k(idx).h)
+    Line k(idx).img, (0,0)-(k(idx).w,k(idx).h), Rgb(180,180,180), BF
+    Draw String k(idx).img, (10,12), k(idx).label, Rgb(0,0,0)
+    
+    x += k(idx).w + margin
+    idx += 1
+End Sub
+
+Dim keys(0 To 60) As KeyButton
+Dim idx As Integer = 0
+
+' Row 1
+Dim x As Integer = margin
+AddKey(keys(), idx, "`",        1, 1, x)
+AddKey(keys(), idx, "1",        1, 1, x)
+AddKey(keys(), idx, "2",        1, 1, x)
+AddKey(keys(), idx, "3",        1, 1, x)
+AddKey(keys(), idx, "4",        1, 1, x)
+AddKey(keys(), idx, "5",        1, 1, x)
+AddKey(keys(), idx, "6",        1, 1, x)
+AddKey(keys(), idx, "7",        1, 1, x)
+AddKey(keys(), idx, "8",        1, 1, x)
+AddKey(keys(), idx, "9",        1, 1, x)
+AddKey(keys(), idx, "0",        1, 1, x)
+AddKey(keys(), idx, "-",        1, 1, x)
+AddKey(keys(), idx, "=",        1, 1, x)
+AddKey(keys(), idx, "Backspace",3, 1, x)
+
+' Row 2
+x = margin
+AddKey(keys(), idx, "Tab",      3, 2, x)
+AddKey(keys(), idx, "Q",        1, 2, x)
+AddKey(keys(), idx, "W",        1, 2, x)
+AddKey(keys(), idx, "E",        1, 2, x)
+AddKey(keys(), idx, "R",        1, 2, x)
+AddKey(keys(), idx, "T",        1, 2, x)
+AddKey(keys(), idx, "Y",        1, 2, x)
+AddKey(keys(), idx, "U",        1, 2, x)
+AddKey(keys(), idx, "I",        1, 2, x)
+AddKey(keys(), idx, "O",        1, 2, x)
+AddKey(keys(), idx, "P",        1, 2, x)
+AddKey(keys(), idx, "[",        1, 2, x)
+AddKey(keys(), idx, "]",        1, 2, x)
+AddKey(keys(), idx, "\",        1, 2, x)
+
+' Row 3
+x = margin
+AddKey(keys(), idx, "CapsLock", 3, 3, x)
+AddKey(keys(), idx, "A",        1, 3, x)
+AddKey(keys(), idx, "S",        1, 3, x)
+AddKey(keys(), idx, "D",        1, 3, x)
+AddKey(keys(), idx, "F",        1, 3, x)
+AddKey(keys(), idx, "G",        1, 3, x)
+AddKey(keys(), idx, "H",        1, 3, x)
+AddKey(keys(), idx, "J",        1, 3, x)
+AddKey(keys(), idx, "K",        1, 3, x)
+AddKey(keys(), idx, "L",        1, 3, x)
+AddKey(keys(), idx, ";",        1, 3, x)
+AddKey(keys(), idx, "'",        1, 3, x)
+AddKey(keys(), idx, "Enter",    2, 3, x)
+
+' Row 4
+x = margin
+AddKey(keys(), idx, "LShift",   3, 4, x)
+AddKey(keys(), idx, "Z",        1, 4, x)
+AddKey(keys(), idx, "X",        1, 4, x)
+AddKey(keys(), idx, "C",        1, 4, x)
+AddKey(keys(), idx, "V",        1, 4, x)
+AddKey(keys(), idx, "B",        1, 4, x)
+AddKey(keys(), idx, "N",        1, 4, x)
+AddKey(keys(), idx, "M",        1, 4, x)
+AddKey(keys(), idx, ",",        1, 4, x)
+AddKey(keys(), idx, ".",        1, 4, x)
+AddKey(keys(), idx, "/",        1, 4, x)
+AddKey(keys(), idx, "RShift",   3, 4, x)
+
+' Row 5
+x = margin
+AddKey(keys(), idx, "Ctrl",    2, 5, x)
+AddKey(keys(), idx, "LWin",    2, 5, x)
+AddKey(keys(), idx, "Alt",     2, 5, x)
+AddKey(keys(), idx, "Space",   5, 5, x)
+AddKey(keys(), idx, "AltGr",   2, 5, x)
+AddKey(keys(), idx, "RWin",    2, 5, x)
+AddKey(keys(), idx, "AppsKey", 2, 5, x)
+
+' Draw keyboard>
+For i As Integer = 0 To idx - 1
+    Put (keys(i).x, keys(i).y), keys(i).img, Pset
+Next
+
+' Main loop
+Do
+    For i As Integer = 0 To idx - 1
+        If keys(i).scancode <> -1 Then
+            If Multikey(keys(i).scancode) Then                
+                ' light key
+                Line (keys(i).x+1, keys(i).y+1) - _
+                (keys(i).x + keys(i).w - 1, keys(i).y + keys(i).h - 1), _
+                Rgb(255,220,0), BF
+                
+                Draw String (keys(i).x + 10, keys(i).y + 12), keys(i).label, Rgb(0,0,0)
+                Sleep 120
+                
+                ' restore key from its individual image
+                Put (keys(i).x, keys(i).y), keys(i).img, Pset
+            End If
+        End If
+    Next
+    
+    Sleep 1
+Loop Until Multikey(SC_ESCAPE)

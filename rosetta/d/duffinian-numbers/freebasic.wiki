@@ -1,0 +1,70 @@
+==={{header|FreeBASIC}}===
+{{trans|XPL0}}
+<syntaxhighlight lang="vb">#include "isprime.bas"
+
+Function GCD(p As Integer, q As Integer) As Integer
+    Return Iif(q = 0, p, GCD(q, p Mod q))
+End Function
+
+Function SumDiv(Num As Uinteger) As Uinteger
+    Dim As Uinteger Div = 2, Sum = 0, Quot
+    Do
+        Quot = Num / Div
+        If Div > Quot Then Exit Do
+        If Num Mod Div = 0 Then
+            Sum += Div
+            If Div <> Quot Then Sum += Quot
+        End If
+        Div += 1
+    Loop
+    Return Sum+1
+End Function
+
+Function Duff(N As Uinteger) As Boolean
+    Return Iif(isPrime(N), False, GCD(SumDiv(N), N) = 1)
+End Function
+
+Dim As Integer C = 0, N = 4
+Print "First 50 Duffinian numbers:"
+Do
+    If Duff(N) Then
+        Print Using "####"; N;
+        C += 1
+        If C Mod 20 = 0 Then Print
+    End If
+    N += 1
+Loop Until C >= 50
+
+C = 0 : N = 4
+Print !"\n\nFirst 50 Duffinian triplets:"
+Do
+    If Duff(N) And Duff(N+1) And Duff(N+2) Then
+        Print Using !" [###### ###### ######]\t"; N; N+1; N+2;
+        C += 1
+        If C Mod 4 = 0 Then Print
+    End If
+    N += 1
+Loop Until C >= 50
+
+Sleep</syntaxhighlight>
+
+{{out}}
+<pre>First 50 Duffinian numbers:
+   4   8   9  16  21  25  27  32  35  36  39  49  50  55  57  63  64  65  75  77
+  81  85  93  98 100 111 115 119 121 125 128 129 133 143 144 155 161 169 171 175
+ 183 185 187 189 201 203 205 209 215 217
+
+First 50 Duffinian triplets:
+ [    63     64     65]  [   323    324    325]  [   511    512    513]  [   721    722    723]
+ [   899    900    901]  [  1443   1444   1445]  [  2303   2304   2305]  [  2449   2450   2451]
+ [  3599   3600   3601]  [  3871   3872   3873]  [  5183   5184   5185]  [  5617   5618   5619]
+ [  6049   6050   6051]  [  6399   6400   6401]  [  8449   8450   8451]  [ 10081  10082  10083]
+ [ 10403  10404  10405]  [ 11663  11664  11665]  [ 12481  12482  12483]  [ 13447  13448  13449]
+ [ 13777  13778  13779]  [ 15841  15842  15843]  [ 17423  17424  17425]  [ 19043  19044  19045]
+ [ 26911  26912  26913]  [ 30275  30276  30277]  [ 36863  36864  36865]  [ 42631  42632  42633]
+ [ 46655  46656  46657]  [ 47523  47524  47525]  [ 53137  53138  53139]  [ 58563  58564  58565]
+ [ 72961  72962  72963]  [ 76175  76176  76177]  [ 79523  79524  79525]  [ 84099  84100  84101]
+ [ 86527  86528  86529]  [ 94177  94178  94179]  [108899 108900 108901]  [121103 121104 121105]
+ [125315 125316 125317]  [128017 128018 128019]  [129599 129600 129601]  [137287 137288 137289]
+ [144399 144400 144401]  [144721 144722 144723]  [154567 154568 154569]  [158403 158404 158405]
+ [166463 166464 166465]  [167041 167042 167043]</pre>

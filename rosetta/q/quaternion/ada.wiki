@@ -1,0 +1,123 @@
+=={{header|Ada}}==
+The package specification (works with any floating-point type):
+<syntaxhighlight lang="ada">generic
+   type Real is digits <>;
+package Quaternions is
+   type Quaternion is record
+      A, B, C, D : Real;
+   end record;
+   function "abs" (Left : Quaternion) return Real;
+   function Conj (Left : Quaternion) return Quaternion;
+   function "-" (Left : Quaternion) return Quaternion;
+   function "+" (Left, Right : Quaternion) return Quaternion;
+   function "-" (Left, Right : Quaternion) return Quaternion;
+   function "*" (Left : Quaternion; Right : Real) return Quaternion;
+   function "*" (Left : Real; Right : Quaternion) return Quaternion;
+   function "*" (Left, Right : Quaternion) return Quaternion;
+   function Image (Left : Quaternion) return String;
+end Quaternions;</syntaxhighlight>
+The package implementation:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Elementary_Functions;
+package body Quaternions is
+   package Elementary_Functions is
+      new Ada.Numerics.Generic_Elementary_Functions (Real);
+   use Elementary_Functions;
+   function "abs" (Left : Quaternion) return Real is
+   begin
+      return Sqrt (Left.A**2 + Left.B**2 + Left.C**2 + Left.D**2);
+   end "abs";
+   function Conj (Left : Quaternion) return Quaternion is
+   begin
+      return (A => Left.A, B => -Left.B, C => -Left.C, D => -Left.D);
+   end Conj;
+   function "-" (Left : Quaternion) return Quaternion is
+   begin
+      return (A => -Left.A, B => -Left.B, C => -Left.C, D => -Left.D);
+   end "-";
+   function "+" (Left, Right : Quaternion) return Quaternion is
+   begin
+      return
+      (  A => Left.A + Right.A, B => Left.B + Right.B, 
+         C => Left.C + Right.C, D => Left.D + Right.D
+      );
+   end "+";
+   function "-" (Left, Right : Quaternion) return Quaternion is
+   begin
+      return
+      (  A => Left.A - Right.A, B => Left.B - Right.B, 
+         C => Left.C - Right.C, D => Left.D - Right.D
+      );
+   end "-";
+   function "*" (Left : Quaternion; Right : Real) return Quaternion is
+   begin
+      return
+      (  A => Left.A * Right, B => Left.B * Right, 
+         C => Left.C * Right, D => Left.D * Right
+      );
+   end "*";
+   function "*" (Left : Real; Right : Quaternion) return Quaternion is
+   begin
+      return Right * Left;
+   end "*";
+   function "*" (Left, Right : Quaternion) return Quaternion is
+   begin
+      return
+      (  A => Left.A * Right.A - Left.B * Right.B - Left.C * Right.C - Left.D * Right.D,
+         B => Left.A * Right.B + Left.B * Right.A + Left.C * Right.D - Left.D * Right.C,
+         C => Left.A * Right.C - Left.B * Right.D + Left.C * Right.A + Left.D * Right.B,
+         D => Left.A * Right.D + Left.B * Right.C - Left.C * Right.B + Left.D * Right.A
+      );
+   end "*";
+   function Image (Left : Quaternion) return String is
+   begin
+      return Real'Image (Left.A) & " +"  &
+             Real'Image (Left.B) & "i +" &
+             Real'Image (Left.C) & "j +" &
+             Real'Image (Left.D) & "k";
+   end Image;
+end Quaternions;</syntaxhighlight>
+Test program:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+with Quaternions;
+procedure Test_Quaternion is
+   package Float_Quaternion is new Quaternions (Float);
+   use Float_Quaternion;
+   q  : Quaternion := (1.0, 2.0, 3.0, 4.0);
+   q1 : Quaternion := (2.0, 3.0, 4.0, 5.0);
+   q2 : Quaternion := (3.0, 4.0, 5.0, 6.0);
+   r  : Float      := 7.0;
+begin
+   Put_Line ("q = "       & Image (q));
+   Put_Line ("q1 = "      & Image (q1));
+   Put_Line ("q2 = "      & Image (q2));
+   Put_Line ("r ="        & Float'Image (r));
+   Put_Line ("abs q ="    & Float'Image (abs q));
+   Put_Line ("abs q1 ="   & Float' Image (abs q1));
+   Put_Line ("abs q2 ="   & Float' Image (abs q2));
+   Put_Line ("-q = "      & Image (-q));
+   Put_Line ("conj q = "  & Image (Conj (q)));
+   Put_Line ("q1 + q2 = " & Image (q1 + q2));
+   Put_Line ("q2 + q1 = " & Image (q2 + q1));
+   Put_Line ("q * r = "   & Image (q * r));
+   Put_Line ("r * q = "   & Image (r * q));
+   Put_Line ("q1 * q2 = " & Image (q1 * q2));
+   Put_Line ("q2 * q1 = " & Image (q2 * q1));
+end Test_Quaternion;</syntaxhighlight>
+{{out}}
+<pre>
+q =  1.00000E+00 + 2.00000E+00i + 3.00000E+00j + 4.00000E+00k
+q1 =  2.00000E+00 + 3.00000E+00i + 4.00000E+00j + 5.00000E+00k
+q2 =  3.00000E+00 + 4.00000E+00i + 5.00000E+00j + 6.00000E+00k
+r = 7.00000E+00
+abs q = 5.47723E+00
+abs q1 = 7.34847E+00
+abs q2 = 9.27362E+00
+-q = -1.00000E+00 +-2.00000E+00i +-3.00000E+00j +-4.00000E+00k
+conj q =  1.00000E+00 +-2.00000E+00i +-3.00000E+00j +-4.00000E+00k
+q1 + q2 =  5.00000E+00 + 7.00000E+00i + 9.00000E+00j + 1.10000E+01k
+q2 + q1 =  5.00000E+00 + 7.00000E+00i + 9.00000E+00j + 1.10000E+01k
+q * r =  7.00000E+00 + 1.40000E+01i + 2.10000E+01j + 2.80000E+01k
+r * q =  7.00000E+00 + 1.40000E+01i + 2.10000E+01j + 2.80000E+01k
+q1 * q2 = -5.60000E+01 + 1.60000E+01i + 2.40000E+01j + 2.60000E+01k
+q2 * q1 = -5.60000E+01 + 1.80000E+01i + 2.00000E+01j + 2.80000E+01k
+</pre>

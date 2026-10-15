@@ -1,0 +1,116 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+decomposition.ads:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Real_Arrays;
+generic
+   with package Matrix is new Ada.Numerics.Generic_Real_Arrays (<>);
+package Decomposition is
+
+   -- decompose a square matrix A by A = L * Transpose (L)
+   procedure Decompose (A : Matrix.Real_Matrix; L : out Matrix.Real_Matrix);
+
+end Decomposition;</syntaxhighlight>
+
+decomposition.adb:
+<syntaxhighlight lang="ada">with Ada.Numerics.Generic_Elementary_Functions;
+
+package body Decomposition is
+   package Math is new Ada.Numerics.Generic_Elementary_Functions
+     (Matrix.Real);
+
+   procedure Decompose (A : Matrix.Real_Matrix; L : out Matrix.Real_Matrix) is
+      use type Matrix.Real_Matrix, Matrix.Real;
+      Order : constant Positive := A'Length (1);
+      S     : Matrix.Real;
+   begin
+      L := (others => (others => 0.0));
+      for I in 0 .. Order - 1 loop
+         for K in 0 .. I loop
+            S := 0.0;
+            for J in 0 .. K - 1 loop
+               S := S +
+                 L (L'First (1) + I, L'First (2) + J) *
+                 L (L'First (1) + K, L'First (2) + J);
+            end loop;
+            -- diagonals
+            if K = I then
+               L (L'First (1) + K, L'First (2) + K) :=
+                 Math.Sqrt (A (A'First (1) + K, A'First (2) + K) - S);
+            else
+               L (L'First (1) + I, L'First (2) + K) :=
+                 1.0 / L (L'First (1) + K, L'First (2) + K) *
+                 (A (A'First (1) + I, A'First (2) + K) - S);
+            end if;
+         end loop;
+      end loop;
+   end Decompose;
+end Decomposition;</syntaxhighlight>
+
+Example usage:
+<syntaxhighlight lang="ada">with Ada.Numerics.Real_Arrays;
+with Ada.Text_IO;
+with Decomposition;
+procedure Decompose_Example is
+   package Real_Decomposition is new Decomposition
+     (Matrix => Ada.Numerics.Real_Arrays);
+
+   package Real_IO is new Ada.Text_IO.Float_IO (Float);
+
+   procedure Print (M : Ada.Numerics.Real_Arrays.Real_Matrix) is
+   begin
+      for Row in M'Range (1) loop
+         for Col in M'Range (2) loop
+            Real_IO.Put (M (Row, Col), 4, 3, 0);
+         end loop;
+         Ada.Text_IO.New_Line;
+      end loop;
+   end Print;
+
+   Example_1 : constant Ada.Numerics.Real_Arrays.Real_Matrix :=
+     ((25.0, 15.0, -5.0),
+      (15.0, 18.0, 0.0),
+      (-5.0, 0.0, 11.0));
+   L_1 : Ada.Numerics.Real_Arrays.Real_Matrix (Example_1'Range (1),
+                                               Example_1'Range (2));
+   Example_2 : constant Ada.Numerics.Real_Arrays.Real_Matrix :=
+     ((18.0, 22.0, 54.0, 42.0),
+      (22.0, 70.0, 86.0, 62.0),
+      (54.0, 86.0, 174.0, 134.0),
+      (42.0, 62.0, 134.0, 106.0));
+   L_2 : Ada.Numerics.Real_Arrays.Real_Matrix (Example_2'Range (1),
+                                               Example_2'Range (2));
+begin
+   Real_Decomposition.Decompose (A => Example_1,
+                                 L => L_1);
+   Real_Decomposition.Decompose (A => Example_2,
+                                 L => L_2);
+   Ada.Text_IO.Put_Line ("Example 1:");
+   Ada.Text_IO.Put_Line ("A:"); Print (Example_1);
+   Ada.Text_IO.Put_Line ("L:"); Print (L_1);
+   Ada.Text_IO.New_Line;
+   Ada.Text_IO.Put_Line ("Example 2:");
+   Ada.Text_IO.Put_Line ("A:"); Print (Example_2);
+   Ada.Text_IO.Put_Line ("L:"); Print (L_2);
+end Decompose_Example;</syntaxhighlight>
+{{out}}
+<pre>Example 1:
+A:
+  25.000  15.000  -5.000
+  15.000  18.000   0.000
+  -5.000   0.000  11.000
+L:
+   5.000   0.000   0.000
+   3.000   3.000   0.000
+  -1.000   1.000   3.000
+
+Example 2:
+A:
+  18.000  22.000  54.000  42.000
+  22.000  70.000  86.000  62.000
+  54.000  86.000 174.000 134.000
+  42.000  62.000 134.000 106.000
+L:
+   4.243   0.000   0.000   0.000
+   5.185   6.566   0.000   0.000
+  12.728   3.046   1.650   0.000
+   9.899   1.625   1.850   1.393</pre>

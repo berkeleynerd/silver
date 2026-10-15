@@ -1,0 +1,4 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">loop
+   Put_Line("SPAM");
+end loop;</syntaxhighlight>

@@ -1,0 +1,11 @@
+=={{header|FreeBASIC}}==
+FreeBASIC does not have any specific built-in features for secure memory management of secrets.
+
+However, it does provide:
+# Direct memory management via CAllocate/Deallocate to ensure that sensitive data is properly erased
+# Direct memory access via its pointer management capability
+
+References:
+
+# FreeBASIC Memory Management: https://www.freebasic.net/wiki/KeyPgMemoryManagement
+# FreeBASIC Pointer Operations: https://www.freebasic.net/wiki/KeyPgPointers

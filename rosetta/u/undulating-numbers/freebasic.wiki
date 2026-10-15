@@ -1,0 +1,151 @@
+=={{header|FreeBASIC}}==
+{{trans|Wren}}
+<syntaxhighlight lang="vbnet">#include "isprime.bas"
+
+Function convertToBase (n As Uinteger, b As Uinteger) As String  
+    If n < 2 Orelse b < 2 Orelse b = 10 Orelse b > 36 Then Return Str(n)
+    Dim result As String = "" 
+    Dim digit As Integer
+    While n > 0
+        digit = n Mod b
+        result = iIf(digit < 10, digit & result, Chr(digit + 87) & result)
+        n \= b
+    Wend
+    Return result
+End Function
+
+Sub PrintArray(arr() As Uinteger, ancho As Uinteger)
+    For i As Uinteger = 0 To Ubound(arr)
+        Print Using "#### "; arr(i);
+        If (i + 1) Mod ancho = 0 Then Print
+    Next
+    Print
+End Sub
+
+Sub Undulating(base_ As Uinteger, n As Uinteger)
+    Dim As Uinteger mpow = 53
+    Dim As Uinteger limit = 2 ^ mpow - 1
+    Dim As Uinteger u3(), u4(), primes(), un()
+    Dim As Uinteger bsquare = base_ * base_
+    Dim As Uinteger a, b, u, v, i
+    
+    For a = 1 To base_ - 1
+        For b = 0 To base_ - 1
+            If b = a Then Continue For
+            u = a * bsquare + b * base_ + a
+            Redim Preserve u3(Ubound(u3) + 1)
+            u3(Ubound(u3)) = u
+            v = a * base_ + b
+            Redim Preserve u4(Ubound(u4) + 1)
+            u4(Ubound(u4)) = v * bsquare + v
+        Next
+    Next
+    
+    Print Using "All 3 digit undulating numbers in base ##:"; base_
+    PrintArray(u3(), 9)
+    Print Using "All 4 digit undulating numbers in base ##:"; base_
+    PrintArray(u4(), 9)
+    Print Using "All 3 digit undulating numbers which are primes in base ##:"; base_
+    
+    For i = 0 To Ubound(u3)
+        If u3(i) Mod 2 = 1 And u3(i) Mod 5 <> 0 And isPrime(u3(i)) Then
+            Redim Preserve primes(Ubound(primes) + 1)
+            primes(Ubound(primes)) = u3(i)
+        End If
+    Next
+    PrintArray(primes(), 10)
+    
+    For i = 0 To Ubound(u3)
+        Redim Preserve un(Ubound(un) + 1)
+        un(Ubound(un)) = u3(i)
+    Next
+    For i = 0 To Ubound(u4)
+        Redim Preserve un(Ubound(un) + 1)
+        un(Ubound(un)) = u4(i)
+    Next
+    
+    Dim unc As Uinteger = Ubound(un) + 1
+    Dim As Uinteger j = 0
+    Dim As Boolean done = False
+    
+    While Not done
+        For i = 0 To unc - 1
+            u = un(j * unc + i) * bsquare + un(j * unc + i) Mod bsquare
+            If u > limit Then
+                done = True
+                Exit For
+            End If
+            Redim Preserve un(Ubound(un) + 1)
+            un(Ubound(un)) = u
+        Next
+        If done Then Exit While
+        j += 1
+    Wend
+    
+    Print Using !"\nThe ###th undulating number in base & is: #,###,###,###,###,###"; n; base_; un(n - 1)
+    If base_ <> 10 Then Print Using "or expressed in base # : #,###,###,###,###,###,###"; base_; Cint(convertToBase(un(n-1), base_)) ''Hex(un(n - 1))
+    Print Using !"\nTotal number of undulating numbers in base & < 2^& = &"; base_; mpow; Ubound(un) + 1
+    Print Using "of which the largest is: #,###,###,###,###,###,###"; un(Ubound(un))
+    If base_ <> 10 Then Print Using "or expressed in base # : #,###,###,###,###,###,###"; base_; Cint(convertToBase(un(n), base_)) ''Hex(un(Ubound(un)))
+    Print
+End Sub
+
+Dim bases(1) As Uinteger = {10, 7}
+For i As Integer = 0 To Ubound(bases)
+    Undulating(bases(i), 600)
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>All 3 digit undulating numbers in base 10:
+ 101  121  131  141  151  161  171  181  191
+ 202  212  232  242  252  262  272  282  292
+ 303  313  323  343  353  363  373  383  393
+ 404  414  424  434  454  464  474  484  494
+ 505  515  525  535  545  565  575  585  595
+ 606  616  626  636  646  656  676  686  696
+ 707  717  727  737  747  757  767  787  797
+ 808  818  828  838  848  858  868  878  898
+ 909  919  929  939  949  959  969  979  989
+
+All 4 digit undulating numbers in base 10:
+1010 1212 1313 1414 1515 1616 1717 1818 1919
+2020 2121 2323 2424 2525 2626 2727 2828 2929
+3030 3131 3232 3434 3535 3636 3737 3838 3939
+4040 4141 4242 4343 4545 4646 4747 4848 4949
+5050 5151 5252 5353 5454 5656 5757 5858 5959
+6060 6161 6262 6363 6464 6565 6767 6868 6969
+7070 7171 7272 7373 7474 7575 7676 7878 7979
+8080 8181 8282 8383 8484 8585 8686 8787 8989
+9090 9191 9292 9393 9494 9595 9696 9797 9898
+
+All 3 digit undulating numbers which are primes in base 10:
+ 101  131  151  181  191  313  353  373  383  727
+ 757  787  797  919  929
+
+The 600th undulating number in base 10 is:         4,646,464,646
+
+Total number of undulating numbers in base 10 < 2^53 = 1125
+of which the largest is:     8,989,898,989,898,989
+
+All 3 digit undulating numbers in base  7:
+  50   64   71   78   85   92  100  107  121
+ 128  135  142  150  157  164  178  185  192
+ 200  207  214  221  235  242  250  257  264
+ 271  278  292  300  307  314  321  328  335
+
+All 4 digit undulating numbers in base  7:
+ 350  450  500  550  600  650  700  750  850
+ 900  950 1000 1050 1100 1150 1250 1300 1350
+1400 1450 1500 1550 1650 1700 1750 1800 1850
+1900 1950 2050 2100 2150 2200 2250 2300 2350
+
+All 3 digit undulating numbers which are primes in base  7:
+  71  107  157  257  271  307
+
+The 600th undulating number in base 7 is: 8,074,217,422,972,642
+or expressed in base 7 : 4,646,464,646,464,646,464
+
+Total number of undulating numbers in base 7 < 2^53 = 603
+of which the largest is:     8,786,648,372,058,464
+or expressed in base 7 : 5,050,505,050,505,050,505</pre>

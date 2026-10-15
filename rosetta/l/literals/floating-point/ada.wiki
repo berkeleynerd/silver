@@ -1,0 +1,7 @@
+=={{header|Ada}}==
+Real literals contain decimal point. The exponent part is optional. Underline may be used to separate groups of digits. A literal does not have sign, + or - are unary operations. Examples of real literals:
+<syntaxhighlight lang="ada">
+3.141_592_6
+1.0E-12
+0.13
+</syntaxhighlight>

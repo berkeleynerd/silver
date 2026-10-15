@@ -1,0 +1,101 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Sum_Multiples is
+
+   type Natural is range 0 .. 2**63 - 1;
+
+   function Sum_3_5 (Limit : in Natural) return Natural is
+      Sum : Natural := 0;
+   begin
+      for N in 1 .. Limit - 1 loop
+         if N mod 3 = 0 or else N mod 5 = 0 then
+            Sum := Sum + N;
+         end if;
+      end loop;
+      return Sum;
+   end Sum_3_5;
+
+begin
+   Ada.Text_IO.Put_Line ("n=1000: " & Sum_3_5 (1000)'Image);
+   Ada.Text_IO.Put_Line ("n=5e9 : " & Sum_3_5 (5e9)'Image);
+end Sum_Multiples;</syntaxhighlight>
+{{out}}
+<pre>n=1000:  233168
+n=5e9 :  5833333329166666668</pre>
+
+===Extra Credit===
+Requires upcoming Ada 202x with big integer package.
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Numerics.Big_Numbers.Big_Integers;
+
+procedure Sum_Multiples_Big is
+   use Ada.Numerics.Big_Numbers.Big_Integers;
+   use Ada.Text_IO;
+
+   type Natural is new Big_Natural;
+
+   function Sum_Mults (First, Last : Natural) return Natural is
+      High : constant Natural := Last - Last mod First;
+      Sum  : constant Natural := (High / First) * (First + High) / 2;
+   begin
+      return Sum;
+   end Sum_Mults;
+
+   function Sum_35 (Limit : in Natural) return Natural is
+      Last    : constant Natural := Limit - 1;
+      Mult_3  : constant Natural := Sum_Mults (3,  Last);
+      Mult_5  : constant Natural := Sum_Mults (5,  Last);
+      Mult_15 : constant Natural := Sum_Mults (15, Last);
+   begin
+      return Mult_3 + Mult_5 - Mult_15;
+   end Sum_35;
+
+begin
+   Put_Line ("                               n : Sum_35 (n)");
+   Put_Line ("-----------------------------------------------------------------");
+   for E in 0 .. 30 loop
+      declare
+         N : constant Natural := 10**E;
+      begin
+         Put (To_String (N, Width => 32));
+         Put (" : ");
+         Put (Sum_35 (N)'Image);
+         New_Line;
+      end;
+   end loop;
+end Sum_Multiples_Big;</syntaxhighlight>
+{{out}}
+<pre>                               n : Sum_35 (n)
+-----------------------------------------------------------------
+                               1 :  0
+                              10 :  23
+                             100 :  2318
+                            1000 :  233168
+                           10000 :  23331668
+                          100000 :  2333316668
+                         1000000 :  233333166668
+                        10000000 :  23333331666668
+                       100000000 :  2333333316666668
+                      1000000000 :  233333333166666668
+                     10000000000 :  23333333331666666668
+                    100000000000 :  2333333333316666666668
+                   1000000000000 :  233333333333166666666668
+                  10000000000000 :  23333333333331666666666668
+                 100000000000000 :  2333333333333316666666666668
+                1000000000000000 :  233333333333333166666666666668
+               10000000000000000 :  23333333333333331666666666666668
+              100000000000000000 :  2333333333333333316666666666666668
+             1000000000000000000 :  233333333333333333166666666666666668
+            10000000000000000000 :  23333333333333333331666666666666666668
+           100000000000000000000 :  2333333333333333333316666666666666666668
+          1000000000000000000000 :  233333333333333333333166666666666666666668
+         10000000000000000000000 :  23333333333333333333331666666666666666666668
+        100000000000000000000000 :  2333333333333333333333316666666666666666666668
+       1000000000000000000000000 :  233333333333333333333333166666666666666666666668
+      10000000000000000000000000 :  23333333333333333333333331666666666666666666666668
+     100000000000000000000000000 :  2333333333333333333333333316666666666666666666666668
+    1000000000000000000000000000 :  233333333333333333333333333166666666666666666666666668
+   10000000000000000000000000000 :  23333333333333333333333333331666666666666666666666666668
+  100000000000000000000000000000 :  2333333333333333333333333333316666666666666666666666666668
+ 1000000000000000000000000000000 :  233333333333333333333333333333166666666666666666666666666668</pre>

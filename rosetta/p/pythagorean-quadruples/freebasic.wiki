@@ -1,0 +1,97 @@
+=={{header|FreeBASIC}}==
+===From the Wikipedia page===
+[https://en.wikipedia.org/wiki/Pythagorean_quadruple Alternate parametrization, second version both A and B even.]Time just less then 0.7 second on a AMD Athlon II X4 645 3.34GHz win7 64bit. Program uses one core. When the limit is set to 576 (abs. minimum for 2200), the time is about 0.85 sec.
+<syntaxhighlight lang="freebasic">' version 12-08-2017
+' compile with: fbc -s console
+
+#Define max 2200
+
+Dim As UInteger l, m, n, l2, l2m2
+Dim As UInteger limit = max * 4 \ 15
+Dim As UInteger max2 = limit * limit * 2
+ReDim As Ubyte list_1(max2), list_2(max2 +1)
+
+' prime sieve, list_2(l) contains a 0 if l = prime  
+For l = 4 To max2 Step 2
+    list_1(l) = 1
+Next
+For l = 3 To max2 Step 2
+    If list_1(l) = 0 Then
+        For m = l * l To max2 Step l * 2
+            list_1(m) = 1
+        Next
+    End If
+Next
+
+' we do not need a and b (a and b are even, l = a \ 2, m = b \ 2)
+' we only need to find d
+For l = 1 To limit
+    l2 = l * l
+    For m = l To limit
+        l2m2 = l2 + m * m
+        list_2(l2m2 +1) = 1
+        ' if l2m2 is a prime, no other factors exits
+        If list_1(l2m2) = 0 Then Continue For
+        ' find possible factors of l2m2
+        ' if l2m2 is odd, we need only to check the odd divisors
+        For n = 2 + (l2m2 And 1) To Fix(Sqr(l2m2 -1)) Step 1 + (l2m2 And 1)
+            If l2m2 Mod n = 0 Then
+                ' set list_2(x) to 1 if solution is found
+                list_2(l2m2 \ n + n) = 1
+            End If
+        Next
+    Next
+Next
+
+For l = 1 To max
+    If list_2(l) = 0 Then Print l; " ";
+Next
+Print
+
+' empty keyboard buffer 
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>1 2 4 5 8 10 16 20 32 40 64 80 128 160 256 320 512 640 1024 1280 2048</pre>
+===Brute force===
+Based on the second REXX version: A^2 + B^2 = D^2 - C^2. Faster then the first version, about 0.2 second
+<syntaxhighlight lang="freebasic">' version 14-08-2017
+' compile with: fbc -s console
+
+#Define n 2200
+
+Dim As UInteger s = 3, s1, s2, x, x2, y
+ReDim As Ubyte l(n), l_add(n * n * 2)
+
+For x = 1 To n
+    x2 = x * x
+    For y = x To n
+        l_add(x2 + y * y) = 1
+    Next
+Next
+
+For x = 1 To n
+    s1 = s
+    s += 2
+    s2 = s
+    For y = x +1 To n
+        If l_add(s1) = 1 Then l(y) = 1
+        s1 += s2
+        s2 += 2
+    Next
+Next
+
+For x = 1 To n
+    If l(x) = 0 Then Print Str(x); " ";
+Next
+Print
+
+' empty keyboard buffer
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>1 2 4 5 8 10 16 20 32 40 64 80 128 160 256 320 512 640 1024 1280 2048</pre>

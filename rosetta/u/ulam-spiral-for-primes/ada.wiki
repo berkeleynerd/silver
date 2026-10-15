@@ -1,0 +1,135 @@
+=={{header|Ada}}==
+This is a generic solution. It is straightforward to use it to print spirals for any kind of numbers, rather than spirals of primes, only.
+
+The specification of package generic_ulam is as follows:
+
+<syntaxhighlight lang="ada">generic
+   Size: Positive; 
+      -- determines the size of the square
+   with function Represent(N: Natural) return String;
+      -- this turns a number into a string to be printed
+      -- the length of the output should not change
+      -- e.g., Represent(N) may return " #" if N is a prime
+      -- and "  " else
+   with procedure Put_String(S: String);
+      -- outputs a string, no new line
+   with procedure New_Line;
+      -- the name says all
+package Generic_Ulam is
+   
+   procedure Print_Spiral;
+   -- calls Put_String(Represent(I)) N^2 times
+   --       and New_Line N times
+   
+end Generic_Ulam;</syntaxhighlight>
+
+Here is the implementation:
+<syntaxhighlight lang="ada">package body Generic_Ulam is
+   
+   subtype Index is Natural range 0 .. Size-1;
+   subtype Number is Positive range 1 .. Size**2;
+
+   function Cell(Row, Column: Index) return Number is
+      -- outputs the number at the given position in the square
+      -- taken from the Python solution
+      X: Integer := Column - (Size-1)/2;
+      Y: Integer := Row - Size/2;
+      MX: Natural := abs(X);
+      MY: Natural := abs(Y);
+      L: Natural := 2 * Natural'Max(MX, MY);
+      D: Integer;
+   begin
+      if Y >= X then 
+         D := 3 * L + X + Y;
+      else
+         D := L - X - Y;
+      end if;
+      return (L-1) ** 2 + D;
+   end Cell;
+   
+   procedure Print_Spiral is
+      N: Number;
+   begin
+      for R in Index'Range loop
+         for C in Index'Range loop
+            N := Cell(R, C);
+            Put_String(Represent(N));
+         end loop;
+         New_Line;
+      end loop;
+   end Print_Spiral;
+   
+end Generic_Ulam;</syntaxhighlight>
+
+The folowing implementation prints a 29*29 spiral with the primes represented as numbers, and a 10*10 spiral with the primes as boxes. It uses the generic function Prime_Numbers.Is_Prime, as specified in [[Prime decomposition#Ada]]. 
+
+<syntaxhighlight lang="ada">with Generic_Ulam, Ada.Text_IO, Prime_Numbers;
+
+procedure Ulam is
+   
+   package P is new Prime_Numbers(Natural, 0, 1, 2);
+   
+   function Vis(N: Natural) return String is
+      (if P.Is_Prime(N) then " <>" else "   ");
+      
+   function Num(N: Natural) return String is
+      (if P.Is_Prime(N) then 
+	(if N < 10 then "  " elsif N < 100 then " " else "") & Natural'Image(N)
+      else " ---");
+      
+   procedure NL is
+   begin
+      Ada.Text_IO.New_Line;
+   end NL;
+      
+   package Numeric is new Generic_Ulam(29, Num,  Ada.Text_IO.Put, NL);
+   package Visual  is new Generic_Ulam(10, Vis,  Ada.Text_IO.Put, NL);
+   
+begin
+   Numeric.Print_Spiral;
+   NL;
+   Visual.Print_Spiral;
+end Ulam;</syntaxhighlight>
+
+{{out}}
+
+<pre> --- --- --- --- --- --- --- --- --- --- --- --- 773 --- --- --- 769 --- --- --- --- --- --- --- 761 --- --- --- 757
+ --- 677 --- --- --- 673 --- --- --- --- --- --- --- --- --- --- --- 661 --- 659 --- --- --- --- --- 653 --- --- ---
+ 787 --- 577 --- --- --- --- --- 571 --- 569 --- --- --- --- --- 563 --- --- --- --- --- 557 --- --- --- --- --- ---
+ --- --- --- --- --- --- --- --- --- 479 --- --- --- --- --- --- --- --- --- --- --- 467 --- --- --- 463 --- --- ---
+ --- --- --- --- 401 --- --- --- 397 --- --- --- --- --- --- --- 389 --- --- --- --- --- 383 --- --- --- --- --- ---
+ --- --- --- 487 --- --- --- --- --- --- --- --- --- 317 --- --- --- 313 --- 311 --- --- --- 307 --- 461 --- 647 ---
+ --- --- --- --- --- --- 257 --- --- --- --- --- 251 --- --- --- --- --- --- --- --- --- 241 --- 379 --- --- --- 751
+ --- 683 --- --- --- --- --- 197 --- --- --- 193 --- 191 --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ --- --- --- --- --- --- --- --- --- --- --- --- --- --- 139 --- 137 --- --- --- --- --- 239 --- --- --- 547 --- ---
+ --- --- --- 491 --- --- --- 199 --- 101 --- --- ---  97 --- --- --- --- --- --- --- 181 --- --- --- 457 --- 643 ---
+ --- --- --- --- --- --- --- --- --- --- --- --- --- ---  61 ---  59 --- --- --- 131 --- --- --- --- --- --- --- ---
+ --- --- --- --- --- 331 --- --- --- 103 ---  37 --- --- --- --- ---  31 ---  89 --- 179 --- --- --- --- --- 641 ---
+ 797 --- 587 --- 409 --- 263 --- 149 ---  67 ---  17 --- --- ---  13 --- --- --- --- --- --- --- 373 --- --- --- ---
+ --- --- --- --- --- --- --- --- --- --- --- --- ---   5 ---   3 ---  29 --- --- --- --- --- --- --- --- --- --- ---
+ --- --- --- --- --- --- --- --- 151 --- --- ---  19 --- ---   2  11 ---  53 --- 127 --- 233 --- --- --- 541 --- 743
+ --- 691 --- --- --- --- --- --- --- 107 ---  41 ---   7 --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ --- --- --- --- --- --- --- --- --- ---  71 --- --- ---  23 --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+ --- --- --- 499 --- 337 --- --- --- 109 ---  43 --- --- ---  47 --- --- ---  83 --- 173 --- --- --- 449 --- --- ---
+ --- --- 593 --- --- --- 269 --- --- ---  73 --- --- --- --- ---  79 --- --- --- --- --- 229 --- 367 --- --- --- 739
+ --- --- --- --- --- --- --- --- --- --- --- 113 --- --- --- --- --- --- --- --- --- --- --- 293 --- --- --- --- ---
+ --- --- --- --- --- --- 271 --- 157 --- --- --- --- --- 163 --- --- --- 167 --- --- --- 227 --- --- --- --- --- ---
+ --- --- --- 503 --- --- --- 211 --- --- --- --- --- --- --- --- --- --- --- 223 --- --- --- --- --- --- --- 631 ---
+ --- --- --- --- 419 --- --- --- --- --- 277 --- --- --- 281 --- 283 --- --- --- --- --- --- --- --- --- --- --- ---
+ --- --- --- --- --- --- --- --- --- 347 --- 349 --- --- --- 353 --- --- --- --- --- 359 --- --- --- 443 --- --- ---
+ 809 --- 599 --- 421 --- --- --- --- --- --- --- --- --- 431 --- 433 --- --- --- --- --- 439 --- --- --- --- --- 733
+ --- 701 --- --- --- 509 --- --- --- --- --- --- --- --- --- --- --- 521 --- 523 --- --- --- --- --- --- --- --- ---
+ 811 --- 601 --- --- --- --- --- 607 --- --- --- --- --- 613 --- --- --- 617 --- 619 --- --- --- --- --- --- --- ---
+ --- --- --- --- --- --- --- 709 --- --- --- --- --- --- --- --- --- 719 --- --- --- --- --- --- --- 727 --- --- ---
+ --- --- --- --- --- --- --- --- 821 --- 823 --- --- --- 827 --- 829 --- --- --- --- --- --- --- --- --- 839 --- ---
+
+          <>                  
+             <>    <>         
+    <>                <>    <>
+ <>    <>          <>         
+          <>    <>    <>      
+       <>       <> <>    <>   
+    <>    <>                  
+ <>          <>               
+    <>          <>          <>
+ <>                <>         </pre>

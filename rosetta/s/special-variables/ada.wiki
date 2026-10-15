@@ -1,0 +1,11 @@
+=={{header|Ada}}==
+Ada has no special variables in the standard namespace, nor are any such variables commonplace in packages, almost all are constants or private variables changed through functions.
+The closest thing Ada has to special variables are attributes, which are of an object oriented nature dependant on their prefix. Examples:
+
+* When X is of an array type, X'First denotes the first index of the array (Ada arrays are not limited to starting at 0 or 1).
+* When X is of a scalar type, X'First denotes the lower bound of that type.
+* X'Size gives the number of bits of memory type X is stored as, but can also be assigned to, to force the program to store the type in that number of bits. (Provided its more than the minimum)
+* For example, a 2 bit record (structure) X might be stored as a byte by default as a speed optimization, but X'Size := 2; would force it to be stored as two bits.
+
+There are far too many attributes to list here, but a standard informative list can be found in Annex K of the documentation if you have it installed.
+Or Here: [http://www2.adacore.com/gap-static/GNAT_Book/html/aarm/AA-K.html Annex K - Language-Defined Attributes]

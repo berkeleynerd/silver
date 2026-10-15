@@ -1,0 +1,34 @@
+=={{header|Ada}}==
+In some ways, Ada is a self documenting language by design.  When building packages (the equivalent of modules in python), you have to create two separate files: a spec and a body.  The spec resides in a .ads file, and contains the interface to the package that is visible to someone using it.  
+
+All functions, procedures and data-types that can be used in other Ada programs have to have an entry in the spec that defines how they are used.  The only requirement for the body file is that it give definitions for everything found in the spec.  You can also include other functions in the body file to help build the functions defined in the spec.  Anything that doesn't appear in the .ads file won't be accessible to a programmer who uses that particular package.
+
+The ada spec file gives you all the information you need to know to effectively use the functions in that package, and as such is the primary documentation that you want to look at.  If you have the .adb and .ads files physically available to you, you can also verify that the information is correct by re-compiling the package, the Ada compiler checks to make sure that the spec and the body agree, and that everything defined in the spec is implemented in the body.
+
+Example ADS file for instrumenting sorting functions:
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_Io;
+
+generic
+   SortName : in String;
+   type DataType is (<>);
+   type SortArrayType is array (Integer range <>) of DataType;
+   with procedure Sort (SortArray : in out SortArrayType;
+                        Comp, Write, Ex : in out Natural);
+
+package Instrument is
+   -- This generic package essentially accomplishes turning the sort
+   --  procedures into first-class functions for this limited purpose.
+   --  Obviously it doesn't change the way that Ada works with them;
+   --  the same thing would have been much more straightforward to
+   --  program in a language that had true first-class functions
+
+   package Dur_Io is new Fixed_Io(Duration);
+
+   procedure TimeSort (Arr : in out SortArrayType);
+
+   procedure Put;
+
+   procedure Put (File : in out File_Type);
+
+end Instrument;</syntaxhighlight>
+There is also a tool called [http://sourceforge.net/projects/adadoc/ AdaDoc].  This can be used to generate documentation of an Ada module (or modules?) for a variety of different formats: HTML, LaTeX, plain text and more.

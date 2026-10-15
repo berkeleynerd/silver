@@ -1,0 +1,78 @@
+=={{header|Ada}}==
+
+One of the great criticisms of Pascal was "there is no escape". The reason was that sometimes you have to convert the incompatible. We start with a package, which defines the data type which holds the secret. 
+
+<syntaxhighlight lang="ada">package OO_Privacy is
+
+   type Confidential_Stuff is tagged private;
+   subtype Password_Type is String(1 .. 8);
+
+private
+   type Confidential_Stuff is tagged record
+      Password: Password_Type := "default!"; -- the "secret"
+   end record;
+end OO_Privacy;</syntaxhighlight>
+
+When we later define an object C of type Confidential_Stuff, we can't read read the password stored in C -- except by breaking / bypassing OO privacy rules. 
+
+=== Using Unchecked_Conversion ===
+
+One way to read the password is by using the generic function Unchecked_Conversion:
+
+<syntaxhighlight lang="ada">with OO_Privacy, Ada.Unchecked_Conversion, Ada.Text_IO;
+
+procedure OO_Break_Privacy is
+
+   type Hacker_Stuff is tagged record
+      Password: OO_Privacy.Password_Type := "?unknown";
+   end record;
+
+   function Hack is new Ada.Unchecked_Conversion
+     (Source => OO_Privacy.Confidential_Stuff,     Target => Hacker_Stuff);
+
+   C: OO_Privacy.Confidential_Stuff; -- which password is hidden inside C?
+
+begin
+   Ada.Text_IO.Put_Line("The secret password is """ & Hack(C).Password & """");
+end OO_Break_Privacy;</syntaxhighlight>
+
+The output shows that C holds, surprise, surprise, the default password:
+
+<pre>The secret password is "default!"</pre>
+
+=== Child Packages ===
+
+Another way to bypass privacy is using a child package. Ada child packages have access to their parents' private data structures (somewhat similar to "friends" in C++"):
+
+<syntaxhighlight lang="ada">package OO_Privacy.Friend is -- child package of OO.Privacy                     
+                                                                                
+  function Get_Password(Secret: Confidential_Stuff) return String;              
+                                                                                
+end OO_Privacy.Friend;</syntaxhighlight>                                                          
+
+<syntaxhighlight lang="ada">package body OO_Privacy.Friend is -- implementation of the child package
+                                                                                
+  function Get_Password(Secret: Confidential_Stuff) return String is            
+    (Secret.Password);                                                          
+                                                                                
+end OO_Privacy.Friend;</syntaxhighlight>
+
+Now here is the program that uses the child package, to read the secret:
+
+<syntaxhighlight lang="ada">with OO_Privacy.Friend, Ada.Text_IO;                                            
+                                                                                
+procedure Bypass_OO_Privacy is                                                  
+                                                                                
+  C: OO_Privacy.Confidential_Stuff; -- which password is hidden inside C?       
+                                                                                
+begin                                                                           
+  Ada.Text_IO.Put_Line("Password: """ &                                         
+                       OO_Privacy.Friend.Get_Password(C) &                      
+                       """");                                                   
+end Bypass_OO_Privacy;</syntaxhighlight>
+
+Once again, we have been too lazy to overwrite the default password:
+
+<pre>Password: "default!"</pre>
+
+In fact, the password has to be the default one, because we cannot change the password. For that purpose, we would have to write a setter procedure, and either include it in the package OO_Privacy, or in a child package of OO_Privacy. (Or we could use Unchecked_Conversion to overwrite the default password -- but that is bad style.)

@@ -1,0 +1,100 @@
+=={{header|FreeBASIC}}==
+{{trans|Wren}}
+<syntaxhighlight lang="freebasic">Dim As Integer n, r, t(0 To 30)
+t(0) = 0
+
+Print "The first 30 triangular numbers are:"
+For n = 1 To 30
+    t(n) = t(n-1) + n - 1
+    If n Mod 6 = 0 Then Print Using "####"; t(n) Else Print Using "####"; t(n);
+Next n
+
+Print !"\nThe first 30 tetrahedral numbers are:"
+For n = 1 To 30 
+    t(n) += t(n-1)
+    Print Using "#####"; t(n);
+    If n Mod 6 = 0 Then Print
+Next n
+
+Print !"\nThe first 30 pentatopic numbers are:"
+For n = 1 To 30
+    t(n) += t(n-1)
+    Print Using "######"; t(n);
+    If n Mod 6 = 0 Then Print
+Next n
+
+Print !"\nThe first 30 12-simplex numbers are:"
+For r = 5 To 12
+    For n = 1 To 30
+        t(n) += t(n-1)
+        If r = 12 Then 
+            Print Using "###########"; t(n);
+            If n Mod 6 = 0 Then Print
+        End If
+    Next n
+Next r
+
+#define cRec27 1/sqr(27)
+Dim As Integer xs(1 To 4) = {7140, 21408696, 26728085384, 14545501785001}
+Dim As Double x, y, z
+
+For i As Byte = 1 To 4
+    z = xs(i)
+    Print !"\nRoots of"; xs(i); ":"
+    Print " triangular:"; (Sqr(8*z+1)-1)/2
+    
+    y = 3*z  
+    x = Sqr((y-cRec27)*(y+cRec27))
+    Print "tetrahedral:"; Iif(x < y, Exp(Log(y+x)/3)+Exp(Log(y-x)/3)-1, Exp(Log(6)/3)*Exp(Log(z)/3)-1)
+    
+    Print " pentatopic:"; (Sqr(5+4*Sqr(24*z+1))-3)/2
+Next i
+Sleep</syntaxhighlight>
+{{out}}
+<pre>The first 30 triangular numbers are:
+   0   1   3   6  10  15
+  21  28  36  45  55  66
+  78  91 105 120 136 153
+ 171 190 210 231 253 276
+ 300 325 351 378 406 435
+
+The first 30 tetrahedral numbers are:
+    0    1    4   10   20   35
+   56   84  120  165  220  286
+  364  455  560  680  816  969
+ 1140 1330 1540 1771 2024 2300
+ 2600 2925 3276 3654 4060 4495
+
+The first 30 pentatopic numbers are:
+     0     1     5    15    35    70
+   126   210   330   495   715  1001
+  1365  1820  2380  3060  3876  4845
+  5985  7315  8855 10626 12650 14950
+ 17550 20475 23751 27405 31465 35960
+
+The first 30 12-simplex numbers are:
+          0          1         13         91        455       1820
+       6188      18564      50388     125970     293930     646646
+    1352078    2704156    5200300    9657700   17383860   30421755
+   51895935   86493225  141120525  225792840  354817320  548354040
+  834451800 1251677700 1852482996 2707475148 3910797436 5586853480
+
+Roots of 7140:
+ triangular: 119
+tetrahedral: 34.00000000179027
+ pentatopic: 18.87664661592801
+
+Roots of 21408696:
+ triangular: 6543
+tetrahedral: 503.5611663345483
+ pentatopic: 149.0609473752659
+
+Roots of 26728085384:
+ triangular: 231205.4055652559
+tetrahedral: 5431.99993864654
+ pentatopic: 893.4424567516849
+
+Roots of 14545501785001:
+ triangular: 5393607.158145173
+tetrahedral: 44355.77737655847
+ pentatopic: 4321</pre>

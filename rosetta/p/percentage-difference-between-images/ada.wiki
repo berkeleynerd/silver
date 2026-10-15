@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">type Count is mod 2**64;</syntaxhighlight>
+[[wp:Distance|1-norm distance]] in the luminance space:
+<syntaxhighlight lang="ada">function "-" (Left, Right : Luminance) return Count is
+begin
+   if Left > Right then
+      return Count (Left) - Count (Right);
+   else
+      return Count (Right) - Count (Left);
+   end if;
+end "-";</syntaxhighlight>
+1-norm distance in the color space multiplied to 3:
+<syntaxhighlight lang="ada">function "-" (Left, Right : Pixel) return Count is
+begin
+   return (Left.R - Right.R) + (Left.G - Right.G) + (Left.B - Right.B);
+end "-";</syntaxhighlight>
+Mean of 1-norm distances. Constraint_Error is propagated when images have different size.
+<syntaxhighlight lang="ada">function Diff (Left, Right : Image) return Float is
+   Offs_I : constant Integer := Right'First (1) - Left'First (1);
+   Offs_J : constant Integer := Right'First (2) - Left'First (2);
+   Sum : Count := 0;
+begin
+   if Left'Length (1) /= Right'Length (1) or else Left'Length (2) /= Right'Length (2) then
+      raise Constraint_Error;
+   end if;
+   for I in Left'Range (1) loop
+      for J in Left'Range (2) loop
+         Sum := Sum + (Left (I, J) - Right (I + Offs_I, J + Offs_J));
+      end loop;
+   end loop;
+   return Float (Sum) / (3.0 * Float (Left'Length (1) * Left'Length (2)));
+end Diff;</syntaxhighlight>
+Example of use:
+<syntaxhighlight lang="ada">   F1, F2 : File_Type;
+begin
+   Open (F1, In_File, "city.ppm");
+   Open (F2, In_File, "city_emboss.ppm");
+   Ada.Text_IO.Put_Line ("Diff" & Float'Image (Diff (Get_PPM (F1), Get_PPM (F2))));
+   Close (F1);
+   Close (F2);</syntaxhighlight>

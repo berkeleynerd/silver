@@ -1,0 +1,16 @@
+==={{header|FreeBASIC}}===
+This is a very simple example from the FreeBASIC documentation. To obtain the color of an arbitrary screen pixel (i.e. outside
+the graphics screen controlled by FB) one would need to use API functions. 
+<syntaxhighlight lang="freebasic">FB 1.05.0 Win64
+
+' Set an appropriate screen mode - 320 x 240 x 8bpp indexed color
+ScreenRes 320, 240, 8
+
+' Draw a line using color 12 (light red)
+Line (20,20)-(100,100), 12
+
+' Print the color of a point on the line
+Print Point(20,20)  '' prints 12
+
+' Sleep before the program closes
+Sleep</syntaxhighlight>

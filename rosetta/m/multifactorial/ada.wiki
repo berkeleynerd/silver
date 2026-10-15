@@ -1,0 +1,28 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+procedure Mfact is
+
+   function MultiFact (num : Natural; deg : Positive) return Natural is
+      Result, N : Integer := num;
+   begin
+      if N = 0 then return 1; end if;
+      loop
+         N := N - deg; exit when N <= 0; Result := Result * N;
+      end loop; return Result;
+   end MultiFact;
+
+begin
+   for deg in 1..5 loop
+      Put("Degree"& Integer'Image(deg) &":");
+      for num in 1..10 loop Put(Integer'Image(MultiFact(num,deg))); end loop;
+      New_line;
+   end loop;
+end Mfact;</syntaxhighlight>
+{{out}}
+<pre>
+Degree 1: 1 2 6 24 120 720 5040 40320 362880 3628800
+Degree 2: 1 2 3 8 15 48 105 384 945 3840
+Degree 3: 1 2 3 4 10 18 28 80 162 280
+Degree 4: 1 2 3 4 5 12 21 32 45 120
+Degree 5: 1 2 3 4 5 6 14 24 36 50
+</pre>

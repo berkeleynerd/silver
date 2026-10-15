@@ -1,0 +1,44 @@
+=={{header|FreeBASIC}}==
+Ho hum. Another prime digits task.
+
+<syntaxhighlight lang="freebasic">
+function digit_is_prime( n as integer ) as boolean
+    select case n
+        case 2,3,5,7
+            return true
+        case else
+            return false
+    end select
+end function
+
+function all_digits_prime( n as uinteger ) as boolean
+    dim as string sn = str(n)
+    for i as uinteger = 1 to len(sn)
+        if not digit_is_prime( val(mid(sn,i,1)) ) then return false
+    next i
+    return true
+end function
+
+function digit_sum_13( n as uinteger ) as boolean
+    dim as string sn = str(n)
+    dim as integer k = 0
+    for i as uinteger = 1 to len(sn)
+        k = k + val(mid(sn,i,1))
+        if k>13 then return false
+    next i
+    if k<>13 then return false else return true
+end function
+
+for i as uinteger = 1 to 322222
+    if all_digits_prime(i) andalso digit_sum_13(i) then print i,
+next i</syntaxhighlight>
+{{out}}
+<pre>
+337           355           373           535           553           733
+2227          2272          2335          2353          2533          2722
+3235          3253          3325          3352          3523          3532
+5233          5323          5332          7222          22225         22252
+22333         22522         23233         23323         23332         25222
+32233         32323         32332         33223         33232         33322
+52222         222223        222232        222322        223222        232222
+322222</pre>

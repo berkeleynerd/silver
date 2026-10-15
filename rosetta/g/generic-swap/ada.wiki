@@ -1,0 +1,25 @@
+=={{header|Ada}}==
+The generic parameters for an Ada generic procedure are defined in a procedure specification, while the algorithm is defined in a procedure body. The first code snippet is the procedure specification. The second code snippet is the procedure body.
+
+<syntaxhighlight lang="ada">generic
+   type Swap_Type is private; -- Generic parameter
+procedure Generic_Swap (Left, Right : in out Swap_Type);
+
+procedure Generic_Swap (Left, Right : in out Swap_Type) is
+   Temp : constant Swap_Type := Left;
+begin
+   Left := Right;
+   Right := Temp;
+end Generic_Swap;</syntaxhighlight>
+
+===usage===
+To use the generic swap procedure, you need to instantiate the procedure for each type that you intend to use.
+<syntaxhighlight lang="ada">
+with Generic_Swap;
+...
+type T is ...
+procedure T_Swap is new Generic_Swap (Swap_Type => T);
+A, B : T;
+...
+T_Swap (A, B);
+</syntaxhighlight>

@@ -1,0 +1,5 @@
+{{draft task}}
+
+;Task
+Put the [[wp:Lorenz system|Lorenz attractor]] code and image in your language on this page.
+</br>

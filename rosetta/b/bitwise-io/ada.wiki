@@ -1,0 +1,89 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Streams;  use Ada.Streams;
+with Ada.Finalization;
+
+package Bit_Streams is
+   type Bit is range 0..1;
+   type Bit_Array is array (Positive range <>) of Bit;
+   type Bit_Stream (Channel : not null access Root_Stream_Type'Class) is limited private;
+   procedure Read (Stream : in out Bit_Stream; Data : out Bit_Array);
+   procedure Write (Stream : in out Bit_Stream; Data : Bit_Array);
+private
+   type Bit_Stream (Channel : not null access Root_Stream_Type'Class) is
+      new Ada.Finalization.Limited_Controlled with
+   record
+      Read_Count  : Natural := 0;
+      Write_Count : Natural := 0;
+      Input       : Stream_Element_Array (1..1);
+      Output      : Stream_Element_Array (1..1);
+   end record;
+   overriding procedure Finalize (Stream : in out Bit_Stream);
+end Bit_Streams;</syntaxhighlight>
+The package provides a bit stream interface to a conventional stream. The object of Bit_Stream has a discriminant of any stream type. This stream will be used for physical I/O. Bit_Stream reads and writes arrays of bits. There is no need to have flush procedure, because this is done upon object destruction. The implementation is straightforward, big endian encoding of bits into Stream_Element units is used as required by the task:
+<syntaxhighlight lang="ada">package body Bit_Streams is
+   procedure Finalize (Stream : in out Bit_Stream) is
+   begin
+      if Stream.Write_Count > 0 then
+         Stream.Output (1) := Stream.Output (1) * 2**(Stream_Element'Size - Stream.Write_Count);
+         Stream.Channel.Write (Stream.Output);
+      end if;
+   end Finalize;
+   procedure Read (Stream : in out Bit_Stream; Data : out Bit_Array) is
+      Last : Stream_Element_Offset;
+   begin
+      for Index in Data'Range loop
+         if Stream.Read_Count = 0 then
+            Stream.Channel.Read (Stream.Input, Last);
+            Stream.Read_Count := Stream_Element'Size;
+         end if;
+         Data (Index) := Bit (Stream.Input (1) / 2**(Stream_Element'Size - 1));
+         Stream.Input (1)  := Stream.Input (1) * 2;
+         Stream.Read_Count := Stream.Read_Count - 1;
+      end loop;
+   end Read;
+   procedure Write (Stream : in out Bit_Stream; Data : Bit_Array) is
+   begin
+      for Index in Data'Range loop
+         if Stream.Write_Count = Stream_Element'Size then
+            Stream.Channel.Write (Stream.Output);
+            Stream.Write_Count := 0;
+         end if;
+         Stream.Output (1)  := Stream.Output (1) * 2 or Stream_Element (Data (Index));
+         Stream.Write_Count := Stream.Write_Count + 1;
+      end loop;
+   end Write;
+end Bit_Streams;</syntaxhighlight>
+Example of use:
+<syntaxhighlight lang="ada">with Ada.Streams.Stream_IO;  use Ada.Streams.Stream_IO;
+with Bit_Streams;            use Bit_Streams;
+
+procedure Test_Bit_Streams is
+   File   : File_Type;
+   ABACUS : Bit_Array :=
+               (  1,0,0,0,0,0,1,  -- A, big endian
+                  1,0,0,0,0,1,0,  -- B
+                  1,0,0,0,0,0,1,  -- A
+                  1,0,0,0,0,1,1,  -- C
+                  1,0,1,0,1,0,1,  -- U
+                  1,0,1,0,0,1,1   -- S  
+               );
+   Data : Bit_Array (ABACUS'Range);
+begin
+   Create (File, Out_File, "abacus.dat");
+   declare
+      Bits : Bit_Stream (Stream (File));
+   begin
+      Write (Bits, ABACUS);
+   end;
+   Close (File);
+   Open (File, In_File, "abacus.dat");
+   declare
+      Bits : Bit_Stream (Stream (File));
+   begin
+      Read (Bits, Data);
+   end;
+   Close (File);
+   if Data /= ABACUS then
+      raise Data_Error;
+   end if;
+end Test_Bit_Streams;</syntaxhighlight>

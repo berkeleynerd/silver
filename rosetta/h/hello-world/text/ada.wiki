@@ -1,0 +1,7 @@
+=={{header|Ada}}==
+{{works with|GCC|4.1.2}}
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+procedure Main is
+begin
+  Put_Line ("Hello world!");
+end Main;</syntaxhighlight>

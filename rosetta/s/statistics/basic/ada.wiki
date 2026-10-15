@@ -1,0 +1,299 @@
+=={{header|Ada}}==
+===A plain solution for moderate sample sizes===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Command_Line, Ada.Numerics.Float_Random,
+  Ada.Numerics.Generic_Elementary_Functions;
+
+procedure Basic_Stat is
+
+   package FRG renames Ada.Numerics.Float_Random;
+   package TIO renames Ada.Text_IO;
+
+   type Counter is range 0 .. 2**31-1;
+   type Result_Array is array(Natural range <>) of Counter;
+
+   package FIO is new TIO.Float_IO(Float);
+
+   procedure Put_Histogram(R: Result_Array; Scale, Full: Counter) is
+   begin
+      for I in R'Range loop
+         FIO.Put(Float'Max(0.0, Float(I)/10.0 - 0.05),
+                 Fore => 1, Aft => 2, Exp => 0);       TIO.Put("..");
+         FIO.Put(Float'Min(1.0, Float(I)/10.0 + 0.05),
+                 Fore => 1, Aft => 2, Exp => 0);       TIO.Put(": ");
+         for J in 1 .. (R(I)* Scale)/Full loop
+            Ada.Text_IO.Put("X");
+         end loop;
+         Ada.Text_IO.New_Line;
+      end loop;
+   end Put_Histogram;
+
+   procedure Put_Mean_Et_Al(Sample_Size: Counter;
+                            Val_Sum, Square_Sum: Float) is
+      Mean: constant Float := Val_Sum / Float(Sample_Size);
+      package Math is new Ada.Numerics.Generic_Elementary_Functions(Float);
+   begin
+      TIO.Put("Mean: ");
+      FIO.Put(Mean,  Fore => 1, Aft => 5, Exp => 0);
+      TIO.Put(",  Standard Deviation: ");
+      FIO.Put(Math.Sqrt(abs(Square_Sum / Float(Sample_Size)
+                           - (Mean * Mean))), Fore => 1, Aft => 5, Exp => 0);
+      TIO.New_Line;
+   end Put_Mean_Et_Al;
+
+   N: Counter := Counter'Value(Ada.Command_Line.Argument(1));
+   Gen: FRG.Generator;
+   Results: Result_Array(0 .. 10) := (others => 0);
+   X: Float;
+   Val_Sum, Squ_Sum: Float := 0.0;
+
+begin
+   FRG.Reset(Gen);
+   for I in 1 .. N loop
+      X := FRG.Random(Gen);
+      Val_Sum   := Val_Sum + X;
+      Squ_Sum := Squ_Sum + X*X;
+      declare
+         Index: Integer := Integer(X*10.0);
+      begin
+         Results(Index) := Results(Index) + 1;
+      end;
+   end loop;
+   TIO.Put_Line("After sampling" & Counter'Image(N) & " random numnbers: ");
+   Put_Histogram(Results, Scale => 600, Full => N);
+   TIO.New_Line;
+   Put_Mean_Et_Al(Sample_Size => N, Val_Sum => Val_Sum, Square_Sum => Squ_Sum);
+end Basic_Stat;</syntaxhighlight>
+{{out}} from a few sample runs: 
+<pre>> ./basic_stat 1000
+After sampling 1000 random numnbers: 
+0.00..0.05: XXXXXXXXXXXXXXXXXXXXXXX
+0.05..0.15: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.15..0.25: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.25..0.35: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.35..0.45: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.45..0.55: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.55..0.65: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.65..0.75: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.75..0.85: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.85..0.95: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.95..1.00: XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Mean: 0.48727,  Standard Deviation: 0.28502
+
+
+
+> ./basic_stat 10_000
+After sampling 10000 random numnbers: 
+0.00..0.05: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.05..0.15: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.15..0.25: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.25..0.35: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.35..0.45: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.45..0.55: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.55..0.65: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.65..0.75: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.75..0.85: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.85..0.95: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.95..1.00: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Mean: 0.50096,  Standard Deviation: 0.28869
+
+
+
+> ./basic_stat 100_000
+After sampling 100000 random numnbers: 
+0.00..0.05: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.05..0.15: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.15..0.25: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.25..0.35: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.35..0.45: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.45..0.55: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.55..0.65: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.65..0.75: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.75..0.85: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.85..0.95: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.95..1.00: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Mean: 0.50178,  Standard Deviation: 0.28805</pre>
+
+===Making the solution ready for one trillion samples===
+
+Depending on where you live, one trillion is either 10^12 or 10^18 [https://en.wikipedia.org/wiki/Trillion].
+Below, I'll assume 10^12, which implies a number of operations I can still perform on my PC.
+
+The above program will fail with such large inputs for two reasons:
+
+1. The type Counter cannot hold such large numbers. 
+
+2. The variables Val_Sum and Squ_Sum will numerically fail, because the type Float only provides about six decimal digits of accuracy. I.e., at some point, Val_Sum and (a little bit later) Squ_Sum are so large that adding a value below 1 has no effect, any more. 
+
+To make the program ready for sample size 10^12, we modify it as follows.
+
+1. Change the type Counter to hold such large numbers.
+
+2. Define a type High_Precision, that will hold (at least) 15 decimal digits. Define Val_Sum and Squ_Sum as being from that type. Include the neccessary type conversions. 
+
+3. Provide some progress report, during the running time.
+
+This is the modified program
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Command_Line, Ada.Numerics.Float_Random,
+  Ada.Numerics.Generic_Elementary_Functions;
+
+procedure Long_Basic_Stat is
+
+   package FRG renames Ada.Numerics.Float_Random;
+   package TIO renames Ada.Text_IO;
+
+   type Counter is range 0 .. 2**63-1;
+   type Result_Array is array(Natural range <>) of Counter;
+   type High_Precision is digits 15;
+
+   package FIO is new TIO.Float_IO(Float);
+
+   procedure Put_Histogram(R: Result_Array; Scale, Full: Counter) is
+   begin
+      for I in R'Range loop
+         FIO.Put(Float'Max(0.0, Float(I)/10.0 - 0.05),
+                 Fore => 1, Aft => 2, Exp => 0);       TIO.Put("..");
+         FIO.Put(Float'Min(1.0, Float(I)/10.0 + 0.05),
+                 Fore => 1, Aft => 2, Exp => 0);       TIO.Put(": ");
+         for J in 1 .. (R(I)* Scale)/Full loop
+            Ada.Text_IO.Put("X");
+         end loop;
+         Ada.Text_IO.New_Line;
+      end loop;
+   end Put_Histogram;
+
+   procedure Put_Mean_Et_Al(Sample_Size: Counter;
+                            Val_Sum, Square_Sum: Float) is
+      Mean: constant Float := Val_Sum / Float(Sample_Size);
+      package Math is new Ada.Numerics.Generic_Elementary_Functions(Float);
+   begin
+      TIO.Put("Mean: ");
+      FIO.Put(Mean,  Fore => 1, Aft => 5, Exp => 0);
+      TIO.Put(",  Standard Deviation: ");
+      FIO.Put(Math.Sqrt(abs(Square_Sum / Float(Sample_Size)
+                           - (Mean * Mean))), Fore => 1, Aft => 5, Exp => 0);
+      TIO.New_Line;
+   end Put_Mean_Et_Al;
+
+   N: Counter := Counter'Value(Ada.Command_Line.Argument(1));
+   Gen: FRG.Generator;
+   Results: Result_Array(0 .. 10) := (others => 0);
+   X: Float;
+   Val_Sum, Squ_Sum: High_Precision := 0.0;
+
+begin
+   FRG.Reset(Gen);
+   for Outer in 1 .. 1000 loop
+      for I in 1 .. N/1000 loop
+         X := FRG.Random(Gen);
+         Val_Sum   := Val_Sum + High_Precision(X);
+         Squ_Sum := Squ_Sum + High_Precision(X)*High_Precision(X);
+         declare
+            Index: Integer := Integer(X*10.0);
+         begin
+            Results(Index) := Results(Index) + 1;
+         end;
+      end loop;
+      if Outer mod 50 = 0 then
+         TIO.New_Line(1);
+         TIO.Put_Line(Integer'Image(Outer/10) &"% done; current results:");
+         Put_Mean_Et_Al(Sample_Size => (Counter(Outer)*N)/1000,
+                        Val_Sum     => Float(Val_Sum),
+                        Square_Sum  => Float(Squ_Sum));
+      else
+         Ada.Text_IO.Put(".");
+      end if;
+   end loop;
+   TIO.New_Line(4);
+   TIO.Put_Line("After sampling" & Counter'Image(N) & " random numnbers: ");
+   Put_Histogram(Results, Scale => 600, Full => N);
+   TIO.New_Line;
+   Put_Mean_Et_Al(Sample_Size => N,
+                  Val_Sum => Float(Val_Sum), Square_Sum => Float(Squ_Sum));
+end Long_Basic_Stat;</syntaxhighlight>
+
+{{out}} for sample size 10^12 took one night on my PC:
+<pre>.................................................
+ 5% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28867
+.................................................
+ 10% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28867
+.................................................
+ 15% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 20% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 25% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 30% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 35% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 40% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 45% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 50% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 55% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 60% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 65% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 70% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 75% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 80% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 85% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 90% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 95% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+.................................................
+ 100% done; current results:
+Mean: 0.50000,  Standard Deviation: 0.28868
+
+
+
+
+After sampling 1000000000000 random numnbers: 
+0.00..0.05: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.05..0.15: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.15..0.25: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.25..0.35: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.35..0.45: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.45..0.55: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.55..0.65: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.65..0.75: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.75..0.85: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.85..0.95: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+0.95..1.00: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Mean: 0.50000,  Standard Deviation: 0.28868</pre>
+
+The same program should still work fine for sample size 10^18, but I'll need my PC in the meantime. ;-)

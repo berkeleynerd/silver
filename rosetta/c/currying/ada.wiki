@@ -1,0 +1,86 @@
+=={{header|Ada}}==
+Ada lacks explicit support for currying, or indeed just about any form of functional programming at all. However if one views generic subprograms as approximately equivalent to higher order functions, and generic packages as approximately equivalent to closures, then the desired functionality can still be achieved. The chief limitation is that separate generic support packages must exist for each arity that is to be curried.
+
+Support package spec:
+<syntaxhighlight lang="ada">generic
+    type Argument_1 (<>) is limited private;
+    type Argument_2 (<>) is limited private;
+    type Argument_3 (<>) is limited private;
+    type Return_Value (<>) is limited private;
+
+    with function Func
+           (A : in Argument_1;
+            B : in Argument_2;
+            C : in Argument_3)
+        return Return_Value;
+package Curry_3 is
+
+    generic
+        First : in Argument_1;
+    package Apply_1 is
+
+        generic
+            Second : in Argument_2;
+        package Apply_2 is
+
+            function Apply_3
+                   (Third : in Argument_3)
+                return Return_Value;
+
+        end Apply_2;
+
+    end Apply_1;
+
+end Curry_3;</syntaxhighlight>
+
+Support package body:
+<syntaxhighlight lang="ada">package body Curry_3 is
+
+    package body Apply_1 is
+
+        package body Apply_2 is
+
+            function Apply_3
+                   (Third : in Argument_3)
+                return Return_Value is
+            begin
+                return Func (First, Second, Third);
+            end Apply_3;
+
+        end Apply_2;
+
+    end Apply_1;
+
+end Curry_3;</syntaxhighlight>
+
+Currying a function:
+<syntaxhighlight lang="ada">with Curry_3, Ada.Text_IO;
+
+procedure Curry_Test is
+
+    function Sum
+           (X, Y, Z : in Integer)
+        return Integer is
+    begin
+        return X + Y + Z;
+    end Sum;
+
+    package Curried is new Curry_3
+       (Argument_1   => Integer,
+        Argument_2   => Integer,
+        Argument_3   => Integer,
+        Return_Value => Integer,
+        Func         => Sum);
+
+    package Sum_5 is new Curried.Apply_1 (5);
+    package Sum_5_7 is new Sum_5.Apply_2 (7);
+    Result : Integer := Sum_5_7.Apply_3 (3);
+
+begin
+
+    Ada.Text_IO.Put_Line ("Five plus seven plus three is" & Integer'Image (Result));
+
+end Curry_Test;</syntaxhighlight>
+
+Output:
+<pre>Five plus seven plus three is 15</pre>

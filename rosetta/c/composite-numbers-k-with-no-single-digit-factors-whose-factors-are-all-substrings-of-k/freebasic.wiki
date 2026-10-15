@@ -1,0 +1,45 @@
+=={{header|FreeBASIC}}==
+{{trans|ALGOL 68}}
+<syntaxhighlight lang="vbnet">Function isSubstring(kStr As String, f As Integer) As Integer
+    If InStr(kStr, Str(f)) > 0 Then
+        Return -1
+    End If
+    Return 0
+End Function
+
+
+Dim As Integer requiredNumbers = 20
+Dim As Integer kCount = 0
+For k As Integer = 11 To 99999999 Step 2
+    If k Mod 3 <> 0 And k Mod 5 <> 0 And k Mod 7 <> 0 Then
+        Dim As Integer isCandidate = -1
+        Dim As String kStr = Str(k)
+        Dim As Integer v = k
+        Dim As Integer fCount = 0
+        For f As Integer = 11 To Sqr(k) + 1
+            If v Mod f = 0 Then
+                isCandidate = isSubstring(kStr, f)
+                If isCandidate Then
+                    While v Mod f = 0
+                        fCount += 1
+                        v \= f
+                    Wend
+                Else
+                    Exit For
+                End If
+            End If
+        Next f
+        If isCandidate And (fCount > 1 Or (v <> k And v > 1)) Then
+            If v > 1 Then isCandidate = isSubstring(kStr, v)
+            If isCandidate Then
+                Print Using "#######,###"; k;
+                kCount += 1
+                If kCount Mod 10 = 0 Then Print
+            End If
+        End If
+    End If
+    If kCount >= requiredNumbers Then Exit For
+Next k</syntaxhighlight>
+{{out}}
+<pre>     15,317     59,177     83,731    119,911    183,347    192,413  1,819,231  2,111,317  2,237,411  3,129,361
+  5,526,173 11,610,313 13,436,683 13,731,373 13,737,841 13,831,103 15,813,251 17,692,313 19,173,071 28,118,827</pre>

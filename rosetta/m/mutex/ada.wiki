@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+[[Ada]] provides higher-level concurrency primitives, which are complete in the sense that they also allow implementations of the lower-level ones, like mutexes. Here is an implementation of a plain non-reentrant mutex based on protected objects.
+
+The mutex interface:
+<syntaxhighlight lang="ada">protected type Mutex is
+   entry Seize;
+   procedure Release;
+private
+   Owned : Boolean := False;
+end Mutex;</syntaxhighlight>
+The implementation of:
+<syntaxhighlight lang="ada">protected body Mutex is
+   entry Seize when not Owned is
+   begin
+      Owned := True;
+   end Seize;
+   procedure Release is
+   begin
+      Owned := False;
+   end Release;
+end Mutex;</syntaxhighlight>
+Here the entry Seize has a queue of the [[task]]s waiting for the mutex. The entry's barrier is closed when Owned is true. So any task calling to the entry will be queued. When the barrier is open the first task from the queue executes the entry and Owned becomes true closing the barrier again. The procedure Release simply sets Owned to false. Both Seize and Release are protected actions whose execution causes reevaluation of all barriers, in this case one of Seize.
+
+Use:
+<syntaxhighlight lang="ada">declare
+   M : Mutex;
+begin
+   M.Seize;    -- Wait infinitely for the mutex to be free
+   ...         -- Critical code
+   M.Release;  -- Release the mutex
+   ...
+   select
+      M.Seize; -- Wait no longer than 0.5s
+   or delay 0.5;
+      raise Timed_Out;
+   end select;
+   ...         -- Critical code
+   M.Release;  -- Release the mutex
+end;</syntaxhighlight>
+It is also possible to implement mutex as a monitor task.

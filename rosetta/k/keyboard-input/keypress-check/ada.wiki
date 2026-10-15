@@ -1,0 +1,9 @@
+=={{header|Ada}}==
+
+<syntaxhighlight lang="ada">Ch : Character;
+Available : Boolean;
+
+Ada.Text_IO.Get_Immediate (Ch, Available);</syntaxhighlight>
+
+If key was pressed, Available is set to True and Ch contains the value.
+If not, Available is set to False.

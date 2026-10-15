@@ -1,0 +1,275 @@
+=={{header|Ada}}==
+
+First, we specify a naive implementation the package Knights_Tour with naive backtracking. It is a bit more general than required for this task, by providing a mechanism '''not''' to visit certain coordinates. This mechanism is actually useful for the task [[Solve a Holy Knight's tour#Ada]], which also uses the package Knights_Tour. 
+
+<syntaxhighlight lang="ada">generic
+   Size: Integer;
+package Knights_Tour is
+ 
+   subtype Index is Integer range 1 .. Size;
+   type Tour is array  (Index, Index) of Natural;
+   Empty: Tour := (others => (others => 0));
+   
+   function Get_Tour(Start_X, Start_Y: Index; Scene: Tour := Empty) return Tour;
+   -- finds tour via backtracking
+   -- either no tour has been found, i.e., Get_Tour returns Scene
+   -- or the Result(X,Y)=K if and only if I,J is visited at the K-th move
+   -- for all X, Y, Scene(X,Y) must be either 0 or Natural'Last,
+   --   where Scene(X,Y)=Natural'Last means "don't visit coordiates (X,Y)!"
+ 
+   function Count_Moves(Board: Tour) return Natural;
+   -- counts the number of possible moves, i.e., the number of 0's on the board
+   
+   procedure Tour_IO(The_Tour: Tour; Width: Natural := 4);
+   -- writes The_Tour to the output using Ada.Text_IO;
+      
+end Knights_Tour;</syntaxhighlight>
+
+Here is the implementation:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Integer_Text_IO;
+ 
+package body Knights_Tour is
+ 
+ 
+   type Pair is array(1..2) of Integer;
+   type Pair_Array is array (Positive range <>) of Pair;
+ 
+   Pairs: constant Pair_Array (1..8)
+     := ((-2,1),(-1,2),(1,2),(2,1),(2,-1),(1,-2),(-1,-2),(-2,-1));
+   -- places for the night to go (relative to the current position)
+   
+   function Count_Moves(Board: Tour) return Natural is
+      N: Natural := 0;
+   begin
+      for I in Index loop
+   for J in Index loop
+      if Board(I,J) < Natural'Last then 
+         N := N + 1; 
+      end if;
+   end loop;
+      end loop;
+      return N;
+   end Count_Moves;
+   
+   function Get_Tour(Start_X, Start_Y: Index; Scene: Tour := Empty) 
+        return Tour is
+      Done: Boolean;
+      Move_Count: Natural := Count_Moves(Scene);
+      Visited: Tour;
+
+      -- Visited(I, J) = 0: not yet visited
+      -- Visited(I, J) = K: visited at the k-th move
+      -- Visited(I, J) = Integer'Last: never visit
+ 
+      procedure Visit(X, Y: Index; Move_Number: Positive; Found: out Boolean) is
+         XX, YY: Integer;
+      begin
+         Found := False;
+         Visited(X, Y) := Move_Number;
+         if Move_Number = Move_Count then
+            Found := True;
+         else
+            for P in Pairs'Range loop
+               XX := X + Pairs(P)(1);
+               YY := Y + Pairs(P)(2);
+               if (XX in Index) and then (YY in Index)
+                                and then Visited(XX, YY) = 0 then
+                  Visit(XX, YY, Move_Number+1, Found); -- recursion
+                  if Found then
+                     return; -- no need to search further
+                  end if;
+               end if;
+            end loop;
+            Visited(X, Y) := 0; -- undo previous mark
+         end if;
+      end Visit;
+ 
+   begin
+      Visited := Scene;
+      Visit(Start_X, Start_Y, 1, Done);
+      if not Done then
+         Visited := Scene;
+      end if;
+      return Visited;
+   end Get_Tour;
+  
+   procedure Tour_IO(The_Tour: Tour; Width: Natural := 4) is
+   begin
+      for I in Index loop
+         for J in Index loop
+      if The_Tour(I, J) < Integer'Last then
+         Ada.Integer_Text_IO.Put(The_Tour(I, J), Width);
+      else
+         for W in 1 .. Width-1 loop
+      Ada.Text_IO.Put(" ");
+         end loop;
+         Ada.Text_IO.Put("-"); -- deliberately not visited
+      end if;
+         end loop;
+         Ada.Text_IO.New_Line;
+      end loop;
+   end Tour_IO;
+ 
+end Knights_Tour;</syntaxhighlight>
+
+Here is the main program:
+
+<syntaxhighlight lang="ada">with Knights_Tour, Ada.Command_Line;
+
+procedure Test_Knight is
+
+   Size: Positive := Positive'Value(Ada.Command_Line.Argument(1));
+
+   package KT is new Knights_Tour(Size => Size);
+
+begin
+   KT.Tour_IO(KT.Get_Tour(1, 1));
+end Test_Knight;</syntaxhighlight>
+
+For small sizes, this already works well (< 1 sec for size 8). Sample output:
+<pre>>./test_knight 8
+   1  38  55  34   3  36  19  22
+  54  47   2  37  20  23   4  17
+  39  56  33  46  35  18  21  10
+  48  53  40  57  24  11  16   5
+  59  32  45  52  41  26   9  12
+  44  49  58  25  62  15   6  27
+  31  60  51  42  29   8  13  64
+  50  43  30  61  14  63  28   7</pre>
+
+For larger sizes we'll use Warnsdorff's heuristic (without any thoughtful tie breaking). We enhance the specification adding a function Warnsdorff_Get_Tour. This enhancement of the package Knights_Tour will also be used for the task [[Solve a Holy Knight's tour#Ada]]. The specification of Warnsdorff_Get_Tour is the following.
+<syntaxhighlight lang="ada">   
+   function Warnsdorff_Get_Tour(Start_X, Start_Y: Index; Scene: Tour := Empty) 
+             return Tour;
+   -- uses Warnsdorff heurisitic to find a tour faster
+   -- same interface as Get_Tour</syntaxhighlight>
+
+Its implementation is as follows.
+
+<syntaxhighlight lang="ada">   function Warnsdorff_Get_Tour(Start_X, Start_Y: Index;  Scene: Tour := Empty)
+             return Tour is
+      Done: Boolean;
+      Visited: Tour; -- see comments from Get_Tour above
+      Move_Count: Natural := Count_Moves(Scene);
+ 
+      function Neighbors(X, Y: Index) return Natural is
+         Result: Natural := 0;
+      begin
+         for P in Pairs'Range loop
+            if X+Pairs(P)(1) in Index and then Y+Pairs(P)(2) in Index and then
+              Visited(X+Pairs(P)(1),  Y+Pairs(P)(2)) = 0 then
+               Result := Result + 1;
+            end if;
+         end loop;
+         return Result;
+      end Neighbors;
+ 
+      procedure Sort(Options: in out Pair_Array) is
+         N_Bors: array(Options'Range) of Natural;
+         K: Positive range Options'Range;
+         N: Natural;
+         P: Pair;
+      begin
+         for Opt in Options'Range loop
+            N_Bors(Opt) := Neighbors(Options(Opt)(1), Options(Opt)(2));
+         end loop;
+         for Opt in Options'Range loop
+            K := Opt;
+            for Alternative in Opt+1 .. Options'Last loop
+               if N_Bors(Alternative) < N_Bors(Opt) then
+                  K := Alternative;
+               end if;
+            end loop;
+            N           := N_Bors(Opt);
+            N_Bors(Opt) := N_Bors(K);
+            N_Bors(K)   := N;
+            P            := Options(Opt);
+            Options(Opt) := Options(K);
+            Options(K)   := P;
+         end loop;
+      end Sort;
+ 
+      procedure Visit(X, Y: Index; Move: Positive; Found: out Boolean) is
+         Next_Count: Natural range 0 .. 8 := 0;
+         Next_Steps: Pair_Array(1 .. 8);
+         XX, YY: Integer;
+      begin
+         Found := False;
+         Visited(X, Y) := Move;
+         if Move = Move_Count then
+            Found := True;
+         else
+            -- consider all possible places to go
+            for P in Pairs'Range loop
+               XX := X + Pairs(P)(1);
+               YY := Y + Pairs(P)(2);
+               if (XX in Index) and then (YY in Index)
+                 and then Visited(XX, YY) = 0 then
+                  Next_Count := Next_Count+1;
+                  Next_Steps(Next_Count) := (XX, YY);
+               end if;
+            end loop;
+ 
+            Sort(Next_Steps(1 .. Next_Count));
+ 
+            for N in 1 .. Next_Count loop
+               Visit(Next_Steps(N)(1), Next_Steps(N)(2), Move+1, Found);
+               if Found then
+                  return; -- no need to search further
+            end if;
+            end loop;
+ 
+            -- if we didn't return above, we have to undo our move
+            Visited(X, Y) := 0;
+         end if;
+      end Visit;
+ 
+   begin
+      Visited := Scene;
+      Visit(Start_X, Start_Y, 1, Done);
+      if not Done then
+         Visited := Scene;
+      end if;
+      return Visited;
+   end Warnsdorff_Get_Tour;</syntaxhighlight>
+
+The modification for the main program is trivial:
+<syntaxhighlight lang="ada">with Knights_Tour, Ada.Command_Line;
+
+procedure Test_Fast is
+
+   Size: Positive := Positive'Value(Ada.Command_Line.Argument(1));
+
+   package KT is new Knights_Tour(Size => Size);
+
+begin
+   KT.Tour_IO(KT.Warnsdorff_Get_Tour(1, 1));
+end Test_Fast;</syntaxhighlight>
+
+This works still well for somewhat larger sizes:
+<pre>>./test_fast 24
+   1 108  45  52   3 112  57  60   5  62 131 144   7  64 147 170   9  66 187 192  11  68  71 190
+  46  51   2 111  56  53   4 113 130  59   6  63 146 169   8  65 186 215  10  67 188 191  12  69
+ 107  44 109  54 123 114 129  58  61 132 145 168 143 148 185 214 171 198 225 216 193  70 189  72
+  50  47 122 115 110  55 140 133 128 167 142 149 184 213 172 199 226 255 246 197 224 217 194  13
+  43 106  49 124 139 134 127 166 141 150 183 212 173 200 227 254 247 242 223 256 245 196  73 218
+  48 121 116 135 126 165 138 151 182 211 174 201 228 253 248 241 290 263 304 243 222 257  14 195
+ 105  42 125 164 137 152 181 210 175 202 229 252 249 240 289 264 329 308 291 262 303 244 219  74
+ 120 117 136 153 180 163 176 203 230 267 250 239 288 265 328 309 334 345 330 305 292 221 258  15
+  41 104 119 160 177 204 231 268 209 238 287 266 251 310 335 344 357 332 307 346 261 302  75 220
+ 118 159 154 205 162 179 208 237 286 269 324 311 336 327 438 333 418 347 356 331 306 293  16 259
+ 103  40 161 178 207 232 285 270 323 312 337 326 483 416 343 422 437 358 419 298 349 260 301  76
+ 158 155 206 233 284 271 236 313 338 325 482 415 342 439 484 417 420 423 348 355 360 299 294  17
+  39 102 157 272 235 314 339 322 481 414 341 492 497 514 421 440 485 436 359 424 297 350  77 300
+ 156 273 234 315 276 283 478 413 340 493 480 513 530 491 498 515 452 441 454 435 354 361  18 295
+ 101  38 275 282 397 412 321 494 479 512 557 496 543 534 529 490 499 486 451 442 425 296 351  78
+ 274 279 316 277 320 477 410 511 570 495 554 535 556 531 542 533 516 453 444 455 434 353 362  19
+  37 100 281 398 411 396 575 476 567 558 561 544 553 536 521 528 489 500 487 450 443 426  79 352
+ 280 317 278 319 402 409 510 569 560 571 566 555 550 541 532 537 522 517 460 445 456 433  20 363
+  99  36 389 378 399 576 395 574 475 568 559 562 545 552 525 520 527 488 501 462 449 364 427  80
+  94 379 318 401 388 403 408 509 572 565 474 551 540 549 538 523 518 461 446 459 432 457 366  21
+  35  98  93 390 377 400 573 394 375 508 563 546 373 524 519 526 371 502 463 466 365 448  81 428
+ 380  95 382 385 404 387 376 407 564 473 374 507 548 539 372 503 464 467 370 447 458 431  22 367
+ 383  34  97  92 391  32 405  90 393  30 547  88 471  28 505  86 469  26 465  84 369  24 429  82
+  96 381 384  33 386  91 392  31 406  89 472  29 506  87 470  27 504  85 468  25 430  83 368  23</pre>

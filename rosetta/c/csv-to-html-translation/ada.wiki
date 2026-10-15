@@ -1,0 +1,82 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+{{libheader|AWS}}
+csv2html.adb:
+<syntaxhighlight lang=Ada>with Ada.Strings.Fixed;
+with Ada.Text_IO;
+with Templates_Parser;
+
+procedure Csv2Html is
+   use type Templates_Parser.Vector_Tag;
+
+   Chars : Templates_Parser.Vector_Tag;
+   Speeches : Templates_Parser.Vector_Tag;
+
+   CSV_File : Ada.Text_IO.File_Type;
+begin
+   -- read the csv data
+   Ada.Text_IO.Open (File => CSV_File,
+                     Mode => Ada.Text_IO.In_File,
+                     Name => "data.csv");
+
+   -- fill the tags
+   while not Ada.Text_IO.End_Of_File (CSV_File) loop
+      declare
+         Whole_Line : String := Ada.Text_IO.Get_Line (CSV_File);
+         Comma_Pos : Natural := Ada.Strings.Fixed.Index (Whole_Line, ",");
+      begin
+         Chars := Chars & Whole_Line (Whole_Line'First .. Comma_Pos - 1);
+         Speeches := Speeches & Whole_Line (Comma_Pos + 1 .. Whole_Line'Last);
+      end;
+   end loop;
+
+   Ada.Text_IO.Close (CSV_File);
+
+   -- build translation table and output html
+   declare
+      Translations : constant Templates_Parser.Translate_Table :=
+        (1 => Templates_Parser.Assoc ("CHAR", Chars),
+         2 => Templates_Parser.Assoc ("SPEECH", Speeches));
+   begin
+      Ada.Text_IO.Put_Line
+        (Templates_Parser.Parse ("table.tmplt", Translations));
+   end;
+end Csv2Html;</syntaxhighlight>
+
+table.tmplt:
+<syntaxhighlight lang=html5><table>
+@@TABLE@@
+   <tr>
+      <td>@_WEB_ESCAPE:CHAR_@</td>
+      <td>@_WEB_ESCAPE:SPEECH_@</td>
+   </tr>
+@@END_TABLE@@
+</table></syntaxhighlight>
+
+{{out}}
+<syntaxhighlight lang=html5><table>
+   <tr>
+      <td>Character</td>
+      <td>Speech</td>
+   </tr>
+   <tr>
+      <td>The multitude</td>
+      <td>The messiah! Show us the messiah!</td>
+   </tr>
+   <tr>
+      <td>Brians mother</td>
+      <td>&lt;angry&gt;Now you listen here! He's not the messiah; he's a very naughty boy! Now go away!&lt;/angry&gt;</td>
+   </tr>
+   <tr>
+      <td>The multitude</td>
+      <td>Who are you?</td>
+   </tr>
+   <tr>
+      <td>Brians mother</td>
+      <td>I'm his mother; that's who!</td>
+   </tr>
+   <tr>
+      <td>The multitude</td>
+      <td>Behold his mother! Behold his mother!</td>
+   </tr>
+</table></syntaxhighlight>

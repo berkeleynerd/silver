@@ -1,0 +1,211 @@
+=={{header|FreeBASIC}}==
+{{trans|Wren}}
+{{libheader|FreeImage}}
+FreeBASIC lacks native or (to my knowledge) third-party support for face detection. Therefore, much like Wren's solution, we turn to an external utility for this task: facedetect, a free, easy-to-use tool available directly in the Ubuntu repositories.
+<syntaxhighlight lang="vbnet">#include once "FreeImage.bi"
+
+' Structure for bounding boxes
+Type FaceBox
+    x As Integer
+    y As Integer
+    w As Integer
+    h As Integer
+End Type
+
+Function RunCommand(cmd As String) As String
+    Dim f As FILE Ptr = popen(cmd, "r")
+    If f = 0 Then Return ""
+    
+    Dim buffer As String = ""
+    Dim chunk As ZString * 1024
+    
+    While fgets(@chunk, 1024, f) <> 0
+        buffer &= chunk
+    Wend
+    
+    pclose(f)
+    Return buffer
+End Function
+
+Sub DrawBox(img As FIBITMAP Ptr, x As Integer, y As Integer, w As Integer, h As Integer)
+    Dim As RGBQUAD col = (255, 255, 0, 0)
+    
+    For xx As Integer = x To x + w
+        FreeImage_SetPixelColor(img, xx, y, @col)
+        FreeImage_SetPixelColor(img, xx, y + h, @col)
+    Next
+    
+    For yy As Integer = y To y + h
+        FreeImage_SetPixelColor(img, x, yy, @col)
+        FreeImage_SetPixelColor(img, x + w, yy, @col)
+    Next
+End Sub
+
+Sub DrawAllBoxes(inFile As String, outFile As String, faces() As FaceBox)
+    Dim As FIBITMAP Ptr img = FreeImage_Load(FIF_JPEG, inFile, JPEG_DEFAULT)
+    If img = 0 Then
+        Print "Error loading image "; inFile
+        Exit Sub
+    End If
+    
+    ' Get actual image height
+    Dim As Integer w = FreeImage_GetWidth(img)
+    Dim As Integer h = FreeImage_GetHeight(img)
+    
+    For i As Integer = 0 To Ubound(faces)
+        Dim fx As Integer = faces(i).x
+        Dim fy As Integer = faces(i).y
+        Dim fw As Integer = faces(i).w
+        Dim fh As Integer = faces(i).h
+
+        ' Convert Top-Down -> Bottom-Up coordinate
+        DrawBox(img, fx, h - fy - fh, fw, fh)
+    Next
+    
+    FreeImage_Save(FIF_JPEG, img, outFile, JPEG_DEFAULT)
+    FreeImage_Unload(img)
+End Sub
+
+' Main program
+Const inFile  = "AOBABA176.jpg"
+Const outFile = "fb_facedetection.jpg"
+
+#ifdef __FB_LINUX__
+    Dim result As String = RunCommand("facedetect -o " & outFile & " " & inFile)
+#else
+    ' The facedetect command-line tool is designed primarily for Unix/Linux 
+    ' systems, but it can be used on Windows using Python with OpenCV.
+    ' We run it on Windows from WSL:
+    Dim result As String = RunCommand("wsl facedetect -o " & outFile & " " & inFile)
+#endif 
+
+If Len(result) = 0 Then Print "Error running facedetect": Sleep: End
+
+Dim lines() As String
+Dim cntLines As Integer = 0
+Dim psc As Integer = 1
+Dim nextPos As Integer
+
+Do
+    nextPos = Instr(psc, result, Chr(10))
+    If nextPos = 0 Then Exit Do
+    
+    Redim Preserve lines(cntLines)
+    lines(cntLines) = Trim(Mid(result, psc, nextPos - psc))
+    cntLines += 1
+    
+    psc = nextPos + 1
+Loop
+
+Print cntLines; " faces detected on photo image '"; inFile; !"':\n"
+
+' Parsear bounding boxes
+Redim faces(cntLines - 1) As FaceBox
+
+Dim i As Integer, j As Integer
+Dim p() As String
+For i = 0 To cntLines - 1
+    Dim np As Integer = 0
+    
+    Dim s As String = lines(i)
+    Dim t As String = ""
+    
+    For c As Integer = 1 To Len(s)
+        Dim ch As String = Mid(s, c, 1)
+        If ch = " " Then
+            If Len(t) > 0 Then
+                Redim Preserve p(np)
+                p(np) = t
+                np += 1
+                t = ""
+            End If
+        Else
+            t &= ch
+        End If
+    Next
+    
+    If Len(t) > 0 Then
+        Redim Preserve p(np)
+        p(np) = t
+        np += 1
+    End If
+    
+    If np = 4 Then
+        faces(i).x = Val(p(0))
+        faces(i).y = Val(p(1))
+        faces(i).w = Val(p(2))
+        faces(i).h = Val(p(3))
+    End If
+Next
+
+' Sort the data by y-coord and print it to stdout.
+For i = 0 To cntLines - 2
+    For j = i + 1 To cntLines - 1
+        If faces(j).y < faces(i).y Then Swap faces(i), faces(j)
+    Next
+Next
+
+Print "x-coord   y-coord   width   height"
+Print String(35, "-")
+
+For i = 0 To cntLines - 1
+    With faces(i)
+        Print Using "  ####      ####    ####     ####"; .x; .y; .w; .h
+    End With
+Next
+Print
+
+' Extract and analyse y-coords.
+Redim ys(cntLines - 1) As Double
+
+For i = 0 To cntLines - 1
+    ys(i) = faces(i).y
+Next
+
+Dim median As Double
+If cntLines Mod 2 = 1 Then
+    median = ys(cntLines \ 2)
+Else
+    median = (ys(cntLines \ 2 - 1) + ys(cntLines \ 2)) / 2
+End If
+
+Dim mean As Double = 0
+For i = 0 To cntLines - 1
+    mean += ys(i)
+Next
+mean /= cntLines
+
+Dim stdDev As Double = 0
+For i = 0 To cntLines - 1
+    stdDev += (ys(i) - mean) ^ 2
+Next
+stdDev = Sqr(stdDev / cntLines)
+
+Print Using "Median of y-coords = ###.##"; median
+Print Using "Mean   of y-coords = ###.##"; mean
+Print Using "StdDev of y-coords = ###.##"; stdDev
+Print
+
+' Check if there are any y-coords more than 1 s/d from both the median and the mean.
+Print "The 'faces' with the following y-coordinates may be false positives:"
+For i = 0 To cntLines - 1
+    Dim dev1 As Double = Abs(ys(i) - median)
+    Dim dev2 As Double = Abs(ys(i) - mean)
+    If dev1 > stdDev And dev2 > stdDev Then Print ys(i)
+Next
+
+' Display bounded box image.
+DrawAllBoxes(inFile, outFile, faces())
+#ifdef __FB_LINUX__
+    Dim cmdOpen As String = "xdg-open " & Chr(34) & outFile & Chr(34)
+    ' Or
+    ' Dim cmdOpen As String = "eog " & Chr(34) & outFile & Chr(34)
+#else
+    ' Opens the default image viewer:
+    Dim cmdOpen As String = "cmd /c start """" """ & outFile & """"
+#endif
+Shell cmdOpen
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Similar to Wren entry.</pre>

@@ -1,0 +1,11 @@
+=={{header|Ada}}==
+When using floating point matrices in Ada 2005+ the function is defined as "Unit_Matrix" in Ada.Numerics.Generic_Real_Arrays. As a generic package it can work with user defined floating point types, or the predefined Short_Real_Arrays, Real_Arrays, and Long_Real_Arrays initializations. As seen below, the first indices of both dimensions can also be set since Ada array indices do not arbitrarily begin with a particular number.
+<syntaxhighlight lang="ada">--  As prototyped in the Generic_Real_Arrays specification:
+--  function Unit_Matrix (Order : Positive; First_1, First_2 : Integer := 1) return Real_Matrix;
+-- For the task:
+mat : Real_Matrix := Unit_Matrix(5);</syntaxhighlight>
+For prior versions of Ada, or non floating point types its back to basics:
+<syntaxhighlight lang="ada">type Matrix is array(Positive Range <>, Positive Range <>) of Integer;
+mat : Matrix(1..5,1..5) := (others => (others => 0));
+--  then after the declarative section:
+for i in mat'Range(1) loop mat(i,i) := 1; end loop;</syntaxhighlight>

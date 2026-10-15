@@ -1,0 +1,50 @@
+=={{header|Ada}}==
+
+===goto===
+<syntaxhighlight lang="ada"><<Top>>
+   Put_Line("Hello, World");
+   goto Top;</syntaxhighlight>
+
+===exit===
+Exit is used to break out of loops. Exit can be used with a label to break out of an inner loop to an outer loop and its enclosing outer loop:
+<syntaxhighlight lang="ada">Outer:
+loop
+   -- do something
+   loop
+      if Finished then
+         exit Outer; -- exits both the inner and outer loops
+      end if;
+      -- do something else
+   end loop;
+end loop Outer;</syntaxhighlight>
+or, more idiomatically,
+<syntaxhighlight lang="ada">Outer:
+loop
+   -- do something
+   loop
+      exit Outer when Finished;
+      -- do something else
+   end loop;
+end loop Outer;</syntaxhighlight>
+
+===return===
+A procedure can be exited early, if there’s no more to be done.
+<syntaxhighlight lang="ada">procedure Foo is
+begin
+   --  do something
+   if Nothing_More_To_Do then
+      return;
+   end if;
+   --  do more
+end Foo;</syntaxhighlight>
+
+===asynchronous transfer of control===
+A sequence of operation can be aborted with an asynchronous transfer of control to an alternative:
+<syntaxhighlight lang="ada">select
+   delay 10.0;
+   Put_Line ("Cannot finish this in 10s");
+then abort
+   -- do some lengthy calculation
+   ...
+end select;</syntaxhighlight>
+The alternative can be a delay statement or else an entry point call followed by a sequence of operations. The statement blocks at the delay or entry call and executes the sequence of the operation introduced by '''then abort'''. If blocking is lifted before completion of the sequence, the sequence is aborted and the control is transferred there.

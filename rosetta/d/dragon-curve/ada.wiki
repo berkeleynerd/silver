@@ -1,0 +1,155 @@
+=={{header|Ada}}==
+This example uses GTKAda and Cairo.
+
+<div>[[File:Dragoncurve ada cairo.png|thumb]]</div>
+
+<syntaxhighlight lang="Ada">
+-- FILE: dragon_curve.gpr --
+with "gtkada";
+
+project Dragon_Curve is
+   Adaflags    := External_As_List ("ADAFLAGS", " ");
+   Ldflags     := External_As_List ("LDFLAGS", " ");
+
+   for Languages use ("Ada");
+   for Main use ("dragon_curve.adb");
+   for Source_Dirs use ("./");
+   for Object_Dir use "obj/";
+   for Exec_Dir use ".";
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-O0", "-gnaty-s", "-gnatwJ")
+         & Adaflags;
+   end Compiler;
+
+   package Linker is
+      for Leading_Switches ("Ada") use Ldflags;
+   end Linker;
+
+end Dragon_Curve;
+</syntaxhighlight>
+
+<syntaxhighlight lang="Ada">
+-- FILE: dragon_curve.adb --
+with Ada.Text_IO; use Ada.Text_IO;
+with Events; use Events;
+with GLib.Main; use GLib.Main;
+with GTK;
+with GTK.Drawing_Area; use GTK.Drawing_Area;
+with GTK.Main;
+with GTK.Window; use GTK.Window;
+
+procedure Dragon_Curve is
+   Window : GTK_Window;
+begin
+   GTK.Main.Init; 
+   GTK_New (Window);
+   GTK_New (Drawing_Area);
+   Window.Add (Drawing_Area);
+   Drawing_Area.On_Draw (Events.Draw'Access, Drawing_Area);
+   Show_All (Window);
+   Resize (Window, 800, 800);
+   GTK.Main.Main;
+end Dragon_Curve;
+</syntaxhighlight>
+
+<syntaxhighlight lang="Ada">
+-- FILE: events.ads --
+with Ada.Numerics.Generic_Elementary_Functions;
+with Cairo;
+with GLib; use Glib;
+with GTK.Drawing_Area; use GTK.Drawing_Area;
+with GTK.Widget; use GTK.Widget;
+with GLib.Object; use GLib.Object;
+
+package Events is
+   Drawing_Area : GTK_Drawing_Area;
+
+   package GDouble_Elementary_Functions is new Ada.Numerics.Generic_Elementary_Functions (Float);
+   use GDouble_Elementary_Functions;
+
+   function Draw (Self : access GObject_Record'Class;
+                  CC   : Cairo.Cairo_Context)
+                  return Boolean;
+end Events;
+</syntaxhighlight>
+
+<syntaxhighlight lang="Ada">
+-- FILE: events.adb --
+with Cairo;
+with GTK;
+
+package body Events is
+   function Draw (Self : access GObject_Record'Class;
+                  CC   : Cairo.Cairo_Context)
+                  return Boolean
+   is
+      type Rotate_Type is (Counterclockwise, Clockwise);
+
+      type Point is record
+         X, Y : GDouble;
+      end record;
+   
+      procedure Heighway_Branch (CC     : Cairo.Cairo_Context;
+                                 A, B   : Point;
+                                 Rotate : Rotate_Type;
+                                 N      : Natural)
+      is
+         R, RU, C : Point;
+      begin
+         if N = 0 then
+            Cairo.Move_To (CC, A.X, A.Y);          
+            Cairo.Line_To (CC, B.X, B.Y);
+            Cairo.Stroke (CC);
+         else  
+            -- Rotate 45 degrees --
+            case Rotate is
+               when Clockwise =>
+                  R.X := GDouble ((1.0 / Sqrt (2.0)) * Float (B.X - A.X)
+                                   - (1.0 / Sqrt (2.0)) * Float (B.Y - A.Y));
+                  R.Y := GDouble ((1.0 / Sqrt (2.0)) * Float (B.X - A.X)
+                                   + (1.0 / Sqrt (2.0)) * Float (B.Y - A.Y));
+               when Counterclockwise =>
+                  R.X := GDouble ((1.0 / Sqrt (2.0)) * Float (B.X - A.X) 
+                                   + (1.0 / Sqrt (2.0)) * Float (B.Y - A.Y));
+                  R.Y := GDouble (-(1.0 / Sqrt (2.0)) * Float (B.X - A.X)
+                                   + (1.0 / Sqrt (2.0)) * Float (B.Y - A.Y));
+            end case;
+
+            -- Make unit vector from rotation --
+            RU.X := GDouble (Float (R.X) / Sqrt ( Float (R.X ** 2 + R.Y ** 2)));
+            RU.Y := GDouble (Float (R.Y) / Sqrt ( Float (R.X ** 2 + R.Y ** 2)));
+
+            -- Scale --
+            R.X := RU.X * GDouble (Sqrt (Float (B.X - A.X) ** 2 + Float (B.Y - A.Y) ** 2) / Sqrt (2.0));
+            R.Y := RU.Y * GDouble (Sqrt (Float (B.X - A.X) ** 2 + Float (B.Y - A.Y) ** 2) / Sqrt (2.0));
+
+            C := (R.X + A.X, R.Y + A.Y);
+       
+            Heighway_Branch (CC, A, C, Clockwise, N - 1);
+            Heighway_Branch (CC, C, B, Counterclockwise, N - 1);
+         end if;
+      end Heighway_Branch;
+
+      Depth : constant := 14;
+      Center, Right, Bottom, Left: Point;
+      Width  : GDouble := GDouble (Drawing_Area.Get_Allocated_Width);
+      Height : GDouble := GDouble (Drawing_Area.Get_Allocated_Height);
+
+   begin
+      Center := (Width / 2.0, Height / 2.0);
+      Right  := (Width,       Height / 2.0);
+      Left   := (0.0,         Height / 2.0);
+      Bottom := (Width / 2.0, Height);
+
+      Cairo.Set_Source_RGB (CC, 0.0, 1.0, 0.0);
+      Heighway_Branch (CC, Center, Right, Clockwise, Depth);
+      Cairo.Set_Source_RGB (CC, 0.0, 1.0, 1.0);
+      Heighway_Branch (CC, Center, Left, Clockwise, Depth);
+      Cairo.Set_Source_RGB (CC, 0.0, 1.0, 0.5);
+      Heighway_Branch (CC, Center, Bottom, Clockwise, Depth);
+      
+      return True;
+   end Draw;
+end Events;
+</syntaxhighlight>

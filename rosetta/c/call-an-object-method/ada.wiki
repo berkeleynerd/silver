@@ -1,0 +1,80 @@
+=={{header|Ada}}==
+Ada is a language based on strict typing. Nevertheless, since Ada 95 (the first major revision of the language), Ada also includes the concepts of a class. Types may be tagged, and for each tagged type T there is an associated type T'Class. If you define a method as "procedure Primitive(Self: T)", the actual parameter Self must be of type T, exactly, and the method Primitive will be called, well, statically. This may be surprising, if you are used to other object-oriented languages.
+
+If you define a method as "prodedure Dynamic(Self: T'Class)", the actual parameter can be either T or any of its descendents. Now, if you call Self.Primitive within the procedure Dynamic, it will be dispatching, i.e., it will call the primitive function matching the type of Self (i.e., either T or any of its subtype). This is what you would expect in many other object-oriented languages. 
+
+Finally, a static method can be defined as a subprogram within the same package that holds the object type and the other methods. 
+
+Specify the class My_Class, with one primitive subprogram, one dynamic subprogram and a static subprogram:
+<syntaxhighlight lang="ada">   package My_Class is
+      type Object is tagged private;
+      procedure Primitive(Self: Object); -- primitive subprogram
+      procedure Dynamic(Self: Object'Class);
+      procedure Static;
+   private
+      type Object is tagged null record;
+   end My_Class;</syntaxhighlight>
+
+Implement the package:
+<syntaxhighlight lang="ada">   package body My_Class is
+      procedure Primitive(Self: Object) is
+      begin
+	 Put_Line("Hello World!");
+      end Primitive;
+
+      procedure Dynamic(Self: Object'Class) is
+      begin
+	 Put("Hi there! ... ");
+	 Self.Primitive; -- dispatching call: calls different subprograms,
+                         -- depending on the type of Self  
+      end Dynamic;
+
+      procedure Static is
+      begin
+	 Put_Line("Greetings");
+      end Static;
+   end My_Class;</syntaxhighlight>
+
+Specify and implement a subclass of My_Class:
+<syntaxhighlight lang="ada">   package Other_Class is
+      type Object is new My_Class.Object with null record;
+      overriding procedure Primitive(Self: Object);
+   end Other_Class;
+   
+   package body Other_Class is
+      procedure Primitive(Self: Object) is
+      begin
+	 Put_Line("Hello Universe!");
+      end Primitive;
+   end Other_Class;</syntaxhighlight>
+
+The main program, making the dynamic and static calls:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Call_Method is
+   
+   package My_Class is ... -- see above
+   package body My_Class is ... -- see above
+            
+   package Other_Class is ... -- see above
+   package body Other_Class is ... -- see above
+   
+   Ob1: My_Class.Object; -- our "root" type
+   Ob2: Other_Class.Object; -- a type derived from the "root" type
+      
+begin
+   My_Class.Static;
+   Ob1.Primitive; 
+   Ob2.Primitive; 
+   Ob1.Dynamic; 
+   Ob2.Dynamic;
+end Call_Method;</syntaxhighlight>
+
+{{out}}
+
+<pre>Greetings
+Hello World!
+Hello Universe!
+Hi there! ... Hello World!
+Hi there! ... Hello Universe!</pre>

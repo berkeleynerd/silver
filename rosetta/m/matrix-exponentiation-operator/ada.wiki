@@ -1,0 +1,256 @@
+=={{header|Ada}}==
+This is a generic solution for any natural power exponent. It will work with any type that has +,*, additive and multiplicative 0s. The implementation factors out powers A<sup>2<sup>n</sup></sup>:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+ 
+procedure Test_Matrix is
+   generic
+      type Element is private;
+      Zero : Element;
+      One  : Element;
+      with function "+" (A, B : Element) return Element is <>;
+      with function "*" (A, B : Element) return Element is <>;
+      with function Image (X : Element) return String is <>;
+   package Matrices is
+      type Matrix is array (Integer range <>, Integer range <>) of Element;
+      function "*" (A, B : Matrix) return Matrix;
+      function "**" (A : Matrix; Power : Natural) return Matrix;
+      procedure Put (A : Matrix);
+   end Matrices;
+
+   package body Matrices is
+      function "*" (A, B : Matrix) return Matrix is
+         R   : Matrix (A'Range (1), B'Range (2));
+         Sum : Element := Zero;
+      begin
+         for I in R'Range (1) loop
+            for J in R'Range (2) loop
+               Sum := Zero;
+               for K in A'Range (2) loop
+                  Sum := Sum + A (I, K) * B (K, J);
+               end loop;
+               R (I, J) := Sum;
+            end loop;
+         end loop;
+         return R;
+      end "*";
+
+      function "**" (A : Matrix; Power : Natural) return Matrix is
+      begin
+         if Power = 1 then
+            return A;
+         end if;
+         declare
+            R : Matrix (A'Range (1), A'Range (2)) := (others => (others => Zero));
+            P : Matrix  := A;
+            E : Natural := Power;
+         begin
+            for I in P'Range (1) loop -- R is identity matrix
+               R (I, I) := One;
+            end loop;
+            if E = 0 then
+               return R;
+            end if;
+            loop
+               if E mod 2 /= 0 then
+                  R := R * P;
+               end if;
+               E := E / 2;
+               exit when E = 0;
+               P := P * P;
+            end loop;
+            return R;
+         end;
+      end "**";
+      
+      procedure Put (A : Matrix) is
+      begin
+         for I in A'Range (1) loop
+            for J in A'Range (1) loop
+               Put (Image (A (I, J)));
+            end loop;
+            New_Line;
+         end loop;
+      end Put;
+   end Matrices;
+   
+   package Integer_Matrices is new Matrices (Integer, 0, 1, Image => Integer'Image);
+   use Integer_Matrices;
+   
+   M : Matrix (1..2, 1..2) := ((3,2),(2,1));
+begin
+   Put_Line ("M =");       Put (M);
+   Put_Line ("M**0 =");    Put (M**0);
+   Put_Line ("M**1 =");    Put (M**1);
+   Put_Line ("M**2 =");    Put (M**2);
+   Put_Line ("M*M =");     Put (M*M);
+   Put_Line ("M**3 =");    Put (M**3);
+   Put_Line ("M*M*M =");   Put (M*M*M);
+   Put_Line ("M**4 =");    Put (M**4);
+   Put_Line ("M*M*M*M ="); Put (M*M*M*M);
+   Put_Line ("M**10 =");   Put (M**10);
+   Put_Line ("M*M*M*M*M*M*M*M*M*M ="); Put (M*M*M*M*M*M*M*M*M*M);
+end Test_Matrix;</syntaxhighlight>
+Sample output:
+<pre>
+M =
+ 3 2
+ 2 1
+M**0 =
+ 1 0
+ 0 1
+M**1 =
+ 3 2
+ 2 1
+M**2 =
+ 13 8
+ 8 5
+M*M =
+ 13 8
+ 8 5
+M**3 =
+ 55 34
+ 34 21
+M*M*M =
+ 55 34
+ 34 21
+M**4 =
+ 233 144
+ 144 89
+M*M*M*M =
+ 233 144
+ 144 89
+M**10 =
+ 1346269 832040
+ 832040 514229
+M*M*M*M*M*M*M*M*M*M =
+ 1346269 832040
+ 832040 514229
+</pre>
+The following program implements exponentiation of a square Hermitian complex matrix by any complex power. The limitation to be Hermitian is not essential and comes for the limitation of the standard Ada linear algebra library.
+<syntaxhighlight lang="ada">with Ada.Text_IO;                  use Ada.Text_IO;
+with Ada.Complex_Text_IO;          use Ada.Complex_Text_IO;
+with Ada.Numerics.Complex_Types;   use Ada.Numerics.Complex_Types;
+with Ada.Numerics.Real_Arrays;     use Ada.Numerics.Real_Arrays;
+with Ada.Numerics.Complex_Arrays;  use Ada.Numerics.Complex_Arrays;
+with Ada.Numerics.Complex_Elementary_Functions; use Ada.Numerics.Complex_Elementary_Functions;
+
+procedure Test_Matrix is
+   function "**" (A : Complex_Matrix; Power : Complex) return Complex_Matrix is
+      L  : Real_Vector (A'Range (1));
+      X  : Complex_Matrix (A'Range (1), A'Range (2));
+      R  : Complex_Matrix (A'Range (1), A'Range (2));
+      RL : Complex_Vector (A'Range (1));
+   begin
+      Eigensystem (A, L, X);
+      for I in L'Range loop
+         RL (I) := (L (I), 0.0) ** Power;
+      end loop;
+      for I in R'Range (1) loop
+         for J in R'Range (2) loop
+            declare
+               Sum : Complex := (0.0, 0.0);
+            begin
+               for K in RL'Range (1) loop
+                  Sum := Sum + X (I, K) * RL (K) * X (J, K);
+               end loop;
+               R (I, J) := Sum;
+            end;
+         end loop;
+      end loop;
+      return R;
+   end "**";
+   procedure Put (A : Complex_Matrix) is
+   begin
+      for I in A'Range (1) loop
+        for J in A'Range (2) loop
+           Put (A (I, J));
+        end loop;
+        New_Line;
+      end loop;
+   end Put;
+   M : Complex_Matrix (1..2, 1..2) := (((3.0,0.0),(2.0,1.0)),((2.0,-1.0),(1.0,0.0)));
+begin
+   Put_Line ("M =");      Put (M);
+   Put_Line ("M**0 =");   Put (M**(0.0,0.0));
+   Put_Line ("M**1 =");   Put (M**(1.0,0.0));
+   Put_Line ("M**0.5 ="); Put (M**(0.5,0.0));
+end Test_Matrix;</syntaxhighlight>
+This solution is not tested, because the available version of GNAT GPL Ada compiler (20070405-41) does not provide an implementation of the standard library.
+
+''( R. B. E. comments August 2024:)''
+I was able to compile and execute successfully all three of the solutions submitted here using gcc 14.1.0, as provided by Simon Wright, for MacOS with Apple Silicon (arm64).
+
+''(Another person is talking here:)'' I have made small corrections and tested this in 2023, and it did not work as I expected. However, I have questions about the mathematical libraries. I tried both GCC 12 and GCC 13. (I also tried the last GNAT Community Edition, but it no longer functions on my system.) What might be needed here is one's own eigensystem routine.
+
+On the other hand, I did get a version working to raise a real matrix to a natural number power, thus demonstrating the correctness of the approach:
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;                  use Ada.Text_IO;
+with Ada.Float_Text_IO;            use Ada.Float_Text_IO;
+with Ada.Numerics.Real_Arrays;     use Ada.Numerics.Real_Arrays;
+
+procedure Test_Matrix is
+   procedure Put (A : Real_Matrix) is
+   begin
+      for I in A'Range (1) loop
+        for J in A'Range (2) loop
+           Put (" ");
+           Put (A (I, J));
+        end loop;
+        New_Line;
+      end loop;
+   end Put;
+   function "**" (A : Real_Matrix; Power : Integer) return Real_Matrix is
+      L  : Real_Vector (A'Range (1));
+      X  : Real_Matrix (A'Range (1), A'Range (2));
+      R  : Real_Matrix (A'Range (1), A'Range (2));
+      RL : Real_Vector (A'Range (1));
+   begin
+      Eigensystem (A, L, X);
+      for I in L'Range loop
+         RL (I) := L (I) ** Power;
+      end loop;
+      for I in R'Range (1) loop
+         for J in R'Range (2) loop
+            declare
+               Sum : Float := 0.0;
+            begin
+               for K in RL'Range loop
+                  Sum := Sum + X (I, K) * RL (K) * X (J, K);
+               end loop;
+               R (I, J) := Sum;
+            end;
+         end loop;
+      end loop;
+      return R;
+   end "**";
+   M : Real_Matrix (1..2, 1..2) := ((3.0, 2.0), (2.0, 1.0));
+begin
+   Put_Line ("M =");      Put (M);
+   Put_Line ("M**0 =");   Put (M**0);
+   Put_Line ("M**1 =");   Put (M**1);
+   Put_Line ("M**2 =");   Put (M**2);
+   Put_Line ("M**3 =");   Put (M**3);
+   Put_Line ("M**50 =");  Put (M**50);
+end Test_Matrix;
+</syntaxhighlight>
+{{out}}
+<pre>
+M =
+  3.00000E+00  2.00000E+00
+  2.00000E+00  1.00000E+00
+M**0 =
+  1.00000E+00  0.00000E+00
+  0.00000E+00  1.00000E+00
+M**1 =
+  3.00000E+00  2.00000E+00
+  2.00000E+00  1.00000E+00
+M**2 =
+  1.30000E+01  8.00000E+00
+  8.00000E+00  5.00000E+00
+M**3 =
+  5.50000E+01  3.40000E+01
+  3.40000E+01  2.10000E+01
+M**50 =
+  1.61305E+31  9.96919E+30
+  9.96919E+30  6.16130E+30
+</pre>

@@ -1,0 +1,118 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Queens is
+   Board : array (1..8, 1..8) of Boolean := (others => (others => False));
+   function Test (Row, Column : Integer) return Boolean is
+   begin
+      for J in 1..Column - 1 loop
+         if (  Board (Row, J)
+            or else
+               (Row > J and then Board (Row - J, Column - J))
+            or else
+               (Row + J <= 8 and then Board (Row + J, Column - J))
+            )  then
+            return False;
+         end if;
+      end loop;
+      return True;
+   end Test;
+   function Fill (Column : Integer) return Boolean is
+   begin
+      for Row in Board'Range (1) loop
+         if Test (Row, Column) then
+            Board (Row, Column) := True;
+            if Column = 8 or else Fill (Column + 1) then
+               return True;
+            end if;
+            Board (Row, Column) := False;
+         end if;
+      end loop;
+      return False;
+   end Fill;
+begin
+   if not Fill (1) then
+      raise Program_Error;
+   end if;
+   for I in Board'Range (1) loop
+      Put (Integer'Image (9 - I));
+      for J in Board'Range (2) loop
+         if Board (I, J) then
+            Put ("|Q");
+         elsif (I + J) mod 2 = 1 then
+            Put ("|/");
+         else
+            Put ("| ");
+         end if;
+      end loop;
+      Put_Line ("|");
+   end loop;
+   Put_Line ("   A B C D E F G H");
+end Queens;</syntaxhighlight>
+{{out}}
+<pre>
+ 8|Q|/| |/| |/| |/|
+ 7|/| |/| |/| |Q| |
+ 6| |/| |/|Q|/| |/|
+ 5|/| |/| |/| |/|Q|
+ 4| |Q| |/| |/| |/|
+ 3|/| |/|Q|/| |/| |
+ 2| |/| |/| |Q| |/|
+ 1|/| |Q| |/| |/| |
+   A B C D E F G H
+</pre>
+
+=== Alternate solution ===
+{{trans|Fortran}}
+
+This one only counts solutions, though it's easy to do something else with each one (instead of the <code>M := M + 1;</code> line).
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+use Ada.Text_IO;
+
+procedure CountQueens is
+    function Queens (N : Integer) return Long_Integer is
+        A : array (0 .. N) of Integer;
+        U : array (0 .. 2 * N - 1) of Boolean := (others => true);
+        V : array (0 .. 2 * N - 1) of Boolean := (others => true);
+        M : Long_Integer := 0;
+        
+        procedure Sub (I: Integer) is
+            K, P, Q: Integer;
+        begin
+            if N = I then
+                M := M + 1;
+            else
+                for J in I .. N - 1 loop
+                    P := I + A (J);
+                    Q := I + N - 1 - A (J);
+                    if U (P) and then V (Q) then
+                        U (P) := false;
+                        V (Q) := false;
+                        K := A (I);
+                        A (I) := A (J);
+                        A (J) := K;
+                        Sub (I + 1);
+                        U (P) := true;
+                        V (Q) := true;
+                        K := A (I);
+                        A (I) := A (J);
+                        A (J) := K;
+                    end if;
+                end loop;
+            end if;
+        end Sub;
+    begin
+        for I in 0 .. N - 1 loop
+            A (I) := I;
+        end loop;
+        Sub (0);
+        return M;
+    end Queens;
+begin
+    for N in 1 .. 16 loop
+        Put (Integer'Image (N));
+        Put (" ");
+        Put_Line (Long_Integer'Image (Queens (N)));
+    end loop;
+end CountQueens;</syntaxhighlight>

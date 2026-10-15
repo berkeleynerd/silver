@@ -1,0 +1,54 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_Io;        use Ada.Text_Io;
+with Ada.Strings.Fixed;  use Ada.Strings.Fixed;
+
+procedure Two_Identical is
+   package Integer_Io is
+     new Ada.Text_Io.Integer_Io (Integer);
+   use Integer_Io;
+
+   Image : String (1 .. 16);
+   Pos_1, Pos_2 : Natural;
+   Mid  : Natural;
+begin
+   for N in 1 .. 1000 loop
+      Put (Image, N, Base => 2);
+      Pos_1 := Index (Image, "#");
+      Pos_2 := Index (Image, "#", Pos_1 + 1);
+      Mid := (Pos_1 + Pos_2) / 2;
+      if Image (Pos_1 + 1 .. Mid) = Image (Mid + 1 .. Pos_2 - 1) then
+         Put (N, Width => 3); Put ("  "); Put (Image); New_Line;
+      end if;
+   end loop;
+end Two_Identical;</syntaxhighlight>
+{{out}}
+<pre>  3             2#11#
+ 10           2#1010#
+ 15           2#1111#
+ 36         2#100100#
+ 45         2#101101#
+ 54         2#110110#
+ 63         2#111111#
+136       2#10001000#
+153       2#10011001#
+170       2#10101010#
+187       2#10111011#
+204       2#11001100#
+221       2#11011101#
+238       2#11101110#
+255       2#11111111#
+528     2#1000010000#
+561     2#1000110001#
+594     2#1001010010#
+627     2#1001110011#
+660     2#1010010100#
+693     2#1010110101#
+726     2#1011010110#
+759     2#1011110111#
+792     2#1100011000#
+825     2#1100111001#
+858     2#1101011010#
+891     2#1101111011#
+924     2#1110011100#
+957     2#1110111101#
+990     2#1111011110#</pre>

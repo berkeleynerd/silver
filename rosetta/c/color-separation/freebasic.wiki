@@ -1,0 +1,160 @@
+=={{header|FreeBASIC}}==
+Based on Wren entry.
+
+First the script For the RGB model with the original image shown first. 
+<syntaxhighlight lang="vb">Windowtitle "Color separation, RGB model"
+Dim As String imagen = "lena50.bmp"
+Dim As Long ancho, alto, f = Freefile()
+' open BMP file
+Open imagen For Binary Access Read As #f
+' retrieve BMP dimensions
+Get #f, 19, ancho : Get #f, 23, alto
+Close #f
+' create image with BMP dimensions
+Dim As Any Ptr img = Imagecreate(ancho, alto)
+Screenres 40+(ancho*4), alto+10, 32
+' load BMP file into image buffer
+Bload imagen
+
+Dim As Integer y, x
+Dim As Ulong col, r, g, b
+
+'' Create one pixel image for cada color.
+Dim imgR As Any Ptr = Imagecreate(ancho, alto)
+Dim imgG As Any Ptr = Imagecreate(ancho, alto)
+Dim imgB As Any Ptr = Imagecreate(ancho, alto)
+For y = 0 To alto-1
+    For x = 0 To ancho-1
+        col = Point(x,y)
+        r = col Shr 16 And 255
+        g = col Shr 8  And 255
+        b = col        And 255
+        Pset imgR, (x, y), Rgb(r, 0, 0)
+        Pset imgG, (x, y), Rgb(0, g, 0)
+        Pset imgB, (x, y), Rgb(0, 0, b)
+    Next x
+Next y
+
+'' Draw the image onto the screen using various blitting methods.
+Put (  ancho+10, 0), imgR, Pset
+Put (2*ancho+20, 0), imgG, Pset
+Put (3*ancho+30, 0), imgB, Pset
+
+'' Destroy the image.
+Imagedestroy imgR : Imagedestroy imgG : Imagedestroy imgB
+
+Sleep</syntaxhighlight>
+[[File:FB-color-separation-RGB.png|800px|thumb|center]]
+
+Next the script For the CMY model with the original image shown first. 
+<syntaxhighlight lang="vb">WindowTitle "Color separation, CMY model improved 1.0"
+Dim As String imagen =  "lena.bmp"
+Dim As Long ancho, alto, f = FreeFile()
+' open BMP file
+Open imagen For Binary Access Read As #f
+' retrieve BMP dimensions
+Get #f, 19, ancho : Get #f, 23, alto
+Close #f
+' create image with BMP dimensions
+Dim As Any Ptr img = ImageCreate(ancho, alto)
+ScreenRes 40+(ancho*4), alto+10, 32
+
+'draw original image
+BLoad imagen
+
+Dim As Integer y, x
+Dim As ULong col, r, g, b
+
+'' Create one pixel image for cada color.
+Dim imgC As Any Ptr = ImageCreate(ancho, alto)
+Dim imgM As Any Ptr = ImageCreate(ancho, alto)
+Dim imgY As Any Ptr = ImageCreate(ancho, alto)
+For y = 0 To alto-1
+    For x = 0 To ancho-1
+        col = Point(x,y)
+        r = col Shr 16 And 255
+        g = col Shr 8  And 255
+        b = col        And 255
+        PSet imgC, (x, y), RGB(r, 255, 255)
+        PSet imgM, (x, y), RGB(255, g, 255)
+        PSet imgY, (x, y), RGB(255, 255, b)
+    Next x
+Next y
+
+'' Draw the image onto the screen using various blitting methods.
+Put (  ancho+10, 0), imgC, PSet
+Put (2*ancho+20, 0), imgM, PSet
+Put (3*ancho+30, 0), imgY, PSet
+
+'' Destroy the image.
+ImageDestroy imgC : ImageDestroy imgM : ImageDestroy imgY
+
+Sleep</syntaxhighlight>
+[[File:FB Color sep JX6JLZfD85.png|800px|thumb|center]]
+
+Finally, the script For the CMYK model with the original image shown first, in the top row. 
+<syntaxhighlight lang="vb">#define min(a, b) iif((a) < (b), (a), (b))
+
+WindowTitle "Color separation, CMYK model improved 1.0"
+Dim As String imagen = "lady.bmp"
+Dim As Long ancho, alto, f = FreeFile()
+' open BMP file
+Open imagen For Binary Access Read As #f
+' retrieve BMP dimensions
+Get #f, 19, ancho : Get #f, 23, alto
+Close #f
+' create image with BMP dimensions
+
+Dim As Any Ptr img = ImageCreate(ancho, alto)
+ScreenRes 50 + (ancho * 4), 20 + (alto * 2), 32
+'draw original image
+BLoad imagen
+
+Dim As Integer i, j
+Dim As ULong col, c, m, y, k, kc, rc, bc, gc
+
+'' Create one pixel image for cada color.
+Dim imgC As Any Ptr = ImageCreate(ancho, alto)
+Dim imgM As Any Ptr = ImageCreate(ancho, alto)
+Dim imgY As Any Ptr = ImageCreate(ancho, alto)
+Dim imgk As Any Ptr = ImageCreate(ancho, alto)
+
+For i = 0 To alto-1
+    For j = 0 To ancho-1
+
+        col = Point(j,i,img)
+        rc = 255 - col Shr 16 And 255
+        gc = 255 - col Shr 8  And 255
+        bc = 255 - col        And 255
+        k = min(min(rc, gc), bc)
+        kc = 255 - k
+
+        If k <> 255 Then
+            c = (rc - k) * 255 \ kc
+            m = (gc - k) * 255 \ kc
+            y = (bc - k) * 255 \ kc
+            PSet imgC, (j, i), RGB(255 - c, 255, 255)
+            PSet imgM, (j, i), RGB(255, 255 - m, 255)
+            PSet imgY, (j, i), RGB(255, 255, 255 - y)
+        Else
+            PSet imgC, (j, i), RGB(255, 255, 255)
+            PSet imgM, (j, i), RGB(255, 255, 255)
+            PSet imgY, (j, i), RGB(255, 255, 255)
+        End If
+        PSet imgK, (j, i), RGB(kc, kc, kc)
+
+    Next j
+Next i
+
+'' Draw the image onto the screen using various blitting methods.
+Put (            10, alto + 10), imgC, PSet
+Put (    ancho + 20, alto + 10), imgM, PSet
+Put (2 * ancho + 30, alto + 10), imgY, PSet
+Put (3 * ancho + 40, alto + 10), imgK, PSet
+
+'' Destroy the image.
+Imagedestroy imgC : Imagedestroy imgM : Imagedestroy imgY : Imagedestroy imgk
+
+Sleep</syntaxhighlight>
+
+[[File:FB Color sep lEuXoCvfyJ.png|800px|thumb|center]]

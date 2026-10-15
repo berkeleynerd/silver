@@ -1,0 +1,6 @@
+{{task|Text processing}} 
+[[Category:Simple]]
+
+;Task:
+Increment a numerical string.
+<br><br>

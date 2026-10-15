@@ -1,0 +1,159 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">
+-- Rosetta Code Task written in Ada
+-- Twin primes whose sum is square number
+-- https://rosettacode.org/wiki/Twin_primes_whose_sum_is_square_number
+-- Correction: I fixed the bug; I was not using "Twin" Primes, I was using "Adjacent" Primes :-)
+-- November 2024, R. B. E.
+
+pragma Ada_2022;
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
+procedure Twin_Primes_Whose_Sum_is_a_Square_Number is
+
+  Max_Square : constant Positive := 5_000; -- determined based on the Max Prime Candidate
+  type List_of_Squares_Array is array (2..Max_Square) of Positive;
+  List_of_Squares : List_of_Squares_Array;
+
+  procedure Load_List_of_Squares (List_of_Squares : in out List_of_Squares_Array) is
+  begin
+    for I in List_of_Squares'Range loop
+      List_of_Squares (I) := I * I;
+    end loop;
+  end Load_List_of_Squares;
+
+  function Is_Prime (N : in Natural) return Boolean is
+    Temp : Natural := 5;
+  begin
+    if N < 2 then
+      return False;
+    end if;
+    if N mod 2 = 0 then
+      return N = 2;
+    end if;
+    if N mod 3 = 0 then
+      return N = 3;
+    end if;
+    while Temp * Temp <= N loop
+      if N mod Temp = 0 then
+        return False;
+      end if;
+      Temp := Temp + 2;
+      if N mod Temp = 0 then
+        return False;
+      end if;
+    end loop;
+    return True;
+  end Is_Prime;
+
+  procedure Print_Results (J, Square, Left_Twin_Prime, Right_Twin_Prime : Positive) is
+  begin
+    New_Line;
+    Put (J, 0);
+    Put ("^2 = ");
+    Put (Square, 0);
+    Put (" = ");
+    Put (Left_Twin_Prime, 0);
+    Put (" + ");
+    Put (Right_Twin_Prime, 0);
+  end Print_Results;
+
+  Left_Twin_Prime, Right_Twin_Prime, Sum : Positive;  
+  Max_Prime_Candidate : Positive := 10_000_000; -- per task description
+
+begin
+  Load_List_of_Squares (List_of_Squares);
+  Left_Twin_Prime := 3;
+  for I in 4..Max_Prime_Candidate loop
+    if Is_Prime (I) then
+      Right_Twin_Prime := I;
+      Sum := Left_Twin_Prime + Right_Twin_Prime;
+      for J in List_of_Squares'Range loop
+        if Sum = List_of_Squares (J) then
+          if ((Right_Twin_Prime - Left_Twin_Prime) = 2) then
+            Print_Results (J, List_of_Squares (J), Left_Twin_Prime, Right_Twin_Prime);
+          end if;
+        end if;
+        exit when Sum < List_of_Squares (J);
+      end loop;
+    end if;
+    Left_Twin_Prime := Right_Twin_Prime;
+  end loop;
+end Twin_Primes_Whose_Sum_is_a_Square_Number;
+
+
+</syntaxhighlight>
+{{out}}
+<pre>
+
+6^2 = 36 = 17 + 19
+12^2 = 144 = 71 + 73
+42^2 = 1764 = 881 + 883
+48^2 = 2304 = 1151 + 1153
+72^2 = 5184 = 2591 + 2593
+84^2 = 7056 = 3527 + 3529
+90^2 = 8100 = 4049 + 4051
+174^2 = 30276 = 15137 + 15139
+204^2 = 41616 = 20807 + 20809
+264^2 = 69696 = 34847 + 34849
+306^2 = 93636 = 46817 + 46819
+372^2 = 138384 = 69191 + 69193
+408^2 = 166464 = 83231 + 83233
+456^2 = 207936 = 103967 + 103969
+474^2 = 224676 = 112337 + 112339
+546^2 = 298116 = 149057 + 149059
+594^2 = 352836 = 176417 + 176419
+600^2 = 360000 = 179999 + 180001
+642^2 = 412164 = 206081 + 206083
+750^2 = 562500 = 281249 + 281251
+852^2 = 725904 = 362951 + 362953
+882^2 = 777924 = 388961 + 388963
+936^2 = 876096 = 438047 + 438049
+972^2 = 944784 = 472391 + 472393
+978^2 = 956484 = 478241 + 478243
+1038^2 = 1077444 = 538721 + 538723
+1140^2 = 1299600 = 649799 + 649801
+1212^2 = 1468944 = 734471 + 734473
+1272^2 = 1617984 = 808991 + 808993
+1386^2 = 1920996 = 960497 + 960499
+1470^2 = 2160900 = 1080449 + 1080451
+1512^2 = 2286144 = 1143071 + 1143073
+1518^2 = 2304324 = 1152161 + 1152163
+1584^2 = 2509056 = 1254527 + 1254529
+1770^2 = 3132900 = 1566449 + 1566451
+1836^2 = 3370896 = 1685447 + 1685449
+1902^2 = 3617604 = 1808801 + 1808803
+1980^2 = 3920400 = 1960199 + 1960201
+1986^2 = 3944196 = 1972097 + 1972099
+2130^2 = 4536900 = 2268449 + 2268451
+2196^2 = 4822416 = 2411207 + 2411209
+2256^2 = 5089536 = 2544767 + 2544769
+2262^2 = 5116644 = 2558321 + 2558323
+2316^2 = 5363856 = 2681927 + 2681929
+2382^2 = 5673924 = 2836961 + 2836963
+2652^2 = 7033104 = 3516551 + 3516553
+2688^2 = 7225344 = 3612671 + 3612673
+2718^2 = 7387524 = 3693761 + 3693763
+2772^2 = 7683984 = 3841991 + 3841993
+2814^2 = 7918596 = 3959297 + 3959299
+2886^2 = 8328996 = 4164497 + 4164499
+2946^2 = 8678916 = 4339457 + 4339459
+2988^2 = 8928144 = 4464071 + 4464073
+3012^2 = 9072144 = 4536071 + 4536073
+3096^2 = 9585216 = 4792607 + 4792609
+3282^2 = 10771524 = 5385761 + 5385763
+3366^2 = 11329956 = 5664977 + 5664979
+3498^2 = 12236004 = 6118001 + 6118003
+3558^2 = 12659364 = 6329681 + 6329683
+3582^2 = 12830724 = 6415361 + 6415363
+3738^2 = 13972644 = 6986321 + 6986323
+3786^2 = 14333796 = 7166897 + 7166899
+3936^2 = 15492096 = 7746047 + 7746049
+3948^2 = 15586704 = 7793351 + 7793353
+4032^2 = 16257024 = 8128511 + 8128513
+4170^2 = 17388900 = 8694449 + 8694451
+4200^2 = 17640000 = 8819999 + 8820001
+4314^2 = 18610596 = 9305297 + 9305299
+4416^2 = 19501056 = 9750527 + 9750529
+</pre>

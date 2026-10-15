@@ -1,0 +1,6 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">type My_Type is range 1..10;</syntaxhighlight>
+The compiler identifies the range of valid values from the range specification ''1..10'' and automatically builds in bounds checking where it is needed. The compiler is smart enough to omit bounds checking when it is not needed.
+<syntaxhighlight lang="ada">A : My_Type := 3;
+B : My_Type := A;</syntaxhighlight>
+The compiler will omit bounds checking for the assignment of A to B above because both values are of My_Type. A cannot hold a value outside the range of 1..10, therefore the assignment cannot produce an out of bounds result.

@@ -1,0 +1,61 @@
+=={{header|Ada}}==
+The language specifies model floating-point numbers independent of the underlying hardware. Even if the machine numbers are IEEE 754, the user-defined floating-point numbers are guaranteed to have no IEEE 754 semantics. In particular, their values do not include any non-numeric ideals. Constraint_Error exception is propagated when the result of a numeric operation assigned to a floating-point variable is not in the range (the range is always '''numeric''').
+
+For performance reasons, the built-in floating-point types like Float and Long_Float are allowed to have IEEE 754 semantics if the machine numbers are IEEE 754. But the language provides means to exclude all non numbers from these types by defining a subtype with an explicit range:
+<syntaxhighlight lang="ada">
+subtype Consistent_Float is Float range Float'Range; -- No IEEE ideals
+</syntaxhighlight>
+In general in properly written Ada programs variables may not become invalid when standard numeric operations are applied. The language also provides the attribute 'Valid to verify values obtained from unsafe sources e.g. from input, unchecked conversions etc.
+
+As stated above on a machine where Float is implemented by an IEEE 754 machine number, IEEE 754 is permitted leak through. The following program illustrates how this leak can be exploited:
+<syntaxhighlight lang="ada">
+with Ada.Text_IO; use Ada.Text_IO;
+ 
+procedure IEEE is -- Non portable, bad, never do this!
+   Zero  : Float := 0.0;
+   PInf  : Float := 1.0 / Zero;
+   NInf  : Float := -PInf;
+   PZero : Float := 1.0 / PInf;
+   NZero : Float := 1.0 / NInf;
+   NaN   : Float := 0.0 / Zero; 
+begin
+   Put_Line (" -oo = " & Float'Image (NInf));
+   Put_Line (" +oo = " & Float'Image (PInf));
+   Put_Line (" NaN = " & Float'Image (NaN));
+   Put_Line ("  -0 = " & Float'Image (NZero));
+
+   Put_Line (" -oo < first " & Boolean'Image (NInf < Float'First));
+   Put_Line (" +oo > last  " & Boolean'Image (PInf > Float'Last));
+   Put_Line (" NaN = NaN   " & Boolean'Image (NaN = NaN));
+   Put_Line ("  -0 = 0     " & Boolean'Image (NZero = 0.0));
+   Put_Line ("  +0 = 0     " & Boolean'Image (PZero = 0.0));
+   Put_Line ("  +0 < least positive   " & Boolean'Image (PZero < Float'Succ (Zero)));
+   Put_Line ("  -0 > biggest negative " & Boolean'Image (NZero > Float'Pred (Zero)));
+
+      -- Validness checks
+   Put_Line ("Valid -oo is " & Boolean'Image (NInf'Valid));
+   Put_Line ("Valid +oo is " & Boolean'Image (PInf'Valid));
+   Put_Line ("Valid NaN is " & Boolean'Image (NaN'Valid));
+
+end IEEE;
+</syntaxhighlight>
+The expression -1.0 / 0.0 were non-numeric and thus could not be used. 
+To fool the compiler the variable Zero is used, 
+which circumvents type checks giving desired broken result. 
+{{out}}
+<pre>
+ -oo = -Inf*******
+ +oo =  +Inf*******
+ NaN = NaN********
+  -0 = -0.00000E+00
+ -oo < first TRUE
+ +oo > last  TRUE
+ NaN = NaN   FALSE
+  -0 = 0     TRUE
+  +0 = 0     TRUE
+  +0 < least positive   TRUE
+  -0 > biggest negative TRUE
+Valid -oo is FALSE
+Valid +oo is FALSE
+Valid NaN is FALSE
+</pre>

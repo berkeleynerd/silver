@@ -1,0 +1,13 @@
+=={{header|Ada}}==
+
+Single character literals require single quotes
+<syntaxhighlight lang="ada">ch : character := 'a';</syntaxhighlight>
+String literals use double quotes
+<syntaxhighlight lang="ada">msg : string := "hello world";
+empty : string := "";  -- an empty string</syntaxhighlight>
+The length of a string in Ada is equal to the number of characters in the string. 
+Ada does not employ a terminating null character like C. 
+A string can have zero length, but zero length strings are not often used. 
+Ada's string type is a fixed length string. 
+It cannot be extended after it is created. 
+If you need to extend the length of a string you need to use either a ''bounded string'', which has a pre-determined maximum length, similar to C strings, or an ''unbounded string'' which can expand or shrink to match the data it contains.

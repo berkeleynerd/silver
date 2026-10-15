@@ -1,0 +1,5 @@
+{{draft task}}
+
+;Task
+Draw here a [https://en.wikipedia.org/wiki/Menger_sponge Sierpinski sponge] of the 2nd order on this page in your language.
+</br>

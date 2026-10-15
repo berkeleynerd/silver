@@ -1,0 +1,26 @@
+=={{header|FreeBASIC}}==
+Single line and multiple line macros can be used to modify or extend the language's syntax and are about as powerful as those found in the C language.
+
+For example, we can create a 'forall' loop to iterate through the characters of a string rather than use a traditional 'for' loop:
+
+<syntaxhighlight lang="freebasic">' FB 1.05.0 Win64
+
+#Macro ForAll(C, S)
+For _i as integer = 0 To Len(s) 
+#Define C (Chr(s[_i]))
+#EndMacro
+ 
+#Define In ,
+ 
+Dim s As String = "Rosetta"
+ForAll(c in s)
+  Print c; " ";
+Next
+ 
+Print
+Sleep</syntaxhighlight>
+
+{{out}}
+<pre>
+R o s e t t a 
+</pre>

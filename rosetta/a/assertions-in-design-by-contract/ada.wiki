@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+Ada 2012 introduced aspect specifications to the language. Aspect specifications may be used to specify characteristics about data types, procedures, functions, and tasks. Frequently used aspect specifications for procedures and functions include the ability to specify preconditions and post-conditions. Aspect specifications are written as part of a procedure or function specification such as:
+<syntaxhighlight lang="ada">type Nums_Array is array (Integer range <>) of Integer;
+
+procedure Sort(Arr : in out Nums_Array) with
+    Pre => Arr'Length > 1,
+    Post => (for all I in Arr'First .. Arr'Last -1 => Arr(I) <= Arr(I + 1));
+</syntaxhighlight>
+The precondition above requires the array to be sorted to have more than one data element.
+
+The post condition describes the state of the array after being sorted, stating that the array must consist of only increasing values or duplicate values.
+
+Post conditions can also reference parameter changes made during the operation of the procedure such as the following procedure specifications for an unbounded queue:
+<syntaxhighlight lang="ada">   procedure Enqueue (Item : in out Queue; Value : Element_Type) with
+      Post => Item.Size = Item'Old.Size + 1;
+   procedure Dequeue (Item : in out Queue; Value : out Element_Type) with
+      Pre  => not Item.Is_Empty,
+      Post => Item.Size = Item'Old.Size - 1;
+</syntaxhighlight>
+Since this is an unbounded queue there is no size constraint on the Enqueue procedure. The Dequeue procedure can only function properly if the queue is not empty.
+
+The post-condition for Enqueue simply states that the size of the queue after enqueuing an element is one more than the size of the queue before enqueuing the element. Similarly the post-condition for Dequeue states that after the dequeuing an element the size of the queue is one less than the size of the queue before dequeuing the element.
+
+Type invariants can be specified using aspect clauses such as:
+<syntaxhighlight lang="ada">subtype Evens is Integer range 0..Integer'Last with
+    Dynamic_Predicate => Evens mod 2 = 0;
+
+type Data is array (Natural range <>) of Integer;
+subtype Limits is Data with
+    Dynamic_Predicate => (for all I in Limits'First..Limits'Last - 1 => Limits(I) < Limits(I + 1));
+
+type Days is (Mon, Tue, Wed, Thu, Fri, Sat, Sun);
+subtype Alternates is Days with
+    Static_Predicate => Alternates in Mon | Wed | Fri | Sun;
+</syntaxhighlight>
+The Dynamic_Predicate used for subtype Evens above specifies that each value of the subtype must be an even number.
+
+The Dynamic_Predicate used for subtype Limits specifies that the array must contain data in increasing value with no duplicates.
+
+The Static_Predicate used for subtype Alternates specifies a type which is a discontinuous subtype of Days.

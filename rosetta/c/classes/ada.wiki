@@ -1,0 +1,40 @@
+=={{header|Ada}}==
+Class is used in many languages to provide both encapsulation, or grouping of data and actions, and type definition. Ada packages provide encapsulation or grouping while type definitions are done using the ''type'' reserved word. Types participating in inheritance are named ''tagged'' record types.
+
+A package specification has the following form:
+<syntaxhighlight lang="ada">package My_Package is
+   type My_Type is tagged private;
+   procedure Some_Procedure(Item : out My_Type);
+    function Set(Value : in Integer) return My_Type;
+private
+   type My_Type is tagged record
+      Variable : Integer := -12;
+   end record;
+end My_Package;</syntaxhighlight>
+The type declaration at the top of the package gives public visibility to the private tagged type My_Type. Since My_Type is declared to be private, the public has no visibility of its structure. The type must be treated as a black box. The private section of the package specification includes the actual tagged record definition. Note that the data member Variable is initialized to -12. This corresponds to a default constructor for the type.
+
+The package body must contain the implementation of the procedures and functions declared in the package specification.
+<syntaxhighlight lang="ada"> package body My_Package is
+    procedure Some_Procedure(Item : out My_Type) is
+    begin
+       Item := 2 * Item;
+    end Some_Procedure;
+ 
+    function Set(Value : Integer) return My_Type is
+       Temp : My_Type;
+    begin
+       Temp.Variable := Value;
+       return Temp;
+    end Set;
+end My_Package;</syntaxhighlight>
+The Set function acts as a conversion constructor for My_Type.
+
+An instance is typically created outside the package:
+<syntaxhighlight lang="ada">with My_Package; use My_Package;
+
+procedure Main is
+   Foo : My_Type; -- Foo is created and initialized to -12
+begin
+   Some_Procedure(Foo); -- Foo is doubled
+   Foo := Set(2007); -- Foo.Variable is set to 2007
+end Main;</syntaxhighlight>

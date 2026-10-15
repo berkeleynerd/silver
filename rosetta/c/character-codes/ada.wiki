@@ -1,0 +1,10 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Char_Code is
+begin
+   Put_Line (Character'Val (97) & " =" & Integer'Image (Character'Pos ('a')));
+end Char_Code;</syntaxhighlight>
+The predefined language attributes S'Pos and S'Val for every discrete subtype, and Character is such a type, yield the position of a value and value by its position correspondingly. 
+{{out}}
+<pre>a = 97</pre>

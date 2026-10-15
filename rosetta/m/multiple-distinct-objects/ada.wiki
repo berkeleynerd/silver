@@ -1,0 +1,6 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">A : array (1..N) of T;</syntaxhighlight>
+Here N can be unknown until run-time. T is any constrained type. In [[Ada]] all objects are always initialized, though some types may have null initialization. When T requires a non-null initialization, it is done for each array element. For example, when T is a [[task]] type, N tasks start upon initialization of A. Note that T can be a ''limited'' type like task. Limited types do not have predefined copy operation. Arrays of non-limited types can also be initialized by aggregates of:
+<syntaxhighlight lang="ada">A : array (1..N) of T := (others => V);</syntaxhighlight>
+Here V is some value or expression of the type T. As an expression V may have side effects, in that case it is evaluated exactly N times, though the order of evaluation is not defined. Also an aggregate itself can be considered as a solution of the task:
+<syntaxhighlight lang="ada">(1..N => V)</syntaxhighlight>

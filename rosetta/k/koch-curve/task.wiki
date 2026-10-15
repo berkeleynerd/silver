@@ -1,0 +1,3 @@
+{{task}}
+
+Draw a Koch curve. See details: [https://en.wikipedia.org/wiki/Koch_snowflake Koch curve]

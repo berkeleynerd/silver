@@ -1,0 +1,36 @@
+=={{header|Ada}}==
+===Public and private declarative parts===
+In [[Ada]] declarative region of a package has publicly visible and private parts. 
+The private part is introduced by '''private''':
+<syntaxhighlight lang="ada">package P is
+   ... -- Declarations placed here are publicly visible
+private
+   ... -- These declarations are visible only to the children of P
+end P;</syntaxhighlight>
+Correspondingly a type or object declaration may be incomplete in the public part providing an official interface. For example:
+<syntaxhighlight lang="ada">package P is
+   type T is private; -- No components visible
+   procedure F (X : in out T); -- The only visible operation
+   N : constant T; -- A constant, which value is hidden
+private
+   type T is record -- The implementation, visible to children only
+      Component : Integer;
+   end record;
+   procedure V (X : in out T); -- Operation used only by children
+   N : constant T := (Component => 0); -- Constant implementation
+end P;</syntaxhighlight>
+
+===Bodies (invisible declarations)===
+The keyword '''body''' applied to the packages, protected objects and tasks. It specifies an implementation of the corresponding entity invisible from anywhere else:
+<syntaxhighlight lang="ada">package body P is
+   -- The implementation of P, invisible to anybody
+   procedure W (X : in out T); -- Operation used only internally
+end P;</syntaxhighlight>
+===Private children===
+The keyword '''private''' can be applied to the whole package, a child of another package:
+<syntaxhighlight lang="ada">private package P.Q is
+   ... -- Visible to the siblings only
+private
+   ... -- Visible to the children only
+end P.Q;</syntaxhighlight>
+This package can be then used only by private siblings of the same parent P.

@@ -1,0 +1,139 @@
+=={{header|Ada}}==
+
+We define a generic package to output HTML tables:
+
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded;
+
+generic
+   type Item_Type is private;
+   with function To_String(Item: Item_Type) return String is <>;
+   with procedure Put(S: String) is <>;
+   with procedure Put_Line(Line: String) is <>;
+package HTML_Table is
+
+   subtype U_String is Ada.Strings.Unbounded.Unbounded_String;
+   function Convert(S: String) return U_String renames
+     Ada.Strings.Unbounded.To_Unbounded_String;
+
+   type Item_Array is array(Positive range <>, Positive range <>) of Item_Type;
+   type Header_Array is array(Positive range <>) of U_String;
+
+   procedure Print(Items: Item_Array; Column_Heads: Header_Array);
+
+end HTML_Table;</syntaxhighlight>
+
+The implementation of the package:
+
+<syntaxhighlight lang="ada">package body HTML_Table is                                                                        
+                                                                                                  
+   procedure Print(Items: Item_Array; Column_Heads: Header_Array) is                              
+                                                                                                  
+      function Blanks(N: Natural) return String is                                                
+         -- indention for better readable HTML                                                    
+      begin                                                                                       
+         if N=0 then
+            return "";
+         else
+            return " " & Blanks(N-1);
+         end if;
+      end Blanks;
+
+      procedure Print_Row(Row_Number: Positive) is
+      begin
+         Put(Blanks(4) & "<tr><td>" & Positive'Image(Row_Number) & "</td>");
+         for I in Items'Range(2) loop
+            Put("<td>" & To_String(Items(Row_Number, I)) & "</td>");
+                end loop;
+            Put_Line("</tr>");
+      end Print_Row;
+
+      procedure Print_Body is
+      begin
+         Put_Line(Blanks(2)&"<tbody align = ""right"">");
+         for I in Items'Range(1) loop
+            Print_Row(I);
+         end loop;
+         Put_Line(Blanks(2)&"</tbody>");
+      end Print_Body;
+
+      procedure Print_Header is
+         function To_Str(U: U_String) return String renames
+           Ada.Strings.Unbounded.To_String;
+      begin
+         Put_Line(Blanks(2) & "<thead align = ""right"">");
+         Put(Blanks(4) & "<tr><th></th>");
+         for I in Column_Heads'Range loop
+            Put("<td>" & To_Str(Column_Heads(I)) & "</td>");
+         end loop;
+         Put_Line("</tr>");
+         Put_Line(Blanks(2) & "</thead>");
+      end Print_Header;
+
+   begin
+      if Items'Length(2) /= Column_Heads'Length then
+         raise Constraint_Error with "number of headers /= number of columns";
+      end if;
+      Put_Line("<table>");
+      Print_Header;
+      Print_Body;
+      Put_Line("</table>");
+   end Print;
+
+end HTML_Table;</syntaxhighlight>
+
+Here is the main program, using an instance of HTML_Table:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Numerics.Discrete_Random, HTML_Table;
+
+procedure Test_HTML_Table is
+
+   -- define the Item_Type and the random generator
+   type  Four_Digits is mod 10_000;
+   package Rand is new Ada.Numerics.Discrete_Random(Four_Digits);
+   Gen: Rand.Generator;
+
+   -- now we instantiate the generic package HTML_Table
+   package T is new HTML_Table
+     (Item_Type => Four_Digits,
+      To_String => Four_Digits'Image,
+      Put       => Ada.Text_IO.Put,
+      Put_Line  => Ada.Text_IO.Put_Line);
+
+   -- define the object that will the values that the table contains
+   The_Table: T.Item_Array(1 .. 4, 1..3);
+
+begin
+   -- fill The_Table with random values
+   Rand.Reset(Gen);
+   for Rows in The_Table'Range(1) loop
+      for Cols in The_Table'Range(2) loop
+         The_Table(Rows, Cols) := Rand.Random(Gen);
+      end loop;
+   end loop;
+
+   -- output The_Table
+   T.Print(Items        => The_Table,
+           Column_Heads => (T.Convert("X"), T.Convert("Y"), T.Convert("Z")));
+end Test_HTML_Table;</syntaxhighlight>
+
+
+Each time you run the program, you get different random values for the table. {{out}}
+<syntaxhighlight lang="html5"><table>
+  <thead align = "right">
+    <tr><th></th><td>X</td><td>Y</td><td>Z</td></tr>
+  </thead>
+  <tbody align = "right">
+    <tr><td> 1</td><td> 7255</td><td> 3014</td><td> 9436</td></tr>
+    <tr><td> 2</td><td> 554</td><td> 3314</td><td> 8765</td></tr>
+    <tr><td> 3</td><td> 4832</td><td> 129</td><td> 2048</td></tr>
+    <tr><td> 4</td><td> 31</td><td> 6897</td><td> 8265</td></tr>
+  </tbody>
+</table></syntaxhighlight>
+
+{{out}}
+<pre>        X    Y    Z                                                                                  
+   1 7255 3014 9436                                                                                  
+   2  554 3314 8765                                                                                  
+   3 4832  129 2048                                                                                  
+   4   31 6897 8265
+</pre>

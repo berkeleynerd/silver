@@ -1,0 +1,55 @@
+=={{header|FreeBASIC}}==
+{{trans|XPLo}}
+<syntaxhighlight lang="vbnet">#define floor(x) ((x*2.0-0.5) Shr 1)
+
+Dim Shared As Double n, base_ = 2.  ' Base is a reserved word on FB
+
+Sub NumOut(n As Double)             'Display n in the specified base
+    Dim As Integer remainder = Fix(n Mod base_)
+    n = floor(n / base_)
+    If n <> 0. Then NumOut(n)
+    Print Chr(remainder + Iif(remainder <= 9, Asc("0"), Asc("A")-10));
+End Sub
+
+Function isPandigital(n As Double) As Boolean
+    Dim As Integer used, remainder
+    used = 0
+    While n <> 0.
+        remainder = Fix(n Mod base_)
+        n = floor(n / base_)
+        used Or= 1 Shl remainder
+    Wend
+    Return used = (1 Shl Fix(base_)) - 1
+End Function
+
+Do
+    n = floor(Sqr(base_ ^ (base_-1.)))
+    Do
+        If isPandigital(n*n) Then
+            Print Using "Base ##: "; base_;
+            NumOut(n)
+            Print "^2 = ";
+            NumOut(n*n)
+            Print
+            Exit Do
+        End If
+        n += 1.
+    Loop
+    base_ += 1.
+Loop Until base_ > 14.
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Base  2: 10^2 = 100
+Base  3: 22^2 = 2101
+Base  4: 33^2 = 3201
+Base  5: 243^2 = 132304
+Base  6: 523^2 = 452013
+Base  7: 1431^2 = 2450361
+Base  8: 3344^2 = 13675420
+Base  9: 11642^2 = 136802574
+Base 10: 32043^2 = 1026753849
+Base 11: 111453^2 = 1240A536789
+Base 12: 3966B9^2 = 124A7B538609
+Base 13: 3828943^2 = 10254773CA86B9
+Base 14: 3A9DB7C^2 = 10269B8C57D3A4</pre>

@@ -1,0 +1,99 @@
+=={{header|Ada}}==
+Ada does not allow the loop counter of a FOR loop to be modified in the loop. This example uses a simple Ada loop. The example also uses an Ada fixed decimal type to provide the comma insertion for the output.
+<syntaxhighlight lang="ada">with Ada.Text_IO;         use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO.Editing; use Ada.Text_IO.Editing;
+with Ada.Numerics.Generic_Elementary_Functions;
+
+procedure Main is
+   type nums is delta 0.1 digits 15;
+   format : String  := "zz_zzz_zzz_zzz_zzz_zz9.9";
+   pic    : picture := To_Picture (format);
+   package Nums_io is new Decimal_Output (Nums);
+   use Nums_IO;
+   type U_64 is mod 2**64;
+
+   package mod_io is new Modular_IO (U_64);
+   use mod_io;
+
+   function Is_Prime (Num : U_64) return boolean is
+      package Flt_Funcs is new Ada.Numerics.Generic_Elementary_Functions
+        (Float);
+      use Flt_Funcs;
+
+      T     : U_64          := 2;
+      Limit : constant U_64 := U_64 (Sqrt (Float (Num)));
+   begin
+      if Num = 2 then
+         return True;
+      end if;
+      while T <= Limit loop
+         if Num mod T = 0 then
+            return False;
+         end if;
+         T := T + (if T > 2 then 2 else 1);
+      end loop;
+      return True;
+   end Is_Prime;
+   Prime_Count : natural := 0;
+   Prime_Test  : U_64    := 42;
+begin
+   loop
+      if Is_Prime (Prime_Test) then
+         Prime_Count := Prime_Count + 1;
+         Put ("n =");
+         Put (Item => Prime_Count, Width => 3);
+         Put (Item => Nums (Prime_Test), Pic => pic);
+         New_Line;
+         Prime_Test := (Prime_Test * 2) - 1;
+      end if;
+      Prime_Test := Prime_Test + 1;
+      exit when Prime_Count = 42;
+   end loop;
+end Main;
+</syntaxhighlight>
+{{output}}
+<pre>
+n =  1                    43.0
+n =  2                    89.0
+n =  3                   179.0
+n =  4                   359.0
+n =  5                   719.0
+n =  6                 1,439.0
+n =  7                 2,879.0
+n =  8                 5,779.0
+n =  9                11,579.0
+n = 10                23,159.0
+n = 11                46,327.0
+n = 12                92,657.0
+n = 13               185,323.0
+n = 14               370,661.0
+n = 15               741,337.0
+n = 16             1,482,707.0
+n = 17             2,965,421.0
+n = 18             5,930,887.0
+n = 19            11,861,791.0
+n = 20            23,723,597.0
+n = 21            47,447,201.0
+n = 22            94,894,427.0
+n = 23           189,788,857.0
+n = 24           379,577,741.0
+n = 25           759,155,483.0
+n = 26         1,518,310,967.0
+n = 27         3,036,621,941.0
+n = 28         6,073,243,889.0
+n = 29        12,146,487,779.0
+n = 30        24,292,975,649.0
+n = 31        48,585,951,311.0
+n = 32        97,171,902,629.0
+n = 33       194,343,805,267.0
+n = 34       388,687,610,539.0
+n = 35       777,375,221,081.0
+n = 36     1,554,750,442,183.0
+n = 37     3,109,500,884,389.0
+n = 38     6,219,001,768,781.0
+n = 39    12,438,003,537,571.0
+n = 40    24,876,007,075,181.0
+n = 41    49,752,014,150,467.0
+n = 42    99,504,028,301,131.0
+</pre>

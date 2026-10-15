@@ -1,0 +1,84 @@
+=={{header|Ada}}==
+
+=== Ada.Direct_IO ===
+
+{{works with|Ada 2005}}
+
+Using Ada.Directories to first ask for the file size 
+and then Ada.Direct_IO to read the whole file in one chunk:
+
+<syntaxhighlight lang="ada">with Ada.Directories,
+     Ada.Direct_IO,
+     Ada.Text_IO;
+
+procedure Whole_File is
+
+   File_Name : String  := "whole_file.adb";
+   File_Size : Natural := Natural (Ada.Directories.Size (File_Name));
+
+   subtype File_String    is String (1 .. File_Size);
+   package File_String_IO is new Ada.Direct_IO (File_String);
+
+   File     : File_String_IO.File_Type;
+   Contents : File_String;
+
+begin
+   File_String_IO.Open  (File, Mode => File_String_IO.In_File,
+                               Name => File_Name);
+   File_String_IO.Read  (File, Item => Contents);
+   File_String_IO.Close (File);
+
+   Ada.Text_IO.Put (Contents);
+end Whole_File;</syntaxhighlight>
+
+This kind of solution is limited a bit by the fact that the GNAT implementation of Ada.Direct_IO first allocates a copy of the read object on the stack inside Ada.Direct_IO.Read.  On Linux you can use the command "<code>limit stacksize 1024M</code>" to increase the available stack for your processes to 1Gb, which gives your program more freedom to use the stack for allocating objects.
+
+
+
+=== POSIX.Memory_Mapping ===
+
+{{works with|POSIX}} {{works with|Ada 95}}
+
+Mapping the whole file into the address space of your process and then overlaying the file with a String object.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO,
+     POSIX.IO,
+     POSIX.Memory_Mapping,
+     System.Storage_Elements;
+
+procedure Read_Entire_File is
+
+   use POSIX, POSIX.IO, POSIX.Memory_Mapping;
+   use System.Storage_Elements;
+
+   Text_File    : File_Descriptor;
+   Text_Size    : System.Storage_Elements.Storage_Offset;
+   Text_Address : System.Address;
+
+begin
+   Text_File := Open (Name => "read_entire_file.adb",
+                      Mode => Read_Only);
+   Text_Size := Storage_Offset (File_Size (Text_File));
+   Text_Address := Map_Memory (Length     => Text_Size,
+                               Protection => Allow_Read,
+                               Mapping    => Map_Shared,
+                               File       => Text_File,
+                               Offset     => 0);
+
+   declare
+      Text : String (1 .. Natural (Text_Size));
+      for Text'Address use Text_Address;
+   begin
+      Ada.Text_IO.Put (Text);
+   end;
+
+   Unmap_Memory (First  => Text_Address,
+                 Length => Text_Size);
+   Close (File => Text_File);
+end Read_Entire_File;</syntaxhighlight>
+
+Character encodings and their handling are not really specified in Ada.  What Ada does specify is three different character types (and corresponding string types):
+* Character - containing the set of ISO-8859-1 characters.
+* Wide_Character - containing the set of ISO-10646 BMP characters.
+* Wide_Wide_Character - containing the full set of ISO-10646 characters.
+The GNU Ada compiler (GNAT) seems to read in text files as bytes, completely ignoring any operating system information on character encoding. You can use -gnatW8 in Ada 2005 mode to use UTF-8 characters in identifier names.

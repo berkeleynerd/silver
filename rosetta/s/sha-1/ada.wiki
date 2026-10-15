@@ -1,0 +1,14 @@
+=={{header|Ada}}==
+{{works with|GNAT}}
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with GNAT.SHA1;
+
+procedure Main is
+begin
+   Ada.Text_IO.Put_Line ("SHA1 (""Rosetta Code"") = " &
+                         GNAT.SHA1.Digest ("Rosetta Code"));
+end Main;</syntaxhighlight>
+
+{{out}}
+<pre>SHA1 ("Rosetta Code") = 48c98f7e5a6e736d790ab740dfc3f51a61abe2b5</pre>

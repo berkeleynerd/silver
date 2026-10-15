@@ -1,0 +1,136 @@
+=={{header|FreeBASIC}}==
+{{trans|Phix}}
+<syntaxhighlight lang="freebasic">#define isOdd(a) (((a) and 1) <> 0)
+
+Function isPrime(Byval ValorEval As Integer) As Boolean
+    If ValorEval < 2 Then Return False
+    If ValorEval Mod 2 = 0 Then Return ValorEval = 2
+    If ValorEval Mod 3 = 0 Then Return ValorEval = 3
+    Dim d As Integer = 5
+    While d * d <= ValorEval
+        If ValorEval Mod d = 0 Then Return False Else d += 2
+        If ValorEval Mod d = 0 Then Return False Else d += 4
+    Wend 
+    Return True
+End Function
+
+Dim As Integer n
+Dim As Integer p(0 To 40), pl(0 To 40)
+p(0)= 0: p(1) = 1
+pl(0) = 2: pl(1) = 2
+For n = 2 To 40
+    p(n) = 2 * p(n-1) + p(n-2)
+    pl(n) = 2 * pl(n-1) + pl(n-2)
+Next n
+
+Print "First 20 Pell numbers: "
+For n = 0 To 19 : Print p(n); : Next n
+Print !"\n\nFirst 20 Pell-Lucas: "
+For n = 0 To 19 : Print pl(n); : Next n
+
+Print !"\n\nFirst 20 rational approximations of sqrt(2) (" & Str(Sqr(2)) & "): "
+For n = 1 To 20
+    Dim As Integer j = pl(n)/2, d = p(n)
+    Print Using " &/& ~= &"; j; d; j/d
+Next n
+
+Print !"\nFirst 6 Pell primes: [for the limitations of the FB standard library]"
+Dim as Integer pdx = 2
+Dim As Byte c = 0
+Dim As Ulongint ppdx(1 to 20)
+do
+    If isPrime(p(pdx)) Then 
+        If isPrime(pdx) Then ppdx(c) = pdx : End If
+        Print p(pdx)
+        c += 1 
+    End If
+    pdx += 1
+loop until c = 6
+
+Print !"\nIndices of first 6 Pell primes: [for the limitations of the FB standard library]"
+For n = 0 To 5 : Print " "; ppdx(n); : Next n
+
+Dim As Ulongint nsw(0 To 20)
+For n = 0 To 19
+    nsw(n) = p(2*n) + p(2*n+1)
+Next n
+Print !"\n\nFirst 20 Newman-Shank-Williams numbers: "
+For n = 0 To 19 : Print " "; nsw(n); : Next n
+
+Print !"\n\nFirst 20 near isosceles right triangles:"
+Dim As Integer i0 = 0, i1 = 1, i2, t = 1, i = 2, found = 0
+Do While found < 20
+    i2 = i1*2 + i0
+    If isOdd(i) Then
+        Print Using " [&, &, &]";  t; t+1 ; i2
+        found += 1
+    End If
+    t += i2
+    i0 = i1 : i1 = i2
+    i += 1
+Loop
+Sleep</syntaxhighlight>
+{{out}}
+<pre style="height:40ex;overflow:scroll;">First 20 Pell numbers:
+ 0 1 2 5 12 29 70 169 408 985 2378 5741 13860 33461 80782 195025 470832 1136689 2744210 6625109
+
+First 20 Pell-Lucas:
+ 2 2 6 14 34 82 198 478 1154 2786 6726 16238 39202 94642 228486 551614 1331714 3215042 7761798 18738638
+
+First 20 rational approximations of sqrt(2) (1.414213562373095):
+ 1/1 ~= 1
+ 3/2 ~= 1.5
+ 7/5 ~= 1.4
+ 17/12 ~= 1.416666666666667
+ 41/29 ~= 1.413793103448276
+ 99/70 ~= 1.414285714285714
+ 239/169 ~= 1.414201183431953
+ 577/408 ~= 1.41421568627451
+ 1393/985 ~= 1.414213197969543
+ 3363/2378 ~= 1.41421362489487
+ 8119/5741 ~= 1.414213551646055
+ 19601/13860 ~= 1.414213564213564
+ 47321/33461 ~= 1.41421356205732
+ 114243/80782 ~= 1.414213562427273
+ 275807/195025 ~= 1.414213562363799
+ 665857/470832 ~= 1.41421356237469
+ 1607521/1136689 ~= 1.414213562372821
+ 3880899/2744210 ~= 1.414213562373142
+ 9369319/6625109 ~= 1.414213562373087
+ 22619537/15994428 ~= 1.414213562373096
+
+First 6 Pell primes: [for the limitations of the FB standard library]
+ 2
+ 5
+ 29
+ 5741
+ 33461
+ 44560482149
+
+Indices of first 6 Pell primes: [for the limitations of the FB standard library]
+ 2 3 5 11 13 29
+
+First 20 Newman-Shank-Williams numbers:
+ 1 7 41 239 1393 8119 47321 275807 1607521 9369319 54608393 318281039 1855077841 10812186007 63018038201 367296043199 2140758220993 12477253282759 72722761475561 423859315570607
+
+First 20 near isosceles right triangles:
+ [3, 4, 5]
+ [20, 21, 29]
+ [119, 120, 169]
+ [696, 697, 985]
+ [4059, 4060, 5741]
+ [23660, 23661, 33461]
+ [137903, 137904, 195025]
+ [803760, 803761, 1136689]
+ [4684659, 4684660, 6625109]
+ [27304196, 27304197, 38613965]
+ [159140519, 159140520, 225058681]
+ [927538920, 927538921, 1311738121]
+ [5406093003, 5406093004, 7645370045]
+ [31509019100, 31509019101, 44560482149]
+ [183648021599, 183648021600, 259717522849]
+ [1070379110496, 1070379110497, 1513744654945]
+ [6238626641379, 6238626641380, 8822750406821]
+ [36361380737780, 36361380737781, 51422757785981]
+ [211929657785303, 211929657785304, 299713796309065]
+ [1235216565974040, 1235216565974041, 1746860020068409]</pre>

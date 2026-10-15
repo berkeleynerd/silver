@@ -1,0 +1,148 @@
+=={{header|Ada}}==
+
+===Line by line===
+
+Assuming everything is fine and no error handling is required, this solution is sufficient:
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+ 
+procedure Read_And_Write_File_Line_By_Line is
+   Input, Output : File_Type;
+begin
+   Open (File => Input,
+         Mode => In_File,
+         Name => "input.txt");
+   Create (File => Output,
+           Mode => Out_File,
+           Name => "output.txt");
+   loop
+      declare
+         Line : String := Get_Line (Input);
+      begin
+         -- You can process the contents of Line here.
+         Put_Line (Output, Line);
+      end;
+   end loop;
+   Close (Input);
+   Close (Output);
+exception
+   when End_Error =>
+      if Is_Open(Input) then 
+         Close (Input);
+      end if;
+      if Is_Open(Output) then 
+         Close (Output);
+      end if;
+end Read_And_Write_File_Line_By_Line;</syntaxhighlight>
+
+Expanded with proper error handling and reporting it reads:
+
+<syntaxhighlight lang="ada">with Ada.Command_Line, Ada.Text_IO; use Ada.Command_Line, Ada.Text_IO;
+ 
+procedure Read_And_Write_File_Line_By_Line is
+   Read_From : constant String := "input.txt";
+   Write_To  : constant String := "output.txt";
+ 
+   Input, Output : File_Type;
+begin
+   begin
+      Open (File => Input,
+            Mode => In_File,
+            Name => Read_From);
+   exception
+      when others =>
+         Put_Line (Standard_Error,
+                   "Can not open the file '" & Read_From & "'. Does it exist?");
+         Set_Exit_Status (Failure);
+         return;
+   end;
+ 
+   begin
+      Create (File => Output,
+              Mode => Out_File,
+              Name => Write_To);
+   exception
+      when others =>
+         Put_Line (Standard_Error,
+                   "Can not create a file named '" & Write_To & "'.");
+         Set_Exit_Status (Failure);
+         return;
+   end;
+ 
+   loop
+      declare
+         Line : String := Get_Line (Input);
+      begin
+         -- You can process the contents of Line here.
+         Put_Line (Output, Line);
+      end;
+   end loop;
+   Close (Input);
+   Close (Output);
+exception
+   when End_Error =>
+      if Is_Open(Input) then 
+         Close (Input);
+      end if;
+      if Is_Open(Output) then 
+         Close (Output);
+      end if;
+end Read_And_Write_File_Line_By_Line;</syntaxhighlight>
+
+===Character by character===
+
+The following example reads and writes each file one character at a time.  (You should of course add error reporting as in the example above.)
+<syntaxhighlight lang="ada">with Ada.Sequential_IO;
+
+procedure Read_And_Write_File_Character_By_Character is
+   package Char_IO is new Ada.Sequential_IO (Character);
+   use Char_IO;
+
+   Input, Output : File_Type;
+   Buffer        : Character;
+begin
+   Open   (File => Input,  Mode => In_File,  Name => "input.txt");
+   Create (File => Output, Mode => Out_File, Name => "output.txt");
+   loop
+      Read  (File => Input,  Item => Buffer);
+      Write (File => Output, Item => Buffer);
+   end loop;
+   Close (Input);
+   Close (Output);
+exception
+   when End_Error =>
+      if Is_Open(Input) then
+         Close (Input);
+      end if;
+      if Is_Open(Output) then
+         Close (Output);
+      end if;
+end Read_And_Write_File_Character_By_Character;</syntaxhighlight>
+
+===Using Ada.Text_IO.Text_Streams===
+
+The following solution uses stream I/O. Any file of Ada.Text_IO can be used to obtain a corresponding stream. Reading and writing streams is more efficient than reading text files directly, because it skips formatting.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;               use Ada.Text_IO; 
+with Ada.Text_IO.Text_Streams;  use Ada.Text_IO.Text_Streams;
+ 
+procedure Using_Text_Streams is
+   Input, Output : File_Type;
+   Buffer        : Character;
+begin
+   Open   (File => Input,  Mode => In_File,  Name => "input.txt");
+   Create (File => Output, Mode => Out_File, Name => "output.txt");
+   loop
+      Buffer := Character'Input (Stream (Input));
+      Character'Write (Stream (Output), Buffer);
+   end loop;
+   Close (Input);
+   Close (Output);
+exception
+   when End_Error =>
+      if Is_Open(Input) then
+         Close (Input);
+      end if;
+      if Is_Open(Output) then
+         Close (Output);
+      end if;
+end Using_Text_Streams;</syntaxhighlight>

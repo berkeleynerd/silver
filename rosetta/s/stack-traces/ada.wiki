@@ -1,0 +1,48 @@
+=={{header|Ada}}==
+{{works with|GNAT}}
+
+The provided solution is specific to the [[GNAT]] Ada compiler. Further it is restricted to some platforms. See the description of the package GNAT.Traceback supplied with [[GNAT]]. The switch -g must be used in order to include debug information into the executable.
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+with GNAT.Traceback;
+with GNAT.Traceback.Symbolic;
+
+procedure Test_Stack_Trace is
+   procedure Call_Stack is
+      Trace  : GNAT.Traceback.Tracebacks_Array (1..1_000);
+      Length : Natural;
+   begin
+      GNAT.Traceback.Call_Chain (Trace, Length);
+      Put_Line (GNAT.Traceback.Symbolic.Symbolic_Traceback (Trace (1..Length)));
+   end Call_Stack; 
+
+   procedure Inner (K : Integer) is
+   begin
+      Call_Stack;
+   end Inner;
+ 
+   procedure Middle (X, Y : Integer) is
+   begin
+      Inner (X * Y);
+   end Middle;
+ 
+   procedure Outer (A, B, C : Integer) is
+   begin
+     Middle (A + B, B + C);
+   end Outer;
+   
+begin
+  Outer (2,3,5);
+end Test_Stack_Trace;</syntaxhighlight>
+Sample output:
+<pre>
+00417D7F in ?? at cygming-crtend.c:0
+00401A61 in test_stack_trace.call_stack at test_stack_trace.adb:10
+00401A25 in test_stack_trace.inner at test_stack_trace.adb:16
+00401A0C in test_stack_trace.middle at test_stack_trace.adb:21
+0040193E in test_stack_trace.outer at test_stack_trace.adb:26
+004018A2 in _ada_test_stack_trace at test_stack_trace.adb:30
+004016BE in main at b~test_stack_trace.adb:183
+00401235 in ?? at cygming-crtend.c:0
+00401286 in ?? at cygming-crtend.c:0
+7C817075 in ?? at ??:0
+</pre>

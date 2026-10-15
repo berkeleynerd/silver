@@ -1,0 +1,13 @@
+=={{header|FreeBASIC}}==
+In FreeBASIC, there is no direct way to unload an unused section of code from memory. However, you can free memory used by variables or data.
+
+Here's an example of how you could do it:
+
+<syntaxhighlight lang="vbnet">DIM AS INTEGER PTR p
+p = CALLOC(100, SIZEOF(INTEGER)) ' Reserve memory for 100 integers
+
+'Use memory...
+
+DEALLOC(p) ' Free the memory
+p = NULL ' Ensures that the pointer does not point to a freed memory location
+</syntaxhighlight>

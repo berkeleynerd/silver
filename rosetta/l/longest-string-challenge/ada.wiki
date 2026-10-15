@@ -1,0 +1,295 @@
+=={{header|Ada}}==
+
+This first solution is prepended to the following earlier solutions that did not fully comply with the restrictions, namely the use of arithmatic operators and language features that return numbers used with them.
+
+In order to comply with the avoidance of greater-than or less-than comparisons and iterations with operators, only Constraint_Error exception handling is used to obtain comparison of less-than, equal-to, or greater-than.  With these, only the strings that are longer than previous strings and the succeeding strings, and equal in length to each other are printed.  They are printed in reverse order, but this is specifically allowed by the instructions.  In order to be clear to the reader, all cases of less-than, equal to, and greater-than are manually iterated through.  Since equal-to/not-equal-to testing is allowed, there should be no question that a "case" statement is also allowed.
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Longest_Strings is
+   use Ada.Text_IO;
+   
+   -- first, in order to strictly use integer, I use integer in
+   -- place of an enumeration type: -1 => not-equal
+   --                                0 => shorter - ignore, no print current string
+   --                                1 => equal - print current and up-stream
+   --                                2 => longer - no print upstream, only current and equal subsequent
+   --                           others => null; -- must never happen.
+   --
+   -- Anything else that is tested or used that is not a string or integer
+   -- is not used explicitly by me, but is a standard part of the language
+   -- as provided in the standard libraries (like boolean "End_Of_File").
+   
+   function Measure_And_Print_N (O : String := ""; -- original/old string
+                                 N : String := ""  -- next/new string
+                                ) return Integer is
+      T1 : String := O;
+      T2 : String := N;
+      L  : Integer := 1; -- Length defaults to the same;
+      function Test_Length (O : in out String; -- original/old string
+                            N : in out String) -- new/test-subject string
+                            return Integer is
+         function Test_Equal (O : in out String; N : in out String)
+                              return Integer is
+         begin
+            O := N;
+            return 1;
+         exception
+            when Constraint_Error =>
+               return -1;
+         end;
+      begin
+         case Test_Equal (O, N) is
+         when -1 =>
+            O (N'Range) := N;
+            return 0;
+         when 1 =>
+            return 1;
+         when others =>
+            return -1;
+         end case;
+      exception
+         when Constraint_Error =>
+            return 2;
+      end;
+   begin
+         case Test_Length (T1, T2) is
+         when 0 =>
+            
+            -- N < O, so return "shorter"  do not print N
+            
+            if End_Of_File
+            then
+               return 0;
+            else
+               case Measure_And_Print_N (O, Get_Line) is
+                  when 0 =>
+                     return 0;
+                  when 1 =>
+                     return 0;
+                  when 2 =>
+                     return 2; -- carry up any subsequent canceling of print.
+                  when others =>
+                     raise Numeric_Error;
+               end case;
+            end if;
+         when 1 =>
+            
+            -- O = N, so return "equal"  print N if all subsequent values are
+            -- less than or equal to N
+            
+            if End_Of_File
+            then
+               Put_Line (N);
+               return 1;
+            else
+               case Measure_And_Print_N (O, Get_Line) is
+                  when 0 =>
+                     Put_Line (N);
+                     return 1;
+                  when 1 =>
+                     Put_Line (N);
+                     return 1;
+                  when 2 =>  -- carry up the subsequent canceling of print.
+                     null;
+                     return 2;
+                  when others =>
+                     raise Numeric_Error;
+               end case;
+            end if;
+         when 2 =>
+            
+            -- N > O, so return "longer" to cancel printing all previous values
+            -- and print N if it is also equal to or greater than descendant
+            -- values.
+            
+            if End_Of_File
+            then
+               Put_Line (N);
+               return 2;
+            else
+               case Measure_And_Print_N (N, Get_Line) is
+                  when 0 =>
+                     Put_Line (N);
+                     return 2;
+                  when 1 =>
+                     Put_Line (N);
+                     return 2;
+                  when 2 =>  -- printing N cancelled by subsequent input.
+                     null;
+                     return 2;
+                  when others =>
+                     raise Numeric_Error;
+               end case;
+            end if;
+         when others =>
+            
+            -- This should never happen - raise exception
+            
+            raise Numeric_Error;
+         end case;
+   end;
+begin
+   if End_Of_File
+   then
+      null;
+   else
+      case Measure_And_Print_N ("", Get_Line) is
+         when 0 =>
+            Put_Line (Current_Error,
+                      "Error, Somehow the input line is calculated as less than zero!");
+         when 1 =>
+            Put_Line (Current_Error,
+                      "All input lines appear to be blank.");
+         when 2 =>
+            null;
+         when others =>
+            raise Numeric_Error;
+      end case;
+   end if;
+end;
+</syntaxhighlight>
+
+The output, given the above example input, is:
+
+<pre>ggg
+ddd
+ccc</pre>
+
+Keeping the input in order means either appending to a long string with varying segments and a separater character, like below, or possible using a list feature that has been specifically disallowed.
+
+Next follows previous attempts:
+
+--------
+
+How to bypass the restrictions:
+
+* All lines of potential output are stored in an (unbounded) string, named Buffer. On special character (Latin_1.Nul) is used to separate between different lines. 
+
+* We can't directly compare the lengths of two strings. So instead, we assign the difference of the lengths to a variable of type Natural (*). If the result is outside of Natural, this raises an exception. If there is no exception, we assign the result to a variable of type Positive (*), which raises an exception if the result is outside of Positive. 
+
+--------
+(*) Technically, Natural and Positive are not types but subtypes of Integer: Natural ranges from 0 to Integer'Last, Positive from 1 to Integer'Last. 
+
+
+So this is the first solution. 
+
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Text_IO, Ada.Characters.Latin_1;
+
+procedure Longest_String_Challenge is
+   function "+"(S: String) return Unbounded_String renames To_Unbounded_String;
+   Separator: constant Character := Ada.Characters.Latin_1.NUL;
+
+   procedure Funny_Stuff(B, L: in out Unbounded_String; N: Unbounded_String) is
+      -- B holds a list of all longest strings, separated by Separator
+      -- L holds longest string so far
+      -- N is the next string to be considered 
+      Nat: Natural;
+   begin
+      Nat := Length(N) - Length(L); 
+        -- (1) this raises exception if L longer then N 
+      declare
+         Pos: Positive;
+      begin
+         Pos := Nat; -- (2) this raises exception if L at least as long as N
+                     -- at this point, we know N is longer then L
+         B   := N; 
+         L   := N;
+      exception
+         when Constraint_Error -- come from (2)
+            -- at this point, we know L and N are of the same length
+            => B := B & Separator & N; -- add N to the set of solutions
+      end;
+   exception
+      when Constraint_Error => null; -- come from (1)
+        -- at this point, we know L is longer then N 
+   end Funny_Stuff;
+
+   Buffer: Unbounded_String := +"";
+   Longest: Unbounded_String := +"";
+   Next: Unbounded_String;
+
+begin
+   while True loop
+      Next := + Ada.Text_IO.Get_Line;
+        -- (3) raises exception when trying to read beyond the end of file
+      Funny_Stuff(Buffer, Longest, Next);
+   end loop;
+exception
+   when others => -- come from (3)
+      for I in To_String(Buffer)'Range loop
+         if To_String(Buffer)(I) = Separator then
+            Ada.Text_IO.New_Line;
+         else
+            Ada.Text_IO.Put(To_String(Buffer)(I));
+         end if;
+      end loop;
+end Longest_String_Challenge;</syntaxhighlight>
+
+Output, when run with its own source code as the input:
+<pre>   function "+"(S: String) return Unbounded_String renames To_Unbounded_String;
+   procedure Funny_Stuff(B, L: in out Unbounded_String; N: Unbounded_String) is</pre>
+
+Here is the second solution. It also makes heavy use of exceptions, but it does not require to compute the difference (which is an arithmetic operation, i.e., a bit of a cheat). Instead, the procedure Funny_Stuff carries some auxiliary strings S, T. If they are unequal and neither is empty, it recursively calls itself with the same strings shortened by 1. At some point of time, either S is empty, or T is empty, or both are empty.  
+
+<syntaxhighlight lang="ada">with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Text_IO, Ada.Characters.Latin_1;
+ 
+procedure Longest_String_Challenge is
+   function "+"(S: String) return Unbounded_String renames To_Unbounded_String;
+   function "-"(U: Unbounded_String) return String renames To_String;
+   Separator: constant Character := Ada.Characters.Latin_1.NUL;
+ 
+   procedure Funny_Stuff(B, L: in out Unbounded_String;
+                         N: Unbounded_String;
+                         S, T: String) is
+      C: Character;
+   begin
+      C:= T(T'First); -- (1) raises Constraint_Error if T is empty
+      begin
+	 C := S(S'First); -- (2) raises Constraint_Error if S is empty
+	   -- at this point, we know that neither S nor T are empty
+         Funny_Stuff(B,L,N,S(S'First+1 .. S'Last), T(T'First+1..T'Last)); 
+      exception
+         when Constraint_Error => -- come from (2), S is empty, T is not empty!
+	    B   := N;
+	    L   := N;
+      end;
+   exception
+      when Constraint_Error => -- come from (1), T is empty
+	 begin
+	    C := S(S'First); -- (3) raises Constraint_Error if S is empty
+	    -- at this point, we know that T is empty and S isn't
+	    null;
+	exception 
+	    when Constraint_Error => -- come from (3); both S and T are empty
+	    B := B & Separator & N;
+	end;
+   end Funny_Stuff;
+ 
+   Buffer: Unbounded_String := +"";
+   Longest: Unbounded_String := +"";
+   Next: Unbounded_String;
+ 
+begin
+   while True loop
+      Next := + Ada.Text_IO.Get_Line;
+        -- (4) raises exception when trying to read beyond end of file
+      Funny_Stuff(Buffer, Longest, Next, -Longest, -Next);
+   end loop;
+exception
+   when others => -- come from (4)
+      for I in To_String(Buffer)'Range loop
+         if To_String(Buffer)(I) = Separator then
+            Ada.Text_IO.New_Line;
+         else
+            Ada.Text_IO.Put(To_String(Buffer)(I));
+         end if;
+      end loop;
+end Longest_String_Challenge;</syntaxhighlight>
+
+The output, when given its own source code as the input:
+
+<pre>   function "+"(S: String) return Unbounded_String renames To_Unbounded_String;
+         when Constraint_Error => -- come from (2), S is empty, T is not empty!</pre>

@@ -1,0 +1,13 @@
+=={{header|Ada}}==
+{{libheader|AWS}}
+Exactly the same as the HTTP task, assuming you compiled AWS with openssl support.
+<syntaxhighlight lang="ada">
+with AWS.Client;
+with AWS.Response;
+with Ada.Text_IO; use Ada.Text_IO;
+procedure GetHttps is
+begin
+   Put_Line (AWS.Response.Message_Body (AWS.Client.Get (
+      URL => "https://sourceforge.net/")));
+end GetHttps;
+</syntaxhighlight>

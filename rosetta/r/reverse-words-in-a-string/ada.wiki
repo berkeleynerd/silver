@@ -1,0 +1,64 @@
+=={{header|Ada}}==
+
+===Simple_Parse===
+
+To Split a string into words, we define a Package "Simple_Parse". This package is also used for the Phrase Reversal Task [[http://rosettacode.org/wiki/Phrase_reversals#Ada]]. 
+
+<syntaxhighlight lang="ada">package Simple_Parse is
+   -- a very simplistic parser, useful to split a string into words
+   
+   function Next_Word(S: String; Point: in out Positive) 
+		     return String;
+   -- a "word" is a sequence of non-space characters
+   -- if S(Point .. S'Last) holds at least one word W
+   -- then  Next_Word increments Point by len(W) and returns W. 
+   -- else  Next_Word sets Point to S'Last+1 and returns ""
+      
+end Simple_Parse;</syntaxhighlight>
+
+The implementation of "Simple_Parse":
+
+<syntaxhighlight lang="ada">package body Simple_Parse is
+   
+   function Next_Word(S: String; Point: in out Positive) return String is
+      Start: Positive := Point;
+      Stop: Natural;
+   begin
+      while Start <= S'Last and then S(Start) = ' ' loop
+	 Start := Start + 1;
+      end loop; -- now S(Start) is the first non-space, 
+		-- or Start = S'Last+1 if S is empty or space-only
+      Stop := Start-1; -- now S(Start .. Stop) = ""
+      while Stop < S'Last and then S(Stop+1) /= ' ' loop
+	 Stop := Stop + 1;
+      end loop; -- now S(Stop+1) is the first sopace after Start
+		-- or Stop = S'Last if there is no such space
+      Point := Stop+1;
+      return S(Start .. Stop);
+   end Next_Word;
+      
+end Simple_Parse;</syntaxhighlight>
+
+===Main Program===
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Simple_Parse; 
+
+procedure Reverse_Words is
+   
+   function Reverse_Words(S: String) return String is
+      Cursor: Positive := S'First;
+      Word: String := Simple_Parse.Next_Word(S, Cursor);
+   begin
+      if Word = "" then 
+         return "";
+      else
+         return Reverse_Words(S(Cursor .. S'Last)) & " " & Word;
+      end if;
+   end Reverse_Words;
+   
+   use Ada.Text_IO;
+begin
+   while not End_Of_File loop
+      Put_Line(Reverse_Words(Get_Line)); -- poem is read from standard input
+   end loop;
+end Reverse_Words;</syntaxhighlight>

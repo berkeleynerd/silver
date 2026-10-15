@@ -1,0 +1,12 @@
+=={{header|Ada}}==
+The following example displays a date-time stamp. The time zone value is the number of minutes offset from the prime meridian.<syntaxhighlight lang="ada">with Ada.Calendar; use Ada.Calendar;
+with Ada.Calendar.Formatting; use Ada.Calendar.Formatting;
+with Ada.Calendar.Time_Zones; use Ada.Calendar.Time_Zones;
+with Ada.Text_Io; use Ada.Text_Io;
+ 
+procedure System_Time is
+   Now : Time := Clock;
+begin
+   Put_line(Image(Date => Now, Time_Zone => -7*60));
+end System_Time;</syntaxhighlight>{{out}}
+ 2008-01-23 19:14:19

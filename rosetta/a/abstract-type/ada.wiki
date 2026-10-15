@@ -1,0 +1,22 @@
+=={{header|Ada}}==
+===Interface===
+Interfaces in [[Ada]] may have no components or implemented operation except for ones implemented as null operations. Interfaces can be multiply inherited.
+<syntaxhighlight lang="ada">type Queue is limited interface;
+procedure Enqueue (Lounge : in out Queue; Item : in out Element) is abstract;
+procedure Dequeue (Lounge : in out Queue; Item : in out Element) is abstract;</syntaxhighlight>
+Interfaces can be declared synchronized or task when intended implementations are to be provided by protected objects or [[task]]s. For example:
+<syntaxhighlight lang="ada">type Scheduler is task interface;
+procedure Plan (Manager : in out Scheduler; Activity : in out Job) is abstract;</syntaxhighlight>
+===Abstract type===
+Abstract types may provide components and implementation of their operations. Abstract types are singly inherited.
+<syntaxhighlight lang="ada">with Ada.Finalization;
+...
+type Node is abstract new Ada.Finalization.Limited_Controlled and Queue with record
+   Previous : not null access Node'Class := Node'Unchecked_Access;
+   Next     : not null access Node'Class := Node'Unchecked_Access;
+end record;   
+overriding procedure Finalize (X : in out Node); -- Removes the node from its list if any
+overriding procedure Dequeue (Lounge : in out Node; Item : in out Element);
+overriding procedure Enqueue (Lounge : in out Node; Item : in out Element);
+procedure Process (X : in out Node) is abstract; -- To be implemented</syntaxhighlight>
+Here Node is an abstract type that is inherited from Limited_Controlled and implements a node of a [[Doubly-Linked List (element) | doubly linked list]]. It also implements the interface of a queue described above, because any node can be considered a head of the queue of linked elements. For the operation Finalize an implementation is provided to ensure that the element of a list is removed from there upon its finalization. The operation itself is inherited from the parent type Limited_Controlled and then overridden. The operations Dequeue and Enqueue of the Queue interface are also implemented.

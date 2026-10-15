@@ -1,0 +1,73 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
+procedure De_Polignac is 
+
+	Inc : Constant array (1 .. 8) of Integer := (4, 2, 4, 2, 4, 6, 2, 6);
+
+	function Is_Prime (N : Integer) return Boolean is
+		D : Integer := 5;
+	begin
+		if N < 2 then return False; end if;
+		if N mod 2 = 0 then return N = 2; end if;
+		if N mod 3 = 0 then return N = 3; end if;
+
+		while D * D <= N loop
+			if N mod D = 0 then return False; end if;
+			D := D + 2;
+			if N mod D = 0 then return False; end if;
+			D := D + 4;
+		end loop;
+
+		return True;
+	end Is_Prime;
+
+	function Is_De_Polignac (N: Integer) return Boolean is
+		I : Integer := 1;
+	begin
+		while I < N loop
+			if Is_Prime(N-I) then return False; end if;
+			I := I * 2;
+		end loop;
+
+		return True;
+	end Is_De_Polignac;
+	
+	Count : Integer := 1;
+	N : Integer := 1;
+
+begin
+	Put("The first 50 de Polignac numbers are: "); New_Line;
+	while Count <= 10_000 loop
+		If Is_De_Polignac(N) then
+			If Count <= 50 then
+				Put(Item => N, Width => 5);
+				if Count mod 10 = 0 then New_Line; end if;
+			end if;
+			if Count = 1_000 then
+				New_Line;
+				Put("The 1000th de Polignac number is: ");
+				Put(Item => N, Width => 7); New_Line;
+			end if;
+			if Count = 10_000 then
+				Put("The 10000th de Polignac number is: ");
+				Put(Item => N, Width => 6);
+			end if;
+			Count := Count + 1;
+		end if;
+		N := N + 2;
+	end loop;
+end De_Polignac;</syntaxhighlight>
+{{out}}
+<pre>
+The first 50 de Polignac numbers are: 
+    1  127  149  251  331  337  373  509  599  701
+  757  809  877  905  907  959  977  997 1019 1087
+ 1199 1207 1211 1243 1259 1271 1477 1529 1541 1549
+ 1589 1597 1619 1649 1657 1719 1759 1777 1783 1807
+ 1829 1859 1867 1927 1969 1973 1985 2171 2203 2213
+
+The 1000th de Polignac number is:   31941
+The 10000th de Polignac number is: 273421
+</pre>

@@ -1,0 +1,15 @@
+=={{header|Ada}}==
+
+The Ada delay statement takes an argument of type Duration, which is a real number counting the number of seconds to delay. Thus, 2.0 will delay 2.0 seconds, while 0.001 will delay 0.001 seconds.
+
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_Io;
+with Ada.Float_Text_Io; use Ada.Float_Text_Io;
+ 
+procedure Sleep is
+   In_Val : Float;
+begin
+   Get(In_Val);
+   Put_Line("Sleeping...");
+   delay Duration(In_Val);
+   Put_Line("Awake!");
+end Sleep;</syntaxhighlight>

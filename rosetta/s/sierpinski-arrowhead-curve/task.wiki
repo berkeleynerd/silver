@@ -1,0 +1,5 @@
+{{task|Fractals}}
+;Task
+
+Produce a graphical or ASCII-art representation of a &nbsp;[[wp:Sierpiński_curve#Arrowhead_curve|Sierpinski arrowhead curve]]&nbsp; of at least order &nbsp;'''3'''.
+<br><br>

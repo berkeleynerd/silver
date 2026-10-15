@@ -1,0 +1,53 @@
+=={{header|Ada}}==
+{{works with|Ada 2005|Standard - no additional library}}
+There is no equivalent construct in Ada. In Ada05, the predefined library Ada.Containers 
+implements 3 types of Doubly_Linked_Lists : Basic; Indefinite; Restricted.
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Containers.Doubly_Linked_Lists;
+
+procedure Pythagore_Set is
+
+   type Triangles is array (1 .. 3) of Positive;
+
+   package Triangle_Lists is new Ada.Containers.Doubly_Linked_Lists (
+      Triangles);
+   use Triangle_Lists;
+
+   function Find_List (Upper_Bound : Positive) return List is
+      L : List := Empty_List;
+   begin
+      for A in 1 .. Upper_Bound loop
+         for B in A + 1 .. Upper_Bound loop
+            for C in B + 1 .. Upper_Bound loop
+               if ((A * A + B * B) = C * C) then
+                  Append (L, (A, B, C));
+               end if;
+            end loop;
+         end loop;
+      end loop;
+      return L;
+   end Find_List;
+
+   Triangle_List : List;
+   C             : Cursor;
+   T             : Triangles;
+
+begin
+   Triangle_List := Find_List (Upper_Bound => 20);
+
+   C := First (Triangle_List);
+   while Has_Element (C) loop
+      T := Element (C);
+      Put
+        ("(" &
+         Integer'Image (T (1)) &
+         Integer'Image (T (2)) &
+         Integer'Image (T (3)) &
+         ") ");
+      Next (C);
+   end loop;
+end Pythagore_Set;
+</syntaxhighlight>
+
+program output:
+<pre>( 3 4 5) ( 5 12 13) ( 6 8 10) ( 8 15 17) ( 9 12 15) ( 12 16 20)</pre>

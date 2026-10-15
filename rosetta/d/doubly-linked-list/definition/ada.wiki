@@ -1,0 +1,6 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+
+Examples already in other doubly-linked list tasks: see [[Doubly-linked list/Element insertion#Ada]] and [[Doubly-linked list/Traversal#Ada]].
+
+Ada 2005 defines doubly-linked lists in [http://www.adaic.com/standards/05rm/html/RM-A-18-3.html A.18.3 The Package Containers.Doubly_Linked_Lists].

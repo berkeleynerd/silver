@@ -1,0 +1,19 @@
+=={{header|FreeBASIC}}==
+{{trans|Ring}}
+<syntaxhighlight lang="freebasic">
+Function meaningoflife() As Byte
+    Dim As Byte y = 42
+    Return y
+End Function
+
+Sub main()
+    Print "Main: The meaning of life is "; meaningoflife()
+End Sub
+
+main()
+Sleep
+</syntaxhighlight>
+{{out}}
+<pre>
+Main: The meaning of life is 42
+</pre>

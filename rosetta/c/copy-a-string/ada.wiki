@@ -1,0 +1,28 @@
+=={{header|Ada}}==
+Ada provides three different kinds of strings. 
+The String type is a fixed length string. 
+The Bounded_String type is a string with variable length up to a specified maximum size. 
+The Unbounded_String type is a variable length string with no specified maximum size. 
+The Bounded_String type behaves a lot like C strings, while the Unbounded_String type behaves a lot like the C++ String class.
+
+===Fixed Length String Copying.===
+<syntaxhighlight lang="ada">Src : String := "Hello";
+Dest : String := Src;</syntaxhighlight>
+Ada provides the ability to manipulate slices of strings.
+<syntaxhighlight lang="ada">Src : String := "Rosetta Stone";
+Dest : String := Src(1..7); -- Assigns "Rosetta" to Dest
+Dest2 : String := Src(9..13); -- Assigns "Stone" to Dest2</syntaxhighlight>
+
+===Bounded Length String Copying=== 
+<syntaxhighlight lang="ada">-- Instantiate the generic package Ada.Strings.Bounded.Generic_Bounded_Length with a maximum length of 80 characters
+package Flexible_String is new Ada.Strings.Bounded.Generic_Bounded_Length(80);
+use Flexible_String;
+
+Src : Bounded_String := To_Bounded_String("Hello");
+Dest : Bounded_String := Src;</syntaxhighlight>
+Ada Bounded_String type provides a number of functions for dealing with slices.
+
+=== Unbounded Length String Copying===
+<syntaxhighlight lang="ada">-- The package Ada.Strings.Unbounded contains the definition of the Unbounded_String type and all its methods
+Src : Unbounded_String := To_Unbounded_String("Hello");
+Dest : Unbounded_String := Src;</syntaxhighlight>

@@ -1,0 +1,48 @@
+=={{header|Ada}}==
+Ada allows the declaration of variant types with discriminant fields. The contents of the variant record can vary based upon the contents of the discriminant field.
+
+The following example is a variant record type used to return a value from a function that returns the index position of the first occurrence of a value in an array. If the value is found the result returns the index of the first occurrence of the value. If the value is not found in the array it returns no index value.
+
+<syntaxhighlight lang="ada">type Ret_Val (Found : Boolean) is record
+   case Found is
+      when True =>
+         Position : Positive;
+      when False =>
+         null;
+   end case;
+end record;</syntaxhighlight>
+The record requires a boolean value for its discriminant field named Found. When Found is True the record contains a Position field of the Ada subtype Positive. When Found is False the record contains no additional fields.
+
+A function specification using this variant record is:
+<syntaxhighlight lang="ada">type Array_Type is array (Positive range <>) of Integer;
+
+function Find_First (List  : in Array_Type; Value : in Integer) return Ret_Val 
+with
+   Depends => (Find_First'Result => (List, Value)),
+   Post    =>
+   (if
+      Find_First'Result.Found
+    then
+      Find_First'Result.Position in List'Range
+      and then List (Find_First'Result.Position) = Value);</syntaxhighlight>
+The function Find_First is written with two aspect specifications. 
+
+The Depends aspect specifies that the result of this function depends only on the List parameter and the Value parameter passed to the function.
+
+The Post aspect specifies the post condition for this function using predicate logic. This post condition states that if the Found field of the return value of the function is True then the position field in the returned value is an index value within the range of index values in the parameter List and the element of List indexed by the Position field equals the Value parameter.
+
+Use of the variant record ensures that a logically correct value is always returned by the function Find_First. Not finding a specified value within an array is not an error. It is a valid result. In that case there is no Position field indicating the index value of the element in the array matching the value parameter. The function should not respond with an error condition when the value is not found. On the other hand, it must respond with a correct array index when the value is found. 
+
+Use of the variant record allows the function to return either one or two fields of information as is appropriate to the result.
+
+The implementation of the Find_First function is:
+<syntaxhighlight lang="ada">function Find_First (List  : in Array_Type; Value : in Integer) return Ret_Val is
+begin
+   for I in List'Range loop
+      if List (I) = Value then
+         return (Found => True, Position => I);
+      end if;
+   end loop;
+   return (Found => False);
+end Find_First;</syntaxhighlight>
+The function iterates through the List array comparing each array element with the Value parameter. If the array element equals the Value parameter the function returns an instance of Ret_Val with Found assigned the value True and Position assigned the value of the current array index. If the loop completes no array element has been found to match Value. The function then returns an instance of Ret_Val with the Found field assigned the value False.

@@ -1,0 +1,44 @@
+=={{header|Ada}}==
+Transpose is a function of the standard Ada library provided for matrices built upon any floating-point or complex type. The relevant packages are Ada.Numerics.Generic_Real_Arrays and Ada.Numerics.Generic_Complex_Arrays, correspondingly.
+
+This example illustrates use of Transpose for the matrices built upon the standard type Float:
+<syntaxhighlight lang="ada">with Ada.Numerics.Real_Arrays;  use Ada.Numerics.Real_Arrays;
+with Ada.Text_IO;               use Ada.Text_IO; 
+ 
+procedure Matrix_Transpose is
+   procedure Put (X : Real_Matrix) is
+      type Fixed is delta 0.01 range -500.0..500.0;
+   begin
+      for I in X'Range (1) loop
+         for J in X'Range (2) loop
+            Put (Fixed'Image (Fixed (X (I, J))));
+         end loop;
+         New_Line;
+      end loop;
+   end Put;
+    
+   Matrix : constant Real_Matrix :=
+            (  (0.0, 0.1, 0.2, 0.3),
+               (0.4, 0.5, 0.6, 0.7),
+               (0.8, 0.9, 1.0, 1.1)
+            );
+begin
+   Put_Line ("Before Transposition:");
+   Put (Matrix);
+   New_Line;
+   Put_Line ("After Transposition:");
+   Put (Transpose (Matrix));
+end Matrix_Transpose;</syntaxhighlight>
+{{out}}
+<pre>
+Before Transposition:
+ 0.00 0.10 0.20 0.30
+ 0.40 0.50 0.60 0.70
+ 0.80 0.90 1.00 1.10
+
+After Transposition:
+ 0.00 0.40 0.80
+ 0.10 0.50 0.90
+ 0.20 0.60 1.00
+ 0.30 0.70 1.10
+</pre>

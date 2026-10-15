@@ -1,0 +1,12 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Directories;  use Ada.Directories;
+   ...
+Rename ("input.txt", "output.txt");
+Rename ("docs", "mydocs");
+Rename ("/input.txt", "/output.txt");
+Rename ("/docs", "/mydocs");</syntaxhighlight>
+The behavior depends on the concrete [[OS | operating system]] regarding:
+* file name encoding issues;
+* file path notation (directory separator, directory syntax etc);
+* file extension syntax;
+* file system root (provided there is any).

@@ -1,0 +1,10 @@
+=={{header|Ada}}==
+The Ada standard defines Random Number Generation in Annex A.5.2. There are two kinds of RNGs, Ada.Numerics.Float_Random for floating point values from 0.0 to 1.0, and Ada.Numerics.Discrete_Random for pseudo-random values of enumeration types (including integer types). It provides facilities to initialize the generator and to save it's state.
+
+The standard requires the implementation to uniformly distribute over the range of the result type.
+
+The used algorithm is implementation defined. The standard says: "To enable the user to determine the suitability of the random number generators for the intended application, the implementation shall describe the algorithm used and shall give its period, if known exactly, or a lower bound on the period, if the exact period is unknown."
+
+* [http://www.adahome.com/rm95/rm9x-A-05-02.html Ada 95 RM - A.5.2 Random Number Generation]
+* [http://www.adaic.com/standards/05rm/html/RM-A-5-2.html Ada 2005 RM - A.5.2 Random Number Generation]
+* [http://www.adaic.org/resources/add_content/standards/12rm/html/RM-A-5-2.html Ada 2012 RM - A.5.2 Random Number Generation]

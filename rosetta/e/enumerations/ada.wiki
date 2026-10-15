@@ -1,0 +1,5 @@
+=={{header|Ada}}==
+Ada enumeration types have three distinct attributes, the enumeration literal, the enumeration position, and the representation value. The position value (starting with 0) is implied from the order of specification of the enumeration literals in the type declaration; it provides the ordering for the enumeration values. In the example below, apple (position 0) is less than banana (position 1) which is less than cherry (position 3) due to their positions, not due to their enumeration literal. An enumeration representation, when given, must not violate the order.
+<syntaxhighlight lang="ada">type Fruit is (apple, banana, cherry); -- No specification of the representation value;
+for Fruit use (apple => 1, banana => 2, cherry => 4); -- specification of the representation values</syntaxhighlight>
+Ada enumeration types are non-numeric discrete types. They can be used to index arrays, but there are no arithmetic operators for enumeration types; instead, there are predecessor and successor operations. Characters are implemented as an enumeration type in Ada.

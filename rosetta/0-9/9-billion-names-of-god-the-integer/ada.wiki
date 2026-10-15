@@ -1,0 +1,201 @@
+=={{header|Ada}}==
+{{trans|C#}} {{trans|VBA}}
+{{libheader|Ada.Numerics.Big_Numbers.Big_Integers}}
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Numerics.Big_Numbers.Big_Integers;
+
+procedure Names_Of_God is
+
+   NN         : constant := 100_000;
+   Row_Count  : constant := 25;
+   Max_Column : constant := 79;
+
+   package Triangle is
+      procedure Print;
+   end Triangle;
+
+   package Row_Summer is
+      procedure Calc (N : Integer);
+      procedure Put_Sums;
+   end Row_Summer;
+
+   package body Row_Summer is
+      use Ada.Text_IO;
+      use Ada.Numerics.Big_Numbers.Big_Integers;
+
+      P : array (0 .. NN + 1) of Big_Integer := (1, others => 0);
+
+      procedure Calc (N : Integer) is
+      begin
+         P (N) := 0;
+
+         for K in 1 .. N + 1 loop
+            declare
+               Add : constant Boolean := K mod 2 /= 0;
+               D_1 : constant Integer := N - K * (3 * K - 1) / 2;
+               D_2 : constant Integer := D_1 - K;
+            begin
+               exit when D_1 < 0;
+
+               if Add
+               then P (N) := P (N) + P (D_1);
+               else P (N) := P (N) - P (D_1);
+               end if;
+
+               exit when D_2 < 0;
+
+               if Add
+               then P (N) := P (N) + P (D_2);
+               else P (N) := P (N) - P (D_2);
+               end if;
+            end;
+         end loop;
+      end Calc;
+
+      procedure Put_Wrapped (Item : Big_Integer) is
+         Image : constant String := To_String (Item);
+      begin
+         Set_Col (11);
+         for I in Image'Range loop
+            if Ada.Text_IO.Col >= Max_Column then
+               Set_Col (12);
+            end if;
+            Put (Image (I));
+         end loop;
+      end Put_Wrapped;
+
+      procedure Put_Sums
+      is
+         package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
+
+         Printout : constant array (Natural range <>) of Integer :=
+           (23, 123, 1234, 12_345, 20_000, 30_000, 40_000, 50_000, NN);
+
+         Next : Natural := Printout'First;
+      begin
+         for A in 1 .. Printout (Printout'Last) loop
+            Calc (A);
+            if A = Printout (Next) then
+               Put ("G (");
+               Integer_IO.Put (A, Width => 0);
+               Put (")");
+               Put_Wrapped (P (A));
+               New_Line;
+               Next := Next + 1;
+            end if;
+         end loop;
+      end Put_Sums;
+
+   end Row_Summer;
+
+   package body Triangle is
+
+      Triangle : array (0 .. Row_Count,
+                        0 .. Row_Count) of Integer := (others => (others => 0));
+
+      procedure Calculate is
+      begin
+         Triangle (1,1) := 1;
+         Triangle (2,1) := 1;
+         Triangle (2,2) := 1;
+         Triangle (3,1) := 1;
+         Triangle (3,2) := 1;
+         Triangle (3,3) := 1;
+         for Row in 4 .. Row_Count loop
+            for Col in 1 .. Row loop
+               if Col * 2 > Row then
+                  Triangle (Row, Col) := Triangle (Row - 1, Col - 1);
+               else
+                  Triangle (Row, Col) :=
+                    Triangle (Row - 1, Col - 1) +
+                    Triangle (Row - Col, Col);
+               end if;
+            end loop;
+         end loop;
+      end Calculate;
+
+      procedure Print
+      is
+         use Ada.Text_IO;
+         Width : array (1 .. Row_Count) of Natural := (others => 0);
+      begin
+         for Row in 1 .. Row_count loop
+            for Col in 1 .. Row loop
+               Width (Row) := Width (Row) + Triangle (Row, Col)'Image'Length;
+            end loop;
+         end loop;
+
+         for Row in 1 .. Row_Count loop
+            Set_Col (1 + Positive_Count (1 + Width (Width'Last)
+                                           - Width (Row)) / 2);
+            for Col in 1 .. Row loop
+               Put (Triangle (Row, Col)'Image);
+            end loop;
+            New_Line;
+         end loop;
+      end Print;
+
+   begin
+      Calculate;
+   end Triangle;
+
+begin
+   Triangle.Print;
+   Row_Summer.Put_Sums;
+end Names_Of_God;</syntaxhighlight>
+
+{{out}}
+The program run takes 23 seconds on 2016 MacBook Air.
+<pre>
+                                       1
+                                      1 1
+                                     1 1 1
+                                    1 2 1 1
+                                   1 2 2 1 1
+                                  1 3 3 2 1 1
+                                 1 3 4 3 2 1 1
+                                1 4 5 5 3 2 1 1
+                               1 4 7 6 5 3 2 1 1
+                              1 5 8 9 7 5 3 2 1 1
+                           1 5 10 11 10 7 5 3 2 1 1
+                          1 6 12 15 13 11 7 5 3 2 1 1
+                        1 6 14 18 18 14 11 7 5 3 2 1 1
+                       1 7 16 23 23 20 15 11 7 5 3 2 1 1
+                     1 7 19 27 30 26 21 15 11 7 5 3 2 1 1
+                    1 8 21 34 37 35 28 22 15 11 7 5 3 2 1 1
+                  1 8 24 39 47 44 38 29 22 15 11 7 5 3 2 1 1
+                 1 9 27 47 57 58 49 40 30 22 15 11 7 5 3 2 1 1
+               1 9 30 54 70 71 65 52 41 30 22 15 11 7 5 3 2 1 1
+             1 10 33 64 84 90 82 70 54 42 30 22 15 11 7 5 3 2 1 1
+          1 10 37 72 101 110 105 89 73 55 42 30 22 15 11 7 5 3 2 1 1
+        1 11 40 84 119 136 131 116 94 75 56 42 30 22 15 11 7 5 3 2 1 1
+      1 11 44 94 141 163 164 146 123 97 76 56 42 30 22 15 11 7 5 3 2 1 1
+    1 12 48 108 164 199 201 186 157 128 99 77 56 42 30 22 15 11 7 5 3 2 1 1
+ 1 12 52 120 192 235 248 230 201 164 131 100 77 56 42 30 22 15 11 7 5 3 2 1 1
+G (23)     1255
+G (123)    2552338241
+G (1234)   156978797223733228787865722354959930
+G (12345)  6942035795392611681956297720520938446066767309467146362027032170080
+           6074195845953959951425306140971942519870679768681736
+G (20000)  2521148138125296979166195332304704522813289496018115934368503141080
+           3428442380156495662397073168982436919232478935199490301641182623057
+           8166735959242113097
+G (30000)  4296358424632538517488315748300592091269024864540113906601448061276
+           4163986215458185192990173314832179564211367228855321718015074490598
+           095469727784182254987592569621576375743614022636192786
+G (40000)  2280772827447072828934057124081695970464622037835161185943949940867
+           2657828590548093703330014605000554127042566412316061732771683740688
+           0512642374788938691635864264873546003424774916205066033895952328900
+           82673857997469797
+G (50000)  3626186097141667844592140891595633728165383082527785049015872755414
+           1099042567120827181227473166105658246308817729102175442616592394326
+           7067153241385837825618898733387712189158660795738975053844747471259
+           2979263719012461858719791627302489739548263
+G (100000) 2749351056977569651267751632098635268817342931598005475820312598430
+           2147328114964173055050741660736621590157844774296248940493063070200
+           4617927644930335101160793424571901557189435097253124661084520063695
+           5893446424871682878983218234500926285383140459702130713067451062441
+           9227311238999702284408609370935531629697851569569892196108480158600
+           569421098519
+</pre>

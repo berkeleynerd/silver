@@ -1,0 +1,240 @@
+=={{header|Ada}}==
+
+===ordinary integers===
+
+It's easy to get overflows doing exponential calculations. 
+Therefore I implemented my own function for that.
+
+For Number types >= 2**64 you may have to use an external library -- see below.
+
+First, a package Miller_Rabin is specified. 
+The same package is used elsewhere in Rosetta Code, 
+such as for the [[Carmichael 3 strong pseudoprimes]] the [[Extensible prime generator]], and the [[Emirp primes]].
+
+<syntaxhighlight lang="ada">generic
+   type Number is range <>;
+package Miller_Rabin is
+
+   type Result_Type is (Composite, Probably_Prime);
+
+   function Is_Prime (N : Number; K : Positive := 10) return Result_Type;
+
+end Miller_Rabin;</syntaxhighlight>
+
+The implementation of that package is as follows:
+
+<syntaxhighlight lang="ada">with Ada.Numerics.Discrete_Random;
+
+package body Miller_Rabin is
+
+   function Is_Prime (N : Number; K : Positive := 10)
+                     return Result_Type
+   is
+      subtype Number_Range is Number range 2 .. N - 1;
+      package Random is new Ada.Numerics.Discrete_Random (Number_Range);
+
+      function Mod_Exp (Base, Exponent, Modulus : Number) return Number is
+         Result : Number := 1;
+      begin
+         for E in 1 .. Exponent loop
+            Result := Result * Base mod Modulus;
+         end loop;
+         return Result;
+      end Mod_Exp;
+
+      Generator : Random.Generator;
+      D : Number := N - 1;
+      S : Natural := 0;
+      X : Number;
+   begin
+      -- exclude 2 and even numbers
+      if N = 2 then
+         return Probably_Prime;
+      elsif N mod 2 = 0 then
+         return Composite;
+      end if;
+
+      -- write N-1 as 2**S * D, with D mod 2 /= 0
+      while D mod 2 = 0 loop
+         D := D / 2;
+         S := S + 1;
+      end loop;
+
+      -- initialize RNG
+      Random.Reset (Generator);
+      for Loops in 1 .. K loop
+         X := Mod_Exp(Random.Random (Generator), D, N);
+         if X /= 1 and X /= N - 1 then
+        Inner : for R in 1 .. S - 1 loop
+               X := Mod_Exp (X, 2, N);
+               if X = 1 then return Composite; end if;
+               exit Inner when X = N - 1;
+            end loop Inner;
+            if X /= N - 1 then return Composite; end if;
+         end if;
+      end loop;
+
+      return Probably_Prime;
+   end Is_Prime;
+
+end Miller_Rabin;</syntaxhighlight>
+
+Finally, the program itself:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Miller_Rabin;
+
+procedure Mr_Tst is
+
+   type Number is range 0 .. (2**48)-1;
+
+   package Num_IO is new Ada.Text_IO.Integer_IO (Number);
+   package Pos_IO is new Ada.Text_IO.Integer_IO (Positive);
+   package MR     is new Miller_Rabin(Number); use MR;
+
+   N : Number;
+   K : Positive;
+
+begin
+   for I in Number(2) .. 1000 loop
+      if Is_Prime (I) = Probably_Prime then
+         Ada.Text_IO.Put (Number'Image (I));
+      end if;
+   end loop;
+   Ada.Text_IO.Put_Line (".");
+
+   Ada.Text_IO.Put ("Enter a Number: ");           Num_IO.Get (N);
+   Ada.Text_IO.Put ("Enter the count of loops: "); Pos_IO.Get (K);
+   Ada.Text_IO.Put_Line ("What is it? " & Result_Type'Image (Is_Prime(N, K)));
+end MR_Tst;</syntaxhighlight>
+
+{{out}}
+<pre> 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199 211 223 227 229 233 239 241 251 257 263 269 271 277 281 283 293 307 311 313 317 331 337 347 349 353 359 367 373 379 383 389 397 401 409 419 421 431 433 439 443 449 457 461 463 467 479 487 491 499 503 509 521 523 541 547 557 563 569 571 577 587 593 599 601 607 613 617 619 631 641 643 647 653 659 661 673 677 683 691 701 709 719 727 733 739 743 751 757 761 769 773 787 797 809 811 821 823 827 829 839 853 857 859 863 877 881 883 887 907 911 919 929 937 941 947 953 967 971 977 983 991 997.
+Enter a Number: 1234567
+Enter the count of loops: 20
+What is it? COMPOSITE</pre>
+
+===using an external library to handle big integers===
+
+Using the big integer implementation from a cryptographic library [https://github.com/cforler/Ada-Crypto-Library/]. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Crypto.Types.Big_Numbers, Ada.Numerics.Discrete_Random;
+
+procedure Miller_Rabin is
+
+   Bound: constant Positive := 256; -- can be any multiple of 32
+
+   package LN is new Crypto.Types.Big_Numbers (Bound);
+   use type LN.Big_Unsigned; -- all computations "mod 2**Bound"
+
+   function "+"(S: String) return LN.Big_Unsigned
+     renames LN.Utils.To_Big_Unsigned;
+
+   function Is_Prime (N : LN.Big_Unsigned; K : Positive := 10) return Boolean is
+
+      subtype Mod_32 is Crypto.Types.Mod_Type;
+      use type Mod_32;
+      package R_32 is new Ada.Numerics.Discrete_Random (Mod_32);
+      Generator : R_32.Generator;
+
+      function Random return LN.Big_Unsigned is
+         X: LN.Big_Unsigned := LN.Big_Unsigned_Zero;
+      begin
+         for I in 1 .. Bound/32 loop
+            X := (X * 2**16) * 2**16;
+            X := X + R_32.Random(Generator);
+         end loop;
+         return X;
+      end Random;
+
+      D:    LN.Big_Unsigned := N - LN.Big_Unsigned_One;
+      S:    Natural := 0;
+      A, X: LN.Big_Unsigned;
+   begin
+      -- exclude 2 and even numbers
+      if N = 2 then
+         return True;
+      elsif N mod 2 = LN.Big_Unsigned_Zero then
+         return False;
+      else
+
+         -- write N-1 as 2**S * D, with odd D
+         while D mod 2 = LN.Big_Unsigned_Zero loop
+            D := D / 2;
+            S := S + 1;
+         end loop;
+
+         -- initialize RNG
+         R_32.Reset (Generator);
+
+         -- run the real test
+         for Loops in 1 .. K loop
+            loop
+               A := Random;
+               exit when (A > 1) and (A < (N - 1));
+            end loop;
+            X := LN.Mod_Utils.Pow(A, D, N); -- X := (Random**D) mod N
+            if X /= 1 and X /= N - 1 then
+               Inner:
+               for R in 1 .. S - 1 loop
+                  X := LN.Mod_Utils.Pow(X, LN.Big_Unsigned_Two, N);
+                  if X = 1 then
+                     return False;
+                  end if;
+                  exit Inner when X = N - 1;
+               end loop Inner;
+               if X /= N - 1 then
+                  return False;
+               end if;
+            end if;
+         end loop;
+      end if;
+
+      return True;
+   end Is_Prime;
+
+   S: constant String :=
+     "4547337172376300111955330758342147474062293202868155909489";
+   T: constant String :=
+     "4547337172376300111955330758342147474062293202868155909393";
+
+   K: constant Positive := 10;
+
+begin
+   Ada.Text_IO.Put_Line("Prime(" & S & ")=" & Boolean'Image(Is_Prime(+S, K)));
+   Ada.Text_IO.Put_Line("Prime(" & T & ")=" & Boolean'Image(Is_Prime(+T, K)));
+end Miller_Rabin;</syntaxhighlight>
+
+{{out}}
+<pre>Prime(4547337172376300111955330758342147474062293202868155909489)=TRUE
+Prime(4547337172376300111955330758342147474062293202868155909393)=FALSE</pre>
+
+Using the built-in Miller-Rabin test from the same library:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Crypto.Types.Big_Numbers, Ada.Numerics.Discrete_Random;
+
+procedure Miller_Rabin is
+
+   Bound: constant Positive := 256; -- can be any multiple of 32
+
+   package LN is new Crypto.Types.Big_Numbers (Bound);
+   use type LN.Big_Unsigned; -- all computations "mod 2**Bound"
+
+   function "+"(S: String) return LN.Big_Unsigned
+     renames LN.Utils.To_Big_Unsigned;
+
+   S: constant String :=
+     "4547337172376300111955330758342147474062293202868155909489";
+   T: constant String :=
+     "4547337172376300111955330758342147474062293202868155909393";
+
+   K: constant Positive := 10;
+
+
+begin
+   Ada.Text_IO.Put_Line("Prime(" & S & ")="
+       & Boolean'Image (LN.Mod_Utils.Passed_Miller_Rabin_Test(+S, K)));
+   Ada.Text_IO.Put_Line("Prime(" & T & ")="
+       & Boolean'Image (LN.Mod_Utils.Passed_Miller_Rabin_Test(+T, K)));
+end Miller_Rabin;</syntaxhighlight>
+
+The output is the same.

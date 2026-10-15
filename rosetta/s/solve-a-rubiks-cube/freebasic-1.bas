@@ -1,0 +1,421 @@
+' ---------- Helpers ----------
+Type AI
+    dato(Any) As Integer
+End Type
+
+Sub AI_Init(Byref a As AI, Byval n As Integer)
+    Redim a.dato(n-1)
+    For i As Integer = 0 To n-1
+        a.dato(i) = 0
+    Next
+End Sub
+
+Function AI_Copy(Byref src As AI) As AI
+    Dim As AI dst
+    Redim dst.dato(Ubound(src.dato))
+    For i As Integer = 0 To Ubound(src.dato)
+        dst.dato(i) = src.dato(i)
+    Next
+    Return dst
+End Function
+
+Function AI_SubList(Byref src As AI, Byval from_ As Integer, Byval to_ As Integer) As AI
+    Dim As AI dst
+    Redim dst.dato(to_ - from_)
+    Dim As Integer j = 0
+    For i As Integer = from_ To to_ - 1
+        dst.dato(j) = src.dato(i)
+        j += 1
+    Next
+    Return dst
+End Function
+
+Function AI_Equals(Byref a As AI, Byref b As AI) As Integer
+    If Ubound(a.dato) <> Ubound(b.dato) Then Return 0
+    For i As Integer = 0 To Ubound(a.dato)
+        If a.dato(i) <> b.dato(i) Then Return 0
+    Next
+    Return 1
+End Function
+
+Function AI_Encode(Byref a As AI) As String
+    Dim As String s = ""
+    For i As Integer = 0 To Ubound(a.dato)
+        s += Str(a.dato(i)) + ","
+    Next
+    Return s
+End Function
+
+' ---------- Global data ----------
+Dim Shared applicableMoves(4) As Integer = { 0, 262143, 259263, 74943, 74898 }
+
+Dim Shared affectedCubies(5,7) As Integer = { _
+{ 0,  1, 2,  3, 0, 1, 2, 3 },  _ ' U
+{ 4,  7, 6,  5, 4, 5, 6, 7 },  _ ' D
+{ 0,  9, 4,  8, 0, 3, 5, 4 },  _ ' F
+{ 2, 10, 6, 11, 2, 1, 7, 6 },  _ ' B
+{ 3, 11, 7,  9, 3, 2, 6, 5 },  _ ' L
+{ 1,  8, 5, 10, 1, 0, 4, 7 } }   ' R
+
+Dim Shared phase As Integer = 0
+
+' ---------- Move application ----------
+Function applyMove(Byval move As Integer, Byref state As AI) As AI
+    Dim As AI state2 = AI_Copy(state)
+    Dim As Integer turns = move Mod 3 + 1
+    Dim As Integer face = move \ 3
+    
+    While turns > 0
+        turns -= 1
+        Dim As AI oldState2 = AI_Copy(state2)
+        
+        For i As Integer = 0 To 7
+            Dim As Integer cornerInt = Iif(i > 3, 1, 0)
+            
+            Dim As Integer target = affectedCubies(face, i) + cornerInt * 12
+            Dim As Integer temp = Iif((i And 3) = 3, i - 3, i + 1)
+            Dim As Integer killer = affectedCubies(face, temp) + cornerInt * 12
+            
+            Dim As Integer orientationDelta = 0
+            If i < 4 Then
+                orientationDelta = Abs(face >= 2 And face <= 3)
+            Elseif face >= 2 Then
+                orientationDelta = 2 - (i And 1)
+            End If
+            
+            state2.dato(target) = oldState2.dato(killer)
+            state2.dato(target + 20) = oldState2.dato(killer + 20) + orientationDelta
+            
+            If turns = 0 Then state2.dato(target + 20) Mod= (2 + cornerInt)
+        Next
+    Wend
+    
+    Return state2
+End Function
+
+Function inverse(Byval move As Integer) As Integer
+    Return move + 2 - 2 * (move Mod 3)
+End Function
+
+' ---------- ID function ----------
+Function id(Byref state As AI) As AI
+    Dim As Integer e, i, c, j, tmp
+    ' Phase 1: Edge orientations
+    If phase < 2 Then Return AI_SubList(state, 20, 32)
+    
+    ' Phase 2: Corner orientations, E slice edges
+    If phase < 3 Then
+        Dim As AI result = AI_SubList(state, 31, 40)
+        ' ensure at least one element
+        If Ubound(result.dato) < 0 Then Redim result.dato(0)
+        For e = 0 To 11
+            result.dato(0) Or= ((state.dato(e) \ 8) Shl e)
+        Next
+        Return result
+    End If
+    
+    ' Phase 3: Edge slices M and S, corner tetrads, overall parity
+    If phase < 4 Then
+        Dim As AI result
+        Redim result.dato(2)
+        
+        For e = 0 To 11
+            tmp = Iif(state.dato(e) > 7, 2, (state.dato(e) And 1))
+            result.dato(0) Or= (tmp Shl (2 * e))
+        Next
+        
+        For c = 0 To 7
+            tmp = ((state.dato(c + 12) - 12) And 5)
+            result.dato(1) Or= (tmp Shl (3 * c))
+        Next
+        
+        For i = 12 To 18
+            For j = i + 1 To 19
+                result.dato(2) Xor= Iif(state.dato(i) > state.dato(j), 1, 0)
+            Next
+        Next
+        
+        Return result
+    End If
+    
+    ' Phase 4: The rest
+    Return state
+End Function
+
+' ---------- Simple queue of AI ----------
+Type AIQueue
+    items(Any) As AI
+    head As Integer
+    tail As Integer
+End Type
+
+Sub Q_Init(Byref q As AIQueue)
+    Redim q.items(0)
+    q.head = 0
+    q.tail = 0
+End Sub
+
+Sub Q_AddLast(Byref q As AIQueue, Byref a As AI)
+    If q.tail > Ubound(q.items) Then Redim Preserve q.items(q.tail)
+    q.items(q.tail) = AI_Copy(a)
+    q.tail += 1
+End Sub
+
+Function Q_Peek(Byref q As AIQueue) As AI
+    Return q.items(q.head)
+End Function
+
+Sub Q_Pop(Byref q As AIQueue)
+    q.head += 1
+End Sub
+
+Function Q_Empty(Byref q As AIQueue) As Integer
+    Return Iif(q.head >= q.tail, 1, 0)
+End Function
+
+' ---------- Very simple “map” keyed by encoded ID ----------
+Type StrIntMap
+    keys(Any) As String
+    vals(Any) As Integer
+End Type
+
+Sub SIM_Init(Byref m As StrIntMap)
+    Redim m.keys(0)
+    Redim m.vals(0)
+End Sub
+
+Function SIM_Get(Byref m As StrIntMap, Byref key As String, Byval default_ As Integer) As Integer
+    For i As Integer = 0 To Ubound(m.keys)
+        If m.keys(i) = key Then Return m.vals(i)
+    Next
+    Return default_
+End Function
+
+Sub SIM_Put(Byref m As StrIntMap, Byref key As String, Byval value As Integer)
+    For i As Integer = 0 To Ubound(m.keys)
+        If m.keys(i) = key Then
+            m.vals(i) = value
+            Exit Sub
+        End If
+    Next
+    Dim As Integer n = Ubound(m.keys) + 1
+    Redim Preserve m.keys(n)
+    Redim Preserve m.vals(n)
+    m.keys(n) = key
+    m.vals(n) = value
+End Sub
+
+Type StrAIMap
+    keys(Any) As String
+    vals(Any) As AI
+End Type
+
+Sub SAIM_Init(Byref m As StrAIMap)
+    Redim m.keys(0)
+    Redim m.vals(0)
+End Sub
+
+Function SAIM_Get(Byref m As StrAIMap, Byref key As String, Byref default_ As AI) As AI
+    For i As Integer = 0 To Ubound(m.keys)
+        If m.keys(i) = key Then Return m.vals(i)
+    Next
+    Return default_
+End Function
+
+Sub SAIM_Put(Byref m As StrAIMap, Byref key As String, Byref value As AI)
+    For i As Integer = 0 To Ubound(m.keys)
+        If m.keys(i) = key Then
+            m.vals(i) = AI_Copy(value)
+            Exit Sub
+        End If
+    Next
+    Dim As Integer n = Ubound(m.keys) + 1
+    Redim Preserve m.keys(n)
+    Redim Preserve m.vals(n)
+    m.keys(n) = key
+    m.vals(n) = AI_Copy(value)
+End Sub
+
+' ---------- Main ----------
+Function indexOfGoal(Byref s As String) As Integer
+    Dim As String goal(0 To 19) = { _
+    "UF", "UR", "UB", "UL", "DF", "DR", "DB", "DL", "FR", "FL", "BR", _
+    "BL", "UFR", "URB", "UBL", "ULF", "DRF", "DFL", "DLB", "DBR" }
+    For i As Integer = 0 To 19
+        If goal(i) = s Then Return i
+    Next
+    Return -1
+End Function
+
+Dim As Double t0 = Timer
+Dim As Integer aggregateMoves = 0
+
+If __fb_argc__ < 2 Then
+    Print "Usage: solver <inputfile>"
+    Sleep: End
+End If
+
+Dim As String filename = Command(1)
+Dim As Integer lineCnt = 0
+
+Dim As Integer ff = Freefile()
+If Open(filename For Input As #ff) <> 0 Then
+    Print "Cannot open file."
+    Sleep: End
+End If
+
+Dim As String linea
+
+While Not Eof(ff)
+    Line Input #ff, linea
+    If Len(Trim(linea)) = 0 Then Continue While
+    lineCnt += 1
+    phase = 0
+    Dim As Integer totalMoves = 0
+    
+    ' split linea by spaces
+    Dim As String tokens(19)
+    Dim As Integer tCnt = 0
+    Dim As Integer posic = 1
+    While posic <= Len(linea) And tCnt <= 19
+        Dim As Integer sp = Instr(posic, linea, " ")
+        If sp = 0 Then sp = Len(linea) + 1
+        tokens(tCnt) = Mid(linea, posic, sp - posic)
+        tCnt += 1
+        posic = sp + 1
+    Wend
+    
+    Dim As AI currentState, goalState
+    AI_Init(currentState, 40)
+    AI_Init(goalState, 40)
+    
+    For i As Integer = 0 To 19
+        goalState.dato(i) = i
+        
+        Dim As String cubie = tokens(i)
+        Do
+            Dim As Integer idx = indexOfGoal(cubie)
+            currentState.dato(i) = Iif(idx >= 0, idx, 20)
+            If currentState.dato(i) <> 20 Then Exit Do
+            cubie = Mid(cubie, 2) + Mid(cubie, 1, 1)
+            currentState.dato(i + 20) += 1
+        Loop
+    Next
+    
+    nextPhase:
+    While (phase + 1) < 5
+        phase += 1
+        
+        Dim As AI currentId = id(currentState)
+        Dim As AI goalId = id(goalState)
+        If AI_Equals(currentId, goalId) Then Continue While
+        
+        Dim As AIQueue q
+        Q_Init(q)
+        Q_AddLast(q, currentState)
+        Q_AddLast(q, goalState)
+        
+        Dim As StrAIMap predecessor
+        SAIM_Init(predecessor)
+        Dim As StrIntMap direction, lastMove
+        SIM_Init(direction)
+        SIM_Init(lastMove)
+        
+        Dim As String cid = AI_Encode(currentId)
+        Dim As String gid = AI_Encode(goalId)
+        SIM_Put(direction, cid, 1)
+        SIM_Put(direction, gid, 2)
+        
+        Do
+            If Q_Empty(q) Then Exit Do
+            
+            Dim As AI oldState = Q_Peek(q)
+            Q_Pop(q)
+            Dim As AI oldIdAI = id(oldState)
+            Dim As String oldId = AI_Encode(oldIdAI)
+            Dim As Integer oldDir = SIM_Get(direction, oldId, 0)
+            
+            Dim As Integer move = 0
+            While move < 18
+                If (applicableMoves(phase) And (1 Shl move)) <> 0 Then
+                    Dim As AI newState = applyMove(move, oldState)
+                    Dim As AI newIdAI = id(newState)
+                    Dim As String newId = AI_Encode(newIdAI)
+                    Dim As Integer newDir = SIM_Get(direction, newId, 0)
+                    
+                    If (newDir <> 0) And (newDir <> oldDir) Then
+                        Dim As String oldId2 = oldId
+                        Dim As String newId2 = newId
+                        Dim As Integer move2 = move
+                        
+                        If oldDir > 1 Then
+                            Dim As String tmp = newId2
+                            newId2 = oldId2
+                            oldId2 = tmp
+                            move2 = inverse(move2)
+                        End If
+                        
+                        Dim As AI algorithm
+                        Redim algorithm.dato(0)
+                        algorithm.dato(0) = move2
+                        
+                        While oldId2 <> cid
+                            Dim As Integer tempI = SIM_Get(lastMove, oldId2, 0)
+                            Dim As Integer n = Ubound(algorithm.dato) + 1
+                            Redim Preserve algorithm.dato(n)
+                            For k As Integer = n To 1 Step -1
+                                algorithm.dato(k) = algorithm.dato(k-1)
+                            Next
+                            algorithm.dato(0) = tempI
+                            
+                            Dim As AI dummy
+                            AI_Init(dummy, 0)
+                            Dim As AI tempAI = SAIM_Get(predecessor, oldId2, dummy)
+                            oldId2 = AI_Encode(tempAI)
+                        Wend
+                        
+                        While newId2 <> gid
+                            Dim As Integer tempI = SIM_Get(lastMove, newId2, 0)
+                            Dim As Integer n = Ubound(algorithm.dato) + 1
+                            Redim Preserve algorithm.dato(n)
+                            algorithm.dato(n) = inverse(tempI)
+                            
+                            Dim As AI dummy
+                            AI_Init(dummy, 0)
+                            Dim As AI tempAI = SAIM_Get(predecessor, newId2, dummy)
+                            newId2 = AI_Encode(tempAI)
+                        Wend
+                        
+                        For i As Integer = 0 To Ubound(algorithm.dato)
+                            Dim As Integer m = algorithm.dato(i)
+                            Print Mid("UDFBLR", m \ 3 + 1, 1) & m Mod 3 + 1 & " ";
+                            totalMoves += 1
+                            currentState = applyMove(m, currentState)
+                        Next
+                        
+                        Goto nextPhase
+                    End If
+                    
+                    If newDir = 0 Then
+                        Q_AddLast(q, newState)
+                        SIM_Put(direction, newId, oldDir)
+                        SIM_Put(lastMove, newId, move)
+                        SAIM_Put(predecessor, newId, oldIdAI)
+                    End If
+                End If
+                move += 1
+            Wend
+        Loop
+    Wend
+    
+    Print Using " (moves &)"; totalMoves
+    aggregateMoves += totalMoves
+Wend
+
+Close #ff
+
+Dim As Double elapsedTime = (Timer - t0) * 1000.0
+Print !"\nAverage number of moves = " & aggregateMoves / Cdbl(lineCnt)
+Print !"\nAverage time = " & Int(elapsedTime / Cdbl(lineCnt)) & " milliseconds"
+
+Sleep

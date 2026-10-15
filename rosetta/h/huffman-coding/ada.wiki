@@ -1,0 +1,407 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+
+huffman.ads:
+<syntaxhighlight lang="ada">with Ada.Containers.Indefinite_Ordered_Maps;
+with Ada.Containers.Ordered_Maps;
+with Ada.Finalization;
+generic
+   type Symbol_Type is private;
+   with function "<" (Left, Right : Symbol_Type) return Boolean is <>;
+   with procedure Put (Item : Symbol_Type);
+   type Symbol_Sequence is array (Positive range <>) of Symbol_Type;
+   type Frequency_Type is private;
+   with function "+" (Left, Right : Frequency_Type) return Frequency_Type
+     is <>;
+   with function "<" (Left, Right : Frequency_Type) return Boolean is <>;
+package Huffman is
+   -- bits = booleans (true/false = 1/0)
+   type Bit_Sequence is array (Positive range <>) of Boolean;
+   Zero_Sequence : constant Bit_Sequence (1 .. 0) := (others => False);
+   -- output the sequence
+   procedure Put (Code : Bit_Sequence);
+
+   -- type for freqency map
+   package Frequency_Maps is new Ada.Containers.Ordered_Maps
+     (Element_Type => Frequency_Type,
+      Key_Type     => Symbol_Type);
+
+   type Huffman_Tree is private;
+   -- create a huffman tree from frequency map
+   procedure Create_Tree
+     (Tree        : out Huffman_Tree;
+      Frequencies : Frequency_Maps.Map);
+   -- encode a single symbol
+   function Encode
+     (Tree   : Huffman_Tree;
+      Symbol : Symbol_Type)
+      return   Bit_Sequence;
+   -- encode a symbol sequence
+   function Encode
+     (Tree    : Huffman_Tree;
+      Symbols : Symbol_Sequence)
+      return    Bit_Sequence;
+   -- decode a bit sequence
+   function Decode
+     (Tree : Huffman_Tree;
+      Code : Bit_Sequence)
+      return Symbol_Sequence;
+   -- dump the encoding table
+   procedure Dump_Encoding (Tree : Huffman_Tree);
+private
+   -- type for encoding map
+   package Encoding_Maps is new Ada.Containers.Indefinite_Ordered_Maps
+     (Element_Type => Bit_Sequence,
+      Key_Type     => Symbol_Type);
+
+   type Huffman_Node;
+   type Node_Access is access Huffman_Node;
+   -- a node is either internal (left_child/right_child used)
+   -- or a leaf (left_child/right_child are null)
+   type Huffman_Node is record
+      Frequency   : Frequency_Type;
+      Left_Child  : Node_Access := null;
+      Right_Child : Node_Access := null;
+      Symbol      : Symbol_Type;
+   end record;
+   -- create a leaf node
+   function Create_Node
+     (Symbol    : Symbol_Type;
+      Frequency : Frequency_Type)
+      return      Node_Access;
+   -- create an internal node
+   function Create_Node (Left, Right : Node_Access) return Node_Access;
+   -- fill the encoding map
+   procedure Fill
+     (The_Node : Node_Access;
+      Map      : in out Encoding_Maps.Map;
+      Prefix   : Bit_Sequence);
+
+   -- huffman tree has a tree and an encoding map
+   type Huffman_Tree is new Ada.Finalization.Controlled with record
+      Tree : Node_Access       := null;
+      Map  : Encoding_Maps.Map := Encoding_Maps.Empty_Map;
+   end record;
+   -- free memory after finalization
+   overriding procedure Finalize (Object : in out Huffman_Tree);
+end Huffman;</syntaxhighlight>
+
+huffman.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Ada.Unchecked_Deallocation;
+with Ada.Containers.Vectors;
+package body Huffman is
+   package Node_Vectors is new Ada.Containers.Vectors
+     (Element_Type => Node_Access,
+      Index_Type   => Positive);
+
+   function "<" (Left, Right : Node_Access) return Boolean is
+   begin
+      -- compare frequency
+      if Left.Frequency < Right.Frequency then
+         return True;
+      elsif Right.Frequency < Left.Frequency then
+         return False;
+      end if;
+      -- same frequency, choose leaf node
+      if Left.Left_Child = null and then Right.Left_Child /= null then
+         return True;
+      elsif Left.Left_Child /= null and then Right.Left_Child = null then
+         return False;
+      end if;
+      -- same frequency, same node type (internal/leaf)
+      if Left.Left_Child /= null then
+         -- for internal nodes, compare left children, then right children
+         if Left.Left_Child < Right.Left_Child then
+            return True;
+         elsif Right.Left_Child < Left.Left_Child then
+            return False;
+         else
+            return Left.Right_Child < Right.Right_Child;
+         end if;
+      else
+         -- for leaf nodes, compare symbol
+         return Left.Symbol < Right.Symbol;
+      end if;
+   end "<";
+   package Node_Vector_Sort is new Node_Vectors.Generic_Sorting;
+
+   procedure Create_Tree
+     (Tree        : out Huffman_Tree;
+      Frequencies : Frequency_Maps.Map) is
+      Node_Queue : Node_Vectors.Vector := Node_Vectors.Empty_Vector;
+   begin
+      -- insert all leafs into the queue
+      declare
+         use Frequency_Maps;
+         Position : Cursor      := Frequencies.First;
+         The_Node : Node_Access := null;
+      begin
+         while Position /= No_Element loop
+            The_Node :=
+              Create_Node
+                (Symbol    => Key (Position),
+                 Frequency => Element (Position));
+            Node_Queue.Append (The_Node);
+            Next (Position);
+         end loop;
+      end;
+      -- sort by frequency (see "<")
+      Node_Vector_Sort.Sort (Node_Queue);
+      -- iterate over all elements
+      while not Node_Queue.Is_Empty loop
+         declare
+            First : constant Node_Access := Node_Queue.First_Element;
+         begin
+            Node_Queue.Delete_First;
+            -- if we only have one node left, it is the root node of the tree
+            if Node_Queue.Is_Empty then
+               Tree.Tree := First;
+            else
+               -- create new internal node with two smallest frequencies
+               declare
+                  Second : constant Node_Access := Node_Queue.First_Element;
+               begin
+                  Node_Queue.Delete_First;
+                  Node_Queue.Append (Create_Node (First, Second));
+               end;
+               Node_Vector_Sort.Sort (Node_Queue);
+            end if;
+         end;
+      end loop;
+      -- fill encoding map
+      Fill (The_Node => Tree.Tree, Map => Tree.Map, Prefix => Zero_Sequence);
+   end Create_Tree;
+
+   -- create leaf node
+   function Create_Node
+     (Symbol    : Symbol_Type;
+      Frequency : Frequency_Type)
+      return      Node_Access
+   is
+      Result : Node_Access := new Huffman_Node;
+   begin
+      Result.Frequency := Frequency;
+      Result.Symbol    := Symbol;
+      return Result;
+   end Create_Node;
+
+   -- create internal node
+   function Create_Node (Left, Right : Node_Access) return Node_Access is
+      Result : Node_Access := new Huffman_Node;
+   begin
+      Result.Frequency   := Left.Frequency + Right.Frequency;
+      Result.Left_Child  := Left;
+      Result.Right_Child := Right;
+      return Result;
+   end Create_Node;
+
+   -- fill encoding map
+   procedure Fill
+     (The_Node : Node_Access;
+      Map      : in out Encoding_Maps.Map;
+      Prefix   : Bit_Sequence) is
+   begin
+      if The_Node.Left_Child /= null then
+         -- append false (0) for left child
+         Fill (The_Node.Left_Child, Map, Prefix & False);
+         -- append true (1) for right child
+         Fill (The_Node.Right_Child, Map, Prefix & True);
+      else
+         -- leaf node reached, prefix = code for symbol
+         Map.Insert (The_Node.Symbol, Prefix);
+      end if;
+   end Fill;
+
+   -- free memory after finalization
+   overriding procedure Finalize (Object : in out Huffman_Tree) is
+      procedure Free is new Ada.Unchecked_Deallocation
+        (Name   => Node_Access,
+         Object => Huffman_Node);
+      -- recursively free all nodes
+      procedure Recursive_Free (The_Node : in out Node_Access) is
+      begin
+         -- free node if it is a leaf
+         if The_Node.Left_Child = null then
+            Free (The_Node);
+         else
+            -- free left and right child if node is internal
+            Recursive_Free (The_Node.Left_Child);
+            Recursive_Free (The_Node.Right_Child);
+            -- free node afterwards
+            Free (The_Node);
+         end if;
+      end Recursive_Free;
+   begin
+      -- recursively free root node
+      Recursive_Free (Object.Tree);
+   end Finalize;
+
+   -- encode single symbol
+   function Encode
+     (Tree   : Huffman_Tree;
+      Symbol : Symbol_Type)
+      return   Bit_Sequence
+   is
+   begin
+      -- simply lookup in map
+      return Tree.Map.Element (Symbol);
+   end Encode;
+
+   -- encode symbol sequence
+   function Encode
+     (Tree    : Huffman_Tree;
+      Symbols : Symbol_Sequence)
+      return    Bit_Sequence
+   is
+   begin
+      -- only one element
+      if Symbols'Length = 1 then
+         -- see above
+         return Encode (Tree, Symbols (Symbols'First));
+      else
+         -- encode first element, append result of recursive call
+         return Encode (Tree, Symbols (Symbols'First)) &
+         Encode (Tree, Symbols (Symbols'First + 1 .. Symbols'Last));
+      end if;
+   end Encode;
+
+   -- decode a bit sequence
+   function Decode
+     (Tree : Huffman_Tree;
+      Code : Bit_Sequence)
+      return Symbol_Sequence
+   is
+      -- maximum length = code length
+      Result   : Symbol_Sequence (1 .. Code'Length);
+      -- last used index of result
+      Last     : Natural     := 0;
+      The_Node : Node_Access := Tree.Tree;
+   begin
+      -- iterate over the code
+      for I in Code'Range loop
+         -- if current element is true, descent the right branch
+         if Code (I) then
+            The_Node := The_Node.Right_Child;
+         else
+            -- false: descend left branch
+            The_Node := The_Node.Left_Child;
+         end if;
+         if The_Node.Left_Child = null then
+            -- reached leaf node: append symbol to result
+            Last          := Last + 1;
+            Result (Last) := The_Node.Symbol;
+            -- reset current node to root
+            The_Node := Tree.Tree;
+         end if;
+      end loop;
+      -- return subset of result array
+      return Result (1 .. Last);
+   end Decode;
+
+   -- output a bit sequence
+   procedure Put (Code : Bit_Sequence) is
+      package Int_IO is new Ada.Text_IO.Integer_IO (Integer);
+   begin
+      for I in Code'Range loop
+         if Code (I) then
+            -- true = 1
+            Int_IO.Put (1, 0);
+         else
+            -- false = 0
+            Int_IO.Put (0, 0);
+         end if;
+      end loop;
+      Ada.Text_IO.New_Line;
+   end Put;
+
+   -- dump encoding map
+   procedure Dump_Encoding (Tree : Huffman_Tree) is
+      use type Encoding_Maps.Cursor;
+      Position : Encoding_Maps.Cursor := Tree.Map.First;
+   begin
+      -- iterate map
+      while Position /= Encoding_Maps.No_Element loop
+         -- key
+         Put (Encoding_Maps.Key (Position));
+         Ada.Text_IO.Put (" = ");
+         -- code
+         Put (Encoding_Maps.Element (Position));
+         Encoding_Maps.Next (Position);
+      end loop;
+   end Dump_Encoding;
+end Huffman;</syntaxhighlight>
+
+example main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Huffman;
+procedure Main is
+   package Char_Natural_Huffman_Tree is new Huffman
+     (Symbol_Type => Character,
+      Put => Ada.Text_IO.Put,
+      Symbol_Sequence => String,
+      Frequency_Type => Natural);
+   Tree         : Char_Natural_Huffman_Tree.Huffman_Tree;
+   Frequencies  : Char_Natural_Huffman_Tree.Frequency_Maps.Map;
+   Input_String : constant String :=
+     "this is an example for huffman encoding";
+begin
+   -- build frequency map
+   for I in Input_String'Range loop
+      declare
+         use Char_Natural_Huffman_Tree.Frequency_Maps;
+         Position : constant Cursor := Frequencies.Find (Input_String (I));
+      begin
+         if Position = No_Element then
+            Frequencies.Insert (Key => Input_String (I), New_Item => 1);
+         else
+            Frequencies.Replace_Element
+              (Position => Position,
+               New_Item => Element (Position) + 1);
+         end if;
+      end;
+   end loop;
+
+   -- create huffman tree
+   Char_Natural_Huffman_Tree.Create_Tree
+     (Tree        => Tree,
+      Frequencies => Frequencies);
+
+   -- dump encodings
+   Char_Natural_Huffman_Tree.Dump_Encoding (Tree => Tree);
+
+   -- encode example string
+   declare
+      Code : constant Char_Natural_Huffman_Tree.Bit_Sequence :=
+        Char_Natural_Huffman_Tree.Encode
+          (Tree    => Tree,
+           Symbols => Input_String);
+   begin
+      Char_Natural_Huffman_Tree.Put (Code);
+      Ada.Text_IO.Put_Line
+        (Char_Natural_Huffman_Tree.Decode (Tree => Tree, Code => Code));
+   end;
+end Main;</syntaxhighlight>
+
+{{out}}
+<pre>  = 101
+a = 1001
+c = 01010
+d = 01011
+e = 1100
+f = 1101
+g = 01100
+h = 11111
+i = 1110
+l = 01101
+m = 0010
+n = 000
+o = 0011
+p = 01110
+r = 01111
+s = 0100
+t = 10000
+u = 10001
+x = 11110
+1000011111111001001011110010010110010001011100111101001001001110011011100101110100110111110111111100011101110100101001000101110000001010001101011111000001100
+this is an example for huffman encoding</pre>

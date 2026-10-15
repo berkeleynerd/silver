@@ -1,0 +1,47 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Numbers_In_Base_16 is
+
+   package Natural_IO is new Ada.Text_IO.Integer_IO (Natural);
+   use Ada.Text_IO, Natural_IO;
+
+   function Is_Hex_Only (Value : Natural) return Boolean
+   is (Value = 0 or
+         (Value mod 16 >= 10 and then Is_Hex_Only (Value / 16)));
+
+   subtype Test_Range is Natural range 1 .. 499;
+   Count : Natural := 0;
+begin
+   for A in Test_Range loop
+      if Is_Hex_Only (A) then
+         Count := Count + 1;
+         Put (A, Width => 3); Put (" = ");
+         Put (A, Width => 6, Base => 16); Put ("   ");
+         if Count mod 5 = 0 then
+            New_Line;
+         end if;
+      end if;
+   end loop;
+   New_Line;
+   Default_Width := 0;
+   Put ("There are "); Put (Count);
+   Put (" numbers in range ");
+   Put (Test_Range'First); Put (" .. ");
+   Put (Test_Range'Last);
+   Put (" without decimal digits in hex representation.");
+   New_Line;
+end Numbers_In_Base_16;</syntaxhighlight>
+{{out}}
+<pre>
+ 10 =  16#A#    11 =  16#B#    12 =  16#C#    13 =  16#D#    14 =  16#E#
+ 15 =  16#F#   170 = 16#AA#   171 = 16#AB#   172 = 16#AC#   173 = 16#AD#
+174 = 16#AE#   175 = 16#AF#   186 = 16#BA#   187 = 16#BB#   188 = 16#BC#
+189 = 16#BD#   190 = 16#BE#   191 = 16#BF#   202 = 16#CA#   203 = 16#CB#
+204 = 16#CC#   205 = 16#CD#   206 = 16#CE#   207 = 16#CF#   218 = 16#DA#
+219 = 16#DB#   220 = 16#DC#   221 = 16#DD#   222 = 16#DE#   223 = 16#DF#
+234 = 16#EA#   235 = 16#EB#   236 = 16#EC#   237 = 16#ED#   238 = 16#EE#
+239 = 16#EF#   250 = 16#FA#   251 = 16#FB#   252 = 16#FC#   253 = 16#FD#
+254 = 16#FE#   255 = 16#FF#
+There are 42 numbers in range 1 .. 499 without decimal digits in hex representation.
+</pre>

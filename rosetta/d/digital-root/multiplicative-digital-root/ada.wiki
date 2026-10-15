@@ -1,0 +1,72 @@
+=={{header|Ada}}==
+
+The solution uses the Package "Generic_Root" from the additive digital roots [[http://rosettacode.org/wiki/Digital_root#Ada]].
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Generic_Root;   use Generic_Root;
+
+procedure Multiplicative_Root is
+   
+   procedure Compute is new Compute_Root("*"); -- "*" for multiplicative roots
+   
+   package TIO renames Ada.Text_IO;
+   package NIO is new TIO.Integer_IO(Number);
+   
+   procedure Print_Numbers(Target_Root: Number; How_Many: Natural) is
+      Current: Number := 0;
+      Root, Pers: Number;
+   begin
+       for I in 1 .. How_Many loop
+	  loop 
+	     Compute(Current, Root, Pers);
+	     exit when Root = Target_Root;
+	     Current := Current + 1;
+	  end loop;
+	  NIO.Put(Current, Width => 6);
+	  if I < How_Many then
+	     TIO.Put(",");
+	  end if;
+	  Current := Current + 1;
+       end loop;
+   end Print_Numbers;
+   
+   Inputs: Number_Array := (123321, 7739, 893, 899998);
+   Root, Pers: Number;
+begin
+   TIO.Put_Line("  Number   MDR    MP");
+   for I in Inputs'Range loop
+       Compute(Inputs(I), Root, Pers);
+       NIO.Put(Inputs(I), Width => 8);
+       NIO.Put(Root, Width => 6);
+       NIO.Put(Pers, Width => 6);
+       TIO.New_Line;
+   end loop;
+   TIO.New_Line;
+   
+   TIO.Put_Line(" MDR    first_five_numbers_with_that_MDR");
+   for I in 0 .. 9 loop
+      TIO.Put("  " & Integer'Image(I) & "  ");
+      Print_Numbers(Target_Root => Number(I), How_Many => 5);
+      TIO.New_Line;
+   end loop;
+end Multiplicative_Root;</syntaxhighlight>  
+
+{{out}}
+
+<pre>  Number   MDR    MP
+  123321     8     3
+    7739     8     3
+     893     2     3
+  899998     0     2
+
+ MDR    first_five_numbers_with_that_MDR
+   0       0,    10,    20,    25,    30
+   1       1,    11,   111,  1111, 11111
+   2       2,    12,    21,    26,    34
+   3       3,    13,    31,   113,   131
+   4       4,    14,    22,    27,    39
+   5       5,    15,    35,    51,    53
+   6       6,    16,    23,    28,    32
+   7       7,    17,    71,   117,   171
+   8       8,    18,    24,    29,    36
+   9       9,    19,    33,    91,   119
+</pre>

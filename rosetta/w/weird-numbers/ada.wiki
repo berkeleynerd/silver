@@ -1,0 +1,238 @@
+=={{header|Ada}}==
+This is not quite a translation of another version, in that:
+* I first implemented it without looking at other implementations. This works, but is significantly slower than what others were reporting.
+* I then compared to other implementations, and adapted what they had.
+
+To be honest, I prefer the original implementation, even though it is much slower than many others, since:
+* As far as I can tell, it's fairly consistent with timings, and doesn't much depend on the order of the factors.
+* The "fast" approach is _highly_ dependent on the ordering of the factors. The implementers seem to have lucked into a good ordering that looks unnatural.
+
+{{out}}
+When run on my machine, both versions produce the following output.
+<pre>
+The first 25 weird numbers are 70 836 4030 5830 7192 7912 9272 10430 10570 10792 10990 11410 11690 12110 12530 12670 13370 13510 13790 13930 14770 15610 15890 16030 16310
+</pre>
+
+===Version 1 (slower; but fairly consistent)===
+
+<syntaxhighlight lang="ada">
+pragma Ada_2022;
+
+with Ada.Text_IO;
+with Ada.Containers.Vectors;
+with Ada.Containers.Ordered_Sets;
+
+procedure Weird_Numbers is
+   package IO renames Ada.Text_IO;
+   --  allows us to type "IO.Put_Line" instead of "Ada.Text_IO.Put_Line"
+
+   package IntVecs is new Ada.Containers.Vectors
+     (Index_Type => Positive, Element_Type => Natural);
+   subtype IntVec is IntVecs.Vector;
+--   use all type IntVec;
+
+   Factor_Cache : IntVec;
+   --  used to keep track of the factors on each iteration
+
+   package Intsets is new Ada.Containers.Ordered_Sets
+     (Element_Type => Positive);
+   subtype Intset is Intsets.Set;
+   Semiperfect_Cache  : Intset;
+   Not_Abundant_Cache : Intset;
+
+   function Proper_Divisors (Value : Positive) return IntVec is
+      Cofactors : IntVec;
+   begin
+      Factor_Cache.Clear;
+      begin
+         Factor_Cache.Append (1);
+         for Factor in 2 .. Value / 2 loop
+            if Value rem Factor = 0 then
+               Factor_Cache.Append (Factor);
+            end if;
+         end loop;
+         return Factor_Cache;
+      end;
+   end Proper_Divisors;
+
+   function Is_Abundant (Value : Positive) return Boolean is
+   begin
+      if Not_Abundant_Cache.Contains (Value)
+        or else Semiperfect_Cache.Contains (Value)
+      then
+         return False;
+      end if;
+      if Proper_Divisors (Value)'Reduce ("+", 0) > Value then
+         return True;
+      end if;
+      Not_Abundant_Cache.Insert (Value);
+      return False;
+   end Is_Abundant;
+
+   function Subset_Of (Factors : IntVec; Ith : Positive) return IntVec is
+   --  returns the Ith subset of Factors
+   --  if Factors has N elements, then there are 2**N possibilities
+   --  this maps Ith to one of these possibilities using its binary representation
+      Result        : IntVec;
+      Index         : Natural := 1;
+      Ith_Remainder : Natural := Ith;
+   begin
+      while Ith_Remainder /= 0 loop
+         if Ith_Remainder rem 2 = 1 then
+            Result.Append (Factors (Index));
+            Ith_Remainder := @ - 1;
+         end if;
+         Ith_Remainder := @ / 2;
+         Index         := @ + 1;
+      end loop;
+      return Result;
+   end Subset_Of;
+
+   function Is_Semiperfect (Value : Positive) return Boolean is
+      Factors : constant IntVec := Factor_Cache;
+      Subset  : IntVec;
+      Sum     : Natural;
+   begin
+      if (for some Previous of Semiperfect_Cache => Value rem Previous = 0)
+      then
+         return True;
+      end if;
+      for Ith in reverse 1 .. (2**Positive (Factors.Length) - 1) loop
+         Subset := Subset_Of (Factors, Positive (Ith));
+         Sum := Subset'Reduce ("+", 0);
+         if Sum = Value then
+            Semiperfect_Cache.Insert (Value);
+            return True;
+         end if;
+      end loop;
+      return False;
+   end Is_Semiperfect;
+
+   function Is_Weird (Value : Positive) return Boolean is
+     (Is_Abundant (Value) and then not Is_Semiperfect (Value));
+
+   Current      : Positive := 2;
+   Number_Found : Natural  := 0;
+
+begin
+   IO.Put ("The first 25 weird numbers are");
+   while Number_Found < 25 loop
+      if Is_Weird (Current * 2) then
+         IO.Put (Integer'Image (Current * 2));
+         Number_Found := @ + 1;
+      end if;
+      Current := @ + 1;
+   end loop;
+   IO.New_Line;
+end Weird_Numbers;
+</syntaxhighlight>
+
+===Version 2 (what most people are using; faster if you're lucky with the ordering of factors)===
+
+<syntaxhighlight lang="ada">
+pragma Ada_2022;
+
+with Ada.Text_IO;
+with Ada.Containers.Vectors;
+with Ada.Containers.Ordered_Sets;
+
+procedure Weird_Numbers is
+   package IO renames Ada.Text_IO;
+
+   package IntVecs is new Ada.Containers.Vectors
+     (Index_Type => Positive, Element_Type => Positive);
+   subtype IntVec is IntVecs.Vector;
+   use all type IntVec;
+
+   Factor_Cache : IntVec;
+
+   package Intsets is new Ada.Containers.Ordered_Sets
+     (Element_Type => Positive);
+   subtype Intset is Intsets.Set;
+   Semiperfect_Cache  : Intset;
+   Not_Abundant_Cache : Intset;
+
+   function Proper_Divisors (Value : Positive) return IntVec is
+      Cofactors : IntVec;
+   begin
+      Factor_Cache.Clear;
+      begin
+         Factor_Cache.Append (1);
+         for Factor in 2 .. Value / 2 loop
+            if Factor * Factor > Value then
+               exit;
+            end if;
+            if Value rem Factor = 0 then
+               Factor_Cache.Append (Factor);
+               if Factor * Factor /= Value then
+                  Cofactors.Append (Value / Factor);
+               end if;
+            end if;
+         end loop;
+         Factor_Cache.Prepend_Vector (Cofactors);
+         --  this ordering is REALLY curious
+         --  for instance, the factors of 12 are ordered as 6, 4, 1, 2, 3
+         --  AND THIS MATTERS
+         --  both strictly ascending and strictly descending orders are much slower
+         return Factor_Cache;
+      end;
+   end Proper_Divisors;
+
+   function Is_Abundant (Value : Positive) return Boolean is
+   begin
+      if Not_Abundant_Cache.Contains (Value)
+        or else Semiperfect_Cache.Contains (Value)
+      then
+         return False;
+      end if;
+      if Proper_Divisors (Value)'Reduce ("+", 0) > Value then
+         return True;
+      end if;
+      Not_Abundant_Cache.Insert (Value);
+      return False;
+   end Is_Abundant;
+
+   function Alternate_Semiperfect (Value : Positive) return Boolean is
+      function Reroute
+        (Value : Positive; First : Positive) return Boolean
+      is
+         Head : Positive;
+      begin
+         if Factor_Cache.Last_Index >= First then
+            Head := Factor_Cache (First);
+            if Value < Head then
+               return Reroute (Value, First + 1);
+            else
+               return
+                 Value = Head
+                 or else Reroute (Value - Head, First + 1)
+                 or else Reroute (Value, First + 1);
+            end if;
+         else
+            return False;
+         end if;
+      end Reroute;
+   begin
+      return
+        Reroute
+          (Value, Factor_Cache.First_Index);
+   end Alternate_Semiperfect;
+
+   function Is_Weird (Value : Positive) return Boolean is
+     (Is_Abundant (Value) and then not Alternate_Semiperfect (Value));
+
+   Current      : Positive := 2;
+   Number_Found : Natural  := 0;
+
+begin
+   IO.Put ("The first 25 weird numbers are");
+   while Number_Found < 25 loop
+      if Is_Weird (Current * 2) then
+         IO.Put (Integer'Image (Current * 2));
+         Number_Found := @ + 1;
+      end if;
+      Current := @ + 1;
+   end loop;
+   IO.New_Line;
+end Weird_Numbers;
+</syntaxhighlight>

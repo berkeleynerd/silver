@@ -1,0 +1,43 @@
+=={{header|Ada}}==
+
+'''Define an exception'''
+<syntaxhighlight lang="ada">Foo_Error : exception;</syntaxhighlight>
+
+'''Raise an exception'''
+<syntaxhighlight lang="ada">procedure Foo is
+begin
+   raise Foo_Error;
+end Foo;</syntaxhighlight>
+Re-raising once caught exception: 
+<syntaxhighlight lang="ada">  ...
+exception
+   when Foo_Error =>
+      if ... then -- Alas, cannot handle it here,
+         raise;   -- continue propagation of
+      end if;</syntaxhighlight>
+
+'''Handle an exception'''
+<syntaxhighlight lang="ada">procedure Call_Foo is
+begin
+   Foo;
+exception
+   when Foo_Error =>
+      ... -- do something
+   when others =>
+      ... -- this catches all other exceptions
+end Call_Foo;</syntaxhighlight>
+
+'''Ada.Exceptions'''<br>
+The standard package Ada.Exceptions provides a possibility to attach messages to exceptions, to get exception occurrence information and textual description of exceptions. The following example illustrates basic functionality of:
+<syntaxhighlight lang="ada">with Ada.Exceptions;  use Ada.Exceptions;
+with Ada.Text_IO;     use Ada.Text_IO;
+
+procedure Main is
+begin
+   ...
+   Raise_Exception (Foo_Error'Identity, "This is the exception message");
+   ..
+exception
+   when Error : others =>
+      Put_Line ("Something is wrong here" & Exception_Information (Error));
+end Main;</syntaxhighlight>

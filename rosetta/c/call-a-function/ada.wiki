@@ -1,0 +1,44 @@
+=={{header|Ada}}==
+
+* Ada provides two kinds of subroutines: procedures without return values and functions with return values. The return values of functions must be used by the callers. If you don't want to deal with the return value, call a procedure instead. 
+
+* As a rule of thumb, an Ada compiler is free to pass arguments either by value or by reference. Parameters have a mode however: either 'in' or 'out' or 'in out'. It is prohibited to write anything to an 'in' parameter. The next language Standard, Ada 2012, will support functions with 'out' and 'in out' mode parameters, so far, only procedures could have parameters with non-'in' modes. So any of the following statements for Ada functions holds for Ada procedures as well.
+
+* There are no differences between calling built-in vs. user defined functions. 
+
+* Functions without parameters can be called by omitting the parameter list (no empty brackets!):<syntaxhighlight lang="ada">S: String := Ada.Text_IO.Get_Line;</syntaxhighlight>
+
+* Ada supports functions with optional parameters:<syntaxhighlight lang="ada">function F(X: Integer; Y: Integer := 0) return Integer; -- Y is optional
+...
+A : Integer := F(12); 
+B : Integer := F(12, 0); -- the same as A
+C : Integer := F(12, 1); -- something different</syntaxhighlight>
+
+* If the number of parameters of F were fixed to two (by omitting the ":= 0" in the specification), then B and C would be OK, but A wouldn't. 
+
+* Ada does not support functions with a variable number of arguments. But a function argument can be an unconstrained array with as many values as you want:<syntaxhighlight lang="ada">type Integer_Array is array (Positive range <>) of Integer;
+function Sum(A: Integer_Array) return Integer is
+   S: Integer := 0;
+begin
+   for I in A'Range loop
+      S := S + A(I);
+   end loop;
+   return S;
+end Sum;
+...
+A := Sum((1,2,3));     -- A = 6
+B := Sum((1,2,3,4));   -- B = 10</syntaxhighlight>
+
+* One can realize first-class functions by defining an access to a function as a parameter:<syntaxhighlight lang="ada">function H (Int: Integer;
+            Fun: not null access function (X: Integer; Y: Integer)
+              return Integer);
+           return Integer;
+
+...
+
+X := H(A, F'Access) -- assuming X and A are Integers, and F is a function 
+                     -- taking two Integers and returning an Integer.</syntaxhighlight>
+
+* The caller is free to use either positional parameters or named parameters, or a mixture of both (with positional parameters first) <syntaxhighlight lang="ada">Positional := H(A, F'Access); 
+Named      := H(Int => A, Fun => F'Access);  
+Mixed      := H(A, Fun=>F'Access); </syntaxhighlight>

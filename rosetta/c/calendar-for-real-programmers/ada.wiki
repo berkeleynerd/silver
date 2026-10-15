@@ -1,0 +1,50 @@
+=={{header|Ada}}==
+
+In Ada, the task is really easy, because Ada is case insensitive. I.e., one could simply replicate the code from [[Calendar#Ada|Ada solution of the calendar task]] and convert every lowercase character to uppercase. 
+Instead of doing that, the implementation below reuses the package "PRINTABLE_CALENDAR" (same as "Printable_Calendar" or "printable_calendar") from [[Calendar#Ada|the calendar task]]:
+
+<syntaxhighlight lang="ada">WITH PRINTABLE_CALENDAR;
+
+PROCEDURE REAL_CAL IS
+
+   C: PRINTABLE_CALENDAR.CALENDAR := PRINTABLE_CALENDAR.INIT_132
+     ((WEEKDAY_REP =>
+          "MO TU WE TH FR SA SO",
+       MONTH_REP   =>
+         ("      JANUARY       ", "      FEBRUARY      ",
+          "       MARCH        ", "       APRIL        ",
+          "        MAY         ", "        JUNE        ",
+          "        JULY        ", "       AUGUST       ",
+          "      SEPTEMBER     ", "       OCTOBER      ",
+          "      NOVEMBER      ", "      DECEMBER      ")
+      ));
+
+BEGIN
+   C.PRINT_LINE_CENTERED("[SNOOPY]");
+   C.NEW_LINE;
+   C.PRINT(1969, "NINETEEN-SIXTY-NINE");
+END REAL_CAL;</syntaxhighlight>
+
+{{out}}
+<pre>                                                             [SNOOPY]                                                             
+
+                                                        NINETEEN-SIXTY-NINE                                                        
+
+       JANUARY               FEBRUARY               MARCH                 APRIL                  MAY                   JUNE        
+ MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO
+        1  2  3  4  5                  1  2                  1  2      1  2  3  4  5  6            1  2  3  4                     1
+  6  7  8  9 10 11 12   3  4  5  6  7  8  9   3  4  5  6  7  8  9   7  8  9 10 11 12 13   5  6  7  8  9 10 11   2  3  4  5  6  7  8
+ 13 14 15 16 17 18 19  10 11 12 13 14 15 16  10 11 12 13 14 15 16  14 15 16 17 18 19 20  12 13 14 15 16 17 18   9 10 11 12 13 14 15
+ 20 21 22 23 24 25 26  17 18 19 20 21 22 23  17 18 19 20 21 22 23  21 22 23 24 25 26 27  19 20 21 22 23 24 25  16 17 18 19 20 21 22
+ 27 28 29 30 31        24 25 26 27 28        24 25 26 27 28 29 30  28 29 30              26 27 28 29 30 31     23 24 25 26 27 28 29
+                                             31                                                                30                  
+
+         JULY                 AUGUST               SEPTEMBER              OCTOBER              NOVEMBER              DECEMBER      
+ MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO  MO TU WE TH FR SA SO
+     1  2  3  4  5  6               1  2  3   1  2  3  4  5  6  7         1  2  3  4  5                  1  2   1  2  3  4  5  6  7
+  7  8  9 10 11 12 13   4  5  6  7  8  9 10   8  9 10 11 12 13 14   6  7  8  9 10 11 12   3  4  5  6  7  8  9   8  9 10 11 12 13 14
+ 14 15 16 17 18 19 20  11 12 13 14 15 16 17  15 16 17 18 19 20 21  13 14 15 16 17 18 19  10 11 12 13 14 15 16  15 16 17 18 19 20 21
+ 21 22 23 24 25 26 27  18 19 20 21 22 23 24  22 23 24 25 26 27 28  20 21 22 23 24 25 26  17 18 19 20 21 22 23  22 23 24 25 26 27 28
+ 28 29 30 31           25 26 27 28 29 30 31  29 30                 27 28 29 30 31        24 25 26 27 28 29 30  29 30 31  </pre>
+
+To change the output to 80-character devices, replace "INIT_132" by "INIT_80".

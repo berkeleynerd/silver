@@ -1,0 +1,48 @@
+=={{header|Ada}}==
+The package interface:
+<syntaxhighlight lang="ada">package Bitmap_Store is
+   type Luminance is mod 2**8;
+   type Pixel is record
+      R, G, B : Luminance := Luminance'First;
+   end record;
+   Black : constant Pixel := (others => Luminance'First);
+   White : constant Pixel := (others => Luminance'Last);
+   type Image is array (Positive range <>, Positive range <>) of Pixel;
+ 
+   procedure Fill (Picture : in out Image; Color : Pixel);
+ 
+   procedure Print (Picture : Image);
+ 
+   type Point is record
+      X, Y : Positive;
+   end record;
+end Bitmap_Store;</syntaxhighlight>
+The implementation of:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+package body Bitmap_Store is
+
+   procedure Fill (Picture : in out Image; Color : Pixel) is
+   begin
+      for p of Picture loop x:= Color;end loop;
+   end Fill;
+ 
+   procedure Print (Picture : Image) is
+   begin
+      for I in Picture'Range (1) loop
+         for J in Picture'Range (2) loop
+               Put (if Picture (I, J) = White then ' ' else 'H');
+         end loop;
+         New_Line;
+      end loop; 
+   end Print;
+
+end Bitmap_Store;</syntaxhighlight>
+This can be used like:
+<syntaxhighlight lang="ada">use Bitmap_Store;  with Bitmap_Store;
+   ...
+   X : Image (1..64, 1..64);
+begin
+   Fill (X, (255, 255, 255));
+   X (1, 2) := (R => 255, others => 0);
+   X (3, 4) := X (1, 2);</syntaxhighlight>

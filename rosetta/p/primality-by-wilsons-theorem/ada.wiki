@@ -1,0 +1,53 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">--
+-- Determine primality using Wilon's theorem.
+-- Uses the approach from Algol W 
+-- allowing large primes without the use of big numbers.
+--
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Main is
+   type u_64 is mod 2**64;
+   package u_64_io is new modular_io (u_64);
+   use u_64_io;
+
+   function Is_Prime (n : u_64) return Boolean is
+      fact_Mod_n : u_64 := 1;
+   begin
+      if n < 2 then
+         return False;
+      end if;
+      for i in 2 .. n - 1 loop
+         fact_Mod_n := (fact_Mod_n * i) rem n;
+      end loop;
+      return fact_Mod_n = n - 1;
+   end Is_Prime;
+
+   num : u_64 := 1;
+   type cols is mod 12;
+   count : cols := 0;
+begin
+   while num < 500 loop
+      if Is_Prime (num) then
+         if count = 0 then
+            New_Line;
+         end if;
+         Put (Item => num, Width => 6);
+         count := count + 1;
+      end if;
+      num := num + 1;
+   end loop;
+end Main;
+
+</syntaxhighlight>
+{{output}}
+<pre>
+     2     3     5     7    11    13    17    19    23    29    31    37
+    41    43    47    53    59    61    67    71    73    79    83    89
+    97   101   103   107   109   113   127   131   137   139   149   151
+   157   163   167   173   179   181   191   193   197   199   211   223
+   227   229   233   239   241   251   257   263   269   271   277   281
+   283   293   307   311   313   317   331   337   347   349   353   359
+   367   373   379   383   389   397   401   409   419   421   431   433
+   439   443   449   457   461   463   467   479   487   491   499
+</pre>

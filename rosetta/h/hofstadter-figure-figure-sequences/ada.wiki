@@ -1,0 +1,108 @@
+=={{header|Ada}}==
+Specifying a package providing the functions FFR and FFS:
+<syntaxhighlight lang="ada">package Hofstadter_Figure_Figure is
+
+   function FFR(P: Positive) return Positive;
+
+   function FFS(P: Positive) return Positive;
+
+end Hofstadter_Figure_Figure;</syntaxhighlight>
+
+The implementation of the package internally uses functions which generate an array of Figures or Spaces:
+<syntaxhighlight lang="ada">package body Hofstadter_Figure_Figure is
+
+   type Positive_Array is array (Positive range <>) of Positive;
+
+   function FFR(P: Positive) return Positive_Array is
+      Figures: Positive_Array(1 .. P+1);
+      Space: Positive := 2;
+      Space_Index: Positive := 2;
+   begin
+      Figures(1) := 1;
+      for I in 2 .. P loop
+         Figures(I) := Figures(I-1) + Space;
+         Space := Space+1;
+         while Space = Figures(Space_Index) loop
+            Space := Space + 1;
+            Space_Index := Space_Index + 1;
+         end loop;
+      end loop;
+      return Figures(1 .. P);
+   end FFR;
+
+   function FFR(P: Positive) return Positive is
+      Figures: Positive_Array(1 .. P) := FFR(P);
+   begin
+      return Figures(P);
+   end FFR;
+
+   function FFS(P: Positive) return Positive_Array is
+      Spaces:  Positive_Array(1 .. P);
+      Figures: Positive_Array := FFR(P+1);
+      J: Positive := 1;
+      K: Positive := 1;
+   begin
+      for I in Spaces'Range loop
+         while J = Figures(K) loop
+            J := J + 1;
+            K := K + 1;
+         end loop;
+         Spaces(I) := J;
+         J := J + 1;
+      end loop;
+      return Spaces;
+   end FFS;
+
+   function FFS(P: Positive) return Positive is
+      Spaces: Positive_Array := FFS(P);
+   begin
+      return Spaces(P);
+   end FFS;
+
+end Hofstadter_Figure_Figure;</syntaxhighlight>
+
+Finally, a test program for the package, solving the task at hand:
+<syntaxhighlight lang="ada">with Ada.Text_IO, Hofstadter_Figure_Figure;
+
+procedure Test_HSS is
+
+   use Hofstadter_Figure_Figure;
+
+   A: array(1 .. 1000) of Boolean := (others => False);
+   J: Positive;
+
+begin
+   for I in 1 .. 10 loop
+      Ada.Text_IO.Put(Integer'Image(FFR(I)));
+   end loop;
+   Ada.Text_IO.New_Line;
+
+   for I in 1 .. 40 loop
+      J := FFR(I);
+      if A(J) then
+         raise Program_Error with Positive'Image(J) & " used twice";
+      end if;
+      A(J) := True;
+   end loop;
+
+   for I in 1 .. 960 loop
+      J := FFS(I);
+      if A(J) then
+         raise Program_Error with Positive'Image(J) & " used twice";
+      end if;
+      A(J) := True;
+   end loop;
+
+   for I in A'Range loop
+      if not A(I) then raise Program_Error with Positive'Image(I) & " unused";
+      end if;
+   end loop;
+   Ada.Text_IO.Put_Line("Test Passed: No overlap between FFR(I) and FFS(J)");
+
+exception
+   when Program_Error => Ada.Text_IO.Put_Line("Test Failed"); raise;
+end Test_HSS;</syntaxhighlight>
+
+The output of the test program:
+<syntaxhighlight lang="text"> 1 3 7 12 18 26 35 45 56 69
+Test Passed: No overlap between FFR(I) and FFS(J)</syntaxhighlight>

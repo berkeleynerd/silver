@@ -1,0 +1,80 @@
+=={{header|Ada}}==
+
+We first specify a generic package LCG:
+
+<syntaxhighlight lang="ada">generic
+   type Base_Type is mod <>;
+   Multiplyer, Adder: Base_Type;
+   Output_Divisor: Base_Type := 1;
+package LCG is
+
+   procedure Initialize(Seed: Base_Type);
+   function Random return Base_Type;
+   -- changes the state and outputs the result
+
+end LCG;</syntaxhighlight>
+
+Then we provide a generic implementation:
+
+<syntaxhighlight lang="ada">package body LCG is
+
+   State: Base_Type := Base_Type'First;
+
+   procedure Initialize(Seed: Base_Type) is
+   begin
+      State := Seed;
+   end Initialize;
+
+   function Random return Base_Type is
+   begin
+      State := State * Multiplyer + Adder;
+      return State / Output_Divisor;
+   end Random;
+
+end LCG;</syntaxhighlight>
+
+Next, we define the MS- and BSD-instantiations of the generic package:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, LCG;
+
+procedure Run_LCGs is
+
+   type M31 is mod 2**31;
+
+   package BSD_Rand is new LCG(Base_Type => M31, Multiplyer => 1103515245,
+                               Adder => 12345);
+
+   package MS_Rand  is new LCG(Base_Type => M31, Multiplyer => 214013,
+                               Adder => 2531011, Output_Divisor => 2**16);
+
+begin
+   for I in 1 .. 10 loop
+      Ada.Text_IO.Put_Line(M31'Image(BSD_Rand.Random));
+   end loop;
+   for I in 1 .. 10 loop
+       Ada.Text_IO.Put_Line(M31'Image(MS_Rand.Random));
+   end loop;
+end Run_LCGs;</syntaxhighlight>
+
+Finally, we run the program, which generates the following output (note that the first ten lines are from the BSD generator, the next ten from the MS generator): 
+
+<pre> 12345
+ 1406932606
+ 654583775
+ 1449466924
+ 229283573
+ 1109335178
+ 1051550459
+ 1293799192
+ 794471793
+ 551188310
+ 38
+ 7719
+ 21238
+ 2437
+ 8855
+ 11797
+ 8365
+ 32285
+ 10450
+ 30612</pre>

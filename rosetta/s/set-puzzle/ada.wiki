@@ -1,0 +1,185 @@
+=={{header|Ada}}==
+
+We start with the specification of a package "Set_Puzzle.
+
+<syntaxhighlight lang="ada">package Set_Puzzle is
+   
+   type Three is range 1..3;
+   type Card is array(1 .. 4) of Three;
+   type Cards is array(Positive range <>) of Card;   
+   type Set is array(Three) of Positive;
+   
+   procedure Deal_Cards(Dealt: out Cards);
+   -- ouputs an array with disjoint cards
+   
+   function To_String(C: Card) return String;
+   
+   generic
+      with procedure Do_something(C: Cards; S: Set);
+   procedure Find_Sets(Given: Cards);
+   -- calls Do_Something once for each set it finds. 
+   
+end Set_Puzzle;</syntaxhighlight>
+
+Now we implement the package "Set_Puzzle".
+
+<syntaxhighlight lang="ada">with Ada.Numerics.Discrete_Random;
+
+package body Set_Puzzle is
+   
+   package Rand is new Ada.Numerics.Discrete_Random(Three);
+   R: Rand.Generator;
+   
+   function Locate(Some: Cards; C: Card) return Natural is
+      -- returns index of card C in Some, or 0 if not found
+   begin
+      for I in Some'Range loop
+	 if C = Some(I) then
+	    return I;
+	 end if;
+      end loop;
+      return 0;
+   end Locate;
+   
+   procedure Deal_Cards(Dealt: out Cards) is
+      function Random_Card return Card is
+	 (Rand.Random(R), Rand.Random(R), Rand.Random(R), Rand.Random(R));
+   begin 
+      for I in Dealt'Range loop
+	 -- draw a random card until different from all card previously drawn
+	 Dealt(I) := Random_Card; -- draw random card
+	 while Locate(Dealt(Dealt'First .. I-1), Dealt(I)) /= 0 loop
+	    -- Dealt(I) has been drawn before
+	    Dealt(I) := Random_Card; -- draw another random card
+	 end loop;
+      end loop;
+   end Deal_Cards;
+      
+   procedure Find_Sets(Given: Cards) is
+      function To_Set(A, B: Card) return Card is
+	 -- returns the unique card C, which would make a set with A and B
+	 C: Card;
+      begin
+	 for I in 1 .. 4 loop
+	    if A(I) = B(I) then 
+	       C(I) := A(I); -- all three the same
+	    else
+	       C(I) := 6 - A(I) - B(I); -- all three different;
+	    end if;
+	 end loop;
+	 return C;
+      end To_Set;
+      
+      X: Natural;
+      
+   begin
+      for I in Given'Range loop
+	 for J in Given'First .. I-1 loop
+	    X := Locate(Given, To_Set(Given(I), Given(J)));
+	    if I < X then -- X=0 is no set, 0 < X < I is a duplicate
+	      Do_Something(Given, (J, I, X));
+	    end if;
+	 end loop;
+      end loop;
+   end Find_Sets;
+	    
+   function To_String(C: Card) return String is
+      
+      Col: constant array(Three) of String(1..6) 
+	:= ("Red   ", "Green ", "Purple");
+      Sym: constant array(Three) of String(1..8) 
+	:= ("Oval    ", "Squiggle", "Diamond ");
+      Num: constant array(Three) of String(1..5) 
+	:= ("One  ", "Two  ", "Three");
+      Sha: constant array(Three) of String(1..7) 
+	:= ("Solid  ", "Open   ", "Striped");
+      
+   begin
+      return (Col(C(1)) & " " & Sym(C(2)) & " " & Num(C(3)) & " " & Sha(C(4)));
+   end To_String;
+
+begin
+   Rand.Reset(R);
+end Set_Puzzle;</syntaxhighlight>
+
+Finally, we write the main program, using the above package. It reads two parameters from the command line. The first parameter describes the number of cards, the second one the number of sets. Thus, for the basic mode one has to call "puzzle 9 4", for the advanced mode "puzzle 12 6", but the program would support any other combination of parameters just as well. 
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Set_Puzzle, Ada.Command_Line;
+
+procedure Puzzle is
+   
+   package TIO renames Ada.Text_IO;
+   
+   Card_Count:     Positive := Positive'Value(Ada.Command_Line.Argument(1));
+   Required_Sets:  Positive := Positive'Value(Ada.Command_Line.Argument(2));
+   
+   Cards: Set_Puzzle.Cards(1 .. Card_Count);
+   
+   function Cnt_Sets(C: Set_Puzzle.Cards) return Natural is
+      Cnt: Natural := 0;
+      procedure Count_Sets(C: Set_Puzzle.Cards; S: Set_Puzzle.Set) is
+      begin
+         Cnt := Cnt + 1;
+      end Count_Sets;
+      procedure CS is new Set_Puzzle.Find_Sets(Count_Sets);
+   begin
+      CS(C);
+      return Cnt;
+   end Cnt_Sets;
+   
+   procedure Print_Sets(C: Set_Puzzle.Cards) is
+      procedure Print_A_Set(C: Set_Puzzle.Cards; S: Set_Puzzle.Set) is
+      begin
+         TIO.Put("(" & Integer'Image(S(1)) & "," & Integer'Image(S(2))
+                   & "," & Integer'Image(S(3)) & " )  ");
+      end Print_A_Set;
+      procedure PS is new Set_Puzzle.Find_Sets(Print_A_Set);
+   begin
+      PS(C);
+      TIO.New_Line;
+   end Print_Sets;
+
+begin
+   loop    -- deal random cards
+      Set_Puzzle.Deal_Cards(Cards);
+      exit when Cnt_Sets(Cards) = Required_Sets;
+   end loop;    -- until number of sets is as required
+   
+   for I in Cards'Range loop    -- print the cards 
+      if I < 10 then
+         TIO.Put(" ");
+      end if;
+      TIO.Put_Line(Integer'Image(I) & " " & Set_Puzzle.To_String(Cards(I)));
+   end loop;
+   
+   Print_Sets(Cards);    -- print the sets
+end Puzzle;</syntaxhighlight>
+
+{{out}}
+
+<pre>>./puzzle 9 4
+  1 Red    Diamond  One   Striped
+  2 Green  Squiggle Two   Solid  
+  3 Red    Squiggle Three Open   
+  4 Green  Squiggle Three Solid  
+  5 Purple Oval     Two   Open   
+  6 Purple Squiggle One   Striped
+  7 Green  Squiggle One   Solid  
+  8 Purple Squiggle One   Solid  
+  9 Purple Diamond  Three Solid  
+( 2, 3, 6 )  ( 1, 4, 5 )  ( 2, 4, 7 )  ( 5, 6, 9 )
+
+>./puzzle 12 6
+  1 Purple Diamond  One   Solid  
+  2 Red    Diamond  One   Striped
+  3 Red    Oval     Three Striped
+  4 Green  Oval     Two   Solid  
+  5 Red    Squiggle Three Solid  
+  6 Green  Squiggle Two   Solid  
+  7 Red    Squiggle Three Striped
+  8 Red    Squiggle Three Open   
+  9 Purple Squiggle One   Striped
+ 10 Red    Diamond  Two   Solid  
+ 11 Red    Squiggle One   Open   
+ 12 Red    Oval     One   Solid  
+( 1, 4, 5 )  ( 5, 7, 8 )  ( 6, 8, 9 )  ( 3, 10, 11 )  ( 5, 10, 12 )  ( 2, 11, 12 )</pre>

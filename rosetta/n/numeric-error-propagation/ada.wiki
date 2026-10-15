@@ -1,0 +1,197 @@
+=={{header|Ada}}==
+
+Specification of a generic type Approximation.Number, providing all the operations required to solve the task ... and some more operations, for completeness.
+
+<syntaxhighlight lang="ada">generic
+   type Real is digits <>;
+   with function Sqrt(X: Real) return Real;
+   with function "**"(X: Real; Y: Real) return Real;
+package Approximation is
+
+   type Number is private;
+
+   -- create an approximation
+   function Approx(Value: Real; Sigma: Real) return Number;
+
+   -- unary operations and conversion Real to Number
+   function "+"(X: Real) return Number;
+   function "-"(X: Real) return Number;
+   function "+"(X: Number) return Number;
+   function "-"(X: Number) return Number;
+
+   -- addition / subtraction
+   function "+"(X: Number; Y: Number) return Number;
+   function "-"(X: Number; Y: Number) return Number;
+
+   -- multiplication / division
+   function "*"(X: Number; Y: Number) return Number;
+   function "/"(X: Number; Y: Number) return Number;
+
+   -- exponentiation
+   function "**"(X: Number; Y: Positive) return Number;
+   function "**"(X: Number; Y: Real) return Number;
+
+   -- Output to Standard IO (wrapper for Ada.Text_IO and Ada.Text_IO.Float_IO)
+   procedure Put_Line(Message: String;
+                      Item: Number;
+                      Value_Fore: Natural := 7;
+                      Sigma_Fore: Natural := 4;
+                      Aft:  Natural := 2;
+                      Exp:  Natural := 0);
+   procedure Put(Item: Number;
+                 Value_Fore: Natural := 7;
+                 Sigma_Fore: Natural := 3;
+                 Aft:  Natural := 2;
+                 Exp:  Natural := 0);
+
+private
+   type Number is record
+      Value: Real;
+      Sigma: Real;
+   end record;
+end Approximation;</syntaxhighlight>
+
+The implementation:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+package body Approximation is
+
+   package RIO is new Ada.Text_IO.Float_IO(Real);
+
+   -- create an approximation
+
+   function Approx(Value: Real; Sigma: Real) return Number is
+   begin
+      return (Value, Sigma);
+   end Approx;
+
+   -- unary operations and conversion Real to Number
+
+   function "+"(X: Real) return Number is
+   begin
+      return Approx(X, 0.0);
+   end "+";
+
+   function "-"(X: Real) return Number is
+   begin
+      return Approx(-X, 0.0);
+   end "-";
+
+   function "+"(X: Number) return Number is
+   begin
+      return X;
+   end "+";
+
+   function "-"(X: Number) return Number is
+   begin
+      return Approx(-X.Value, X.Sigma);
+   end "-";
+
+   -- addition / subtraction
+
+   function "+"(X: Number; Y: Number) return Number is
+      Z: Number;
+   begin
+      Z.Value := X.Value + Y.Value;
+      Z.Sigma := Sqrt(X.Sigma*X.Sigma + Y.Sigma*Y.Sigma);
+      return Z;
+   end "+";
+
+   function "-"(X: Number; Y: Number) return Number is
+   begin
+      return X + (-Y);
+   end "-";
+
+   -- multiplication / division
+
+   function "*"(X: Number; Y: Number) return Number is
+      Z: Number;
+   begin
+      Z.Value := X.Value * Y.Value;
+      Z.Sigma := Z.Value * Sqrt((X.Sigma/X.Value)**2 + (Y.Sigma/Y.Value)**2);
+      return Z;
+   end "*";
+
+   function "/"(X: Number; Y: Number) return Number is
+      Z: Number;
+   begin
+      Z.Value := X.Value / Y.Value;
+      Z.Sigma := Z.Value * Sqrt((X.Sigma/X.Value)**2 + (Y.Sigma/Y.Value)**2);
+      return Z;
+   end "/";
+
+   -- exponentiation
+
+   function "**"(X: Number; Y: Positive) return Number is
+      Z: Number;
+   begin
+      Z.Value := X.Value ** Y ;
+      Z.Sigma := Z.Value * Real(Y) * (X.Sigma/X.Value);
+      if Z.Sigma < 0.0 then
+         Z.Sigma := - Z.Sigma;
+      end if;
+      return Z;
+   end "**";
+
+   function "**"(X: Number; Y: Real) return Number is
+      Z: Number;
+   begin
+      Z.Value := X.Value ** Y ;
+      Z.Sigma := Z.Value * Y * (X.Sigma/X.Value);
+      if Z.Sigma < 0.0 then
+         Z.Sigma := - Z.Sigma;
+      end if;
+      return Z;
+   end "**";
+
+   -- Output to Standard IO (wrapper for Ada.Text_IO.Float_IO)
+
+   procedure Put_Line(Message: String;
+                      Item: Number;
+                      Value_Fore: Natural := 7;
+                      Sigma_Fore: Natural := 4;
+                      Aft:  Natural := 2;
+                      Exp:  Natural := 0) is
+   begin
+      Ada.Text_IO.Put(Message);
+      Put(Item, Value_Fore, Sigma_Fore, Aft, Exp);
+      Ada.Text_IO.New_Line;
+   end Put_Line;
+
+   procedure Put(Item: Number;
+                 Value_Fore: Natural := 7;
+                 Sigma_Fore: Natural := 3;
+                 Aft:  Natural := 2;
+                 Exp:  Natural := 0) is
+   begin
+      RIO.Put(Item.Value, Value_Fore, Aft, Exp);
+      Ada.Text_IO.Put(" (+-");
+      RIO.Put(Item.Sigma, Sigma_Fore, Aft, Exp);
+      Ada.Text_IO.Put(")");
+   end Put;
+
+end Approximation;</syntaxhighlight>
+
+Instantiating the package with Float operations, to compute the distance:
+
+<syntaxhighlight lang="ada">with Approximation, Ada.Numerics.Elementary_Functions;
+
+procedure Test_Approximations is
+   package A is new Approximation(Float,
+                                  Ada.Numerics.Elementary_Functions.Sqrt,
+                                  Ada.Numerics.Elementary_Functions."**");
+   use type A.Number;
+   X1: A.Number := A.Approx(100.0, 1.1);
+   Y1: A.Number := A.Approx( 50.0, 1.2);
+   X2: A.Number := A.Approx(200.0, 2.2);
+   Y2: A.Number := A.Approx(100.0, 2.3);
+
+begin
+   A.Put_Line("Distance:",
+              ((X1-X2)**2 + (Y1 - Y2)**2)**0.5,
+              Sigma_Fore => 1);
+end Test_Approximations;</syntaxhighlight>
+
+Output:
+<pre>Distance:    111.80 (+-2.49)</pre>

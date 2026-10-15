@@ -1,0 +1,20 @@
+=={{header|FreeBASIC}}==
+===third party===
+The FreeBASIC compiler supports all compilation targets. You only need to install one fbc per host system, and it can be used to compile both native and non-native programs.
+
+* default: compile for native system
+* The -target and -arch compiler options allow cross-compilation
+
+
+Requirements for cross compilation:
+
+The official FB release packages include a cross-compilable fbc, but fbc alone is not enough.
+
+1. In addition to fbc, FreeBASIC consists of the FB runtime library (rtlib/libfb) and the FB graphics library (gfxlib2/libfbgfx). Additionally, FreeBASIC uses libraries from the MinGW, DJGPP, or Linux GCC toolchains. All these libraries are precompiled for a certain purpose.
+
+2. FreeBASIC uses the assembler and linker (and sometimes even more tools) from the GNU binutils project to create binary files.
+
+To keep the official FB release packages small, they only include the necessary libraries and tools for native development, but not cross-compiling.
+
+{{omit from|J}}
+{{omit from|Julia}}

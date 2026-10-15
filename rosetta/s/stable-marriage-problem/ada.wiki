@@ -1,0 +1,302 @@
+=={{header|SPARK}} / {{header|Ada}}==
+{{works with|SPARK GPL}}
+{{works with|GNAT}}
+This solution works for Ada, too, since SPARK code is correct Ada code.
+
+The data set package:
+<syntaxhighlight lang="ada">package Preferences
+is
+
+   type Guy_X is (no_guy, abe, bob, col, dan, ed, fred, gav, hal, ian, jon);
+   subtype Guy is Guy_X range Guy_X'Succ(Guy_X'First) .. Guy_X'Last;
+
+   type Girl_X is (no_girl, abi, bea, cath, dee, eve, fay, gay, hope, ivy, jan);
+   subtype Girl is Girl_X range Girl_X'Succ(Girl_X'First) .. Girl_X'Last;
+
+   type Extended_Rank is range 0 .. 10;
+   subtype Rank is Extended_Rank range 1 .. Extended_Rank'Last;
+
+   type His_Rank is array (Rank) of Girl;
+   type He_Prefers is array (Guy) of His_Rank;
+
+   Guys_Like : constant He_Prefers := He_Prefers'(
+     abe  => His_Rank'(abi, eve, cath, ivy, jan, dee, fay, bea, hope, gay),
+     bob  => His_Rank'(cath, hope, abi, dee, eve, fay, bea, jan, ivy, gay),
+     col  => His_Rank'(hope, eve, abi, dee, bea, fay, ivy, gay, cath, jan),
+     dan  => His_Rank'(ivy, fay, dee, gay, hope, eve, jan, bea, cath, abi),
+     ed   => His_Rank'(jan, dee, bea, cath, fay, eve, abi, ivy, hope, gay),
+     fred => His_Rank'(bea, abi, dee, gay, eve, ivy, cath, jan, hope, fay),
+     gav  => His_Rank'(gay, eve, ivy, bea, cath, abi, dee, hope, jan, fay),
+     hal  => His_Rank'(abi, eve, hope, fay, ivy, cath, jan, bea, gay, dee),
+     ian  => His_Rank'(hope, cath, dee, gay, bea, abi, fay, ivy, jan, eve),
+     jon  => His_Rank'(abi, fay, jan, gay, eve, bea, dee, cath, ivy, hope));
+
+   type Her_Rank is array(Rank) of Guy;
+   type She_Prefers is array (Girl) of Her_Rank;
+
+   Girls_Like : constant She_Prefers := She_Prefers'(
+     abi  => Her_Rank'(bob, fred, jon, gav, ian, abe, dan, ed, col, hal),
+     bea  => Her_Rank'(bob, abe, col, fred, gav, dan, ian, ed, jon, hal),
+     cath => Her_Rank'(fred, bob, ed, gav, hal, col, ian, abe, dan, jon),
+     dee  => Her_Rank'(fred, jon, col, abe, ian, hal, gav, dan, bob, ed),
+     eve  => Her_Rank'(jon, hal, fred, dan, abe, gav, col, ed, ian, bob),
+     fay  => Her_Rank'(bob, abe, ed, ian, jon, dan, fred, gav, col, hal),
+     gay  => Her_Rank'(jon, gav, hal, fred, bob, abe, col, ed, dan, ian),
+     hope => Her_Rank'(gav, jon, bob, abe, ian, dan, hal, ed, col, fred),
+     ivy  => Her_Rank'(ian, col, hal, gav, fred, bob, abe, ed, jon, dan),
+     jan  => Her_Rank'(ed, hal, gav, abe, bob, jon, col, ian, fred, dan));
+
+end Preferences;
+</syntaxhighlight>
+The package for creating the engagements and checking stability. This package can be analysed by the SPARK tools and proved to be free of any run-time error.
+<syntaxhighlight lang="ada">with Preferences;
+--# inherit Preferences;
+package Propose
+is
+
+   type Engagements is array (Preferences.Girl) of Preferences.Guy_X;
+
+   procedure Engage (Pairs :    out Engagements);
+   --# derives Pairs from ;
+
+   procedure Check_Stable (Pairs      : in     Engagements;
+                           OK         :    out Boolean;
+                           Other_Girl :    out Preferences.Girl_X;
+                           Other_Guy  :    out Preferences.Guy_X);
+   --# derives OK,
+   --#         Other_Girl,
+   --#         Other_Guy from Pairs;
+
+end Propose;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">with Preferences;
+use type Preferences.Extended_Rank;
+use type Preferences.Girl;
+use type Preferences.Guy;
+package body Propose
+is
+
+   --  renaming subtypes:
+   subtype Guy  is Preferences.Guy;
+   subtype Girl is Preferences.Girl;
+
+   function Her_Rank_Of_Him (Her : Girl;
+                             Him : Guy) return Preferences.Rank
+   is
+      R : Preferences.Rank;
+   begin
+      R := Preferences.Rank'First;
+      while Preferences.Girls_Like(Her)(R) /= Him
+        and R /= Preferences.Rank'Last
+      loop
+         R := Preferences.Rank'Succ(R);
+      end loop;
+      return R;
+   end Her_Rank_Of_Him;
+
+   function His_Rank_Of_Her (Him : Guy;
+                             Her : Girl) return Preferences.Rank
+   is
+      R : Preferences.Rank;
+   begin
+      R := Preferences.Rank'First;
+      while Preferences.Guys_Like(Him)(R) /= Her
+        and R /= Preferences.Rank'Last
+      loop
+         R := Preferences.Rank'Succ(R);
+      end loop;
+      return R;
+   end His_Rank_Of_Her;
+
+   procedure Engage (Pairs :    out Engagements)
+   is
+      type Free_Guy  is array (Guy)  of Boolean;
+      type Free_Girl is array (Girl) of Boolean;
+      type Last_Proposals is array (Guy) of Preferences.Extended_Rank;
+
+      --  Initialize all M in M_Free and W in W_Free to free.
+      M_Free : Free_Guy  := Free_Guy'(others => True);
+      W_Free : Free_Girl := Free_Girl'(others => True);
+      Last_Proposal : Last_Proposals :=
+        Last_Proposals'(others => Preferences.Extended_Rank'First);
+
+      All_Paired : Boolean := False;
+      W  : Girl;
+      M1 : Preferences.Guy_X;
+
+   begin
+      --  Initially set all engagements to null.
+      Pairs := Engagements'(others => Preferences.No_Guy);
+      --  while there is a free man M who still has a woman W to propose to
+      while not All_Paired loop
+         All_Paired := True;
+         for M in Guy loop
+            if M_Free(M) and Last_Proposal(M) < Preferences.Rank'Last then
+               All_Paired := False;
+               --  W = M's highest ranked such woman who he has not
+               --            proposed to yet
+               Last_Proposal(M) := Preferences.Rank'Succ(Last_Proposal(M));
+               W := Preferences.Guys_Like(M)(Last_Proposal(M));
+               --  if W is free
+               if W_Free(W) then
+                  --  (M, W) become engaged
+                  M_Free(M) := False;
+                  W_Free(W) := False;
+                  Pairs(W)  := M;
+               else
+                  --  else some pair (M1, W) already exists
+                  M1 := Pairs(W);
+                  if M1 > Preferences.no_guy and then
+                  --  if W prefers M to M1
+                    Her_Rank_Of_Him (Her => W, Him => M)
+                    < Her_Rank_Of_Him (Her => W, Him => M1)
+                  then
+                     --  (M, W) become engaged
+                     M_Free(M) := False;
+                     Pairs(W)  := M;
+                     --  M1 becomes free
+                     M_Free(M1) := True;
+                  else
+                     --  (M1, W) remain engaged
+                     null;
+                  end if;
+               end if;
+            end if;
+         end loop;
+      end loop;
+   end Engage;
+
+   procedure Check_Stable (Pairs      : in     Engagements;
+                           OK         :    out Boolean;
+                           Other_Girl :    out Preferences.Girl_X;
+                           Other_Guy  :    out Preferences.Guy_X)
+   is
+      M      : Preferences.Guy_X;
+      W_Rank : Preferences.Rank;
+   begin
+      OK := True;
+      Other_Girl := Preferences.No_Girl;
+      Other_Guy  := Preferences.No_Guy;
+      --  Loop over all girls.
+      for W in Girl loop
+         if Pairs(W) > Preferences.no_guy then
+            W_Rank := Her_Rank_Of_Him (W, Pairs(W));
+            --  Loop over all guys she prefers to her current guy.
+            for WR in Preferences.Rank range 1 .. W_Rank - 1 loop
+               M := Preferences.Girls_Like(W)(WR);
+               if M > Preferences.no_guy then
+                  --  Loop over all girls for this guy in preference order.
+                  for MR in Preferences.Rank
+                  --# assert M > Preferences.no_guy;
+                  loop
+                     --  Exit if his current girl found before this girl.
+                     exit when M = Pairs(Preferences.Guys_Like(M)(MR));
+                     --  Unstable if this girl found before his current girl.
+                     if Preferences.Guys_Like(M)(MR) = W then
+                        OK := False;
+                        Other_Girl := W;
+                        Other_Guy  := M;
+                     end if;
+                  end loop;
+               end if;
+               exit when not OK;
+            end loop;
+         end if;
+         exit when not OK;
+      end loop;
+   end Check_Stable;
+
+end Propose;
+</syntaxhighlight>
+The test program tests all pairwise exchanges. This is Ada, it is not SPARK.
+
+(Text IO is quite tedious in SPARK - it's not what the language was designed for.)
+<syntaxhighlight lang="ada">------------------------------------
+--  Test program.
+--
+--  This is Ada, it is not SPARK.
+------------------------------------
+
+with Ada.Text_IO;
+with Preferences;
+with Propose;
+procedure Matchmaker
+is
+   --  renaming subtypes:
+   subtype Guy  is Preferences.Guy;
+   subtype Girl is Preferences.Girl;
+
+   Marriages : Propose.Engagements;
+   Stable    : Boolean;
+   Him       : Preferences.Guy_X;
+   Her       : Preferences.Girl_X;
+   Stable_Marriages : Propose.Engagements;
+
+   procedure Report_Stable
+   is
+   begin
+      if Stable then
+         Ada.Text_IO.Put_Line ("Pairs are Stable");
+      else
+         Ada.Text_IO.Put ("Pairs are Unstable: ");
+         Ada.Text_IO.Put_Line
+           (Guy'Image(Him) & " and " & Girl'Image(Her) & " prefer each other.");
+      end if;
+   end Report_Stable;
+
+begin
+
+   Propose.Engage(Pairs => Marriages);
+   for W in Girl loop
+      Ada.Text_IO.Put_Line (Girl'Image(W) &
+                            " marries " &
+                            Guy'Image(Marriages(W)));
+   end loop;
+   Propose.Check_Stable (Pairs      => Marriages,
+                         OK         => Stable,
+                         Other_Girl => Her,
+                         Other_Guy  => Him);
+   Report_Stable;
+   Stable_Marriages := Marriages;
+
+   for W1 in Girl range Girl'First .. Girl'Pred(Girl'Last) loop
+      for W2 in Girl range Girl'Succ(W1) .. Girl'Last loop
+         Ada.Text_IO.New_Line;
+         Ada.Text_IO.Put_Line ("Exchange " & Guy'Image(Marriages(W1)) &
+                               " with " & Guy'Image(Marriages(W2)));
+         Him := Marriages(W1);
+         Marriages(W1) := Marriages(W2);
+         Marriages(W2) := Him;
+         Propose.Check_Stable (Pairs      => Marriages,
+                               OK         => Stable,
+                               Other_Girl => Her,
+                               Other_Guy  => Him);
+         Report_Stable;
+         Marriages := Stable_Marriages;
+      end loop;
+   end loop;
+
+end MatchMaker;
+</syntaxhighlight>
+The begining of the output from the test. All pairwise exchanges create unstable pairings.
+<pre>ABI marries JON
+BEA marries FRED
+CATH marries BOB
+DEE marries COL
+EVE marries HAL
+FAY marries DAN
+GAY marries GAV
+HOPE marries IAN
+IVY marries ABE
+JAN marries ED
+Pairs are Stable
+
+Exchange JON with FRED
+Pairs are Unstable: FRED and BEA prefer each other.
+
+Exchange JON with BOB
+Pairs are Unstable: BOB and CATH prefer each other.
+
+Exchange JON with COL
+Pairs are Unstable: JON and ABI prefer each other.
+</pre>

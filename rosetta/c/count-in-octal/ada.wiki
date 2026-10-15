@@ -1,0 +1,29 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+
+procedure Octal is
+   package IIO is new Ada.Text_IO.Integer_IO(Integer);
+begin
+   for I in 0 .. Integer'Last loop
+      IIO.Put(I, Base => 8);
+      Ada.Text_IO.New_Line;
+   end loop;
+end Octal;</syntaxhighlight>
+First few lines of Output:
+<pre>       8#0#
+       8#1#
+       8#2#
+       8#3#
+       8#4#
+       8#5#
+       8#6#
+       8#7#
+      8#10#
+      8#11#
+      8#12#
+      8#13#
+      8#14#
+      8#15#
+      8#16#
+      8#17#
+      8#20#</pre>

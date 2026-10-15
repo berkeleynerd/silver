@@ -1,0 +1,159 @@
+=={{header|FreeBASIC}}==
+
+ ''&apos; Syntax highlight a FreeBASIC source with Mediawiki markup''
+ ''&apos;''
+ ''&apos;     each line is preceeded by a space,''
+ ''&apos;     keywords are enclosed in &apos;&apos;&apos; and &apos;&apos;&apos; and comments in &apos;&apos; and &apos;&apos;''
+ ''&apos;     &apos;, &amp;, &lt; and &gt; are converted to &amp;apos; &amp;amp; &amp;lt; and &amp;gt;''
+ ''&apos;     everything else if output as is''
+ ''&apos;     the source is read from standard input and written to standard output''
+ ''&apos;''
+ ''&apos;     /&apos;...&apos;/ comments are not handled''
+ 
+ 
+ '''Dim''' '''As''' '''Const''' '''String''' italic = "&apos;&apos;", bold = "&apos;&apos;&apos;"    ''&apos; markup for italic and bold''
+ '''Dim''' '''Shared''' '''As''' '''String'''  kw( 1 '''To''' 150 )               ''&apos; Keyword table''
+ '''Dim''' '''Shared''' '''As''' '''Integer''' kwMax = 0                    ''&apos; Number of keywords''
+ 
+ ''&apos; adds word to the table of keywords''
+ '''Sub''' addKw( '''ByVal''' word '''As''' '''String''' )
+     kwMax += 1
+     kw( kwMax ) = word
+ '''End''' '''Sub'''
+ 
+ ''&apos; (incomplete) list of keywords - must be added in sorted order''
+ addKw( "ABSTRACT"    ): addKw( "ACCESS"      ): addKw( "ALIAS"       ): addKw( "AND"         )
+ addKw( "ANDALSO"     ): addKw( "ANY"         ): addKw( "APPEND"      ): addKw( "AS"          )
+ addKw( "ASM"         ): addKw( "BASE"        ): addKw( "BINARY"      ): addKw( "BOOLEAN"     )
+ addKw( "BYREF"       ): addKw( "BYTE"        ): addKw( "BYVAL"       ): addKw( "CALL"        )
+ addKw( "CASE"        ): addKw( "CAST"        ): addKw( "CLASS"       ): addKw( "CLOSE"       )
+ addKw( "COMMON"      ): addKw( "CONST"       ): addKw( "CONSTRUCTOR" ): addKw( "CONTINUE"    )
+ addKw( "DATA"        ): addKw( "DECLARE"     ): addKw( "DELETE"      ): addKw( "DESTRUCTOR"  )
+ addKw( "DIM"         ): addKw( "DO"          ): addKw( "DOUBLE"      ): addKw( "ELSE"        )
+ addKw( "ELSEIF"      ): addKw( "END"         ): addKw( "ENDIF"       ): addKw( "ENUM"        )
+ addKw( "EQV"         ): addKw( "ERASE"       ): addKw( "ERROR"       ): addKw( "EXIT"        )
+ addKw( "EXPLICIT"    ): addKw( "EXPORT"      ): addKw( "EXTENDS"     ): addKw( "EXTERN"      )
+ addKw( "FOR"         ): addKw( "FUNCTION"    ): addKw( "GET"         ): addKw( "GOSUB"       )
+ addKw( "GOTO"        ): addKw( "IF"          ): addKw( "IIF"         ): addKw( "IMP"         )
+ addKw( "IMPLEMENTS"  ): addKw( "IMPORT"      ): addKw( "INCLUDE"     ): addKw( "INPUT"       )
+ addKw( "INTEGER"     ): addKw( "IS"          ): addKw( "LET"         ): addKw( "LIB"         )
+ addKw( "LINE"        ): addKw( "LOCK"        ): addKw( "LONG"        ): addKw( "LONGINT"     )
+ addKw( "LOOP"        ): addKw( "LPRINT"      ): addKw( "MOD"         ): addKw( "NAMESPACE"   )
+ addKw( "NEW"         ): addKw( "NEXT"        ): addKw( "NOT"         ): addKw( "ON"          )
+ addKw( "OPEN"        ): addKw( "OPERATOR"    ): addKw( "OPTION"      ): addKw( "OR"          )
+ addKw( "ORELSE"      ): addKw( "OUTPUT"      ): addKw( "OVERLOAD"    ): addKw( "PEEK"        )
+ addKw( "POINTER"     ): addKw( "POKE"        ): addKw( "PRESERVE"    ): addKw( "PRINT"       )
+ addKw( "PRIVATE"     ): addKw( "PROCPTR"     ): addKw( "PROPERTY"    ): addKw( "PROTECTED"   )
+ addKw( "PTR"         ): addKw( "PUBLIC"      ): addKw( "PUT"         ): addKw( "RANDOM"      )
+ addKw( "READ"        ): addKw( "REDIM"       ): addKw( "REM"         ): addKw( "RESTORE"     )
+ addKw( "RESUME"      ): addKw( "RETURN"      ): addKw( "SCOPE"       ): addKw( "SEEK"        )
+ addKw( "SELECT"      ): addKw( "SHARED"      ): addKw( "SHL"         ): addKw( "SHORT"       )
+ addKw( "SHR"         ): addKw( "SINGLE"      ): addKw( "STATIC"      ): addKw( "STEP"        )
+ addKw( "STRING"      ): addKw( "SUB"         ): addKw( "SWAP"        ): addKw( "THEN"        )
+ addKw( "TO"          ): addKw( "TYPE"        ): addKw( "TYPEOF"      ): addKw( "UBYTE"       )
+ addKw( "UINTEGER"    ): addKw( "ULONG"       ): addKw( "ULONGINT"    ): addKw( "UNION"       )
+ addKw( "UNSIGNED"    ): addKw( "UNTIL"       ): addKw( "USHORT"      ): addKw( "USING"       )
+ addKw( "VAR"         ): addKw( "VIRTUAL"     ): addKw( "WEND"        ): addKw( "WHILE"       )
+ addKw( "WITH"        ): addKw( "WRITE"       ): addKw( "WSTRING"     ): addKw( "XOR"         )
+ addKw( "ZSTRING"     )
+ 
+ ''&apos; returns True if word is a keyword, False otherwise''
+ '''Function''' isKeyword( '''ByVal''' word '''As''' '''String''', '''ByVal''' low '''As''' '''Integer''', '''ByVal''' high '''As''' '''Integer''' ) '''As''' '''Boolean'''
+     '''If''' high &lt; low '''Then'''
+         '''Return''' False
+     '''Else'''
+         '''Dim''' '''As''' '''Integer''' m = ( low + high ) \ 2
+         '''If''' kw( m ) &gt; word '''Then'''
+             '''Return''' isKeyword( word, low,     m - 1 )
+         '''ElseIf''' kw( m ) = word '''Then'''
+             '''Return''' True
+         '''Else'''
+             '''Return''' isKeyword( word, m + 1, high    )
+         '''End''' '''If'''
+     '''End''' '''If'''
+ '''End''' '''Function'''
+ 
+ ''&apos; returns ch translated to an XML entity, if necessary.''
+ '''Function''' tran1( '''ByVal''' ch '''As''' '''String''' ) '''As''' '''String'''
+     '''Select''' '''Case''' ch
+     '''Case''' "&lt;"
+         '''Return''' "&amp;lt;"
+     '''Case''' "&gt;"
+         '''Return''' "&amp;gt;"
+     '''Case''' "&amp;"
+         '''Return''' "&amp;amp;"
+     '''Case''' "&apos;"
+         '''Return''' "&amp;apos;"
+     '''Case''' '''Else'''
+         '''Return''' ch
+     '''End''' '''Select'''
+ '''End''' '''Function'''
+ 
+ 
+ ''&apos; read the source from standard input,''
+ ''&apos; write the highlighted source to standard output''
+ '''Dim''' '''As''' '''String''' sLine
+ '''Open''' Cons '''For''' '''Input''' '''As''' #1
+ 
+ '''Do'''
+     '''Line''' '''Input''' #1, sLine
+     '''If''' Eof( 1 ) '''Then'''
+         '''Exit''' '''Do'''
+     '''End''' '''If'''
+     '''Dim''' '''As''' '''String''' oLine = " "
+     '''Dim''' '''As''' '''Integer''' sPos = 1
+     '''Dim''' '''As''' '''Const''' '''Integer''' sMax = Len( sLine )
+     '''Do''' '''While''' sPos &lt;= sMax
+         '''Dim''' '''As''' '''String''' ch = Mid( sLine, sPos, 1 )
+         '''Select''' '''Case''' ch
+         '''Case''' "&apos;" ''&apos; Comment''
+             oLine &amp;= italic
+             '''Do'''
+                 oLine &amp;= tran1( ch )
+                 sPos += 1
+                 '''If''' sPos &lt;= sMax '''Then'''
+                     ch = Mid( sLine, sPos, 1 )
+                 '''End''' '''If''' 
+             '''Loop''' '''Until''' sPos &gt; sMax
+             oLine &amp;= italic
+         '''Case''' """" ''&apos; String''
+             '''Do'''
+                 oLine &amp;= tran1( ch )
+                 sPos += 1
+                 '''If''' sPos &lt;= sMax '''Then'''
+                     ch = Mid( sLine, sPos, 1 )
+                 '''End''' '''If''' 
+             '''Loop''' '''Until''' sPos &gt; sMax '''Or''' ch = """"
+             '''If''' ch = """" '''Then'''
+                 oLine &amp;= """"
+             '''End''' '''If'''
+         '''Case''' '''Else'''
+             '''If''' ( ch &gt;= "a" '''And''' ch &lt;= "z" ) '''Or''' ( ch &gt;= "A" '''And''' ch &lt;= "Z" ) '''Then'''
+                 ''&apos; Identifier or keyword''
+                 '''Dim''' '''As''' '''String''' word = ""
+                 '''Do'''
+                     word &amp;= ch
+                     sPos += 1
+                     '''If''' sPos &lt;= sMax '''Then'''
+                         ch = Mid( sLine, sPos, 1 )
+                     '''End''' '''If''' 
+                 '''Loop''' '''While''' sPos &lt;= sMax _
+                        '''And''' (  ( ch &gt;= "a" '''And''' ch &lt;= "z" ) _
+                            '''Or''' ( ch &gt;= "A" '''And''' ch &lt;= "Z" ) _
+                            '''Or''' ( ch &gt;= "0" '''ANd''' ch &lt;= "9" ) _
+                            '''Or''' ch = "_" _
+                            )
+                 '''If''' isKeyword( UCase( word ), LBound( kw ), kwMax ) '''Then'''
+                     word = bold &amp; word &amp; bold
+                 '''End''' '''If'''
+                 oLine &amp;= word
+                 sPos -= 1
+             '''Else'''
+                 ''&apos; Something else''
+                 oLine &amp;= tran1( ch )
+             '''End''' '''If'''
+         '''End''' '''Select'''
+         sPos += 1
+     '''Loop'''
+     '''Print''' oLine
+ '''Loop'''

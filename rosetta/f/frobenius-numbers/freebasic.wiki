@@ -1,0 +1,41 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">#include "isprime.bas"
+
+dim as integer pn=2, n=0, f
+for i as integer = 3 to 9999 step 2
+    if isprime(i) then
+        n += 1
+        f = pn*i - pn - i
+        if f > 10000 then end
+        print n, f
+        pn = i
+    end if
+next i</syntaxhighlight>
+{{out}}
+<pre>
+ 1             1
+ 2             7
+ 3             23
+ 4             59
+ 5             119
+ 6             191
+ 7             287
+ 8             395
+ 9             615
+ 10            839
+ 11            1079
+ 12            1439
+ 13            1679
+ 14            1931
+ 15            2391
+ 16            3015
+ 17            3479
+ 18            3959
+ 19            4619
+ 20            5039
+ 21            5615
+ 22            6395
+ 23            7215
+ 24            8447
+ 25            9599
+</pre>

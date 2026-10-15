@@ -1,0 +1,187 @@
+=={{header|Ada}}==
+
+===Array of mutexes===
+{{libheader|Simple components for Ada}}
+The following solution uses an array of [[mutex]]es in order to model the forks. The forks used by a philosopher compose a subset in the array. When the the philosopher seizes his forks from the subset the array object prevents deadlocking since it is an atomic operation.
+<syntaxhighlight lang="ada">with Ada.Numerics.Float_Random;  use Ada.Numerics.Float_Random;
+with Ada.Text_IO;                use Ada.Text_IO;
+
+with Synchronization.Generic_Mutexes_Array;
+
+procedure Test_Dining_Philosophers is
+   type Philosopher is (Aristotle, Kant, Spinoza, Marx, Russel);
+   package Fork_Arrays is new Synchronization.Generic_Mutexes_Array (Philosopher);
+   use Fork_Arrays;
+
+   Life_Span : constant := 20;    -- In his life a philosopher eats 20 times
+   Forks : aliased Mutexes_Array; -- Forks for hungry philosophers
+   
+   function Left_Of (Fork : Philosopher) return Philosopher is
+   begin
+      if Fork = Philosopher'First then
+         return Philosopher'Last;
+      else
+         return Philosopher'Pred (Fork);
+      end if;
+   end Left_Of;
+
+   task type Person (ID : Philosopher);
+   task body Person is
+      Cutlery : aliased Mutexes_Set := ID or Left_Of (ID);
+      Dice    : Generator;
+   begin
+      Reset (Dice);
+      for Life_Cycle in 1..Life_Span loop
+         Put_Line (Philosopher'Image (ID) & " is thinking");
+         delay Duration (Random (Dice) * 0.100);
+         Put_Line (Philosopher'Image (ID) & " is hungry");
+         declare
+            Lock : Set_Holder (Forks'Access, Cutlery'Access);
+         begin
+            Put_Line (Philosopher'Image (ID) & " is eating");
+            delay Duration (Random (Dice) * 0.100);
+         end;
+      end loop;
+      Put_Line (Philosopher'Image (ID) & " is leaving");
+   end Person;
+
+   Ph_1 : Person (Aristotle); -- Start philosophers
+   Ph_2 : Person (Kant);
+   Ph_3 : Person (Spinoza);
+   Ph_4 : Person (Marx);
+   Ph_5 : Person (Russel);
+begin
+   null; -- Nothing to do in the main task, just sit and behold
+end Test_Dining_Philosophers;</syntaxhighlight>
+===Ordered mutexes===
+In the following solution forks are implemented as plain [[mutex]]es. The deadlock is prevented by ordering mutexes. Philosopher tasks seize them in same order 1, 2, 3, 4, 5.
+<syntaxhighlight lang="ada">with Ada.Numerics.Float_Random;  use Ada.Numerics.Float_Random;
+with Ada.Text_IO;                use Ada.Text_IO;
+
+procedure Test_Dining_Philosophers is
+   type Philosopher is (Aristotle, Kant, Spinoza, Marx, Russel);
+   protected type Fork is
+      entry Grab;
+      procedure Put_Down;
+   private
+      Seized : Boolean := False;
+   end Fork;
+   protected body Fork is
+      entry Grab when not Seized is
+      begin
+         Seized := True;
+      end Grab;
+      procedure Put_Down is
+      begin
+         Seized := False;
+      end Put_Down;
+   end Fork;
+   
+   Life_Span : constant := 20;    -- In his life a philosopher eats 20 times
+   
+   task type Person (ID : Philosopher; First, Second : not null access Fork);
+   task body Person is
+      Dice : Generator;
+   begin
+      Reset (Dice);
+      for Life_Cycle in 1..Life_Span loop
+         Put_Line (Philosopher'Image (ID) & " is thinking");
+         delay Duration (Random (Dice) * 0.100);
+         Put_Line (Philosopher'Image (ID) & " is hungry");
+         First.Grab;
+         Second.Grab;
+         Put_Line (Philosopher'Image (ID) & " is eating");
+         delay Duration (Random (Dice) * 0.100);
+         Second.Put_Down;
+         First.Put_Down;
+      end loop;
+      Put_Line (Philosopher'Image (ID) & " is leaving");
+   end Person;
+
+   Forks : array (1..5) of aliased Fork; -- Forks for hungry philosophers
+                                         -- Start philosophers
+   Ph_1 : Person (Aristotle, Forks (1)'Access, Forks (2)'Access);
+   Ph_2 : Person (Kant,      Forks (2)'Access, Forks (3)'Access);
+   Ph_3 : Person (Spinoza,   Forks (3)'Access, Forks (4)'Access);
+   Ph_4 : Person (Marx,      Forks (4)'Access, Forks (5)'Access);
+   Ph_5 : Person (Russel,    Forks (1)'Access, Forks (5)'Access);
+begin
+   null; -- Nothing to do in the main task, just sit and behold
+end Test_Dining_Philosophers;</syntaxhighlight>
+===Host of the dining room===
+Both deadlocks happen when all philosophers are in the dining room. The following solution has a host of the room who chatters the last philosopher while four of them are in the room. So there are never more than four of them in there, which prevents deadlock. Now the forks can be picked up in a "wrong" order, i.e. the left one first.
+<syntaxhighlight lang="ada">with Ada.Numerics.Float_Random;  use Ada.Numerics.Float_Random;
+with Ada.Text_IO;                use Ada.Text_IO;
+
+procedure Test_Dining_Philosophers is
+   type Philosopher is (Aristotle, Kant, Spinoza, Marx, Russel);
+   
+   protected type Fork is
+      entry Grab;
+      procedure Put_Down;
+   private
+      Seized : Boolean := False;
+   end Fork;
+   
+   protected Host is
+      entry Greet;
+      procedure Farewell;
+   private
+      Guests : Natural := 0;
+   end Host;
+
+   protected body Fork is
+      entry Grab when not Seized is
+      begin
+         Seized := True;
+      end Grab;
+      procedure Put_Down is
+      begin
+         Seized := False;
+      end Put_Down;
+   end Fork;
+
+   protected body Host is
+      entry Greet when Guests < 5 is
+      begin
+         Guests := Guests + 1;
+      end Greet;
+      procedure Farewell is
+      begin
+         Guests := Guests - 1;
+      end Farewell;
+   end Host;
+
+   Life_Span : constant := 20;    -- In his life a philosopher eats 20 times
+   
+   task type Person (ID : Philosopher; Left, Right : not null access Fork);
+   task body Person is
+      Dice : Generator;
+   begin
+      Reset (Dice);
+      for Life_Cycle in 1..Life_Span loop
+         Put_Line (Philosopher'Image (ID) & " is thinking");
+         delay Duration (Random (Dice) * 0.100);
+         Put_Line (Philosopher'Image (ID) & " is hungry");
+         Host.Greet;
+         Left.Grab;
+         Right.Grab;
+         Put_Line (Philosopher'Image (ID) & " is eating");
+         delay Duration (Random (Dice) * 0.100);
+         Left.Put_Down;
+         Right.Put_Down;
+         Host.Farewell;
+      end loop;
+      Put_Line (Philosopher'Image (ID) & " is leaving");
+   end Person;
+
+   Forks : array (1..5) of aliased Fork; -- Forks for hungry philosophers
+                                         -- Start philosophers
+   Ph_1 : Person (Aristotle, Forks (1)'Access, Forks (2)'Access);
+   Ph_2 : Person (Kant,      Forks (2)'Access, Forks (3)'Access);
+   Ph_3 : Person (Spinoza,   Forks (3)'Access, Forks (4)'Access);
+   Ph_4 : Person (Marx,      Forks (4)'Access, Forks (5)'Access);
+   Ph_5 : Person (Russel,    Forks (5)'Access, Forks (1)'Access);
+begin
+   null; -- Nothing to do in the main task, just sit and behold
+end Test_Dining_Philosophers;</syntaxhighlight>

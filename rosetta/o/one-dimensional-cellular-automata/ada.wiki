@@ -1,0 +1,60 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Cellular_Automata is
+   type Petri_Dish is array (Positive range <>) of Boolean;
+
+   procedure Step (Culture : in out Petri_Dish) is
+      Left  : Boolean := False;
+      This  : Boolean;
+      Right : Boolean;
+   begin
+      for Index in Culture'First..Culture'Last - 1 loop
+         Right := Culture (Index + 1);
+         This  := Culture (Index);
+         Culture (Index) := (This and (Left xor Right)) or (not This and Left and Right);
+         Left := This;
+      end loop;
+      Culture (Culture'Last) := Culture (Culture'Last) and not Left;
+   end Step;
+   
+   procedure Put (Culture : Petri_Dish) is
+   begin
+      for Index in Culture'Range loop
+         if Culture (Index) then
+            Put ('#');
+         else
+            Put ('_');
+         end if;
+      end loop;
+   end Put;
+
+   Culture : Petri_Dish :=
+      (  False, True, True,  True, False, True,  True, False, True, False, True,
+         False, True, False, True, False, False, True, False, False
+      );
+begin
+   for Generation in 0..9 loop
+      Put ("Generation" & Integer'Image (Generation) & ' ');
+      Put (Culture);
+      New_Line;
+      Step (Culture);
+   end loop;
+end Cellular_Automata;</syntaxhighlight>
+
+The implementation defines Petri dish type with Boolean items 
+identifying whether a place is occupied by a living cell. 
+State transition is determined by a simple Boolean expression of three arguments. 
+{{out}}
+<pre>
+Generation 0 _###_##_#_#_#_#__#__
+Generation 1 _#_#####_#_#_#______
+Generation 2 __##___##_#_#_______
+Generation 3 __##___###_#________
+Generation 4 __##___#_##_________
+Generation 5 __##____###_________
+Generation 6 __##____#_#_________
+Generation 7 __##_____#__________
+Generation 8 __##________________
+Generation 9 __##________________
+</pre>

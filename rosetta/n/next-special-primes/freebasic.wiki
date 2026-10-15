@@ -1,0 +1,14 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">#include "isprime.bas"
+
+dim as integer p = 3, i = 2
+
+print "2 3 ";    'special case
+do
+    if isprime( p + i ) then
+        p += i
+        print p;" ";
+    end if
+    i += 2
+loop until p+i >=1050 : print</syntaxhighlight>
+{{out}}<pre>2 3  5  11  19  29  41  59  79  101  127  157  191  227  269  313  359  409  461  521  587  659  733  809  887  967  1049</pre>

@@ -1,0 +1,97 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+
+moving.ads:
+<syntaxhighlight lang="ada">generic
+   Max_Elements : Positive;
+   type Number is digits <>;
+package Moving is
+   procedure Add_Number (N : Number);
+   function Moving_Average (N : Number) return Number;
+   function Get_Average return Number;
+end Moving;</syntaxhighlight>
+
+moving.adb:
+<syntaxhighlight lang="ada">with Ada.Containers.Vectors;
+
+package body Moving is
+   use Ada.Containers;
+
+   package Number_Vectors is new Ada.Containers.Vectors
+     (Element_Type => Number,
+      Index_Type   => Natural);
+
+   Current_List : Number_Vectors.Vector := Number_Vectors.Empty_Vector;
+
+   procedure Add_Number (N : Number) is
+   begin
+      if Natural (Current_List.Length) >= Max_Elements then
+         Current_List.Delete_First;
+      end if;
+      Current_List.Append (N);
+   end Add_Number;
+
+   function Get_Average return Number is
+      Average : Number := 0.0;
+      procedure Sum (Position : Number_Vectors.Cursor) is
+      begin
+         Average := Average + Number_Vectors.Element (Position);
+      end Sum;
+   begin
+      Current_List.Iterate (Sum'Access);
+      if Current_List.Length > 1 then
+         Average := Average / Number (Current_List.Length);
+      end if;
+      return Average;
+   end Get_Average;
+
+   function Moving_Average (N : Number) return Number is
+   begin
+      Add_Number (N);
+      return Get_Average;
+   end Moving_Average;
+
+end Moving;</syntaxhighlight>
+
+main.adb:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Moving;
+procedure Main is
+   package Three_Average is new Moving (Max_Elements => 3, Number => Float);
+   package Five_Average is new Moving (Max_Elements => 5, Number => Float);
+begin
+   for I in 1 .. 5 loop
+      Ada.Text_IO.Put_Line ("Inserting" & Integer'Image (I) &
+        " into max-3: " & Float'Image (Three_Average.Moving_Average (Float (I))));
+      Ada.Text_IO.Put_Line ("Inserting" & Integer'Image (I) &
+        " into max-5: " & Float'Image (Five_Average.Moving_Average (Float (I))));
+   end loop;
+   for I in reverse 1 .. 5 loop
+      Ada.Text_IO.Put_Line ("Inserting" & Integer'Image (I) &
+        " into max-3: " & Float'Image (Three_Average.Moving_Average (Float (I))));
+      Ada.Text_IO.Put_Line ("Inserting" & Integer'Image (I) &
+        " into max-5: " & Float'Image (Five_Average.Moving_Average (Float (I))));
+   end loop;
+end Main;</syntaxhighlight>
+
+{{out}}
+<pre>Inserting 1 into max-3:  1.00000E+00
+Inserting 1 into max-5:  1.00000E+00
+Inserting 2 into max-3:  1.50000E+00
+Inserting 2 into max-5:  1.50000E+00
+Inserting 3 into max-3:  2.00000E+00
+Inserting 3 into max-5:  2.00000E+00
+Inserting 4 into max-3:  3.00000E+00
+Inserting 4 into max-5:  2.50000E+00
+Inserting 5 into max-3:  4.00000E+00
+Inserting 5 into max-5:  3.00000E+00
+Inserting 5 into max-3:  4.66667E+00
+Inserting 5 into max-5:  3.80000E+00
+Inserting 4 into max-3:  4.66667E+00
+Inserting 4 into max-5:  4.20000E+00
+Inserting 3 into max-3:  4.00000E+00
+Inserting 3 into max-5:  4.20000E+00
+Inserting 2 into max-3:  3.00000E+00
+Inserting 2 into max-5:  3.80000E+00
+Inserting 1 into max-3:  2.00000E+00
+Inserting 1 into max-5:  3.00000E+00</pre>

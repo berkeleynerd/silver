@@ -1,0 +1,160 @@
+=={{header|Ada}}==
+
+We start with specifying a generic package Set_Cons that provides the neccessary tools, such as contructing and manipulating sets, truning them, etc.:
+
+<syntaxhighlight lang="ada">generic
+   type Element is (<>);
+   with function Image(E: Element) return String;
+package Set_Cons is
+
+   type Set is private;
+
+   -- constructor and manipulation functions for type Set
+   function "+"(E: Element) return Set;
+   function "+"(Left, Right: Element) return Set;
+   function "+"(Left: Set; Right: Element) return Set;
+   function "-"(Left: Set; Right: Element) return Set;
+
+   -- compare, unite or output a Set
+   function Nonempty_Intersection(Left, Right: Set) return Boolean;
+   function Union(Left, Right: Set) return Set;
+   function Image(S: Set) return String;
+
+   type Set_Vec is array(Positive range <>) of Set;
+
+   -- output a Set_Vec
+   function Image(V: Set_Vec) return String;
+
+private
+   type Set is array(Element) of Boolean;
+
+end Set_Cons;</syntaxhighlight>
+
+Here is the implementation of Set_Cons:
+
+<syntaxhighlight lang="ada">package body Set_Cons is
+
+   function "+"(E: Element) return Set is
+      S: Set := (others => False);
+   begin
+      S(E) := True;
+      return S;
+   end "+";
+
+   function "+"(Left, Right: Element) return Set is
+   begin
+      return (+Left) + Right;
+   end "+";
+
+   function "+"(Left: Set; Right: Element) return Set is
+      S: Set := Left;
+   begin
+      S(Right) := True;
+      return S;
+   end "+";
+
+   function "-"(Left: Set; Right: Element) return Set is
+      S: Set := Left;
+   begin
+      S(Right) := False;
+      return S;
+   end "-";
+
+   function Nonempty_Intersection(Left, Right: Set) return Boolean is
+   begin
+      for E in Element'Range loop
+         if Left(E) and then Right(E) then return True;
+         end if;
+      end loop;
+      return False;
+   end Nonempty_Intersection;
+
+   function Union(Left, Right: Set) return Set is
+      S: Set := Left;
+   begin
+      for E in Right'Range loop
+         if Right(E) then S(E) := True;
+         end if;
+      end loop;
+      return S;
+   end Union;
+
+   function Image(S: Set) return String is
+
+      function Image(S: Set; Found: Natural) return String is
+      begin
+         for E in S'Range loop
+            if S(E) then
+               if Found = 0 then
+                  return Image(E) & Image((S-E), Found+1);
+               else
+                  return "," & Image(E) & Image((S-E), Found+1);
+               end if;
+            end if;
+         end loop;
+         return "";
+      end Image;
+
+   begin
+      return "{" & Image(S, 0) & "}";
+   end Image;
+
+   function Image(V: Set_Vec) return String is
+    begin
+      if V'Length = 0 then
+         return "";
+      else
+         return Image(V(V'First)) & Image(V(V'First+1 .. V'Last));
+      end if;
+   end Image;
+
+end Set_Cons;</syntaxhighlight>
+
+Given that package, the task is easy:
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Set_Cons;
+
+procedure Set_Consolidation is
+
+   type El_Type is (A, B, C, D, E, F, G, H, I, K);
+
+   function Image(El: El_Type) return String is
+   begin
+      return El_Type'Image(El);
+   end Image;
+
+   package Helper is new Set_Cons(Element => El_Type, Image => Image);
+   use Helper;
+
+   function Consolidate(List: Set_Vec) return Set_Vec is
+   begin
+      for I in List'First .. List'Last - 1 loop
+         for J in I+1 .. List'Last loop
+            -- if List(I) and List(J) share an element
+            -- then recursively consolidate
+            --   (List(I) union List(J)) followed by List(K), K not in {I, J}
+            if Nonempty_Intersection(List(I), List(J)) then
+               return Consolidate
+                 (Union(List(I), List(J)) 
+                    & List(List'First .. I-1) 
+                    & List(I+1        .. J-1) 
+                    & List(J+1        .. List'Last));
+            end if;
+         end loop;
+      end loop;
+      return List;
+   end Consolidate;
+
+begin
+   Ada.Text_IO.Put_Line(Image(Consolidate((A+B) & (C+D))));
+   Ada.Text_IO.Put_Line(Image(Consolidate((A+B) & (B+D))));
+   Ada.Text_IO.Put_Line(Image(Consolidate((A+B) & (C+D) & (D+B))));
+   Ada.Text_IO.Put_Line
+     (Image(Consolidate((H+I+K) & (A+B) & (C+D) & (D+B) & (F+G+H))));
+end Set_Consolidation;</syntaxhighlight>
+
+{{out}}
+<pre>{A,B}{C,D}
+{A,B,D}
+{A,B,C,D}
+{A,B,C,D}{F,G,H,I,K}</pre>

@@ -1,0 +1,40 @@
+=={{header|FreeBASIC}}==
+Since FreeBASIC is primarily a compiled language, this problem can be addressed using a technique similar to the one presented in the C example: create an executable program in FreeBASIC that contains the code to be interpreted and that invokes an interpreter for that code at runtime.
+
+Since FreeBASIC does not include a built-in interpreter for its own code nor an API to interpret code directly from a string (part of its nature is to be compiled), the practical way to "compile" an interpreted program is:
+
+* Include the interpreted source code as a string within the FreeBASIC program.
+
+* Save that string to a temporary file when the executable is executed.
+
+* Call the external interpreter (for example, the interpreter of a language like QB64, or any other interpreter accessible from the command line) passing the temporary file.
+
+* Finally, delete the temporary file.
+
+Here is an adapted example in FreeBASIC to illustrate the idea. Suppose we want to "compile" a simple program in an external interpreted language called "InterpretI" (as in the original setup):
+
+<syntaxhighlight lang="vbnet">
+' program_freebasic_fake_compiler.bas
+Dim As String progCode
+Dim As String tempFile
+
+progCode = "print ""Hello, World!""" & Chr(10) ' Interpreted code as a string
+tempFile = "temp_interpret_i.txt"
+
+' Create the temporary file with the code to be interpreted
+Dim As Integer fileNum = FreeFile()
+Open tempFile For Output As #fileNum
+Print #fileNum, progCode
+Close #fileNum
+
+' Run the external interpreter with the temporary file
+Shell("InterpretI " + tempFile)
+
+' Delete the temporary file
+</syntaxhighlight>
+
+This program is compileable and generates an executable that will run that specific interpreted code in "InterpretI" without sending the original source code.
+
+This fulfills the goal of creating an executable for an interpreted program without needing to distribute the interpreter or the source code separately.
+
+If FreeBASIC had an embedded interpreter accessible via API that accepted code as a string (which it doesn't), then creating a temporary file wouldn't be necessary.

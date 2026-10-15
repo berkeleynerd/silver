@@ -1,0 +1,32 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Calendar.Formatting;  use Ada.Calendar.Formatting;
+with Ada.Text_IO;              use Ada.Text_IO;
+ 
+procedure Yuletide is
+begin
+   for Year in 2008..2121 loop
+      if Day_Of_Week (Time_Of (Year, 12, 25)) = Sunday then
+         Put_Line (Image (Time_Of (Year, 12, 25)));
+      end if;
+   end loop;
+end Yuletide;</syntaxhighlight>
+{{out}}
+<pre style="height:30ex;overflow:scroll">
+2011-12-25 00:00:00
+2016-12-25 00:00:00
+2022-12-25 00:00:00
+2033-12-25 00:00:00
+2039-12-25 00:00:00
+2044-12-25 00:00:00
+2050-12-25 00:00:00
+2061-12-25 00:00:00
+2067-12-25 00:00:00
+2072-12-25 00:00:00
+2078-12-25 00:00:00
+2089-12-25 00:00:00
+2095-12-25 00:00:00
+2101-12-25 00:00:00
+2107-12-25 00:00:00
+2112-12-25 00:00:00
+2118-12-25 00:00:00
+</pre>

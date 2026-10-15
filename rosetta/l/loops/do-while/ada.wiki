@@ -1,0 +1,11 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">loop
+   Value := Value + 1;
+   Put (Value);
+   exit when Value mod 6 = 0;
+end loop;</syntaxhighlight>
+Here is an alternative version:
+<syntaxhighlight lang="ada">for Value in 0..Integer'Last loop
+   Put (Value);
+   exit when Value mod 6 = 0;
+end loop;</syntaxhighlight>

@@ -1,0 +1,56 @@
+=={{header|FreeBASIC}}==
+Var declares a variable whose type is implied from the initializer expression. It is illegal to specify an explicit type in a Var declaration. The initializer expression can be either a constant or any variable of any type.
+
+Since the type of the variable is inferred from what you assign into it, it's helpful to know how literals work. Any literal number without a decimal point defaults to Integer. A literal number with a decimal point defaults to Double.
+
+All ZString expressions, including string literals and dereferenced ZString Ptrs, will be given the String variable type.
+<syntaxhighlight lang="freebasic">Var a  = Cast(Byte, 1)
+Var b  = Cast(Short, 1)
+Var c  = Cast(Integer, 1)
+Var d  = Cast(Longint, 1)
+Var au = Cast(Ubyte, 1)   
+Var bu = Cast(Ushort, 1)  
+Var cu = Cast(Uinteger, 1)
+Var du = Cast(Ulongint, 1)
+Var e  = Cast(Single, 1.0)
+Var f  = Cast(Double, 1.0)
+Var g  = @c      '' integer ptr
+Var h  = @a      '' byte ptr
+Var s2 = "hello" '' var-len string
+
+Var ii = 6728    '' implicit integer
+Var id = 6728.0  '' implicit double
+
+Print "Byte: "; a
+Print "Short: "; b
+Print "Integer: "; c
+Print "Longint: "; d
+Print "UByte: "; au
+Print "UShort: "; bu
+Print "UInteger: "; cu
+Print "ULongint: "; du
+Print "Single: "; e
+Print "Double: "; f
+Print "Integer Pointer: "; g
+Print "Byte Pointer: "; h
+Print "Variable String: "; s2
+Print
+Print "Integer: "; ii
+Print "Double: "; id</syntaxhighlight>
+{{out}}
+<pre>Byte:  1
+Short:  1
+Integer:  1
+Longint:  1
+UByte: 1
+UShort: 1
+UInteger: 1
+ULongint: 1
+Single:  1
+Double:  1
+Integer Pointer: 1375536
+Byte Pointer: 1375547
+Variable String: hello
+
+Integer:  6728
+Double:  6728</pre>

@@ -1,0 +1,50 @@
+=={{header|Ada}}==
+
+Define the procedure:
+<syntaxhighlight lang="ada">procedure Insert (Anchor : Link_Access; New_Link : Link_Access) is
+begin
+   if Anchor /= Null and New_Link /= Null then
+      New_Link.Next := Anchor.Next;
+      New_Link.Prev := Anchor;
+      if New_Link.Next /= Null then
+         New_Link.Next.Prev := New_Link;
+      end if;
+      Anchor.Next := New_Link;
+   end if;
+end Insert;</syntaxhighlight>
+Create links and form the list.
+
+<syntaxhighlight lang="ada">procedure Make_List is 
+   A, B, C : Link_Access;
+begin
+   A := new Link;
+   B := new Link;
+   C := new Link;
+   A.Data := 1;
+   B.Data := 2;
+   C.Data := 2;
+   Insert(Anchor => A, New_Link => B); -- The list is (A, B)
+   Insert(Anchor => A, New_Link => C); -- The list is (A, C, B)
+end Make_List;</syntaxhighlight>
+
+Element insertion using the generic doubly linked list defined in the standard Ada containers library.
+
+<syntaxhighlight lang="ada">with Ada.Containers.Doubly_Linked_Lists;
+with Ada.Text_Io; use Ada.Text_Io;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;  
+
+procedure List_Insertion is
+   package String_List is new Ada.Containers.Doubly_Linked_Lists(Unbounded_String);
+   use String_List;
+   procedure Print(Position : Cursor) is
+   begin
+      Put_Line(To_String(Element(Position)));
+   end Print;
+   The_List : List;
+begin
+   The_List.Append(To_Unbounded_String("A"));
+   The_List.Append(To_Unbounded_String("B"));
+   The_List.Insert(Before => The_List.Find(To_Unbounded_String("B")),
+      New_Item => To_Unbounded_String("C"));
+   The_List.Iterate(Print'access);
+end List_Insertion;</syntaxhighlight>

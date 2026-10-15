@@ -1,0 +1,34 @@
+=={{header|FreeBASIC}}==
+The nearest thing FreeBASIC has to a topic variable is the name of the current function.
+
+For example, if you declare a function called 'func' with a return type of Integer, the function behaves as though it contains a local variable called 'func' - defined at the top of its body - of type Integer. You can assign to this variable and, if you do, the return value of the function is the value this variable has when the function returns.
+
+Alternatively, the keyword 'Function' can itself be used as an implicitly defined variable and behaves in exactly the same way as the function's name when used in this role. Similarly, the keywords 'Property' or 'Operator' can be used to return values from properties or operators respectively.
+
+<syntaxhighlight lang="freebasic">' FB 1.05.0 Win64
+
+' Three different ways of returning a value from a function
+
+Function Sum (x As Integer, y As Integer) As Integer
+  Sum = x + y  '' using name of function
+End Function
+
+Function Sum2 (x As Integer, y As Integer) As Integer
+  Function = x + y  '' using Function keyword
+End Function
+
+Function Sum3 (x As Integer, y As Integer) As Integer
+  Return x + y  '' using Return keyword which always returns immediately
+End Function
+
+Print Sum (1, 2)
+Print Sum2(2, 3)
+Print Sum3(3, 4)
+Sleep</syntaxhighlight>
+
+{{out}}
+<pre>
+ 3
+ 5
+ 7
+</pre>

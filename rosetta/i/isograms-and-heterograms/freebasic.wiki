@@ -1,0 +1,127 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="vbnet">Function Isogram(word As String) As String
+    Dim As Integer i, k
+    Dim As String ch, chars = ""
+    Dim As Integer counts(26) '= {0}
+    
+    For i = 1 To Len(word)
+        ch = Mid(word, i, 1)
+        k = Instr(chars, ch)
+        If k = 0 Then
+            chars &= ch
+            counts(Len(chars)) = 1
+        Else
+            counts(k) += 1
+        End If
+    Next
+    
+    Dim As Integer c1 = counts(1), lc = Len(chars), lw = Len(word)
+    Dim As Integer isEqual = 1
+    For i = 1 To lc
+        If counts(i) <> c1 Then
+            isEqual = 0
+            Exit For
+        End If
+    Next
+    
+    Return Iif((c1 > 1 Or lw > 10) And isEqual, word & " " & Str(c1) & " " & Str(lw), "")
+End Function
+
+Dim As String res = ""
+Dim As String word
+Dim As Integer i, j
+Dim As String results(1000) ' Assuming a maximum of 1000 words
+Dim As Integer count = 0
+
+Open "i:\unixdict.txt" For Input As #1
+Do Until Eof(1)
+    Line Input #1, word
+    Dim As String result = Isogram(word)
+    If result <> "" Then
+        results(count) = result
+        count += 1
+    End If
+Loop
+Close #1
+
+Print "word            n length"
+For i = 0 To count - 1
+    Dim As String result = results(i)
+    Dim As Integer space1 = Instr(result, " ")
+    Dim As Integer space2 = Instr(Mid(result, space1 + 1), " ") + space1
+    
+    word = Left(result, space1 - 1)
+    Dim As Integer c1 = Val(Mid(result, space1 + 1, space2 - space1 - 1))
+    Dim As Integer lw = Val(Mid(result, space2 + 1))
+    Print Using "\            \ ## ######"; word; c1; lw
+Next i
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>word            n length
+aaa             3      3
+ambidextrous    1     12
+anna            2      4
+appall          2      6
+atmospheric     1     11
+beriberi        2      8
+bilabial        2      8
+blameworthy     1     11
+bluestocking    1     12
+caucasus        2      8
+centrifugal     1     11
+christendom     1     11
+coco            2      4
+consumptive     1     11
+countervail     1     11
+countryside     1     11
+countrywide     1     11
+couscous        2      8
+dada            2      4
+deed            2      4
+disturbance     1     11
+documentary     1     11
+dodo            2      4
+earthmoving     1     11
+emmett          2      6
+exclusionary    1     12
+exculpatory     1     11
+geophysical     1     11
+gogo            2      4
+hannah          2      6
+ii              2      2
+iii             3      3
+incomputable    1     12
+inscrutable     1     11
+isis            2      4
+juju            2      4
+lexicography    1     12
+loudspeaking    1     12
+lulu            2      4
+malnourished    1     12
+mimi            2      4
+misanthrope     1     11
+murmur          2      6
+noon            2      4
+otto            2      4
+papa            2      4
+peep            2      4
+poop            2      4
+problematic     1     11
+selfadjoint     1     11
+stenography     1     11
+sulfonamide     1     11
+switchblade     1     11
+switchboard     1     11
+switzerland     1     11
+tartar          2      6
+teammate        2      8
+teet            2      4
+testes          2      6
+tete            2      4
+thunderclap     1     11
+toot            2      4
+tutu            2      4
+valedictory     1     11
+voluntarism     1     11
+</pre>

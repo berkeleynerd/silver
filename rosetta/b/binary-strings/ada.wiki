@@ -1,0 +1,30 @@
+=={{header|Ada}}==
+Ada has native support for single dimensioned arrays, which provide all specified operations. String is a case of array. The array of bytes is predefined in Ada in the package System.Storage_Elements ([http://www.adaic.org/standards/05rm/html/RM-13-7-1.html LRM 13.7.1]). Storage_Element is substitute for byte.
+
+<syntaxhighlight lang="ada">declare
+   Data : Storage_Array (1..20); -- Data created
+begin
+   Data := (others => 0); -- Assign all zeros
+   if Data = (1..10 => 0) then -- Compare with 10 zeros
+      declare
+         Copy : Storage_Array := Data; -- Copy Data
+      begin
+         if Data'Length = 0 then -- If empty
+            ...
+         end if;
+      end;
+   end if;
+   ... Data & 1 ...         -- The result is Data with byte 1 appended
+   ... Data & (1,2,3,4) ... -- The result is Data with bytes 1,2,3,4 appended
+   ... Data (3..5) ...      -- The result the substring of Data from 3 to 5
+end; -- Data destructed</syntaxhighlight>
+Storage_Array is "binary string" used for memory representation. For stream-oriented I/O communication Ada provides alternative "binary string" called Stream_Element_Array ([http://www.adaic.org/standards/05rm/html/RM-13-13-1.html LRM 13.13.1]). When dealing with octets of bits, programmers are encouraged to provide a data type of their own to ensure that the byte is exactly 8 bits length. For example:
+<syntaxhighlight lang="ada">type Octet is mod 2**8;
+for Octet'Size use 8;
+type Octet_String is array (Positive range <>) of Octet;</syntaxhighlight>
+Alternatively:
+<syntaxhighlight lang="ada">with Interfaces; use Interfaces;
+...
+type Octet is new Interfaces.Unsigned_8;
+type Octet_String is array (Positive range <>) of Octet;</syntaxhighlight>
+Note that all of these types will have all operations described above.

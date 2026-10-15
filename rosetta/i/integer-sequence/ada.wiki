@@ -1,0 +1,18 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+procedure Integers is
+   Value : Integer := 1;
+begin
+   loop
+      Ada.Text_IO.Put_Line (Integer'Image (Value));
+      Value := Value + 1;  -- raises exception Constraint_Error on overflow
+   end loop;
+end Integers;</syntaxhighlight>
+Alternative (iterating through all values of Positive (positive part of Integer) without endless loop):
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+procedure Positives is
+begin
+   for Value in Positive'Range loop
+      Ada.Text_IO.Put_Line (Positive'Image (Value));
+   end loop;
+end Positives;</syntaxhighlight>

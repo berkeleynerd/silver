@@ -1,0 +1,68 @@
+=={{header|Ada}}==
+Ada has matrix multiplication predefined for any floating-point or complex type. 
+The implementation is provided by the standard library packages Ada.Numerics.Generic_Real_Arrays and Ada.Numerics.Generic_Complex_Arrays correspondingly. The following example illustrates use of real matrix multiplication for the type Float:
+<syntaxhighlight lang="ada">with Ada.Text_IO;               use Ada.Text_IO;
+with Ada.Numerics.Real_Arrays;  use Ada.Numerics.Real_Arrays;
+
+procedure Matrix_Product is
+
+   procedure Put (X : Real_Matrix) is
+      type Fixed is delta 0.01 range -100.0..100.0;
+   begin
+      for I in X'Range (1) loop
+         for J in X'Range (2) loop
+            Put (Fixed'Image (Fixed (X (I, J))));
+         end loop;
+         New_Line;
+      end loop;
+   end Put;
+   
+   A : constant Real_Matrix :=
+         (  ( 1.0,  1.0,  1.0,   1.0),
+            ( 2.0,  4.0,  8.0,  16.0),
+            ( 3.0,  9.0, 27.0,  81.0),
+            ( 4.0, 16.0, 64.0, 256.0)
+         );
+   B : constant Real_Matrix :=
+         (  (  4.0,     -3.0,      4.0/3.0,  -1.0/4.0 ),
+            (-13.0/3.0, 19.0/4.0, -7.0/3.0,  11.0/24.0),
+            (  3.0/2.0, -2.0,      7.0/6.0,  -1.0/4.0 ),
+            ( -1.0/6.0,  1.0/4.0, -1.0/6.0,   1.0/24.0)
+         );
+begin
+   Put (A * B);
+end Matrix_Product;</syntaxhighlight>
+{{out}}
+<pre>
+ 1.00 0.00 0.00 0.00
+ 0.00 1.00 0.00 0.00
+ 0.00 0.00 1.00 0.00
+ 0.00 0.00 0.00 1.00
+</pre>
+The following code illustrates how matrix multiplication could be implemented from scratch:
+<syntaxhighlight lang="ada">package Matrix_Ops is
+   type Matrix is array (Natural range <>, Natural range <>) of Float;
+   function "*" (Left, Right : Matrix) return Matrix;
+end Matrix_Ops;
+
+package body Matrix_Ops is
+   ---------
+   -- "*" --
+   ---------
+   function "*" (Left, Right : Matrix) return Matrix is
+      Temp : Matrix(Left'Range(1), Right'Range(2)) := (others =>(others => 0.0));
+   begin
+      if Left'Length(2) /= Right'Length(1) then
+         raise Constraint_Error;
+      end if;
+     
+      for I in Left'range(1) loop
+         for J in Right'range(2) loop
+            for K in Left'range(2) loop
+               Temp(I,J) := Temp(I,J) + Left(I, K)*Right(K, J);
+            end loop;
+         end loop;
+      end loop;
+      return Temp;
+   end "*";
+end Matrix_Ops;</syntaxhighlight>

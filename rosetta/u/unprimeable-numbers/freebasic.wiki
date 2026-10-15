@@ -1,0 +1,69 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">
+Function isprime(n As Ulongint) As boolean
+    If (n=2) Or (n=3) Then Return 1
+    If n Mod 2 = 0 Then Return 0
+    If n Mod 3 = 0 Then Return 0
+    Dim As Ulongint limit=Sqr(N)+1
+    For I As Ulongint = 6 To limit Step 6
+        If N Mod (i-1) = 0 Then Return 0
+        If N Mod (i+1) = 0 Then Return 0
+    Next I
+    Return 1
+End Function
+
+Sub getnonprimeables(a() As Long)
+    Dim As String s,g
+    Dim As Long count,lim=1300000
+    Redim a(1 To lim)
+    For num As Long=1 To lim
+        g=Str(num)
+        s=g
+        For n As Long=0 To Len(s)-1
+            For m As Long=48 To 57
+                s[n]=m
+                If isprime(Vallng(s)) Then Goto lbl
+            Next m
+            s=g
+        Next n
+        count+=1
+        a(count)=num 
+        lbl:
+    Next num
+    Redim Preserve a(1 To count)
+End Sub
+
+Function endings(n As String,a() As Long) As Long
+    For m As Long=1 To Ubound(a)
+        If Right(Str(a(m)),1)=n Then Return a(m)
+    Next m
+End Function
+
+Redim As Long n()
+getnonprimeables(n())
+print " First 35"
+For m As Long=1 To 35
+    Print n(m);
+Next
+Print
+Print "600th number ";n(600)
+For z As Long=0 To 9
+    Print "first umprimable number ending in ";z; " is ";endings(Str(z),n())
+Next z
+sleep
+</syntaxhighlight>
+<pre>
+ First 35
+ 200 204 206 208 320 322 324 325 326 328 510 512 514 515 516 518 530 532 534 535 536 538 620 622 624 625 626 628 840 842 844 845 846 848 890
+600th number  5242
+first umprimable number ending in  0 is  200
+first umprimable number ending in  1 is  595631
+first umprimable number ending in  2 is  322
+first umprimable number ending in  3 is  1203623
+first umprimable number ending in  4 is  204
+first umprimable number ending in  5 is  325
+first umprimable number ending in  6 is  206
+first umprimable number ending in  7 is  872897
+first umprimable number ending in  8 is  208
+first umprimable number ending in  9 is  212159
+</pre>

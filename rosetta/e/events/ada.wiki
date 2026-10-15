@@ -1,0 +1,51 @@
+=={{header|Ada}}==
+[[Ada]] provides higher-level concurrency primitives, which are complete in the sense that they also allow implementations of the lower-level ones, like event. Here is an implementation of the manual-reset event.
+
+The event interface:
+<syntaxhighlight lang="ada">protected type Event is
+   procedure Signal;
+   procedure Reset;
+   entry Wait;
+private
+   Fired : Boolean := False;
+end Event;</syntaxhighlight>
+The event implementation:
+<syntaxhighlight lang="ada">protected body Event is
+   procedure Signal is
+   begin
+      Fired := True;
+   end Signal;
+   procedure Reset is
+   begin
+      Fired := False;
+   end Reset;
+   entry Wait when Fired is
+   begin
+      null;
+   end Wait;
+end Event;</syntaxhighlight>
+With the event defined above:
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+procedure Test_Events is
+   -- Place the event implementation here
+   X : Event;
+
+   task A;
+   task body A is
+   begin
+      Put_Line ("A is waiting for X");
+      X.Wait;
+      Put_Line ("A received X");
+   end A;
+begin
+   delay 1.0;
+   Put_Line ("Signal X");
+   X.Signal;
+end Test_Events;</syntaxhighlight>
+Sample output:
+<pre>
+A is waiting for X
+Signal X
+A received X
+</pre>

@@ -1,0 +1,36 @@
+=={{header|Ada}}==
+
+This imports the package '''Prime_Numbers''' from [[Prime decomposition#Ada]]. 
+
+<syntaxhighlight lang="ada">with Prime_Numbers, Ada.Text_IO; 
+ 
+procedure Test_Kth_Prime is
+   
+   package Integer_Numbers is new 
+     Prime_Numbers (Natural, 0, 1, 2); 
+   use Integer_Numbers;
+   
+   Out_Length: constant Positive := 10; -- 10 k-th almost primes
+   N: Positive; -- the "current number" to be checked
+   
+begin
+   for K in 1 .. 5 loop
+      Ada.Text_IO.Put("K =" & Integer'Image(K) &":  ");
+      N := 2;
+      for I in 1 .. Out_Length loop
+	 while Decompose(N)'Length /= K loop
+	    N := N + 1;
+	 end loop; -- now N is Kth almost prime;
+	 Ada.Text_IO.Put(Integer'Image(Integer(N)));
+	 N := N + 1;
+      end loop;
+      Ada.Text_IO.New_Line;
+   end loop;
+end Test_Kth_Prime;</syntaxhighlight>
+
+{{output}}
+ K = 1:   2 3 5 7 11 13 17 19 23 29
+ K = 2:   4 6 9 10 14 15 21 22 25 26
+ K = 3:   8 12 18 20 27 28 30 42 44 45
+ K = 4:   16 24 36 40 54 56 60 81 84 88
+ K = 5:   32 48 72 80 108 112 120 162 168 176

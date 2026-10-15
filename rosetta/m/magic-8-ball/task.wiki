@@ -1,0 +1,11 @@
+{{task}}
+
+;Task:
+Create Magic 8-Ball. 
+
+
+See details at: &nbsp; [https://en.wikipedia.org/wiki/Magic_8-Ball Magic 8-Ball].
+
+
+{{Template:strings}}
+<br><br>

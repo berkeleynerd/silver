@@ -1,0 +1,13 @@
+[[Category:Data Structures]]
+{{task|Basic language learning}}
+;Task:
+The goal is to create an [[associative array]] (also known as a dictionary, map, or hash).
+
+
+Related tasks:
+* [[Associative arrays/Iteration]]
+* [[Hash from two arrays]]
+
+
+{{Template:See also lists}}
+<br><br>

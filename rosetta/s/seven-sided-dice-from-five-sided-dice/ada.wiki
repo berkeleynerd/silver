@@ -1,0 +1,147 @@
+=={{header|Ada}}==
+The specification of a package Random_57:
+<syntaxhighlight lang="ada">package Random_57 is
+
+   type Mod_7 is mod 7;
+
+   function Random7 return Mod_7;
+     -- a "fast" implementation, minimazing the calls to the Random5 generator
+   function Simple_Random7 return Mod_7;
+     -- a simple implementation
+
+end Random_57;</syntaxhighlight>
+Implementation of Random_57:
+<syntaxhighlight lang="ada"> with Ada.Numerics.Discrete_Random;
+
+package body Random_57 is
+   type M5 is mod 5;
+
+   package Rand_5 is new  Ada.Numerics.Discrete_Random(M5);
+   Gen: Rand_5.Generator;
+      function Random7 return Mod_7 is
+      N: Natural;
+
+   begin
+      loop
+         N :=  Integer(Rand_5.Random(Gen))* 5 + Integer(Rand_5.Random(Gen));
+         -- N is uniformly distributed in 0 .. 24
+         if N < 21 then
+            return Mod_7(N/3);
+         else -- (N-21) is in 0 .. 3
+            N := (N-21) * 5 +  Integer(Rand_5.Random(Gen)); -- N is in 0 .. 19
+            if N < 14 then
+               return Mod_7(N / 2);
+            else -- (N-14) is in 0 .. 5
+               N := (N-14) * 5 +  Integer(Rand_5.Random(Gen)); -- N is in 0 .. 29
+               if N < 28 then
+                  return Mod_7(N/4);
+               else -- (N-28) is in 0 .. 1
+                  N := (N-28) * 5 + Integer(Rand_5.Random(Gen)); -- 0 .. 9
+                  if N < 7 then
+                     return Mod_7(N);
+                  else -- (N-7) is in 0, 1, 2
+                     N := (N-7)* 5 + Integer(Rand_5.Random(Gen)); -- 0 .. 14
+                     if N < 14 then
+                        return Mod_7(N/2);
+                     else -- (N-14) is 0. This is not useful for us!
+                        null;
+                     end if;
+                  end if;
+               end if;
+            end if;
+         end if;
+      end loop;
+
+   end Random7;
+
+   function Simple_Random7 return Mod_7 is
+      N: Natural :=
+        Integer(Rand_5.Random(Gen))* 5 + Integer(Rand_5.Random(Gen));
+      -- N is uniformly distributed in 0 .. 24
+   begin
+      while N > 20 loop
+         N :=  Integer(Rand_5.Random(Gen))* 5 + Integer(Rand_5.Random(Gen));
+      end loop; -- Now I <= 20
+      return Mod_7(N / 3);
+   end Simple_Random7;
+
+begin
+   Rand_5.Reset(Gen);
+end Random_57;</syntaxhighlight>
+A main program, using the Random_57 package:
+<syntaxhighlight lang="ada">with Ada.Text_IO, Random_57;
+
+procedure R57 is
+
+   use Random_57;
+
+   type Fun is access function return Mod_7;
+
+   function Rand return Mod_7 renames Random_57.Random7;
+   -- change this to "... renames Random_57.Simple_Random;" if you like
+
+   procedure Test(Sample_Size: Positive; Rand: Fun; Precision: Float := 0.3) is
+
+      Counter: array(Mod_7) of Natural := (others => 0);
+      Expected: Natural := Sample_Size/7;
+      Small: Mod_7 := Mod_7'First;
+      Large: Mod_7 := Mod_7'First;
+
+      Result: Mod_7;
+   begin
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line("Sample Size: " & Integer'Image(Sample_Size));
+      Ada.Text_IO.Put( " Bins:");
+      for I in 1 .. Sample_Size loop
+         Result := Rand.all;
+         Counter(Result) := Counter(Result) + 1;
+      end loop;
+      for J in Mod_7 loop
+         Ada.Text_IO.Put(Integer'Image(Counter(J)));
+         if Counter(J) < Counter(Small) then Small := J; end if;
+         if Counter(J) > Counter(Large)  then Large := J;  end if;
+      end loop;
+      Ada.Text_IO.New_Line;
+      Ada.Text_IO.Put_Line(" Small Bin:" & Integer'Image(Counter(Small)));
+      Ada.Text_IO.Put_Line(" Large Bin: " & Integer'Image(Counter(Large)));
+
+      if Float(Counter(Small)*7) * (1.0+Precision) < Float(Sample_Size) then
+         Ada.Text_IO.Put_Line("Failed! Small too small!");
+      elsif Float(Counter(Large)*7) * (1.0-Precision) > Float(Sample_Size) then
+         Ada.Text_IO.Put_Line("Failed! Large too large!");
+      else
+         Ada.Text_IO.Put_Line("Passed");
+      end if;
+   end Test;
+
+begin
+   Test(    10_000, Rand'Access, 0.08);
+   Test(   100_000, Rand'Access, 0.04);
+   Test( 1_000_000, Rand'Access, 0.02);
+   Test(10_000_000, Rand'Access, 0.01);
+end R57;</syntaxhighlight>
+{{out}}
+<pre>
+Sample Size:  10000
+ Bins: 1368 1404 1435 1491 1483 1440 1379
+ Small Bin: 1368
+ Large Bin:  1491
+Passed
+
+Sample Size:  100000
+ Bins: 14385 14110 14362 14404 14362 14206 14171
+ Small Bin: 14110
+ Large Bin:  14404
+Passed
+
+Sample Size:  1000000
+ Bins: 143765 142384 142958 142684 142799 142956 142454
+ Small Bin: 142384
+ Large Bin:  143765
+Passed
+
+Sample Size:  10000000
+ Bins: 1429266 1428214 1428753 1427032 1428418 1428699 1429618
+ Small Bin: 1427032
+ Large Bin:  1429618
+Passed</pre>

@@ -1,0 +1,5 @@
+=={{header|Ada}}==
+In [[Ada]] arrays are concatenated using the operation &. It works with any one dimensioned array:
+<syntaxhighlight lang="ada">type T is array (Positive range <>) of Integer;
+X : T := (1, 2, 3);
+Y : T := X & (4, 5, 6); -- Concatenate X and (4, 5, 6)</syntaxhighlight>

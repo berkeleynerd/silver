@@ -1,0 +1,136 @@
+#include once "windows.bi"
+
+Dim Shared copyList(1 To 10) As String
+Dim Shared copyCnt As Integer = 0
+Dim Shared isPinned As Boolean = False
+Dim Shared hMain As HWND, hList As HWND
+
+Sub UpdateDisplay()
+    Dim txt As String = ""
+    For i As Integer = 1 To copyCnt
+        txt &= "[" & i & "] " & copyList(i) & !"\r\n\r\n"
+    Next
+    SetWindowText(hList, txt)
+End Sub
+
+Sub AddToClipboard(text As String)
+    If text = "" Then Exit Sub   
+    If copyCnt > 0 And text = copyList(copyCnt) Then Exit Sub
+    
+    If copyCnt = 10 Then
+        For i As Integer = 1 To 9
+            copyList(i) = copyList(i + 1)
+        Next
+        copyList(10) = text
+    Else
+        copyCnt += 1
+        copyList(copyCnt) = text
+    End If
+    
+    UpdateDisplay()
+End Sub
+
+Sub TogglePin()
+    isPinned = Not isPinned
+    If isPinned Then
+        SetWindowPos(hMain, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE)
+    Else
+        SetWindowPos(hMain, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE Or SWP_NOSIZE)
+    End If
+End Sub
+
+Function WndProc(hWnd As HWND, msg As UINT, wParam As WPARAM, lParam As LPARAM) As LRESULT
+    Select Case msg
+    Case WM_COMMAND
+        ' Botón Copy
+        If Loword(wParam) = 1001 Then
+            Sleep(100)
+            If OpenClipboard(hWnd) Then
+                Dim hData As HANDLE = GetClipboardData(CF_TEXT)
+                If hData <> 0 Then
+                    Dim pText As ZString Ptr = Cast(ZString Ptr, GlobalLock(hData))
+                    If pText <> 0 Then
+                        AddToClipboard(*pText)
+                        GlobalUnlock(hData)
+                    End If
+                End If
+                CloseClipboard()
+            End If
+            
+            ' Botón Pin/Unpin
+        Elseif Loword(wParam) = 1002 Then
+            TogglePin()
+            
+            ' Botón Clear
+        Elseif Loword(wParam) = 1003 Then
+            copyCnt = 0
+            For i As Integer = 1 To 10
+                copyList(i) = ""
+            Next
+            UpdateDisplay()
+        End If
+        
+    Case WM_HOTKEY
+        If wParam = 1 Then  ' Ctrl+C
+            Sleep(100)
+            If OpenClipboard(hWnd) Then
+                Dim hData As HANDLE = GetClipboardData(CF_TEXT)
+                If hData <> 0 Then
+                    Dim pText As ZString Ptr = Cast(ZString Ptr, GlobalLock(hData))
+                    If pText <> 0 Then
+                        AddToClipboard(*pText)
+                        GlobalUnlock(hData)
+                    End If
+                End If
+                CloseClipboard()
+            End If
+            
+        Elseif wParam = 2 Then  ' Ctrl+Space
+            TogglePin()
+            MessageBeep(Iif(isPinned, MB_ICONASTERISK, MB_ICONHAND))
+        End If
+        
+    Case WM_DESTROY
+        PostQuitMessage(0)
+    End Select
+    
+    Return DefWindowProc(hWnd, msg, wParam, lParam)
+End Function
+
+' Main program
+Dim wc As WNDCLASSEXA
+wc.cbSize = Sizeof(WNDCLASSEXA)
+wc.style = CS_HREDRAW Or CS_VREDRAW
+wc.lpfnWndProc = @WndProc
+wc.hInstance = GetModuleHandle(NULL)
+wc.hCursor = LoadCursor(NULL, IDC_ARROW)
+wc.hbrBackground = Cast(HBRUSH, COLOR_WINDOW + 1)
+wc.lpszClassName = @"ClipMgr"
+wc.hIcon = NULL
+wc.hIconSm = NULL
+
+RegisterClassEx(@wc)
+
+hMain = CreateWindowEx(0, @"ClipMgr", @"Clipboard Manager)", WS_OVERLAPPEDWINDOW, 100, 100, 700, 500, NULL, NULL, wc.hInstance, NULL)
+
+hList = CreateWindowEx(WS_EX_CLIENTEDGE, @"EDIT", @"", _
+WS_CHILD Or WS_VISIBLE Or ES_MULTILINE Or ES_READONLY Or WS_VSCROLL, 10, 10, 660, 400, hMain, NULL, wc.hInstance, NULL)
+
+CreateWindowEx(0, @"BUTTON", @"Copy (Ctrl+C)", WS_CHILD Or WS_VISIBLE, 10, 420, 200, 30, hMain, Cast(HMENU, 1001), wc.hInstance, NULL)
+
+CreateWindowEx(0, @"BUTTON", @"Pin/Unpin (Ctrl+Space)", WS_CHILD Or WS_VISIBLE, 220, 420, 200, 30, hMain, Cast(HMENU, 1002), wc.hInstance, NULL)
+
+CreateWindowEx(0, @"BUTTON", @"Clear All", WS_CHILD Or WS_VISIBLE, 430, 420, 120, 30, hMain, Cast(HMENU, 1003), wc.hInstance, NULL)
+
+ShowWindow(hMain, SW_SHOW)
+UpdateWindow(hMain)
+
+' Hotkeys
+RegisterHotKey(hMain, 1, MOD_CONTROL Or MOD_ALT, Asc("C"))   ' Ctrl+C
+RegisterHotKey(hMain, 2, MOD_CONTROL, VK_SPACE)              ' Ctrl+Space
+
+Dim mesg As MSG
+While GetMessage(@mesg, NULL, 0, 0)
+    TranslateMessage(@mesg)
+    DispatchMessage(@mesg)
+Wend

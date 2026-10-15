@@ -1,0 +1,208 @@
+=={{header|Ada}}==
+{{works with|GNAT}} 
+This solution uses a generic package and Ada 2012 (containers, extended return statements, expression functions).
+The very convenient 'Img attribute is a GNAT feature.
+<syntaxhighlight lang="ada">private with Ada.Containers.Ordered_Maps;
+generic
+   type t_Vertex is (<>);
+package Dijkstra is
+   
+   type t_Graph is limited private;
+   
+   -- Defining a graph (since limited private, only way to do this is to use the Build function)
+   type t_Edge is record
+      From, To : t_Vertex;
+      Weight   : Positive;
+   end record;
+   type t_Edges is array (Integer range <>) of t_Edge;
+   function Build (Edges : in t_Edges; Oriented : in Boolean := True) return t_Graph;
+   
+   -- Computing path and distance
+   type t_Path is array (Integer range <>) of t_Vertex;
+   function Shortest_Path (Graph    : in out t_Graph;
+                           From, To : in t_Vertex) return t_Path;
+   function Distance      (Graph    : in out t_Graph;
+                           From, To : in t_Vertex) return Natural;
+   
+private
+   package Neighbor_Lists is new Ada.Containers.Ordered_Maps (Key_Type => t_Vertex, Element_Type => Positive);
+   type t_Vertex_Data is record
+      Neighbors : Neighbor_Lists.Map; -- won't be affected after build
+      -- Updated each time a function is called with a new source
+      Previous  : t_Vertex;
+      Distance  : Natural;
+   end record;
+   type t_Graph is array (t_Vertex) of t_Vertex_Data;
+end Dijkstra;</syntaxhighlight>
+
+<syntaxhighlight lang="ada">with Ada.Containers.Ordered_Sets;
+package body Dijkstra is
+
+   Infinite : constant Natural := Natural'Last;
+   
+   -- ----- Graph constructor
+   function Build (Edges : in t_Edges; Oriented : in Boolean := True) return t_Graph is
+   begin
+      return Answer : t_Graph := (others => (Neighbors => Neighbor_Lists.Empty_Map,
+                                             Previous  => t_Vertex'First,
+                                             Distance  => Natural'Last)) do
+         for Edge of Edges loop
+            Answer(Edge.From).Neighbors.Insert (Key => Edge.To, New_Item => Edge.Weight);
+            if not Oriented then
+               Answer(Edge.To).Neighbors.Insert (Key => Edge.From, New_Item => Edge.Weight);
+            end if;
+         end loop;
+      end return;
+   end Build;
+   
+   -- ----- Paths / distances data updating in case of computation request for a new source
+   procedure Update_For_Source (Graph : in out t_Graph;
+                                From  : in t_Vertex) is
+      function Nearer (Left, Right : in t_Vertex) return Boolean is
+        (Graph(Left).Distance < Graph(Right).Distance or else
+         (Graph(Left).Distance = Graph(Right).Distance and then Left < Right));
+      package Ordered is new Ada.Containers.Ordered_Sets (Element_Type => t_Vertex, "<" => Nearer);
+      use Ordered;
+      Remaining : Set := Empty_Set;
+   begin
+      -- First, let's check if vertices data are already computed for this source
+      if Graph(From).Distance /= 0 then
+         -- Reset distances and remaining vertices for a new source
+         for Vertex in Graph'range loop
+            Graph(Vertex).Distance := (if Vertex = From then 0 else Infinite);
+            Remaining.Insert (Vertex);
+         end loop;
+         -- ----- The Dijkstra algorithm itself
+         while not Remaining.Is_Empty
+               -- If some targets are not connected to source, at one point, the remaining
+               -- distances will all be infinite, hence the folllowing stop condition
+               and then Graph(Remaining.First_Element).Distance /= Infinite loop
+            declare
+               Nearest : constant t_Vertex := Remaining.First_Element;
+               procedure Update_Neighbor (Position : in Neighbor_Lists.Cursor) is
+                  use Neighbor_Lists;
+                  Neighbor     : constant t_Vertex := Key (Position); 
+                  In_Remaining : Ordered.Cursor    := Remaining.Find (Neighbor);
+                  Try_Distance : constant Natural  :=
+                    (if In_Remaining = Ordered.No_Element
+                     then Infinite -- vertex already reached, this distance will fail the update test below
+                     else Graph(Nearest).Distance + Element (Position)); 
+               begin
+                  if Try_Distance < Graph(Neighbor).Distance then
+                     -- Update distance/path data and reorder the remaining set
+                     Remaining.Delete (In_Remaining);
+                     Graph(Neighbor).Distance := Try_Distance;
+                     Graph(Neighbor).Previous := Nearest;
+                     Remaining.Insert (Neighbor);
+                  end if;
+               end Update_Neighbor;
+            begin
+               Remaining.Delete_First;
+               Graph(Nearest).Neighbors.Iterate (Update_Neighbor'Access);
+            end;
+         end loop;
+      end if;
+   end Update_For_Source;
+   
+   -- ----- Bodies for the interfaced functions
+   function Shortest_Path (Graph    : in out t_Graph;
+                           From, To : in t_Vertex) return t_Path is
+      function Recursive_Build (From, To : in t_Vertex) return t_Path is
+        (if From = To then (1 => From)
+         else Recursive_Build(From, Graph(To).Previous) & (1 => To));
+   begin
+      Update_For_Source (Graph, From);
+      if Graph(To).Distance = Infinite then
+         raise Constraint_Error with "No path from " & From'Img & " to " & To'Img;
+      end if;
+      return Recursive_Build (From, To);
+   end Shortest_Path;
+
+   function Distance (Graph    : in out t_Graph;
+                      From, To : in t_Vertex) return Natural is
+   begin
+      Update_For_Source (Graph, From);
+      return Graph(To).Distance;
+   end Distance;
+
+end Dijkstra;</syntaxhighlight>
+The testing main procedure :
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Dijkstra;
+procedure Test_Dijkstra is
+   subtype t_Tested_Vertices is Character range 'a'..'f';
+   package Tested is new Dijkstra (t_Vertex => t_Tested_Vertices);
+   use Tested;
+   Graph : t_Graph := Build (Edges => (('a', 'b', 7),
+                                       ('a', 'c', 9),
+                                       ('a', 'f', 14),
+                                       ('b', 'c', 10),
+                                       ('b', 'd', 15),
+                                       ('c', 'd', 11),
+                                       ('c', 'f', 2),
+                                       ('d', 'e', 6),
+                                       ('e', 'f', 9)));
+   procedure Display_Path (From, To : in t_Tested_Vertices) is
+      function Path_Image (Path : in t_Path; Start : Boolean := True) return String is
+        ((if Start then "["
+          elsif Path'Length /= 0 then ","
+          else "") &
+         (if Path'Length = 0 then "]"
+          else Path(Path'First) & Path_Image(Path(Path'First+1..Path'Last), Start => False)));
+   begin
+      Put      ("Path from '" & From & "' to '" & To & "' = ");
+      Put_Line (Path_Image (Shortest_Path (Graph, From, To))
+                & " distance =" & Distance (Graph, From, To)'Img);
+   exception
+      when others => Put_Line("no path");
+   end Display_Path;
+begin
+   Display_Path ('a', 'e');
+   Display_Path ('a', 'f');
+   New_Line;
+   for From in t_Tested_Vertices loop
+      for To in t_Tested_Vertices loop
+         Display_Path (From, To);
+      end loop;
+   end loop;            
+end Test_Dijkstra;</syntaxhighlight>
+{{out}}
+<pre>Path from 'a' to 'e' = [a,c,d,e] distance = 26
+Path from 'a' to 'f' = [a,c,f] distance = 11
+
+Path from 'a' to 'a' = [a] distance = 0
+Path from 'a' to 'b' = [a,b] distance = 7
+Path from 'a' to 'c' = [a,c] distance = 9
+Path from 'a' to 'd' = [a,c,d] distance = 20
+Path from 'a' to 'e' = [a,c,d,e] distance = 26
+Path from 'a' to 'f' = [a,c,f] distance = 11
+Path from 'b' to 'a' = no path
+Path from 'b' to 'b' = [b] distance = 0
+Path from 'b' to 'c' = [b,c] distance = 10
+Path from 'b' to 'd' = [b,d] distance = 15
+Path from 'b' to 'e' = [b,d,e] distance = 21
+Path from 'b' to 'f' = [b,c,f] distance = 12
+Path from 'c' to 'a' = no path
+Path from 'c' to 'b' = no path
+Path from 'c' to 'c' = [c] distance = 0
+Path from 'c' to 'd' = [c,d] distance = 11
+Path from 'c' to 'e' = [c,d,e] distance = 17
+Path from 'c' to 'f' = [c,f] distance = 2
+Path from 'd' to 'a' = no path
+Path from 'd' to 'b' = no path
+Path from 'd' to 'c' = no path
+Path from 'd' to 'd' = [d] distance = 0
+Path from 'd' to 'e' = [d,e] distance = 6
+Path from 'd' to 'f' = [d,e,f] distance = 15
+Path from 'e' to 'a' = no path
+Path from 'e' to 'b' = no path
+Path from 'e' to 'c' = no path
+Path from 'e' to 'd' = no path
+Path from 'e' to 'e' = [e] distance = 0
+Path from 'e' to 'f' = [e,f] distance = 9
+Path from 'f' to 'a' = no path
+Path from 'f' to 'b' = no path
+Path from 'f' to 'c' = no path
+Path from 'f' to 'd' = no path
+Path from 'f' to 'e' = no path
+Path from 'f' to 'f' = [f] distance = 0</pre>

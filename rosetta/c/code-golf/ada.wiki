@@ -1,0 +1,18 @@
+=={{header|Ada}}==
+With String literal:
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;procedure C is begin Ada.Text_IO.Put("Code Golf");end;
+</syntaxhighlight>
+71 characters
+
+Without Character or String literals (all one line):
+<syntaxhighlight lang="ada">
+with Ada.Text_IO;procedure C is L:array(1 .. 9)of Integer:=(67,111,100,101,32,71,111,108,102);begin for C of L loop Ada.Text_IO.Put(Character'Val(C));end loop;end;
+</syntaxhighlight>
+163 characters; this should be portable to all Ada-12 compilers and all platforms
+
+If we presume Linux, GNAT, and an executable name of "Code Golf", this can be shortened to (all one line):
+<syntaxhighlight lang="ada">
+with Ada.Command_Line;with Ada.Text_IO;procedure C is begin Ada.Text_IO.Put(Ada.Command_Line.Command_Name(3..11));end;
+</syntaxhighlight>
+118 Characters

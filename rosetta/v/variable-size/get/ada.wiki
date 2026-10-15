@@ -1,0 +1,4 @@
+=={{header|Ada}}==
+Ada represents the size of a variable in bits, not bytes like many other languages.
+<syntaxhighlight lang="ada">Int_Bits : constant Integer := Integer'size;
+Whole_Bytes : constant Integer := Int_Bits / Storage_Unit; -- Storage_Unit is the number of bits per storage element</syntaxhighlight>

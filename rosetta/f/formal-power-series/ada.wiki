@@ -1,0 +1,189 @@
+=={{header|Ada}}==
+The Taylor series package is generic to be instantiated with any rational type implementation provided by the task [[Rational Arithmetic]]:
+<syntaxhighlight lang="ada">with Generic_Rational;
+
+generic
+   with package Rational_Numbers is new Generic_Rational (<>);
+package Generic_Taylor_Series is
+   use Rational_Numbers;
+   type Taylor_Series is array (Natural range <>) of Rational;
+   
+   function "+" (A : Taylor_Series) return Taylor_Series;
+   function "-" (A : Taylor_Series) return Taylor_Series;
+
+   function "+" (A, B : Taylor_Series) return Taylor_Series;
+   function "-" (A, B : Taylor_Series) return Taylor_Series;
+   function "*" (A, B : Taylor_Series) return Taylor_Series;
+
+   function Integral (A : Taylor_Series) return Taylor_Series;
+   function Differential (A : Taylor_Series) return Taylor_Series;
+
+   function Value (A : Taylor_Series; X : Rational) return Rational;
+
+   Zero : constant Taylor_Series := (0 => Rational_Numbers.Zero);
+   One  : constant Taylor_Series := (0 => Rational_Numbers.One);
+end Generic_Taylor_Series;</syntaxhighlight>
+The package implementation:
+<syntaxhighlight lang="ada">package body Generic_Taylor_Series is
+   function Normalize (A : Taylor_Series) return Taylor_Series is
+   begin
+      for Power in reverse A'Range loop
+         if A (Power) /= 0 then
+            return A (0..Power);
+         end if;
+      end loop;
+      return Zero;
+   end Normalize;
+
+   function "+" (A : Taylor_Series) return Taylor_Series is
+   begin
+      return A;
+   end "+";
+
+   function "-" (A : Taylor_Series) return Taylor_Series is
+      Result : Taylor_Series (A'Range);
+   begin
+      for Power in A'Range loop
+         Result (Power) := -A (Power);
+      end loop;
+      return Result;
+   end "-";
+
+   function "+" (A, B : Taylor_Series) return Taylor_Series is
+   begin
+      if A'Last > B'Last then
+         return B + A;
+      else
+         declare
+            Result : Taylor_Series (0..B'Last);
+         begin
+            for Power in A'Range loop
+               Result (Power) := A (Power) + B (Power);
+            end loop;
+            for Power in A'Last + 1..B'Last loop
+               Result (Power) := B (Power);
+            end loop;
+            return Normalize (Result);
+         end;
+      end if;
+   end "+";
+
+   function "-" (A, B : Taylor_Series) return Taylor_Series is
+   begin
+      return A + (-B);
+   end "-";
+
+   function "*" (A, B : Taylor_Series) return Taylor_Series is
+      Result : Taylor_Series (0..A'Last + B'Last);
+   begin
+      for I in A'Range loop
+         for J in B'Range loop
+            Result (I + J) := A (I) * B (J);
+         end loop;
+      end loop;
+      return Normalize (Result);
+   end "*";
+
+   function Integral (A : Taylor_Series) return Taylor_Series is
+   begin
+      if A = Zero then
+         return Zero;
+      else
+         declare
+            Result : Taylor_Series (0..A'Last + 1);
+         begin
+            for Power in A'Range loop
+               Result (Power + 1) := A (Power) / Number (Power + 1);
+            end loop;
+            Result (0) := Rational_Numbers.Zero;
+            return Result;
+         end;
+      end if;
+   end Integral;
+
+   function Differential (A : Taylor_Series) return Taylor_Series is
+   begin
+      if A'Length = 1 then
+         return Zero;
+      else
+         declare
+            Result : Taylor_Series (0..A'Last - 1);
+         begin
+            for Power in Result'Range loop
+               Result (Power) := A (Power + 1) * Number (Power);
+            end loop;
+            return Result;
+         end;
+      end if;         
+   end Differential;
+
+   function Value (A : Taylor_Series; X : Rational) return Rational is
+      Sum : Rational := A (A'Last);
+   begin
+      for Power in reverse 0..A'Last - 1 loop
+         Sum := Sum * X + A (Power);
+      end loop;
+      return Sum;
+   end Value;
+
+end Generic_Taylor_Series;</syntaxhighlight>
+The procedure Normalize is used to truncate the series when the coefficients are zero. The summation of a series (function Value) uses [[wp:Horner_scheme|Horner scheme]].
+===Test task===
+<syntaxhighlight lang="ada">with Ada.Text_IO;  use Ada.Text_IO;
+
+with Generic_Taylor_Series;
+with Generic_Rational;
+
+procedure Test_Taylor_Series is
+   package Integer_Rationals is new Generic_Rational (Integer);
+   package Integer_Taylor_Series is new Generic_Taylor_Series (Integer_Rationals);
+   use Integer_Taylor_Series;
+      -- Procedure to print a series
+   procedure Put (A : Taylor_Series) is
+      use Integer_Rationals;
+      procedure Put (A : Rational) is
+      begin
+         if Numerator (A) = 1 then
+            Put (" 1");
+         else
+            Put (Integer'Image (Numerator (A)));
+         end if;
+         if Denominator (A) /= 1 then
+            Put (" /");
+            Put (Integer'Image (Denominator (A)));
+         end if;
+      end Put;
+   begin
+      if A (0) /= 0 then
+         Put (A (0));
+      end if;
+      for Power in 1..A'Last loop
+         if A (Power) > 0 then
+            Put (" +");
+            Put (A (Power));
+            Put (" X **" & Integer'Image (Power));
+         elsif A (Power) < 0 then
+            Put (" -");
+            Put (abs A (Power));
+            Put (" X **" & Integer'Image (Power));
+         end if;
+      end loop;
+   end Put;
+      -- Cosine generator
+   function Cos (N : Natural) return Taylor_Series is
+   begin
+      if N = 0 then
+         return One;
+      else
+         return One - Integral (Integral (Cos (N - 1)));
+      end if;
+   end Cos;
+begin
+   Put ("Cos ="); Put (Cos (5)); Put_Line (" ...");
+   Put ("Sin ="); Put (Integral (Cos (5))); Put_Line (" ...");
+end Test_Taylor_Series;</syntaxhighlight>
+Sample output:
+<pre>
+Cos = 1 - 1 / 2 X ** 2 + 1 / 24 X ** 4 - 1 / 720 X ** 6 + 1 / 40320 X ** 8 - 1 / 3628800 X ** 10 ...
+Sin = + 1 X ** 1 - 1 / 6 X ** 3 + 1 / 120 X ** 5 - 1 / 5040 X ** 7 + 1 / 362880X ** 9 - 1 / 39916800 X ** 11 ...
+</pre>

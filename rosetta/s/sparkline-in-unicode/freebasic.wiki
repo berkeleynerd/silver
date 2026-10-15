@@ -1,0 +1,114 @@
+==={{header|FreeBASIC}}===
+<syntaxhighlight lang="vbnet">#Ifdef __FB_WIN32__
+    #include "windows.bi"
+#EndIf
+
+Type Sparkline
+    #Ifdef __fb_win32__
+        charsetW As WString Ptr
+    #Else
+        charset As String
+    #EndIf
+    Declare Constructor()
+    Declare Constructor(cs As Any Ptr)
+    Declare Sub imprimir(spark As String)
+End Type
+
+'  Windows Implementation
+#Ifdef __FB_WIN32__
+    ' --- Actual Unicode output with WriteConsoleW ---
+    Private Sub PrintW(s As WString)
+        Dim As HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE)
+        Dim As DWORD written
+        WriteConsoleW(h, Strptr(s), Len(s), @written, NULL)
+    End Sub
+    
+    ' Default constructor: uses Unicode blocks
+    Constructor Sparkline()
+        Static As WString * 8 charsetDef = Wchr(&H2581) & Wchr(&H2582) & Wchr(&H2583) & _
+		Wchr(&H2584) & Wchr(&H2585) & Wchr(&H2586) & Wchr(&H2587) & Wchr(&H2588)
+        charsetW = @charsetDef
+    End Constructor
+    
+    ' Constructor with external charset (WString Ptr)
+    Constructor Sparkline(cs As Any Ptr)
+        charsetW = Cptr(WString Ptr, cs)
+    End Constructor
+
+'  Linux Implementation
+#Else
+    ' Default constructor
+    Constructor Sparkline()
+        ' Linux: Native UTF-8, Unicode blocks
+        charset = "▁▂▃▄▅▆▇█"
+    End Constructor
+    
+    ' Constructor with external charset (String Ptr)
+    Constructor Sparkline(cs As Any Ptr)
+        charset = *Cptr(String Ptr, cs)
+    End Constructor
+#EndIf
+
+Sub Sparkline.imprimir(spark As String)
+	Dim As Double dato(200)
+	Dim As Integer i, datoCant = 0
+	
+	Dim As String tmp = ""
+	For i = 1 To Len(spark)
+		Dim As String c = Mid(spark, i, 1)
+		If (c >= "0" And c <= "9") Or c = "." Or c = "-" Then
+			tmp &= c
+		Elseif Len(tmp) > 0 Then
+			dato(datoCant) = Val(tmp)
+			datoCant += 1
+			tmp = ""
+		End If
+	Next
+	If Len(tmp) > 0 Then
+		dato(datoCant) = Val(tmp)
+		datoCant += 1
+	End If
+	If datoCant = 0 Then Exit Sub
+	
+	Dim As Double minVal = dato(0), maxVal = dato(0)
+	For i = 1 To datoCant - 1
+		If dato(i) < minVal Then minVal = dato(i)
+		If dato(i) > maxVal Then maxVal = dato(i)
+	Next
+	
+	Dim As Integer charsetLen = Len(*charsetW)
+	Dim As Double range = maxVal - minVal
+	If range = 0 Then range = 1
+	
+	Dim As WString * 200 linea
+	linea = "Min: " & Str(minVal) & ",  Max: " & Str(maxVal) & ",  Range: " & Str(range)
+	PrintW(linea & !"\n")
+	
+	For i = 0 To datoCant - 1
+		Dim As Integer idx = Int(((dato(i) - minVal) / range) * (charsetLen - 1))
+		If idx < 0 Then idx = 0
+		If idx >= charsetLen Then idx = charsetLen - 1
+		
+		Dim As WString * 2 ch = Mid(*charsetW, idx + 1, 1)
+		PrintW(ch)
+	Next
+	
+	PrintW(!"\n\n")
+End Sub
+	
+' Main program
+Dim sl As Sparkline
+sl.imprimir("1 2 3 4 5 6 7 8 7 6 5 4 3 2 1")
+sl.imprimir("1.5, 0.5 3.5, 2.5 5.5, 4.5 7.5, 6.5")
+sl.imprimir("0 1 19 20")
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Min: 1,  Max: 8,  Range: 7
+▁▁▂▃▄▅▆▇▆▅▄▃▂▁▁
+
+Min: 0.5,  Max: 7.5,  Range: 7
+▁▁▃▂▅▄▇▆
+
+Min: 0,  Max: 20,  Range: 20
+▁▁▆▇</pre>

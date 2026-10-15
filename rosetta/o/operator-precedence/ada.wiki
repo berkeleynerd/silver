@@ -1,0 +1,17 @@
+=={{header|Ada}}==
+Ada Reference Manual, ISO/IEC 8652:2012(E), section 4.5. "Operators and Expression Evaluation" contains the listing.
+{| class="wikitable"
+! Operator || Description  || Operator || Description    || Operator || Description || Operator || Description
+|-
+| <code>**</code>       || Power        || <code>abs</code>      || Absolute       || <code>not</code>      || Logical Negate              ||         || 
+|-
+| <code>*</code>        || Multiply     || <code>/</code>        || Divide       || <code>mod</code>      || Modulus         || <code>rem</code>     || Remainder
+|-
+| <code>+</code>        || Unary Add (Identity)    || <code>-</code>        || (Unary) Negate   ||          ||                 ||         ||  
+|-
+| <code>+</code>        || Binary Add   || <code>-</code>        || Binary Subtract  || <code>&</code>        || Concatenation     ||         ||  
+|-
+| <code>=</code>        || Equals       || <code>/=</code>       || Not Equal      || <code><</code> <code><=</code>    || Less, Less or Equal || <code>></code> <code>>=</code>   || More, More or Equal 
+|-
+| <code>and</code>      || And          || <code>or</code>       || Or             || <code>xor</code>      || XOR                 ||         ||  
+|}

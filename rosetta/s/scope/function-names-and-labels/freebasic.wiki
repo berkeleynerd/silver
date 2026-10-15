@@ -1,0 +1,33 @@
+=={{header|FreeBASIC}}==
+'''PROCEDURES'''
+
+A <code>'''function'''</code> defines a block of code which can be executed with a single statement (a function call), and provide a value back to the caller when finished (a return value):
+There are several reasons to use functions
+* Reduces redundancy in your program.
+* Enables reuse of code in many programs.
+* Improves readability of the program.
+* Improves maintainability of the program.
+* Makes it easy to extend your program.
+
+
+A <code>'''subroutine'''</code> is a block of code which may be called at any time from a program. 
+This code may need to be executed multiple times, and subroutines provide an invaluable means to simplify code by replacing these blocks of code with a single subroutine call. 
+A subroutine also serves to allow a user to extend the FreeBASIC language to provide custom commands. 
+Many of the functions built into FreeBASIC are merely subroutines part of a "runtime library" linked to by default.
+
+
+Scope (visibility) of a procedure through the different modules of a program.
+A procedure is a '''subroutine''' (sub) or a '''function''' that can be called by code outside the procedure (or internal code in the case of a recursion).
+A procedure consists of a sequence of instructions that form the body of the procedure.
+It is possible to pass values or variables to a procedure, and a function may return a value or a reference.
+Scopes of procedures in modules follows simple rules:
+# '''Private scope''': procedure visible only in its own module (where it is defined).
+# '''Public scope''': procedure visible from all modules constituting a compiled program (including static libraries).
+# '''Export scope''': when defined in a DLL (dynamically linked library), procedure visible from an external program that has loaded it (statically or dynamically).
+
+
+'''LABELS'''
+
+A <code>'''label'''</code> defines a place in a program where Goto or GoSub can jump to.
+A label can be a positive integer line number or a symbolname. In both cases, the label must start at the first column of line. A symbolname label must end with a colon (:) character.
+Is available only in the "-lang qb" and "-lang fblite" dialect.

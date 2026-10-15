@@ -1,0 +1,100 @@
+=={{header|Ada}}==
+===Windows===
+The following solution calls ''MessageBox'' from [[Windows]]' dynamic library ''user32.dll''. It does not use Win32 bindings, which would be meaningless, because ''MessageBox'' is already there. Instead of that it links statically to ''kernel32.dll'', which required to load anything under [[Windows]]. From there it uses ''LoadLibrary'' to load ''user32.dll'' and then ''GetProcAddress'' to get the ''MessageBox'' entry point there. Note how [[Windows]] mangles names of functions in the import libraries. So "LoadLibrary" becomes "_LoadLibraryA@4", which is its real name. "A" means ASCII. Once address of ''MessageBox'' is obtained it is converted to a pointer to a function that has an interface corresponding to it. Note [[Windows]]' call convention, which is '''stdcall'''.
+<syntaxhighlight lang="ada">with Ada.Text_IO;   use Ada.Text_IO;
+with Interfaces;    use Interfaces;
+with Interfaces.C;  use Interfaces.C;
+with System;        use System;
+
+with Ada.Unchecked_Conversion;
+
+procedure Shared_Library_Call is
+   --
+   -- Interface to kernel32.dll which is responsible for loading DLLs under Windows.
+   -- There are ready to use Win32 bindings. We don't want to use them here.
+   --
+   type HANDLE is new Unsigned_32; -- on x64 system, replace by Unsigned_64 to make it work
+   function LoadLibrary (lpFileName : char_array) return HANDLE;
+   pragma Import (stdcall, LoadLibrary, "LoadLibrary", "_LoadLibraryA"); -- Ada95 does not have the @n suffix.
+
+   function GetProcAddress (hModule : HANDLE; lpProcName : char_array)
+      return Address;
+   pragma Import (stdcall, GetProcAddress, "GetProcAddress", "_GetProcAddress"); --
+   --
+   -- The interface of the function we want to call. It is a pointer (access type)
+   -- because we will link it dynamically. The function is from User32.dll
+   --
+   type MessageBox is access function 
+        (  hWnd      : Address     := Null_Address;
+           lpText    : char_array;
+           lpCaption : char_array  := To_C ("Greeting");
+           uType     : Unsigned_16 := 0
+        )  return Integer_16;
+   pragma Convention (Stdcall, MessageBox);
+   function To_MessageBox is new Ada.Unchecked_Conversion (Address, MessageBox);
+
+   Library : HANDLE  := LoadLibrary (To_C ("user32.dll"));
+   Pointer : Address := GetProcAddress (Library, To_C ("MessageBoxA"));
+begin
+   if Pointer /= Null_Address then
+      declare
+         Result : Integer_16;
+      begin
+         Result := To_MessageBox (Pointer) (lpText => To_C ("Hello!"));
+      end;
+   else
+      Put_Line ("Unable to load the library " & HANDLE'Image (Library));
+   end if;
+end Shared_Library_Call;</syntaxhighlight>
+
+===Linux===
+Here we are using the ''dl'' library statically (-ldl switch upon linking) and ''Xlib'' dynamically (''libX11.so''). The function ''dlopen'' loads a library. The function ''dlsym'' looks up for an entry point there. From ''libX11.so'', first ''XOpenDisplay'' is called to open an X11 display, which name is in the DISPLAY environment variable. Then XDisplayWidth of the display is obtained an printed into the standard output.
+<syntaxhighlight lang="ada">with Ada.Environment_Variables;  use Ada.Environment_Variables;
+with Ada.Text_IO;                use Ada.Text_IO;
+with Interfaces;                 use Interfaces;
+with Interfaces.C;               use Interfaces.C;
+with System;                     use System;
+
+with Ada.Unchecked_Conversion;
+
+procedure Shared_Library_Call is
+   --
+   -- Interface to libdl to load dynamically linked libraries
+   --
+   function dlopen (FileName : char_array; Flag : int) return Address;
+   pragma Import (C, dlopen);
+
+   function dlsym (Handle : address; Symbol : char_array) return Address;
+   pragma Import (C, dlsym);
+   --
+   -- The interfaces of the functions we want to call. These are pointers
+   -- (access type) because we will link it dynamically. The functions
+   -- come from libX11.so.
+   --
+   type XOpenDisplay is access function (Display_Name : char_array) return Address;
+   pragma Convention (C, XOpenDisplay);
+   function To_Ptr is new Ada.Unchecked_Conversion (Address, XOpenDisplay);
+
+   type XDisplayWidth is access function (Display : Address; Screen : int) return int;
+   pragma Convention (C, XDisplayWidth);
+   function To_Ptr is new Ada.Unchecked_Conversion (Address, XDisplayWidth);
+
+   Library : Address := dlopen (To_C ("libX11.so"), 1);
+   OpenDisplay  : XOpenDisplay  := To_Ptr (dlsym (Library, To_C ("XOpenDisplay")));
+   DisplayWidth : XDisplayWidth := To_Ptr (dlsym (Library, To_C ("XDisplayWidth")));
+begin
+   if OpenDisplay /= null and then DisplayWidth /= null then
+      declare
+         Display : Address;
+      begin
+         Display := OpenDisplay (To_C (Value ("DISPLAY")));
+         if Display = Null_Address then
+            Put_Line ("Unable to open display " & Value ("DISPLAY"));
+         else
+            Put_Line (Value ("DISPLAY") & " width is" & int'image (DisplayWidth (Display, 0)));
+         end if;
+      end;
+   else
+      Put_Line ("Unable to load the library");
+   end if;
+end Shared_Library_Call;</syntaxhighlight>

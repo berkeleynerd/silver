@@ -1,0 +1,229 @@
+=={{header|Ada}}==
+An Ada implementation of the Wikipedia Java example. Perhaps more packages than needed (7), which makes for quite a few files (specification + implementation). An overview:
+* <code>Vehicle_Elements</code> (spec + body) provides a base <code>Element</code> class for <code>Car</code> and its parts, as well as an <code>Element_Interface</code> for visitors. It's sufficiently abstract that you could, in principle, easily define a <code>Bicycle</code>, or a <code>Truck</code>, or an <code>Airplane</code>.
+* The elements of a <code>Car</code> are defined in:
+
+:* <code>Bodies</code>
+:* <code>Engines</code>
+:* <code>Wheels</code>
+
+* <code>Car_Visitors</code> (spec + body) provides an implementation of <code>Element_Visitor</code> for <code>Cars</code>, defining two visitors:
+:* <code>Perform_Visitor</code>
+:* <code>Print_Visitor</code>
+* <code>Cars</code> (spec + body) "builds" a <code>Car</code> from its various parts and overrides <code>Accept_Visitor</code>.
+* <code>Visitor_Pattern</code> instantiates a car and invokes both visitors on it.
+====<code>Vehicle_Elements</code>====
+<syntaxhighlight lang="ada">private with Ada.Strings.Unbounded;
+
+package Vehicle_Elements is
+
+   --  Forward declaration for visitor operation parameter
+   type Element is tagged;
+
+   --  Generic visitor interface
+   type Element_Visitor is interface;
+
+   --  Interface visiting procedure
+   procedure Visit
+     (Self :        Element_Visitor;
+      Part : in out Vehicle_Elements.Element'Class) is abstract;
+
+   --  Base class type for all car things
+   type Element is abstract tagged private;
+
+   --  Using 'Class here so I can provide a generic base class constructor
+   --     Name - Name of the part: "Body", "Engine", "Wheel"
+   --  NOTE:  When using to make an aggregate, type convert the result of this
+   --     operation to the Element type
+   function Make (Name : String) return Element'Class;
+
+   --  To get the supplied name
+   function Name (Self : Element'Class) return String;
+
+   --  This procedure calls Visitor.Visit(Self) by default
+   --  We can't call it `Accept` because `accept` is an Ada keyword...
+   procedure Accept_Visitor
+     (Self : in out Element; Visitor : Element_Visitor'Class);
+
+private
+
+   use Ada.Strings.Unbounded;
+
+   type Element is abstract tagged record
+      Name : Unbounded_String;
+   end record;
+
+end Vehicle_Elements;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">package body Vehicle_Elements is
+
+   --  Need a non abstract type to actually work in the Make function
+   type Factory is new Element with null record;
+
+   function Make (Name : String) return Element'Class is
+     (Factory'(Name => To_Unbounded_String (Name)));
+
+   function Name (Self : Element'Class) return String is
+     (To_String (Self.Name));
+
+   procedure Accept_Visitor
+     (Self : in out Element; Visitor : Element_Visitor'Class)
+   is
+   begin
+      Visitor.Visit (Self);
+   end Accept_Visitor;
+
+end Vehicle_Elements;
+</syntaxhighlight>
+====<code>Car_Visitors</code>====
+<syntaxhighlight lang="ada">with Vehicle_Elements;
+
+package Car_Visitors is
+
+   type Print_Visitor is new Vehicle_Elements.Element_Visitor with null record;
+   overriding procedure Visit
+     (Self : Print_Visitor; Part : in out Vehicle_Elements.Element'Class);
+
+   type Perform_Visitor is
+   new Vehicle_Elements.Element_Visitor with null record;
+   overriding procedure Visit
+     (Self : Perform_Visitor; Part : in out Vehicle_Elements.Element'Class);
+
+end Car_Visitors;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Bodies;
+with Engines;
+with Wheels;
+with Cars;
+
+package body Car_Visitors is
+
+   overriding procedure Visit
+     (Self : Print_Visitor; Part : in out Vehicle_Elements.Element'Class)
+   is
+   begin
+      Put_Line ("Visiting " & Part.Name);
+   end Visit;
+
+   overriding procedure Visit
+     (Self : Perform_Visitor; Part : in out Vehicle_Elements.Element'Class)
+   is
+   begin
+      if Part in Cars.Car then
+         Put_Line ("Starting the " & Part.Name);
+      elsif Part in Bodies.Car_Body then
+         Put_Line ("Moving the " & Part.Name);
+      elsif Part in Engines.Engine then
+         Put_Line ("Revving the " & Part.Name);
+      elsif Part in Wheels.Wheel then
+         Put_Line ("Rolling the " & Part.Name);
+      else
+         raise Constraint_Error
+           with "Peform_Visitor does not support part type";
+      end if;
+   end Visit;
+
+end Car_Visitors;
+</syntaxhighlight>
+====The parts of a <code>Car</code>====
+<syntaxhighlight lang="ada">with Vehicle_Elements;
+
+package Bodies is
+
+   type Car_Body is new Vehicle_Elements.Element with null record;
+   function Make return Car_Body is
+     (Vehicle_Elements.Element (Vehicle_Elements.Make ("Body")) with
+      null record);
+
+end Bodies;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">with Vehicle_Elements;
+
+package Engines is
+
+   type Engine is new Vehicle_Elements.Element with null record;
+   function Make return Engine is
+     (Vehicle_Elements.Element (Vehicle_Elements.Make ("Engine")) with
+      null record);
+
+end Engines;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">with Vehicle_Elements;
+
+package Wheels is
+
+   type Wheel is new Vehicle_Elements.Element with null record;
+   function Make (Name : String) return Wheel is
+     (Vehicle_Elements.Element (Vehicle_Elements.Make (Name & " Wheel")) with
+      null record);
+
+end Wheels;
+</syntaxhighlight>
+====<code>Cars</code>====
+<syntaxhighlight lang="ada">private with Wheels;
+
+with Bodies;
+with Engines;
+with Vehicle_Elements;
+
+package Cars is
+
+   type Car is new Vehicle_Elements.Element with private;
+
+   overriding procedure Accept_Visitor
+     (Self : in out Car; Visitor : Vehicle_Elements.Element_Visitor'Class);
+
+   function Make return Car;
+
+private
+
+   type Wheel_Position is (Left_Front, Right_Front, Left_Back, Right_Back);
+
+   type Wheel_Array is array (Wheel_Position) of Wheels.Wheel;
+
+   type Car is new Vehicle_Elements.Element with record
+      Car_Body   : Bodies.Car_Body;
+      Engine     : Engines.Engine;
+      All_Wheels : Wheel_Array;
+   end record;
+
+end Cars;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">pragma Ada_2022;
+
+package body Cars is
+
+   function Make return Car is
+     (Vehicle_Elements.Element (Vehicle_Elements.Make ("Car")) with
+      Car_Body   => Bodies.Make, Engine => Engines.Make,
+      All_Wheels =>
+        (for Wheel in Wheel_Position => Wheels.Make (Wheel'Image)));
+
+   overriding procedure Accept_Visitor
+     (Self : in out Car; Visitor : Vehicle_Elements.Element_Visitor'Class)
+   is
+   begin
+      Vehicle_Elements.Element (Self).Accept_Visitor (Visitor);
+      Self.Car_Body.Accept_Visitor (Visitor);
+      Self.Engine.Accept_Visitor (Visitor);
+      for Wheel of Self.All_Wheels loop
+         Wheel.Accept_Visitor (Visitor);
+      end loop;
+   end Accept_Visitor;
+
+end Cars;
+</syntaxhighlight>
+====Putting it all together====
+<syntaxhighlight lang="ada">with Cars;
+with Car_Visitors;
+
+procedure Visitor_Pattern is
+   Car       : Cars.Car := Cars.Make;
+   Printer   : Car_Visitors.Print_Visitor;
+   Performer : Car_Visitors.Perform_Visitor;
+begin
+   Car.Accept_Visitor (Printer);
+   Car.Accept_Visitor (Performer);
+end Visitor_Pattern;
+</syntaxhighlight>

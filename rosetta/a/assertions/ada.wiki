@@ -1,0 +1,20 @@
+=={{header|Ada}}==
+Using pragma Assert:
+<syntaxhighlight lang="ada">pragma Assert (A = 42, "Oops!");</syntaxhighlight>
+The behavior of pragma is controlled by pragma Assertion_Policy. Another way is to use the predefined package Ada.Assertions:
+<syntaxhighlight lang="ada">with Ada.Assertions;  use Ada.Assertions;
+...
+Assert (A = 42, "Oops!");</syntaxhighlight>
+The procedure Assert propagates Assertion_Error when condition is false.
+Since Ada 2012 one may also specify preconditions and post-conditions for a subprogram.
+<syntaxhighlight lang="ada">procedure Find_First
+     (List     : in     Array_Type;
+      Value    : in     Integer;
+      Found    :    out Boolean;
+      Position :    out Positive) with
+      Depends => ((Found, Position) => (List, Value)),
+      Pre     => (List'Length > 0),
+      Post    =>
+      (if Found then Position in List'Range and then List (Position) = Value
+       else Position = List'Last);</syntaxhighlight>
+The precondition identified with "Pre =>" is an assertion that the length of the parameter List must be greater than zero. The post-condition identified with "Post =>" asserts that, upon completion of the procedure, if Found is true then Position is a valid index value in List and the value at the array element List(Position) equals the value of the Value parameter. If Found is False then Position is set to the highest valid index value for List.

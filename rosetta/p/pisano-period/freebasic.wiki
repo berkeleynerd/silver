@@ -1,0 +1,162 @@
+=={{header|FreeBASIC}}==
+{{trans|Nim}}
+<syntaxhighlight lang="vbnet">Function gcd(a As Uinteger, b As Uinteger) As Uinteger
+    If b = 0 Then Return a Else Return gcd(b, a Mod b)
+End Function
+
+Function lcm(a As Ulongint, b As Ulongint) As Ulongint
+    Return (a \ gcd(a, b)) * b
+End Function
+
+Function isPrime(n As Uinteger) As Boolean
+    If n < 2 Then Return False
+    If n = 2 Then Return True
+    If n Mod 2 = 0 Then Return False
+    For i As Uinteger = 3 To Sqr(n) Step 2
+        If n Mod i = 0 Then Return False
+    Next
+    Return True
+End Function
+
+Type PrimeFactorization
+    factors(1 To 100) As Uinteger
+    powers(1 To 100) As Uinteger
+    count As Integer
+End Type
+
+Function getPrimeFactorization(n As Uinteger) As PrimeFactorization
+    Dim As PrimeFactorization result
+    result.count = 0
+    Dim As Uinteger d = 2
+    While d * d <= n
+        If n Mod d = 0 Then
+            result.count += 1
+            result.factors(result.count) = d
+            result.powers(result.count) = 0
+            While n Mod d = 0
+                result.powers(result.count) += 1
+                n \= d
+            Wend
+        End If
+        d += 1
+    Wend
+    If n > 1 Then
+        result.count += 1
+        result.factors(result.count) = n
+        result.powers(result.count) = 1
+    End If
+    Return result
+End Function
+
+Function pisanoPeriod(m As Uinteger) As Uinteger
+    Dim As Uinteger i, a = 0, b = 1, c = 1
+    For i = 0 To m * m
+        c = (a + b) Mod m
+        a = b
+        b = c
+        If a = 0 And b = 1 Then Return i + 1
+    Next
+    Return 0
+End Function
+
+Function pisanoPrime(p As Uinteger, k As Uinteger) As Ulongint
+    Return Iif(isPrime(p), pisanoPeriod(p) * p^(k-1), 0)
+End Function
+
+Function pisano(m As Uinteger) As Ulongint
+    If m = 1 Then Return 1
+    Dim As PrimeFactorization pf = getPrimeFactorization(m)
+    Dim As Ulongint pi, result = 1
+    For i As Integer = 1 To pf.count
+        pi = pisanoPrime(pf.factors(i), pf.powers(i))
+        result = lcm(result, pi)
+    Next
+    Return result
+End Function
+
+' Main program
+Dim As Uinteger p, n, c = 0
+Dim As Ulongint pp, ppp
+
+For p = 2 To 14
+    pp = pisanoPrime(p, 2)
+    If pp > 0 Then Print Using "pisanoPrime(##_, 2) = &"; p; pp
+Next p
+
+Print
+For p = 2 To 179
+    pp = pisanoPrime(p, 1)
+    If pp > 0 Then Print Using "pisanoPrime(###_, 1) = &"; p; pp
+Next p
+
+Print !"\npisano(n) for integers 'n' from 1 to 180 are:"
+For n = 1 To 180
+    Print Using "### "; pisano(n);
+    c += 1
+    If c Mod 15 = 0 Then Print
+Next n
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre style="height:40ex;overflow:scroll;">pisanoPrime( 2, 2) = 6
+pisanoPrime( 3, 2) = 24
+pisanoPrime( 5, 2) = 100
+pisanoPrime( 7, 2) = 112
+pisanoPrime(11, 2) = 110
+pisanoPrime(13, 2) = 364
+
+pisanoPrime(  2, 1) = 3
+pisanoPrime(  3, 1) = 8
+pisanoPrime(  5, 1) = 20
+pisanoPrime(  7, 1) = 16
+pisanoPrime( 11, 1) = 10
+pisanoPrime( 13, 1) = 28
+pisanoPrime( 17, 1) = 36
+pisanoPrime( 19, 1) = 18
+pisanoPrime( 23, 1) = 48
+pisanoPrime( 29, 1) = 14
+pisanoPrime( 31, 1) = 30
+pisanoPrime( 37, 1) = 76
+pisanoPrime( 41, 1) = 40
+pisanoPrime( 43, 1) = 88
+pisanoPrime( 47, 1) = 32
+pisanoPrime( 53, 1) = 108
+pisanoPrime( 59, 1) = 58
+pisanoPrime( 61, 1) = 60
+pisanoPrime( 67, 1) = 136
+pisanoPrime( 71, 1) = 70
+pisanoPrime( 73, 1) = 148
+pisanoPrime( 79, 1) = 78
+pisanoPrime( 83, 1) = 168
+pisanoPrime( 89, 1) = 44
+pisanoPrime( 97, 1) = 196
+pisanoPrime(101, 1) = 50
+pisanoPrime(103, 1) = 208
+pisanoPrime(107, 1) = 72
+pisanoPrime(109, 1) = 108
+pisanoPrime(113, 1) = 76
+pisanoPrime(127, 1) = 256
+pisanoPrime(131, 1) = 130
+pisanoPrime(137, 1) = 276
+pisanoPrime(139, 1) = 46
+pisanoPrime(149, 1) = 148
+pisanoPrime(151, 1) = 50
+pisanoPrime(157, 1) = 316
+pisanoPrime(163, 1) = 328
+pisanoPrime(167, 1) = 336
+pisanoPrime(173, 1) = 348
+pisanoPrime(179, 1) = 178
+
+pisano(n) for integers 'n' from 1 to 180 are:
+  1   3   8   6  20  24  16  12  24  60  10  24  28  48  40
+ 24  36  24  18  60  16  30  48  24 100  84  72  48  14 120
+ 30  48  40  36  80  24  76  18  56  60  40  48  88  30 120
+ 48  32  24 112 300  72  84 108  72  20  48  72  42  58 120
+ 60  30  48  96 140 120 136  36  48 240  70  24 148 228 200
+ 18  80 168  78 120 216 120 168  48 180 264  56  60  44 120
+112  48 120  96 180  48 196 336 120 300  50  72 208  84  80
+108  72  72 108  60 152  48  76  72 240  42 168 174 144 120
+110  60  40  30 500  48 256 192  88 420 130 120 144 408 360
+ 36 276  48  46 240  32 210 140  24 140 444 112 228 148 600
+ 50  36  72 240  60 168 316  78 216 240  48 216 328 120  40
+168 336  48 364 180  72 264 348 168 400 120 232 132 178 120</pre>

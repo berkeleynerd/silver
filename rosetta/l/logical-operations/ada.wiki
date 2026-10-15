@@ -1,0 +1,14 @@
+=={{header|Ada}}==
+
+I have also included logical xor because it is defined for Ada boolean types.
+All the operators below work equally well on arrays of boolean types. 
+In fact, a packed array of boolean is an array of bits, 
+providing a direct link between logical and bitwise operations.
+
+<syntaxhighlight lang="ada">procedure Print_Logic(A : Boolean; B : Boolean) is
+begin
+   Put_Line("A and B is " & Boolean'Image(A and B));
+   Put_Line("A or B  is " & Boolean'Image(A or B));
+   Put_Line("A xor B is " & Boolean'Image(A xor B));
+   Put_Line("not A   is " & Boolean'Image(not A));
+end Print_Logic;</syntaxhighlight>

@@ -1,0 +1,205 @@
+Type Vector3
+    As Single  x, y, z
+End Type
+
+Type Animation
+    As String  elem, attr
+    As Vector3 fromVal, toVal
+    As Single  beginTime, duration
+End Type
+
+Function loadFile(path As String) As String
+    Dim As String s, linea
+    Dim As Integer ff = Freefile
+    Open path For Input As #ff
+    While Not Eof(ff)
+        Line Input #ff, linea
+        s &= linea & Chr(10)
+    Wend
+    Close #ff
+    Return s
+End Function
+
+Function ReplaceStr(source As String, find As String, repl As String) As String
+    Dim As Integer i = Instr(source, find)
+    If i > 0 Then Return Left(source, i - 1) & repl & Mid(source, i + Len(find))
+    Return source
+End Function
+
+' --- Vectors and animation ---
+Function parseVector3(text As String) As Vector3
+    Dim As Vector3 result
+    Dim As Integer posic
+    Dim As String  tmp = Trim(text)
+    
+   	posic = Instr(tmp, " ")
+    result.x = Val(Left(tmp, posic-1))
+    
+    tmp = Mid(tmp, posic+1)
+    posic = Instr(tmp, " ")
+    result.y = Val(Left(tmp, posic-1))
+    
+    tmp = Mid(tmp, posic+1)
+    result.z = Val(tmp)
+    
+    Return result
+End Function
+
+Function interpolateVector(fromVal As Vector3, toVal As Vector3, beginTime As Single, duration As Single, currentTime As Single) As Vector3
+    Dim As Vector3 result
+    
+    If currentTime <= beginTime Then Return fromVal
+    If currentTime >= beginTime + duration Then Return toVal
+    
+    Dim As Single t = (currentTime - beginTime) / duration
+    result.x = fromVal.x * (1 - t) + toVal.x * t
+    result.y = fromVal.y * (1 - t) + toVal.y * t
+    result.z = fromVal.z * (1 - t) + toVal.z * t
+    
+    Return result
+End Function
+
+Function vector3ToString(v As Vector3) As String
+    Return Trim(Str(v.x)) & " " & Trim(Str(v.y)) & " " & Trim(Str(v.z))
+End Function
+
+' --- Simple attribute parsing in a tag ---
+Function extractAttr(tag As String, attr As String) As String
+    Dim As String pat = attr & "="
+    Dim As Integer p = Instr(tag, pat)
+    If p = 0 Then Return ""
+    
+    Dim As String rest = Mid(tag, p + Len(pat))
+    Dim As String quote = Left(rest, 1)
+    If quote <> "'" And quote <> """" Then Return ""
+    
+    Dim As Integer q = Instr(2, rest, quote)
+    If q = 0 Then Return ""
+    
+    Return Mid(rest, 2, q - 2)
+End Function
+
+Function findParentElem(xml As String, animatePos As Integer) As String
+    Dim As Integer posic = animatePos
+    While posic > 1
+        posic -= 1
+        If Mid(xml, posic, 4) = "<Box" Then Return "Box"
+        If Mid(xml, posic, 9) = "<Material" Then Return "Material"
+    Wend
+    Return ""
+End Function
+
+Sub findAnimations(xml As String, anims() As Animation)
+    Dim As Integer posic = 1
+    
+    Do
+        Dim As Integer a = Instr(posic, xml, "<animate ")
+        If a = 0 Then Exit Do
+        
+        Dim As Integer b = Instr(a, xml, "/>")
+        If b = 0 Then Exit Do
+        
+        Dim As String tag = Mid(xml, a, b - a + 2)
+        
+        Dim As Animation anim
+        anim.elem      = findParentElem(xml, a)
+        anim.attr      = extractAttr(tag, "attributeName")
+        anim.fromVal   = parseVector3(extractAttr(tag, "from"))
+        anim.toVal     = parseVector3(extractAttr(tag, "to"))
+        anim.beginTime = Val(extractAttr(tag, "begin"))
+        anim.duration  = Val(extractAttr(tag, "dur"))
+        
+        If anim.elem <> "" And anim.attr <> "" Then
+            Dim As Integer n = Ubound(anims)
+            If n = -1 Then
+                Redim anims(0)
+                anims(0) = anim
+            Else
+                Redim Preserve anims(n + 1)
+                anims(n + 1) = anim
+            End If
+        End If
+        
+        posic = b + 2
+    Loop
+End Sub
+
+Function removeAnimate(xml As String) As String
+    Dim As Integer posic = 1
+    Do
+        Dim As Integer a = Instr(posic, xml, "<animate ")
+        If a = 0 Then Exit Do
+        
+        Dim As Integer b = Instr(a, xml, "/>")
+        If b = 0 Then Exit Do
+        
+        xml = Left(xml, a - 1) & Mid(xml, b + 2)
+        posic = a
+    Loop
+    Return xml
+End Function
+
+Function collapseTag(xml As String, tag As String) As String
+    Dim As Integer posic = 1
+    Do
+        Dim As Integer a = Instr(posic, xml, "<" & tag & " ")
+        If a = 0 Then Exit Do
+        
+        Dim As Integer b = Instr(a, xml, "</" & tag & ">")
+        If b = 0 Then Exit Do
+        
+        Dim As Integer endTag = Instr(a, xml, ">")
+        If endTag = 0 Then Exit Do
+        
+        Dim As String openTag = Mid(xml, a, endTag - a + 1)
+        Dim As String selfTag = ReplaceStr(openTag, ">", "/>")
+        
+        xml = Left(xml, a - 1) & selfTag & Mid(xml, b + Len(tag) + 3)
+        posic = a + 1
+    Loop
+    Return xml
+End Function
+
+Function replaceAttr(xml As String, elem As String, attr As String, newVal As String) As String
+    Dim As Integer posic = Instr(xml, "<" & elem & " ")
+    If posic = 0 Then Return xml
+    
+    Dim As Integer a = Instr(posic, xml, attr & "='")
+    If a = 0 Then Return xml
+    
+    Dim As Integer b = Instr(a + Len(attr) + 2, xml, "'")
+    If b = 0 Then Return xml
+    
+    Return Left(xml, a - 1) & attr & "='" & newVal & "'" & Mid(xml, b + 1)
+End Function
+
+' --- Main program ---
+Dim As String xml = loadFile("smil.xml")
+
+Dim As Animation anims()
+Redim anims(-1)
+
+findAnimations(xml, anims())
+
+xml = ReplaceStr(xml, "<smil>" & Chr(10), "")
+xml = ReplaceStr(xml, "</smil>", "")
+
+xml = removeAnimate(xml)
+xml = collapseTag(xml, "Box")
+xml = collapseTag(xml, "Material")
+
+' Animate at t=0 and t=2
+For t As Single = 0 To 2 Step 2
+    Print "At t = " & t & !" seconds:\n"
+    
+    Dim As String outXml = xml
+    
+    For i As Integer = 0 To Ubound(anims)
+        Dim As Vector3 v = interpolateVector(anims(i).fromVal, anims(i).toVal, anims(i).beginTime, anims(i).duration, t)
+        outXml = replaceAttr(outXml, anims(i).elem, anims(i).attr, vector3ToString(v))
+    Next
+    
+    Print outXml
+Next
+
+Sleep

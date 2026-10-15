@@ -1,0 +1,9 @@
+=={{header|Ada}}==
+
+The only place where syntax is kind of inverted is <code>exit when</code> to exit loops:
+
+<syntaxhighlight lang="ada">Foo := 1;
+loop
+   exit when Foo = 10;
+   Foo := Foo + 1;
+end loop;</syntaxhighlight>

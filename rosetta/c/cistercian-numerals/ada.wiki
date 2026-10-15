@@ -1,0 +1,502 @@
+=={{header|Ada}}==
+Divided into several packages. I'll group each specification with its implementation. If you're using GNAT, you'll want to put the specification and implementation into separate files (the name is in a comment in the file's first line).
+
+This implementation goes a bit "above and beyond" in order to demonstrate:
+* the use of generics to allow the client to choose the dimension;
+* Ada's robust type system;
+* some exception handling;
+* making the type usable with more than just the ASCII artist.
+
+(I didn't actually implement a second artist, but it would be straightforward from what's provided.)
+
+===Main Test Program===
+
+<syntaxhighlight lang="ada">
+--  cistercian_numerals.adb
+--
+--  test program for the Cistercian Representation Library
+--  possibly overengineered in order to demonstrate use of types,
+--  conditions, etc.
+--  threw in some exception handling
+
+--  modern Ada
+pragma Ada_2022;
+
+pragma Assertion_Policy (Check);
+
+--  imports
+
+with Ada.Text_IO;
+
+with Cistercian;
+with Cistercian.Ascii;
+with Cistercian.Ascii_Requirements;
+
+procedure Cistercian_Numerals is
+
+   package IO renames Ada.Text_IO;
+
+   Test_Values : constant array (1 .. 8) of Cistercian.Representable_Range :=
+     [0, 1, 20, 300, 4_000, 5_555, 6_789, 1_983];
+   --  test values required by task
+   User_Value  : Integer;
+   --  value user requests
+
+   Temp      : Integer;
+   Dimension : Cistercian.Ascii_Requirements.Valid_Dimension;
+
+begin
+
+   loop
+      begin
+         IO.Put_Line ("How large would you like your Cistercian numerals?");
+         IO.Put_Line ("(You must supply an odd number greater than 5)");
+         IO.Put ("> ");
+         Dimension :=
+           Cistercian.Ascii_Requirements.Valid_Dimension'Value (IO.Get_Line);
+         --  kind of perplexed why I have to assert this
+         --  when the dynamic predicate should do so
+         pragma
+           Assert (Dimension in Cistercian.Ascii_Requirements.Valid_Dimension);
+         exit;
+      exception
+         when others =>
+            IO.Put_Line ("You must supply an odd number greater than 5");
+      end;
+   end loop;
+
+   declare
+      package Cist_Ascii is new Cistercian.Ascii (Dimension);
+   begin
+
+      --  first print test values
+      for Value of Test_Values loop
+         begin
+            IO.Put_Line
+              ("The Cistercian representation of" & Value'Image & " is:");
+            Cist_Ascii.Put (Cistercian.From (Value));
+            IO.New_Line;
+         exception
+            when others =>
+               IO.Put_Line ("Hit an unrecoverable error. Terminating");
+               return;
+         end;
+      end loop;
+
+      --  now let user choose own values
+      loop
+         begin
+            IO.Put ("What other value would you like to see? ");
+            IO.Put_Line ("(enter a negative number to stop) ");
+            IO.Put ("? ");
+            User_Value := Integer'Value (IO.Get_Line);
+            Cist_Ascii.Put (Cistercian.From (User_Value));
+            IO.New_Line;
+         exception
+            when others =>
+               if User_Value < 0 then
+                  exit;
+               end if;
+               IO.Put_Line ("Please enter a valid number from 0 to 9999.");
+               IO.Put ("? ");
+         end;
+      end loop;
+   end;
+
+end Cistercian_Numerals;
+</syntaxhighlight>
+
+===Library to represent data===
+
+<syntaxhighlight lang="ada">
+--  cistercian.ads
+--  representations of Cistercian numbers
+
+package Cistercian is
+
+   type Representation is private;
+   --  this type holds the Cistercian representation of a number
+
+   subtype Representable_Range is Natural range 0 .. 9999;
+   --  the system only works with values in this range
+
+   function From (Value : Representable_Range) return Representation;
+   --  converts `Value` to a `Representation`
+
+   type Quadrant is (Ones, Tens, Hundreds, Thousands);
+   --  corresponds to the quadrants used by the system
+
+   type Strokes_Enum is (Diag_From_Far, Diag_From_Near, Far, Near, Side);
+   --  corresponds to the line segments:
+   --  * Diag_From_Far corresponds to what you'll see in 3, 30, 300, 3000
+   --  * Diag_From_Near corresponds to what you'll see in 4, 40, 400, 4000
+   --  * Far corresponds to what you'll see in 1, 10, 100, 1000
+   --  * Near corresponds to what you'll see in 2, 20, 200, 2000
+   --  * Side corresponds to what you'll see in 6, 60, 600, 6000
+   --
+   --  the others are combinations of these
+
+private
+
+   type Stroke_Used_Array is array (Strokes_Enum) of Boolean;
+   --  whether a stroke should be set
+
+   type Representation is array (Quadrant) of Stroke_Used_Array;
+   --  indicates which quadrants' strokes are set
+
+end Cistercian;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">
+--  cistercian.adb
+
+pragma Ada_2022;
+
+package body Cistercian is
+
+   subtype Digit_Range is Natural range 0 .. 9;
+
+   Digit_Strokes : constant array (Digit_Range) of Stroke_Used_Array :=
+     [0 => [others => False],
+      1 => [Far => True, others => False],
+      2 => [Near => True, others => False],
+      3 => [Diag_From_Far => True, others => False],
+      4 => [Diag_From_Near => True, others => False],
+      5 => [Diag_From_Near => True, Far => True, others => False],
+      6 => [Side => True, others => False],
+      7 => [Far => True, Side => True, others => False],
+      8 => [Near => True, Side => True, others => False],
+      9 => [Far => True, Near => True, Side => True, others => False]];
+   --  maps each digit to the corresponding strokes
+   --  this makes it easy for us to assign strokes later
+
+   function From (Value : Representable_Range) return Representation is
+      --  converts Value to a Representation
+      Result : Representation;
+
+      --  obtain digits, then...
+
+      Ones_Digit : constant Digit_Range := Value rem 10;
+      Tens_Digit : constant Digit_Range := ((Value - Ones_Digit) / 10) rem 10;
+      Hund_Digit : constant Digit_Range :=
+        ((Value - (Tens_Digit * 10 + Ones_Digit)) / 100) rem 10;
+      Thou_Digit : constant Digit_Range :=
+        (Value - (Hund_Digit * 100 + Tens_Digit * 10 + Ones_Digit)) / 1000;
+
+   begin
+
+      --  assign strokes to corresponding quadrants
+
+      Result (Ones) := Digit_Strokes (Ones_Digit);
+      Result (Tens) := Digit_Strokes (Tens_Digit);
+      Result (Hundreds) := Digit_Strokes (Hund_Digit);
+      Result (Thousands) := Digit_Strokes (Thou_Digit);
+
+      return Result;
+
+   end From;
+
+end Cistercian;
+</syntaxhighlight>
+
+===Describing stroke motion===
+
+Specification file only.
+
+<syntaxhighlight lang="ada">
+--  cistercian-motion.ads
+--
+--  details information on how to draw each Cistercian stroke
+--
+--  this is fairly general, so it should be adaptable to any medium,
+--  though we have adapted it only to ASCII
+
+pragma Ada_2022;
+
+with Cistercian; use Cistercian;
+
+package Cistercian.Motion is
+   type Start_Enum is (Near, Far);
+   --  whether the stroke starts near to or far from the center
+
+   subtype Motion_Delta is Integer range -1 .. 1;
+   --  how the pen should step across the image in a given dimension
+
+   type Motion_Record is record
+      --  record of a stroke's motion:
+      --  the location to start, as well as which direction to move
+      Col_Start, Row_Start : Start_Enum;
+      Col_Delta, Row_Delta : Motion_Delta;
+   end record;
+
+   Stroke_Arrangement :
+     constant array (Quadrant, Cistercian.Strokes_Enum) of Motion_Record :=
+       [Ones      =>
+          [Diag_From_Far  => (Near, Far, 1, 1),
+           Diag_From_Near => (Near, Near, 1, -1),
+           Far            => (Near, Far, 1, 0),
+           Near           => (Near, Near, 1, 0),
+           Side           => (Far, Far, 0, 1)],
+        Tens      =>
+          [Diag_From_Far  => (Near, Far, -1, 1),
+           Diag_From_Near => (Far, Far, 1, 1),
+           Far            => (Far, Far, 1, 0),
+           Near           => (Far, Near, 1, 0),
+           Side           => (Far, Far, 0, 1)],
+        Hundreds  =>
+          [Diag_From_Far  => (Near, Far, 1, -1),
+           Diag_From_Near => (Near, Near, 1, 1),
+           Far            => (Near, Far, 1, 0),
+           Near           => (Near, Near, 1, 0),
+           Side           => (Far, Near, 0, 1)],
+        Thousands =>
+          [Diag_From_Far  => (Far, Near, 1, 1),
+           Diag_From_Near => (Near, Near, -1, 1),
+           Far            => (Far, Far, 1, 0),
+           Near           => (Far, Near, 1, 0),
+           Side           => (Far, Near, 0, 1)]];
+   --  maps a quadrant-stoke pair to a motion
+
+end Cistercian.Motion;
+</syntaxhighlight>
+
+===ASCII output===
+This contains _two_ specifications: one contains a requirement on the type of a parameter used for the second specification's generic parameter.
+<syntaxhighlight lang="ada">
+--  cistercian-ascii_requirements.ads
+--
+--  have to separate this because gnat requires only one compilation unit
+--  per file
+
+package Cistercian.Ascii_Requirements is
+   subtype Valid_Dimension is Positive
+   with Static_Predicate => Valid_Dimension > 5;
+end Cistercian.Ascii_Requirements;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">
+--  cistercian-ascii.ads
+--  ASCII printout of Cistercian representations
+--  this is generic, so that you can make it as large as you like
+--  (within reason)
+
+pragma Ada_2022;
+
+with Cistercian.Ascii_Requirements;
+
+generic
+   Dimension : Cistercian.Ascii_Requirements.Valid_Dimension := 7;
+package Cistercian.Ascii is
+
+   type Block (<>) is private;
+   --  as i understand it, this particular use of the discriminant
+   --  prevents the client from instantiating a `Block` without
+   --  going through one of our generator functions,
+   --  and the only one of those is `Zero`
+
+   function Zero return Block;
+   --  returns a `Block` corresponding to 0;
+   --  i.e., a vertical line through the center
+
+   function From (Value : Cistercian.Representation) return Block;
+   --  converts a Cistercian representation to an ASCII block
+
+   procedure Put (Value : Cistercian.Representation);
+   --  print the value to standard output
+
+private
+
+   Max : constant Integer := (Dimension - 1) / 2;
+   --  the maximum coordinate we can access in any one dimension
+   Mid : constant Integer := Max / 2 + 1;
+   --  midway to `Max`, natch
+
+   subtype Cistercian_Ascii_Range is Integer range -(Max + 1) .. (Max + 1);
+   --  we leave some room for aesthetic reasons
+   --  (i had another reason originally, but i don't think it applies anymore)
+
+   type Block is
+     array (Cistercian_Ascii_Range, Cistercian_Ascii_Range) of Boolean;
+   --  an entry should be True iff it should be painted in a stroke
+
+   function Zero return Block
+   is
+      --  just a vertical line in the middle
+      ([for Row in Block'Range (1)
+        => [for Col in Block'Range (2)
+            => (if Col = 0 and then abs (Row) < Max + 1
+                then True
+                else False)]]);
+
+end Cistercian.Ascii;
+</syntaxhighlight>
+<syntaxhighlight lang="ada">
+--  cistercian-ascii.adb
+
+pragma Ada_2022;
+
+with Ada.Text_IO;
+
+with Cistercian.Motion;
+
+package body Cistercian.Ascii is
+
+   package IO renames Ada.Text_IO;
+   package CM renames Cistercian.Motion;
+
+   function From (Value : Cistercian.Representation) return Block is
+      --  converts the representation to an ASCII block
+
+      Result : Block := Zero;
+
+      --  the extreme values for rows and columns,
+      --  as determine by where you want to start and which quadrant you're in
+
+      Row_Extremes :
+        constant array (CM.Start_Enum, Quadrant) of Cistercian_Ascii_Range :=
+          [CM.Far  => [Ones | Tens => -Max, Hundreds | Thousands => Max],
+           CM.Near => [Ones | Tens => -1, Hundreds | Thousands => 1]];
+      Col_Extremes :
+        constant array (CM.Start_Enum, Quadrant) of Cistercian_Ascii_Range :=
+          [CM.Far  => [Ones | Hundreds => Max, Tens | Thousands => -Max],
+           CM.Near => [Ones | Hundreds => 1, Tens | Thousands => -1]];
+
+      Row_Pos, Col_Pos     : Cistercian_Ascii_Range;
+      Row_Delta, Col_Delta : CM.Motion_Delta;
+
+   begin
+
+      for Place in Quadrant loop
+         for Stroke in Cistercian.Strokes_Enum when Value (Place) (Stroke) loop
+
+            --  obtain position and motion information
+            Row_Pos :=
+              Row_Extremes
+                (CM.Stroke_Arrangement (Place, Stroke).Row_Start, Place);
+            Col_Pos :=
+              Col_Extremes
+                (CM.Stroke_Arrangement (Place, Stroke).Col_Start, Place);
+            Row_Delta := CM.Stroke_Arrangement (Place, Stroke).Row_Delta;
+            Col_Delta := CM.Stroke_Arrangement (Place, Stroke).Col_Delta;
+
+            --  make the stroke
+            for Ith in 1 .. Max loop
+               Result (Row_Pos, Col_Pos) := True;
+               Row_Pos := @ + Row_Delta;
+               Col_Pos := @ + Col_Delta;
+            end loop;
+
+         end loop;
+      end loop;
+
+      return Result;
+
+   end From;
+
+   procedure Put (Value : Cistercian.Representation) is
+      --  writes Value to standard output
+      X_At : constant Block := From (Value);
+   begin
+
+      for Row in X_At'Range (1) loop
+         for Col in X_At'Range (2) loop
+            IO.Put ((if X_At (Row, Col) then 'X' else ' '));
+         end loop;
+         IO.New_Line;
+      end loop;
+   end Put;
+
+end Cistercian.Ascii;
+</syntaxhighlight>
+
+===Output when run===
+{{out}}
+<pre>
+How large would you like your Cistercian numerals?
+(You must supply an odd number greater than 5)
+> 8
+The Cistercian representation of 0 is:
+         
+    X    
+    X    
+    X    
+    X    
+    X    
+    X    
+    X    
+         
+
+The Cistercian representation of 1 is:
+         
+    XXXX 
+    X    
+    X    
+    X    
+    X    
+    X    
+    X    
+         
+
+The Cistercian representation of 20 is:
+         
+    X    
+    X    
+ XXXX    
+    X    
+    X    
+    X    
+    X    
+         
+
+The Cistercian representation of 300 is:
+         
+    X    
+    X    
+    X    
+    X    
+    X  X 
+    X X  
+    XX   
+         
+
+The Cistercian representation of 4000 is:
+         
+    X    
+    X    
+    X    
+    X    
+   XX    
+  X X    
+ X  X    
+         
+
+The Cistercian representation of 5555 is:
+         
+ XXXXXXX 
+  X X X  
+   XXX   
+    X    
+   XXX   
+  X X X  
+ XXXXXXX 
+         
+
+The Cistercian representation of 6789 is:
+         
+ X  XXXX 
+ X  X  X 
+ XXXXXXX 
+    X    
+ X  X  X 
+ X  X  X 
+ X  XXXX 
+         
+
+The Cistercian representation of 1983 is:
+         
+ X  XX   
+ X  X X  
+ XXXX  X 
+    X    
+    XXXX 
+    X  X 
+ XXXXXXX 
+</pre>

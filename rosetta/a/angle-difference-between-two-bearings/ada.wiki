@@ -1,0 +1,69 @@
+=={{header|Ada}}==
+Ada does not provide a built-in mod function for floating point types. This program supplies one.
+<syntaxhighlight lang="ada">
+-----------------------------------------------------------------------
+-- Angle difference between two bearings
+-----------------------------------------------------------------------
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Bearing_Angles is
+   type Real is digits 8;
+   Package Real_Io is new Ada.Text_IO.Float_IO(Real);
+   use Real_IO;
+   type Angles is record
+      B1 : Real;
+      B2 : Real;
+   end record;
+   type Angle_Arr is array(Positive range <>) of Angles;
+   
+   function fmod(Left, Right : Real) return Real is
+      Result : Real;
+   begin
+      Result := Left - Right*Real'Truncation(Left / Right);
+      return Result;
+   end fmod;
+   
+   The_Angles : Angle_Arr := ((20.0,45.0),(-45.0, 45.0), (-85.0, 90.0),
+                              (-95.0, 90.0), (-14.0, 125.0), (29.4803, -88.6381),
+                              (-78.3251, -159.036),
+                              (-70099.74233810938, 29840.67437876723),
+                              (-165313.6666297357, 33693.9894517456),
+                              (1174.8380510598456, -154146.66490124757),
+                              (60175.77306795546, 42213.07192354373));
+   Diff : Real;
+   
+begin
+   
+   for A of The_Angles loop
+      Diff := fmod(A.b2 - A.b1, 360.0);
+      If Diff < -180.0 then
+         Diff := Diff + 360.0;
+      elsif Diff > 180.0 then
+         Diff := Diff - 360.0;
+      end if;
+      
+      Put("Difference between ");
+      Put(Item => A.B2, Fore => 7, Aft => 4, Exp => 0);
+      Put(" and ");
+      Put(Item => A.B1, Fore => 7, Aft => 4, Exp => 0);
+      Put(" is ");
+      Put(Item => Diff, Fore => 4, Aft => 4, Exp => 0);
+      New_Line;
+   end loop;
+   
+end Bearing_Angles;
+</syntaxhighlight>
+{{out}}
+<pre>
+Difference between      45.0000 and      20.0000 is   25.0000
+Difference between      45.0000 and     -45.0000 is   90.0000
+Difference between      90.0000 and     -85.0000 is  175.0000
+Difference between      90.0000 and     -95.0000 is -175.0000
+Difference between     125.0000 and     -14.0000 is  139.0000
+Difference between     -88.6381 and      29.4803 is -118.1184
+Difference between    -159.0360 and     -78.3251 is  -80.7109
+Difference between   29840.6744 and  -70099.7423 is -139.5833
+Difference between   33693.9895 and -165313.6666 is  -72.3439
+Difference between -154146.6649 and    1174.8381 is -161.5030
+Difference between   42213.0719 and   60175.7731 is   37.2989
+</pre>

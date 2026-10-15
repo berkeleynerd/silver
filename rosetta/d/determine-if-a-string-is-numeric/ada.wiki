@@ -1,0 +1,36 @@
+=={{header|Ada}}==
+The first file is the package interface containing the declaration of the Is_Numeric function.
+<syntaxhighlight lang="ada">package Numeric_Tests is
+   function Is_Numeric (Item : in String) return Boolean;
+end Numeric_Tests;</syntaxhighlight>
+The second file is the package body containing the implementation of the Is_Numeric function.
+<syntaxhighlight lang="ada">package body Numeric_Tests is
+   function Is_Numeric (Item : in String) return Boolean is
+      Dummy : Float;
+   begin
+      Dummy := Float'Value (Item);
+      return True;
+   exception
+      when others =>
+         return False;
+   end Is_Numeric;
+end Numeric_Tests;</syntaxhighlight>
+The last file shows how the Is_Numeric function can be called.
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_Io;
+with Numeric_Tests; use Numeric_Tests; 
+
+procedure Is_Numeric_Test is
+   S1 : String := "152";
+   S2 : String := "-3.1415926";
+   S3 : String := "Foo123";
+begin
+   Put_Line(S1 & " results in " & Boolean'Image(Is_Numeric(S1)));
+   Put_Line(S2 & " results in " & Boolean'Image(Is_Numeric(S2)));
+   Put_Line(S3 & " results in " & Boolean'Image(Is_Numeric(S3)));
+end Is_Numeric_Test;</syntaxhighlight>
+{{out}}
+<pre>
+ 152 results in TRUE
+ -3.1415926 results in TRUE
+ Foo123 results in FALSE
+</pre>

@@ -1,0 +1,227 @@
+=={{header|Ada}}==
+{{works with|Ada 2005}}
+
+To modify the internal state, the function uses an access parameter. 
+For a different approach, see the Random packages of the Ada compiler, which use the so-called "Rosen trick". 
+With the next release of Ada 2012 functions are allowed to have in-out parameters, which would solve this problem, too. 
+You could also use procedures instead of functions.
+
+generator.ads:
+<syntaxhighlight lang="ada">package Generator is
+
+   type Generator is tagged private;
+   procedure Reset (Gen : in out Generator);
+   function Get_Next (Gen : access Generator) return Natural;
+
+   type Generator_Function is access function (X : Natural) return Natural;
+   procedure Set_Generator_Function (Gen  : in out Generator;
+                                     Func : Generator_Function);
+
+   procedure Skip (Gen : access Generator'Class; Count : Positive := 1);
+
+private
+
+   function Identity (X : Natural) return Natural;
+
+   type Generator is tagged record
+      Last_Source : Natural := 0;
+      Last_Value  : Natural := 0;
+      Gen_Func    : Generator_Function := Identity'Access;
+   end record;
+
+end Generator;</syntaxhighlight>
+
+generator-filtered.ads:
+<syntaxhighlight lang="ada">package Generator.Filtered is
+
+   type Filtered_Generator is new Generator with private;
+   procedure Reset (Gen : in out Filtered_Generator);
+   function Get_Next (Gen : access Filtered_Generator) return Natural;
+
+   procedure Set_Source (Gen    : in out Filtered_Generator;
+                         Source : access Generator);
+   procedure Set_Filter (Gen    : in out Filtered_Generator;
+                         Filter : access Generator);
+
+private
+
+   type Filtered_Generator is new Generator with record
+      Last_Filter : Natural := 0;
+      Source, Filter : access Generator;
+   end record;
+
+end Generator.Filtered;</syntaxhighlight>
+
+generator.adb:
+<syntaxhighlight lang="ada">package body Generator is
+
+   --------------
+   -- Identity --
+   --------------
+
+   function Identity (X : Natural) return Natural is
+   begin
+      return X;
+   end Identity;
+
+   ----------
+   -- Skip --
+   ----------
+
+   procedure Skip (Gen : access Generator'Class; Count : Positive := 1) is
+      Val : Natural;
+      pragma Unreferenced (Val);
+   begin
+      for I in 1 .. Count loop
+         Val := Gen.Get_Next;
+      end loop;
+   end Skip;
+
+   -----------
+   -- Reset --
+   -----------
+
+   procedure Reset (Gen : in out Generator) is
+   begin
+      Gen.Last_Source := 0;
+      Gen.Last_Value := 0;
+   end Reset;
+
+   --------------
+   -- Get_Next --
+   --------------
+
+   function Get_Next (Gen : access Generator) return Natural is
+   begin
+      Gen.Last_Source := Gen.Last_Source + 1;
+      Gen.Last_Value := Gen.Gen_Func (Gen.Last_Source);
+      return Gen.Last_Value;
+   end Get_Next;
+
+   ----------------------------
+   -- Set_Generator_Function --
+   ----------------------------
+
+   procedure Set_Generator_Function
+     (Gen  : in out Generator;
+      Func : Generator_Function)
+   is
+   begin
+      if Func = null then
+         Gen.Gen_Func := Identity'Access;
+      else
+         Gen.Gen_Func := Func;
+      end if;
+   end Set_Generator_Function;
+
+end Generator;</syntaxhighlight>
+
+generator-filtered.adb:
+<syntaxhighlight lang="ada">package body Generator.Filtered is
+
+   -----------
+   -- Reset --
+   -----------
+
+   procedure Reset (Gen : in out Filtered_Generator) is
+   begin
+      Reset (Generator (Gen));
+      Gen.Source.Reset;
+      Gen.Filter.Reset;
+      Gen.Last_Filter := 0;
+   end Reset;
+
+   --------------
+   -- Get_Next --
+   --------------
+
+   function Get_Next (Gen : access Filtered_Generator) return Natural is
+      Next_Source : Natural := Gen.Source.Get_Next;
+      Next_Filter : Natural := Gen.Last_Filter;
+   begin
+      loop
+         if Next_Source > Next_Filter then
+            Gen.Last_Filter := Gen.Filter.Get_Next;
+            Next_Filter := Gen.Last_Filter;
+         elsif Next_Source = Next_Filter then
+            Next_Source := Gen.Source.Get_Next;
+         else
+            return Next_Source;
+         end if;
+      end loop;
+   end Get_Next;
+
+   ----------------
+   -- Set_Source --
+   ----------------
+
+   procedure Set_Source
+     (Gen    : in out Filtered_Generator;
+      Source : access Generator)
+   is
+   begin
+      Gen.Source := Source;
+   end Set_Source;
+
+   ----------------
+   -- Set_Filter --
+   ----------------
+
+   procedure Set_Filter
+     (Gen    : in out Filtered_Generator;
+      Filter : access Generator)
+   is
+   begin
+      Gen.Filter := Filter;
+   end Set_Filter;
+
+end Generator.Filtered;</syntaxhighlight>
+
+example use:
+<syntaxhighlight lang="ada">with Ada.Text_IO;
+with Generator.Filtered;
+
+procedure Generator_Test is
+
+   function Square (X : Natural) return Natural is
+   begin
+      return X * X;
+   end Square;
+
+   function Cube (X : Natural) return Natural is
+   begin
+      return X * X * X;
+   end Cube;
+
+   G1, G2 : aliased Generator.Generator;
+   F : aliased Generator.Filtered.Filtered_Generator;
+
+begin
+
+   G1.Set_Generator_Function (Func => Square'Unrestricted_Access);
+   G2.Set_Generator_Function (Func => Cube'Unrestricted_Access);
+
+   F.Set_Source (G1'Unrestricted_Access);
+   F.Set_Filter (G2'Unrestricted_Access);
+
+   F.Skip (20);
+
+   for I in 1 .. 10 loop
+      Ada.Text_IO.Put ("I:" & Integer'Image (I));
+      Ada.Text_IO.Put (", F:" & Integer'Image (F.Get_Next));
+      Ada.Text_IO.New_Line;
+   end loop;
+
+end Generator_Test;</syntaxhighlight>
+
+{{out}}
+<pre>I: 1, F: 529
+I: 2, F: 576
+I: 3, F: 625
+I: 4, F: 676
+I: 5, F: 784
+I: 6, F: 841
+I: 7, F: 900
+I: 8, F: 961
+I: 9, F: 1024
+I: 10, F: 1089</pre>

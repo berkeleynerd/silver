@@ -1,0 +1,60 @@
+=={{header|FreeBASIC}}==
+{{trans|Go}}
+<syntaxhighlight lang="vbnet">Function endsWithOne(n As Longint) As Boolean
+    Dim As Longint digit, sum
+    Do
+        sum = 0
+        Do While n > 0
+            digit = n Mod 10 
+            sum += (digit * digit)
+            n \= 10
+        Loop
+        If sum = 1 Then Return True
+        If sum = 89 Then Return False
+        n = sum
+    Loop
+End Function
+
+Dim As Integer k, n, j
+Dim As Longint i, s, count1, limit
+Dim ks(4) As Integer = {7, 8, 11, 14, 17}
+
+For k = Lbound(ks) To Ubound(ks)
+    Dim sums(ks(k) * 81 + 1) As Longint
+    sums(0) = 1
+    sums(1) = 0
+    For n = 1 To ks(k)
+        For i = n * 81 To 1 Step -1
+            For j = 1 To 9
+                s = j * j
+                If s > i Then Exit For
+                sums(i) += sums(i - s)
+            Next
+        Next
+    Next
+    count1 = 0
+    For i = 1 To ks(k) * 81
+        If endsWithOne(i) Then count1 += sums(i)
+    Next
+    limit = 10 ^ ks(k) - 1
+    Print "For k ="; ks(k); " in the range 1 to"; limit
+    Print count1; " numbers produce 1 and"; limit - count1; " numbers produce 89"
+    Print
+Next
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>For k = 7 in the range 1 to 9999999
+ 1418853 numbers produce 1 and 8581146 numbers produce 89
+
+For k = 8 in the range 1 to 99999999
+ 14255666 numbers produce 1 and 85744333 numbers produce 89
+
+For k = 11 in the range 1 to 99999999999
+ 15091199356 numbers produce 1 and 84908800643 numbers produce 89
+
+For k = 14 in the range 1 to 99999999999999
+ 13770853279684 numbers produce 1 and 86229146720315 numbers produce 89
+
+For k = 17 in the range 1 to 100000000000000000
+ 12024696404768024 numbers produce 1 and 87975303595231976 numbers produce 89</pre>

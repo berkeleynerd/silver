@@ -1,0 +1,93 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="vbnet">' version 04-10-2024
+' compile with: fbc -s console
+
+#Include Once "gmp.bi"
+
+#Define max 2700
+
+Dim As UInteger j, i, m, n, tmp, ub
+ReDim As UInteger sieve(max), primes(max)
+
+Dim As Mpz_ptr rp
+rp = Allocate(Len(__Mpz_struct)) : Mpz_init(rp)
+
+For j = 4 To max Step 2
+    sieve(j) = 1
+Next
+For j = 3 To max Step 2
+    If sieve(j) = 0 Then
+        For i = j * j To max Step j + j
+            sieve(i) = 1
+        Next
+    End If
+Next
+
+i = 0
+For j = 2 To max
+    If sieve(j) = 0 Then
+        i += 1
+        primes(i) = j
+    End If
+Next
+
+ub = i
+For j = 2 To 36
+    Print Using "### : "; j;
+    For i = 1 To ub
+        mpz_ui_pow_ui(rp, j , primes(i))
+        mpz_sub_ui(rp, rp , 1)
+        mpz_divexact_ui(rp, rp, j -1)
+        If mpz_tstbit(rp ,0) = 1 Then
+            If mpz_probab_prime_p(rp, 40) > 0 Then
+                Print primes(i); " ";
+            End If
+        End If
+    Next
+    Print
+Next
+
+mpz_clear(rp)
+
+
+' empty keyboard buffer
+While InKey <> "" : Wend
+Print : Print "hit any key to end program"
+Sleep
+End</syntaxhighlight>
+{{out}}
+<pre>  2 :  2  3  5  7  13  17  19  31  61  89  107  127  521  607  1279  2203  2281
+  3 :  3  7  13  71  103  541  1091  1367  1627
+  4 :  2
+  5 :  3  7  11  13  47  127  149  181  619  929
+  6 :  2  3  7  29  71  127  271  509  1049
+  7 :  5  13  131  149  1699
+  8 :  3
+  9 :
+ 10 :  2  19  23  317  1031
+ 11 :  17  19  73  139  907  1907  2029
+ 12 :  2  3  5  19  97  109  317  353  701
+ 13 :  5  7  137  283  883  991  1021  1193
+ 14 :  3  7  19  31  41  2687
+ 15 :  3  43  73  487  2579
+ 16 :  2
+ 17 :  3  5  7  11  47  71  419
+ 18 :  2
+ 19 :  19  31  47  59  61  107  337  1061
+ 20 :  3  11  17  1487
+ 21 :  3  11  17  43  271
+ 22 :  2  5  79  101  359  857
+ 23 :  5
+ 24 :  3  5  19  53  71  653  661
+ 25 :
+ 26 :  7  43  347
+ 27 :  3
+ 28 :  2  5  17  457  1423
+ 29 :  5  151
+ 30 :  2  5  11  163  569  1789
+ 31 :  7  17  31
+ 32 :
+ 33 :  3  197
+ 34 :  13  1493
+ 35 :  313  1297
+ 36 :  2</pre>

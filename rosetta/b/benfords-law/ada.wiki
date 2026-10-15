@@ -1,0 +1,91 @@
+=={{header|Ada}}==
+
+The program reads the Fibonacci-Numbers from the standard input. Each input line is supposed to hold N, followed by Fib(N).  
+
+<syntaxhighlight lang="ada">with Ada.Text_IO, Ada.Numerics.Generic_Elementary_Functions; 
+
+procedure Benford is
+   
+   subtype Nonzero_Digit is Natural range 1 .. 9;
+   function First_Digit(S: String) return Nonzero_Digit is
+      (if S(S'First) in '1' .. '9' 
+         then Nonzero_Digit'Value(S(S'First .. S'First))
+         else First_Digit(S(S'First+1 .. S'Last)));
+      
+   package N_IO is new Ada.Text_IO.Integer_IO(Natural);  
+      
+   procedure Print(D: Nonzero_Digit; Counted, Sum: Natural) is
+      package Math is new Ada.Numerics.Generic_Elementary_Functions(Float);
+      package F_IO is new Ada.Text_IO.Float_IO(Float);
+      Actual: constant Float := Float(Counted) / Float(Sum);
+      Expected: constant Float := Math.Log(1.0 + 1.0 / Float(D), Base => 10.0);
+      Deviation: constant Float := abs(Expected-Actual);
+   begin
+      N_IO.Put(D, 5);
+      N_IO.Put(Counted, 14);
+      F_IO.Put(Float(Sum)*Expected, Fore => 16, Aft => 1, Exp => 0);
+      F_IO.Put(100.0*Actual, Fore => 9, Aft => 2, Exp => 0); 
+      F_IO.Put(100.0*Expected, Fore => 11, Aft => 2, Exp => 0); 
+      F_IO.Put(100.0*Deviation, Fore => 13, Aft => 2, Exp => 0);
+   end Print;
+   
+   Cnt: array(Nonzero_Digit) of Natural := (1 .. 9 => 0);   
+   D: Nonzero_Digit;
+   Sum: Natural := 0;
+   Counter: Positive;       
+       
+begin     
+   while not Ada.Text_IO.End_Of_File loop
+      -- each line in the input file holds Counter, followed by Fib(Counter)
+      N_IO.Get(Counter); 
+        -- Counter and skip it, we just don't need it
+      D := First_Digit(Ada.Text_IO.Get_Line); 
+        -- read the rest of the line and extract the first digit
+      Cnt(D) := Cnt(D)+1;
+      Sum := Sum + 1;
+   end loop;
+   Ada.Text_IO.Put_Line(" Digit  Found[total]   Expected[total]    Found[%]" 
+                                          & "   Expected[%]   Difference[%]");
+   for I in Nonzero_Digit loop
+      Print(I, Cnt(I), Sum);
+      Ada.Text_IO.New_Line;
+   end loop;
+end Benford;</syntaxhighlight>
+
+{{out}}
+
+<pre>>./benford < fibo.txt
+ Digit  Found[total]   Expected[total]    Found[%]   Expected[%]   Difference[%]
+    1           301             301.0       30.10         30.10            0.00
+    2           177             176.1       17.70         17.61            0.09
+    3           125             124.9       12.50         12.49            0.01
+    4            96              96.9        9.60          9.69            0.09
+    5            80              79.2        8.00          7.92            0.08
+    6            67              66.9        6.70          6.69            0.01
+    7            56              58.0        5.60          5.80            0.20
+    8            53              51.2        5.30          5.12            0.18
+    9            45              45.8        4.50          4.58            0.08</pre>
+
+=== Extra Credit ===
+
+Input is the list of primes below 100,000 from [http://www.mathsisfun.com/numbers/prime-number-lists.html]. Since each line in that file holds prime and only a prime, but no ongoing counter, we must slightly modify the program by commenting out a single line:
+
+<syntaxhighlight lang="ada">      -- N_IO.Get(Counter);</syntaxhighlight>
+
+We can also edit out the declaration of the variable "Counter" ...or live with a compiler warning about never reading or assigning that variable.
+
+{{out}}
+
+As it turns out, the distribution of the first digits of primes is almost flat and does '''not''' seem follow Benford's law:
+
+<pre>>./benford < primes-to-100k.txt 
+ Digit  Found[total]   Expected[total]    Found[%]   Expected[%]   Difference[%]
+    1          1193            2887.5       12.44         30.10           17.67
+    2          1129            1689.1       11.77         17.61            5.84
+    3          1097            1198.4       11.44         12.49            1.06
+    4          1069             929.6       11.14          9.69            1.45
+    5          1055             759.5       11.00          7.92            3.08
+    6          1013             642.2       10.56          6.69            3.87
+    7          1027             556.3       10.71          5.80            4.91
+    8          1003             490.7       10.46          5.12            5.34
+    9          1006             438.9       10.49          4.58            5.91</pre>

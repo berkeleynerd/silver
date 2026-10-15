@@ -1,0 +1,65 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Numerics.Generic_Elementary_Functions;
+procedure RungeKutta is
+   type Floaty is digits 15;
+   type Floaty_Array is array (Natural range <>) of Floaty;
+   package FIO is new Ada.Text_IO.Float_IO(Floaty); use FIO;
+   type Derivative is access function(t, y : Floaty) return Floaty;
+   package Math is new Ada.Numerics.Generic_Elementary_Functions (Floaty);
+   function calc_err (t, calc : Floaty) return Floaty;
+   
+   procedure Runge (yp_func : Derivative; t, y : in out Floaty_Array;
+                    dt : Floaty) is
+      dy1, dy2, dy3, dy4 : Floaty;
+   begin
+      for n in t'First .. t'Last-1 loop
+         dy1 := dt * yp_func(t(n), y(n));
+         dy2 := dt * yp_func(t(n) + dt / 2.0, y(n) + dy1 / 2.0);
+         dy3 := dt * yp_func(t(n) + dt / 2.0, y(n) + dy2 / 2.0);
+         dy4 := dt * yp_func(t(n) + dt, y(n) + dy3);
+         t(n+1) := t(n) + dt;
+         y(n+1) := y(n) + (dy1 + 2.0 * (dy2 + dy3) + dy4) / 6.0;
+      end loop;
+   end Runge;
+   
+   procedure Print (t, y : Floaty_Array; modnum : Positive) is begin
+      for i in t'Range loop
+         if i mod modnum = 0 then
+            Put("y(");   Put (t(i), Exp=>0, Fore=>0, Aft=>1);
+            Put(") = "); Put (y(i), Exp=>0, Fore=>0, Aft=>8);
+            Put(" Error:"); Put (calc_err(t(i),y(i)), Aft=>5);
+            New_Line;
+         end if;
+      end loop;
+   end Print;
+
+   function yprime (t, y : Floaty) return Floaty is begin
+      return t * Math.Sqrt (y);
+   end yprime;
+   function calc_err (t, calc : Floaty) return Floaty is
+      actual : constant Floaty := (t**2 + 4.0)**2 / 16.0;
+   begin return abs(actual-calc);
+   end calc_err;   
+   
+   dt : constant Floaty := 0.10;
+   N : constant Positive := 100;
+   t_arr, y_arr : Floaty_Array(0 .. N);
+begin
+   t_arr(0) := 0.0;
+   y_arr(0) := 1.0;
+   Runge (yprime'Access, t_arr, y_arr, dt);
+   Print (t_arr, y_arr, 10);
+end RungeKutta;</syntaxhighlight>
+{{out}}
+<pre>y(0.0) = 1.00000000 Error: 0.00000E+00
+y(1.0) = 1.56249985 Error: 1.45722E-07
+y(2.0) = 3.99999908 Error: 9.19479E-07
+y(3.0) = 10.56249709 Error: 2.90956E-06
+y(4.0) = 24.99999377 Error: 6.23491E-06
+y(5.0) = 52.56248918 Error: 1.08197E-05
+y(6.0) = 99.99998341 Error: 1.65946E-05
+y(7.0) = 175.56247648 Error: 2.35177E-05
+y(8.0) = 288.99996843 Error: 3.15652E-05
+y(9.0) = 451.56245928 Error: 4.07232E-05
+y(10.0) = 675.99994902 Error: 5.09833E-05</pre>

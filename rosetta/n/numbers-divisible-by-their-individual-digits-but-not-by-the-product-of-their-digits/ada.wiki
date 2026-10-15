@@ -1,0 +1,44 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_Io;
+with Ada.Integer_Text_Io;
+
+procedure Numbers_Divisible is
+
+   function Is_Divisible (N : Natural) return Boolean is
+
+      function To_Decimal (C : Character) return Natural
+      is ( Character'Pos (C) - Character'Pos ('0'));
+
+      Image : constant String := N'Image;
+      Digit : Natural;
+      Prod  : Natural := 1;
+   begin
+      for A in Image'First + 1 .. Image'Last loop
+         Digit := To_Decimal (Image (A));
+         if Digit = 0 then
+            return False;
+         end if;
+         if N mod Digit /= 0 then
+            return False;
+         end if;
+         Prod := Prod * Digit;
+      end loop;
+      return N mod Prod /= 0;
+   end Is_Divisible;
+
+   Count : Natural := 0;
+begin
+   for N in 1 .. 999 loop
+      if Is_Divisible (N) then
+         Count := Count + 1;
+         Ada.Integer_Text_Io.Put (N, Width => 5);
+         if Count mod 15 = 0 then
+            Ada.Text_Io.New_Line;
+         end if;
+      end if;
+   end loop;
+end Numbers_Divisible;</syntaxhighlight>
+{{out}}
+<pre>   22   33   44   48   55   66   77   88   99  122  124  126  155  162  168
+  184  222  244  248  264  288  324  333  336  366  396  412  424  444  448
+  488  515  555  636  648  666  728  777  784  824  848  864  888  936  999</pre>

@@ -1,0 +1,106 @@
+=={{header|FreeBASIC}}==
+===Version1===
+{{trans|Wren}}
+<syntaxhighlight lang="vbnet">Sub anadirNoCelda(celdas As String)
+    Dim l As String = Iif(Mid(celdas, 1, 1) = "*", ".", "*")
+    Dim r As String = Iif(Mid(celdas, Len(celdas), 1) = "*", ".", "*")
+    
+    For i As Integer = 0 To 1
+        celdas = l & celdas & r
+    Next
+End Sub
+
+Function Paso(celdas As String, regla As Integer) As String
+    Dim nuevaCelda As String = ""
+    For i As Integer = 0 To Len(celdas) - 3
+        Dim bina As Integer = 0
+        Dim b As Integer = 2
+        For n As Integer = i To i + 2
+            bina += Iif(Mid(celdas, n + 1, 1) = "*", 1, 0) * (2 ^ b)
+            b -= 1
+        Next
+        nuevaCelda &= Iif((regla And (1 Shl bina)) <> 0, "*", ".")
+    Next
+    Return nuevaCelda
+End Function
+
+Sub Evolucionar(l As Integer, regla As Integer)
+    Print " Rule #" & regla & ":"
+    Dim celdas As String = "*"
+    For i As Integer = 0 To l - 1
+        anadirNoCelda(celdas)
+        Dim ancho As Integer = 40 + (Len(celdas) \ 2)
+        Print Right(Space(ancho) & celdas, ancho)
+        celdas = Paso(celdas, regla)
+    Next
+End Sub
+
+Evolucionar(35, 90)
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Same as Wren entry.</pre>
+
+===Version2===
+{{trans|Julia}}
+<syntaxhighlight lang="vbnet">Function noCelda(celda As String) As String
+    Return Iif(celda = "1", "0", "1")
+End Function
+
+Function invierteBits(regla As Integer) As String
+    Dim reglaBits As String = ""
+    For i As Integer = 0 To 7
+        reglaBits &= (regla Shr i) And 1
+    Next
+    Return reglaBits
+End Function
+
+Sub ecaInfinito(celdas As String, regla As Integer, n As Integer, ret() As String)
+    Dim As Integer i, j, k, indice
+    Dim reglaBits As String = invierteBits(regla)
+    Dim vecinoSgte(7) As String
+    For i = 0 To 7
+        vecinoSgte(i) = Mid(reglaBits, i + 1, 1)
+    Next
+    
+    For i = 0 To n - 1
+        ret(i) = celdas
+        celdas = noCelda(Mid(celdas, 1, 1)) & noCelda(Mid(celdas, 1, 1)) & celdas & noCelda(Mid(celdas, Len(celdas), 1)) & noCelda(Mid(celdas, Len(celdas), 1))
+        Dim celdasNuevas As String = ""
+        For j = 0 To Len(celdas) - 3
+            indice = 0
+            For k = 0 To 2
+                indice = indice * 2 + Val(Mid(celdas, j + k + 1, 1))
+            Next
+            celdasNuevas &= vecinoSgte(indice)
+        Next
+        celdas = celdasNuevas
+    Next
+End Sub
+
+Sub Evolucionar(lineas As Integer)
+    Dim As Integer i, j, k, regla
+    Dim reglas(1) As Integer = {90, 30}
+    
+    Dim s(24) As String
+    Dim salida As String
+    
+    For i = 0 To 1
+        regla = reglas(i)
+        Print !"\nRule: "; regla; " ("; invierteBits(regla); ")"
+        ecaInfinito("1", regla, lineas, s())
+        For j = 0 To lineas - 1
+            salida = ""
+            For k = 1 To Len(s(j))
+                salida &= Iif(Mid(s(j), k, 1) = "0", ".", "#")
+            Next
+            Print j + 1; ": "; Space(lineas - j - 1); salida
+        Next
+    Next
+End Sub
+
+Evolucionar(25)
+
+Sleep</syntaxhighlight>
+{{out}}
+<pre>Same as Julia entry.</pre>

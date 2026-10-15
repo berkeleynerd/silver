@@ -1,0 +1,8 @@
+=={{header|Ada}}==
+Ada does not confuse types (classes) and modules. These are semantically different things. In the context of this task class means a dynamically polymorphic type supporting dynamic dispatch. In Ada such types are represented by tagged types:
+<syntaxhighlight lang="Ada">
+type Dispatching is tagged null record;
+</syntaxhighlight>
+Outer/inner is a question of where a type can be declared. The answer is practically anywhere.
+
+Any type can be declared in the module where a tagged or any type is declared. Any type can be declared in the body implementing a tagged type or any type. Any type can be declared inside a subprogram, methods included. 

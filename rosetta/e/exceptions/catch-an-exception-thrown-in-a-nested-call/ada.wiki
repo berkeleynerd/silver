@@ -1,0 +1,41 @@
+=={{header|Ada}}==
+<syntaxhighlight lang="ada">with Ada.Text_Io; use Ada.Text_Io;
+
+procedure Exceptions_From_Nested_Calls is
+   U0 : exception;
+   U1 : exception;
+   Baz_Count : Natural := 0;
+   procedure Baz is
+   begin
+      Baz_Count := Baz_Count + 1;
+      if Baz_Count = 1 then
+         raise U0;
+      else
+         raise U1;
+      end if;
+   end Baz;
+   procedure Bar is
+   begin
+      Baz;
+   end Bar;
+   procedure Foo is
+   begin
+      Bar;
+   exception
+      when U0 =>
+         Put_Line("Procedure Foo caught exception U0");
+   end Foo;
+begin
+   for I in 1..2 loop
+      Foo;
+   end loop;
+end Exceptions_From_Nested_Calls;</syntaxhighlight>
+{{out}}
+<pre>
+Procedure Foo caught exception U0
+
+raised EXCEPTIONS_FROM_NESTED_CALLS.U1 : exceptions_from_nested_calls.adb:13
+</pre>
+An unhandled exception leads to termination of the corresponding [[task]]. 
+When the task is the main task of the program as in the example, the whole program is terminated. In the example the exception back tracing message is compiler-specific 
+(in this case it is [[GNAT]] and further depends on the compiler options.

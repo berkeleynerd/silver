@@ -1,0 +1,7 @@
+{{task|Basic language learning}} 
+[[Category:Initialization]]
+[[Category:Simple]]
+
+;Task:
+Create the simplest possible program that is still considered "correct."
+<br><br>

@@ -1,0 +1,4 @@
+=={{header|Ada}}==
+[[Ada]] has a predefined discrete type with the specification:
+<syntaxhighlight lang="ada">   type Boolean is (False, True);</syntaxhighlight>
+with Boolean lattice and relational operations defined on it. See [http://www.adaic.org/standards/1zrm/html/RM-A-1.html RM A.1].

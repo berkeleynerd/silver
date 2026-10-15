@@ -1,0 +1,27 @@
+=={{header|FreeBASIC}}==
+<syntaxhighlight lang="freebasic">#include "isprime.bas"
+
+dim as integer np = 1, d, n, i
+print 3;"  ";               'three counts, but is a special case
+for d = 1 to 5              'how many digits after the initial 3
+    for i = 3 to 10^d-1 step 10  'the actual digits
+        n = 3*10^d + i
+        if isprime(n) then
+            np += 1
+            if n<4000 then 
+                print n;"  ";
+                if np mod 10 = 0 then print
+            end if
+        end if
+    next i
+next d
+print : print
+print "There were ";np;" 3...3 primes below 1000000"</syntaxhighlight>
+{{out}}<pre>
+ 3   313   353   373   383   3023   3083   3163   3203   3253  
+ 3313   3323   3343   3373   3413   3433   3463   3533   3583   3593  
+ 3613   3623   3643   3673   3733   3793   3803   3823   3833   3853  
+ 3863   3923   3943  
+
+There were  2251 3...3 primes below 1000000
+</pre>
