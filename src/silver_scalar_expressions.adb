@@ -248,6 +248,6 @@ package body Silver_Scalar_Expressions with SPARK_Mode => On is
      (declare First : constant Literal_Position := Skip (Text, Position);
       begin
         (if First = 0 or else First > Text'Last then Invalid
-         elsif Text (First) = '(' then Read_Group (Text, First, Names, Mask_First, Mask_After)
+         elsif Text (First) = Character'Val (40) then Read_Group (Text, First, Names, Mask_First, Mask_After)
          else Read_Atom (Text, First, Names, Mask_First, Mask_After, Allow_Sign)));
 end Silver_Scalar_Expressions;
