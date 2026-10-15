@@ -83,13 +83,13 @@ def simpleObligations (shape : Shape) (context : Context) : Sequence.SimpleState
       | some ⟨bound, true⟩ => [.range context (update.value.summary shape),
           .length context (update.value.summary shape) bound.summary]
       | _ => [.impossible]
-  | .output expression => [.range context (expression.summary shape), .validInput context]
+  | .output expression | .put expression => [.range context (expression.summary shape), .validInput context]
 
 theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Sequence.SimpleStatement) :
     discharged (simpleObligations shape context item) = checkSimple shape context item := by
   cases item with
   | null => rfl
-  | output expression => simp [simpleObligations, discharged, Obligation.discharge, checkSimple]
+  | output expression | put expression => simp [simpleObligations, discharged, Obligation.discharge, checkSimple]
   | assign update =>
       simp only [simpleObligations, checkSimple, checkAssignment]
       split <;> simp_all [discharged, Obligation.discharge]

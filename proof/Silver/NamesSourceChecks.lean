@@ -37,7 +37,7 @@ theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev Declarations : Prop :=
   typeDeclaration "operation_kind" Source.namesSpecTokens =
-    some (expectedTokens "(Output_Call, Argument_Call, Validity_Call, Reject_Call)") ∧
+    some (expectedTokens "(Output_Call, Partial_Output_Call, Argument_Call, Validity_Call, Reject_Call)") ∧
   typeDeclaration "context_mode" Source.namesBodyTokens =
     some (expectedTokens "(Clause_Start, With_Name, Use_Name, With_Separator, Use_Separator)") ∧
   recordDeclaration "context_result" Source.namesSpecTokens =

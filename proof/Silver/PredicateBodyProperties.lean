@@ -63,6 +63,15 @@ theorem basicRaw_bound (text : Source) (context : ParseContext) (scan : BodyScan
         exact (model_expression_valid text textValid _ context.names
             (Names.associationAfter_bound text _ false
               (model_fixed_valid text _ "(" false (model_callAfter_valid text context.names scan.position .output bounded))) namesValid).1
+  | put =>
+      try dsimp only
+      split
+      · exact Nat.zero_le _
+      · dsimp only [bodyToken, tokenAfter, ShellToken.symbol]
+        apply model_fixed_valid
+        exact (model_expression_valid text textValid _ context.names
+            (Names.associationAfter_bound text _ false
+              (model_fixed_valid text _ "(" false (model_callAfter_valid text context.names scan.position .partialOutput bounded))) namesValid).1
   | reject => exact model_callAfter_valid text context.names scan.position .reject bounded
   | assignment =>
       have targetBound : (targetAt text (parserState context scan) false).position ≤ text.length + 1 := by

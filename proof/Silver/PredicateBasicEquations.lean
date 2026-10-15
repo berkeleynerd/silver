@@ -55,7 +55,7 @@ set_option maxHeartbeats 4000000
 
 theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyScan) :
     basicEval modelPrimitives text context scan = basicBody text context.model scan := by
-  dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, rejectCommands,
+  dsimp +instances only [basicEval, basicCommands, dispatchCommands, outputCommands, putCommands, rejectCommands,
     assignmentCommands, Command.list, List.foldr_cons, List.foldr_nil, guard,
     Command.eval, Test.eval, Update.eval, modelPrimitives, Primitives.bodyToken,
     basicBody, basicRaw, basicKind, bodyTokens, List.foldl_cons, List.foldl_nil,

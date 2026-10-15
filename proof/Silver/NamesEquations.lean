@@ -136,9 +136,9 @@ theorem interpreted_operation (calls : Calls) (source : InterpretedSource calls)
     calls.operationAfter text position operation hidden = operationAfter text position operation hidden := by
   rw [source.operation text valid position operation hidden bound]
   simp +instances only [operationBody, Expr.eval, Native.Context.locals, Calls.get, Field.get, Locals.set, reduceCtorEq, ↓reduceDIte, ↓reduceIte, String.reduceEq]
-  simp only [decide_eq_true_eq]
+  simp only [decide_eq_true_eq, Bool.or_eq_true]
   rw [interpreted_read calls source text valid, interpreted_name calls source operation]
-  have packageValid : ValidWord (if operation = .output then "silver_io" else "silver_arguments") := by cases operation <;> decide
+  have packageValid : ValidWord (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") := by cases operation <;> decide
   have nameValid : ValidWord operation.name := by cases operation <;> decide
   rw [interpreted_take calls source text valid position _ true bound packageValid]
   have packageBound := take_bound text position _ true bound packageValid.1
@@ -146,7 +146,7 @@ theorem interpreted_operation (calls : Calls) (source : InterpretedSource calls)
   have dotBound := take_bound text _ "." false packageBound (by decide)
   rw [interpreted_take calls source text valid _ operation.name true dotBound nameValid,
     interpreted_take calls source text valid position operation.name true bound nameValid]
-  simp [operationAfter, Bool.or_eq_true, Bool.and_eq_true]
+  simp [operationAfter, Bool.and_eq_true]
 
 theorem interpreted_association (calls : Calls) (source : InterpretedSource calls)
     (text : Source) (valid : ValidText text) (position : Nat) (default : Bool)
@@ -203,7 +203,7 @@ theorem model_interpreted : InterpretedSource modelCalls where
   operation := by
     intro text _ position operation hidden _
     simp +instances only [operationBody, Expr.eval, Native.Context.locals, Calls.get, Field.get, Locals.set, modelCalls, reduceCtorEq, ↓reduceDIte, ↓reduceIte, String.reduceEq]
-    simp [operationAfter, Bool.or_eq_true, Bool.and_eq_true]
+    simp [operationAfter, Bool.and_eq_true]
   association := by
     intro text _ position default _
     simp +instances only [associationBody, Expr.eval, Native.Context.locals, Calls.get, Locals.set, modelCalls, ↓reduceDIte, ↓reduceIte, String.reduceEq]

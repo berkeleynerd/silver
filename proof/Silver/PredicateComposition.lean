@@ -109,9 +109,10 @@ theorem noOutput_accepted_empty (effects : List Effect) (noOutput : NoOutput eff
   induction effects generalizing ordinal with
   | nil => rfl
   | cons effect rest ih =>
-      have restNoOutput : NoOutput rest := fun bytes member => noOutput bytes (by simp [member])
+      have restNoOutput : NoOutput rest := fun effect member => noOutput effect (by simp [member])
       cases effect with
-      | output bytes => exact False.elim (noOutput bytes (by simp))
+      | output bytes => cases noOutput (.output bytes) (by simp)
+      | put bytes => cases noOutput (.put bytes) (by simp)
       | reject =>
           simpa only [Sequence.executeEffects, Sequence.combineResults, Sequence.Effect.execute, List.nil_append]
             using ih restNoOutput (ordinal + 1)
@@ -123,9 +124,10 @@ theorem noOutput_rejected_effects (effects : List Effect) (noOutput : NoOutput e
   | nil => contradiction
   | cons effect rest =>
       cases effect with
-      | output bytes => exact False.elim (noOutput bytes (by simp))
+      | output bytes => cases noOutput (.output bytes) (by simp)
+      | put bytes => cases noOutput (.put bytes) (by simp)
       | reject =>
-          have restNoOutput : NoOutput rest := fun bytes member => noOutput bytes (by simp [member])
+          have restNoOutput : NoOutput rest := fun effect member => noOutput effect (by simp [member])
           have empty := noOutput_accepted_empty rest restNoOutput environments (ordinal + 1)
           have bound := (Sequence.trace_outcome_bound
             (Sequence.effects_execution_specified environments (ordinal + 1) rest)).1

@@ -16,7 +16,7 @@ structure Environment where
   writeStatus : Nat → Nat → Int
   flushStatus : Int
 
-/-- Control result within Put_Line: `returned` continues sequencing, whereas
+/-- Control result within Put or Put_Line: `returned` continues sequencing, whereas
 `failedReturn` sets the GNAT exit status and returns early from the wrapper.
 Neither constructor is a process exit; Main completion is modeled separately. -/
 inductive Result
@@ -288,5 +288,67 @@ theorem healthy_output (environment : Environment) (healthy : Healthy environmen
     · decide
   simp [specification, Nat.not_lt.mpr bounded, writeBytes_success environment healthy 0 _ all,
     finish, healthy.2]
+
+/-- `Put` uses the same guarded byte loop and flush, without a newline write. -/
+def putProgram : List Instruction :=
+  [.ghost .initialize, .lengthGuard, .itemLoop, .checkedFlush, .ghost .complete]
+
+def putSpecification (environment : Environment) (item : Source) : Result :=
+  if item.length > maxLength then .failedReturn 1 []
+  else finish environment (writeBytes environment 0 item)
+
+theorem put_program_refines (environment : Environment) (item : Source) :
+    execute environment item putProgram [] = putSpecification environment item := by
+  by_cases bound : item.length > maxLength
+  · simp [putProgram, execute, Instruction.execute, putSpecification, bound]
+  · simp only [putProgram, execute, Instruction.execute, putSpecification, bound, ↓reduceIte]
+    simp only [Result.prepend, List.nil_append, List.length_nil]
+    cases writeBytes environment 0 item <;> simp [finish]
+    by_cases flush : environment.flushStatus = 0 <;> simp [flush]
+
+theorem successful_put (environment : Environment) (item output : Source)
+    (h : execute environment item putProgram [] = .returned output) :
+    item.length ≤ maxLength ∧ output = item ∧ environment.flushStatus = 0 := by
+  rw [put_program_refines] at h
+  unfold putSpecification at h
+  split at h
+  · cases h
+  · rename_i bound
+    cases result : writeBytes environment 0 item with
+    | returned accepted =>
+      simp only [result, finish] at h
+      split at h
+      · cases h
+        exact ⟨by omega, writeBytes_returned _ _ _ _ result, by assumption⟩
+      · cases h
+    | failedReturn status accepted => simp [result, finish] at h
+
+theorem failed_put (environment : Environment) (item output : Source) (status : Nat)
+    (h : execute environment item putProgram [] = .failedReturn status output) :
+    status = 1 ∧ ∃ suffix, output ++ suffix = item := by
+  rw [put_program_refines] at h
+  unfold putSpecification at h
+  split at h
+  · cases h
+    exact ⟨rfl, item, rfl⟩
+  · cases result : writeBytes environment 0 item with
+    | returned accepted =>
+      simp only [result, finish] at h
+      split at h
+      · cases h
+      · cases h
+        exact ⟨rfl, [], by simpa using writeBytes_returned _ _ _ _ result⟩
+    | failedReturn code accepted =>
+      simp only [result, finish, Result.failedReturn.injEq] at h
+      obtain ⟨rfl, rfl⟩ := h
+      exact writeBytes_failure _ _ _ _ _ result
+
+theorem healthy_put (environment : Environment) (healthy : Healthy environment)
+    (item : Source) (bounded : item.length ≤ maxLength)
+    (bytes : ∀ byte ∈ item, byte ≤ 255) :
+    execute environment item putProgram [] = .returned item := by
+  rw [put_program_refines]
+  simp [putSpecification, Nat.not_lt.mpr bounded,
+    writeBytes_success environment healthy 0 item bytes, finish, healthy.2]
 
 end Silver.Output.Runtime

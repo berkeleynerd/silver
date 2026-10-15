@@ -24,7 +24,7 @@ theorem basicRaw_controls (text : Source) (context : ParseContext) (scan : BodyS
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact valid
-  | output =>
+  | output | put =>
       dsimp only
       split
       · exact ⟨Nat.zero_le _, Nat.zero_le _⟩

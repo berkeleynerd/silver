@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import copy
 import os
+from itertools import product
 from pathlib import Path
 import tempfile
 import unittest
@@ -383,8 +384,9 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_repeated_output_ghost_advisories_are_exact(self) -> None:
         for kind in ("static", "argument", "assigned", "selected"):
-            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes"):
-                message = f'"{name}" is set by "Put_Line" but not used after the call'
+            for name, operation in product(("Written_Count", "Flushed", "Succeeded", "Written_Bytes"),
+                                           ("Put_Line", "Put")):
+                message = f'"{name}" is set by "{operation}" but not used after the call'
                 self.prepare_composed(kind, warning=True, count=0)
                 self.report["flow"][0]["message"] = {"text": message}
                 self.refresh_composed()
@@ -395,11 +397,12 @@ class ProofEvidenceTests(unittest.TestCase):
                                      ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                                      ("suppressed", False), ("justification", ""),
                                      ("message", {"text": message + " "}),
+                                     ("message", {"text": message.replace(operation, "Other")}),
                                      ("message", {"text": message.replace(name, "Other")})):
                     self.report = copy.deepcopy(base)
                     self.report["flow"][0][field] = value
                     self.refresh_composed()
-                    with self.subTest(kind=kind, name=name, field=field):
+                    with self.subTest(kind=kind, operation=operation, name=name, field=field):
                         with self.assertRaises(EvidenceError):
                             audit_reports(self.path, {"main"}, application_kind=kind)
 
@@ -439,6 +442,61 @@ class ProofEvidenceTests(unittest.TestCase):
             audit_reports(self.path, {"main"}, application_kind="typo")
         with self.assertRaises(EvidenceError):
             audit_reports(self.path, {"main"}, application_kind="selected")
+
+    def test_partial_and_mixed_output_entities_keep_exact_policies(self) -> None:
+        for kind in ("static", "argument", "assigned", "selected"):
+            dynamic = kind in ("argument", "selected")
+            for query in ((False, True) if dynamic else (False,)):
+                for operations in (("Put",), ("Put_Line",), ("Put", "Put_Line")):
+                    self.prepare_composed(kind, count=0)
+                    self.report["entities"] = {
+                        key: value for key, value in self.report["entities"].items()
+                        if not value["name"].startswith("Silver_IO.")
+                        and (query or value["name"] != "Silver_Arguments.Input_Is_Valid")}
+                    next_key = max(int(key) for key in self.report["entities"]) + 1
+                    output_keys = []
+                    for index, operation in enumerate(operations, next_key):
+                        key = f" {index}"
+                        self.report["entities"][key] = {
+                            "name": "Silver_IO." + operation,
+                            "sloc": [{"file": "silver_io.ads", "line": 1, "column": 1}]}
+                        output_keys.append(key)
+                    self.report["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_EFFECTS"},
+                        "assumptions": [{"arg": int(key), "predicate": "CLAIM_EFFECTS"}
+                                        for key in self.report["entities"] if key != " 1"]}]
+                    baseline = copy.deepcopy(self.report)
+                    self.refresh_composed()
+                    with self.subTest(kind=kind, query=query, operations=operations):
+                        audit_reports(self.path, {"main"}, application_kind=kind)
+                        for key in output_keys:
+                            for field, value in (("name", "Silver_IO.Other"),
+                                                 ("sloc", [{"file": "silver_arguments.ads",
+                                                            "line": 1, "column": 1}])):
+                                self.report = copy.deepcopy(baseline)
+                                self.report["entities"][key][field] = value
+                                self.refresh_composed()
+                                with self.assertRaises(EvidenceError):
+                                    audit_reports(self.path, {"main"}, application_kind=kind)
+                            self.report = copy.deepcopy(baseline)
+                            self.report["spark"][key] = "all"
+                            self.refresh_composed()
+                            with self.assertRaises(EvidenceError):
+                                audit_reports(self.path, {"main"}, application_kind=kind)
+                        self.report = copy.deepcopy(baseline)
+                        self.report["entities"][" 99"] = self.report["entities"][output_keys[0]]
+                        self.refresh_composed()
+                        with self.assertRaises(EvidenceError):
+                            audit_reports(self.path, {"main"}, application_kind=kind)
+                        if dynamic:
+                            for name in ("Silver_Arguments.First_Or_Default", "Silver_Arguments.Reject"):
+                                self.report = copy.deepcopy(baseline)
+                                self.report["entities"] = {
+                                    key: value for key, value in self.report["entities"].items()
+                                    if value["name"] != name}
+                                self.report["assumptions"] = []
+                                self.refresh_composed()
+                                with self.assertRaises(EvidenceError):
+                                    audit_reports(self.path, {"main"}, application_kind=kind)
 
     def test_captured_arguments_handle_lossy_producer_paths_without_shell_parsing(self) -> None:
         command = ["gnatprove", "-P", "/tmp/checkout ' --mode=flow/project.gpr",

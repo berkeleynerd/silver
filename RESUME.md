@@ -6,6 +6,31 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Partial Output complete
+
+The owner-authorized [Partial Output milestone](roadmap.md#partial-output) is
+complete. `Silver_IO.Put (Item)` writes exact bytes without LF, flushes even for
+empty output and shares Put_Line's sticky returning-failure behavior. Matching
+admission, universal Lean semantics/source correspondence and complete native
+report policies cover both operations. The [greeting sample](samples/partial_output.adb)
+uses separate calls to support the full input bound.
+
+The [delivery record](docs/partial-output.md) records independent source review,
+dense-call capacity, differential/full-GNAT checks and the stable Linux native,
+test and complete Lean checkpoint. Final implementation/proof/test inputs stayed
+unchanged throughout all three runs; later changes are documentation. It keeps
+preparatory proof work, cached validation and fresh axiom audit distinct from
+independent kernel replay.
+
+Recovery is `tmp/partial-output-active.json`; evidence lives under
+`.silver/linux-x86_64/partial-output-20261015T144238Z/`. Preserve caches, prior
+evidence and unrelated scratch. Earlier untracked Rosetta files are now absent
+through an external action; this task did not edit, move, delete or stage them.
+Git identifies this delivery separately from baseline `7b5ffea41d`. Publication
+remains authorized. No next capability or replacement harness goal was requested;
+the historical goal is complete. CLI memory was unavailable and not updated;
+checked-in memory carries the handoff. macOS, hosted CI and replay were outside scope.
+
 ## Run Arguments complete
 
 The owner-authorized [Run Arguments milestone](roadmap.md#run-arguments) is
@@ -604,9 +629,11 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
 capability's checkpoint evidence is under
-`.silver/linux-x86_64/larger-expressions-20261015T120629Z/`, with composition
-probes under `larger-expressions-20261015T120644Z/` and
-`larger-expressions-20261015T121348Z/` in the same host directory.
+`.silver/linux-x86_64/partial-output-20261015T144238Z/`, with capacity/report
+probes under `partial-output-reports-20261015T142405Z/` in the same host directory.
+Earlier larger-expression evidence remains under
+`larger-expressions-20261015T120629Z/`, with composition probes under
+`larger-expressions-20261015T120644Z/` and `larger-expressions-20261015T121348Z/`.
 Earlier Names and Calls evidence remains under
 `.silver/linux-x86_64/names-calls-20261014T153711Z/`. The preceding branch evidence
 remains under `.silver/linux-x86_64/branches-20261013T234331Z/`. Earlier common-expression
@@ -668,4 +695,5 @@ range/length obligation generation, pinned solver completion for the admitted
 expression and fixed-length assignment fragment, complete report capacity, and the
 frontend/runtime/environment assumptions remain explicit in
 [assurance](docs/assurance.md) and the [trusted boundary](docs/trusted-boundary.md).
-No new external operation or trusted shortcut is introduced by this increment.
+Put uses the existing external byte-output and flush bindings; no trusted
+shortcut was introduced.

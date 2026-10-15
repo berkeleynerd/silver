@@ -24,4 +24,14 @@ package Silver_IO with SPARK_Mode => On is
               and then Written_Count = Item'Length + 1
               and then Written_Bytes (1 .. Item'Length) = Item
               and then Written_Bytes (Written_Count) = Character'Val (10)));
+   --  Put has the same completion/failure behavior without appending LF.
+   --  Even an empty Item requests a flush; later success never clears failure.
+   procedure Put (Item : String)
+     with Global => (In_Out => Ada.Text_IO.File_System,
+                     Output => (Written_Bytes, Written_Count, Flushed, Succeeded)),
+          Always_Terminates => False,
+          Post => (Static => Succeeded = Flushed
+            and then (if Succeeded then Item'Length <= Max_Length
+              and then Written_Count = Item'Length
+              and then Written_Bytes (1 .. Item'Length) = Item));
 end Silver_IO;

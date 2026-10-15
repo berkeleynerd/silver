@@ -12,7 +12,7 @@ private theorem basic_bounded {text context scan item result}
     (parsed : BasicAt text context scan item result) : result.facts.Bounded := by
   have checked := (basic_meaning normal parsed).2
   cases parsed.payload with
-  | null _ | output _ _ | assignment _ _ _ =>
+  | null _ | output _ _ | put _ _ | assignment _ _ _ =>
       simp only [SourceStatement.lower, Statement.check] at checked
       split at checked
       · have same := Option.some.inj checked

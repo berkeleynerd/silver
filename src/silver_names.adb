@@ -145,6 +145,7 @@ package body Silver_Names with SPARK_Mode => On is
    function Operation_Name (Operation : Operation_Kind) return String is
      (case Operation is
        when Output_Call => "put_line",
+       when Partial_Output_Call => "put",
        when Argument_Call => "first_or_default",
        when Validity_Call => "input_is_valid",
        when Reject_Call => "reject");
@@ -154,12 +155,12 @@ package body Silver_Names with SPARK_Mode => On is
       Hidden : Boolean) return Literal_Position is
      (declare Context : constant Context_Result := Read_Context (Text);
               Visible : constant Boolean :=
-                (if Operation = Output_Call then Context.IO_With else Context.Arguments_With);
+                (if Operation = Output_Call or else Operation = Partial_Output_Call then Context.IO_With else Context.Arguments_With);
               Used : constant Boolean :=
-                (if Operation = Output_Call then Context.IO_Use else Context.Arguments_Use);
+                (if Operation = Output_Call or else Operation = Partial_Output_Call then Context.IO_Use else Context.Arguments_Use);
               Qualified : constant Literal_Position := Take (Text,
                 Take (Text, Position,
-                  (if Operation = Output_Call then "silver_io" else "silver_arguments"), True), ".", False);
+                  (if Operation = Output_Call or else Operation = Partial_Output_Call then "silver_io" else "silver_arguments"), True), ".", False);
       begin (if Context.After = 0 or else not Visible then 0
         elsif Qualified /= 0 then Take (Text, Qualified, Operation_Name (Operation), True)
         elsif Used and then not Hidden then Take (Text, Position, Operation_Name (Operation), True)

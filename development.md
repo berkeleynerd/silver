@@ -68,7 +68,7 @@ For each authorized increment:
    assignment-bearing forms additionally classify the exact unused-assignment
    advisory. All sequence policies classify the exact ineffective-statement
    and unreachable-statement advisories for constant equality, and the four
-   exact overwritten ghost-output advisories for repeated calls.
+   exact overwritten ghost-output advisories for each of Put and Put_Line.
    Other diagnostics remain rejected. A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed

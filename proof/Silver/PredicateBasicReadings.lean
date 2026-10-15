@@ -12,6 +12,10 @@ abbrev outputStart (text : Source) (context : ParseContext) (scan : BodyScan) : 
   {scan with
     position := Names.associationAfter text
       (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
+abbrev putStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+  {scan with
+    position := Names.associationAfter text
+      (fixedAfter text (callAfter text context.names scan.position .partialOutput) "(" false) false}
 abbrev assignmentTarget (text : Source) (context : ParseContext) (scan : BodyScan) : ParserState :=
   targetAt text (parserState context scan) false
 abbrev assignmentStart (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
@@ -25,6 +29,10 @@ inductive BasicPayload (text : Source) (context : ParseContext) (scan : BodyScan
       ExpressionAt text context.names (outputStart text context scan).position expression
         (expressionAt text (outputStart text context scan).position context.names) →
       BasicPayload text context scan (.simple (.output expression))
+  | put {expression} : basicKind text context scan = .put →
+      ExpressionAt text context.names (putStart text context scan).position expression
+        (expressionAt text (putStart text context scan).position context.names) →
+      BasicPayload text context scan (.simple (.put expression))
   | reject : basicKind text context scan = .reject → BasicPayload text context scan .reject
   | assignment {expression} : basicKind text context scan = .assignment →
       TargetReading text (parserState context scan) (assignmentTarget text context scan) false →
@@ -74,6 +82,15 @@ theorem basic_sound {text context scan}
           fun zero => good (Or.inl zero)
         obtain ⟨expression, parsed⟩ := expressionAt_sound text context.names _ positive
         exact ⟨_, ⟨accepted, rfl, .output kind parsed⟩⟩
+  | put =>
+      simp only [basicRaw, kind] at raw
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        have positive : (expressionAt text (putStart text context scan).position context.names).after ≠ 0 :=
+          fun zero => good (Or.inl zero)
+        obtain ⟨expression, parsed⟩ := expressionAt_sound text context.names _ positive
+        exact ⟨_, ⟨accepted, rfl, .put kind parsed⟩⟩
   | assignment =>
       simp only [basicRaw, kind] at raw
       split at raw
@@ -109,6 +126,7 @@ theorem basic_meaning {text context scan item result}
         unfold basicKind at kind
         split at kind <;> try contradiction
         split at kind <;> try contradiction
+        split at kind <;> try contradiction
         split at kind
         · rename_i h
           simp only [Bool.and_eq_true] at h
@@ -131,6 +149,29 @@ theorem basic_meaning {text context scan item result}
           apply true_of_not_neg
           simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (outputStart text context scan).facts
               (summaryOf (expressionAt text (outputStart text context scan).position context.names))) = true from
+            fun bad => good (Or.inr (Or.inr bad)))
+        have valid : scan.facts.invalidReachable = false := by
+          cases h : scan.facts.invalidReachable with
+          | false => rfl
+          | true => exact False.elim (good (Or.inr (Or.inl (by simpa only [bodyTokens_facts] using h))))
+        simp only [SourceStatement.WellFormed, SimpleWellFormed]
+        refine ⟨ready.1, ?_⟩
+        have factsEq : scan.facts = result.facts := by
+          simpa only [bodyToken_facts, bodyTokens_facts] using congrArg BodyScan.facts resultEq
+        rw [← factsEq]
+        simp only [SourceStatement.lower, Statement.check, checkSimple, ready.2, fits, valid,
+          Bool.not_false, Bool.true_and, ↓reduceIte]
+  | put kind expression =>
+      have ready := expression_reading_ready normal expression
+      simp only [basicRaw, kind] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (putStart text context scan).position context.names)) = true := by
+          apply true_of_not_neg
+          simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (putStart text context scan).facts
+              (summaryOf (expressionAt text (putStart text context scan).position context.names))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
         have valid : scan.facts.invalidReachable = false := by
           cases h : scan.facts.invalidReachable with
@@ -186,13 +227,19 @@ theorem basic_unique {text context scan left right first second}
       cases b.payload <;> simp_all
   | output kind reading =>
       cases b.payload with
-      | null other | reject other | assignment other => simp_all
+      | null other | reject other | assignment other | put other => simp_all
       | output _ other =>
+          obtain ⟨rfl, _⟩ := expressionTail_unique reading other
+          rfl
+  | put kind reading =>
+      cases b.payload with
+      | null other | reject other | assignment other | output other => simp_all
+      | put _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl
   | assignment kind target reading =>
       cases b.payload with
-      | null other | reject other | output other => simp_all
+      | null other | reject other | output other | put other => simp_all
       | assignment _ _ other =>
           obtain ⟨rfl, _⟩ := expressionTail_unique reading other
           rfl

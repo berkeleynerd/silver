@@ -24,6 +24,8 @@ theorem combineResults_assoc (first second third : Output.Runtime.ProcessResult)
 def Effect.execute (environment : Output.Runtime.Environment) : Effect → Output.Runtime.ProcessResult
   | .output bytes => Output.Runtime.completeMain
       (Output.Runtime.execute environment bytes Output.Runtime.program [])
+  | .put bytes => Output.Runtime.completeMain
+      (Output.Runtime.execute environment bytes Output.Runtime.putProgram [])
   | .reject => ⟨1, []⟩
 
 def executeEffects (environments : OutputEnvironments) (ordinal : Nat) :
@@ -34,10 +36,11 @@ def executeEffects (environments : OutputEnvironments) (ordinal : Nat) :
 
 def Effect.intendedBytes : Effect → Source
   | .output bytes => bytes ++ [10]
+  | .put bytes => bytes
   | .reject => []
 
 def Effect.expectedStatus : Effect → Nat
-  | .output _ => 0
+  | .output _ | .put _ => 0
   | .reject => 1
 
 def intendedEffectBytes (effects : List Effect) : Source := effects.flatMap Effect.intendedBytes
@@ -52,6 +55,9 @@ def Effect.Outcome (environment : Output.Runtime.Environment) :
   | .output bytes, result =>
       (result.status = 0 ∧ result.accepted = bytes ++ [10] ∧ environment.flushStatus = 0) ∨
       (result.status = 1 ∧ ∃ suffix, result.accepted ++ suffix = bytes ++ [10])
+  | .put bytes, result =>
+      (result.status = 0 ∧ result.accepted = bytes ∧ environment.flushStatus = 0) ∨
+      (result.status = 1 ∧ ∃ suffix, result.accepted ++ suffix = bytes)
 
 /-- A complete per-call outcome, including all calls after returning failures. -/
 inductive TraceOutcome (environments : OutputEnvironments) :
@@ -76,6 +82,16 @@ theorem effect_execution_specified (environment : Output.Runtime.Environment) (e
           have facts := Output.Runtime.failed_output environment bytes accepted status result
           simp only [Effect.Outcome, Effect.execute, result, Output.Runtime.completeMain]
           exact Or.inr facts
+  | put bytes =>
+      cases result : Output.Runtime.execute environment bytes Output.Runtime.putProgram [] with
+      | returned accepted =>
+          have facts := Output.Runtime.successful_put environment bytes accepted result
+          simp only [Effect.Outcome, Effect.execute, result, Output.Runtime.completeMain]
+          exact Or.inl ⟨True.intro, facts.2⟩
+      | failedReturn status accepted =>
+          have facts := Output.Runtime.failed_put environment bytes accepted status result
+          simp only [Effect.Outcome, Effect.execute, result, Output.Runtime.completeMain]
+          exact Or.inr facts
 
 theorem effects_execution_specified (environments : OutputEnvironments) (ordinal : Nat)
     (effects : List Effect) : TraceOutcome environments ordinal effects
@@ -89,7 +105,7 @@ theorem effect_outcome_bound {environment : Output.Runtime.Environment} {effect 
     result.status ≤ 1 ∧ result.accepted.length ≤ effect.intendedBytes.length := by
   cases effect with
   | reject => cases outcome; simp [Effect.intendedBytes]
-  | output bytes =>
+  | output bytes | put bytes =>
       rcases outcome with ⟨status, accepted, _⟩ | ⟨status, rest, accepted⟩
       · simp [status, accepted, Effect.intendedBytes]
       · have lengths := congrArg List.length accepted
@@ -122,6 +138,15 @@ theorem healthy_effect (environment : Output.Runtime.Environment)
       simp only [Effect.execute, Effect.expectedStatus, Effect.intendedBytes,
         Output.Runtime.healthy_output environment healthy bytes valid.1 byteBound,
         Output.Runtime.completeMain]
+  | put bytes =>
+      have byteBound : ∀ byte ∈ bytes, byte ≤ 255 := by
+        intro byte member
+        have printable := valid.2 byte member
+        simp only [Output.printable, decide_eq_true_eq] at printable
+        omega
+      simp only [Effect.execute, Effect.expectedStatus, Effect.intendedBytes,
+        Output.Runtime.healthy_put environment healthy bytes valid.1 byteBound,
+        Output.Runtime.completeMain]
 
 theorem healthy_effects (environments : OutputEnvironments)
     (healthy : ∀ ordinal, Output.Runtime.Healthy (environments ordinal)) (ordinal : Nat)
@@ -147,7 +172,7 @@ theorem execute_effects_append (environments : OutputEnvironments) (ordinal : Na
 
 def outputCount : List Effect → Nat
   | [] => 0
-  | .output _ :: rest => 1 + outputCount rest
+  | .output _ :: rest | .put _ :: rest => 1 + outputCount rest
   | .reject :: rest => outputCount rest
 
 /-- The cumulative size bound follows the actual number of output calls. -/
@@ -165,6 +190,12 @@ theorem intended_effects_bound {effects : List Effect} (valid : EffectsValid eff
           simp only [intendedEffectBytes, List.flatMap_cons, Effect.intendedBytes,
             List.length_append, List.length_singleton, outputCount, Nat.add_mul, Nat.one_mul]
           exact Nat.add_le_add (Nat.add_le_add_right first.1 1) following
+      | put bytes =>
+          simp only [Effect.Valid] at first
+          simp only [intendedEffectBytes, List.flatMap_cons, Effect.intendedBytes,
+            List.length_append, outputCount, Nat.add_mul, Nat.one_mul]
+          exact Nat.add_le_add (by omega) following
+
 
 theorem accepted_effects_bound (environments : OutputEnvironments) (ordinal : Nat)
     {effects : List Effect} (valid : EffectsValid effects) :

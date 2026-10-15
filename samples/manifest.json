@@ -885,6 +885,61 @@
           }
         }
       ]
+    },
+    {
+      "source": "partial_output.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "argument_context",
+        "argument_initialization",
+        "input_guard",
+        "argument_rejection",
+        "named_string_constant",
+        "literal_output",
+        "named_output",
+        "statement_sequence"
+      ],
+      "specification": "../language.md#meaning-and-assurance",
+      "expected": {
+        "stdout": "Hello, world!\n",
+        "stderr": "",
+        "exit_status": 0
+      },
+      "argument_cases": [
+        {
+          "arguments": [
+            "Ada"
+          ],
+          "expected": {
+            "stdout": "Hello, Ada!\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            ""
+          ],
+          "expected": {
+            "stdout": "Hello, !\n",
+            "stderr": "",
+            "exit_status": 0
+          }
+        },
+        {
+          "arguments": [
+            "one",
+            "two"
+          ],
+          "expected": {
+            "stdout": "",
+            "stderr": "",
+            "exit_status": 1
+          }
+        }
+      ]
     }
   ]
 }

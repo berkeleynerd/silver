@@ -11,7 +11,7 @@ inductive Flag | assignment | output
   deriving DecidableEq, Repr
 
 def Flag.simple : Flag → Sequence.SimpleStatement → Bool
-  | .assignment, .assign _ | .output, .output _ => true
+  | .assignment, .assign _ | .output, .output _ | .output, .put _ => true
   | _, _ => false
 
 def Flag.observe (flag : Flag) (scan : BodyScan) : Bool :=
@@ -57,6 +57,18 @@ theorem basic_flags {text context scan item result} (parsed : BasicAt text conte
       simp only [bodyToken_flags, basicRaw, kind, Flag.source, Bool.or_false]
       cases flag <;> simp only [Flag.observe]
   | output kind expression =>
+      simp only [basicRaw, kind] at raw resultEq
+      split at raw
+      · exact False.elim (raw rfl)
+      · rename_i good
+        rw [ite_eq_right good] at resultEq
+        rw [← resultEq]
+        simp only [bodyToken_flags, Flag.source]
+        cases flag with
+        | assignment =>
+            simp only [Flag.observe, bodyToken_assigned, Flag.simple, Bool.or_false]
+        | output => simp only [Flag.observe, Flag.simple, Bool.or_true]
+  | put kind expression =>
       simp only [basicRaw, kind] at raw resultEq
       split at raw
       · exact False.elim (raw rfl)

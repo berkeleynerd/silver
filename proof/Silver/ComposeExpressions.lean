@@ -488,7 +488,7 @@ def Expr.render : Expr ty → List String
   | .lexNormalize a => call "normalized" [a.render]
   | .lexAllowed a => call "allowed_source" [a.render]
   | .operation op => ["names", ".", match op with
-      | .output => "output_call" | .argument => "argument_call" | .validity => "validity_call" | .reject => "reject_call"]
+      | .output => "output_call" | .partialOutput => "partial_output_call" | .argument => "argument_call" | .validity => "validity_call" | .reject => "reject_call"]
   | .number n => [toString n]
   | .truth b => [if b then "true" else "false"]
   | .variable name => [name]

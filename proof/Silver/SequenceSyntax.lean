@@ -15,6 +15,7 @@ inductive SimpleStatement
   | null
   | assign (update : Assignment)
   | output (expression : Expression)
+  | put (expression : Expression)
   deriving DecidableEq, Repr
 
 mutual
@@ -101,7 +102,7 @@ def SimpleStatement.hasAssignment : SimpleStatement → Bool
   | _ => false
 
 def SimpleStatement.hasOutput : SimpleStatement → Bool
-  | .output _ => true
+  | .output _ | .put _ => true
   | _ => false
 
 mutual
@@ -143,7 +144,7 @@ def Body.hasOutput (body : Body) : Bool := body.statements.any Statement.hasOutp
 def SimpleStatement.Valid (shape : Shape) (capacity : Nat) : SimpleStatement → Prop
   | .null => True
   | .assign update => update.Valid shape ∧ SafeExpression update.value shape capacity
-  | .output expression => SafeExpression expression shape capacity
+  | .output expression | .put expression => SafeExpression expression shape capacity
 
 def SimpleStatementsValid (shape : Shape) (capacity : Nat) (items : List SimpleStatement) : Prop :=
   ∀ item ∈ items, item.Valid shape capacity
@@ -197,11 +198,12 @@ def Program.Valid (program : Program) : Prop :=
 
 inductive Effect
   | output (bytes : Source)
+  | put (bytes : Source)
   | reject
   deriving DecidableEq, Repr
 
 def Effect.Valid : Effect → Prop
-  | .output bytes => bytes.length ≤ maxSourceLength ∧ Bindings.Printable bytes
+  | .output bytes | .put bytes => bytes.length ≤ maxSourceLength ∧ Bindings.Printable bytes
   | .reject => True
 
 def EffectsValid (effects : List Effect) : Prop := ∀ effect ∈ effects, effect.Valid

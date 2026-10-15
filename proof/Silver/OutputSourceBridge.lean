@@ -94,21 +94,26 @@ abbrev RuntimeDeclarations : Prop :=
     "Boolean := False with Ghost => Static") ∧
   procedureHeader "put_line" Source.ioSpecTokens = some (expectedTokens
     "(Item : String) with Global => (In_Out => Ada.Text_IO.File_System, Output => (Written_Bytes, Written_Count, Flushed, Succeeded)), Always_Terminates => False, Post => (Static => Succeeded = Flushed and then (if Succeeded then Item'Length <= Max_Length and then Written_Count = Item'Length + 1 and then Written_Bytes (1 .. Item'Length) = Item and then Written_Bytes (Written_Count) = Character'Val (10)))") ∧
+  procedureHeader "put" Source.ioSpecTokens = some (expectedTokens
+    "(Item : String) with Global => (In_Out => Ada.Text_IO.File_System, Output => (Written_Bytes, Written_Count, Flushed, Succeeded)), Always_Terminates => False, Post => (Static => Succeeded = Flushed and then (if Succeeded then Item'Length <= Max_Length and then Written_Count = Item'Length and then Written_Bytes (1 .. Item'Length) = Item))") ∧
   procedureHeader "set_exit_status" Source.outputLibcTokens = some (expectedTokens
     "(Status : Interfaces.C.int) with Import, Convention => C, External_Name => \"__gnat_set_exit_status\", Always_Terminates => True, Global => (In_Out => Ada.Text_IO.File_System)")
 
 theorem actual_runtime_declarations : RuntimeDeclarations :=
-  ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+  ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 def runtimeFrame : List String := expectedTokens
   "with Interfaces.C; with System; with Silver_Output_Libc; package body Silver_IO with SPARK_Mode => On is use type Interfaces.C.int; procedure Put_Line (Item : String) is Status : Interfaces.C.int; begin"
 
 def renderedRuntime : List String := runtimeFrame ++
   Runtime.program.flatMap Runtime.Instruction.render ++
-  expectedTokens "end Put_Line; end Silver_IO;"
+  expectedTokens "end Put_Line; procedure Put (Item : String) is Status : Interfaces.C.int; begin" ++
+  Runtime.putProgram.flatMap Runtime.Instruction.render ++
+  expectedTokens "end Put; end Silver_IO;"
 
 /-- Every executable assignment, branch, loop and external call is interpreted
-by Runtime.program, and its rendering equals the actual whole body. -/
+by Runtime.program or Runtime.putProgram; their combined rendering equals the
+actual whole body. -/
 theorem actual_runtime_translation : Source.ioBodyTokens = renderedRuntime := by decide +kernel
 
 abbrev CompleteShape : Prop :=
@@ -158,5 +163,12 @@ theorem authoritative_runtime_correct (environment : Runtime.Environment) (item 
     CheckedSource ∧ Runtime.execute environment item Runtime.program [] =
       Runtime.specification environment item :=
   ⟨checked_source, Runtime.program_refines environment item⟩
+
+/-- `Put` is derived from the same checked whole body, with its distinct exact
+no-newline byte sequence and the unchanged flush/failure contract. -/
+theorem authoritative_put_runtime_correct (environment : Runtime.Environment) (item : Source) :
+    CheckedSource ∧ Runtime.execute environment item Runtime.putProgram [] =
+      Runtime.putSpecification environment item :=
+  ⟨checked_source, Runtime.put_program_refines environment item⟩
 
 end Silver.Output.SourceBridge

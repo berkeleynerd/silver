@@ -1,10 +1,14 @@
 package body Silver_Library_Reports with SPARK_Mode => On is
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
-      Static_Main, Main_Body, Argument_Effects, Binding_Main, Argument_Binding_Main,
-      Argument_Without_Query, Argument_Effects_Without_Query,
-      Assignment_Main, Assignment_Effects, Selected_Main, Selected_Effects,
-      Selected_Without_Query, Selected_Effects_Without_Query, Selected_Binding_Main);
+      Static_Main, Static_Put, Static_Mixed,
+      Main_Body, Main_Put, Main_Mixed, Argument_Effects, Binding_Main, Argument_Binding_Main,
+      Argument_Without_Query, Argument_Put_Without_Query, Argument_Mixed_Without_Query,
+      Argument_Effects_Without_Query,
+      Assignment_Main, Assignment_Effects, Assignment_Put, Assignment_Mixed,
+      Selected_Main, Selected_Put, Selected_Mixed, Selected_Effects,
+      Selected_Without_Query, Selected_Put_Without_Query, Selected_Mixed_Without_Query,
+      Selected_Effects_Without_Query, Selected_Binding_Main);
    subtype Application_Audit is Audit_Kind range Static_Main .. Selected_Binding_Main;
    subtype Mutable_Audit is Audit_Kind range Assignment_Main .. Selected_Binding_Main;
    function Audit_Of (Kind : Report_Kind) return Audit_Kind is
@@ -25,6 +29,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_unused_Flushed : constant String := "\""Flushed\"" is set by \""Put_Line\"" but not used after the call";
    Atom_unused_Succeeded : constant String := "\""Succeeded\"" is set by \""Put_Line\"" but not used after the call";
    Atom_unused_Written_Bytes : constant String := "\""Written_Bytes\"" is set by \""Put_Line\"" but not used after the call";
+   Atom_put_unused_Written_Count : constant String := "\""Written_Count\"" is set by \""Put\"" but not used after the call";
+   Atom_put_unused_Flushed : constant String := "\""Flushed\"" is set by \""Put\"" but not used after the call";
+   Atom_put_unused_Succeeded : constant String := "\""Succeeded\"" is set by \""Put\"" but not used after the call";
+   Atom_put_unused_Written_Bytes : constant String := "\""Written_Bytes\"" is set by \""Put\"" but not used after the call";
    Atom_CLAIM_AORTE : constant String := "CLAIM_AORTE";
    Atom_CLAIM_EFFECTS : constant String := "CLAIM_EFFECTS";
    Atom_CLAIM_POST : constant String := "CLAIM_POST";
@@ -37,6 +45,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_Silver_Arguments_Reject : constant String := "Silver_Arguments.Reject";
    Atom_Silver_IO : constant String := "Silver_IO";
    Atom_Silver_IO_Put_Line : constant String := "Silver_IO.Put_Line";
+   Atom_Silver_IO_Put : constant String := "Silver_IO.Put";
    Atom_Silver_Output_Libc : constant String := "Silver_Output_Libc";
    Atom_Silver_Output_Libc_Flush : constant String := "Silver_Output_Libc.Flush";
    Atom_Silver_Output_Libc_Put_Byte : constant String := "Silver_Output_Libc.Put_Byte";
@@ -555,13 +564,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       return P = Item.Last;
    end Empty_Array;
 
-   type Entity_Kind is (Unknown, IO_Package, Put_Line, Libc_Package,
+   type Entity_Kind is (Unknown, IO_Package, Put_Line, Put, Libc_Package,
                        Put_Byte, Flush, Set_Exit_Status, Arguments_Package,
                        Input_Is_Valid, First_Or_Default, Reject, Is_Message,
                        Runtime_Package, Argument_Count, Argument, Runtime_Exit_Status, Main_Entity);
    function Entity_File (Name : Entity_Kind) return String is
      (case Name is
-        when IO_Package | Put_Line => Atom_silver_io_ads,
+        when IO_Package | Put_Line | Put => Atom_silver_io_ads,
         when Libc_Package | Put_Byte | Flush | Set_Exit_Status => Atom_silver_output_libc_ads,
         when Arguments_Package | Input_Is_Valid | First_Or_Default | Reject => Atom_silver_arguments_ads,
         when Is_Message => Atom_silver_arguments_adb,
@@ -635,6 +644,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           if Main_Spelling (Text, Name) then Main_Entity
           elsif String_Equal (Text, Name, Atom_Silver_IO) then IO_Package
           elsif String_Equal (Text, Name, Atom_Silver_IO_Put_Line) then Put_Line
+          elsif String_Equal (Text, Name, Atom_Silver_IO_Put) then Put
           elsif String_Equal (Text, Name, Atom_Silver_Output_Libc) then Libc_Package
           elsif String_Equal (Text, Name, Atom_Silver_Output_Libc_Put_Byte) then Put_Byte
           elsif String_Equal (Text, Name, Atom_Silver_Output_Libc_Flush) then Flush
@@ -661,6 +671,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       if Main_Spelling (Text, Name) then Result := Main_Entity;
       elsif String_Equal (Text, Name, Atom_Silver_IO) then Result := IO_Package;
       elsif String_Equal (Text, Name, Atom_Silver_IO_Put_Line) then Result := Put_Line;
+      elsif String_Equal (Text, Name, Atom_Silver_IO_Put) then Result := Put;
       elsif String_Equal (Text, Name, Atom_Silver_Output_Libc) then Result := Libc_Package;
       elsif String_Equal (Text, Name, Atom_Silver_Output_Libc_Put_Byte) then Result := Put_Byte;
       elsif String_Equal (Text, Name, Atom_Silver_Output_Libc_Flush) then Result := Flush;
@@ -791,11 +802,15 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (String_Equal (Text, Item, Atom_unused_Written_Count)
       or else String_Equal (Text, Item, Atom_unused_Flushed)
       or else String_Equal (Text, Item, Atom_unused_Succeeded)
-      or else String_Equal (Text, Item, Atom_unused_Written_Bytes));
+      or else String_Equal (Text, Item, Atom_unused_Written_Bytes)
+      or else String_Equal (Text, Item, Atom_put_unused_Written_Count)
+      or else String_Equal (Text, Item, Atom_put_unused_Flushed)
+      or else String_Equal (Text, Item, Atom_put_unused_Succeeded)
+      or else String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
 
    type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Argument_Diagnostics,
                       Assignment_Diagnostics, Selected_Diagnostics,
-                      References, Postconditions, Argument_Postconditions);
+                      References, Postconditions, Put_Postconditions, Argument_Postconditions);
    subtype Main_Diagnostics is List_Kind range Binding_Diagnostics .. Selected_Diagnostics;
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean
@@ -833,11 +848,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field_Spec (Text, Item, JSON_suppressed) = Missing
         and then Field_Spec (Text, Item, JSON_annot_kind) = Missing
         and then Field_Spec (Text, Item, JSON_justif_msg) = Missing
-      elsif Kind in Postconditions | Argument_Postconditions then
+      elsif Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
         String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
         and then Entity_Name_Spec (Text, Referenced_Entity_Spec
           (Text, Entities, Field_Spec (Text, Item, JSON_entity))) =
-            (if Kind = Postconditions then Put_Line else First_Or_Default)
+            (if Kind = Postconditions then Put_Line
+             elsif Kind = Put_Postconditions then Put else First_Or_Default)
       else
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_info)
         and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
@@ -908,11 +924,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Field (Text, Item, JSON_justif_msg) = Missing;
       end if;
 
-      if Kind in Postconditions | Argument_Postconditions then
+      if Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
          return String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
            and then Entity_Name (Text, Referenced_Entity
              (Text, Entities, Field (Text, Item, JSON_entity)))
-                = (if Kind = Postconditions then Put_Line else First_Or_Default);
+                = (if Kind = Postconditions then Put_Line
+                   elsif Kind = Put_Postconditions then Put else First_Or_Default);
       end if;
       How := Field (Text, Item, JSON_how_proved);
       if Kind = Main_Checks then
@@ -989,7 +1006,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function List_Policy (Summary : List_Summary; Kind : List_Kind;
                          Found : Boolean := False) return Boolean is
      (Summary.Well_Formed and then
-        (if Kind in Postconditions | Argument_Postconditions
+        (if Kind in Postconditions | Put_Postconditions | Argument_Postconditions
          then Found or Summary.Has_OK else Summary.Every_OK));
 
    function List_Spec
@@ -1026,9 +1043,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          case M.State is
             when Broken => return False;
             when Finished =>
-               return Kind not in Postconditions | Argument_Postconditions or else Found;
+               return Kind not in Postconditions | Put_Postconditions | Argument_Postconditions or else Found;
             when Present =>
-               if Kind in Postconditions | Argument_Postconditions then
+               if Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
                   Found := Found or else Record_OK (Text, M.Value, Entities, Kind);
                elsif not Record_OK (Text, M.Value, Entities, Kind) then
                   return False;
@@ -1103,27 +1120,37 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Expected_Entity (Name : Entity_Kind; Kind : Audit_Kind)
      return Boolean is
      (case Kind is
-        when IO_Body => Name in IO_Package | Put_Line | Put_Byte | Flush | Set_Exit_Status,
+        when IO_Body => Name in IO_Package | Put_Line | Put | Put_Byte | Flush | Set_Exit_Status,
         when Libc_Interface => Name in Libc_Package | Put_Byte | Flush | Set_Exit_Status,
         when Argument_Body => Name in Arguments_Package | Input_Is_Valid | First_Or_Default
           | Reject | Is_Message | Set_Exit_Status | Argument_Count | Argument,
         when Argv_Interface => Name in Runtime_Package | Argument_Count | Argument | Runtime_Exit_Status,
         when Main_Body | Selected_Main =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put_Line,
+        when Main_Put | Selected_Put =>
+          Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put,
+        when Main_Mixed | Selected_Mixed =>
+          Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject | Put_Line | Put,
         when Argument_Without_Query | Selected_Without_Query =>
           Name in Main_Entity | First_Or_Default | Reject | Put_Line,
+        when Argument_Put_Without_Query | Selected_Put_Without_Query =>
+          Name in Main_Entity | First_Or_Default | Reject | Put,
+        when Argument_Mixed_Without_Query | Selected_Mixed_Without_Query =>
+          Name in Main_Entity | First_Or_Default | Reject | Put_Line | Put,
         when Argument_Effects_Without_Query | Selected_Effects_Without_Query =>
           Name in Main_Entity | First_Or_Default | Reject,
         when Argument_Effects | Selected_Effects =>
           Name in Main_Entity | First_Or_Default | Input_Is_Valid | Reject,
         when Binding_Main | Argument_Binding_Main | Assignment_Main | Selected_Binding_Main =>
           Name = Main_Entity,
-        when Static_Main | Assignment_Effects => Name in Main_Entity | Put_Line);
+        when Static_Main | Assignment_Effects => Name in Main_Entity | Put_Line,
+        when Static_Put | Assignment_Put => Name in Main_Entity | Put,
+        when Static_Mixed | Assignment_Mixed => Name in Main_Entity | Put_Line | Put);
 
    function Expected_Coverage (Name : Entity_Kind; Kind : Audit_Kind)
      return String is
      (case Kind is
-        when IO_Body => (if Name in IO_Package | Put_Line then Atom_all else Atom_Empty),
+        when IO_Body => (if Name in IO_Package | Put_Line | Put then Atom_all else Atom_Empty),
         when Libc_Interface =>
           (if Name = Libc_Package then Atom_all
            elsif Name in Put_Byte | Flush | Set_Exit_Status then Atom_spec else Atom_Empty),
@@ -1349,10 +1376,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
-          (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main
-                 | Argument_Without_Query | Argument_Effects_Without_Query then Argument_Diagnostics
-           elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main
-                 | Selected_Without_Query | Selected_Effects_Without_Query then Selected_Diagnostics
+          (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
+                 | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
+                 | Argument_Effects_Without_Query then Argument_Diagnostics
+           elsif Kind in Selected_Main | Selected_Put | Selected_Mixed | Selected_Effects | Selected_Binding_Main
+                 | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
+                 | Selected_Effects_Without_Query then Selected_Diagnostics
            elsif Kind in Mutable_Audit then Assignment_Diagnostics
            elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
@@ -1362,7 +1391,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_flow))
            and then not Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_proof))
            and then List_Spec (Text, Field_Spec (Text, Object, JSON_proof), Entities,
-             (if Kind = IO_Body then Postconditions else Argument_Postconditions)))));
+             (if Kind = IO_Body then Postconditions else Argument_Postconditions))
+           and then (if Kind = IO_Body then List_Spec
+             (Text, Field_Spec (Text, Object, JSON_proof), Entities, Put_Postconditions)))));
 
    function Report_Policy (Report : String; Kind : Audit_Kind) return Boolean
      with Ghost => Static, Global => null;
@@ -1385,18 +1416,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean is
      (case Kind is
         when Static_Output => Report_Policy (Report, Binding_Main)
-          or else Report_Policy (Report, Static_Main),
+          or else Report_Policy (Report, Static_Main)
+          or else Report_Policy (Report, Static_Put)
+          or else Report_Policy (Report, Static_Mixed),
         when Argument_Output => Report_Policy (Report, Argument_Binding_Main)
           or else Report_Policy (Report, Argument_Effects)
           or else Report_Policy (Report, Main_Body)
+          or else Report_Policy (Report, Main_Put)
+          or else Report_Policy (Report, Main_Mixed)
           or else Report_Policy (Report, Argument_Without_Query)
+          or else Report_Policy (Report, Argument_Put_Without_Query)
+          or else Report_Policy (Report, Argument_Mixed_Without_Query)
           or else Report_Policy (Report, Argument_Effects_Without_Query),
         when Assigned_Output => Report_Policy (Report, Assignment_Main)
-          or else Report_Policy (Report, Assignment_Effects),
+          or else Report_Policy (Report, Assignment_Effects)
+          or else Report_Policy (Report, Assignment_Put)
+          or else Report_Policy (Report, Assignment_Mixed),
         when Selected_Output => Report_Policy (Report, Selected_Binding_Main)
           or else Report_Policy (Report, Selected_Effects)
           or else Report_Policy (Report, Selected_Main)
+          or else Report_Policy (Report, Selected_Put)
+          or else Report_Policy (Report, Selected_Mixed)
           or else Report_Policy (Report, Selected_Without_Query)
+          or else Report_Policy (Report, Selected_Put_Without_Query)
+          or else Report_Policy (Report, Selected_Mixed_Without_Query)
           or else Report_Policy (Report, Selected_Effects_Without_Query));
 
    function Audit_Report (Report : String; Kind : Audit_Kind) return Boolean
@@ -1428,10 +1471,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)
            and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,
-             (if Kind in Main_Body | Argument_Effects | Argument_Binding_Main
-                 | Argument_Without_Query | Argument_Effects_Without_Query then Argument_Diagnostics
-              elsif Kind in Selected_Main | Selected_Effects | Selected_Binding_Main
-                 | Selected_Without_Query | Selected_Effects_Without_Query then Selected_Diagnostics
+             (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
+                 | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
+                 | Argument_Effects_Without_Query then Argument_Diagnostics
+              elsif Kind in Selected_Main | Selected_Put | Selected_Mixed | Selected_Effects | Selected_Binding_Main
+                 | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
+                 | Selected_Effects_Without_Query then Selected_Diagnostics
               elsif Kind in Mutable_Audit then Assignment_Diagnostics
               elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
            and then List_OK (Text, Field (Text, Object, JSON_proof), Entities,
@@ -1441,7 +1486,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              (not Empty_Array (Text, Field (Text, Object, JSON_flow))
               and then not Empty_Array (Text, Field (Text, Object, JSON_proof))
               and then List_OK (Text, Field (Text, Object, JSON_proof), Entities,
-                (if Kind = IO_Body then Postconditions else Argument_Postconditions))));
+                (if Kind = IO_Body then Postconditions else Argument_Postconditions))
+              and then (if Kind = IO_Body then List_OK
+                (Text, Field (Text, Object, JSON_proof), Entities, Put_Postconditions))));
       end;
    end Audit_Report;
 
@@ -1455,18 +1502,30 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    begin
       return (case Kind is
         when Static_Output => Audit_Report (Report, Binding_Main)
-          or else Audit_Report (Report, Static_Main),
+          or else Audit_Report (Report, Static_Main)
+          or else Audit_Report (Report, Static_Put)
+          or else Audit_Report (Report, Static_Mixed),
         when Argument_Output => Audit_Report (Report, Argument_Binding_Main)
           or else Audit_Report (Report, Argument_Effects)
           or else Audit_Report (Report, Main_Body)
+          or else Audit_Report (Report, Main_Put)
+          or else Audit_Report (Report, Main_Mixed)
           or else Audit_Report (Report, Argument_Without_Query)
+          or else Audit_Report (Report, Argument_Put_Without_Query)
+          or else Audit_Report (Report, Argument_Mixed_Without_Query)
           or else Audit_Report (Report, Argument_Effects_Without_Query),
         when Assigned_Output => Audit_Report (Report, Assignment_Main)
-          or else Audit_Report (Report, Assignment_Effects),
+          or else Audit_Report (Report, Assignment_Effects)
+          or else Audit_Report (Report, Assignment_Put)
+          or else Audit_Report (Report, Assignment_Mixed),
         when Selected_Output => Audit_Report (Report, Selected_Binding_Main)
           or else Audit_Report (Report, Selected_Effects)
           or else Audit_Report (Report, Selected_Main)
+          or else Audit_Report (Report, Selected_Put)
+          or else Audit_Report (Report, Selected_Mixed)
           or else Audit_Report (Report, Selected_Without_Query)
+          or else Audit_Report (Report, Selected_Put_Without_Query)
+          or else Audit_Report (Report, Selected_Mixed_Without_Query)
           or else Audit_Report (Report, Selected_Effects_Without_Query));
    end Complete_Application_Proof;
 end Silver_Library_Reports;

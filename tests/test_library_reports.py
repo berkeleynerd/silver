@@ -27,13 +27,14 @@ def report(interface: bool = False) -> dict:
     names = (["Silver_Output_Libc", "Silver_Output_Libc.Put_Byte",
               "Silver_Output_Libc.Flush", "Silver_Output_Libc.Set_Exit_Status"] if interface else
              ["Silver_IO.Put_Line", "Silver_IO", "Silver_Output_Libc.Set_Exit_Status",
-              "Silver_Output_Libc.Flush", "Silver_Output_Libc.Put_Byte"])
+              "Silver_Output_Libc.Flush", "Silver_Output_Libc.Put_Byte", "Silver_IO.Put"])
     return {"entities": {f" {i}": entity(name) for i, name in enumerate(names, 1)},
             "spark": ({" 1": "all", " 2": "spec", " 3": "spec", " 4": "spec"}
-                      if interface else {" 1": "all", " 2": "all"}),
+                      if interface else {" 1": "all", " 2": "all", " 6": "all"}),
             "progress": "PROGRESS_PROOF", "stop_reason": "STOP_REASON_NONE",
             "flow": [] if interface else [dict(check(), how_proved="flow")],
-            "proof": [] if interface else [check()], "skip_flow_proof": [], "skip_proof": [],
+            "proof": [] if interface else [check(), dict(check(), entity=6)],
+            "skip_flow_proof": [], "skip_proof": [],
             "pragma_assume": [], "warn_error": [], "assumptions": []}
 
 
@@ -357,6 +358,48 @@ end Probe;
                 del data[field]
                 self.assertFalse(self.accepts(data, kind=kind))
 
+    def test_partial_and_mixed_output_entities_keep_exact_policies(self) -> None:
+        for kind in ("static", "main", "assignment", "selected"):
+            dynamic = kind in ("main", "selected")
+            for query in ((False, True) if dynamic else (False,)):
+                for operations in (("Put",), ("Put_Line",), ("Put", "Put_Line")):
+                    data = main_report() if dynamic else assignment_call_report()
+                    data["entities"] = {
+                        key: value for key, value in data["entities"].items()
+                        if not value["name"].startswith("Silver_IO.")
+                        and (query or value["name"] != "Silver_Arguments.Input_Is_Valid")}
+                    next_key = max(int(key) for key in data["entities"]) + 1
+                    output_keys = []
+                    for index, operation in enumerate(operations, next_key):
+                        key = f" {index}"
+                        data["entities"][key] = entity("Silver_IO." + operation)
+                        output_keys.append(key)
+                    data["assumptions"] = [{"claim": {"arg": 1, "predicate": "CLAIM_EFFECTS"},
+                        "assumptions": [{"arg": int(key), "predicate": "CLAIM_EFFECTS"}
+                                        for key in data["entities"] if key != " 1"]}]
+                    with self.subTest(kind=kind, query=query, operations=operations):
+                        self.assertTrue(self.accepts(data, kind=kind))
+                        for key in output_keys:
+                            for field, value in (("name", "Silver_IO.Other"),
+                                                 ("sloc", [{"file": "silver_arguments.ads",
+                                                            "line": 1, "column": 1}])):
+                                bad = copy.deepcopy(data)
+                                bad["entities"][key][field] = value
+                                self.assertFalse(self.accepts(bad, kind=kind))
+                            bad = copy.deepcopy(data)
+                            bad["spark"][key] = "all"
+                            self.assertFalse(self.accepts(bad, kind=kind))
+                        duplicate = copy.deepcopy(data)
+                        duplicate["entities"][" 99"] = duplicate["entities"][output_keys[0]]
+                        self.assertFalse(self.accepts(duplicate, kind=kind))
+                        if dynamic:
+                            for name in ("Silver_Arguments.First_Or_Default", "Silver_Arguments.Reject"):
+                                missing = copy.deepcopy(data)
+                                missing["entities"] = {key: value for key, value in missing["entities"].items()
+                                                       if value["name"] != name}
+                                missing["assumptions"] = []
+                                self.assertFalse(self.accepts(missing, kind=kind))
+
     def test_shared_bindings_advisory_lists_and_assignment_scope(self) -> None:
         for kind in ("static", "main", "assignment", "selected"):
             for bare in (False, True):
@@ -482,9 +525,9 @@ end Probe;
         self.assertFalse(self.accepts(bad, kind="arguments"))
 
     def test_obligation_count_is_not_pinned(self) -> None:
-        for count in (1, 3, 26):
+        for count in (0, 1, 25):
             data = report()
-            data["proof"] = [check() for _ in range(count)]
+            data["proof"] += [check() for _ in range(count)]
             data["flow"] = [dict(check(), how_proved="flow")]
             self.assertTrue(self.accepts(data))
 
@@ -537,14 +580,14 @@ end Probe;
                              ("file", "other.adb"), ("line", "12"), ("col", 0)):
             for section in ("flow", "proof"):
                 data = report()
-                data[section] = [check(), dict(check(), **{field: value}), check()]
+                data[section].append(dict(check(), **{field: value}))
                 with self.subTest(field=field, section=section):
                     self.assertFalse(self.accepts(data))
 
     def test_justification_and_suppression_rejected(self) -> None:
         for field in ("justification", "justified", "suppressed", "annot_kind", "justif_msg"):
             data = report()
-            data["proof"] = [dict(check(), **{field: "reason"})]
+            data["proof"][0][field] = "reason"
             self.assertFalse(self.accepts(data))
             # A duplicate disallowed field must not look like an absent field.
             source = json.dumps(data).replace(f'"{field}": "reason"',
@@ -590,9 +633,9 @@ end Probe;
 
     def test_entity_map_cannot_hide_extra_owned_declarations(self) -> None:
         data = report()
-        data["entities"][" 6"] = entity("Silver_IO.Hidden_Helper")
+        data["entities"][" 7"] = entity("Silver_IO.Hidden_Helper")
         self.assertFalse(self.accepts(data))
-        data["entities"][" 6"] = entity("Silver_IO.Put_Line")
+        data["entities"][" 7"] = entity("Silver_IO.Put_Line")
         self.assertFalse(self.accepts(data))
         data = report()
         del data["entities"][" 5"]
@@ -604,7 +647,8 @@ end Probe;
         data["entities"] = {mapping[key]: value for key, value in reversed(list(data["entities"].items()))}
         data["spark"] = {mapping[key]: value for key, value in reversed(list(data["spark"].items()))}
         for key in ("flow", "proof"):
-            data[key][0]["entity"] = int(mapping[" 1"])
+            for obligation in data[key]:
+                obligation["entity"] = int(mapping[f" {obligation['entity']}"])
         self.assertTrue(self.accepts(data))
 
     def test_assumptions_resolve_only_selected_entities(self) -> None:
@@ -624,17 +668,21 @@ end Probe;
         bad["entities"][" 5"]["name"] = "Unapproved.Output"
         self.assertFalse(self.accepts(bad))
 
-    def test_body_requires_checks_and_put_line_postcondition(self) -> None:
+    def test_body_requires_checks_and_both_output_postconditions(self) -> None:
         for section in ("flow", "proof"):
             data = report()
             data[section] = []
             self.assertFalse(self.accepts(data))
-        data = report()
-        data["proof"][0]["rule"] = "VC_RANGE_CHECK"
-        self.assertFalse(self.accepts(data))
-        data = report()
-        data["proof"][0]["entity"] = 2
-        self.assertFalse(self.accepts(data))
+        for index, operation in enumerate(("Put_Line", "Put")):
+            data = report()
+            del data["proof"][index]
+            with self.subTest(missing=operation):
+                self.assertFalse(self.accepts(data))
+            for field, value in (("rule", "VC_RANGE_CHECK"), ("entity", 2)):
+                data = report()
+                data["proof"][index][field] = value
+                with self.subTest(operation=operation, field=field):
+                    self.assertFalse(self.accepts(data))
 
     def test_nested_decoys_do_not_satisfy_fields(self) -> None:
         data = report()
@@ -642,7 +690,7 @@ end Probe;
         data["timings"] = {"progress": "PROGRESS_PROOF"}
         self.assertFalse(self.accepts(data))
         data = report()
-        data["proof"] = [dict(check(), severity="warning", stats={"severity": "info"})]
+        data["proof"][0].update(severity="warning", stats={"severity": "info"})
         self.assertFalse(self.accepts(data))
 
     def test_duplicate_required_fields_and_bad_delimiters(self) -> None:
@@ -667,8 +715,9 @@ end Probe;
 
     def test_repeated_output_ghost_advisories_are_exact(self) -> None:
         for kind in ("static", "main", "assignment", "selected"):
-            for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes"):
-                message = f'"{name}" is set by "Put_Line" but not used after the call'
+            for name, operation in product(("Written_Count", "Flushed", "Succeeded", "Written_Bytes"),
+                                           ("Put_Line", "Put")):
+                message = f'"{name}" is set by "{operation}" but not used after the call'
                 data = assignment_report()
                 data["flow"][0]["message"] = {"text": message}
                 self.assertTrue(self.accepts(data, kind=kind))
@@ -677,12 +726,12 @@ end Probe;
                              ("entity", 2), ("line", 0), ("col", 0),
                              ("suppressed", False), ("justification", ""),
                              ("message", {"text": message + " "}),
-                             ("message", {"text": message.replace("Put_Line", "Other")}),
+                             ("message", {"text": message.replace(operation, "Other")}),
                              ("message", {"text": message.replace(name, "Other")}))
                 for field, value in mutations:
                     changed = copy.deepcopy(data)
                     changed["flow"][0][field] = value
-                    with self.subTest(kind=kind, name=name, field=field, value=value):
+                    with self.subTest(kind=kind, operation=operation, name=name, field=field, value=value):
                         self.assertFalse(self.accepts(changed, kind=kind))
 
     def test_query_free_reports_retain_exact_coverage_and_check_requirements(self):

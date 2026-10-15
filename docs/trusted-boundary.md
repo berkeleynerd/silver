@@ -213,8 +213,8 @@ ordinary diagnostic path.
 
 ## Literal-output boundary
 
-The admitted `Silver_IO.Put_Line` wrapper is Silver-owned SPARK. Its public
-`String` parameter has no precondition. An executable length guard handles
+The admitted `Silver_IO.Put` and `Silver_IO.Put_Line` wrappers are Silver-owned
+SPARK. Their public `String` parameters have no precondition. An executable length guard handles
 arguments exceeding 4096; membership bounds each admitted expression by counting
 every literal and static-name occurrence, plus the current path's maximum length
 for its dynamic occurrences. Every repeated reference contributes its length
@@ -243,7 +243,8 @@ variables. `System.Null_Address` denotes the C null pointer on the
 supported GNAT ABI. There are no new C implementations or SPARK-off wrappers.
 The reviewed interface token shape is pinned by the audit and checked in Lean.
 
-Each byte write, LF write and `fflush(NULL)` result is checked. Success means
+Each byte write and `fflush(NULL)` result is checked. Put_Line also checks its
+appended LF write; Put omits LF. Both flush even an empty Item. Success means
 all reported success; completion means host-stream acceptance, not reader
 consumption or durable storage. On any detected failure the wrapper calls the
 ordinary status setter with 1 and returns immediately. It makes no further
@@ -549,7 +550,8 @@ all four library reports. It checks immediate required fields, completed analysi
 no skipped checks, `pragma Assume` or warnings; approved dependency predicates,
 exact selected
 entity coverage and each flow/proof record. The IO report requires package and
-`Put_Line` coverage, nonempty checks and a proved `Put_Line` postcondition. The
+`Put` and `Put_Line` coverage, nonempty checks and a proved postcondition for
+each operation, including when the application calls just one of them. The
 Arguments report requires package, both queries, `Reject` and private
 `Is_Message` coverage, nonempty checks and a proved `First_Or_Default`
 postcondition. Both interface reports require full package coverage and
@@ -577,8 +579,9 @@ Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Ever
 emitted safety record must be proved/info `VC_RANGE_CHECK` or `VC_LENGTH_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
-with or without Put_Line. Argument/selected shapes additionally permit Main with First_Or_Default and
-Reject, independently including or omitting Input_Is_Valid and Put_Line, or Main
+with neither, either or both of Put and Put_Line. Argument/selected shapes additionally
+permit Main with First_Or_Default and Reject, independently including or omitting
+Input_Is_Valid and each output operation, or Main
 alone after producer elimination. A path can establish validity without a query;
 a shell need not output. Each permitted entity set is checked exactly. Every dependency must name an approved entity and effects,
 postcondition or absence-of-runtime-error claim.
@@ -594,9 +597,10 @@ is no separate advisory-count cap. Initializers still establish bounds when
 their bytes are unused; these messages do not waive safety checks. Legal names
 such as `Dummy` or `Unused_Result` may make GNATprove omit a diagnostic.
 Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
-`"NAME" is set by "Put_Line" but not used after the call`, where NAME is one of
+`"NAME" is set by "OPERATION" but not used after the call`, where OPERATION is
+`Put` or `Put_Line` and NAME is one of
 `Written_Count`, `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain
-rejected; all provenance and suppression checks also apply to these four messages.
+rejected; all provenance and suppression checks also apply to these eight messages.
 
 No-output sequences and static elimination can produce Main alone with or
 without assignment length/range checks or advisories. The checker retains complete

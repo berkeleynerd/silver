@@ -141,6 +141,10 @@ def outputCommands : Command := .list [
   .update (.operation .output), .update (.token (.symbol "(")), .update .association, .expression,
   guard (.orElse (.orElse .zeroValue .invalidInput) .notFits), .update .valueAfter,
   .update (.token (.symbol ")")), .update .output]
+def putCommands : Command := .list [
+  .update (.operation .partialOutput), .update (.token (.symbol "(")), .update .association, .expression,
+  guard (.orElse (.orElse .zeroValue .invalidInput) .notFits), .update .valueAfter,
+  .update (.token (.symbol ")")), .update .output]
 def rejectCommands : Command := .list [
   .update (.operation .reject), .update .rejected]
 def assignmentCommands : Command := .list [
@@ -151,7 +155,8 @@ def assignmentCommands : Command := .list [
 def dispatchCommands : Command :=
   .choose (.present (.word "null")) (.update (.token (.word "null")))
     (.choose (.operation .output) outputCommands
-      (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands assignmentCommands))
+      (.choose (.operation .partialOutput) putCommands
+        (.choose (.andThen .hasArguments (.operation .reject)) rejectCommands assignmentCommands)))
 def basicCommands : Command := .list [guard .zeroResult, dispatchCommands,
   .update (.token (.symbol ";")), guard .nonadvancing, .returnResult]
 

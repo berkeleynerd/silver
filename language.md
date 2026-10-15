@@ -105,12 +105,12 @@ that operation, ignoring ASCII case:
 
 | Operation | Qualified name | Optional named actual |
 | --- | --- | --- |
-| Output | `Silver_IO.Put_Line` | `Item => expression` |
+| Output | `Silver_IO.Put_Line` or `Silver_IO.Put` | `Item => expression` |
 | Input initialization | `Silver_Arguments.First_Or_Default` | `Default => L` |
 | Validity | `Silver_Arguments.Input_Is_Valid` | None; no parentheses |
 | Rejection | `Silver_Arguments.Reject` | None; no parentheses |
 
-The two calls taking arguments accept exactly one actual, either positional or
+Calls taking arguments accept exactly one actual, either positional or
 named with the formal parameter shown. The `=>` delimiter is contiguous; trivia
 may surround it. Formal names compare without ASCII case distinctions and are
 not affected by a local object named `Item` or `Default`. Named association does
@@ -503,8 +503,10 @@ are inserted. Each name contributes its current bytes; declaration copies keep
 their own snapshots when the original is later assigned. A dynamic-length binding contributes its current bytes, which assignments may
 change while preserving its initially selected length. Each occurrence counts independently.
 Literals preserve decoded bytes, including empty Strings and
-escaped quotes. Each output call requests the resulting bytes followed by
-exactly LF (byte 10). An empty expression value therefore requests one LF.
+escaped quotes. `Put_Line` requests the resulting bytes followed by exactly LF
+(byte 10); `Put` requests just the resulting bytes. An empty `Put_Line` requests
+one LF, while an empty `Put` writes no bytes. Both request a flush, including
+empty `Put`; neither inserts separators between calls.
 
 Command-line forms observe the arguments after the executable-name slot,
 which normal supported startup supplies (`argc >= 1`):
@@ -534,11 +536,12 @@ and the external process/resource boundary.
 Successful output requires every byte write and the final `fflush(NULL)` to
 succeed. Completion means host-stream acceptance, not reader consumption or
 durable storage. A detected write/flush failure sets status 1 and returns from
-`Put_Line`; later statements and output calls still execute. A subsequent
+`Put` or `Put_Line`; later statements and output calls still execute. A subsequent
 success never clears a failed status. Accepted bytes concatenate in call order;
 under failure the cumulative bytes need not be a prefix of the full intended
 output. For `n` executed output calls the accepted trace has at most `n * 4097`
-bytes. Reject sets status 1 and returns to the following statement. Partial output may
+bytes; a `Put` contributes at most 4096 and a `Put_Line` at most 4097.
+Reject sets status 1 and returns to the following statement. Partial output may
 remain, including bytes flushed by runtime finalization. Signals such as SIGPIPE
 may terminate the process before an imported call returns. External blocking,
 storage exhaustion and process failure remain environmental; progress is an
@@ -569,7 +572,7 @@ advisory. All output-capable policies also classify the exact
 `this statement is never reached`, produced by statically known predicates.
 Repeated output additionally permits only the four exact `INEFFECTIVE`
 messages naming the overwritten ghost outputs `Written_Count`, `Flushed`,
-`Succeeded` and `Written_Bytes` of `Put_Line`. Every accepted advisory retains
+`Succeeded` and `Written_Bytes` of either `Put` or `Put_Line` (eight exact messages). Every accepted advisory retains
 Main location, flow provenance and no suppression. Initializers still establish
 object bounds even when their bytes are unused. Other warnings in the audited reports fail; naming conventions that make
 GNATprove omit an advisory do not change membership.

@@ -18,6 +18,7 @@ def SimpleStatement.execute (input : Source) (values : Values) : SimpleStatement
   | .null => ⟨values, []⟩
   | .assign update => ⟨update.execute values input, []⟩
   | .output expression => ⟨values, [.output (expression.evaluate values input)]⟩
+  | .put expression => ⟨values, [.put (expression.evaluate values input)]⟩
 
 def executeSimple (input : Source) (values : Values) : List SimpleStatement → Execution
   | [] => ⟨values, []⟩
@@ -85,7 +86,7 @@ theorem simple_execution_valid {item : SimpleStatement} {shape : Shape} {capacit
   | assign update =>
       exact ⟨assignment_preserves state printable valid.1,
         by simp [SimpleStatement.execute, EffectsValid]⟩
-  | output expression =>
+  | output expression | put expression =>
       refine ⟨state, ?_⟩
       intro effect member
       simp only [SimpleStatement.execute, List.mem_singleton] at member

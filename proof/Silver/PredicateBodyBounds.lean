@@ -12,7 +12,7 @@ theorem basicRaw_factsBounded (text : Source) (context : ParseContext) (scan : B
   unfold basicRaw
   cases basicKind text context scan with
   | null => exact bounded
-  | output =>
+  | output | put =>
       dsimp only
       split
       · exact Context.empty_bounded

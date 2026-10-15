@@ -88,7 +88,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""literal_output"",");
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""operations"": [""Silver_IO.Put_Line"", ""Silver_IO.Put""],");
       Put_Line ("        ""qualification_required"": false,");
       Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
       Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
@@ -152,7 +152,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""named_output"",");
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""operations"": [""Silver_IO.Put_Line"", ""Silver_IO.Put""],");
       Put_Line ("        ""qualification_required"": false,");
       Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
       Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
@@ -257,7 +257,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""concatenated_output"",");
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""operations"": [""Silver_IO.Put_Line"", ""Silver_IO.Put""],");
       Put_Line ("        ""qualification_required"": false,");
       Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
       Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
@@ -383,7 +383,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""id"": ""expression_output"",");
       Put_Line ("      ""ada_kind"": ""procedure_call_statement"",");
       Put_Line ("      ""conditions"": {");
-      Put_Line ("        ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("        ""operations"": [""Silver_IO.Put_Line"", ""Silver_IO.Put""],");
       Put_Line ("        ""qualification_required"": false,");
       Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
       Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
@@ -683,11 +683,10 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("  ""literal_case_preserved"": true,");
       Put_Line ("  ""whole_identifier_tokens"": true,");
       Put_Line ("  ""output"": {");
-      Put_Line ("    ""operation"": ""Silver_IO.Put_Line"",");
+      Put_Line ("    ""operations"": [""Silver_IO.Put_Line"", ""Silver_IO.Put""],");
       Put_Line ("    ""stream"": ""stdout"",");
-      Put_Line ("    ""appended_bytes"": [");
-      Put_Line ("      10");
-      Put_Line ("    ],");
+      Put_Line ("    ""appended_bytes"": {""Silver_IO.Put_Line"": [10], ""Silver_IO.Put"": []},");
+      Put_Line ("    ""flush_empty_output"": true,");
       Put_Line ("    ""completion"": ""successful fflush(NULL)"",");
       Put_Line ("    ""detected_failure_exit_status"": 1,");
       Put_Line ("    ""external_signal_failure"": ""nonzero termination"",");
@@ -778,7 +777,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
             Put (",""" & Silver_Output_Profile.Spelling (Token) & """");
          end if;
       end loop;
-      Put_Line (",""use"",""item"",""default""],");
+      Put_Line (",""use"",""item"",""default"",""put""],");
       Put ("  ""casefold_bytes"": [");
       for Item in Character loop
          if Item /= Character'First then Put (","); end if;
@@ -801,6 +800,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("  ""null_statement_tokens"": [""null"","";""],");
       Put_Line ("  ""assignment_statement_tokens"": [""<assignment_target>"","":="",""<string_expression>"","";""],");
       Put_Line ("  ""output_statement_tokens"": [""silver_io"",""."",""put_line"",""("",""<string_expression>"","")"","";""],");
+      Put_Line ("  ""partial_output_statement_tokens"": [""silver_io"",""."",""put"",""("",""<string_expression>"","")"","";""],");
       Put_Line ("  ""choice_statement_tokens"": [""if"",""<condition>"",""then"",""<statements>"",""<elsif_arms>"",""<optional_else>"",""end"",""if"","";""],");
       Put_Line ("  ""elsif_arm_tokens"": [""elsif"",""<condition>"",""then"",""<statements>""],");
       Put_Line ("  ""else_arm_tokens"": [""else"",""<statements>""],");

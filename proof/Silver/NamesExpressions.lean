@@ -89,7 +89,7 @@ def modeName : Mode → String
   | .withSeparator => "with_separator" | .useSeparator => "use_separator"
 
 def operationName : Operation → String
-  | .output => "output_call" | .argument => "argument_call"
+  | .output => "output_call" | .partialOutput => "partial_output_call" | .argument => "argument_call"
   | .validity => "validity_call" | .reject => "reject_call"
 
 inductive Expr : Ty → Type
@@ -123,7 +123,7 @@ inductive Expr : Ty → Type
   | updateAfter : Expr .context → Expr .number → Expr .context
   | updateState : Expr .state → Expr .context → Expr .mode → Expr .state
   | updateComplete : Expr .state → Expr .truth → Expr .state
-  | nameCase : Expr .operation → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling
+  | nameCase : Expr .operation → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling → Expr .spelling
   | invalidContext : Expr .context
   | initialState : Expr .state
   | invalidState : Expr .state
@@ -174,8 +174,8 @@ def Expr.render : Expr ty → List String
   | .updateState stateExpr ctxExpr modeExpr => ["("] ++ stateExpr.render ++ ["with", "delta", "context", "=>"] ++
       ctxExpr.render ++ [",", "mode", "=>"] ++ modeExpr.render ++ [")"]
   | .updateComplete stateExpr complete => ["("] ++ stateExpr.render ++ ["with", "delta", "complete", "=>"] ++ complete.render ++ [")"]
-  | .nameCase opExpr output argument validity reject => ["case"] ++ opExpr.render ++ ["is", "when", "output_call", "=>"] ++
-      output.render ++ [",", "when", "argument_call", "=>"] ++ argument.render ++ [",", "when", "validity_call", "=>"] ++
+  | .nameCase opExpr output partialOutput argument validity reject => ["case"] ++ opExpr.render ++ ["is", "when", "output_call", "=>"] ++
+      output.render ++ [",", "when", "partial_output_call", "=>"] ++ partialOutput.render ++ [",", "when", "argument_call", "=>"] ++ argument.render ++ [",", "when", "validity_call", "=>"] ++
       validity.render ++ [",", "when", "reject_call", "=>"] ++ reject.render
   | .invalidContext => ["invalid_context"] | .initialState => ["initial_state"] | .invalidState => ["invalid_state"]
 
@@ -205,8 +205,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .updateAfter ctxExpr after => {ctxExpr.eval calls locals with after := after.eval calls locals}
   | .updateState stateExpr ctxExpr modeExpr => {stateExpr.eval calls locals with context := ctxExpr.eval calls locals, mode := modeExpr.eval calls locals}
   | .updateComplete stateExpr complete => {stateExpr.eval calls locals with complete := complete.eval calls locals}
-  | .nameCase opExpr output argument validity reject => match opExpr.eval calls locals with
-    | .output => output.eval calls locals | .argument => argument.eval calls locals
+  | .nameCase opExpr output partialOutput argument validity reject => match opExpr.eval calls locals with
+    | .output => output.eval calls locals | .partialOutput => partialOutput.eval calls locals | .argument => argument.eval calls locals
     | .validity => validity.eval calls locals | .reject => reject.eval calls locals
   | .invalidContext => Names.invalidContext | .initialState => Names.initialState | .invalidState => Names.invalidState
 
@@ -302,7 +302,7 @@ def contextBody : Expr .number :=
       (.field .contextAfter context) (.number 0)
 
 def nameBody : Expr .spelling := .nameCase (.variable "operation")
-  (.spelling "put_line") (.spelling "first_or_default") (.spelling "input_is_valid") (.spelling "reject")
+  (.spelling "put_line") (.spelling "put") (.spelling "first_or_default") (.spelling "input_is_valid") (.spelling "reject")
 
 def operationBody : Expr .number :=
   let text : Expr .source := .variable "text"
@@ -310,7 +310,8 @@ def operationBody : Expr .number :=
   let context : Expr .context := .variable "context"
   let operation : Expr .operation := .variable "operation"
   let qualified : Expr .number := .variable "qualified"
-  let output := Expr.operationEq operation (.operation .output)
+  let output := Expr.orElse (.operationEq operation (.operation .output))
+    (.operationEq operation (.operation .partialOutput))
   let take (position : Expr .number) (word : Expr .spelling) (isWord : Bool) :=
     Expr.app (.app (.app (.app (.function .take) text) position) word) (.truth isWord)
   .locals <| .local "context" "context_result" (.app (.function .readContext) text) <|
@@ -392,8 +393,8 @@ def Expr.wellFormed : Expr ty → Bool
   | .updateAfter ctxExpr after => ctxExpr.wellFormed && ctxExpr.primary && after.wellFormed && after.simple
   | .updateState stateExpr ctxExpr modeExpr => stateExpr.wellFormed && stateExpr.primary && ctxExpr.wellFormed && ctxExpr.simple && modeExpr.wellFormed && modeExpr.simple
   | .updateComplete stateExpr complete => stateExpr.wellFormed && stateExpr.primary && complete.wellFormed && complete.condition
-  | .nameCase opExpr output argument validity reject => opExpr.wellFormed && opExpr.simple &&
-      output.wellFormed && output.simple && argument.wellFormed && argument.simple &&
+  | .nameCase opExpr output partialOutput argument validity reject => opExpr.wellFormed && opExpr.simple &&
+      output.wellFormed && output.simple && partialOutput.wellFormed && partialOutput.simple && argument.wellFormed && argument.simple &&
       validity.wellFormed && validity.simple && reject.wellFormed && reject.simple
   | _ => true
 
@@ -420,7 +421,7 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
       value.scoped scope && first.scoped scope && second.scoped scope
   | .local (a := localTy) name _ value rest => value.scoped scope && rest.scoped ((name, localTy) :: scope)
   | .context after iw aw iu au => after.scoped scope && iw.scoped scope && aw.scoped scope && iu.scoped scope && au.scoped scope
-  | .nameCase opExpr output argument validity reject => opExpr.scoped scope && output.scoped scope && argument.scoped scope && validity.scoped scope && reject.scoped scope
+  | .nameCase opExpr output partialOutput argument validity reject => opExpr.scoped scope && output.scoped scope && partialOutput.scoped scope && argument.scoped scope && validity.scoped scope && reject.scoped scope
   | _ => true
 
 abbrev WellScopedTrees : Prop :=

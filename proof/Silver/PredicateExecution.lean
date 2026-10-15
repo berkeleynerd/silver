@@ -53,11 +53,11 @@ end
 
 def isReject : Effect → Bool
   | .reject => true
-  | .output _ => false
+  | .output _ | .put _ => false
 
 def rejectedAfter (before : Bool) (effects : List Effect) : Bool := before || effects.any isReject
 
-def NoOutput (effects : List Effect) : Prop := ∀ bytes, Effect.output bytes ∉ effects
+def NoOutput (effects : List Effect) : Prop := ∀ effect ∈ effects, effect = .reject
 
 theorem rejectedAfter_append (before : Bool) (first following : List Effect) :
     rejectedAfter before (first ++ following) = rejectedAfter (rejectedAfter before first) following := by
@@ -65,10 +65,10 @@ theorem rejectedAfter_append (before : Bool) (first following : List Effect) :
 
 theorem noOutput_append {first following : List Effect} (left : NoOutput first) (right : NoOutput following) :
     NoOutput (first ++ following) := by
-  intro bytes member
+  intro effect member
   rcases List.mem_append.mp member with member | member
-  · exact left bytes member
-  · exact right bytes member
+  · exact left effect member
+  · exact right effect member
 
 structure ExecutionSound (shape : Shape) (context : Context) (input : Source)
     (valid beforeRejected : Bool) (result : Execution) (ordinary : Option Execution) : Prop where
@@ -98,7 +98,7 @@ theorem simple_execution_sound {shape : Shape} {context : Context}
       · simpa [Sequence.SimpleStatement.execute, rejectedAfter] using allowed
       · simp [Sequence.SimpleStatement.checkedExecute, Sequence.SimpleStatement.execute,
           Expression.left_association, length, Assignment.execute]
-  | output expression =>
+  | output expression | put expression =>
       simp only [checkSimple, Bool.and_eq_true, Bool.not_eq_true'] at checked
       have safe := expression_safe_on_path wellFormed allowed checked.1
       have outputValid := expression_domain safe state printable (Nat.le_refl _)
@@ -223,7 +223,7 @@ theorem completed_invalid_rejected {shape : Shape} {before after : Context} {has
   · simp only [rejectedAfter, Bool.false_or, List.any_eq_true] at rejected
     obtain ⟨effect, member, isRejection⟩ := rejected
     cases effect with
-    | output bytes => contradiction
+    | output bytes | put bytes => contradiction
     | reject => exact member
   · exact sound.invalid_no_output rfl
 

@@ -15,7 +15,7 @@ open Bindings Compose
 def SimpleStatement.expressions : SimpleStatement → List Expression
   | .null => []
   | .assign update => [update.value]
-  | .output expression => [expression]
+  | .output expression | .put expression => [expression]
 
 mutual
   def Statement.expressions : Statement → List Expression
@@ -66,7 +66,7 @@ theorem simple_expressions_safe {item : SimpleStatement} {shape : Shape} {capaci
   | assign update =>
       cases List.mem_singleton.mp member
       exact valid.2
-  | output value =>
+  | output value | put value =>
       cases List.mem_singleton.mp member
       exact valid
 
@@ -141,7 +141,7 @@ theorem simple_assignments_valid {item : SimpleStatement} {shape : Shape} {capac
     (valid : item.Valid shape capacity) : ∀ update ∈ item.assignments, update.Valid shape := by
   intro update member
   cases item with
-  | null | output => simp [SimpleStatement.assignments] at member
+  | null | output | put => simp [SimpleStatement.assignments] at member
   | assign assigned =>
       cases List.mem_singleton.mp member
       exact valid.1

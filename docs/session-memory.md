@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-15 — Partial Output complete
+
+The owner-authorized [Partial Output milestone](../roadmap.md#partial-output) is
+complete: `Silver_IO.Put` uses the existing expression/name rules, per-call flush
+and sticky returning failure without LF. All three roadmap work packages are
+closed. The [delivery record](partial-output.md) covers runtime/admission,
+universal semantics and actual-source correspondence, exact report coverage,
+dense short-call capacity and the motivating sample. Bounds and accepted axioms
+remain unchanged; no Oracle amendment or new proof framework was needed.
+
+Independent source/semantic review found no actionable mismatch. Final native
+proof/build, full tests and complete cached Lean validation passed with all
+captured inputs unchanged. The record distinguishes the preparatory Lean build's
+expected input-drift rejection from the final frozen check and fresh axiom audit.
+No memory retry or independent kernel replay was needed. Later edits are docs.
+
+Recovery is `tmp/partial-output-active.json`. Preserve caches, prior evidence and
+unrelated scratch. Earlier untracked `rosetta.md` and `rosetta/` are now absent
+through an external action; this task did not edit, move, delete or stage them.
+Git identifies the implementation commit containing this entry; baseline/review
+scope begins at `7b5ffea41d`. Publication remains authorized. No next capability
+or replacement harness goal was requested; the historical goal is complete.
+CLI memory tools were unavailable and were not updated; RESUME and checked-in
+memory carry the handoff. macOS proofs, hosted CI and replay were outside scope.
+
 ## 2026-10-15 — Run Arguments complete
 
 The authorized [Run Arguments milestone](../roadmap.md#run-arguments) is complete:

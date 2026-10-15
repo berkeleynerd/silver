@@ -10,11 +10,11 @@ namespace Silver.Names
 
 set_option backward.dsimp.instances true
 
-inductive Operation | output | argument | validity | reject
+inductive Operation | output | partialOutput | argument | validity | reject
   deriving DecidableEq, Repr
 
 def Operation.name : Operation → String
-  | .output => "put_line" | .argument => "first_or_default"
+  | .output => "put_line" | .partialOutput => "put" | .argument => "first_or_default"
   | .validity => "input_is_valid" | .reject => "reject"
 
 structure Context where
@@ -165,10 +165,10 @@ def contextAfter (text : Source) (arguments : Bool) : Nat :=
 
 def operationAfter (text : Source) (position : Nat) (operation : Operation) (hidden : Bool) : Nat :=
   let context := readContext text
-  let visible := if operation = .output then context.ioWith else context.argumentsWith
-  let used := if operation = .output then context.ioUse else context.argumentsUse
+  let visible := if operation = .output ∨ operation = .partialOutput then context.ioWith else context.argumentsWith
+  let used := if operation = .output ∨ operation = .partialOutput then context.ioUse else context.argumentsUse
   let qualified := take text (take text position
-    (if operation = .output then "silver_io" else "silver_arguments") true) "." false
+    (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true) "." false
   if context.after = 0 ∨ !visible then 0
   else if qualified ≠ 0 then take text qualified operation.name true
   else if used && !hidden then take text position operation.name true
@@ -201,10 +201,10 @@ theorem operationAfter_range (text : Source) (position : Nat) (operation : Opera
     operationAfter text position operation hidden = 0 ∨
       (position < operationAfter text position operation hidden ∧
         operationAfter text position operation hidden ≤ text.length + 1) := by
-  have packageName : 0 < (if operation = .output then "silver_io" else "silver_arguments").toList.length := by
+  have packageName : 0 < (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments").toList.length := by
     cases operation <;> decide
   have operationName : 0 < operation.name.toList.length := by cases operation <;> decide
-  have startFacts := take_progress text position (if operation = .output then "silver_io" else "silver_arguments") true bound packageName
+  have startFacts := take_progress text position (if operation = .output ∨ operation = .partialOutput then "silver_io" else "silver_arguments") true bound packageName
   have dot := take_after_range text position _ "." false startFacts (by decide)
   have qualified := take_after_range text position _ operation.name true dot operationName
   have plain := take_progress text position operation.name true bound operationName

@@ -114,6 +114,31 @@ class NamesCallsTests(unittest.TestCase):
                 self.check(base.replace(b'Input_Is_Valid', b'Input_Is_Valid()'), 2)
                 self.check(base.replace(b'Reject;', b'Reject();'), 2)
 
+    def test_partial_output_uses_the_same_visibility_and_association_rules(self) -> None:
+        source = program(b'Item:String:="ok";', b'Silver_IO.Put(Item);').replace(
+            b'with Silver_IO;', b'with Silver_IO;use Silver_IO;', 1)
+        for call in (b'Silver_IO.Put', b'Put', b'pUt'):
+            named = source.replace(b'Silver_IO.Put(Item)', call + b'(iTeM => (Item))')
+            with self.subTest(call=call):
+                self.check(named)
+                self.check(named.replace(b'iTeM => (Item)', b'Default => (Item)'), 2)
+                self.check(named.replace(b'iTeM => (Item)', b'Item, Item'), 2)
+        unqualified = source.replace(b'Silver_IO.Put', b'Put')
+        self.check(unqualified)
+        self.check(unqualified.replace(b'use Silver_IO;', b''), 2)
+        local = source.replace(b'Item:String', b'pUt:String').replace(b'Put(Item)', b'Put(Put)')
+        argument = visible(program(b'', b'Silver_IO.Put(Input);', arguments=True)).replace(
+            b'Input:', b'pUt:').replace(b'Put(Input)', b'Put(Put)')
+        for hidden in (local, argument):
+            with self.subTest(hidden=hidden):
+                self.check(hidden)
+                self.check(hidden.replace(b'Silver_IO.Put(', b'Put('), 2)
+        # These distinct operation names do not hide each other.
+        self.check(source.replace(b'Item:String', b'Put_Line:String').replace(
+            b'Silver_IO.Put(Item)', b'Put(Put_Line)'))
+        self.check(source.replace(b'Item:String', b'Put:String').replace(
+            b'Silver_IO.Put(Item)', b'Put_Line(Put)'))
+
     def test_local_objects_hide_operations_but_not_qualified_calls(self) -> None:
         cases = (
             (b'pUt_LiNe:String:="old";', b'Put_Line'),

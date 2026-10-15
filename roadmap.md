@@ -14,6 +14,32 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Partial Output
+
+**Complete**, authorized and validated on 2026-10-15. `Silver_IO.Put (Item)` joins
+`Put_Line`: the same bounded String expressions, name visibility and named actuals,
+exact bytes without LF, and a flush on every call including empty output. Detected
+failure returns with sticky status 1; later statements continue. Invalid-input
+paths still reject without any output call.
+
+This is one milestone with three ordered work packages:
+
+1. **Complete:** SPARK runtime and admission, including matching parser/name
+   cases and unchanged Put_Line behavior.
+2. **Complete:** universal Lean semantics, discharge and actual-source
+   correspondence, exact native report policy, focused regressions and a
+   [greeting sample](samples/partial_output.adb). The dense 571-call specimen
+   proved, built and ran within existing report capacity.
+3. **Complete:** independent source/semantic review, stable Linux native
+   proof/build/full tests and complete cached Lean validation. Specification,
+   catalogue and evidence are synchronized for the published delivery.
+
+The [delivery record](docs/partial-output.md) gives exact evidence and limits,
+including preparatory versus final Lean timings. Source/value limits and
+accepted axioms are unchanged. No next capability or replacement harness goal
+is automatically authorized.
+
+
 ### Run Arguments
 
 **Complete**, authorized and validated on 2026-10-15. Existing input-dependent
@@ -61,14 +87,14 @@ was introduced; no next capability is automatically authorized.
 
 ### Known outstanding work
 
-Reconciled on 2026-10-15 against the completed Run Arguments and Larger Expressions deliveries,
+Reconciled on 2026-10-15 against the completed Partial Output, Run Arguments and Larger Expressions deliveries,
 earlier handoffs and review dispositions. The entries below are conditional
 follow-ups. The linked records retain detailed findings,
 reasons and historical scope. Closed or rejected review suggestions are not new tasks.
 
 | Work | Status and trigger |
 | --- | --- |
-| Larger-fragment proof and report capacity | The [64/63 expansion](docs/larger-expressions.md#dense-composition-and-report-capacity) is complete; its dense report leaves 1.5% headroom. Reassess dense workloads before further changes to the admitted fragment, producer or report format. Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
+| Larger-fragment proof and report capacity | The [64/63 expansion](docs/larger-expressions.md#dense-composition-and-report-capacity) is complete; its dense report leaves 1.5% headroom. The [Partial Output short-call reassessment](docs/partial-output.md#report-capacity) passed with 48.67% of the buffer used. Reassess dense workloads before further changes to the admitted fragment, producer or report format. Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
 | Names lexical-call adapter and other source-bridge refinements | Deferred until the relevant helper/interface changes or an assurance gap is established. The [Names identity guard](docs/admission-repairs.md#scope-and-dispositions) is complete; its interpretation premise remains. Additional explicit header/source guards, facade statement strengthening and broader boundary/sample witnesses remain indexed by the [Lean dispositions](docs/lean-iteration.md#external-review-of-d375aec) and [expression review disposition](docs/common-expressions.md#external-review-of-9b72d36). Existing correspondence remains required. |
 | Negative-test siblings and broader matrices | Larger-expression boundary siblings are complete; continue adding admitted/rejected siblings when a rule changes. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
 | Report-policy and stack cleanup | Revisit call-sensitive report selection and the unused `Uses_Output` selector together when policy work warrants it. Stack/storage redesign remains deferred unless the documented resource premise becomes a practical problem. Preserve complete required-report checks; see the [sequencing dispositions](docs/statement-sequencing.md#external-review-and-capacity-follow-up). |
@@ -350,7 +376,7 @@ Remaining resource extensions and additional APIs are proposals, not admitted sy
 | 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [original checkpoint](docs/common-expressions.md) established the sixteen-leaf/thirty-operator fragment. [Larger Expressions](docs/larger-expressions.md) completes universal/source proofs, native validation and composition/capacity measurements for the current sixty-four-leaf/sixty-three-operator limits. |
 | 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches — complete | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. All three [increments](#equality-guards-and-branches-increments) passed their checkpoints; the [delivery record](docs/branches.md) retains exact evidence and scope. |
-| 6 | Output effects — complete | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Positional and named `Item` associations for `Put_Line` passed the [Names and Calls checkpoint](docs/names-and-calls.md), retaining its effect contract. |
+| 6 | Output effects — complete | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Positional and named `Item` associations for `Put_Line` passed the [Names and Calls checkpoint](docs/names-and-calls.md). [Partial Output](docs/partial-output.md) extends those rules and effects to `Put`, with no appended LF and a flush on every call. |
 | 7 | Existing argument operations — complete | Compose the existing initialization, validity and rejection operations with those declarations, expressions and statements. Make required validity facts and rejection effects explicit; preserve actual returning-call semantics and the specified argument domain. The [Names and Calls checkpoint](docs/names-and-calls.md) completes positional/named `Default` associations and context/name rules with item 2. The immutable argument initializer remains first and unique; new positional-argument APIs are a separate capability. |
 
 The authorized [shared-binding milestone](docs/shared-bindings.md) implements
@@ -733,8 +759,9 @@ subsequently authorized the fixed-length assignment increment recorded above.
 Hello World originally admitted its context clause, literal, and call as one
 coherent capability, without an artificial `runtime_context.adb` step. Sequencing
 now also admits an output-capable context whose body contains only null or
-assignment statements. The API is
-`Silver_IO.Put_Line`, implemented in verified SPARK over the existing libc
+assignment statements. The original API is
+`Silver_IO.Put_Line`; [Partial Output](#partial-output) adds `Silver_IO.Put`. Both
+are implemented in verified SPARK over the existing libc
 `putchar` and `fflush` symbols plus GNAT
 `__gnat_set_exit_status`. The [review repairs](docs/hello-review-repairs.md)
 replace abrupt exit with ordinary status assignment and return. The focused

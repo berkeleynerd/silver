@@ -20,11 +20,12 @@ def SimpleStatement.tokens : SimpleStatement → List ShellToken
   | .null => [.word "null", .symbol ";"]
   | .assign _ => assignmentTokens .assignmentTarget
   | .output _ => outputTokens
+  | .put _ => [.word "silver_io", .symbol ".", .word "put", .symbol "(", .outputExpression, .symbol ")", .symbol ";"]
 
 def SimpleStatement.events : SimpleStatement → List Event
   | .null => []
   | .assign update => [.assignment update]
-  | .output expression => [.output expression]
+  | .output expression | .put expression => [.output expression]
 
 mutual
   def Statement.tokens : Statement → List ShellToken

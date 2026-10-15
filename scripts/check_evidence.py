@@ -182,7 +182,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             # producer shape without inferring source membership from a report.
             main_entities = {key: value for key, value in entities.items()
                              if value.get("name", "").lower() == "main"}
-            callees = {"Silver_IO.Put_Line": "silver_io.ads"}
+            output_callees = {"Silver_IO.Put_Line", "Silver_IO.Put"}
+            callees = {name: "silver_io.ads" for name in output_callees}
             if application_kind in ("argument", "selected"):
                 callees.update({name: "silver_arguments.ads" for name in
                                 ("Silver_Arguments.First_Or_Default",
@@ -191,8 +192,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             expected_names = set() if bare else set(callees)
             actual_names = [value.get("name") for key, value in entities.items()
                             if key not in main_entities]
-            if application_kind in ("argument", "selected") and not bare and "Silver_IO.Put_Line" not in actual_names:
-                expected_names.remove("Silver_IO.Put_Line")
+            if not bare:
+                expected_names.difference_update(output_callees - set(actual_names))
             if application_kind in ("argument", "selected") and not bare and "Silver_Arguments.Input_Is_Valid" not in actual_names:
                 expected_names.remove("Silver_Arguments.Input_Is_Valid")
             require(len(main_entities) == 1 and set(actual_names) == expected_names
@@ -274,8 +275,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                   and (re.fullmatch(r'initialization of "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*" has no effect',
                                                     record.get("message", {}).get("text", "")) is not None
                                        or record.get("message", {}).get("text") in {
-                                           f'"{name}" is set by "Put_Line" but not used after the call'
-                                           for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes")}
+                                           f'"{name}" is set by "{operation}" but not used after the call'
+                                           for name in ("Written_Count", "Flushed", "Succeeded", "Written_Bytes")
+                                           for operation in ("Put_Line", "Put")}
                                        or (assignment and record.get("message", {}).get("text") == "unused assignment")
                                        or (comparison and record.get("message", {}).get("text") == "statement has no effect")))
                                  or (comparison and record.get("rule") == "DEAD_CODE"

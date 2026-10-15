@@ -26,7 +26,7 @@ def SimpleWellFormed (shape : Shape) : Sequence.SimpleStatement → Prop
   | .null => True
   | .assign update => ExpressionReady shape update.value ∧
       ∃ bound, shape update.target = some ⟨bound, true⟩
-  | .output expression => ExpressionReady shape expression
+  | .output expression | .put expression => ExpressionReady shape expression
 
 mutual
   def Statement.WellFormed (hasArguments : Bool) (shape : Shape) : Statement → Prop
@@ -94,7 +94,7 @@ def checkAssignment (shape : Shape) (context : Context) (update : Assignment) : 
 def checkSimple (shape : Shape) (context : Context) : Sequence.SimpleStatement → Bool
   | .null => true
   | .assign update => checkAssignment shape context update
-  | .output expression => fitsSummary context (expression.summary shape) && !context.invalidReachable
+  | .output expression | .put expression => fitsSummary context (expression.summary shape) && !context.invalidReachable
 
 mutual
   def Statement.check (shape : Shape) (context : Context) : Statement → Option Context

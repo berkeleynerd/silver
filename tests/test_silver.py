@@ -109,6 +109,13 @@ class SilverIntegrationTests(unittest.TestCase):
                 self.assertEqual(call["parameter_associations"], ["positional", "named"])
                 self.assertEqual(call["formal_parameter"],
                                  "Default" if identifier == "argument_initialization" else "Item")
+        for identifier in ("literal_output", "named_output", "concatenated_output", "expression_output"):
+            self.assertEqual(constructs[identifier]["conditions"]["operations"],
+                             ["Silver_IO.Put_Line", "Silver_IO.Put"])
+        self.assertEqual(catalogue["output"]["operations"], ["Silver_IO.Put_Line", "Silver_IO.Put"])
+        self.assertEqual(catalogue["output"]["appended_bytes"],
+                         {"Silver_IO.Put_Line": [10], "Silver_IO.Put": []})
+        self.assertTrue(catalogue["output"]["flush_empty_output"])
         self.assertTrue(constructs["argument_initialization"]["conditions"]
                         ["own_binding_hides_unqualified_call"])
         sequence = constructs["statement_sequence"]["conditions"]

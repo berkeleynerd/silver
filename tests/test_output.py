@@ -55,7 +55,7 @@ class LiteralOutputTests(unittest.TestCase):
         cases = {
             "missing context": valid[len(b"with Silver_IO; "):],
             "different package": valid.replace(b"Silver_IO", b"Ada.Text_IO"),
-            "different operation": valid.replace(b"Put_Line", b"Put"),
+            "different operation": valid.replace(b"Put_Line", b"Put_Char"),
             "unqualified call": valid.replace(b"Silver_IO.Put_Line", b"Put_Line"),
             "use before with": b"use Silver_IO;" + valid,
             "attached context keyword": valid.replace(b"with Silver_IO", b"withSilver_IO"),

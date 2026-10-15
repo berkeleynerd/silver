@@ -16,9 +16,10 @@ def SimpleStatement.checkedExecute (input : Source) (values : Values) :
   | .null => some ⟨values, []⟩
   | .assign update =>
       if (update.value.evaluateLeft values input).length = (values update.target).length then
-        some ⟨put values update.target (update.value.evaluateLeft values input), []⟩
+        some ⟨Bindings.put values update.target (update.value.evaluateLeft values input), []⟩
       else none
   | .output expression => some ⟨values, [.output (expression.evaluateLeft values input)]⟩
+  | .put expression => some ⟨values, [.put (expression.evaluateLeft values input)]⟩
 
 def checkedSimple (input : Source) (values : Values) : List SimpleStatement → Option Execution
   | [] => some ⟨values, []⟩
@@ -65,7 +66,7 @@ theorem simple_execution_refines {item : SimpleStatement} {shape : Shape} {capac
   | assign update =>
       simp [SimpleStatement.checkedExecute, Expression.left_association,
         assignment_length state valid.1, SimpleStatement.execute, Assignment.execute]
-  | output expression =>
+  | output expression | put expression =>
       simp [SimpleStatement.checkedExecute, Expression.left_association, SimpleStatement.execute]
 
 theorem simple_sequence_refines {items : List SimpleStatement} {shape : Shape} {capacity : Nat}

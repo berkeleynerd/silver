@@ -25,7 +25,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  Every owned IO/Arguments entity has all coverage; each approved imported
    --  package has all coverage and exactly its documented imports have spec
    --  coverage. Owned bodies require nonempty flow/proof checks, including the
-   --  respective Put_Line or First_Or_Default postcondition result.
+   --  respective Put and Put_Line, or First_Or_Default postcondition results.
    --  Completeness of GNATprove's emitted check list remains a tool premise;
    --  neither the report length nor an historical check total is a proof rule.
    function Complete_Runtime_Proof
@@ -38,7 +38,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
    --  advisories from constant-folded comparisons and four exact unused ghost
-   --  output messages from Put_Line. Other diagnostics are rejected.
+   --  output messages from each of Put and Put_Line. Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.
    --  GNAT can omit callees after static elimination, including sequences with
    --  no output. Main-only reports retain the same check/dependency audit;

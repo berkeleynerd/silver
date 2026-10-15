@@ -1,5 +1,15 @@
 # Silver assurance argument
 
+The [Partial Output milestone](partial-output.md) extends the current statement
+model with `Put` alongside `Put_Line`. Both use the same bounded expressions,
+path validity and exact source-name rules. `Silver.Output.Runtime.putProgram` renders
+the checked native byte loop and flush without LF. Its exact-success and
+prefix-failure proofs feed the shared ordered effect semantics, preserving sticky
+failure and continued execution; invalid-input executions contain only rejection
+effects, so even an empty Put cannot occur there. Whole-body source rendering
+includes both runtime operations. The selected IO report must prove both owned
+postconditions, regardless of which operation Main uses.
+
 ## Scope and current status
 
 The [Oracle](../oracle.md) requires a language-wide guarantee: every source
@@ -493,9 +503,10 @@ captured source set before proof, build and publication, and rereads application
 and library snapshots after proof/build. All four runtime reports are required.
 `Complete_Runtime_Proof` checks full selected entity coverage, completed analysis,
 every flow/proof record, approved dependency assumptions, and absence of skipped,
-assumed, justified or unexpected warning records. IO/Arguments require nonempty
-checks and their respective Put_Line/First_Or_Default postconditions; the two
-interfaces require full package coverage and specification coverage for exactly
+assumed, justified or unexpected warning records. Both owned-body reports require nonempty
+checks. IO requires proved Put and Put_Line postconditions, and Arguments requires
+a proved First_Or_Default postcondition. The two interfaces require full package
+coverage and specification coverage for exactly
 the approved imports. No historical check total substitutes for coverage.
 
 ### Source-selected application policies
@@ -505,17 +516,17 @@ the same grammar's selectors. The driver uses only the argument and assignment
 selectors to compute `Application_Kind`, then uses that kind consistently in
 report acceptance and build/publication prerequisites. `Uses_Output` currently
 has no driver consumer; each policy permits its recorded entity-set alternatives
-with or without a `Put_Line` entity. A genuine producer may omit that entity even
+with neither, either or both `Put` and `Put_Line` entities. A genuine producer may omit a callee even
 when the source calls output.
 All output shells use `Complete_Application_Proof`; only null retains
 `Complete_Null_Proof`.
 
 | Policy | Source composition | Expected call-report entities | Advisory allowance |
 | --- | --- | --- | --- |
-| Static | Static sequence without assignment | Main, optionally Put_Line | Initializer, statically known predicate and exact ghost-output advisories |
-| Argument | Argument-input sequence without assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Same exact messages |
-| Assigned | Static sequence containing assignment | Main, optionally Put_Line | Above plus exact unused-assignment advisory |
-| Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
+| Static | Static sequence without assignment | Main, optionally Put and/or Put_Line | Initializer, statically known predicate and exact ghost-output advisories |
+| Argument | Argument-input sequence without assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Same exact messages |
+| Assigned | Static sequence containing assignment | Main, optionally Put and/or Put_Line | Above plus exact unused-assignment advisory |
+| Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
 Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` or
 `VC_LENGTH_CHECK`, with the expected Main filename/entity, valid positive
@@ -536,7 +547,8 @@ flow provenance, Main filename/entity, a positive location and no suppression
 or justification. There is no independent advisory-count cap; the source grammar
 and complete report domain still constrain production. These diagnostics do not
 waive safety checks. Repeated output permits exactly `"NAME" is set by
-"Put_Line" but not used after the call`, with NAME one of `Written_Count`,
+"OPERATION" but not used after the call`, with OPERATION either `Put` or
+`Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
 A bare-Main report may have an empty flow list and may contain proved safety
@@ -544,7 +556,7 @@ checks and approved dependencies. Sequencing removed the earlier nonempty-flow
 and empty-proof/dependency conditions for that entity shape, while retaining
 complete Main coverage and validation of every emitted record. Argument policies
 additionally permit exactly Main with First_Or_Default and Reject, with either,
-both or neither of Input_Is_Valid and Put_Line. Positive-length predicates can
+any combination of Input_Is_Valid, Put and Put_Line. Positive-length predicates can
 establish validity without a query, and a shell need not output. Main alone
 remains the producer-elimination alternative. Each permitted set is exact;
 unknown, missing-within-a-set or duplicate entities remain rejected. Native tests

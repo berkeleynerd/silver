@@ -47,4 +47,19 @@ def qualifiedHiddenOutputSource : Source := exampleBytes
 
 theorem qualified_hidden_output_admitted : Current.accepts qualifiedHiddenOutputSource = true := by decide +kernel
 
+def partialOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); begin Put(Item=>\"Release: \"); Silver_IO.Put_Line(\"production\"); end Main;"
+
+theorem mixed_partial_output_admitted : Current.accepts partialOutputSource = true := by decide +kernel
+
+def hiddenPartialOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); Put:String:=\"\"; begin Put(Item=>\"\"); end Main;"
+
+theorem hidden_partial_output_rejected : Current.accepts hiddenPartialOutputSource = false := by decide +kernel
+
+def qualifiedHiddenPartialOutputSource : Source := exampleBytes
+  "with Silver_IO; use Silver_IO; procedure Main is pragma SPARK_Mode(On); Put:String:=\"\"; begin Silver_IO.Put(Item=>Put); end Main;"
+
+theorem qualified_hidden_partial_output_admitted : Current.accepts qualifiedHiddenPartialOutputSource = true := by decide +kernel
+
 end Silver.Predicate

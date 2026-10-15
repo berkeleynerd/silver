@@ -1152,6 +1152,17 @@ is
          Result.Position := Value.After;
          Result := Body_Token (Text, Context, Result, Right_Parenthesis);
          Result.Output := True;
+      elsif Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call) /= 0 then
+         Result.Position := Call_After (Text, Context.Names, Result.Position, Names.Partial_Output_Call);
+         Result := Body_Token (Text, Context, Result, Left_Parenthesis);
+         Result.Position := Names.Association_After (Text, Result.Position, False);
+         Value := Expression_At (Text, Result.Position, Context.Names);
+         if Value.After = 0 or else Result.Facts.Invalid_Reachable
+           or else not Paths.Fits (Result.Facts, Summary_Of (Value))
+         then return Invalid_Body; end if;
+         Result.Position := Value.After;
+         Result := Body_Token (Text, Context, Result, Right_Parenthesis);
+         Result.Output := True;
       elsif Context.Dynamic_First /= 0
         and then Call_After (Text, Context.Names, Result.Position, Names.Reject_Call) /= 0
       then

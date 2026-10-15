@@ -5,7 +5,7 @@ package Silver_Names with SPARK_Mode => On is
    use Silver_Profile;
    use Silver_Output_Lexical;
 
-   type Operation_Kind is (Output_Call, Argument_Call, Validity_Call, Reject_Call);
+   type Operation_Kind is (Output_Call, Partial_Output_Call, Argument_Call, Validity_Call, Reject_Call);
 
    --  Only the two admitted packages participate in context visibility. The
    --  complete source bound limits repetitions; there is no separate clause cap.

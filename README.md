@@ -135,8 +135,11 @@ these shared rules. Their previous completed checkpoints are recorded in
 Names bind without ASCII case distinctions. No argument selects the literal
 default; one printable ASCII argument of up to 4096 bytes is preserved,
 including an explicit empty argument. Extra arguments, unsupported bytes and
-oversized input produce no output and status 1. Successful output is the
-selected message followed by LF and a successful flush. A detected output
+oversized input produce no output and status 1. Successful `Put_Line` output is the
+selected message followed by LF and a successful flush. `Silver_IO.Put` writes
+the same bounded expression without LF, then flushes, even for an empty value.
+The [partial-output sample](samples/partial_output.adb) assembles a line across
+several calls. A detected output
 failure sets status 1 and returns; later calls still execute and cannot clear
 that failure status. Partial output may remain. Blocking and host
 failures have documented environmental limits.
@@ -151,7 +154,7 @@ Main safety checks must all be proved range or length checks. All output forms
 precisely classify initializer advisories; assignment-bearing forms additionally
 classify the exact unused-assignment advisory. All sequence policies classify
 two exact statically known predicate advisories and four exact overwritten ghost-output
-messages.
+messages for each of Put and Put_Line.
 Selected library reports
 remain mandatory. Frontend elimination, faithful obligation generation and
 pinned solver completion remain explicit tool premises.

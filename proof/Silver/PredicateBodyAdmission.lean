@@ -33,12 +33,13 @@ def bodyTokens (text : Source) (scan : BodyScan) (tokens : List ShellToken) : Bo
 def parserState (context : ParseContext) (scan : BodyScan) : ParserState :=
   {position := scan.position, names := context.names, target := scan.target, capacity := scan.capacity}
 
-inductive BasicKind | null | output | reject | assignment
+inductive BasicKind | null | output | put | reject | assignment
   deriving DecidableEq, Repr
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
   else if callAfter text context.names scan.position .output ≠ 0 then .output
+  else if callAfter text context.names scan.position .partialOutput ≠ 0 then .put
   else if context.hasArguments && decide (callAfter text context.names scan.position .reject ≠ 0)
     then .reject
   else .assignment
@@ -48,6 +49,13 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   | .null => bodyToken text scan (.word "null")
   | .output =>
       let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
+      let value := expressionAt text call.position context.names
+      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
+      then invalidBody else
+      let result := bodyToken text {call with position := value.after} (.symbol ")")
+      {result with output := true}
+  | .put =>
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput) "(" false) false}
       let value := expressionAt text call.position context.names
       if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
       then invalidBody else
