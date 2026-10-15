@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-15 — Selected review repairs authorized before feature work
+
+The owner instructed this coding session: “Let's fix these before proceeding
+further,” referring to B1 with L2/L4, L1/L3, L6/L7, L8/L9 and L10/L11 in
+[review-343c2f8](reviews/review-343c2f8.md). Implement and validate those repairs
+before further language-feature work. Existing issues #17–#21 and #23–#28 track
+them; do not duplicate the findings or expand this instruction to every review
+item. [The repair record](review-343c2f8-repairs.md) gives the ordered scope and
+evidence. The B1 repair remains the first work package of the language milestone.
+
+The Integer `'Image` decision recorded in main commit `39d0ad38e6` stands;
+#34 is closed. Feature implementation remains preserved separately while these
+repairs are delivered. The repair branch is `fix/review-343c2f8`, based on
+`39d0ad38e6`; implementation streams use isolated worktrees and host artifacts.
+Routine commits, validation and publication under the existing authorization
+apply to these repairs. No Oracle amendment or new language admission is part
+of this repair task. The earlier delivery harness goal is not marked complete
+by these repairs. CLI memory was unavailable and was not updated.
+
 ## 2026-10-15 — For loops and integers resumed with Integer `'Image`
 
 The owner settled the three decisions raised by
