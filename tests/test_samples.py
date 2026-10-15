@@ -58,6 +58,7 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual([argument for argument in command if argument.startswith("--warnings=")],
                                  ["--warnings=continue" if output else "--warnings=error"])
                 self.assertIn("--checks-as-errors=on", command)
+                self.assertIn("--no-loop-unrolling", command)
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}

@@ -33,11 +33,11 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Global => null,
        Post => (Static => Complete_Runtime_Proof'Result = Runtime_Report_Policy (Report, Kind));
    --  Source membership selects the exact Main/callee entity set. Every emitted
-   --  safety check must be a proved range or length check for Main. All output
-   --  forms permit exact ineffective-initialization advisories; assigned and
+   --  safety check must be a proved range, length or overflow check for Main.
+   --  All output forms permit exact ineffective-initialization advisories; assigned and
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
-   --  advisories from constant-folded comparisons and four exact unused ghost
+   --  advisories from constant-folded comparisons and loops, and four exact unused ghost
    --  output messages from each of Put and Put_Line. Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.
    --  GNAT can omit callees after static elimination, including sequences with

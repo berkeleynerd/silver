@@ -291,13 +291,13 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     stats["assignment_advisories"] += 1
                 if application and key == "proof":
                     require(record.get("severity") == "info" and record.get("how_proved") == "prover"
-                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK"}
+                            and record.get("rule") in {"VC_RANGE_CHECK", "VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK"}
                             and record.get("file") == "main.adb"
                             and type(record.get("line")) is int and record["line"] > 0
                             and type(record.get("col")) is int and record["col"] > 0
                             and type(record.get("entity")) is int and record["entity"] > 0
                             and entities.get(f" {record['entity']}", entities.get(str(record["entity"]))) == main,
-                            "application: expected a proved Main range or length check")
+                            "application: expected a proved Main range, length or overflow check")
                     require(not any(field in record for field in
                                     ("justification", "justified", "suppressed", "annot_kind", "justif_msg")),
                             "application: suppressed or justified safety check")

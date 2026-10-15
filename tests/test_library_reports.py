@@ -335,7 +335,7 @@ end Probe;
             base["proof"] = [dict(check(), rule="VC_RANGE_CHECK", file="main.adb")]
             self.assertTrue(self.accepts(base, kind=kind))
             for field, value in (("severity", "low"), ("how_proved", "trivial"),
-                                 ("rule", "VC_OVERFLOW_CHECK"), ("entity", 2),
+                                 ("rule", "VC_DIVISION_CHECK"), ("entity", 2),
                                  ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                                  ("suppressed", False), ("justification", "approved")):
                 data = copy.deepcopy(base)
@@ -462,21 +462,22 @@ end Probe;
             changed["assumptions"][0]["claim"]["arg"] = 2
             self.assertFalse(self.accepts(changed, kind=kind))
 
-    def test_length_checks_have_the_same_complete_safety_policy(self) -> None:
+    def test_length_and_overflow_checks_have_the_same_complete_safety_policy(self) -> None:
         changes = (("severity", "warning"), ("severity", "low"),
                    ("how_proved", "flow"), ("how_proved", "trivial"),
-                   ("rule", "VC_OVERFLOW_CHECK"), ("entity", 2),
+                   ("rule", "VC_DIVISION_CHECK"), ("entity", 2),
                    ("file", "silver_io.adb"), ("line", 0), ("col", 0),
                    ("suppressed", False), ("justification", ""),
                    ("justified", False), ("annot_kind", ""), ("justif_msg", ""))
-        for kind in ("static", "main", "assignment", "selected"):
+        for kind, rule in product(("static", "main", "assignment", "selected"),
+                                  ("VC_LENGTH_CHECK", "VC_OVERFLOW_CHECK")):
             data = main_report(0) if kind in ("main", "selected") else assignment_call_report()
-            data["proof"] = [dict(check(), rule="VC_LENGTH_CHECK", file="main.adb")]
+            data["proof"] = [dict(check(), rule=rule, file="main.adb")]
             self.assertTrue(self.accepts(data, kind=kind))
             for field, value in changes:
                 bad = copy.deepcopy(data)
                 bad["proof"][0][field] = value
-                with self.subTest(kind=kind, field=field, value=value):
+                with self.subTest(kind=kind, rule=rule, field=field, value=value):
                     self.assertFalse(self.accepts(bad, kind=kind))
             for field in ("severity", "how_proved", "rule", "file", "entity", "line", "col"):
                 bad = copy.deepcopy(data)
