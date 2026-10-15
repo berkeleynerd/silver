@@ -71,6 +71,9 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(catalogue["additional_constructs"], False)
         self.assertEqual(catalogue["schema_version"], 1)
         constructs = {item["id"]: item for item in catalogue["constructs"]}
+        self.assertEqual(constructs["string_literal"]["conditions"]["final_bracket_boundary"],
+                         "if a literal's final decoded character is [, its closing quote cannot "
+                         "immediately precede an ASCII letter, digit or underscore")
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
         self.assertEqual(catalogue["max_expression_operands"], 64)

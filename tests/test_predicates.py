@@ -98,7 +98,9 @@ class PredicateTests(unittest.TestCase):
                  (b'A="["', b'Or ElSe A="" then null;end if;'),
                  (b'(A="["', b'and then A="[") then null;end if;'),
                  (b'A=""&"["', b'then null;end if;'),
-                 (b'A=' + literal(b'"['), b'then null;end if;'))
+                 (b'A=' + literal(b'"['), b'then null;end if;'),
+                 (b'A=' + literal(b'x["['), b'then null;end if;'),
+                 (b'A="" then null;elsif A="["', b'then null;end if;'))
         for predicate, tail in cases:
             with self.subTest(predicate=predicate, tail=tail):
                 rejected = program(b'A:String:="[";', b'if ' + predicate + tail)
@@ -109,24 +111,44 @@ class PredicateTests(unittest.TestCase):
         # Parentheses delimit tokens; brackets elsewhere and an escaped quote
         # after the bracket remain ordinary printable literal bytes.
         for predicate in (b'(A="[")then', b'A=("[")then',
-                          b'A="[x"then', b'A=' + literal(b'["') + b'then'):
+                          b'A="[x"then', b'A="[]"then',
+                          b'A=' + literal(b'["x') + b'then',
+                          b'A=' + literal(b'["') + b'then',
+                          b'A=' + literal(b'["41"]') + b'then'):
             with self.subTest(admitted_predicate=predicate):
                 self.check(program(b'A:String:="[";', b'if ' + predicate + b' null;end if;'))
 
+    def test_bracket_encoded_character_spelling_is_rejected_in_each_position(self) -> None:
+        # GNAT interprets this spelling as one encoded character, A. It must
+        # never become an admitted alternative spelling of Silver's byte literal.
+        encoded = b'"["41"]"'
+        cases = (program(b'A:constant String:=' + encoded + b';', output(b'A')),
+                 program(b'', output(encoded)),
+                 program(b'A:constant String:="A";',
+                         b'if A=' + encoded + b' then null;end if;'))
+        for position, source in zip(('initializer', 'output', 'comparison'), cases):
+            with self.subTest(position=position):
+                self.check(source, 2)
+
     def test_native_bracket_literal_siblings_preserve_decoded_bytes(self) -> None:
         declarations = (b'A:String:="[";B:String:=' + literal(b'"[')
-                        + b';C:String:=' + literal(b'["') + b';')
+                        + b';C:String:=' + literal(b'["')
+                        + b';D:String:=' + literal(b'["41"]')
+                        + b';E:String:=' + literal(b'x["[') + b';')
         predicates = (b'A="[" then', b'A="["-- separator\nthen',
                       b'(A="[")then', b'A=("[")then',
                       b'A="[" and then A="[" then',
                       b'A="[" or else A="" then',
                       b'B=' + literal(b'"[') + b' then',
-                      b'C=' + literal(b'["') + b'then')
+                      b'C=' + literal(b'["') + b'then',
+                      b'D=' + literal(b'["41"]') + b'then',
+                      b'E=' + literal(b'x["[') + b' then',
+                      b'A="" then null;elsif A="[" then')
         body = b'\n'.join(b'if ' + predicate + b' ' + output(b'A')
                           + b'else ' + output(b'"bad"') + b'end if;' for predicate in predicates)
-        body += output(b'B') + output(b'C')
+        body += output(b'B') + output(b'C') + output(b'D') + output(b'E')
         executable, _ = self.compile(program(declarations, body), 'static')
-        self.run_program(executable, b'[\n' * len(predicates) + b'"[\n["\n')
+        self.run_program(executable, b'[\n' * len(predicates) + b'"[\n["\n["41"]\nx["[\n')
 
     def test_source_bound_literal_spellings_do_not_gain_a_digit_count_limit(self) -> None:
         declarations = b'A:String:="old";'
