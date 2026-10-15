@@ -48,6 +48,9 @@ theorem Obligation.discharge_sound {obligation : Obligation} (proved : obligatio
 
 def discharged (obligations : List Obligation) : Bool := obligations.all Obligation.discharge
 
+theorem discharged_append (left right : List Obligation) :
+    discharged (left ++ right) = (discharged left && discharged right) := List.all_append
+
 def unaryObligation (constructor : Interval → Obligation) (operand : Option Interval) : Obligation :=
   match operand with | some bounds => constructor bounds | none => .impossible
 
@@ -117,5 +120,34 @@ theorem Expr.automatic_discharge_complete {expression : Expr} {ranges : Ranges}
   obtain ⟨bounds, found⟩ := admitted
   exact ⟨obligations_discharge found, fun values fits =>
     ⟨(infer_sound found fits).2, inferred_execution found fits⟩⟩
+
+def declarationObligations : Constants → List Declaration → List Obligation
+  | _, [] => []
+  | constants, declaration :: rest => declaration.value.obligations constants.ranges ++
+      match declaration.check constants with
+      | some next => declarationObligations next rest
+      | none => [.impossible]
+
+theorem declaration_obligations_discharge {constants next : Constants} {declarations : List Declaration}
+    (checked : checkDeclarations constants declarations = some next) :
+    discharged (declarationObligations constants declarations) = true := by
+  induction declarations generalizing constants with
+  | nil => rfl
+  | cons declaration rest ih =>
+      simp only [checkDeclarations, Option.bind_eq_some_iff] at checked
+      obtain ⟨middle, first, restChecked⟩ := checked
+      have inferred : ∃ bounds, declaration.value.infer constants.ranges = some bounds := by
+        simp only [Declaration.check, Option.bind_eq_some_iff] at first
+        obtain ⟨bounds, found, _⟩ := first
+        exact ⟨bounds, found⟩
+      obtain ⟨bounds, found⟩ := inferred
+      simp only [declarationObligations, first, discharged_append,
+        Expr.obligations_discharge found, ih restChecked, Bool.and_self]
+
+theorem declaration_obligations_valid {constants next : Constants} {declarations : List Declaration}
+    (checked : checkDeclarations constants declarations = some next) :
+    ∀ obligation ∈ declarationObligations constants declarations, obligation.Valid := by
+  have all := List.all_eq_true.mp (declaration_obligations_discharge checked)
+  exact fun obligation present => Obligation.discharge_sound (all obligation present)
 
 end Silver.Integer

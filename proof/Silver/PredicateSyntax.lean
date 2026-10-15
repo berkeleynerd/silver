@@ -1,6 +1,8 @@
 module
 
 public import Silver.ComposeExpression
+public import Silver.IntegerChecks
+public import Silver.IntegerComparisons
 
 @[expose] public section
 
@@ -23,6 +25,7 @@ inductive LengthOperand
 inductive Condition
   | stringCompare (unequal : Bool) (left right : Expression)
   | lengthCompare (operator : Comparison) (leftBinding : Nat) (right : LengthOperand)
+  | scalarCompare (operator : Integer.Comparison) (left right : Integer.Expr)
   | inputValid
   | parenthesized (inner : Condition)
   | negated (inner : Condition)
@@ -49,7 +52,7 @@ def Condition.isOrHead : Condition → Bool
 /-- A chain associates to the left and uses one Boolean operator. Parentheses
 start a fresh condition. Ada's `not` applies to one primary, not a relation. -/
 def Condition.Grammatical : Condition → Prop
-  | .stringCompare _ _ _ | .lengthCompare _ _ _ | .inputValid => True
+  | .stringCompare _ _ _ | .lengthCompare _ _ _ | .scalarCompare _ _ _ | .inputValid => True
   | .parenthesized inner => inner.Grammatical
   | .negated inner => inner.isPrimary = true ∧ inner.Grammatical
   | .andThen left right =>
@@ -73,6 +76,7 @@ def Condition.Readable (hasArguments : Bool) (shape : Shape) : Condition → Pro
       left ≠ [] ∧ left.length ≤ maxExpressionOperands ∧
       right ≠ [] ∧ right.length ≤ maxExpressionOperands
   | .lengthCompare _ left right => (∃ info, shape left = some info) ∧ right.Readable shape
+  | .scalarCompare _ _ _ => True
   | .inputValid => hasArguments = true
   | .parenthesized inner | .negated inner => inner.Readable hasArguments shape
   | .andThen left right | .orElse left right =>

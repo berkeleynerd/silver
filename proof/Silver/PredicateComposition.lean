@@ -20,6 +20,8 @@ structure Program where
   fallback : Source
   hasArguments : Bool
   statements : List Statement
+  integerDeclarations : List Integer.Declaration := []
+  integerConstants : Integer.Constants := []
   deriving Repr
 
 def Program.initialContext (program : Program) : Context :=
@@ -35,19 +37,34 @@ def Program.inputValid (program : Program) (arguments : Arguments.Runtime.Argume
 def Program.initialValues (program : Program) (arguments : Arguments.Runtime.Arguments) : Values :=
   executeDeclarations (program.input arguments) program.declarations emptyValues
 
+def Program.initialIntegers (program : Program) : Integer.Store :=
+  (Integer.executeDeclarations [] program.integerDeclarations).store
+
+def Program.checkBody (program : Program) : Option Context :=
+  if Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants then
+    checkStatements program.names.shape program.initialContext program.statements program.integerConstants.ranges
+  else none
+
+theorem Program.checkBody_iff (program : Program) (after : Context) :
+    program.checkBody = some after ↔
+      Integer.checkDeclarations [] program.integerDeclarations = some program.integerConstants ∧
+      checkStatements program.names.shape program.initialContext program.statements program.integerConstants.ranges = some after := by
+  simp only [checkBody]
+  split <;> simp_all
+
 def Program.execute (program : Program) (arguments : Arguments.Runtime.Arguments) : Execution :=
   executeStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements
+    (program.initialValues arguments) program.statements program.initialIntegers
 
 def Program.checkedExecute (program : Program) (arguments : Arguments.Runtime.Arguments) : Option Execution :=
   checkedStatements (program.input arguments) (program.inputValid arguments)
-    (program.initialValues arguments) program.statements
+    (program.initialValues arguments) program.statements program.initialIntegers
 
 def Program.Valid (program : Program) : Prop :=
   DeclarationsValid emptyShape program.declarations program.names.shape ∧
     Bindings.Printable program.fallback ∧ program.fallback.length ≤ maxSourceLength ∧
     program.statements ≠ [] ∧ StatementsWellFormed program.hasArguments program.names.shape program.statements ∧
-    ∃ after, checkStatements program.names.shape program.initialContext program.statements = some after ∧ completed after = true
+    ∃ after, program.checkBody = some after ∧ completed after = true
 
 theorem selected_invalid (fallback : Source) (arguments : Arguments.Runtime.Arguments)
     (invalid : Arguments.Runtime.inputIsValid arguments = false) : selected fallback arguments = [] := by
@@ -83,14 +100,30 @@ theorem Program.initial_fits {program : Program} (valid : program.Valid)
     Fits program.names.shape (program.input arguments) (program.initialValues arguments) :=
   declarations_preserve valid.1 _ (program.input_domain arguments).2 _ (empty_fits _)
 
+theorem Program.initial_integers {program : Program} (valid : program.Valid) :
+    program.initialIntegers = program.integerConstants.store ∧
+      Integer.DeclarationsSafe [] program.integerDeclarations ∧ program.integerConstants.Valid := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  have declarations := ((program.checkBody_iff after).mp checked).1
+  have sound := Integer.declarations_sound declarations
+  exact ⟨by simp only [initialIntegers, ← sound.1], sound.2,
+    Integer.declarations_preserve (by simp [Integer.Constants.Valid]) declarations⟩
+
+theorem Program.initial_integer_fits {program : Program} (valid : program.Valid) :
+    Integer.Fits program.integerConstants.ranges program.initialIntegers := by
+  rw [(program.initial_integers valid).1]
+  exact program.integerConstants.fits
+
 theorem Program.execution_sound {program : Program} (valid : program.Valid)
     (arguments : Arguments.Runtime.Arguments) :
     Fits program.names.shape (program.input arguments) (program.execute arguments).values ∧
       EffectsValid (program.execute arguments).effects ∧
       program.checkedExecute arguments = some (program.execute arguments) := by
   obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
-  have sound := statements_execution_sound valid.2.2.2.2.1 checked
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2
+  have sound := statements_execution_sound valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2 (program.initial_allowed arguments)
+    (program.initial_integer_fits valid)
   exact ⟨sound.state, sound.effects, sound.agreement⟩
 
 theorem Program.invalid_trace {program : Program} (valid : program.Valid)
@@ -99,8 +132,10 @@ theorem Program.invalid_trace {program : Program} (valid : program.Valid)
   obtain ⟨after, checked, finished⟩ := valid.2.2.2.2.2
   have allowed := program.initial_allowed arguments
   rw [invalid] at allowed
-  have behavior := completed_invalid_rejected valid.2.2.2.2.1 checked
+  have bodyChecked := ((program.checkBody_iff after).mp checked).2
+  have behavior := completed_invalid_rejected valid.2.2.2.2.1 bodyChecked
     (program.initial_fits valid arguments) (program.input_domain arguments).2 allowed finished
+    (program.initial_integer_fits valid)
   simpa only [Program.execute, invalid] using behavior
 
 theorem noOutput_accepted_empty (effects : List Effect) (noOutput : NoOutput effects)
@@ -159,9 +194,16 @@ def declarationChecks (program : Program) : List Compose.Check :=
   (Compose.declarationRangeObligations emptyShape program.names.shape program.declarations).map Compose.Check.range ++
     (Compose.declarationLengthObligations emptyShape program.names.shape program.declarations).map Compose.Check.length
 
+def integerDeclarationChecks (program : Program) : List Integer.Obligation :=
+  Integer.declarationObligations [] program.integerDeclarations
+
+def scalarObligation (check : Integer.Obligation) : Semantics.Obligation :=
+  ⟨.runTimeSafety, check.discharge⟩
+
 def Program.obligations (program : Program) : List Semantics.Obligation :=
   (declarationChecks program).map Compose.Check.toObligation ++
-    modeledObligations program.names.shape program.initialContext program.statements
+    (integerDeclarationChecks program).map scalarObligation ++
+    modeledObligations program.names.shape program.initialContext program.statements program.integerConstants.ranges
 
 theorem Program.declaration_checks_valid {program : Program} (valid : program.Valid) :
     ∀ check ∈ declarationChecks program, check.Valid := by
@@ -173,15 +215,24 @@ theorem Program.declaration_checks_valid {program : Program} (valid : program.Va
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp length
     exact Compose.declaration_lengths_valid valid.1 schema present
 
+theorem Program.integer_declaration_checks_discharge {program : Program} (valid : program.Valid) :
+    Integer.discharged (integerDeclarationChecks program) = true := by
+  obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
+  exact Integer.declaration_obligations_discharge ((program.checkBody_iff after).mp checked).1
+
 theorem Program.all_obligations_discharge {program : Program} (valid : program.Valid) :
     Semantics.discharge program.obligations = true := by
   apply (Semantics.discharge_iff _).mpr
   intro check member
-  rcases List.mem_append.mp member with declaration | body
-  · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
-    exact (Compose.Check.discharge_iff _).mpr (program.declaration_checks_valid valid schema present)
+  rcases List.mem_append.mp member with declarations | body
+  · rcases List.mem_append.mp declarations with declaration | scalar
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
+      exact (Compose.Check.discharge_iff _).mpr (program.declaration_checks_valid valid schema present)
+    · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
+      exact List.all_eq_true.mp (program.integer_declaration_checks_discharge valid) schema present
   · obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
-    exact (Semantics.discharge_iff _).mp (all_modeled_obligations_discharge checked) check body
+    have bodyChecked := ((program.checkBody_iff after).mp checked).2
+    exact (Semantics.discharge_iff _).mp (all_modeled_obligations_discharge bodyChecked) check body
 
 /-- Source-reading rules can retain omitted `else` while lowering its meaning
 without inventing an effect or bypassing the false path. -/
