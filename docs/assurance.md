@@ -384,9 +384,12 @@ revision, its seventeen bindings/certificates, test repairs and complete cached
 Lean build with a fresh axiom audit.
 The later [Focused Source Checks checkpoint](focused-source-checks.md) narrowed
 imports while retaining the complete module set. [Admission Repairs](admission-repairs.md)
-is the current complete Linux record for the strengthened assignment and literal
+records the complete Linux validation of the strengthened assignment and literal
 rules, their source correspondence, checked Names helper identities and fresh
 whole-project axiom audit.
+The later [solver-allowance adoption](expression-headroom.md#production-adoption)
+refreshes native and complete Lean evidence for the current 100,000-step driver,
+with focused driver/runtime validation and unchanged admission rules.
 
 ## Automatic completion and the external boundary
 
@@ -445,7 +448,7 @@ shows that the interface is jointly inhabited, not that physical tools have
 been verified. The null specialization retains its empty-obligation argument.
 
 In particular, completion of the pinned external solvers within the application
-configuration's 10,000-step limit remains an explicit premise. Lean proves
+configuration's 100,000-step limit remains an explicit premise. Lean proves
 neither those solvers nor a universal bound on their work. Native experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
@@ -578,7 +581,7 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=10000 --timeout=0 --memlimit=0 -j0`.
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=0 -j0`.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a

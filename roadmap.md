@@ -14,6 +14,19 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Production solver allowance — complete
+
+On 2026-10-15 the owner authorized raising application GNATprove's step allowance
+from 10,000 to 100,000. The driver and current assurance documentation now agree.
+Both retained 64-leaf failures proved with today's runtime and passed their
+build/execution probes. The complete native audit, complete cached Lean check,
+18 focused driver/report-integrity tests, and real static/dynamic sample command
+and execution checks passed on stable inputs. Caches and historical measurements
+are preserved. The 16-leaf/30-concatenation language limits and compiler-development
+proof settings remain unchanged. The
+[delivery record](docs/expression-headroom.md#production-adoption) gives exact
+validation scope; larger-expression admission remains proposed.
+
 ### Expression Headroom — solver-budget experiment complete
 
 On 2026-10-15 the owner authorized retrying the two retained 64-leaf failures
@@ -29,8 +42,9 @@ its external ten-minute experiment budget.
 
 The result favors a modest solver-budget adjustment as the first candidate for
 larger-expression work; these failures do not justify a broad proof refactor or
-more RAM. Existing 16-leaf/30-concatenation admission limits and production solver
-options remain unchanged. The retained runtime is historical; current-runtime
+more RAM. That experiment left the 16-leaf/30-concatenation admission limits and
+production solver options unchanged; the later production change is tracked above.
+The retained runtime is historical; current-runtime
 and larger-fragment assurance remain follow-ups before any admission expansion.
 See the [experiment record](docs/expression-headroom.md) for exact scope and memory
 accounting. The broader expression-capacity item remains proposed.
@@ -348,7 +362,7 @@ complete assurance and validation described below.
 | --- | --- | --- |
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
-| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. The [step-budget experiment](docs/expression-headroom.md) resolves both retained 64-leaf failures at 100,000 steps with their historical runtime; 10,000-step controls still fail. Production retains 10,000 steps. Larger expressions remain deferred pending current-runtime and full-fragment assurance, including compositions and report capacity; two successful specimens are not universal solver bounds. |
+| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. The [step-budget experiment and adoption](docs/expression-headroom.md) resolve both retained 64-leaf failures with historical and current runtimes; production now uses 100,000 steps. Larger expressions remain deferred pending full-fragment assurance, including compositions and report capacity; two successful specimens are not universal solver bounds. |
 | Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the subsequently completed 782-assignment specimen: 826 proved checks, 2,013,253-byte report (96.0%), 83,899 bytes remaining; reviewer-reported 33.6 minutes and 6.1 GiB. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
@@ -774,7 +788,7 @@ and [completed evidence](docs/command-line-greeting.md).
 Faithful complete GNAT obligation generation and pinned prover completion on the
 concrete arithmetic fragment remain explicit external-tool premises. The new
 Lean decision procedure proves universal validity of the admitted range schemas;
-it does not verify the bundled solver implementations or their 10000-step bound.
+it does not verify the bundled solver implementations or their configured step allowance.
 No additional solver, certificate framework or adversarial report authentication
 was introduced. Additional tools still need an identified coverage gap.
 

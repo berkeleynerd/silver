@@ -298,6 +298,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The [solver-allowance adoption](docs/expression-headroom.md#production-adoption)
+records the current 100,000-step application setting, refreshed native/Lean
+evidence and focused driver/runtime validation. Language limits are unchanged.
+
 The [Admission Repairs checkpoint](docs/admission-repairs.md) records the current
 assignment/literal rules, complete Linux native and Lean validation, stable
 307-test run and one-time full code-generation pass over the available corpus.

@@ -6,16 +6,31 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Production solver allowance complete
+
+Application compilation now uses `--steps=100000`. The owner-authorized change
+passed current-runtime probes, supported static/dynamic compilation and execution,
+focused driver/report-integrity tests, the full native compiler audit and complete
+cached Lean validation. The [adoption record](docs/expression-headroom.md#production-adoption)
+gives exact results and scope. Language limits and compiler-development proof
+settings remain unchanged; larger-expression admission remains proposed.
+
+Recovery is `tmp/step-budget-adoption-active.json`. Preserve canonical/isolated
+caches, prior experiments and successful program directories. Publication remains
+authorized; no new harness goal was explicitly requested. CLI memory was not
+updated; this handoff and checked-in session memory are current. Earlier
+checkpoints below retain their historical scope.
+
 ## Expression Headroom experiment complete
 
 The authorized step-budget comparison is complete. Both retained 64-leaf failures
 reproduced at 10,000 steps and proved at 100,000 steps, using modest memory.
 The [record](docs/expression-headroom.md) gives the measurements and the scope of
-the retained runtime. Production settings and language admission remain unchanged;
+the retained runtime. At that checkpoint, production settings and admission were unchanged;
 the larger-expression extension remains proposed. Recovery is
 `tmp/expression-headroom-active.json`; preserve its fresh isolated results/caches
-and the original cases. No current compiler or Lean inputs changed, so the
-Admission Repairs checkpoint below remains the current implementation evidence.
+and the original cases. That experiment changed no compiler or Lean inputs, so the
+Admission Repairs checkpoint below supplied its then-current implementation evidence.
 Publication remains authorized; no new harness goal was explicitly requested.
 
 ## Admission Repairs complete

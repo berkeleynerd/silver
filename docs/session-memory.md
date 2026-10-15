@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-15 — Production solver allowance complete
+
+The owner-requested application GNATprove allowance is now 100,000 steps. The
+[roadmap](../roadmap.md#production-solver-allowance--complete) and
+[adoption record](expression-headroom.md#production-adoption) close this one-line
+driver change. Current-runtime probes, supported application command/execution
+checks, focused failure-path regressions, the full native audit and complete
+cached Lean check passed. The record distinguishes focused testing from the
+earlier full suite and preserves exact evidence scope.
+
+Language limits, proof/report acceptance and compiler-development options are
+unchanged; larger-expression admission remains proposed. Recovery is
+`tmp/step-budget-adoption-active.json`; preserve canonical and isolated caches,
+original experiments and successful program directories. Native provenance and
+the Lean digest match the final implementation; later edits are documentation.
+Publication authorization persists; no replacement harness goal was explicitly
+requested. CLI memory was not updated; checked-in memory and RESUME carry the
+handoff. macOS, hosted CI and independent replay remain outside scope.
+
 ## 2026-10-15 — Expression Headroom experiment complete
 
 The owner authorized retrying the two retained 64-leaf failures with a larger

@@ -1,5 +1,9 @@
 # Expression Headroom
 
+The subsequent authorized [production adoption](#production-adoption) is tracked
+below. The original experiment and its unchanged-production decision retain their
+historical scope.
+
 Status: bounded solver-budget investigation complete, authorized and completed
 2026-10-15.
 Baseline: `c2c1585e4bc13c6ac1bf2492f3d5e00fd23a9907` on Linux x86-64.
@@ -104,3 +108,69 @@ No compiler, proof, script, test, catalogue or sample input changed; the complet
 Admission Repairs native/Lean evidence remains applicable. Documentation received
 link, consistency and whitespace checks. No full suite, Lean rebuild, independent
 replay, macOS proof or hosted CI run was needed for this experiment record.
+
+## Production adoption
+
+Status: complete on Linux x86-64, authorized and completed 2026-10-15 against
+baseline `dd26125318`.
+The owner requested the 100,000-step production allowance following the experiment
+and recommendation. Only the application proof command in `src/silver.adb` changes.
+Compiler-development proof settings, Lean limits, solver selection, timeout/memory
+options, evidence acceptance, source identity and language admission remain unchanged.
+
+Validation covers the retained 64-leaf sources with current runtime snapshots,
+supported application compilation and failure handling, full native compiler
+proof/provenance, and the complete cached Lean check with a fresh axiom audit.
+The driver is not an embedded Lean source-certificate input, but its bytes belong
+to the complete evidence digest. No source-pin or theorem change is required.
+
+The current-runtime confirmation preserved each retained Main and project while
+copying all six runtime files from the current source. Each had fresh proof
+sessions and caches. The dynamic and static cases both proved all 107 checks
+(63 Main checks, 31 runtime proof checks and 13 flow checks), built, and passed
+five combined execution probes. Their Main reports were 111,917 and 110,462 bytes.
+The formerly failing checks still used 10,738 and 11,609 normalized Z3 steps.
+Elapsed proof times were 54.180 and 41.094 seconds; sampled session RSS peaks were
+1,253.0 and 1,107.1 MiB. These are supporting measurements, not a matched benchmark;
+other validation could run concurrently. The exact command retains `--memlimit=0`,
+but the observed internal `gnatwhy3` command uses `--memlimit 1000`; the flag alone
+is not evidence of unlimited solver memory. Both sources still return membership
+rejection (status 2), because the 16-leaf and 30-concatenation limits are unchanged.
+
+The compiler rebuilt successfully. The full native audit proved **3,172 checks**
+(572 flow and 2,600 proof), with 20 units and 313 entities; completed provenance
+binds 2,408 inputs and 22 reports. It forced complete analysis with existing
+sessions/cache available, not a cold proof experiment. All **18 focused tests**
+passed: nine general driver tests and nine output-integrity tests, covering null
+compilation, tool failure, rejected/missing/incomplete evidence and source drift.
+
+Two real supported sample compilations, `string_assignment.adb` and
+`common_expressions.adb`, passed the unchanged proof-report checks, built and
+matched all five manifest execution cases. Their SARIF invocation records each
+contain exactly one `--steps=100000`. The driver preserved each source byte-for-byte.
+All 343 captured source/proof/script/test/sample/catalogue inputs were identical
+before and after this focused validation. The full 307-test suite was not rerun
+for this proof-option change; its earlier scope remains in Admission Repairs.
+
+The complete cached Lean 4.34.1 check passed **252 modules**, with a fresh audit
+of **56,876 declarations** using only `propext`, `Classical.choice` and `Quot.sound`.
+It took 15.505 seconds (7.094 build, 5.236 audit), without a source-certificate
+rebuild or independent kernel replay. The final input digest is:
+
+```text
+01b7c8ea2a9535a364b186d9f1830f87fb569fc0c8b7d541bb0d6631839123d2
+```
+
+Independent read-only review checked the one-line implementation change,
+validation runner, actual commands, input identity and final results. The digest
+and native provenance were revalidated against the final implementation. Only
+documentation changed after validation. No broader language claim follows from
+the exploratory programs; larger-expression admission remains separate work.
+
+Evidence is under `.silver/linux-x86_64/step-budget-adoption-20261015T113937Z/`,
+located by `tmp/step-budget-adoption-active.json`. Current-runtime probes are
+under `.silver/linux-x86_64/step-budget-runtime-20261015T113750Z/`, located by
+`tmp/step-budget-runtime-active.json`. Reports, exact inputs, commands, isolated
+caches, successful program directories and prior evidence are preserved. Git
+identifies the implementation commit containing this adoption record. macOS,
+hosted CI and independent replay were outside scope.
