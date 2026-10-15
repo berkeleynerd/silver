@@ -329,9 +329,13 @@ identifies that retained measurement. The
 [Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
 combines 758 assignments and 63 concatenations in 4096 bytes. It proved all
 865 checks in 53.6 minutes, with 8.71 GiB sampled aggregate process RSS and a
-2,065,005-byte Main report, leaving 32,147 bytes (1.5%) of headroom. This was a
-fresh-session specimen run that overlapped other validation, not a universal
-resource bound. The
+2,065,005-byte Main report, leaving 32,147 bytes (1.5%) in the historical 2 MiB
+buffer. This was a separate fresh-session probe, not production `silver compile`.
+Review B1 later found a denser static-shell construction with only 0.28–0.29%
+headroom; timing-dependent prover credits can exceed that margin. The
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction)
+distinguishes the deterministic floor, measured credits and pending capacity
+repair. These specimens do not establish a universal resource bound. The
 [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)

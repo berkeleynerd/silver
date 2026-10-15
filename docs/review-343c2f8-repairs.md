@@ -40,3 +40,35 @@ no hosted CI or independent kernel replay is claimed.
 
 Record findings, fixes, actual input commits, checks and limitations here and on
 the affected issues. Complete issue closure only after validation and publication.
+
+## Report-capacity correction
+
+L2 corrects the earlier inference from the Larger Expressions argument-shell
+specimen. Its 2,065,005-byte report left 32,147 bytes (1.5%) in the historical
+2 MiB buffer; its deterministic floor is 2,060,006 bytes and timing-dependent
+credits contribute 4,999 bytes. It was produced by a separate runner using the
+production options and policy, rather than by `silver compile` itself.
+
+The review's denser static-shell construction with one output call measured
+2,091,011–2,091,380 bytes across five proofs: 5,772–6,141 bytes (0.28–0.29%) of
+headroom. Timing-dependent prover credits can exceed that margin. The review's
+2,370,822-byte maximum concerns this construction, not all admitted programs.
+Those retained inputs are the current capacity reference pending B1's derived
+bound. The review observed the near-limit reports and credit growth, not an
+overflowing dense execution. No new dense proof run is claimed by this correction.
+
+## Lexical and catalogue repair evidence
+
+L6 adds the missing elsif/final-bracket-with-escaped-quote neighbours and rejects
+GNAT's encoded-character spelling `"["41"]"` in initializer, output and comparison
+positions. Admitted quoted siblings retain ordinary Silver byte values. L7 now
+states the exact final-decoded-character condition in the native catalogue
+producer and checked-in JSON, with an assertion that pins the normative wording.
+
+Focused Linux x86_64 validation passed: native build; three bracket regression
+methods including real proof/build/exact-byte execution; and the native catalogue
+comparison/assertion. Logs are in the repair worktree's `tmp/lexical-build.log`,
+`tmp/bracket-tests-final.log` and `tmp/catalogue-test.log`. A first test invocation
+used unsupported unittest-discover positional selectors and was corrected; its
+mixed redirected log is not used as successful evidence. No admission rule or
+Lean source interpretation changed. Full integrated validation remains pending.

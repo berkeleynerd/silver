@@ -71,8 +71,11 @@ one obsolete rejection expectation; its test-only correction and all eight
 affected methods passed afterward. The record distinguishes those scopes,
 cache reuse and the fresh axiom audit from independent replay. Nine current-runtime
 composition probes passed proof, production report policy, build and execution.
-The dense case fits the report buffer with 1.5% headroom; costs and the future
-capacity-reassessment trigger are explicit.
+The dense case fit the then-current report buffer with 1.5% headroom. Correction
+on 2026-10-15: review B1 found a denser static-shell case with only 0.28–0.29%
+and timing-dependent credits able to exceed the limit. The
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction)
+supersedes any inference that the earlier specimen justified that capacity.
 
 Recovery is `tmp/larger-expressions-active.json`. Preserve all canonical/isolated
 caches, earlier evidence and unrelated `rosetta.md` and `tmp/` work. The

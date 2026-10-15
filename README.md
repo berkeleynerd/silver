@@ -124,8 +124,11 @@ fits 785 assignments: all 829 checks proved and its 2,020,723-byte report uses
 The [Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
 combines 758 assignments and 63 concatenations in 4096 bytes. It proved in
 53.6 minutes with 8.71 GiB sampled aggregate RSS; its 2,065,005-byte report leaves
-32,147 bytes (1.5%) of headroom. This is another specimen measurement, not a
-worst-case bound.
+32,147 bytes (1.5%) in the historical 2 MiB buffer. Review B1 subsequently found
+a denser static-shell construction leaving only 0.28–0.29%, with timing-dependent
+credits able to exceed that margin. See the
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction).
+These measurements do not establish a whole-language report-size bound.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of

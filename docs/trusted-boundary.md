@@ -672,9 +672,13 @@ Main report (96.4%) leaving 76,429 bytes. Its 32-minute timing is reviewer-repor
 The [Larger Expressions dense probe](larger-expressions.md#dense-composition-and-report-capacity)
 combines 758 assignments and 63 concatenations in 4096 bytes. All 865 checks
 proved in 53.6 minutes, with 8.71 GiB sampled aggregate RSS. Its 2,065,005-byte
-Main report leaves 32,147 bytes (1.5%) of the existing buffer. The production
-report policies, full code generation and expected Reject executions passed;
-the narrow margin requires reassessment before further relevant expansion.
+Main report left 32,147 bytes (1.5%) of the historical 2 MiB buffer. A separate
+runner applied the production report policies; full code generation and expected
+Reject executions passed. Review B1 found a denser static-shell construction
+leaving only 0.28–0.29%, with timing-dependent credits able to exceed that margin.
+The [capacity correction](review-343c2f8-repairs.md#report-capacity-correction)
+records the deterministic floor and measured contribution; the specimen does not
+justify whole-language report capacity.
 None of these cases establishes a universal worst-case bound. An interrupted
 experiment establishes neither solver failure nor measured capacity. No statement/output-count
 restriction is inferred from those interruptions.
