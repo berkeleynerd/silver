@@ -1,5 +1,28 @@
 # Session memory
 
+## 2026-10-15 — For loops and integers resumed with Integer `'Image`
+
+The owner settled the three decisions raised by
+[review-343c2f8](reviews/review-343c2f8.md):
+
+- **Scope (#34).** For loops and integers also delivers Integer `'Image`, in
+  Ada's standard format with a leading space for non-negative values, so
+  integer results can be printed. The rest of the selected fragment stands:
+  `constant Integer` declarations, fully parenthesized `+`, `-` and `*`,
+  comparisons, and scoped forward and `reverse` `for` loops. Mutable Integer
+  objects, custom subtypes, conversions and division stay excluded. The scope
+  record is updated under #13.
+- **State.** The milestone was authorized on 2026-10-15, as recorded on its
+  feature branch in `29b1438`, and paused at scoping at 18:11 UTC by the
+  instruction recorded on #10. The owner now lifts the pause, so the milestone's
+  authorization applies again: the B1 repair (#17) comes first, then #14 to #16.
+- **Recording (#26).** An authorization, pause or revocation counts as recorded
+  only when a dated entry in this file on `main` states it. Issue comments cite
+  the commit, and board statuses change in the same step, as
+  [planning](planning.md#the-board) now states.
+- **Board (#30).** The owner configures the board's views and workflows in
+  GitHub's web interface.
+
 ## 2026-10-15 — Audit of e2c4fc2 to 343c2f8
 
 The owner received [review-343c2f8](reviews/review-343c2f8.md), the audit of
