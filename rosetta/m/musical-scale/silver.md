@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values and indexes are bounded by static ranges and a for loop over a fixed 8-note array, and no floating point is used because MIDI encodes 12TET pitch by note number, so only the file-write operation is new and the checks are routine.
 
-Position 1420 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1420 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

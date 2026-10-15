@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded 16-bit modular xor and shifts with array indexes from ranged subtypes, so checks are routine except for the careful table fill order that replaces the recursion without needing a variant.
 
-Position 1305 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1304 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

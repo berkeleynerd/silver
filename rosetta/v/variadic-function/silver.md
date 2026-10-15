@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada models a variadic function as a procedure over an unconstrained array, and every index, length and range check follows from declared subtype ranges, 'Range loops, and guards placed before the copy, so no annotation is needed.
 
-Position 1444 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1444 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

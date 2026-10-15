@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the static Vertex range and the closure's while loop sits in a procedure, so the only non-routine check is the degree accumulator's increment, which depends on loop unrolling or careful typing rather than an annotation.
 
-Position 700 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 699 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

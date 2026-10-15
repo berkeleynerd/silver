@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Replacing the Double coordinates with bounded integers makes every arithmetic result fit its declared subtype, and all loops are for loops over array ranges, so no annotation is needed.
 
-Position 613 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 612 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

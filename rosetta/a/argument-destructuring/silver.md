@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is straight-line code with record aggregates and procedure calls that print constant strings, so there are no loops, arithmetic or index checks to prove and every check follows from the declarations.
 
-Position 957 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 956 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is only a pointer to the algorithm, which is plain index arithmetic on bounded arrays in procedures, so no annotation is needed. The risk lies in loop-carried indices (lon, i, j) without invariants, which explicit guards and bounded subtypes should let the provers discharge.
 
-Position 568 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 567 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

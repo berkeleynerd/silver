@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded float subtypes, a for loop over the array's own range and explicit guards before the division and the final range conversion, but floating-point reasoning makes the discharge depend on careful program shape.
 
-Position 1046 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1045 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

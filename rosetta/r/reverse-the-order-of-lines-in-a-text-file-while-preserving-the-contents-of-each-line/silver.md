@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed array capacities, bounded counters and explicit capacity guards, and the reverse output is a plain for loop. The one new dependency is an admitted bounded line-reading library operation with specified failure outcomes.
 
-Position 1327 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1326 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

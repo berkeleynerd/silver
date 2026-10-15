@@ -38,7 +38,7 @@ author-written annotations and external effects only through specified library
 operations. One agent per task read the task and its solution and recorded:
 
 - conflicts with the Oracle's fixed rules, such as a task whose point is a
-  run-time error, an exception or code evaluated at run time;
+  failed run-time check, an unexpected exception or code evaluated at run time;
 - the external effects the program needs, such as console output, files, the
   clock or a GUI;
 - the language surface it needs beyond today's Silver, from the fixed list of
@@ -63,6 +63,14 @@ progression:
 - when it adds an input construct (text parsing, standard input, files, exit
   status or further arguments), is driven by a sample that really uses that
   input, lists such samples first and names the failure paths they must test.
+
+The current policy excludes `local-exceptions` because Silver has no admission,
+initialization or path-fact composition rules for exception handlers yet. This
+is a scope exclusion: SPARK 16.1 permits locally handled explicit raises and
+forward `goto`. Handlers cannot excuse failed language-mandated checks, and
+required propagation across program-defined calls needs `Exceptional_Cases`, an
+annotation Silver authors cannot write. The [targeted review](review-343c2f8.md)
+records the corrected assessments and the pinned-manual references.
 
 The `supported` list in `coverage.json` names constructs Silver has admitted
 since the assessments, using the identifiers in `assess.js`; the progression

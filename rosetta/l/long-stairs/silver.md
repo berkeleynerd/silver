@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is simple integer simulation whose checks follow from subtype ranges and a length-cap guard, and no annotation is needed because the while loop lives in a procedure; the work is in keeping the many loop-carried values bounded by guards.
 
-Position 1303 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1302 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

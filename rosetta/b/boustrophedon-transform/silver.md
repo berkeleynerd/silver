@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-range array index or a guarded addition in for loops, so nothing needs an annotation, but the loop-carried triangle sums depend on careful bound guards and the 2D array and text formatting are beyond today's Silver.
 
-Position 719 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 718 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

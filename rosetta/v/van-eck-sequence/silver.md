@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the array's index range and the Term subtype bounds, with only for loops over the array's own range and no recursion, so no annotations are needed. The only surface beyond today's Silver is standard (arrays, ranged subtypes, for loops with exit, procedures, integer image output).
 
-Position 208 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 207 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

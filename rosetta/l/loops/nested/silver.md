@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes over the array's own bounds and a ranged seed type, so the proofs should discharge without annotations; the only growth needed is arrays, for loops, mod and Put.
 
-Position 1533 in the [progression](../../../progression.md#stage-32), in stage 32.
+Position 1533 in the [progression](../../../progression.md#stage-33), in stage 33.
 
 ## Approach
 

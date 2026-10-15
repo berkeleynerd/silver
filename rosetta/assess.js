@@ -43,6 +43,7 @@ const SURFACE = {
   'for-loops': 'for loops over discrete ranges, including reverse',
   'while-loops': 'while loops and loops with exit when',
   'block-statements': 'declare blocks',
+  'local-exceptions': 'exception declarations, explicit raise statements and handlers within one subprogram',
   'procedures': 'user-defined procedures with in, out and in out parameters',
   'functions': 'user-defined functions without side effects',
   'recursive-procedures': 'procedures that call themselves directly or indirectly',
@@ -63,7 +64,7 @@ const SURFACE = {
 }
 const RISKS = ['overflow', 'range', 'index', 'division', 'length', 'discriminant', 'initialization', 'termination',
   'stack', 'heap', 'floating-point', 'tasking', 'other']
-const CONFLICTS = ['runtime-error', 'exception-handling', 'annotations', 'outside-spark', 'unsafe', 'other']
+const CONFLICTS = ['runtime-error', 'annotations', 'outside-spark', 'unsafe', 'other']
 const SCHEMA = {
   type: 'object',
   properties: {
@@ -87,13 +88,13 @@ const RUBRIC = `You are assessing one Rosetta Code task for Silver, a language b
 
 The Oracle's rules for every Silver program:
 1. A Silver program is ordinary Ada/SPARK source. Silver only removes or restricts constructs; it never adds syntax or changes meaning.
-2. Every admitted program must prove automatically, with no developer intervention, at SPARK's Bronze level (initialization and data flow) and Silver level (absence of run-time errors: no overflow, range, index, length, division-by-zero or discriminant check can fail, no exception is raised, no assertion fails).
+2. Every admitted program must prove automatically, with no developer intervention, at SPARK's Bronze level (initialization and data flow) and Silver level (absence of run-time errors: no overflow, range, index, length, division-by-zero or discriminant check can fail, no unexpected exception is raised, no assertion fails).
 3. Program authors write no contracts or proof annotations of any kind (no Pre, Post, Contract_Cases, Global, Depends, Loop_Invariant, Loop_Variant, Subprogram_Variant, Always_Terminates or Side_Effects) and no pragma except pragma SPARK_Mode (On). Safety must follow from declarations, types, expressions and executable control flow (explicit guards wherever necessary), plus the verified contracts of admitted library operations.
 4. Proof must never be obtained by silently changing behavior, narrowing the input domain or suppressing checks. A guard must lead to a specified, visible outcome (for example rejecting an input), never quietly alter a result the task requires.
 5. Guarantees cover every permitted input and execution path: input is validated and invalid input has a specified outcome.
 6. External effects happen only through admitted library operations with specified behavior, failure outcomes and environmental assumptions.
 7. Explicit, documented resource limits are allowed: bounded strings and arrays, integer ranges, fixed-capacity big numbers.
-8. Constructs SPARK excludes (exception handlers, goto, unrestricted aliasing) are never available.
+8. Constructs SPARK excludes, such as unrestricted aliasing and backward goto, are never available. SPARK 16.1 permits forward goto and handlers for expected explicit raises within a subprogram; handlers cannot excuse failed language-mandated checks. Silver currently excludes local exceptions because their admission, initialization and path-fact composition rules are not established, and excludes goto because its control-flow rules are not established; these are scope exclusions, not permanent Oracle conflicts. An exception propagated from a program-defined called subprogram needs an Exceptional_Cases annotation in that subprogram, forbidden to Silver program authors by rule 3.
 
 What GNATprove establishes without annotations decides the outlook:
 - With no loop invariant, after the first iteration it knows only the types of the variables a loop modifies. A check on a loop-carried value (an accumulator, a computed index) discharges only if that value's type range, or a guard just before the use, makes it safe.
@@ -113,7 +114,7 @@ Use the smallest surface that keeps the program faithful: prefer what Silver alr
 Report only what the program you settled on needs. Never list an item and then explain that it is not needed, not real or only an alternative; leave it out instead. Base conflicts only on what the task requires, never on how the existing solution happens to be written.
 
 Fields:
-- conflicts: requirements that break a fixed Oracle rule, so that no future Silver could meet them. Kinds: runtime-error (the task requires raising, demonstrating or observing a run-time error, exception, overflow behavior, undefined behavior, or stack or memory exhaustion), exception-handling (the task requires raising or handling exceptions), annotations (the task requires assertions, contracts, pragmas or other compiler directives in program source), outside-spark (the task requires something Ada/SPARK cannot express, such as evaluating code at run time, reflection or introspection of program structure, dynamic typing, closures, handling unknown method calls, self-modifying code or extending the syntax), unsafe (the task requires unchecked conversion, address arithmetic, unrestricted aliasing, foreign-language calls or machine code) and other (explain). Needing an external effect Silver lacks is an effect, never a conflict. Leave conflicts empty when the task only needs constructs or effects Silver does not have yet.
+- conflicts: requirements that break a fixed Oracle rule, so that no future Silver could meet them. Kinds: runtime-error (the task requires demonstrating or observing a failed run-time check, an unexpected exception, overflow behavior, undefined behavior, or stack or memory exhaustion), annotations (the task requires assertions, contracts, pragmas or other compiler directives in program source, including Exceptional_Cases for required cross-call exception propagation), outside-spark (the task requires something Ada/SPARK cannot express, such as evaluating code at run time, reflection or introspection of program structure, dynamic typing, closures, handling unknown method calls, self-modifying code or extending the syntax), unsafe (the task requires unchecked conversion, address arithmetic, unrestricted aliasing, foreign-language calls or machine code) and other (explain). A locally handled explicit raise is local-exceptions surface, never a conflict by itself. Needing an external effect Silver lacks is an effect, never a conflict. Leave conflicts empty when the task only needs constructs or effects Silver does not have yet.
 - effects: every external effect the program needs, each with a short explanation: console-output, arguments, exit-status, stdin, files, directories (listing, creating or inspecting directories or file metadata), clock, delay, entropy (system randomness, only when a deterministic generator would not satisfy the task), environment, processes, terminal (cursor control, colors, screen size, raw keystrokes), gui, graphics (drawing on a display), sound, network, hardware, os-services or other.
 - surface: every construct or library operation beyond today's Silver that the program needs, from this list:
 ${Object.entries(SURFACE).map(([id, text]) => `  ${id}: ${text}`).join('\n')}

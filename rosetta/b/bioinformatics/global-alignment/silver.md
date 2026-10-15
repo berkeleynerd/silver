@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is bounded by declared capacities and guards on stored lengths, with no recursion, so checks follow from types and local guards, but several loop-carried offsets and the while-loop permutation need careful shaping.
 
-Position 862 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 861 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

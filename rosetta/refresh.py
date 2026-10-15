@@ -386,6 +386,8 @@ ADMISSION = {
     "while-loops": "Which while and exit-when loops are admitted, only in procedures, and how is every check on "
                    "a loop-carried value guarded where it is used?",
     "block-statements": "Are declare blocks admitted with the same declaration rules as Main?",
+    "local-exceptions": "Which locally handled explicit raises preserve definite initialization and path facts, "
+                        "while every language-mandated check still proves and no exception crosses a call?",
     "procedures": "Which procedures and parameter modes are admitted, and is each body proved for every value "
                   "of its parameter types, with its own guards, or in the context of each call?",
     "functions": "Which functions are admitted, given that every loop and call inside a function must provably "
@@ -527,9 +529,16 @@ def assessment(task: dict, assessed: dict, policy: dict) -> str:
     how = f"{assessed['model']} at {assessed['effort']} effort"
     if assessed.get("escalated_from"):
         how += f", escalated from {assessed['escalated_from']}"
-    lines += [f"Assessed on {assessed['assessed']} against page revision {assessed['revision']} of the "
-              f"[task]({task['url']}) by {how}; confidence {assessed['confidence']}. The inclusion policy "
+    attribution = "Initially assessed" if assessed.get("review") else "Assessed"
+    lines += [f"{attribution} on {assessed['assessed']} against page revision {assessed['revision']} of the "
+              f"[task]({task['url']}) by {how}; "
+              + ("current " if assessed.get("review") else "")
+              + f"confidence {assessed['confidence']}. The inclusion policy "
               "is in `rosetta/coverage.json`."]
+    if review := assessed.get("review"):
+        up = "../" * len(task["path"].split("/"))
+        lines += ["", f"Revised on {review['date']} by Codex through targeted source review; "
+                  f"see the [review record]({up}{review['record']})."]
     if silver["stale"]:
         lines += ["", f"The page has changed since (now revision {task['revision']}); reassess it."]
     return "\n".join(lines) + "\n"
@@ -702,12 +711,14 @@ def progression_page(manifest: list[dict], order: list[tuple[dict, list[str]]], 
         else:
             lines += [f"Needs nothing beyond {baseline}.", ""]
         flagged = collections.Counter(obligation for item in items
-                                      for obligation in {r["obligation"] for r in item["assessed"]["risks"]})
+                                      for obligation in dict.fromkeys(
+                                          r["obligation"] for r in item["assessed"]["risks"]))
         plausible = sum(item["assessed"]["outlook"] == "plausible" for item in items)
         notes = []
         if flagged:
             notes.append("The assessments flag " + listed([f"{name.replace('-', ' ')} in {count}"
-                                                            for name, count in flagged.most_common(4)])
+                                                            for name, count in sorted(
+                                                                flagged.items(), key=lambda pair: (-pair[1], pair[0]))[:4]])
                          + f" of its {len(items)} sample{'s' * (len(items) != 1)}.")
         if plausible:
             notes.append(f"{plausible} of {len(items)} {'are' if plausible != 1 else 'is'} only plausible"

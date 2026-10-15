@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by small fixed sizes and ranged score types, and every index is guarded, so no annotation is needed. The 2D array, clamped max computations and the reversed traceback buffers need careful shaping, hence plausible rather than likely.
 
-Position 728 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 727 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

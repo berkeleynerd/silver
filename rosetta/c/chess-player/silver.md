@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing in the task conflicts with the Oracle, and all checks come from board bounds, fixed capacities and guards, but the program is large and the iterative search must avoid recursion and function loops, so discharge depends on careful program shape.
 
-Position 1476 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1476 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 

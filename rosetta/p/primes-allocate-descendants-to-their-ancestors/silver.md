@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is in bounded arrays with for-loop indexes, and the only loop-carried arithmetic (products and fill counters) is covered by explicit capacity and overflow guards, so it should prove without annotations but needs careful shape.
 
-Position 430 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 429 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

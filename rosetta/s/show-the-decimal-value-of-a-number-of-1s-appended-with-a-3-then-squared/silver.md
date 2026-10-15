@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is eight fixed values with a single squaring, so overflow and index checks follow directly from the declared subtype ranges and the for loop over the array's own range. The only new needs are integer-to-text conversion and bounded string building.
 
-Position 72 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 71 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

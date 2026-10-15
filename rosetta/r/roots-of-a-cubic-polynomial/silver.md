@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line bounded floating-point arithmetic with a for loop over embedded data and no recursion or annotation-requiring loops, so it should prove if the float ranges are bounded and elementary functions carry admitted contracts, but floating-point proof effort makes it plausible rather than likely.
 
-Position 1113 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1112 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

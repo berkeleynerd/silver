@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by constant tables and a wide declared integer range, loops are for loops over array ranges, and output is plain text, so all checks follow from types and static bounds. The only care needed is the 64-bit product range and fixed-width cell buffer lengths.
 
-Position 460 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 459 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

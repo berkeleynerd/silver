@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index follows from for loops over the arrays' own ranges, but the float arithmetic carried across steps needs a guard before each loop-carried operation, so the proofs hinge on careful program shape rather than annotations.
 
-Position 1110 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1109 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

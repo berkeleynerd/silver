@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by declared subtypes (p, q at most 600, r at most about 253,000), all loops are for loops or in procedures, and the only non-routine part is guarded string padding, so checks discharge from types and guards.
 
-Position 363 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 362 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

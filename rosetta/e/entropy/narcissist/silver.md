@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every integer check follows from range-limited types and an explicit size cap, but the floating-point entropy sum needs Log preconditions and accumulator bounds to be shown through guards alone, which makes discharge depend on careful program shape rather than being routine.
 
-Position 1448 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1448 in the [progression](../../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

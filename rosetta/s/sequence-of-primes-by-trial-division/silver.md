@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only for loops over statically bounded ranges are used, so termination needs no variant, the divisor D is at least 2 so the mod has no division-by-zero check to fail, and the loop-carried state is a Boolean.
 
-Position 115 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 114 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, the array's static capacity and simple guards just before each increment, and the unbounded search runs in a procedure, so it needs no annotation. The required results stay far below the documented limits.
 
-Position 217 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 216 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

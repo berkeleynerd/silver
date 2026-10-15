@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled integers with cross-multiplication replace floating point and division, so all checks follow from the coordinate subtype bounds and bounded for-loops with no loop-carried value needing an invariant.
 
-Position 619 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 618 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

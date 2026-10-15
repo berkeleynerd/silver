@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a for loop over the constant's own range and there are no accumulators, so all checks follow from types and static bounds. The task needs only console output, and a self-embedding quine satisfies it without file access or any annotation.
 
-Position 484 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 483 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

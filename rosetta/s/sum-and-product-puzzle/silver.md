@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop over declared ranges with fixed-size arrays, so index and overflow checks follow from types and one saturating-counter guard, and no variants or recursion are needed.
 
-Position 100 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 99 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

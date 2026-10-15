@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on 0..255 subtypes with loops over the array's own ranges, and the only division is guarded by a test just before it, so every check follows from types and guards. The task does not require a specific image format or display, so embedded data and text output meet it.
 
-Position 673 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 672 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

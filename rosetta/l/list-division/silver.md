@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loops and explicit guards on n, but the bounded offset arithmetic in nested loops needs careful shape so provers see the indexes stay in range, and no annotations are required.
 
-Position 1354 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1353 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

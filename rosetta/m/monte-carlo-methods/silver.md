@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from range subtypes, a mod-bounded generator state and a guarded counter increment, with only integer arithmetic and for loops in a procedure, so no annotation is needed.
 
-Position 1537 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1537 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 

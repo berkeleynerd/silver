@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by a ranged subtype and every loop is a static-bound for loop, so overflow, division and termination checks follow from types alone with no annotations.
 
-Position 328 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 327 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

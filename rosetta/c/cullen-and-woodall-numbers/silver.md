@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is computed fresh from a loop index whose range is declared, so overflow and range checks follow from types and static bounds, needing no invariants. Only the plain Put and 'Image surface are new.
 
-Position 1504 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1504 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

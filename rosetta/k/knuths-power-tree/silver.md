@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over bounded arrays with for loops, so checks follow from subtypes and guards, but the nested carry loops in bignum multiplication and the tree construction need careful range shaping. No annotation is required, hence plausible rather than likely.
 
-Position 1396 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1395 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

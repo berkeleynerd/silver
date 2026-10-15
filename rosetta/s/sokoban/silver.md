@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from declared grid bounds, modular hash arithmetic and explicit capacity guards, and all loops sit in procedures so no termination variants are needed, but the many loop-carried queue indexes and large arrays make the shape demanding.
 
-Position 1320 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1319 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

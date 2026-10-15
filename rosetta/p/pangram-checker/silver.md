@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over the string's own range and from character-range guards placed just before computing the letter index, and for loops need no termination annotation.
 
-Position 972 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 971 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

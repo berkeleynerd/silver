@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges with array indices bounded by declared subtypes, so no annotations are needed, and the only loop-carried value is a small counter that a guard or subtype bound keeps safe.
 
-Position 355 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 354 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

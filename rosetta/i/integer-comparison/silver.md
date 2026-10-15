@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** After validated parsing, the program only compares two Integer values, which raises no run-time checks, so every obligation follows from the parse operation's contract and explicit rejection of invalid input.
 
-Position 1442 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1442 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

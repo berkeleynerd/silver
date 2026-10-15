@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and for-loop indexes except the loop-carried divisor sum and the comma-formatting buffer, which need careful guards but no annotation. The prime-count loop is heavy at runtime but not a proof concern.
 
-Position 930 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 929 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

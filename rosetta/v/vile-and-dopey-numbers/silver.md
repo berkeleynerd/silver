@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges, fixed-length for loops and arrays indexed by guarded counts, with no recursion and no annotations needed, so proofs should discharge routinely. The only care needed is keeping the loop-carried counters in wide types and avoiding a while loop inside the function.
 
-Position 361 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 360 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

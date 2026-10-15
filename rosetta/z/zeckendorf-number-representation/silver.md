@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded remainder subtype, a guard comparing it to the array element just before each subtraction, and for-loop indexes over the array's own range, with no loop-carried value needing an invariant. The only added surface is basic integers, a constant array, for loops, integer-to-text conversion and non-newline output.
 
-Position 88 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 87 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

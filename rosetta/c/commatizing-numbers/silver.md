@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded character scanning and copying in procedures with ranged indices and capacity guards, needing no annotations, though several loop-carried positions need careful typing and guards.
 
-Position 578 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 577 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

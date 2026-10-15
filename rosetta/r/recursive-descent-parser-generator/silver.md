@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be made to follow from declared capacities and guards placed just before indexing, appending and incrementing, and recursion lives only in procedures with an explicit depth limit, but the many loop-carried cursors in two text-processing programs make discharge depend on careful shape, so the outlook is plausible.
 
-Position 1566 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1566 in the [progression](../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 

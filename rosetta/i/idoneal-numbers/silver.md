@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 1..1850 subtypes, the bounded products and the explicit guard before the array store, and all loops are for loops in a procedure, so no annotation is needed.
 
-Position 1545 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1545 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 

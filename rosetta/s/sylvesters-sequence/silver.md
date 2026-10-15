@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all loops are for loops in procedures over fixed-size digit arrays, but terms reach about 10^104 and the fraction about 10^208, so a fixed-capacity decimal bignum with nested-loop multiplication is needed and discharge depends on careful guards and bounded carry types.
 
-Position 1026 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1025 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

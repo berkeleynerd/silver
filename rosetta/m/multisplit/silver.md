@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged position subtypes, fixed capacities and guards placed just before each slice comparison, but several loop-carried positions need careful guards, so the outlook is plausible rather than likely.
 
-Position 1488 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1488 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

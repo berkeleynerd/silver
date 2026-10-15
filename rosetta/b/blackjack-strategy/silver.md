@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be bounded by types (single deck, at most a handful of cards per hand, 365*50 hands) and the recursion is replaced by an explicit stack in procedures, but float probability accumulation, the stack-index guards and split and double rule handling make the proof shape demanding though annotation-free.
 
-Position 1209 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1208 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

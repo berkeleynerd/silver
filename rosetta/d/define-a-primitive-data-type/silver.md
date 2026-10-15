@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a declared range type with checked conversions, which follows directly from types and guards placed just before each conversion or addition, so proofs should discharge routinely.
 
-Position 48 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 45 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

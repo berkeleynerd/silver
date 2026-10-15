@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Small integer arrays, exact rational arithmetic and for loops with bounded ranges let every check follow from types and guards, but accumulator guards and decimal formatting need careful shape, so plausible rather than likely.
 
-Position 413 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 412 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

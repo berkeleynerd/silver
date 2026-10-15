@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from small ranged subtypes, a fixed capacity of 7 and guards before each index update, and the while loop sits in a procedure so no termination proof is needed; the careful shape of the loop-carried binary-search bounds keeps this at plausible rather than likely.
 
-Position 1359 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1358 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

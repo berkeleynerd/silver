@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is closed-form geometry with no loops or recursion, so the only non-routine checks are float range, sqrt domain and division, which tightly ranged subtypes and explicit guards should discharge, though floating-point keeps it at plausible rather than likely.
 
-Position 1092 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1091 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from character-range guards, a length guard before indexing, and a sum that stays in a 0..9 subtype, with only for loops and no recursion, so no annotation is needed; the main gaps are Silver surface (functions, loops, character and string indexing, unconstrained String parameters).
 
-Position 984 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 983 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

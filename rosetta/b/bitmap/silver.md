@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index or a subtype range, discharged by for-loop bounds over the array's own ranges or by a guard just before the access, and nothing needs a loop invariant, recursion or heap, so the proofs should discharge routinely.
 
-Position 894 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 893 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

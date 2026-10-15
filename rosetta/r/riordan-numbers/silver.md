@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first 32 terms peak near 1.3e12, so a 64-bit ranged type with a pre-store guard lets every overflow, range and division check discharge without annotations, with only the loop-carried recurrence needing careful shape.
 
-Position 165 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 164 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

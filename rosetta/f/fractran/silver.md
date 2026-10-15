@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and array scanning that guards can make safe, but parsing with loop-carried cursors and the overflow cap on the growing value need careful guard placement and no annotations. Extra-credit prime output grows past 64 bits, so only the base task is reliably in range.
 
-Position 1140 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1139 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

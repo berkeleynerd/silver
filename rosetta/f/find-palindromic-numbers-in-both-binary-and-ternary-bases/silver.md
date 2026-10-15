@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-size digit arrays, bounded for loops and a capped 64-bit accumulator guard, though the loop-carried value accumulation needs careful guard placement and the 90396755477 target requires 64-bit integers.
 
-Position 259 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 258 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

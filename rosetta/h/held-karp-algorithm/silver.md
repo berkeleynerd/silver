@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by a fixed city count and small integer ranges, using only for loops and a procedure, so checks follow from types and guards without any variant or invariant; the main risk is the loop-carried mask and city in path reconstruction.
 
-Position 717 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 716 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

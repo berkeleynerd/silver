@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded for loop or a mod-bounded index over a small fixed buffer with embedded N values, so checks come from types and local guards and no invariant is needed. The only care points are the loop-carried depth counter and the generator arithmetic, which need range-bounded types or a guard.
 
-Position 1004 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1003 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

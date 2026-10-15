@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data are fixed-size arrays and ranged integers with loops bounded by constants, so every index and overflow check follows from types and no loop needs a variant or invariant; the only care needed is declaring ranges on several loop-carried counters.
 
-Position 349 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 348 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and range check follows from the field's subtypes and a border guard placed before each neighbour access and step, and no loop-carried fact needs an invariant, but the walk and generator arithmetic need careful shaping. It is plausible rather than likely because of the nested loop-carried coordinates and the modular arithmetic.
 
-Position 1188 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1187 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

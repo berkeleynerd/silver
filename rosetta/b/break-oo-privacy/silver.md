@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The child-package "friend" mechanism is ordinary Ada that bypasses privacy without reflection or unchecked conversion, and every check is a static fixed-length String operation, so proofs discharge trivially.
 
-Position 1465 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1465 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

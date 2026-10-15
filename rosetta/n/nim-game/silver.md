@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by the 0..12 subtype or a guard just before use, and the loops sit in procedures, but the loop-carried token count and the line parsing need careful guards, so discharge depends on program shape.
 
-Position 1236 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1235 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

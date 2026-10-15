@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and array indexing with guards placed immediately before use, in a procedure so no loop variants are needed, but several loop-carried indexes and counters need careful guarding and the nested loops make the proof shape delicate. Larger sample indices (10000, 100000) only raise the fixed capacity, not the proof difficulty.
 
-Position 246 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 245 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

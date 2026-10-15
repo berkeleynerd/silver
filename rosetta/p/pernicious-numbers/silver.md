@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All operands are bounded by declared integer ranges and for-loop ranges, with no recursion or while loops, so only the unannotated accumulator needs a small explicit guard to discharge.
 
-Position 371 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 370 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

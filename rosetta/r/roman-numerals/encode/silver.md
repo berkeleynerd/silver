@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the Number subtype range, constant tables and a capacity guard before each append, with the while loop confined to a procedure, but the loop-carried position and remaining value make discharge depend on careful program shape.
 
-Position 1003 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1002 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

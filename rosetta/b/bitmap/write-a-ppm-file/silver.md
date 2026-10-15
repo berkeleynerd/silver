@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and conversions follow from constant dimensions, for-loop ranges over the array's own bounds and 0..255 channel subtypes, so only the missing binary file-output library operation stands between Silver and this program.
 
-Position 1424 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1424 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

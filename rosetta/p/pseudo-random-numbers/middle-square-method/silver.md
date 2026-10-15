@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The seed's declared range bounds the square below 10**12, so no overflow or range check needs a loop invariant, and the five-iteration for loop terminates by itself. The only new surface is ranged subtypes, integer arithmetic, a procedure and 'Image output.
 
-Position 119 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 118 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

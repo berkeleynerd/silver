@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be bounded by types and pre-operation guards using exact integer arithmetic instead of floats, but the many loop-carried values in the Hensel lift and Lagrange reduction need careful guards, so it is plausible rather than likely.
 
-Position 645 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 644 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

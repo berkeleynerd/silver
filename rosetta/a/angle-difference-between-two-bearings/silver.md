@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled-integer arithmetic over ranged subtypes turns every check into a type-range or guard fact, and the only loop is a for loop over a fixed array, so no annotation is needed.
 
-Position 161 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 160 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

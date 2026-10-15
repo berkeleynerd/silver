@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded digit-array arithmetic and a bounded substring scan, so checks follow from declared ranges and guards, but the carry loops and the length-guarded scanning require careful program shape.
 
-Position 1373 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1372 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

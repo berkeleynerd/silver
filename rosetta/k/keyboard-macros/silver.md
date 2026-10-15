@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index by Character or a guarded line index, with no contracts needed, since all loops are in procedures and the dispatch is a plain case statement. The GUI tag is satisfied by line-based key presses, so no window or raw keystrokes are required.
 
-Position 1222 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1221 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

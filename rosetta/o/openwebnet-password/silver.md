@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is on a wraparound modular type inside a for loop over the string's own range, so no check depends on a loop-carried fact beyond type ranges, and the only guard is the digit test on each nonce character.
 
-Position 1282 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1281 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

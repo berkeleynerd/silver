@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no conflicts, since recursion and pointers can be replaced by array-backed nodes and explicit bounded stacks and queues in procedures, and the checks are index and capacity guards on loop-carried tops. Plausible rather than likely because several loop-carried stack and queue indices need careful guards and the postorder state logic is delicate.
 
-Position 832 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 831 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

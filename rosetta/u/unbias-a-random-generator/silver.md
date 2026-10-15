@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from modular wraparound, a ranged N and guarded counter increments, and the unbounded retry loop needs no variant because it lives in a procedure; it is plausible rather than likely only because the loop-carried counters need explicit guards.
 
-Position 1301 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1300 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

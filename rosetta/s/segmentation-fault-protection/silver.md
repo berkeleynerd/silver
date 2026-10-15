@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks to showcase segfault protection, which Silver provides by proving index checks, so a guarded array access with a visible rejection outcome meets it without any crash. Every check follows from the static array bounds and a guard immediately before the index.
 
-Position 51 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 50 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

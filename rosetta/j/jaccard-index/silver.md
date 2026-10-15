@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, for-loop ranges over them and a zero-union guard, and the exact-decimal output via scaled integers avoids floating point; the only non-routine point is the loop-carried intersection counter, which a visible guard keeps in range.
 
-Position 710 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 709 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

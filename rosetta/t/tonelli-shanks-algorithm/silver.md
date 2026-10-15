@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The five required cases fit 64-bit arithmetic when p is limited to below 2**31, and all loops can be bounded for loops or procedure loops, so proofs should discharge with careful range-subtype guards; the 10^50 extra credit would need big numbers and is optional.
 
-Position 634 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 633 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

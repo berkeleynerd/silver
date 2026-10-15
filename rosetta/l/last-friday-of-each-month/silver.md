@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic over a validated year with a fixed 12-iteration for loop, so all checks follow from types and guards just before use, with only the argument parse loop needing a careful guard.
 
-Position 1126 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1125 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 

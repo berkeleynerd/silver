@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded length subtypes and for-loop index ranges over the array's own bounds, and the functions need only terminating for loops, so no annotation is required. The required surface (records, arrays, slices, string ordering) is plain Ada with no loop-carried values.
 
-Position 1480 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1480 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

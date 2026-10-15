@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada has few implicit conversions (literals and subtype widening), so a faithful demonstration uses only constants, subtype ranges and guarded explicit conversions that GNATprove discharges from types and guards, with no loops or recursion.
 
-Position 73 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 72 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

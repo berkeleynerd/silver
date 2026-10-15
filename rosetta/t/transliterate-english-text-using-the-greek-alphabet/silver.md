@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are string-index bounds that the loop condition and an explicit lookahead guard establish, with no nonlinear arithmetic, and the loop sits in a procedure so no variant is needed; the only new surface is Character handling, string indexing, case statements and Put.
 
-Position 998 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 997 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

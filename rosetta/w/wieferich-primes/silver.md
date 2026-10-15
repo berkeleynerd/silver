@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every operand is bounded by declared subtypes (N below 5000, residue below 25 million), so the overflow, range and division checks follow from types and loop bounds with no invariant needed.
 
-Position 764 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 763 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

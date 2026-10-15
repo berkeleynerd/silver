@@ -151,6 +151,13 @@ whenever the progression is re-rendered, so update the Stage field after each
 re-render and do not put stage numbers in titles or links. Create stage issues
 for the next few stages only, and sample sub-issues only for the active stage.
 
+Generated stages and owner-selected milestones can differ. Record the mapping
+in the roadmap and stage issue when a coherent milestone spans stages or admits
+only part of a broad construct identifier. Keep the remaining forms and samples
+explicit; do not mark the whole identifier supported until its assessed uses
+are covered, or the identifier and assessments have been split to describe the
+delivered fragment accurately. A re-render does not authorize the next stage.
+
 When a milestone admits a construct, add its identifier to `supported` in
 [rosetta/coverage.json](../rosetta/coverage.json), update the description of
 today's Silver in `rosetta/assess.js`, run `python3 rosetta/refresh.py --render`,

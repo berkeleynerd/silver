@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing, arithmetic and validation follow from small constant ranges and guards placed just before use, and the only loop-carried counters are small and guardable, so no annotation is needed; the program does depend on a stdin-line operation with a defined end-of-input outcome and on bounded-buffer string handling that Silver lacks today.
 
-Position 1237 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1236 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

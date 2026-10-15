@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and bound follows from Character-indexed tables and for loops, with no while loops or recursion, so the only non-routine checks are loop-carried tallies and counters, which saturating guards bound without altering results.
 
-Position 1012 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 1011 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

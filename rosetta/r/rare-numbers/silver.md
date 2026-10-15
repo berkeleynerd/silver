@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and guards just before each operation, but the reversal accumulator and square-root search are loop-carried nonlinear arithmetic needing careful range-bounded types, and running to 2e9 is slow though not a proof issue.
 
-Position 403 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 402 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

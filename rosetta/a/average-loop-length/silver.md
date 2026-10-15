@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound loops over small ranges with typed integer and float data, but the float formatting and the loop-carried total and error computations need careful range guards.
 
-Position 1077 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1076 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

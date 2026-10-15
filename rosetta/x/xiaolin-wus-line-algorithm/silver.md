@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no required I/O beyond drawing, so text art from an integer fixed-point version needs only bounded arithmetic, for loops and guarded array indexing, which should discharge without annotations. The main care is bounding the loop-carried intersection value and keeping the plotted rows in range, so the outlook is plausible rather than likely.
 
-Position 939 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 938 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

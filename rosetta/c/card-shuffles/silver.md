@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small bounded integer work on a fixed 52-element array, so checks reduce to types and guards before each index, but loop-carried cursors need careful shaping without invariants.
 
-Position 469 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 468 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
