@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-15 — Expression Headroom experiment complete
+
+The owner authorized retrying the two retained 64-leaf failures with a larger
+solver-step budget, measuring time and memory before deciding whether restrictions
+or proof refactoring are needed. The [roadmap](../roadmap.md#expression-headroom--solver-budget-experiment-complete)
+and [experiment record](expression-headroom.md) close the bounded comparison:
+both fresh 10,000-step controls reproduced their failure, and both 100,000-step
+runs proved completely with modest memory use. The recorded failures were search
+budget failures, not demonstrated RAM exhaustion. The old runtime snapshots were
+preserved deliberately, so these results are not current-runtime validation.
+
+Production settings and admission remain unchanged. The larger-expression
+capability still needs its own current-runtime, composition and assurance work;
+try a modest solver-budget adjustment before considering a proof refactor.
+Recovery is `tmp/expression-headroom-active.json`. Preserve originals, isolated
+results/caches and canonical native/Lean evidence. Publication authorization
+persists. No replacement harness goal was explicitly requested; the historical
+goal remains complete. CLI memory tools remain unavailable; checked-in memory and
+RESUME carry this handoff. macOS and hosted CI remain out of scope.
+
 ## 2026-10-15 — Admission Repairs complete
 
 The owner-authorized response to review `e2c4fc2` is complete in one milestone.

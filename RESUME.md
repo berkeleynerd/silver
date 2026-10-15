@@ -6,6 +6,18 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Expression Headroom experiment complete
+
+The authorized step-budget comparison is complete. Both retained 64-leaf failures
+reproduced at 10,000 steps and proved at 100,000 steps, using modest memory.
+The [record](docs/expression-headroom.md) gives the measurements and the scope of
+the retained runtime. Production settings and language admission remain unchanged;
+the larger-expression extension remains proposed. Recovery is
+`tmp/expression-headroom-active.json`; preserve its fresh isolated results/caches
+and the original cases. No current compiler or Lean inputs changed, so the
+Admission Repairs checkpoint below remains the current implementation evidence.
+Publication remains authorized; no new harness goal was explicitly requested.
+
 ## Admission Repairs complete
 
 The owner-authorized response to review `e2c4fc2` is complete as one milestone.

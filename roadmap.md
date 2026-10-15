@@ -14,6 +14,27 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Expression Headroom — solver-budget experiment complete
+
+On 2026-10-15 the owner authorized retrying the two retained 64-leaf failures
+with a larger solver-step allowance before considering language changes or proof
+refactoring. The bounded investigation is complete; it does not expand admission.
+
+Fresh sequential 10,000-step controls reproduced both failures. At 100,000 steps,
+both exact retained programs proved all 63 Main checks: dynamic in 55.857 seconds,
+static in 46.187 seconds. Sampled total process RSS peaked at 1.22 GiB or less.
+The previously failing checks used 10,738 and 11,609 normalized Z3 steps. These
+were search-budget failures, not demonstrated memory exhaustion. No run reached
+its external ten-minute experiment budget.
+
+The result favors a modest solver-budget adjustment as the first candidate for
+larger-expression work; these failures do not justify a broad proof refactor or
+more RAM. Existing 16-leaf/30-concatenation admission limits and production solver
+options remain unchanged. The retained runtime is historical; current-runtime
+and larger-fragment assurance remain follow-ups before any admission expansion.
+See the [experiment record](docs/expression-headroom.md) for exact scope and memory
+accounting. The broader expression-capacity item remains proposed.
+
 ### Admission Repairs — complete
 
 The owner authorized one bounded repair milestone on 2026-10-14 following the
@@ -327,7 +348,7 @@ complete assurance and validation described below.
 | --- | --- | --- |
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
-| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. Larger expressions remain deferred: 64 dynamic occurrences exhausted all three solvers, and a 64-leaf static mutable case also left a check unproved. Resolve those failures before admitting the larger fragment; successful smaller examples are not universal solver bounds. |
+| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. The [step-budget experiment](docs/expression-headroom.md) resolves both retained 64-leaf failures at 100,000 steps with their historical runtime; 10,000-step controls still fail. Production retains 10,000 steps. Larger expressions remain deferred pending current-runtime and full-fragment assurance, including compositions and report capacity; two successful specimens are not universal solver bounds. |
 | Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the subsequently completed 782-assignment specimen: 826 proved checks, 2,013,253-byte report (96.0%), 83,899 bytes remaining; reviewer-reported 33.6 minutes and 6.1 GiB. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
