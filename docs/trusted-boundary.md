@@ -44,7 +44,7 @@ that a configured pathname selects the intended executable.
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
-| Shell and inherited environment | `/bin/sh` interpretation behind `system`, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |
+| Shell and inherited environment | `/bin/sh` interpretation behind `system` for proof/build tools, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Application arguments use direct runtime spawning. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |
 | Python setup and generated `Silver_Build` | Correct installation anchoring, byte encoding, shell quoting, and external command prefix | Generated declarations are included in SPARK verification and evidence hashes. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |
 | Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound results detect stale/mismatched evidence; detailed Lean provenance is optional. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |
 | Lean 4.34.1 kernel, local object cache and source embedding | Kernel checking, correctly built imported objects, source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, source dependencies and fresh actual-import/axiom audit. Separate `leanchecker` replay is optional for investigations and explicit audits. No project-specific axioms or unfinished proofs are permitted. |
@@ -93,7 +93,7 @@ used to invoke Alire. Verification checks their use as SPARK values; bootstrap's
 choice of the installation and intended external tools remains reviewed
 configuration. `Silver_Library_Sources` contains the exact selected runtime
 source bytes, checked against the current installation by the audit.
-Three additional SPARK specifications declare existing external
+Four additional SPARK specifications declare existing external
 entry points; none has a Silver-owned implementation body.
 
 | Binding in `silver_libc.ads` | Existing libc symbol | Purpose |
@@ -103,7 +103,7 @@ entry points; none has a Silver-owned implementation body.
 | `C_Put` | `fputc` | Write a byte |
 | `C_Error` | `ferror` | Distinguish EOF from a read error |
 | `C_Close` | `fclose` | Close a stream and detect close/write errors |
-| `C_System` | `system` | Invoke the configured external tools or executable |
+| `C_System` | `system` | Invoke the configured proof/build tools |
 | `C_Mkdir` | `mkdir` | Create the `.silver` and native host parent directories |
 | `C_Mkdtemp` | `mkdtemp` | Atomically create a unique private workspace |
 
@@ -112,6 +112,11 @@ entry points; none has a Silver-owned implementation body.
 | `Argument_Count` | `ada__command_line__argument_count` | A nonnegative, stable argument count |
 | `Argument` | `ada__command_line__argument` | Return the requested argument when its index is in range |
 | `Set_Exit_Status` | `__gnat_set_exit_status` | Set the process exit status |
+
+| Binding in `silver_process_runtime.ads` | Existing GNAT runtime symbol | Behavior relied upon |
+| --- | --- | --- |
+| `Spawn` | `system__os_lib__spawn__2` | Copy the argument values, spawn the named executable, wait and return the runtime's process result |
+| `Free_List` | `system__strings__free__2` | Free each owned string and the argument list, then clear the caller's pointer |
 
 The two argument imports use the GNAT Ada calling convention, including its ABI
 for an unconstrained `String` result. Exit-status and libc imports use the C
@@ -122,6 +127,42 @@ With assertion checking enabled, GNAT may generate a precondition-checking
 wrapper for `Argument` from its imported declaration. A bodyless Silver interface
 does not imply that its compiled object contains no code; this wrapper belongs
 to the trusted compiler's contract expansion.
+
+### Application process boundary
+
+The process imports also use the GNAT Ada convention. Silver's pool-specific
+access types must be ABI-compatible with `System.Strings`' access-all types for
+unconstrained Strings and positive-indexed String-access arrays. Their default
+heap allocation and runtime deallocation must also be compatible.
+`Run_Application` allocates the list and each copied argument under SPARK
+ownership rules and releases them through the existing
+runtime operation; it introduces no Silver-owned unchecked-deallocation body.
+The runtime copies values before its platform normalization. On the supported
+Unix platforms, that operation must preserve every supplied argument byte and
+boundary, including empty strings, whitespace, quotes and control bytes, without
+shell interpretation. Native validation retains its actual host scope.
+
+Immediately before `Spawn`, a Static assertion establishes exact equality
+between each copied argument and the corresponding original runtime argument.
+That assertion is a native SPARK obligation over the owned copy loop, not an
+imported semantic assumption. The executable path is the previously checked
+published path. OS argument strings cannot contain NUL; the copy loop also
+checks for NUL and returns without spawning if it finds one. There is no
+additional Silver command-buffer limit on this forwarding path.
+Successful allocation, representable runtime
+argument storage, and the OS argument/environment size and process limits remain
+resource premises. Allocation exceptions may still escape the normal diagnostic
+path, as with the existing compiler buffers.
+
+The driver preserves returned statuses `0 .. 255`; other returned results map
+to its infrastructure status 3. The runtime can report status 1 both for an
+application exiting with 1 and for failure to execute the requested image.
+Consequently the nonzero diagnostic reports the status without identifying
+specified `Reject`, output failure or launch failure. Signals and other abnormal
+process outcomes retain the runtime's result semantics; this is not a promise to
+reproduce a child's terminating signal in the compiler process.
+
+### Argument and I/O observations
 
 The argument vector is modeled as immutable: neither the compiler nor an
 admitted application calls the runtime operation that removes arguments, and
@@ -165,7 +206,8 @@ GNAT's generated binder, startup, linker, and runtime code remain trusted. There
 is no claim that the imported C bodies or the whole operating system have been
 verified in SPARK. External process completion and successful resource allocation
 are infrastructure conditions rather than new Silver membership restrictions.
-Explicitly detected failures use the driver's failure status. Resource exhaustion
+Detected compiler infrastructure failures use the driver's failure status;
+application process results follow the boundary above. Resource exhaustion
 or external runtime exceptions can still terminate the process outside that
 ordinary diagnostic path.
 

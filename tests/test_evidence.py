@@ -596,17 +596,31 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_trusted_import_allowance_pins_symbols_and_contracts(self) -> None:
         root = Path(__file__).resolve().parents[1]
-        for unit, symbol in (("silver_libc", "fopen"), ("silver_runtime", "__gnat_set_exit_status"),
-                             ("silver_output_libc", "putchar")):
+        for unit, symbols in (("silver_libc", ("fopen",)),
+                              ("silver_runtime", ("__gnat_set_exit_status",)),
+                              ("silver_output_libc", ("putchar",)),
+                              ("silver_process_runtime", ("system__os_lib__spawn__2",
+                                                          "system__strings__free__2"))):
             target = self.path / (unit + ".ads")
             original = (root / "src" / target.name).read_text()
             target.write_text(original)
             audit_import_spec(target)
-            for external_name in ('"unreviewed_wrapper"', '"f open"', '"f--comment\nopen"'):
-                with self.subTest(unit=unit, external_name=external_name):
-                    target.write_text(original.replace('"' + symbol + '"', external_name))
-                    with self.assertRaises(EvidenceError):
-                        audit_import_spec(target)
+            for symbol in symbols:
+                for external_name in ('"unreviewed_wrapper"', '"f open"', '"f--comment\nopen"'):
+                    with self.subTest(unit=unit, symbol=symbol, external_name=external_name):
+                        target.write_text(original.replace('"' + symbol + '"', external_name))
+                        with self.assertRaises(EvidenceError):
+                            audit_import_spec(target)
+            if unit == "silver_process_runtime":
+                for before, after in (("Pre => Program_Name'Length > 0", "Pre => True"),
+                                      ("Post => Args = null", "Post => Args /= null"),
+                                      ("type String_Access is access String;",
+                                       "type String_Access is access constant String;")):
+                    with self.subTest(unit=unit, changed=before):
+                        self.assertIn(before, original)
+                        target.write_text(original.replace(before, after))
+                        with self.assertRaises(EvidenceError):
+                            audit_import_spec(target)
             target.write_text(original)
             target.with_suffix(".adb").write_text("package body Unreviewed is end Unreviewed;")
             with self.subTest(unit=unit, body=True), self.assertRaises(EvidenceError):
@@ -631,7 +645,8 @@ class ProofEvidenceTests(unittest.TestCase):
 
     def test_import_declaration_checks_cannot_be_waived(self) -> None:
         for unit, package in (("silver_libc", "Silver_Libc"),
-                              ("silver_output_libc", "Silver_Output_Libc")):
+                              ("silver_output_libc", "Silver_Output_Libc"),
+                              ("silver_process_runtime", "Silver_Process_Runtime")):
             with self.subTest(unit=unit):
                 report = copy.deepcopy(self.report)
                 names = [package, *sorted(TRUSTED_IMPORT_ENTITIES[unit])]
@@ -646,6 +661,18 @@ class ProofEvidenceTests(unittest.TestCase):
                 self.refresh_reports()
                 stats = audit_reports(self.path, {unit}, {unit})
                 self.assertEqual(stats["imported_entities"], len(names) - 1)
+                if unit == "silver_process_runtime":
+                    for index in range(2, len(names) + 1):
+                        missing = copy.deepcopy(report)
+                        missing["entities"].pop(str(index))
+                        missing["spark"].pop(str(index))
+                        target.write_text(json.dumps(missing))
+                        self.refresh_reports()
+                        with self.subTest(missing=names[index - 1]), self.assertRaisesRegex(
+                                EvidenceError, "missing approved import declaration coverage"):
+                            audit_reports(self.path, {unit}, {unit})
+                    target.write_text(json.dumps(report))
+                    self.refresh_reports()
                 report["flow"] = [{"severity": "high", "rule": "UNINITIALIZED", "how_proved": "flow"}]
                 target.write_text(json.dumps(report))
                 with self.assertRaises(EvidenceError):

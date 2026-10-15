@@ -10,6 +10,7 @@ with Silver_Build;
 with Silver_Output_Profile;
 with Silver_Libraries;
 with Silver_Catalogue;
+with Silver_Numbers;
 
 procedure Silver with SPARK_Mode => On is
    use Ada.Text_IO;
@@ -60,8 +61,10 @@ procedure Silver with SPARK_Mode => On is
         and then Observed (Observed'First .. Last) = Expected;
    end Same_Source;
 
-   procedure Compile (Source : String; Output_Mode, Run_After : Boolean)
+   procedure Compile
+     (Source : String; Output_Mode, Run_After : Boolean; Skip_Arguments : Natural)
      with Pre => (Runtime => Source'Length <= Silver_Profile.Max_Source_Length
+                    and then Skip_Arguments <= Silver_Runtime.Argument_Count
                     and then (if not Output_Mode then Silver_Profile.Is_Member (Source)),
                   Static => (if Output_Mode then Silver_Output_Profile.Is_Member (Source)
                              else Silver_Profile.Is_Member (Source)))
@@ -93,7 +96,6 @@ procedure Silver with SPARK_Mode => On is
          Shell_Directory : constant String :=
            Silver_Build.Quoted_Root_Directory & "/program-"
            & Directory (Directory'Last - 5 .. Directory'Last);
-         Executable_Command : constant String := Shell_Directory & "/bin/main";
          LF : constant Character := Character'Val (10);
          Project_Text : constant String :=
            "project Program is" & LF &
@@ -187,7 +189,8 @@ procedure Silver with SPARK_Mode => On is
          procedure Publish
            with Pre => (Runtime =>
              Valid_Path (Snapshot) and then Valid_Path (Report_Name)
-             and then Valid_Path (Executable) and then Valid_Command (Executable_Command)
+             and then Valid_Path (Executable)
+             and then Skip_Arguments <= Silver_Runtime.Argument_Count
              and then Report_Read and then not Report_Too_Long
              and then Report_Last <= Report'Length
              and then Report_Complete
@@ -208,15 +211,20 @@ procedure Silver with SPARK_Mode => On is
                    (Report (1 .. Report_Last), Application_Kind)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last))))
          is
-            Ran : Boolean;
+            Status : Integer;
          begin
             Put_Line ("Source: " & Snapshot);
             Put_Line ("Proof: " & Report_Name);
             Put_Line ("Executable: " & Executable);
             if Run_After then
-               Execute (Executable_Command, Ran);
-               if not Ran then
-                  Failure ("Execution failed: output failure or an external runtime/process failure.");
+               Run_Application (Executable, Skip_Arguments, Status);
+               if Status not in 0 .. 255 then
+                  Failure ("Execution failed: application did not exit normally.");
+                  return;
+               end if;
+               Silver_Runtime.Set_Exit_Status (Ada.Command_Line.Exit_Status (Status));
+               if Status /= 0 then
+                  Put_Line ("Execution returned status " & Silver_Numbers.Decimal (Status) & ".");
                   return;
                end if;
                Put_Line ("Execution completed successfully.");
@@ -346,8 +354,8 @@ begin
       Silver_Catalogue.Export;
       return;
    end if;
-   if Silver_Runtime.Argument_Count /= 2 then
-      Failure ("Usage: silver catalogue | silver {check|compile|run} SOURCE", 2);
+   if Silver_Runtime.Argument_Count < 2 then
+      Failure ("Usage: silver catalogue | silver {check|compile} SOURCE | silver run SOURCE [-- ARGUMENTS...]", 2);
       return;
    end if;
    declare
@@ -357,10 +365,18 @@ begin
       Last : Natural;
       Too_Long, Success : Boolean;
       Null_Accepted, Output_Accepted : Boolean;
+      Skip_Arguments : Natural := 2;
    begin
       if Command /= "check" and then Command /= "compile" and then Command /= "run" then
-         Failure ("Usage: silver catalogue | silver {check|compile|run} SOURCE", 2);
+         Failure ("Usage: silver catalogue | silver {check|compile} SOURCE | silver run SOURCE [-- ARGUMENTS...]", 2);
          return;
+      end if;
+      if Silver_Runtime.Argument_Count > 2 then
+         if Command /= "run" or else Silver_Runtime.Argument (3) /= "--" then
+            Failure ("Usage: silver catalogue | silver {check|compile} SOURCE | silver run SOURCE [-- ARGUMENTS...]", 2);
+            return;
+         end if;
+         Skip_Arguments := 3;
       end if;
       if not Valid_Path (Name) then
          Failure ("Infrastructure error: source path is empty, too long, or contains NUL.");
@@ -383,7 +399,7 @@ begin
       end if;
       Put_Line ("Accepted: silver.");
       if Command /= "check" then
-         Compile (Source (1 .. Last), Output_Accepted, Command = "run");
+         Compile (Source (1 .. Last), Output_Accepted, Command = "run", Skip_Arguments);
       end if;
    end;
 end Silver;

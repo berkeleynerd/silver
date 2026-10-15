@@ -114,18 +114,26 @@ class OutputIntegrityTests(unittest.TestCase):
                     changed.write_bytes(changed.read_bytes() + b"\\n-- changed during build\\n")
                 executable = workspace / "bin/main"
                 executable.parent.mkdir(parents=True)
-                executable.write_text("#!" + sys.executable + "\\nfrom pathlib import Path\\n"
+                if scenario.get("missing_executable"):
+                    raise SystemExit(0)
+                executable.write_text("#!" + sys.executable + "\\nimport json, os, sys\\nfrom pathlib import Path\\n"
                                       + "Path(" + repr(str(root / "run_invoked")) + ").touch()\\n"
-                                      + "print('Hello, world!')\\n")
+                                      + "Path(" + repr(str(root / "arguments.json")) + ").write_text("
+                                      + "json.dumps([os.fsencode(arg).hex() for arg in sys.argv[1:]]))\\n"
+                                      + "print('Hello, world!')\\n"
+                                      + ("os.kill(os.getpid(), " + repr(scenario["signal"]) + ")\\n"
+                                         if "signal" in scenario else "")
+                                      + "raise SystemExit(" + repr(scenario.get("exit_status", 0)) + ")\\n")
                 executable.chmod(0o755)
             else:
                 raise SystemExit("unexpected external tool")
             '''))
         alr.chmod(0o755)
 
-    def invoke_scenario(self, scenario: dict, command: str = "run") -> subprocess.CompletedProcess[str]:
+    def invoke_scenario(self, scenario: dict, command: str = "run",
+                        arguments: tuple[str | bytes, ...] = ()) -> subprocess.CompletedProcess[str]:
         (self.sandbox / "scenario.json").write_text(json.dumps(scenario))
-        for name in ("workspace", "proof_invoked", "build_invoked", "run_invoked"):
+        for name in ("workspace", "proof_invoked", "build_invoked", "run_invoked", "arguments.json"):
             (self.sandbox / name).unlink(missing_ok=True)
         # A caller-owned package with the same filename must not affect the
         # fixed installation selection. The fixture tool checks copied bytes.
@@ -133,11 +141,12 @@ class OutputIntegrityTests(unittest.TestCase):
         caller.mkdir(exist_ok=True)
         for name in LIBRARIES:
             (caller / name).write_text("caller-owned source must not be selected")
-        return subprocess.run([str(self.silver), command, str(self.source)], cwd=caller,
+        return subprocess.run([str(self.silver), command, str(self.source), *arguments], cwd=caller,
                               env=os.environ.copy(), capture_output=True, text=True, timeout=30)
 
-    def run_scenario(self, scenario: dict, command: str = "run") -> tuple[subprocess.CompletedProcess[str], Path]:
-        result = self.invoke_scenario(scenario, command)
+    def run_scenario(self, scenario: dict, command: str = "run",
+                     arguments: tuple[str | bytes, ...] = ()) -> tuple[subprocess.CompletedProcess[str], Path]:
+        result = self.invoke_scenario(scenario, command, arguments)
         output = result.stdout + result.stderr
         marker = self.sandbox / "workspace"
         self.assertTrue(marker.is_file(), output)
@@ -177,6 +186,61 @@ class OutputIntegrityTests(unittest.TestCase):
         self.assertTrue((self.sandbox / "run_invoked").exists())
         for name, original in self.originals.items():
             self.assertEqual((workspace / name).read_bytes(), original)
+
+    def test_run_forwards_exact_argument_vector(self) -> None:
+        # The real driver invokes a fixture child that records raw argv bytes.
+        # Tool reports are fixtures, so this does not repeat application proofs
+        # merely to exercise the driver's process boundary.
+        cases = ((), (b"",),
+                 (b"", b"two words", b"apostrophe's", b'"double quotes"',
+                  b"back\\slash", b"$HOME;|<>*?[]{}()", b"$(printf expanded)",
+                  b"`printf expanded`", b"--leading-dash", b"--"),
+                 (b"\t", b"line\nbreak", b"\r", b"\x7f", b"\x80", b"caf\xc3\xa9"),
+                 (b"'" * 4096,), (b"x" * 4097,), (b"",) * 8192)
+        for arguments in cases:
+            with self.subTest(argument_count=len(arguments),
+                              first_lengths=[len(argument) for argument in arguments[:10]]):
+                result, _ = self.run_scenario({}, arguments=("--", *arguments))
+                output = result.stdout + result.stderr
+                self.assertEqual(result.returncode, 0, output)
+                observed = json.loads((self.sandbox / "arguments.json").read_text())
+                self.assertEqual(observed, [argument.hex() for argument in arguments])
+                self.assertIn("Execution completed successfully.", output)
+        result, _ = self.run_scenario({})
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(json.loads((self.sandbox / "arguments.json").read_text()), [])
+
+    def test_run_preserves_application_exit_status(self) -> None:
+        for status in (1, 9, 127, 255):
+            with self.subTest(status=status):
+                result, _ = self.run_scenario({"exit_status": status}, arguments=("--", "one", "two"))
+                output = result.stdout + result.stderr
+                self.assertEqual(result.returncode, status, output)
+                self.assertIn(f"Execution returned status {status}.", output)
+                self.assertNotIn("Execution completed successfully.", output)
+                self.assertNotIn("Execution failed:", output)
+                self.assertNotIn("output failure", output)
+                self.assertTrue((self.sandbox / "run_invoked").exists())
+
+    def test_missing_application_keeps_ambiguous_runtime_status(self) -> None:
+        # GNAT's Spawn reports the same status for failed exec and child exit 1.
+        # The driver must preserve it without inventing a cause.
+        result, _ = self.run_scenario({"missing_executable": True})
+        output = result.stdout + result.stderr
+        self.assertEqual(result.returncode, 1, output)
+        self.assertIn("Execution returned status 1.", output)
+        self.assertNotIn("Execution failed:", output)
+        self.assertNotIn("Execution completed successfully.", output)
+        self.assertFalse((self.sandbox / "run_invoked").exists())
+
+    def test_run_abnormal_exit_reports_process_failure(self) -> None:
+        result, _ = self.run_scenario({"signal": 15})
+        output = result.stdout + result.stderr
+        self.assertEqual(result.returncode, 3, output)
+        self.assertIn("Execution failed: application did not exit normally.", output)
+        self.assertNotIn("Execution returned status", output)
+        self.assertNotIn("Execution completed successfully.", output)
+        self.assertTrue((self.sandbox / "run_invoked").exists())
 
     def test_application_report_capacity_accepts_exact_bound_without_truncation(self) -> None:
         fixture = self.fixtures / "main.spark"

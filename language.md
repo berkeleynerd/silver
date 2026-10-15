@@ -523,6 +523,14 @@ invalid path must reject and cannot output. Retrieving an argument precedes its
 length check; the input limit does not bound GNAT's allocation. Storage exhaustion
 remains environmental. See the [argument boundary](docs/trusted-boundary.md#command-line-boundary).
 
+The compiler convenience `silver run SOURCE -- [arguments...]` forwards the
+suffix as the application's exact argument vector. It does not filter bytes or
+relax the application input rules above. A bare `--`, or `silver run SOURCE`,
+supplies no application arguments. Ordinary application exit statuses are
+preserved; status 1 alone does not identify Reject, output failure or a failed
+launch. The [CLI documentation](README.md#use-the-compiler) specifies diagnostics
+and the external process/resource boundary.
+
 Successful output requires every byte write and the final `fflush(NULL)` to
 succeed. Completion means host-stream acceptance, not reader consumption or
 durable storage. A detected write/flush failure sets status 1 and returns from

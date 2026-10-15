@@ -1,5 +1,44 @@
 # Session memory
 
+## 2026-10-15 — Run Arguments complete
+
+The authorized [Run Arguments milestone](../roadmap.md#run-arguments) is complete:
+exact argv forwarding through `silver run SOURCE -- [arguments...]`, preserved
+ordinary child status and neutral diagnostics. The [delivery record](run-arguments.md)
+links the GNAT spawn/free boundary, verified SPARK ownership/copying, focused
+regressions, full-suite pass, final native/Lean validation and real applications.
+No language/API admission, report policy or Oracle change was made.
+
+Review caught unnecessary runtime evaluation of proof-only loop invariants;
+those are now Static. A missing nested offset precondition was proved after
+being made explicit. The full native audit also rejected the generic integer
+Image limitation note, so the driver reuses the existing verified decimal
+renderer. The record preserves failed/interrupted attempts and distinguishes
+the frozen full suite before that equivalent formatter edit from the affected
+recheck and final native/Lean checkpoints afterward. No completed run had
+mid-run implementation/proof/test edits. Final provenance matches the delivery;
+later edits are documentation.
+
+Recovery is `tmp/run-arguments-active.json`. Preserve all caches, prior evidence,
+successful program directories and unrelated Rosetta/scratch work. Git identifies
+the implementation commit containing this entry; baseline/review target is
+`4f86f08dcc`. Publication remains authorized. No next capability or replacement
+harness goal was requested. CLI memory tools were unavailable and were not
+updated; RESUME and checked-in memory carry the handoff. macOS proofs, hosted CI
+and independent replay were outside scope.
+
+## 2026-10-15 — Run Arguments authorized
+
+The owner authorized the proposed single [Run Arguments milestone](../roadmap.md#run-arguments):
+exact forwarding through `silver run SOURCE -- [arguments...]`, ordinary child
+exit-status preservation and accurate diagnostics, with affected SPARK/Lean
+assurance and focused regressions. Status 1 cannot by itself distinguish Reject
+from output failure. The [working record](run-arguments.md) tracks three work
+packages through one delivery; no new language/API admission is authorized.
+Recovery is `tmp/run-arguments-active.json`. Preserve caches and unrelated Rosetta
+and scratch work. Publication remains authorized. No new harness goal was
+requested; CLI memory tools are unavailable.
+
 ## 2026-10-15 — Larger Expressions complete
 
 The owner-authorized [roadmap milestone](../roadmap.md#larger-expressions) is

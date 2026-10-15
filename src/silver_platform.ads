@@ -1,6 +1,7 @@
 with Ada.Text_IO;
 with Interfaces.C;
 with Silver_Build;
+with Silver_Runtime;
 
 package Silver_Platform
   with SPARK_Mode => On
@@ -22,6 +23,7 @@ is
    Command_Text : String (1 .. 16_384) := (others => Character'Val (0)) with Ghost => Static;
    Command_Length : Natural range 0 .. 16_384 := 0 with Ghost => Static;
    Command_Status : Interfaces.C.int := 0 with Ghost => Static;
+   Application_Status : Integer := 0 with Ghost => Static;
 
    function Valid_Path (Name : String) return Boolean is
      (Name'Length in 1 .. Max_Path_Length
@@ -57,6 +59,14 @@ is
           Post => (Static => Command_Length = Command'Length
             and then Command_Text (1 .. Command_Length) = Command
             and then Success = (Interfaces.C."=" (Command_Status, 0)));
+
+   procedure Run_Application
+     (Executable : String; Skip_Arguments : Natural; Status : out Integer)
+     with Global => (In_Out => Ada.Text_IO.File_System,
+                     Output => Application_Status),
+          Pre => Valid_Path (Executable)
+            and then Skip_Arguments <= Silver_Runtime.Argument_Count,
+          Post => (Static => Status = Application_Status);
 
    Workspace_Prefix : constant String := Silver_Build.Root_Directory & "/program-";
    subtype Workspace_Path is String (1 .. Workspace_Prefix'Length + 6);

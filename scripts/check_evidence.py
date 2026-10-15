@@ -34,6 +34,8 @@ TRUSTED_IMPORT_SPECS = {
     # ada__command_line__argument_count, ada__command_line__argument,
     # __gnat_set_exit_status (original GNAT runtime symbols)
     "silver_runtime.ads": "1f068e3ef313bdcdc7ada3b2ca7f3d1688db337d6645c9d931baec7a245df32b",
+    # System.OS_Lib.Spawn and System.Strings.Free (original GNAT Ada ABI)
+    "silver_process_runtime.ads": "738da941a2d1450bace845277c8d220531dfa39735fc8315b1dacdb428e7cf21",
     # putchar, fflush and __gnat_set_exit_status (existing output/status interface)
     "silver_output_libc.ads": "ca1aaff15cdf9a2c780f92f6cace9dd49903896b37ddfb01d65833c8333fdb13",
 }
@@ -42,6 +44,7 @@ TRUSTED_IMPORT_ENTITIES = {
                     ("C_Open", "C_Get", "C_Put", "C_Error", "C_Close", "C_System", "C_Mkdir", "C_Mkdtemp")},
     "silver_runtime": {f"Silver_Runtime.{name}" for name in
                        ("Argument_Count", "Argument", "Set_Exit_Status")},
+    "silver_process_runtime": {"Silver_Process_Runtime.Spawn", "Silver_Process_Runtime.Free_List"},
     "silver_output_libc": {f"Silver_Output_Libc.{name}" for name in
                            ("Put_Byte", "Flush", "Set_Exit_Status")},
 }

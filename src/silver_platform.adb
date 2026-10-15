@@ -1,4 +1,6 @@
 with Silver_Libc;
+with Silver_Process_Runtime;
+with Silver_Runtime;
 with Interfaces.C;
 with System;
 
@@ -147,6 +149,47 @@ is
       Command_Status := Status;
       Success := Status = 0;
    end Run;
+
+   procedure Run_Application
+     (Executable : String; Skip_Arguments : Natural; Status : out Integer)
+   is
+      use Silver_Process_Runtime;
+      Args : Argument_List_Access :=
+        new Argument_List'(1 .. Silver_Runtime.Argument_Count - Skip_Arguments => null);
+   begin
+      Status := -1;
+      Application_Status := Status;
+      for Index in Args'Range loop
+         pragma Loop_Invariant
+           (Static => Args /= null and then Args'First = 1
+            and then Args'Last = Silver_Runtime.Argument_Count - Skip_Arguments);
+         pragma Loop_Invariant
+           (Static => (for all K in Args'First .. Index - 1 => Args (K) /= null
+              and then Args (K).all = Silver_Runtime.Argument (K + Skip_Arguments)
+              and then (for all Ch of Args (K).all => Ch /= Character'Val (0))));
+         pragma Loop_Invariant
+           (Static => (for all K in Index .. Args'Last => Args (K) = null));
+         declare
+            Item : constant String := Silver_Runtime.Argument (Index + Skip_Arguments);
+         begin
+            --  OS argv cannot contain NUL. Fail closed if that runtime premise
+            --  is violated, rather than passing a truncated value to exec.
+            if (for some Ch of Item => Ch = Character'Val (0)) then
+               Free_List (Args);
+               pragma Assert (Args = null);
+               return;
+            end if;
+            Args (Index) := new String'(Item);
+         end;
+      end loop;
+      pragma Assert
+        (Static => (for all Index in Args'Range => Args (Index) /= null
+          and then Args (Index).all = Silver_Runtime.Argument (Index + Skip_Arguments)));
+      Status := Spawn (Executable, Args.all);
+      Application_Status := Status;
+      Free_List (Args);
+      pragma Assert (Args = null);
+   end Run_Application;
 
    procedure Create_Workspace (Name : out Workspace_Path; Success : out Boolean) is
       Prefix : constant String := Workspace_Prefix;

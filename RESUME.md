@@ -6,6 +6,31 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Run Arguments complete
+
+The owner-authorized [Run Arguments milestone](roadmap.md#run-arguments) is
+complete. `silver run SOURCE -- [arguments...]` forwards exact argv through
+existing GNAT spawn/free imports and preserves ordinary child statuses with
+neutral diagnostics. SPARK verifies the owned copy loop, cleanup and unchanged
+publication gates. Proof-only loop invariants are erased from runtime execution.
+Language admission, application APIs and Lean source bindings are unchanged.
+
+The [delivery record](docs/run-arguments.md) contains final native audit/build,
+complete cached Lean validation, real application smokes and independent review.
+The full suite passed on frozen inputs; its sole subsequent implementation edit
+uses the existing verified decimal renderer, followed by all affected tests and
+refreshed native/Lean evidence. It records these scopes explicitly. No policy
+was relaxed to accept the earlier generic-formatting warning.
+
+Recovery is `tmp/run-arguments-active.json`; evidence lives under
+`.silver/linux-x86_64/run-arguments-20261015T132237Z/`. Preserve prior/partial logs,
+caches, successful program directories and unrelated `rosetta.md`, `rosetta/`
+and `tmp/`. The [backlog](roadmap.md#known-outstanding-work) retains conditional
+follow-ups. Git identifies this delivery separately from baseline `4f86f08dcc`;
+publication remains authorized. No next capability or replacement harness goal
+was requested. CLI memory tools were unavailable and were not updated; checked-in
+memory carries the handoff. macOS, hosted CI and independent replay were outside scope.
+
 ## Larger Expressions complete
 
 The owner authorized [Larger Expressions](roadmap.md#larger-expressions) on

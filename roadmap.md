@@ -14,6 +14,26 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Run Arguments
+
+**Complete**, authorized and validated on 2026-10-15. Existing input-dependent
+programs now run with `silver run SOURCE -- [arguments...]`, preserving empty
+values, spaces, quotes and exact argument boundaries through GNAT's direct
+process interface. The no-argument form remains supported. Ordinary application
+statuses propagate unchanged; neutral diagnostics reflect that status 1 can
+mean Reject, output failure or failed launch.
+
+All three work packages are complete: the process/resource boundary, verified
+SPARK copying/cleanup with focused regressions, and Linux validation, review and
+delivery. The [delivery record](docs/run-arguments.md) distinguishes the frozen
+full-suite pass from the final equivalent-formatter repair and affected recheck,
+and records final native/Lean evidence and real application executions.
+
+Language membership, application APIs, source/value limits, report acceptance
+and all seventeen Lean source bindings are unchanged. Existing source/proof/build
+publication guards remain. No new capability or harness goal is automatically
+authorized; preserve caches and unrelated Rosetta/scratch work.
+
 <a id="larger-expressions--proposed-next-unit"></a>
 ### Larger Expressions
 
@@ -41,7 +61,7 @@ was introduced; no next capability is automatically authorized.
 
 ### Known outstanding work
 
-Reconciled on 2026-10-15 against the completed Larger Expressions delivery,
+Reconciled on 2026-10-15 against the completed Run Arguments and Larger Expressions deliveries,
 earlier handoffs and review dispositions. The entries below are conditional
 follow-ups. The linked records retain detailed findings,
 reasons and historical scope. Closed or rejected review suggestions are not new tasks.
@@ -51,14 +71,14 @@ reasons and historical scope. Closed or rejected review suggestions are not new 
 | Larger-fragment proof and report capacity | The [64/63 expansion](docs/larger-expressions.md#dense-composition-and-report-capacity) is complete; its dense report leaves 1.5% headroom. Reassess dense workloads before further changes to the admitted fragment, producer or report format. Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
 | Names lexical-call adapter and other source-bridge refinements | Deferred until the relevant helper/interface changes or an assurance gap is established. The [Names identity guard](docs/admission-repairs.md#scope-and-dispositions) is complete; its interpretation premise remains. Additional explicit header/source guards, facade statement strengthening and broader boundary/sample witnesses remain indexed by the [Lean dispositions](docs/lean-iteration.md#external-review-of-d375aec) and [expression review disposition](docs/common-expressions.md#external-review-of-9b72d36). Existing correspondence remains required. |
 | Negative-test siblings and broader matrices | Larger-expression boundary siblings are complete; continue adding admitted/rejected siblings when a rule changes. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
-| Driver rejection diagnostics and argument forwarding | When CLI behavior is next improved, distinguish a specified `Reject` from output/external failure in `silver run`, and consider argument forwarding. Both remain conveniences separate from language admission; see the [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [command-line milestone](#hello-world-with-a-command-line-message). |
 | Report-policy and stack cleanup | Revisit call-sensitive report selection and the unused `Uses_Output` selector together when policy work warrants it. Stack/storage redesign remains deferred unless the documented resource premise becomes a practical problem. Preserve complete required-report checks; see the [sequencing dispositions](docs/statement-sequencing.md#external-review-and-capacity-follow-up). |
 | Catalogue, sample metadata and legacy cleanup | Revisit informative template declarations, manifest tags, historical wording and legacy helper/module cleanup when their consumers change. The [branch dispositions](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [optional architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer), including the [catalogue-renderer proposal](docs/architecture-review.md#4-extract-the-repeated-catalogue-token-renderer-when-convenient), retain scope. These do not mandate a general catalogue or parser framework. |
 | Intermittent GNATprove `DOC_END` failure | Diagnose on recurrence: preserve the failed inputs/logs before another run replaces them. The [workflow record](docs/proof-workflow.md#cold-mode-and-exploratory-state-follow-up) establishes neither memory exhaustion nor a concurrency cause; do not add automatic retries or describe cold success as a fix. |
 | Further proof-performance work | Only for a measured bottleneck. Preserve caches and focused checks; optional helper factoring, runtime-proof reuse, tactic tuning, persistent proof states and `SymM`/`vcgen` remain conditional, as recorded in [Lean Critical Path](#lean-critical-path) and the [architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer). |
 | New language/API capabilities and release tooling | Additional argument APIs, broader API placement, loops and resizable strings need their own motivating scope and assurance; none is selected next. Distribution/provenance and extra provers remain [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its dormant wording is revisited only if reactivation is authorized. macOS validation remains independent and nonblocking. |
 
-The prior kernel-bypass repair, default-runner drift tests, real axiom-audit
+Argument forwarding and neutral application-status diagnostics are complete in
+[Run Arguments](#run-arguments). The prior kernel-bypass repair, default-runner drift tests, real axiom-audit
 regression and branch correspondence guards are complete. The theorem-name
 registry was deliberately rejected, historical-language retention is not required
 before 1.0, and the Python provenance check is intentionally retained. These are
@@ -804,8 +824,9 @@ SPARK wrapper. Application reports remain empty; selected owned libraries have
 complete nonempty reports. The source bridge covers the recognizer and argument
 wrapper, with immutable argv and runtime ABI semantics documented as trusted
 premises. The sample manifest records default, empty, valid and rejected input
-cases. Execute the compiled application directly to pass arguments; forwarding
-through `silver run` remains a separate convenience. No Oracle amendment.
+cases. At that checkpoint, passing arguments required invoking the compiled
+application directly; [Run Arguments](#run-arguments) supplies the later CLI
+convenience. No Oracle amendment.
 
 ## Literal-backed greeting
 

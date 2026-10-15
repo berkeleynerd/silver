@@ -252,6 +252,7 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 "$silver_executable" check samples/hello_world.adb
 "$silver_executable" compile samples/hello_world.adb
 "$silver_executable" run samples/hello_world.adb
+"$silver_executable" run samples/release_report.adb -- production
 ```
 
 `check` decides membership without invoking a prover. `compile` first admits the
@@ -260,18 +261,21 @@ its byte-identical `main.adb` snapshot and selected library sources, checks thei
 proof reports, and builds those same snapshots. It prints the snapshot,
 proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
-
-For command-line input, compile the sample and run the executable path printed
-by the compiler with the desired argument:
+Separate application arguments from the source path with `--`:
 
 ```sh
-"$silver_executable" compile samples/command_line.adb
-# Replace the path below with the printed Executable path.
-".silver/<host>/program-XXXXXX/bin/main" "Hello from the command line"
+"$silver_executable" run samples/command_line.adb -- "Hello from the command line"
+"$silver_executable" run samples/command_line.adb -- ""
 ```
 
-Run that executable without an argument to use `Hello, world!`, or with `""` to
-print an empty line. `silver run` does not forward application arguments.
+Omit `--` and its arguments to use the program's default, or use a bare trailing
+`--` to forward no arguments. Arguments after the separator retain their exact
+bytes and boundaries, including empty strings, spaces and quotes. Silver invokes
+the application directly through GNAT's process runtime; no shell interprets
+those arguments. The application's existing input rules still apply. There is
+no additional Silver argument-count or aggregate-byte cap; available memory and
+OS process limits remain environmental premises. The printed executable can
+also be run directly, avoiding another proof/build cycle for repeated executions.
 
 The executable can be invoked from another working directory. Relative input
 paths refer to that directory; tools and output workspaces stay anchored to the
@@ -282,12 +286,17 @@ not make the entire operating-system environment hermetic.
 
 On the ordinary diagnostic path, exit status is 0 for success, 2 for excluded
 source or incorrect CLI usage, and 3 for an infrastructure, verification,
-compilation, or execution failure. Resource exhaustion, signals and external
+compilation, or abnormal process result. After launching an application, `run`
+preserves ordinary exit statuses 0 through 255 and reports a nonzero result as
+`Execution returned status N.` Status 1 can mean a specified Reject, output
+failure or failed launch: GNAT does not distinguish those cases here. Thus an
+application's status may overlap driver error codes; the diagnostic gives context.
+Resource exhaustion, signals and external
 runtime exceptions can terminate outside that path; the low-stack experiment
 returned status 1. Verification or compilation failure on an admitted program
-is a toolchain or implementation defect; prover results never redefine membership. Specified
-application output failures are reported separately. The executable's own exit
-status is distinct from the compiler CLI's status.
+is a toolchain or implementation defect; prover results never redefine membership.
+See the [process boundary](docs/trusted-boundary.md#application-process-boundary)
+for the runtime assumptions and status interpretation.
 
 The [machine-readable catalogue](catalogue/silver.json) matches the parsed
 JSON exported by the compiler; formatting and key order may differ. Recognition
@@ -305,6 +314,9 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The [Run Arguments record](docs/run-arguments.md) covers direct argument forwarding,
+status propagation, the verified driver and its Linux validation.
 
 The completed [Larger Expressions record](docs/larger-expressions.md) gives the
 expanded expression budget, composition/capacity measurements and Linux validation,

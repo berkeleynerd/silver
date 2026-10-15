@@ -602,6 +602,33 @@ step bound excludes frontend/flow work, OS delays and total elapsed time.
 Failure prevents publication; no warning suppression or obligation waiver is
 introduced to make an admitted source pass.
 
+### Running a verified application
+
+`silver run SOURCE -- [arguments...]` uses the same proof, report and publication
+guards before invoking the application. `Silver_Platform.Run_Application` copies
+the selected suffix of the immutable compiler argument vector into an owning
+argument list. Its SPARK loop invariants and Static assertion establish that
+every supplied string equals the corresponding original argument, in order,
+before the external spawn call. This equality is proved in Silver-owned code,
+not assumed as a postcondition of an imported function. Empty strings and argument
+boundaries are retained; a NUL guard prevents passing a truncated C argument.
+
+The existing GNAT runtime spawns the executable without a shell and frees the
+allocated strings and list afterward through its existing cleanup entry point.
+SPARK checks ownership and the cleanup contract's use. Physical spawning, exact
+Unix argument delivery and deallocation retain the pinned-runtime ABI and
+resource premises in the [trusted boundary](trusted-boundary.md#application-process-boundary).
+The driver propagates runtime results in `0 .. 255` unchanged and maps other
+returned results to status 3. Its nonzero diagnostic does not infer a failure
+cause: status 1 can mean specified rejection, detected output failure or an
+indistinguishable launch failure.
+
+The configured proof/build tools still use the existing shell command path.
+This CLI change adds native SPARK obligations, not a new Lean CLI correspondence
+theorem; the seventeen embedded source bindings and application semantics are
+unchanged. The [Run Arguments record](run-arguments.md) tracks the current
+checkpoint and its actual validation status.
+
 ## Compiler verification evidence
 
 Both recognizers have proved executable/ghost membership refinement.

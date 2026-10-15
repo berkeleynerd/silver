@@ -288,9 +288,18 @@ class SilverIntegrationTests(unittest.TestCase):
 
     def test_command_usage_errors(self) -> None:
         for args in ((), ("unknown",), ("check",), ("compile",), ("run",),
-                     ("check", "samples/null.adb", "extra")):
+                     ("catalogue", "extra"), ("catalogue", "--"),
+                     ("check", "samples/null.adb", "extra"),
+                     ("check", "samples/null.adb", "--"),
+                     ("compile", "samples/null.adb", "--"),
+                     ("compile", "samples/null.adb", "--", "value"),
+                     ("run", "samples/null.adb", "value"),
+                     ("run", "samples/null.adb", "-value")):
             with self.subTest(args=args):
-                self.assertNotEqual(invoke(*args).returncode, 0)
+                result = invoke(*args)
+                self.assertEqual(result.returncode, 2, result.stdout)
+                self.assertIn("Usage:", result.stdout)
+                self.assertNotIn("Executable:", result.stdout)
 
     def test_excluded_source_never_proceeds_to_compilation(self) -> None:
         self.source.write_bytes(CANONICAL.replace(b"null;", b"raise Program_Error;"))
@@ -495,7 +504,11 @@ class SilverIntegrationTests(unittest.TestCase):
                                         timeout=120 if mode in ("maximum_report", "oversized_report",
                                                                "large_rejected") else 30)
                 successful = mode in ("success", "large_report", "maximum_report")
-                self.assertEqual(result.returncode, 0 if successful else 3, result.stdout)
+                expected_status = 0 if successful else 9 if mode == "run_failure" else 3
+                self.assertEqual(result.returncode, expected_status, result.stdout)
+                if mode == "run_failure":
+                    self.assertIn("Execution returned status 9.", result.stdout)
+                    self.assertNotIn("Execution failed:", result.stdout)
                 self.assertTrue((sandbox / "routing_checked").is_file(), result.stdout)
                 project = Path((sandbox / "routing_checked").read_text())
                 self.assertTrue(project.is_relative_to(sandbox / HOST.artifacts.relative_to(ROOT)))
