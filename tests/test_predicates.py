@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from tests import test_shared_bindings
+from tests.test_composed_results import literal
 from tests.test_shared_bindings import output, program
 
 
@@ -89,6 +90,43 @@ class PredicateTests(unittest.TestCase):
                 with self.subTest(literal=literal):
                     self.condition(b"A'Length<=" + literal, expected)
         self.condition(b"A'Length<=0E" + b'9' * 100, 2)
+
+    def test_final_bracket_literals_require_a_separator_before_word_tokens(self) -> None:
+        cases = ((b'A="["', b'then null;end if;'),
+                 (b'A="["', b'ThEn null;end if;'),
+                 (b'A="["', b'and then A="[" then null;end if;'),
+                 (b'A="["', b'Or ElSe A="" then null;end if;'),
+                 (b'(A="["', b'and then A="[") then null;end if;'),
+                 (b'A=""&"["', b'then null;end if;'),
+                 (b'A=' + literal(b'"['), b'then null;end if;'))
+        for predicate, tail in cases:
+            with self.subTest(predicate=predicate, tail=tail):
+                rejected = program(b'A:String:="[";', b'if ' + predicate + tail)
+                self.check(rejected, 2)
+                for separator in (b' ', b'\t', b'\r\n', b'-- separator\n'):
+                    self.check(program(b'A:String:="[";',
+                                       b'if ' + predicate + separator + tail))
+        # Parentheses delimit tokens; brackets elsewhere and an escaped quote
+        # after the bracket remain ordinary printable literal bytes.
+        for predicate in (b'(A="[")then', b'A=("[")then',
+                          b'A="[x"then', b'A=' + literal(b'["') + b'then'):
+            with self.subTest(admitted_predicate=predicate):
+                self.check(program(b'A:String:="[";', b'if ' + predicate + b' null;end if;'))
+
+    def test_native_bracket_literal_siblings_preserve_decoded_bytes(self) -> None:
+        declarations = (b'A:String:="[";B:String:=' + literal(b'"[')
+                        + b';C:String:=' + literal(b'["') + b';')
+        predicates = (b'A="[" then', b'A="["-- separator\nthen',
+                      b'(A="[")then', b'A=("[")then',
+                      b'A="[" and then A="[" then',
+                      b'A="[" or else A="" then',
+                      b'B=' + literal(b'"[') + b' then',
+                      b'C=' + literal(b'["') + b'then')
+        body = b'\n'.join(b'if ' + predicate + b' ' + output(b'A')
+                          + b'else ' + output(b'"bad"') + b'end if;' for predicate in predicates)
+        body += output(b'B') + output(b'C')
+        executable, _ = self.compile(program(declarations, body), 'static')
+        self.run_program(executable, b'[\n' * len(predicates) + b'"[\n["\n')
 
     def test_source_bound_literal_spellings_do_not_gain_a_digit_count_limit(self) -> None:
         declarations = b'A:String:="old";'

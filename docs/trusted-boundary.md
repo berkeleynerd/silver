@@ -58,6 +58,13 @@ observed capacity. Native boundary tests compile 4096-byte single-line programs
 and their maximal admitted literals and identifiers. This is a frontend premise,
 not a claim of portability to every conforming Ada compiler.
 
+GNAT always recognizes bracket wide-character encodings, including under other
+character-encoding switches. A literal ending in `[` immediately before a
+closing quote and an ASCII identifier character can therefore fail code generation.
+Silver explicitly excludes that adjacency in its shared literal rule; whitespace,
+comments and punctuation preserve the ordinary ASCII literal. This restriction
+keeps the pinned frontend premise consistent with the admitted bytes.
+
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
 and `run`, including the null route, allocate the 2 MiB report buffer on the
 stack; application report auditing also copies the used report slice. The
@@ -611,6 +618,9 @@ The later review of `4503d17` proved and built the 782-assignment specimen:
 (4.0%) remaining. The reviewer reported 33.6 minutes and 6.1 GiB while other
 probes ran; the [branch record](branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 distinguishes the corroborated source/report from those reported measurements.
+The [Names and Calls review specimen](names-and-calls.md#dense-assignment-review-evidence)
+fits 785 assignments in 4092 bytes and proved 829 checks, with a 2,020,723-byte
+Main report (96.4%) leaving 76,429 bytes. Its 32-minute timing is reviewer-reported.
 None of these cases establishes a universal worst-case bound. An interrupted
 experiment establishes neither solver failure nor measured capacity. No statement/output-count
 restriction is inferred from those interruptions.
@@ -649,6 +659,10 @@ helper units. `Silver_Names` reads context clauses and resolves only the existin
 packages and operations. Its unchanged lexical callees retain their established
 meanings; checked expression trees and recursive uniqueness establish the new
 helpers, while native proof connects executable loops to their contracts.
+The composed checked-source record also proves `Names.fixedAt = Compose.fixedAt`
+and `Names.take = Compose.fixedAfter`. These checked identities detect divergence
+between duplicated helpers; they do not remove the lexical-callee interpretation
+premise or derive arbitrary Names call records from source.
 Named associations select the actual library formal (`Item` or `Default`); no
 author-source rewriting is involved. Resolving these reviewed package
 imports and declarations retains the existing Ada/GNAT interpretation premise;

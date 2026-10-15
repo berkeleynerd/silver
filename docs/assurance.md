@@ -119,8 +119,10 @@ membership requires `S + K*C <= 4096`. Declaration initializers precede guards
 and use `C = 4096`; body expressions use their current reachable input interval
 and the separate invalid-input case. An unreachable evaluation has no dynamic
 length obligation, but its static contribution must still fit within 4096 bytes.
-Assignments between two statically known lengths require equality even there,
-so admission does not rely on GNAT folding a dead length mismatch away. Syntax,
+For a static assignment target of length `T`, the static RHS contribution `S`
+must satisfy `S <= T`, and `S = T` without dynamic occurrences, even there.
+Admission therefore does not rely on GNAT's operand order or folding a dead
+length mismatch away. Syntax,
 names and mutable assignment targets must remain legal on all paths.
 `Bindings` and `ComposeExpression` prove exact evaluated length, printable bytes,
 and equality between flattened operand evaluation and grouped concatenation.
@@ -377,9 +379,14 @@ and [common-expression checkpoint](common-expressions.md) validate their earlier
 revisions. The [sequencing checkpoint](statement-sequencing.md) validates its
 recorded inputs; [branches.md](branches.md) records the completed 5a–5c
 integration and the exact scope of its combined Linux validation.
-The [Names and Calls checkpoint](names-and-calls.md) records the current source
+The [Names and Calls checkpoint](names-and-calls.md) records its source
 revision, its seventeen bindings/certificates, test repairs and complete cached
 Lean build with a fresh axiom audit.
+The later [Focused Source Checks checkpoint](focused-source-checks.md) narrowed
+imports while retaining the complete module set. [Admission Repairs](admission-repairs.md)
+is the current complete Linux record for the strengthened assignment and literal
+rules, their source correspondence, checked Names helper identities and fresh
+whole-project axiom audit.
 
 ## Automatic completion and the external boundary
 

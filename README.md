@@ -114,7 +114,10 @@ report uses **96.0%** of the buffer, leaving **83,899 bytes (4.0%)**. The review
 reported **33.6 minutes and 6.1 GiB** while other probes ran; this is not a clean
 performance benchmark or a universal report bound. See the
 [original capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
-and the [current bounded assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14).
+and the [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14).
+The later [Names and Calls review specimen](docs/names-and-calls.md#dense-assignment-review-evidence)
+fits 785 assignments: all 829 checks proved and its 2,020,723-byte report uses
+96.4% of the buffer. The reviewer reported 32 minutes; that run was not repeated.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -294,6 +297,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 ```
 
 ## Proofs and platform evidence
+
+The [Admission Repairs checkpoint](docs/admission-repairs.md) records the current
+assignment/literal rules, complete Linux native and Lean validation, stable
+307-test run and one-time full code-generation pass over the available corpus.
 
 The [Focused Source Checks record](docs/focused-source-checks.md) covers narrower
 Lean dependencies, cache-invalidation controls and the complete Linux proof check.

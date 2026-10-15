@@ -179,7 +179,7 @@ theorem literalLength_decodes {text value : Source} {position finish : Nat}
   | quote bound quote next previous ih =>
       rw [literalLength]
       simp [Nat.not_lt.mpr (Nat.le_of_lt bound), quote, bound, next, ih, Nat.add_comm]
-  | character bound different character previous ih =>
+  | character bound different character encoding previous ih =>
       rw [literalLength]
       simp [Nat.not_lt.mpr bound, different, character, ih, Nat.add_comm]
 

@@ -79,6 +79,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""context_order"": ""arbitrary subject to with-before-use"",");
       Put_Line ("        ""repeated_clauses_and_packages"": true,");
       Put_Line ("        ""position"": ""context before procedure Main"",");
+      Put_Line ("        ""local_use_declarations"": false,");
+      Put_Line ("        ""scope_purpose"": ""exact shell packages select runtime dependencies and proof-report policy; use visibility is context-only"",");
       Put_Line ("        ""count"": ""one_or_more_within_complete_source_bound""");
       Put_Line ("      }");
       Put_Line ("    },");
@@ -108,7 +110,9 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ],");
       Put_Line ("        ""quote_escape"": ""\""\"""",");
       Put_Line ("        ""empty_allowed"": true,");
-      Put_Line ("        ""case_preserved"": true");
+      Put_Line ("        ""case_preserved"": true,");
+      Put_Line ("        ""final_bracket_boundary"": ""a closing quote after decoded [ cannot immediately precede an ASCII letter, digit or underscore"",");
+      Put_Line ("        ""boundary_purpose"": ""avoid GNAT bracket wide-character encoding""");
       Put_Line ("      }");
       Put_Line ("    },");
       Put_Line ("    {");
@@ -175,6 +179,8 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""context_order"": ""arbitrary subject to with-before-use"",");
       Put_Line ("        ""repeated_clauses_and_packages"": true,");
       Put_Line ("        ""position"": ""context before procedure Main"",");
+      Put_Line ("        ""local_use_declarations"": false,");
+      Put_Line ("        ""scope_purpose"": ""exact shell packages select runtime dependencies and proof-report policy; use visibility is context-only"",");
       Put_Line ("        ""count"": ""one_or_more_within_complete_source_bound""");
       Put_Line ("      }");
       Put_Line ("    },");
@@ -184,7 +190,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("      ""conditions"": {");
       Put_Line ("        ""operation"": ""Silver_Arguments.First_Or_Default"",");
       Put_Line ("        ""qualification_required"": false,");
-      Put_Line ("        ""unqualified_requires"": ""use clause for operation package and no local same-name binding"",");
+      Put_Line ("        ""unqualified_requires"": ""use clause for Silver_Arguments and input binding not named First_Or_Default; later bindings do not hide this initializer"",");
       Put_Line ("        ""parameter_associations"": [""positional"", ""named""],");
       Put_Line ("        ""formal_parameter"": ""Default"",");
       Put_Line ("        ""own_binding_hides_unqualified_call"": true,");
@@ -318,7 +324,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""value"": [");
       Put_Line ("          ""string_expression""");
       Put_Line ("        ],");
-      Put_Line ("        ""decoded_length"": ""equal static lengths even on unreachable paths; otherwise equal to target fixed length on every reachable input length using path facts"",");
+      Put_Line ("        ""decoded_length"": ""for static target T, RHS static contribution S <= T and S = T if no dynamic occurrences, even on unreachable paths; equal target length on every reachable input using path facts"",");
       Put_Line ("        ""output_must_reference_result"": false,");
       Put_Line ("        ""self_assignment"": true,");
       Put_Line ("        ""count"": ""finite_within_complete_source_bound"",");
@@ -404,7 +410,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""case_insensitive_binding"": true,");
       Put_Line ("        ""preserves_bytes"": true,");
       Put_Line ("        ""snapshot_semantics"": true,");
-      Put_Line ("        ""assignment_length"": ""equal to target fixed length on every reachable input length; path-refined equality permitted"",");
+      Put_Line ("        ""assignment_length"": ""same string_assignment compatibility rule, including unreachable-path static contribution limits and reachable-path equality"",");
       Put_Line ("        ""dynamic_source"": true,");
       Put_Line ("        ""mutable_source"": true,");
       Put_Line ("        ""self_assignment"": true,");

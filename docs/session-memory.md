@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-10-15 — Admission Repairs complete
+
+The owner-authorized response to review `e2c4fc2` is complete in one milestone.
+The [roadmap](../roadmap.md#admission-repairs--complete) and
+[delivery record](admission-repairs.md) retain the two intentional pre-1.0
+admission repairs, bounded L1–L4 dispositions and existing dense-capacity evidence.
+Native and Lean/source proofs, the complete stable-input suite and the one-time
+available-corpus code-generation pass all succeeded. The latest reviewer's
+private corpus was unavailable; the record gives the exact recovered scope.
+
+The larger Names lexical-call adapter remains deferred; checked helper identities
+do not remove its documented interpretation premise. The Oracle is unchanged.
+The current Lean digest and native provenance match the final code/proof inputs;
+only documentation changed after validation. Git identifies the repair commit
+separately from review target `e2c4fc2`. The original review is preserved unchanged.
+
+Recovery is `tmp/admission-repairs-active.json`, with evidence under
+`.silver/linux-x86_64/admission-repairs-20261014T234242Z/`. Preserve canonical and
+isolated proof caches, complete sidecars/traces, original artifacts, corpus
+results and unrelated scratch. Publication remains authorized. No further
+capability or new harness goal was requested; the historical goal remains complete.
+CLI memory tools were unavailable and were not updated. macOS proofs, hosted CI
+and independent replay were outside scope. RESUME and this memory are current.
+
+## 2026-10-14 — Admission Repairs authorized
+
+The owner authorized the independently assessed repair set for review `e2c4fc2`
+as one milestone before further functional work. The [roadmap](../roadmap.md#admission-repairs--complete)
+and [delivery record](admission-repairs.md) retain the entire scope: B1/B2 native
+and Lean repairs, small L1–L4 follow-ups, existing capacity evidence, one corpus
+code-generation pass and one stable Linux checkpoint, review and publication.
+Preserve the original review, caches and scratch. No Oracle change or new API.
+The historical harness goal remains complete; no new goal was explicitly
+requested. CLI memory tools are unavailable and were not updated. Standing
+publication authorization persists; macOS, hosted CI and independent replay
+remain outside scope.
+
 ## 2026-10-14 — Focused Source Checks complete
 
 The owner-authorized single source-import performance milestone following Names

@@ -42,18 +42,31 @@ mutual
   termination_by items => sizeOf items
 end
 
-/-- Check an affine equality at both endpoints of each reachable valid interval
-and at zero on reachable invalid inputs. Statically known lengths must also
-agree on empty paths, since the pinned Ada compiler can diagnose those assignments
-before eliminating an unreachable arm. -/
+/-- Check an assignment's affine equality at both endpoints of each reachable
+valid interval and at zero on reachable invalid inputs. For a static target
+(the right summary), the value's static contribution must fit the target even
+on empty paths, and must equal it when the value is wholly static. The pinned
+Ada compiler can diagnose these assignments before eliminating a dead arm. -/
 def equalSummary (context : Context) (left right : Summary) : Bool :=
-  (((decide (left.dynamicCount ≠ 0) || decide (right.dynamicCount ≠ 0)) ||
-      decide (left.staticLength = right.staticLength)) &&
+  ((decide (right.dynamicCount ≠ 0) ||
+      (decide (left.staticLength ≤ right.staticLength) &&
+        (decide (left.dynamicCount ≠ 0) || decide (left.staticLength = right.staticLength)))) &&
     (match context.validLengths with
     | none => true
     | some interval => decide (left.length interval.lower = right.length interval.lower ∧
         left.length interval.upper = right.length interval.upper))) &&
     (!context.invalidReachable || decide (left.length 0 = right.length 0))
+
+theorem equalSummary_static_target {context : Context} {left right : Summary}
+    (fixed : right.dynamicCount = 0) (checked : equalSummary context left right = true) :
+    left.staticLength ≤ right.staticLength ∧
+      (left.dynamicCount = 0 → left.staticLength = right.staticLength) := by
+  simp only [equalSummary, Bool.and_eq_true] at checked
+  have compatible := checked.1.1
+  simp [fixed] at compatible
+  refine ⟨compatible.1, ?_⟩
+  intro staticValue
+  simpa [staticValue] using compatible.2
 
 theorem equalSummary_sound {context : Context} {left right : Summary} {length : Nat}
     {valid rejected : Bool} (allowed : context.Allows valid length rejected)

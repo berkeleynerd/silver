@@ -1,10 +1,30 @@
 # Silver handoff
 
-Updated on 2026-10-14 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
+
+## Admission Repairs complete
+
+The owner-authorized response to review `e2c4fc2` is complete as one milestone.
+See the [roadmap](roadmap.md#admission-repairs--complete) and
+[delivery record](docs/admission-repairs.md). Both admission repairs, matching
+native/Lean source and semantic proofs, bounded documentation/tests and the
+Names lexical identity guard passed the complete Linux checkpoint. The full
+suite ran on frozen inputs. Every admitted source in the available corpus passed
+full GNAT object code generation; the latest reviewer's private corpus was not
+available and is not claimed as locally rerun.
+
+Recovery: `tmp/admission-repairs-active.json`; evidence is under
+`.silver/linux-x86_64/admission-repairs-20261014T234242Z/`. Preserve the original
+review, canonical and isolated caches, sidecars/traces and unrelated scratch.
+The larger Names adapter remains deferred under the documented interpretation
+premise. No next capability or new harness goal was requested; the historical
+goal remains complete. Publication remains authorized. CLI memory tools are
+unavailable and were not updated. macOS, hosted CI and independent replay remain
+outside scope. Earlier handoffs below are historical.
 
 ## Focused Source Checks complete
 

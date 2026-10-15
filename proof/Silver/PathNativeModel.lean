@@ -82,8 +82,9 @@ def fits (facts : Context) (value : Summary) : Bool :=
   (!facts.validReachable || decide (lengthAt value facts.upper ≤ maxSourceLength)) &&
     (!facts.invalidReachable || decide (lengthAt value 0 ≤ maxSourceLength))
 def sameLength (facts : Context) (left right : Summary) : Bool :=
-  (((decide (left.dynamicCount ≠ 0) || decide (right.dynamicCount ≠ 0)) ||
-      decide (left.staticLength = right.staticLength)) &&
+  ((decide (right.dynamicCount ≠ 0) ||
+      (decide (left.staticLength ≤ right.staticLength) &&
+        (decide (left.dynamicCount ≠ 0) || decide (left.staticLength = right.staticLength)))) &&
     (!facts.validReachable || ((lengthAt left facts.lower == lengthAt right facts.lower) &&
       (lengthAt left facts.upper == lengthAt right facts.upper)))) &&
     (!facts.invalidReachable || (lengthAt left 0 == lengthAt right 0))

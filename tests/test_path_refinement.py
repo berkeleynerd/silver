@@ -75,16 +75,58 @@ class PathRefinementTests(unittest.TestCase):
     def test_unreachable_static_assignment_requires_equal_lengths(self) -> None:
         declarations = b'Fixed:String:="abc";'
         body = (b'if not ' + VALID + b' then ' + REJECT
-                + b"elsif Input'Length>4096 then Fixed:=\"toolong\";end if;")
-        self.check(argument_program(declarations, body), 2)
-        sibling = argument_program(declarations, body.replace(b'"toolong"', b'"xyz"'))
-        self.check(sibling)
+                + b"elsif Input'Length>4096 then Fixed:=\"xyz\";end if;")
+        sibling = argument_program(declarations, body)
+        static = program(declarations, b"if Fixed'Length>4096 then Fixed:=\"xyz\";end if;")
+        for admitted in (sibling, static):
+            with self.subTest(argument_shell=admitted == sibling):
+                self.check(admitted)
+                for value in (b'"toolong"', b'"xy"', b'""'):
+                    with self.subTest(value=value):
+                        self.check(admitted.replace(b'Fixed:="xyz"', b'Fixed:=' + value), 2)
         # GNAT's frontend-only check misses this regression: exercise proof,
         # code generation and execution through the normal compiler helper.
         executable, _ = self.compile(sibling, 'selected')
         self.run_program(executable, b'')
         self.run_program(executable, b'', (b'x' * 4096,))
         self.run_program(executable, b'', (b'old', b'extra'), 1)
+
+    def test_static_targets_bound_all_static_rhs_contributions_even_when_unreachable(self) -> None:
+        declarations = (b'Fixed:String:="abc";Long:constant String:="abcd";'
+                        b'Copy:constant String:=Input;Work:String:=Input;')
+        pairs = ((b'"abc"&Input', b'"abcd"&Input'),
+                 (b'Input&"abc"', b'Input&"abcd"'),
+                 (b'"a"&Input&"bc"', b'"ab"&Input&"cd"'),
+                 (b'"abc"&Copy', b'Long&Copy'),
+                 (b'Copy&"abc"', b'Copy&Long'))
+        prefix = b"if Input'Length>4096 then Fixed:="
+        for admitted, rejected in pairs:
+            with self.subTest(rhs=rejected):
+                self.check(program(declarations, prefix + admitted + b';end if;', arguments=True))
+                self.check(program(declarations, prefix + rejected + b';end if;', arguments=True), 2)
+        # A smaller static contribution is legal only with the required path
+        # length; the repair must retain that check as well as the new floor.
+        for expression in (b'"ab"&Input', b'Input&"ab"', b'"a"&Copy&"b"'):
+            body = b"if Input'Length=1 then Fixed:=" + expression + b';end if;'
+            with self.subTest(refined_rhs=expression):
+                self.check(program(declarations, body, arguments=True))
+                self.check(program(declarations, body.replace(b'Length=1', b'Length=2'),
+                                   arguments=True), 2)
+        # The static floor applies to static targets, not symbolic input bounds.
+        dynamic = b"if Input'Length>4096 then Work:=\"abcd\"&Input;end if;"
+        self.check(program(declarations, dynamic, arguments=True))
+
+    def test_native_static_rhs_floor_preserves_refined_and_unreachable_siblings(self) -> None:
+        declarations = b'Fixed:String:="abc";'
+        body = (b"if Input'Length>4096 then Fixed:=\"abc\"&Input;"
+                b"elsif Input'Length=1 then Fixed:=\"ab\"&Input;"
+                b'else null;end if;' + output(b'Fixed'))
+        executable, _ = self.compile(program(declarations, body, arguments=True), 'selected')
+        self.run_program(executable, b'abc\n')
+        self.run_program(executable, b'abx\n', (b'x',))
+        self.run_program(executable, b'abc\n', (b'',))
+        self.run_program(executable, b'abc\n', (b'x' * 4096,))
+        self.run_program(executable, b'', (b'one', b'two'), 1)
 
     def test_affine_lengths_and_alias_bounds_refine_together(self) -> None:
         declarations = b'Work:String:=Input;Fixed:String:="ok";Copy:constant String:=Input;'

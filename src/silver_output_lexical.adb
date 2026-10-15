@@ -156,6 +156,11 @@ is
                Matched := True;
                return;
             end if;
+         elsif Text (Position) = '[' and then Position + 2 <= Text'Last
+           and then Text (Position + 1) = Character'Val (34)
+           and then Is_Identifier_Character (Text (Position + 2))
+         then
+            return;
          elsif Text (Position) in ' ' .. '~' then
             Position := Position + 1;
             Length := Length + 1;
@@ -231,6 +236,11 @@ is
                Matched := True;
                return;
             end if;
+         elsif Text (Position) = '[' and then Position + 2 <= Text'Last
+           and then Text (Position + 1) = Character'Val (34)
+           and then Is_Identifier_Character (Text (Position + 2))
+         then
+            return;
          elsif Text (Position) in ' ' .. '~' then
             Position := Position + 1;
          else

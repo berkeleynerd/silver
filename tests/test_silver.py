@@ -98,6 +98,9 @@ class SilverIntegrationTests(unittest.TestCase):
             call = constructs[identifier]["conditions"]
             self.assertFalse(call["qualification_required"])
             self.assertEqual(call["unqualified_requires"],
+                             "use clause for Silver_Arguments and input binding not named "
+                             "First_Or_Default; later bindings do not hide this initializer"
+                             if identifier == "argument_initialization" else
                              "use clause for operation package and no local same-name binding")
             if identifier in ("input_guard", "argument_rejection"):
                 self.assertFalse(call["parentheses"])

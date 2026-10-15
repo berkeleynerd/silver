@@ -117,8 +117,10 @@ is
      ((not Facts.Valid_Reachable or else Length_At (Value, Facts.Upper) <= Max_Length)
       and then (not Facts.Invalid_Reachable or else Length_At (Value, 0) <= Max_Length));
    function Same_Length (Facts : Context; Left, Right : Summary) return Boolean is
-     ((Left.Dynamic_Count /= 0 or else Right.Dynamic_Count /= 0
-       or else Left.Static_Length = Right.Static_Length)
+     ((Right.Dynamic_Count /= 0
+       or else (Left.Static_Length <= Right.Static_Length
+         and then (Left.Dynamic_Count /= 0
+           or else Left.Static_Length = Right.Static_Length)))
       and then (not Facts.Valid_Reachable or else
         (Length_At (Left, Facts.Lower) = Length_At (Right, Facts.Lower)
          and then Length_At (Left, Facts.Upper) = Length_At (Right, Facts.Upper)))

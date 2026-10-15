@@ -1,5 +1,8 @@
 # Names and Calls
 
+The subsequent [Admission Repairs](admission-repairs.md) addresses review
+`e2c4fc2` without rolling back these context/name or call-association capabilities.
+
 Status: complete on Linux x86-64, 2026-10-14. Baseline `04171a604b`.
 
 This bounded unit completes the context/name and call-association portions of
@@ -186,3 +189,14 @@ Local evidence is preserved in `tmp/names-output-capacity-jbhm_lp1/`, including
 the source, input hashes, complete compiler log and `result.json`. The successful
 program directory is `.silver/linux-x86_64/program-3ChsGv/`. These ignored local
 artifacts supplement this recorded result; they are not shipped repository files.
+
+## Dense assignment review evidence
+
+The Linux review retained `.silver/linux-x86_64/program-4Mit03`: its 4092-byte
+source contains 785 assignment statements (787 `:=` tokens including initializers).
+The retained GNATprove summary records all 829 checks proved; the Main report is
+2,020,723 bytes, 96.36% of the 2 MiB buffer, leaving 76,429 bytes (3.64%). The
+built executable exists. These source/report facts were independently inspected
+read-only during the review assessment. The 32-minute compilation time is the
+reviewer's measurement and was not rerun. This is another completed specimen,
+not a universal proof-time or report-size bound.

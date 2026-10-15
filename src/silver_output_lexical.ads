@@ -90,6 +90,10 @@ is
            and then Text (Position + 1) = Character'Val (34)
          then Literal_End (Text, Position + 2)
          else Position + 1)
+      elsif Text (Position) = '[' and then Position + 2 <= Text'Last
+        and then Text (Position + 1) = Character'Val (34)
+        and then Is_Identifier_Character (Text (Position + 2))
+      then 0
       elsif Text (Position) in ' ' .. '~'
       then Literal_End (Text, Position + 1)
       else 0);

@@ -20,6 +20,7 @@ open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
   names : Names.SourceBridge.CheckedSource
+  namesLexical : Names.fixedAt = Compose.fixedAt ∧ Names.take = Compose.fixedAfter
   inherited : Lexical.SourceBridge.CheckedSource
   expressions : ExpressionTranslation
   catalogue : HelperCatalogueTranslation
@@ -35,6 +36,7 @@ structure CheckedSource : Prop where
 
 theorem checked_source : CheckedSource where
   names := Names.SourceBridge.checked_source
+  namesLexical := ⟨rfl, rfl⟩
   inherited := Lexical.SourceBridge.checked_source
   expressions := actual_expressions
   catalogue := actual_catalogue

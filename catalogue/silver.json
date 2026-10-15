@@ -41,6 +41,8 @@
         "context_order": "arbitrary subject to with-before-use",
         "repeated_clauses_and_packages": true,
         "position": "context before procedure Main",
+        "local_use_declarations": false,
+        "scope_purpose": "exact shell packages select runtime dependencies and proof-report policy; use visibility is context-only",
         "count": "one_or_more_within_complete_source_bound"
       }
     },
@@ -70,7 +72,9 @@
         ],
         "quote_escape": "\"\"",
         "empty_allowed": true,
-        "case_preserved": true
+        "case_preserved": true,
+        "final_bracket_boundary": "a closing quote after decoded [ cannot immediately precede an ASCII letter, digit or underscore",
+        "boundary_purpose": "avoid GNAT bracket wide-character encoding"
       }
     },
     {
@@ -137,6 +141,8 @@
         "context_order": "arbitrary subject to with-before-use",
         "repeated_clauses_and_packages": true,
         "position": "context before procedure Main",
+        "local_use_declarations": false,
+        "scope_purpose": "exact shell packages select runtime dependencies and proof-report policy; use visibility is context-only",
         "count": "one_or_more_within_complete_source_bound"
       }
     },
@@ -146,7 +152,7 @@
       "conditions": {
         "operation": "Silver_Arguments.First_Or_Default",
         "qualification_required": false,
-        "unqualified_requires": "use clause for operation package and no local same-name binding",
+        "unqualified_requires": "use clause for Silver_Arguments and input binding not named First_Or_Default; later bindings do not hide this initializer",
         "parameter_associations": ["positional", "named"],
         "formal_parameter": "Default",
         "own_binding_hides_unqualified_call": true,
@@ -280,7 +286,7 @@
         "value": [
           "string_expression"
         ],
-        "decoded_length": "equal static lengths even on unreachable paths; otherwise equal to target fixed length on every reachable input length using path facts",
+        "decoded_length": "for static target T, RHS static contribution S <= T and S = T if no dynamic occurrences, even on unreachable paths; equal target length on every reachable input using path facts",
         "output_must_reference_result": false,
         "self_assignment": true,
         "count": "finite_within_complete_source_bound",
@@ -366,7 +372,7 @@
         "case_insensitive_binding": true,
         "preserves_bytes": true,
         "snapshot_semantics": true,
-        "assignment_length": "equal to target fixed length on every reachable input length; path-refined equality permitted",
+        "assignment_length": "same string_assignment compatibility rule, including unreachable-path static contribution limits and reachable-path equality",
         "dynamic_source": true,
         "mutable_source": true,
         "self_assignment": true,

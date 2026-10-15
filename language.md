@@ -68,7 +68,10 @@ Every output-capable shell has a `with` clause naming `Silver_IO`. The
 argument-input shell also names `Silver_Arguments`; the static shell cannot
 name that package in its context. These exact package sets remain part of shell
 membership, regardless of which body operations are used. There are no additional
-application units. The grammar below uses `L` for a literal, `S` for an assignment's
+application units. These package sets select the current shell, runtime dependencies
+and corresponding proof-report policy; they are Silver's current scope, not an
+Ada requirement that every imported operation be used.
+The grammar below uses `L` for a literal, `S` for an assignment's
 mutable target, `D` for the original immutable argument binding, and `E` for a String
 expression. Initializers, assignment values, comparison operands and output
 share that expression grammar.
@@ -89,7 +92,9 @@ The shell's required packages must each occur in a `with` clause. Any package
 in a `use` clause must already have occurred in an earlier `with` clause.
 Subject to those rules, clauses and names may be reordered or repeated without
 an independent count limit; all bytes count toward the complete-source bound.
-Context clauses cannot occur inside Main. Other packages, `use type`, renamings,
+Context clauses cannot occur inside Main. Local `use` declarations, which Ada
+permits, are also excluded: this fragment derives package use visibility from
+context clauses and does not track changes to it inside Main. Other packages, `use type`, renamings,
 and limited/private `with` clauses remain outside this fragment: the current
 name rules cover only the existing library operations and a single declaration
 region, not general Ada visibility.
@@ -120,6 +125,8 @@ the unqualified function inside that object's declaration. For example,
 `First_Or_Default : constant String :=
 Silver_Arguments.First_Or_Default (Default => "world");` is legal, whereas
 removing `Silver_Arguments.` is not.
+A later declaration named `First_Or_Default` does not hide the function at the
+earlier input initializer.
 
 A `use` clause admits no additional operation or package object. Names such as
 `Max_Length` and `Written_Bytes` can be read only when independently declared as
@@ -134,6 +141,12 @@ A literal is enclosed in double quotes and decodes only printable ASCII bytes
 literal case, spaces and `--` are preserved. Tabs and line breaks cannot occur
 inside a literal. All delimiters, escapes and trivia still count toward the
 4096-byte source bound.
+If a literal's final decoded character is `[`, its closing quote cannot be
+immediately followed by an ASCII letter, digit or underscore. GNAT recognizes
+that adjacency as the start of an encoded wide character even under the pinned
+ASCII settings. Separate it with whitespace, a comment or punctuation; for example,
+write `X = "[" then` or `X = ("[")then`. Other bracket literals and ordinary
+literal/keyword adjacency retain their existing rules.
 
 A declared name matches `[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*`: an ASCII letter
 followed by letters or digits, optionally separated by single underscores,
@@ -212,8 +225,9 @@ are represented by a closed interval; invalid input has length zero and is
 tracked separately. If no path reaches an expression, its evaluation bound is
 vacuous only for the dynamic contribution: the static contribution must always
 fit within 4096 bytes. Names, mutability and expression grammar must still be
-valid, and an assignment between two statically known lengths must have equal
-lengths even on an unreachable path.
+valid. For an assignment to a static target of length `T`, the RHS static
+contribution `S` must satisfy `S <= T`, with `S = T` when `K = 0`, even on an
+unreachable path.
 Repeated dynamic references are permitted when the applicable bound holds. The total bound covers all
 intermediate groups because operand lengths are nonnegative. Initializers cannot
 borrow the later body's capacity. Assignment additionally requires equality of its affine length and the target's
@@ -261,10 +275,14 @@ bounds and every other object's value. Only initialized mutable names are target
 constants and the original argument binding cannot be assigned. Assignment
 requires equal lengths on every reachable input: equal static lengths, the same
 symbolic input length `d`, or equality established by a preceding predicate.
-If both lengths are statically known, they must be equal regardless of
-reachability. This explicit pre-1.0 restriction prevents GNAT's SPARK code
-generation from rejecting a statically mismatched assignment in a dead arm;
-admission does not depend on whether GNAT happens to fold that arm away.
+For a static target of length `T`, the RHS static contribution `S` must satisfy
+`S <= T` regardless of reachability, and `S = T` when the RHS has no dynamic
+occurrences. This explicit pre-1.0 restriction prevents GNAT's SPARK code
+generation from rejecting impossible fixed-bound assignments in dead arms.
+It applies to both `"abcd" & Input` and `Input & "abcd"` when `T = 3`, even
+though GNAT can compile the latter in some dead arms. Membership therefore does
+not depend on operand-order or dead-code-folding quirks. Dynamic targets retain
+the reachable-path equality rule.
 Empty values and self-copy are legal. For example, inside `if Input'Length = 3`,
 a variable initialized from Input can receive a three-byte static value. `:=` is one
 contiguous token.
@@ -303,7 +321,12 @@ specimen: all 826 checks proved and its 2,013,253-byte report uses 96.0% of the
 buffer, leaving 83,899 bytes (4.0%). The reviewer reported 33.6 minutes and
 6.1 GiB peak memory while other probes ran; this is not a clean performance
 benchmark or a universal report-size bound. The
-[current capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
+Names and Calls review also completed a 4092-byte, 785-assignment specimen:
+829 checks proved and its 2,020,723-byte Main report uses 96.4% of the buffer,
+leaving 76,429 bytes (3.6%). The reviewer reported 32 minutes; no duplicate timing
+run was made. The [Names and Calls capacity record](docs/names-and-calls.md#dense-assignment-review-evidence)
+identifies that retained measurement. The
+[branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 records the measured shapes, results and their limits.
@@ -435,7 +458,7 @@ fixed-guard samples remain instances of the same rules.
 ### Shared composition rules
 
 Whitespace around punctuation is optional; adjacent word tokens require a
-separator. Declarations precede the entire executable body. Statements and
+separator, and the final-bracket literal rule above also applies. Declarations precede the entire executable body. Statements and
 recursive choices compose under the shared state, expression and effect rules;
 path facts and rejection requirements apply at each executed operation and join.
 No application can call `Ada.Text_IO`, libc imports or an unlisted library API.

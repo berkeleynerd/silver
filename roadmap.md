@@ -14,6 +14,38 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Admission Repairs — complete
+
+The owner authorized one bounded repair milestone on 2026-10-14 following the
+independent assessment of review `e2c4fc2`. It completed on Linux on 2026-10-15,
+before further language features. The [delivery record](docs/admission-repairs.md)
+tracks the findings, changes and validation. All four parts are complete:
+
+1. Repair assignment compatibility: for a static target of length `T`, require
+   the RHS static contribution `S <= T`, with equality when there are no dynamic
+   occurrences, even on unreachable paths. Retain reachable-path equality.
+2. Repair literal recognition: a final decoded `[` cannot have a closing quote
+   immediately followed by an ASCII letter, digit or underscore. Align native
+   admission, Lean semantics/source correspondence, specification and catalogue.
+3. Close the bounded documentation/test findings, add the checked Names/Compose
+   lexical equality guard, and record the existing dense-capacity measurement.
+4. Run compact regressions and one full GNAT object-code-generation pass over
+   available admitted differential corpora, then one stable Linux native
+   proof/build/full-test and complete cached Lean checkpoint. Independently review,
+   record exact scope, commit and publish. Preserve caches and review evidence.
+
+Native rule changes, specification/catalogue and bounded regressions are implemented.
+The full native audit, all 307 tests, complete 252-module Lean source/model check
+and code generation for all 93,007 admitted corpus programs passed. The complete
+suite retained identical inputs throughout; the record distinguishes cache reuse,
+source rebuilding and the fresh axiom audit. No broader name
+resolution refactor, new API, Oracle amendment, corpus-wide GNATprove or per-edit
+full-corpus gate is included. macOS, hosted CI and independent replay remain out
+of scope.
+The larger Names lexical-call adapter remains deferred under the documented
+interpretation premise; this milestone's checked helper identities address
+the observed duplication without claiming to remove that premise.
+
 ### Focused Source Checks — complete
 
 The owner authorized this single bounded performance milestone on 2026-10-14.

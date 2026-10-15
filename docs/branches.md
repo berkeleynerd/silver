@@ -8,6 +8,13 @@ The original Oracle and external-tool assumptions remain in force. These
 checkpoints describe the original delivery. The subsequent review and authorized
 repair below address a build-completeness defect in that delivered admission rule.
 
+The later review of `e2c4fc2` demonstrated that the static/static repair below
+was incomplete: a static prefix plus dynamic input can also cause GNAT to reject
+a dead assignment. [Admission Repairs](admission-repairs.md) strengthens the rule
+to bound the static RHS contribution for every static target and adds a shared
+literal-boundary repair. The earlier checkpoint and its test scope remain history;
+they do not establish that all dynamic RHS spellings compile.
+
 ## Review of 4503d17 and bounded repair — 2026-10-14
 
 The second-party review found one blocker: an unreachable assignment between

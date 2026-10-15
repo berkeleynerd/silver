@@ -39,6 +39,14 @@ def tokenAt (text : Source) (position : Nat) (token : Token) : Bool :=
     (!token.isWord || decide (position + token.spelling.length > text.length) ||
       !identifierCharacter (Cursor.byteAt text (position + token.spelling.length)))
 
+/-- GNAT always recognizes bracket-encoded wide characters. A final `[` followed
+by the closing quote and an identifier byte must therefore be separated from
+the following word. Doubled quotes do not satisfy this guard. -/
+abbrev bracketEncodingStart (text : Source) (position : Nat) : Prop :=
+  Cursor.byteAt text position = 91 ∧ position + 2 ≤ text.length ∧
+    Cursor.byteAt text (position + 1) = 34 ∧
+    identifierCharacter (Cursor.byteAt text (position + 2)) = true
+
 /-- The numeric recognizer has the exact cursor meaning of Literal_End. -/
 def literalEnd (text : Source) (position : Nat) : Nat :=
   if position > text.length then 0
@@ -46,6 +54,7 @@ def literalEnd (text : Source) (position : Nat) : Nat :=
     if position < text.length ∧ Cursor.byteAt text (position + 1) = 34 then
       literalEnd text (position + 2)
     else position + 1
+  else if bracketEncodingStart text position then 0
   else if printable (Cursor.byteAt text position) then literalEnd text (position + 1)
   else 0
 termination_by text.length + 1 - position
@@ -64,6 +73,7 @@ inductive LiteralAt (text : Source) : Nat → Source → Nat → Prop
       LiteralAt text position (34 :: value) finish
   | character {position finish : Nat} {value : Source} : position ≤ text.length →
       Cursor.byteAt text position ≠ 34 → printable (Cursor.byteAt text position) = true →
+      ¬ bracketEncodingStart text position →
       LiteralAt text (position + 1) value finish →
       LiteralAt text position (Cursor.byteAt text position :: value) finish
 
@@ -72,7 +82,8 @@ theorem literalAt_complete {text value : Source} {position finish : Nat}
   induction h with
   | close bound quote ending => rw [literalEnd]; simp [bound, quote, ending]
   | quote bound quote next previous ih => rw [literalEnd]; simp [Nat.not_lt.mpr (Nat.le_of_lt bound), quote, bound, next, ih]
-  | character bound different character previous ih => rw [literalEnd]; simp [Nat.not_lt.mpr bound, different, character, ih]
+  | character bound different character encoding previous ih =>
+      rw [literalEnd]; simp [Nat.not_lt.mpr bound, different, character, encoding, ih]
 
 theorem literalAt_sound (text : Source) (position : Nat)
     (nonzero : literalEnd text position ≠ 0) :
@@ -90,14 +101,17 @@ theorem literalAt_sound (text : Source) (position : Nat)
       · rw [literalEnd]
         simp only [bound, quote, next, ↓reduceIte]
         exact ⟨[], .close (by omega) quote next⟩
-    · by_cases character : printable (Cursor.byteAt text position) = true
-      · have equation : literalEnd text position = literalEnd text (position + 1) := by
-          rw [literalEnd]; simp [bound, quote, character]
-        rw [equation] at nonzero ⊢
-        obtain ⟨value, previous⟩ := literalAt_sound text (position + 1) nonzero
-        exact ⟨_, .character (by omega) quote character previous⟩
+    · by_cases encoding : bracketEncodingStart text position
       · rw [literalEnd] at nonzero
-        simp [bound, quote, character] at nonzero
+        simp [bound, encoding] at nonzero
+      · by_cases character : printable (Cursor.byteAt text position) = true
+        · have equation : literalEnd text position = literalEnd text (position + 1) := by
+            rw [literalEnd]; simp [bound, quote, encoding, character]
+          rw [equation] at nonzero ⊢
+          obtain ⟨value, previous⟩ := literalAt_sound text (position + 1) nonzero
+          exact ⟨_, .character (by omega) quote character encoding previous⟩
+        · rw [literalEnd] at nonzero
+          simp [bound, quote, encoding, character] at nonzero
 
 termination_by text.length + 1 - position
 decreasing_by all_goals omega
@@ -114,12 +128,12 @@ theorem literalAt_unique {text left right : Source} {position leftEnd rightEnd :
       | quote bound quote next other =>
           obtain ⟨rfl, rfl⟩ := ih other
           exact ⟨rfl, rfl⟩
-      | character bound different character other => contradiction
-  | character bound different character previous ih =>
+      | character bound different character encoding other => contradiction
+  | character bound different character encoding previous ih =>
       cases second with
       | close bound quote ending => contradiction
       | quote bound quote next other => contradiction
-      | character bound different character other =>
+      | character bound different character encoding other =>
           obtain ⟨rfl, rfl⟩ := ih other
           exact ⟨rfl, rfl⟩
 
@@ -132,7 +146,7 @@ theorem literalAt_bounds {text value : Source} {position finish : Nat}
   | quote bound quote next previous ih =>
     refine ⟨by simp only [List.length_cons]; omega, ih.2.1, ?_⟩
     simpa [printable] using ih.2.2
-  | character bound different character previous ih =>
+  | character bound different character encoding previous ih =>
     refine ⟨by simp only [List.length_cons]; omega, ih.2.1, ?_⟩
     intro byte member
     simp only [List.mem_cons] at member

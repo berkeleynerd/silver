@@ -27,6 +27,7 @@ inductive Condition
   | eq (left right : Number) | ne (left right : Number)
   | lt (left right : Number) | le (left right : Number) | gt (left right : Number)
   | range (value first last : Number)
+  | identifierCharacter (value : Number)
   | andThen (left right : Condition)
   | literalToken (index : Number) | tokenAt (position index : Number)
   | suffix (position index : Number)
@@ -63,6 +64,7 @@ def Condition.render : Condition → List String
   | .le left right => left.render ++ ["<="] ++ right.render
   | .gt left right => left.render ++ [">"] ++ right.render
   | .range value first last => value.render ++ ["in"] ++ first.render ++ [".."] ++ last.render
+  | .identifierCharacter value => call "is_identifier_character" [value.render]
   | .andThen left right => left.render ++ ["and", "then"] ++ right.render
   | .literalToken index => call "required_tokens" [index.render] ++ ["=", "string_literal"]
   | .tokenAt position index => call "token_at" [["text"], position.render,
@@ -92,7 +94,7 @@ def Number.isElsif : Number → Bool
   | _ => false
 
 def Condition.primary : Condition → Bool
-  | .tokenAt _ _ | .suffix _ _ => true
+  | .identifierCharacter _ | .tokenAt _ _ | .suffix _ _ => true
   | _ => false
 
 def Condition.relation : Condition → Bool
@@ -128,6 +130,7 @@ def Condition.wellFormed : Condition → Bool
       left.wellFormed && right.wellFormed && left.simple && right.simple
   | .range value first last =>
       value.wellFormed && first.wellFormed && last.wellFormed && value.simple && first.simple && last.simple
+  | .identifierCharacter value => value.wellFormed && value.simple
   | .andThen left right => left.wellFormed && right.wellFormed && left.andLeft && right.relation
   | .literalToken index => index.wellFormed && index.simple
   | .tokenAt position index | .suffix position index =>
@@ -167,6 +170,7 @@ def Condition.eval (calls : Calls) (primitives : PrimitiveCalls) (context : Cont
   | .gt left right => decide (left.eval calls primitives context > right.eval calls primitives context)
   | .range value first last => decide (first.eval calls primitives context ≤ value.eval calls primitives context ∧
       value.eval calls primitives context ≤ last.eval calls primitives context)
+  | .identifierCharacter value => Silver.identifierCharacter (value.eval calls primitives context)
   | .andThen left right => left.eval calls primitives context && right.eval calls primitives context
   | .literalToken index => tokenFor (index.eval calls primitives context) == .stringLiteral
   | .tokenAt position index => primitives.token context.text
@@ -184,8 +188,13 @@ def literalBody : Number :=
       (.group (.ite (.andThen (.lt .position .last)
         (.eq (.byteAt (.add .position (.constant 1))) (.characterVal (.constant 34))))
         (.literal (.add .position (.constant 2))) (.add .position (.constant 1))))
-      (.elsif (.range (.byteAt .position) (.character 32) (.character 126))
-        (.literal (.add .position (.constant 1))) (.constant 0)))
+      (.elsif (.andThen (.andThen (.andThen
+        (.eq (.byteAt .position) (.character 91))
+        (.le (.add .position (.constant 2)) .last))
+        (.eq (.byteAt (.add .position (.constant 1))) (.characterVal (.constant 34))))
+        (.identifierCharacter (.byteAt (.add .position (.constant 2))))) (.constant 0)
+        (.elsif (.range (.byteAt .position) (.character 32) (.character 126))
+          (.literal (.add .position (.constant 1))) (.constant 0))))
 
 def suffixBody : Condition :=
   .ite (.gt .nextToken .tokenLast)
@@ -209,7 +218,7 @@ theorem literal_denotation (calls : Calls) (primitives : PrimitiveCalls) (contex
     literalBody.eval calls primitives context =
       literalEquation (calls.literal context.text) context.text context.position := by
   dsimp +instances only [literalBody, Number.eval, Condition.eval]
-  simp [literalEquation, printable, Bool.and_eq_true]
+  simp [literalEquation, bracketEncodingStart, printable, Bool.and_eq_true, and_assoc]
 
 theorem suffix_denotation (calls : Calls) (primitives : PrimitiveCalls) (context : Context) :
     suffixBody.eval calls primitives context =

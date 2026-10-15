@@ -130,6 +130,11 @@ class NamesCallsTests(unittest.TestCase):
             b'Input:', b'fIrSt_Or_DeFaUlT:').replace(b'Put_Line(Input)', b'Put_Line(First_Or_Default)')
         self.check(self_named)
         self.check(self_named.replace(b'Silver_Arguments.First_Or_Default', b'First_Or_Default'), 2)
+        # A declaration following Input cannot hide Input's earlier initializer.
+        later_named = visible(program(b'First_Or_Default:String:="later";',
+                                      output(b'Input'), arguments=True)).replace(
+                                          b'Silver_Arguments.First_Or_Default', b'First_Or_Default')
+        self.check(later_named)
         # Operation spelling is not reserved when it denotes an initialized object.
         declarations = (b'Put_Line:String:="old";Reject:String:="old";'
                         b'Input_Is_Valid:String:="old";First_Or_Default:String:="old";')
@@ -137,6 +142,16 @@ class NamesCallsTests(unittest.TestCase):
                 b'if Input_Is_Valid="old" and then Input_Is_Valid\'Length=3 then '
                 b'First_Or_Default:=Reject;end if;' + output(b'First_Or_Default'))
         self.check(visible(program(declarations, body, arguments=True)))
+
+    def test_input_objects_hide_operations_but_not_qualified_calls(self) -> None:
+        for operation in (b'Put_Line', b'Reject', b'Input_Is_Valid'):
+            source = visible(program(b'', output(b'Input'), arguments=True)).replace(
+                b'Input:', operation + b':').replace(b'Put_Line(Input)',
+                                                    b'Put_Line(' + operation + b')')
+            qualifier = b'Silver_IO.' if operation == b'Put_Line' else b'Silver_Arguments.'
+            with self.subTest(input_name=operation):
+                self.check(source)
+                self.check(source.replace(qualifier + operation, operation), 2)
 
     def test_use_does_not_admit_other_library_entities_or_extra_initializers(self) -> None:
         for name in (b'Max_Length', b'Written_Bytes', b'Written_Count', b'Flushed', b'Succeeded'):

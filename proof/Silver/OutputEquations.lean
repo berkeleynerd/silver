@@ -42,6 +42,7 @@ def literalEquation (implementation : Nat → Nat) (text : Source) (position : N
     if position < text.length ∧ Cursor.byteAt text (position + 1) = 34 then
       implementation (position + 2)
     else position + 1
+  else if bracketEncodingStart text position then 0
   else if printable (Cursor.byteAt text position) then implementation (position + 1)
   else 0
 
@@ -62,10 +63,13 @@ theorem literalEnd_unique (text : Source) (implementation : Nat → Nat)
         exact literalEnd_unique text implementation equation (position + 2) (by omega) (by omega)
       · simp [doubled]
     · simp only [quote, ↓reduceIte]
-      by_cases character : printable (Cursor.byteAt text position) = true
-      · simp only [character, ↓reduceIte]
-        exact literalEnd_unique text implementation equation (position + 1) (by omega) (by omega)
-      · simp [character]
+      by_cases encoding : bracketEncodingStart text position
+      · rw [ite_eq_left encoding, ite_eq_left encoding]
+      · simp only [encoding, ↓reduceIte]
+        by_cases character : printable (Cursor.byteAt text position) = true
+        · simp only [character, ↓reduceIte]
+          exact literalEnd_unique text implementation equation (position + 1) (by omega) (by omega)
+        · simp [character]
 termination_by text.length + 1 - position
 decreasing_by all_goals omega
 
