@@ -40,11 +40,13 @@ Prefer a small capability motivated by a sample. Closely coupled syntax may
 arrive together. Do not add extra operations solely to create intermediate
 examples, or turn every anticipated infrastructure component into a project.
 
-When a task cannot be completed as one increment, record the proposed split in
-`roadmap.md` when making that decision. State each increment's order, scope,
-completion criteria and status, and preserve all remaining requirements from
-the parent task. Update that plan as work proceeds or scope changes; do not leave
-the split only in conversation or mark the parent complete after a partial result.
+When a task cannot be completed as one increment, create one issue per increment
+in its GitHub milestone, with scope and completion criteria, when making that
+decision. Record the order, direction and remaining decisions in `roadmap.md`;
+keep live work status and handoffs on the issues and board, as
+[planning](docs/planning.md) describes. Preserve all requirements from the parent
+task and update the plan when scope changes; do not leave the split only in
+conversation or mark the parent complete after a partial result.
 This is the agent's responsibility. Related increments may share a validation
 checkpoint within the authorized scope; recording a split adds no approval gate
 and does not itself authorize implementation.
@@ -77,7 +79,10 @@ For each authorized increment:
    Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
    [trusted assumptions](docs/trusted-boundary.md) accurate.
-4. Update the specification, catalogue and motivating sample together. Exercise
+4. Update the specification, catalogue, motivating sample, roadmap capability
+   status and capability record together. Update the Rosetta supported constructs,
+   current-language description and rendered progression, then update or close
+   the stage issue, following [planning](docs/planning.md#rosetta-progression). Exercise
    boundaries, nearby rejected forms and interactions with existing constructs.
    Shared typed rules are useful when expansion makes duplicate metadata costly;
    a general catalogue framework is not a prerequisite now.
@@ -279,8 +284,9 @@ Use `scripts/dev.py paths` and preserve native host isolation under `.tools/`
 and `.silver/`. See [platform coexistence](docs/platform-coexistence.md).
 
 [AGENTS.md](AGENTS.md) supplies session guidance and
-[docs/session-memory.md](docs/session-memory.md) records dated decisions and
-handoffs. Use subthreads with explicit ownership for separable work. Keep
+[docs/session-memory.md](docs/session-memory.md) records dated owner decisions
+and authorizations; affected issue comments carry handoffs. Use subthreads with
+explicit ownership for separable work. Keep
 temporary experiments separate and preserve unrelated scratch files.
 
 Runtime source edits require refreshing bootstrap, rebuilding Silver and

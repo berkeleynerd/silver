@@ -44,6 +44,8 @@ Backlog holds proposed items the owner has not authorized, and Ready holds
 authorized items not yet started. An agent moves an item to Ready only when the
 session memory records the owner's authorization. In review means awaiting
 validation or an independent review.
+A direct current owner request also authorizes work; record that authorization
+in session memory without waiting for a separate Ready transition or approval.
 
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.
@@ -89,6 +91,11 @@ linked pull request merges.
 
 ## Agent routine
 
+The primary coding agent implements owner-authorized work. The planning agent
+maintains the board, issues, Rosetta assessments and reviews. These roles do not
+grant either agent authority to start work or amend the Oracle: only the owner
+does that, with the decision recorded in session memory.
+
 1. **Start of session.** Read the documents `AGENTS.md` lists, then the open
    issues of the current milestone and any open decisions:
 
@@ -97,8 +104,10 @@ linked pull request merges.
    gh issue list --repo berkeleynerd/silver --state open --label "type: decision"
    ```
 
-2. **Claiming work.** Before starting an issue, check that its Status is not In
-   progress, then set it to In progress and comment with the branch or worktree.
+2. **Claiming work.** Start only Ready items with recorded owner authorization,
+   or work the owner requests directly. Before starting an issue, check that
+   another agent has not claimed it, then set it to In progress and comment with
+   the branch or worktree.
    Parallel agents act as the same GitHub user, so the comment, not the assignee,
    identifies the session.
 3. **Splitting work.** When a task splits into increments, create one issue per
@@ -113,8 +122,14 @@ linked pull request merges.
    and next step. Owner decisions and authorizations still go in the session
    memory.
 6. **Completion.** Close the issue through its commit, and update the roadmap's
-   milestone status, `language.md`, the catalogue and samples together as
-   [development.md](../development.md) requires.
+   capability/milestone completion record, `language.md`, the catalogue, samples
+   and capability record together as [development.md](../development.md) requires.
+   This records delivered support; live task status remains on the board.
+
+Parallel streams use separate worktrees and branches. Preserve unrelated edits
+and untracked files; never use a bare `git stash` in the shared checkout.
+Python files in `scripts/` feed proof-provenance hashes, so unrelated tooling
+belongs elsewhere.
 
 ## Rosetta progression
 
@@ -129,7 +144,7 @@ for the next few stages only, and sample sub-issues only for the active stage.
 When a milestone admits a construct, add its identifier to `supported` in
 [rosetta/coverage.json](../rosetta/coverage.json), update the description of
 today's Silver in `rosetta/assess.js`, run `python3 rosetta/refresh.py --render`,
-and close the stage issue if its constructs are all supported.
+and update the stage issue or close it if its constructs are all supported.
 
 ## Access
 

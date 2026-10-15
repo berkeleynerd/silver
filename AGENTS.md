@@ -3,9 +3,14 @@
 Read [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the dated
 [session memory](docs/session-memory.md) before substantial work, then check the
-open issues of the current milestone as [planning](docs/planning.md) describes.
+open issues of the current milestone and open `type: decision` issues as
+[planning](docs/planning.md) describes.
 Follow the current human request; a proposal, roadmap entry or issue alone does
 not authorize implementation.
+
+The primary coding agent implements owner-authorized work. The planning agent
+maintains the board, issues, Rosetta assessments and reviews. Start only Ready
+items whose owner authorization is recorded, or work the owner requests directly.
 
 ## Authority and priorities
 
@@ -38,6 +43,13 @@ not authorize implementation.
 - Inspect Git status before editing. Preserve unrelated work and scratch files.
   Follow the current request about staging, committing and publishing; the
   session memory records the current publication authorization.
+- Other agents may share the checkout. Use a separate worktree and branch for a
+  separate stream; never use a bare `git stash`. Keep unrelated tooling outside
+  `scripts/`: its Python files feed the proof-provenance hashes.
+- When admitting a construct, update the language, catalogue, samples, roadmap
+  capability status and capability record together. Follow the
+  [Rosetta update steps](docs/planning.md#rosetta-progression), including the
+  supported identifier, current-language description, render and stage issue.
 - Determine the actual host rather than inferring it from the checkout path.
   Linux is primary; macOS validation is independent and nonblocking.
 - Use `scripts/dev.py` and its `paths` command. Preserve other hosts' artifacts

@@ -1,5 +1,45 @@
 # Session memory
 
+## 2026-10-15 — Coding-agent recall and shared-work decisions
+
+The owner requested this Silver-scoped recall for future development of
+`github.com/berkeleynerd/silver`. Recall is not authoritative: recheck the
+repository and GitHub. The primary coding agent implements owner-authorized
+work; the planning agent maintains the board, issues, Rosetta assessments and
+reviews. Only the owner authorizes work or Oracle amendments. Issues and roadmap
+entries authorize nothing; start only Ready items with recorded authorization
+or work the owner requests directly.
+
+Every session reads `AGENTS.md` and its listed Oracle, language, development,
+roadmap and session-memory documents, then checks the current milestone and
+open decisions:
+
+```bash
+gh issue list --repo berkeleynerd/silver --state open --milestone "<milestone>"
+gh issue list --repo berkeleynerd/silver --state open --label "type: decision"
+```
+
+Follow [planning](planning.md): claim an issue on the Silver board by setting
+In progress and commenting with the branch/worktree; use one issue per increment
+in its milestone, `Refs #n` for advancing commits and `Fixes #n` for completion.
+Handoffs go in issue comments; findings use `type: finding` plus severity and
+conditional work uses `type: follow-up`. This file holds owner decisions and
+authorizations, and the roadmap holds direction rather than live work status.
+
+Admitting a construct updates `language.md`, the catalogue, samples, roadmap
+capability status and capability record together. Add its identifier to
+`rosetta/coverage.json`'s `supported`, keep `rosetta/assess.js`'s description of
+today's Silver current, run `python3 rosetta/refresh.py --render`, and update or
+close the stage issue.
+
+Other agents work in parallel. Preserve unrelated changes and untracked files;
+use a separate worktree and branch for a separate stream, and never a bare
+`git stash`. Python files under `scripts/` feed proof-provenance hashes; put
+unrelated tooling elsewhere. These decisions supersede older handoff conventions
+where they differ; historical records retain their original scope. CLI memory
+tools are unavailable, so this recall is persisted here and in repository
+guidance; no CLI recall entry was updated.
+
 ## 2026-10-15 — GitHub planning adopted
 
 The owner adopted GitHub issues for planning and tracking, as recorded in
