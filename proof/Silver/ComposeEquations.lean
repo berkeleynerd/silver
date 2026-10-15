@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeExpressions
+public import Silver.ComposeBounds
 
 @[expose] public section
 
@@ -11,37 +12,10 @@ public import Silver.ComposeExpressions
 namespace Silver.Compose.Expressions
 open Named
 
-def ValidText (text : Source) : Prop := 0 < text.length ∧ text.length ≤ maxSourceLength
-
-def ValidCursor (text : Source) (position : Nat) : Prop := position ≤ text.length + 1
-
-def ValidName (text : Source) (first after : Nat) : Prop :=
-  0 < first ∧ first < after ∧ after ≤ text.length + 1
-
-def ValidInfo (text : Source) (info : BindingInfo) : Prop :=
-  ValidName text info.first info.after ∧ info.valueFirst ≤ text.length + 1 ∧
-    info.staticLength ≤ maxSourceLength
-
-def ValidNames (text : Source) (names : BindingEnvironment) : Prop :=
-  names.length ≤ maxBindings ∧ ∀ info ∈ names, ValidInfo text info
-
 def ValidState (text : Source) (state : ParserState) : Prop :=
   ValidCursor text state.position ∧ ValidNames text state.names ∧
     (⟨state.dynamicFirst,state.dynamicAfter⟩ : NameState).Valid text ∧
     state.target ≤ state.names.length ∧ state.capacity ≤ maxSourceLength
-
-def ValidValue (text : Source) (value : ValueResult) : Prop :=
-  value.after ≤ text.length + 1 ∧ value.valueFirst ≤ text.length + 1 ∧
-    value.staticLength ≤ maxSourceLength ∧ value.reference ≤ maxBindings
-
-def ValidResult (text : Source) (result : ExpressionResult) : Prop :=
-  result.after ≤ text.length + 1 ∧ result.staticLength ≤ maxSourceLength ∧
-    result.dynamicCount ≤ maxExpressionOperands
-
-def ValidScan (text : Source) (scan : ExpressionState) : Prop :=
-  ValidCursor text scan.position ∧ scan.staticLength ≤ maxSourceLength ∧
-    scan.dynamicCount ≤ scan.operands ∧ scan.operands ≤ maxExpressionOperands ∧
-    scan.depth ≤ maxSourceLength + 1 ∧ (scan.position = 0 ∨ scan.depth < scan.position)
 
 def allTokens : List ShellToken :=
   [.word "with", .word "silver_io", .word "procedure", .word "main", .word "is",

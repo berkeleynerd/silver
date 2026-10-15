@@ -2,6 +2,7 @@ module
 
 public import Silver.ComposeExpression
 public import Silver.Names
+public import Silver.ScalarExpressionBounds
 
 @[expose] public section
 
@@ -51,6 +52,7 @@ structure ParserState where
   dynamicAfter : Nat := 0
   target : Nat := 0
   capacity : Nat := maxSourceLength
+  scalarNames : ScalarExpression.Environment := []
   deriving DecidableEq, Repr
 
 def initialState : ParserState := {}
@@ -119,10 +121,10 @@ def lookupName (text : Source) (names : BindingEnvironment) (first after : Nat) 
   if first = 0 ∨ after ≤ first then 0 else lookupFrom text names first after 1
 
 def callAfter (text : Source) (names : BindingEnvironment) (position : Nat)
-    (operation : Names.Operation) : Nat :=
+    (operation : Names.Operation) (scalarNames : ScalarExpression.Environment := []) : Nat :=
   let first := skipAt text position
   let after := nameAfter text first
-  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0))
+  Names.operationAfter text position operation (decide (lookupName text names first after ≠ 0 ∨ ScalarExpression.lookup text scalarNames first after ≠ 0))
 
 
 def literalAt (text : Source) (position : Nat) : ValueResult :=
@@ -132,13 +134,13 @@ def literalAt (text : Source) (position : Nat) : ValueResult :=
       Guarded.literalLength text (position + 1), false, 0⟩
   else invalidValue
 
-def valueAt (text : Source) (position : Nat) (names : BindingEnvironment) : ValueResult :=
+def valueAt (text : Source) (position : Nat) (names : BindingEnvironment) (scalarNames : ScalarExpression.Environment := []) : ValueResult :=
   let first := skipAt text position
   let quoted := literalAt text first
   let after := nameAfter text first
   let index := lookupName text names first after
   if quoted.after ≠ 0 then quoted
-  else if index ≠ 0 then
+  else if index ≠ 0 ∧ ScalarExpression.lookup text scalarNames first after = 0 then
     let info := (names.get index).getD {}
     ⟨after, info.valueFirst, info.staticLength, info.dynamic, index⟩
   else invalidValue
@@ -195,9 +197,10 @@ def ValidExpressionState (text : Source) (state : ExpressionState) : Prop :=
   state.position ≤ text.length + 1 ∧ state.dynamicCount ≤ state.operands ∧
     (state.position = 0 ∨ state.depth < state.position)
 
-def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState) : ExpressionState :=
+def expressionStep (text : Source) (names : BindingEnvironment) (state : ExpressionState)
+    (scalarNames : ScalarExpression.Environment := []) : ExpressionState :=
   let openAfter := fixedAfter text state.position "(" false
-  let atom := valueAt text state.position names
+  let atom := valueAt (scalarNames := scalarNames) text state.position names
   let joinAfter := fixedAfter text state.position "&" false
   let closeAfter := fixedAfter text state.position ")" false
   if state.position = 0 then invalidExpressionState
@@ -221,21 +224,23 @@ def expressionStep (text : Source) (names : BindingEnvironment) (state : Express
 def ExpressionState.result (state : ExpressionState) : ExpressionResult :=
   ⟨state.position, state.staticLength, state.dynamicCount, state.namedSeen⟩
 
-def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState) : ExpressionResult :=
+def expressionTail (text : Source) (names : BindingEnvironment) (state : ExpressionState)
+    (scalarNames : ScalarExpression.Environment := []) : ExpressionResult :=
   if state.position = 0 then invalidExpression
   else if state.complete then state.result
   else
-    let next := expressionStep text names state
+    let next := expressionStep (scalarNames := scalarNames) text names state
     if next.position = 0 then invalidExpression
     else if next.complete then next.result
     else if _advancing : text.length + 1 - next.position < text.length + 1 - state.position then
-      expressionTail text names next
+      expressionTail (scalarNames := scalarNames) text names next
     else invalidExpression
 termination_by text.length + 1 - state.position
 decreasing_by exact _advancing
 
-def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment) : ExpressionResult :=
-  expressionTail text names {position := position}
+def expressionAt (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment := []) : ExpressionResult :=
+  expressionTail (scalarNames := scalarNames) text names {position := position}
 
 def fits (result : ExpressionResult) (capacity : Nat) : Bool :=
   decide (result.after ≠ 0 ∧ result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength)
@@ -489,37 +494,43 @@ theorem identifier_not_quote {text bytes : Source} {position after : Nat}
       simp only [letter, decide_eq_true_eq] at first
       omega
 
-inductive ValueAt (text : Source) (names : BindingEnvironment) : Nat → Operand → ValueResult → Prop
+inductive ValueAtCore (text : Source) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) : Nat → Operand → ValueResult → Prop
   | literal {position after : Nat} {bytes : Source} :
       skipAt text position ≠ 0 → skipAt text position ≤ text.length →
       Cursor.byteAt text (skipAt text position) = 34 →
       Output.LiteralAt text (skipAt text position + 1) bytes after →
-      ValueAt text names position (.literal bytes)
+      ValueAtCore text names scalarNames position (.literal bytes)
         ⟨after, skipAt text position + 1, bytes.length, false, 0⟩
   | reference {position after index : Nat} {name : Source} {info : BindingInfo} :
       skipAt text position ≠ 0 →
       IdentifierAt text (skipAt text position) name after →
       lookupName text names (skipAt text position) after = index → index ≠ 0 →
+      ScalarExpression.lookup text scalarNames (skipAt text position) after = 0 →
       names.get index = some info →
-      ValueAt text names position (.reference index)
+      ValueAtCore text names scalarNames position (.reference index)
         ⟨after, info.valueFirst, info.staticLength, info.dynamic, index⟩
 
-theorem value_complete {text : Source} {names : BindingEnvironment} {position : Nat}
-    {value : Operand} {result : ValueResult} (parsed : ValueAt text names position value result) :
-    valueAt text position names = result := by
+abbrev ValueAt (text : Source) (names : BindingEnvironment) (position : Nat)
+    (value : Operand) (result : ValueResult) (scalarNames : ScalarExpression.Environment := []) : Prop :=
+  ValueAtCore text names scalarNames position value result
+
+theorem value_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
+    {value : Operand} {result : ValueResult} (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
+    valueAt (scalarNames := scalarNames) text position names = result := by
   cases parsed with
   | literal positive bound quote parsed =>
       rename_i after bytes
       have nonzero : after ≠ 0 := by have := Output.literalAt_bounds parsed; omega
       simp [valueAt, literalAt, positive, bound, quote, Output.literalAt_complete parsed,
         Guarded.literalLength_decodes parsed, nonzero]
-  | reference positive parsed selected nonzero present =>
+  | reference positive parsed selected nonzero unmasked present =>
       simp [valueAt, literalAt, identifier_not_quote parsed, nameAfter, positive,
-        identifierEnd_complete parsed, selected, nonzero, present, invalidValue]
+        identifierEnd_complete parsed, selected, nonzero, unmasked, present, invalidValue]
 
-theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment)
-    (accepted : (valueAt text position names).after ≠ 0) :
-    ∃ value, ValueAt text names position value (valueAt text position names) := by
+theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment}
+    (accepted : (valueAt (scalarNames := scalarNames) text position names).after ≠ 0) :
+    ∃ value, ValueAt (scalarNames := scalarNames) text names position value (valueAt (scalarNames := scalarNames) text position names) := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · have conditions : skipAt text position ≠ 0 ∧ skipAt text position ≤ text.length ∧
         Cursor.byteAt text (skipAt text position) = 34 ∧
@@ -531,7 +542,7 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
       · simp [literalAt, present, invalidValue] at quoted
     obtain ⟨bytes, parsed⟩ := Output.literalAt_sound text _ conditions.2.2.2
     refine ⟨.literal bytes, ?_⟩
-    have observed : valueAt text position names =
+    have observed : valueAt (scalarNames := scalarNames) text position names =
         ⟨Output.literalEnd text (skipAt text position + 1), skipAt text position + 1,
           bytes.length, false, 0⟩ := by
       simp [valueAt, literalAt, conditions, Guarded.literalLength_decodes parsed]
@@ -541,6 +552,12 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
       by_cases absent : lookupName text names (skipAt text position) (nameAfter text (skipAt text position)) = 0
       · simp [valueAt, quoted, absent, invalidValue] at accepted
       · exact absent
+    have unmasked : ScalarExpression.lookup text scalarNames (skipAt text position)
+        (nameAfter text (skipAt text position)) = 0 := by
+      by_cases clear : ScalarExpression.lookup text scalarNames (skipAt text position)
+          (nameAfter text (skipAt text position)) = 0
+      · exact clear
+      · simp [valueAt, quoted, clear, invalidValue] at accepted
     obtain ⟨positive, advanced, info, present, _⟩ := lookupName_found index
     have afterPositive : nameAfter text (skipAt text position) ≠ 0 := by omega
     have nameAccepted : identifierEnd text (skipAt text position) ≠ 0 := by
@@ -549,31 +566,32 @@ theorem value_sound (text : Source) (position : Nat) (names : BindingEnvironment
     have afterSame : nameAfter text (skipAt text position) = identifierEnd text (skipAt text position) := by
       simp [nameAfter, positive]
     refine ⟨.reference (lookupName text names (skipAt text position) (nameAfter text (skipAt text position))), ?_⟩
-    have observed : valueAt text position names =
+    have observed : valueAt (scalarNames := scalarNames) text position names =
         ⟨nameAfter text (skipAt text position), info.valueFirst, info.staticLength, info.dynamic,
           lookupName text names (skipAt text position) (nameAfter text (skipAt text position))⟩ := by
-      simp [valueAt, quoted, index, present]
+      simp [valueAt, quoted, index, unmasked, present]
     rw [observed]
-    apply ValueAt.reference positive
+    apply ValueAtCore.reference positive
     · simpa [afterSame] using parsed
     · rfl
     · exact index
+    · exact unmasked
     · exact present
 
 def ValueResult.bound (result : ValueResult) : Bindings.Bound :=
   if result.dynamicSeen then .argument else .fixed result.staticLength
 
-theorem value_infer {text : Source} {names : BindingEnvironment} {position : Nat}
-    {value : Operand} {result : ValueResult} (parsed : ValueAt text names position value result) :
+theorem value_infer {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
+    {value : Operand} {result : ValueResult} (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
     value.infer names.shape = some result.bound := by
   cases parsed with
   | literal => rfl
-  | reference _ _ _ _ present =>
+  | reference _ _ _ _ _ present =>
       simp [Bindings.Value.infer, Bindings.BindingEnvironment.shape, present,
         BindingInfo.cell, BindingInfo.bound, ValueResult.bound]
 
-theorem value_literals {text : Source} {names : BindingEnvironment} {position : Nat}
-    {value : Operand} {result : ValueResult} (parsed : ValueAt text names position value result) :
+theorem value_literals {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
+    {value : Operand} {result : ValueResult} (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
     value.PrintableLiterals := by
   cases parsed with
   | literal _ _ _ parsed => exact (Output.literalAt_bounds parsed).2.2
