@@ -145,8 +145,8 @@ def valueAt (text : Source) (position : Nat) (names : BindingEnvironment) (scala
     ⟨after, info.valueFirst, info.staticLength, info.dynamic, index⟩
   else invalidValue
 
-/-- Share one 64-leaf expression's concatenation allowance across all source
-positions. This independent work budget limits aggregate proof work. -/
+/-- Share one 64-leaf expression's operator allowance across all source
+positions. Integer arithmetic and String concatenation use one proof-work budget. -/
 def maxConcatenations : Nat := 63
 
 /-- Count only operator tokens: trivia skips comments and a quoted literal is
@@ -155,6 +155,7 @@ this source scanner total outside the native routine's verified domains. -/
 def workTail (text : Source) (position remaining : Nat) : Bool :=
   let first := skipAt text position
   let quoted := literalAt text first
+  let number := ScalarLiteral.read text first
   if first = 0 then false
   else if first > text.length then true
   else if Cursor.byteAt text first = 34 then
@@ -162,7 +163,12 @@ def workTail (text : Source) (position remaining : Nat) : Bool :=
     else if _advancing : text.length + 1 - quoted.after < text.length + 1 - position then
       workTail text quoted.after remaining
     else false
-  else if Cursor.byteAt text first = 38 then
+  else if number.after ≠ 0 then
+    if _advancing : text.length + 1 - number.after < text.length + 1 - position then
+      workTail text number.after remaining
+    else false
+  else if Cursor.byteAt text first = 38 ∨ Cursor.byteAt text first = 43 ∨
+      Cursor.byteAt text first = 45 ∨ Cursor.byteAt text first = 42 then
     if remaining = 0 then false
     else if _advancing : text.length + 1 - (first + 1) < text.length + 1 - position then
       workTail text (first + 1) (remaining - 1)
@@ -251,7 +257,8 @@ def ExpressionResult.value (result : ExpressionResult) : ValueResult :=
 def newNameAllowed (text : Source) (state : ParserState) (first after : Nat) (arguments : Bool) : Bool :=
   decide (first ≠ 0 ∧ after > first) && !forbiddenName text first after &&
     (!arguments || !Arguments.forbiddenName text first after) &&
-    decide (lookupName text state.names first after = 0)
+    decide (lookupName text state.names first after = 0 ∧
+      ScalarExpression.lookup text state.scalarNames first after = 0)
 
 def addBinding (state : ParserState) (first after : Nat) (value : ValueResult)
     (mutable : Bool) (following : Nat) : ParserState :=
@@ -282,15 +289,56 @@ def declarationValuePosition (text : Source) (state : ParserState) : Nat :=
 
 def declarationParts (text : Source) (state : ParserState) : DeclarationParts :=
   ⟨declarationFirst text state, declarationAfter text state, declarationConstantAfter text state,
-    expressionAt text (declarationValuePosition text state) state.names,
-    fixedAfter text (expressionAt text (declarationValuePosition text state) state.names).after ";" false⟩
+    expressionAt text (declarationValuePosition text state) state.names state.scalarNames,
+    fixedAfter text (expressionAt text (declarationValuePosition text state) state.names state.scalarNames).after ";" false⟩
 
-def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+def stringDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
   let parts := declarationParts text state
   if !newNameAllowed text state parts.first parts.after arguments ||
       decide (parts.following = 0 ∨ state.names.length = maxBindings) ||
       !fits parts.value maxSourceLength then invalidState
   else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following
+
+structure ScalarDeclarationParts where
+  first : Nat
+  after : Nat
+  typeFirst : Nat
+  typeAfter : Nat
+  value : ScalarExpression.Result
+  following : Nat
+  deriving DecidableEq, Repr
+
+def scalarDeclarationTypeFirst (text : Source) (state : ParserState) : Nat :=
+  skipAt text (declarationConstantAfter text state)
+
+def scalarDeclarationTypeAfter (text : Source) (state : ParserState) : Nat :=
+  fixedAfter text (scalarDeclarationTypeFirst text state) "integer" true
+
+def scalarDeclarationValuePosition (text : Source) (state : ParserState) : Nat :=
+  fixedAfter text (scalarDeclarationTypeAfter text state) ":=" false
+
+def scalarDeclarationParts (text : Source) (state : ParserState) : ScalarDeclarationParts :=
+  let value := ScalarExpression.read text (scalarDeclarationValuePosition text state) state.scalarNames
+  ⟨declarationFirst text state, declarationAfter text state,
+    scalarDeclarationTypeFirst text state, scalarDeclarationTypeAfter text state, value,
+    fixedAfter text value.after ";" false⟩
+
+def addScalarBinding (state : ParserState) (parts : ScalarDeclarationParts) : ParserState :=
+  {state with position := parts.following, scalarNames := state.scalarNames ++ [⟨parts.first, parts.after, parts.value.bounds, true⟩]}
+
+def scalarDeclarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let parts := scalarDeclarationParts text state
+  if !newNameAllowed text state parts.first parts.after arguments ||
+      decide (parts.typeAfter = 0 ∨ parts.following ≤ state.position ∨ state.scalarNames.length = maxBindings) ||
+      !parts.value.isStatic || parts.value.bounds.isEmpty ||
+      decide (fixedAfter text parts.first "integer" true = parts.after) ||
+      decide (lookupName text state.names parts.typeFirst parts.typeAfter ≠ 0 ∨
+        ScalarExpression.lookup text state.scalarNames parts.typeFirst parts.typeAfter ≠ 0)
+  then invalidState else addScalarBinding state parts
+
+def declarationAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
+  let scalar := scalarDeclarationAt text state arguments
+  if scalar.position ≠ 0 then scalar else stringDeclarationAt text state arguments
 
 structure ArgumentParts where
   first : Nat
@@ -336,7 +384,7 @@ def declarationsLoop (text : Source) (arguments : Bool) : Nat → ParserState �
       else declarationsLoop text arguments fuel (declarationAt text state arguments)
 
 def declarationsAt (text : Source) (state : ParserState) (arguments : Bool) : ParserState :=
-  declarationsLoop text arguments (maxBindings + 1 - state.names.length) state
+  declarationsLoop text arguments (2 * maxBindings + 1 - (state.names.length + state.scalarNames.length)) state
 
 -- The shell tables retain current control flow. Only declaration slots become
 -- a finite list, and assignment names resolve against its shared environment.
@@ -388,7 +436,8 @@ def targetAt (text : Source) (state : ParserState) (sameTarget : Bool) : ParserS
   let after := nameAfter text first
   let index := lookupName text state.names first after
   let info := (state.names.get index).getD {}
-  if index = 0 ∨ info.mutable = false ∨ (sameTarget = true ∧ index ≠ state.target) then invalidState
+  if index = 0 ∨ ScalarExpression.lookup text state.scalarNames first after ≠ 0 ∨
+      info.mutable = false ∨ (sameTarget = true ∧ index ≠ state.target) then invalidState
   else {state with position := after, target := index}
 
 def dynamicAt (text : Source) (state : ParserState) : ParserState :=
@@ -399,19 +448,19 @@ def dynamicAt (text : Source) (state : ParserState) : ParserState :=
   else {state with position := after}
 
 def assignmentAt (text : Source) (state : ParserState) : ParserState :=
-  let value := expressionAt text state.position state.names
+  let value := expressionAt text state.position state.names state.scalarNames
   let target := (state.names.get state.target).getD {}
   if !fits value state.capacity || decide (state.target = 0 ∨ value.staticLength ≠ target.staticLength ∨
       value.dynamicCount ≠ (if target.dynamic then 1 else 0)) then invalidState
   else {state with position := value.after}
 
 def outputAt (text : Source) (state : ParserState) : ParserState :=
-  let value := expressionAt text state.position state.names
+  let value := expressionAt text state.position state.names state.scalarNames
   if fits value state.capacity then {state with position := value.after} else invalidState
 
 def comparisonAt (text : Source) (state : ParserState) : ParserState :=
-  let left := expressionAt text state.position state.names
-  let right := expressionAt text (fixedAfter text left.after "=" false) state.names
+  let left := expressionAt text state.position state.names state.scalarNames
+  let right := expressionAt text (fixedAfter text left.after "=" false) state.names state.scalarNames
   if fits left state.capacity && fits right state.capacity && (left.namedSeen || right.namedSeen)
   then {state with position := right.after} else invalidState
 
@@ -614,23 +663,51 @@ theorem lookupFrom_equation (text : Source) (names : BindingEnvironment) (first 
     simp [lookupList, beyond, BindingEnvironment.get, nonzero, List.getElem?_eq_getElem inside,
       lookupFrom, successor]
 
-theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
-    (accepted : (declarationAt text state arguments).position ≠ 0) :
-    (declarationAt text state arguments).names.length = state.names.length + 1 := by
-  simp only [declarationAt]
+theorem stringDeclarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
+    (accepted : (stringDeclarationAt text state arguments).position ≠ 0) :
+    (stringDeclarationAt text state arguments).names.length = state.names.length + 1 := by
+  simp only [stringDeclarationAt]
   split
   · rename_i rejected
-    simp only [declarationAt, rejected, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
+    simp only [stringDeclarationAt, rejected, ↓reduceIte, invalidState, ne_eq, not_true_eq_false] at accepted
   · simp [addBinding]
 
+theorem declarationAt_count {text : Source} {state : ParserState} {arguments : Bool}
+    (accepted : (declarationAt text state arguments).position ≠ 0) :
+    (declarationAt text state arguments).names.length +
+      (declarationAt text state arguments).scalarNames.length =
+      state.names.length + state.scalarNames.length + 1 := by
+  by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
+  · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := ite_eq_left scalar
+    rw [selected]
+    unfold scalarDeclarationAt at scalar ⊢
+    dsimp only at scalar ⊢
+    split at scalar
+    · simp [invalidState] at scalar
+    · rename_i good
+      simp only [good, Bool.false_eq_true, ↓reduceIte, addScalarBinding,
+        List.length_append, List.length_singleton]
+      omega
+  · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := ite_eq_right scalar
+    rw [selected] at accepted ⊢
+    unfold stringDeclarationAt at accepted ⊢
+    dsimp only at accepted ⊢
+    split at accepted
+    · simp [invalidState] at accepted
+    · rename_i good
+      simp only [good, Bool.false_eq_true, ↓reduceIte, addBinding,
+        List.length_append, List.length_singleton]
+      omega
+
 theorem declarationsAt_equation (text : Source) (state : ParserState) (arguments : Bool)
-    (bounded : state.names.length ≤ maxBindings) :
+    (bounded : state.names.length + state.scalarNames.length ≤ 2 * maxBindings) :
     declarationsAt text state arguments =
       if state.position = 0 then invalidState
       else if fixedAfter text state.position "begin" true ≠ 0 then state
       else if (declarationAt text state arguments).position = 0 then invalidState
       else declarationsAt text (declarationAt text state arguments) arguments := by
-  have fuel : maxBindings + 1 - state.names.length = (maxBindings - state.names.length) + 1 := by omega
+  have fuel : 2 * maxBindings + 1 - (state.names.length + state.scalarNames.length) =
+      (2 * maxBindings - (state.names.length + state.scalarNames.length)) + 1 := by omega
   unfold declarationsAt
   rw [fuel, declarationsLoop]
   by_cases empty : state.position = 0

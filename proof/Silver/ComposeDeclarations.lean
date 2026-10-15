@@ -1,6 +1,7 @@
 module
 
 public import Silver.ComposeSemantics
+public import Silver.ComposeScalarDeclarations
 
 @[expose] public section
 
@@ -11,7 +12,7 @@ namespace Silver.Compose
 open Named Bindings
 
 theorem declarationParts_value (text : Source) (state : ParserState) :
-    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names := by
+    (declarationParts text state).value = expressionAt text (declarationValuePosition text state) state.names state.scalarNames := by
   simp only [declarationParts]
 
 theorem fixedAfter_nonzero {text : Source} {position : Nat} {spelling : String} {word : Bool}
@@ -29,27 +30,27 @@ inductive DeclarationAt (text : Source) (arguments : Bool) : ParserState → Dec
       newNameAllowed text state parts.first parts.after arguments = true →
       parts.following ≠ 0 → state.names.length ≠ maxBindings →
       fits parts.value maxSourceLength = true →
-      ExpressionAt text state.names (declarationValuePosition text state) value parts.value →
+      ExpressionAt text state.names (declarationValuePosition text state) value parts.value state.scalarNames →
       DeclarationAt text arguments state
         ⟨state.names.length + 1, decide (parts.constantAfter = 0), value⟩
         (addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following)
 
 theorem declaration_complete {text : Source} {arguments : Bool} {state next : ParserState}
     {declaration : Declaration} (parsed : DeclarationAt text arguments state declaration next) :
-    declarationAt text state arguments = next := by
+    stringDeclarationAt text state arguments = next := by
   cases parsed with
-  | declaration parts allowed following count bounded _ => simp [declarationAt, parts, allowed, following, count, bounded]
+  | declaration parts allowed following count bounded _ => simp [stringDeclarationAt, parts, allowed, following, count, bounded]
 
 theorem declaration_sound (text : Source) (state : ParserState) (arguments : Bool)
-    (accepted : (declarationAt text state arguments).position ≠ 0) :
-    ∃ declaration, DeclarationAt text arguments state declaration (declarationAt text state arguments) := by
+    (accepted : (stringDeclarationAt text state arguments).position ≠ 0) :
+    ∃ declaration, DeclarationAt text arguments state declaration (stringDeclarationAt text state arguments) := by
   generalize partsEq : declarationParts text state = parts
-  have observed : declarationAt text state arguments =
+  have observed : stringDeclarationAt text state arguments =
       if !newNameAllowed text state parts.first parts.after arguments ||
           decide (parts.following = 0 ∨ state.names.length = maxBindings) || !fits parts.value maxSourceLength
       then invalidState
       else addBinding state parts.first parts.after parts.value.value (decide (parts.constantAfter = 0)) parts.following := by
-    simp only [declarationAt, partsEq]
+    simp only [stringDeclarationAt, partsEq]
   have allowed : newNameAllowed text state parts.first parts.after arguments = true := by
     by_cases good : newNameAllowed text state parts.first parts.after arguments = true
     · exact good
@@ -68,7 +69,7 @@ theorem declaration_sound (text : Source) (state : ParserState) (arguments : Boo
   rw [partsEq] at valueEq
   have valueNonzero : parts.value.after ≠ 0 := (decide_eq_true_eq.mp bounded).1
   rw [valueEq] at valueNonzero
-  obtain ⟨value, parsed⟩ := expressionAt_sound text state.names (declarationValuePosition text state) valueNonzero
+  obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names (declarationValuePosition text state) valueNonzero
   refine ⟨⟨state.names.length + 1, decide (parts.constantAfter = 0), value⟩, ?_⟩
   rw [observed]
   simp only [allowed, Bool.not_true, Bool.false_or, following, count, or_self,
@@ -159,9 +160,15 @@ inductive DeclarationsAt (text : Source) (arguments : Bool) :
       fixedAfter text state.position "begin" true ≠ 0 → DeclarationsAt text arguments state [] state
   | next {state middle final : ParserState} {declaration : Declaration} {rest : List Declaration} :
       state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      (scalarDeclarationAt text state arguments).position = 0 →
       DeclarationAt text arguments state declaration middle →
       DeclarationsAt text arguments middle rest final →
       DeclarationsAt text arguments state (declaration :: rest) final
+  | scalar {state middle final : ParserState} {declaration : Integer.Declaration} {rest : List Declaration} :
+      state.position ≠ 0 → fixedAfter text state.position "begin" true = 0 →
+      ScalarDeclarationAt text arguments state declaration middle →
+      DeclarationsAt text arguments middle rest final →
+      DeclarationsAt text arguments state rest final
 
 theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (state : ParserState)
     (accepted : (declarationsLoop text arguments fuel state).position ≠ 0) :
@@ -176,13 +183,26 @@ theorem declarationsLoop_sound (text : Source) (arguments : Bool) (fuel : Nat) (
           simpa [declarationsLoop, positive, stop] using DeclarationsAt.done positive stop
         · by_cases failed : (declarationAt text state arguments).position = 0
           · simp [declarationsLoop, positive, stop, failed, invalidState] at accepted
-          · obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments failed
-            have remaining : (declarationsLoop text arguments fuel (declarationAt text state arguments)).position ≠ 0 := by
-              simpa [declarationsLoop, positive, stop, failed] using accepted
-            obtain ⟨rest, parsedRest⟩ := ih _ remaining
-            refine ⟨declaration :: rest, ?_⟩
-            simpa [declarationsLoop, positive, stop, failed] using
-              DeclarationsAt.next positive (by omega) parsed parsedRest
+          · by_cases scalar : (scalarDeclarationAt text state arguments).position ≠ 0
+            · have selected : declarationAt text state arguments = scalarDeclarationAt text state arguments := by
+                simp [declarationAt, scalar]
+              obtain ⟨declaration, parsed⟩ := scalar_declaration_sound text state arguments scalar
+              have remaining : (declarationsLoop text arguments fuel (scalarDeclarationAt text state arguments)).position ≠ 0 := by
+                simpa [declarationsLoop, positive, stop, selected, scalar] using accepted
+              obtain ⟨rest, parsedRest⟩ := ih _ remaining
+              refine ⟨rest, ?_⟩
+              simpa [declarationsLoop, positive, stop, selected, scalar] using
+                DeclarationsAt.scalar positive (by omega) parsed parsedRest
+            · have selected : declarationAt text state arguments = stringDeclarationAt text state arguments := by
+                simp [declarationAt, scalar]
+              have stringPositive : (stringDeclarationAt text state arguments).position ≠ 0 := selected ▸ failed
+              obtain ⟨declaration, parsed⟩ := declaration_sound text state arguments stringPositive
+              have remaining : (declarationsLoop text arguments fuel (stringDeclarationAt text state arguments)).position ≠ 0 := by
+                simpa [declarationsLoop, positive, stop, selected, stringPositive] using accepted
+              obtain ⟨rest, parsedRest⟩ := ih _ remaining
+              refine ⟨declaration :: rest, ?_⟩
+              simpa [declarationsLoop, positive, stop, selected, stringPositive] using
+                DeclarationsAt.next positive (by omega) (by omega) parsed parsedRest
 
 theorem declarations_sound (text : Source) (state : ParserState) (arguments : Bool)
     (accepted : (declarationsAt text state arguments).position ≠ 0) :
@@ -194,10 +214,13 @@ theorem declarations_count {text : Source} {arguments : Bool} {state final : Par
     final.names.length = state.names.length + declarations.length := by
   induction parsed with
   | done => simp
-  | next _ _ first _ ih =>
-      have count := declarationAt_count ((declaration_complete first).symm ▸ declaration_positive first)
+  | next _ _ _ first _ ih =>
+      have count := stringDeclarationAt_count ((declaration_complete first).symm ▸ declaration_positive first)
       rw [declaration_complete first] at count
       simpa only [List.length_cons, count, Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using ih
+  | scalar _ _ first _ ih =>
+      cases first
+      exact ih
 
 theorem declarations_shape {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Declaration} (normal : NamesNormal state.names)
@@ -205,16 +228,22 @@ theorem declarations_shape {text : Source} {arguments : Bool} {state final : Par
     Bindings.DeclarationsValid state.names.shape declarations final.names.shape := by
   induction parsed with
   | done => exact .nil _
-  | next _ _ first _ ih =>
+  | next _ _ _ first _ ih =>
       obtain ⟨bound, valid, same⟩ := declaration_shape normal first
       exact .cons valid (same ▸ ih (declaration_normal normal first))
+  | scalar _ _ first _ ih =>
+      cases first
+      exact ih normal
 
 theorem declarations_normal {text : Source} {arguments : Bool} {state final : ParserState}
     {declarations : List Declaration} (parsed : DeclarationsAt text arguments state declarations final)
     (normal : NamesNormal state.names) : NamesNormal final.names := by
   induction parsed with
   | done => exact normal
-  | next _ _ first _ ih => exact ih (declaration_normal normal first)
+  | next _ _ _ first _ ih => exact ih (declaration_normal normal first)
+  | scalar _ _ first _ ih =>
+      cases first
+      exact ih normal
 
 
 inductive LiteralReading (text : Source) : Nat → Source → ValueResult → Prop
@@ -379,14 +408,28 @@ theorem declarations_unique {text : Source} {arguments : Bool} {state leftState 
   | done positive stop =>
       cases second with
       | done => exact ⟨rfl, rfl⟩
-      | next _ more _ _ => exact False.elim (stop more)
-  | next positive more parsed rest ih =>
+      | next _ more _ _ _ | scalar _ more _ _ => exact False.elim (stop more)
+  | next positive more noScalar parsed rest ih =>
       cases second with
       | done _ stop => exact False.elim (stop more)
-      | next _ _ other remaining =>
+      | next _ _ _ other remaining =>
           obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
           obtain ⟨rfl, rfl⟩ := ih remaining
           exact ⟨rfl, rfl⟩
+      | scalar _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+  | scalar positive more parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | next _ _ noScalar _ _ =>
+          have accepted := scalar_declaration_positive parsed
+          rw [← scalar_declaration_complete parsed, noScalar] at accepted
+          contradiction
+      | scalar _ _ other remaining =>
+          obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
+          exact ih remaining
 
 theorem argument_unique {text : Source} {state leftState rightState : ParserState}
     {left right : Source} (first : ArgumentAt text state left leftState)
@@ -403,7 +446,10 @@ theorem declarations_fields {text : Source} {arguments : Bool} {state final : Pa
       final.dynamicFirst = state.dynamicFirst ∧ final.dynamicAfter = state.dynamicAfter := by
   induction parsed with
   | done => exact ⟨rfl, rfl, rfl, rfl⟩
-  | next _ _ first _ ih =>
+  | next _ _ _ first _ ih =>
+      cases first
+      exact ih
+  | scalar _ _ first _ ih =>
       cases first
       exact ih
 

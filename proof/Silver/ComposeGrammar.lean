@@ -49,18 +49,18 @@ def PayloadAt (text : Source) (form : Form) (token : ShellToken)
   | .declarations => ∃ values, DeclarationsAt text form.hasArguments state values next ∧
       event = some (.declarations values next.names)
   | .argumentDeclaration => ∃ fallback, ArgumentAt text state fallback next ∧ event = some (.argument fallback)
-  | .assignmentValue => ∃ value, ExpressionAt text state.names state.position value (expressionAt text state.position state.names) ∧
+  | .assignmentValue => ∃ value, ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames) ∧
       event = some (.assignment ⟨state.target, value⟩)
   | .literal => ∃ bytes, LiteralReading text (skipAt text state.position) bytes (literalAt text (skipAt text state.position)) ∧
       event = some (.literal bytes)
   | .capacity => event = some (.capacity next.capacity)
   | .outputExpression => ∃ expression,
-      ExpressionAt text state.names state.position expression (expressionAt text state.position state.names) ∧
+      ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames) ∧
       event = some (.output expression)
   | .comparisonExpression => ∃ left right,
-      ExpressionAt text state.names state.position left (expressionAt text state.position state.names) ∧
-      ExpressionAt text state.names (fixedAfter text (expressionAt text state.position state.names).after "=" false)
-        right (expressionAt text (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names) ∧
+      ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames) ∧
+      ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
+        right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames) ∧
       event = some (.comparison left right)
   | _ => event = none
 
@@ -70,7 +70,8 @@ def TargetReading (text : Source) (state next : ParserState) (sameTarget : Bool)
   ∃ name info, Named.IdentifierAt text (skipAt text state.position) name next.position ∧
     state.names.get next.target = some info ∧
     Named.equalName text info.first info.after (skipAt text state.position) next.position = true ∧
-    info.mutable = true ∧ (sameTarget = true → next.target = state.target)
+    info.mutable = true ∧ (sameTarget = true → next.target = state.target) ∧
+    ScalarExpression.lookup text state.scalarNames (skipAt text state.position) next.position = 0
 
 /-- Capacity guards name the original immutable argv declaration, whose
 span was recorded during declaration elaboration. -/
@@ -103,14 +104,18 @@ theorem target_reading (text : Source) (state : ParserState) (sameTarget : Bool)
     obtain ⟨name, identifier⟩ := Named.identifierEnd_sound text _ endNonzero
     have notfalse : info.mutable ≠ false := by
       intro isfalse
-      exact allowed (Or.inr (Or.inl (by simpa only [found, Option.getD_some] using isfalse)))
+      exact allowed (Or.inr (Or.inr (Or.inl (by simpa only [found, Option.getD_some] using isfalse))))
     have mutable : info.mutable = true := by cases h : info.mutable <;> simp_all only
-    refine ⟨name, info, ?_, found, equal, mutable, ?_⟩
+    refine ⟨name, info, ?_, found, equal, mutable, ?_, ?_⟩
     · simpa only [nameAfter, first, ↓reduceIte] using identifier
     · intro same
       by_cases selected : lookupName text state.names (skipAt text state.position) (nameAfter text (skipAt text state.position)) = state.target
       · exact selected
-      · exact False.elim (allowed (Or.inr (Or.inr ⟨same, selected⟩)))
+      · exact False.elim (allowed (Or.inr (Or.inr (Or.inr ⟨same, selected⟩))))
+    · by_cases clear : ScalarExpression.lookup text state.scalarNames (skipAt text state.position)
+          (nameAfter text (skipAt text state.position)) = 0
+      · exact clear
+      · exact False.elim (allowed (Or.inr (Or.inl clear)))
 
 theorem dynamic_reading (text : Source) (state : ParserState)
     (accepted : (dynamicAt text state).position ≠ 0) : DynamicReading text state (dynamicAt text state) := by
@@ -176,32 +181,32 @@ theorem step_payload (text : Source) (form : Form) (token : ShellToken) (state :
       exact ⟨some (.literal bytes), bytes, parsed, rfl⟩
   | capacity => exact ⟨some (.capacity (step text form .capacity state).capacity), rfl⟩
   | assignmentValue =>
-      have success : (expressionAt text state.position state.names).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names).after = 0
+      have success : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
         · simp [step, positive, assignmentAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨value, parsed⟩ := expressionAt_sound text state.names state.position success
+      obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
       exact ⟨some (.assignment ⟨state.target, value⟩), value, parsed, rfl⟩
   | outputExpression =>
-      have success : (expressionAt text state.position state.names).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names).after = 0
+      have success : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
         · simp [step, positive, outputAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨expression, parsed⟩ := expressionAt_sound text state.names state.position success
+      obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
       exact ⟨some (.output expression), expression, parsed, rfl⟩
   | comparisonExpression =>
-      have leftSuccess : (expressionAt text state.position state.names).after ≠ 0 := by
-        by_cases failed : (expressionAt text state.position state.names).after = 0
+      have leftSuccess : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
+        by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
         · simp [step, positive, comparisonAt, fits, failed, invalidState] at accepted
         · exact failed
       have rightSuccess : (expressionAt text (fixedAfter text
-          (expressionAt text state.position state.names).after "=" false) state.names).after ≠ 0 := by
+          (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after ≠ 0 := by
         by_cases failed : (expressionAt text (fixedAfter text
-            (expressionAt text state.position state.names).after "=" false) state.names).after = 0
+            (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after = 0
         · simp [step, positive, comparisonAt, fits, failed, invalidState] at accepted
         · exact failed
-      obtain ⟨left, first⟩ := expressionAt_sound text state.names state.position leftSuccess
-      obtain ⟨right, second⟩ := expressionAt_sound text state.names _ rightSuccess
+      obtain ⟨left, first⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position leftSuccess
+      obtain ⟨right, second⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names _ rightSuccess
       exact ⟨some (.comparison left right), left, right, first, second, rfl⟩
 
 theorem step_sound (text : Source) (form : Form) (token : ShellToken) (state : ParserState)
@@ -286,13 +291,13 @@ theorem initial_valid : StateValid initialState := by
 
 theorem assignment_safe {text : Source} {state : ParserState} {value : Expression}
     (normal : NamesNormal state.names) (valid : TargetValid state)
-    (parsed : ExpressionAt text state.names state.position value (expressionAt text state.position state.names))
+    (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames))
     (accepted : (assignmentAt text state).position ≠ 0) :
     (Bindings.Assignment.mk state.target value).Valid state.names.shape ∧
       SafeExpression value state.names.shape state.capacity ∧
       (assignmentAt text state).names = state.names ∧ (assignmentAt text state).capacity = state.capacity ∧
       (assignmentAt text state).target = state.target := by
-  generalize valueEq : expressionAt text state.position state.names = result at *
+  generalize valueEq : expressionAt text state.position state.names state.scalarNames = result at *
   generalize infoEq : (state.names.get state.target).getD {} = info
   have observed : assignmentAt text state =
       if !fits result state.capacity || decide (state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
@@ -333,25 +338,25 @@ theorem assignment_safe {text : Source} {state : ParserState} {value : Expressio
 
 theorem output_safe {text : Source} {state : ParserState} {expression : Expression}
     (normal : NamesNormal state.names)
-    (parsed : ExpressionAt text state.names state.position expression (expressionAt text state.position state.names))
+    (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames))
     (accepted : (outputAt text state).position ≠ 0) :
     SafeExpression expression state.names.shape state.capacity ∧ outputAt text state =
-      {state with position := (expressionAt text state.position state.names).after} := by
-  have bounded : fits (expressionAt text state.position state.names) state.capacity = true := by
-    by_cases good : fits (expressionAt text state.position state.names) state.capacity = true
+      {state with position := (expressionAt text state.position state.names state.scalarNames).after} := by
+  have bounded : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true := by
+    by_cases good : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true
     · exact good
     · simp [outputAt, good, invalidState] at accepted
   exact ⟨expressionAt_safe normal parsed (decide_eq_true_eq.mp bounded).2, by simp [outputAt, bounded]⟩
 
 theorem comparison_safe {text : Source} {state : ParserState} {left right : Expression}
     (normal : NamesNormal state.names)
-    (first : ExpressionAt text state.names state.position left (expressionAt text state.position state.names))
-    (second : ExpressionAt text state.names (fixedAfter text (expressionAt text state.position state.names).after "=" false)
-      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names))
+    (first : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames))
+    (second : ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
+      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames))
     (accepted : (comparisonAt text state).position ≠ 0) :
     SafeExpression left state.names.shape state.capacity ∧ SafeExpression right state.names.shape state.capacity ∧
     comparisonAt text state = {state with position := (expressionAt text
-      (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names).after} := by
+      (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after} := by
   dsimp only [comparisonAt] at accepted ⊢
   split at accepted
   · rename_i good
@@ -365,9 +370,9 @@ theorem comparison_safe {text : Source} {state : ParserState} {left right : Expr
 /-- Equality has a resolved String object on at least one side. Literal-only
 Ada equality would be overload-ambiguous even though its byte meaning is clear. -/
 theorem comparison_anchor {text : Source} {state : ParserState} {left right : Expression}
-    (first : ExpressionAt text state.names state.position left (expressionAt text state.position state.names))
-    (second : ExpressionAt text state.names (fixedAfter text (expressionAt text state.position state.names).after "=" false)
-      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names))
+    (first : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames))
+    (second : ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
+      right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames))
     (accepted : (comparisonAt text state).position ≠ 0) : (left.hasName || right.hasName) = true := by
   dsimp only [comparisonAt] at accepted
   split at accepted
@@ -485,7 +490,7 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
         obtain ⟨_, _, info, found, _⟩ := lookupName_found nonzero
         have notfalse : info.mutable ≠ false := by
           intro isfalse
-          exact accepted (Or.inr (Or.inl (by simpa only [found, Option.getD_some] using isfalse)))
+          exact accepted (Or.inr (Or.inr (Or.inl (by simpa only [found, Option.getD_some] using isfalse))))
         have mutable : info.mutable = true := by cases h : info.mutable <;> simp_all only [Bool.false_eq_true]
         refine ⟨⟨valid.1, valid.2.1, Or.inr ⟨info.bound, ?_⟩⟩, fun _ remaining => remaining⟩
         simp [BindingEnvironment.shape, found, BindingInfo.cell, mutable]
