@@ -39,6 +39,9 @@ class OutputIntegrityTests(unittest.TestCase):
         shutil.copytree(ROOT / "src", cls.sandbox / "src")
         for filename in ("silver.gpr", "alire.toml"):
             shutil.copyfile(ROOT / filename, cls.sandbox / filename)
+        (cls.sandbox / "proof").mkdir()
+        shutil.copyfile(ROOT / "proof/silver_proof_containers.gpr",
+                        cls.sandbox / "proof/silver_proof_containers.gpr")
         prepare_context(cls.host)
         built = subprocess.run(
             alire_command(HOST, "exec", "--", "gprbuild", "-P", cls.sandbox / "silver.gpr",

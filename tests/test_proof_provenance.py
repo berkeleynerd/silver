@@ -32,6 +32,9 @@ class ProvenanceTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("fixture\n")
         (self.root / "silver.gpr").write_bytes((Path(__file__).resolve().parents[1] / "silver.gpr").read_bytes())
+        helper = self.root / "proof/silver_proof_containers.gpr"
+        helper.parent.mkdir(parents=True)
+        helper.write_bytes((Path(__file__).resolve().parents[1] / helper.relative_to(self.root)).read_bytes())
         self.reports = self.host.compiler / "obj/gnatprove"
         self.reports.mkdir(parents=True)
         self.command = ["gnatprove", "-P", "../../../silver.gpr", *PROOF_OPTIONS,
@@ -394,6 +397,13 @@ class ProvenanceTests(unittest.TestCase):
                     self.audit()
         path.write_text(original)
         validate_project(self.host)
+
+    def test_changed_proof_container_project_is_rejected(self) -> None:
+        path = self.root / "proof/silver_proof_containers.gpr"
+        path.write_text(path.read_text().replace('/include/spark', '/other_sources'))
+        self.manifest["inputs_sha256"] = input_hashes(self.host)
+        with self.assertRaisesRegex(EvidenceError, "project differs"):
+            self.audit()
 
 
 if __name__ == "__main__":

@@ -100,10 +100,9 @@ class LibraryReportTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory(prefix="silver-library-reports-")
         cls.directory = Path(cls.temp.name)
         host = native_layout()
-        (cls.directory / "probe.gpr").write_text(f'''project Probe is
+        (cls.directory / "probe.gpr").write_text(f'''with "{ROOT / 'proof/silver_proof_containers.gpr'}";
+project Probe is
    for Source_Dirs use ("{ROOT / 'src'}", "{ROOT / 'tests'}");
-   for Source_Files use ("library_reports_probe.adb", "silver_library_reports.ads",
-                         "silver_library_reports.adb");
    for Object_Dir use "obj";
    for Exec_Dir use ".";
    for Main use ("library_reports_probe.adb");
@@ -113,7 +112,8 @@ class LibraryReportTests(unittest.TestCase):
 end Probe;
 ''')
         result = subprocess.run(alire_command(host, "exec", "--", "gprbuild", "-P",
-                                             cls.directory / "probe.gpr", "-j2"),
+                                             cls.directory / "probe.gpr", "-j2", "-p",
+                                             "-XSILVER_HOST=" + host.key),
                                 cwd=host.context, env=tool_environment(host),
                                 capture_output=True, text=True, timeout=120)
         if result.returncode:

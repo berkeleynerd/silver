@@ -378,6 +378,9 @@ class SilverIntegrationTests(unittest.TestCase):
         fixture_host = HostLayout(sandbox, HOST.key)
         (sandbox / "src").symlink_to(ROOT / "src", target_is_directory=True)
         shutil.copyfile(ROOT / "silver.gpr", sandbox / "silver.gpr")
+        (sandbox / "proof").mkdir()
+        shutil.copyfile(ROOT / "proof/silver_proof_containers.gpr",
+                        sandbox / "proof/silver_proof_containers.gpr")
         shutil.copyfile(ROOT / "alire.toml", sandbox / "alire.toml")
         prepare_context(fixture_host)
         # Compile the unchanged implementation with fixture-specific paths.

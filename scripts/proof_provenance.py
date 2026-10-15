@@ -18,7 +18,8 @@ MANIFEST = "proof-provenance.json"
 # Complete reviewed project token shape, including all source/output selection
 # and compiler switches. Hashing a changed project as an input is not approval
 # to add configuration pragmas, per-file switches, or different source roots.
-REVIEWED_PROJECT_SHA256 = "0c3200cd7a057a7cfb0b8a622c693c17e56d7c0c4d6542be9fe45717384e4abf"
+REVIEWED_PROJECT_SHA256 = "b8ab872790384c0780cf723715b280ccc8da1e0aa2da9ae6bad8299c7daa4f44"
+REVIEWED_PROOF_CONTAINERS_SHA256 = "d7d01aa26019acda2de623f117956021d432737a5900822394e63fbf4e7941d5"
 
 
 def digest(path: Path) -> str:
@@ -54,7 +55,8 @@ def invalidate_proof(report_dir: Path) -> None:
 
 
 def input_hashes(host: HostLayout) -> dict[str, str]:
-    required = [host.root / "silver.gpr", host.root / "alire.toml",
+    required = [host.root / "silver.gpr", host.root / "proof/silver_proof_containers.gpr",
+                host.root / "alire.toml",
                 host.context / "alire.toml", host.context / "alire/alire.lock",
                 host.generated / "silver_build.ads"]
     for path in required:
@@ -108,10 +110,14 @@ print("SILVER_TOOLS_JSON=" + json.dumps(tools, sort_keys=True))
 
 
 def validate_project(host: HostLayout) -> None:
-    tokens = source_tokens(host.root / "silver.gpr")
-    actual = hashlib.sha256("".join(tokens).encode("ascii")).hexdigest()
-    require(actual == REVIEWED_PROJECT_SHA256,
-            "project differs from the reviewed source selection and check configuration")
+    for relative, expected in (("silver.gpr", REVIEWED_PROJECT_SHA256),
+                               ("proof/silver_proof_containers.gpr",
+                                REVIEWED_PROOF_CONTAINERS_SHA256)):
+        tokens = source_tokens(host.root / relative)
+        actual = hashlib.sha256("".join(tokens).encode("ascii")).hexdigest()
+        require(actual == expected,
+                "project differs from the reviewed source selection and check configuration: "
+                + relative)
 
 
 def begin_proof(host: HostLayout, command: list[str], report_dir: Path, *, cold: bool = False) -> dict:
