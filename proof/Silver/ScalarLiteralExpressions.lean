@@ -98,6 +98,7 @@ inductive Expr : Ty → Type
   | byteAt : Expr .source → Expr .number → Expr .number
   | last : Expr .source → Expr .number
   | maxLength : Expr .number
+  | maxExponent : Expr .number
   | eq : Expr .number → Expr .number → Expr .truth
   | ne : Expr .number → Expr .number → Expr .truth
   | lt : Expr .number → Expr .number → Expr .truth
@@ -153,6 +154,7 @@ def Expr.render : Expr ty → List String
   | .byteAt text position => text.render ++ ["("] ++ position.render ++ [")"]
   | .last text => text.render ++ ["'", "last"]
   | .maxLength => ["max_magnitude"]
+  | .maxExponent => ["max_exponent"]
   | .eq left right => left.render ++ ["="] ++ right.render
   | .ne left right => left.render ++ ["/="] ++ right.render
   | .lt left right => left.render ++ ["<"] ++ right.render
@@ -193,6 +195,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .byteAt text position => Cursor.byteAt (text.eval calls locals) (position.eval calls locals)
   | .last text => (text.eval calls locals).length
   | .maxLength => maxMagnitude
+  | .maxExponent => Silver.ScalarLiteral.maxExponent
   | .eq left right => decide (left.eval calls locals = right.eval calls locals)
   | .ne left right => decide (left.eval calls locals ≠ right.eval calls locals)
   | .lt left right => decide (left.eval calls locals < right.eval calls locals)
@@ -312,7 +315,7 @@ def exponentBody : Expr .result :=
     (.group <| .locals <| .local "exponent" "literal_result"
       (.app (.app (.app (.function .numeral) text)
         (.app (.app (.function .start) text) (.add after (.number 1)))) (.number 10)) <|
-      .group <| .ite (.eq exponentAfter (.number 0)) .invalid
+      .group <| .ite (.orElse (.eq exponentAfter (.number 0)) (.gt (.field .resultValue exponent) .maxExponent)) .invalid
         (.group <| .locals <| .local "scaled" "scale_result"
           (.app (.app (.app (.function .scale) (.field .mantissaBase number)) (.field .mantissaValue number))
             (.field .resultValue exponent)) <|
@@ -349,7 +352,7 @@ def modelCalls : Calls where
 used by the rendered source; grouping is explicit in the same typed tree. -/
 def Expr.primary : Expr ty → Bool
   | .number _ | .character _ | .truth _ | .variable _ | .function _ | .app _ _
-  | .field _ _ | .charPos _ | .byteAt _ _ | .last _ | .maxLength
+  | .field _ _ | .charPos _ | .byteAt _ _ | .last _ | .maxLength | .maxExponent
   | .identifier _ | .group _ | .result _ _ | .mantissa _ _ _ | .scaled _ _
   | .invalid | .invalidMantissa | .invalidScaled => true
   | _ => false

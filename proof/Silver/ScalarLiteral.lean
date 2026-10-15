@@ -9,6 +9,7 @@ remain lexical structure; the result is the inherited natural-number value. -/
 namespace Silver.ScalarLiteral
 
 def maxMagnitude : Nat := 2147483648
+def maxExponent : Nat := 4096
 
 set_option backward.dsimp.instances true
 
@@ -74,7 +75,7 @@ def powerAt (text : Source) (number : Mantissa) : Result :=
   if number.after ≤ text.length ∧
       (Cursor.byteAt text number.after = 69 ∨ Cursor.byteAt text number.after = 101) then
     let exponent := numeral text (exponentStart text (number.after + 1)) 10
-    if exponent.after = 0 then invalid else
+    if exponent.after = 0 ∨ exponent.value > maxExponent then invalid else
     match scale number.base number.value exponent.value with
     | none => invalid
     | some value => ⟨exponent.after, value⟩
@@ -446,6 +447,7 @@ inductive PoweredAt (text : Source) (number : Mantissa) : Nat → Nat → Prop
   | unchanged : ¬ ExponentMarker text number.after → PoweredAt text number number.value number.after
   | exponent {exponent finish : Nat} : ExponentMarker text number.after →
       ExponentAt text (number.after + 1) exponent finish →
+      exponent ≤ maxExponent →
       number.value * number.base ^ exponent ≤ maxMagnitude →
       PoweredAt text number (number.value * number.base ^ exponent) finish
 
@@ -454,10 +456,10 @@ theorem powered_complete {text : Source} {number : Mantissa} {value finish : Nat
     powerAt text number = ⟨finish, value⟩ := by
   cases parsed with
   | unchanged noExponent => simp only [powerAt, noExponent, ↓reduceIte]
-  | exponent marker exponent bounded =>
+  | @exponent power finish marker exponent cap bounded =>
       have progress := (exponent_bounds exponent).1
       simp only [powerAt, marker, and_self, ↓reduceIte, exponent_complete exponent,
-        show finish ≠ 0 by omega, scale_complete basePositive bounded]
+        show finish ≠ 0 by omega, show ¬ power > maxExponent from Nat.not_lt.mpr cap, or_self, scale_complete basePositive bounded]
 
 theorem powered_sound {text : Source} {number : Mantissa}
     (basePositive : 0 < number.base) (valueBound : number.value ≤ maxMagnitude)
@@ -467,17 +469,24 @@ theorem powered_sound {text : Source} {number : Mantissa}
   by_cases marker : ExponentMarker text number.after
   · have exponentPositive : (numeral text (exponentStart text (number.after + 1)) 10).after ≠ 0 := by
       intro failed
-      simp only [powerAt, marker, and_self, failed, ↓reduceIte, invalid, Guarded.invalidDecimal,
+      simp only [powerAt, marker, and_self, failed, true_or, ↓reduceIte, invalid, Guarded.invalidDecimal,
         ne_eq, not_true_eq_false] at accepted
+    have cap : (numeral text (exponentStart text (number.after + 1)) 10).value ≤ maxExponent := by
+      by_cases small : (numeral text (exponentStart text (number.after + 1)) 10).value ≤ maxExponent
+      · exact small
+      have tooLarge : (numeral text (exponentStart text (number.after + 1)) 10).value > maxExponent := by omega
+      simp only [powerAt, marker, and_self, tooLarge, or_true, ↓reduceIte, invalid,
+        Guarded.invalidDecimal, ne_eq, not_true_eq_false] at accepted
+    have notLarge : ¬ (numeral text (exponentStart text (number.after + 1)) 10).value > maxExponent := by omega
     have exponent := exponent_sound (by have last := marker.1; omega) exponentPositive
     cases scaled : scale number.base number.value (numeral text (exponentStart text (number.after + 1)) 10).value with
-    | none => simp only [powerAt, marker, and_self, exponentPositive, scaled, ↓reduceIte,
+    | none => simp only [powerAt, marker, and_self, exponentPositive, notLarge, or_self, scaled, ↓reduceIte,
         invalid, Guarded.invalidDecimal, ne_eq, not_true_eq_false] at accepted
     | some value =>
         have mathematical := scale_value scaled
         have bounded := scale_bound basePositive valueBound scaled
-        have derivation := PoweredAt.exponent marker exponent (mathematical ▸ bounded)
-        simpa only [powerAt, marker, and_self, exponentPositive, scaled, ↓reduceIte, ← mathematical] using derivation
+        have derivation := PoweredAt.exponent marker exponent cap (mathematical ▸ bounded)
+        simpa only [powerAt, marker, and_self, exponentPositive, notLarge, or_self, scaled, ↓reduceIte, ← mathematical] using derivation
   · simpa only [powerAt, marker, ↓reduceIte] using PoweredAt.unchanged marker
 
 theorem powered_bounds {text : Source} {number : Mantissa} {value finish : Nat}
@@ -486,7 +495,7 @@ theorem powered_bounds {text : Source} {number : Mantissa} {value finish : Nat}
     number.after ≤ finish ∧ finish ≤ text.length + 1 ∧ value ≤ maxMagnitude := by
   cases parsed with
   | unchanged _ => exact ⟨Nat.le_refl _, positionBound, valueBound⟩
-  | exponent marker exponent bounded =>
+  | exponent marker exponent _ bounded =>
       have bounds := exponent_bounds exponent
       exact ⟨by omega, bounds.2.1, bounded⟩
 

@@ -44,7 +44,7 @@ def exponentEquation (calls : Calls) (text : Source) (number : Mantissa) : Resul
   if number.after ≤ text.length ∧
       (Cursor.byteAt text number.after = 101 ∨ Cursor.byteAt text number.after = 69) then
     let exponent := calls.numeral text (calls.start text (number.after + 1)) 10
-    if exponent.after = 0 then invalid else
+    if exponent.after = 0 ∨ exponent.value > maxExponent then invalid else
     let scaled := calls.scale number.base number.value exponent.value
     if !scaled.valid then invalid else ⟨exponent.after, scaled.value⟩
   else ⟨number.after, number.value⟩
@@ -259,10 +259,11 @@ theorem interpreted_exponent (calls : Calls) (equations : Equations calls) (text
     rw [interpreted_start calls equations text valid (number.after + 1) (by omega) (by omega)]
     have startBound := exponentStart_bounds text (number.after + 1) (by omega) (by omega)
     rw [interpreted_numeral calls equations text valid _ 10 (by constructor <;> decide) startBound.2]
-    by_cases failed : (numeral text (exponentStart text (number.after + 1)) 10).after = 0
+    by_cases failed : (numeral text (exponentStart text (number.after + 1)) 10).after = 0 ∨
+        (numeral text (exponentStart text (number.after + 1)) 10).value > maxExponent
     · simp only [failed, ↓reduceIte]
     · simp only [failed, ↓reduceIte]
-      have parsed := numeral_sound (by decide : 2 ≤ 10) (by decide : 10 ≤ 16) startBound.2 failed
+      have parsed := numeral_sound (by decide : 2 ≤ 10) (by decide : 10 ≤ 16) startBound.2 (fun zero => failed (Or.inl zero))
       have bounds := numeral_bounds parsed
       rw [interpreted_scale calls equations _ _ _ baseValid valueBound bounds.2.2]
       unfold scaleResult
