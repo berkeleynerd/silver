@@ -1,5 +1,24 @@
 # Session memory
 
+## 2026-10-15 — For loops and integers goal authorized
+
+The owner asked to set the next language milestone as a goal, update its label,
+and drive it to completion. This authorizes **For loops and integers**, tracked
+by [stage #10](https://github.com/berkeleynerd/silver/issues/10) and
+[milestone 1](https://github.com/berkeleynerd/silver/milestone/1). The live harness
+goal and task title now identify this milestone. The
+[capability record](for-loops-integers.md) and [roadmap](../roadmap.md#for-loops-and-integers)
+hold scope, ordered work packages and the assurance checkpoint. Establishing
+the admission rules and resolving routine implementation choices are within
+this authorization; the Oracle and its complete assurance requirements remain.
+
+The motivating samples are Rosetta's Colour bars/Display and Loops/For. The
+independent Stage 1 sample collection is not a dependency or an additional
+authorized milestone. Publication authorization persists. The implementation
+branch is `feat/for-loops-integers`, based on `343c2f8f5a`; preserve other
+worktrees, scratch and all proof caches. Native work is Linux x86_64; macOS
+validation remains independent. CLI memory is unavailable and was not updated.
+
 ## 2026-10-15 — Coding-agent recall and shared-work decisions
 
 The owner requested this Silver-scoped recall for future development of

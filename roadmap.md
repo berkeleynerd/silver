@@ -14,6 +14,40 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### For loops and integers
+
+**In progress**, owner-authorized on 2026-10-15 as the active harness goal.
+The task title is **For loops and integers — implementation and assurance**.
+[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) delivers
+[stage #10](https://github.com/berkeleynerd/silver/issues/10), motivated by
+Colour bars/Display and nested Loops/For. The independent Stage 1 sample
+collection is not a dependency. New constructs remain excluded until delivery.
+
+Ordered work packages, with native and formal work proceeding together once the
+admission design is settled:
+
+1. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
+   choose explicit integer/loop forms and composition rules, with isolated native
+   probes and a complete semantic/source-proof plan.
+2. [Native admission and regression programs #14](https://github.com/berkeleynerd/silver/issues/14):
+   verified SPARK recognizer/report changes, motivating samples and boundary,
+   failure-path and interaction regressions.
+3. [Universal and actual-source assurance #15](https://github.com/berkeleynerd/silver/issues/15):
+   decidable membership, execution/termination, universal safety/discharge and
+   correspondence to the actual authoritative source.
+4. [Stable validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
+   stable native Linux proof/build/full tests and complete cached Lean checks,
+   independent review, synchronized specifications/catalogue/Rosetta/evidence,
+   and authorized commits/publication.
+
+The [capability record](docs/for-loops-integers.md) holds design and evidence.
+Remaining decisions are the integer domain/operators and range rules; loop
+bounds, nesting, index scope and empty/reverse ranges; preservation of facts
+across iterations and joins; and explicit resource/report capacity. Resolve
+these within the authorized capability, retaining the Oracle, full source
+correspondence and automatic proof for every admitted composition. A partial
+package does not complete the milestone.
+
 ### Partial Output
 
 **Complete**, authorized and validated on 2026-10-15. `Silver_IO.Put (Item)` joins
@@ -96,7 +130,8 @@ rejected review suggestions are not new tasks.
 
 New language/API capabilities and release tooling remain direction rather than
 follow-ups. Additional argument APIs, broader API placement, loops and resizable
-strings need their own motivating scope and assurance; none is selected next.
+strings need their own motivating scope and assurance. For loops and integers
+are now selected above; other new capabilities remain unselected.
 Distribution/provenance and extra provers remain
 [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its
 dormant wording is revisited only if reactivation is authorized. macOS validation
