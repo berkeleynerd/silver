@@ -27,8 +27,9 @@ link the issue.
 
 ## The board
 
-The board is a private user project named **Silver**, owned by `berkeleynerd`
-and linked to this repository.
+The board is the private user project
+[Silver](https://github.com/users/berkeleynerd/projects/6), owned by
+`berkeleynerd` and linked to this repository.
 
 **Fields**, besides GitHub's built-in ones (assignees, labels, milestone, linked
 pull requests, parent issue and sub-issue progress):
@@ -154,3 +155,8 @@ Agreed with the owner on 2026-10-15:
    arrays.
 6. Merge this structure through a pull request once Partial Output is delivered,
    and record the adoption in the session memory then.
+
+Steps 1, 3 and 5 were completed on 2026-10-15: the board, the labels, follow-up
+issues #2 to #8 and stage issues #9 to #12. Partial Output was delivered the same
+day, so the pull request, #1, adds the session-memory entry and marks `put` as
+supported in the progression.

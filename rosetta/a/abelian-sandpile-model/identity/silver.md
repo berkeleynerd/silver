@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is on small fixed-bound arrays with guards before each increment and index, and the only unbounded loop is in a procedure, so no annotation is needed, but the loop-carried cell counts mean the guards must be placed carefully.
 
-Position 730 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 730 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

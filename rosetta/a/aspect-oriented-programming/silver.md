@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to describe or show how far a language can simulate AOP, so a wrapper-based demo with embedded data and a range-bounded addition needs only type-range and static-value checks and no annotations.
 
-Position 302 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 302 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

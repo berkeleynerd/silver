@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Indexing and bounds are routine, but the task fundamentally needs floating-point trigonometry whose discharge depends on admitted elementary-function contracts and bounded accumulators, so it is plausible rather than likely; the 90/180/270/360 case is handled by an explicit guard rather than an exception.
 
-Position 1060 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1060 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

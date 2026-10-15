@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The O(n) recurrence needs only a for loop and a bounded mod, so every check follows from declared ranges and the loop index with no annotation needed.
 
-Position 112 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 112 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

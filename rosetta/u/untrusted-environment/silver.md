@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The demonstration only validates a bounded argument: it checks lengths against literals and indexes characters in a for loop over the string's own range, so every check comes from static bounds and guards. "Untrusted code" needs no program construct, because Silver has no way to evaluate code at run time and the prose explanation says so.
 
-Position 504 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 504 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

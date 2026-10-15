@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the static loop range 1 .. 100 and constant divisors, so mod cannot divide by zero, 'Image of the bounded index has a known maximum length, and the for loop terminates by itself.
 
-Position 108 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 108 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

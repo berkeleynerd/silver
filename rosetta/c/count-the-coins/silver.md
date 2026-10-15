@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a static bound or a guard just before the operation, but the loop-carried Counter additions need explicit overflow guards, so discharge depends on program shape. The 64-bit range holds the optional answer, so no big-number support is needed and nothing needs an annotation.
 
-Position 908 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 908 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

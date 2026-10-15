@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is fixed-size table lookups and nested for loops over constant ranges with no loop-carried values, so every index and length check follows from static bounds, and the task's picture requirement is met by text art.
 
-Position 785 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 785 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

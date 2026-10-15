@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared index subtypes, for-loop ranges and explicit capacity guards, and all loops live in procedures so no termination variant is needed, though the loop-carried compaction indices and digit parsing need careful guard placement.
 
-Position 1457 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1457 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

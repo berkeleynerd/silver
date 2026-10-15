@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for a discussion plus a demonstration, so a straight-line program of constant strings and Put_Line calls needs no loop-carried values, and every check follows from static string lengths.
 
-Position 440 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 440 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop indexes the constant's own range and the previous-character access is guarded by I > S'First, so all checks are routine and no annotation is needed. Output is a streamed sequence of Put calls, avoiding any bounded output buffer.
 
-Position 483 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 483 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

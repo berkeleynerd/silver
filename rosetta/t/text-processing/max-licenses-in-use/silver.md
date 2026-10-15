@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes plus guards placed just before each operation, and the only loop is a while loop inside a procedure, so nothing needs an annotation. The main gap is the missing admitted file-input operation and bounded line reading, not any proof difficulty.
 
-Position 1362 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1362 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

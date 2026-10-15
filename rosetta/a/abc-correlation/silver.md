@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is one for loop over a length-bounded argument with three guarded counters and an equality test, so every check follows from types and guards placed just before the operation.
 
-Position 493 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 493 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

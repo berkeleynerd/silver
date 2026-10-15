@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over small fixed arrays with character-to-digit mapping, so checks follow from declared ranges and capacity guards, but the quadratic distinct-key counting and string-key comparison need careful shape to avoid loop-carried counter overflow.
 
-Position 1489 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1489 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

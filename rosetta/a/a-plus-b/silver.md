@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the validated -1000..1000 ranges and a bounded line buffer, with no loop-carried values, recursion or annotations needed.
 
-Position 1215 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1215 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

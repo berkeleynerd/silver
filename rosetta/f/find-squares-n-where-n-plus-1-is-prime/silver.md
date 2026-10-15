@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges (K*K at most 961, divisors within the value's range, Count at most 31) and for-loops over static ranges, so no invariant is needed.
 
-Position 306 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 306 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative fixed-array spigot arithmetic is bounded by declared ranges and local guards with no recursion or heap, so it plausibly proves, but the carried carry and nine-holding logic need careful guard placement and the task's run-forever requirement becomes a documented digit limit.
 
-Position 467 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 467 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array and buffer bounds, for loops over a string's own range, and an explicit length guard whose outcome (rejection with a counted message) is visible, so no loop-carried value needs an invariant. The task needs no recursion, while loops or heap, and the hostile data are just embedded constants.
 
-Position 993 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 993 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule is broken: this is bounded-digit-array big-number arithmetic with for loops and guarded carries, but the generic base parameter, floating-point conversion and nested carry loops make discharge depend on careful program shape.
 
-Position 1530 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1530 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

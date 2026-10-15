@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with for-loop indices and guarded sums inside a procedure, so checks should discharge by types and guards, though the loop-carried sum and the search limit need careful shape.
 
-Position 228 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 228 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

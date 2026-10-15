@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only assigns and reads one default-initialized package-level record with no arithmetic, loops or indexing, so the only checks are initialization and data flow, and those discharge from the default initializer. The thread-safe variant is optional and is left out, so no tasking is needed.
 
-Position 1466 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1466 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 

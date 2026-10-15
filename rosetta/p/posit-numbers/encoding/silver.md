@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Encoding a single fixed constant into an 8-bit posit needs only bounded integer loops over at most 8 bits, so every check follows from range types and loop bounds, though the scaled-integer shifting needs careful sizing to keep overflow checks provable without invariants.
 
-Position 222 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 222 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

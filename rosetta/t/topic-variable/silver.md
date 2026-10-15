@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a small bounded-integer demonstration with a for loop and integer-to-text output, all of whose checks follow from declared ranges and for-loop bounds. No annotation, recursion or nonlinear loop-carried value is involved.
 
-Position 40 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 45 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled-integer arithmetic on a ranged subtype makes every overflow and range check follow from declared types, and there are no loop-carried values beyond a short digit-writing loop over a fixed buffer, so proofs should discharge without annotations.
 
-Position 156 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 156 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

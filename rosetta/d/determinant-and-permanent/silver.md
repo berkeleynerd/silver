@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The Leibniz-style sum over permutations needs no recursion or annotations, and bounded entries plus guards before each loop-carried addition and index use should let overflow and index checks discharge, though the iterative permutation generator makes the shape delicate.
 
-Position 931 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 931 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

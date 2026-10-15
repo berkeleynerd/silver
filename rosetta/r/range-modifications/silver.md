@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All operations are bounded array scans and shifts over a small fixed capacity, with no recursion and no annotations needed, so checks follow from subtype ranges and guards before each access. The work lies in careful guarding of index shifts, boundary arithmetic and string-building lengths, hence plausible rather than likely.
 
-Position 641 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 641 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

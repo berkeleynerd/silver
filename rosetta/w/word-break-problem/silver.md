@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is small and bounded: all checks come from fixed array ranges, for-loop indexes, and guards on slice bounds and buffer room, with no recursion or annotations needed. The only care points are the loop-carried backtracking position and output buffer capacity, hence plausible rather than likely.
 
-Position 1023 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1023 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

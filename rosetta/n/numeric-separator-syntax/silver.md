@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a static literal constant and the output is fixed text plus 'Image of in-range constants, so no check depends on loop-carried values or annotations.
 
-Position 49 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 69 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

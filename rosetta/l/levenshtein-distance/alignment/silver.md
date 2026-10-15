@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from declared index subtypes, for-loop ranges and guards just before each decrement or write, but the traceback's loop-carried indices and the bounded matrix cell values make discharge depend on careful program shape rather than being routine.
 
-Position 711 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 711 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

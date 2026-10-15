@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The loops are fixed-count for loops and the arithmetic is simple, but floating-point division by loop-carried values and range-bounded intermediates need guards that the provers must handle, and float formatting needs an admitted library operation, so discharge is plausible rather than routine.
 
-Position 1577 in the [progression](../../progression.md#stage-39), in stage 39.
+Position 1577 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 

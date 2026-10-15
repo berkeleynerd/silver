@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array indexing and small-range integer arithmetic guarded by types, so the proofs should discharge; the remaining care is in the LCG arithmetic and in the shuffle-based construction, which avoids unbounded retry loops.
 
-Position 697 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 697 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

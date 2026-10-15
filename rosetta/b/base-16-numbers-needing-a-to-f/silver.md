@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small ranged integers with a fixed three-iteration for loop instead of a while loop, so no termination or invariant facts are needed and only the Count increment needs a guard.
 
-Position 121 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 121 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

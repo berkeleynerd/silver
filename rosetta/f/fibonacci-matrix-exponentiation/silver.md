@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small ranged limb types and bounded loops, but the truncated leading-digit arithmetic with exponent tracking and carry propagation needs careful guard placement, so discharge depends on program shape rather than annotations.
 
-Position 756 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 756 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

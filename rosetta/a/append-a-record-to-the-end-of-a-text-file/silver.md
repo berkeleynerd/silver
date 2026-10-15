@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing follow from bounded field lengths and buffer guards, so no annotation is needed, but the line builder's loop-carried length and the file library's specified failure outcomes require careful shape. The task has no Oracle conflicts and needs file operations Silver lacks today.
 
-Position 1433 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1433 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

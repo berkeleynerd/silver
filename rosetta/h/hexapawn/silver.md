@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation works on small fixed-size arrays and enumerations with range-typed indices and bounded loops inside procedures, so no invariant is needed, though the interactive parsing and large learned-move table require careful program shape. No recursion, heap or annotation is required, and learned state lives in memory for one run.
 
-Position 1257 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1257 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

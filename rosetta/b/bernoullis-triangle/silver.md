@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is bounded integer array filling with for loops over static ranges, so almost every check follows from types and loop bounds, with only the loop-carried sums needing explicit guards. The 15-row limit keeps all values at most 16384, so the guards are unreachable but cheap.
 
-Position 907 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 907 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with nested for loops over static ranges needs only range-typed counters and mod with a loop-index divisor, so every check follows from types and one visible guard; only output formatting needs new library surface.
 
-Position 155 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 155 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 1..80 index subtype, a fixed record capacity guard and for loops over the array range, so the only new need is admitted library operations for fixed-size binary file reads and writes. The optional Forth block bonus is omitted.
 
-Position 1425 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1425 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

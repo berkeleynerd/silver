@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All array indexing is over constant interior ranges and all counters are small ranged values, so every check follows from types and loop bounds; the only unbounded loop is a while loop in a procedure, which gets no termination check.
 
-Position 675 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 675 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

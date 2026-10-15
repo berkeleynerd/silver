@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index within the subtype's own range or a for-loop over that range, with no loop-carried arithmetic beyond a bounded output-length counter that is guarded, so proofs should discharge without annotations.
 
-Position 902 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 902 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

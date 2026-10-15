@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a short straight-line floating-point computation with no loops over carried values, so proofs depend on bounded real subtypes, guarded divisions and sqrt arguments, and admitted elementary functions. It is plausible rather than likely because floating-point range reasoning and float formatting need library support Silver lacks today.
 
-Position 1082 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1082 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

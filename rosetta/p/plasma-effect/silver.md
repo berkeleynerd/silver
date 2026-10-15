@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Text-art output meets the picture requirement, and an integer sine table with fixed grid bounds keeps every arithmetic and index check derivable from subtype ranges, so no loop invariant is needed.
 
-Position 536 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 536 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

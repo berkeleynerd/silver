@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, for-loop indexes over array ranges and capacity guards just before each bin increment, and all loops are for loops or sit in procedures so no variant is needed. The animation is plain text frames with a deterministic LCG, so no annotations or unbounded recursion arise.
 
-Position 1127 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1127 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 

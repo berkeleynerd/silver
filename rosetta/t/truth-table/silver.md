@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged indexes and iterative stack loops in procedures, so checks follow from types and guards before each push or pop, but many loop-carried stack pointers and positions need careful guards. No annotation is needed, though the parser's shape makes automatic discharge plausible rather than certain.
 
-Position 1458 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1458 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

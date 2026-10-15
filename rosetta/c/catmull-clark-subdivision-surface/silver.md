@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be tied to array bounds, ranged counters and pre-use guards with no annotation, but the bounded floating-point arithmetic and several loop-carried counters make discharge depend on careful program shape.
 
-Position 1121 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1121 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

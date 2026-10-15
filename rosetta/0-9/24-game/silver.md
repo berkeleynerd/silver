@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged types, fixed-capacity stacks and guards before each operation, with loops kept as for loops in procedures so no variant is needed, but the rational arithmetic and stack bookkeeping need careful guard placement.
 
-Position 1253 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1253 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

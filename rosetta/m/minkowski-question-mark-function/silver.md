@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be done with bounded integer arithmetic in procedures with capped loops and guards before each addition or multiplication, so no annotation is needed, but several loop-carried values need careful overflow guards.
 
-Position 421 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 421 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

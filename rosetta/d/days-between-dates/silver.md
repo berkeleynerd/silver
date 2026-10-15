@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the character-class guards, ranged year, month and day subtypes, and a bounded day-number formula, with no loops carrying values and no recursion, so the proofs should discharge without annotations.
 
-Position 1133 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1133 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

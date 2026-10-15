@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, for-loop indexes and one divide guard, but the nested base and trial-division loops and the unrolled digit evaluation need careful shaping, so discharge is plausible rather than routine.
 
-Position 419 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 419 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

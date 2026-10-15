@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static ranges and arithmetic is integer with ranged operands, so most checks follow from types, with only the computed grid index needing a guard before the write.
 
-Position 690 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 690 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

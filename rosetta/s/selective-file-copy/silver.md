@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed record widths, a length guard before slicing, and digit validation before conversion, with only the file-library effects missing from Silver today. Discharge depends on careful program shape around the parse and the bounded output buffer but needs no annotations.
 
-Position 1449 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1449 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task has no real database requirement beyond demonstrating a table of typed columns, so a record with ranged fields, printed as schema text plus a sample row, is faithful and every check follows from declared ranges.
 
-Position 593 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 593 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

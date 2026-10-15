@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared subtype ranges and a for loop with static bounds, and the function has no while loop or recursion, so it needs no variant or invariant.
 
-Position 303 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 303 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

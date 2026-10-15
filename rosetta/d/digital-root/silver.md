@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer arithmetic, array iteration and text output, and the sole non-routine checks are loop-carried sums and counters that need explicit guards but no annotations.
 
-Position 232 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 232 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

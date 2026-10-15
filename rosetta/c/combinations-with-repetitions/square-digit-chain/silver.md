@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loop bounds and values are small and typed (counts at most 17, sums at most 1377, totals below 10^17), so most checks follow from types, with guards needed only on the accumulating total and multinomial product and on the odometer's carried state.
 
-Position 287 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 287 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

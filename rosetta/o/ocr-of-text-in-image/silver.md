@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There is no fixed Oracle conflict because the task allows geometric line-gap measurement, and the bounded-array row scan is mostly ranged integer arithmetic that types and guards discharge, though real text recognition is the hard, uncertain part.
 
-Position 1342 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1342 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

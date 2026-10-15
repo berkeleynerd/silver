@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a record type with a numeric field and a mutable link, which an index-linked fixed array expresses without heap allocation, and all index checks follow from the ranged link type and a null-link guard.
 
-Position 588 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 588 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

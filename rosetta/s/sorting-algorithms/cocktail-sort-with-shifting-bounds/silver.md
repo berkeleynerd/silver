@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is about indexing with shifting bounds held in loop-carried variables, which discharge through widened types plus guards just before each access, and the while loop is in a procedure so no variant is required; the careful shape needed makes it plausible rather than likely.
 
-Position 813 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 813 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop indexes over declared bounded ranges and a Pos/16 and mod 16 hex lookup bounded by the Character type, with no loop-carried accumulators and no recursion, while loops or functions needing variants.
 
-Position 977 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 977 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

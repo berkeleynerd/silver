@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size with static bounds and the only loop-carried arithmetic is the factorial product, which a simple guard against the small limit keeps within range, so no annotation is needed but the nonlinear sieve index and product need careful shape.
 
-Position 227 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 227 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

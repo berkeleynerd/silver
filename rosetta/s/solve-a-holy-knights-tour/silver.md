@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared 1..8 coordinate types, a fixed 64-entry stack and guards placed before each board access, and iterative backtracking in a procedure avoids both recursion and variants, though many loop-carried values need careful guarding.
 
-Position 1194 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1194 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

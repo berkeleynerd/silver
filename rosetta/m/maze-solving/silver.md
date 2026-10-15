@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to fixed-size array indexing, ranged distance labels and for loops with guards placed just before each neighbour access, so no annotation is needed, though loop-carried position and distance values need careful subtype ranges and guards.
 
-Position 718 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 718 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

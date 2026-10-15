@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is straight-line floating-point arithmetic with no loops or recursion, so termination and indexing are trivial, but proving no overflow, no division by zero and a nonnegative sqrt argument through degree-4 nonlinear expressions depends on bounded input ranges and many guards, hence plausible rather than likely.
 
-Position 1107 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1107 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

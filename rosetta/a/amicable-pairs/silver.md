@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds, subtype ranges and guards placed just before use, but the loop-carried divisor-sum accumulator needs a cap guard to avoid overflow, so success depends on careful program shape.
 
-Position 163 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 163 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

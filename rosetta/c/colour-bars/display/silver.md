@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is constant text printed in a bounded for loop, so no check can fail and no loop-carried value exists.
 
-Position 31 in the [progression](../../../progression.md#stage-2), in stage 2, which adds for loops and integers.
+Position 32 in the [progression](../../../progression.md#stage-2), in stage 2, which adds for loops and integers.
 
 ## Approach
 

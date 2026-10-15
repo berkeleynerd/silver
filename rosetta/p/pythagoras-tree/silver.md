@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only integer vector arithmetic over a fixed binary tree of 255 squares, which can be built iteratively into an array and output as text or a character grid, so proofs depend on bounded coordinate ranges and index guards rather than annotations. The original SDL window and recursion are replaced by text output and an iterative loop.
 
-Position 624 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 624 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

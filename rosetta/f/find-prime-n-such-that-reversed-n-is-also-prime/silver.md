@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by a declared 0..999 subtype and fixed-range for loops, so overflow, range and termination checks follow from types and no invariants are needed.
 
-Position 885 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 885 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

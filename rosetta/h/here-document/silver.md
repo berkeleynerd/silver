@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a fixed sequence of Put_Line calls on literals, which Silver already supports, so there are no run-time checks to prove and no new surface is needed.
 
-Position 12 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 13 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

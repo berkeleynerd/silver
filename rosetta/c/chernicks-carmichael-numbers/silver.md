@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range types and guards before arithmetic, and the loops sit in procedures so no variant is required, but the loop-carried candidate and trial-division arithmetic need careful bounding, so discharge is plausible rather than certain.
 
-Position 256 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 256 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact integer forward substitution replaces the floating-point approach, and every check follows from range subtypes, for-loop indexes and per-step magnitude guards, with no annotation required. The nonlinear multiply-accumulate in a loop and the text formatting need careful shape, hence plausible rather than likely.
 
-Position 1021 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1021 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact decimal-digit arrays avoid floating point and make every check follow from array bounds, ranged digit types and guards, though the loop-carried carry and index logic in division and rounding needs careful shaping; nothing requires an annotation or recursion.
 
-Position 1412 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1412 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

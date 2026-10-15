@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded array types, capacity guards and for-index ranges, and the only while loop is a binary search in a procedure, but it needs careful shape for the loop-carried bounds and depends on the missing file-input operation.
 
-Position 1365 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1365 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

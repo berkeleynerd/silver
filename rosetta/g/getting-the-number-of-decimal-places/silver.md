@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a for loop over the string's own range plus one explicit guard on the loop-carried position, and no loop needs an invariant or variant.
 
-Position 494 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 494 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

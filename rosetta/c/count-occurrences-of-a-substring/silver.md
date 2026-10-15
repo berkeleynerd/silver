@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index and range checks on a bounded left-to-right scan guarded by the window-fits test, and since the loop sits in a procedure no termination check is needed, so discharge should be routine.
 
-Position 506 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 506 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

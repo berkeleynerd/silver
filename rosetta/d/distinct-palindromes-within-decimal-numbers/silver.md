@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges with small fixed bounds and the only arithmetic is on three-digit values, so every check follows from types and guards just before indexing, with no loop-carried value needing an invariant.
 
-Position 988 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 988 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

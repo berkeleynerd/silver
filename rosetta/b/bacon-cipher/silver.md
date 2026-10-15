@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a for loop over a constant or array range in the main procedure, and the only loop-carried values are bounded counters guarded by capacity comparisons, so the checks should discharge with careful program shape and no annotation.
 
-Position 561 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 561 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operand is bounded by small declared ranges (m at most 180, periods at most a few hundred), so loop-carried values need only a few range guards and all loops can be for loops or procedure loops with no annotations, though the lcm and power arithmetic need careful guarded shape.
 
-Position 422 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 422 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

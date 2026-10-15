@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is iterative array swapping with small integer ranges and 12! fits in 64 bits, so every check follows from types and a few guards, but the loop-carried rank accumulator and the LCG need careful range shaping.
 
-Position 943 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 943 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

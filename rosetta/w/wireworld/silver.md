@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, enumeration cases and explicit edge guards, with only the neighbour counter and line-reading loop needing careful shape, so proofs should likely discharge with no annotations. The main new work is Silver's file input, 2D arrays and enumerations.
 
-Position 1336 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1336 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

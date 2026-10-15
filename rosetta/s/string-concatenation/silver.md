@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only String constants, bounded concatenation and Put_Line, all of which Silver already supports, and every check is static, so proofs discharge trivially.
 
-Position 9 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 10 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, constant loop bounds and an explicit escape guard placed before each store, so no annotation is needed, but the loop-carried fixed-point arithmetic needs careful shaping, hence plausible rather than likely.
 
-Position 464 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 464 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

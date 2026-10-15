@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation because all state lives in bounded arrays and ranged counters guarded before each use and all loops are while loops inside procedures, but the large amount of loop-carried game state means careful guard placement is needed.
 
-Position 1262 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1262 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only a String literal passed to Silver_IO.Put_Line, which Silver already supports, so there are no run-time checks to prove.
 
-Position 3 in the [progression](../../../progression.md#stage-1), in stage 1.
+Position 4 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

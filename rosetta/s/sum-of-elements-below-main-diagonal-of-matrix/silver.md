@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges within static array bounds, and the accumulator addition is bounded by the element subtype and the fixed 25-element count, so no annotation is needed.
 
-Position 650 in the [progression](../../progression.md#stage-14), in stage 14, which adds multidimensional arrays.
+Position 650 in the [progression](../../progression.md#stage-13), in stage 13, which adds multidimensional arrays.
 
 ## Approach
 

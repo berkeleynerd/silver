@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from ranged types, a fixed 79 by 22 array and per-step bounds guards before each indexing, and the loops sit in procedures so no termination annotation is needed; the missing pieces are only Silver surface growth such as 2D arrays, loops, stdin and unbuffered Put.
 
-Position 1232 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1232 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

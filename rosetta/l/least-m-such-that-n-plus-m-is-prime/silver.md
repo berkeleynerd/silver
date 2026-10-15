@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, since every loop value sits in a bounded limb subtype or behind a guard, but the fixed-capacity big-number arithmetic carried through many nested loops makes discharge depend on careful program shape.
 
-Position 1410 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1410 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

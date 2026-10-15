@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything stays within declared ranges or guards placed before each operation, with no annotation needed, but the float mantissa/exponent normalisation and the guarded loop-carried integer arithmetic make discharge depend on careful program shape.
 
-Position 1109 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1109 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

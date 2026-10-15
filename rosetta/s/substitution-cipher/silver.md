@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing is over fixed-length constant strings and a bounded buffer using for loops inside procedures, so checks follow from static bounds and one size guard; the only gap is that Silver needs file read and write operations with specified failure outcomes.
 
-Position 1428 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1428 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by a 64-bit-safe range type and a fixed-count digit loop, so overflow, division and termination checks follow from types and local guards with no annotations; the only slightly delicate parts are the loop-carried counter and the fixed search window.
 
-Position 892 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 892 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes and a single guard before the accumulator addition, and no loop needs an invariant or variant, so proofs should discharge automatically.
 
-Position 334 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 334 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

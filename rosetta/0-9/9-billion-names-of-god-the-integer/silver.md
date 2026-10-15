@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and limb operation is bounded by types or guards before use and all loops are for loops in procedures, but fixed-capacity big-number arithmetic carried through nested loops needs careful shaping.
 
-Position 1394 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1394 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

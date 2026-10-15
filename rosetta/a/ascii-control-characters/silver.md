@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a static enumeration walked by a for loop with a small ranged code value, so all checks follow from types and static bounds with no loop-carried state. Only the string-length check on the printed line needs care.
 
-Position 1154 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1154 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

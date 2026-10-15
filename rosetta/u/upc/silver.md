@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is fixed-offset on constrained 95-character strings inside for loops, the checksum accumulator is bounded by mod 10, and no recursion, while loop or variant is needed, so all checks follow from types and static bounds.
 
-Position 810 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 810 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

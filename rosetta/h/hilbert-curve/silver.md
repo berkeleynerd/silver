@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Order-3 ASCII art needs only fixed-size arrays, for loops and small ranged integer arithmetic, so all checks are bounded by types and a few explicit guards, but the loop-carried coordinate reflection needs careful guard placement.
 
-Position 693 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 693 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, range-typed indexes and explicit capacity guards, with the loops in procedures so no variant is needed, but it needs file input, string slicing and ordering that Silver lacks and careful guards on the search indexes.
 
-Position 1487 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1487 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All integer and string checks follow from subtypes and constants, but the proof hinges on floating-point trig sums and a rounding conversion being provably bounded, which needs careful guards and admitted Elementary_Functions contracts and no annotations.
 
-Position 875 in the [progression](../../../progression.md#stage-16), in stage 16.
+Position 875 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

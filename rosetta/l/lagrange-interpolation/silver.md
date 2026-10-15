@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed-size polynomial arithmetic that stays exact in bounded integers with static loop bounds, so checks follow from types and a few guards; the plausible rating reflects accumulator overflow in nested loops and text formatting of the fractions.
 
-Position 927 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 927 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

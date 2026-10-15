@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** For loops terminate by construction, the inner bound is the outer loop index within a static range, and no arithmetic or indexing is involved, so no check depends on a loop-carried value. The only new surface is the for loop and output without a line terminator.
 
-Position 64 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 33 in the [progression](../../../progression.md#stage-2), in stage 2.
 
 ## Approach
 

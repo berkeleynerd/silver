@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges, fixed buffers and for loops over the buffer, with only the loop-carried counters needing guards, and line reading happens in a procedure so no variants are needed. The remaining work is an admitted file-reading operation and careful guard placement.
 
-Position 1353 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1353 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

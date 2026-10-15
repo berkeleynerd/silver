@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small-range or fixed-capacity digit-array work inside bounded for loops, so checks should follow from types and guards, but the carried big-number arithmetic and long division make discharge depend on careful program shape. Nothing requires an annotation, recursion, or heap use.
 
-Position 1387 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1387 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

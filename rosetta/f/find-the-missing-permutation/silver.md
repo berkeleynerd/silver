@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for-loop ranges over a constant String, and the only loop-carried values are small column sums protected by explicit guards, with the final letter conversion guarded before use. No loop invariant, recursion or while loop is needed, so every check should discharge from types and guards.
 
-Position 886 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 886 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexes are bounded by Limit-ranged subtypes and explicit comparisons, so checks should discharge without annotations, though several loop-carried values need careful typing and guarding.
 
-Position 919 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 919 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

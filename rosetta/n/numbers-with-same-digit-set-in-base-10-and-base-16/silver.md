@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small constant bases, a 0 .. 15 array range, a for-loop bound and a guarded counter, and the while loop lives in a procedure so no variant is needed; the main work is just the new integer, array and string-building surface.
 
-Position 343 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 343 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

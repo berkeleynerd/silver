@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged link and index types and null-link guards placed before each dereference, with bounded for loops and procedures needing no termination proof or invariants. The only new output needs are integer-to-text conversion and building a line from it.
 
-Position 59 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 99 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

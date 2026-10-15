@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed string length, for-loop indexes over array ranges, modular generator arithmetic and a bounded generation counter, with the while loop confined to a procedure, but the program shape (state threaded through procedures, a generation cap that adds a visible non-convergence outcome) needs care.
 
-Position 1308 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1308 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

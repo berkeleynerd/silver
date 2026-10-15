@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded scaled-integer work with for loops and guards before each update, so the checks follow from types and guards, but the carried x, y and z values need careful subtype and guard shaping and the decimal formatting adds string-building effort.
 
-Position 412 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 412 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

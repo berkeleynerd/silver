@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded index subtypes and guards placed just before each buffer access, with no loop-carried fact needing an invariant, though the guard-heavy shape of the scanning loops needs care.
 
-Position 555 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 555 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

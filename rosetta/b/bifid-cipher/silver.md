@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over bounded ranges inside procedures with a length guard, so every index and range check follows from types and guards without invariants; the only mildly delicate part is coordinate index arithmetic over unconstrained strings.
 
-Position 991 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 991 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

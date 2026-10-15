@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only checks are static-length concatenations and assignments of literals to constants, which GNATprove discharges trivially, so proof is likely. The only addition beyond today's Silver is a Character constant built from a character literal and concatenated onto a String for output.
 
-Position 437 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 437 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

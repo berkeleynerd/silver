@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed 25-by-25 bounds, small ranged subtypes and for-loop indexes, and the iterative solver needs no recursion or annotations, but loop-carried indexes in the line-solving dynamic program and the explicit search stack need carefully placed guards.
 
-Position 1205 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1205 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

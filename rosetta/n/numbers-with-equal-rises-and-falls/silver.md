@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types, the fixed-length digit loop and small guards before each carried increment, and the roughly 42 million iterations are a runtime cost, not a proof issue; the main work is careful guard placement for the counters, hence plausible.
 
-Position 379 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 379 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

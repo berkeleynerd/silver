@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic check follows from static string bounds and a for-loop over the array's own range, so the checks discharge without annotations; the Unicode combining-character extra credit is optional and omitted.
 
-Position 479 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 479 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

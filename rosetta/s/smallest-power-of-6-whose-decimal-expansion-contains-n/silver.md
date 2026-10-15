@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs big numbers (6^m exceeds 64 bits), but a fixed-capacity digit array with narrow subtypes lets every check follow from types and one count guard, so no annotation is needed. Discharge depends on careful shape of the carry loop and pattern search, hence plausible rather than likely.
 
-Position 1374 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1374 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

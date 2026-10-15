@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string and array manipulation in procedures with explicit capacity guards and visible rejection, so no annotations are needed, but index and length checks on loop-carried positions make careful program shape necessary.
 
-Position 1244 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1244 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Gnome sort is a small while loop over a fixed 10-element array whose indices are bounded by types and guards just before each access, and it sits in a procedure so no variant is needed.
 
-Position 207 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 207 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

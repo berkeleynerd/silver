@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a documented report of whether a built-in sort exists and is stable, which is fixed text output with no arithmetic, loops or input, so every check is trivially discharged by what Silver already supports.
 
-Position 8 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 9 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

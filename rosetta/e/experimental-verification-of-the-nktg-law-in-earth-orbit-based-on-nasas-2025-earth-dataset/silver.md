@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed embedded data pushed through a few multiplications and one division in a for loop, with no recursion, while loops or input, so checks follow from float subtype ranges. The only non-routine parts are float overflow bounds up to 1e40 and hand-written scientific-notation formatting.
 
-Position 1089 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1089 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

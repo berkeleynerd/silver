@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed-size and indexed by enumeration types, loops are for loops over static ranges, and the only dynamic risk is end of input, which a guard handles, so every check follows from types and bounds.
 
-Position 1220 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1220 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic operation is bounded by static array ranges, a 0..255 subtype and for loops, so the checks discharge from types and local guards without any annotation. The only new surface is arrays, for loops, string indexing and procedures, and the fixed width and generation count are documented resource limits.
 
-Position 529 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 529 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

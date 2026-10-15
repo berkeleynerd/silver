@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Partial application maps directly onto Ada generic instantiation with a formal function, and every check follows from declared ranges, static array bounds and for loops over 'Range. No loop-carried value and no unbounded construct remains for the prover.
 
-Position 1527 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1527 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

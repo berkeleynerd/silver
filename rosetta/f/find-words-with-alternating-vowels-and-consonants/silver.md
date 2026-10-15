@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index and length facts that follow from the for-loop range and the length guard, and the only loop-carried value is a Boolean, so no invariant is needed; the work lies in the file-input library operation, not in proofs.
 
-Position 1323 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1323 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

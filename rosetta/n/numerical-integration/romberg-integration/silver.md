@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops and the data is small, but floating-point checks on loop-carried accumulators only discharge through declared range subtypes plus explicit guards, so success depends on careful program shape; Silver also needs float types and float formatting that it lacks today.
 
-Position 1086 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1086 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

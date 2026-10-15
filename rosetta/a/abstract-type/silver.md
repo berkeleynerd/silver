@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs declarations of abstract and interface types and a few dispatching calls with no loops, recursion or dynamic memory, so every check is a routine range check on a bounded counter or needs none.
 
-Position 1558 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1558 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 

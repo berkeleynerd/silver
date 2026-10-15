@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by 12000 so every product fits a wide integer and every loop is a for loop over a static range, so the checks follow from types and static bounds without needing invariants; the stretch to larger limits only changes the constant.
 
-Position 353 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 353 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

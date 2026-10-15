@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-size loop over constrained arrays, so index and initialization checks are routine, and the only non-routine parts are float range guards for Sqrt and the specified contracts of admitted float-formatting and file-writing operations, none of which need an annotation.
 
-Position 1430 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1430 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 

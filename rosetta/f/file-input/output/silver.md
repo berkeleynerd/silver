@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the buffer's declared capacity, the Length subtype and status guards before the slice write, with no loops or recursion in user code. The needed whole-file read and write operations are new library effects with specified failure outcomes, not Oracle conflicts.
 
-Position 1568 in the [progression](../../../progression.md#stage-37), in stage 37.
+Position 1568 in the [progression](../../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There are no loops apart from for loops over fixed data, and no recursion, so termination and indexing are routine. Discharge depends on placing magnitude and precondition guards before every nonlinear floating-point operation and elementary-function call, which takes careful program shape but no annotations.
 
-Position 1115 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1115 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

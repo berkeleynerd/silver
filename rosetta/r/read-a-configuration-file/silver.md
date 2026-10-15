@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is a bounded index into an embedded constant or fixed buffer, so guards before each use discharge the checks and no invariant is needed, but the many loop-carried positions make the proof depend on careful program shape.
 
-Position 575 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 575 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

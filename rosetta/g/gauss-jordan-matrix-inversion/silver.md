@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and loop bounds are static and the program is a procedure with only for loops, so the only non-routine obligations are float overflow and zero-pivot division, which explicit magnitude guards with a visible reject outcome can discharge without annotations. Float arithmetic in nested loops and float formatting make it plausible rather than likely.
 
-Position 1087 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1087 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

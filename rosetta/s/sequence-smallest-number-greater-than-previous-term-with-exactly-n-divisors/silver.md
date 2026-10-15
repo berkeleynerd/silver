@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtype ranges and guards placed just before the increments, the divisor-count function uses only a for loop, and the unbounded-looking search is in a procedure with an explicit limit, so no annotation is required (the largest term is 4624 versus a 100000 limit).
 
-Position 329 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 329 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

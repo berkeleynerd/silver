@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded floating-point arithmetic over a fixed 96-element array with a capped search loop in a procedure, so no annotation is needed, but proving no overflow in Exp and the squares depends on careful range guards and an admitted Exp.
 
-Position 1072 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1072 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

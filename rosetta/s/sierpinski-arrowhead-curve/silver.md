@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded array indexing and small ranged counters with guards just before each write, and all loops sit in procedures as for loops, so nothing needs an annotation, though the loop-carried turtle position and buffer lengths demand careful guard placement.
 
-Position 1187 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1187 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

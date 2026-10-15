@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is integer-only modular arithmetic over small fixed-size digit arrays, so every check can follow from subtype ranges and explicit guards with visible failure outcomes, but several loop-carried values (remainder, digit sum, denominator count) need careful guarding.
 
-Position 644 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 644 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

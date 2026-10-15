@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a bounded for-loop character comparison over constant strings, so every index and length check follows from the clamped loop bound computed just before use and no loop-carried fact needs an invariant. The only new surface is unconstrained String parameters, string indexing and slices, and Natural counters.
 
-Position 985 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 985 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

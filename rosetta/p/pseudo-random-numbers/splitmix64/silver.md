@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular Unsigned_64 arithmetic has no overflow checks and the floor(next_float*5) step can be done in exact integer arithmetic, so only the loop-carried count increments and the bucket index need simple guards. No loop invariant, recursion or floating point is required.
 
-Position 1277 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1277 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

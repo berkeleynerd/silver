@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size arrays and ranged integers with explicit guards, and the recursion is replaced by an explicit stack in a procedure so no variant is needed, but the loop-carried stack top and signed accumulator need careful guard placement.
 
-Position 284 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 284 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

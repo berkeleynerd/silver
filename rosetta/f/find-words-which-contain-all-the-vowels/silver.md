@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from loop ranges, a bounded buffer with a library-provided length, and tallies capped by explicit guards, so no annotation is needed. The only new needs are file reading and ordinary loops, character, and case constructs.
 
-Position 1326 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1326 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

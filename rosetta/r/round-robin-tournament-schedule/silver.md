@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for-loop ranges over a fixed 12-element array of a bounded subtype, with no while loops, recursion or loop-carried arithmetic, so every check follows from types and static bounds.
 
-Position 46 in the [progression](../../progression.md#stage-4), in stage 4.
+Position 60 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded (1023 candidates, at most 10 digits) with no recursion or heap, so every check follows from types and for-loop bounds, but the loop-carried number construction and 64-bit arithmetic need careful guards.
 
-Position 369 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 369 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

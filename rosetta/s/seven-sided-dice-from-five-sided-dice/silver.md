@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with array indices derived from guarded, range-typed values, and the only unbounded loop is a while loop in a procedure, so no annotation is needed. The one careful point is the loop-carried counters and the LCG state needing type-range or guard-based overflow safety.
 
-Position 241 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 241 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

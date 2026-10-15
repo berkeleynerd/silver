@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Iteration over a small embedded fixed-capacity table with for loops over the array's own range needs only declared ranges and bounded slices, so every check follows from types.
 
-Position 1157 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1157 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

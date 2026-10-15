@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation because parsing and serialization can be written as iterative loops in procedures with explicit-stack nesting and guards before every index, though the many loop-carried cursors and table links make discharge depend on careful program shape.
 
-Position 1204 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1204 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

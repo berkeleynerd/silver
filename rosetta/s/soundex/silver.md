@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for loop over fixed-size strings with output-position guards and character-class case mapping, so all checks follow from types and local guards and no annotation is needed. The code-run rule Ashcraft/Tymczak needs only a small previous-code state variable of a small enumeration or digit subtype.
 
-Position 794 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 794 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

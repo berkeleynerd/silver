@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is on small bounded index or length types with guards before each array access and append, and the only loops with carried state live in procedures, so no termination check or invariant is needed; the care needed is in the index guards and buffer capacity.
 
-Position 935 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 935 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

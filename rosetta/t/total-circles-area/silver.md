@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops over fixed array ranges with bounded float subtypes, so checks reduce to range and guard facts, but float accumulation, Sqrt and the float-to-integer conversion need careful bounding for the provers.
 
-Position 878 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 878 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

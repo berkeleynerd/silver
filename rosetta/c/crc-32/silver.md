@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is on modular values or bounded for-loop indexes, so no overflow, range or index check can fail, and no loop-carried fact beyond type ranges is needed. The expected output 414FA339 is a fixed visible result.
 
-Position 1268 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1268 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

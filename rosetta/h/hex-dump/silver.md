@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index, division and range check follows from the embedded array bounds, the byte subtype and guards placed before each use, and the only loop-carried arithmetic is the guarded argument parsing, so the proofs should discharge without annotations. The program needs no function loops or recursion, only procedures and for loops.
 
-Position 1445 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1445 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

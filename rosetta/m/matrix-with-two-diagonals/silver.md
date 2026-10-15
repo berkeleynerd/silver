@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index into a String by a for-loop variable over its exact range plus small constant integer arithmetic, so all of it discharges from types and static bounds with no loop-carried state. The only new capabilities are character assignment into a String and for loops, and the output is plain line printing.
 
-Position 482 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 482 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

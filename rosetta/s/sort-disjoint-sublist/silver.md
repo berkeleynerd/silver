@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from fixed-range array subtypes and loops are for loops over static ranges, so every check follows from types and no invariant is needed.
 
-Position 92 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 61 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

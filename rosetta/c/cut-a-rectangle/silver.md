@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a bounded backtracking count that converts to an iterative procedure with fixed arrays, so all checks follow from ranged types and guards just before each access, though loop-carried indexes and the counter need careful guards. No annotation is required and the only effect is console output.
 
-Position 837 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 837 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

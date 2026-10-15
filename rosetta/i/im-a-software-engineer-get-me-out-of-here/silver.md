@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded index subtypes, for loops and explicit range guards, with no recursion or function loops, but the loop-carried distances, bounded route-string building and nonlinear jump arithmetic need careful program shape.
 
-Position 869 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 869 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

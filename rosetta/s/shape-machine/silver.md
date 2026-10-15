@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the bounded float subtype and the capped counter, so no annotation is needed, but floating-point range reasoning plus the missing float parse and format library make it plausible rather than likely.
 
-Position 1128 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1128 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 

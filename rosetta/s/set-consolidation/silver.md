@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, small ranged subtypes and for-loop indexes, and the non-structural fixpoint is placed in a procedure or bounded by a pass count so nothing needs an annotation. Nested loops with loop-carried counts and merge bookkeeping need careful shape, hence plausible rather than likely.
 
-Position 1191 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1191 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

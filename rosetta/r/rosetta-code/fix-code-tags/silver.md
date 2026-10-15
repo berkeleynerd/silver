@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded string scanning and rewriting over embedded data, so all checks come from buffer-capacity and index guards before each access, though several loop-carried positions need careful guarding without invariants.
 
-Position 1032 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1032 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

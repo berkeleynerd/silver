@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from ranged position subtypes, for-loop indexes over the array ranges and guards placed just before character lookups, and the cyclic-reference risk is handled by a bounded loop in a procedure.
 
-Position 544 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 544 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

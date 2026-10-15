@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded big-digit arithmetic and for loops in procedures, whose checks follow from ranged types and explicit capacity guards, but the loop-carried digit length and the nested trajectory comparison require careful guard placement.
 
-Position 748 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 748 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

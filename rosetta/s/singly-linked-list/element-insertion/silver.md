@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only a linked structure, which an index-linked array pool expresses without pointers or recursion, and every index and range check follows from the ranged link subtype and explicit guards, so proofs should discharge without annotations.
 
-Position 597 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 597 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

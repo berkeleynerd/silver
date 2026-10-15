@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges of the index and power subtypes and from guards in the binary search, with no recursion and no loop-carried accumulator, but nonlinear power building and the while-loop search need careful typing to discharge.
 
-Position 250 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 250 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

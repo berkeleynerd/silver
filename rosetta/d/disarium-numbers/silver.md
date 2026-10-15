@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded: a fixed 10-digit limit, a literal power table and for loops give routine index and range checks, with only the subtraction-based accumulator guard requiring careful shape. No annotations or recursion are needed, so proofs should discharge with some care.
 
-Position 685 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 685 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

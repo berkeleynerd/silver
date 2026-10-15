@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic with a for loop for popcount and guarded loop-carried values, so checks should discharge with explicit pre-operation guards and no annotations. The risk is only the loop-carried accumulator and multiplication guards and the bounded string building.
 
-Position 402 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 402 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

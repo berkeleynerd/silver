@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Sorting a fixed-size array by comparisons and swaps needs only for-loop indexes over the array range and no arithmetic on element values, so every check follows from types and bounds. The standard generic sort library is not available in Silver, so a hand-written O(n^2) sort in a procedure is used.
 
-Position 91 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 76 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

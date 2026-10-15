@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first four features (the extra-credit ones are optional) need only bounded buffers, guarded indexed scans and for-loop sorting, so every check follows from types and explicit guards with no annotation, though the paired-cursor comparison loops need careful guard placement.
 
-Position 1496 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1496 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

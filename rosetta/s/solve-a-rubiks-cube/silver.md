@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index, orientation sum and stack push is bounded by declared subtypes or an explicit guard, and the search uses an explicit stack in procedures, so no annotation is needed. The outlook is only plausible because the large amount of loop-carried state and the explicit solvability validation demand careful program shape.
 
-Position 1369 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1369 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

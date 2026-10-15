@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only requires declaring enumerations and constants and printing them, which needs types, static values and a for loop over an enumeration's own range, so every check discharges from declarations alone.
 
-Position 1155 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1155 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

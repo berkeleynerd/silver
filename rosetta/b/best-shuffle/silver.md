@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from for-loop ranges over a fixed-capacity buffer, with only the loop-carried score needing a guard, and no recursion, annotations or exceptions are required. The greedy swap is deterministic and acceptable under the task, so the outlook is plausible rather than likely because of the guarded accumulator and string assembly.
 
-Position 553 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 553 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

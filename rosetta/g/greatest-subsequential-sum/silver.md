@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are bounded by declared element ranges and for-loop indexes, with only the loop-carried running sum needing a guard, so no annotation is required but the program shape must be careful.
 
-Position 100 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 64 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 

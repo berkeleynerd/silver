@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop has static bounds, so it terminates by construction, and the loop index lies in a small known range, so Integer'Image cannot fail a length or range check. The only new surface is for loops over a reverse range and integer-to-text conversion.
 
-Position 63 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 36 in the [progression](../../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

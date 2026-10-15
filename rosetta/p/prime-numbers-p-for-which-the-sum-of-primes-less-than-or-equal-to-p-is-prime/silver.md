@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for-loop trial division over small declared ranges with the only loop-carried values being a guarded sum and two small counters, so all checks follow from types and guards without annotations.
 
-Position 356 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 356 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

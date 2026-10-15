@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the constants' own ranges and the loop-carried positions and counters have bounded subtypes with guards, so no annotation is needed. The outlook is plausible rather than likely because the nested word scanning and buffer appends need careful guard placement.
 
-Position 577 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 577 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

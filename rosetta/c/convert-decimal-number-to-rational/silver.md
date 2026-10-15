@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and guards before each accumulation, and the only loops with loop-carried state are for loops or a gcd while loop inside a procedure, so no annotation is needed, though the guarded parse and string building need careful shape.
 
-Position 1137 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1137 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

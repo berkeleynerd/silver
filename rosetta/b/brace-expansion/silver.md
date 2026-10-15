@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded string buffers, array scanning and a worklist loop in a procedure, so every check follows from ranged types and explicit capacity guards with overflow of capacity rejected visibly, but the brace and comma association logic makes the program shape delicate.
 
-Position 755 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 755 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

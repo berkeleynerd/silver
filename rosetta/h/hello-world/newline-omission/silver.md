@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a single call to a newline-free output operation on a constant string, so every check is trivial; the only missing piece is Silver_IO.Put, which Silver does not have yet.
 
-Position 62 in the [progression](../../../progression.md#stage-7), in stage 7, which adds Put without a newline.
+Position 3 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

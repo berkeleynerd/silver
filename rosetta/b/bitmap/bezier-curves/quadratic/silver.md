@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer ranges, for loops and fixed arrays, with no loop-carried accumulators, so checks follow from types and local guards, though the nonlinear integer arithmetic and the need for explicit pixel-range guards make careful shape necessary.
 
-Position 691 in the [progression](../../../../progression.md#stage-14), in stage 14.
+Position 691 in the [progression](../../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

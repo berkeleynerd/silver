@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static array bounds, a ranged length subtype, modular wraparound and mod by static constants, and printing word by word avoids a loop-carried buffer position, so all checks should discharge without annotations.
 
-Position 1280 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1280 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

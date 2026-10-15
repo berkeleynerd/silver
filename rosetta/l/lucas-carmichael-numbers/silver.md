@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is bounded and fits in 64-bit integers with explicit guards, and no annotations are needed because recursion is replaced by an explicit stack, but proving no overflow in the lcm/product and root loops without invariants depends on careful guard placement.
 
-Position 297 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 297 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

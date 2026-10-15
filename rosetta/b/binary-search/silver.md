@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from small declared ranges and a guard before the array access, but the loop-carried Low/High bounds mean the in-range index fact must come from an explicit guard rather than an invariant, so success depends on careful shape; no annotations are needed.
 
-Position 219 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 219 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

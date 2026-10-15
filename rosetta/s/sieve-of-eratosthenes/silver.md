@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or computed ranges, so no loop-carried value needs an invariant, and the only nontrivial checks are the index and overflow of K * Base, which the Limit / Base loop bound makes dischargeable. The fixed limit is an allowed documented resource bound.
 
-Position 125 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 125 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small declared subtypes and fixed for-loop ranges, with no recursion, accumulators or annotations needed, so the checks should discharge from types alone.
 
-Position 788 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 788 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a declared coordinate subtype and all array accesses are protected by guards just before use, but several loop-carried stack indices need careful guard placement, so discharge is plausible rather than certain.
 
-Position 627 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 627 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

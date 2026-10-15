@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is bounded by small subtypes, a 1..12 table index and arithmetic on values below 400 after explicit validation, with only for loops, so GNATprove should discharge it with no annotations. The main new surface is ordinary integer, array, enumeration and string-building features that Silver will need anyway.
 
-Position 1178 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1178 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

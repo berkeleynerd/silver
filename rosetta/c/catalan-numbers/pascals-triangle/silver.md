@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay below 2**31 and every index comes from for-loop ranges, so only the loop-carried row additions need explicit overflow guards, which makes discharge plausible rather than trivially likely.
 
-Position 1371 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1371 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Approach
 

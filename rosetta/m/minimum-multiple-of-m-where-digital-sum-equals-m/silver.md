@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and a fixed-iteration digit loop, so checks follow from types and one guard, though the loop-carried digit-sum accumulator needs careful shaping.
 
-Position 169 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 169 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

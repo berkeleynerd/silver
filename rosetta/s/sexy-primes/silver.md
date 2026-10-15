@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged subtypes and guards placed just before each access, with no function-level loops needing variants, but the sieve's loop-carried index and the many look-ahead guards need careful program shape.
 
-Position 291 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 291 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

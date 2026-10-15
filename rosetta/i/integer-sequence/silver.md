@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop's index stays inside its static range, so nothing can overflow and the loop ends on its own, and the image of an Integer is always a short, bounded string. Every check therefore follows from types and static bounds, with no annotation needed.
 
-Position 34 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 37 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over fixed-size Boolean grids in procedures, so the index and range checks follow from subtype ranges and local guards, though the many loop-carried shift and bounding-box values make the program shape delicate. No recursion, heap or annotations are needed, so it is plausible rather than certain.
 
-Position 758 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 758 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

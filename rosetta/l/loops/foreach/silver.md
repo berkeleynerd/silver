@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the array's declared bounds and a for loop over its own range, and nothing is carried between iterations. The only new surface is arrays, for loops, and integer-to-text conversion.
 
-Position 68 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 50 in the [progression](../../../progression.md#stage-4), in stage 4, which adds arrays.
 
 ## Approach
 

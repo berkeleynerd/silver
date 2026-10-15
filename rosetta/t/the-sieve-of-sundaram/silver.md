@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from constant bounds, for-loop indexes and one guard on the culling index, with nothing needing an invariant, though the large array and loop-carried indices need careful shaping. The remaining uncertainty is stack size for the big array and the nonlinear start-index arithmetic.
 
-Position 229 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 229 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

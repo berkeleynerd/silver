@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is digit-array max/min work with fixed capacity and for-loop indexes, so index and range checks follow from types and capacity guards, though the shift-and-add indexing and bounded conversions need careful guarding. No annotation is needed because the loops can be for loops or live in procedures.
 
-Position 849 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 849 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

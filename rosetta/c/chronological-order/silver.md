@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed capacities, bounded year digits and guards before each index, with no variant or invariant needed, but the parsing and sort loops need careful shape and a file-line-reading library operation must exist.
 
-Position 1364 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1364 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only check that is not trivial is the index precondition on the library's argument accessor, and a for loop over 1 .. Argument_Count meets it directly. The program needs only a library extension (argument count and indexed access) plus for loops, with no arithmetic or loop-carried state.
 
-Position 1440 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1440 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

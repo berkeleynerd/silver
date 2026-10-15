@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over fixed ranges with a modular-type generator, so every check follows from types, static bounds and a type with headroom for the counters; no annotations or recursion are needed.
 
-Position 1283 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1283 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

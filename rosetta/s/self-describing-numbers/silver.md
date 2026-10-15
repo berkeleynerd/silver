@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over ranged integers and fixed ten-element arrays, so index, range and overflow checks follow from types plus a trivial guard on the tally increments, with no need for annotations.
 
-Position 1509 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1509 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

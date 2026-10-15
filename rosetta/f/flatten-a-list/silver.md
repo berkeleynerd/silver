@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing pointer-based nodes with a bounded token array makes flattening a single for loop over the array's own range, so all checks follow from types, the for-loop index and capacity guards before each append. The only care needed is guarding the loop-carried counters and the text buffer position, which is why this is plausible rather than likely.
 
-Position 1186 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1186 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

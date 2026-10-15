@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Decimal text parsed with guarded bounded-integer counters can decide integerness, including the huge -2.1e120 case, without floats or big numbers, so proofs should discharge with careful guards. The risk is loop-carried exponent and position arithmetic, but no annotation is needed.
 
-Position 1145 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1145 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Text art meets the display requirement, and every check follows from for-loop ranges and the mod 8 palette index, so no loop-carried value needs an invariant.
 
-Position 487 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 487 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

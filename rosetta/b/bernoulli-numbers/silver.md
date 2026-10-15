@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only console output and bounded big-rational arithmetic with no recursion, heap use or annotations, so it is feasible once a fixed-capacity big number facility exists, but the multi-limb carry, gcd and division loops make proof discharge depend on careful program shape.
 
-Position 1409 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1409 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

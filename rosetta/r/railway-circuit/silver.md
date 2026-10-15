@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded types, for-loop indexes and mod arithmetic, and the only loop-carried values needing guards are the four coordinate accumulators and the mask rotations, with no recursion, heap use or annotation needed. The brute-force enumeration of 2**20 masks is a runtime cost, not a proof burden, and the optional n >= 24 counts and straight-track variants are left out.
 
-Position 944 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 944 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

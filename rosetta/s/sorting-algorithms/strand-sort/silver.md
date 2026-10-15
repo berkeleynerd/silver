@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed capacity arrays and bounded subtypes with procedures only, so no variants are needed, but several loop-carried cursors in the extraction and merge need explicit guards for the provers to discharge index and range checks.
 
-Position 566 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 566 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

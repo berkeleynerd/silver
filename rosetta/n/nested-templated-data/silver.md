@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for loops over the arrays' own ranges, a depth counter guarded before each increment and decrement, and an index range guard just before each payload lookup, so no annotation is needed. Flat token encoding avoids recursion and heap use, so the nested tree is traversed iteratively with fixed bounds.
 
-Position 1170 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1170 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

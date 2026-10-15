@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for loops over the array's own ranges and cell sums are bounded by the declared cell range plus a visible guard, so every check follows from types and local guards; only the row-formatting buffer arithmetic needs careful shape.
 
-Position 901 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 901 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

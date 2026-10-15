@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared integer ranges, a base subtype bounding digit indexes, and fixed-bound for loops, but the loop-carried counters and the base-digit formatting need careful shaping without invariants.
 
-Position 471 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 471 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded buffers, subtype-ranged counters and an explicit guard before each lookahead, and the scanner is a procedure so termination is not checked, but the many loop-carried positions, counters and buffers need careful guard placement. Nothing requires an annotation, and the exception-based error reporting of the existing solution is replaced by specified diagnostics.
 
-Position 1569 in the [progression](../../../progression.md#stage-37), in stage 37.
+Position 1569 in the [progression](../../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 

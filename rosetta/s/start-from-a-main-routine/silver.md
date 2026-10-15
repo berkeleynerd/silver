@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a parameterless main procedure that runs at startup, which Silver already supports, and it has no run-time checks to prove.
 
-Position 4 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 5 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

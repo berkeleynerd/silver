@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed ranges with small Boolean arrays and bounded counters, so checks follow from types and simple guards and no variants or invariants are needed. The only non-routine parts are loop-carried counters and quotients, which need guards or subtype bounds.
 
-Position 409 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 409 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

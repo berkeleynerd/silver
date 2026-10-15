@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and loop bound follows from fixed 26/28-length strings and a 1..26 position subtype with mod arithmetic, and all loops are for loops in procedures, so nothing needs an annotation.
 
-Position 539 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 539 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

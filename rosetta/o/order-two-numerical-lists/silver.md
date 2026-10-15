@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is bounded by the length subtype and the for-loop range, comparisons of Integer elements cannot overflow, and for loops terminate by themselves, so even inside a function no annotation is needed.
 
-Position 344 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 344 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

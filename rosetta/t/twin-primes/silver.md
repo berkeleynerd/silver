@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Sieve and count loops index a fixed array by for-loop ranges with guards, and parsing is the only loop-carried arithmetic, so no annotations are needed; the nonlinear multiple indexing is the main prover risk.
 
-Position 1356 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1356 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

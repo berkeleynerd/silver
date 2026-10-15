@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure string scanning with character-level rules and no conflicts, and every index and buffer length is guarded just before use, though several loop-carried positions need careful guards because there are no invariants.
 
-Position 1144 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1144 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes and index guards placed just before array accesses, and the loops live in procedures, so nothing needs an annotation, but the loop-carried heap indexes require careful guard placement.
 
-Position 823 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 823 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first ten deceptive numbers (91, 259, 451, 481, 703, 1729, 2821, 2981, 3367, 3641) are small, so for loops over typed ranges with modular remainders keep all arithmetic bounded and need no invariants or variants.
 
-Position 320 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 320 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

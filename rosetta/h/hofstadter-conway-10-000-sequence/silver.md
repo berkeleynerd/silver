@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded array index, range or 64-bit arithmetic check that a guard placed just before the operation discharges, with no loop-carried fact needing an invariant, so only the guards' shape makes it plausible rather than likely.
 
-Position 933 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 933 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

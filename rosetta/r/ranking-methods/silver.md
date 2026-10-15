@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is a fixed seven-element array, indexes come from for loops or explicit bounds guards, and values stay within small ranged subtypes, so every check follows from types and local guards. Fractional rank is done in doubled integers, avoiding floating point, and no function needs a loop variant.
 
-Position 905 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 905 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

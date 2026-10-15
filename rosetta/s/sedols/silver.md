@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are fixed-range for loops over constant arrays and every value is bounded by declared subtypes, so no loop-carried fact needs an invariant; the invalid-character path becomes a visible outcome instead of Constraint_Error.
 
-Position 772 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 772 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

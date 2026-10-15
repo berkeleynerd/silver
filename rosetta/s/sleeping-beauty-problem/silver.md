@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over fixed loop bounds with ranged types and guards, but loop-carried counters need explicit guards because no invariant can be written, so discharge depends on program shape.
 
-Position 171 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 171 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

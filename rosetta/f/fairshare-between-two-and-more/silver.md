@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small and bounded by ranged subtypes and a for-loop-based digit extraction, so checks follow from types, but careful shaping is needed to avoid a while loop in a function and to build the output text.
 
-Position 374 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 374 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

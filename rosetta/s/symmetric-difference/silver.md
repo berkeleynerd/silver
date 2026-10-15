@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index over the array's own enumeration range or a Boolean operation, with only for loops and no loop-carried arithmetic, so everything discharges from types alone. The work for Silver is the surface of enumerations, Boolean arrays with aggregates, procedures, Put and enumeration 'Image.
 
-Position 1158 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1158 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

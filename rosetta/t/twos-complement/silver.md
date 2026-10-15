@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular arithmetic wraps by definition and so raises no overflow check, and the program is straight-line code over constants, so every proof is routine.
 
-Position 1264 in the [progression](../../progression.md#stage-23), in stage 23, which adds modular types.
+Position 1264 in the [progression](../../progression.md#stage-22), in stage 22, which adds modular types.
 
 ## Approach
 

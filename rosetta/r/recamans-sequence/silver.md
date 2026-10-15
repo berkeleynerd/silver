@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only integer arithmetic, a fixed-size Boolean array and for loops, and every loop-carried check is closed by subtype ranges and guards placed just before the use. The 328002-term optional part is a bounded loop, so no annotation is needed.
 
-Position 240 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 240 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

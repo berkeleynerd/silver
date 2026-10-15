@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indexes, character conversions and window arithmetic follow from subtype ranges and for-loop indexes over fixed buffers, and no recursion, while loop in a function or annotation is needed. The only care needed is bounding the occurrence counters and giving the greedy generator a visible failure branch, hence plausible rather than likely.
 
-Position 571 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 571 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

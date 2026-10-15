@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are bounded by static ranges and explicit caps (primorial of 9 is about 2.2e8, m below a few hundred), so checks follow from subtypes and guards, but several loop-carried accumulators and nested primality loops need careful shaping.
 
-Position 398 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 398 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

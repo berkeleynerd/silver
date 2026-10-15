@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer and string work with guards before each index and rollover step, so the checks should discharge without annotations, though the parser and calendar rollover need careful shape; no task requirement conflicts with the Oracle.
 
-Position 1141 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1141 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

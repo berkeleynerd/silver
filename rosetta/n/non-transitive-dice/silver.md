@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every die is a 4-element array over a 1..4 subtype and all loops are bounded for loops over fixed 35-entry ranges, so index and range checks follow from types and the only loop-carried values (counters) are guarded just before use.
 
-Position 680 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 680 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

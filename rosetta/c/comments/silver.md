@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada's only comment form is the "--" line comment, which is ordinary lexical source that is not an annotation or pragma, so the program is a straight-line Put_Line with no proof obligations.
 
-Position 6 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 7 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

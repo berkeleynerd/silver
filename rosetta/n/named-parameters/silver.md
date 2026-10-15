@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada's named and default parameter associations meet the task directly, and the only checks are concatenations of a literal with a bounded 'Image result, which prove trivially, so discharge is likely.
 
-Position 41 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 47 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and a bounded counter, and the only loops are for loops plus a small while loop in a procedure. The only care needed is keeping the LCG arithmetic within 64-bit range, which types and mod make routine.
 
-Position 368 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 368 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

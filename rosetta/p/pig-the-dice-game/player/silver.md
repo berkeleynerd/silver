@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes and loop guards placed just before each addition, with an embedded deterministic generator and procedure-only while loops, so nothing needs an annotation but loop-carried scores need careful shaping.
 
-Position 630 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 630 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

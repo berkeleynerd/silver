@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes and for-loop indexes, with no loop-carried accumulators and only for loops inside functions, so proofs should discharge without annotations.
 
-Position 530 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 530 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

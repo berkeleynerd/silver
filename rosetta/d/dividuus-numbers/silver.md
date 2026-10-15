@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer work whose checks follow from subtype ranges and nonzero guards, and no loop in a function needs a variant, but the loop-carried digit product and the roughly ten-million-iteration stretch search need careful typing and shape.
 
-Position 407 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 407 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

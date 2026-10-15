@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Index-based linked lists in a bounded array are plain SPARK: every access is bounded by the index subtype or an explicit Null guard, and no loop carries a fact that needs an invariant. The task is trivial and the loops sit in procedures, so proofs should discharge automatically.
 
-Position 607 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 607 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all loops are for loops over fixed digit ranges in procedures and every arithmetic value is bounded by the digit type, but the nested big-number multiplication inside the search loops makes discharge depend on careful program shape. The needed big-number support (digit arrays, multiply, compare, print) is a sizeable new surface.
 
-Position 1380 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1380 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

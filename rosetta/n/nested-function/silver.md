@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The nested-scope counter modification is expressible with nested procedures (functions cannot have side effects), and all checks follow from a ranged counter, a guard before the increment and bounded string lengths.
 
-Position 961 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 961 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

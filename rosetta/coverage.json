@@ -10,7 +10,9 @@
   ],
   "excluded_constructs": []
  },
- "supported": [],
+ "supported": [
+  "put"
+ ],
  "tasks": {
   "100 doors": {
    "revision": 414028,

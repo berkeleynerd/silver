@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm uses only integer arithmetic that bounded subtypes and guards can keep in range, and the 64-bit limit is explicitly allowed by the task (show what you can), but the 7**N values up to 7**73 would need fixed-capacity big numbers to be fully faithful.
 
-Position 278 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 278 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

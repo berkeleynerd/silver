@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from fixed-capacity limb arrays, bounded for loops and small-multiplier ranged types, but the multi-limb carry chains, big-by-big multiplication and digit-by-digit square root need careful shaping so every check discharges without invariants.
 
-Position 1403 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1403 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

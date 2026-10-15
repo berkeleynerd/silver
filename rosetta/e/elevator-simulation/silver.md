@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is only a video-described elevator GUI, so a faithful text simulation with a bounded queue and 0..6 floor range needs just ranged types, small arrays and guarded updates, all of which GNATprove discharges from types and guards. No annotation, recursion or heap is needed, and the graphical display is replaced by text output.
 
-Position 1177 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1177 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by fixed for loops, ranged angle and length types and explicit clipping guards, so only the floating-point trigonometry and float-to-index conversion need careful shaping and no annotation is required.
 
-Position 874 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 874 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

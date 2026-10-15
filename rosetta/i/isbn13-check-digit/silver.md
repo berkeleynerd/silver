@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the fixed string length, the digit guard before Character'Pos, and the mod-10-reduced sum in a small subtype, so no loop invariant is needed. The loop is a for loop inside a function, which terminates by itself.
 
-Position 510 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 510 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

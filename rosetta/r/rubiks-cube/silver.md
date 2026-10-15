@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a drawing of a Rubik's cube, and a text-art picture is made of constant Put_Line calls that Silver already supports, so no run-time check or loop exists to prove.
 
-Position 22 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 23 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

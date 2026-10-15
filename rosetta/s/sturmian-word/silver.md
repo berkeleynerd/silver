@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer arithmetic with ranges set by declared limits, and the only loop-carried hazards (buffer position, search bounds) are covered by types and explicit guards, so no annotation is needed, but the nonlinear square-root search needs careful range shaping.
 
-Position 567 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 567 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

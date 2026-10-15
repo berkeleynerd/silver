@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded Year subtype, small integer arithmetic and a plain for loop, so no annotation is needed.
 
-Position 300 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 300 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

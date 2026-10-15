@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array drawing with explicit clipping guards and for loops, with no recursion or annotations needed, though loop-carried turtle coordinates and the scaling arithmetic need careful range guards. The existing interactive menu is not required, so embedded data and text-art output suffice.
 
-Position 1196 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1196 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

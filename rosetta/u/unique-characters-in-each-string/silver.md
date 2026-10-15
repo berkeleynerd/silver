@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Character-indexed array type, a capped counter guarded just before the increment, and for loops over the arrays' own ranges, so no annotation is needed. The only missing pieces are arrays, Character indexing, for loops, procedures and unterminated character output.
 
-Position 975 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 975 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

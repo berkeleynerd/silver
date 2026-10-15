@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer coefficients with ranged types make Cramer's rule a bounded straight-line computation with for loops only, so overflow and division checks should discharge from type ranges and a nonzero-denominator guard, though nonlinear products make provers need careful bounds.
 
-Position 701 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 701 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

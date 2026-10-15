@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is straight-line code on one Integer whose value is statically 1 before the increment, so the overflow check on the addition and the initialization checks discharge trivially. The only new surface is integer variables and 'Image, and the Unicode identifier is just a source-encoding matter that changes no proof.
 
-Position 36 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 40 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

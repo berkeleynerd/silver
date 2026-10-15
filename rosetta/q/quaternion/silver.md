@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line, loop-free float arithmetic on small embedded constants, so no loop invariants or termination variants are needed; the only non-routine work is bounding float operands and having an admitted Sqrt and float formatting. The tight data bounds make range guards easy, but floating-point proof and library availability keep it at plausible.
 
-Position 1083 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1083 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

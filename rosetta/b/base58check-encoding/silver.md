@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Base conversion by repeated division of a fixed-size byte array needs only range-typed carries and a guarded digit count, so no annotations are needed, though the nonlinear carry arithmetic and the while loop's buffer guard require careful shape.
 
-Position 557 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 557 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

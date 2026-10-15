@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded with small static bounds and loops are for loops over array ranges, so the only non-routine checks are the bounded score sum and the guarded division, both dischargeable from types and guards.
 
-Position 1483 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1483 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

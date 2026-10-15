@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and for-loop bounds, and the only while loops are in a procedure, so no annotation is needed. The risk is limited to a few loop-carried counters and image-string indexing that need careful guards.
 
-Position 560 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 560 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

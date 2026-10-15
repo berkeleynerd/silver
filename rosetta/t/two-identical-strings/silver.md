@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops over constant ranges with small-typed carried values, and slice indices are guarded just before use, so no annotation is needed and the only gap is Silver's missing arrays, slices and integer-to-text support.
 
-Position 965 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 965 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

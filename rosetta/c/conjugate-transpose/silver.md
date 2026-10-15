@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size with bounded float components and for-loop indexing, so index and finiteness checks follow from types and no recursion, while-loop or inverse is needed; the plausible rating reflects floating-point accumulation in matrix products that needs range guards or unrolling.
 
-Position 1104 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1104 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

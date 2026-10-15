@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged integers and procedure while loops, so checks follow from types and guards just before each use; the main care is guarding the loop-carried merge pointers and the stored values without invariants.
 
-Position 274 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 274 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

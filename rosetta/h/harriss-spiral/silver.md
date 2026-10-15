@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a picture with no window requirement, so text art satisfies it, and integer-scaled geometry with grid-bounds guards keeps all checks routine apart from bounded fixed-point multiplication and the explicit-stack subdivision.
 
-Position 840 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 840 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no loops, no arithmetic and no loop-carried values, and every slice bound comes from a length whose declared subtype matches the buffer, so all checks discharge from types alone.
 
-Position 1481 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1481 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 

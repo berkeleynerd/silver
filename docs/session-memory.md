@@ -1,5 +1,21 @@
 # Session memory
 
+## 2026-10-15 — GitHub planning adopted
+
+The owner adopted GitHub issues for planning and tracking, as recorded in
+[planning](planning.md). Work items, review findings, follow-ups and handoffs live
+on the private [Silver board](https://github.com/users/berkeleynerd/projects/6);
+direction stays in the [roadmap](../roadmap.md), and owner decisions and
+authorizations stay in this file. Agreed details: five Status values, where Ready
+means the owner has authorized the item; type, severity and area labels in place
+of GitHub's defaults; GitHub milestones for roadmap milestones; issue references
+for tracked work only; and comment claims between parallel agents. The
+[Rosetta progression](../rosetta/progression.md) is the short-term plan for
+filling out Silver's natural surface; networking, parallelism and other demanding
+samples are reassessed afterwards. Follow-ups #2 to #8 and stage issues #9 to #12
+were filed; Partial Output finished under the previous rules. This entry lands
+with pull request #1.
+
 ## 2026-10-15 — Partial Output complete
 
 The owner-authorized [Partial Output milestone](../roadmap.md#partial-output) is

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only loop-carried value is Count, which a guard placed just before the increment protects; every other check follows from static for-loop index ranges and a ranged parameter subtype. Termination needs no variant because there are no while loops and no recursion.
 
-Position 312 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 312 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

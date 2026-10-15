@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded counter subtypes, for-loop indexes over the word's own range and a guard before each increment, with the file-reading while loop confined to a procedure. The only new demands are file input and bounded string handling, with no annotation needed.
 
-Position 1329 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1329 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

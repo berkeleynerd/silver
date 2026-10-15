@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing uses static literals or for-loop indexes over the array's own ranges and values are small constants, so every check follows from types and bounds.
 
-Position 658 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 658 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index and range checks on Top that guards placed right before each array access discharge, and the only while loop sits in the Main procedure, where no termination check applies, so no annotation is needed.
 
-Position 600 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 600 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

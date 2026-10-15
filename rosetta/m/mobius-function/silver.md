@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with a for loop inside a procedure avoids function termination checks, and every value is bounded by declared subtypes, so all checks follow from types and loop ranges.
 
-Position 887 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 887 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

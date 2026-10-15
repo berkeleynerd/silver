@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded and bounded, the loops are for loops over the array's own index range, and the scaled-integer differences are bounded by the declared subtype range, so no loop invariant is needed.
 
-Position 146 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 146 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

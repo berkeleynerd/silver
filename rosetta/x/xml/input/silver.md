@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain string scanning of fixed embedded data with no recursion, annotation or dynamic construct, so it fits Silver once string indexing, loops and bounded buffers exist. It is plausible rather than likely because the scanner has several loop-carried indices that each need a guard just before use.
 
-Position 1143 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1143 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops with no recursion or while loops, but loop-carried floating-point values need range and nonzero guards before every update and division, so discharge depends on careful program shape. Formatting to 8 decimals also needs a guarded float-to-text conversion.
 
-Position 1513 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1513 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

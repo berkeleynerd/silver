@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from small declared coefficient and position ranges plus explicit capacity guards on the loop-carried buffer index, with only for loops and no recursion, but the string-building shape needs care to discharge without invariants.
 
-Position 1022 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1022 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

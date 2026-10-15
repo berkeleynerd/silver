@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and guards before each access, and the iterative search lives in a procedure so no variant is needed, but the backtracking loop's index bookkeeping requires careful shape without invariants.
 
-Position 1311 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1311 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

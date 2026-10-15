@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a division by a ranged positive index or a guarded Float addition, and the while loops live in procedures so no variant is needed; the plausible rating reflects floating-point accumulation in loops and the need for float-to-text formatting.
 
-Position 1056 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1056 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

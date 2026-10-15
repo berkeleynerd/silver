@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop bounds are static and I * 2 is at most 10, so no overflow or range check needs a loop invariant, and the output needs only an integer-image Put.
 
-Position 67 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 41 in the [progression](../../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

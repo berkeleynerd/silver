@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is two for loops over an array's own range, so indexes and termination are routine, but the loop-carried sums need guards because no invariant can be written, which makes discharge depend on careful shape. Nothing needs an annotation, recursion or heap, so the outlook is plausible.
 
-Position 1005 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1005 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

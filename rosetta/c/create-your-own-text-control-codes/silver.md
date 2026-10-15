@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a self-written formatting routine over embedded data, which needs only bounded buffers, guarded indexing and simple integer arithmetic, so no annotation should be needed beyond careful guards on the loop-carried buffer position.
 
-Position 817 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 817 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

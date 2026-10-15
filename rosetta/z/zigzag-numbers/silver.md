@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is iterative with bounded arrays and for loops, and the only unusual parts are the add-with-carry big number (A(30) exceeds 64 bits) and guarded while-loop scans in procedures, none of which needs an annotation.
 
-Position 1393 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1393 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

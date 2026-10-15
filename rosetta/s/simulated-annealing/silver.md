@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and for-loop work with no recursion or annotations, but the floating-point exp, the million-iteration loop-carried energy and the formatting of scaled values need careful guards, so discharge is plausible rather than routine.
 
-Position 1319 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1319 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

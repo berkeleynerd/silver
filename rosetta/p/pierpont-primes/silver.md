@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay under about 30 million, so ranged integers and explicit guards on the candidate counter and array counts discharge every check, with loops placed in procedures to avoid termination checks; only the optional big-number part is skipped.
 
-Position 265 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 265 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

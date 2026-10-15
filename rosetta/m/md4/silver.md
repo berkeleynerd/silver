@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The single-block MD4 of a fixed 12-byte message is straight-line modular arithmetic inside for loops with constant tables, so every check follows from types and loop ranges and no annotation is needed.
 
-Position 1290 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1290 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

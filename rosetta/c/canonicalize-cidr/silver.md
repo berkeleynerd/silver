@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic on small subtypes with guards before each string index and digit accumulation, so no annotation is needed, but the hand-written parser's loop-carried position and value need careful guard placement.
 
-Position 1138 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1138 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

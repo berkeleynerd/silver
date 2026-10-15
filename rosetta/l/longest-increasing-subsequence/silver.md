@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops in a procedure so no termination or variant issue arises, and the only non-routine checks are loop-carried Best lengths and the Pred index chain, which explicit guards can discharge without annotations. Text building of the printed lists adds some bounded-buffer length checks.
 
-Position 1011 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1011 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

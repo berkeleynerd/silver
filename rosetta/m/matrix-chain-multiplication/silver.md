@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded dynamic programming with for loops and type-bounded arithmetic, and the only non-routine parts are guarding the loop-carried split table and the explicit-stack reconstruction, which need no annotations but careful shape.
 
-Position 723 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 723 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops with fixed bounds and every arithmetic value is bounded by subtype ranges or a visible guard, so no annotation is needed, though the LCG arithmetic and counter guard require careful shape.
 
-Position 1299 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1299 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 

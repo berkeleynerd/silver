@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-capacity limb arithmetic has every check bounded by subtype ranges or a capacity guard, but carries through nested loops and nonlinear products make discharge depend on careful program shape rather than being routine.
 
-Position 1378 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1378 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged types, a fixed array of buckets and for loops in procedures with no recursion or while loops, but loop-carried counters and the LCG multiplication need careful typing to avoid overflow; no annotations are needed.
 
-Position 180 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 180 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

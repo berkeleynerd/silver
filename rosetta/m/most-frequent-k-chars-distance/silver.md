@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded for-loop over arrays and strings with plain integer arithmetic, so the checks follow from types and guards, but several loop-carried counters need careful range subtypes and guards to discharge without invariants.
 
-Position 629 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 629 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

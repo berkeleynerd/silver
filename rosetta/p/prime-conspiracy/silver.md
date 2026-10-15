@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged digit subtypes and guards placed before the increments, with no recursion or annotations needed. Plausible rather than likely because the sieve stride and the many loop-carried counters need careful guards, and the large array leans on the memory premise.
 
-Position 713 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 713 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

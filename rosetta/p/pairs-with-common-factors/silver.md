@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The totient-sieve formula needs only bounded arrays, for loops and small integer arithmetic, so no annotation is needed, but the loop-carried sum and number formatting require guards and careful shaping.
 
-Position 177 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 177 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

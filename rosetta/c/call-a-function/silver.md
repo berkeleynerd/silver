@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared operand ranges, for-loop indexes over the array's own range, and one overflow guard placed just before the accumulator update, so no annotation is needed. First-class functions and partial application are optional items and are covered by printed statements rather than access-to-subprogram types.
 
-Position 983 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 983 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and index checks follow from type ranges plus a couple of visible guards placed in the loop body, and nothing needs an annotation, but the while loop must stay in a procedure and the guards must be placed carefully.
 
-Position 1472 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1472 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 

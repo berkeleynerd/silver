@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, a capped field value and guards placed directly before each use, with while loops confined to procedures, but the loop-carried parsing accumulators need carefully shaped guards.
 
-Position 1139 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1139 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

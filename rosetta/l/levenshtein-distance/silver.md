@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every cell value is bounded by a ranged subtype, so index and overflow checks follow from types and guards without invariants.
 
-Position 655 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 655 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

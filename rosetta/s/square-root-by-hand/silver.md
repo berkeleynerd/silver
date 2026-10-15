@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The spigot is a bounded loop of small digit-array arithmetic whose operands are all bounded by digit subtypes and guarded carries, so it should prove without annotations, but fixed-capacity big-number carry loops require careful shaping. The task's 'forever' option is met by a documented digit limit, which Oracle rule 7 allows.
 
-Position 1381 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1381 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-capacity bounds, for-loop indexes and guards before each index or append, and no annotation is needed, but the line reader, rotation building and capacity handling demand careful program shape. The big missing pieces are file input, records and arrays, and string building rather than anything proof-hostile.
 
-Position 1494 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1494 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 

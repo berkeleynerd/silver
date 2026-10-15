@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to fixed-capacity limb arrays with small-integer multiply/divide in for loops inside procedures, so checks follow from ranged types and array ranges, but carry bounds, Wedeniwski multiplier sizes and guard-digit truncation require careful shaping.
 
-Position 1404 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1404 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs no arithmetic, loop or input, only returning and formatting the constant Float'Last, so every check is trivial once floating-point constants and float-to-text formatting exist.
 
-Position 1036 in the [progression](../../progression.md#stage-19), in stage 19, which adds floating-point images.
+Position 1036 in the [progression](../../progression.md#stage-18), in stage 18, which adds floating-point images.
 
 ## Approach
 

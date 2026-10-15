@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the loop index range, ranged subtypes and fixed unrolled digit extraction with no while loops or loop-carried accumulators, so proofs should discharge without annotations. The only new Silver surface is integer arithmetic, small functions, a for loop and integer-to-text output.
 
-Position 333 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 333 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

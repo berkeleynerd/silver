@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic on a fixed 16-bit array with loop-carried values confined by ranged subtypes and guards, so no annotation is needed but the shifted-scale arithmetic needs careful shaping.
 
-Position 1516 in the [progression](../../../progression.md#stage-31), in stage 31.
+Position 1516 in the [progression](../../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

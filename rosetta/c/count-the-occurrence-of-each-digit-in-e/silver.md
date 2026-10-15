@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds and loop indexes except the loop-carried carry, which needs two visible guards but no annotation, so discharge depends on careful program shape.
 
-Position 167 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 167 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

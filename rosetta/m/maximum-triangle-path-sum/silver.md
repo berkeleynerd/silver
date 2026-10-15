@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing follows from for-loop ranges over a fixed 18 by 18 array, and the only loop-carried value is the sum, whose overflow and range checks discharge through a single guard just before each assignment.
 
-Position 664 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 664 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

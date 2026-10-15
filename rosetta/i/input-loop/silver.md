@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the buffer's declared bounds and the read operation's verified postcondition, and the unbounded stream is handled by a procedure-level while loop that needs no variant.
 
-Position 1214 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1214 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

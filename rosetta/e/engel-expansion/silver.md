@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Because the Engel step keeps the denominator fixed and shrinks the numerator, everything fits in 64-bit ranged integers with guards and no products or big numbers, so proofs should discharge with careful range subtypes and guards. Outlook is plausible rather than likely because of the loop-carried numerator range checks and the fixed term capacity.
 
-Position 283 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 283 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

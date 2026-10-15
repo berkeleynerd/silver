@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by a fixed-step scan in scaled integer arithmetic, avoiding floating point, so every check follows from the subtype bounds of the for loop index and carries no loop-carried values.
 
-Position 345 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 345 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared digit and count ranges plus a carry-out guard, and no loop needs an invariant, but the nested carry loops and guarded counters need careful shape; floating point is avoided with embedded expected constants.
 
-Position 1379 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1379 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 

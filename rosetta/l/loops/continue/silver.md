@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop index is bounded by a static range and nothing is carried across iterations, so no check can fail and no annotation is needed; the only gaps are Silver_IO lacking Put without newline and integer image.
 
-Position 880 in the [progression](../../../progression.md#stage-17), in stage 17, which adds conditional expressions.
+Position 880 in the [progression](../../../progression.md#stage-16), in stage 16, which adds conditional expressions.
 
 ## Approach
 

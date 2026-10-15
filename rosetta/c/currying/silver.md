@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Currying is expressed the Ada way, as partial application through nested generic instantiation with no closures or access-to-subprogram values. The only non-trivial check is the addition in Sum, and the operands' declared subtype bounds it, so every check follows from types and static values.
 
-Position 1525 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1525 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

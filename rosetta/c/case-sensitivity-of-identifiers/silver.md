@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses only constructs Silver already supports (String constant, concatenation, Put_Line), and every check is static, so proofs discharge trivially.
 
-Position 5 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 6 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for-loop over fixed-size arrays and buffers with types that bound every loop-carried value, so every check follows from types and static bounds, and no annotation, recursion, or while loop is needed.
 
-Position 809 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 809 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -86,21 +86,21 @@ was introduced; no next capability is automatically authorized.
 
 ### Known outstanding work
 
-Reconciled on 2026-10-15 against the completed Partial Output, Run Arguments and Larger Expressions deliveries,
-earlier handoffs and review dispositions. The entries below are conditional
-follow-ups. The linked records retain detailed findings,
-reasons and historical scope. Closed or rejected review suggestions are not new tasks.
+Reconciled on 2026-10-15 against the completed Partial Output, Run Arguments and
+Larger Expressions deliveries, earlier handoffs and review dispositions.
+Conditional follow-ups are tracked as
+[`type: follow-up` issues](https://github.com/berkeleynerd/silver/issues?q=is%3Aissue+is%3Aopen+label%3A%22type%3A+follow-up%22)
+on the Silver board; the seven that this table held were filed on 2026-10-15. The
+linked records retain detailed findings, reasons and historical scope. Closed or
+rejected review suggestions are not new tasks.
 
-| Work | Status and trigger |
-| --- | --- |
-| Larger-fragment proof and report capacity | The [64/63 expansion](docs/larger-expressions.md#dense-composition-and-report-capacity) is complete; its dense report leaves 1.5% headroom. The [Partial Output short-call reassessment](docs/partial-output.md#report-capacity) passed with 48.67% of the buffer used. Reassess dense workloads before further changes to the admitted fragment, producer or report format. Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
-| Names lexical-call adapter and other source-bridge refinements | Deferred until the relevant helper/interface changes or an assurance gap is established. The [Names identity guard](docs/admission-repairs.md#scope-and-dispositions) is complete; its interpretation premise remains. Additional explicit header/source guards, facade statement strengthening and broader boundary/sample witnesses remain indexed by the [Lean dispositions](docs/lean-iteration.md#external-review-of-d375aec) and [expression review disposition](docs/common-expressions.md#external-review-of-9b72d36). Existing correspondence remains required. |
-| Negative-test siblings and broader matrices | Larger-expression boundary siblings are complete; continue adding admitted/rejected siblings when a rule changes. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
-| Report-policy and stack cleanup | Revisit call-sensitive report selection and the unused `Uses_Output` selector together when policy work warrants it. Stack/storage redesign remains deferred unless the documented resource premise becomes a practical problem. Preserve complete required-report checks; see the [sequencing dispositions](docs/statement-sequencing.md#external-review-and-capacity-follow-up). |
-| Catalogue, sample metadata and legacy cleanup | Revisit informative template declarations, manifest tags, historical wording and legacy helper/module cleanup when their consumers change. The [branch dispositions](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [optional architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer), including the [catalogue-renderer proposal](docs/architecture-review.md#4-extract-the-repeated-catalogue-token-renderer-when-convenient), retain scope. These do not mandate a general catalogue or parser framework. |
-| Intermittent GNATprove `DOC_END` failure | Diagnose on recurrence: preserve the failed inputs/logs before another run replaces them. The [workflow record](docs/proof-workflow.md#cold-mode-and-exploratory-state-follow-up) establishes neither memory exhaustion nor a concurrency cause; do not add automatic retries or describe cold success as a fix. |
-| Further proof-performance work | Only for a measured bottleneck. Preserve caches and focused checks; optional helper factoring, runtime-proof reuse, tactic tuning, persistent proof states and `SymM`/`vcgen` remain conditional, as recorded in [Lean Critical Path](#lean-critical-path) and the [architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer). |
-| New language/API capabilities and release tooling | Additional argument APIs, broader API placement, loops and resizable strings need their own motivating scope and assurance; none is selected next. Distribution/provenance and extra provers remain [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its dormant wording is revisited only if reactivation is authorized. macOS validation remains independent and nonblocking. |
+New language/API capabilities and release tooling remain direction rather than
+follow-ups. Additional argument APIs, broader API placement, loops and resizable
+strings need their own motivating scope and assurance; none is selected next.
+Distribution/provenance and extra provers remain
+[deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its
+dormant wording is revisited only if reactivation is authorized. macOS validation
+remains independent and nonblocking.
 
 Argument forwarding and neutral application-status diagnostics are complete in
 [Run Arguments](#run-arguments). The prior kernel-bypass repair, default-runner drift tests, real axiom-audit
@@ -136,9 +136,9 @@ From 2026-10-15, work items and their status are tracked as GitHub issues on the
 Silver board, as described in [planning](docs/planning.md). This roadmap keeps
 direction: the milestone sequence, deferrals and the reasons for them. Owner
 decisions and authorizations stay dated in the
-[session memory](docs/session-memory.md). Until the board is populated, the
-[known outstanding work](#known-outstanding-work) above remains the list of
-conditional follow-ups.
+[session memory](docs/session-memory.md). The
+[board](https://github.com/users/berkeleynerd/projects/6) holds the conditional
+follow-ups and the near-term progression stages.
 
 ## Completion criteria
 

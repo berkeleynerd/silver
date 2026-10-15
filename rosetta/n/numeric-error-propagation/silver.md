@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is loop-free with bounded float operands, so each check follows from subtype ranges and guards just before the operation, but it depends on Float arithmetic and an admitted Sqrt with nonnegativity provable, which makes proof discharge depend on careful range guards.
 
-Position 1518 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1518 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

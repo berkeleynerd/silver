@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic and array indexing in procedures with guards before each access, and the extra plot is optional, so no annotation or function variant is required. The only non-routine point is the candidate search limit, which a visible Reject branch handles; the actual maximum in the first 30 terms is 51, well within the table.
 
-Position 216 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 216 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

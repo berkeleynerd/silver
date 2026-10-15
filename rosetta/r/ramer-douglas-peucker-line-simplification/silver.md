@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is small and fixed-size, and replacing recursion with a bounded explicit stack plus scaled-integer squared distances avoids floating point, sqrt and function termination, leaving only guarded stack indexing and bounded arithmetic. Discharge depends on careful shape (loop-carried stack top and distance maximum) but needs no annotations.
 
-Position 267 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 267 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

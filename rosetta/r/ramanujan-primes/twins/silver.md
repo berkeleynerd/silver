@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over bounded ranges with guards before each loop-carried index or increment, and nothing needs a variant or invariant, but the large array and many loop-carried values make discharge depend on careful program shape.
 
-Position 252 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 252 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

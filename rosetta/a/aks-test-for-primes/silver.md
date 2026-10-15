@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over bounded ranges and every value stays under a declared 2**62 bound (the largest needed is about 6.4e13), so the checks follow from types and pre-addition guards without invariants. The only non-routine part is the loop-carried Pascal row addition, which needs the explicit guard.
 
-Position 395 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 395 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task requires mutual recursion. Written as functions it would need variant annotations, but written as procedures it has no termination check, and the one non-routine range fact (the inner result is at most N) is covered by a visible guard that never fires. Discharge therefore depends on careful program shape rather than annotations.
 
-Position 1564 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1564 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Approach
 

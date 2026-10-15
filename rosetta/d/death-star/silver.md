@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is satisfied by text art, so there is no graphics or float requirement, and integer math over small ranged subtypes means every overflow, index and range check follows from types and guards without any loop invariant. The main risk is just the amount of loop-nested nonlinear integer arithmetic and per-row string building, which depends on careful program shape.
 
-Position 816 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 816 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

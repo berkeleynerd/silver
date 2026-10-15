@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed type ranges, for-loop indexes and a bounded trial-division loop, but the digit-rotation arithmetic needs careful shaping so loop-carried values stay in range without invariants. The big-number repunit and stretch parts are optional and omitted.
 
-Position 382 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 382 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

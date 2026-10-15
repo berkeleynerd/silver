@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from modular word arithmetic, constant loop bounds and a ranged hash count with guards, with no annotations needed, but SHA-256 round code and the file-reading effect make the shape careful rather than routine. The task genuinely needs binary file input (the digest is defined on title.png), so it depends on an admitted file-reading library operation.
 
-Position 1343 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1343 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 

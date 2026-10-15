@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a Character-typed array index or a for-loop index over a string's own range, and the only loop-carried value (the counter) is bounded by its type plus a saturating guard, so nothing needs an annotation. Silver mainly lacks arrays, Character indexing, procedures with String parameters, for loops and Put.
 
-Position 956 in the [progression](../../progression.md#stage-18), in stage 18, which adds unconstrained arrays.
+Position 956 in the [progression](../../progression.md#stage-17), in stage 17, which adds unconstrained arrays.
 
 ## Approach
 

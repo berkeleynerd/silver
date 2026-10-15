@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged entry types, fixed matrix bounds and guards, with no annotation needed, but the loop-carried 3.6-million-term sum and the index-heavy permutation stepping require careful guard placement.
 
-Position 749 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 749 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

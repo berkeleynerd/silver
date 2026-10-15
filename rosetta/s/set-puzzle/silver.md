@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic over typed 0..2 features and fixed-size arrays, with while loops confined to procedures and capped by counters, so proofs should discharge with careful shaping but no annotations.
 
-Position 858 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 858 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

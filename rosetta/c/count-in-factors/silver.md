@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges and guards just before the operations, since trial division with a bounded divisor and a halving cofactor needs no invariant, and the loops sit in procedures so no termination check applies. The only extras are Put and 'Image output, which are not yet in Silver.
 
-Position 197 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 197 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

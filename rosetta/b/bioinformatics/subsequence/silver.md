@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed array bounds, for-loop index ranges and a ranged generator state that bounds the one multiplication, so no invariant or variant is needed.
 
-Position 519 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 519 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

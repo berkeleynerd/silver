@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and for-loop bounds, but overflow across repeated multiplication needs careful range design and guards, so success depends on program shape.
 
-Position 712 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 712 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
