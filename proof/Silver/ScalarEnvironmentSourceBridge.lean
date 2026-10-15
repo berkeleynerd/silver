@@ -2,6 +2,7 @@ module
 
 public import Silver.ScalarExpressionEnvironment
 public import Silver.SourceDeclarations
+public import Silver.ScalarExpressionSpecCertificate
 
 @[expose] public section
 
@@ -122,6 +123,11 @@ structure Checked (tokens : List String) : Prop where
     some (expectedTokens "array (Binding_Index) of Binding")
   environment : Lexical.SourceBridge.recordDeclaration "environment" tokens =
     some (expectedTokens "record Count : Binding_Count; Items : Binding_Array; end record")
+
+set_option maxRecDepth 100000 in
+set_option maxHeartbeats 10000000 in
+theorem actual_source_checked : Checked Source.scalarExpressionSpecTokens := by
+  constructor <;> decide +kernel
 
 /-- The body equation is the typed interpretation of the checked record and
 array update; the active-prefix conclusion is derived above. -/
