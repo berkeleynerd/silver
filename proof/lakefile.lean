@@ -141,6 +141,33 @@ lean_lib IntegerLiteralBodySource where
   globs := #[.one `Silver.IntegerLiteralBodySource]
   needs := #[integerLiteralBodySource]
 
+input_file scalarsSpecSource where
+  path := "../src/silver_scalars.ads"
+  text := false
+
+lean_lib ScalarsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarsSpecSource]
+  needs := #[scalarsSpecSource]
+
+input_file scalarLiteralSpecSource where
+  path := "../src/silver_scalar_literals.ads"
+  text := false
+
+lean_lib ScalarLiteralSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarLiteralSpecSource]
+  needs := #[scalarLiteralSpecSource]
+
+input_file scalarLiteralBodySource where
+  path := "../src/silver_scalar_literals.adb"
+  text := false
+
+lean_lib ScalarLiteralBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarLiteralBodySource]
+  needs := #[scalarLiteralBodySource]
+
 input_file pathFactsSpecSource where
   path := "../src/silver_path_facts.ads"
   text := false

@@ -13,6 +13,9 @@ import json
 from pathlib import Path
 
 SOURCE_BINDINGS = (
+    ("silver_scalars.ads", "scalarsSpec", "scalarsSpecTokens"),
+    ("silver_scalar_literals.ads", "scalarLiteralSpec", "scalarLiteralSpecTokens"),
+    ("silver_scalar_literals.adb", "scalarLiteralBody", "scalarLiteralBodyTokens"),
     ("silver_names.ads", "namesSpec", "namesSpecTokens"),
     ("silver_names.adb", "namesBody", "namesBodyTokens"),
     ("silver_path_facts.ads", "pathFactsSpec", "pathFactsSpecTokens"),

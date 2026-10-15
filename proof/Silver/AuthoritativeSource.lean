@@ -1,5 +1,9 @@
 module
 
+public import Silver.ScalarsSpecSource
+public import Silver.ScalarLiteralSpecSource
+public import Silver.ScalarLiteralBodySource
+
 public import Silver.NamesSpecSource
 public import Silver.NamesBodySource
 

@@ -1,5 +1,9 @@
 module
 
+public import Silver.ScalarsSpecCertificate
+public import Silver.ScalarLiteralSpecCertificate
+public import Silver.ScalarLiteralBodyCertificate
+
 public import Silver.NamesSpecCertificate
 public import Silver.NamesBodyCertificate
 
