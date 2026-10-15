@@ -14,44 +14,43 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
-### Larger Expressions — proposed next unit
+<a id="larger-expressions--proposed-next-unit"></a>
+### Larger Expressions
 
-The 100,000-step application allowance is implemented. The next proposed unit is
-to expand the bounded String-expression fragment, starting with **64 leaves per
-expression as a candidate**, across initialization, assignment, comparison and
-output. Current support remains sixteen leaves and thirty concatenations per
-source until the complete extension passes validation.
+**Complete**, authorized and validated on 2026-10-15. The bounded String-expression
+fragment now supports **64 leaves per expression and 63 concatenations per source**
+across initialization, assignment, comparison and output. The source-wide budget
+is the smallest that accommodates one maximal expression, with the same total
+available across expression positions; it was not scaled mechanically from thirty.
 
-Keep this one capability milestone. First select the source-wide concatenation
-budget using bounded current-runtime composition experiments: it must accommodate
-the candidate expression, but must not be scaled mechanically from thirty.
-Exercise grouping, repeated static/dynamic references, path guards and sequences;
-measure practical proof completion, memory and report capacity. The two successful
-64-leaf specimens motivate this work but do not establish its whole fragment.
+All three work packages are complete: composition/capacity selection, matching
+native/Lean implementation and regressions, and a stable Linux checkpoint and
+delivery. Nine current-runtime probes cover grouping, repeated static/dynamic
+references, path guards and dense sequences. The dense case proved and its report
+fits the existing buffer, with 1.5% headroom. The
+[delivery record](docs/larger-expressions.md) gives the measured costs and limits.
 
-Then align native admission, Lean membership/composition/discharge and actual-source
-proofs, specification, catalogue, samples and boundary/sibling tests. Retain the
-4096-byte source/value bounds and the assignment/literal admission repairs. Complete
-one stable Linux native proof/build/test and complete cached Lean checkpoint,
-including actual GNAT code generation for affected admitted cases. Record resource
-costs and the final justified limits. If the candidate cannot be justified, retain
-current support and report the specific unresolved case; an interrupted experiment
-does not establish a new language restriction. No new API or proof framework is
-part of this proposal. See the [headroom evidence](docs/expression-headroom.md).
+Universal membership/composition/discharge and actual-source proofs passed at the
+expanded constants. Native proof/build, complete cached Lean validation, all test
+methods through the full run plus one test-only repair/recheck, and full GNAT code
+generation for the focused differential corpus are complete. The specification,
+catalogue and [release-report sample](samples/release_report.adb) agree. The
+4096-byte source/value bounds, assignment/literal repairs, report policies and
+external-tool premises remain. No new API, Oracle amendment or proof framework
+was introduced; no next capability is automatically authorized.
 
 ### Known outstanding work
 
-Reconciled on 2026-10-15 against the completed handoffs and review dispositions.
-Larger Expressions is the next proposed delivery; its capacity work is required
-within that milestone. The other entries below are conditional follow-ups, not
-prerequisites to it. The linked records retain detailed findings,
+Reconciled on 2026-10-15 against the completed Larger Expressions delivery,
+earlier handoffs and review dispositions. The entries below are conditional
+follow-ups. The linked records retain detailed findings,
 reasons and historical scope. Closed or rejected review suggestions are not new tasks.
 
 | Work | Status and trigger |
 | --- | --- |
-| Larger-fragment proof and report capacity | Part of Larger Expressions above. Reassess dense workloads when the admitted fragment, producer or report format changes; preserve the [latest completed dense specimen](docs/names-and-calls.md#dense-assignment-review-evidence). Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
+| Larger-fragment proof and report capacity | The [64/63 expansion](docs/larger-expressions.md#dense-composition-and-report-capacity) is complete; its dense report leaves 1.5% headroom. Reassess dense workloads before further changes to the admitted fragment, producer or report format. Successful specimens do not replace universal composition arguments or remove documented external-tool premises. |
 | Names lexical-call adapter and other source-bridge refinements | Deferred until the relevant helper/interface changes or an assurance gap is established. The [Names identity guard](docs/admission-repairs.md#scope-and-dispositions) is complete; its interpretation premise remains. Additional explicit header/source guards, facade statement strengthening and broader boundary/sample witnesses remain indexed by the [Lean dispositions](docs/lean-iteration.md#external-review-of-d375aec) and [expression review disposition](docs/common-expressions.md#external-review-of-9b72d36). Existing correspondence remains required. |
-| Negative-test siblings and broader matrices | Add admitted/rejected siblings when a rule changes, including the next expression limits. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
+| Negative-test siblings and broader matrices | Larger-expression boundary siblings are complete; continue adding admitted/rejected siblings when a rule changes. Defer wholesale conversion, broad cross-products and a nonmembership explanation channel until their diagnostic value warrants them; see the [expression disposition](docs/common-expressions.md#external-review-of-9b72d36) and [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14). |
 | Driver rejection diagnostics and argument forwarding | When CLI behavior is next improved, distinguish a specified `Reject` from output/external failure in `silver run`, and consider argument forwarding. Both remain conveniences separate from language admission; see the [branch disposition](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [command-line milestone](#hello-world-with-a-command-line-message). |
 | Report-policy and stack cleanup | Revisit call-sensitive report selection and the unused `Uses_Output` selector together when policy work warrants it. Stack/storage redesign remains deferred unless the documented resource premise becomes a practical problem. Preserve complete required-report checks; see the [sequencing dispositions](docs/statement-sequencing.md#external-review-and-capacity-follow-up). |
 | Catalogue, sample metadata and legacy cleanup | Revisit informative template declarations, manifest tags, historical wording and legacy helper/module cleanup when their consumers change. The [branch dispositions](docs/branches.md#review-of-4503d17-and-bounded-repair--2026-10-14) and [optional architecture opportunities](docs/architecture-review.md#maintainability-changes-to-defer), including the [catalogue-renderer proposal](docs/architecture-review.md#4-extract-the-repeated-catalogue-token-renderer-when-convenient), retain scope. These do not mandate a general catalogue or parser framework. |
@@ -73,10 +72,11 @@ Both retained 64-leaf failures proved with today's runtime and passed their
 build/execution probes. The complete native audit, complete cached Lean check,
 18 focused driver/report-integrity tests, and real static/dynamic sample command
 and execution checks passed on stable inputs. Caches and historical measurements
-are preserved. The 16-leaf/30-concatenation language limits and compiler-development
-proof settings remain unchanged. The
+are preserved. That checkpoint left the 16-leaf/30-concatenation language limits
+and compiler-development proof settings unchanged. The
 [delivery record](docs/expression-headroom.md#production-adoption) gives exact
-validation scope; larger-expression admission remains proposed.
+validation scope; the subsequent admission expansion is tracked in
+[Larger Expressions](#larger-expressions).
 
 ### Expression Headroom — solver-budget experiment complete
 
@@ -99,7 +99,8 @@ The original retained runtime is historical; production adoption subsequently
 completed current-runtime confirmation. Larger-fragment assurance remains required
 before any admission expansion.
 See the [experiment record](docs/expression-headroom.md) for exact scope and memory
-accounting. The broader expression-capacity item remains proposed.
+accounting. The broader expression-capacity work is tracked in
+[Larger Expressions](#larger-expressions).
 
 ### Admission Repairs — complete
 
@@ -326,7 +327,7 @@ Remaining resource extensions and additional APIs are proposals, not admitted sy
 | --- | --- | --- |
 | 1 | Restrictions and capacity audit — complete | The [audit record](docs/restrictions-capacity.md) inventories all constructs and restrictions by origin, records dense native source/translation/report experiments and their limits, and verifies the catalogue consistency repair. Capacity observations do not establish a universal bound or admit the proposed fragment. |
 | 2 | Declarations, names and copies — complete | Shared binding rules for finite declaration lists, initialized constants and mutable objects, and copies from earlier initialized values. Track case-insensitive uniqueness, mutability, value snapshots and fixed bounds; remove the incidental one-variable/two-constant slot restrictions. The [Names and Calls checkpoint](docs/names-and-calls.md) completes context-clause order/grouping/repetition, qualification and visibility for the existing packages together with item 7. |
-| 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [checkpoint](docs/common-expressions.md) records universal/source proofs and native evidence for the retained sixteen-leaf limit and thirty-operator source budget. Larger-expression solver/resource work remains an explicit follow-up. |
+| 3 | String expressions — bounded fragment complete | Shared literals, names, concatenation and parentheses in initialization, assignment, comparison and output, with repeated dynamic occurrences and every intermediate bound. The [original checkpoint](docs/common-expressions.md) established the sixteen-leaf/thirty-operator fragment. [Larger Expressions](docs/larger-expressions.md) completes universal/source proofs, native validation and composition/capacity measurements for the current sixty-four-leaf/sixty-three-operator limits. |
 | 4 | Statement sequencing and assignment — complete | Finite sequences of the admitted null, assignment, output and conditional statements. Compatible expression assignments, multiple initialized objects and self-copy work wherever state rules permit; preserve initialized reads and each target's fixed bounds. Classify harmless diagnostics precisely without suppressing safety obligations. |
 | 5 | Equality, guards and branches — complete | Specify the supported String-equality and validity/length predicate grammar and its Boolean compositions. Admit finite nested conditionals under shared rules; propagate path facts and establish initialization and bounds at joins instead of enumerating whole-program arrangements. Preserve `and then` evaluation order and make only established path facts available to each operand. Resolve integer-literal spellings, including separators and based notation, representable bounds and overflow-safe parsing. All three [increments](#equality-guards-and-branches-increments) passed their checkpoints; the [delivery record](docs/branches.md) retains exact evidence and scope. |
 | 6 | Output effects — complete | Compose output in those sequences and branches, including repeated calls and output interleaved with assignments. Prove the cumulative trace and continued attempts after returning failures, with sticky failure status. Derive size bounds from the actual sequence and per-call contract; no separate four-call limit. Positional and named `Item` associations for `Put_Line` passed the [Names and Calls checkpoint](docs/names-and-calls.md), retaining its effect contract. |
@@ -414,8 +415,8 @@ complete assurance and validation described below.
 | --- | --- | --- |
 | New length-check obligations | 2: bindings/copies; 4: assignment | Shared bindings completed the range/length policy, fixed-bound copy argument and actual-source/native/Lean checkpoint. Item 5 completed path-refined assignments and their source/native/Lean integration. Preserve complete coverage, approved dependencies and rejection of unproved or suppressed checks. |
 | Repeated-output ghost advisories | 4: sequencing; 6: output effects | Sequencing implements precise classification of the observed `INEFFECTIVE` advisories for `Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes`. These concern overwritten/unused ghost outputs and differ from the precisely classified initializer/unused-assignment messages in the shared-binding policy. Retain all safety obligations and cumulative effect semantics; do not accept warnings indiscriminately. |
-| Dynamic-expression solver limit | 3: expressions | The current sixteen-leaf/thirty-operator fragment has completed its universal/source and native checkpoint under explicit external completion premises. The [step-budget experiment and adoption](docs/expression-headroom.md) resolve both retained 64-leaf failures with historical and current runtimes; production now uses 100,000 steps. Larger expressions remain deferred pending full-fragment assurance, including compositions and report capacity; two successful specimens are not universal solver bounds. |
-| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the completed 782-assignment specimen. The later [785-assignment specimen](docs/names-and-calls.md#dense-assignment-review-evidence) proved all 829 checks, with a 2,020,723-byte report (96.36%), 76,429 bytes remaining and reviewer-measured 32-minute compilation. Reconsider the envelope when changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
+| Dynamic-expression solver limit | 3: expressions | The [step-budget experiment and adoption](docs/expression-headroom.md) resolved both retained failures; production uses 100,000 steps. [Larger Expressions](docs/larger-expressions.md) completed universal/source and native assurance, composition probes and dense report-capacity validation for the current 64-leaf/63-operator fragment. External solver completion remains a documented premise; successful specimens are not universal solver-time bounds. |
+| Dense proof cost and report capacity — bounded follow-up complete | 3: expressions; 4: sequencing; 6: output effects | Sequencing probes justified a separate 2 MiB application buffer. Both the static 800-assignment and alternating argument-input 769-assignment cases completed within it; the latter leaves 5.4% headroom. The [sequencing record](docs/statement-sequencing.md) discloses measured costs. The [bounded 5b/c reassessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14) records the completed 782-assignment specimen. The later [785-assignment specimen](docs/names-and-calls.md#dense-assignment-review-evidence) proved all 829 checks, with a 2,020,723-byte report (96.36%), 76,429 bytes remaining and reviewer-measured 32-minute compilation. The [Larger Expressions dense case](docs/larger-expressions.md#dense-composition-and-report-capacity) then combined 758 assignments with 63 concatenations and passed with 1.5% report headroom. Reconsider the envelope before changing the producer, report format or admitted fragment. These observations are not universal bounds; complete producer/report capacity and solver completion remain explicit tool premises. No arbitrary call cap or report truncation is introduced. |
 
 ### Completion criteria
 

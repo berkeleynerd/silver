@@ -4,10 +4,10 @@ package Silver_Output_Profile
   with SPARK_Mode => On
 is
    Max_Source_Length : constant Positive := 4_096;
-   Max_Expression_Operands : constant Positive := 16;
+   Max_Expression_Operands : constant Positive := 64;
    --  Retain a source-wide operator budget; actual proof cost also depends on
    --  expression position, statement density and control-flow context.
-   Max_Concatenations : constant Positive := 30;
+   Max_Concatenations : constant Positive := 63;
    --  A single-name declaration needs at least twelve bytes (A:String:=B;).
    --  This storage bound cannot constrain a source within the source limit.
    Max_Bindings : constant Positive := Max_Source_Length / 12;

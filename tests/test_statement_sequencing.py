@@ -41,11 +41,13 @@ class StatementSequencingTests(unittest.TestCase):
                       (nested, nested.replace(b'if B="old"', b'if Absent="old"'))])
         dynamic = program(b'A:String:=Input;B:String:="old";', b'A:=Input;null;', arguments=True)
         pairs.append((dynamic, dynamic.replace(b'A:=Input;', b'A:=B;')))
-        sixteen = b'&'.join([b'""'] * 16)
-        pairs.append((program(b'', output(sixteen) * 2),
-                      program(b'', output(sixteen) * 2 + output(b'""&""'))))
-        pairs.append((program(b'', b'null;' + output(sixteen)),
-                      program(b'', b'null;' + output(sixteen + b'&""'))))
+        first = b'&'.join([b'""'] * 32)
+        second = b'&'.join([b'""'] * 33)
+        sixty_four = b'&'.join([b'""'] * 64)
+        pair = output(first) + output(second)
+        pairs.append((program(b'', pair), program(b'', pair + output(b'""&""'))))
+        pairs.append((program(b'', b'null;' + output(sixty_four)),
+                      program(b'', b'null;' + output(sixty_four + b'&""'))))
         bound = program(b'A:String:="' + b'x' * 2048 + b'";', output(b'A&A'))
         pairs.append((bound, bound.replace(output(b'A&A'), output(b'A&A&"!"'))))
         padded = good + b' ' * (4096 - len(good))
@@ -83,10 +85,10 @@ class StatementSequencingTests(unittest.TestCase):
 
     def test_expression_leaf_limit_in_initializers_assignments_and_comparisons(self) -> None:
         declarations = b'A:String:="";'
-        sixteen = b'&'.join([b'A'] + [b'""'] * 15)
-        # Empty contributions preserve length; only the seventeenth leaf changes
-        # admission, and neither case approaches the thirty-operator budget.
-        for expression, status in ((sixteen, 0), (sixteen + b'&""', 2)):
+        sixty_four = b'&'.join([b'A'] + [b'""'] * 63)
+        # Empty contributions preserve length. The sixty-fifth leaf exceeds
+        # both the expression limit and the complete-source operator budget.
+        for expression, status in ((sixty_four, 0), (sixty_four + b'&""', 2)):
             sources = {
                 'initializer': program(declarations + b'B:String:=' + expression + b';', b'null;'),
                 'assignment': program(declarations, b'A:=' + expression + b';'),
@@ -96,7 +98,7 @@ class StatementSequencingTests(unittest.TestCase):
                                             b'if ""=' + expression + b' then null;else null;end if;'),
             }
             for position, source in sources.items():
-                with self.subTest(position=position, leaves=16 if status == 0 else 17):
+                with self.subTest(position=position, leaves=64 if status == 0 else 65):
                     self.check(source, status)
 
     def test_former_single_statement_restrictions_are_sequences(self) -> None:

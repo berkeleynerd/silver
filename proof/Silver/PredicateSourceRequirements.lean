@@ -248,10 +248,10 @@ def max_source_length_declaration : List String :=
   ["constant", "positive", ":=", "4_096"]
 
 def max_expression_operands_declaration : List String :=
-  ["constant", "positive", ":=", "16"]
+  ["constant", "positive", ":=", "64"]
 
 def max_concatenations_declaration : List String :=
-  ["constant", "positive", ":=", "30"]
+  ["constant", "positive", ":=", "63"]
 
 def max_bindings_declaration : List String :=
   ["constant", "positive", ":=", "max_source_length", "/", "12"]

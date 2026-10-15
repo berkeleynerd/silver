@@ -53,14 +53,16 @@ class ConditionalTests(unittest.TestCase):
 
     def test_nested_conditions_and_elsif_share_expression_limits(self) -> None:
         declarations = b'A:String:="x";'
-        sixteen = b'&'.join([b'"x"'] + [b'""'] * 15)
-        body = (b'if A=' + sixteen + b' then null;elsif A=' + sixteen
+        first = b'&'.join([b'"x"'] + [b'""'] * 31)
+        second = b'&'.join([b'"x"'] + [b'""'] * 32)
+        sixty_four = b'&'.join([b'"x"'] + [b'""'] * 63)
+        body = (b'if A=' + first + b' then null;elsif A=' + second
                 + b' then null;end if;')
         self.check(program(declarations, body))
         self.check(program(declarations, body.replace(b'end if;',
                    b'elsif A="x"&"" then null;end if;')), 2)
         self.check(program(declarations,
-                           b'if A="x" then null;elsif A=' + sixteen
+                           b'if A="x" then null;elsif A=' + sixty_four
                            + b'&"" then null;end if;'), 2)
         bounded = (b'if Input="old" then null;else if Input=Input then '
                    + output(b'Input&Input') + b'end if;end if;')

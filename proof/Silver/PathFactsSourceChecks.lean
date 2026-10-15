@@ -112,10 +112,10 @@ theorem declaration_length : subtypeDeclaration "length_value" Source.pathFactsS
     some (expectedTokens "Natural range 0 .. Max_Length") := by decide +kernel
 
 theorem declaration_operand : subtypeDeclaration "operand_count" Source.pathFactsSpecTokens =
-    some (expectedTokens "Natural range 0 .. 16") := by decide +kernel
+    some (expectedTokens "Natural range 0 .. 64") := by decide +kernel
 
 theorem declaration_expression : subtypeDeclaration "expression_length" Source.pathFactsSpecTokens =
-    some (expectedTokens "Natural range 0 .. 17 * Max_Length") := by decide +kernel
+    some (expectedTokens "Natural range 0 .. 65 * Max_Length") := by decide +kernel
 
 theorem declaration_comparison : typeDeclaration "comparison" Source.pathFactsSpecTokens =
     some (expectedTokens "(Equal, Unequal, Less, Less_Equal, Greater, Greater_Equal)") := by decide +kernel

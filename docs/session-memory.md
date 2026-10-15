@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-10-15 — Larger Expressions complete
+
+The owner-authorized [roadmap milestone](../roadmap.md#larger-expressions) is
+complete. The [delivery record](larger-expressions.md) covers the selected
+64-leaf/63-concatenation limits, universal and actual-source assurance, nine
+current-runtime composition probes, dense report capacity and the new release-report
+sample. The 4096-byte source/value bounds, earlier admission repairs and complete
+report policies remain. No Oracle amendment or new API was introduced.
+
+The stable native and complete cached Lean checkpoints passed. The full suite's
+single obsolete rejection fixture was corrected only after both frozen captures
+ended; all eight affected methods then passed. The record keeps full-suite,
+focused repair and cached-build/fresh-audit scope explicit. Final native provenance,
+Lean digest and regenerated certificate parity match the implementation; later
+edits are documentation. The dense report fits with narrow remaining capacity,
+and the roadmap retains reassessment before further relevant expansion.
+
+Recovery: `tmp/larger-expressions-active.json`. Preserve canonical and isolated
+caches, all original evidence, successful program directories and unrelated
+`rosetta.md`/`tmp/` work. Git identifies this delivery separately from baseline
+`fa0048d90b`; publication remains authorized. No next capability or new harness
+goal was requested, and the historical goal remains complete. CLI memory was
+unavailable and was not updated; RESUME and this checked-in memory are current.
+macOS proofs, hosted CI and independent kernel replay were outside scope.
+
+## 2026-10-15 — Larger Expressions authorized
+
+The owner authorized the next [roadmap milestone](../roadmap.md#larger-expressions).
+The [working record](larger-expressions.md) tracks candidate 64-leaf expressions
+and a 63-concatenation source budget through composition/capacity experiments,
+matching implementation/assurance and one stable Linux checkpoint. These are
+candidates, not supported limits yet. Root owns documentation/integration;
+focused native, Lean and isolated-probe lanes have separate file/workspace ownership.
+Recovery is `tmp/larger-expressions-active.json`. Preserve caches and scratch;
+publication remains authorized. No new harness goal was explicitly requested;
+the historical goal remains complete. CLI memory tools are unavailable.
+
 ## 2026-10-15 — Roadmap reconciliation
 
 The owner asked for the next unit and complete capture of known outstanding work.

@@ -3,8 +3,8 @@ package Silver_Path_Facts
 is
    Max_Length : constant := 4_096;
    subtype Length_Value is Natural range 0 .. Max_Length;
-   subtype Operand_Count is Natural range 0 .. 16;
-   subtype Expression_Length is Natural range 0 .. 17 * Max_Length;
+   subtype Operand_Count is Natural range 0 .. 64;
+   subtype Expression_Length is Natural range 0 .. 65 * Max_Length;
 
    type Comparison is (Equal, Unequal, Less, Less_Equal, Greater, Greater_Equal);
    function Compare (Operator : Comparison; Left, Right : Expression_Length)

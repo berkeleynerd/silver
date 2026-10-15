@@ -131,8 +131,8 @@ class SharedBindingsTests(unittest.TestCase):
         self.check(program(declarations, output(b'A&B')))
         self.check(program(declarations, output(b'A&B&"!"')), 2)
         empty = b'A:String:="";B:String:=A;'
-        self.check(program(empty, output(b'&'.join([b'B'] * 16))))
-        self.check(program(empty, output(b'&'.join([b'B'] * 17))), 2)
+        self.check(program(empty, output(b'&'.join([b'B'] * 64))))
+        self.check(program(empty, output(b'&'.join([b'B'] * 65))), 2)
         dynamic = b'A:constant String:=Input;B:String:=A;'
         self.check(program(dynamic, output(b'A&B'), arguments=True, capacity=0))
         self.check(program(dynamic, output(b'"!"&B'), arguments=True, capacity=4095))

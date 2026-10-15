@@ -121,21 +121,22 @@ class CommonExpressionsTests(unittest.TestCase):
             self.check(program(b'', body, arguments=True, capacity=2049), 2)
 
     def test_grouping_does_not_reset_operand_work_limit(self) -> None:
-        sixteen = b'&'.join([b'""'] * 16)
-        self.check(program(b'', output(b'(' + sixteen + b')')))
-        self.check(program(b'', output(b'(' + sixteen + b')&""')), 2)
+        sixty_four = b'&'.join([b'""'] * 64)
+        self.check(program(b'', output(b'(' + sixty_four + b')')))
+        self.check(program(b'', output(b'(' + sixty_four + b')&""')), 2)
         for expression in (b'()', b'("x"', b'"x")', b'("x"&)', b'(&"x")',
                            b'("x")("y")', b'("x"&&"y")', b'("x"|"y")'):
             with self.subTest(expression=expression):
                 self.check(program(b'', output(expression)), 2)
 
     def test_whole_program_concatenation_work_budget(self) -> None:
-        expression = b'&'.join([b'""'] * 16)
-        declarations = b'A:String:=' + expression + b';B:String:=' + expression + b';'
+        first = b'&'.join([b'""'] * 32)
+        second = b'&'.join([b'""'] * 33)
+        declarations = b'A:String:=' + first + b';B:String:=' + second + b';'
         self.check(program(declarations, output(b'B')))
         self.check(program(declarations, output(b'B&""')), 2)
-        body = (b'if Input="old" then ' + output(expression) + b'else '
-                + output(expression) + b'end if;')
+        body = (b'if Input="old" then ' + output(first) + b'else '
+                + output(second) + b'end if;')
         self.check(program(b'', body, arguments=True))
         self.check(program(b'', body.replace(b'Input="old"', b'Input&""="old"'),
                            arguments=True), 2)
@@ -147,13 +148,27 @@ class CommonExpressionsTests(unittest.TestCase):
         def joined(atom: bytes, count: int) -> bytes:
             return b'&'.join([atom] + [b'""'] * count)
 
-        declarations = b'A:String:=' + joined(b'Input', 7) + b';B:String:=A;'
-        body = (b'if ' + joined(b'Input', 7) + b'=' + joined(b'"old"', 5)
-                + b' then B:=' + joined(b'A', 5) + b';else B:=' + joined(b'Input', 3)
-                + b';end if;' + output(joined(b'B', 3)))
+        declarations = b'A:String:=' + joined(b'Input', 14) + b';B:String:=A;'
+        body = (b'if ' + joined(b'Input', 14) + b'=' + joined(b'"old"', 10)
+                + b' then B:=' + joined(b'A', 10) + b';else B:=' + joined(b'Input', 8)
+                + b';end if;' + output(joined(b'B', 7)))
         self.check(program(declarations, body, arguments=True))
-        self.check(program(declarations, body.replace(output(joined(b'B', 3)),
-                                                     output(joined(b'B', 4))), arguments=True), 2)
+        self.check(program(declarations, body.replace(output(joined(b'B', 7)),
+                                                     output(joined(b'B', 8))), arguments=True), 2)
+
+    def test_sixty_four_dynamic_leaves_retain_byte_capacity(self) -> None:
+        aliases = b'A:constant String:=Input;B:String:=A;'
+        atoms = [b'Input', b'A', b'B', b'Input'] * 16
+        for expression in (b'&'.join(atoms),
+                           b'&'.join(b'(' + b'&'.join(atoms[start:start + 8]) + b')'
+                                     for start in range(0, 64, 8))):
+            with self.subTest(expression=expression):
+                self.check(program(aliases, output(expression), arguments=True, capacity=64))
+                self.check(program(aliases, output(expression), arguments=True, capacity=65), 2)
+        static = b'A:constant String:="' + b'x' * 64 + b'";'
+        repeated = b'&'.join([b'A'] * 64)
+        self.check(program(static, output(repeated)))
+        self.check(program(static.replace(b'x";', b'xx";'), output(repeated)), 2)
 
     def test_deep_parentheses_and_complete_source_bound(self) -> None:
         source = program(b'', output(b'(' * 1900 + b'"x"' + b')' * 1900))

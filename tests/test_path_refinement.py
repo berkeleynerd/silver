@@ -137,10 +137,15 @@ class PathRefinementTests(unittest.TestCase):
         self.check(program(declarations, alias_body, arguments=True))
         self.check(program(declarations, alias_body.replace(b'2048', b'2049'),
                            arguments=True), 2)
-        sixteen = b'&'.join([b'Input'] * 16)
+        # One concatenation is used by the equality, leaving sixty-two for
+        # the following expression. The equality proves Input is empty.
+        sixty_three = b'&'.join([b'Input'] * 63)
         zero = (b"if Input'Length<=2048 and then Input&Input=Input then "
-                + output(sixteen) + b'end if;')
+                + output(sixty_three) + b'end if;')
         self.check(program(b'', zero, arguments=True))
+        self.check(program(b'', zero.replace(output(sixty_three),
+                                            output(sixty_three + b'&Input')),
+                           arguments=True), 2)
 
     def test_joins_assignments_and_initializers_do_not_invent_facts(self) -> None:
         doubled = output(b'Input&Input')

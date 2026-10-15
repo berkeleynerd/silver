@@ -21,25 +21,43 @@ theorem example_admitted : accepts exampleSource = true :=
 theorem example_current : Current.Member exampleSource :=
   Or.inr ⟨.argument, Predicate.form_reading_sound (by decide +kernel)⟩
 
-def repeatedStatic : Expression := List.replicate 16 (.reference 1)
+def repeatedStatic : Expression := List.replicate 64 (.reference 1)
 
 def fixedShape (length : Nat) : Bindings.Shape :=
   Bindings.put Bindings.emptyShape 1 (some ⟨.fixed length, true⟩)
 
-theorem repeated_static_exact_bound : repeatedStatic.Bounded (fixedShape 256) 4096 := by
+theorem repeated_static_exact_bound : repeatedStatic.Bounded (fixedShape 64) 4096 := by
   unfold Expression.Bounded
   decide +kernel
 
-theorem repeated_static_overflow_rejected : ¬repeatedStatic.Bounded (fixedShape 257) 4096 := by
+theorem repeated_static_overflow_rejected : ¬repeatedStatic.Bounded (fixedShape 65) 4096 := by
   unfold Expression.Bounded
   decide +kernel
 
-def sixteenEmptyOperands : Source := "\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"&\"\"".toList.map Char.toNat
+def sixtyFourEmptyOperands : Source := (List.replicate 63 [34, 34, 38]).flatten ++ [34, 34]
 
-theorem operand_limit_admitted : (expressionAt sixteenEmptyOperands 1 []).after = 48 := by decide +kernel
+theorem operand_limit_admitted : (expressionAt sixtyFourEmptyOperands 1 []).after = 192 := by decide +kernel
 
 theorem extra_operand_rejected :
-    (expressionAt (sixteenEmptyOperands ++ [38, 34, 34]) 1 []).after = 0 := by decide +kernel
+    (expressionAt (sixtyFourEmptyOperands ++ [38, 34, 34]) 1 []).after = 0 := by decide +kernel
+
+theorem whole_source_budget_admitted : withinWorkBudget sixtyFourEmptyOperands = true := by decide +kernel
+
+/-- A second expression consumes the same source-wide budget even though both
+expressions separately respect the leaf limit. -/
+theorem whole_source_budget_shared :
+    withinWorkBudget (sixtyFourEmptyOperands ++ [59, 34, 34, 38, 34, 34]) = false := by decide +kernel
+
+def repeatedDynamic : Expression := List.replicate 64 .argument
+
+theorem repeated_dynamic_exact_bound : repeatedDynamic.Bounded Bindings.emptyShape 64 := by
+  unfold Expression.Bounded
+  decide +kernel
+
+theorem repeated_dynamic_overflow_at_new_limit :
+    ¬repeatedDynamic.Bounded Bindings.emptyShape 65 := by
+  unfold Expression.Bounded
+  decide +kernel
 
 theorem repeated_dynamic_counted :
     (expressionAt [78, 38, 78] 1 [⟨1, 2, 0, 0, true, false⟩]).dynamicCount = 2 := by decide +kernel

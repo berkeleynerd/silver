@@ -29,6 +29,9 @@ The completed [conditional milestone](branches.md) adds recursive choices,
 `elsif`, optional `else`, bounded predicates and path-sensitive composition.
 The completed [Names and Calls checkpoint](names-and-calls.md) adds context
 visibility, resolved call names and named actuals for the existing operations.
+The completed [Larger Expressions record](larger-expressions.md) establishes the
+subsequent 64-leaf/63-operator fragment's universal/source checkpoint and records
+native validation, composition probes and dense report capacity.
 The rules and proof interfaces below describe the current inputs. Each delivery
 record distinguishes the combined Linux checkpoint's canonical Lean audit,
 cache-preserving native proof audit, full-suite results and focused repairs.
@@ -106,11 +109,11 @@ implementation retain the external premises below.
 
 Every initializer, assignment RHS, equality operand and output uses one grammar
 of literals, initialized names, concatenation and parentheses. Expressions have
-1..16 leaves, counting empty values and each repeated static/dynamic reference.
-The program additionally has at most thirty syntactic concatenations, including
+1..64 leaves, counting empty values and each repeated static/dynamic reference.
+The program additionally has at most sixty-three syntactic concatenations, including
 all predicate operands and conditional arms. A source precheck skips complete literals and trivia/comments;
-its verified traversal counts only operator ampersands. This retains the previous
-two-output form's maximum concatenation count while allowing it in new positions;
+its verified traversal counts only operator ampersands. This permits one maximal
+expression or the same aggregate operator count spread across positions;
 equal counts do not imply equal proof costs. The limits are explicit native
 proof/translation resource policies.
 
@@ -390,6 +393,11 @@ whole-project axiom audit.
 The later [solver-allowance adoption](expression-headroom.md#production-adoption)
 refreshes native and complete Lean evidence for the current 100,000-step driver,
 with focused driver/runtime validation and unchanged admission rules.
+The [Larger Expressions checkpoint](larger-expressions.md) extends admission to
+64 leaves per expression and 63 operators per source, with complete native and
+Lean validation, differential code generation, and the full suite followed by a
+test-only fixture correction and focused recheck. Its specimen measurements
+retain the external-tool premises below.
 
 ## Automatic completion and the external boundary
 

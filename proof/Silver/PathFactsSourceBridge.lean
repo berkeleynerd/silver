@@ -40,9 +40,9 @@ structure ActualSource : Prop where
   declaration_length : subtypeDeclaration "length_value" Source.pathFactsSpecTokens =
         some (expectedTokens "Natural range 0 .. Max_Length")
   declaration_operand : subtypeDeclaration "operand_count" Source.pathFactsSpecTokens =
-        some (expectedTokens "Natural range 0 .. 16")
+        some (expectedTokens "Natural range 0 .. 64")
   declaration_expression : subtypeDeclaration "expression_length" Source.pathFactsSpecTokens =
-        some (expectedTokens "Natural range 0 .. 17 * Max_Length")
+        some (expectedTokens "Natural range 0 .. 65 * Max_Length")
   declaration_comparison : typeDeclaration "comparison" Source.pathFactsSpecTokens =
         some (expectedTokens "(Equal, Unequal, Less, Less_Equal, Greater, Greater_Equal)")
   declaration_context : recordDeclaration "context" Source.pathFactsSpecTokens =

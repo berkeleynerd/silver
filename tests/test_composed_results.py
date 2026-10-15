@@ -100,21 +100,21 @@ class ComposedResultsTests(unittest.TestCase):
         self.check_sources(cases, 0)
 
     def test_operand_and_expanded_output_boundaries(self) -> None:
-        admitted = [source_for(b'&'.join([b'""'] * 16)),
-                    source_for(b'&'.join([b'Message'] * 16), form='static', initial=b'x' * 256),
-                    source_for(b'&'.join([b'Message'] * 16), form='assignment',
-                               initial=b'x' * 256, replacement=b'y' * 256),
-                    source_for(b'&'.join([b'Message'] * 15 + [b'Input']), form='result',
-                               initial=b'x' * 273, replacement=b'y' * 273,
-                               unmatched=b'z' * 273, capacity=b'1'),
+        admitted = [source_for(b'&'.join([b'""'] * 64)),
+                    source_for(b'&'.join([b'Message'] * 64), form='static', initial=b'x' * 64),
+                    source_for(b'&'.join([b'Message'] * 64), form='assignment',
+                               initial=b'x' * 64, replacement=b'y' * 64),
+                    source_for(b'&'.join([b'Message'] * 63 + [b'Input']), form='result',
+                               initial=b'x' * 65, replacement=b'y' * 65,
+                               unmatched=b'z' * 65, capacity=b'1'),
                     source_for(b'Message&Input&Message', form='result',
                                initial=b'', replacement=b'', unmatched=b'', capacity=b'4096')]
         self.check_sources(admitted, 0)
-        rejected = [source_for(b'&'.join([b'""'] * 17)),
-                    source_for(b'&'.join([b'Message'] * 17), form='static', initial=b''),
-                    source_for(b'&'.join([b'Message'] * 16), form='static', initial=b'x' * 257),
-                    source_for(b'&'.join([b'Message'] * 16), form='assignment',
-                               initial=b'x' * 257, replacement=b'y' * 257),
+        rejected = [source_for(b'&'.join([b'""'] * 65)),
+                    source_for(b'&'.join([b'Message'] * 65), form='static', initial=b''),
+                    source_for(b'&'.join([b'Message'] * 64), form='static', initial=b'x' * 65),
+                    source_for(b'&'.join([b'Message'] * 64), form='assignment',
+                               initial=b'x' * 65, replacement=b'y' * 65),
                     admitted[3].replace(b"'Length<=1", b"'Length<=2")]
         self.check_sources(rejected, 2)
         padded = admitted[3] + b' ' * (4096 - len(admitted[3]))

@@ -6,15 +6,31 @@ Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Next proposed unit and outstanding work
+## Larger Expressions complete
 
-The [roadmap](roadmap.md#larger-expressions--proposed-next-unit) proposes Larger
-Expressions next, using 64 leaves as a candidate and justifying the source-wide
-budget, compositions and capacity before admission. Its
-[backlog index](roadmap.md#known-outstanding-work) records known deferred actions
-and triggers. Current-runtime confirmation is complete; the production language
-still has sixteen leaves per expression and thirty concatenations per source.
-This documentation reconciliation authorizes no new implementation or harness goal.
+The owner authorized [Larger Expressions](roadmap.md#larger-expressions) on
+2026-10-15. The completed [delivery record](docs/larger-expressions.md) establishes
+64 leaves per expression and 63 concatenations per source across all existing
+expression positions. Source/value byte limits, admission repairs and report
+acceptance remain unchanged. The new [release-report sample](samples/release_report.adb)
+uses eighteen leaves to format nine fields.
+
+Native proof/build, complete cached Lean/source validation and the focused
+differential/code-generation corpus passed on stable inputs. The full suite had
+one obsolete rejection expectation; its test-only correction and all eight
+affected methods passed afterward. The record distinguishes those scopes,
+cache reuse and the fresh axiom audit from independent replay. Nine current-runtime
+composition probes passed proof, production report policy, build and execution.
+The dense case fits the report buffer with 1.5% headroom; costs and the future
+capacity-reassessment trigger are explicit.
+
+Recovery is `tmp/larger-expressions-active.json`. Preserve all canonical/isolated
+caches, earlier evidence and unrelated `rosetta.md` and `tmp/` work. The
+[backlog index](roadmap.md#known-outstanding-work) records deferred actions and
+triggers. No next capability or replacement harness goal was requested; the
+historical goal remains complete. Publication remains authorized. CLI memory
+tools are unavailable and were not updated; checked-in memory carries the handoff.
+macOS proofs, hosted CI and independent replay were outside this milestone.
 
 ## Production solver allowance complete
 
@@ -22,8 +38,9 @@ Application compilation now uses `--steps=100000`. The owner-authorized change
 passed current-runtime probes, supported static/dynamic compilation and execution,
 focused driver/report-integrity tests, the full native compiler audit and complete
 cached Lean validation. The [adoption record](docs/expression-headroom.md#production-adoption)
-gives exact results and scope. Language limits and compiler-development proof
-settings remain unchanged; larger-expression admission remains proposed.
+gives exact results and scope. That checkpoint left language limits and
+compiler-development proof settings unchanged; the subsequent larger-expression
+work is recorded above.
 
 Recovery is `tmp/step-budget-adoption-active.json`. Preserve canonical/isolated
 caches, prior experiments and successful program directories. Publication remains
@@ -37,7 +54,7 @@ The authorized step-budget comparison is complete. Both retained 64-leaf failure
 reproduced at 10,000 steps and proved at 100,000 steps, using modest memory.
 The [record](docs/expression-headroom.md) gives the measurements and the scope of
 the retained runtime. At that checkpoint, production settings and admission were unchanged;
-the larger-expression extension remains proposed. Recovery is
+the larger-expression extension was then proposed. Recovery is
 `tmp/expression-headroom-active.json`; preserve its fresh isolated results/caches
 and the original cases. That experiment changed no compiler or Lean inputs, so the
 Admission Repairs checkpoint below supplied its then-current implementation evidence.
@@ -561,7 +578,11 @@ The review repairs' evidence is under
 `.silver/linux-x86_64/review-d375aec-2026-10-11/`. The runner follow-up's evidence is under
 `.silver/linux-x86_64/lean-iteration-2026-10-11/`. The completed partition's evidence is under
 `.silver/linux-x86_64/compartmentalization-2026-10-11/`. The latest completed
-capability's evidence is under
+capability's checkpoint evidence is under
+`.silver/linux-x86_64/larger-expressions-20261015T120629Z/`, with composition
+probes under `larger-expressions-20261015T120644Z/` and
+`larger-expressions-20261015T121348Z/` in the same host directory.
+Earlier Names and Calls evidence remains under
 `.silver/linux-x86_64/names-calls-20261014T153711Z/`. The preceding branch evidence
 remains under `.silver/linux-x86_64/branches-20261013T234331Z/`. Earlier common-expression
 evidence remains under `.silver/linux-x86_64/common-expressions-20261013T152350Z/` and

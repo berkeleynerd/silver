@@ -112,11 +112,12 @@ class CopyValuesTests(unittest.TestCase):
         padded = full + b' ' * (4096 - len(full))
         guarded = source_for(output=b'Ready&Result&Detailed&Mode', selected=True, capacity=b'4081')
         self.check_sources([full, padded, guarded,
+                            source_for(constants=bindings, output=expression + b'&""'),
                             source_for(output=b'Ready&Detailed'),
                             source_for(output=b'Ready&Detailed&Mode', selected=True, capacity=b'10'),
                             source_for(constants=((b'Ready', b''), (b'Detailed', b'')),
                                        output=b'&'.join([b'Ready'] * 15 + [b'Result']))], 0)
-        rejected = [source_for(constants=bindings, output=expression + b'&""'),
+        rejected = [source_for(constants=bindings, output=expression + b'&"!"'),
                     source_for(constants=((b'Ready', b'a' * 257), (b'Detailed', b'b' * 257)),
                                output=expression),
                     guarded.replace(b"'Length<=4081", b"'Length<=4082"),

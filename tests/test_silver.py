@@ -73,7 +73,8 @@ class SilverIntegrationTests(unittest.TestCase):
         constructs = {item["id"]: item for item in catalogue["constructs"]}
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
-        self.assertEqual(catalogue["max_expression_operands"], 16)
+        self.assertEqual(catalogue["max_expression_operands"], 64)
+        self.assertEqual(catalogue["max_program_concatenations"], 63)
         self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence",
                          "length_predicate", "boolean_predicate", "integer_literal"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
@@ -145,10 +146,10 @@ class SilverIntegrationTests(unittest.TestCase):
                          "result_one_tokens", "result_two_tokens"):
             self.assertNotIn(obsolete, catalogue)
         expression = constructs["string_expression"]["conditions"]
-        self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 16))
-        self.assertEqual(expression["max_dynamic_references"], 16)
+        self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 64))
+        self.assertEqual(expression["max_dynamic_references"], 64)
         self.assertIs(expression["parenthesized_subexpressions"], True)
-        self.assertEqual(expression["program_concatenation_budget"], 30)
+        self.assertEqual(expression["program_concatenation_budget"], 63)
         self.assertEqual(expression["positions"],
                          ["initializer", "assignment_rhs", "comparison_operand", "output"])
         for name in ("named_string_constant", "named_string_variable"):

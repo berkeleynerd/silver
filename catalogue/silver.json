@@ -207,10 +207,10 @@
         ],
         "association": "left",
         "min_operands": 2,
-        "max_operands": 16,
+        "max_operands": 64,
         "parenthesized_subexpressions": true,
         "static_references": "counted with multiplicity",
-        "max_dynamic_references": 16,
+        "max_dynamic_references": 64,
         "max_result_bytes": 4096,
         "dynamic_references": "each original argument or dynamic-length alias occurrence contributes the selected-input length"
       }
@@ -322,15 +322,15 @@
           "bound_string_name"
         ],
         "min_operands": 1,
-        "max_operands": 16,
+        "max_operands": 64,
         "association": "left unless parenthesized",
         "parenthesized_subexpressions": true,
         "parenthesis_depth": "limited only by complete source size",
-        "max_dynamic_references": 16,
+        "max_dynamic_references": 64,
         "max_result_bytes": 4096,
         "static_references": "each static-length binding occurrence counted at its fixed length",
         "empty_operands_count": true,
-        "program_concatenation_budget": 30,
+        "program_concatenation_budget": 63,
         "program_budget_counts": "all syntactic concatenations across initializers, statements and predicate operands in every arm; literal and comment bytes excluded",
         "dynamic_references": "counted with multiplicity at the maximum reachable input length; invalid initializer length is zero",
         "positions": [
@@ -663,8 +663,8 @@
     "immutable_argument_vector_required": true
   },
   "max_source_bytes":4096,
-  "max_expression_operands":16,
-  "max_program_concatenations":30,
+  "max_expression_operands":64,
+  "max_program_concatenations":63,
   "whitespace_bytes": [9,10,13,32],
   "allowed_source_bytes": [9,10,13,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126],
   "identifier_bytes": [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122],

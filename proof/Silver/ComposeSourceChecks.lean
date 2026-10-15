@@ -230,9 +230,9 @@ abbrev TokenMapping : Prop :=
 theorem finite_mapping : TokenMapping := by decide +kernel
 
 abbrev Declarations : Prop :=
-  Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 16") ∧
+  Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 64") ∧
   Source.declaration "max_bindings" Source.outputSpecTokens = some (expectedTokens "constant positive := max_source_length / 12") ∧
-  maxExpressionOperands = 16 ∧
+  maxExpressionOperands = 64 ∧
   maxBindings = maxSourceLength / 12 ∧
   Lexical.SourceBridge.subtypeDeclaration "binding_count" Source.outputBodyTokens = some (expectedTokens "natural range 0 .. max_bindings") ∧
   Lexical.SourceBridge.subtypeDeclaration "binding_index" Source.outputBodyTokens = some (expectedTokens "positive range 1 .. max_bindings") ∧
@@ -252,21 +252,21 @@ abbrev Declarations : Prop :=
   Source.declaration "invalid_expression" Source.outputBodyTokens = some (expectedTokens "constant expression_result := ( after => 0 , static_length => 0 , dynamic_count => 0 , named_seen => false )") ∧
   Source.expressionBody "valid_names" Source.outputBodyTokens = some (expectedTokens "for all I in 1 .. Names.Count => Names.Items (I).First > 0 and then Valid_Name_State (Text, Names.Items (I).First, Names.Items (I).After) and then Names.Items (I).Value_First <= Text'Last + 1") ∧
   Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") ∧
-  maxConcatenations = 30 ∧
+  maxConcatenations = 63 ∧
   Lexical.SourceBridge.subtypeDeclaration "concatenation_count" Source.outputBodyTokens = some (expectedTokens "natural range 0 .. max_concatenations") ∧
-  Source.declaration "max_concatenations" Source.outputSpecTokens = some (expectedTokens "constant positive := 30") ∧
+  Source.declaration "max_concatenations" Source.outputSpecTokens = some (expectedTokens "constant positive := 63") ∧
   Lexical.SourceBridge.recordDeclaration "expression_state" Source.outputBodyTokens = some (expectedTokens "record position : literal_position ; static_length : capacity_value ; dynamic_count , operands : operand_count ; depth : literal_position ; named_seen , need_operand , complete : boolean ; end record") ∧
   Source.declaration "invalid_expression_state" Source.outputBodyTokens = some (expectedTokens "constant expression_state := ( position => 0 , static_length => 0 , dynamic_count => 0 , operands => 0 , depth => 0 , named_seen => false , need_operand => true , complete => false )") ∧
   Source.expressionBody "valid_expression_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then State.Dynamic_Count <= State.Operands and then (State.Position = 0 or else State.Depth < State.Position)")
 
 private theorem declaration_fact_01 :
-  Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 16") := by decide +kernel
+  Source.declaration "max_expression_operands" Source.outputSpecTokens = some (expectedTokens "constant positive := 64") := by decide +kernel
 
 private theorem declaration_fact_02 :
   Source.declaration "max_bindings" Source.outputSpecTokens = some (expectedTokens "constant positive := max_source_length / 12") := by decide +kernel
 
 private theorem declaration_fact_03 :
-  maxExpressionOperands = 16 := by decide +kernel
+  maxExpressionOperands = 64 := by decide +kernel
 
 private theorem declaration_fact_04 :
   maxBindings = maxSourceLength / 12 := by decide +kernel
@@ -326,13 +326,13 @@ private theorem declaration_fact_22 :
   Source.expressionBody "valid_state" Source.outputBodyTokens = some (expectedTokens "State.Position <= Text'Last + 1 and then Valid_Names (Text, State.Names) and then Valid_Name_State (Text, State.Dynamic_First, State.Dynamic_After) and then State.Target <= State.Names.Count") := by decide +kernel
 
 private theorem declaration_fact_23 :
-  maxConcatenations = 30 := by decide +kernel
+  maxConcatenations = 63 := by decide +kernel
 
 private theorem declaration_fact_24 :
   Lexical.SourceBridge.subtypeDeclaration "concatenation_count" Source.outputBodyTokens = some (expectedTokens "natural range 0 .. max_concatenations") := by decide +kernel
 
 private theorem declaration_fact_25 :
-  Source.declaration "max_concatenations" Source.outputSpecTokens = some (expectedTokens "constant positive := 30") := by decide +kernel
+  Source.declaration "max_concatenations" Source.outputSpecTokens = some (expectedTokens "constant positive := 63") := by decide +kernel
 
 private theorem declaration_fact_26 :
   Lexical.SourceBridge.recordDeclaration "expression_state" Source.outputBodyTokens = some (expectedTokens "record position : literal_position ; static_length : capacity_value ; dynamic_count , operands : operand_count ; depth : literal_position ; named_seen , need_operand , complete : boolean ; end record") := by decide +kernel

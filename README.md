@@ -82,8 +82,11 @@ the updated value.
 The [common-expression increment](docs/common-expressions.md) shares literals,
 initialized names, concatenation and parentheses across declarations, assignments,
 comparisons and output. Repeated argument references are allowed when the guard
-bounds every intermediate value to 4096 bytes. Each expression has at most sixteen
-leaves and a program at most thirty concatenation operators.
+bounds every intermediate value to 4096 bytes. The [Larger Expressions milestone](docs/larger-expressions.md)
+extends the budget to sixty-four leaves per expression and sixty-three
+concatenation operators across the program. The
+[release-report sample](samples/release_report.adb) formats nine fields in one
+18-leaf expression, with an explicit argument-length guard.
 
 The completed [statement-sequencing increment](docs/statement-sequencing.md)
 replaces fixed bodies with finite sequences of null, compatible
@@ -118,6 +121,11 @@ and the [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-asses
 The later [Names and Calls review specimen](docs/names-and-calls.md#dense-assignment-review-evidence)
 fits 785 assignments: all 829 checks proved and its 2,020,723-byte report uses
 96.4% of the buffer. The reviewer reported 32 minutes; that run was not repeated.
+The [Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
+combines 758 assignments and 63 concatenations in 4096 bytes. It proved in
+53.6 minutes with 8.71 GiB sampled aggregate RSS; its 2,065,005-byte report leaves
+32,147 bytes (1.5%) of headroom. This is another specimen measurement, not a
+worst-case bound.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -298,9 +306,14 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The completed [Larger Expressions record](docs/larger-expressions.md) gives the
+expanded expression budget, composition/capacity measurements and Linux validation,
+including the full-suite result and test-only correction/recheck.
+
 The [solver-allowance adoption](docs/expression-headroom.md#production-adoption)
 records the current 100,000-step application setting, refreshed native/Lean
-evidence and focused driver/runtime validation. Language limits are unchanged.
+evidence and focused driver/runtime validation. That change alone left language
+limits unchanged; Larger Expressions is a separate admission change.
 
 The [Admission Repairs checkpoint](docs/admission-repairs.md) records the current
 assignment/literal rules, complete Linux native and Lean validation, stable

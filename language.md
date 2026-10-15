@@ -200,7 +200,7 @@ expression ::= atom { "&" atom }
 atom       ::= L | initialized_name | "(" expression ")"
 ```
 
-An expression has one through sixteen literal/name leaves. Each occurrence
+An expression has one through sixty-four literal/name leaves. Each occurrence
 counts, including empty values and repeated names. Parentheses control grouping;
 unparenthesized concatenation associates to the left. The catalogue's `association`
 field for concatenation records this default; its separate parentheses flag
@@ -234,16 +234,16 @@ borrow the later body's capacity. Assignment additionally requires equality of i
 fixed/static or symbolic length throughout the reachable interval, and at zero
 if invalid input remains reachable.
 
-The source has at most **30 concatenation operators** across all initializers,
+The source has at most **63 concatenation operators** across all initializers,
 assignment values, equality operands and output expressions, including every
 conditional arm and predicate operand. Ampersands inside literals or comments do not count. This explicit
-proof-work resource budget redistributes the earlier two-output form's maximum
-`2 * (16 - 1)` concatenations across the new expression positions. Atomic copies
-and parentheses consume no concatenation budget. The sixteen-leaf and thirty-
+proof-work resource budget permits one maximal 64-leaf expression, or the same
+total number of operators distributed across expression positions. Atomic copies
+and parentheses consume no concatenation budget. The sixty-four-leaf and sixty-three-
 operator limits restrict expression complexity; they do not bound total proof,
 translation or report cost from repeated assignments and control flow. These are
 project resource policies, not Ada/SPARK restrictions or proved solver-time bounds.
-The [expression capacity evidence](docs/common-expressions.md) records their
+The [expression capacity evidence](docs/larger-expressions.md) records their
 justification. The [sequencing capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
 records measured whole-program cost and the remaining external-tool premises.
 
@@ -326,6 +326,12 @@ Names and Calls review also completed a 4092-byte, 785-assignment specimen:
 leaving 76,429 bytes (3.6%). The reviewer reported 32 minutes; no duplicate timing
 run was made. The [Names and Calls capacity record](docs/names-and-calls.md#dense-assignment-review-evidence)
 identifies that retained measurement. The
+[Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
+combines 758 assignments and 63 concatenations in 4096 bytes. It proved all
+865 checks in 53.6 minutes, with 8.71 GiB sampled aggregate process RSS and a
+2,065,005-byte Main report, leaving 32,147 bytes (1.5%) of headroom. This was a
+fresh-session specimen run that overlapped other validation, not a universal
+resource bound. The
 [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
@@ -471,7 +477,7 @@ The catalogue uses these construct identifiers:
 | `runtime_context`, `argument_context` | Grouped, reordered or repeated with/use clauses for the shell's exact package set; with precedes use. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
-| `string_expression`, `string_concatenation` | One through sixteen literal/name leaves with parentheses; at most thirty concatenations per program. |
+| `string_expression`, `string_concatenation` | One through sixty-four literal/name leaves with parentheses; at most sixty-three concatenations per program. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |

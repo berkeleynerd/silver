@@ -167,7 +167,7 @@ open Bindings
 abbrev Operand := Bindings.Value
 abbrev Expression := List Operand
 
-def maxExpressionOperands : Nat := 16
+def maxExpressionOperands : Nat := 64
 
 def Bound.staticPart : Bound → Nat
   | .fixed length => length

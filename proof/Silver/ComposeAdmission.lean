@@ -143,9 +143,9 @@ def valueAt (text : Source) (position : Nat) (names : BindingEnvironment) : Valu
     ⟨after, info.valueFirst, info.staticLength, info.dynamic, index⟩
   else invalidValue
 
-/-- Preserve the former two-output shell's total `2 * (16 - 1)`
-concatenation allowance while sharing it across expression positions. -/
-def maxConcatenations : Nat := 30
+/-- Share one 64-leaf expression's concatenation allowance across all source
+positions. This independent work budget limits aggregate proof work. -/
+def maxConcatenations : Nat := 63
 
 /-- Count only operator tokens: trivia skips comments and a quoted literal is
 consumed whole, including doubled quotes. The extra decreasing test only makes

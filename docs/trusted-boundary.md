@@ -243,7 +243,7 @@ blocking and signals retain the premises above. See the
 
 Common String expressions use the same wrapper and external imports. Every
 initializer, assignment RHS, comparison operand and output has one through
-sixteen literal/name leaves, with parentheses and repeated dynamic references
+sixty-four literal/name leaves, with parentheses and repeated dynamic references
 allowed under its affine length bound.
 Ada's predefined String `&` preserves operand byte order and associates to the
 left unless parentheses specify another grouping; this does not prescribe operand
@@ -599,9 +599,11 @@ path. It does not prove that the
 bundled external solvers complete within 100,000 steps for every source schema
 accepted by Lean's endpoint-discharge checker; that completion remains an
 explicit tool-contract premise. The bound of
-sixteen leaves limits each expression to fifteen concatenations. A separate
-thirty-operator source budget includes initializers, predicate operands and all
-body arms, retaining the earlier two-output operator-count ceiling. Proof cost can differ
+sixty-four leaves limits each expression to sixty-three concatenations. A separate
+sixty-three-operator source budget includes initializers, predicate operands and all
+body arms, allowing one maximal expression or that total spread across positions.
+The [larger-expression record](larger-expressions.md) gives the composition and
+capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
 exceeding the previous application buffer. The application capacity is now 2 MiB;
@@ -621,6 +623,12 @@ distinguishes the corroborated source/report from those reported measurements.
 The [Names and Calls review specimen](names-and-calls.md#dense-assignment-review-evidence)
 fits 785 assignments in 4092 bytes and proved 829 checks, with a 2,020,723-byte
 Main report (96.4%) leaving 76,429 bytes. Its 32-minute timing is reviewer-reported.
+The [Larger Expressions dense probe](larger-expressions.md#dense-composition-and-report-capacity)
+combines 758 assignments and 63 concatenations in 4096 bytes. All 865 checks
+proved in 53.6 minutes, with 8.71 GiB sampled aggregate RSS. Its 2,065,005-byte
+Main report leaves 32,147 bytes (1.5%) of the existing buffer. The production
+report policies, full code generation and expected Reject executions passed;
+the narrow margin requires reassessment before further relevant expansion.
 None of these cases establishes a universal worst-case bound. An interrupted
 experiment establishes neither solver failure nor measured capacity. No statement/output-count
 restriction is inferred from those interruptions.
