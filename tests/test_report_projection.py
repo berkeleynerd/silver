@@ -1,6 +1,7 @@
 """The native stream projection retains audit evidence and validates skipped bytes."""
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 import random
@@ -9,6 +10,7 @@ import tempfile
 import unittest
 
 from scripts.platforms import alire_command, native_layout, tool_environment
+from tests.test_library_reports import argument_report, main_report, report
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,7 +27,7 @@ project Probe is
    for Source_Dirs use ("{ROOT / 'src'}", "{ROOT / 'tests'}");
    for Object_Dir use "obj";
    for Exec_Dir use ".";
-   for Main use ("report_projection_probe.adb");
+   for Main use ("report_projection_probe.adb", "library_reports_probe.adb");
    package Compiler is
       for Default_Switches ("Ada") use ("-gnat2022", "-gnata", "-gnato");
    end Compiler;
@@ -119,6 +121,45 @@ end Probe;
         self.assertEqual(self.project(source), expected)
         source = ' \r\n{\t"flow" : [ { "check_tree" : \r\n[1, 2]\t, "x" : 3 } ] }\r\n'
         self.assertEqual(self.project(source), source.replace('[1, 2]', '{}'))
+
+    def test_projection_preserves_native_auditor_decisions(self) -> None:
+        def audit(source: str, kind: str) -> bool:
+            result = subprocess.run(
+                [self.directory / "library_reports_probe", kind],
+                input=source + "\n", capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn(result.stdout, ("accepted\n", "rejected\n"))
+            return result.stdout == "accepted\n"
+
+        for kind, document in (("main", main_report()), ("body", report()),
+                               ("arguments", argument_report())):
+            for section in ("flow", "proof"):
+                for record in document[section]:
+                    record["check_tree"] = {"nested": [None, {"severity": "high",
+                        "suppressed": True, "reason": 'quoted "proof" and } ]'}]}
+            source = json.dumps(document)
+            cases = [("complete", source, True),
+                     ("duplicate severity", source.replace('"severity": "info"',
+                        '"severity": "info", "severity": "info"', 1), False),
+                     ("duplicate section", source[:-1] + ', "proof": []}', False),
+                     ("duplicate tree", source.replace('"check_tree": {',
+                        '"check_tree": [], "check_tree": {', 1), True)]
+            for field, value in (("severity", "high"), ("suppressed", False),
+                                 ("justified", False), ("entity", 999)):
+                changed = copy.deepcopy(document)
+                changed["proof"][0][field] = value
+                cases.append((field, json.dumps(changed), False))
+            changed = copy.deepcopy(document)
+            changed["proof"][0]["check_tree"]["rule"] = changed["proof"][0].pop("rule")
+            cases.append(("nested rule decoy", json.dumps(changed), False))
+            changed = copy.deepcopy(document)
+            changed["spark"][" 1"] = "spec"
+            cases.append(("incomplete coverage", json.dumps(changed), False))
+            for name, original, expected in cases:
+                with self.subTest(kind=kind, mutation=name):
+                    retained = self.project(original)
+                    self.assertEqual(audit(original, kind), expected)
+                    self.assertEqual(audit(retained, kind), expected)
 
     def test_generated_documents_preserve_every_other_value(self) -> None:
         # Python's JSON encoder/decoder supplies an independent structural
