@@ -44,6 +44,8 @@ abbrev ExpressionTranslation : Prop :=
 theorem actual_expressions : ExpressionTranslation := by decide +kernel
 
 abbrev NumericDeclarations : Prop :=
+  Source.declaration "max_exponent" Source.scalarLiteralSpecTokens =
+    some (expectedTokens "constant := 4_096") ∧
   Source.declaration "max_magnitude" Source.scalarLiteralSpecTokens =
     some (expectedTokens "constant := 2_147_483_648") ∧
   subtypeDeclaration "literal_position" Source.scalarLiteralSpecTokens =
