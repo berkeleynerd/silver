@@ -100,6 +100,15 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertEqual(sorted(record["state"] for record in self.records()),
                          ["failure", "failure", "interrupted"])
 
+    def test_torn_final_success_record_is_not_a_completed_run(self):
+        with self.run_context() as run:
+            pass
+        journal = run.directory / "events.jsonl"
+        journal.write_bytes(journal.read_bytes().rstrip(b"\n"))
+        record = self.records()[0]
+        self.assertEqual(record["state"], "interrupted")
+        self.assertIsNone(record["finish"])
+
     def test_resolved_alias_and_ancestor_paths_contend_between_processes(self):
         self.resources[0].mkdir()
         alias = self.root / "alias"

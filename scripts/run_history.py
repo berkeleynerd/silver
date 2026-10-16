@@ -75,13 +75,12 @@ def _read(path: Path) -> list[dict]:
     records = []
     lines = path.read_text().splitlines(keepends=True)
     for index, line in enumerate(lines):
+        # A complete newline terminates each committed journal record.
+        if index == len(lines) - 1 and not line.endswith("\n"):
+            break
         try:
             records.append(json.loads(line))
         except (ValueError, TypeError) as error:
-            # A killed writer can leave an incomplete last append. Retain it,
-            # report the surviving start as interrupted, never infer success.
-            if index == len(lines) - 1 and not line.endswith("\n"):
-                break
             raise RunHistoryError(f"unreadable run history: {path}: {error}") from error
     return records
 
