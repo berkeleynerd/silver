@@ -145,4 +145,68 @@ theorem Expression.inferLength_sound {expression : Expression} {shape : Shape}
         · exact a.2
         · exact b.2 item member
 
+theorem image_printable (value : Int) : Printable (Integer.Image.bytes value) := by
+  intro byte present
+  obtain ⟨character, member, rfl⟩ := List.mem_map.mp present
+  simp only [Integer.Image.characters, List.mem_cons] at member
+  rcases member with rfl | digit
+  · split <;> decide
+  · have bounds := Char.isDigit_iff_toNat.mp
+      (Nat.isDigit_of_mem_toDigits (by decide) (by decide) digit)
+    change 48 ≤ character.toNat ∧ character.toNat ≤ 57 at bounds
+    simp only [Output.printable, decide_eq_true_eq]
+    omega
+
+theorem Operand.inferLength_printable {atom : Operand} {shape : Shape} {ranges : Integer.Ranges}
+    {summary : LengthSummary} {values : Values} {input : Source} {integers : Integer.Store}
+    (known : atom.inferLength shape ranges = some summary) (strings : Fits shape input values)
+    (inputPrintable : Printable input) (literals : atom.PrintableLiterals) :
+    Printable (atom.evaluate values input integers) := by
+  cases atom with
+  | literal bytes => exact literals
+  | argument => exact inputPrintable
+  | image expression => exact image_printable (expression.evaluate integers)
+  | reference index =>
+      simp only [inferLength, Value.infer, Option.map_map, Option.map_eq_some_iff] at known
+      obtain ⟨info, found, _⟩ := known
+      exact (strings index info found).2
+
+theorem Expression.inferLength_printable {expression : Expression} {shape : Shape}
+    {ranges : Integer.Ranges} {summary : LengthSummary} {values : Values} {input : Source}
+    {integers : Integer.Store} (known : expression.inferLength shape ranges = some summary)
+    (strings : Fits shape input values) (inputPrintable : Printable input)
+    (literals : expression.LiteralsPrintable) :
+    Printable (expression.evaluate values input integers) := by
+  induction expression generalizing summary with
+  | nil => simp [evaluate, Printable]
+  | cons atom rest ih =>
+      simp only [inferLength, Option.bind_eq_some_iff, Option.map_eq_some_iff] at known
+      obtain ⟨first, atomKnown, remaining, restKnown, _⟩ := known
+      have a := Operand.inferLength_printable (integers := integers) atomKnown strings inputPrintable
+        (literals atom (by simp))
+      have b := ih restKnown (fun item member => literals item (by simp [member]))
+      intro byte present
+      simp only [evaluate, List.mem_append] at present
+      exact present.elim (a byte) (b byte)
+
+theorem Expression.inferLength_exact {expression : Expression} {shape : Shape}
+    {ranges : Integer.Ranges} {summary : LengthSummary} {affine : Summary}
+    {values : Values} {input : Source} {integers : Integer.Store}
+    (known : expression.inferLength shape ranges = some summary) (exact : summary.exact = some affine)
+    (strings : Fits shape input values) (scalars : Integer.Fits ranges integers) :
+    (expression.evaluate values input integers).length = affine.length input.length :=
+  (LengthSummary.exact_contains exact _ _).mp (inferLength_sound known strings scalars).1
+
+theorem Expression.inferLength_bound {expression : Expression} {shape : Shape}
+    {ranges : Integer.Ranges} {summary : LengthSummary} {values : Values} {input : Source}
+    {integers : Integer.Store} {capacity : Nat}
+    (known : expression.inferLength shape ranges = some summary)
+    (strings : Fits shape input values) (scalars : Integer.Fits ranges integers)
+    (bound : summary.upper.length capacity ≤ maxSourceLength) (fits : input.length ≤ capacity) :
+    (expression.evaluate values input integers).length ≤ maxSourceLength := by
+  have actual := (inferLength_sound known strings scalars).1.2.2
+  have monotone : summary.upper.length input.length ≤ summary.upper.length capacity :=
+    Nat.add_le_add_left (Nat.mul_le_mul_left _ fits) _
+  exact Nat.le_trans actual (Nat.le_trans monotone bound)
+
 end Silver.Compose
