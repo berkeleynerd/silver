@@ -89,11 +89,20 @@ normalized template matching and original insertion offsets. The full typed
 Integer, String and Image schemas are checked against the native template bytes;
 partial name or tag observations do not establish their meaning. Broad producer
 string spelling is handled before accepted-match liveness establishes ASCII.
-Equal valid normalized bytes are interpreted through the explicit external
-JSON parser soundness contract described in the [trusted boundary](trusted-boundary.md#image-proof-adapter-boundary),
-with semantic integer projection and successful parsing of the finite selected
-templates. It makes no universal success assumption for unbounded numbers. This is
-not an unrestricted injectivity claim about raw-number `Value.encode`.
+Equal valid normalized bytes determine equal values through the internal
+`JSON.Valid.encode_injective` theorem in
+[ImageModelCanonicalRead.lean](../proof/Silver/ImageModelCanonicalRead.lean),
+and `Valid.canonical_meaning_eq` supplies equal semantic projections. A
+terminating mathematical decoder proves the canonical round trip for
+independently valid ASCII integral JSON, including arrays, objects and valid
+signed integer tokens. It retains numeric token spelling, including negative
+zero. This is not unrestricted injectivity of arbitrary `Value.encode`, a
+runtime parser, or a proof that the external parser succeeds or is correct.
+The selected-schema and refinement endpoints no longer take external parser
+soundness or finite-template parsing-success hypotheses. The
+[consumer interpretation and original typed-context premises](trusted-boundary.md#image-proof-adapter-boundary)
+remain required. The [remediation record](review-b8f1d0b9a8-repairs.md#focused-proof-evidence)
+separately identifies the focused checks for this strengthening.
 
 The reverse connection covers every admitted program's generated model:
 unchanged or refinement, as appropriate. The

@@ -281,13 +281,15 @@ proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
 
 The Image proof adapter creates separate `imagews-XXXXXX` scratch directories
-under the same host artifact root. Successful calls remove their own scratch
-after the vendor process finishes; failed calls retain it for diagnosis. Set
-`SILVER_KEEP_IMAGE_WORKSPACES=1` to retain successful adapter scratch too.
+under the same host artifact root. Calls remove their own scratch after the
+vendor process returns status 0; that status means process completion and may
+accompany a result reporting failed proof obligations. Set
+`SILVER_KEEP_IMAGE_WORKSPACES=1` to retain that scratch for diagnosis. Adapter
+errors and nonzero vendor statuses retain scratch automatically.
 Caller-supplied proof directories and historical workspaces are preserved.
 A cleanup failure leaves remaining files and reports on stderr without
-changing the native result. This policy does not remove the compile workspace
-and executable paths printed above.
+changing the native result. The original application model, proof report,
+compile workspace and executable paths printed above are preserved.
 Separate application arguments from the source path with `--`:
 
 ```sh

@@ -235,8 +235,11 @@ The adapter uses a distinct `.silver/<host>/imagews-XXXXXX/` namespace.
 After the synchronous vendor call returns status 0, it removes only the
 workspace created by that invocation, unless the exact inherited environment
 value `SILVER_KEEP_IMAGE_WORKSPACES=1` requests retention. Both Unchanged and
-Refine success paths follow this rule. Failed adapter/native calls retain
-their workspaces. A caller-supplied proof directory and its theory, session
+Refine paths follow this rule. Status 0 means that the vendor process completed;
+its result JSON may still report failed proof obligations. Set the retention
+flag to keep scratch for diagnosing those results. Adapter errors and nonzero
+vendor statuses retain their workspaces. The original application model and
+proof report remain in the compile workspace. A caller-supplied proof directory and its theory, session
 and publication files are never cleanup targets; when the adapter creates
 its own proof directory inside the new workspace, those temporary files live
 through the vendor call and may be removed with it afterward. Existing
@@ -288,20 +291,29 @@ These are source-reviewed interface premises, not a binary-source attestation.
 Recheck them when the vendor pin or invocation path changes.
 
 The [producer/schema record](for-loops-image-schema.md) identifies the pinned
-serialization and consumer field order. The selected-schema argument uses the
-existing GNATprove/Why3 JSON parser-faithfulness boundary through the explicit
-`JSON.ParserSound` contract: every successful parse of an independently valid
-ASCII JSON spelling has its semantic projection, preserving decoded strings,
-ordered array fields and integer values. Parsing success with its specified
-meaning is required for the finite selected template encodings. The argument
-makes no universal parsing-success claim for unbounded integer tokens. Equal
-independently derived normalized bytes then yield equal semantic projections;
-unrestricted raw-number serialization is not assumed injective. Numeric fields
-consumed as OCaml integers must be representable, while arbitrary-precision
-producer numbers retain their quoted-string representation. Parser soundness
-assumes no matcher success, selected template identity, insertion position or
-desired Image theorem; those remain independently established premises or
-conclusions of the composition.
+serialization and consumer field order. The selected-schema argument now
+proves canonical determinism internally:
+`JSON.Valid.encode_injective` establishes equal values from equal encodings
+and independent validity witnesses for ASCII integral JSON.
+`Valid.canonical_meaning_eq` then establishes equal semantic projections,
+preserving decoded strings, ordered arrays and integer meaning. The proof
+uses a terminating mathematical decoder, covers arrays and objects, and
+retains valid signed integer token spelling, including negative zero. It
+does not assert injectivity for arbitrary raw-number `Value` constructors.
+
+The selected-schema and refinement endpoints require neither `JSON.ParserSound`
+nor finite-template parsing success. This proof machinery is not a runtime
+parser and establishes no native or external parser-correctness or
+parsing-success result. The external consumer boundary is unchanged:
+`ConsumerBoundary.InterpretedConsumer`, validity of the original typed context
+and identity of the installed theory source remain required. Numeric fields
+consumed as OCaml integers must still be representable, while arbitrary-precision
+producer numbers retain their quoted-string representation. Matcher success,
+selected template identity, insertion positions and the desired Image theorem
+remain independently established premises or conclusions of the composition.
+The [remediation record](review-b8f1d0b9a8-repairs.md#focused-proof-evidence)
+identifies the implementation and focused checks separately from the original
+delivery's external parser premise.
 
 Completeness additionally requires a precise pinned-producer contract for all
 admitted source forms: each selected Integer, String or Image theory has its

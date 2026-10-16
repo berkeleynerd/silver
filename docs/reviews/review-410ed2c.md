@@ -179,10 +179,15 @@ The following assumptions remain explicit in the
   filesystem representation. Complete document punctuation derives the
   per-theory scanner room from that whole-file premise. This argument is
   separate from the producer's machine counters and from scanner acceptance.
-- Partial external JSON parser soundness preserves semantic integer values and
-  independently valid spellings; successful parsing is assumed only for the
-  three finite canonical templates. Arbitrary raw-number serialization is not
-  assumed injective, and unbounded numeric-token parse success is not assumed.
+- At this delivery checkpoint, partial external JSON parser soundness preserves
+  semantic integer values and independently valid spellings; successful parsing
+  is assumed only for the three finite canonical templates. Arbitrary raw-number
+  serialization is not assumed injective, and unbounded numeric-token parse
+  success is not assumed. The later [L11/#60 remediation](../review-b8f1d0b9a8-repairs.md#focused-proof-evidence)
+  proves canonical encoding injectivity on independently valid ASCII integral
+  JSON and removes those hypotheses from the selected-schema and refinement
+  endpoints. That strengthening is separate from this delivery's evidence and
+  preserves the actual consumer interpretation boundary.
 - The original model is a valid typed name environment, including namespace
   uniqueness, and external lookup selects the exact checked
   `silver_image.Integer_Image_Length` text. The finite constructor and primitive

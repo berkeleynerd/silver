@@ -98,19 +98,99 @@ recovery/history, with old paused/unfinished statements marked historical.
 The roadmap now distinguishes the retained failed suite from its focused
 repair. Prospective review discipline is recorded in development.md.
 
-These are record corrections, awaiting integration review; they do not claim
-L1, L10/L12, L14, L11 or L15 implemented or validated. The operational boundary now reflects the implementation owner's confirmed
-retention/cleanup, environment-query and diagnostic behavior; its native
-validation remains pending. The capacity repair record follows the validated
-scanner handoff. Original review evidence and prior native/Lean/test run artifacts
-remain untouched.
-
+The record corrections were integrated as `b8ae6d0a0e`; they do not by
+themselves validate the implementation increments. Their separate evidence
+follows below as it becomes available. The operational boundary reflects the
+confirmed retention/cleanup, environment-query and diagnostic behavior;
+complete native validation remains pending. The capacity repair record follows
+the validated scanner handoff. Original review evidence and prior
+native/Lean/test run artifacts remain untouched.
 
 The adapter lifecycle refinement for #59 distinguishes supplied proof
-directories from wholly private ones: successful calls with `--proof-dir`
+directories from wholly private ones: calls returning vendor status 0 with `--proof-dir`
 remove only the two exact adapter snapshots and attempt a nonrecursive empty
 directory removal. This protects proof artifacts even when the supplied path
 resolves inside the new workspace. Calls without a supplied proof directory
 may remove the whole checked private workspace after vendor completion.
-Failure/debug retention and native result preservation are unchanged; source
-implementation and its native validation remain separately tracked.
+Status 0 is process completion, not a claim that the result JSON reports every
+obligation proved; `SILVER_KEEP_IMAGE_WORKSPACES=1` retains scratch for those
+diagnoses. The original application model and report remain. Adapter errors,
+nonzero vendor statuses and debug retention preserve scratch. Cleanup uses
+the removal process's inherited stderr for diagnostics; there is no
+Silver-owned call to `Ada.Text_IO.Standard_Error`. The operational change is
+integrated as `3dfcb23a50` from `d741ac6b39034a24296dbb2c87d7b828d2769bf2`;
+its complete native audit and focused regression checks remain separately
+tracked.
+
+## Focused proof evidence
+
+L15/#64 is implemented in `f53baff0b0580d47d5f70392eaadf83df2c3824c`:
+eight kernel-checked admission/rejection witnesses cover the three delivered
+samples, a reverse null loop, an uncertain nested loop with assignment and
+three name-scope rejections. A countdown theorem instantiates the existing
+`Current.admitted_assurance` result. Independent review verified that the
+three sample literals equal the checked-in sample bytes. These witnesses
+corroborate the existing universal guarantee.
+
+The original focused failure `20261016T231212-f663d312c5ff` is retained.
+The Image witnesses could execute under `#eval` but kernel reduction could
+not see `Nat.toDigits`' standard-library implementation through ordinary
+module imports. A narrow `import all Init.Data.Repr`, already used by source
+bridges for the same kind of reduction, resolved this without changing the
+admission semantics or using native decision. The module header and existing
+private-project-proof boundary remain intact.
+
+Focused Linux x86_64 run `20261016T231826-3fff188edc2c` passed
+`Silver.PredicateExamples` and the then-initial
+`Silver.ImageModelCanonicalRead` helpers, with a fresh 22,186-declaration
+audit across 165 modules. Managed time was 154.879 seconds (evidence elapsed
+155.355 seconds). This was cached/focused, not a clean build, complete
+project audit or independent kernel replay. Its working-tree input digest
+was `35edb9c4040e4fd635ab9a117b2bb759c12287ccd7397613739943fd4a2cf8b9`;
+that digest, rather than the later witness commit alone, identifies the run's
+combined inputs. The retained `lean-focused-evidence.json` has SHA256
+`042aa0e2347939e4a7f65066569cdc1177cc49b19f8ddd64993fcbc2ee25870f`.
+
+L15 is In review, pending coordinated integration validation and publication.
+That run did not complete L11/#60; its later proof and endpoint checks follow.
+
+L11/#60 is implemented in `07676ef620542cde14d60860d0983848e41dfd55`.
+`ImageModelCanonicalRead.lean` supplies a terminating proof-only decoder and
+canonical round trip. `JSON.Valid.encode_injective` proves that independently
+valid ASCII integral JSON values with equal encodings are equal;
+`Valid.canonical_meaning_eq` derives equal semantic projections. The domain
+includes arrays, objects and valid signed integer tokens, preserving token
+spelling including negative zero. It does not claim injectivity on arbitrary
+`Value` constructors, implement a runtime parser, or prove correctness or
+success of the native/external parser.
+
+The selected-meaning/schema, refined-document, producer and native refinement
+endpoints no longer require `parse`, `ParserSound` or `parsed` hypotheses.
+Historical helper definitions remain in `ImageModelJsonMeaning.lean`, but
+these endpoints no longer use them. `ConsumerBoundary.InterpretedConsumer`,
+original typed-context validity and installed theory-source identity remain
+unchanged. Independent review found no correctness issue in this strengthening.
+
+The two focused Linux x86_64 checks passed with fresh transitive axiom audits:
+
+| Managed run | Targets | Modules / audited declarations | Managed / evidence seconds |
+| --- | --- | --- | --- |
+| `20261016T232426-5da2d7e717c9` | `Silver.ImageModelCanonicalRead` | 65 / 9,186 | 19.500 / 19.919 |
+| `20261016T232511-41c0c18c5f20` | `Silver.ImageProducerEndpoint`, `Silver.ImageRefinementEndpoint`, `Silver.ImageConsumerEndpoint` | 138 / 16,076 | 21.697 / 22.111 |
+
+The retained `lean-focused-evidence.json` records bind the runs to their
+combined working-tree inputs, rather than the later implementation commit
+alone. The first input digest is
+`d9e00c590fd9bcbc91f6d48cfc9631a0f47e62c8745fb5328032463e5cd7a31f`
+and its evidence SHA256 is
+`85f95c9a9d41ef02a939c550f49a6d74d2ccd838e01464a121e5e59b0dda9ec7`.
+The endpoint input digest is
+`5eebbf768e97a556b3119f81b76553cb2335cfe579c681f4c6b001ee46295d4a`
+and its evidence SHA256 is
+`35da26b1223dfb9bef3cb463280209c2266d3b5f6c1deea12c04be57c25ba894`.
+These were cached focused checks, with neither a clean build nor independent
+kernel replay. Earlier proof-authoring failures remain retained; routine
+small iterations took about 3–4 seconds of Lean build time and did not repeat
+broad proof checks. L11 is In review: its focused proof work is complete,
+while the stable complete Lean integration check awaits the coordinated
+recognizer and adapter changes.
