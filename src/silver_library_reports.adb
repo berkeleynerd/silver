@@ -2,6 +2,10 @@ with SPARK.Big_Integers;
 with Silver_Report_Observations;
 
 package body Silver_Library_Reports with SPARK_Mode => On is
+   use SPARK.Big_Integers;
+   package Observations renames Silver_Report_Observations;
+   use type Observations.Nesting;
+   use type Observations.Member;
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
       Static_Main, Static_Put, Static_Mixed,
@@ -206,6 +210,126 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      (Value_From (Text, Start, Start, Empty_Nesting, 0, False, False,
        Start <= Text'Length and then (Text (Start) = '{' or else Text (Start) = '[')));
 
+   --  Bounded / unbounded observation correspondence. The uncapped equations
+   --  are independently byte-derived; these lemmas identify their results on
+   --  each finite String with the exact scanner used by the auditor.
+   function Observation_Nesting (Stack : Nesting) return Observations.Nesting is
+     (Observations.Nesting (Stack)) with Ghost => Static;
+
+   procedure Observation_Push (Stack : Nesting; Level : Positive; C : Character)
+     with Ghost => Static, Global => null, Pre => Level <= 64,
+       Post => Observation_Nesting (Pushed (Stack, Level, C)) =
+         Observations.Pushed (Observation_Nesting (Stack), Level, C)
+   is
+      use type Observations.Nesting;
+   begin
+      pragma Assert (for all I in Stack'Range =>
+        Observation_Nesting (Pushed (Stack, Level, C)) (I) =
+          Observations.Pushed (Observation_Nesting (Stack), Level, C) (I));
+   end Observation_Push;
+
+   procedure Space_End_Observation (Text : String; Position : Offset)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Position in 1 .. Text'Length + 1,
+       Post => Observations.Space_End
+         (Observations.From_String (Text), To_Big_Integer (Position)) =
+           To_Big_Integer (Space_End (Text, Position)),
+       Subprogram_Variant => (Decreases => (Text'Length + 1) - Position)
+   is
+   begin
+      if Position <= Text'Length then
+         pragma Assert (Observations.Bytes.Get
+           (Observations.From_String (Text), To_Big_Integer (Position)) = Text (Position));
+         if Space (Text (Position)) then
+            Space_End_Observation (Text, Position + 1);
+         end if;
+      end if;
+   end Space_End_Observation;
+
+   procedure Value_From_Observation
+     (Text : String; Start, Position : Offset; Openers : Nesting;
+      Raw_Openers : Observations.Nesting;
+      Level : Nesting_Level; Quoted, Escaped, Container : Boolean)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Start in 1 .. Text'Length + 1
+         and then Position in Start .. Text'Length + 1
+         and then Raw_Openers = Observation_Nesting (Openers),
+       Post => Observations.Value_From
+         (Observations.From_String (Text), To_Big_Integer (Start),
+          To_Big_Integer (Position), Raw_Openers,
+          Level, Quoted, Escaped, Container) =
+         To_Big_Integer (Value_From
+           (Text, Start, Position, Openers, Level, Quoted, Escaped, Container)),
+       Subprogram_Variant => (Decreases => (Text'Length + 1) - Position)
+   is
+   begin
+      if Position > Text'Length then
+         return;
+      end if;
+      pragma Assert (Observations.Bytes.Get
+        (Observations.From_String (Text), To_Big_Integer (Position)) = Text (Position));
+      if Quoted then
+         if Escaped then
+            Value_From_Observation
+              (Text, Start, Position + 1, Openers, Raw_Openers, Level, True, False, Container);
+         elsif Text (Position) = '\' then
+            Value_From_Observation
+              (Text, Start, Position + 1, Openers, Raw_Openers, Level, True, True, Container);
+         elsif Text (Position) = '"' then
+            if Container then
+               Value_From_Observation
+                 (Text, Start, Position + 1, Openers, Raw_Openers, Level, False, False, Container);
+            end if;
+         else
+            Value_From_Observation
+              (Text, Start, Position + 1, Openers, Raw_Openers, Level, True, False, Container);
+         end if;
+      elsif Text (Position) = '"' then
+         Value_From_Observation
+           (Text, Start, Position + 1, Openers, Raw_Openers, Level, True, Escaped, Container);
+      elsif Text (Position) in '{' | '[' then
+         if Level < 64 then
+            Observation_Push (Openers, Level + 1, Text (Position));
+            Value_From_Observation
+              (Text, Start, Position + 1, Pushed (Openers, Level + 1, Text (Position)),
+               Observations.Pushed (Raw_Openers, Level + 1, Text (Position)), Level + 1, False, Escaped, Container);
+         end if;
+      elsif Text (Position) in '}' | ']' then
+         if Level > 1
+           and then not ((Text (Position) = '}' and then Openers (Level) /= '{')
+             or else (Text (Position) = ']' and then Openers (Level) /= '['))
+         then
+            Value_From_Observation
+              (Text, Start, Position + 1, Openers, Raw_Openers, Level - 1, False, Escaped, Container);
+         end if;
+      elsif not Container and then (Text (Position) = ',' or else Space (Text (Position))) then
+         null;
+      else
+         Value_From_Observation
+           (Text, Start, Position + 1, Openers, Raw_Openers, Level, False, Escaped, Container);
+      end if;
+   end Value_From_Observation;
+
+   procedure Value_Spec_Observation (Text : String; Start : Offset)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Start in 1 .. Text'Length + 1,
+       Post => Observations.Value_Spec
+         (Observations.From_String (Text), To_Big_Integer (Start)) =
+           To_Big_Integer (Value_Spec (Text, Start))
+   is
+   begin
+      if Start <= Text'Length then
+         pragma Assert (Observations.Bytes.Get
+           (Observations.From_String (Text), To_Big_Integer (Start)) = Text (Start));
+      end if;
+      Value_From_Observation
+        (Text, Start, Start, Empty_Nesting, Observations.Empty_Nesting, 0, False, False,
+         Start <= Text'Length and then Text (Start) in '{' | '[');
+   end Value_Spec_Observation;
+
    procedure Skip_Space (Text : String; Position : in out Offset)
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
        and then Position in 1 .. Text'Length + 1,
@@ -383,6 +507,92 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                                       (if N >= Object.Last then Bad_Member
                                        else (Present, (P, K), (V, L), N)))))))))))));
 
+   function Observation_Span (Item : Span) return Observations.Span is
+     ((First => To_Big_Integer (Item.First), Last => To_Big_Integer (Item.Last)))
+     with Ghost => Static;
+
+   function Observation_Member (Item : Member) return Observations.Member is
+     ((State => (case Item.State is
+          when Broken => Observations.Broken,
+          when Finished => Observations.Finished,
+          when Present => Observations.Present),
+       Key => Observation_Span (Item.Key), Value => Observation_Span (Item.Value),
+       Next => To_Big_Integer (Item.Next))) with Ghost => Static;
+
+   procedure Member_Observation (Text : String; Object : Span; Position : Offset)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Valid (Text, Object)
+         and then Position in Object.First + 1 .. Text'Length + 1,
+       Post => Observations.Member_Spec
+         (Observations.From_String (Text), Observation_Span (Object),
+          To_Big_Integer (Position)) = Observation_Member (Member_Spec (Text, Object, Position))
+   is
+      P : constant Offset := Space_End (Text, Position);
+      K, C, V, L, T : Offset;
+      Raw : constant Observations.Member := Observations.Member_Spec
+        (Observations.From_String (Text), Observation_Span (Object), To_Big_Integer (Position));
+      Bounded : constant Member := Member_Spec (Text, Object, Position);
+   begin
+      Space_End_Observation (Text, Position);
+      if P < Object.Last then
+         pragma Assert (Observations.Bytes.Get
+           (Observations.From_String (Text), To_Big_Integer (P)) = Text (P));
+      end if;
+      if P >= Object.Last or else Text (P) /= '"' then
+         pragma Assert (Raw = Observation_Member (Bounded));
+         return;
+      end if;
+      Value_Spec_Observation (Text, P);
+      K := Value_Spec (Text, P);
+      if K = 0 or else K >= Object.Last then
+         pragma Assert (Raw = Observation_Member (Bounded));
+         return;
+      end if;
+      Space_End_Observation (Text, K + 1);
+      C := Space_End (Text, K + 1);
+      if C < Object.Last then
+         pragma Assert (Observations.Bytes.Get
+           (Observations.From_String (Text), To_Big_Integer (C)) = Text (C));
+      end if;
+      if C >= Object.Last or else Text (C) /= ':' then
+         pragma Assert (Raw = Observation_Member (Bounded));
+         return;
+      end if;
+      Space_End_Observation (Text, C + 1);
+      V := Space_End (Text, C + 1);
+      Value_Spec_Observation (Text, V);
+      L := Value_Spec (Text, V);
+      if L = 0 or else L >= Object.Last then
+         pragma Assert (Raw = Observation_Member (Bounded));
+         return;
+      end if;
+      Space_End_Observation (Text, L + 1);
+      T := Space_End (Text, L + 1);
+      if T < Object.Last then
+         pragma Assert (Observations.Bytes.Get
+           (Observations.From_String (Text), To_Big_Integer (T)) = Text (T));
+      end if;
+      if T >= Object.Last or else Text (T) /= ',' then
+         pragma Assert (Raw = Observation_Member (Bounded));
+         return;
+      end if;
+      Space_End_Observation (Text, T + 1);
+      declare
+         N : constant Offset := Space_End (Text, T + 1);
+      begin
+         if N >= Object.Last then
+            pragma Assert (Bounded = Bad_Member);
+            pragma Assert (Raw = Observations.Bad_Member);
+         else
+            pragma Assert (Bounded = (Present, (P, K), (V, L), N));
+            pragma Assert (Raw = (Observations.Present,
+              Observation_Span ((P, K)), Observation_Span ((V, L)), To_Big_Integer (N)));
+         end if;
+      end;
+      pragma Assert (Raw = Observation_Member (Bounded));
+   end Member_Observation;
+
    function Read_Member (Text : String; Object : Span; Position : Offset)
      return Member
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
@@ -445,6 +655,29 @@ package body Silver_Library_Reports with SPARK_Mode => On is
                         begin
                           (if N >= Items.Last then Bad_Member
                            else (Present, Missing, (P, L), N)))))))));
+
+   procedure Item_Observation (Text : String; Items : Span; Position : Offset)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Valid (Text, Items)
+         and then Position in Items.First + 1 .. Text'Length + 1,
+       Post => Observations.Item_Spec
+         (Observations.From_String (Text), Observation_Span (Items),
+          To_Big_Integer (Position)) = Observation_Member (Item_Spec (Text, Items, Position))
+   is
+      P : constant Offset := Space_End (Text, Position);
+      L, T : Offset;
+   begin
+      Space_End_Observation (Text, Position);
+      if P >= Items.Last or else Text (P) /= '{' then return; end if;
+      Value_Spec_Observation (Text, P);
+      L := Value_Spec (Text, P);
+      if L = 0 or else L >= Items.Last then return; end if;
+      Space_End_Observation (Text, L + 1);
+      T := Space_End (Text, L + 1);
+      if T >= Items.Last or else Text (T) /= ',' then return; end if;
+      Space_End_Observation (Text, T + 1);
+   end Item_Observation;
 
    function Read_Item (Text : String; Items : Span; Position : Offset)
      return Member
