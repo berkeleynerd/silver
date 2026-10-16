@@ -49,4 +49,10 @@ is
          and then Last <= Bytes.Length (Raw) and then Retained (Raw, First, Last),
        Post => Exact_Range (Raw, First, Last),
        Subprogram_Variant => (Decreases => Last + 1 - First);
+
+   procedure Output_Prefix (Raw : Bytes.Sequence; First, Last : Big_Natural)
+     with Global => null,
+       Pre => First <= Last and then Last <= Bytes.Length (Raw),
+       Post => Model.Scan_Bytes (Raw, First) <= Model.Scan_Bytes (Raw, Last),
+       Subprogram_Variant => (Decreases => Last - First);
 end Silver_Report_Projection_Spans;

@@ -18,4 +18,12 @@ package body Silver_Report_Projection_Spans with SPARK_Mode => On is
            (Model.Scan_State (Raw, Last - 1), Bytes.Get (Raw, Last)).Bytes (1) = Bytes.Get (Raw, Last));
       end if;
    end Retained_Range;
+
+   procedure Output_Prefix (Raw : Bytes.Sequence; First, Last : Big_Natural) is
+   begin
+      if First < Last then
+         Output_Prefix (Raw, First, Last - 1);
+         pragma Assert (Model.Scan_Bytes (Raw, Last - 1) <= Model.Scan_Bytes (Raw, Last));
+      end if;
+   end Output_Prefix;
 end Silver_Report_Projection_Spans;
