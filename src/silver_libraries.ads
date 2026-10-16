@@ -45,6 +45,14 @@ package Silver_Libraries with SPARK_Mode => On is
      with Ghost => Static;
    type Evidence_Array is array (Silver_Library_Reports.Report_Kind) of Boolean;
    Accepted_Reports : Evidence_Array := (others => False) with Ghost => Static;
+   type Raw_Report_Array is array (Silver_Library_Reports.Report_Kind)
+     of Silver_Report_Reader.Model.Byte_Sequences.Sequence with Ghost => Static;
+   Raw_Reports : Raw_Report_Array :=
+     (others => Silver_Report_Reader.Model.Byte_Sequences.Empty_Sequence) with Ghost => Static;
+   function Audited_Raw_Reports return Boolean is
+     (for all Kind in Silver_Library_Reports.Report_Kind =>
+       Silver_Library_Reports.Unbounded_Runtime_Report_Policy (Raw_Reports (Kind), Kind))
+     with Ghost => Static;
    All_Written, Proof_Complete : Boolean := False with Ghost => Static;
 
 
@@ -57,11 +65,12 @@ package Silver_Libraries with SPARK_Mode => On is
                                 Silver_Report_Reader.Report_State,
                                 Silver_Report_Reader.Report_Ended,
                                 Silver_Report_Reader.Report_Closed,
-                                Proof_Complete, Accepted_Reports)),
+                                Proof_Complete, Accepted_Reports, Raw_Reports)),
           Pre => Valid_Directory (Directory)
             and then Directory'Length <= Silver_Platform.Max_Path_Length - 45,
           Post => (Static => Success = Proof_Complete
-            and then (if Success then (for all Kind in Silver_Library_Reports.Report_Kind => Accepted_Reports (Kind))));
+            and then (if Success then Audited_Raw_Reports
+              and then (for all Kind in Silver_Library_Reports.Report_Kind => Accepted_Reports (Kind))));
 
    procedure Same_Sources
      (Directory : String; Expected : Source_Set; Success : out Boolean)

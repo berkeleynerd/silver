@@ -13,6 +13,7 @@ with Silver_Catalogue;
 with Silver_Numbers;
 with Silver_Report_Storage;
 with Silver_Report_Reader;
+with Silver_Report_Projection_Audit;
 
 procedure Silver with SPARK_Mode => On is
    use Ada.Text_IO;
@@ -146,6 +147,9 @@ procedure Silver with SPARK_Mode => On is
          Build_Returned_Success : Boolean with Ghost => Static;
          Build_Command_Matched : Boolean with Ghost => Static;
 
+         Raw_Application_Report : Silver_Report_Reader.Model.Byte_Sequences.Sequence with Ghost => Static;
+         Application_Report_Read_Complete : Boolean with Ghost => Static;
+
          --  Keep the streaming observation proof local to report loading;
          --  callers use the established audit result and exact returned slice.
          procedure Read_Proof
@@ -154,11 +158,16 @@ procedure Silver with SPARK_Mode => On is
                and then (if Report_Complete then Report_Read and then not Report_Too_Long),
                Static => (if Report_Complete then
                  (if Output_Mode then
-                    Silver_Library_Reports.Application_Report_Policy
+                    Application_Report_Read_Complete
+                    and then Silver_Library_Reports.Unbounded_Application_Report_Policy
+                      (Raw_Application_Report, Application_Kind)
+                    and then Silver_Library_Reports.Application_Report_Policy
                       (Report (1 .. Report_Last), Application_Kind)
                   else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))))
          is
          begin
+            Application_Report_Read_Complete := False;
+            Raw_Application_Report := Silver_Report_Reader.Model.Byte_Sequences.Empty_Sequence;
             if Output_Mode then
                Silver_Report_Reader.Read_Report
                  (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
@@ -168,6 +177,14 @@ procedure Silver with SPARK_Mode => On is
             end if;
             Report_Complete := False;
             if Report_Read and then not Report_Too_Long then
+               if Output_Mode then
+                  Silver_Report_Projection_Audit.Application
+                    (Silver_Report_Reader.Raw_Bytes, Silver_Report_Reader.Projected_Bytes,
+                     Silver_Report_Reader.Report_State, Report, Report_Last, Application_Kind);
+                  Raw_Application_Report := Silver_Report_Reader.Raw_Bytes;
+                  Application_Report_Read_Complete :=
+                    Silver_Report_Reader.Report_Ended and then Silver_Report_Reader.Report_Closed;
+               end if;
                Report_Complete := (if Output_Mode then
                  Silver_Library_Reports.Complete_Application_Proof
                    (Report (1 .. Report_Last), Application_Kind)
@@ -203,7 +220,11 @@ procedure Silver with SPARK_Mode => On is
                and then (if Output_Mode then Initial_Libraries_Matched and then Proof_Libraries_Matched)
                and then Report_Last <= Report'Length
                and then (if Output_Mode then
-                 Silver_Library_Reports.Application_Report_Policy
+                 Application_Report_Read_Complete
+                 and then Silver_Library_Reports.Unbounded_Application_Report_Policy
+                   (Raw_Application_Report, Application_Kind)
+                 and then Silver_Libraries.Audited_Raw_Reports
+                 and then Silver_Library_Reports.Application_Report_Policy
                    (Report (1 .. Report_Last), Application_Kind)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))),
              Post => (Static => Build_Returned_Success = Success
@@ -238,7 +259,11 @@ procedure Silver with SPARK_Mode => On is
                  and then Build_Libraries_Matched else Silver_Profile.Is_Member (Source))
                and then Report_Last <= Report'Length
                and then (if Output_Mode then
-                 Silver_Library_Reports.Application_Report_Policy
+                 Application_Report_Read_Complete
+                 and then Silver_Library_Reports.Unbounded_Application_Report_Policy
+                   (Raw_Application_Report, Application_Kind)
+                 and then Silver_Libraries.Audited_Raw_Reports
+                 and then Silver_Library_Reports.Application_Report_Policy
                    (Report (1 .. Report_Last), Application_Kind)
                 else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last))))
          is

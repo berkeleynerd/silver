@@ -3,6 +3,7 @@ with Silver_Platform;
 with Silver_Library_Reports;
 with Silver_Library_Sources;
 with Silver_Report_Reader;
+with Silver_Report_Projection_Audit;
 
 package body Silver_Libraries with SPARK_Mode => On is
    use Silver_Platform;
@@ -46,10 +47,13 @@ package body Silver_Libraries with SPARK_Mode => On is
       Success := False;
       Proof_Complete := False;
       Accepted_Reports := (others => False);
+      Raw_Reports := (others => Silver_Report_Reader.Model.Byte_Sequences.Empty_Sequence);
       for Kind in Silver_Library_Reports.Report_Kind loop
          pragma Loop_Invariant (Static =>
            (for all Earlier in Silver_Library_Reports.Report_Kind =>
-             (if Earlier < Kind then Accepted_Reports (Earlier))));
+             (if Earlier < Kind then Accepted_Reports (Earlier)
+               and then Silver_Library_Reports.Unbounded_Runtime_Report_Policy
+                 (Raw_Reports (Earlier), Earlier))));
          declare
             Name : constant String := Directory & "/obj/gnatprove/" &
               (case Kind is
@@ -63,8 +67,14 @@ package body Silver_Libraries with SPARK_Mode => On is
             if not Read_Success or else Too_Long then
                return;
             end if;
+            Silver_Report_Projection_Audit.Runtime
+              (Silver_Report_Reader.Raw_Bytes, Silver_Report_Reader.Projected_Bytes,
+               Silver_Report_Reader.Report_State, Report, Last, Kind);
+            Raw_Reports (Kind) := Silver_Report_Reader.Raw_Bytes;
             Accepted := Silver_Library_Reports.Complete_Runtime_Proof (Report (1 .. Last), Kind);
-            Accepted_Reports (Kind) := Read_Success and then not Too_Long and then Accepted;
+            Accepted_Reports (Kind) := Read_Success and then not Too_Long
+              and then Silver_Report_Reader.Report_Ended and then Silver_Report_Reader.Report_Closed
+              and then Accepted;
             if not Accepted then
                return;
             end if;
