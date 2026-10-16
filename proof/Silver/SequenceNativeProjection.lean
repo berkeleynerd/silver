@@ -39,7 +39,7 @@ theorem full_expression_nondecreasing (text : Source) (position : Nat) (names : 
     position ≤ (expressionAt text position names scalarNames integerHidden).after := by
   have progress := Compose.Expressions.model_tail_nondecreasing
     (scalarNames := scalarNames) (integerHidden := integerHidden) text names
-    ⟨position, 0, 0, 0, 0, false, true, false⟩
+    { position := position }
   exact progress.resolve_left accepted
 
 theorem full_comparison_progress {text : Source} {state : ParserState}
