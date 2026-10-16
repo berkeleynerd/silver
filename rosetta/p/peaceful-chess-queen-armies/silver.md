@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer and array work in a procedure with an explicit stack, so index and range checks follow from ranged subtypes and guards before each access, with no recursion, heap or annotation needed. The risk is the loop-carried stack depth and cell indices in the backtracking while loop, which need careful guarding but no invariant.
 
-Position 740 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 740 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed-capacity arrays hold the queen positions (row and column, 0..8) and the co
 - **index**: Row and column come from cell/n and cell mod n with n at least 1 and at most 9, and attack tests use abs of differences of values bounded to 0..8, so there are no division or overflow issues.
 - **other**: The m=13, n=9 stretch case is an exhaustive search that may take long at run time, which is not a proof matter but requires a documented iteration-free capacity bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures, functions and 'Image of scalars.
 

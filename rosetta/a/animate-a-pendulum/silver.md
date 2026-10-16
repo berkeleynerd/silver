@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing in the task conflicts with the Oracle, because a text trace of a simulated pendulum meets the animation requirement, and the scaled-integer loop-carried state discharges only if each update is clamped or guarded, hence plausible rather than likely.
 
-Position 173 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 173 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program holds the angle and angular velocity as scaled integers in ranged su
 - **index**: Sine and cosine are read from a precomputed, embedded lookup table indexed by an angle reduced into the table's range by a guard just before the access.
 - **length**: Each output line is built in a fixed-capacity buffer sized for the largest scaled X and Y values, so the concatenation length is bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, Put without a newline, 'Image of scalars and string building.
 

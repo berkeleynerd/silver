@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Not a candidate. The task requires calling a method the class does not define, with dynamic dispatch and no static checking. Ada/SPARK rejects such a call when compiling, and the task explicitly rules out the workaround of looking a method up by its name in a string.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tagged types.
 

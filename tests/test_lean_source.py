@@ -18,7 +18,11 @@ EMBEDDED = ("silver_profile.ads", "silver_profile.adb", "silver_output_profile.a
             "silver_io.ads", "silver_io.adb",
             "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb",
             "silver_runtime.ads", "silver_integer_literals.ads", "silver_integer_literals.adb",
-            "silver_path_facts.ads", "silver_names.ads", "silver_names.adb")
+            "silver_path_facts.ads", "silver_names.ads", "silver_names.adb",
+            "silver_scalar_expressions.ads", "silver_scalar_expressions.adb", "silver_scalars.ads",
+            "silver_scalar_literals.ads", "silver_scalar_literals.adb",
+            "silver_image_model.ads", "silver_image_model.adb",
+            "silver_image_model_templates.ads", "silver_image_model_templates.adb")
 CERTIFICATE_MODULES = (
     "ProfileSpecCertificate", "ProfileBodyCertificate",
     "OutputSpecCertificate", "OutputBodyCertificate",
@@ -27,7 +31,21 @@ CERTIFICATE_MODULES = (
     "ArgumentsSpecCertificate", "ArgumentsBodyCertificate", "RuntimeSpecCertificate",
     "IntegerLiteralSpecCertificate", "IntegerLiteralBodyCertificate", "PathFactsSpecCertificate",
     "NamesSpecCertificate", "NamesBodyCertificate",
+    "ScalarExpressionSpecCertificate", "ScalarExpressionBodyCertificate", "ScalarsSpecCertificate",
+    "ScalarLiteralSpecCertificate", "ScalarLiteralBodyCertificate",
+    "ImageModelSpecCertificate", "ImageModelBodyCertificate",
+    "ImageModelTemplatesSpecCertificate", "ImageModelTemplatesBodyCertificate",
 )
+# These constants have dedicated checked rendering or capture proofs. Their
+# byte dependencies remain explicit and equally pinned.
+EXTRA_SOURCE_BINDINGS = {
+    "ImageFilesSpecSource": ("imageFilesSpec", "silver_image_files.ads"),
+    "ImageFilesBodySource": ("imageFilesBody", "silver_image_files.adb"),
+    "LengthIntervalsSpecSource": ("lengthIntervalsSpec", "silver_length_intervals.ads"),
+    "LengthIntervalsBodySource": ("lengthIntervalsBody", "silver_length_intervals.adb"),
+    "IntegerImageSpecSource": ("integerImageSpec", "silver_integer_image.ads"),
+    "ImageTheorySpecSource": ("imageTheorySpec", "silver_image_theory.ads"),
+}
 SPEC = importlib.util.spec_from_file_location(
     "silver_source_certificate", ROOT / "proof" / "generate_source_certificate.py")
 assert SPEC is not None and SPEC.loader is not None
@@ -39,7 +57,8 @@ class CompilerSourcePolicyTests(unittest.TestCase):
     def test_embedded_source_lists_and_lake_dependencies_agree(self):
         facade = (ROOT / "proof/Silver/AuthoritativeSource.lean").read_text()
         modules = re.findall(r'^public import Silver\.(\w+Source)$', facade, re.MULTILINE)
-        self.assertEqual(len(modules), len(EMBEDDED))
+        all_files = set(EMBEDDED) | {filename for _binding, filename in EXTRA_SOURCE_BINDINGS.values()}
+        self.assertEqual(len(modules), len(all_files))
         bindings = []
         source_modules = {}
         for module in modules:
@@ -50,11 +69,12 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             self.assertEqual(len(local), 1)
             bindings.extend(local)
             source_modules[local[0][1]] = module
-        self.assertEqual(len(bindings), len(EMBEDDED))
-        self.assertEqual({filename for _name, filename in bindings}, set(EMBEDDED))
+        self.assertEqual(len(bindings), len(all_files))
+        self.assertEqual({filename for _name, filename in bindings}, all_files)
         self.assertEqual(dict(bindings),
-                         {name: filename for filename, name, _prefix in GENERATOR.SOURCE_BINDINGS})
-        self.assertEqual(len(GENERATOR.SOURCE_BINDINGS), len(bindings))
+                         {name: filename for filename, name, _prefix in GENERATOR.SOURCE_BINDINGS}
+                         | dict(EXTRA_SOURCE_BINDINGS.values()))
+        self.assertEqual(len(GENERATOR.SOURCE_BINDINGS) + len(EXTRA_SOURCE_BINDINGS), len(bindings))
         self.assertEqual(CANDIDATES, {
             Path("Silver") / f"{module}.lean": filename
             for filename, module in zip(EMBEDDED, CERTIFICATE_MODULES, strict=True)
@@ -64,8 +84,8 @@ class CompilerSourcePolicyTests(unittest.TestCase):
         inputs = re.findall(
             r'^input_file (\w+) where\s+path := "\.\./src/([^"/]+)"\s+text := false',
             lake, re.MULTILINE)
-        self.assertEqual(len(inputs), len(EMBEDDED))
-        self.assertEqual({filename for _name, filename in inputs}, set(EMBEDDED))
+        self.assertEqual(len(inputs), len(all_files))
+        self.assertEqual({filename for _name, filename in inputs}, all_files)
         libraries = re.findall(
             r'^lean_lib (\w+) where\s+roots := #\[\]\s+'
             r'globs := #\[\.one `Silver\.(\w+)\]\s+needs := #\[(\w+)\]',
@@ -88,6 +108,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             Path("Silver") / f"{binding[0].upper() + binding[1:]}Source.lean": 1
             for _filename, binding, _prefix in GENERATOR.SOURCE_BINDINGS
         }
+        expected.update({Path("Silver") / f"{module}.lean": 1 for module in EXTRA_SOURCE_BINDINGS})
         actual = {}
         for path in proof.rglob("*.lean"):
             if ".lake" in path.parts:
@@ -96,7 +117,7 @@ class CompilerSourcePolicyTests(unittest.TestCase):
             count = len(re.findall(r'\binclude_str\s*"', path.read_text()))
             if count:
                 actual[path.relative_to(proof)] = count
-        self.assertEqual(len(expected), len(EMBEDDED))
+        self.assertEqual(len(expected), len(EMBEDDED) + len(EXTRA_SOURCE_BINDINGS))
         self.assertEqual(actual, expected)
 
     def test_only_audit_roots_use_legacy_full_imports(self):

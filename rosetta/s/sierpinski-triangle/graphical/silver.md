@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a nested for loop over fixed ranges with a validated order, so index and range checks follow from types and guards, and the only new needs are file output and text parsing; no loop-carried value needs an invariant.
 
-Position 1427 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1427 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Parse the order from the first argument, rejecting anything outside 0..8, then f
 - **range**: The order is parsed and guarded to 0..8 before use, with an invalid value rejected visibly, so the grid size derived from it stays within the array.
 - **overflow**: All values are at most 2**8, so the bitwise-free test (x and y) = 0 is replaced by a bounded per-bit loop over small ranged integers, with no overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, procedures, string building, 'Image of scalars, text parsing, file output and Put without a newline.
 

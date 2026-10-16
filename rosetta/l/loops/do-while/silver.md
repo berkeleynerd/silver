@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The for-loop index is bounded by its declared range, so the only checks are Value mod 6 (divisor is a nonzero literal) and the 'Image output, all of which follow from types. A while-style loop with an unbounded Value + 1 would need an overflow guard, which the bounded for loop avoids.
 
-Position 105 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 105 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 Main declares a subtype Counter of Integer range 1 .. 6 and runs a for loop over Counter, which executes the body at least once. Each iteration prints Integer'Image (Value) with Put_Line and ends with exit when Value mod 6 = 0, so the program prints 1 through 6. The loop index comes from the for-loop range, so no loop-carried accumulator or overflow check exists. About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, for loops, 'Image of scalars and ranged subtypes.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops over fixed arrays and every value is range-typed or guarded, so checks follow from types and guards, but the scaled nonlinear H arithmetic and loop-carried counters need careful shaping.
 
-Position 1312 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1312 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed 1000 subjects and 180 days are held in parallel constrained arrays (cumula
 - **overflow**: The pseudo-random generator uses a modular type so wraparound is by definition and the draws are reduced by mod into small ranged subtypes.
 - **index**: All loops run over the arrays' own ranges and the category index is an enumeration, so indexing is routine, but the per-group counters carried through loops need range-typed bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, enumerations, arrays, for loops, procedures, functions, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by small declared ranges, the reverse function needs no loop or recursion so it has no termination obligation, and the only loops are for loops with static bounds, so every check follows from types and one visible guard.
 
-Position 330 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 330 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A loop-free function reverses a number in 1..199 by branching on one, two or thr
 
 - **division**: The reversed divisor is the divisor of a reverse(d) mod, but reverse is written with if branches on ranged inputs so its result is provably at least 1 for d in 1..199, and an explicit nonzero guard rejects otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, functions, procedures, 'Image of scalars, string building, Put without a newline and Boolean objects.
 

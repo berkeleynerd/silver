@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is bounded by declared index ranges and guards before use, and the recursion can be replaced by a bounded explicit stack inside procedures, so nothing needs an annotation, but the loop-carried segment bounds and stack pointer need careful guard placement.
 
-Position 242 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 242 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Hold the 15 embedded integers in a constrained array and sort it in a procedure 
 - **overflow**: The segment stack pointer and swap counter are loop-carried, so the counter is a bounded range reset each pass and pushes are guarded by a capacity check.
 - **termination**: The pass-until-no-swaps and segment loops are while loops in procedures, which get no termination check, and the sort lives in a procedure rather than a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and Boolean objects.
 

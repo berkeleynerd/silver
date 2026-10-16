@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded-grid indexing, small enums and a ranged LCG with guards before each use, so nothing needs an annotation, but the number of guarded loop-carried values and the stream handling make discharge depend on careful program shape. The task is underspecified, so a stdin/stdout stream is a faithful reading with no Oracle conflict.
 
-Position 1255 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1255 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program holds a fixed 12 by 12 grid of records (sector colour, ball) and an 
 - **termination**: Wall and ball placement use for loops with a bounded number of attempts instead of retry-until-valid loops, so the map generator needs no variant and the command loop lives in a procedure.
 - **other**: Unknown command characters and end of input must yield a specified outcome such as a visible rejection response rather than being ignored, per the Oracle.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, case statements, for loops, while loops, procedures, functions, Put without a newline, standard input and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the range-subtyped for-loop indexes and static array bounds with no loop-carried accumulator, so proofs should discharge without annotations. The only mild concern is the nonlinear products, which are bounded by the 1..2200 operand ranges.
 
-Position 95 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 95 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare a ranged subtype Num 1..2200 and a Boolean array Sums indexed 0..9_680_0
 - **index**: Indexes d*d-c*c (with c < d from the inner for-range) and x*x+y*y lie within the array bound 0..9_680_000, which the provers can show from the operand ranges.
 - **stack**: A Boolean array of about 9.7 million entries is a fixed-size environmental memory premise, which GNATprove does not check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded array index, range or 64-bit arithmetic check that a guard placed just before the operation discharges, with no loop-carried fact needing an invariant, so only the guards' shape makes it plausible rather than likely.
 
-Position 932 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 932 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Store the sequence in a constrained array of 1..2^20 with element subtype 1..2^2
 - **termination**: The backward Mallows search and the table loops use for loops (or a while loop in a procedure) so no termination check applies.
 - **stack**: A 2^20-element array is about 4 MB of static or stack storage, which GNATprove does not check and is an environmental premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

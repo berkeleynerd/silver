@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeEquations
+public import Silver.ComposeContracts
 
 @[expose] public section
 
@@ -27,7 +27,8 @@ def modelCalls : Calls where
     | .contextAfter => Names.contextAfter
     | .operationAfter => Names.operationAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => callAfter
+    | .callAfter => fun text names position operation scalarNames =>
+      callAfter text names position operation scalarNames
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -37,18 +38,29 @@ def modelCalls : Calls where
     | .literal => literalAt
     | .workTail => workTail
     | .workBudget => withinWorkBudget
-    | .value => valueAt
+    | .image => imageAt
+    | .imageMinimum => fun bounds => (LengthSummary.ofImage bounds).minimumLength
+    | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
+    | .value => fun text position names scalarNames integerHidden => valueAt text position names scalarNames integerHidden
     | .newName => newNameAllowed
     | .addBinding => addBinding
+    | .stringDeclaration => stringDeclarationAt
+    | .scalarDeclaration => scalarDeclarationAt
+    | .scalarLookup => ScalarExpression.lookup
+    | .scalarRead => fun text position names => ScalarExpression.read text position names
+    | .scalarAppend => fun names item => names ++ [item]
+    | .scalarEmpty => Integer.Interval.isEmpty
+    | .scalarLiteral => ScalarLiteral.read
+    | .nameIs => fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
     | .declaration => declarationAt
     | .argument => argumentAt
     | .declarations => declarationsAt
     | .readDeclarations => declarationsAt
-    | .expressionStep => expressionStep
+    | .expressionStep => fun text names scan scalarNames integerHidden => expressionStep text names scan scalarNames integerHidden
     | .fits => fits
     | .comparison => comparisonAt
-    | .tail => expressionTail
-    | .expression => expressionAt
+    | .tail => fun text names scan scalarNames integerHidden => expressionTail text names scan scalarNames integerHidden
+    | .expression => fun text position names scalarNames integerHidden => expressionAt text position names scalarNames integerHidden
     | .target => targetAt
     | .dynamic => dynamicAt
     | .assignmentValue => assignmentAt

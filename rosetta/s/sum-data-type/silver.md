@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a variant record demonstration whose only checks are discriminant and index checks that follow from the declared types and a guard on Found, and the function uses a for loop so it needs no variant. No annotations are needed, and the Ada solution's Pre/Post contracts are not required for a faithful sum type.
 
-Position 1578 in the [progression](../../progression.md#stage-40), in stage 40, which adds variant records.
+Position 1578 in the [progression](../../progression.md#stage-39), in stage 39, which adds variant records.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a subtype Index range 1 .. 8, a constrained array of Integer over it, an
 
 - **discriminant**: Reading Position is checked against the Found discriminant, which discharges because the read sits inside an if branch testing Found just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, variant records, 'Image of scalars, for loops, functions and string building.
 

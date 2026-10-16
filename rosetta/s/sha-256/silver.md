@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array ranges, for-loop indexes and modular 32-bit arithmetic, so no loop-carried value needs an invariant, and the algorithm uses no recursion, allocation or while loops.
 
-Position 1292 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1292 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Hash the embedded 12-byte string 'Rosetta code' as a single padded 64-byte block
 - **overflow**: All word arithmetic uses a 32-bit modular type where addition wraps by definition, and shifts and rotates use literal amounts, so no overflow check arises.
 - **range**: Hex digit extraction indexes a 16-character constant string with a nibble value (0..15) obtained by mod 16 or masking, which provers handle with the type range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, arrays, characters, for loops, procedures, functions, string indexing, string building, integers, integer division and Boolean objects.
 

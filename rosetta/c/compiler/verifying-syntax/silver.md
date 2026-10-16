@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursive-descent grammar can be recast as an iterative bounded-stack automaton, so every check follows from array bounds and guards just before indexing, with no annotation needed. The outlook is plausible rather than likely because of the tokenizer's loop-carried position, the bounded-depth stack, and the needed file-reading library.
 
-Position 1337 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1337 in the [progression](../../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program reads each line of the input file into a bounded String buffer, then
 - **stack**: The grammar's nesting is handled by an explicit fixed-size array of per-depth flags in an iterative state machine instead of recursion, so no input-dependent stack depth arises.
 - **length**: Building the error message with the numeric position uses bounded concatenation in a buffer sized for the maximum line length plus the position digits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, file input and Put without a newline.
 

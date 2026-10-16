@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a short closed-form float computation with explicit guards for every special case, so the checks follow from bounded float subtypes and guards, but float overflow proofs through the division and sqrt need careful range shaping, hence plausible.
 
-Position 1087 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1087 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Define a bounded Coordinate float subtype and a Point record, embed the five tes
 - **overflow**: The squares of radius and half-distance and the products with the offset rely on the declared coordinate and radius ranges being small enough that every product stays finite.
 - **range**: Intermediate sums such as (x1+x2)/2 can leave the coordinate subtype unless the subtype is wide enough or the intermediates use a wider float subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, records, arrays, for loops, procedures, Put without a newline, integers, Boolean objects and string building.
 

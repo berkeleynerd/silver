@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operator is a total case statement over a three-value enumeration, and all loops are for loops over the enumeration range, so no run-time check depends on a loop-carried value and no annotation is needed. The only new surface is enumerations, case statements, functions and bounded string building, all routine for the provers.
 
-Position 1175 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1175 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
 Define a three-valued enumeration Trit (True, Maybe, False, with non-clashing identifiers) and total pure functions Not_T, And_T, Or_T, Implies_T and Equiv_T, each a case statement on one or both arguments that returns the table's value explicitly, with no exceptions needed. A function Image returns a one-character String, and procedures run for loops over the Trit type (nested for the binary operators) and print each row built by bounded concatenation of fixed-length pieces. All data is embedded, with no input. About 90 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, case statements, functions, procedures, for loops, characters, string building and Boolean objects.
 

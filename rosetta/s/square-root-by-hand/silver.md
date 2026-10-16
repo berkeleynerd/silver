@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The spigot is a bounded loop of small digit-array arithmetic whose operands are all bounded by digit subtypes and guarded carries, so it should prove without annotations, but fixed-capacity big-number carry loops require careful shaping. The task's 'forever' option is met by a documented digit limit, which Oracle rule 7 allows.
 
-Position 1380 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1380 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Implement the classic digit-by-digit (long-hand) square root of an embedded cons
 - **range**: The trial-digit search (largest d in 0..9 with (20p+d)*d <= remainder) is a bounded for loop over a digit subtype so d never leaves 0..9, and the Character conversion of d is safe by that subtype.
 - **termination**: All loops are for loops or while loops inside procedures, so no variant is needed and the digit count is a fixed documented limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, procedures, big numbers and Put without a newline.
 

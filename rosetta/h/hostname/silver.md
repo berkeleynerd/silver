@@ -2,7 +2,7 @@
 
 **Excluded from Silver: environment.** The task asks only to find the name of the host the program is running on. A Silver program can do this by calling an admitted library operation that returns the host name as a bounded string and then printing it, so no Oracle rule is broken. What Silver lacks today is a system-information effect, not anything a fixed rule forbids.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

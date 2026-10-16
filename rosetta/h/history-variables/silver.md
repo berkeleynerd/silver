@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from declared index and count ranges, or from a capacity guard placed just before the increment, and the program has no while loops, recursion or nonlinear arithmetic, so the proofs should discharge without annotations.
 
-Position 593 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 593 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A history variable is a record holding a fixed-capacity array of Integer values 
 - **index**: History slots are indexed by a for loop over 1 .. Count, where Count's subtype is 0 .. Capacity and the array is 1 .. Capacity, so each index check follows from the declared ranges.
 - **range**: Set increments Count only after the guard Count < Capacity, and a full history gives a visible rejection message instead of a silent overwrite, so the range check on Count discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, procedures, for loops and 'Image of scalars.
 

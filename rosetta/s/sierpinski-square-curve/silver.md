@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges plus explicit guards before each buffer write and grid move, and all loops sit in procedures, so no annotation is needed, but the loop-carried turtle position and expansion lengths demand careful guard placement.
 
-Position 1548 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1548 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Expand the axiom F+XF+F+XF for order 3 with the X rule into two fixed-capacity C
 - **length**: The L-system expansion into fixed-capacity buffers is guarded so that a rule application that would exceed capacity is rejected, with capacity sized above the exact order-3 length of 807 symbols.
 - **termination**: All iteration is for loops or while loops inside procedures, which get no termination check, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, case statements, procedures and membership tests.
 

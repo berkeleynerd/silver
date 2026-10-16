@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded text scanning and small-integer parsing in procedures, so all checks follow from types and guards without annotations, but Silver needs file I/O, argument access, string building and a fair amount of loop-carried index and sum guarding. The main work is the new library surface, not proof difficulty.
 
-Position 1453 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1453 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -24,7 +24,7 @@ The program takes the input and output file names from the arguments, then reads
 - **range**: Digit-by-digit parsing accumulates a value in a loop, so a guard rejects a field when the accumulated value would pass its declared limit before the next digit is added.
 - **termination**: Scanning and the read-until-end loops live in procedures, which get no termination check, and the row count is bounded by a fixed table size.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, file input, file output, further arguments and exit status.
 

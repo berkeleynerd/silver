@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and explicit guards, but fixed-capacity big-number arithmetic carried through loops and the guards on loop-carried values make discharge depend on careful program shape rather than being routine.
 
-Position 1388 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1388 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Compute the continued fraction of sqrt(n) with integer recurrences on small boun
 - **termination**: The search loop is a while loop in a procedure, which gets no termination check, and an explicit iteration cap with rejection keeps it bounded and visible.
 - **index**: Digit-array indexing in addition, multiply-by-small and printing uses for loops over the array's own range or guarded indexes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, for loops, while loops, case statements, procedures, functions, string building, 'Image of scalars, big numbers, Put without a newline and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be made to follow from declared capacities and guards placed just before indexing, appending and incrementing, and recursion lives only in procedures with an explicit depth limit, but the many loop-carried cursors in two text-processing programs make discharge depend on careful shape, so the outlook is plausible.
 
-Position 1566 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1566 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The generator is a Main procedure that reads a preprocessed grammar file into a 
 - **stack**: The generated parser's mutually recursive rule procedures nest as deep as the input's parentheses, so a depth counter passed down and checked against a fixed limit must reject deeper input to make stack use a fixed premise.
 - **initialization**: Token and symbol-table records filled in parsing loops must be fully initialized by default or aggregate so flow analysis sees every read component defined.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, recursive procedures and file input.
 

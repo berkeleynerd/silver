@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is div/mod by literals on declared subtypes and the buffer appends are guarded, so checks follow from types and guards with no recursion or annotations, though careful loop shape is needed for the buffer length.
 
-Position 1028 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1028 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Words are returned by non-recursive functions using case statements over small r
 - **range**: Dividing a number in 0..999_999_999 into triplets and tens/units uses div and mod by literals on a ranged subtype, so each quotient and remainder is bounded by its subtype and discharges, but the loop-carried remainder must stay in a declared subtype rather than Integer.
 - **index**: Converting a digit value 0..19 or 2..9 into a word relies on case statements covering the whole subtype range, so no table indexing by a computed value is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, case statements, for loops, procedures, functions and Boolean objects.
 

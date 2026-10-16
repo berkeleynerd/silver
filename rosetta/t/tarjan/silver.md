@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursive Tarjan converts to an iterative procedure over fixed-size arrays whose indexes and counters are bounded by subtypes and capacity guards, so the checks should discharge without invariants, though many loop-carried stack pointers make the program shape delicate.
 
-Position 728 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 728 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The 8-node example graph is an embedded Boolean adjacency matrix, and recursion 
 - **termination**: The iterative DFS uses a while loop inside a procedure, which gets no termination check, so no variant is needed.
 - **initialization**: All arrays (index, lowlink, on-stack, next-edge pointer, stacks) are filled by aggregates or for loops before the search starts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

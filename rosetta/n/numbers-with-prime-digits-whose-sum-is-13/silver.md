@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a range or division-by-ten on bounded integer subtypes with for loops only and a guard before each accumulation, so the proofs follow from types and local guards with no annotation needed.
 
-Position 132 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 132 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A for loop runs N over 1 .. 322222 (the largest possible answer, since seven dig
 
 - **overflow**: The digit-sum accumulator is a subtype 0..13 and the addition is guarded by a test just before it, so the range check discharges without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects and for loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every arithmetic check is protected by a guard placed right before it (dividing by a nonzero base to bound the multiply, and comparing the counter with 'Last), and the only while loop is in a procedure. Because of this, no annotation is needed. The only check that is not purely linear is the standard Acc <= Last / N bound before Acc * N, which provers routinely discharge.
 
-Position 611 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 611 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each power generator is a record holding the next base (Long_Long_Integer) and t
 - **initialization**: Each Next procedure assigns its out Value and Exhausted parameters on every path, including the paths that report exhaustion.
 - **termination**: The filter's while loop that advances squares past matching cubes sits in a procedure, so GNATprove raises no termination check, and the loop always stops once a generator reports exhaustion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, Boolean objects, records, procedures, for loops, while loops and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops over a fixed capacity and every narrowing or index is protected by a local guard, so no annotation should be needed, though carry chains and guarded integer accumulation require careful shape. The arbitrary-size requirement is met with a documented fixed capacity and explicit overflow reporting.
 
-Position 1398 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1398 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent a number as a record of a fixed-capacity array of 40 trits (a -1..1 su
 - **range**: Integer-to-trit conversion repeatedly divides a loop-carried value by 3 using mod and rem, which is nonlinear but stays within the Integer type and loops over a fixed trit count.
 - **other**: Arbitrary size is replaced by a documented fixed capacity (for example 40 trits) with overflow reported explicitly, which Oracle rule 7 permits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, for loops, while loops, case statements, procedures, functions, Boolean objects, big numbers, string building, 'Image of scalars, text parsing, string indexing and Put without a newline.
 

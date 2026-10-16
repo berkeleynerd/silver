@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a bounded value subtype and cursor guards placed just before each String access, but the loop-carried cursor and accumulator need careful guard placement, hence plausible rather than likely.
 
-Position 1135 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1135 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The task string is embedded as a constant String, and a single procedure scans i
 - **range**: Parsed values are held in a ranged subtype with negation and range-end results bounded by the same limit so the for loop bounds and the Image conversions stay in range.
 - **termination**: All while loops live in a procedure, which gets no termination check, and each iteration advances the cursor.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, 'Image of scalars, text parsing, for loops, while loops, procedures and Put without a newline.
 

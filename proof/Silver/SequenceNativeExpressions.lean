@@ -270,9 +270,9 @@ def Conversion.eval : (conversion : Conversion) → conversion.type
   | .expand => Native.expand
   | .compact => Native.compact
 def Conversion.render : Conversion → List String
-  | .contextOf => words "names => scan . state . names , dynamic_first => scan . state . dynamic_first , dynamic_after => scan . state . dynamic_after"
+  | .contextOf => words "names => scan . state . names , scalar_names => scan . state . scalar_names , dynamic_first => scan . state . dynamic_first , dynamic_after => scan . state . dynamic_after"
   | .bodyOf => words "position => scan . state . position , target => scan . state . target , capacity => scan . state . capacity , assigned => scan . assigned , output => scan . output"
-  | .expand => words "state => ( position => scan . position , names => context . names , dynamic_first => context . dynamic_first , dynamic_after => context . dynamic_after , target => scan . target , capacity => scan . capacity ) , assigned => scan . assigned , output => scan . output"
+  | .expand => words "state => ( position => scan . position , names => context . names , scalar_names => context . scalar_names , dynamic_first => context . dynamic_first , dynamic_after => context . dynamic_after , target => scan . target , capacity => scan . capacity ) , assigned => scan . assigned , output => scan . output"
   | .compact => words "if scan . state . position = 0 or else scan . state . target > context . names . count then invalid_body else body_of ( scan )"
 
 inductive Adapter | statements

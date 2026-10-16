@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is bounded by small subtypes, a 1..12 table index and arithmetic on values below 400 after explicit validation, with only for loops, so GNATprove should discharge it with no annotations. The main new surface is ordinary integer, array, enumeration and string-building features that Silver will need anyway.
 
-Position 1177 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1177 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed several sample Gregorian dates in a constant array, each validated (year r
 - **overflow**: Year is a subtype 1901..2399 and every intermediate is at most 366 or year+1166, so all arithmetic is tiny relative to Integer.
 - **length**: The output line is built in a fixed buffer sized for the longest possible text (weekday, season, holiday and year), and each piece's length is known from constant literals before concatenation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, arrays, for loops, case statements, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

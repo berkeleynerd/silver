@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops whose indexes follow from declared ranges, with the only non-routine checks being the loop-carried counts, which explicit guards with a visible rejection outcome can bound without an annotation.
 
-Position 691 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 691 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ An embedded small grayscale image is a constant two-dimensional array of a 0..25
 - **index**: Pixel values are of a ranged Luminance subtype so histogram indexing and for-loops over the array's own ranges discharge from types.
 - **length**: Each output row is built in a fixed-length String buffer filled by a for loop over the image width, so slice and assignment lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string building, string indexing, for loops and procedures.
 

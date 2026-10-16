@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a sieve over a fixed one-million array with bounded subtypes and explicit guards in procedures, so no annotation is needed, but the loop-carried products and counters require careful guard placement to discharge.
 
-Position 423 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 423 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use fixed arrays indexed 1..1_000_000 holding the radical and distinct-prime cou
 - **termination**: All while loops (sieve stepping, trial division) live in procedures, which get no termination check, so no variant is needed.
 - **overflow**: Per-bucket counters over one million numbers need a counter type of range at least 1,000,000 with a guarded increment since accumulation is loop-carried.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

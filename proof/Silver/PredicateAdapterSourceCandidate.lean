@@ -10,7 +10,7 @@ namespace Silver.Predicate.Adapter
 /-- Exact isolated native candidate blocks. Final authoritative extraction is integrated separately. -/
 
 def context_ofCandidate : List String :=
-  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
+  ["(", "names", "=>", "scan", ".", "state", ".", "names", ",", "scalar_names", "=>", "scan", ".", "state", ".", "scalar_names", ",", "dynamic_first", "=>", "scan", ".", "state", ".", "dynamic_first", ",", "dynamic_after", "=>", "scan", ".", "state", ".", "dynamic_after", ")"]
 
 theorem context_of_candidate : contextExpr.render = context_ofCandidate := by
   simp only [contextExpr, Expr.render, Field.name, record]
@@ -26,7 +26,7 @@ theorem body_of_candidate : bodyExpr.render = body_ofCandidate := by
 
 
 def expand_bodyCandidate : List String :=
-  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
+  ["(", "state", "=>", "(", "position", "=>", "scan", ".", "position", ",", "names", "=>", "context", ".", "names", ",", "scalar_names", "=>", "context", ".", "scalar_names", ",", "dynamic_first", "=>", "context", ".", "dynamic_first", ",", "dynamic_after", "=>", "context", ".", "dynamic_after", ",", "target", "=>", "scan", ".", "target", ",", "capacity", "=>", "scan", ".", "capacity", ")", ",", "assigned", "=>", "scan", ".", "assigned", ",", "output", "=>", "scan", ".", "output", ")"]
 
 theorem expand_body_candidate : expandExpr.render = expand_bodyCandidate := by
   simp only [expandExpr, Expr.render, Field.name, record]

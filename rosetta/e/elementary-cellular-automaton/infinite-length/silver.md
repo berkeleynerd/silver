@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded arrays and constant-count for loops, so range and index checks follow from types and static bounds, but the loop-carried length counter and offset arithmetic require careful guards, hence plausible. The task's unlimited cell count is satisfied by a documented fixed capacity sized for the output.
 
-Position 462 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 462 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The state is a fixed-capacity Boolean array of cells with a length counter and t
 - **overflow**: The support width grows by a fixed amount per generation, so a constant generation count (e.g. 25) with a fixed-capacity array of 2*25+3 cells keeps every index and width bounded by types.
 - **other**: Unbounded memory cannot be modeled, so the program fixes a documented capacity and generation count, which the Oracle permits as an explicit resource limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, procedures, string building and Put without a newline.
 

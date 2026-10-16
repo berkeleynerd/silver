@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The only checks are initialization and data flow on the in out parameters and a temporary of the same definite type, plus integer 'Image output, so every instance proves routinely with no loops, arithmetic or guards.
 
-Position 1524 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1524 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
 A generic procedure Generic_Swap with a formal private type and two in out parameters exchanges them through a constant temporary. Main instantiates it for Integer and for a fixed-length String subtype, initializes two variables of each, and prints them before and after each swap using 'Image for the integers and Put_Line for the strings. About 35 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Generics, procedures, integers and 'Image of scalars.
 

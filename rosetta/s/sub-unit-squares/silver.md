@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer work with fixed-iteration for loops in functions and the only unbounded-looking loop in a procedure, so checks follow from range types and guards; the main care is keeping n*n and the repunit subtraction within 64 bits.
 
-Position 389 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 389 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure loops n from 1 with a while loop up to a documented bound, squares n
 - **range**: Loop-carried values (the shrinking quotient, the repunit, the bisection bounds) are typed with explicit ranges and guarded before each multiply or subtract, since no invariants can be written.
 - **other**: Finding more than the required five terms depends on the search limit chosen; the program prints the first five and stops, with the bound being a documented limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

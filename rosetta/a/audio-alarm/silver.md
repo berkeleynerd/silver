@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay, sound.** The Silver-friendly solution reads a bounded integer of seconds and a bounded file name from standard input, validates both with explicit guards that reject bad input with a visible message, prints a text line in place of the blank page, delays, and then plays the named MP3 through an admitted audio library operation. Nothing in the task requires recursion, exceptions, annotations or unsafe constructs, so no conflict is raised; the audio playback and file read are effects Silver lacks today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and string operations.
 

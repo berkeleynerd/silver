@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs generic get and post functions over HTTP, with the API key read from a file. That requires a network effect that Silver lacks today, plus files and console output, and nothing in it breaks a fixed Oracle rule. A bounded-string solution can handle the details and URL, validate the response, and report failures through specified outcomes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, records, arrays, loops, subprograms and enumerations.
 

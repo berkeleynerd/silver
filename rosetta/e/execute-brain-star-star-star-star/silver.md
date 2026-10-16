@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, range and counter check can be discharged by a guard placed just before use, and no function-level loops or annotations are needed, but several loop-carried values (instruction pointer, tape pointer, bracket depth, step count) need careful guards. The step limit and explicit bounds keep the interpreter faithful for the tasks's required instructions while remaining provable.
 
-Position 1238 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1238 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The Brainf*** program is an embedded constant String, interpreted over a fixed-s
 - **overflow**: The bracket-matching depth counter and the step counter are bounded by the program length and a documented step limit, guarded before each increment.
 - **termination**: The interpreter loop lives in a procedure, which gets no termination check, and a documented step limit stops non-terminating Brainf*** programs with a visible message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, case statements, for loops, while loops, procedures, Put without a newline and standard input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded circular-buffer FIFO needs only ranged indexes, an array, a record and guarded procedures, so every check follows from types and guards placed just before use; the empty-pop error is handled by a returned flag rather than an exception, and the pointer, generic and tasking variants in the existing solution are avoided.
 
-Position 1468 in the [progression](../../../progression.md#stage-29), in stage 29.
+Position 1468 in the [progression](../../../progression.md#stage-28), in stage 28.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The queue is a record holding a fixed-capacity circular array of Integer plus He
 - **index**: Head and Tail are ranged indexes advanced by explicit wraparound (if Idx = Capacity then Idx := 1 else Idx + 1), and Count is a range type guarded by Count < Capacity before Push and Count > 0 before Pop, so each check is local.
 - **range**: Push on a full queue and Pop on an empty queue are guarded and return a Boolean Ok flag so the failure outcome is visible and nothing is silently dropped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, packages, 'Image of scalars and Put without a newline.
 

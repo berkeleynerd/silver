@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for -99..100 are tiny, so types and a guard on the accumulator should discharge every check, but the carried accumulator and nested loops need careful program shape, hence plausible rather than likely.
 
-Position 225 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 225 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure computes D(m) for m in 1..100 by trial division with a for loop over
 - **range**: The remaining-cofactor variable is a subtype 1..100 and is only divided by a for-loop index of at least 2, so the quotient stays in range from types alone.
 - **termination**: The factor-stripping while loop sits in a procedure, which gets no termination check, and the outer candidate loop is a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars and string building.
 

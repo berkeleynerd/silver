@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is iterative array swapping with small integer ranges and 12! fits in 64 bits, so every check follows from types and a few guards, but the loop-carried rank accumulator and the LCG need careful range shaping.
 
-Position 942 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 942 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Permutations are fixed-capacity arrays of a 0..11 subtype with an inverse array,
 - **range**: Pseudo-random ranks must land in 0..12!-1, which is achieved by taking a mod 12! of an LCG state held in a wide range type so the multiply cannot overflow.
 - **termination**: All loops are for loops or live in procedures, and the Myrvold-Ruskey rank and unrank are written iteratively, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline, Boolean objects and conditional expressions.
 

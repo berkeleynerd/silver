@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by ranged subtypes plus loop-condition guards, and the loops live in procedures so no termination check or annotation is needed. The only non-routine part is that the game ends with probability one rather than by a provable bound, which is irrelevant to procedures.
 
-Position 1283 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1283 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A deterministic modular LCG yields die rolls 1..6, and a procedure Play_Turn(Pla
 - **overflow**: Turn total and score are ranged subtypes, and each addition occurs inside a while loop whose condition (turn below the hold threshold, score below 100) bounds the operands just before use.
 - **range**: The die value is derived from a modular LCG state by mod 6 plus 1, which is statically within 1..6.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, Boolean objects, records, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

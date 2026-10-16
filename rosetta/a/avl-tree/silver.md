@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The pointer-based, recursive, generic Ada solution can be recast as an array-indexed tree with iterative procedures, so index and range checks follow from types and guards, but the many loop-carried heights, balances and parent links make discharge depend on careful program shape rather than being routine.
 
-Position 860 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 860 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent the tree as a fixed-capacity array of node records (key, left, right, 
 - **overflow**: Keys are a bounded integer range and comparisons and height sums stay within small ranged types, so arithmetic overflow follows from types and guards.
 - **other**: Rotation correctness (that a child needed for a rotation is non-null) is not a proof obligation with a sentinel node at index 0, but the code should test the child before use so no later check depends on a tree-shape invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, case statements, 'Image of scalars, Put without a newline and integer division.
 

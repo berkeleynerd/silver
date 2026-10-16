@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only a linked structure, which an index-linked array pool expresses without pointers or recursion, and every index and range check follows from the ranged link subtype and explicit guards, so proofs should discharge without annotations.
 
-Position 596 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 596 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The list lives in a fixed-capacity array of records (Value : Character, Next : L
 - **index**: Links are a ranged subtype (0 meaning null) used to index a fixed pool, and each dereference is guarded by an explicit test that the link is not null and the pool is not full, so the checks follow from types and guards.
 - **initialization**: The whole pool is initialized by a full array aggregate and the string buffer is filled completely before output, so data-flow analysis needs no annotation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, arrays, records, for loops, procedures, Boolean objects, string indexing, string building and Put without a newline.
 

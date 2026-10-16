@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay, clock.** The task is in the Concurrency category and explicitly requires concurrency: the five philosophers are tasks contending for five fork resources. A faithful solution needs library-level tasks and protected Fork objects with simple Boolean entry barriers, with deadlock prevented by grabbing forks in a fixed global order. This fits SPARK's Ravenscar/Jorvik tasking subset, so the task is a candidate once Silver admits tasking, delays and the real-time clock. One open point: SPARK tasking needs a pragma Profile configuration pragma, which has to come from Silver's toolchain configuration rather than from program source, because only pragma SPARK_Mode (On) is allowed in source.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, enumerations, arrays, loops, integers, subprograms, packages and string operations.
 

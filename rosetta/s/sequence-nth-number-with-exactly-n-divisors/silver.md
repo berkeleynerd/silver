@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs no annotation because every loop is a bounded for loop and the arithmetic is bounded by declared subtypes. Discharge still depends on careful shape: guarded counter increments, a subtype-bounded carry, and a capacity guard on the big-number digit array, which together make the outlook plausible rather than likely.
 
-Position 1376 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1376 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each n from 1 to 15, the program checks whether n is prime by trial division
 - **index**: The top digit position grows across the repeated multiplications, so it needs a capacity guard before each extension that reports overflow instead of writing past the 30-digit array.
 - **overflow**: The trial-division test d * d <= m is nonlinear, but it discharges because d and m are both in declared ranges of at most 10000, so the product fits in Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, big numbers, for loops, 'Image of scalars and string building.
 

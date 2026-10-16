@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer fixed-point series over a bounded for loop keeps every operand within declared ranges, so all checks follow from types and one guard, giving a plausible outlook; floating point is avoided since the task only asks for the value of e, not a specific method.
 
-Position 545 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 545 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Compute e as a fixed-point integer scaled by 10**15 using the series sum of 1/k!
 - **range**: The term shrinks each iteration but the prover only knows its subtype range, so division by the positive loop index is assigned back into the same subtype, which is routine.
 - **index**: Digit extraction into a fixed 15-character buffer uses a for loop over the buffer's own range with the remainder converted to a character via 'Val on a 0..9 value, which discharges from the mod bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, for loops, 'Image of scalars and Put without a newline.
 

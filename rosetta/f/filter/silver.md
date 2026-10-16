@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges over the array's own bounds and the only loop-carried value is a count whose increment is guarded by a capacity test, so no annotation is needed.
 
-Position 122 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 122 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed a constant Integer array of 1..10 and a result array of the same length wi
 
 - **range**: The loop-carried count of selected items is incremented only under an explicit guard that it is below the result array's capacity, so the increment and the result index follow from the guard and the count subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops and 'Image of scalars.
 

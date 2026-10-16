@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task asks for an executable that embeds an interpreted program's source and runs it. In a Silver-friendly solution that means writing a constant string to a temporary file, spawning the interpreter and removing the file. That needs the files and processes effects but breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

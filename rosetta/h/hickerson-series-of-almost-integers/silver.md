@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs more than 64-bit precision, so it uses fixed-capacity big numbers with a rapidly convergent integer series that avoids floating point, recursion and annotations; every operation is a bounded for loop over limbs, but carry-propagating loops make proof discharge depend on careful program shape.
 
-Position 1394 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1394 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent numbers as a constrained array of base-10**9 limbs in a fixed-capacity
 - **index**: Limb and digit indexes come from for loops over the arrays' own ranges, and carry propagation uses a bounded for loop with an explicit overflow guard instead of an open-ended while loop.
 - **termination**: All loops are for loops with fixed bounds or while loops inside procedures, so no termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, string building, 'Image of scalars and big numbers.
 

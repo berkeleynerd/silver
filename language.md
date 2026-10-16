@@ -1,14 +1,16 @@
 # Silver language specification
 
 Silver is one evolving language before 1.0. This specification describes the
-predicate and path-sensitive language under the [Oracle](oracle.md), including
-the context, visibility and association rules validated in the
-[Names and Calls checkpoint](docs/names-and-calls.md). The
-[conditional-statement delivery record](docs/branches.md) records the completed
-Linux milestone, building on the earlier [sequencing checkpoint](docs/statement-sequencing.md). The
-[machine-readable catalogue](catalogue/silver.json), compiler, and this
-specification must agree. A discrepancy is a defect to resolve, not an extension
-of the language. Membership depends on source bytes, never on prover success.
+predicate, path-sensitive and finite-loop language under the [Oracle](oracle.md),
+including the context, visibility and association rules validated in the [Names and
+Calls checkpoint](docs/names-and-calls.md). The [conditional-statement delivery
+record](docs/branches.md) records the completed Linux milestone, building on the
+earlier [sequencing checkpoint](docs/statement-sequencing.md). The [For loops and
+integers delivery record](docs/for-loops-integers.md) covers immutable Integer
+values, scoped loops and standard Integer Image. The [machine-readable
+catalogue](catalogue/silver.json), compiler, and this specification must agree. A
+discrepancy is a defect to resolve, not an extension of the language. Membership
+depends on source bytes, never on prover success.
 
 Inherited meanings are fixed by the checked-in
 [Ada 2022 Reference Manual](references/ada/2022/RM-TOC.html) and
@@ -149,27 +151,30 @@ write `X = "[" then` or `X = ("[")then`. Other bracket literals and ordinary
 literal/keyword adjacency retain their existing rules.
 
 A declared name matches `[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*`: an ASCII letter
-followed by letters or digits, optionally separated by single underscores,
-without a trailing underscore. The 74 Ada 2022 reserved words, `String` and
-`Silver_IO` are excluded ignoring ASCII case. In an argument-bearing shell,
-`Silver_Arguments` is also excluded for **every** declaration. All names within
-one program must be distinct ignoring ASCII case. `Main` is legal;
-`Silver_Arguments` remains legal in the static shell. Every
-reference matches the entire declared identifier ignoring ASCII case. There is
-no additional identifier-length limit beyond the complete source bound.
+followed by letters or digits, optionally separated by single underscores, without a
+trailing underscore. The 74 Ada 2022 reserved words, `String` and `Silver_IO` are
+excluded ignoring ASCII case. In an argument-bearing shell, `Silver_Arguments` is
+also excluded for **every** declaration. Names in the ordered declaration region must
+be distinct ignoring ASCII case across String and Integer declarations. Loop indexes
+have the scoped hiding rules below. `Main` is legal; `Silver_Arguments` remains legal
+in the static shell. Every reference matches the entire declared identifier ignoring
+ASCII case. There is no additional identifier-length limit beyond the complete source
+bound.
 
 ### Ordered declarations, names and copies
 
 After the pragma, each nonargument output form has zero or more declarations:
 
 ```text
-declaration ::= name ":" [ "constant" ] "String" ":=" initializer ";"
-initializer ::= expression
+declaration ::= name ":" [ "constant" ] "String" ":=" expression ";"
+              | name ":" "constant" "Integer" ":=" scalar_expression ";"
 ```
 
 Each declaration introduces exactly one name. Every initializer is required;
-it may read any earlier constant or mutable object. Forward, cyclic and
-self-initializer references are excluded. Each initializer evaluates its literals, earlier names and concatenations
+a String initializer may read earlier String constants or mutable objects and
+use Integer Image; an Integer initializer may read earlier Integer constants.
+Forward, cyclic and self-initializer references are excluded. Each String
+initializer evaluates its literals, earlier names, images and concatenations
 immediately; parenthesized subexpressions preserve their grouping. A name
 contributes the source object's current bytes:
 a later write to the source does not change its earlier copies. Constants are
@@ -182,14 +187,123 @@ that API are excluded in this milestone. Every declaration executes before
 body guards; later path facts cannot justify an earlier initializer.
 
 Initialization fixes each object's bounds. An initializer using only static-length
-values has a known fixed length. A dynamic initializer must have exactly one
-dynamic occurrence and no nonempty static contribution, since it executes
-before guards and must fit for every `d <= 4096`. Such an object and `D` share
-the symbolic selected-input length `d`; each object's bounds remain fixed during that execution. This length
-relationship survives copies, including mutable-source snapshots. Native binding
-storage has `4096 / 12 = 341` slots because even `A:String:=B;` consumes twelve
-source bytes. This is capacity derived from the complete-source bound, not an
+values has a known fixed length. A dynamic initializer must have exactly one dynamic
+occurrence and no nonempty non-input contribution, since it executes before guards
+and must fit for every `d <= 4096`. Such an object and `D` share the symbolic
+selected-input length `d`; each object's bounds remain fixed during that execution.
+This length relationship survives copies, including mutable-source snapshots. Native
+binding storage has `4096 / 12 = 341` slots because even `A:String:=B;` consumes
+twelve source bytes. This is capacity derived from the complete-source bound, not an
 independent declaration-count restriction.
+
+### Immutable Integer expressions and comparisons
+
+The predefined `Integer` range on the pinned native targets is -2147483648
+through 2147483647. Every Integer declaration is an initialized constant;
+mutable Integer objects, custom scalar types/subtypes and conversions are
+excluded. Constants and loop indexes are distinct from String values: there
+is no implicit conversion between the two types.
+
+```text
+scalar_expression ::= scalar_unsigned | sign scalar_integer_literal
+scalar_unsigned   ::= scalar_integer_literal | scalar_name | scalar_group
+scalar_group      ::= "(" scalar_unsigned ")"
+                    | "(" sign scalar_unsigned ")"
+                    | "(" scalar_unsigned scalar_operator scalar_unsigned ")"
+scalar_operator   ::= "+" | "-" | "*"
+sign              ::= "+" | "-"
+```
+
+Here `scalar_name` denotes a visible Integer constant or loop index. Each scalar
+expression has one through sixty-four literal/name leaves. Binary operations
+are fully parenthesized; `1 + 2` is excluded and `(1 + 2)` is admitted. A sign
+outside a group can prefix only a numeral: `-1` is admitted, while negating a
+name requires `(-N)`. Signed operands of binary operations need their own
+groups: write `((-1) + 2)` or `(1 + (-2))`, not `(-1 + 2)` or `(1 + -2)`.
+Parentheses have no separate depth limit within the complete-source bound.
+
+Scalar numerals use the decimal/based spelling and exponent rules described
+below for length literals, with magnitude at most 2147483648. This larger
+magnitude permits the directly signed minimum `-2147483648`; every resulting
+scalar value must still fit Integer. Thus `2147483648`, `+2147483648` and
+`(-(2147483648))` are excluded. The exponent remains nonnegative and at most
+4096, even for zero. Division, `mod`, `rem`, `abs` and exponentiation as an
+expression operator are excluded.
+
+Admission propagates closed Integer intervals. Constants have singleton
+intervals; loop indexes use the intervals below. Addition and subtraction use
+their endpoint bounds, multiplication uses the minimum and maximum of the four
+endpoint products, and negation reverses and negates the endpoints. Every
+intermediate result must fit Integer for the entire inferred interval. The
+analysis does not exploit correlations such as two occurrences of the same
+index. An empty index interval makes index-dependent safety vacuous, but never
+permits an out-of-range static subexpression.
+
+Scalar comparisons admit `=`, `/=`, `<`, `<=`, `>` and `>=` between scalar
+expressions and compose with the existing short-circuit predicates. They do
+not narrow scalar intervals or input path facts, even when their truth is
+statically known. A guard such as `I < 10` therefore does not justify `(I + 1)`
+when the incoming index interval includes Integer's maximum.
+
+The type mark `Integer` must be visible in declarations and Image expressions.
+An Integer constant cannot itself be named `Integer`. A String object named
+`Integer` remains legal, but hides the type in its own initializer and later
+source; scalar declarations cannot use that hidden type mark.
+
+### Scoped finite for loops
+
+```text
+for_loop ::= "for" index_name "in" [ "reverse" ]
+             scalar_expression ".." scalar_expression "loop"
+             statements "end" "loop" ";"
+```
+
+Bounds are evaluated once on loop entry. A forward loop visits the inclusive
+range in ascending order; `reverse` visits that same range in descending order.
+A lower bound greater than the upper bound gives zero iterations in either
+direction. A body is nonempty and may contain any admitted statement, including
+nested loops, choices, String assignments, output and argument-shell Reject.
+The index is immutable and disappears on loop exit. Declarations stay in the
+single outer declaration region; `exit`, `while`, unconstrained loops and
+explicit iteration steps are excluded.
+
+Indexes may hide a String, an Integer constant, an enclosing index or a
+use-visible operation. The index's own name is hidden in both bounds: an inner
+`for I in 1 .. I` cannot use the outer `I`. Differently named enclosing indexes
+remain available, as in `for J in 1 .. I`. Sequential loops may reuse names.
+Index names obey the identifier/reserved-word rules and cannot be `Silver_IO`,
+or `Silver_Arguments` in an argument shell. Unlike ordinary declarations, an
+index may be named `String` or `Integer`; `Integer` then hides the Image type
+mark within the body. Qualified library calls remain available when an index
+hides an unqualified operation.
+
+For bound intervals `[a,b]` and `[c,d]`, the body index interval is `[a,d]`, or
+empty if either bound interval is empty or `a > d`. The loop is definitely
+nonempty when both intervals are nonempty and `b <= c`. Admission checks the
+body once over this interval, without enumerating iterations or using
+loop-carried scalar values. An empty loop preserves incoming path facts; a
+definitely nonempty loop retains the body exit facts; an uncertain loop joins
+incoming and body exit facts. Every String assignment preserves its object's
+fixed bounds. Finite Integer ranges establish termination; the application
+proof configuration disables loop unrolling.
+
+### Standard Integer Image
+
+`Integer'Image (scalar_expression)` is a String atom in ordinary initializers,
+assignment values, comparison operands and output, including concatenations.
+Its one positional scalar argument is mandatory; named association, other
+scalar images and `Standard.Integer'Image` are excluded. It uses Ada's standard
+decimal bytes: a leading space for nonnegative values, a minus sign for negative
+values, then the decimal magnitude without leading zeroes. Zero is `" 0"`.
+No trimming, replacement formatting or hidden application source is involved.
+
+For value `v`, image length is one plus the number of decimal digits in `abs v`,
+with zero having one digit. Signed 32-bit images therefore have lengths 2 through
+11. For an interval, the maximum is the larger endpoint length; the minimum is
+2 when the interval crosses zero, otherwise the smaller endpoint length. An
+empty interval records no possible value, with zero Image length contributions.
+Image is one String leaf; its scalar argument has its own sixty-four-leaf limit,
+and all operators still share the source budget below.
 
 ### Common String expressions
 
@@ -197,10 +311,11 @@ Initialization, assignment, both operands of String equality/inequality, and out
 
 ```text
 expression ::= atom { "&" atom }
-atom       ::= L | initialized_name | "(" expression ")"
+atom       ::= L | initialized_string_name | "(" expression ")"
+             | "Integer" "'" "Image" "(" scalar_expression ")"
 ```
 
-An expression has one through sixty-four literal/name leaves. Each occurrence
+A String expression has one through sixty-four literal/name/Image leaves. Each occurrence
 counts, including empty values and repeated names. Parentheses control grouping;
 unparenthesized concatenation associates to the left. The catalogue's `association`
 field for concatenation records this default; its separate parentheses flag
@@ -210,42 +325,47 @@ other operators and implicit conversion are excluded. References resolve to
 initialized objects in the common declaration environment. The output may omit
 an assignment target entirely.
 
-Let `S` be the total decoded literal and static-name length, `K` the number of
-dynamic occurrences (including aliases), and `d` the selected argument length.
-Expression length is exactly `S + K*d`. Every complete expression and intermediate
-String value must fit within 4096 bytes. Admission requires:
+Let `[M,N]` be the sum of the non-input length intervals: decoded literals,
+fixed-length String names and Image lengths. Let `K` count dynamic input-length
+occurrences, including aliases, and `d` be the selected argument length. The
+expression length lies in `[M + K*d, N + K*d]`; without a varying Image length,
+`M = N` and this is the earlier exact affine length. Concatenation sums both
+endpoints and counts occurrences with multiplicity.
 
-```text
-S + K*C <= 4096
-```
+Every expression and intermediate String must fit 4096 bytes. Admission always
+requires `N <= 4096`, and requires `N + K*C <= 4096` for reachable evaluations,
+where `C = 4096` in initializers and is the greatest currently reachable valid
+input length in the body. Invalid input contributes length zero and is tracked
+separately. Initializers require equal non-input endpoints and cannot borrow
+later guards. Nonnegative operand lengths make the total bound cover every
+intermediate concatenation.
 
-Here `C = 4096` for declaration initializers. Body expressions use the greatest
-selected-input length still reachable on the current path. Valid-input lengths
-are represented by a closed interval; invalid input has length zero and is
-tracked separately. If no path reaches an expression, its evaluation bound is
-vacuous only for the dynamic contribution: the static contribution must always
-fit within 4096 bytes. Names, mutability and expression grammar must still be
-valid. For an assignment to a static target of length `T`, the RHS static
-contribution `S` must satisfy `S <= T`, with `S = T` when `K = 0`, even on an
-unreachable path.
-Repeated dynamic references are permitted when the applicable bound holds. The total bound covers all
-intermediate groups because operand lengths are nonnegative. Initializers cannot
-borrow the later body's capacity. Assignment additionally requires equality of its affine length and the target's
-fixed/static or symbolic length throughout the reachable interval, and at zero
-if invalid input remains reachable.
+Assignment requires both RHS length endpoints to equal the target's fixed or
+symbolic length throughout the reachable input interval and at zero when invalid
+input remains reachable. A varying image length cannot be assigned to a fixed
+target merely because its maximum fits: an index from 9 through 10 has Image
+lengths 2 through 3, so neither a two-byte nor a three-byte target is compatible.
+An index from -9 through 9 always has Image length 2 and can use a two-byte target.
 
-The source has at most **63 concatenation operators** across all initializers,
-assignment values, equality operands and output expressions, including every
-conditional arm and predicate operand. Ampersands inside literals or comments do not count. This explicit
-proof-work resource budget permits one maximal 64-leaf expression, or the same
-total number of operators distributed across expression positions. Atomic copies
-and parentheses consume no concatenation budget. The sixty-four-leaf and sixty-three-
-operator limits restrict expression complexity; they do not bound total proof,
-translation or report cost from repeated assignments and control flow. These are
-project resource policies, not Ada/SPARK restrictions or proved solver-time bounds.
-The [expression capacity evidence](docs/larger-expressions.md) records their
-justification. The [sequencing capacity record](docs/statement-sequencing.md#external-review-and-capacity-follow-up)
-records measured whole-program cost and the remaining external-tool premises.
+For a nonempty RHS and a static target of length `T`, both non-input endpoints
+must be at most `T`, and both must equal `T` when `K = 0`, even in unreachable
+arms. An Image over an empty index interval makes the expression unevaluated;
+its other non-input contributions still count toward the 4096-byte limit and
+its minimum retained contribution must fit a static target. Thus an empty-loop
+assignment of `"too long" & Integer'Image (I)` to a one-byte target is excluded.
+Names, types, mutability and static scalar legality remain checked everywhere.
+
+The source has at most **63 operators shared by String concatenation and scalar
+arithmetic**: every `&`, unary or binary `+`/`-`, and `*` across declarations,
+loop bounds, all statements and predicate operands in every arm counts. Operator
+characters in literals/comments and a numeric exponent's `+` do not count.
+Copies, parentheses, comparisons and Image itself consume no operator budget.
+This explicit proof-work policy permits a maximal 64-leaf expression or the
+same operator total distributed across positions. The expression and source
+budgets do not bound iteration count, elapsed execution or total proof cost.
+They are Silver resource policies, not Ada/SPARK restrictions or solver-time
+guarantees; the [delivery record](docs/for-loops-integers.md) gives the associated
+report-capacity and validation evidence.
 
 ### Statement sequences and fixed-bound assignment
 
@@ -253,7 +373,7 @@ Every output-capable body contains a nonempty sequence of these statements:
 
 ```text
 statements       ::= statement { statement }
-statement        ::= basic_statement | string_choice
+statement        ::= basic_statement | string_choice | for_loop
 basic_statements ::= basic_statement { basic_statement }
 basic_statement  ::= "null" ";"
                    | reject_name ";"
@@ -273,16 +393,11 @@ Statements execute in source order. Null does nothing. Assignment evaluates the
 RHS using the current store, replaces the target's bytes and preserves its fixed
 bounds and every other object's value. Only initialized mutable names are targets;
 constants and the original argument binding cannot be assigned. Assignment
-requires equal lengths on every reachable input: equal static lengths, the same
-symbolic input length `d`, or equality established by a preceding predicate.
-For a static target of length `T`, the RHS static contribution `S` must satisfy
-`S <= T` regardless of reachability, and `S = T` when the RHS has no dynamic
-occurrences. This explicit pre-1.0 restriction prevents GNAT's SPARK code
-generation from rejecting impossible fixed-bound assignments in dead arms.
-It applies to both `"abcd" & Input` and `Input & "abcd"` when `T = 3`, even
-though GNAT can compile the latter in some dead arms. Membership therefore does
-not depend on operand-order or dead-code-folding quirks. Dynamic targets retain
-the reachable-path equality rule.
+requires the interval endpoint compatibility above on every reachable input,
+including equality established by a preceding String or Length predicate.
+Static target restrictions also apply in dead arms, independently of operand
+order and the frontend's dead-code simplification. Dynamic targets retain the
+reachable-path equality rule.
 Empty values and self-copy are legal. For example, inside `if Input'Length = 3`,
 a variable initialized from Input can receive a three-byte static value. `:=` is one
 contiguous token.
@@ -351,6 +466,7 @@ failed compilation of admitted source is still a defect, never nonmembership.
 condition        ::= relation { "and" "then" relation }
                    | relation { "or" "else" relation }
 relation         ::= expression ( "=" | "/=" ) expression
+                   | scalar_expression comparison scalar_expression
                    | name "'" "Length" comparison length_operand
                    | primary | "not" primary
 primary          ::= validity_name
@@ -361,23 +477,22 @@ length_operand   ::= integer_literal | name "'" "Length"
 
 `validity_name` follows the same context and hiding rules as the other calls.
 
-String equality/inequality compares current bytes, case-sensitively. Unequal
-lengths compare unequal. At least one operand must contain an initialized String
-name so Ada resolves the array type. Both operands must fit their incoming path
-bounds before the comparison can establish any further facts.
+String equality/inequality compares current bytes, case-sensitively. Unequal lengths
+compare unequal. At least one operand must contain an initialized String name or
+Integer Image so Ada resolves the array type. Both operands must fit their incoming
+path bounds before the comparison can establish any further facts.
 
 Length predicates may read any earlier initialized binding, including an alias or
-mutable object. Length remains fixed after initialization. The left operand must
-be a binding's Length. Reversing a literal and Length is excluded to keep one
-canonical comparison orientation in this initial predicate fragment. Arithmetic
-and other attributes are excluded because their evaluation and path-refinement
-rules are outside its fixed-length analysis. Ordering String bytes is excluded
-because this fragment refines lengths, not lexical order. These are current
-scope limits, not inherited Ada restrictions. The validity query is available
-only in the argument-input shell and
-has no parentheses of its own. Boolean literals are not admitted; True and False
-remain legal String binding names. This scope choice adds only predicates over
-the existing String/input operations, without a Boolean value-expression grammar.
+mutable object. Length remains fixed after initialization. The left operand must be a
+binding's Length. Reversing a literal and Length is excluded to keep one canonical
+comparison orientation in this initial predicate fragment. Arithmetic and attributes
+other than Length are excluded from these length operands; the separate scalar
+comparison grammar above admits Integer arithmetic. Ordering String bytes is excluded
+because this fragment refines lengths, not lexical order. These are current scope
+limits, not inherited Ada restrictions. The validity query is available only in the
+argument-input shell and has no parentheses of its own. Boolean literals are not
+admitted; True and False remain legal binding names. Predicates have no separate
+Boolean value-expression grammar.
 
 `and then` evaluates its right operand only after a true left operand; `or else`
 evaluates it only after a false left operand. That path's facts justify the right
@@ -389,11 +504,17 @@ short-circuit facts and has no need for their separate evaluation rules.
 A conditional executes the first true arm, its optional else, or no statements
 if every condition is false and else is absent. Each written arm is nonempty and
 may contain null, assignment, output, Reject in an argument shell, and nested
-conditionals. Multiple conditionals and elsif arms are permitted up to the
+conditionals and loops. Multiple conditionals and elsif arms are permitted up to the
 complete-source bound, without a separate count or nesting cap.
 
-True String equality (or false inequality) implies equality of operand lengths
-and can refine `S + K*d`. False String equality does not imply unequal lengths.
+True String equality (or false inequality) requires overlap of the operand
+length intervals and refines the input-length interval accordingly. Equal
+dynamic occurrence counts retain a path only when the non-input intervals
+overlap; unequal counts derive lower and upper input-length bounds using
+integer ceiling/floor division. For example, equality of `Input & Input`
+with a two-to-three-byte Image leaves only input length 1. False String
+equality does not imply unequal lengths. This does not narrow scalar intervals
+or establish equal bytes for later mutable reads.
 Length comparisons refine the valid-input interval and the invalid-input case.
 An assignment preserves length facts because it preserves bounds, even when the
 bytes change. A join keeps an interval covering both arms and retains guaranteed
@@ -469,11 +590,12 @@ fixed-guard samples remain instances of the same rules.
 
 ### Shared composition rules
 
-Whitespace around punctuation is optional; adjacent word tokens require a
-separator, and the final-bracket literal rule above also applies. Declarations precede the entire executable body. Statements and
-recursive choices compose under the shared state, expression and effect rules;
-path facts and rejection requirements apply at each executed operation and join.
-No application can call `Ada.Text_IO`, libc imports or an unlisted library API.
+Whitespace around punctuation is optional; adjacent word tokens require a separator,
+and the final-bracket literal rule above also applies. Declarations precede the
+entire executable body. Statements and recursive choices and loops compose under the
+shared state, expression and effect rules; path facts and rejection requirements
+apply at each executed operation and join. No application can call `Ada.Text_IO`,
+libc imports or an unlisted library API.
 
 The catalogue uses these construct identifiers:
 
@@ -483,15 +605,18 @@ The catalogue uses these construct identifiers:
 | `runtime_context`, `argument_context` | Grouped, reordered or repeated with/use clauses for the shell's exact package set; with precedes use. |
 | `string_literal`, `named_string_constant`, `named_string_variable` | Restricted literals and ordered initialized constant/mutable declarations. |
 | `string_copy` | Snapshot initialization and current name reads for compatible assignments. |
-| `string_expression`, `string_concatenation` | One through sixty-four literal/name leaves with parentheses; at most sixty-three concatenations per program. |
+| `string_expression`, `string_concatenation` | One through sixty-four literal/name/Image leaves; sixty-three operators shared with scalar arithmetic. |
+| `scalar_integer_literal`, `named_integer_constant`, `integer_expression` | Scalar numerals, immutable Integer declarations and fully grouped checked interval arithmetic. |
+| `integer_comparison`, `integer_image`, `for_loop` | Scalar comparisons without refinement, standard decimal Image and scoped forward/reverse finite loops. |
 | `expression_output`, `literal_output`, `named_output`, `concatenated_output` | Returning output calls with qualified or visible unqualified names and positional or `Item =>` actuals. |
 | `argument_initialization`, `input_guard`, `capacity_guard`, `argument_rejection` | First/unique immutable input with positional or `Default =>` literal, path-derived validity/capacity and returning rejection; existing calls follow the shared visibility rules. |
 | `string_equality`, `string_choice` | Nested predicates with nonempty statements, repeated `elsif`, optional `else` and path refinement. |
 | `length_predicate`, `boolean_predicate`, `integer_literal` | Fixed-bound length comparisons, grouped short-circuit logic and bounded decimal/based integer spelling. |
 | `string_assignment` | Fixed-bound assignment, including self-copy and path-established length equality. |
-| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices. |
+| `statement_sequence`, `basic_statement_sequence` | Nonempty finite ordered statements; basic sequences contain null, assignment, output and argument-shell Reject; general sequences also contain choices and loops. |
 
-Everything else is excluded, including loops, Boolean values outside the specified predicate grammar,
+Everything else is excluded, including mutable Integers, other loop forms,
+Boolean values outside the specified predicate grammar,
 additional declaration regions, resizable strings, other array
 operations, access types and file handles.
 The catalogue's token arrays are informative skeletons, including qualified,
@@ -565,32 +690,37 @@ validity and output-domain bounds for `D` and its dynamic aliases. The universal
 must cover all admitted names, declarations, copies, argument vectors and paths.
 
 Literal/static expressions and plain name output may have no Main safety checks.
-Runtime concatenation can emit range checks; copied dynamic-length assignments
-can emit length checks. Every emitted Main safety record must be a proved/info
-`VC_RANGE_CHECK` or `VC_LENGTH_CHECK`, with complete coverage, approved dependencies
-and no suppression. Length checks require the fixed-bound argument; their absence
-through static elimination is no longer a prerequisite for supporting copies.
+Runtime concatenation can emit range checks; copied dynamic-length assignments can
+emit length checks; scalar arithmetic can emit overflow checks. Every emitted Main
+safety record must be a proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK` or
+`VC_OVERFLOW_CHECK`, with complete coverage, approved dependencies and no
+suppression. Length checks require the fixed-bound argument; their absence through
+static elimination is no longer a prerequisite for supporting copies.
 
 All output policies classify finite lists of the exact `INEFFECTIVE` initializer
 advisory. Assignment-bearing policies also classify the exact `unused assignment`
-advisory. All output-capable policies also classify the exact
-`INEFFECTIVE` message `statement has no effect` and `DEAD_CODE` message
-`this statement is never reached`, produced by statically known predicates.
-Repeated output additionally permits only the four exact `INEFFECTIVE`
-messages naming the overwritten ghost outputs `Written_Count`, `Flushed`,
-`Succeeded` and `Written_Bytes` of either `Put` or `Put_Line` (eight exact messages). Every accepted advisory retains
-Main location, flow provenance and no suppression. Initializers still establish
-object bounds even when their bytes are unused. Other warnings in the audited reports fail; naming conventions that make
-GNATprove omit an advisory do not change membership.
+advisory. All output-capable policies also classify the exact `INEFFECTIVE` message
+`statement has no effect` and `DEAD_CODE` message `this statement is never reached`,
+produced by statically known predicates. Repeated output additionally permits only
+the four exact `INEFFECTIVE` messages naming the overwritten ghost outputs
+`Written_Count`, `Flushed`, `Succeeded` and `Written_Bytes` of either `Put` or
+`Put_Line` (eight exact messages). These flow advisories retain Main location, flow
+provenance and no suppression. Initializers still establish object bounds even when
+their bytes are unused. The warning list additionally permits only the exact producer
+`imprecise-image` advisory, including its full message and producer state; it never
+discharges or removes a safety check. The [assurance policy](docs/assurance.md)
+specifies its native/SARIF classification. Other warnings in the audited reports
+fail; naming conventions that make GNATprove omit an advisory do not change
+membership.
 
 Faithful static evaluation, complete obligation/report generation, completeness
 of the accepted producer shapes and pinned solver completion for the bounded
-range/length fragment remain explicit
+range/length/overflow fragment remain explicit
 [tool premises](docs/trusted-boundary.md#source-identity-and-program-proof-evidence).
 Native examples corroborate them; they do not prove universal assurance.
 Complete selected-library obligations remain mandatory for every output compile.
 See [assurance.md](docs/assurance.md) and the
-[current delivery record](docs/branches.md) for exact validation scope.
+[current delivery record](docs/for-loops-integers.md) for exact validation scope.
 
 Authors supply neither contracts nor proof annotations. Admission, proof and
 compilation use the same source bytes, snapshotted as `main.adb`. Every output
@@ -604,10 +734,13 @@ specified environmental execution failure is an outcome, not source rejection.
 ## Examples and growth
 
 The [sample manifest](samples/manifest.json) records each supported sample's
-capabilities and expected output/status. Existing null, literal, named,
-command-line, greeting, assignment and branching samples remain instances of
-the complete shells above. Tests admit, prove, build and execute the samples;
-examples exercise the rules without replacing universal assurance.
+capabilities and expected output/status. Existing null, literal, named, command-line,
+greeting, assignment and branching samples remain instances of the complete shells
+above. Tests admit, prove, build and execute the samples; examples exercise the rules
+without replacing universal assurance. The [triangle](samples/for_loop_triangle.adb),
+[specified-step values](samples/for_loop_step.adb) and [reverse
+countdown](samples/for_loop_countdown.adb) exercise the new loop, immutable Integer
+and standard Image forms.
 
 Language changes must specify exact syntax, restrictions, inherited semantics
 and compositions. Before 1.0, intentional changes are reflected consistently in

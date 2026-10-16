@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Not a candidate. The task's core requirement is a run-time factory that returns a real function holding its own private mutable state (a closure) with dynamically chosen integer or float results. Ada/SPARK cannot express this, and the Ada workaround of generic instantiation relies on compile-time package-global state that the task explicitly rules out.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, floating point, subprograms, access types and records.
 

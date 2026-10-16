@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task prints one word in inverse video and then one in normal video, which a program can do by writing ANSI escape sequences as constant text. It needs only console output and terminal attribute control. It breaks no Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and characters.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task is to connect to Active Directory over LDAP and search it for a user. That needs a network/LDAP library operation Silver does not have yet, but it breaks no fixed Oracle rule, so a future Silver with an admitted, specified directory-access operation could cover it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and records.
 

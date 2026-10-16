@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed capacities, ranged indexes and guards, and everything runs in procedures, but the hash probing, key comparison and many loop-carried counters need careful shaping, and the external word list requires stdin line reading.
 
-Position 1366 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1366 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Read lines from stdin into fixed-capacity arrays (about 26000 words of up to 24 
 - **termination**: All reading, probing and grouping loops are while loops inside procedures, so no termination check applies, and the table is kept under-full so probing always finds a slot.
 - **initialization**: All arrays of words, keys and counts are fully initialized with aggregates before the read loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, Boolean objects, arrays, records, string indexing, string building, for loops, while loops, procedures, functions, standard input, Put without a newline, exit status and integer division.
 

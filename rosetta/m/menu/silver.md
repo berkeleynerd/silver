@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the constant item count, a range guard on the parsed number just before indexing, and fixed-capacity buffers, and the retry loop sits in a procedure where no termination proof is needed. Validated parsing and bounded line reading are admitted library operations with specified failure outcomes.
 
-Position 1223 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1223 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The four phrases are held as constant records of a fixed-capacity character buff
 - **index**: The parsed number is used to index the item array only after an explicit test that it lies between 1 and the item count, so the check discharges from the guard just before use.
 - **length**: Each item is stored in a fixed-capacity buffer with its own length, so printing and concatenation stay within declared bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, Put without a newline and standard input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Control flow is just bounded for loops, but floating-point hyperbolic functions and a loop-carried accumulator need an admitted math library with range contracts and careful range subtypes, so discharge is plausible rather than routine.
 
-Position 1515 in the [progression](../../../progression.md#stage-31), in stage 31.
+Position 1515 in the [progression](../../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Define a bounded Float type, an enumeration choosing the integrand (Sin or Exp) 
 - **range**: The index i from -n to n with n = 2**k - 1 and k at most 5 is bounded by a ranged subtype for k, so i*h stays within a declared range.
 - **termination**: All loops are bounded for loops inside a procedure, so no variant is needed; the integrand is selected by an enumeration with a case-style if rather than a function pointer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, floating point, arrays, for loops, functions, procedures, string building, 'Image of scalars, floating-point images and Put without a newline.
 

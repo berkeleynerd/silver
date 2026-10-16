@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is fixed-offset on constrained 95-character strings inside for loops, the checksum accumulator is bounded by mod 10, and no recursion, while loop or variant is needed, so all checks follow from types and static bounds.
 
-Position 809 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 809 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the ten 95-character scans as constants in an array of constrained Strings
 - **index**: Slice bounds are computed from the for-loop variable over fixed 1..6 ranges on constrained 95-character strings, so each start and end index is statically within 1..95.
 - **range**: Digit characters come from a lookup that returns a value in 0..9 or a not-found flag, with the guard tested just before the Character'Val conversion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, for loops, procedures, functions and case statements.
 

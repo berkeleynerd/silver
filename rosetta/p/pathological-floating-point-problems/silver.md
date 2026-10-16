@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The loops are fixed-count for loops and the arithmetic is simple, but floating-point division by loop-carried values and range-bounded intermediates need guards that the provers must handle, and float formatting needs an admitted library operation, so discharge is plausible rather than routine.
 
-Position 1577 in the [progression](../../progression.md#stage-39), in stage 39.
+Position 1577 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use a range-constrained long float subtype for the recurrence (Task 1), the bank
 - **floating point**: Rump's expression needs b**8 near 1.4e36 and cancellation, so it is computed in a bounded float subtype with ranges wide enough for the intermediates, and the provers must bound each nonlinear term.
 - **other**: Printing 16 decimal places needs a float-to-text routine with computed-length buffers, which Silver would have to supply as an admitted library operation since 'Image on floats is not provable to bound length by itself.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, fixed point, arrays, records, for loops, case statements, procedures, functions, 'Image of scalars, floating-point images, string building, Put without a newline and big numbers.
 

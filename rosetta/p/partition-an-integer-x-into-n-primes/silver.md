@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are fixed-capacity arrays and bounded integer subtypes, and the search is an iterative loop in a procedure, so no variants or invariants are needed; the main work is placing guards on stack depth, sums and buffer positions.
 
-Position 293 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 293 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve primes up to 100000 into a Boolean array and collect them in a bounded pri
 - **length**: The output line is assembled in a fixed buffer with a tracked write position, and each append is guarded by remaining capacity (about 200 characters for 24 primes), with a visible truncation or reject outcome otherwise.
 - **termination**: The backtracking search is a while loop inside a procedure, so no termination check is generated; it is kept out of functions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

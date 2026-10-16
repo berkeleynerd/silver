@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task only asks the program to read the system clock and print the time with its units noted. That breaks no Oracle rule; Silver just needs an admitted clock library operation (such as Ada.Calendar.Clock with a formatting function) with a specified contract.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, string operations, records and packages.
 

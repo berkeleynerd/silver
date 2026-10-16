@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-length 9-character strings, small ranged integers and a for loop of eight steps make every index, range and overflow check follow from types and guards just before use, with invalid characters given a visible not-valid outcome.
 
-Position 519 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 519 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A subtype Cusip_Text is String (1 .. 9) and a function Value_Of maps a character
 - **overflow**: The running sum is loop-carried, so each position's contribution is computed by a function returning a small ranged subtype and the sum is bounded by a ranged subtype with a guard (or the eight terms are added in one expression) so no invariant is needed.
 - **range**: Character'Pos arithmetic on a validated character class yields a value in a small ranged subtype, discharged by the range test just before the subtraction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, for loops, procedures and functions.
 

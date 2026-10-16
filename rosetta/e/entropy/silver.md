@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, division and logarithm argument is bounded by types, static string length or an adjacent guard, so no annotation is needed, but the loop-carried float accumulator and the dependence on an admitted logarithm and float-formatting library with contracts make discharge depend on careful shape.
 
-Position 1044 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1044 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the string "1223334444" as a constant, keeps a 256-entry arra
 - **division**: The divisor is the string length, which is a static positive constant and is also guarded by an explicit non-zero test before the division.
 - **other**: The log2 value is computed as Log(p) divided by a constant Log(2.0) from an admitted elementary-function library whose contract must supply the positive-argument and finite-result facts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, for loops, floating point, floating-point images, Put without a newline and procedures.
 

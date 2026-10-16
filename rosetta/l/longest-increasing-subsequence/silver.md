@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops in a procedure so no termination or variant issue arises, and the only non-routine checks are loop-carried Best lengths and the Pred index chain, which explicit guards can discharge without annotations. Text building of the printed lists adds some bounded-buffer length checks.
 
-Position 1010 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1010 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Two constant Integer arrays are embedded, and a procedure computes Best and Pred
 - **length**: The output line is assembled in a fixed-capacity buffer sized for the maximum sequence length, with a visible rejection if it would overflow.
 - **range**: Assigning Pred(I) := J and Best_Idx from loop-carried values depends on subtypes of the index range, which discharges only with constrained subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, for loops, procedures, string building, 'Image of scalars, Put without a newline and Boolean objects.
 

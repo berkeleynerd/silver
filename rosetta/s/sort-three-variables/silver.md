@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no loops, no arithmetic and no loop-carried values, and every slice bound comes from a length whose declared subtype matches the buffer, so all checks discharge from types alone.
 
-Position 1481 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1481 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The three text values live in fixed 25-character String buffers, each paired wit
 
 - **index**: Each slice X (1 .. X_Len) used in comparisons and output is in bounds because the length variable has a declared subtype 0 .. 25 matching the fixed 25-character buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, procedures, string indexing, string ordering and 'Image of scalars.
 

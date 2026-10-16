@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only a few integer multiplications and sign comparisons are needed, and ranged input subtypes make every overflow check follow from types, so proofs should discharge without annotations.
 
-Position 74 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 74 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Use scaled integer values in ranged subtypes for x, v, m and dm/dt, embedded as 
 
 - **overflow**: The products m*v, x*p and dm/dt*p are discharged by declaring inputs as small ranged integer subtypes (for example -1000..1000) so every product fits in 64 bits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, 'Image of scalars and string building.
 

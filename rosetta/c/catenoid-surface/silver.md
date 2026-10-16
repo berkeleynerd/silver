@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks only to draw a catenoid and the text-art rendering meets it, so there is no Oracle conflict. The floating-point trigonometry and hyperbolic functions are the only non-routine proof burden, which a range-limited library or series keeps dischargeable without annotations.
 
-Position 876 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 876 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program fixes an angle grid (41 by 41) over u in -2..2 and v in 0..2*pi, com
 - **range**: Projected coordinates are converted to grid indices only after explicit guards that skip points falling outside the fixed 60x30 character grid, so the index checks discharge.
 - **overflow**: Every float operand is bounded by the range of its subtype, so products and sums stay finite without needing a loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, floating point, arrays, multidimensional arrays, for loops, procedures, functions, Put without a newline, string building and case statements.
 

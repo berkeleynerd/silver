@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop runs over the arrays' own index range with static bounds, and the digit is a bounded value in 1..3, so no check needs a loop invariant or annotation.
 
-Position 438 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 438 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
 Declare a subtype Index of Positive range 1 .. 3 and three constant arrays indexed by it, holding Characters 'a','b','c', 'A','B','C' and Integers 1,2,3. A for loop over Index'Range builds each three-character line from the two Characters and the digit character via Character'Val of 48 plus the Integer, then prints it with Put_Line. The different-length case is handled by sizing all arrays to the same index subtype, so the lengths are equal by construction. About 22 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, integers, arrays, ranged subtypes, for loops, 'Image of scalars and Put without a newline.
 

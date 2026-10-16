@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded digit arrays and capacity guards placed before each write, with no recursion, heap, or float, but the many loop-carried carries and lengths need careful guarded program shape, so discharge is plausible rather than routine. The pi example forces a declared bit-count limit with an explicit truncation outcome.
 
-Position 1146 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1146 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the three sample inputs (23.34375, 1011.11101, and a long pi string) as St
 - **length**: Output text is assembled into a fixed buffer with a tracked length that is guarded before each append, so slice and concatenation lengths are provable from the guard.
 - **termination**: Conversion loops (repeated doubling of the fraction, repeated halving for the decimal direction) are for loops over a fixed digit capacity or while loops inside procedures, which get no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Boolean objects and case statements.
 

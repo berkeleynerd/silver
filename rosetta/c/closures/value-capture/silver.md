@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task's stated goal is to create independent closures, each capturing the value of a loop variable, which SPARK cannot express: it has no closures or anonymous functions, and access-to-subprogram values are restricted. The existing Ada answer works around this with an array of protected objects, which simulates closures rather than providing them, so the task is excluded as outside-spark.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, loops and subprograms.
 

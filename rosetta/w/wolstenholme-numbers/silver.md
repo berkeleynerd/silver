@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first 20 numbers fit in 64 bits when the sum is kept over the fixed common denominator, so every arithmetic check follows from ranged subtypes and one guard per addition, with while loops confined to procedures. The beyond-64-bit stretch parts are optional and left out.
 
-Position 272 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 272 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program uses a ranged 64-bit subtype, the constant common denominator lcm(1.
 - **division**: Every divisor (k*k, gcd result, Div) is shown nonzero by its subtype range or by a guard just before the division.
 - **other**: A trial-division loop of about 4.6e8 iterations is slow at run time but not a proof concern since it needs no invariant for its checks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded for loop or a mod-bounded index over a small fixed buffer with embedded N values, so checks come from types and local guards and no invariant is needed. The only care points are the loop-carried depth counter and the generator arithmetic, which need range-bounded types or a guard.
 
-Position 1003 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1003 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a fixed 8-character String buffer filled with N opening then N closing brack
 - **index**: Swap positions come from a mod of the string length plus one, guarded against a zero length, and the checker loops over the buffer's own range.
 - **range**: Slicing a bounded buffer to the current length and concatenating with the verdict text needs the length provably within the buffer capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops, while loops, procedures, functions and unconstrained arrays.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be bounded by types and pre-operation guards using exact integer arithmetic instead of floats, but the many loop-carried values in the Hensel lift and Lagrange reduction need careful guards, so it is plausible rather than likely.
 
-Position 644 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 644 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the example (a, b, p, k) cases in a constant array of records, with a digi
 - **termination**: The valuation-stripping and Lagrange loops are while loops, so they live only in procedures, and each is also bounded by a fixed iteration counter.
 - **index**: Digit arrays use a fixed offset range and every index is derived from for-loop variables or guarded against the array bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

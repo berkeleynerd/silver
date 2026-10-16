@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI, OS services, terminal control.** The task needs a GUI window, system clipboard monitoring and a key combination hook, which are external effects Silver lacks today, together with a bounded 10-entry queue of strings, which fits Silver's bounded arrays and strings. Nothing in it breaks a fixed Oracle rule, so it could be covered by a future Silver once those admitted library operations exist.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, loops, subprograms, records and string operations.
 

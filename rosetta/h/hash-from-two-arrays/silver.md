@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array index ranges and all indexes and slices are bounded by declared subtypes, so the checks follow from types and guards with no loop-carried invariants needed.
 
-Position 602 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 602 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Two constant fixed-size arrays (keys as 3-character strings, values as padded 6-
 
 - **index**: Slice bounds for the padded value text and the table slot are discharged by declared index subtypes and a stored length component constrained to its range, with a capacity guard before each insert.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, arrays, records, string indexing, integers, for loops, procedures and Boolean objects.
 

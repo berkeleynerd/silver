@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only console output and bounded big-rational arithmetic with no recursion, heap use or annotations, so it is feasible once a fixed-capacity big number facility exists, but the multi-limb carry, gcd and division loops make proof discharge depend on careful program shape.
 
-Position 1408 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1408 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent signed rationals as numerator and denominator arrays of base-10000 lim
 - **range**: Signed rational subtraction and long division carry loop-carried quotient and remainder values that are bounded only by their declared subtypes, so each step needs explicit guards before narrowing.
 - **length**: Output lines are assembled in a fixed-size buffer whose width is sized for the 43-digit numerator, with right alignment computed from digit counts under guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, big numbers, string building, string indexing and 'Image of scalars.
 

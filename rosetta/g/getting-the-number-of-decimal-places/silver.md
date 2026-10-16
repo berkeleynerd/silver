@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a for loop over the string's own range plus one explicit guard on the loop-carried position, and no loop needs an invariant or variant.
 
-Position 493 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 493 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The two example numbers are embedded as String constants (the numeric image, as 
 - **range**: The loop-carried Dot index is known only by its type after the loop, so the subtraction Number'Last - Dot is guarded by an explicit test that Dot is in Number'Range, with Dot = 0 meaning no decimal point and giving 0.
 - **index**: Indexing Number inside a for loop over Number'Range is routine, and the padding length is computed from a static 10 - Length so it needs a guard or constants sized to avoid a negative length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string indexing, for loops, functions, 'Image of scalars, string building and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on 0..255 subtypes with loops over the array's own ranges, and the only division is guarded by a test just before it, so every check follows from types and guards. The task does not require a specific image format or display, so embedded data and text output meet it.
 
-Position 672 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 672 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program embeds a small fixed-size image as a constant two-dimensional array 
 - **division**: The CMYK divisor 255 - K is nonzero only when K /= 255, so the program guards the division with an explicit if on K just before computing C, M and Y.
 - **range**: Products such as (Rc - K) * 255 stay within 0..65025 because every channel is a 0..255 subtype and K is the minimum complement, so conversions back into the channel subtype discharge from these bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, records, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

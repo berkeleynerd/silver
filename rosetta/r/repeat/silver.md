@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop over a Natural range terminates and has no loop-carried arithmetic, and the only call is to a procedure, so no check needs an annotation. The remaining work is Silver admitting generics with formal procedure parameters.
 
-Position 1521 in the [progression](../../progression.md#stage-32), in stage 32, which adds generics.
+Position 1521 in the [progression](../../progression.md#stage-31), in stage 31, which adds generics.
 
 ## Approach
 
 A generic procedure Repeat takes a formal parameterless procedure P and a Natural count Reps, and runs P inside a for loop over 1 .. Reps; Main instantiates it with a Hello procedure that calls Put_Line and calls it with the embedded count 3. A generic with a formal procedure expresses procedure arguments without access-to-subprogram types, and Reps is a Natural, so every call is valid. About 22 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Generics, procedures, for loops and ranged subtypes.
 

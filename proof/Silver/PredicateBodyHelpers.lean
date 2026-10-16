@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBodyCorrespondence
+public import Silver.PredicateLoopImports
 
 @[expose] public section
 
@@ -14,9 +15,10 @@ namespace Silver.Predicate.BodyNative
 open Compose
 
 def bodyTokens : List ShellToken :=
-  [.word "if", .word "then", .word "end", .word "elsif", .word "else", .symbol ";"]
+  [.word "if", .word "for", .word "then", .word "end", .word "elsif", .word "else", .symbol ";"]
 
 structure HelperMeaning (primitive : Primitives) : Prop where
+  loop : LoopNative.ImportsMeaning primitive.loop
   token : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     ∀ token, token ∈ bodyTokens →
     primitive.token text position token = tokenAfter text position token
@@ -30,6 +32,7 @@ structure HelperMeaning (primitive : Primitives) : Prop where
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
+    loop := LoopNative.totalizeImports primitive.loop
     token := fun text position token =>
       if ValidText text ∧ position ≤ text.length + 1 ∧ token ∈ bodyTokens then
         primitive.token text position token else tokenAfter text position token
@@ -85,8 +88,11 @@ theorem totalize_eq_model (primitive : Primitives) (meaning : HelperMeaning prim
     · rename_i valid
       exact meaning.predicate text valid.1 context valid.2.1 position valid.2.2.1 facts valid.2.2.2
     · rfl
+  have loops : (totalize primitive).loop = modelPrimitives.loop :=
+    LoopNative.totalizeImports_eq_model meaning.loop
   cases h : totalize primitive
-  simp only [h] at tokens basics predicates
+  simp only [h] at loops tokens basics predicates
+  cases loops
   cases tokens
   cases basics
   cases predicates
@@ -97,6 +103,8 @@ extensions. Every recursive callee remains arbitrary. -/
 structure DefinitionEquations (primitive : Primitives) (calls : Calls) : Prop where
   statement : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.statement text context scan = statementEval (totalize primitive) calls {text,context,scan}
+  loop : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
+    ValidScan text context scan → calls.loop text context scan = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.conditional text context scan = conditionalFunction.eval (totalize primitive) calls {text,context,scan}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
@@ -111,12 +119,15 @@ theorem equations_of_definitions (primitive : Primitives) (calls : Calls)
   have normalized := totalize_eq_model primitive meaning
   exact {
     statement := by simpa only [normalized] using definitions.statement
+    loop := by
+      simpa only [LoopNative.evalWith_of_meaning meaning.loop] using definitions.loop
     conditional := by simpa only [normalized] using definitions.conditional
     alternative := by simpa only [normalized] using definitions.alternative
     tail := by simpa only [normalized] using definitions.tail
     read := by simpa only [normalized] using definitions.read }
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
+  loop := LoopNative.model_imports_meaning
   token _ _ _ _ _ _ := rfl
   basic _ _ _ _ _ _ := rfl
   predicate _ _ _ _ _ _ _ _ := rfl
@@ -125,6 +136,8 @@ theorem model_definition_equations : DefinitionEquations modelPrimitives modelCa
   have normalized := totalize_eq_model modelPrimitives model_helper_meaning
   exact {
     statement := by simpa only [normalized] using model_equations.statement
+    loop := by
+      simpa only [LoopNative.evalWith_of_meaning model_helper_meaning.loop] using model_equations.loop
     conditional := by simpa only [normalized] using model_equations.conditional
     alternative := by simpa only [normalized] using model_equations.alternative
     tail := by simpa only [normalized] using model_equations.tail
@@ -133,7 +146,7 @@ theorem model_definition_equations : DefinitionEquations modelPrimitives modelCa
 theorem bodyToken_valid (token : ShellToken) (valid : token ∈ bodyTokens) :
     Compose.Expressions.ValidToken token := by
   simp only [bodyTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl <;>
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
     simp [Compose.Expressions.ValidToken, Compose.Expressions.allTokens]
 
 theorem bodyToken_model (text : Source) (position : Nat) (token : ShellToken)
@@ -141,11 +154,11 @@ theorem bodyToken_model (text : Source) (position : Nat) (token : ShellToken)
     fixedAfter text position (Compose.Expressions.spelling token) (Compose.Expressions.isWord token) =
       tokenAfter text position token := by
   simp only [bodyTokens, List.mem_cons, List.mem_nil_iff, or_false] at valid
-  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+  rcases valid with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
 
 def ScanExpr.tokenCalls : ScanExpr → List ShellToken
   | .token tok value => tok :: value.tokenCalls
-  | .basic value | .statement value | .conditional value | .alternative value
+  | .basic value | .statement value | .loop value | .conditional value | .alternative value
   | .tail _ value | .read _ value => value.tokenCalls
   | _ => []
 
@@ -165,9 +178,9 @@ def Function.tokenCalls (fn : Function) : List ShellToken := fn.initial.tokenCal
 /-- All literal token calls in the complete recursive-body AST, including the
 statement dispatch and every stop alternative, stay in this finite domain. -/
 theorem body_tokens_complete :
-    ∀ token ∈ [ShellToken.word "if"] ++ conditionalFunction.tokenCalls ++ alternativeFunction.tokenCalls ++
+    ∀ token ∈ [ShellToken.word "if", ShellToken.word "for"] ++ conditionalFunction.tokenCalls ++ alternativeFunction.tokenCalls ++
       tailFunction.tokenCalls ++ readFunction.tokenCalls, token ∈ bodyTokens := by
-  have checked : ([ShellToken.word "if"] ++ conditionalFunction.tokenCalls ++ alternativeFunction.tokenCalls ++
+  have checked : ([ShellToken.word "if", ShellToken.word "for"] ++ conditionalFunction.tokenCalls ++ alternativeFunction.tokenCalls ++
       tailFunction.tokenCalls ++ readFunction.tokenCalls).all (fun token => decide (token ∈ bodyTokens)) = true := by
     decide +kernel
   intro token present

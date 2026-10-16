@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The greedy wrap is plain index scanning over a constant string inside a procedure with while loops, so checks follow from guards before each index and slice, but several loop-carried indices need careful guard placement without invariants. No annotation-only facts, recursion or heap are needed, so discharge is plausible rather than certain.
 
-Position 1008 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1008 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the task paragraph as a String constant and write one procedure Wrap(Text,
 - **termination**: The scanning loops live in a procedure, which gets no termination check, and each iteration advances an index.
 - **other**: A word longer than the wrap width is placed alone on its own over-long line, which is the specified visible outcome rather than a truncation or error.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, unconstrained arrays, Boolean objects, while loops and procedures.
 

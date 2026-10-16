@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for loops over static ranges and the offset index 3 + I lies within 4..6, so every index and range check follows from static bounds, with no loop-carried values.
 
-Position 52 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 52 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
 Declare constrained Integer arrays A (1..3) and B (1..3) as constants with aggregates, plus a result array C (1..6). Two for loops over the arrays' own ranges copy A into C(I) and B into C(3 + I), then a final for loop prints each element with Integer'Image through Put and ends the line. About 30 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars and Put without a newline.
 

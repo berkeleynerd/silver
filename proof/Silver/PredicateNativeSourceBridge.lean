@@ -30,7 +30,7 @@ theorem bound_correct (source : InterpretedSource tokens calls) (binding : Bindi
     calls.bound binding = binding.bound := bound_meaning source.definitions binding
 
 theorem bindingSummary_correct (source : InterpretedSource tokens calls) (binding : Bindings.BindingInfo) :
-    calls.bindingSummary binding = binding.bound.summary := bindingSummary_meaning source.definitions binding
+    calls.bindingSummary binding = LengthSummary.ofExact binding.bound.summary := bindingSummary_meaning source.definitions binding
 
 theorem comparison_correct (source : InterpretedSource tokens calls) (text : Source)
     (tv : ValidText text) (position : Nat) (bounded : position ≤ text.length + 1) :

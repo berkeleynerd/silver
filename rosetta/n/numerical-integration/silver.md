@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain numerical code with no Oracle conflict and loops that are for loops, but proofs for float accumulators over millions of iterations only discharge if each step carries an explicit range guard, which makes it plausible rather than likely. Float formatting and the 1/x domain guard add further care but need no annotations.
 
-Position 1198 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1198 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Real is a bounded Long_Float subtype and the integrand is selected by an enumera
 - **range**: Converting the loop index to a float and computing a + h*i produces a loop-carried value whose range is not known, so it is computed directly from the index and clamped by a guard to the interval before calling the integrand.
 - **other**: Printing floats needs a bounded float-to-text conversion that scales to integers with guarded range checks, whose proof depends on the admitted library or a carefully guarded scaling routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, floating point, floating-point images, string building, 'Image of scalars, case statements, for loops, procedures, functions and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing pointer-based nodes with a bounded token array makes flattening a single for loop over the array's own range, so all checks follow from types, the for-loop index and capacity guards before each append. The only care needed is guarding the loop-carried counters and the text buffer position, which is why this is plausible rather than likely.
 
-Position 1185 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1185 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The nested list is stored as a fixed-capacity array of token records (kind Open,
 - **range**: Count and position variables are declared with a bounded subtype and incremented only after a guard against the maximum, so the increment check follows from the guard.
 - **length**: Building the output line in a fixed-size buffer needs each Image conversion and separator copy to be guarded by remaining capacity before slice assignment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, enumerations, arrays, records, for loops, procedures, string building and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and for-loop work with a single guarded addition, and the only while loop is in a procedure, so no annotation is needed, but the guard on the sum and the index arithmetic make it depend on program shape.
 
-Position 274 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 274 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fill a 2000-element array of a bounded positive subtype with 1,1 and then, for I
 - **division**: The Euclid GCD in a procedure uses mod with a divisor guarded by the while condition N /= 0, and loop-carried M and N are typed to a positive range so mod cannot fail.
 - **termination**: The GCD and the search loops are while loops inside procedures, which get no termination check, whereas making GCD a function would need a variant Silver cannot supply.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and string building.
 

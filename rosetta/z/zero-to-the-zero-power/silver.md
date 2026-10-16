@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a single exponentiation of small constant-valued integers with one image conversion, so every check follows from declared types and the values 0 and 1 cannot overflow. Silver only lacks integer ** and 'Image output formatting today.
 
-Position 1502 in the [progression](../../progression.md#stage-31), in stage 31, which adds exponentiation.
+Position 1502 in the [progression](../../progression.md#stage-30), in stage 30, which adds exponentiation.
 
 ## Approach
 
 Declare an Integer variable X := 0 and a Natural variable Y := 0, compute Z : Integer := X ** Y, and print "z=" concatenated with the image of Z using Put_Line. There are no loops, no input and no guards, because the operands are fixed and the result is statically in range. About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, exponentiation, ranged subtypes and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by a fixed city count and small integer ranges, using only for loops and a procedure, so checks follow from types and guards without any variant or invariant; the main risk is the loop-carried mask and city in path reconstruction.
 
-Position 716 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 716 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 4-city cost matrix as a constant 2D array of a ranged cost subtype, an
 - **range**: Loop-carried values in path reconstruction (current mask, current city, parent index) have no invariant, so each is a ranged subtype with a guard before use and the loop is a bounded for loop of N steps.
 - **initialization**: The dp and parent tables must be fully initialized by nested for loops before reads, which GNATprove usually accepts for whole-array loops over the array's own ranges but sometimes needs care for 2D arrays.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars and Put without a newline.
 

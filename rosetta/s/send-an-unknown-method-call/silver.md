@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Not a candidate. The task's core requirement is to call an object method whose name is only known at run time, which is reflective dispatch by name. Ada/SPARK has no way to express that, and a hand-written lookup table would not meet the task as stated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, tagged types and subprograms.
 

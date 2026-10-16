@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for a discussion plus a demonstration, so a straight-line program of constant strings and Put_Line calls needs no loop-carried values, and every check follows from static string lengths.
 
-Position 439 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 439 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
 The program holds fixed String constants for the discussion text and for sample words in several scripts, with the non-ASCII UTF-8 bytes spelled as Character'Val values joined by bounded concatenation so the source stays plain ASCII. It prints each line with Silver_IO.Put_Line and uses a 'Length comparison to show that byte length differs from code point count, with no loops or input. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is tied to a type range or a guard placed directly before the operation, and the Collatz loops sit in procedures so no termination proof is demanded, but the loop-carried hailstone value needs a careful ceiling guard and the search bound (about 1.1 million starts) must be a stated resource limit.
 
-Position 917 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 917 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Declare a ranged 64-bit subtype for hailstone values with a documented ceiling a
 - **termination**: Collatz termination is unprovable but all while loops live in a procedure, which gets no termination check, and the outer loop is a bounded for loop.
 - **range**: Converting the loop index to the odd start value and the Image-based output buffer need explicit subtype ranges sized for 64-bit values (at most 20 digits), which is routine if the subtypes are declared tightly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and conditional expressions.
 

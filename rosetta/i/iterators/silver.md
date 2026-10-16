@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared index and length ranges plus a Cursor /= 0 guard before each dereference, and the list's while loop lives in a procedure, so no termination check or invariant is needed.
 
-Position 614 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 614 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The days are a constant array of seven records holding a padded String (1 .. 9) 
 - **index**: Following a cursor of type 0 .. Capacity into the node array is preceded by an explicit Cursor /= 0 guard, so the conversion to the 1 .. Capacity index subtype and the indexing discharge from that guard alone.
 - **range**: Each Name (1 .. Len) slice discharges because Len is a record component declared in 1 .. 9 and Name is String (1 .. 9), and the positional offsets (Count - K + 1) are computed with static K over a Count typed 0 .. Capacity and guarded with K <= Count before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, string indexing, for loops, while loops, procedures and functions.
 

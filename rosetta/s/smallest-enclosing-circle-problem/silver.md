@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded integer subtypes and a determinant guard, but nonlinear products and the float formatting of the radius need careful range shaping, and a brute-force search avoids recursion and invariants.
 
-Position 1113 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1113 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Points are integer pairs in a fixed-capacity array with a count, and the program
 - **floating point**: Floating point is confined to the final output, where the radius is a Sqrt of a bounded non-negative value and the centre is a quotient of bounded integers, so no overflow check is left open.
 - **termination**: Only for loops over constant array ranges are used, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, procedures, functions, 'Image of scalars, floating-point images, floating point, Put without a newline, string building and conditional expressions.
 

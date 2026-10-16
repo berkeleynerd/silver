@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, a bounded for loop over fixed-length data and a guard before each store or use of the loop-carried word count, so no annotation is needed. It is plausible rather than likely because the index arithmetic over carried word positions depends on careful guard placement.
 
-Position 1024 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1024 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The 32 test addresses are embedded as a constant array of records holding a fixe
 - **overflow**: All counters and indexes are ranged subtypes bounded by the address capacity, so the increments are guarded by the capacity test rather than relying on loop invariants.
 - **other**: The test set contains non-ASCII characters such as the en dash, the typographic apostrophe and the o with diaeresis, which the program treats as opaque bytes or Latin-1 characters that are never classified as digits, so they only pass through to output.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, Boolean objects, characters, arrays, records, string indexing, unconstrained arrays, string building, for loops, procedures and functions.
 

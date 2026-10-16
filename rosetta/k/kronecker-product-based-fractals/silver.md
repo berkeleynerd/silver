@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size array indexing with for loops over constant ranges and div/mod by 3, so run-time checks follow from types and loop bounds with no recursion, while loops or loop-carried unbounded values.
 
-Position 670 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 670 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent the 3x3 seed matrices as constant two-dimensional arrays of a 0..1 sub
 - **index**: Indexes such as i / 3, i mod 3 and the block offsets are computed inside nested for loops over fixed ranges, so the provers bound them from the loop ranges and the constant divisor without any invariant.
 - **overflow**: Cell values are a 0..1 subtype and products of two such values stay in 0..1, while loop-carried sizes are declared subtypes or constants, so nothing can overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops, procedures and Put without a newline.
 

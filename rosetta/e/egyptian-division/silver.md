@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded subtypes, array ranges and a guard placed before each doubling, with only terminating for loops and a procedure-based exit loop, so nothing needs an annotation.
 
-Position 201 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 201 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Divide takes a Dividend subtype (0..1_000_000) and Divisor subtype (
 - **initialization**: Both 32-row tables are declared with (others => 0) aggregates so reading rows built earlier never touches uninitialized elements.
 - **index**: The row counter has its own subtype 0..31 and the doubling loop exits once the dividend cap makes a 32nd row impossible, so every index is within the table range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by fixed for loops, ranged angle and length types and explicit clipping guards, so only the floating-point trigonometry and float-to-index conversion need careful shaping and no annotation is required.
 
-Position 873 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 873 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Render one frame (fixed increment, 150 segments, length starting at 5 and growin
 - **overflow**: Segment length (at most 455) and angle (kept in 0..359 by mod) are bounded by ranged subtypes and a fixed 150-iteration for loop, so integer arithmetic is routine.
 - **index**: Each line segment is rasterized by a fixed number of interpolation steps and every plotted cell is guarded to lie inside the grid.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, floating point, arrays, multidimensional arrays, string building, for loops, while loops, procedures, functions, Boolean objects and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound.** The task needs one fixed text string spoken aloud, with no input, no randomness and no run-time error cases, so it needs only audio output. The existing FreeBASIC solution relies on Windows vbscript and a message box-free shell call, which is not evidence of a Silver conflict. A Silver-friendly version would synthesize the sentence from a fixed phoneme or sample table held in bounded arrays and play it, so no Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays and loops.
 

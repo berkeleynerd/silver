@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task requires evaluating a program written in the host language, given as a string or AST, at run time with a runtime binding for x. Ada/SPARK cannot evaluate its own code at run time, so no Silver program can meet this task; the existing FreeBASIC solution only gets around this with an external expression-solver library.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point and string operations.
 

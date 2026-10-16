@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic with fixed-size arrays and loops that can be capped without changing the required outcome, so no annotation is needed, but the loop-carried 62-bit coefficient updates need careful range guards to avoid overflow checks the provers cannot bound.
 
-Position 430 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 430 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the task's example Ns in a constant array of a 64-bit-range subtype, and r
 - **termination**: All searches (cycle walk, ambiguous-cycle walk, integer square root by bisection) use for loops with fixed iteration caps, and a cap hit produces the reported fail outcome.
 - **index**: The 32-entry circular queue index is kept in range with mod and a ranged subtype, and the pro scan runs over the array's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions and 'Image of scalars.
 

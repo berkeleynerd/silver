@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay, clock, processes.** The program has to react to an asynchronous OS signal. In SPARK that means a library-level protected object attached to SIGINT with the Attach_Handler aspect (allowed under the Jorvik/Ravenscar tasking subset), plus a main loop that prints, delays and checks the handler's flag. That needs tasking and admitted signal, clock and delay operations, but no fixed Oracle rule breaks, provided the tasking profile can be selected outside the program source rather than with a pragma.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, tasking, packages and records.
 

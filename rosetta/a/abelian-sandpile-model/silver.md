@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and increment can be guarded just before use because cell values are only known by type after the first iteration, so discharge depends on careful guard placement but needs no annotation.
 
-Position 1431 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1431 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A fixed 11 by 11 array of a ranged cell subtype holds the grid, with the task's 
 - **termination**: The settle loop is a while loop in a procedure, which gets no termination check, and a finite grid with edge loss does settle in practice.
 - **length**: Output rows and PPM lines are built in fixed-size bounded buffers sized to the grid width, so concatenation lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, multidimensional arrays, arrays, for loops, while loops, procedures, 'Image of scalars, string building, file output and Put without a newline.
 

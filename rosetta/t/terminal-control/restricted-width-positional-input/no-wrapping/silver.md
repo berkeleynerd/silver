@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task needs a routine taking row, column and width that reads a bounded string via raw keystrokes at a fixed screen position, stopping at 8 characters with no wrapping. A bounded string and a loop with explicit length guards express this, so it only lacks terminal and stdin support today and breaks no Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, loops and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The Silver-friendly solution fetches the two category lists through paged API requests (looping on the continue token), stores titles in bounded arrays with a documented capacity, computes the set difference with nested loops, and prints the result. Nothing in the task requires an error, exception, assertion, or unsafe construct, so no conflict arises; the needs are network access, a command-line argument and text output, plus bounded-collection features that Silver can admit as explicit resource limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, loops, string operations, subprograms and integers.
 

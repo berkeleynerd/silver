@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded rational arithmetic in fixed-size arrays with guards and rejection outcomes, so checks follow from types and guards, but loop-carried rational values need careful range guards and the gcd and nonlinear products make provers work harder.
 
-Position 865 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 865 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent a rational as a record of a bounded numerator and positive denominator
 - **index**: Convolution indexes I+J and N-I are bounded by the fixed term capacity through for-loop ranges and a guard before each store.
 - **other**: Lazy infinite series is replaced by a fixed-capacity truncation (for example 12 terms) with documented limits, and the mutually recursive sin/cos definition is computed iteratively term by term, which is faithful for the coefficients shown but not truly lazy.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and case statements.
 

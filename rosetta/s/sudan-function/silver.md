@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Evaluating iteratively with an explicit bounded stack inside a procedure avoids recursion and the termination check, and every loop-carried addition and stack index can be guarded just before use with a visible overflow or capacity outcome. Discharge depends on placing those guards carefully rather than on any annotation, so the outlook is plausible.
 
-Position 621 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 621 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Sudan (N, X, Y; out Value, out Ok) replaces recursion with an explic
 - **range**: The loop counter k and level n stored in frames are loop-carried, so increments and decrements are guarded just before use (k < y, n > 0) to stay within their declared subtypes.
 - **termination**: The evaluation runs an unbounded number of steps in a while loop, so it is written as a procedure with an out value and status, which GNATprove does not check for termination.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, while loops, procedures and 'Image of scalars.
 

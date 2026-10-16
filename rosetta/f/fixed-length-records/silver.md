@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 1..80 index subtype, a fixed record capacity guard and for loops over the array range, so the only new need is admitted library operations for fixed-size binary file reads and writes. The optional Forth block bonus is omitted.
 
-Position 1425 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1425 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Use a subtype Column of Integer range 1 .. 80 and a Record_Text String (1 .. 80)
 - **index**: The reversed index 81 - I and the record-table index are bounded by the 1..80 subtype and by a guard that rejects input once the fixed record capacity is full.
 - **length**: A file whose size is not a multiple of 80 bytes is rejected with a specified outcome by the admitted read operation, so no padding is silently invented.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, for loops, while loops, procedures, Put without a newline, file input and file output.
 

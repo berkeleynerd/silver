@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the array's declared index range, card subtype and explicit guards before each reversal or scan, and loops sit in procedures so no variants are needed, but several loop-carried indexes and the 3.6 million-permutation run for n=10 make the discharge depend on careful program shape.
 
-Position 270 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 270 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent a deal as an array (1..10) of cards in subtype 1..10 with a current le
 - **overflow**: The swap counter and per-n maximum are typed with a range wide enough (Natural up to a few hundred) and the counter is incremented in a procedure under a cap guard, since no invariant can bound it.
 - **termination**: The play-until-1-on-top loop and the permutation-advance loop are while loops confined to procedures, which get no termination check, and no function contains a loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

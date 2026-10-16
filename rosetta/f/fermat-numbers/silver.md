@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-capacity decimal big-number arithmetic with for loops and range-typed accumulators lets every check follow from types and guards, but nested loop-carried sums and carries require careful shaping, so discharge is plausible rather than routine.
 
-Position 1385 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1385 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent each Fermat number as a fixed-capacity array of 160 decimal digits wit
 - **termination**: All loops are for loops or live in procedures, so no variant is needed.
 - **other**: Factoring beyond the embedded known factors is out of reach, so the program verifies and prints known factors of F5 to F9 by divisibility rather than searching for them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task asks only for a demonstration of how to move the terminal cursor in eight ways without overwriting the screen. Printing ANSI escape sequences as constant strings does this, so it needs console-output and terminal cursor control. No fixed Oracle rule is broken, and out-of-bounds behavior is left to the implementer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and loops.
 

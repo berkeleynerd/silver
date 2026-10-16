@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices are clamped by explicit guards or come from for loops over the arrays' own ranges, and values are bounded by declared subtypes, so only careful shape of the nested loops is needed with no annotation.
 
-Position 694 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 694 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a small fixed-size image (for example 6x6 of 0..255 gray or RGB records) a
 - **index**: The insertion-sort shift loop uses a for loop over a fixed-capacity window array with while-loop position search in a procedure, where the position is bounded by its subtype and guarded before each use.
 - **termination**: Binary search is replaced by a for-loop linear insertion inside procedures, so no loop variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars and string building.
 

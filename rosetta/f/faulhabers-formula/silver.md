@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only small exact rational arithmetic for fixed p up to 9, whose true values are tiny, so overflow checks are dischargeable with explicit magnitude guards; the plausible rating reflects loop-carried fraction values needing those guards and the gcd needing a procedure-based loop.
 
-Position 941 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 941 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fractions are a record of two 64-bit-range integers; gcd is a while-loop procedu
 - **index**: Bernoulli and binomial tables are fixed arrays indexed 0..10 by for-loop variables over the array's own range, so indexing is routine.
 - **range**: The binomial coefficient is built by Pascal's triangle addition in a small 2D table, avoiding the product/quotient form and keeping values far below the range limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

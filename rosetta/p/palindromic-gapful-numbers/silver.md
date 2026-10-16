@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtypes and guards placed before each operation, but the digit-reversal accumulator, bounded counters and manual number-to-text formatting need careful shape, and nothing requires an annotation.
 
-Position 733 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 733 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Enumerate palindromes directly in increasing order by length (3 to 10 digits) an
 - **length**: Row text is assembled in a fixed-size buffer with each right-aligned 11-wide column written at a computed offset from a digit-by-digit conversion, so offset guards must be explicit.
 - **termination**: The enumeration over palindrome lengths and half-numbers uses for loops, and any while loop for digit extraction sits in a procedure, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, string building, string indexing and Put without a newline.
 

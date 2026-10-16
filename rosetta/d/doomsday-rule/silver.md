@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is small bounded integer mod arithmetic on subtyped values with constant embedded inputs, and there are no while loops, recursion or functions needing variants, so every check follows from types and static bounds.
 
-Position 789 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 789 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Seven embedded dates sit in constant arrays of ranged subtypes (Year 1800..2200,
 - **range**: Array indexes for the month, leap flag and weekday are bounded by ranged subtypes and mod 7 results, so index and range checks follow from types and the embedded dates sit inside the subtype ranges.
 - **overflow**: The year is a subtype limited to 1800..2200, so 2 + 5*(y mod 4) + 4*(y mod 100) + 6*(y mod 400) stays far below the Integer limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, case statements, for loops, procedures, functions and Boolean objects.
 

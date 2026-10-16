@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The line scanning and bounded string extraction are plain guarded index logic in a loop inside a procedure and would likely prove, but the bz2 input and file library operations are not yet available and bounded buffers need careful guards.
 
-Position 1450 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1450 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read the decompressed XML dump line by line from a named file into a fixed-lengt
 - **length**: Lines longer than the buffer and titles longer than the word buffer must be rejected with a visible outcome rather than truncated silently.
 - **other**: The real 800MB bz2 dump needs an admitted decompression or streaming operation that does not exist yet, so the program would read a decompressed XML file.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, file input, file output and further arguments.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged integers and procedure loops, so checks follow from types and guards, but the multi-file I/O with failure handling and a k-way merge with several loop-carried indexes needs careful shape and an admitted file library.
 
-Position 1437 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1437 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ The program generates a deterministic pseudo-random list of non-negative integer
 - **other**: File open, read and write failures and malformed numbers in the input file must have a visible rejection outcome via admitted file library operations with specified failure results.
 - **length**: Number-to-text and fixed-width text conversions must fit bounded buffers, discharged by fixed field width sized for the integer range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, string building, 'Image of scalars, text parsing, file input, file output, Put without a newline and integer division.
 

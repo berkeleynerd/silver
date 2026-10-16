@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Counting UTF-8 lead bytes with a for loop over the string's own range uses only types and a single counter guard, so the proofs should discharge without annotations; the grapheme count is optional and omitted.
 
-Position 546 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 546 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The example strings (such as "møøse" and the non-BMP Unicode example) are embe
 - **range**: Character'Pos of each indexed byte is bounded by the Character type and the loop index runs over the string's own range, so these checks are routine.
 - **length**: Building the output line from the 'Image of the lengths needs a bounded buffer sized for the largest Natural, which must be checked against the buffer capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, for loops, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop indexes over the input's own range and explicit capacity guards before each buffer or table write, with no recursion, no while loops and no annotations needed. The main work is the string-building and indexing library surface, not hard proofs.
 
-Position 607 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 607 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The input is an embedded constant String, and a single for loop over its own ind
 - **index**: Output buffer writes and field-table writes are each guarded by explicit capacity checks before use, with overflow rejected visibly.
 - **range**: Loop-carried length and field counters are declared with bounded ranges and guarded before increment so no range check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures, Put without a newline, records and Boolean objects.
 

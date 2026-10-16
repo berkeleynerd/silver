@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock, delay.** The task is to ring a ship's bell pattern at half-hour boundaries in GMT. A solution needs the clock, a delay to wait for the next boundary, and text output, and the task explicitly allows written notices instead of a real bell. Nothing in it breaks a fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, subprograms and string operations.
 

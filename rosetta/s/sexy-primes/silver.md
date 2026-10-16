@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged subtypes and guards placed just before each access, with no function-level loops needing variants, but the sieve's loop-carried index and the many look-ahead guards need careful program shape.
 
-Position 290 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 290 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Boolean array indexed 0..1_000_040 holds a sieve of Eratosthenes built in a pr
 - **range**: Counters and the found-so-far count for the last-five lists are subtypes bounded by the limit and guarded by a test before each increment, so they cannot exceed their ranges.
 - **stack**: A million-element Boolean sieve is a fixed-size local array and its stack use is outside what GNATprove checks, so it rests on the fixed-memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

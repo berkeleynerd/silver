@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line floating-point code with no loops, so every check is a range, division or sqrt-domain check dischargeable by bounded subtypes and local guards, but it hinges on a new floating-point type, an admitted Sqrt with a contract, and float formatting.
 
-Position 1050 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1050 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a=1, b=-1.0e9, c=1 as constants of a range-bounded Long_Float subtype, rej
 - **division**: The division by 2.0*A is guarded by an explicit A /= 0.0 rejection, and the stable-formula divisions by X are guarded by tests that the denominator is nonzero because floating-point underflow could otherwise produce zero.
 - **floating point**: Provers must show -B+SD has the same sign and magnitude at least |B| so the stable root is nonzero, which is nonlinear float reasoning that may need guard-shaped code.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes and conditional expressions.
 

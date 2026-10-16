@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded-array indexing and range-typed codes with capacity guards placed immediately before use, and the loops sit in procedures with no recursion, but several loop-carried counters and the decoder's chain walk need carefully shaped guards.
 
-Position 933 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 933 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the task's example string TOBEORNOTTOBEORTOBEORNOT in a constant; store th
 - **range**: Codes are a subtype 0..4095 and the next-entry counter increments in a loop, so the program guards the increment against the capacity limit instead of relying on an invariant.
 - **initialization**: The dictionary arrays and the buffers must be fully initialized by loops or aggregates before use, which flow analysis tracks reliably for whole-array aggregate initialization.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, Put without a newline, Boolean objects and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network, other.** The task needs a MySQL connection, so it needs a network and database effect that Silver lacks today, and it needs an MD5 hash over a 16-byte salt plus the password. Nothing in it breaks a fixed Oracle rule, because bounded strings, a deterministic salt generator and iterative MD5 can be written in SPARK once a database library operation is admitted.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, loops, subprograms and packages.
 

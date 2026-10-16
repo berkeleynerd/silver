@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound.** The required core is a repetition-count argument, reading loop.wav, and playing it several times with overlap. Playback is an external sound effect Silver lacks, not a fixed-rule conflict. Delay and decay are optional and omitted, so floating-point and timing effects are not needed. Bounded sample arrays and integer mixing cover the overlap.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, integers, loops and subprograms.
 

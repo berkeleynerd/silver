@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from fixed-range array subtypes and loops are for loops over static ranges, so every check follows from types and no invariant is needed.
 
-Position 60 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 60 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Values are a constrained array of Integer indexed 1..8 and the indices are a 3-e
 
 - **index**: Index values come from an array of a subtype 1..8 so every Values(Idx(I)) access is in bounds by type, with no guard needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, Put without a newline and 'Image of scalars.
 

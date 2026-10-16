@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Quicksort restructured as an iterative, explicit-stack procedure over a fixed integer array has only range-typed indices and guarded loop-carried counters, so no annotation is needed, but the many loop-carried indices make discharge depend on careful guard placement.
 
-Position 243 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 243 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a constant array of about 10 integers in a small Index subtype, copy it to
 - **stack**: Recursion is replaced by an explicit fixed-capacity stack of (Lo, Hi) pairs, and a full stack leads to a visible rejection outcome, so no input-dependent recursion depth exists.
 - **termination**: The work-list while loop lives in a procedure, which gets no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, Put without a newline, 'Image of scalars, string building and integer division.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small ranged vertex indexes, for loops over fixed ranges and a guarded explicit stack that replaces recursion, but the loop-carried depth and counters need careful guard placement rather than being routine.
 
-Position 1551 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1551 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The graph is a constant edge list for vertices a to f embedded in the program an
 - **stack**: Recursive Bron-Kerbosch is avoided entirely by an explicit fixed-size stack of R, P, X Boolean-array sets, so no input-dependent stack depth exists.
 - **length**: Output lines and the stored clique list use fixed-capacity buffers sized for the required output, with a guard before each append and a visible rejection if capacity were exceeded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, string building and membership tests.
 

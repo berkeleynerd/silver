@@ -49,7 +49,9 @@ def Expr.wellFormed : Expr ty → Bool
       guard.conditional && yes.primary && (no.primary || no.isElsif) && guard.wellFormed && yes.wellFormed && no.wellFormed
   | .local _ _ value rest => value.primary && value.wellFormed && (rest.primary || rest.isLocal) && rest.wellFormed
   | .locals value => value.isLocal && value.wellFormed
-  | .summary left right | .bound left right | .compared left right | .length left right =>
+  | .summary low high count empty => low.primary && high.primary && count.primary && empty.primary &&
+      low.wellFormed && high.wellFormed && count.wellFormed && empty.wellFormed
+  | .bound left right | .compared left right | .length left right =>
       left.primary && right.primary && left.wellFormed && right.wellFormed
   | .condition after yes no => after.primary && yes.primary && no.primary &&
       after.wellFormed && yes.wellFormed && no.wellFormed
@@ -64,9 +66,10 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .field _ value | .notEquality value | .notChain value | .not value | .group value | .locals value => value.scoped scope
   | .bindingAt left right | .eq left right | .ne left right | .le left right | .tokenEq left right
   | .tokenNe left right | .comparisonEq left right | .andThen left right | .orElse left right
-  | .summary left right | .bound left right | .compared left right | .length left right
+  | .bound left right | .compared left right | .length left right
   | .updateAfter left right => left.scoped scope && right.scoped scope
   | .ite guard yes no | .elsif guard yes no => guard.scoped scope && yes.scoped scope && no.scoped scope
+  | .summary low high count empty => low.scoped scope && high.scoped scope && count.scoped scope && empty.scoped scope
   | .condition after yes no => after.scoped scope && yes.scoped scope && no.scoped scope
   | .local (a := ty) name _ value rest => value.scoped scope &&
       rest.scoped ((ty, name) :: scope.filter (fun entry => entry.2 != name))

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, bounded buffers and for-loop bounds, but the large fixed tables, hash probing and loop-carried counts need careful shape; loops live in procedures and probing is bounded, so discharge is plausible rather than routine.
 
-Position 1490 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1490 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program reads each line of words.txt (path from the first argument) into a f
 - **length**: Lines longer than the fixed word buffer, and word lists exceeding table capacity, are rejected with a visible outcome rather than truncated.
 - **initialization**: The large word table and hash table must be fully initialized by aggregate or loop before use, which is routine but sizeable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, characters, arrays, records, string indexing, string building, string ordering, for loops, while loops, procedures, functions and file input.
 

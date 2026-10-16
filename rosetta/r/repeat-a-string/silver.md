@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is just bounded string building with nested for loops, and the type-bounded indexes (Count and Len ranged, buffer sized as their product) discharge every check without invariants or recursion.
 
-Position 496 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 496 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program declares a ranged Count (0..10) and a constant source string, and fi
 - **index**: Each write position is Start + (I-1)*Len + J, which is bounded by declaring Count and Len with small ranged subtypes and a buffer sized for their product, so every index check follows from the types.
 - **length**: The result length is Count*Len, which the buffer capacity covers by construction, and the slice printed is the buffer's own prefix of that length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, string indexing, string building, for loops, procedures and Put without a newline.
 

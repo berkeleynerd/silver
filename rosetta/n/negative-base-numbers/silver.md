@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from declared ranges, a bounded buffer and explicit guards, but the loop-carried accumulators and the remainder correction need carefully shaped guards for the provers to discharge automatically.
 
-Position 568 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 568 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A procedure encodes an Integer in the range -10**9..10**9 into a fixed 64-charac
 - **termination**: The encode and decode while loops live in procedures, which get no termination check, though a bounded for loop with an early exit is a safer alternative.
 - **range**: Mapping characters back to digit values requires a validated character lookup that rejects any character not in the digit table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

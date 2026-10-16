@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop's index stays inside its static range, so nothing can overflow and the loop ends on its own, and the image of an Integer is always a short, bounded string. Every check therefore follows from types and static bounds, with no annotation needed.
 
-Position 36 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 37 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Main runs a single for loop, `for Value in 1 .. Integer'Last loop`, and prints `Integer'Image (Value)` with Silver_IO.Put_Line on each pass. The task allows stopping at an implementation limit, so the program ends at Integer'Last, which is the documented resource limit. The arbitrary-precision variant is optional and is left out. About 10 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, for loops and 'Image of scalars.
 

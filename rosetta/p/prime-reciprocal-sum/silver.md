@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No annotation is needed because all arithmetic is fixed-capacity digit-array loops in procedures with types and guards bounding each step, but the amount of bignum division and modular exponentiation makes discharge depend on careful program shape rather than being routine.
 
-Position 1415 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1415 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent numbers as a record of a bounded digit array plus a length in a fixed 
 - **other**: Computing ceil(1/(1-sum)) needs big-by-big division and modular exponentiation for primality, which is nonlinear loop-carried arithmetic that stays within provable ranges only through per-step guards and a fixed digit capacity sized for 10 terms (about 160 digits).
 - **other**: Primality is probabilistic Miller-Rabin with fixed bases, which the output must declare.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

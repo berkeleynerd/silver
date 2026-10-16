@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a for loop over fixed-size digit arrays with bounded subtypes, so range, index and termination checks follow from types, and the only non-routine items are loop-carried counters and the bounded nonlinear product. No annotations or recursion are needed, but careful counter typing makes it plausible rather than likely.
 
-Position 730 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 730 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the size limits (12..97, 123..986, 1234..9875, optionally 12345..98764) in
 - **range**: Repeated n/10 and mod 10 on loop-carried values stay within the integer subtype because division only shrinks them, and the power of ten is taken from a constant table rather than loop-carried exponentiation.
 - **termination**: All iteration is for loops (digit extraction uses a fixed-count for loop rather than while n>0), so no variant is needed; the search loops over n and d are for loops in procedures.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, 'Image of scalars, string building, for loops, while loops, procedures and functions.
 

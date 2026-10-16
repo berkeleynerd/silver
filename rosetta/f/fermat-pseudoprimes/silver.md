@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by 12000 so every product fits a wide integer and every loop is a for loop over a static range, so the checks follow from types and static bounds without needing invariants; the stretch to larger limits only changes the constant.
 
-Position 352 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 352 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the limit 12000 as a constant, build a Boolean composite table by a for-lo
 - **range**: Loop-carried residues are stored in a subtype 0..12000 and the mod result is bounded by the modulus, which the provers must show from the guard x <= 12000 without an invariant.
 - **termination**: Exponentiation is a fixed 14-step for loop over the bits of x-1 and primality uses a Boolean sieve in for loops, so no while loop or recursion is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

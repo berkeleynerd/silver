@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded fixed-width modular arithmetic with for loops over constant ranges, so checks follow from types and the capacity guard, but the index and conversion plumbing needs careful shape.
 
-Position 1311 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1311 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Implement MD5 from scratch with a 32-bit modular word type, constant arrays for 
 - **range**: Conversions from 32-bit modular values and Character positions into index subtypes are discharged by taking mod or masking before converting, so the provers see the bounded range.
 - **overflow**: Additions and shifts occur on a 32-bit modular type where wraparound is defined, and only the 64-bit message bit-length multiplication needs a bound, which the capacity limit supplies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integer division, ranged subtypes, characters, arrays, for loops, string indexing, string building, procedures, functions, integers and Boolean objects.
 

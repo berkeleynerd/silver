@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodyProperties
 public import Silver.PredicateNativeState
+public import Silver.PredicateLoopNative
 
 @[expose] public section
 
@@ -12,12 +13,14 @@ namespace Silver.Predicate.BodyNative
 open Compose
 
 structure Primitives where
+  loop : LoopNative.Imports
   token : Source → Nat → ShellToken → Nat
   basic : Source → Native.Context → BodyScan → BodyScan
   predicate : Source → Native.Context → Nat → PathFacts.Context → ConditionResult
 
 structure Calls where
   statement : Source → Native.Context → BodyScan → BodyScan
+  loop : Source → Native.Context → BodyScan → BodyScan
   conditional : Source → Native.Context → BodyScan → BodyScan
   alternative : Source → Native.Context → BodyScan → BodyScan
   tail : Source → Native.Context → BodyScan → BodyStop → BodyScan
@@ -49,6 +52,7 @@ inductive ScanExpr
   | token (token : ShellToken) (value : ScanExpr)
   | basic (value : ScanExpr)
   | statement (value : ScanExpr)
+  | loop (value : ScanExpr)
   | conditional (value : ScanExpr)
   | alternative (value : ScanExpr)
   | tail (stop : StopRef) (value : ScanExpr)
@@ -61,6 +65,7 @@ def ScanExpr.eval (primitive : Primitives) (calls : Calls) (frame : Frame) : Sca
       {scan with position := primitive.token frame.text scan.position tok}
   | .basic value => primitive.basic frame.text frame.context (value.eval primitive calls frame)
   | .statement value => calls.statement frame.text frame.context (value.eval primitive calls frame)
+  | .loop value => calls.loop frame.text frame.context (value.eval primitive calls frame)
   | .conditional value => calls.conditional frame.text frame.context (value.eval primitive calls frame)
   | .alternative value => calls.alternative frame.text frame.context (value.eval primitive calls frame)
   | .tail stop value => calls.tail frame.text frame.context (value.eval primitive calls frame) (stop.eval frame)
@@ -73,6 +78,7 @@ def ScanExpr.render : ScanExpr → List String
   | .token tok value => call "body_token" [["text"], ["context"], value.render, [Compose.Expressions.tokenName tok]]
   | .basic value => call "basic_body" [["text"], ["context"], value.render]
   | .statement value => call "statement_body" [["text"], ["context"], value.render]
+  | .loop value => call "loop_body" [["text"], ["context"], value.render]
   | .conditional value => call "conditional_body" [["text"], ["context"], value.render]
   | .alternative value => call "alternative_body" [["text"], ["context"], value.render]
   | .tail stop value => call "body_tail" [["text"], ["context"], value.render, stop.render]
@@ -197,12 +203,15 @@ def Function.render (fn : Function) (name : String) : List String :=
 def statementRender : List String :=
   ["if", "scan", ".", "position", "=", "0", "then", "invalid_body", "elsif"] ++
   (Test.present (.word "if") .input).render ++ ["then"] ++ (ScanExpr.conditional .input).render ++
+  ["elsif"] ++ (Test.present (.word "for") .input).render ++ ["then"] ++ (ScanExpr.loop .input).render ++
   ["else"] ++ (ScanExpr.basic .input).render
 
 def statementEval (primitive : Primitives) (calls : Calls) (frame : Frame) : BodyScan :=
   if (Test.zero .input).eval primitive calls frame then invalidBody
   else if (Test.present (.word "if") .input).eval primitive calls frame then
-    (ScanExpr.conditional .input).eval primitive calls frame else (ScanExpr.basic .input).eval primitive calls frame
+    (ScanExpr.conditional .input).eval primitive calls frame
+  else if (Test.present (.word "for") .input).eval primitive calls frame then
+    (ScanExpr.loop .input).eval primitive calls frame else (ScanExpr.basic .input).eval primitive calls frame
 
 def tailFunction : Function := ⟨.input, false, [], .list [guard (.zero .result),
   .choose (.stop .result) (.ret .result) .nothing,
@@ -229,12 +238,14 @@ def alternativeFunction : Function := ⟨.input, false, [.conditionVariable, .ye
       (.choose (.present (.word "end") .input) (.ret .input) (.ret .invalid))))⟩
 
 def modelPrimitives : Primitives where
+  loop := LoopNative.modelImports
   token := tokenAfter
   basic text context scan := basicBody text context.model scan
   predicate text context position facts := readCondition text context.model position facts
 
 def modelCalls : Calls where
   statement text context scan := statementBody text context.model scan
+  loop text context scan := loopBody text context.model scan
   conditional text context scan := conditionalBody text context.model scan
   alternative text context scan := alternativeBody text context.model scan
   tail text context scan stop := bodyTail text context.model scan stop

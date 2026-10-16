@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, fixed maximum dimensions and guards in the header parser, with no annotation needed, but the loop-carried parse state and computed pixel indexes require careful program shape and an admitted binary file-read and file-write library.
 
-Position 1436 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1436 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ The program takes a file name from the first argument, reads bytes through a bou
 - **length**: The header and pixel data are read through a library file operation that reports how many bytes were obtained, and a short read is rejected before any pixel is used.
 - **overflow**: The luminance weighted sum is nonlinear but bounded by 0..255 channel subtypes and a fixed divisor, so overflow checks discharge from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, file input, file output, exit status, Boolean objects and conditional expressions.
 

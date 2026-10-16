@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single for loop over a fixed-length string with bounded byte arithmetic and a capacity guard before each append, so all checks follow from types and guards without any invariant. The only care is keeping the output length counter's growth safe, which the pre-append guard handles.
 
-Position 515 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 515 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure encodes an embedded constant input string such as "http://foo bar/" 
 - **index**: Output buffer writes are guarded by a capacity check before each append (each input character adds at most 3), and the for loop indexes the input over its own range.
 - **range**: The Character'Pos value (0..255) is split into two hex digits by /16 and mod 16 on a bounded subtype, so the digit lookup index is statically within a 16-entry constant table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, integers, integer division, string indexing, string building, arrays, for loops, procedures and Put without a newline.
 

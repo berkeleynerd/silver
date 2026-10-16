@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The utility reads checksum lines from stdin, splits the hex digest into groups of 3 or 6 digits, maps each group's RGB value to the nearest console color by integer arithmetic, and prints it with color codes (or plain text if not a terminal). This needs bounded line buffers, validation of malformed lines, stdin, console output and terminal detection, and fits no fixed Oracle conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, characters, integers, arrays, loops, subprograms and enumerations.
 

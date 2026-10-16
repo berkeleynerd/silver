@@ -30,7 +30,7 @@ mutual
     | negated _ opening _ inner =>
         cases second with
         | negated _ _ _ other => exact congrArg Condition.negated (primary_unique inner other)
-        | length _ noNot | strings _ noNot | primary _ noNot => exact False.elim (opening noNot)
+        | length _ noNot | scalars _ noNot | strings _ noNot | primary _ noNot => exact False.elim (opening noNot)
     | length _ noNot leftPositive leftRead rightRead _ =>
         cases second with
         | negated _ opening => exact False.elim (opening noNot)
@@ -41,35 +41,52 @@ mutual
             have rightSame := (lengthAt_unique rightRead otherRight).1
             cases rightSame
             rfl
-        | strings _ _ noLength =>
+        | scalars _ _ noLength | strings _ _ noLength | primary _ _ noLength =>
             rw [lengthAt_complete leftRead] at noLength
             exact False.elim (leftPositive noLength)
-        | primary _ _ noLength =>
-            rw [lengthAt_complete leftRead] at noLength
-            exact False.elim (leftPositive noLength)
-    | strings _ noNot noLength leftRead rightRead ready _ =>
+    | scalars _ noNot noLength leftPositive leftRead rightRead _ =>
         cases second with
         | negated _ opening => exact False.elim (opening noNot)
         | length _ _ leftPositive left _ _ =>
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
-        | strings _ _ _ otherLeft otherRight _ _ =>
+        | scalars _ _ _ _ otherLeft otherRight _ =>
+            obtain ⟨rfl, rfl⟩ := ScalarExpression.at_unique leftRead otherLeft
+            obtain ⟨rfl, _⟩ := ScalarExpression.at_unique rightRead otherRight
+            rfl
+        | strings _ _ _ noScalar | primary _ _ _ noScalar =>
+            rw [ScalarExpression.read_complete leftRead] at noScalar
+            exact False.elim (leftPositive noScalar)
+    | strings _ noNot noLength noScalar leftRead rightRead ready _ =>
+        cases second with
+        | negated _ opening => exact False.elim (opening noNot)
+        | length _ _ leftPositive left _ _ =>
+            rw [lengthAt_complete left] at noLength
+            exact False.elim (leftPositive noLength)
+        | scalars _ _ _ leftPositive left _ _ =>
+            rw [ScalarExpression.read_complete left] at noScalar
+            exact False.elim (leftPositive noScalar)
+        | strings _ _ _ _ otherLeft otherRight _ _ =>
             obtain ⟨rfl, rfl⟩ := expressionTail_unique leftRead otherLeft
             obtain ⟨rfl, _⟩ := expressionTail_unique rightRead otherRight
             rfl
-        | primary _ _ _ noExpression =>
-            rw [show expressionAt text position context.names = _ from expressionTail_complete leftRead] at noExpression
+        | primary _ _ _ _ noExpression =>
+            rw [show expressionAt text position context.names context.scalarNames = _ from expressionTail_complete leftRead] at noExpression
             exact False.elim (ready.1 noExpression)
-    | primary _ noNot noLength noExpression inner =>
+    | primary _ noNot noLength noScalar noExpression inner =>
         cases second with
         | negated _ opening => exact False.elim (opening noNot)
         | length _ _ leftPositive left _ _ =>
             rw [lengthAt_complete left] at noLength
             exact False.elim (leftPositive noLength)
-        | strings _ _ _ left _ ready _ =>
-            rw [show expressionAt text position context.names = _ from expressionTail_complete left] at noExpression
+        | scalars _ _ _ leftPositive left _ _ =>
+            rw [ScalarExpression.read_complete left] at noScalar
+            exact False.elim (leftPositive noScalar)
+        | strings _ _ _ _ left _ ready _ =>
+            rw [show expressionAt text position context.names context.scalarNames = _ from expressionTail_complete left] at noExpression
             exact False.elim (ready.1 noExpression)
-        | primary _ _ _ _ other => exact primary_unique inner other
+        | primary _ _ _ _ _ other => exact primary_unique inner other
+
   termination_by (remainingAt text position, 2)
   decreasing_by all_goals first | exact Prod.Lex.left _ _ (by assumption) | exact Prod.Lex.right _ (by decide)
 

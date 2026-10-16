@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is string scanning and bounded counters over embedded data, so index and overflow checks follow from guards before each access, with no recursion, float arithmetic or annotations needed. The cost is the careful guarded token scanner with loop-carried positions, hence plausible rather than likely.
 
-Position 1026 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1026 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The six sample records are embedded as string constants and each is passed to a 
 - **overflow**: Record, flag and duplicate counters are bounded subtypes and the flag value is accumulated digit by digit with a cap guard so it cannot overflow.
 - **termination**: The scanner's while loops live in procedures (no termination check), and any function uses only for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures and functions.
 

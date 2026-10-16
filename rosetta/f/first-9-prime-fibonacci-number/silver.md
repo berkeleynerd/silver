@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, a guard before the addition and a static for-loop range, and the while loop lives in a procedure so no variant is needed. The only extra surface is integer arithmetic, mod, 'Image and loops.
 
-Position 202 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 202 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Keep two 64-bit Fibonacci values in a subtype capped at 10**9 and advance them i
 - **termination**: The count-driven while loop sits in the Main procedure, which gets no termination check, and a hard bound on the Fibonacci value also ends it.
 - **range**: In the trial-division for loop the product D*D is bounded by the loop's static range 2..1000, so it cannot overflow, and the remainder is guarded by D being nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, 'Image of scalars, for loops, while loops and string building.
 

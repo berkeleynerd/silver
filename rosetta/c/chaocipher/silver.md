@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and loop bound follows from fixed 26/28-length strings and a 1..26 position subtype with mod arithmetic, and all loops are for loops in procedures, so nothing needs an annotation.
 
-Position 538 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 538 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Both alphabets and the 28-letter plaintext are fixed-length String variables or 
 - **initialization**: The output buffer and the found-index variable are initialized before their loops so no loop-carried uninitialized read remains.
 - **range**: The letter lookup uses a found flag and an explicit rejection path for characters outside the alphabet, so the position never leaves 1..26 and the case is not silently altered.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, integer division, Boolean objects, characters, arrays, string indexing, string building, for loops, procedures and 'Image of scalars.
 

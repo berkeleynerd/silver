@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from small declared ranges and a guard before the array access, but the loop-carried Low/High bounds mean the in-range index fact must come from an explicit guard rather than an invariant, so success depends on careful shape; no annotations are needed.
 
-Position 218 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 218 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ An embedded constant sorted Integer array (for example 2 4 6 8 9) is searched it
 - **termination**: The while loop lives in a procedure, which gets no termination check, so no variant is required.
 - **length**: Result text built with 'Image and concatenation must fit a fixed-size bounded String buffer sized for the longest line.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

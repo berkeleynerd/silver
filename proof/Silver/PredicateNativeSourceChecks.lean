@@ -12,13 +12,13 @@ namespace Silver.Predicate.NativeSourceChecks
 open Native Silver.SourceBridge
 
 def summary_of_impl_header : List String :=
-  ["(", "value", ":", "expression_result", ")", "return", "paths", ".", "summary"]
+  ["(", "value", ":", "expression_result", ")", "return", "length_intervals", ".", "summary"]
 
 def bound_of_impl_header : List String :=
   ["(", "value", ":", "binding_info", ")", "return", "paths", ".", "bound"]
 
 def binding_summary_impl_header : List String :=
-  ["(", "value", ":", "binding_info", ")", "return", "paths", ".", "summary"]
+  ["(", "value", ":", "binding_info", ")", "return", "length_intervals", ".", "summary"]
 
 def scalar_comparison_at_spec_header : List String :=
   ["(", "text", ":", "string", ";", "position", ":", "literal_position", ")", "return", "comparison_result", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "position", "<=", "text", "'", "last", "+", "1", ",", "post", "=>", "scalar_comparison_at", "'", "result", ".", "after", "=", "0", "or", "else", "scalar_comparison_at", "'", "result", ".", "after", "in", "position", "+", "1", "..", "text", "'", "last", "+", "1"]

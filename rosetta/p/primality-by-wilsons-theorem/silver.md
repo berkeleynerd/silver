@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a subtype bound of 10**9 on the operands (so fact * i stays below 64-bit range), a for loop, and an n >= 2 guard before rem, so no annotation is needed.
 
-Position 514 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 514 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Declare a ranged subtype 0 .. 10**9 and a Boolean Is_Prime function that returns
 - **division**: The rem by n is preceded by an explicit n < 2 early return so n is at least 2.
 - **index**: The line buffer writes are guarded by a column counter that is flushed every 12 entries, so each write is within the fixed buffer bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars, string building, string indexing, arrays and Put without a newline.
 

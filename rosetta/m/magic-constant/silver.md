@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** "Every check follows from the bounded order subtype and static loop ranges, and the 10^10 search fits in 64-bit integers, so no invariant is needed."
 
-Position 1508 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1508 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Position 1508 in the [progression](../../progression.md#stage-31), in stage 31.
 - **overflow**: n*(n*n+1) is nonlinear but n is a subtype bounded to 3..3000 so the result is at most about 1.4e10 and fits in 64 bits, which provers discharge from the type range.
 - **range**: The threshold 10**p with p in 1..10 has a static-range exponent and the search covers orders up to 3000, beyond the required 2715, with a visible not-found line if the loop ends without a hit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, for loops, 'Image of scalars and string building.
 

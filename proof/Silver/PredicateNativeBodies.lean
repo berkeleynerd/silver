@@ -14,7 +14,9 @@ def declared (name : String) (typeName : List String) (value : Expr a) (body : E
 end Expr
 
 def summaryBody : Expr .summary :=
-  .summary (.field .resultLength (.variable "value")) (.field .resultDynamic (.variable "value"))
+  .summary (.field .resultMinimum (.variable "value"))
+    (.field .resultLength (.variable "value")) (.field .resultDynamic (.variable "value"))
+    (.field .resultEmpty (.variable "value"))
 
 def boundBody : Expr .bound :=
   .bound (.field .bindingLength (.variable "value")) (.field .bindingDynamic (.variable "value"))
@@ -22,7 +24,8 @@ def boundBody : Expr .bound :=
 def bindingSummaryBody : Expr .summary :=
   let value : Expr .binding := .variable "value"
   .summary (.group (.ite (.field .bindingDynamic value) (.number 0) (.field .bindingLength value)))
-    (.group (.ite (.field .bindingDynamic value) (.number 1) (.number 0)))
+    (.group (.ite (.field .bindingDynamic value) (.number 0) (.field .bindingLength value)))
+    (.group (.ite (.field .bindingDynamic value) (.number 1) (.number 0))) (.truth false)
 
 def comparisonBody : Expr .compared :=
   let text : Expr .source := .variable "text"
@@ -50,7 +53,8 @@ def lengthBody : Expr .length :=
     .local "number" ["silver_integer_literals", ".", "literal_result"] (.callInteger text first) <|
     .group <| .ite (.andThen (.variable "literal") (.ne (.field .literalAfter number) (.number 0)))
       (.length (.field .literalAfter number) (.bound (.field .literalValue number) (.truth false)))
-      (.elsif (.eq index (.number 0)) (.length (.number 0) (.bound (.number 0) (.truth false)))
+      (.elsif (.orElse (.eq index (.number 0))
+        (.ne (.callScalarLookup text (.field .contextScalarNames context) first after) (.number 0))) (.length (.number 0) (.bound (.number 0) (.truth false)))
         (.length (.callTake text (.callTake text after (.token .apostrophe)) (.token .lengthName))
           (.callBound (.bindingAt names index))))
 
@@ -68,7 +72,7 @@ def primaryBody : Expr .condition :=
         (.updateAfter result (.callTake text (.field .conditionAfter result) (.token .rightParenthesis))))
       (.elsif (.eq (.field .dynamicFirst context) (.number 0)) .invalid
         (.condition
-          (.callOperation text (.field .contextNames context) position (.operation .validity))
+          (.callOperation text (.field .contextNames context) position (.operation .validity) (.field .contextScalarNames context))
           (.callAssumeValid facts) (.callAssumeInvalid facts)))
 
 def relationBody : Expr .condition :=
@@ -78,6 +82,8 @@ def relationBody : Expr .condition :=
   let facts : Expr .facts := .variable "facts"
   let after : Expr .number := .variable "after"
   let leftLength : Expr .length := .variable "left_length"
+  let leftScalar : Expr .scalarResult := .variable "left_scalar"
+  let rightScalar : Expr .scalarResult := .variable "right_scalar"
   let rightLength : Expr .length := .variable "right_length"
   let result : Expr .condition := .variable "result"
   let operator : Expr .compared := .variable "operator"
@@ -93,19 +99,26 @@ def relationBody : Expr .condition :=
         (.group (.ite (.comparisonEq operation (.comparison .eq)) facts equalFacts)))
   let readRight : Expr .condition :=
     .declared "right" ["expression_result"]
-      (.callExpression text (.field .comparedAfter operator) (.field .contextNames context)) <|
+      (.callExpression text (.field .comparedAfter operator) (.field .contextNames context) (.field .contextScalarNames context)) <|
       .group <| .ite
         (.orElse (.orElse (.orElse (.le (.field .resultAfter right) position)
           (.not (.group (.orElse (.field .resultNamed left) (.field .resultNamed right)))))
           (.not (.callFits facts (.callSummary left)))) (.not (.callFits facts (.callSummary right))))
         .invalid stringResult
   let stringCase : Expr .condition :=
-    .declared "left" ["expression_result"] (.callExpression text position (.field .contextNames context)) <|
+    .declared "left" ["expression_result"] (.callExpression text position (.field .contextNames context) (.field .contextScalarNames context)) <|
       .group <| .ite (.ne (.field .resultAfter left) (.number 0))
         (.declared "operator" ["comparison_result"] (.callComparison text (.field .resultAfter left)) <|
           .group <| .ite (.orElse (.eq (.field .comparedAfter operator) (.number 0)) (.notEquality operation))
             .invalid readRight)
         (.callPrimary text context position facts)
+  let scalarCase : Expr .condition :=
+    .group <| .locals <|
+      .local "operator" ["comparison_result"] (.callComparison text (.field .scalarAfter leftScalar)) <|
+      .local "right_scalar" ["scalar_expressions", ".", "expression_result"]
+        (.callScalarRead text (.field .comparedAfter operator) (.field .contextScalarNames context)) <|
+      .group <| .ite (.le (.field .scalarAfter rightScalar) position) .invalid
+        (.condition (.field .scalarAfter rightScalar) facts facts)
   let lengthCase : Expr .condition :=
     .group <| .locals <|
       .local "operator" ["comparison_result"] (.callComparison text (.field .lengthAfter leftLength)) <|
@@ -118,10 +131,13 @@ def relationBody : Expr .condition :=
     .group <| .locals <|
       .local "after" ["literal_position"] (.callTake text position (.token .notKeyword)) <|
       .local "left_length" ["length_result"] (.callLength text context position (.truth false)) <|
+    .local "left_scalar" ["scalar_expressions", ".", "expression_result"]
+      (.callScalarRead text position (.field .contextScalarNames context)) <|
       .group <| .ite (.ne after (.number 0))
         (.declared "result" ["condition_result"] (.callPrimary text context after facts)
           (.condition (.field .conditionAfter result) (.field .whenFalse result) (.field .whenTrue result)))
-        (.elsif (.ne (.field .lengthAfter leftLength) (.number 0)) lengthCase stringCase)
+        (.elsif (.ne (.field .lengthAfter leftLength) (.number 0)) lengthCase
+        (.elsif (.ne (.field .scalarAfter leftScalar) (.number 0)) scalarCase stringCase))
 
 def chainTokenBody : Expr .token :=
   let text : Expr .source := .variable "text"

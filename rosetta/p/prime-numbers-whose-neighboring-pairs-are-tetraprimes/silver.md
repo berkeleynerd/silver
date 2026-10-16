@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged types, for-loop indexes and guards before neighbor indexing and counter increments, with no annotation-only facts, but nested sieve index arithmetic and loop-carried counters need careful shaping.
 
-Position 428 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 428 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use fixed-bound arrays indexed to 1,000,000: a sieve with for loops fills each n
 - **termination**: The insertion sort for the median uses a while loop, so it lives in a procedure (no termination check) and the sieve uses only for loops.
 - **stack**: Million-element arrays are fixed-size static objects, though stack or static storage for them is an environmental premise and the 10 million stretch makes it larger.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

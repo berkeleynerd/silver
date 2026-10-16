@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and buffer length is bounded by fixed capacities with explicit guards that report an invalid outline, and all loops live in procedures, so nothing needs an annotation, though many loop-carried offsets need careful guarding.
 
-Position 1500 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1500 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The six embedded test outlines are fixed-capacity arrays of records holding a bo
 - **overflow**: Indent widths and counters are declared with small ranged subtypes bounded by the line capacity, so arithmetic and the width mod unit check stay in range.
 - **termination**: All scans and sorts are for loops or while loops inside procedures, so no termination check is generated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, string ordering, for loops, while loops, procedures, functions and Put without a newline.
 

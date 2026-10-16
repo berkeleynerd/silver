@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes are for-loop variables over static ranges and the xor result lives in a mod 256 type that exactly matches the table range, so every check follows from types and bounds. The only dependency is an admitted file-output operation with specified failure outcomes.
 
-Position 1423 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1423 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Use a 256x256 two-dimensional array of a mod 256 pixel type and a constant 256-e
 - **index**: Output buffer position is computed from for-loop indexes bounded by a 256x256 fixed array, so index checks follow from the static bounds.
 - **other**: File-write failure must be reported as a specified visible outcome through the admitted file-output operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, modular types, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, file output, characters and string building.
 

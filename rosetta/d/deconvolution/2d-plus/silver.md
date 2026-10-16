@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over fixed-size arrays with for loops in procedures, so checks follow from ranged types and explicit guards before each accumulation, division and assignment, but the many loop-carried sums and shifted indexes need careful guard placement.
 
-Position 1550 in the [progression](../../../progression.md#stage-34), in stage 34.
+Position 1550 in the [progression](../../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use integer 3D constrained arrays with embedded g, f and expected sizes (floatin
 - **range**: Each recovered element is a loop-carried computed value stored into a ranged element type, so an explicit bounds guard before assignment rejects out-of-range results.
 - **index**: Shifted indexes such as i+a or i-a are guarded by comparisons against the constant array bounds just before use, and the dimension sizes of h are fixed constants derived from g and f.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline and membership tests.
 

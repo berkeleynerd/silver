@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The five required cases fit 64-bit arithmetic when p is limited to below 2**31, and all loops can be bounded for loops or procedure loops, so proofs should discharge with careful range-subtype guards; the 10^50 extra credit would need big numbers and is optional.
 
-Position 633 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 633 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Residues are Long_Long_Integer subtypes bounded by 2**31, with a Mul_Mod functio
 - **termination**: The bit-halving exponent loop and the search for the lowest i are written as procedures with for loops over fixed ranges (63 bits, 1..m-1) so no variant is needed.
 - **range**: The exponent 2**(m-i-1) is formed by repeated squaring in a for loop over m-i-1 steps, guarded by i<m, instead of using ** with a computed exponent.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, 'Image of scalars, for loops, while loops, procedures and functions.
 

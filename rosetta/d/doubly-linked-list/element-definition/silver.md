@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for the element definition with mutable next and previous links, which a bounded index-based record pool expresses without access types, and every check follows from declared ranges and for-loop indexes over the array's own range.
 
-Position 586 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 586 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
 Declare a ranged subtype Link_Index (0 .. 8, with 0 meaning null) and an Element record holding an Integer value plus mutable Next and Prev links of that subtype, stored in a fixed-capacity array pool. Main fills a few elements, assigns Next and Prev by index, then walks forward with a for loop over the pool's own range and prints each value with Put_Line. About 40 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, records, arrays, for loops and 'Image of scalars.
 

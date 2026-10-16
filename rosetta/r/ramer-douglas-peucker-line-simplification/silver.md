@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is small and fixed-size, and replacing recursion with a bounded explicit stack plus scaled-integer squared distances avoids floating point, sqrt and function termination, leaving only guarded stack indexing and bounded arithmetic. Discharge depends on careful shape (loop-carried stack top and distance maximum) but needs no annotations.
 
-Position 266 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 266 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the ten points as two constant arrays of integer tenths, a Boolean keep ar
 - **termination**: The stack-driven while loop lives in a procedure, which gets no termination check, and recursion is replaced by this explicit stack.
 - **length**: Formatting tenths as decimal text builds strings in a bounded buffer whose size covers the largest value, with the sign and fractional digit placed under guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

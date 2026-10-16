@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from subtype ranges, for-loop bounds and a few guards, but the float midpoint range proof and the bit-accumulation shape need care without invariants, so discharge is plausible rather than certain.
 
-Position 872 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 872 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the four test coordinates and precisions in constant arrays; latitude and 
 - **index**: Bit-array and output-buffer indices are computed from precision times 5, so precision is a subtype capped at 22 and indices come from for-loop ranges over the arrays.
 - **range**: Alphabet lookup uses a code subtype 0..31 into a 32-character constant string; the guarded accumulator keeps the code in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, integers, arrays, characters, string building, string indexing, for loops, procedures and Boolean objects.
 

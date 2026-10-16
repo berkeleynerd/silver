@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing and arithmetic are bounded by ranged subtypes and explicit guards, and the recursive search is replaced by a procedure-only iterative stack so no variant is needed, but the many loop-carried values in the search need careful shaping to discharge.
 
-Position 1196 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1196 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the puzzle as a flat 16-element array of a ranged tile subtype, with a sta
 - **termination**: Recursive IDA* is rewritten as an iterative depth-first search with an explicit stack inside a procedure using while loops, which get no termination check; helper functions are loop-free.
 - **other**: Search work for the optimal 52-move puzzle is large but only affects run time, not proof, and the extra-credit puzzle is treated as optional.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, case statements, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic on fixed-capacity limb arrays in procedures with for loops and capped while loops, so checks follow from types and bounds, but multi-limb carries and big square root and division make the shape delicate.
 
-Position 1405 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1405 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent numbers as fixed-point values in a fixed-capacity array of base-10000 
 - **termination**: The AGM iteration and the Newton integer square root use while loops inside procedures only, with a fixed iteration cap (about 8 AGM steps for 1000 digits), so no function carries a loop needing a variant.
 - **overflow**: Fixed-point scaling of a_n^2-g_n^2 times 2^(n+1) needs a bounded step count and a limb capacity with headroom, which fixed capacity and the iteration cap guarantee.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, big numbers, Put without a newline, 'Image of scalars and string building.
 

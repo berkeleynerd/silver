@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the bounded Value subtype and the explicit guards before the single addition, and invalid ranges get a visible error message rather than a changed result. The only loop is a while loop inside a procedure, so no variant is needed.
 
-Position 603 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 603 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a bounded subtype Value (for example -1000 .. 1000) and a constant array
 - **overflow**: The loop-carried Num is declared in a bounded subtype and the increment is guarded by exiting when Stop - Num < Step, so Num + Step provably stays at most Stop.
 - **termination**: The while loop sits in a procedure, which gets no termination check, and Step is guarded to be positive so the loop also does terminate.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, records, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: run-time error.** The task deliberately performs overflowing fixed-size arithmetic, whereas every admitted Silver program must prove its overflow checks; catching the resulting Constraint_Error cannot discharge those obligations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

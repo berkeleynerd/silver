@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded loops, fixed arrays and bounded-float complex arithmetic, so no annotation is needed, but floating-point nonlinear range and overflow checks across nested iteration loops depend on careful guard placement and may stress the provers.
 
-Position 1118 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1118 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent a polynomial as a fixed array of 72 bounded Float coefficients plus a 
 - **termination**: The iteration uses a fixed-count for loop (for example 1000 rounds) with a convergence flag instead of a while loop, so no variant is needed and the loops live in procedures.
 - **overflow**: Degree and index arithmetic over a 72-entry coefficient table is bounded by the declared index subtype and static maximum degree, so it is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, floating-point images, 'Image of scalars, arrays, multidimensional arrays, records, for loops, procedures, functions, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from String parameter bounds, an equal-length guard before the character loop and an 'A'..'Z' guard before the Character'Val shift, and the only loop is a for loop, so proof should discharge automatically.
 
-Position 1482 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1482 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Print_Comparison (A, B : String) prints the pair and then, through i
 - **range**: Lowercasing uses Character'Val (Character'Pos (C) + 32) only inside a guard C >= 'A' and C <= 'Z', so the result stays within Character.
 - **length**: Strings of arbitrary parameter length are printed piecewise with Put rather than concatenated, so no result-length check on unbounded concatenation arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Procedures, functions, Boolean objects, unconstrained arrays, string ordering, string indexing, characters, for loops, integers and Put without a newline.
 

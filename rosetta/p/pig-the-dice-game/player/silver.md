@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes and loop guards placed just before each addition, with an embedded deterministic generator and procedure-only while loops, so nothing needs an annotation but loop-carried scores need careful shaping.
 
-Position 629 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 629 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Park-Miller linear congruential generator held in a ranged 64-bit subtype supp
 - **termination**: Game and turn loops are while loops confined to procedures, which receive no termination check, and the simulated game count is a fixed for loop.
 - **index**: The die value is derived by mod 6 plus 1 from a ranged state and the win-count array is indexed by a two-valued subtype, so indices follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, functions, for loops, while loops, 'Image of scalars, string building, arrays and records.
 

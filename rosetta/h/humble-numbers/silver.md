@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged integers and procedure while loops, so checks follow from types and guards just before each use; the main care is guarding the loop-carried merge pointers and the stored values without invariants.
 
-Position 273 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 273 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute humble numbers with the standard four-pointer merge (multiples of 2, 3, 
 - **range**: Digit counting by repeated division by 10 and the per-digit counter increments rely on the digit-count array index type and counter types having ample range, with a guard before each increment.
 - **termination**: All loops live in procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

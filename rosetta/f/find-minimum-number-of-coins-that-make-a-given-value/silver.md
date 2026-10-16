@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Greedy change with fixed coins uses only a for loop over a constant array, with division by constants that are provably nonzero and ranged accumulators, so every check follows from types and no annotation is needed. Nothing recursive, heap-based or input-dependent is involved.
 
-Position 129 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 129 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the eight denominations in a constant array of a ranged subtype (1..200) a
 - **overflow**: The loop-carried remaining amount and coin total are declared with ranged subtypes (0..988 and 0..988) so additions and subtractions need no invariant.
 - **length**: Output lines are built from fixed literals plus bounded integer images, so concatenation lengths are statically bounded by the subtype ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, string building, Put without a newline and procedures.
 

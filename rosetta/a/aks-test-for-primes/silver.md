@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over bounded ranges and every value stays under a declared 2**62 bound (the largest needed is about 6.4e13), so the checks follow from types and pre-addition guards without invariants. The only non-routine part is the loop-carried Pascal row addition, which needs the explicit guard.
 
-Position 394 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 394 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a fixed-capacity array of non-negative binomial coefficients (indexes 0 to 
 - **division**: The mod by N occurs only inside the primality loop for N at least 2, which the preceding guard and the declared subtype range make visible.
 - **length**: Output lines are written with Put pieces and image conversions of bounded integers, so fixed-size image buffers cover every value and no unbounded string is built.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

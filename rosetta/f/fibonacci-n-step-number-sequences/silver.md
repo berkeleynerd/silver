@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or parameter-bounded ranges inside procedures, and the only loop-carried value is the window sum, which the wider accumulator type and a visible guard before storage make safe without an invariant. No recursion, heap or annotations are needed, so only careful shape around the sum and text buffer matters.
 
-Position 454 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 454 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sequences are held in a fixed-capacity array of bounded-subtype integers, with t
 - **index**: Reads of element K-I use for-loop ranges with I in 1..N and K starting at N+1, so the index follows from loop bounds and the array's declared range.
 - **length**: The text line is built in a fixed-capacity buffer sized for the maximum number of terms times the maximum digit width, with a guard on the write position before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline, Boolean objects and characters.
 

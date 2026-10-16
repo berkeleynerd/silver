@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every hash operation uses modular arithmetic that cannot overflow, and every index comes from a for-loop range or a constant table with a ranged element type. The only non-routine check is the Base-58 division bound, which follows from the declared 0..57 remainder subtype. No annotation is needed.
 
-Position 1297 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1297 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The public point is embedded as a constant 65-byte array (prefix 4, then X and Y
 - **index**: The RIPEMD-160 word-selection and rotation tables are constant arrays whose element subtypes are 0..15 and 5..15, so indexing the 16-word block and the shift amounts discharge from the declared types.
 - **length**: Padding uses one 128-byte buffer and a message-length parameter of subtype 0..119, so the copy loops and the 64-bit length field have static bounds; the 65-, 32- and 21-byte inputs all lie in that range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, arrays, for loops, procedures, functions, string indexing and string building.
 

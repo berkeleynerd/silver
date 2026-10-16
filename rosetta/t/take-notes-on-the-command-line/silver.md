@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task reads or appends to a local NOTES.TXT, using the command-line arguments and the current date and time, and prints the file when no arguments are given. It needs only effects (arguments, files, clock, console output) and bounded strings, so it can be covered once Silver admits those operations. Failure outcomes (missing file, unwritable file) can be specified by the library operations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, loops, arrays, characters and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtype bounds and fixed-bound for loops, with no recursion, but the nonlinear modular multiplication relies on the provers using those subtype ranges to bound products.
 
-Position 921 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 921 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Declare a bounded Residue subtype of Long_Long_Integer and a Mod_Pow function us
 - **division**: Modulus and trial divisor are typed with a lower bound of 1 or 2 so mod and / by them cannot divide by zero.
 - **termination**: All loops are for loops with fixed bounds (21 exponent steps, trial divisors up to the candidate, candidates up to 1,020,000), so no variant is needed even inside functions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and conditional expressions.
 

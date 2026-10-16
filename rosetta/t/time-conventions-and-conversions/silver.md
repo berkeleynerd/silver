@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with constant-table lookups through for loops and no recursion, so checks follow from range subtypes and guards, but careful range sizing, negative floor division and leap-boundary handling make it plausible rather than likely.
 
-Position 476 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 476 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Timestamps are 64-bit integers in microseconds held in declared range subtypes, 
 - **index**: The leap-second lookup is a for loop over the table's own index range, and the offset it carries is a subtype 0..37, so no invariant is needed.
 - **other**: Inverse TAI/GPS to UTC conversion at a leap-second boundary is ambiguous (two TAI seconds map to the same UTC label), so the program must choose and document a deterministic mapping that reproduces the required table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

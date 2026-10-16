@@ -2,7 +2,7 @@
 
 **Excluded from Silver: annotations.** The task asks only to show an assertion that an integer variable equals 42. That needs an assertion pragma or contract in the source, which Oracle rule 3 bans for good, so the task is excluded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

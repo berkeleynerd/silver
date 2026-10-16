@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is satisfied by text art, so there is no graphics or float requirement, and integer math over small ranged subtypes means every overflow, index and range check follows from types and guards without any loop invariant. The main risk is just the amount of loop-nested nonlinear integer arithmetic and per-row string building, which depends on careful program shape.
 
-Position 815 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 815 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The picture is rendered as text art on a fixed integer grid of about 60 columns 
 - **index**: The shade-ramp index is clamped with explicit if guards just before indexing a constant String, so the check follows from the guard rather than from any loop invariant.
 - **range**: The row buffer is a fixed-length String indexed by the for-loop variable offset by a constant, so the offset index stays in range by subtype bounds on the loop variables.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, for loops, case statements, procedures, functions, Boolean objects and Put without a newline.
 

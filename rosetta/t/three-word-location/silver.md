@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic with static ranges and for loops over fixed buffers, so all checks follow from types and local guards and no annotation is needed. The only extra work is Silver gaining integer division, character and digit-string construction, and parsing.
 
-Position 1131 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1131 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Latitude and longitude are embedded as scaled integers (283852 and -815638 in un
 - **range**: Converting digits to Character'Val (48 + d) and parsing digits back are safe because d is computed with mod 10 and each parsed character is guarded to lie between '0' and '9' before use.
 - **index**: Word and digit buffers are fixed-length strings written by for loops over their own index ranges, so every index check follows from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, text parsing, for loops, procedures and functions.
 

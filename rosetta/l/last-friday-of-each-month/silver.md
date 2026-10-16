@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic over a validated year with a fixed 12-iteration for loop, so all checks follow from types and guards just before use, with only the argument parse loop needing a careful guard.
 
-Position 1125 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1125 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Parse the first argument into a Year subtype (1583..9999) with a digit-by-digit 
 - **range**: The weekday formula uses mod and division on values bounded by the Year subtype and month table, so intermediate sums stay far below Integer limits and results map into 0..6 and 1..31 subtypes.
 - **index**: Writing digits into the 10-character output buffer uses fixed literal positions and digit values proven 0..9 by mod and division of bounded numbers.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, text parsing, string indexing, string building, 'Image of scalars, procedures and case statements.
 

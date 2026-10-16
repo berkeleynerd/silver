@@ -38,6 +38,7 @@ def paths(host: HostLayout) -> dict[str, str]:
             "artifacts": str(host.artifacts), "context": str(host.context),
             "generated": str(host.generated), "compiler": str(host.compiler),
             "executable": str(host.compiler / "bin/silver"),
+            "image_adapter": str(host.image_adapter), "image_tools": str(host.image_tools),
             "reports": str(host.compiler / "obj/gnatprove"),
             "lean": str(host.lean), "proof": str(host.proof)}
 

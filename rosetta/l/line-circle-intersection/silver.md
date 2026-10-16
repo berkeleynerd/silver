@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is closed-form geometry with no loops or recursion, so the only non-routine checks are float range, sqrt domain and division, which tightly ranged subtypes and explicit guards should discharge, though floating-point keeps it at plausible rather than likely.
 
-Position 1091 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1091 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a ranged Float subtype for coordinates, a Point record, and a procedure Inte
 - **range**: Square root is called only in a branch guarded by discriminant >= 0.0, and segment membership is a plain comparison of the parameter t against 0.0 and 1.0.
 - **length**: Formatting float results into text needs a bounded buffer sized for the worst-case image, which depends on how float-image is admitted in the library.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, records, Boolean objects, procedures, functions, floating-point images and string building.
 

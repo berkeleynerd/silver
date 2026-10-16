@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateAdmission
 public import Silver.PredicateStatements
-public import Silver.ComposeModelRanges
+public import Silver.ComposeBounds
 
 @[expose] public section
 
@@ -23,6 +23,7 @@ inductive LengthAt (text : Source) (context : ParseContext) (position : Nat) (li
       ¬(literal = true ∧ (IntegerLiteral.read text (skipAt text position)).after ≠ 0) →
       index = lookupName text context.names (skipAt text position) (nameAfter text (skipAt text position)) →
       context.names.get index = some info →
+      ScalarExpression.lookup text context.scalarNames (skipAt text position) (nameAfter text (skipAt text position)) = 0 →
       Named.IdentifierAt text (skipAt text position) name (nameAfter text (skipAt text position)) →
       after = fixedAfter text (fixedAfter text (nameAfter text (skipAt text position)) "'" false) "length" true →
       after ≠ 0 →
@@ -45,14 +46,22 @@ theorem lengthAt_sound {text : Source} {context : ParseContext} {position : Nat}
       contradiction
     · rename_i indexNonzero
       simp only [indexNonzero, ↓reduceIte] at accepted
-      obtain ⟨first, _, info, found, _⟩ := lookupName_found indexNonzero
+      have indexPresent : lookupName text context.names (skipAt text position) (nameAfter text (skipAt text position)) ≠ 0 :=
+        fun zero => indexNonzero (Or.inl zero)
+      have scalarAbsent : ScalarExpression.lookup text context.scalarNames (skipAt text position)
+          (nameAfter text (skipAt text position)) = 0 := by
+        by_cases clear : ScalarExpression.lookup text context.scalarNames (skipAt text position)
+            (nameAfter text (skipAt text position)) = 0
+        · exact clear
+        · exact False.elim (indexNonzero (Or.inr clear))
+      obtain ⟨first, _, info, found, _⟩ := lookupName_found indexPresent
       have endNonzero : Named.identifierEnd text (skipAt text position) ≠ 0 := by
-        have advancing := (lookupName_found indexNonzero).2.1
+        have advancing := (lookupName_found indexPresent).2.1
         simpa only [nameAfter, first, ↓reduceIte] using (show nameAfter text (skipAt text position) ≠ 0 by omega)
       obtain ⟨name, identifier⟩ := Named.identifierEnd_sound text _ endNonzero
       refine ⟨.binding (lookupName text context.names (skipAt text position) (nameAfter text (skipAt text position))), ?_⟩
       simp only [found, Option.getD_some] at accepted ⊢
-      refine .binding (name := name) ?_ rfl found ?_ rfl accepted
+      refine .binding (name := name) ?_ rfl found scalarAbsent ?_ rfl accepted
       · simpa only [Bool.and_eq_true, decide_eq_true_eq] using notNumber
       · simpa only [nameAfter, first, ↓reduceIte] using identifier
 
@@ -64,7 +73,7 @@ theorem lengthAt_complete {text context position literal operand result}
       have progress := (IntegerLiteral.integer_bounds number).1
       have nonzero : finish ≠ 0 := by omega
       simp [lengthAt, allowed, IntegerLiteral.read_complete number, nonzero]
-  | @binding index info name after notNumber indexEq found identifier afterEq positive =>
+  | @binding index info name after notNumber indexEq found scalarAbsent identifier afterEq positive =>
       have nonzero : index ≠ 0 := by
         intro zero
         simp [Bindings.BindingEnvironment.get, zero] at found
@@ -72,14 +81,14 @@ theorem lengthAt_complete {text context position literal operand result}
         simpa only [Bool.and_eq_true, decide_eq_true_eq] using notNumber
       simp only [lengthAt]
       rw [ite_eq_right notNumberBool]
-      simp only [← indexEq, nonzero, ↓reduceIte, found, Option.getD_some, ← afterEq]
+      simp [← indexEq, nonzero, scalarAbsent, found, ← afterEq]
 
 theorem lengthAt_readable {text context position literal operand result}
     (parsed : LengthAt text context position literal operand result) :
     operand.Readable context.names.shape ∧ operand.bound context.names.shape = some result.value := by
   cases parsed with
   | number _ number => exact ⟨(IntegerLiteral.integer_bounds number).2.2, rfl⟩
-  | @binding index info name after _ _ found _ _ _ =>
+  | @binding index info name after _ _ found _ _ _ _ =>
       have shape : context.names.shape index = some info.cell := by
         simp only [Bindings.BindingEnvironment.shape, found, Option.map_some]
       exact ⟨⟨_, shape⟩, by simp only [LengthOperand.bound, shape, Option.map_some]; rfl⟩
@@ -94,13 +103,13 @@ theorem lengthAt_unique {text context position literal left right leftResult rig
   | number allowed number =>
       cases second with
       | number _ other => exact congrArg LengthOperand.literal (IntegerLiteral.integer_unique number other).1
-      | binding notNumber _ _ _ _ _ =>
+      | binding notNumber _ _ _ _ _ _ =>
           exact False.elim (notNumber ⟨allowed, by
             rw [IntegerLiteral.read_complete number]
             have progress := (IntegerLiteral.integer_bounds number).1
             dsimp only
             omega⟩)
-  | binding notNumber indexEq _ _ _ _ =>
+  | binding notNumber indexEq _ _ _ _ _ =>
       cases second with
       | number allowed number =>
           exact False.elim (notNumber ⟨allowed, by
@@ -108,17 +117,15 @@ theorem lengthAt_unique {text context position literal left right leftResult rig
             have progress := (IntegerLiteral.integer_bounds number).1
             dsimp only
             omega⟩)
-      | binding _ otherEq _ _ _ _ => exact congrArg LengthOperand.binding (indexEq.trans otherEq.symm)
+      | binding _ otherEq _ _ _ _ _ => exact congrArg LengthOperand.binding (indexEq.trans otherEq.symm)
 
-theorem expression_reading_ready {text names position expression result}
-    (normal : NamesNormal names) (parsed : ExpressionAt text names position expression result) :
-    ExpressionReady names.shape expression ∧ expression.summary names.shape = summaryOf result := by
+theorem expression_reading_ready {text names scalarNames position expression result}
+    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result) :
+    ExpressionReady names.shape expression ∧
+      expression.inferLength names.shape (ScalarExpression.ranges scalarNames) = some result.lengthSummary := by
   have readable := expressionTail_readable parsed
   have count := expressionTail_count normal (by simp) parsed
   have nonempty := expressionTail_nonempty normal (by simp) rfl rfl parsed
-  have summary := expressionTail_summary normal (by simp) parsed
-  refine ⟨⟨readable.1, readable.2, nonempty, by simpa using count⟩, ?_⟩
-  simp only [Expression.summary, summaryOf, Nat.zero_add] at summary ⊢
-  rw [summary.1, summary.2]
+  exact ⟨⟨readable.1, readable.2, nonempty, by simpa using count⟩, expressionAt_inferLength normal parsed⟩
 
 end Silver.Predicate

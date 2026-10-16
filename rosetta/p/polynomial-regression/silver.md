@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is embedded and small, so exact integer normal equations avoid floating point and every check follows from bounded subtypes or a guard just before the operation, though the loop-carried sums and determinants need careful guard placement.
 
-Position 935 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 935 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 11 data points as constant arrays of a bounded integer subtype, comput
 - **division**: The coefficient quotients divide by the system determinant, which is guarded to be nonzero with a specified rejection outcome for a singular system.
 - **range**: Scaling by 1000 for three-decimal rounding and converting digits to text needs bounded intermediate subtypes so the checks follow from declared ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, string building, 'Image of scalars, Put without a newline, Boolean objects and conditional expressions.
 

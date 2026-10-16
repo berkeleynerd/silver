@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock, delay.** The task can be met by a text-art clock (a second hand drawn on a character grid) redrawn each second from the system clock with a delay, which needs only console output, clock and delay effects. Nothing in the requirements conflicts with the Oracle rules; the SDL window in the existing solution is not required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, loops, subprograms, characters and string operations.
 

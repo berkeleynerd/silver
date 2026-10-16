@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from fixed string bounds, a Boolean carry and a digit guard placed just before each character arithmetic step, so no loop invariant is needed. The program avoids Integer'Value, which would raise on bad text, and uses digit-wise increment instead.
 
-Position 494 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 494 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The numeric string "12345" is a fixed 5-character String constant copied into a 
 - **range**: Character'Val(Character'Pos(C)+1) is only evaluated after an explicit guard that C is between '0' and '8', so the result stays a digit and the check discharges.
 - **index**: Loop indexes run over the string's own fixed range and the result buffer is one character longer, so every index follows from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, string building, for loops, Boolean objects and integers.
 

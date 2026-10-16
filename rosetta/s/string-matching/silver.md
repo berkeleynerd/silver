@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing uses constant lengths and for-loop indexes over the string's own range with guards just before slices, and there is no loop-carried arithmetic, so the checks follow from declarations and guards.
 
-Position 962 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 962 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed two constant Strings (for example a text with repeated occurrences and a p
 - **index**: Slice bounds I .. I + S2'Length - 1 are discharged because the for loop runs I over 1 .. S1'Length - S2'Length + 1 with static constant lengths, and starts/ends slices are guarded by a length comparison with and then.
 - **length**: The output line concatenates fixed-length literals, constants and a short Integer'Image, so its bounded result length is statically known.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, string indexing, unconstrained arrays, for loops, 'Image of scalars, string building and conditional expressions.
 

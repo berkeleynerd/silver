@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only requires drawing an image, which text art satisfies, and replacing floating-point trig with an integer lookup table keeps all arithmetic in bounded integer subtypes with guards on plotting, so no annotation is needed. The risk is only the nonlinear scaled arithmetic and projected index guards, hence plausible rather than likely.
 
-Position 818 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 818 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program holds a constant integer table of sine values (scaled by 1000) over 
 - **index**: Projected screen coordinates are computed from loop-carried values with integer division, so an explicit if guard against the canvas bounds just before each plot is needed, and out-of-range points are simply left unplotted.
 - **range**: The sine and cosine table lookups use an index reduced with mod into the table's own range, which follows from the array index subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, procedures, string building and case statements.
 

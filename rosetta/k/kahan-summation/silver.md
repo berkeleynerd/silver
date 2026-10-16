@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line or a short for loop over a three-element array, so the checks follow from a bounded Float subtype and guards, with the main uncertainty being floating-point provers and a float-formatting library operation. No annotations are needed.
 
-Position 1067 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1067 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses the task's floating-point alternative, stating that it does so 
 - **termination**: The epsilon-halving while loop sits in a procedure so no termination check applies, and the value halves toward a fixed positive floor so it ends in practice.
 - **other**: The task needs float formatting with fixed fractional digits, which depends on an admitted library operation Silver lacks today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, records, procedures, for loops, while loops, Boolean objects and Put without a newline.
 

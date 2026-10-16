@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All loop variables are Floor-typed for-loop indexes, so differences and abs are bounded by types and every check discharges without invariants, and the loops need no termination variant.
 
-Position 142 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 142 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 Declare subtype Floor is Integer range 1 .. 5 and five nested for loops over Floor, one per person (Baker, Cooper, Fletcher, Miller, Smith), with the distinct-floor and six constraint tests as one Boolean condition in the innermost body. Each solution is printed with Put_Line using Floor'Image concatenated into short bounded strings; no recursion, no accumulator, no loop-carried state. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index range, the character guard before digit conversion, and the mod-10 running sum that stays within a small subtype, so no invariant is required and loops sit in a function with only for loops (no termination obligation).
 
-Position 970 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 970 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function Luhn_Valid(Num : String) returns Boolean by iterating reverse over Nu
 - **index**: The loop is a reverse for loop over Num'Range, so every Num(P) index follows from the array's own range.
 - **range**: Character'Pos(Num(P)) - Character'Pos('0') is guarded by a test that the character lies between '0' and '9' before conversion to a 0..9 digit subtype, with non-digits yielding a specified invalid verdict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, for loops, procedures, functions and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string and index arithmetic over fixed-length strings, inside procedures so no termination check applies, and every index is guardable by explicit tests. The nested scan loops with several loop-carried positions need careful guard placement, so discharge is plausible rather than routine.
 
-Position 573 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 573 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The sentence and the two targets are embedded fixed-length String constants, and
 - **overflow**: Position increments and Start + Pattern_Length - 1 sums stay safe because the sentence and pattern are fixed-length subtypes with small bounds and loop positions are range-typed.
 - **range**: Lower-casing a letter through 'Pos and 'Val is guarded by an explicit test that the character is in 'A' .. 'Z' just before conversion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops, while loops, procedures and functions.
 

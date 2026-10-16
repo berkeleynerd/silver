@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed-size 8x8 fill by a closed-form formula with for loops over static ranges, so every index and range check follows from types and loop bounds with no loop-carried unbounded values. Only the new surface for 2D arrays, integer-to-text conversion and Put is missing.
 
-Position 655 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 655 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a constant N = 8 and a 2D Integer array subtype range 1..64 indexed by 1
 - **range**: The loop-carried counter and the complement 65 minus counter stay inside 1..64 because the counter is derived directly from the row and column loop indexes (8*(r-1)+c) rather than accumulated, so the type range and static loop bounds discharge it.
 - **length**: Each output row is built into a fixed 8-cell buffer with fixed-width 3-character fields, so concatenation lengths are static; the integer text is padded using a guard on whether the value is below 10.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

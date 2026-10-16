@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task has no real database requirement beyond demonstrating a table of typed columns, so a record with ranged fields, printed as schema text plus a sample row, is faithful and every check follows from declared ranges.
 
-Position 592 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 592 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
 The program declares ranged subtypes for ID, Age and Salary in cents and a record type Person with fixed-length String components, then builds one embedded Person constant as the table row. A procedure prints the CREATE TABLE text as literal lines and then each column of the row, converting numbers with 'Image into a bounded buffer sized for the maximum range. No loops or input are needed, so all checks follow from the declared ranges. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, ranged subtypes, integers, 'Image of scalars, string building and procedures.
 

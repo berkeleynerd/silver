@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed string length, for-loop indexes over array ranges, modular generator arithmetic and a bounded generation counter, with the while loop confined to a procedure, but the program shape (state threaded through procedures, a generation cap that adds a visible non-convergence outcome) needs care.
 
-Position 1307 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1307 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Strings are fixed 28-character arrays over a 27-letter alphabet (A..Z and space)
 - **index**: All string and children-array indexing is in for loops over the array's own range or by the fixed 28-length constants, so bounds are static.
 - **other**: The mutation rate is expressed as an integer percentage compared with a 0..99 pseudo-random draw, avoiding floating point entirely.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, string indexing, string building, 'Image of scalars and Put without a newline.
 

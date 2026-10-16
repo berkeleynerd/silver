@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small integer arithmetic on range-bounded values with explicit guards before each index and addition, so proofs should discharge without invariants. The only moderate effort is formatting the numbers into a bounded output buffer.
 
-Position 356 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 356 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Build a Boolean prime sieve array over 0..32000 with for loops and a guarded inn
 - **index**: Sieve and marking indexes are guarded by an explicit comparison against the array bound just before use, so no loop invariant is needed.
 - **termination**: All while loops live in procedures, which get no termination check, and the Is_Prime function uses a bounded for loop over divisors.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

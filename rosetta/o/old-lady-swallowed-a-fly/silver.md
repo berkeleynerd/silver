@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed embedded text, for loops over a static range 1..8 and case statements over a bounded subtype need no loop-carried values, so every check follows from types and static bounds.
 
-Position 786 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 786 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
 Animals are indexed by a subtype Animal_Index range 1..8 (fly to donkey), with small procedures that use case statements on the index to Put_Line each animal's opening line, its second line, and the "She swallowed the X to catch the Y" line using bounded concatenation of literals. The main body is a for loop over verses whose inner for loop (reverse) walks back down the chain, then the fixed closing "horse" verse is printed; all lyrics are embedded literals, no input is read, and every loop bound is static. About 80 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, case statements, for loops, procedures and integers.
 

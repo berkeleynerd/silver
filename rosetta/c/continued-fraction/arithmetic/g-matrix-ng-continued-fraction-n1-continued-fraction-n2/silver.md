@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is iteration over a bounded state with explicit zero-denominator and magnitude guards, so no annotations are required, but the coefficient growth needs careful range guards or fixed-capacity big numbers, which makes discharge plausible rather than likely.
 
-Position 1384 in the [progression](../../../../progression.md#stage-26), in stage 26.
+Position 1384 in the [progression](../../../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each continued fraction is a fixed-capacity array of Integer terms (sqrt(2), 1/2
 - **division**: Floor division of a by b and the comparison of a1/b1, a2/b2 and a/b are each guarded by an explicit b /= 0 test before use, with zero denominators treated as infinity.
 - **range**: Choosing between N1 and N2 by comparing fractions needs cross-multiplication, which stays bounded only if the coefficients are capped by the same threshold guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, case statements, string building, 'Image of scalars, Put without a newline and big numbers.
 

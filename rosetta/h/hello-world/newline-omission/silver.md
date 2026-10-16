@@ -8,7 +8,7 @@ Position 3 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 A parameterless Main procedure with pragma SPARK_Mode (On) calls Silver_IO.Put with the literal "Goodbye, World!". There is no data, loop or guard, so no proof obligation arises beyond the admitted library operation's contract. About 6 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Put without a newline.
 

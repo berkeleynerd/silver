@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a pure integer walk over a bounded grid whose checks follow from ranged subtypes and explicit pre-store guards, so it needs no annotations and only mild guard shaping for the loop-carried coordinates.
 
-Position 813 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 813 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program uses the iterative turtle method: for each segment n from 1 to a fix
 - **overflow**: The segment index and the halving loop that finds the bit above the lowest 1-bit use a small declared integer range with n/2 shrinking each pass, so no overflow is possible.
 - **index**: Grid writes and row-string indexing use coordinates held in the grid's index subtype, which is established by the guard just before each store, plus for loops over the array's own range for printing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, case statements and procedures.
 

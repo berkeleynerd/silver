@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared index subtypes, for-loop ranges and explicit capacity guards, and all loops live in procedures so no termination variant is needed, though the loop-carried compaction indices and digit parsing need careful guard placement.
 
-Position 1457 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1457 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ Keep the lucky list in a fixed Integer array of about 120000 entries with a leng
 - **initialization**: The list array and its length are fully initialized by a for loop before the sieve starts, which flow analysis accepts.
 - **other**: The fixed capacity must cover the required 10,000th numbers (115591 and 111842) while any larger request is rejected visibly rather than truncated, and the fixed 2D-free arrays make this a documented resource limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline, further arguments and exit status.
 

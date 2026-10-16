@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for loops over the array's own ranges and cell sums are bounded by the declared cell range plus a visible guard, so every check follows from types and local guards; only the row-formatting buffer arithmetic needs careful shape.
 
-Position 900 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 900 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a constrained 0..4 by 0..4 array of a ranged cell subtype and three function
 - **range**: Storing a sum back into a ranged cell is discharged by an explicit guard before the assignment that rejects the run if the sum exceeds the cell limit, a branch never taken for 5-by-5.
 - **length**: Row text is built in a fixed buffer with a per-cell width, and the 5-cell bound with a maximum image length keeps every slice and concatenation within the buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, functions, procedures, 'Image of scalars, string building and conditional expressions.
 

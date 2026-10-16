@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All array indexing is over constant interior ranges and all counters are small ranged values, so every check follows from types and loop bounds; the only unbounded loop is a while loop in a procedure, which gets no termination check.
 
-Position 674 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 674 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Store the embedded 10-by-32 image as a two-dimensional Boolean array filled from
 - **index**: Neighbour accesses at x-1, x+1, y-1 and y+1 are safe because the pixel loops run over the interior subranges 2..Rows-1 and 2..Cols-1 of constant bounds.
 - **overflow**: The neighbour count and transition count are small counters of a range 0..8 type incremented in straight-line code at most eight times, so the provers bound them without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

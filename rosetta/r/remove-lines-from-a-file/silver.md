@@ -13,7 +13,7 @@ The Main procedure parses three arguments (filename, first line, count) with val
 - **termination**: The line-reading loop is a while loop inside a procedure, which receives no termination check, so no variant is needed.
 - **other**: The file operations depend on admitted library operations that specify their failure outcomes, including a failed read, write or rename.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, text parsing, for loops, while loops, procedures, functions, further arguments, exit status, file input and file output.
 

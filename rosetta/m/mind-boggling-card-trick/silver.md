@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, range-typed counters and guards just before pile stores and mod divisors, but several loop-carried values (pile counts, generator state, success count) need careful typing and guards, so discharge depends on program shape.
 
-Position 180 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 180 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent the deck as a 52-element array of card indices (red when index is belo
 - **division**: The mod divisors (shuffle bound and pile minimum) are protected by explicit guards that they are positive.
 - **initialization**: All arrays are fully initialized by aggregates or fill loops before use, which flow analysis can see.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures and 'Image of scalars.
 

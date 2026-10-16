@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a fixed-size buffer, a guarded count, a bounded remainder subtype and for-loop indexes, so no annotation is needed; the 34-character limit is a documented resource limit that rejects longer input visibly.
 
-Position 791 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 791 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the sample IBANs as String constants, and a procedure copies the non-space
 - **index**: The compacted buffer is a fixed 34-character array and the count is incremented only behind a guard Count < 34, with longer input rejected as invalid.
 - **overflow**: The running remainder is a subtype 0 .. 96 so Num * 100 + 35 is bounded and the mod 97 result restores the range without any loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, for loops, case statements, procedures and functions.
 

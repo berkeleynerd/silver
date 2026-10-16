@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Excluded. The task asks for natural numbers encoded as functions that apply their argument N times, plus successor and arithmetic operators that build new such functions at run time. That needs closures and first-class higher-order functions, which Ada/SPARK cannot express. Only printing the integer results would be Silver-friendly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, subprograms and generics.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic on bounded ranges inside procedures with loops and guards, so no annotations are needed, but proofs depend on carefully ranged subtypes and guards for loop-carried trial-division and counter values.
 
-Position 292 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 292 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Analyze factorizes n by trial division in a while loop over a ranged
 - **termination**: All while loops (outer search, trial division, digit counting) sit in procedures, which get no termination check, and the outer search is bounded by a fixed upper limit on n so the program terminates visibly.
 - **range**: The exponent and digit-count sums are bounded by small ranged subtypes (at most a few dozen), so the additions are safe from types alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

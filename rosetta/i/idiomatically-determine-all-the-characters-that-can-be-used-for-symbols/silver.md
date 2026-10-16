@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks come from the for-loop index range, the declared count range and a capacity guard before each append, with no while loops or recursion, so proofs should discharge automatically. The set of identifier characters is the fixed Ada rule applied to every Character value, which is a faithful, bounded program.
 
-Position 969 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 969 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure loops with a for loop over every value of the Character type and cla
 - **index**: The write position in the fixed 64-character buffer is a loop-carried count, so each append is guarded by testing the count against the capacity just before the store and the increment.
 - **range**: The slice Buffer (1 .. Count) is safe because Count is declared Natural range 0 .. 64 and the buffer covers 1 .. 64.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, ranged subtypes, for loops, string indexing, string building, unconstrained arrays and procedures.
 

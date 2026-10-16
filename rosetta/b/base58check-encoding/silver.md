@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Base conversion by repeated division of a fixed-size byte array needs only range-typed carries and a guarded digit count, so no annotations are needed, though the nonlinear carry arithmetic and the while loop's buffer guard require careful shape.
 
-Position 556 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 556 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed each example checksum as a fixed-size array of bytes (subtype 0 .. 255) wi
 - **index**: The digit buffer is sized for the longest example (the 24-byte input needs at most 33 digits, so 40 slots) and a guard before each write rejects the input visibly if the count would exceed capacity.
 - **length**: The output String is built in a fixed buffer by reversing digits with for-loop indexes over the buffer range, so slice lengths follow from the guarded count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, string indexing, string building and procedures.
 

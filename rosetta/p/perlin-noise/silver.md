@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There are no loops, recursion or contracts needed, and the integer indexing follows from subtype ranges, so only the bounded float arithmetic and the float-to-integer floor conversion need careful range subtypes. The outlook is plausible rather than likely because floating-point proof and float formatting are the weaker areas of the provers and the library.
 
-Position 1094 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1094 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A constant 512-entry array of a 0..255 subtype holds the permutation table twice
 - **index**: Permutation lookups such as p(p(a)+b)+c+1 stay within a 512-entry table because every element is declared as 0..255 and the sums are at most 511, which follows from types alone.
 - **other**: Printing the result to 15 decimals requires either a float image routine whose specification is admitted or scaling to an integer after a range guard, and the value 0.13691995878400012 is checked only at run time, not by proof.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, arrays, functions, case statements, 'Image of scalars, floating-point images and Put without a newline.
 

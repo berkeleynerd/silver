@@ -1,7 +1,8 @@
 module
 
 public import Silver.PredicateAdmission
-public import Silver.ComposeEquations
+public import Silver.ComposeContracts
+public import Silver.ScalarExpressionEnvironment
 
 @[expose] public section
 
@@ -14,14 +15,16 @@ structure Context where
   names : Compose.BindingEnvironment
   dynamicFirst : Nat
   dynamicAfter : Nat
+  scalarNames : ScalarExpression.Environment := []
   deriving DecidableEq, Repr
 
 def Context.model (context : Context) : ParseContext :=
-  ⟨context.names, decide (context.dynamicFirst ≠ 0)⟩
+  ⟨context.names, decide (context.dynamicFirst ≠ 0), context.scalarNames⟩
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
-    (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text
+    (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
+    ScalarExpression.ValidEnvironment text context.scalarNames
 
 inductive Token
   | leftParenthesis | rightParenthesis | argumentsName | dot | inputIsValid

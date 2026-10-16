@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is one for loop over a length-bounded argument with three guarded counters and an equality test, so every check follows from types and guards placed just before the operation.
 
-Position 492 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 492 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Take the first command-line argument as a bounded String (validated to a documen
 - **overflow**: The three counters are loop-carried, so GNATprove knows only their subtype range after the first iteration; the program discharges this with a guard before each increment that rejects when a counter is at its maximum, which the length-bounded input never triggers.
 - **index**: Indexing the argument string is safe because the loop runs over the string's own index range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing and for loops.
 

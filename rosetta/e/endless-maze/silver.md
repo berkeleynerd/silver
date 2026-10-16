@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with an explicit guard before each move, and the interactive while loop sits in a procedure, so no annotation is needed; the plausible rating reflects the modular hash, the grid-edge guards and the stdin line reading.
 
-Position 1303 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1303 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The maze is a bounded grid (for example 0..255 on each axis, a documented limit 
 - **termination**: The interactive loop lives in a procedure (no termination check) and ends on 'quit' or end of input.
 - **length**: Input lines longer than the fixed buffer are treated as invalid input and compared only after a length guard, so string comparisons stay within bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, case statements, while loops, procedures, functions, standard input and Put without a newline.
 

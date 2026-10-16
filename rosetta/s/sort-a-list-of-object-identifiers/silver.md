@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, a capped field value and guards placed directly before each use, with while loops confined to procedures, but the loop-carried parsing accumulators need carefully shaped guards.
 
-Position 1138 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1138 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the six OIDs as a constant array of records holding a fixed-capacity Strin
 - **termination**: The parsing scan uses a while loop, which is placed in a procedure (no termination check) and the sort uses bounded for loops, so no variant is needed.
 - **range**: Character'Pos(c) - Character'Pos('0') is computed only after a guard that c lies between '0' and '9', so the digit range is established by the condition.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, text parsing, for loops, while loops, procedures and functions.
 

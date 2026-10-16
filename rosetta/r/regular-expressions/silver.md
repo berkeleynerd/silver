@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Matching and substitution can be done with a bounded iterative NFA simulation in procedures with explicitly guarded indexes, so every check follows from subtypes and guards, but the loop-carried positions and the matcher's shape make discharge depend on careful structure.
 
-Position 1199 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1199 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the subject string "I love PATTERN matching!" and small fixed
 - **overflow**: Loop-carried match start and end positions are typed as the bounded position subtype and checked against capacity by a guard before each increment.
 - **length**: The substituted result is built in a fixed-capacity buffer, and a guard on the combined length reports a visible too-long outcome rather than truncating.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, case statements, for loops, while loops, procedures and functions.
 

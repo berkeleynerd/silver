@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small array bounds, a 0..9 count subtype and guards placed immediately before each decrement or index, and the while loop is in a procedure so there is no termination obligation; the only new needs are line-by-line file reading and character-indexed arrays.
 
-Position 1327 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1327 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Embed the wheel string as a constant and, for each dictionary line read into a b
 - **length**: Dictionary lines are read into a fixed bounded buffer with a reported length, and lines longer than the buffer are rejected as non-matches since they exceed nine letters, so no truncation changes a result.
 - **initialization**: The counts array is rebuilt from the wheel string for every word by a full for loop over the array's own range, and the file-open failure has a specified rejection outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, characters, arrays, string indexing, for loops, while loops, procedures, Boolean objects, file input and text parsing.
 

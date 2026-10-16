@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes, a static array bound and loop-condition guards, but the loop-carried count and sieve step need carefully shaped, guarded code, so discharge is plausible rather than routine.
 
-Position 250 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 250 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A fixed-size Boolean sieve of Eratosthenes up to 1,000,000 is built in a procedu
 - **stack**: A one-million-element Boolean sieve is a fixed-size array that must fit in stack memory, which is an environmental premise outside the proof.
 - **range**: Computing n - i for each i from 2 to 500000 with n fixed at 1000000 stays within the sieve's index range by static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

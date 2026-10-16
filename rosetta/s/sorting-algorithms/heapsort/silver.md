@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic check follows from bounded index subtypes plus the loop condition and 'and then' guards directly before each access, and loops sit in procedures so no variants are needed. No annotation, recursion or heap use is required.
 
-Position 214 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 214 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A fixed-size constrained Integer array with embedded sample data is sorted in pl
 - **range**: Heapify's start counter reaches -1, so it is declared in a subtype that includes -1 and the loop guard keeps the decrement in range.
 - **overflow**: Integer elements are only compared and swapped, never added, and index arithmetic is bounded by the small index subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops in procedures with no recursion, so checks follow from subtype ranges and a few explicit guards, but the many loop-carried indices and sums and the string-building of each markup line make the shape of the program matter.
 
-Position 951 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 951 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The embedded outline is stored as a constant array of records holding an indent 
 - **length**: Building each markup line from a bounded text buffer plus fixed prefixes and an integer image needs the buffer size and line capacity chosen so the concatenation length provably fits.
 - **other**: Level-wise row emission requires nested loops over lines and levels, so each cell needs a guard, and the empty padding cells for shallow leaves must be emitted explicitly rather than skipped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and conditional expressions.
 

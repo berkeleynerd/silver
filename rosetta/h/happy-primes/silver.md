@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, for loops and guards placed before the arithmetic, and the stretch ratios beyond 1/8 are optional and omitted, so only careful shaping of loop-carried counters and the digit-sum is required.
 
-Position 399 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 399 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the search bounds as ranged subtypes (values up to 20000), with Is_Prime a
 - **overflow**: The primality trial division in a for loop over divisors 2..141 guards d*d <= n before the divide, keeping the nonlinear product within range.
 - **other**: The ratio test uses the integer comparison hpc * k <= hnc rather than floating point, bounded by the ranged counters, which keeps it linear and exact.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, 'Image of scalars and Put without a newline.
 

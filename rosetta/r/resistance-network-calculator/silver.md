@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over constrained arrays in procedures with no recursion, but floating-point elimination with loop-carried matrix values needs per-assignment range guards and pivot guards, so discharge depends on careful program shape rather than being routine.
 
-Position 1150 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1150 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the four example network strings as fixed-length String constants, with a 
 - **index**: Node numbers parsed from the string are validated against the node count and string positions are guarded against the string length before every read.
 - **range**: Parsed integers accumulate digit by digit in a loop and need a guard on the running value against a documented maximum before each multiply-add.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, floating point, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions and Boolean objects.
 

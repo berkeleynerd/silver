@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed and small, so every arithmetic result is bounded by declared ranges and every array index comes from for-loop ranges over the array, with no recursion, while loops or floating point needed.
 
-Position 800 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 800 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the nine past-form ratings and the four adjustments as integer pound value
 - **index**: The bubble-sort inner loop reads element y+1, discharged by choosing for-loop bounds of the form 1 .. N-1 over a constrained array type with no loop-carried index.
 - **overflow**: Ratings are small integers in a declared subtype (about -1000..1000) updated only by constant offsets, so all additions stay within Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, for loops, procedures, 'Image of scalars, string building, Put without a newline and case statements.
 

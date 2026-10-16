@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs bounded integer geometry in loops over fixed ranges, so every check follows from declared coordinate ranges and for-loop bounds with no loop-carried value needing an invariant. Floating point is avoided by scaling the example coordinates to integers, so the proofs should discharge automatically.
 
-Position 897 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 897 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each triangle is a flat array of six Coord values (a ranged integer subtype) wit
 - **overflow**: The cross-product arithmetic is bounded because coordinates are a small ranged subtype (for example -100 to 100, doubled so 2.5 becomes 5), and the same-side test compares signs instead of multiplying two cross products, so no 32-bit overflow is possible.
 - **index**: Vertex indexes are computed as 2 * ((V + 1) mod 3) inside for loops over 0 .. 2, so the bounds follow directly from the loop range and mod.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, procedures and conditional expressions.
 

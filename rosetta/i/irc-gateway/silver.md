@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task asks for a gateway that relays messages between an IRC server and another IRC server or chat server. That needs network sockets plus bounded IRC message parsing and a relay loop, all of which fit bounded strings, arrays and iteration. No fixed Oracle rule is broken, so the only gap is the network effect Silver lacks today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, records, arrays, loops, subprograms and enumerations.
 

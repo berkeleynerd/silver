@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Order-3 ASCII art needs only fixed-size arrays, for loops and small ranged integer arithmetic, so all checks are bounded by types and a few explicit guards, but the loop-carried coordinate reflection needs careful guard placement.
 
-Position 692 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 692 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program walks the 64 curve indices of an order-3 Hilbert curve with a for lo
 - **index**: Canvas indexes are computed as 2*x and 2*y plus a neighbour offset from loop-carried coordinates, so they are held in subtypes 0..7 and 0..14 with guards before each canvas write.
 - **overflow**: Coordinate arithmetic uses small ranged integer types so every sum and product is statically bounded, though the bit-extraction by division and mod is mildly nonlinear.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, procedures and Put without a newline.
 

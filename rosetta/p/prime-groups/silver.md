@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the string's own index range and the only arithmetic is on bounded character-code differences, so every check follows from types and loop ranges with no annotation needed.
 
-Position 985 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 985 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each test string is passed to a procedure Solve (S : String; N : Natural range 2
 - **overflow**: The difference of two Character'Pos values lies in 0..255 by type, so abs and subtraction cannot overflow.
 - **index**: The nested for loops index S(I), S(J), S(K) with bounds derived from S'First and S'Last, so index checks follow from loop ranges, though the I+1 and J+1 loop starts need the first-greater-than-last guard to avoid overflow on S'Last.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, unconstrained arrays, string indexing, string building, for loops, procedures and functions.
 

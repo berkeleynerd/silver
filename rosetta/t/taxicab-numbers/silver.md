@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges and all values are bounded by subtypes, so every check follows from types and static bounds with no invariants. The only effort is writing the sort and scan with the I+1 index guarded by loop ranges.
 
-Position 79 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 79 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Enumerate all pairs 1 <= X <= Y <= 74 into fixed arrays of 2775 sums with their 
 - **overflow**: Cubes and sums stay below 405224 because the operands are a subtype 1..74, so the nonlinear product is bounded by the type alone.
 - **length**: Each output line is a bounded concatenation of 'Image strings whose maximum widths are static, so the result length fits the declared buffer or Put_Line argument.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

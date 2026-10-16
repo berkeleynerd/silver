@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic can be kept in capped 64-bit integers with constant nonzero divisors, so only the parsing and formatting loops need careful guards and nothing needs an annotation. Floating point is avoided by fixed-scale integer output, which still meets the task's linear conversion.
 
-Position 1452 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1452 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program holds the seven unit factors as a constant array indexed by an enume
 - **range**: The parse accumulator is a loop-carried value, so each step guards it against the cap before multiplying by 10 and adding the digit, rejecting input that exceeds the cap.
 - **division**: Division is only by constant nonzero unit factors held in a constant array indexed by an enumeration, so the divisor is statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, enumerations, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, further arguments, Put without a newline and exit status.
 

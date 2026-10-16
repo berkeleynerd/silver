@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small ranged limb types and bounded loops, but the truncated leading-digit arithmetic with exponent tracking and carry propagation needs careful guard placement, so discharge depends on program shape rather than annotations.
 
-Position 755 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 755 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the 2x2 Fibonacci matrix twice: once as exact residues mod 10^20 in fi
 - **index**: Limb-array indices in the shifted truncation and schoolbook product are computed values, so each is guarded just before use or taken from for loops over the array's own range.
 - **termination**: The binary-exponent loop is a for loop over a fixed 64-bit width (or a while loop confined to a procedure), so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

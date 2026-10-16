@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a pure in-memory data structure demo that maps to index-based arrays instead of pointers, so only console output is needed and all checks follow from fixed capacities and guards. It is plausible rather than likely because the lookup and length walks carry block and offset indexes through loops with no invariants.
 
-Position 634 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 634 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the persistent VList over a fixed-capacity pool: an Integer element ar
 - **termination**: The block-walking loops are for loops over a fixed maximum block count (or while loops confined to procedures), so no variant is required.
 - **initialization**: The element pool and block table must be fully initialized by aggregates so flow analysis sees no uninitialized reads.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

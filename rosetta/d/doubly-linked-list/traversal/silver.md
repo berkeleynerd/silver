@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All array indexes are covered by a 0..7 cursor subtype and a nonzero guard before each access, and the loops are in a procedure with fixed data, so no annotation is needed.
 
-Position 441 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 441 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The list is modelled as fixed-capacity parallel constant arrays indexed 1..7: a 
 - **index**: The cursor is a subtype 0..7 with 0 meaning no node, and each array access is preceded by a loop condition Cursor /= 0, so the index check follows from the type and the guard.
 - **termination**: The link-following while loops live in a procedure, which gets no termination check, and the constant link arrays are acyclic by construction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, arrays, while loops, Put without a newline, procedures and string building.
 

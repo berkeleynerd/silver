@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing follows from for-loop ranges over a fixed 18 by 18 array, and the only loop-carried value is the sum, whose overflow and range checks discharge through a single guard just before each assignment.
 
-Position 663 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 663 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed the 18-row triangle in a constrained 18 by 18 Integer-based array of a ran
 
 - **overflow**: The in-place bottom-up sums are loop-carried, so each addition is guarded by comparing the sum to the element subtype's upper limit before assigning, and over-limit is rejected visibly, which also covers the range check on assignment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops and 'Image of scalars.
 

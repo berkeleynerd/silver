@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from the arrays' own ranges and every arithmetic result is guarded against the declared Element range before storing, so only the exponentiation loop and the text-building need careful shaping, with no annotations required.
 
-Position 837 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 837 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent a matrix as a 3x3 two-dimensional array of a ranged Element subtype (a
 - **overflow**: Exponentiation uses a small loop with a bounded exponent (0..8) and a range check on the running product each iteration, because no invariant can carry the bound across iterations, so the guard must reject before multiplying.
 - **length**: Image text is built into a fixed-capacity buffer sized for 3x3 cells of at most 8 characters plus separators, so the length check follows from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, multidimensional arrays, arrays, for loops, procedures, functions, 'Image of scalars, string building, string indexing and case statements.
 

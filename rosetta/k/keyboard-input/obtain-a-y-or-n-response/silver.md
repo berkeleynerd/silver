@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** A loop reads single keystrokes through an admitted terminal/keyboard operation (immediate, flushed, no Enter) until Y/y or N/n is seen, then returns the answer. That is ordinary SPARK with no rule conflicts. Silver would need a specified raw-keyboard library operation, including an outcome for end of input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, loops and subprograms.
 

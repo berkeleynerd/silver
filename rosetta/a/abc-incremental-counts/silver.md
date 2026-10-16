@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded counter subtypes, for-loop indexes over the word's own range and a guard before each increment, with the file-reading while loop confined to a procedure. The only new demands are file input and bounded string handling, with no annotation needed.
 
-Position 1328 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1328 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A function Count_Letter(Word : String; C : Character) returns a bounded count wi
 - **length**: Lines longer than the fixed word buffer are rejected with a visible outcome, so slicing and indexing into the buffer stay in range.
 - **termination**: The read-until-end-of-file loop lives in a procedure, which has no termination check, while the counting and sorting loops are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, 'Image of scalars, string building, for loops, while loops, procedures, functions, Boolean objects, Put without a newline and file input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, a bounded digit loop and for-loop indexes, with only simple guards before counter increments and the division, so proofs should discharge without annotations. The main new surface is integer arithmetic with mod and /, loops, and numeric text output.
 
-Position 353 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 353 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A main procedure runs a for loop over n from 1 to a fixed documented limit (abou
 - **division**: The digit sum starts at zero but n >= 1 means the loop adds at least one digit, so a guard 'if sum > 0' just before the divisibility test makes the mod check discharge.
 - **termination**: The digit-sum loop is a bounded for loop over at most 10 digits inside a procedure, and the outer search is a for loop, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

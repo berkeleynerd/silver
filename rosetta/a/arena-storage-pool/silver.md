@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The pool is modeled as an index-handled array arena with a visible exhaustion outcome, so every check follows from ranged subtypes and a guard before indexing, and no real heap, access type or Storage_Pool is needed.
 
-Position 600 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 600 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The arena is a record holding a fixed-capacity array of ranged Integer cells (sa
 - **initialization**: Out parameters of Allocate are assigned on both the success and the exhaustion path, and the arena record is fully initialized at declaration.
 - **index**: Allocate checks that Free is within capacity before indexing Core, so the index check follows from the guard just before the access.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, procedures, 'Image of scalars and string building.
 

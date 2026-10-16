@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A sliding-window scan with a last-seen table needs only a for loop and loop-carried values held in bounded subtypes, so every range and index check follows from types and an up-front length guard without any annotation. No recursion, while loops or function termination checks are involved.
 
-Position 977 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 977 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Test takes the String (embedded test data such as the empty string, 
 - **overflow**: The window start and last-seen positions live in subtypes bounded by a documented maximum length, with an explicit length guard rejecting longer inputs, so the +1 and length arithmetic stay in range.
 - **index**: Indexing the per-character table by Character and slicing Item(Best_First .. Best_Last) follow from the Character-indexed array type and the loop-carried subtype ranges, with the empty case handled by a guard before slicing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, for loops, procedures and conditional expressions.
 

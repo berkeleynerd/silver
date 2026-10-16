@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops with fixed bounds and every arithmetic value is bounded by subtype ranges or a visible guard, so no annotation is needed, though the LCG arithmetic and counter guard require careful shape.
 
-Position 1298 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1298 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure One_Of_N takes N (subtype 1..10) and an in out LCG state of a bounde
 - **overflow**: Each count is incremented in a loop with no invariant, so the program guards the increment with a comparison against the 1,000,000 cap and rejects visibly if it were reached, which cannot happen for the fixed run count.
 - **range**: The chosen line index is assigned from a for-loop variable over 1 .. N into a subtype 1 .. 10, so the array index check follows from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and modular types.
 

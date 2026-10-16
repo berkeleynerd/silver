@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule is violated and no annotation is needed because iteration counts are fixed, but proofs are plausible rather than likely because multi-limb arithmetic and complex division run through loops with many loop-carried values that need careful range-bounded types and guards.
 
-Position 1416 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1416 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent coefficients and roots as fixed-point numbers in fixed-capacity limb a
 - **index**: Limb indexing in digit-array arithmetic over loop-carried positions needs guards or ranged index types because no loop invariant can be written.
 - **range**: Rounding the values to decimal text needs every digit and exponent to be bounded, and the big-number result is checked against the capacity before printing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, big numbers, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

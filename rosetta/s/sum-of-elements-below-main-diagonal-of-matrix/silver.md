@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges within static array bounds, and the accumulator addition is bounded by the element subtype and the fixed 25-element count, so no annotation is needed.
 
-Position 649 in the [progression](../../progression.md#stage-14), in stage 14, which adds multidimensional arrays.
+Position 649 in the [progression](../../progression.md#stage-13), in stage 13, which adds multidimensional arrays.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed the 5x5 matrix as a constant two-dimensional array of a small integer subt
 
 - **overflow**: The accumulator is a loop-carried value, but it is declared with a bounded range wide enough for 25 elements of at most 20 each, or the elements are a small subtype, so the addition check follows from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars and Put without a newline.
 

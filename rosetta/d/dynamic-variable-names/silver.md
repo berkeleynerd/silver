@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task asks for a real variable whose name is chosen at run time. Ada/SPARK cannot bind names at run time, so this falls outside SPARK. A bounded array of name/value records, searched linearly, would only simulate the effect, as the FreeBASIC solution itself says.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, records and loops.
 

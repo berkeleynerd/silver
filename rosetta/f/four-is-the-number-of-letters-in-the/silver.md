@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic, constant tables and procedure loops whose indexes and accumulators can be bounded by declared ranges and capacity guards, so no annotation is needed, but the large loop-carried totals and big array make careful shape and range types necessary.
 
-Position 582 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 582 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Constant tables of padded name strings with lengths hold the small numbers, tens
 - **stack**: Storing letter counts for millions of words needs a large array, which GNATprove does not check for stack exhaustion, so it rests on the fixed memory premise and is sized to the 1,000,000-word test (10,000,000 is optional).
 - **range**: Number-to-English spelling splits values into groups with div/mod by constants and indexes constant name tables, which discharges from the declared value range of at most 10^9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

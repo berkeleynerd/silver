@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded array arithmetic with for loops, so all checks come from subtypes and guards, but loop-carried row growth and the special cases mean the guards must be placed carefully; integer scaling avoids floating point and division.
 
-Position 945 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 945 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Integer coefficients of embedded test polynomials (degree up to about 6) go into
 - **division**: The program avoids division by scaling each row with the positive magnitude of the pivot instead of dividing, which preserves signs and keeps the sign-change count correct.
 - **other**: The zero-pivot and all-zero-row special cases must be implemented explicitly (small positive epsilon via scaled integers, auxiliary-polynomial derivative) with guards, which raises program-shape complexity but needs no annotation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, 'Image of scalars, string building, for loops, procedures, functions, conditional expressions and Put without a newline.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is loop-free integer arithmetic over ranged subtypes small enough that no overflow, index or range check can fail, so every check follows from declarations and no invariant is needed.
 
-Position 767 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 767 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
 Embed both dates as constants of ranged subtypes (Year 1583..9999, Month 1..12, Day 1..31) and compute the weekday with Sakamoto's loop-free formula using a constant 12-entry offset array indexed by Month and integer / and mod. A function returns a 0..6 subtype and Main prints the day name through a case statement over the seven values, with literal date text in Put_Line. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, functions and case statements.
 

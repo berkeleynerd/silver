@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular operations never raise overflow checks and the shift amount is guarded, so every check is straight-line and follows from types; the only new needs are modular types, 'Image and bounded text building.
 
-Position 1266 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1266 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
 Declare 8-bit modular constants A, B and a shift amount N as embedded example data, and print AND, OR, XOR, NOT, shifts and rotates using the standard Interfaces operations with 'Image concatenated into Put_Line strings. An if on N being below 8 guards the shift and rotate section, with a printed rejection message otherwise; no loops are needed. About 28 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, integers, 'Image of scalars and string building.
 

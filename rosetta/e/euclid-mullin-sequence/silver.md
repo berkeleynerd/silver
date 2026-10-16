@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every term fits within 46 bits, so a modular product by double-and-add keeps all intermediates inside declared ranges and no annotation is needed; trial division up to about 3.9e13 is far too slow to run in practice but that is a runtime cost, not a proof obstacle.
 
-Position 232 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 232 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the elements in a constrained array of a residue subtype 0..2**46 (all 27 
 - **termination**: The candidate search is a while loop inside a procedure, which gets no termination check, with a bounded candidate type giving an explicit visible outcome if no factor is found below the limit.
 - **index**: The element array is indexed by for-loop variables over its own range, so index checks are routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures and 'Image of scalars.
 

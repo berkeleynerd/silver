@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values fit in 64 bits and every operation can be guarded from the type range, so no annotation is needed, but loop-carried array values, nonlinear arithmetic and the long trial-division loop make discharge depend on careful guard placement.
 
-Position 386 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 386 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Store the Motzkin numbers in a 0..41 array of a 64-bit range type, seeding M(0) 
 - **termination**: The primality loop, around 4.4e8 iterations in the worst case, must be a while loop inside a procedure (no termination check) because a function would need a variant; the result is passed back through an out Boolean parameter.
 - **range**: Image of each number is written into a bounded String buffer sized for 19 digits, with its length guarded before copying so slicing and concatenation stay in bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

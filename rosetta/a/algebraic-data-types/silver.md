@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursion and pointers in the original are replaceable by an index-based array tree with an explicit bounded path stack, so every check follows from ranged link types and guards placed before pushes and allocation, though the rebalancing loops need careful shape.
 
-Position 1194 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1194 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent the tree as a fixed-capacity array of node records (color enumeration,
 - **termination**: The descent and rebalance loops are while loops inside a procedure, which gets no termination check.
 - **length**: The indented output line buffer has a fixed length and a guard on depth before building each line.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, records, for loops, while loops, procedures, case statements, 'Image of scalars, string building and Put without a newline.
 

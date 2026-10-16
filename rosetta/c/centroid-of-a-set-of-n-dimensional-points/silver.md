@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, array index ranges and guards before the sum and division, though the loop-carried sum and the decimal formatting need careful shape. Scaled-integer arithmetic avoids floating point and nothing requires an annotation.
 
-Position 738 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 738 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Coordinates are stored as integers scaled by 1000 in a bounded subtype inside a 
 - **length**: Text for numbers is built in a fixed-capacity buffer sized for the worst-case digits, signs, point and separators, with a guard before each append.
 - **range**: Fractional output (e.g. 3.1, -1.475) uses thousandths-scaled integers split into whole and fraction parts with mod and rem on bounded values, so conversions stay within declared subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline and characters.
 

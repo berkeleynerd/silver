@@ -2,7 +2,7 @@
 
 **Excluded from Silver: graphics.** The task is to read the color of an arbitrary screen pixel, which needs a display read through an OS API (graphics effect), with coordinates passed as arguments and the color printed as text. The optional mouse-cursor position is left out because the task says "such as" and does not require it. The FreeBASIC example only reads a pixel from its own graphics buffer, so it is weak evidence, but no Oracle rule is broken by reading a screen pixel, so there are no conflicts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

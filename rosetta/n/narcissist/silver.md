@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a static source-length constant, guards before each buffer access and a saturating counter, but the quine construction with computed slice bounds and character-level stdin reading make the program shape delicate, so discharge is plausible rather than routine.
 
-Position 1233 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1233 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program holds its own source as a quine-style template string constant, expa
 - **termination**: The input-reading while loop sits in a procedure, which gets no termination check, and every other loop is a for loop.
 - **overflow**: The count of input characters is a saturating counter capped at one more than the source length, so it cannot overflow however long the input is.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, arrays, for loops, while loops, procedures, standard input and Put without a newline.
 

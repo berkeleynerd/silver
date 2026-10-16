@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic over typed 0..2 features and fixed-size arrays, with while loops confined to procedures and capped by counters, so proofs should discharge with careful shaping but no annotations.
 
-Position 857 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 857 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Cards are arrays of four features each in a 0..2 subtype, held in a fixed array 
 - **termination**: Redraw and redeal loops live in procedures (no termination check) and are bounded by an explicit attempt counter with a visible 'no deal found' outcome when the cap is hit.
 - **range**: Loop-carried card counts and set counters are typed with capped ranges and guarded before increments, because no invariant can be written.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, case statements, string building, 'Image of scalars and Put without a newline.
 

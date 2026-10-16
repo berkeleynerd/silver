@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is a fixed-shape loop nest over small bounded integer arrays with no recursion, so only the quadratic growth of the row entries and shrinking row indices need care, which range-limited subtypes and guards can cover without annotations. The floating-point coefficients of the original are replaced by bounded integers, a documented resource limit.
 
-Position 732 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 732 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use integer coefficients (a documented, bounded stand-in for real coefficients) 
 - **range**: Row lengths shrink with the row index and the loop-carried index arithmetic (n - i) needs explicit guards or for-loop ranges derived from a bounded degree subtype to discharge index checks without an invariant.
 - **index**: Reading the first and last entries of a shrinking row requires the row length to be tracked in a variable that is only bounded by its subtype, so each access is guarded just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline, string building and records.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded character arithmetic, for-loop indexes, and explicit guards on the output count and key length, so no invariant or variant is needed. Non-letters are discarded as the task specifies, with embedded data and no recursion or heap.
 
-Position 896 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 896 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the sample text and key as String constants, then filter each into a fixed
 - **range**: Letter shifts are kept in 0..25 by subtype-bounded Character'Pos arithmetic and a mod 26 (or a conditional subtract), which the provers handle on bounded operands.
 - **length**: The output strings are slices of a fixed-capacity buffer up to the checked count, and an empty or overlong key or text takes a visible rejection path.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures, functions and conditional expressions.
 

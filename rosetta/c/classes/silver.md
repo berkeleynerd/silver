@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task needs only a record, a function, a procedure and a bounded integer, all of which are checked from declared ranges and one guard before the multiplication. No loops, recursion or annotations are involved.
 
-Position 588 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 588 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A record type with one component of a bounded integer subtype defaulting to -12 
 
 - **overflow**: Doubling the component is preceded by an explicit range guard that rejects out-of-range values with a printed message, so the multiplication and the subtype range check discharge.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, records, procedures, functions, 'Image of scalars and string building.
 

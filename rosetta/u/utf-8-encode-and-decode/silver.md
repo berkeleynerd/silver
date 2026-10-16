@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic with for loops and guards, and the invalid cases (surrogates, over-range values, malformed bytes) have a visible rejected outcome, so each check follows from subtypes and guards. Non-ASCII characters can be shown as the code point and hex bytes, so no wide text output is required.
 
-Position 1288 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1288 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds the five code points as an array of integers in a subtype 0 .
 - **index**: The byte buffer is a fixed Byte_Array (1 .. 4) with a Length in 0 .. 4, and the decoder checks that length before indexing.
 - **overflow**: Shifts are written as division and multiplication by constants on bounded subtypes, so the results are provably within the byte and code point ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, characters, arrays, for loops, case statements, procedures, functions, string indexing, string building and Put without a newline.
 

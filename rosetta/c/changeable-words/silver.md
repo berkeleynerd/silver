@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, for-loop indexes and guards on line length and table capacity, and nothing needs an annotation, but the file-reading procedure and the loop-carried counter need careful shape, so the outlook is plausible.
 
-Position 1356 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1356 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read unixdict.txt line by line in a procedure with a while loop, keeping only wo
 - **termination**: The line-reading while loop lives in a procedure, which gets no termination check, and the pairwise comparison uses only for loops.
 - **length**: Output slices Word(1..Len) depend on the stored length, which is bounded by its subtype range, and Len is compared for equality between the two words before characters are compared.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, string indexing, string building, for loops, while loops, procedures, functions, Boolean objects, file input, exit status, Put without a newline and conditional expressions.
 

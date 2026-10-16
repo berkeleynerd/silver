@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, fixed-capacity buffers and guards placed before each index, and loops live in procedures, but the many loop-carried positions in the scanner and the validation shape need careful guard placement. No annotation is needed, so discharge is plausible rather than routine.
 
-Position 1313 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1313 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The diagram is embedded as an array of fixed-length row strings, and the parser 
 - **termination**: Scanning uses for loops over fixed ranges or while loops inside procedures only, so no function needs a variant.
 - **length**: Diagram lines and the output buffer are fixed-capacity bounded buffers, and an oversized, ragged or unrecognised diagram is rejected with a printed message rather than truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, Put without a newline and case statements.
 

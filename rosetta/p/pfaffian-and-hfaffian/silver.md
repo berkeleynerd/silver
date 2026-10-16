@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged entry types, fixed matrix bounds and guards, with no annotation needed, but the loop-carried 3.6-million-term sum and the index-heavy permutation stepping require careful guard placement.
 
-Position 748 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 748 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed four integer matrices (2x2, 4x4, a symmetric 6x6, 10x10) in a bounded two-
 - **division**: The final division by 2^n times n! uses a constant nonzero divisor derived from the bounded half-size, so it discharges from the type range.
 - **range**: Entries use a small ranged subtype with products of at most five entries and the sign taken from an inversion count, so the nonlinear products stay within a bounded accumulator type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

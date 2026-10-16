@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and range-typed indices with a procedure-only while loop, so checks follow from types and guards, but the odometer loop and buffer assembly need careful shaping to avoid loop-carried unknowns.
 
-Position 701 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 701 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Words are stored in a 2D Character table (set, choice) padded to a fixed capacit
 - **overflow**: The odometer increment of a choice index is guarded by a comparison with that set's count just before the addition, so it cannot exceed the subtype.
 - **length**: The output buffer is sized for the longest sentence and each word copy is guarded by the word length, so slice assignment lengths match only if the offsets stay in a bounded subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, Boolean objects, for loops, while loops and procedures.
 

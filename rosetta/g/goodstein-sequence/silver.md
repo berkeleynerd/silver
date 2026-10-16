@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Required outputs (n up to 10, largest value about 4.5e13) fit in 64-bit integers, so every check follows from types and local overflow guards once the hereditary recursion is flattened to bounded-depth procedures, but the guard-heavy loop-carried arithmetic makes discharge depend on careful program shape.
 
-Position 425 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 425 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Hold each term as a 64-bit-bounded integer and compute the next term by a bump p
 - **termination**: Hereditary conversion normally recurses on exponents, so it is flattened into a fixed-depth chain of non-recursive procedures with digit extraction in bounded loops, and the term loop is a bounded for loop.
 - **index**: Digit and sequence-term arrays are indexed only by for-loop indexes over their own ranges or by guarded counters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

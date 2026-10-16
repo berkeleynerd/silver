@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and guards before each access, and the iterative search lives in a procedure so no variant is needed, but the backtracking loop's index bookkeeping requires careful shape without invariants.
 
-Position 1310 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1310 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Permutations of 0..n-1 are enumerated by an iterative depth-first search in a pr
 - **overflow**: Subfactorial uses a 64-bit modular type with the recurrence !n=(n-1)(!(n-1)+!(n-2)), which is exact up to n=20 and has no overflow check, while counters are 64-bit values bounded by 9! so additions are safe by type range.
 - **termination**: The enumeration is a while loop inside a procedure, which gets no termination check, so recursion and function loops are avoided entirely.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, modular types, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

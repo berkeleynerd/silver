@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The core 45 results fit in 64-bit integers so every check follows from types and a bound guard, but loop-carried doubling and trial-division bounds need careful guards; the stretch tasks would need big numbers and are optional.
 
-Position 375 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 375 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For n in 1..45 (the core task, whose largest answer is 1217) a for loop searches
 - **division**: The mod divisor is a loop index starting at 2, so its non-zero range follows from the loop bounds.
 - **length**: Concatenating the 'Image texts into a bounded output line needs a buffer size that covers the longest line, which is a static bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, while loops, 'Image of scalars, string building, Put without a newline and procedures.
 

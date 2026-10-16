@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything stays within declared ranges or guards placed before each operation, with no annotation needed, but the float mantissa/exponent normalisation and the guarded loop-carried integer arithmetic make discharge depend on careful program shape.
 
-Position 1108 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1108 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Exact values use a 61 by 61 Pascal triangle of a 63-bit range subtype for combin
 - **range**: The exponent counter and renormalisation loop are loop-carried, so the exponent type is a wide declared range and the loop bound is guarded explicitly.
 - **index**: Pascal table indices come from for-loop ranges over the array's own bounds, but the C(n-1,k-1) lookups need guards for k=0.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, 'Image of scalars, string building, arrays, multidimensional arrays, for loops, while loops, procedures, functions and Put without a newline.
 

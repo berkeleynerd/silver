@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from constant bounds, 64-bit headroom and guards before use, and there are no while loops, recursion or annotations, but guarded Horner arithmetic and bounded output buffers inside nested loops need careful shape.
 
-Position 635 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 635 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ For each length 1 to 4, a for loop counts through all values below 36**n, decode
 - **range**: Digit values 0..35 are converted to characters through guarded 'Pos/'Val arithmetic on constrained digit subtypes, and the odometer counter is decoded by mod and / with constant divisors.
 - **termination**: Only for loops are used, so no variant is needed; the work (about 1.7 million 4-digit strings times 35 bases) is a runtime cost, not a proof issue.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, for loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

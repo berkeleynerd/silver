@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small ranged integers with guards before each increment and multiply, and all loops sit in procedures so no termination annotation is needed, so the proofs should discharge from types and guards.
 
-Position 198 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 198 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The Main procedure keeps a Candidate and a Count in bounded integer subtypes and
 - **termination**: The trial-division loop and the outer search loop live in a procedure, which gets no termination check, so no variant is needed.
 - **range**: The prime counter and candidate are incremented only after a guard against their subtype upper bounds, and reaching the bound without finding the target yields a visible rejection message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

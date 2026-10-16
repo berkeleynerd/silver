@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed-size arrays, for-loop indexes and a length guard before concatenation, and there are no while loops, recursion or annotations needed, so proofs should discharge.
 
-Position 975 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 975 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the four example strings as String constants of differing lengths plus a t
 - **length**: The line built from the image of the length, a separator and the string is bounded by a guard on the string's length (or a bounded subtype) so the concatenation cannot exceed the index range.
 - **index**: The selection sort over a fixed 4-element permutation array uses for-loop indexes over the array's own range, so every index check follows from the types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 'Image of scalars, string building, arrays, ranged subtypes, integers, for loops, case statements, procedures and unconstrained arrays.
 

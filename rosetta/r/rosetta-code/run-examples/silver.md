@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network, processes, terminal control.** The task is a tool that downloads, displays and runs other people's Rosetta Code solutions, which is an external-effect program and not a computation. Its requirements (network download, running external processes, checking tool presence, graceful failure) are effects that Silver lacks, not conflicts with the Oracle rules. Only the Oracle-compatible core (string handling, looping, a command-line argument) would be expressible in Silver, so the task is a poor fit for Silver today and even in the envisioned language.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, loops and subprograms.
 

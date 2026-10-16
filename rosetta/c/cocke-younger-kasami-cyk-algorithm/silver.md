@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The whole algorithm is nested for loops over fixed-size Boolean arrays with indexes derived from loop variables, so every check follows from types and bounds, with no loop-carried values needing invariants.
 
-Position 1178 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1178 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Words and non-terminals are enumerations, the grammar is a constant array of bin
 - **index**: The end position j = i + l - 1 and split index k + 1 are computed from for-loop variables over bounded ranges, so the prover can show they lie in 1..Max_Words using linear arithmetic alone, with no loop-carried state.
 - **range**: The sentence length n is a ranged subtype validated against the capacity before the table is filled, and shorter sentences are padded or sliced via an explicit length so the loop bounds stay within the declared ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, multidimensional arrays, records, for loops, procedures, functions and case statements.
 

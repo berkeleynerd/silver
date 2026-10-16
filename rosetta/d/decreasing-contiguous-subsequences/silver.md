@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain integer array scanning with no recursion, floating point or heap, and the percentage tests are rewritten as bounded integer comparisons, so every check follows from types and short guards.
 
-Position 80 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 80 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 901-value sequence as a constant array of a ranged subtype (1..1000) i
 - **overflow**: Loop-carried counters are known only by their type range after the first iteration, so each increment is preceded by a guard against the type's upper bound that rejects visibly, and the products (first-last)*100 stay small because the value subtype is bounded at 1000.
 - **index**: The run-start and loop indexes stay inside the array's own range because the for loop runs over the array range and the run start is typed with that same index subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

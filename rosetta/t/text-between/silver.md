@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to index arithmetic bounded by for-loop ranges and explicit guards before the slice, with no need for invariants, so discharge is plausible but depends on careful loop-carried position handling. The task needs only strings, loops and console output, with no conflicts with the Oracle.
 
-Position 1012 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1012 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Between takes three unconstrained String parameters, handles the spe
 - **length**: Comparing a text slice with a delimiter needs equal lengths, which holds because the search range is limited to start positions that leave room for the whole delimiter and an empty delimiter is rejected up front.
 - **other**: The task promises non-empty delimiters but the prover cannot know this, so the program guards with an explicit visible rejection message for empty delimiters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, unconstrained arrays, string indexing, string building, for loops, procedures and Put without a newline.
 

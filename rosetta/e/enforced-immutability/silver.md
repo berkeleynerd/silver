@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by Ada's constant declarations, which are compile-time enforced, and the program has only static values and output calls, so every check is trivial. The only surface beyond today's Silver is an integer constant and its 'Image.
 
-Position 40 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 40 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Main declares a String constant and an Integer constant with the constant keyword, so the compiler rejects any later assignment to them, and a comment notes the illegal assignment that would not compile. It prints both values with Put_Line, using 'Image for the integer, in straight-line code with no loops or guards. About 15 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation, a conflict or recursion since the task is a fixed set of float computations, but the proofs hinge on floating-point range and finiteness reasoning plus new float formatting output, so discharge is plausible rather than routine.
 
-Position 1056 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1056 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed fixed example angles (45 degrees and pi/4 radians) as Float constants, con
 - **range**: Inverse functions need the argument guarded into -1.0..1.0 (Arcsin, Arccos) before the call, with the fixed example value 0.5 making this static.
 - **overflow**: If Taylor series replace library functions, loop-carried term and sum values must be bounded by a ranged subtype or a clamp, which GNATprove can accept but only with careful shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, procedures, functions, for loops and Put without a newline.
 

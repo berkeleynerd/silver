@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but the program relies on admitted file input, text parsing and floating-point trig/sqrt contracts, and the proofs hinge on range-guarding the float operands and conversions in loop-carried code. That makes discharge plausible rather than likely.
 
-Position 1343 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1343 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ A fixed observer position is a constant, and a procedure reads airports.dat line
 - **length**: Names and country strings are copied into fixed-capacity bounded buffers, so each copy is preceded by a length guard with a specified outcome for oversize fields.
 - **termination**: The line-reading and field-scanning loops are while loops that must live in procedures because functions would need a variant, which restructures the parser as procedures with out parameters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, records, string indexing, string building, text parsing, 'Image of scalars, floating-point images, characters, integers, integer division, Boolean objects, for loops, while loops, procedures, functions, Put without a newline and file input.
 

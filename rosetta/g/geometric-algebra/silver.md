@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size integer array arithmetic in for loops with small-range coefficient types, so checks follow from bounds and guards, but chained-product coefficient growth and the xor index need careful range guards, hence plausible.
 
-Position 1315 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1315 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent a multivector as a 32-element array of small-range integer coefficient
 - **index**: The product index is the XOR of two modular values below 32, which the prover must bound, so the index type is a 0..31 subtype reached through a guarded conversion.
 - **floating point**: The program avoids floats by using exact integer coefficients and a small LCG for rand, which keeps the axiom comparisons exact and the checks integer-only.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

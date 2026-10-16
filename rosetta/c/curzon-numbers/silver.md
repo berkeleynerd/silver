@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small integer subtypes (moduli at most about 10^6, products under 10^12) and every loop is a for loop with static bounds, so every check follows from types and guards without annotations. Output needs only Put and 'Image formatting.
 
-Position 350 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 350 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a function Is_Curzon(K, N) that computes K**N mod (K*N+1) by square-and-mult
 - **termination**: Modular exponentiation uses a fixed 17-iteration for loop over the exponent bits instead of a while loop, so the function needs no variant.
 - **range**: The search is capped at N = 100000 by a for loop with an exit when the count reaches 1000, and a base that fails to reach 1000 before the cap yields an explicit failure message rather than a silent change.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

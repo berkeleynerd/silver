@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The Silver-friendly solution is a single sequential accept loop on port 8080 that sends the fixed text "Goodbye, World!" as plain text to each client and then closes the connection. Serving multiple clients needs only iteration, not tasking, so no Oracle rule is broken. The only missing capability is a network effect, which the Oracle permits as an admitted library operation with specified failure outcomes, so there are no conflicts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops.
 

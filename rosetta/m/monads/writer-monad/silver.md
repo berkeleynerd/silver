@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a bounded record, simple non-recursive functions, one Sqrt and bounded text appends, so every check follows from constant inputs and capacity guards; float formatting and Sqrt preconditions need careful range guards, hence plausible rather than likely.
 
-Position 1080 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1080 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A record holds a Float value plus a fixed 256-character log buffer and a length 
 - **length**: Each log append checks the remaining buffer capacity before copying, with a specified overflow outcome rather than silent truncation.
 - **initialization**: The record's log buffer must be fully initialized by an aggregate in unit so flow analysis accepts later copies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, records, string building, string indexing, ranged subtypes, integers, functions, procedures, arrays, for loops, Boolean objects and characters.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded with small static bounds and loops are for loops over array ranges, so the only non-routine checks are the bounded score sum and the guarded division, both dischargeable from types and guards.
 
-Position 1483 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1483 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 5 patients and 8 visits as constant arrays of records (fixed-length ID
 - **division**: The average divides by the score count only inside an if branch testing that the count is greater than zero.
 - **length**: Row strings are concatenated from fixed-width 'Image values of ranged subtypes, so the bounded concatenation length is statically known.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string ordering, 'Image of scalars, string building, for loops and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All work is bounded string assembly over fixed-size buffers with for loops and constant ending tables, so every index and length check follows from static bounds and a single guard before the copy.
 
-Position 539 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 539 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed four example infinitives (amare, monere, regere, audire) in a constant arr
 - **index**: Stem slicing and bounded-buffer appends are guarded by the verb length checks and by a buffer sized for the longest stem plus the longest ending.
 - **length**: Assembling stem plus ending into a fixed buffer needs a length guard before each copy, which the program supplies via a bounded stem length and a Last counter.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, arrays, for loops, procedures, string indexing, string building, characters, integers and Put without a newline.
 

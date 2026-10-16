@@ -1,0 +1,601 @@
+{
+  "kind_count": 63,
+  "maximum_kind_specific_fields": 9,
+  "primitive_field_types": [
+    "Boolean",
+    "EW_Assert_Kind",
+    "EW_Axiom_Dep_Kind",
+    "EW_Clone_Type",
+    "EW_Connector",
+    "EW_Literal",
+    "EW_Subst_Type",
+    "EW_Theory_Type",
+    "EW_Type",
+    "Source_Ptr",
+    "String_Sets.Set",
+    "Symbol",
+    "Symbol_Set",
+    "Uint",
+    "Ureal"
+  ],
+  "templates": {
+    "Integer": {
+      "occurrences": 146,
+      "kinds": {
+        "W_BINDER": 3,
+        "W_CALL": 2,
+        "W_CLONE_DECLARATION": 1,
+        "W_CLONE_SUBSTITUTION": 4,
+        "W_CONNECTION": 1,
+        "W_EFFECTS": 4,
+        "W_FUNCTION_DECL": 5,
+        "W_IDENTIFIER": 18,
+        "W_INCLUDE_DECLARATION": 3,
+        "W_INTEGER_CONSTANT": 2,
+        "W_LABEL": 2,
+        "W_LITERAL": 6,
+        "W_META_DECLARATION": 2,
+        "W_MODULE": 6,
+        "W_NAME": 54,
+        "W_RANGE_TYPE_DEFINITION": 1,
+        "W_RECORD_ACCESS": 1,
+        "W_RECORD_BINDER": 1,
+        "W_RECORD_DEFINITION": 1,
+        "W_THEORY_DECLARATION": 1,
+        "W_TYPE": 26,
+        "W_TYPE_DECL": 2
+      },
+      "arity_errors": [],
+      "selected_primitive_fields": {
+        "W_THEORY_DECLARATION": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Comment",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_TYPE_DECL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          }
+        ],
+        "W_NAME": [
+          {
+            "name": "Symb",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Namespace",
+            "type": "Symbol",
+            "options": ", \"No_Symbol\""
+          },
+          {
+            "name": "Infix",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_RANGE_TYPE_DEFINITION": [
+          {
+            "name": "First",
+            "type": "Uint",
+            "options": ""
+          },
+          {
+            "name": "Last",
+            "type": "Uint",
+            "options": ""
+          }
+        ],
+        "W_FUNCTION_DECL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          },
+          {
+            "name": "Location",
+            "type": "Source_Ptr",
+            "options": ""
+          }
+        ],
+        "W_IDENTIFIER": [
+          {
+            "name": "Labels",
+            "type": "String_Sets.Set",
+            "options": ", \"String_Sets.Empty_Set\""
+          }
+        ],
+        "W_TYPE": [
+          {
+            "name": "Type_Kind",
+            "type": "EW_Type",
+            "options": ""
+          },
+          {
+            "name": "Is_Mutable",
+            "type": "Boolean",
+            "options": ", \"False\""
+          },
+          {
+            "name": "Relaxed_Init",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_EFFECTS": [],
+        "W_LITERAL": [
+          {
+            "name": "Value",
+            "type": "EW_Literal",
+            "options": ""
+          }
+        ],
+        "W_INTEGER_CONSTANT": [
+          {
+            "name": "Value",
+            "type": "Uint",
+            "options": ""
+          }
+        ],
+        "W_BINDER": [],
+        "W_CONNECTION": [
+          {
+            "name": "Op",
+            "type": "EW_Connector",
+            "options": ""
+          }
+        ],
+        "W_LABEL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          }
+        ],
+        "W_CALL": [],
+        "W_MODULE": [
+          {
+            "name": "File",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_CLONE_DECLARATION": [
+          {
+            "name": "As_Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Clone_Kind",
+            "type": "EW_Clone_Type",
+            "options": ""
+          },
+          {
+            "name": "Theory_Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          }
+        ],
+        "W_CLONE_SUBSTITUTION": [
+          {
+            "name": "Kind",
+            "type": "EW_Subst_Type",
+            "options": ""
+          }
+        ],
+        "W_RECORD_DEFINITION": [],
+        "W_RECORD_BINDER": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          },
+          {
+            "name": "Is_Mutable",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_RECORD_ACCESS": [],
+        "W_META_DECLARATION": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Parameter",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_INCLUDE_DECLARATION": [
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Use_Kind",
+            "type": "EW_Clone_Type",
+            "options": ""
+          }
+        ]
+      }
+    },
+    "String": {
+      "occurrences": 147,
+      "kinds": {
+        "W_BINDER": 3,
+        "W_CLONE_DECLARATION": 1,
+        "W_CLONE_SUBSTITUTION": 11,
+        "W_EFFECTS": 2,
+        "W_FUNCTION_DECL": 3,
+        "W_IDENTIFIER": 11,
+        "W_INCLUDE_DECLARATION": 8,
+        "W_LITERAL": 2,
+        "W_META_DECLARATION": 8,
+        "W_MODULE": 19,
+        "W_NAME": 53,
+        "W_RECORD_ACCESS": 1,
+        "W_RECORD_BINDER": 1,
+        "W_RECORD_DEFINITION": 1,
+        "W_THEORY_DECLARATION": 1,
+        "W_TRANSPARENT_TYPE_DEFINITION": 2,
+        "W_TYPE": 17,
+        "W_TYPE_DECL": 3
+      },
+      "arity_errors": [],
+      "selected_primitive_fields": {
+        "W_THEORY_DECLARATION": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Comment",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_TYPE_DECL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          }
+        ],
+        "W_NAME": [
+          {
+            "name": "Symb",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Namespace",
+            "type": "Symbol",
+            "options": ", \"No_Symbol\""
+          },
+          {
+            "name": "Infix",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_TRANSPARENT_TYPE_DEFINITION": [],
+        "W_TYPE": [
+          {
+            "name": "Type_Kind",
+            "type": "EW_Type",
+            "options": ""
+          },
+          {
+            "name": "Is_Mutable",
+            "type": "Boolean",
+            "options": ", \"False\""
+          },
+          {
+            "name": "Relaxed_Init",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_MODULE": [
+          {
+            "name": "File",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_FUNCTION_DECL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          },
+          {
+            "name": "Location",
+            "type": "Source_Ptr",
+            "options": ""
+          }
+        ],
+        "W_IDENTIFIER": [
+          {
+            "name": "Labels",
+            "type": "String_Sets.Set",
+            "options": ", \"String_Sets.Empty_Set\""
+          }
+        ],
+        "W_BINDER": [],
+        "W_EFFECTS": [],
+        "W_LITERAL": [
+          {
+            "name": "Value",
+            "type": "EW_Literal",
+            "options": ""
+          }
+        ],
+        "W_CLONE_DECLARATION": [
+          {
+            "name": "As_Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Clone_Kind",
+            "type": "EW_Clone_Type",
+            "options": ""
+          },
+          {
+            "name": "Theory_Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          }
+        ],
+        "W_CLONE_SUBSTITUTION": [
+          {
+            "name": "Kind",
+            "type": "EW_Subst_Type",
+            "options": ""
+          }
+        ],
+        "W_META_DECLARATION": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Parameter",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_RECORD_DEFINITION": [],
+        "W_RECORD_BINDER": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          },
+          {
+            "name": "Is_Mutable",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_RECORD_ACCESS": [],
+        "W_INCLUDE_DECLARATION": [
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Use_Kind",
+            "type": "EW_Clone_Type",
+            "options": ""
+          }
+        ]
+      }
+    },
+    "Image": {
+      "occurrences": 265,
+      "kinds": {
+        "W_AXIOM": 3,
+        "W_AXIOM_DEP": 3,
+        "W_BINDER": 9,
+        "W_CALL": 12,
+        "W_CONNECTION": 1,
+        "W_EFFECTS": 2,
+        "W_FUNCTION_DECL": 2,
+        "W_IDENTIFIER": 40,
+        "W_INCLUDE_DECLARATION": 4,
+        "W_INTEGER_CONSTANT": 2,
+        "W_LITERAL": 4,
+        "W_MODULE": 33,
+        "W_NAME": 90,
+        "W_THEORY_DECLARATION": 1,
+        "W_TRIGGER": 3,
+        "W_TRIGGERS": 3,
+        "W_TYPE": 50,
+        "W_UNIVERSAL_QUANTIF": 3
+      },
+      "arity_errors": [],
+      "selected_primitive_fields": {
+        "W_THEORY_DECLARATION": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Comment",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_FUNCTION_DECL": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          },
+          {
+            "name": "Location",
+            "type": "Source_Ptr",
+            "options": ""
+          }
+        ],
+        "W_IDENTIFIER": [
+          {
+            "name": "Labels",
+            "type": "String_Sets.Set",
+            "options": ", \"String_Sets.Empty_Set\""
+          }
+        ],
+        "W_NAME": [
+          {
+            "name": "Symb",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Namespace",
+            "type": "Symbol",
+            "options": ", \"No_Symbol\""
+          },
+          {
+            "name": "Infix",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_BINDER": [],
+        "W_TYPE": [
+          {
+            "name": "Type_Kind",
+            "type": "EW_Type",
+            "options": ""
+          },
+          {
+            "name": "Is_Mutable",
+            "type": "Boolean",
+            "options": ", \"False\""
+          },
+          {
+            "name": "Relaxed_Init",
+            "type": "Boolean",
+            "options": ", \"False\""
+          }
+        ],
+        "W_MODULE": [
+          {
+            "name": "File",
+            "type": "Symbol",
+            "options": ""
+          },
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_EFFECTS": [],
+        "W_LITERAL": [
+          {
+            "name": "Value",
+            "type": "EW_Literal",
+            "options": ""
+          }
+        ],
+        "W_AXIOM": [
+          {
+            "name": "Name",
+            "type": "Symbol",
+            "options": ""
+          }
+        ],
+        "W_UNIVERSAL_QUANTIF": [
+          {
+            "name": "Labels",
+            "type": "Symbol_Set",
+            "options": ""
+          }
+        ],
+        "W_TRIGGERS": [],
+        "W_TRIGGER": [],
+        "W_CALL": [],
+        "W_INTEGER_CONSTANT": [
+          {
+            "name": "Value",
+            "type": "Uint",
+            "options": ""
+          }
+        ],
+        "W_AXIOM_DEP": [
+          {
+            "name": "Kind",
+            "type": "EW_Axiom_Dep_Kind",
+            "options": ""
+          }
+        ],
+        "W_CONNECTION": [
+          {
+            "name": "Op",
+            "type": "EW_Connector",
+            "options": ""
+          }
+        ],
+        "W_INCLUDE_DECLARATION": [
+          {
+            "name": "Kind",
+            "type": "EW_Theory_Type",
+            "options": ""
+          },
+          {
+            "name": "Use_Kind",
+            "type": "EW_Clone_Type",
+            "options": ""
+          }
+        ]
+      }
+    }
+  }
+}

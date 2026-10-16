@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based arrays with a sentinel node turn all link accesses into type-range-safe indexing and the loops sit in procedures, so no annotations are needed, though the amount of tricky fixup code and bounded output building makes discharge depend on careful program shape.
 
-Position 1207 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1207 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The tree is stored in fixed arrays of capacity 30 (key, left, right, parent, col
 - **length**: Output lines of keys and color names are assembled in bounded buffers sized for the largest key image plus color text, with explicit capacity guards before each append.
 - **other**: The red-black integrity check (root black, no red-red, equal black height) is computed by walking parent chains and reports a visible failure message rather than being assumed, which keeps the guarantee honest but adds many nested loop-carried guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and case statements.
 

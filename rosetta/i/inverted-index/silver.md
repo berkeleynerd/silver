@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is bounded loops over fixed-capacity arrays with guards before each index, so it likely proves without annotations, but tokenizing, table capacity limits and loop-carried counters make it depend on careful program shape. It also needs a large new surface (file and stdin input, strings, arrays, records).
 
-Position 1495 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1495 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Keep a fixed-capacity table of distinct words (bounded String buffers with lengt
 - **initialization**: Fixed-capacity word and posting tables must be fully initialized before use, and count variables must stay within the capacity range via guards.
 - **other**: File-read failure (missing or unreadable file) must be reported as a visible outcome through the admitted file library rather than an exception handler.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, string ordering, text parsing, for loops, while loops, procedures, functions, Put without a newline, standard input, file input and conditional expressions.
 

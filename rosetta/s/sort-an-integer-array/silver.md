@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Sorting a fixed-size array by comparisons and swaps needs only for-loop indexes over the array range and no arithmetic on element values, so every check follows from types and bounds. The standard generic sort library is not available in Silver, so a hand-written O(n^2) sort in a procedure is used.
 
-Position 75 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 75 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program embeds a constrained array of 9 integers (the example data) and sort
 - **overflow**: Integer elements are only compared and swapped, never added, so no arithmetic can overflow.
 - **index**: Insertion sort uses for loops over the array's own index range, with the inner index guarded just before each use, so the index checks follow from types and guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, Put without a newline, 'Image of scalars and string building.
 

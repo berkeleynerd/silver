@@ -11,7 +11,7 @@ Main declares a fixed 64-character String buffer and a Natural length, then read
 - **index**: Displaying the slice Buffer (1 .. Last) is safe because the admitted line-reading operation guarantees that Last lies in 0 .. Buffer'Last.
 - **other**: Flow analysis would flag a final overwrite of a buffer that is never read again as ineffective, so the wipe has to be the admitted library call with a declared effect, not a plain assignment loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, string indexing and standard input.
 

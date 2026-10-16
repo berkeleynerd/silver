@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs a search object, which can be a package with a record or tagged type. It also needs a Next Page operation and parsing of the returned HTML into bounded URL, Title and Content strings. None of that breaks an Oracle rule; the only thing Silver lacks is an admitted network (HTTP) library operation, so the task is a future candidate.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, records, arrays, loops, subprograms, packages, tagged types, characters and integers.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a small floating-point loop with no input, and the reciprocal is safe because the ranged subtype keeps the divisor at least 1.0, but floating-point range proofs for 1 + 1/x are the only non-routine part and need no annotations.
 
-Position 1046 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1046 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A Main procedure holds phi0 and phi1 as a Float subtype ranged 1.0 .. 2.0, an In
 - **termination**: The while loop sits in a procedure so no termination check applies, and a fixed iteration cap with a visible failure message keeps termination explicit and the behavior unchanged for the real 14-iteration run.
 - **floating point**: Formatting floating-point values as text with fixed digit and exponent handling relies on the admitted image library's contracts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, 'Image of scalars, integers, ranged subtypes, while loops, Put without a newline and string building.
 

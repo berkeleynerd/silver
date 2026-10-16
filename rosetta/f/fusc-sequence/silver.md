@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from integer ranges and guards, but the loop-carried accumulators in the bit-based fusc computation and the comma-formatting buffer need careful guards because no invariants are allowed. No recursion, heap or annotation is needed.
 
-Position 398 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 398 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Compute fusc(n) iteratively from the bits of n using two accumulators a and b in
 - **termination**: The halving loop is placed in a procedure (no termination check) or written as a for loop over a fixed 31 bit positions, avoiding a variant.
 - **length**: Comma-grouped number text is built into a fixed-size bounded buffer whose index arithmetic needs guards just before each store.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

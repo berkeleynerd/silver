@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a fixed-size sieve array and bounded six-digit numbers, but the sieve stepping index and the reversal accumulator are loop-carried values that need explicit guards, so discharge depends on careful program shape rather than annotations.
 
-Position 1128 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1128 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A fixed Boolean sieve array over 2..1_000_000 is built in a procedure, which cov
 - **range**: Indexing the sieve with the reversed number needs the reversed value typed or guarded to stay within 1..1_000_000, which holds because every candidate has at most six digits.
 - **termination**: Sieve marking and the reversal loop are while loops, which are only acceptable inside procedures, so reversal and marking are written as procedures or as for loops over bounded digit counts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline, case statements and text parsing.
 

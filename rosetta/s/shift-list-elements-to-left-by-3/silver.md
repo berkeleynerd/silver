@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes are for-loop indexes over static constant bounds and the element values are small embedded literals, so every check follows from types and static ranges with no loop-carried state.
 
-Position 55 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 55 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
 Store the nine integers in a constrained array indexed 1..9 with a constant shift of 3, and build the result array with a for loop assigning Result(I) := Source(((I - 1 + 3) mod 9) + 1) (or two for loops copying 4..9 then 1..3 to avoid mod). A Print procedure loops over the array range, emitting each element with Put of its image, followed by a line terminator via Put_Line. About 35 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged remainder types, fixed array capacities and explicit guards, and the BFS needs no variant because it runs in a procedure, but the carried queue and chain indexes make the program shape matter.
 
-Position 469 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 469 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the required n values in a constant array and loop over them, calling a pr
 - **length**: Digit count is bounded by the number of distinct remainders (at most n), so a fixed 5000-character buffer is guarded with an explicit capacity check before each digit is written and overflow gives a visible rejection line.
 - **termination**: The BFS while loop and the chain-walk loop live in procedures, which get no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, string building and 'Image of scalars.
 

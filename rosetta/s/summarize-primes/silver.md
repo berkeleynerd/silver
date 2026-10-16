@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for loops with guarded accumulators, so no annotation is needed, but the loop-carried sum and count need careful guards and the output formatting needs bounded string building.
 
-Position 376 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 376 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function Is_Prime uses a for loop over divisors 2 up to N-1 with a guard for N
 - **range**: The primality function tests any candidate up to 80000 using for-loop divisors from 2 to the candidate minus 1, so index and mod checks follow from the loop range and a guard for candidates below 2.
 - **length**: Each output line is built in a fixed-size String buffer from the Image of three bounded integers, so the concatenation length must be provably within the buffer, which needs bounded subtypes and careful padding.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

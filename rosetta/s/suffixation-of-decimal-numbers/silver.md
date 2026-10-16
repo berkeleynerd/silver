@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact decimal-digit arrays avoid floating point and make every check follow from array bounds, ranged digit types and guards, though the loop-carried carry and index logic in division and rounding needs careful shaping; nothing requires an annotation or recursion.
 
-Position 1411 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1411 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each embedded test number is parsed in a procedure into a sign, a fixed-capacity
 - **length**: Output text is assembled in a fixed-capacity buffer sized for the longest result (sign, about 130 digits, suffix), with explicit capacity guards before every append.
 - **range**: Parsed exponent and digit counts are accumulated with saturation guards that reject values beyond fixed limits, giving a visible 'invalid input' outcome rather than silent clamping.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

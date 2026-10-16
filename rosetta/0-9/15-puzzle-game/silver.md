@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result follows from subtypes 1..4 and 0..15 and a guard just before each move, and nothing needs a variant because the unbounded loop sits in a procedure; the main care is bounded LCG arithmetic and the move counter.
 
-Position 1241 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1241 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The board is a 4x4 array of tile values 0..15 with the blank tracked as a row/co
 - **termination**: The command loop is a while loop with exit, which is only legal because it lives in a procedure (no termination check); all helpers that loop must be procedures or use for loops.
 - **other**: Unknown or impossible commands must print the help line and not alter the board, and end of input must exit cleanly, which are explicit guarded outcomes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, enumerations, arrays, multidimensional arrays, records, case statements, for loops, while loops, procedures, functions, string building, 'Image of scalars, Put without a newline and standard input.
 

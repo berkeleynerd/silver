@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task needs a program that processes addresses (separates house number from street, using bounded strings and arrays), writes a colored HTML table to a file, and launches a browser on it. This is only a file-writing and process-launching effect, which a future Silver library operation could specify, so there is no fixed-rule conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, records, loops, subprograms, characters and integers.
 

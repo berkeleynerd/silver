@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the exception and recursion of the existing solution with an explicit-position backtracking loop in a procedure keeps every check tied to ranged subtypes or an immediate guard, so no annotation is needed. The nonlinear grid indexing and the loop-carried position need careful typing and guards, hence plausible rather than likely.
 
-Position 467 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 467 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The puzzle is an embedded constant array of 81 digits of subtype 0..9, copied to
 - **range**: The backtracking position and trial digit are loop-carried in a while loop with no invariant, so each step and decrement needs an explicit guard (pos = 0 means unsolvable, digit = 9 means backtrack) just before the update, with the position typed 0..81.
 - **termination**: The backtracking search lives in a procedure, which gets no termination check, and the function that tests a digit uses only for loops, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, Put without a newline and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static or subtype-bounded ranges and no recursion or floating point is needed, but because pass-to-pass growth of loop-carried values cannot be bounded without an invariant, each subtraction needs a range guard with a visible rejection outcome, so discharge depends on careful program shape.
 
-Position 915 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 915 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the ten sample values in a fixed-capacity array of a wide ranged integer t
 - **index**: The inner loop runs over a range derived from the current length minus one, and indexes I and I+1 stay within the fixed-capacity array because the length variable is typed with the array's index range.
 - **length**: The current list length is a subtype-bounded variable that decreases by one per pass, with the order-zero and order-exceeds-length cases handled by explicit guards printing the empty list.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, Put without a newline and conditional expressions.
 

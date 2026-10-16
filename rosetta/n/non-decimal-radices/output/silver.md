@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are tiny (1..33) with fixed-size buffers and bases, so every index and range check follows from types and loop guards, with no function termination issues because the while loop lives in a procedure.
 
-Position 443 in the [progression](../../../progression.md#stage-11), in stage 11.
+Position 443 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define a procedure Format_Radix that writes a value (range 0..255) in a given ba
 - **index**: Digit extraction fills a fixed 8-character buffer with an index decremented in a while loop, discharged by a guard in the loop condition (position > 0) and a small value range for 1..33.
 - **range**: Digit values come from value mod Base with Base fixed at 8 or 16, so Character'Val of a digit offset stays within a small bounded range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string building, for loops, while loops, procedures and Put without a newline.
 

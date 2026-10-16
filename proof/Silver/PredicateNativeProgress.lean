@@ -33,7 +33,7 @@ theorem primary_progress (text : Source) (context : ParseContext) (position : Na
         cases arguments : context.hasArguments with
         | false => simp [readPrimary, zero, noOpening, arguments, invalidCondition] at accepted
         | true => rfl
-      have finalPositive : callAfter text context.names position .validity ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
+      have finalPositive : callAfter text context.names position .validity context.scalarNames ≠ 0 := by simpa [readPrimary, zero, noOpening, arguments] using accepted
       have progress := model_callAfter_advances text context.names position .validity bounded finalPositive
       simpa only [readPrimary, zero, noOpening, arguments, ne_eq, not_true_eq_false,
         Bool.not_true, Bool.false_eq_true, ↓reduceIte] using progress
@@ -65,12 +65,17 @@ theorem relation_progress (text : Source) (context : ParseContext) (position : N
       · split <;> (try simp only [*] at accepted)
         · split <;> (try simp only [*] at accepted)
           · simp_all [invalidCondition]
+          · dsimp only
+            omega
+        · split <;> (try simp only [*] at accepted)
           · split <;> (try simp only [*] at accepted)
             · simp_all [invalidCondition]
-            · rename_i allowed
-              have advanced := (not_or.mp allowed).1
-              dsimp only
-              omega
-        · exact primary_progress text context position facts textValid namesValid bounded accepted
+            · split <;> (try simp only [*] at accepted)
+              · simp_all [invalidCondition]
+              · rename_i allowed
+                have advanced := (not_or.mp allowed).1
+                dsimp only
+                omega
+          · exact primary_progress text context position facts textValid namesValid bounded accepted
 
 end Silver.Predicate.Native

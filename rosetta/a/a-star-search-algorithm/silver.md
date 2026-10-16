@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and cost sum can be bounded by subtypes and explicit guards, and the only unbounded loops live in procedures, so no annotation is needed, but many loop-carried values need careful guards.
 
-Position 850 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 850 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The 8x8 grid is a two-dimensional array of cell costs (1 or 100) with parallel a
 - **termination**: The open-set loop is a while loop inside a procedure, which gets no termination check, and its work is bounded by an explicit iteration cap that produces a visible 'path not found' outcome.
 - **index**: Open-list size and path reconstruction by parent links are loop-carried, so the open list is a fixed 64-cell array scanned with for loops, and the path walk is a capped loop that guards each parent index and path length before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions, Put without a newline and case statements.
 

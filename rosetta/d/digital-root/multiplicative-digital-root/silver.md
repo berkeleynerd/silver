@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared subtypes and explicit guards placed before each multiplication, and the loops sit in procedures, so no annotations are needed, but the loop-carried product and the formatting arithmetic need careful program shape.
 
-Position 256 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 256 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the four inputs in a constant array; a procedure computes MDR and MP using
 - **index**: The results table is indexed by MDR 0..9 and count 1..5, with a guard that the count is below 5 before storing, so indexes follow from the types and the guard.
 - **length**: Output lines are built in fixed-size buffers with padding computed from bounded digit counts, so a guard on the position keeps every slice within the buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

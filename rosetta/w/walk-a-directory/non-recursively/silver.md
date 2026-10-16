@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task lists one directory and prints names matching a pattern. The pattern syntax is left open, so a simple substring match is enough. This needs only directory enumeration, argument input and text output, which Silver lacks today but which fit its rules once a specified library operation exists.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, loops and subprograms.
 

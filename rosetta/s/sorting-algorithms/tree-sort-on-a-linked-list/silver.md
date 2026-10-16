@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing is typed by a ranged index subtype and null-guarded, and loops live in procedures so no variants are needed, but the traversal stack bound and loop-carried cursor indices depend on careful guard placement rather than invariants.
 
-Position 268 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 268 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Nodes live in fixed-size parallel arrays (Value, Prev, Next) indexed by a ranged
 - **index**: The explicit in-order traversal stack has capacity equal to the node count plus one and each push is guarded by a visible Reject when full, since without an invariant the prover cannot show depth stays within the node count.
 - **termination**: The descent and traversal loops are while loops inside procedures, which get no termination check, and no function contains a loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

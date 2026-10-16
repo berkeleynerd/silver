@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with array indices derived from guarded, range-typed values, and the only unbounded loop is a while loop in a procedure, so no annotation is needed. The one careful point is the loop-carried counters and the LCG state needing type-range or guard-based overflow safety.
 
-Position 240 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 240 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A deterministic LCG with a declared-range state yields dice5 as a procedure that
 - **termination**: The rejection loop is a while loop inside a procedure, which gets no termination check, so no variant is needed.
 - **range**: The values from the 25-way pair are mapped by integer division by 3 into 0..6 only under the guard N < 21, so the index into the bin array is provably in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

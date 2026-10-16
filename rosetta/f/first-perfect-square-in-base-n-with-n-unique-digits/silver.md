@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for bases 2 to 12 fit in a bounded 64-bit range, and every loop-carried value (root, counter, buffer position) is bounded by its subtype or a guard just before use, so no annotation is needed, though the several loop-carried guards make discharge depend on careful program shape.
 
-Position 1015 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1015 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each base in a for loop over 2..12, compute the starting root by incrementin
 - **termination**: The search and digit-extraction while loops live in procedures, which get no termination check, and the search is capped at the root limit so it ends in a visible reject if nothing is found.
 - **range**: The unique-digit counter is a loop-carried value that is only incremented under a guard count < 12, so its subtype range holds without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, string building, string indexing, unconstrained arrays, 'Image of scalars and Put without a newline.
 

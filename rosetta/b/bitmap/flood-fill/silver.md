@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The iterative worklist fill needs only range-typed coordinates, boundary guards before each neighbour access and a stack sized to the cell count, so every check follows from types and guards and the while loop sits in a procedure. Discharge depends on careful program shape (a guarded stack top and loop-carried coordinates), but nothing needs an annotation.
 
-Position 1183 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1183 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The image is a fixed 2D Character array (for example 16x16) embedded as aggregat
 - **termination**: The worklist loop lives in a procedure, which gets no termination check, and each cell is pushed at most once because it is marked as filled when pushed.
 - **other**: Stack capacity equals the number of cells, so a push can never find the stack full, and a guarded visible reject path covers it regardless.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, for loops, while loops, procedures, Put without a newline, case statements and records.
 

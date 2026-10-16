@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small and bounded by declared ranges, and the only loop-carried values (sigma sum, gcd pair, counters) can be tamed with simple guards or type ranges, so no annotation is needed. The work is mostly new surface (integers, loops, arrays, image-based string building), hence plausible rather than likely.
 
-Position 924 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 924 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure computes for each n in 4..8451 the divisor sum and count by a for lo
 - **length**: Output lines are assembled from Image of integers in fixed-size buffers, which requires bounded-length string building with explicit length guards.
 - **range**: Candidate counters and triplet scanning are for-loops over a declared subtype with N+2 kept inside the range by limiting the scan to the declared maximum minus 2.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, functions, for loops, while loops, 'Image of scalars, string building and conditional expressions.
 

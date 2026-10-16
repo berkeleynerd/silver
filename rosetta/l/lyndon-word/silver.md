@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Duval's algorithm needs only bounded arrays, a small alphabet and loop-carried lengths, all of which can be given range types and explicit guards, so no annotation is needed. It is plausible rather than likely because the loop-carried length, the mod index and the successor step depend on careful guard placement.
 
-Position 1007 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1007 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the current word in a fixed-capacity Character array with a bounded length
 - **overflow**: Len and loop indexes are carried through a while loop with no invariant, so they must be declared with a subtype bounded by the fixed capacity and Len must be guarded before each decrement.
 - **termination**: The generation loop sits in a procedure, so no termination check arises, and it ends in practice because each step either yields a lexicographically larger word or empties it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, integer division, characters, arrays, string indexing, string building, unconstrained arrays, for loops, while loops, procedures and conditional expressions.
 

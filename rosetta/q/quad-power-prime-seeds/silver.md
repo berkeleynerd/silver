@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from types, fixed array bounds and guards, but the roughly 70-bit primality test needs fixed-capacity big-number arithmetic carried through loops, so discharge depends on careful program shape rather than being routine.
 
-Position 1396 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1396 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Search n upward in a procedure with a while loop capped by a documented limit, f
 - **division**: Any mod or division by a candidate or limb base is guarded by a nonzero test or uses a static nonzero constant.
 - **index**: The sieve for 2n+1 and the limb arrays are indexed only by for-loop variables over their own range or by values guarded against the bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, arrays, for loops, while loops, procedures, functions, big numbers, 'Image of scalars, string building and Put without a newline.
 

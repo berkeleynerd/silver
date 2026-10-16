@@ -13,6 +13,16 @@ import json
 from pathlib import Path
 
 SOURCE_BINDINGS = (
+    ("silver_image_model.ads", "imageModelSpec", "imageModelSpecTokens"),
+    ("silver_image_model.adb", "imageModelBody", "imageModelBodyTokens"),
+    ("silver_image_model_templates.ads", "imageModelTemplatesSpec", "imageModelTemplatesSpecTokens"),
+    ("silver_image_model_templates.adb", "imageModelTemplatesBody", "imageModelTemplatesBodyTokens"),
+
+    ("silver_scalar_expressions.ads", "scalarExpressionSpec", "scalarExpressionSpecTokens"),
+    ("silver_scalar_expressions.adb", "scalarExpressionBody", "scalarExpressionBodyTokens"),
+    ("silver_scalars.ads", "scalarsSpec", "scalarsSpecTokens"),
+    ("silver_scalar_literals.ads", "scalarLiteralSpec", "scalarLiteralSpecTokens"),
+    ("silver_scalar_literals.adb", "scalarLiteralBody", "scalarLiteralBodyTokens"),
     ("silver_names.ads", "namesSpec", "namesSpecTokens"),
     ("silver_names.adb", "namesBody", "namesBodyTokens"),
     ("silver_path_facts.ads", "pathFactsSpec", "pathFactsSpecTokens"),

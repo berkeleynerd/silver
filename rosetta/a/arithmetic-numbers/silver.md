@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic reduces to bounded integers and array indexing in for loops inside the main procedure, with guards before each accumulation, so checks should discharge without annotations, though the sieve's nonlinear index and the accumulator overflow guards need careful shape.
 
-Position 922 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 922 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build two fixed-size arrays (divisor count and divisor sum) over 1 .. 13_000 wit
 - **termination**: The outer search runs in the main procedure, not a function, and is a for loop over the sieve range, so no termination check or variant is needed.
 - **range**: The count of arithmetic numbers found is capped at 10,000 by the array and loop bounds and checked by a guard before incrementing, so counters stay in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

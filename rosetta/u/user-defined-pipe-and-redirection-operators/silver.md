@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop indexes and capacity guards, and no recursion or annotation is needed, though the loop-carried buffer counts and substring search need careful shape. Needing file output is an effect Silver lacks today, not a conflict.
 
-Position 1497 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1497 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The 22 scientist records are embedded as a constant array of fixed-width lines h
 - **index**: Head, tail, uniq and sort insert into fixed-capacity record arrays with loop-carried counts, which are discharged by count subtypes bounded by the capacity and an explicit capacity guard before each append.
 - **termination**: All loops live in procedures or are for loops, and the pipeline stages are procedures with no recursion, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string ordering, for loops, while loops, procedures, functions, Put without a newline, file output and string building.
 

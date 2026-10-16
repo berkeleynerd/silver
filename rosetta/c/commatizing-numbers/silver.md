@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded character scanning and copying in procedures with ranged indices and capacity guards, needing no annotations, though several loop-carried positions need careful typing and guards.
 
-Position 577 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 577 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each sample is embedded as a String constant and copied into a fixed 512-charact
 - **overflow**: The digit-run length and the separator-count arithmetic are held in subtypes bounded by the buffer capacity, so additions and the mod by the period length (at least 1, guarded) stay in range.
 - **termination**: Scanning uses for loops, or while loops inside procedures only, so no function termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

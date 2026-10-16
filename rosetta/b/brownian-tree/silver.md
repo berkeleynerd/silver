@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and range check follows from the field's subtypes and a border guard placed before each neighbour access and step, and no loop-carried fact needs an invariant, but the walk and generator arithmetic need careful shaping. It is plausible rather than likely because of the nested loop-carried coordinates and the modular arithmetic.
 
-Position 1187 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1187 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A constrained 2D Boolean array (for example 40 by 24) holds the tree, with a fix
 - **termination**: All loops live in procedures, which get no termination check, and the walk is bounded by a for-loop step budget per particle so the program also finishes; a particle that exhausts its budget is discarded in a specified way.
 - **other**: Each particle walk reassigns the coordinates in a loop, so the border guard is re-tested every iteration and the range check on the stepped coordinate relies on that guard rather than on an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, for loops, while loops, case statements, procedures, functions, string building and Put without a newline.
 

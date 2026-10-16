@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the 0..9 subtype for the checksum, the string's own index range, a digit guard on each character, and a fixed maximum length, with no while loops, recursion or annotations needed.
 
-Position 995 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 995 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the d, inv and p tables as constant arrays of a 0..9 digit subtype, and wr
 - **index**: The permutation row is computed as position mod 8 and the loop runs over the string's own range, so every index check follows from types and loop bounds.
 - **length**: Appending the check digit or building trace lines in fixed buffers needs a documented maximum input length with a visible rejection of longer input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, procedures, functions and Put without a newline.
 

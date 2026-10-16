@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be discharged by guards placed just before the operation and by static array bounds, with no annotations needed. However, the parser has many loop-carried counters and accumulators, and the '::' expansion uses index arithmetic, so discharge depends on careful program shape. That makes the outlook plausible rather than likely.
 
-Position 1029 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1029 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Parse_And_Print procedure takes each embedded address string and scans it once
 - **range**: Expanding '::' shifts the trailing groups right by 8 minus the group count, which needs the shift index computed from guarded counters stored in ranged subtypes so the target index provably stays in 0 .. 7.
 - **length**: The 32-character hex output buffer is filled through a for loop over a static index range with each nibble obtained by / and mod 16, so lengths follow from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, procedures and functions.
 

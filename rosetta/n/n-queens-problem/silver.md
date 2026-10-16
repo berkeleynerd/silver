@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small ranged integers and every array access can be guarded just before use, and the only loop-carried state is the pair of cursors, so discharge depends on careful shape but needs no annotation. The search is an iterative procedure, so there is no recursion or termination obligation.
 
-Position 237 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 237 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The board is a one-dimensional array of eight row numbers, one per column (0 mea
 - **termination**: The search loop is a while loop inside a procedure, which receives no termination check, and the search is never put in a function.
 - **other**: The no-solution branch is unreachable in fact but is kept as a visible Put_Line outcome rather than an assertion or a raise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures and Put without a newline.
 

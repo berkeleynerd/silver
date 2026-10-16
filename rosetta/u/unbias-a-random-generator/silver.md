@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from modular wraparound, a ranged N and guarded counter increments, and the unbounded retry loop needs no variant because it lives in a procedure; it is plausible rather than likely only because the loop-carried counters need explicit guards.
 
-Position 1300 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1300 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A modular 32-bit LCG state, passed in out, drives a procedure Rand_N that return
 - **termination**: The Von Neumann retry loop is a while loop with no variant, so it must sit in a procedure (Unbiased with an in out generator state and an out bit), where GNATprove performs no termination check.
 - **range**: Converting the modular LCG state to a bit uses mod N with N in a declared subtype 3 .. 6, so the result and the zero-divisor check follow from the types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, for loops, while loops, procedures and 'Image of scalars.
 

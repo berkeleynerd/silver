@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but the program depends on admitted floating-point elementary functions with verified contracts and on finite-range reasoning for accumulating floats through a loop, so discharge depends on careful program shape.
 
-Position 1575 in the [progression](../../progression.md#stage-39), in stage 39, which adds fixed point.
+Position 1575 in the [progression](../../progression.md#stage-38), in stage 38, which adds fixed point.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed Earth radius, scale height and the two altitudes as constants, and compute
 - **termination**: The integration is written as a for loop over a fixed step count inside a procedure, so no variant is needed.
 - **other**: Formatting floats with fixed decimals requires a bounded-string float formatter, which must be an admitted library operation with a specified range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, fixed point, for loops, while loops, functions, procedures, 'Image of scalars, floating-point images, string building, Put without a newline and arrays.
 

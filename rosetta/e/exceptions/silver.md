@@ -6,7 +6,7 @@
 
 Declare one user exception in Main, raise it explicitly in Main, and handle it in the same subprogram with a literal Put_Line call. No exception crosses a call and all ordinary run-time checks must still prove. About 10 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Local exceptions.
 

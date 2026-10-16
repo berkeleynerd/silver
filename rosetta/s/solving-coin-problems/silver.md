@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a text-pattern parser plus a small linear solver that bounded enumeration can handle, so every check follows from fixed buffers, ranged subtypes and for loops; the many loop-carried token indices need careful guards, hence plausible rather than likely.
 
-Position 1210 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1210 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the example problems as constant strings, tokenizes each into
 - **length**: Word and sentence buffers have fixed capacity, and text that exceeds it yields a visible rejection outcome rather than truncation.
 - **division**: The solver avoids division by a variable by enumerating each unknown's bounded count and testing the equations, so no divisor can be zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

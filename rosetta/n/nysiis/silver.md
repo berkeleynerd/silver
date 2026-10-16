@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure text processing over bounded character buffers, so every check follows from the buffer's declared capacity, for-loop ranges and guards before each look-behind or look-ahead. It is plausible rather than likely only because many loop-carried lengths need guards and many rewrite passes must be written carefully.
 
-Position 954 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 954 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the sample names as String constants in an array, and for each one copy it
 - **range**: The loop-carried logical length is a subtype bounded by the buffer capacity, so index arithmetic on it discharges from its type, but each increment needs a guard against the capacity.
 - **termination**: The in-place rewrite passes use for loops, or while loops inside procedures, so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from Peg/Node types, for-loop indexes over their own ranges and a single-step abs on values bounded to 1..8, with no loop-carried value needing an invariant. The nested loops terminate by construction, so no variant is needed and the whole search lives in a procedure.
 
-Position 540 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 540 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define Peg as a subtype 1..8 and a Board as an array of eight Peg values indexed
 - **index**: All array accesses use Node or Peg-typed indexes over the array's own range, so they discharge from types.
 - **overflow**: Peg values are in 1..8 so abs of a difference is at most 7, which provers settle from type ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, procedures, functions, string building and string indexing.
 

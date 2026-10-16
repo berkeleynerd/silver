@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds, so there are no termination or invariant needs, and arithmetic is bounded by declared ranges. The only non-routine parts are the nonlinear D*D, handled by loop-index bounds, and number-to-text formatting.
 
-Position 533 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 533 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Two pure functions use only for loops: Is_Prime does trial division by D in 2..1
 - **overflow**: D*D in the trial-division test is safe because D is a for-loop index bounded by 2..1000 and the candidate is a subtype bounded by 1_000_000, so Integer arithmetic cannot overflow.
 - **range**: The digit extraction repeats X := X / 10 a fixed 7 times inside a for loop, so no loop-carried value needs an invariant; the odd-digit counter is bounded by 7 via its subtype range and the loop count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, procedures, 'Image of scalars, string indexing, string building and Put without a newline.
 

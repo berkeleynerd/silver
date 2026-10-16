@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and character handling in a procedure-based while loop, so each check can be discharged by explicit guards placed before each lookahead and by range-typed hex digits, with no annotation needed. The risk is the careful guard shape for index and arithmetic bounds across many loop-carried values.
 
-Position 1032 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1032 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the 14 test strings and calls one procedure per string that s
 - **termination**: The while loop sits in a procedure so no termination check applies, and the index strictly increases on every path.
 - **length**: Output is a fixed-capacity buffer with a separate length, and capacity exhaustion is a specified error outcome rather than a silent truncation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, case statements, for loops, while loops, procedures and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the ranged subtypes and the fixed array bounds, and the only loop in a function is a for loop, while the unbounded retry loop is a procedure so it needs no variant. Whether the generator ever reaches a sorted order is not a proof obligation, since procedures get no termination check.
 
-Position 329 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 329 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The list is a constant-bounded array of four Integers initialised from an aggreg
 - **index**: The shuffle index is computed as state mod 4 + 1 and held in a 1..4 subtype, so every array access is within bounds by type.
 - **termination**: The unbounded while loop sits in a procedure so no termination check is generated, and a bound on shuffles would alter the required behavior, so the program keeps it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

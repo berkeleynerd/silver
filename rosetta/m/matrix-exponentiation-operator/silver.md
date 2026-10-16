@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and for-loop bounds, but overflow across repeated multiplication needs careful range design and guards, so success depends on program shape.
 
-Position 711 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 711 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a constrained 2x2 array type of a ranged integer subtype with "*" and "**
 - **range**: Storing each product back into the bounded element subtype needs a magnitude test just before the assignment.
 - **other**: A function-based ** operator cannot report overflow, so the operator is applied only after a guard in a procedure shows the demonstrated powers stay within the element bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, functions, 'Image of scalars and Put without a newline.
 

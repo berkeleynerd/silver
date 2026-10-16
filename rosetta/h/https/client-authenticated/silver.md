@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs an HTTPS connection with a client certificate, and Silver does not have network access yet. That makes it an effect, not a fixed-rule conflict. A future admitted TLS client operation that takes the certificate and key files and has specified failure outcomes would let a Silver program connect, check the result and print the response, with no exceptions, annotations or unsafe code.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and records.
 

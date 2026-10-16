@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK, annotations.** The required task rendezvous remains outside the pinned SPARK profiles, and the required cross-call Out_Of_Ink propagation needs exceptional contracts that Silver program authors cannot supply.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, string operations, characters, loops, subprograms and integers.
 

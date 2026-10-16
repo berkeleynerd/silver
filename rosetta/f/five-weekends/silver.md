@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges, mod 7 and guarded counters, with no recursion, while loops or annotations needed, so proofs should discharge, though loop-carried counters need careful guards.
 
-Position 167 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 167 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Iterate years 1900..2100 and months 1..12 with for loops, carrying the weekday o
 - **range**: The weekday of the 1st is carried across iterations, so each update is computed with mod 7 into a 0..6 subtype, which follows from the type alone.
 - **length**: Output lines concatenate Integer'Image results with literals, whose bounded lengths follow from the Year and Month subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and string building.
 

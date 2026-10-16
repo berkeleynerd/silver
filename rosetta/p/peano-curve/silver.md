@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small declared subtypes and fixed for-loop ranges, with no recursion, accumulators or annotations needed, so the checks should discharge from types alone.
 
-Position 787 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 787 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Walk the 729 points of the order-3 curve with a for loop over k in 0..728, extra
 - **range**: The reflected digits and the weighted sums 9*a+3*b+c stay within the 0..26 subtype only if digits are typed 0..2 and flips are written as 2-d, which keeps every step bounded without a loop invariant.
 - **index**: Canvas indices 2*x, 2*y and x+px are computed from 0..26 subtypes so they stay within 0..52, with no loop-carried accumulator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, case statements, string indexing, string building and procedures.
 

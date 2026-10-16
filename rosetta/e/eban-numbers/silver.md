@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is arithmetic on constant-bounded integers inside for loops with no recursion, so only the loop-carried count needs a guard, and no annotation is required.
 
-Position 396 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 396 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A pure Is_Eban function splits a value up to 10_000_000 into thousand-groups by 
 - **overflow**: The running count is loop-carried and GNATprove only knows its type after the first iteration, so the program uses a count subtype of 0 .. 10_000_000 with an explicit guard before the increment that reports a visible failure message instead of silently capping.
 - **range**: The loop index and the splitting by constant / and mod stay within declared subtypes, so these checks are routine once the for-loop ranges are static subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, procedures, for loops, 'Image of scalars and Put without a newline.
 

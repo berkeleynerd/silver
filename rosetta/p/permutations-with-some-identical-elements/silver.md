@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index bounds on a fixed 6-element array, guarded by loop conditions on small range-typed positions, with no arithmetic that can overflow and no recursion, so the proofs should discharge without annotations.
 
-Position 521 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 521 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the sorted multiset AAABBC... actually AABBBC as a fixed 6-element Charact
 - **index**: The next-permutation scan uses a loop-carried position typed as a small range and tests it against the lower bound in the loop condition before indexing a(i) and a(i+1), so no invariant is needed.
 - **termination**: Only procedures contain while loops so no termination check arises, and the outer enumeration is a for loop over 1 .. 60, which bounds the output at the required 60 permutations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, for loops, while loops and procedures.
 

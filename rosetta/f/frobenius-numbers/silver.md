@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic in for loops with no loop-carried values needing invariants, so checks follow from range subtypes. The only non-trivial item is the output cutoff and number-to-text formatting, which are routine.
 
-Position 321 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 321 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Prime(N) uses a for loop over divisors 2 to N-1 (or up to a fixed 
 - **overflow**: Primes are bounded by a range subtype up to 10000 so p*q - p - q fits in Integer, and the product is range-guarded before the output cutoff test.
 - **termination**: Primality testing uses a for loop over a bounded range inside a function, so no while loop or variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, functions, procedures, for loops, while loops, 'Image of scalars, string building and Put without a newline.
 

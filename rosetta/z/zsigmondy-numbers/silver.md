@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards just before each multiply, divide and gcd step, and the divide-out method avoids divisor enumeration, but loop-carried accumulators in nested while loops make discharge depend on careful guard placement. The largest value, 7**20, fits in 64 bits, so the required 10 terms per radix set need no big numbers.
 
-Position 714 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 714 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 10 radix pairs in a constant 2D array and, for each pair and n = 1..20
 - **termination**: Euclid's gcd and the divide-out loop use while loops, so they must be procedures (which have no termination check) rather than functions.
 - **division**: Divisors in gcd and the divide-out step are guarded nonzero just before use; a^m - b^m is positive because a > b >= 1 is a subtype constraint.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and string building.
 

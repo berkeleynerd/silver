@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for loops over the arrays' own ranges, a depth counter guarded before each increment and decrement, and an index range guard just before each payload lookup, so no annotation is needed. Flat token encoding avoids recursion and heap use, so the nested tree is traversed iteratively with fixed bounds.
 
-Position 1169 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1169 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The template is a constant array of token records (Open, Close or Leaf with an i
 - **range**: Each template index is checked against the payload range 0..6 by an if guard just before the array access, and an out-of-range index prints a visible missing marker.
 - **overflow**: The nesting depth counter, the only loop-carried arithmetic value, is incremented only under a guard against its declared maximum and decremented only when above zero, with an out-of-bounds template rejected visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, records, case statements, for loops and Put without a newline.
 

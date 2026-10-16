@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by the 0..12 subtype or a guard just before use, and the loops sit in procedures, but the loop-carried token count and the line parsing need careful guards, so discharge depends on program shape.
 
-Position 1235 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1235 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program keeps the remaining tokens in a subtype 0..12 and loops in the main 
 - **termination**: The game loop and the re-prompt loop are while loops inside the main procedure or procedures, which get no termination check, and end of input ends the program with a rejection rather than looping.
 - **length**: Each input line is read into a bounded buffer and over-long or non-numeric lines are reported as invalid input before parsing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, while loops, procedures, 'Image of scalars, text parsing, standard input, Put without a newline and string building.
 

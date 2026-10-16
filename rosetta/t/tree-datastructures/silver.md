@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only bounded arrays, bounded string buffers and while loops in procedures are needed, so no annotation is required, but loop-carried depth and buffer positions need explicit guards, which makes the outcome depend on careful program shape. Arbitrary trees are limited to documented node, depth and name capacities, with oversize input rejected.
 
-Position 953 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 953 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the example as a bracketed nest string such as RosettaCode(rocks(code,comp
 - **length**: Node names are copied into fixed-size name slots with a stored length, and each copy is guarded by the slot capacity and the node-count capacity.
 - **termination**: All loops are while or for loops inside procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and conditional expressions.
 

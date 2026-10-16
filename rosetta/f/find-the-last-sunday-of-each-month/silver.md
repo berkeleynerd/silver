@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a validated bounded year and month index inside a for loop with no loop-carried state, so every check follows from types and the entry guard.
 
-Position 1124 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1124 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program parses a four-digit year from the first argument, rejecting anything
 - **overflow**: The weekday formula uses mod and division on a year bounded to 9999 in a wide Integer, so intermediate sums stay far below overflow.
 - **index**: Each digit is read at a fixed index of a String guarded by a 'Length = 4 test, and the month loop indexes the days-in-month array over its own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, procedures and Boolean objects.
 

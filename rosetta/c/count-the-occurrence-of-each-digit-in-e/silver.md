@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds and loop indexes except the loop-carried carry, which needs two visible guards but no annotation, so discharge depends on careful program shape.
 
-Position 166 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 166 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Port Ken Thompson's spigot with a constrained Integer array v of fixed size (say
 - **division**: The divisor a is computed as N+1-i from the for-loop index rather than carried, so its range 1..N+1 follows from the loop bounds.
 - **range**: Storing c mod a into the digit-state array needs the element subtype to cover 0..N, which follows from a's bounds, and the incremented counters need a bounded subtype with a guard against exceeding it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, string building, Put without a newline and procedures.
 

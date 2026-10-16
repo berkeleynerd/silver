@@ -14,9 +14,9 @@ set_option maxHeartbeats 2000000
 No predicate parser equivalence occurs in this interface. The path operations
 are total mathematical interpretations of the checked native projections. -/
 structure HelperMeaning (calls : Calls) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation,
-    ValidNames text names → position ≤ text.length + 1 →
-    calls.callAfter text names position operation = Compose.callAfter text names position operation
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → position ≤ text.length + 1 →
+    calls.callAfter text names position operation scalarNames = Compose.callAfter text names position operation scalarNames
   take : ∀ text, ValidText text → ∀ position token, position ≤ text.length + 1 →
     calls.take text position token = takeModel text position token
   skip : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
@@ -26,16 +26,23 @@ structure HelperMeaning (calls : Calls) : Prop where
   lookup : ∀ text, ValidText text → ∀ names first after,
     ValidNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = lookupName text names first after
+  scalarLookup : ∀ text, ValidText text → ∀ names first after,
+    ScalarExpression.ValidEnvironment text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
+    calls.scalarLookup text names first after = ScalarExpression.lookup text names first after
+  scalarRead : ∀ text, ValidText text → ∀ position names, position ≤ text.length + 1 →
+    ScalarExpression.ValidEnvironment text names →
+    calls.scalarRead text position names = ScalarExpression.read text position names
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = IntegerLiteral.read text position
-  expression : ∀ text, ValidText text → ∀ position names, position ≤ text.length + 1 → ValidNames text names →
-    calls.expression text position names = expressionAt text position names
+  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
+    ScalarExpression.ValidEnvironment text scalarNames →
+    calls.expression text position names scalarNames = expressionAt text position names scalarNames
   assumeValid : ∀ facts, calls.assumeValid facts = facts.assumeValid
   assumeInvalid : ∀ facts, calls.assumeInvalid facts = facts.assumeInvalid
   refineBounds : ∀ facts operator left right truth,
     calls.refineBounds facts operator left right truth = Predicate.refineBounds facts operator left right truth
-  fits : ∀ facts summary, calls.fits facts summary = fitsSummary facts summary
-  refineEqual : ∀ facts left right, calls.refineEqual facts left right = refineAffineEqual facts left right
+  fits : ∀ facts summary, calls.fits facts summary = fitsLengthSummary facts summary
+  refineEqual : ∀ facts left right, calls.refineEqual facts left right = refineLengthOverlap facts left right
   join : ∀ left right, calls.join left right = left.join right
 
 /-- Arbitrary-callee equations obtained by evaluating the exact checked source
@@ -78,7 +85,7 @@ include defs in
 theorem bound_meaning (binding : Bindings.BindingInfo) : calls.bound binding = binding.bound := by
   rw [defs.bound, bound_denotation]
 include defs in
-theorem bindingSummary_meaning (binding : Bindings.BindingInfo) : calls.bindingSummary binding = binding.bound.summary := by
+theorem bindingSummary_meaning (binding : Bindings.BindingInfo) : calls.bindingSummary binding = LengthSummary.ofExact binding.bound.summary := by
   rw [defs.bindingSummary, bindingSummary_denotation]
 
 include helpers defs
@@ -101,6 +108,7 @@ theorem length_meaning (text : Source) (tv : ValidText text) (context : Context)
   rw [helpers.name text tv _ firstBound]
   have afterBound := model_name_valid text (skipAt text position)
   rw [helpers.lookup text tv context.names _ _ cv.1 firstBound afterBound,
+    helpers.scalarLookup text tv context.scalarNames _ _ cv.2.2 firstBound afterBound,
     helpers.integer text tv _ firstBound]
   rw [helpers.take text tv _ .apostrophe afterBound,
     helpers.take text tv _ .lengthName (takeModel_valid text _ .apostrophe afterBound), bound_meaning defs]
@@ -133,7 +141,7 @@ theorem primary_normalized (contracts : Contracts calls) (text : Source) (tv : V
   have openingBound := takeModel_valid text position .leftParenthesis bounded
   have innerBound := (contracts.condition text tv context cv _ openingBound facts fv).1.1
   rw [helpers.take text tv _ .rightParenthesis innerBound,
-    helpers.callAfter text tv context.names position .validity cv.1 bounded,
+    helpers.callAfter text tv context.names position .validity context.scalarNames cv.1 cv.2.2 bounded,
     helpers.assumeValid, helpers.assumeInvalid]
   rfl
 
@@ -151,11 +159,19 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   have compareLengthBound := Predicate.comparison_bound text _ lengthBound
   rw [length_meaning helpers defs text tv context cv _ true compareLengthBound]
   simp only [helpers.refineBounds]
-  rw [helpers.expression text tv position context.names bounded cv.1]
-  have expressionBound := (model_expression_valid text tv position context.names bounded cv.1).1
+  rw [helpers.scalarRead text tv position context.scalarNames bounded cv.2.2]
+  have scalarBound : (ScalarExpression.read text position context.scalarNames).after ≤ text.length + 1 := by
+    by_cases zero : (ScalarExpression.read text position context.scalarNames).after = 0
+    · simp [zero]
+    · exact (ScalarExpression.read_bounds bounded zero).2.1
+  rw [comparison_meaning helpers defs text tv _ scalarBound]
+  have scalarComparisonBound := Predicate.comparison_bound text _ scalarBound
+  rw [helpers.scalarRead text tv _ context.scalarNames scalarComparisonBound cv.2.2]
+  rw [helpers.expression text tv position context.names context.scalarNames bounded cv.1 cv.2.2]
+  have expressionBound := (model_expression_valid (scalarNames := context.scalarNames) (integerHidden := false) text tv position context.names bounded cv.1).1
   rw [comparison_meaning helpers defs text tv _ expressionBound]
   have comparisonBound := Predicate.comparison_bound text _ expressionBound
-  rw [helpers.expression text tv _ context.names comparisonBound cv.1]
+  rw [helpers.expression text tv _ context.names context.scalarNames comparisonBound cv.1 cv.2.2]
   simp only [summary_meaning defs, helpers.fits, helpers.refineEqual]
   rfl
 
@@ -197,13 +213,15 @@ theorem condition_of_source_equations (contracts : Contracts calls) (text : Sour
 end
 
 theorem model_helper_meaning : HelperMeaning modelCalls where
-  callAfter _ _ _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ _ _ _ := rfl
   take _ _ _ _ _ := rfl
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl
   lookup _ _ _ _ _ _ _ _ := rfl
+  scalarLookup _ _ _ _ _ _ _ _ := rfl
+  scalarRead _ _ _ _ _ _ := rfl
   integer _ _ _ _ := rfl
-  expression _ _ _ _ _ _ := rfl
+  expression _ _ _ _ _ _ _ _ := rfl
   assumeValid _ := rfl
   assumeInvalid _ := rfl
   refineBounds _ _ _ _ _ := rfl

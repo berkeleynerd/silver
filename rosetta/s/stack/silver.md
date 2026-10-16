@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index and range checks on Top that guards placed right before each array access discharge, and the only while loop sits in the Main procedure, where no termination check applies, so no annotation is needed.
 
-Position 599 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 599 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The stack is a record holding a fixed-capacity Integer array plus a Top count of
 - **index**: Pop reads Items (Top) only after testing Top > 0 and Push writes Items (Top + 1) only after testing Top < Capacity, so both index checks follow from guards just before use.
 - **initialization**: Pop assigns its out Item and Success parameters on both the empty and non-empty paths, and the stack record is initialized by an aggregate, so data-flow checks are routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, procedures, functions, 'Image of scalars, for loops and while loops.
 

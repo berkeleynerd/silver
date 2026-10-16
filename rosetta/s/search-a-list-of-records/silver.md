@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is static and every loop is a for loop over the array's own range, so index and range checks follow from types and a found guard; the only care needed is formatting hundredths without float.
 
-Position 792 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 792 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Cities are a constant array of 10 records holding a fixed-capacity padded name w
 - **index**: Each search is a for loop over the array's own range with a not-found sentinel, and the result is read only after a Found guard, so index checks are routine.
 - **length**: Names are stored in fixed 20-character padded buffers with a stored length, and slices for output use that length, which is bounded by the buffer type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, case statements, functions, procedures, Put without a newline and Boolean objects.
 

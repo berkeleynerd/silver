@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops, so indexing, initialization and termination are routine, but Float overflow checks on loop-carried filter state need bounding guards and floating-point provers, so discharge depends on careful program shape.
 
-Position 1058 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1058 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the a and b coefficients and the 20-sample signal as constant Float arrays
 - **range**: Assigning the new state value to a bounded float subtype needs a guard on the computed result just before the assignment, which is expressible as an if that rejects out-of-bound output.
 - **other**: Formatting a Float to six decimals needs an admitted library routine with a verified length bound, otherwise the text conversion cannot be proved.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, for loops, procedures and floating-point images.
 

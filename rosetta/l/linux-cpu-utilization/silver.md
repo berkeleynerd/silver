@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task reads one line from /proc/stat, parses unsigned counters, sums them, takes deltas across a sleep, and prints a percentage. Bounded integer arithmetic with a guard for a zero total delta and a defined outcome for malformed input fits the Oracle rules. It needs file reading, a delay and console output, which are effects Silver lacks today and are not conflicts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, string operations, loops, subprograms and arrays.
 

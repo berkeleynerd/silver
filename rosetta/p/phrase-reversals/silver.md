@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-size strings and for loops over the phrase's own range make the index checks follow from bounds and guards, and the word-splitting loop lives in a procedure so no variant is needed.
 
-Position 522 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 522 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 28-character phrase as a constant String, and build each result in a f
 - **index**: Word-boundary scanning uses loop-carried start and end positions, discharged by guarding each index against the fixed phrase bounds immediately before every access.
 - **termination**: The word-splitting while loop sits in a procedure, which gets no termination check, and for loops terminate by construction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

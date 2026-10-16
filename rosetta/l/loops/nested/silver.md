@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes over the array's own bounds and a ranged seed type, so the proofs should discharge without annotations; the only growth needed is arrays, for loops, mod and Put.
 
-Position 1533 in the [progression](../../../progression.md#stage-33), in stage 33.
+Position 1533 in the [progression](../../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a constrained 10x10 array of a 1..20 subtype and fill it in nested for l
 
 - **overflow**: The LCG seed is loop-carried through the fill loops, but a seed subtype 0..65536 makes seed*75+74 fit in Integer and the mod result is within the subtype range, so no invariant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, 'Image of scalars, Put without a newline, procedures and block statements.
 

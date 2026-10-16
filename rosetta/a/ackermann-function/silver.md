@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses no recursion, runs its while loop inside a procedure that gets no termination check, and guards every index and increment just before use, so each check follows from local guards and declared ranges. Arbitrary precision is optional, so Natural values with a reported capacity limit are enough.
 
-Position 208 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 208 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ An Ackermann procedure takes M and N and returns the result through an out param
 - **termination**: The while loop that simulates recursion with an explicit stack sits in a procedure, so GNATprove raises no termination check, and the task's own statement that A always terminates makes this sound.
 - **other**: If the fixed stack capacity or Natural range would be exceeded, the procedure stops and reports a visible capacity-exceeded outcome instead of a value, which counts as a documented resource limit under rule 7.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures and 'Image of scalars.
 

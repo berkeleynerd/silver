@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from for-loop index ranges and a small bounded counter with a guard, so no annotation is needed, but the loop-carried counters and nested loops require careful program shape.
 
-Position 169 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 169 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the maximum perimeter 100 as a constant and enumerate a in 1..100, b in a+
 - **termination**: Only for loops are used, so every loop terminates by itself even if the work sits in a function.
 - **other**: Cubic enumeration of a, b, c up to 100 is roughly 170,000 iterations, which is fine at run time and adds no proof burden since no loop-carried fact is needed beyond the counter guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, for loops, 'Image of scalars, string building, Boolean objects and integer division.
 

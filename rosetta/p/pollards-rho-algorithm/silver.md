@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a ranged subtype so overflow checks follow from types, and all unbounded loops sit in procedures, but the loop-carried x, y and mulmod values need careful range shaping to avoid annotations. The 70-bit example is optional and omitted since it needs big numbers.
 
-Position 1517 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1517 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 32, 34 and 55-bit example numbers (plus a prime) in a constant array; 
 - **termination**: Euclid GCD and the mulmod halving loops are while loops, so they live in procedures (no termination check), and the rho loop is a for loop with a fixed iteration cap that yields a visible failure outcome.
 - **division**: mod n and the GCD remainder need nonzero divisors, discharged by guarding n >= 2 and testing the GCD divisor against zero before the mod.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and case statements.
 

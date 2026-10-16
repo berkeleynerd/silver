@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded big-digit arithmetic and for loops in procedures, whose checks follow from ranged types and explicit capacity guards, but the loop-carried digit length and the nested trajectory comparison require careful guard placement.
 
-Position 747 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 747 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent each number as a fixed 512-digit little-endian array of 0..9 digits pl
 - **termination**: All loops live in procedures, with the 500-iteration search as a for loop, so no variant is needed.
 - **initialization**: Large digit arrays and the seed trajectory table must be fully initialized by aggregates or loops, which flow analysis handles but needs careful shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and characters.
 

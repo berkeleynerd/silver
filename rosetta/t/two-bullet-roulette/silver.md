@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and a bounded counter, and the only loops are for loops plus a small while loop in a procedure. The only care needed is keeping the LCG arithmetic within 64-bit range, which types and mod make routine.
 
-Position 367 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 367 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The cylinder is a six-element Boolean array rotated by one position per step wit
 - **index**: Cylinder positions are a 0..5 subtype and rotation uses mod 6 arithmetic, so every array index is within range by type.
 - **termination**: The load while loop skips occupied chambers and lives in a procedure, which gets no termination check, and a guard on the bullet count keeps it from spinning on a full cylinder.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

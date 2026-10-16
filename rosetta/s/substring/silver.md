@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All five cases use a short constant string with static bounds, for loops over the array's own range and guards placed just before each slice, so every index and overflow check follows from types and guards. No loop invariant, recursion or while loop is needed.
 
-Position 973 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 973 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the string "abcdefgh" as a constant with constants N and M, and print the 
 - **index**: Slice bounds computed from a found position and M are discharged by explicit guards just before each slice, with the loop-carried found position typed as a bounded subtype or recomputed under a guard.
 - **overflow**: Position plus M arithmetic stays far below Integer'Last because Str has a static length of 8 and M is a small constant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string indexing, unconstrained arrays, for loops, Boolean objects and integer division.
 

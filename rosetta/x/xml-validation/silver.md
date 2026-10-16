@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule forbids the program, but it is a fairly large one. Its many loop-carried cursors, tree indices and counters each need a guard just before use, since no invariant can be written. That makes discharge depend on careful program shape, though no annotation is needed.
 
-Position 1211 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1211 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -17,7 +17,7 @@ The W3Schools shiporder XML and XSD are embedded as String constants, and each i
 - **termination**: All scanning and tree walking happen in while loops inside procedures, which get no termination check, while the helper functions use only for loops.
 - **stack**: Nested element validation uses an explicit array stack in place of recursion, so stack depth is fixed and does not grow with the input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

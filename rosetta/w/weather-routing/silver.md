@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is an open-ended draft, so a small embedded-data grid search is faithful, and all checks come from fixed array bounds and guards; the main difficulty is floating-point trigonometry and interpolation, which is why it is plausible rather than likely.
 
-Position 1119 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1119 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a small fixed grid (for example 9x9) of per-cell wind and current records,
 - **index**: Grid neighbor, time-slice and polar-table interpolation indexes are computed values, so each needs a guard just before use or a subtype-constrained range.
 - **termination**: The earliest-arrival search is a while loop and must live in a procedure, with the frontier bounded by a fixed grid and each cell settled once.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, floating-point images, string building and Put without a newline.
 

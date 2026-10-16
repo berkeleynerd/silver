@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and arithmetic are bounded by ranged subtypes and a capacity guard in the while-loop condition, and the loop lives in a procedure so no termination variant is needed; the arithmetic is only small integer mod/div by a constant, so the proofs should discharge with careful program shape.
 
-Position 1005 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1005 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed numerator 1 and denominator 149 as constants and run a procedure with a wh
 - **length**: Assembling the output text in a fixed buffer with a computed fill index needs a guard before each append so the index never exceeds the buffer length.
 - **other**: Repeat detection through the seen table ends the loop by pigeonhole, which only a procedure (no termination check) allows, and the explicit capacity guard gives a visible outcome (reject) if a denominator ever exceeded the buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and conditional expressions.
 

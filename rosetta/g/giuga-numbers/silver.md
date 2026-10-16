@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop ranges, a ranged candidate subtype and nonzero constant divisors, and only a procedure is needed, so no loop-carried value requires an invariant. The fixed search limit is a documented resource bound, and the stretch part is optional.
 
-Position 892 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 892 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Check (M : in Candidate; Giuga : out Boolean) divides a remainder by
 - **overflow**: Candidates are confined to a for-loop range of 3 .. 100000 in a ranged subtype, so no increment or division can overflow, and the reduced remainder stays within its declared subtype.
 - **index**: The result array has 4 slots and is written only under an explicit Count < 4 guard just before the store.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and conditional expressions.
 

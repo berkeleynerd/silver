@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops with bounded indexes in procedures, so indexes and termination are routine, but the loop-carried accumulations and scaled fixed-point products need careful range guards and decimal formatting is manual, so discharge is plausible rather than likely.
 
-Position 847 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 847 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Matrices are fixed-capacity two-dimensional arrays (max order 4) of scaled-integ
 - **overflow**: The accumulated sums in the inner K loops carry no invariant, so each addition needs a guard against the type bound, or the accumulator is a wide integer type whose range is shown to hold by bounding entries.
 - **floating point**: Using true floating point would need range guards on every operand, so scaled integers are preferred, but this risks formatting 5-decimal outputs that must be built manually from integer parts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, string building, 'Image of scalars, Put without a newline and case statements.
 

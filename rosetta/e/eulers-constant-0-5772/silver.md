@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks to compute gamma, so a fixed-precision integer long division of a closed-form rational avoids floating point and loop-carried accumulators, and every check follows from subtype ranges and the for-loop index over the buffer's own range.
 
-Position 440 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 440 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Evaluate the Castellanos rational approximation (990^3 - 55^3 - 79^2 - 16)/70^5 
 
 - **overflow**: The exact numerator 970126368 and denominator 1680700000 fit easily in Integer, and the remainder times 10 stays under 1.7e10, so a 64-bit integer subtype with remainder range 0 .. Den-1 discharges the multiplication and the mod result's range check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, for loops, string building, procedures and 'Image of scalars.
 

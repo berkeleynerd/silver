@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every bound is statically derivable from small ranged subtypes and constant tables, and all loops are for loops in the main procedure, so no invariant or variant is needed; only the nonlinear power and the accumulator need careful guards.
 
-Position 1512 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1512 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a constant table of 10**k for k in 0..8 and a 2D table of d**N for d in 0.
 - **range**: The outer loop bounds 10**(N-1) and 10**N-1 depend on N, so they are held in a small constant table indexed by N to keep every bound static.
 - **index**: Table indexing by digit and by N is safe because the indices come from for loops over the array's own range or from a mod 10 result converted to a 0..9 subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, for loops, arrays, multidimensional arrays and 'Image of scalars.
 

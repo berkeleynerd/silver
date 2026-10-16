@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged float subtypes, library contracts and guards before Sqrt and ArcSin, with no loops or recursion, but the floating-point reasoning and the dependence on an admitted elementary-functions library make discharge depend on careful program shape rather than being routine.
 
-Position 1047 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1047 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program declares a ranged Float subtype for latitudes and longitudes in degr
 - **range**: Sqrt needs a nonnegative operand, which follows from a sum of squares and a product of cosines of latitudes held in a subtype limited to -90.0 .. 90.0 degrees, but a guard against negative rounding results is added to be safe.
 - **overflow**: Converting the kilometer result to scaled integer digits for printing is safe because the distance is bounded by 2.0 * 6372.8 * Pi/2 and a guard precedes the conversion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, functions, floating-point images, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and index arithmetic whose bounds come from ranged subtypes and capacity guards, with no recursion or heap, so no annotation is needed. The loop-carried node and offset values in the insertion and splitting logic need careful guarding, which makes it plausible rather than likely.
 
-Position 752 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 752 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the text banana$ as a constant, map its characters to a four-letter alphab
 - **termination**: Insertion and printing loops live in procedures, which get no termination check, and printing uses an explicit fixed-capacity stack instead of recursion.
 - **length**: The printed prefix buffer must be built to a computed length within a fixed maximum, so the append is guarded by a depth check that stops output visibly if exceeded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

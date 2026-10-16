@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for eight elements stay below about 70000 so a fixed sieve and a 256-entry subset-sum table suffice, and every check follows from range subtypes and guards before use, though the loop-carried table indices and sums need careful guarding. The ten-element stretch is optional and skipped since its sums reach tens of millions.
 
-Position 279 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 279 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Boolean composite sieve array up to about 200000 is built with while loops in 
 - **termination**: The candidate search and sieve use while loops inside procedures, which get no termination check, and the candidate is capped by a guard that rejects when exceeded.
 - **index**: The doubling subset-sum table (up to 256 entries) is indexed by a count that only a loop invariant would bound, so the program needs a guard before each write that falls to a visible failure outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

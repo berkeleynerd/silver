@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, for-loop ranges over them and a zero-union guard, and the exact-decimal output via scaled integers avoids floating point; the only non-routine point is the loop-carried intersection counter, which a visible guard keeps in range.
 
-Position 709 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 709 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each of the six sets is a row in a constant 6x5 Integer table with a parallel ar
 - **range**: Set sizes, element indexes and the scaled-decimal quotient (numerator at most 10 times 10**7) stay within declared subtypes, and the decimal digits are emitted by a fixed-count for loop.
 - **length**: Each output line is built in a fixed-capacity buffer sized for the longest line (e.g. J(B,C) = J(C,B) = 0.4285714) so concatenations cannot exceed it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

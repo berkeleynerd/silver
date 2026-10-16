@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by its element subtype, the only arithmetic is a linear subtraction followed by an add-m guard, and every index is a fresh mod 55 of a for-loop index, so all checks follow from types and local guards.
 
-Position 136 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 136 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Main stores the 55 seed values S and the ring buffer R in arrays indexed 0 .. 54
 - **range**: Each difference of two elements typed 0 .. 10**9 - 1 lies in -(10**9 - 1) .. 10**9 - 1, and the guard "if D < 0 then D := D + M" just before storing brings it back into the element subtype by linear reasoning.
 - **index**: Ring-buffer and reorder indexes are computed fresh from the for-loop index as N mod 55, (N + 31) mod 55 and (34 * (N + 1)) mod 55, so each lies in 0 .. 54 from the mod alone with no loop-carried index.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops and 'Image of scalars.
 

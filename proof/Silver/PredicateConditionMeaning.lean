@@ -11,9 +11,9 @@ structure ConditionMeaning (context : ParseContext) (facts : Context)
     (condition : Condition) (result : ConditionResult) : Prop where
   grammatical : condition.Grammatical
   readable : condition.Readable context.hasArguments context.names.shape
-  checked : condition.checkBounds context.names.shape facts = true
-  whenTrue : result.whenTrue = condition.refine context.names.shape facts true
-  whenFalse : result.whenFalse = condition.refine context.names.shape facts false
+  checked : condition.checkBounds context.names.shape facts (ScalarExpression.ranges context.scalarNames) = true
+  whenTrue : result.whenTrue = condition.refine context.names.shape facts true (ScalarExpression.ranges context.scalarNames)
+  whenFalse : result.whenFalse = condition.refine context.names.shape facts false (ScalarExpression.ranges context.scalarNames)
 
 def ChainShape (chained : Option Bool) (condition : Condition) : Prop :=
   match chained with

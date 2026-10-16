@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A static ASCII-art sphere needs only bounded integer arithmetic and for loops over fixed ranges with a clamped ramp index, so every check follows from types and guards. No floating point, recursion or annotations are needed, and the task explicitly allows ASCII art.
 
-Position 442 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 442 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program uses a fixed 41 by 21 grid, with for loops over row and column range
 - **overflow**: Shading uses integer-only arithmetic on grid coordinates in a small range (about -20..20), so squared sums stay far below the Integer limit.
 - **index**: The shade-ramp index is clamped by an explicit guard before the array access, so it always lies within the ramp's bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string building, for loops, procedures, Put without a newline and while loops.
 

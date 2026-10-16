@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by Character'Pos at most 255 and the loops are for loops or sit in procedures, so every check follows from types and bounds; the only new need is an admitted line-reading file operation.
 
-Position 1324 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1324 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ A function Is_Prime on a Natural character code (at most 255) tests divisors wit
 - **index**: Line buffer indexing is guarded by a length counter that stays within the buffer capacity, with over-long lines rejected visibly.
 - **termination**: The file-reading while loop lives in a procedure, which gets no termination check, and the per-character primality test uses a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops, while loops, procedures, functions and file input.
 

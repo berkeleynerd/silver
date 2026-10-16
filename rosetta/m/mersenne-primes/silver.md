@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over declared ranges, so there is no termination or invariant issue, and the only nonlinear terms (2**P and D*D) are bounded by the declared ranges; the fixed exponent limit is a documented resource bound because the task says "until some limitation is reached".
 
-Position 1505 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1505 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Main procedure loops P over the ranged subtype 2..31, computes M as 2**P - 1 i
 - **overflow**: 2**P - 1 and D*D are bounded by declaring P as a range 2..31 and D as a range 2..46341 in a 64-bit integer type, so the provers only need modest bound reasoning.
 - **division**: The mod divisor D comes from a loop range starting at 2, so it is never zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, for loops, 'Image of scalars and procedures.
 

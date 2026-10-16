@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, array bounds and guards before each write, with only loop-carried segment offsets and signature sums needing careful range design, and no annotation is required because loops sit in procedures.
 
-Position 280 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 280 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve primes below 31623 once into a Boolean array, then sweep 1..1e9 in fixed-s
 - **termination**: The digit-extraction and strike while loops live in procedures, which get no termination check, so no variant is needed.
 - **other**: A full sieve to one billion needs a huge array, so a fixed-size segment (for example 2**20 odd numbers) plus a small-prime table up to 31623 keeps resource limits modest, at the cost of more index arithmetic to prove.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

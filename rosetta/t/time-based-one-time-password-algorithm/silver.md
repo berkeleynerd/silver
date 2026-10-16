@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** TOTP is HMAC-SHA1 over an 8-byte big-endian counter taken from the clock, followed by dynamic truncation and a modulo 10^6. A bounded-array implementation with 32-bit modular arithmetic, Base-32 decoding that rejects invalid input, and loops can be proven free of run-time errors. The only external effects are the clock, the argument and console output, and the optional random key generation can be skipped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, loops and subprograms.
 

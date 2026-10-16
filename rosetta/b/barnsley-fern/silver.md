@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from a closed float subtype range, a modular generator and explicit index guards, with no annotations, but floating-point range reasoning and float-to-integer conversion make discharge depend on careful program shape.
 
-Position 1301 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1301 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program keeps a fixed grid of rows (for example 40 by 60 characters) initial
 - **range**: Converting scaled coordinates to grid column and row indexes needs a guard that tests the computed values against the grid bounds just before indexing, so a point outside the grid is visibly skipped rather than checked by proof.
 - **overflow**: The pseudo-random generator uses a 32-bit modular type so wraparound is defined behavior, and the percentage is derived by mod 100 on the modular value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, modular types, integer division, integers, characters, arrays, multidimensional arrays, string building, string indexing, for loops and procedures.
 

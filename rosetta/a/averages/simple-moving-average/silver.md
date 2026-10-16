@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, bounded arrays and guards, but the loop-carried window sum and the bounded-buffer decimal formatting require careful shaping because no invariants can be written.
 
-Position 625 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 625 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each moving-average state is a record holding a fixed-capacity ring-buffer array
 - **length**: Output lines are assembled in a fixed-size bounded buffer with decimal digits computed from scaled integer division, so each concatenation needs guards or statically sized pieces to keep lengths within the buffer.
 - **floating point**: Floating point is avoided by using integer arithmetic scaled by 100000 for the five-decimal average, which is exact enough for the sample outputs but is a documented format choice rather than Float'Image output.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, for loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

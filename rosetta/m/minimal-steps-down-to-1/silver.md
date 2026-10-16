@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded for-loop dynamic program over a fixed-size array where each index and increment is bounded by subtype ranges or an immediately preceding guard, so no annotation is required, though several loop-carried values (running minimum, trace position) need careful guards.
 
-Position 181 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 181 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A fixed array Tab (1 .. 2000) of a ranged step-count subtype is filled by a for 
 - **index**: The path-reconstruction loop carries Trace across iterations, so each step is guarded (Trace > Sub before subtracting, divisibility before dividing) and an inconsistent table Rejects rather than being assumed away.
 - **overflow**: Count and maximum accumulators are bounded by their declared subtype ranges and the fixed table size of 2000, so no unchecked growth occurs.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only arrays, records, for loops and procedures, and it uses no recursion or annotations. Its outlook is plausible rather than likely because Long_Float overflow and division checks on values carried through Horner evaluation and polynomial division discharge only if magnitude guards are placed carefully before each operation.
 
-Position 1115 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1115 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Each polynomial is a record holding a degree in a ranged subtype and a fixed-cap
 - **overflow**: The sign-variation counter and the root count are bounded by the sequence length and the degree, so they rely on declared ranged subtypes plus a guard before each increment.
 - **termination**: Interval isolation runs in a procedure as a for loop capped at a fixed number of worklist steps, and bisection uses a for loop with a fixed iteration cap, so there is no while loop or recursion inside a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, floating-point images, arrays, records, 'Image of scalars, for loops, procedures, functions and Put without a newline.
 

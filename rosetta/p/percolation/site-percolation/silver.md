@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array bounds, loop-bounded indices, a modular or range-bounded generator and edge guards, and the recursive flood fill of the existing solution is replaced by bounded iterative sweeps in a procedure so no variant is needed.
 
-Position 1286 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1286 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The grid is a 15x15 Boolean array of filled cells, generated from a deterministi
 - **index**: Flood-fill neighbour accesses at row and column edges are each guarded by explicit bounds comparisons just before the array index, with row and column as loop-bounded subtypes.
 - **termination**: Reachability is propagated by a bounded for loop of at most 225 sweeps inside a procedure, avoiding recursion and unbounded while loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

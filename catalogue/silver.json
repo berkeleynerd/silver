@@ -107,7 +107,10 @@
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
         "unused_allowed": true,
-        "argument_initializer_position": "first and unique binding in argument-bearing forms only"
+        "argument_initializer_position": "first and unique binding in argument-bearing forms only",
+        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
+        "initializer_image_length": "non-input minimum and maximum must agree; Image may read earlier Integer constants"
       }
     },
     {
@@ -203,7 +206,8 @@
         "operator": "&",
         "operand_kinds": [
           "string_literal",
-          "bound_string_name"
+          "bound_string_name",
+          "integer_image"
         ],
         "association": "left",
         "min_operands": 2,
@@ -212,7 +216,8 @@
         "static_references": "counted with multiplicity",
         "max_dynamic_references": 64,
         "max_result_bytes": 4096,
-        "dynamic_references": "each original argument or dynamic-length alias occurrence contributes the selected-input length"
+        "dynamic_references": "each original argument or dynamic-length alias occurrence contributes the selected-input length",
+        "image_lengths": "minimum and maximum decimal Image length over the scalar interval; add both endpoints under concatenation"
       }
     },
     {
@@ -241,7 +246,7 @@
           0,
           4096
         ],
-        "expression_bound": "static_length + dynamic_occurrences * input_length <= 4096 on every reachable input",
+        "expression_bound": "maximum_non_input + dynamic_occurrences * input_length <= 4096 on every reachable evaluation; maximum_non_input <= 4096 even for an empty Image",
         "bound_source": "Length of any initialized String binding",
         "scope": "current path facts; valid interval and separate invalid-input case",
         "default": "subject to the same written predicates as an actual selected argument"
@@ -275,7 +280,10 @@
         "later_guards_justify_initializers": false,
         "bounds": "fixed by initialized value",
         "copy_semantics": "snapshot of the earlier initialized value; later source assignments do not change the copy",
-        "unused_allowed": true
+        "unused_allowed": true,
+        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "integer_type_hiding": "a String binding named Integer hides the Image type mark in its own initializer and later source",
+        "initializer_image_length": "non-input minimum and maximum must agree; Image may read earlier Integer constants"
       }
     },
     {
@@ -286,7 +294,7 @@
         "value": [
           "string_expression"
         ],
-        "decoded_length": "for static target T, RHS static contribution S <= T and S = T if no dynamic occurrences, even on unreachable paths; equal target length on every reachable input using path facts",
+        "decoded_length": "both RHS endpoints equal fixed or symbolic target length on every reachable input; nonempty RHS non-input endpoints <= static T and equal T if no dynamic occurrences even on unreachable paths; empty Image RHS retains minimum_non_input <= static T",
         "output_must_reference_result": false,
         "self_assignment": true,
         "count": "finite_within_complete_source_bound",
@@ -302,15 +310,16 @@
           "string_expression",
           "string_expression"
         ],
-        "at_least_one_bound_name_across_operands": true,
         "both_operands_independently_bounded": true,
         "predefined_string_equality": true,
         "case_sensitive": true,
         "unequal_lengths_equal": false,
         "count": "finite_within_complete_source_bound",
         "inequality_operator": "/=",
-        "true_equality_refines_affine_lengths": true,
-        "false_equality_implies_length_inequality": false
+        "false_equality_implies_length_inequality": false,
+        "at_least_one_bound_name_or_image_across_operands": true,
+        "true_equality_refines_length_intervals": true,
+        "refinement": "overlap of [minimum_non_input + dynamic_count*d, maximum_non_input + dynamic_count*d]; ceiling/floor bounds when dynamic counts differ"
       }
     },
     {
@@ -319,7 +328,8 @@
       "conditions": {
         "operand_kinds": [
           "string_literal",
-          "bound_string_name"
+          "bound_string_name",
+          "integer_image"
         ],
         "min_operands": 1,
         "max_operands": 64,
@@ -330,15 +340,18 @@
         "max_result_bytes": 4096,
         "static_references": "each static-length binding occurrence counted at its fixed length",
         "empty_operands_count": true,
-        "program_concatenation_budget": 63,
-        "program_budget_counts": "all syntactic concatenations across initializers, statements and predicate operands in every arm; literal and comment bytes excluded",
+        "program_budget_counts": "all &, unary/binary + and -, and * in declarations, loop bounds, statements and predicates in every arm; numeric exponent signs and literal/comment bytes excluded",
         "dynamic_references": "counted with multiplicity at the maximum reachable input length; invalid initializer length is zero",
         "positions": [
           "initializer",
           "assignment_rhs",
           "comparison_operand",
           "output"
-        ]
+        ],
+        "image_lengths": "minimum and maximum decimal Image length over the scalar interval; add both endpoints under concatenation",
+        "program_operator_budget": 63,
+        "length_summary": "[minimum_non_input + dynamic_count*d, maximum_non_input + dynamic_count*d]; d is selected input length",
+        "empty_image": "no possible value; other operands retain their length contributions and resource checks"
       }
     },
     {
@@ -409,7 +422,7 @@
         "else": [
           "statement_sequence"
         ],
-        "comparison": "predefined String equality/inequality, fixed Length comparisons and argument validity",
+        "comparison": "predefined String equality/inequality, fixed Length comparisons, Integer comparisons and argument validity",
         "nested_equality_conditionals": true,
         "elsif_count": "finite_within_complete_source_bound",
         "nesting": "finite_within_complete_source_bound",
@@ -429,7 +442,8 @@
           "string_assignment",
           "expression_output",
           "string_choice",
-          "argument_rejection"
+          "argument_rejection",
+          "for_loop"
         ],
         "minimum": 1,
         "count": "finite_within_complete_source_bound",
@@ -459,7 +473,7 @@
           "initialized_name Length attribute"
         ],
         "fixed_bounds_survive_assignment": true,
-        "scope_purpose": "Length-left comparisons are the current bounded grammar; arithmetic, other attributes and literal-left forms remain unimplemented"
+        "scope_purpose": "Length-left comparisons keep the 0..4096 integer_literal context; scalar arithmetic and Integer comparisons have a separate grammar"
       }
     },
     {
@@ -469,6 +483,7 @@
         "relations": [
           "string_equality",
           "length_predicate",
+          "integer_comparison",
           "input_guard",
           "parenthesized_condition",
           "not_primary"
@@ -485,7 +500,7 @@
         "right_operand_path": "left true for and then; left false for or else",
         "boolean_literals": false,
         "eager_operators": false,
-        "scope_purpose": "short-circuit path refinement only; Boolean literals and other Boolean operators remain unimplemented"
+        "scope_purpose": "short-circuit input path refinement; scalar comparisons retain incoming intervals; Boolean values and eager operators remain excluded"
       }
     },
     {
@@ -518,12 +533,233 @@
         ],
         "exponent_bound_purpose": "frontend resource limit, including zero literals",
         "value_bound_purpose": "current String length domain is 0 through 4096",
-        "scope_purpose": "integer lengths only; unary signs remain outside the current grammar",
+        "scope_purpose": "String-length literals only; scalar_integer_literal is the distinct larger magnitude context; unary signs remain excluded from length operands",
         "negative_exponent": false,
         "fractions": false,
         "unary_signs": false,
         "digit_count": "limited only by complete source bound",
         "overflow_safe": true
+      }
+    },
+    {
+      "id": "scalar_integer_literal",
+      "ada_kind": "numeric_literal",
+      "conditions": {
+        "magnitude_range": [
+          0,
+          2147483648
+        ],
+        "forms": [
+          "decimal",
+          "based"
+        ],
+        "based_range": [
+          2,
+          16
+        ],
+        "based_delimiters": [
+          "#",
+          ":"
+        ],
+        "matching_delimiters_required": true,
+        "leading_zeroes": true,
+        "separator": "single underscore between digits",
+        "exponent": "optional E/e, optional +, decimal digits with separators",
+        "exponent_range": [
+          0,
+          4096
+        ],
+        "exponent_bound_purpose": "frontend resource limit, including zero literals",
+        "negative_exponent": false,
+        "fractions": false,
+        "unary_signs": false,
+        "context": "Integer expressions, comparisons, loop bounds and Integer Image; signs belong to integer_expression",
+        "resulting_scalar_range": [
+          -2147483648,
+          2147483647
+        ],
+        "maximum_magnitude_use": "2147483648 is legal only immediately under unary minus; its positive subexpression is excluded",
+        "digit_count": "limited only by complete source bound",
+        "overflow_safe": true
+      }
+    },
+    {
+      "id": "named_integer_constant",
+      "ada_kind": "object_declaration",
+      "conditions": {
+        "type": "Integer",
+        "constant": true,
+        "initializer": [
+          "integer_expression"
+        ],
+        "initializer_required": true,
+        "initializer_visibility": "earlier Integer constants only; no self, forward or cyclic reference",
+        "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
+        "excluded_names": [
+          "String",
+          "Silver_IO",
+          "Integer"
+        ],
+        "additional_excluded_names_in_argument_forms": [
+          "Silver_Arguments"
+        ],
+        "exclude_ada_2022_reserved_words": true,
+        "case_insensitive_binding": true,
+        "all_declared_names_distinct_ignoring_case": true,
+        "shared_name_environment": "String and Integer declarations; scoped loop indexes may hide them in bodies",
+        "type_mark_visible": true,
+        "declaration_context": "every output shell; after the first argument binding in argument shells",
+        "count": "finite_within_complete_source_bound",
+        "value_range": [
+          -2147483648,
+          2147483647
+        ],
+        "mutable": false,
+        "unused_allowed": true
+      }
+    },
+    {
+      "id": "integer_expression",
+      "ada_kind": "expression",
+      "conditions": {
+        "operand_kinds": [
+          "scalar_integer_literal",
+          "visible_integer_constant",
+          "scoped_for_index"
+        ],
+        "min_operands": 1,
+        "max_operands": 64,
+        "binary_operators": [
+          "+",
+          "-",
+          "*"
+        ],
+        "binary_operations_fully_parenthesized": true,
+        "unary_operators": [
+          "+",
+          "-"
+        ],
+        "ungrouped_sign_operand": "scalar numeral only",
+        "grouped_sign_operand": "one unsigned numeral/name or grouped expression; no ungrouped repeated signs",
+        "binary_operand_signs": "each signed operand must be grouped, as in ((-1) + 2) or (1 + (-2))",
+        "parenthesis_depth": "limited only by complete source size",
+        "program_operator_budget": 63,
+        "value_range": [
+          -2147483648,
+          2147483647
+        ],
+        "interval_arithmetic": "endpoint addition/subtraction/negation and min/max of four endpoint products; every intermediate fits Integer",
+        "correlated_operands_refined": false,
+        "scalar_guards_refine_intervals": false,
+        "empty_index_interval": "index-dependent safety vacuous; out-of-range static subexpressions still excluded",
+        "positions": [
+          "integer_constant_initializer",
+          "scalar_comparison_operand",
+          "loop_bound",
+          "integer_image_argument"
+        ],
+        "conversions": false,
+        "division": false,
+        "mutable_integer_values": false
+      }
+    },
+    {
+      "id": "integer_comparison",
+      "ada_kind": "relational_expression",
+      "conditions": {
+        "operators": [
+          "=",
+          "/=",
+          "<",
+          "<=",
+          ">",
+          ">="
+        ],
+        "operands": [
+          "integer_expression",
+          "integer_expression"
+        ],
+        "predefined_integer_comparison": true,
+        "refines_scalar_intervals": false,
+        "refines_input_path_facts": false,
+        "composition": "existing grouped and short-circuit predicate grammar"
+      }
+    },
+    {
+      "id": "integer_image",
+      "ada_kind": "attribute_reference",
+      "conditions": {
+        "prefix": "Integer",
+        "attribute": "Image",
+        "prefix_type_must_be_visible": true,
+        "arguments": [
+          "integer_expression"
+        ],
+        "parameter_associations": [
+          "positional"
+        ],
+        "format": "one leading space for nonnegative values or minus for negative values, then decimal magnitude; zero is space followed by 0",
+        "length_range": [
+          2,
+          11
+        ],
+        "length_formula": "1 + decimal_digits(abs(value)), with decimal_digits(0) = 1",
+        "interval_minimum": "2 if interval crosses zero, otherwise minimum endpoint Image length",
+        "interval_maximum": "maximum endpoint Image length",
+        "empty_interval": "no possible value, with zero Image length contributions; other String contributions retained",
+        "string_leaf_count": 1,
+        "positions": [
+          "initializer",
+          "assignment_rhs",
+          "comparison_operand",
+          "output"
+        ],
+        "other_scalar_images": false,
+        "expanded_standard_prefix": false,
+        "source_rewriting": false
+      }
+    },
+    {
+      "id": "for_loop",
+      "ada_kind": "loop_statement",
+      "conditions": {
+        "bounds": [
+          "integer_expression",
+          "integer_expression"
+        ],
+        "bounds_evaluated_once_on_entry": true,
+        "directions": [
+          "forward",
+          "reverse"
+        ],
+        "inclusive": true,
+        "null_range": "lower bound > upper bound in either direction",
+        "body": [
+          "statement_sequence"
+        ],
+        "body_minimum": 1,
+        "nested": true,
+        "index_immutable": true,
+        "index_scope": "body only; own name hidden in both bounds, including outer homonyms; outer bindings restored on exit",
+        "bound_visibility": "Integer constants and differently named enclosing indexes",
+        "identifier_pattern": "[A-Za-z]([A-Za-z0-9]|_[A-Za-z0-9])*",
+        "excluded_names": [
+          "Silver_IO"
+        ],
+        "additional_excluded_names_in_argument_forms": [
+          "Silver_Arguments"
+        ],
+        "exclude_ada_2022_reserved_words": true,
+        "String_and_Integer_index_names": true,
+        "hides_outer_bindings_and_unqualified_calls": true,
+        "index_interval": "[lower.lower, upper.upper], empty if either bound interval is empty or lower.lower > upper.upper",
+        "definitely_nonempty": "both bound intervals nonempty and lower.upper <= upper.lower",
+        "path_facts_after_loop": "empty preserves entry; definitely nonempty retains body exit; uncertain joins entry and body exit",
+        "iteration_enumeration_required": false,
+        "explicit_steps": false,
+        "exit_statements": false,
+        "count_and_nesting": "limited by complete source size",
+        "termination": "finite predefined Integer range"
       }
     }
   ],
@@ -552,12 +788,14 @@
         "after": "spark_mode_on",
         "items": [
           "named_string_constant",
-          "named_string_variable"
+          "named_string_variable",
+          "named_integer_constant"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_expression"
+          "string_expression",
+          "integer_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -590,12 +828,14 @@
         "after": "argument_initialization",
         "items": [
           "named_string_constant",
-          "named_string_variable"
+          "named_string_variable",
+          "named_integer_constant"
         ],
         "minimum": 0,
         "count": "finite_within_complete_source_bound",
         "initializers": [
-          "string_expression"
+          "string_expression",
+          "integer_expression"
         ],
         "ordered": true,
         "distinct_names_ignoring_case": true
@@ -663,13 +903,13 @@
   },
   "max_source_bytes":4096,
   "max_expression_operands":64,
-  "max_program_concatenations":63,
+  "max_program_operators":63,
   "whitespace_bytes": [9,10,13,32],
   "allowed_source_bytes": [9,10,13,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126],
   "identifier_bytes": [48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,95,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122],
   "comment_prefix": "--",
   "comment_end_bytes": [10,13],
-  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","use","item","default","put"],
+  "word_tokens": ["procedure","main","is","pragma","spark_mode","on","begin","null","end","with","silver_io","put_line","constant","string","silver_arguments","first_or_default","if","input_is_valid","then","else","elsif","reject","and","or","not","length","integer","for","in","reverse","loop","use","item","default","put","image"],
   "casefold_bytes": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255],
   "null_tokens": ["procedure","main","is","pragma","spark_mode","(","on",")",";","begin","null",";","end","main",";"],
   "with_clause_tokens": ["with","<package_list>",";"],
@@ -694,6 +934,11 @@
   "negated_primary_tokens": ["not","<primary>"],
   "and_then_tokens": ["<relation>","and","then","<relation>"],
   "or_else_tokens": ["<relation>","or","else","<relation>"],
+  "integer_declaration_tokens": ["<declaration_name>",":","constant","integer",":=","<integer_expression>",";"],
+  "integer_image_tokens": ["integer","'","image","(","<integer_expression>",")"],
+  "scalar_relation_tokens": ["<integer_expression>","<scalar_comparison>","<integer_expression>"],
+  "for_loop_tokens": ["for","<index_name>","in","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
+  "reverse_for_loop_tokens": ["for","<index_name>","in","reverse","<integer_expression>","..","<integer_expression>","loop","<statements>","end","loop",";"],
   "output_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<declarations>","begin","<statements>","end","main",";"],
   "argument_tokens": ["<context_clauses>","procedure","main","is","pragma","spark_mode","(","on",")",";","<argument_declaration>","<declarations>","begin","<statements>","end","main",";"]
 }

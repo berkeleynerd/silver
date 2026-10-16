@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for/while loops inside procedures with explicit guards, so no annotation is needed, but the loop-carried LCG state, running offsets and string buffer building require careful guard placement.
 
-Position 627 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 627 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed integer rectangle dimensions and triangle counts (for example 20x10 with 4
 - **index**: Triangle storage is a fixed-capacity array indexed by a for loop over 1..N, with an explicit guard rejecting a requested count outside the capacity.
 - **length**: Output lines are built in a fixed-size buffer sized for the maximum coordinate digits, so each append needs a length guard before writing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

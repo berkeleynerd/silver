@@ -28,6 +28,7 @@ class SupportedSampleTests(unittest.TestCase):
                              [f"--{name}={value}"])
         self.assertIn("-U", command)
         self.assertIn("-j0", command)
+        self.assertIn("--no-loop-unrolling", command)
 
         # GNATprove normalizes --steps for each pinned solver; Why3 records
         # the resulting raw limits. Per-attempt overrides also take effect.

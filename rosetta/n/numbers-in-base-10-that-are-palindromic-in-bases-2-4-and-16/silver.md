@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by small constants (values below 25000, 32 digits suffice for base 2), and every loop is a for loop, so checks follow from types and guards without annotations.
 
-Position 324 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 324 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Palindrome (N : Natural; Base : Positive range 2..16) fills a fixe
 - **overflow**: The digit counter is a loop-carried value, discharged by a subtype range of 0..32 plus an explicit guard before each increment.
 - **index**: Digit array accesses use the counter and mirrored indexes, discharged by the counter's range subtype and for-loop bounds derived from it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions and 'Image of scalars.
 

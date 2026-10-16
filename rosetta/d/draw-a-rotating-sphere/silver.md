@@ -12,7 +12,7 @@ The program embeds a sine table in integer fixed point, enumerates sphere points
 - **index**: Projected coordinates are computed from bounded values and guarded by explicit range tests before indexing the fixed-size character grid, with out-of-range points simply not plotted.
 - **division**: The perspective divisor is a bounded positive constant minus a bounded depth, so a guard or the type range excludes zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string building, for loops, procedures, Put without a newline, 'Image of scalars and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are bounded arrays and subtypes with for loops over known ranges, and the only loop-carried values (word length, turtle position) are protected by explicit guards, so no annotation is needed but the program shape matters. A text-art render meets the display requirement without graphics.
 
-Position 817 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 817 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program builds a fixed Fibonacci word (for example F_word of about 12 steps,
 - **range**: The word buffer lengths in the iterative Fibonacci construction (F(k) = F(k-2) followed by F(k-1)) are loop-carried, so each append is guarded by a capacity check before it, and the fixed word index is stated by a for loop over the buffer's own range.
 - **overflow**: The direction counter is kept in a 0..3 subtype and updated with a mod 4 expression, and the coordinates are bounded subtypes, so the arithmetic stays within range after guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string building, for loops, while loops, case statements, procedures and records.
 

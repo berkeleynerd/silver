@@ -30,6 +30,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_Empty : constant String := "";
    Initialization_Prefix : constant String := """initialization of \""";
    Initialization_Suffix : constant String := "\"" has no effect""";
+   Atom_imprecise_image : constant String := "imprecise-image";
+   Atom_image_message : constant String := "references to the \""Image\"" attribute are handled in an imprecise way, so nothing will be known about the evaluation of the attribute reference apart from a bound on its length [imprecise-image]";
+   Atom_unknown : constant String := "unknown";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
    Atom_statement_no_effect : constant String := "statement has no effect";
@@ -68,6 +71,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    Atom_VC_POSTCONDITION : constant String := "VC_POSTCONDITION";
    Atom_VC_RANGE_CHECK : constant String := "VC_RANGE_CHECK";
    Atom_VC_LENGTH_CHECK : constant String := "VC_LENGTH_CHECK";
+   Atom_VC_OVERFLOW_CHECK : constant String := "VC_OVERFLOW_CHECK";
    Atom_all : constant String := "all";
    Atom_info : constant String := "info";
    Atom_main_adb : constant String := "main.adb";
@@ -83,6 +87,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    --  Named byte strings give the specification and executable calls identical
    --  immutable key values, avoiding fresh array representations in proofs.
+   JSON_check_tree : constant String := "check_tree";
+   JSON_unproved_status : constant String := "unproved_status";
+   JSON_status : constant String := "status";
    JSON_sloc : constant String := "sloc";
    JSON_file : constant String := "file";
    JSON_name : constant String := "name";
@@ -934,6 +941,31 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       end loop;
    end Field;
 
+   function Empty_Object_Spec (Text : String; Item : Span) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
+
+   function Empty_Object_Spec (Text : String; Item : Span) return Boolean is
+     (Valid (Text, Item) and then Text (Item.First) = '{'
+      and then Text (Item.Last) = '}'
+      and then Space_End (Text, Item.First + 1) = Item.Last);
+
+   function Empty_Object (Text : String; Item : Span) return Boolean
+     with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
+       Post => (Static => Empty_Object'Result = Empty_Object_Spec (Text, Item))
+   is
+      P : Offset;
+   begin
+      if not Valid (Text, Item) or else Text (Item.First) /= '{'
+        or else Text (Item.Last) /= '}'
+      then
+         return False;
+      end if;
+      P := Item.First + 1;
+      Skip_Space (Text, P);
+      return P = Item.Last;
+   end Empty_Object;
+
    function Empty_Array_Spec (Text : String; Item : Span) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
@@ -1202,7 +1234,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       or else String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
 
    type List_Kind is (Checks, Main_Checks, Binding_Diagnostics, Argument_Diagnostics,
-                      Assignment_Diagnostics, Selected_Diagnostics,
+                      Assignment_Diagnostics, Selected_Diagnostics, Image_Advisories,
                       References, Postconditions, Put_Postconditions, Argument_Postconditions);
    subtype Main_Diagnostics is List_Kind range Binding_Diagnostics .. Selected_Diagnostics;
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
@@ -1213,6 +1245,24 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Record_Policy (Text : String; Item, Entities : Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Reference_Policy (Text, Entities, Item)
+      elsif Kind = Image_Advisories then
+        String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_trivial)
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
+        and then Positive_Number (Text, Field_Spec (Text, Item, JSON_line))
+        and then Positive_Number (Text, Field_Spec (Text, Item, JSON_col))
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_imprecise_image)
+        and then String_Equal (Text, Field_Spec
+          (Text, Field_Spec (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then String_Equal (Text, Field_Spec
+          (Text, Field_Spec (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
+        and then Empty_Object_Spec (Text, Field_Spec (Text, Item, JSON_check_tree))
+        and then String_Equal (Text, Field_Spec (Text, Item, JSON_suppressed), Atom_Empty)
+        and then Field_Spec (Text, Item, JSON_entity) = Missing
+        and then Field_Spec (Text, Item, JSON_justification) = Missing
+        and then Field_Spec (Text, Item, JSON_justified) = Missing
+        and then Field_Spec (Text, Item, JSON_annot_kind) = Missing
+        and then Field_Spec (Text, Item, JSON_justif_msg) = Missing
       elsif Kind in Main_Diagnostics then
         String_Equal (Text, Field_Spec (Text, Item, JSON_severity), Atom_warning)
         and then String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), JSON_flow)
@@ -1260,7 +1310,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (if Kind = Main_Checks then
              String_Equal (Text, Field_Spec (Text, Item, JSON_how_proved), Atom_prover)
              and then (String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
-               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
+               or else String_Equal (Text, Field_Spec (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
              and then String_Equal (Text, Field_Spec (Text, Item, JSON_file), Atom_main_adb)
              and then Entity_Name_Spec (Text, Referenced_Entity_Spec
                (Text, Entities, Field_Spec (Text, Item, JSON_entity))) = Main_Entity
@@ -1286,6 +1337,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       How : Span;
    begin
       if Kind = References then return Reference_OK (Text, Entities, Item); end if;
+      if Kind = Image_Advisories then
+         return String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
+        and then String_Equal (Text, Field (Text, Item, JSON_how_proved), Atom_trivial)
+        and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
+        and then Positive_Number (Text, Field (Text, Item, JSON_line))
+        and then Positive_Number (Text, Field (Text, Item, JSON_col))
+        and then String_Equal (Text, Field (Text, Item, JSON_rule), Atom_imprecise_image)
+        and then String_Equal (Text, Field
+          (Text, Field (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then String_Equal (Text, Field
+          (Text, Field (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
+        and then Empty_Object (Text, Field (Text, Item, JSON_check_tree))
+        and then String_Equal (Text, Field (Text, Item, JSON_suppressed), Atom_Empty)
+        and then Field (Text, Item, JSON_entity) = Missing
+        and then Field (Text, Item, JSON_justification) = Missing
+        and then Field (Text, Item, JSON_justified) = Missing
+        and then Field (Text, Item, JSON_annot_kind) = Missing
+        and then Field (Text, Item, JSON_justif_msg) = Missing;
+      end if;
       if Kind in Main_Diagnostics then
          return
         String_Equal (Text, Field (Text, Item, JSON_severity), Atom_warning)
@@ -1329,7 +1399,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          return String_Equal (Text, Field (Text, Item, JSON_severity), Atom_info)
            and then String_Equal (Text, How, Atom_prover)
            and then (String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
-             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
+             or else String_Equal (Text, Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
            and then String_Equal (Text, Field (Text, Item, JSON_file), Atom_main_adb)
            and then Positive_Number (Text, Field (Text, Item, JSON_line))
            and then Positive_Number (Text, Field (Text, Item, JSON_col))
@@ -1765,7 +1836,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_skip_flow_proof))
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_skip_proof))
         and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_pragma_assume))
-        and then Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error))
+        and then (if Kind in Application_Audit then
+          List_Spec (Text, Field_Spec (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+          else Empty_Array_Spec (Text, Field_Spec (Text, Object, JSON_warn_error)))
         and then Map_Spec (Text, Entities, Entities, Kind, False)
         and then Map_Spec (Text, Field_Spec (Text, Object, JSON_spark), Entities, Kind, True)
         and then List_Spec (Text, Field_Spec (Text, Object, JSON_flow), Entities,
@@ -1911,6 +1984,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       else Raw_Field_Key_From (Text, Object, Name, Padded, Object.First + 1))
      with Ghost => Static;
 
+   function Raw_Empty_Object (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Item) and then Raw_Bytes.Get (Text, Item.First) = '{'
+      and then Raw_Bytes.Get (Text, Item.Last) = '}'
+      and then Raw_Scan.Space_End (Text, Item.First + 1) = Item.Last)
+     with Ghost => Static;
+
    function Raw_Empty_Array (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
      (Raw_Scan.Valid (Text, Item) and then Raw_Bytes.Get (Text, Item.First) = '['
       and then Raw_Bytes.Get (Text, Item.Last) = ']'
@@ -2047,6 +2126,24 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind)
      return Boolean is
      (if Kind = References then Raw_Reference_Policy (Text, Entities, Item)
+      elsif Kind = Image_Advisories then
+        Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_trivial)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_imprecise_image)
+        and then Raw_String_Equal (Text, Raw_Field
+          (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_image_message)
+        and then Raw_String_Equal (Text, Raw_Field
+          (Text, Raw_Field (Text, Item, JSON_unproved_status), JSON_status), Atom_unknown)
+        and then Raw_Empty_Object (Text, Raw_Field (Text, Item, JSON_check_tree))
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_suppressed), Atom_Empty)
+        and then Raw_Field (Text, Item, JSON_entity) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justification) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justified) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_annot_kind) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing
       elsif Kind in Main_Diagnostics then
         Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
         and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
@@ -2094,7 +2191,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (if Kind = Main_Checks then
              Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
              and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
-               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
              and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
              and then Raw_Entity_Name (Text, Raw_Referenced_Entity
                (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
@@ -2242,7 +2340,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_flow_proof))
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_proof))
         and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_pragma_assume))
-        and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_warn_error))
+        and then (if Kind in Application_Audit then
+          Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+          else Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_warn_error)))
         and then Raw_Map_Spec (Text, Entities, Entities, Kind, False)
         and then Raw_Map_Spec (Text, Raw_Field (Text, Object, JSON_spark), Entities, Kind, True)
         and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_flow), Entities,
@@ -3218,12 +3318,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    --  This relation records byte observations and resolved entity identity.
    --  It contains no policy acceptance result.
    function Record_Observation_Agreement
-     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span) return Boolean
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      For_Image : Boolean := False) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Record_Observation_Agreement
-     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span) return Boolean is
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      For_Image : Boolean := False) return Boolean is
      (Mixed_Field
         (Raw, Raw_Field (Raw, L, JSON_severity),
          Text, Field_Spec (Text, R, JSON_severity))
@@ -3263,17 +3365,40 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       and then Mixed_Field
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text))
+      and then (if For_Image then
+        Mixed_Field (Raw, Raw_Field (Raw, L, JSON_check_tree), Text, Field_Spec (Text, R, JSON_check_tree))
+        and then Mixed_Field
+          (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_unproved_status), JSON_status),
+           Text, Field_Spec (Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status)))
       and then Raw_Entity_Name
         (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity))) =
           Entity_Name_Spec
             (Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity))));
+
+   procedure Mixed_Empty_Object
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Empty_Object (Raw, L) = Empty_Object_Spec (Text, R)
+   is
+   begin
+      if Mixed_Content (Raw, L, Text, R) and then Raw_Bytes.Get (Raw, L.First) = '{'
+        and then Raw_Bytes.Get (Raw, L.Last) = '}'
+      then
+         Mixed_To_Content (Raw, L, Text, R);
+         Content_Window (Raw, L, Raw_Scan.From_String (Text), Observation_Span (R));
+         Windows.Space_End_Equivalent
+           (Raw, Raw_Scan.From_String (Text), L.First, L.Last, L.First + 1, To_Big_Integer (R.First) - L.First);
+         Space_End_Observation (Text, R.First + 1);
+      end if;
+   end Mixed_Empty_Object;
 
    procedure Mixed_Record_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Kind /= References
-         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE),
+         and then Record_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = Image_Advisories),
        Post => Raw_Record_Policy (Raw, L, LE, Kind) = Record_Policy (Text, R, RE, Kind)
    is
    begin
@@ -3328,6 +3453,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_VC_LENGTH_CHECK);
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_VC_OVERFLOW_CHECK);
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, L, JSON_line),
          Text, Field_Spec (Text, R, JSON_line));
@@ -3352,6 +3480,20 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
          Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text),
          Atom_statement_unreachable);
+      if Kind = Image_Advisories then
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, L, JSON_rule), Text, Field_Spec (Text, R, JSON_rule), Atom_imprecise_image);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, L, JSON_suppressed), Text, Field_Spec (Text, R, JSON_suppressed), Atom_Empty);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_message), JSON_text),
+            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_message), JSON_text), Atom_image_message);
+         Mixed_String_Congruence
+           (Raw, Raw_Field (Raw, Raw_Field (Raw, L, JSON_unproved_status), JSON_status),
+            Text, Field_Spec (Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status), Atom_unknown);
+         Mixed_Empty_Object
+           (Raw, Raw_Field (Raw, L, JSON_check_tree), Text, Field_Spec (Text, R, JSON_check_tree));
+      end if;
    end Mixed_Record_Congruence;
    function Reference_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span) return Boolean
@@ -3401,7 +3543,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    --  It is independent of the result of List_Policy or Record_Policy.
    function List_Items_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
-      Text : String; R, RE : Span; RP : Offset; For_References : Boolean) return Boolean
+      Text : String; R, RE : Span; RP : Offset;
+      For_References : Boolean; For_Image : Boolean := False) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Raw_Scan.Valid (Raw, L) and then Valid (Text, R)
@@ -3411,7 +3554,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function List_Items_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
-      Text : String; R, RE : Span; RP : Offset; For_References : Boolean) return Boolean is
+      Text : String; R, RE : Span; RP : Offset;
+      For_References : Boolean; For_Image : Boolean := False) return Boolean is
      (declare LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
               RM : constant Member := Item_Spec (Text, R, RP);
       begin
@@ -3421,9 +3565,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
              when Raw_Scan.Present =>
                (if For_References then
                   Reference_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE)
-                else Record_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE))
+                else Record_Observation_Agreement (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image))
                and then List_Items_Agreement
-                 (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References)));
+                 (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image)));
 
    procedure Mixed_List_Items_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
@@ -3434,7 +3578,7 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
          and then RP in R.First + 1 .. Text'Length + 1
          and then List_Items_Agreement
-           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References),
+           (Raw, L, LE, LP, Text, R, RE, RP, Kind = References, Kind = Image_Advisories),
        Post => Raw_List_From (Raw, L, LE, Kind, LP) = List_From (Text, R, RE, Kind, RP),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
@@ -3454,25 +3598,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    function List_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      For_References : Boolean) return Boolean
+      For_References : Boolean; For_Image : Boolean := False) return Boolean
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function List_Observation_Agreement
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      For_References : Boolean) return Boolean is
+      For_References : Boolean; For_Image : Boolean := False) return Boolean is
      (Raw_Scan.Valid (Raw, L) = Valid (Text, R)
       and then (if Raw_Scan.Valid (Raw, L) then
         Raw_Bytes.Get (Raw, L.First) = Text (R.First) and then Raw_Bytes.Get (Raw, L.Last) = Text (R.Last)
         and then (if Raw_Bytes.Get (Raw, L.First) = '[' and then Raw_Bytes.Get (Raw, L.Last) = ']' then
           List_Items_Agreement
-            (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References))));
+            (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image))));
 
    procedure Mixed_List_Congruence
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span; Kind : List_Kind)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
-         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References),
+         and then List_Observation_Agreement (Raw, L, LE, Text, R, RE, Kind = References, Kind = Image_Advisories),
        Post => Raw_List_Spec (Raw, L, LE, Kind) = List_Spec (Text, R, RE, Kind)
    is
    begin
@@ -3514,12 +3658,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
    end Observe_Check_Record;
 
    procedure Observe_Preserved_Record
-     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span)
+     (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
+      For_Image : Boolean := False)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, LE, Text, RE)
          and then Mixed_Field (Raw, L, Text, R),
-       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE)
+       Post => Record_Observation_Agreement (Raw, L, LE, Text, R, RE, For_Image)
    is
    begin
       Mixed_Preserved_Field (Raw, L, Text, R, JSON_severity);
@@ -3542,6 +3687,12 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Entity_Name
         (Raw, Raw_Referenced_Entity (Raw, LE, Raw_Field (Raw, L, JSON_entity)),
          Text, Referenced_Entity_Spec (Text, RE, Field_Spec (Text, R, JSON_entity)));
+      if For_Image then
+         Mixed_Preserved_Field (Raw, L, Text, R, JSON_check_tree);
+         Mixed_Preserved_Field (Raw, L, Text, R, JSON_unproved_status);
+         Mixed_Preserved_Field
+           (Raw, Raw_Field (Raw, L, JSON_unproved_status), Text, Field_Spec (Text, R, JSON_unproved_status), JSON_status);
+      end if;
    end Observe_Preserved_Record;
 
    procedure Observe_Reference
@@ -3576,13 +3727,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
 
    procedure Observe_Preserved_Items
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; LP : Raw_Scan.Offset;
-      Text : String; R, RE : Span; RP : Offset; For_References : Boolean)
+      Text : String; R, RE : Span; RP : Offset;
+      For_References : Boolean; For_Image : Boolean := False)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Content (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE)
          and then RP in R.First + 1 .. R.Last + 1
          and then LP = L.First + To_Big_Integer (RP - R.First),
-       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, For_References),
+       Post => List_Items_Agreement (Raw, L, LE, LP, Text, R, RE, RP, For_References, For_Image),
        Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Raw) + 1) - LP)
    is
       LM : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Raw, L, LP);
@@ -3600,25 +3752,25 @@ package body Silver_Library_Reports with SPARK_Mode => On is
          if For_References then
             Observe_Reference (Raw, LM.Value, LE, Text, RM.Value, RE);
          else
-            Observe_Preserved_Record (Raw, LM.Value, LE, Text, RM.Value, RE);
+            Observe_Preserved_Record (Raw, LM.Value, LE, Text, RM.Value, RE, For_Image);
          end if;
-         Observe_Preserved_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References);
+         Observe_Preserved_Items (Raw, L, LE, LM.Next, Text, R, RE, RM.Next, For_References, For_Image);
       end if;
    end Observe_Preserved_Items;
 
    procedure Observe_Preserved_List
      (Raw : Raw_Bytes.Sequence; L, LE : Raw_Scan.Span; Text : String; R, RE : Span;
-      For_References : Boolean)
+      For_References : Boolean; For_Image : Boolean := False)
      with Ghost => Static, Global => null,
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
          and then Mixed_Field (Raw, L, Text, R) and then Mixed_Field (Raw, LE, Text, RE),
-       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, For_References)
+       Post => List_Observation_Agreement (Raw, L, LE, Text, R, RE, For_References, For_Image)
    is
    begin
       if Mixed_Content (Raw, L, Text, R) and then Raw_Bytes.Get (Raw, L.First) = '['
         and then Raw_Bytes.Get (Raw, L.Last) = ']'
       then
-         Observe_Preserved_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References);
+         Observe_Preserved_Items (Raw, L, LE, L.First + 1, Text, R, RE, R.First + 1, For_References, For_Image);
       end if;
    end Observe_Preserved_List;
 
@@ -3948,6 +4100,10 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Empty_Preserved (Raw, Raw_Field (Raw, L, JSON_skip_proof), Text, Field_Spec (Text, R, JSON_skip_proof));
       Mixed_Empty_Preserved (Raw, Raw_Field (Raw, L, JSON_pragma_assume), Text, Field_Spec (Text, R, JSON_pragma_assume));
       Mixed_Empty_Preserved (Raw, Raw_Field (Raw, L, JSON_warn_error), Text, Field_Spec (Text, R, JSON_warn_error));
+      Observe_Preserved_List
+        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, False, True);
+      Mixed_List_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_warn_error), LE, Text, Field_Spec (Text, R, JSON_warn_error), RE, Image_Advisories);
       Mixed_Map (Raw, LE, LE, Text, RE, RE, Kind, False);
       Mixed_Map (Raw, Raw_Field (Raw, L, JSON_spark), LE, Text, Field_Spec (Text, R, JSON_spark), RE, Kind, True);
       Mixed_Dependencies (Raw, Raw_Field (Raw, L, JSON_assumptions), LE,
@@ -4099,7 +4255,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
            and then Empty_Array (Text, Field (Text, Object, JSON_skip_flow_proof))
            and then Empty_Array (Text, Field (Text, Object, JSON_skip_proof))
            and then Empty_Array (Text, Field (Text, Object, JSON_pragma_assume))
-           and then Empty_Array (Text, Field (Text, Object, JSON_warn_error))
+           and then (if Kind in Application_Audit then
+             List_OK (Text, Field (Text, Object, JSON_warn_error), Entities, Image_Advisories)
+             else Empty_Array (Text, Field (Text, Object, JSON_warn_error)))
            and then Entities_OK (Text, Entities, Kind)
            and then Coverage_OK (Text, Field (Text, Object, JSON_spark), Entities, Kind)
            and then List_OK (Text, Field (Text, Object, JSON_flow), Entities,

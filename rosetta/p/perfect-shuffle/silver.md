@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes and one guard on the loop-carried counter, and the open-ended loop lives in a procedure so no variant is needed.
 
-Position 211 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 211 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the deck as a fixed-capacity array of 10_000 integers indexed 0..9_999
 - **initialization**: Whole fixed-capacity deck arrays are initialized with an aggregate before any prefix is used, so flow analysis passes.
 - **stack**: Three 10_000-element Integer arrays on the stack are a fixed-size environmental premise rather than input-dependent depth.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

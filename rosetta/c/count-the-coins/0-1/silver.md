@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and bounds come from static array ranges and for loops with no recursion or while loops, but the loop-carried counts and factorial products need explicit cap guards to discharge overflow without invariants, so it is plausible rather than likely.
 
-Position 703 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 703 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed each example as a fixed-capacity coin array (16 slots) plus a count, and r
 - **index**: The index sum minus coin value is guarded by an explicit comparison just before each table access, and the subset-size dimension is bounded by the fixed 16-coin capacity.
 - **range**: The target and coin values are declared as bounded subtypes and the example data are embedded, so the DP table bounds are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, Put without a newline and string building.
 

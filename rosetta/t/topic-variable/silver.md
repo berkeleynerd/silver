@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a small bounded-integer demonstration with a for loop and integer-to-text output, all of whose checks follow from declared ranges and for-loop bounds. No annotation, recursion or nonlinear loop-carried value is involved.
 
-Position 43 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 43 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Ada has no topic variable, so the program declares a short-named variable It of a bounded integer subtype (0 .. 1000), assigns 3, and prints It, It*It and an integer square root found by a for loop over 0 .. 31 that keeps the largest R with R*R <= It. A second, inner use is skipped, and the output explains in text that Ada scoping is lexical with no implicit topic. All arithmetic is bounded by the subtype range, so no guards beyond the loop bound are needed. About 22 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, 'Image of scalars and for loops.
 

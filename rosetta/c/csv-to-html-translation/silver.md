@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** "The task is a single pass over a fixed embedded string with a bounded output buffer, so every check follows from for-loop ranges and capacity guards placed before each append. No recursion, exceptions or annotations are required, and the optional thead header row is a simple first-row flag."
 
-Position 775 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 775 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Position 775 in the [progression](../../progression.md#stage-15), in stage 15.
 - **length**: Escaped output grows up to 5 characters per input character, so the output buffer is sized for the worst case and each append is guarded by a capacity check that rejects visibly when exceeded.
 - **range**: The write cursor into the output buffer is a bounded-range counter checked against capacity before each append, since the prover knows only its type after the first iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, string building, for loops, arrays, ranged subtypes, integers, case statements, procedures, Put without a newline and Boolean objects.
 

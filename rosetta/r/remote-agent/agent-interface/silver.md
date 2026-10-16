@@ -13,7 +13,7 @@ A package holds enumeration types for event kind, color and error, a record Even
 - **range**: The event count is a bounded subtype incremented only under the capacity guard, and the for loop over 1 .. Count stays within the array range.
 - **other**: Unknown bytes and handshake or connection failures must each be given a specified visible outcome (ignored with a log line or reported as failure), which depends on the admitted network operations exposing status results.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, records, arrays, characters, case statements, ranged subtypes, integers, Boolean objects, procedures, functions, packages, while loops, for loops and Put without a newline.
 

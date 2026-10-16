@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from range subtypes, a mod-bounded generator state and a guarded counter increment, with only integer arithmetic and for loops in a procedure, so no annotation is needed.
 
-Position 1537 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1537 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Estimate takes a sample count in a bounded range subtype and runs a 
 - **overflow**: The Inside counter is loop-carried and an invariant is unavailable, so a visible guard (increment only while below the type's upper bound) precedes each increment, and the bound exceeds the largest sample size.
 - **overflow**: The scaled estimate 4*Inside*10**6 is computed once after the loop from operands whose type ranges are small enough (sample size capped at 10**8) to fit in 64 bits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, 'Image of scalars, string building, Put without a newline and block statements.
 

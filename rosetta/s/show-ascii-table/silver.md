@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over constant ranges with no loop-carried state beyond the freshly rewritten row buffer, so every index, range and division check follows from the types and the loop bounds.
 
-Position 498 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 498 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Nested for loops over R in 0..15 and C in 0..5 compute N = 32 + 16*C + R in a sm
 - **index**: Buffer positions are computed as 11*C + offset from for-loop indexes over small constant ranges, so the bounds follow from the loop ranges and the 66-character buffer.
 - **range**: Character'Val(N) is only applied to N in 33..126 inside an explicit if guard, with 32 and 127 handled as the Spc and Del labels.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, for loops, string indexing and string building.
 

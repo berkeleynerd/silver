@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and a fixed-iteration digit loop, so checks follow from types and one guard, though the loop-carried digit-sum accumulator needs careful shaping.
 
-Position 168 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 168 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Main loops n from 1 to 70 and for each n runs a for loop over m in 1..20_000_000
 - **termination**: All loops are for loops (the m search uses exit when), so no variant is needed.
 - **other**: If no m is found within the documented limit of 20 million the program rejects visibly, and the known maximum answer 12842857 fits the limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

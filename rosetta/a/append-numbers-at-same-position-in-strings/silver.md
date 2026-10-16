@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded, the loop indexes are the arrays' own range, and the value ranges are tiny, so every check follows from types and static bounds with no loop-carried state.
 
-Position 128 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 128 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed the three lists as constant arrays of a ranged subtype (0..99) indexed 1..
 
 - **overflow**: The concatenated value is computed as a*10^(digits of b and c) + b*10^(digits of c) + c with all inputs bounded by embedded constant arrays of values up to 27, so a Long_Long_Integer or 64-bit range subtype keeps it far from overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

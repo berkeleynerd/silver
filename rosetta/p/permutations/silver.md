@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and range check follows from the element subtype and guards placed in the scanning conditions, and no loop or call lives in a function, so no annotation is needed, though the guard shape of the next-permutation scans needs care.
 
-Position 464 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 464 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a constant N (for example 4) and represent a permutation as an array index
 - **range**: Index updates such as J + 1, K - 1 and the digit Character'Val (48 + P (I)) must fit the declared subtypes, which holds because the swap loop is guarded by J < K and element values are bounded by N.
 - **termination**: All while loops sit in procedures, which get no termination check, and the generation loop is in the main procedure.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, Boolean objects, procedures and string building.
 

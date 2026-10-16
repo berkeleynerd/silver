@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges with array indices bounded by declared subtypes, so no annotations are needed, and the only loop-carried value is a small counter that a guard or subtype bound keeps safe.
 
-Position 354 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 354 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Is_Practical(X) is a function that fills a Boolean array Reach (0..666) with Rea
 - **overflow**: The count of practical numbers is a loop-carried accumulator, so it uses a subtype wide enough for 1..666 with a guard before the increment, or is derived from the for index range.
 - **termination**: Every loop is a for loop, so the function termination check is trivial.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, procedures, 'Image of scalars and string building.
 

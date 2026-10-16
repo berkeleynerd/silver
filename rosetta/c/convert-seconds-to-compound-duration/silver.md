@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every division is by a non-zero literal, quantities are bounded by the ranged input subtype so no overflow can occur, and the only loop-carried value (buffer length) is guarded by capacity tests before each append, so no annotation is needed.
 
-Position 526 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 526 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A ranged Seconds subtype holds each embedded test value (7259, 86400, 6000000), 
 - **length**: The output buffer length is loop-carried through appends, so each append is guarded by a capacity test against a 64-character buffer sized well above the longest possible output, with a visible truncation-free reject path otherwise.
 - **range**: The 'Image of the quantities is bounded by a ranged Seconds subtype (for example up to 100_000_000), so the digit count and the slice bounds are statically small.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, string building, string indexing, arrays, for loops and procedures.
 

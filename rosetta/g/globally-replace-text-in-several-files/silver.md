@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are bounded-buffer index and capacity guards in procedure loops, so no annotations are needed, but the nested scan with a loop-carried position and growing output needs careful guard placement, hence plausible. File reading and writing, multiple arguments and byte-level Character buffers are all new surface rather than Oracle conflicts.
 
-Position 1451 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1451 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Files are read whole into a fixed-capacity Character array (for example 64 KiB) 
 - **termination**: The scan loop is a while loop inside a procedure, which gets no termination check, and each iteration advances the position.
 - **length**: The pattern and replacement are copied into bounded buffers after a length check, and an empty pattern or an over-long argument is rejected so that no match loop can fail to advance.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, further arguments, file input, file output and Put without a newline.
 

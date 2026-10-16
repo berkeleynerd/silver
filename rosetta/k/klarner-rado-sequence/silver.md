@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and explicit guards on the loop-carried pointers and counters, and the for loop needs no variant, but the several loop-carried values and the capacity choice make discharge depend on careful program shape.
 
-Position 102 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 102 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A fixed-capacity Boolean array of about one million entries marks sequence membe
 - **overflow**: The pointers, the next-target counters and the term count are loop-carried with no invariant, so they are ranged integers well above the limit and increments are guarded.
 - **range**: If the 10000th term exceeded the fixed array limit the program would print a specified rejection message, so the limit must be sized large enough to avoid that.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and Put without a newline.
 

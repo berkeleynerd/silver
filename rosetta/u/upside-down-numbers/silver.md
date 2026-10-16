@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small fixed bounds and digit subtypes, but loop-carried block counts, quotients and string buffer positions each need a guard placed just before use, so discharge depends on careful program shape rather than being routine. No annotation is needed since the work is done in procedures with for loops.
 
-Position 819 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 819 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Treat the 1st, 2nd, ... Nth number as a selection by length (counts 1, 9, 9, 81,
 - **index**: Building the output line in a bounded buffer needs a guard on the write position before each character is stored.
 - **overflow**: Values up to 56546545 fit in Integer, but the accumulated value in a loop needs a type range or guard to bound it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, procedures, string building and case statements.
 

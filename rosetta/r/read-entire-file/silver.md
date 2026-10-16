@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Reading a file into a bounded String buffer is just a library call with a status result plus guarded copying, so proofs follow from types and the library contract, but Silver needs a file-input library operation and a documented capacity limit that visibly rejects larger files. Memory-mapping, which needs address overlays, is an optional discussion item and is not required.
 
-Position 1471 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1471 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Declare a fixed-capacity String buffer (say 64 KiB) and a length subtype, call a
 - **other**: Open, read and close failures such as a missing file or I/O error must be returned as status values by the admitted library operation and handled by an explicit rejection path.
 - **termination**: Any chunked read loop lives in a procedure, which gets no termination check, and a for loop over the buffer bound would avoid a while loop entirely.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, string building, file input, Put without a newline and packages.
 

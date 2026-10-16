@@ -77,9 +77,11 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertIs(constructs["main_procedure"]["conditions"]["declarations_outside_composition"], False)
         self.assertNotIn("additional_declarations", constructs["main_procedure"]["conditions"])
         self.assertEqual(catalogue["max_expression_operands"], 64)
-        self.assertEqual(catalogue["max_program_concatenations"], 63)
+        self.assertEqual(catalogue["max_program_operators"], 63)
         self.assertTrue({"string_expression", "expression_output", "string_choice", "statement_sequence",
-                         "length_predicate", "boolean_predicate", "integer_literal"} <= set(constructs))
+                         "length_predicate", "boolean_predicate", "integer_literal",
+                         "scalar_integer_literal", "named_integer_constant", "integer_expression",
+                         "integer_comparison", "integer_image", "for_loop"} <= set(constructs))
         compositions = {item["name"]: item for item in catalogue["compositions"]}
         self.assertEqual(set(compositions), {"null", "static_statements", "argument_statements"})
         self.assertEqual(compositions["null"]["statements"], ["null_statement"])
@@ -124,7 +126,7 @@ class SilverIntegrationTests(unittest.TestCase):
         sequence = constructs["statement_sequence"]["conditions"]
         self.assertEqual(sequence["minimum"], 1)
         self.assertEqual(sequence["items"], ["null_statement", "string_assignment", "expression_output",
-                                             "string_choice", "argument_rejection"])
+                                             "string_choice", "argument_rejection", "for_loop"])
         self.assertEqual(sequence["argument_rejection_context"], "argument-input shell only")
         self.assertFalse(sequence["output_required"])
         self.assertTrue(sequence["repeated_choices"])
@@ -144,10 +146,11 @@ class SilverIntegrationTests(unittest.TestCase):
                 continue
             self.assertTrue(composition["context_is_exact_package_set"])
             declarations = composition["declaration_list"]
-            self.assertEqual(declarations["items"], ["named_string_constant", "named_string_variable"])
+            self.assertEqual(declarations["items"],
+                             ["named_string_constant", "named_string_variable", "named_integer_constant"])
             self.assertEqual(declarations["minimum"], 0)
             self.assertEqual(declarations["count"], "finite_within_complete_source_bound")
-            self.assertEqual(declarations["initializers"], initializers)
+            self.assertEqual(declarations["initializers"], [*initializers, "integer_expression"])
             self.assertIn(composition["tokens"], catalogue)
         for key in ("dynamic_source", "mutable_source", "self_assignment", "snapshot_semantics",
                     "constant_to_constant_initialization"):
@@ -159,7 +162,7 @@ class SilverIntegrationTests(unittest.TestCase):
         self.assertEqual((expression["min_operands"], expression["max_operands"]), (1, 64))
         self.assertEqual(expression["max_dynamic_references"], 64)
         self.assertIs(expression["parenthesized_subexpressions"], True)
-        self.assertEqual(expression["program_concatenation_budget"], 63)
+        self.assertEqual(expression["program_operator_budget"], 63)
         self.assertEqual(expression["positions"],
                          ["initializer", "assignment_rhs", "comparison_operand", "output"])
         for name in ("named_string_constant", "named_string_variable"):
@@ -169,10 +172,10 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertIs(conditions["later_guards_justify_initializers"], False)
         equality = constructs["string_equality"]["conditions"]
         self.assertEqual(equality["operands"], ["string_expression", "string_expression"])
-        self.assertIs(equality["at_least_one_bound_name_across_operands"], True)
+        self.assertIs(equality["at_least_one_bound_name_or_image_across_operands"], True)
         self.assertIs(equality["both_operands_independently_bounded"], True)
         self.assertEqual(equality["inequality_operator"], "/=")
-        self.assertTrue(equality["true_equality_refines_affine_lengths"])
+        self.assertTrue(equality["true_equality_refines_length_intervals"])
         self.assertFalse(equality["false_equality_implies_length_inequality"])
         length = constructs["length_predicate"]["conditions"]
         self.assertEqual(length["operators"], ["=", "/=", "<", "<=", ">", ">="])
@@ -194,6 +197,20 @@ class SilverIntegrationTests(unittest.TestCase):
             self.assertTrue(numeral[key])
         for key in ("negative_exponent", "fractions", "unary_signs"):
             self.assertFalse(numeral[key])
+        scalar_literal = constructs["scalar_integer_literal"]["conditions"]
+        self.assertEqual(scalar_literal["magnitude_range"], [0, 2147483648])
+        self.assertEqual(scalar_literal["resulting_scalar_range"], [-2147483648, 2147483647])
+        self.assertEqual(scalar_literal["exponent_range"], [0, 4096])
+        scalar = constructs["integer_expression"]["conditions"]
+        self.assertEqual(scalar["binary_operators"], ["+", "-", "*"])
+        self.assertTrue(scalar["binary_operations_fully_parenthesized"])
+        self.assertFalse(scalar["scalar_guards_refine_intervals"])
+        self.assertIn("integer_image", expression["operand_kinds"])
+        self.assertEqual(constructs["integer_image"]["conditions"]["length_range"], [2, 11])
+        loop = constructs["for_loop"]["conditions"]
+        self.assertEqual(loop["directions"], ["forward", "reverse"])
+        self.assertTrue(loop["index_immutable"])
+        self.assertFalse(loop["iteration_enumeration_required"])
         rejection = constructs["argument_rejection"]["conditions"]
         self.assertTrue(rejection["returns"])
         self.assertTrue(rejection["failure_status_sticky"])
@@ -386,7 +403,7 @@ class SilverIntegrationTests(unittest.TestCase):
         # Compile the unchanged implementation with fixture-specific paths.
         # The production binary has no caller-controlled tool override.
         build = subprocess.run(alire_command(HOST, "exec", "--", "gprbuild", "-P",
-                               sandbox / "silver.gpr", "-XSILVER_HOST=" + HOST.key, "-p"),
+                               sandbox / "silver.gpr", "-XSILVER_HOST=" + HOST.key, "-p", "silver.adb"),
                                cwd=HOST.context, env=tool_environment(HOST),
                                capture_output=True, text=True, timeout=120)
         self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
@@ -438,7 +455,7 @@ class SilverIntegrationTests(unittest.TestCase):
                 raise SystemExit("driver project path is invalid after Alire -C")
             (sandbox / "routing_checked").write_text(str(project.resolve()))
             snapshot = project.parent / "main.adb"
-            if "gnatprove" in sys.argv:
+            if any(Path(argument).name == "gnatprove" for argument in sys.argv):
                 if mode == "tool_failure":
                     raise SystemExit(1)
                 if mode == "missing_report":

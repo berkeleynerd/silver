@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer arithmetic if the statistic is computed by the exact integer identity and a scaled critical-value table, so all checks follow from type caps and pre-use guards. Loop-carried accumulators need explicit guards, which makes discharge plausible rather than routine.
 
-Position 390 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 390 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Counts are held in a constant array of Natural subtype capped at 1_000_000 with 
 - **division**: The divisor is the total count, and a guard rejecting a zero total (and bin counts below 5, as the task's expected-frequency rule implies) precedes the division.
 - **range**: The statistic is computed in scaled integer arithmetic (hundredths) rather than floating point, and the scaled product of k, sum of squares and 100 is bounded under 2**63 by the count cap, so no float proof is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

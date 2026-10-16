@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared coordinate and channel ranges plus guards before divisions, but integer angle approximation and fixed-point products need careful shape, so discharge is plausible rather than routine; floating point and the numerics library are avoided entirely.
 
-Position 1435 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1435 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Use a fixed radius constant and integer-only HSV: for each pixel in nested for l
 - **termination**: The integer square root and pixel scanning use only for loops or live in procedures, so no function needs a loop variant.
 - **index**: Pixel loops run over the image's own coordinate ranges, so any array indexing follows from for-loop bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, records, case statements, for loops, while loops, procedures, functions, 'Image of scalars, string building, file output and arrays.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Partial application maps directly onto Ada generic instantiation with a formal function, and every check follows from declared ranges, static array bounds and for loops over 'Range. No loop-carried value and no unbounded construct remains for the prover.
 
-Position 1527 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1527 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program declares an unconstrained Sequence array of a ranged Value subtype a
 - **initialization**: The result array is initialized with an others => 0 aggregate, or filled by a for loop over its own 'Range, so flow analysis sees every element set.
 - **index**: The result array is declared with S'First .. S'Last and the loop runs over S'Range, so indexing either array is safe from the declared bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, for loops, functions, procedures, generics, 'Image of scalars and Put without a newline.
 

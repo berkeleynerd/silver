@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges for Base and a guard before the accumulator addition, and the loop sits in a procedure so no variant is needed; the only care needed is the loop-carried Sum overflow guard.
 
-Position 224 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 224 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Sum_Of_Digits takes a Natural value N and a Base of subtype 2..36 an
 - **termination**: The digit-extraction loop lives in a procedure, so no termination check is generated, and the loop is still finite because Val shrinks by division by Base of at least 2.
 - **division**: Base is a subtype ranging 2..36 so the mod and / divisors are statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, procedures, while loops, 'Image of scalars and string building.
 

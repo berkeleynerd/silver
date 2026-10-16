@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and conversions follow from constant dimensions, for-loop ranges over the array's own bounds and 0..255 channel subtypes, so only the missing binary file-output library operation stands between Silver and this program.
 
-Position 1424 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1424 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program declares a fixed-size pixel array (e.g. 16 by 16) of records with 0.
 - **range**: Character'Val of a color channel is safe because channels are a 0..255 subtype and the conversion target covers it.
 - **length**: The header text is built in a bounded buffer whose capacity covers the fixed width, height and 255 digits, so concatenation lengths are statically bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, records, for loops, 'Image of scalars, string building, procedures, file output and Put without a newline.
 

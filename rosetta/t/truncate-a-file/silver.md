@@ -13,7 +13,7 @@ A procedure takes the file name and a bounded-range length from the first two ar
 - **termination**: The copy loop is a while loop inside a procedure, which gets no termination check, so no variant is needed.
 - **other**: Admitted file operations must expose end-of-file, open, create, delete and rename failures as specified status results rather than exceptions, which depends on the library design.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, modular types, Boolean objects, text parsing, further arguments, procedures, while loops, file input, file output, exit status, standard error and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed-size, input-free text rendering of a 9x9x9 voxel pattern, so every check follows from loop ranges and ranged subtypes. The task's 'draw on this page' wording is met by text art, and nothing needs an invariant or variant.
 
-Position 662 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 662 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Render a 9x9x9 order-2 Menger sponge as a text-art orthographic projection: a fo
 - **index**: Cell coordinates are decomposed into base-3 digits inside for loops over fixed ranges, so every array index stays within the declared 27x27 grid by type and loop bounds.
 - **overflow**: All arithmetic is on small ranged subtypes (0..26 coordinates, 0..2 digits), so no sum or product can exceed Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, procedures, string building and Put without a newline.
 

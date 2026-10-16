@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain string scanning of fixed embedded data with no recursion, annotation or dynamic construct, so it fits Silver once string indexing, loops and bounded buffers exist. It is plausible rather than likely because the scanner has several loop-carried indices that each need a guard just before use.
 
-Position 1142 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1142 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the XML fragment as a String constant and scan it with a position index in
 - **range**: Decoding the numeric character reference &#x00C9; accumulates a code point in a bounded integer and encodes it to UTF-8 bytes, which needs digit-count and value guards so the accumulator and Character'Val arguments stay in range.
 - **termination**: The loops sit in a procedure so no variant is required, but the scan must be written so the position visibly advances and no function contains a while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, text parsing, while loops, for loops, procedures and arrays.
 

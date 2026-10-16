@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The dynamic-programming formulation avoids subset enumeration and needs only bounded 2D Boolean tables and for loops, so index and range checks follow from ranged types plus explicit guards; the risk is only the guarded loop-carried sums and table size.
 
-Position 713 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 713 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 31 words (fixed-width padded strings) and weights in constant arrays, 
 - **overflow**: Running sums are loop-carried, so they are kept in a ranged subtype and each update is guarded, with out-of-range cases skipped because no reachable sum can lie outside the bound.
 - **initialization**: The roughly 2M-entry Boolean table must be fully initialized by an aggregate or nested for loops over its own ranges before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, 'Image of scalars and Put without a newline.
 

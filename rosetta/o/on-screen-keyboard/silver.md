@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI, terminal control.** The task file holds only the title, so the requirement is inferred from the name and the FreeBASIC solution. It is a virtual keyboard shown in a window and responding to input, which needs GUI and raw key input effects. Nothing in it breaks an Oracle rule, so it could be covered once Silver has such admitted library operations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, records, loops, subprograms, string operations, integers and enumerations.
 

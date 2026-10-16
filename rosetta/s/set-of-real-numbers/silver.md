@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed-capacity interval arrays with comparison-only arithmetic, so the checks come from types and capacity guards, but the difference and intersection logic needs careful shape to keep counts within capacity without invariants. No recursion, while loops or annotations are needed, and the optional sin-based extra can be replaced by the exact interval rule.
 
-Position 1201 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1201 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent a real set as a fixed-capacity array of intervals (record with low, hi
 - **index**: A set is a fixed-capacity array of intervals with a count; union, intersection and difference append in for loops and a capacity guard rejects results that would exceed the limit with a visible outcome.
 - **overflow**: The optional length of A minus B uses sin and a fine sampling loop with a float accumulator, which is avoided by computing the length exactly from the n+1/6 to n+5/6 interval rule with scaled integers, which stays within declared ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, arrays, records, for loops, case statements, functions, procedures, 'Image of scalars, string building, Put without a newline and floating point.
 

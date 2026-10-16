@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by small declared ranges and all loops are for loops with static bounds, so range and overflow checks follow from types and no termination annotation is needed.
 
-Position 341 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 341 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare subtype Candidate is Integer range 500 .. 1000 and write an Is_Prime fun
 - **termination**: The digital-root loop and trial division are written as for loops (digit sum via a fixed 4-iteration for loop over n/10 steps), so no variant is needed and no while loop sits in a function.
 - **overflow**: All values are in subtype 0..1000 or digit sums at most 27, and the match counter is a subtype bounded by 500, so every addition is bounded by types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

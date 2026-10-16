@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The mathematics is plain integer array loops with static capacity, so checks follow from types and guards, but loop-carried coefficient arithmetic over a degree of several thousand needs careful per-operation guards, making discharge plausible rather than likely.
 
-Position 948 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 948 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each polynomial as a fixed-capacity Integer coefficient array with a d
 - **termination**: All unbounded searches (the next n with the required coefficient height) live in procedures and for loops, so no function needs a variant.
 - **range**: The Moebius value and divisor tests come from trial division in for loops with small declared ranges, and the degree computation phi(n) is guarded to stay within the buffer bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and conditional expressions.
 

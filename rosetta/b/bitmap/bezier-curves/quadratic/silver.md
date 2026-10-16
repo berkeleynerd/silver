@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer ranges, for loops and fixed arrays, with no loop-carried accumulators, so checks follow from types and local guards, though the nonlinear integer arithmetic and the need for explicit pixel-range guards make careful shape necessary.
 
-Position 690 in the [progression](../../../../progression.md#stage-14), in stage 14.
+Position 690 in the [progression](../../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program holds a 16x16 Character array filled with spaces, computes 21 curve 
 - **division**: Line interpolation divides by the step count, which is guarded to be at least 1 immediately before the division, and the curve division is by the constant 400.
 - **range**: Line points are computed as x0 + (x1-x0)*k/steps with no loop-carried state (rather than Bresenham error accumulation) so each value is bounded by types and guards without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, string indexing, string building and procedures.
 

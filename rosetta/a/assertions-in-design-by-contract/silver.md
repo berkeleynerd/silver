@@ -2,7 +2,7 @@
 
 **Excluded from Silver: annotations.** Not a candidate: the task's whole point is to write assertions or contracts (preconditions, postconditions, invariants) in the source as documentation. Oracle rule 3 bans author-written proof annotations and assertions, so this conflicts with a fixed rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Subprograms.
 

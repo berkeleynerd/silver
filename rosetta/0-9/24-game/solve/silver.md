@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops in procedures and the rational arithmetic can be kept in small ranged types with guards, so no annotation is needed, though the overflow and range guards across many nested combinations call for careful program shape.
 
-Position 849 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 849 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a few example digit quadruples and, for each, enumerate the 24 orderings t
 - **range**: Each result is checked against the subtype bounds before conversion, since loop-carried values carry only type ranges.
 - **index**: Permutation indexes and output buffer positions come from for loops over fixed ranges and constant offsets, so they discharge from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string building, case statements, for loops, procedures and functions.
 

@@ -2,6 +2,7 @@ module
 
 public import Silver.PathFacts
 public import Silver.PredicateSemantics
+public import Silver.StringLengthRefinement
 
 @[expose] public section
 
@@ -227,50 +228,62 @@ theorem refineLength_sound {shape : Shape} {context : Context} {operator : Compa
   · exact allowed
 
 def refineString (shape : Shape) (context : Context) (unequal : Bool)
-    (left right : Expression) (truth : Bool) : Context :=
-  if unequal != truth then refineAffineEqual context (left.summary shape) (right.summary shape)
+    (left right : Expression) (truth : Bool) (ranges : Integer.Ranges := Integer.emptyRanges) : Context :=
+  if unequal != truth then
+    match left.inferLength shape ranges, right.inferLength shape ranges with
+    | some a, some b => refineLengthOverlap context a b
+    | _, _ => context
   else context
 
 theorem refineString_sound {shape : Shape} {context : Context} {unequal truth valid rejected : Bool}
     {left right : Expression} {values : Values} {input : Source}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
     (state : Fits shape input values) (allowed : context.Allows valid input.length rejected)
-    (leftNames : left.Readable shape) (rightNames : right.Readable shape)
-    (known : (Condition.stringCompare unequal left right).evaluate values input valid = truth) :
-    (refineString shape context unequal left right truth).Allows valid input.length rejected := by
-  cases unequal <;> cases truth
-  · exact allowed
-  · exact refineAffineEqual_sound allowed (string_equality_lengths state leftNames rightNames known)
-  · exact refineAffineEqual_sound allowed (string_inequality_false_lengths state leftNames rightNames known)
+    (scalarState : Integer.Fits ranges integers)
+    (known : (Condition.stringCompare unequal left right).evaluate values input valid integers = truth) :
+    (refineString shape context unequal left right truth ranges).Allows valid input.length rejected := by
+  unfold refineString
+  split
+  · rename_i equalBranch
+    have equal : left.evaluate values input integers = right.evaluate values input integers := by
+      cases unequal <;> cases truth <;> simp_all [Condition.evaluate]
+    split
+    · rename_i a b leftFound rightFound
+      exact string_image_equality_overlap leftFound rightFound state scalarState allowed equal
+    · exact allowed
   · exact allowed
 
-def Condition.refine (shape : Shape) : Condition → Context → Bool → Context
-  | .stringCompare unequal left right, context, truth =>
-      refineString shape context unequal left right truth
-  | .lengthCompare operator left right, context, truth =>
-      refineLength shape context operator left right truth
-  | .inputValid, context, truth => if truth then context.assumeValid else context.assumeInvalid
-  | .parenthesized inner, context, truth => inner.refine shape context truth
-  | .negated inner, context, truth => inner.refine shape context (!truth)
-  | .andThen left right, context, truth =>
-      let reached := left.refine shape context true
-      if truth then right.refine shape reached true
-      else (left.refine shape context false).join (right.refine shape reached false)
-  | .orElse left right, context, truth =>
-      let reached := left.refine shape context false
-      if truth then (left.refine shape context true).join (right.refine shape reached true)
-      else right.refine shape reached false
+def Condition.refine (shape : Shape) (condition : Condition) (context : Context) (truth : Bool)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : Context :=
+  match condition with
+  | .stringCompare unequal left right => refineString shape context unequal left right truth ranges
+  | .lengthCompare operator left right => refineLength shape context operator left right truth
+  | .scalarCompare _ _ _ => context
+  | .inputValid => if truth then context.assumeValid else context.assumeInvalid
+  | .parenthesized inner => inner.refine shape context truth ranges
+  | .negated inner => inner.refine shape context (!truth) ranges
+  | .andThen left right =>
+      let reached := left.refine shape context true ranges
+      if truth then right.refine shape reached true ranges
+      else (left.refine shape context false ranges).join (right.refine shape reached false ranges)
+  | .orElse left right =>
+      let reached := left.refine shape context false ranges
+      if truth then (left.refine shape context true ranges).join (right.refine shape reached true ranges)
+      else right.refine shape reached false ranges
 
 /-- Every actual outcome is represented in its refined context. Right-hand
 short-circuit operands receive only the facts from the reached left outcome. -/
 theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArguments : Bool}
-    {context : Context} {values : Values} {input : Source} {valid rejected : Bool}
+    {context : Context} {ranges : Integer.Ranges} {integers : Integer.Store} {values : Values} {input : Source} {valid rejected : Bool}
     (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
-    (allowed : context.Allows valid input.length rejected) :
-    (condition.refine shape context (condition.evaluate values input valid)).Allows valid input.length rejected := by
+    (allowed : context.Allows valid input.length rejected)
+    (scalarState : Integer.Fits ranges integers) :
+    (condition.refine shape context (condition.evaluate values input valid integers) ranges).Allows valid input.length rejected := by
   induction condition generalizing context with
   | stringCompare unequal left right =>
-      exact refineString_sound state allowed readable.1 readable.2.1 rfl
+      exact refineString_sound state allowed scalarState rfl
   | lengthCompare operator left right => exact refineLength_sound state allowed rfl
+  | scalarCompare => exact allowed
   | inputValid =>
       cases valid with
       | true => exact (Context.assumeValid_iff _ _ _ _).mpr ⟨allowed, rfl⟩
@@ -279,35 +292,35 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
   | negated inner ih => simpa only [refine, evaluate, Bool.not_not] using ih readable allowed
   | andThen left right ihl ihr =>
       have leftAllowed := ihl readable.1 allowed
-      cases outcome : left.evaluate values input valid with
+      cases outcome : left.evaluate values input valid integers with
       | false =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, Bool.false_eq_true, ↓reduceIte] using
-            (Context.join_left (right := right.refine shape (left.refine shape context true) false) leftAllowed)
+            (Context.join_left (right := right.refine shape (left.refine shape context true ranges) false ranges) leftAllowed)
       | true =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
-          cases rightOutcome : right.evaluate values input valid with
+          cases rightOutcome : right.evaluate values input valid integers with
           | false =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
-                (Context.join_right (left := left.refine shape context false) rightAllowed)
+                (Context.join_right (left := left.refine shape context false ranges) rightAllowed)
           | true => simpa only [refine, evaluate, outcome, rightOutcome, ↓reduceIte] using rightAllowed
   | orElse left right ihl ihr =>
       have leftAllowed := ihl readable.1 allowed
-      cases outcome : left.evaluate values input valid with
+      cases outcome : left.evaluate values input valid integers with
       | true =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, ↓reduceIte] using
-            (Context.join_left (right := right.refine shape (left.refine shape context false) true) leftAllowed)
+            (Context.join_left (right := right.refine shape (left.refine shape context false ranges) true ranges) leftAllowed)
       | false =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
-          cases rightOutcome : right.evaluate values input valid with
+          cases rightOutcome : right.evaluate values input valid integers with
           | true =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
-                (Context.join_right (left := left.refine shape context true) rightAllowed)
+                (Context.join_right (left := left.refine shape context true ranges) rightAllowed)
           | false => simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using rightAllowed
 
 def fitsSummary (context : Context) (summary : Summary) : Bool :=
@@ -334,35 +347,64 @@ theorem fitsSummary_sound {context : Context} {summary : Summary} {length : Nat}
             simpa only [found, decide_eq_true_eq] using checked.1
           exact Interval.fits_sound fits allowed
 
-def Condition.checkBounds (shape : Shape) : Condition → Context → Bool
-  | .stringCompare _ left right, context =>
-      fitsSummary context (left.summary shape) && fitsSummary context (right.summary shape)
-  | .lengthCompare _ left right, context =>
+def fitsLengthSummary (context : Context) (summary : LengthSummary) : Bool :=
+  decide (summary.staticLength ≤ maxSourceLength) &&
+    (summary.empty || fitsSummary context summary.upper)
+
+theorem fitsLengthSummary_static {context : Context} {summary : LengthSummary}
+    (checked : fitsLengthSummary context summary = true) : summary.staticLength ≤ maxSourceLength := by
+  simp only [fitsLengthSummary, Bool.and_eq_true] at checked
+  exact of_decide_eq_true checked.1
+
+theorem fitsLengthSummary_sound {context : Context} {summary : LengthSummary}
+    {length actualLength : Nat} {valid rejected : Bool}
+    (allowed : context.Allows valid length rejected) (within : summary.Contains length actualLength)
+    (checked : fitsLengthSummary context summary = true) :
+    summary.upper.length length ≤ maxSourceLength := by
+  simp only [fitsLengthSummary, Bool.and_eq_true] at checked
+  have bound := checked.2
+  simp only [within.1, Bool.false_or] at bound
+  exact fitsSummary_sound allowed bound
+
+def Condition.checkBounds (shape : Shape) (condition : Condition) (context : Context)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
+  match condition with
+  | .stringCompare _ left right =>
+      match left.inferLength shape ranges, right.inferLength shape ranges with
+      | some a, some b => fitsLengthSummary context a && fitsLengthSummary context b
+      | _, _ => false
+  | .lengthCompare _ left right =>
       match shape left, right.bound shape with
       | some info, some bound => fitsSummary context info.bound.summary && fitsSummary context bound.summary
       | _, _ => false
-  | .inputValid, _ => true
-  | .parenthesized inner, context | .negated inner, context => inner.checkBounds shape context
-  | .andThen left right, context =>
-      left.checkBounds shape context && right.checkBounds shape (left.refine shape context true)
-  | .orElse left right, context =>
-      left.checkBounds shape context && right.checkBounds shape (left.refine shape context false)
+  | .scalarCompare _ left right => (left.infer ranges).isSome && (right.infer ranges).isSome
+  | .inputValid => true
+  | .parenthesized inner | .negated inner => inner.checkBounds shape context ranges
+  | .andThen left right =>
+      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context true ranges) ranges
+  | .orElse left right =>
+      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context false ranges) ranges
 
 /-- Operand bounds use incoming facts, including only the earlier operand's
 selected outcome when the right-hand side is reached. -/
 theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {hasArguments : Bool}
-    {context : Context} {values : Values} {input : Source} {valid rejected : Bool}
+    {context : Context} {ranges : Integer.Ranges} {integers : Integer.Store} {values : Values} {input : Source} {valid rejected : Bool}
     (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
     (allowed : context.Allows valid input.length rejected)
-    (checked : condition.checkBounds shape context = true) :
-    condition.Safe shape values input valid := by
+    (checked : condition.checkBounds shape context ranges = true)
+    (scalarState : Integer.Fits ranges integers) :
+    condition.Safe shape values input valid integers := by
   induction condition generalizing context with
   | stringCompare unequal left right =>
-      rcases readable with ⟨leftNames, rightNames, leftPrint, rightPrint,
-        leftNonempty, leftOperands, rightNonempty, rightOperands⟩
-      simp only [checkBounds, Bool.and_eq_true] at checked
-      exact ⟨⟨leftNames, leftPrint, leftNonempty, leftOperands, fitsSummary_sound allowed checked.1⟩,
-        ⟨rightNames, rightPrint, rightNonempty, rightOperands, fitsSummary_sound allowed checked.2⟩⟩
+      simp only [checkBounds] at checked
+      split at checked
+      · rename_i a b leftFound rightFound
+        simp only [Bool.and_eq_true] at checked
+        exact ⟨Expression.inferLength_runtimeSafe leftFound state scalarState
+            (fitsLengthSummary_sound allowed (Expression.inferLength_sound leftFound state scalarState).1 checked.1) (Nat.le_refl _),
+          Expression.inferLength_runtimeSafe rightFound state scalarState
+            (fitsLengthSummary_sound allowed (Expression.inferLength_sound rightFound state scalarState).1 checked.2) (Nat.le_refl _)⟩
+      · contradiction
   | lengthCompare operator left right =>
       simp only [checkBounds] at checked
       split at checked
@@ -375,6 +417,11 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
         exact ⟨by simpa only [Bound.summary_length] using leftBound,
           by simpa only [Bound.summary_length] using rightBound⟩
       · contradiction
+  | scalarCompare operator left right =>
+      simp only [checkBounds, Bool.and_eq_true, Option.isSome_iff_exists] at checked
+      obtain ⟨⟨leftBounds, leftFound⟩, ⟨rightBounds, rightFound⟩⟩ := checked
+      exact ⟨(Integer.Expr.infer_sound leftFound scalarState).2,
+        (Integer.Expr.infer_sound rightFound scalarState).2⟩
   | inputValid => trivial
   | parenthesized inner ih => exact ih readable allowed checked
   | negated inner ih => exact ih readable allowed checked
@@ -383,22 +430,23 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound state readable.1 allowed
+      have next := left.refine_sound (integers := integers) state readable.1 allowed scalarState
       simpa only [reached] using next
   | orElse left right ihl ihr =>
       simp only [checkBounds, Bool.and_eq_true] at checked
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound state readable.1 allowed
+      have next := left.refine_sound (integers := integers) state readable.1 allowed scalarState
       simpa only [reached] using next
 
 theorem Condition.checkedEvaluate_of_checkBounds {condition : Condition} {shape : Shape}
-    {hasArguments : Bool} {context : Context} {values : Values} {input : Source} {valid rejected : Bool}
+    {hasArguments : Bool} {context : Context} {ranges : Integer.Ranges} {integers : Integer.Store} {values : Values} {input : Source} {valid rejected : Bool}
     (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
     (allowed : context.Allows valid input.length rejected)
-    (checked : condition.checkBounds shape context = true) :
-    condition.checkedEvaluate values input valid = some (condition.evaluate values input valid) :=
-  Condition.checkedEvaluate_refines (condition.checkBounds_sound state readable allowed checked) state
+    (checked : condition.checkBounds shape context ranges = true)
+    (scalarState : Integer.Fits ranges integers) :
+    condition.checkedEvaluate values input valid integers = some (condition.evaluate values input valid integers) :=
+  Condition.checkedEvaluate_refines (condition.checkBounds_sound state readable allowed checked scalarState) state
 
 end Silver.Predicate

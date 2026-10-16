@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices, sums and mod divisors are bounded by declared subtypes and for-loop ranges, with no while loops, recursion or loop-carried unbounded values, so every check follows from types and static bounds.
 
-Position 153 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 153 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 Fill a Boolean array Is_Prime indexed 0..200 using nested for loops with trial division by d in 2..14 (mod on loop indexes of a bounded subtype), then walk n in 2..99 with a variable holding the previous prime found, and for each consecutive prime pair test Is_Prime(p1+p2-1), where the sum is at most 185 and so within the array. Qualifying lines are printed through Put_Line of concatenated 'Image strings with fixed bounded lengths. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

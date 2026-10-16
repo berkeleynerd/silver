@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every array index, character conversion and subtraction is protected by a guard just before use with a defined halt outcome, and the loop lives in a procedure so no variant is needed, so the proofs should discharge without annotations.
 
-Position 1227 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1227 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program holds memory as a constant-size array of a 32-bit ranged Word type i
 - **range**: Character'Val on a memory word is guarded by a 0 .. 255 test, with out-of-range output words halting with a fault message.
 - **termination**: The interpreter loop is a while loop inside a procedure, which gets no termination check, and a documented step limit also stops runaway programs with a visible message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, Put without a newline and standard input.
 

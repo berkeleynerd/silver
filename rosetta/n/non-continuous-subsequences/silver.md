@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Subset enumeration by bitmask with Boolean state flags and a bounded output buffer needs only range-typed values and guards just before each use, so every check follows from types and local conditions.
 
-Position 531 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 531 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Show(N) in 1..5 loops over every subset bitmask up to a bound taken 
 - **index**: The output buffer position is a ranged subtype and every write is guarded by a test that the position is below the buffer capacity, so no invariant is needed.
 - **range**: The element digit comes from the for-loop index over 1..5 converted with Character'Val of a bounded value, so the conversion check follows from the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops and procedures.
 

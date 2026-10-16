@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed-size polynomial arithmetic that stays exact in bounded integers with static loop bounds, so checks follow from types and a few guards; the plausible rating reflects accumulator overflow in nested loops and text formatting of the fractions.
 
-Position 926 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 926 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the four points in constant arrays of a small ranged integer subtype and b
 - **index**: Polynomial coefficient indices i+j are bounded by degree-3 array ranges, which follows from the loop ranges over the arrays' own index types.
 - **range**: Formatting signed coefficients into a bounded text buffer needs the image length guarded against buffer capacity, which holds because coefficient magnitudes are bounded by the subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

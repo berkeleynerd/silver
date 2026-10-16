@@ -1,5 +1,23 @@
 module
 
+public import Silver.ImageFilesSpecSource
+public import Silver.ImageFilesBodySource
+public import Silver.LengthIntervalsSpecSource
+public import Silver.LengthIntervalsBodySource
+public import Silver.IntegerImageSpecSource
+public import Silver.ImageTheorySpecSource
+
+public import Silver.ImageModelSpecSource
+public import Silver.ImageModelBodySource
+public import Silver.ImageModelTemplatesSpecSource
+public import Silver.ImageModelTemplatesBodySource
+
+public import Silver.ScalarsSpecSource
+public import Silver.ScalarLiteralSpecSource
+public import Silver.ScalarLiteralBodySource
+public import Silver.ScalarExpressionSpecSource
+public import Silver.ScalarExpressionBodySource
+
 public import Silver.NamesSpecSource
 public import Silver.NamesBodySource
 

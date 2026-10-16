@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All required values stay below 2**32, so 64-bit integers suffice and every check follows from fixed array bounds, for-loop indexes and short explicit cap guards. The nonlinear product and the loop-carried recurrence need careful guards, which makes the discharge plausible rather than routine.
 
-Position 927 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 927 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Store the Jacobsthal numbers J(0..31) and Jacobsthal-Lucas numbers in constant-s
 - **index**: Array indexes come from for-loop ranges over the arrays' own bounds, with the prime search bounded by the 32-entry table so index checks are routine.
 - **range**: Image conversion of 64-bit values into a bounded text buffer needs a length guard so appended text never exceeds the buffer capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, conditional expressions and Put without a newline.
 

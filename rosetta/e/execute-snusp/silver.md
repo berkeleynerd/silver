@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and counter is range-typed or guarded just before use, cells wrap by a modular type, and the loop sits in a procedure with a step limit, so no annotation is needed, though careful guard placement across the loop-carried positions is required.
 
-Position 1308 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1308 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The SNUSP source is embedded as a constant 2D Character grid of fixed rows and c
 - **termination**: The interpreter loop lives in a procedure, which gets no termination check, and an explicit step limit gives a specified 'step limit reached' outcome for non-terminating SNUSP programs.
 - **length**: The output buffer is a fixed-capacity string with a count, and each '.' is guarded by a capacity test that halts with a visible 'output full' status instead of dropping characters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, characters, enumerations, arrays, multidimensional arrays, modular types, string indexing, string building, Boolean objects, case statements, while loops, for loops, procedures and Put without a newline.
 

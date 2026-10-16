@@ -13,7 +13,10 @@
   ]
  },
  "supported": [
-  "put"
+  "put",
+  "integer-for-loops",
+  "immutable-integers",
+  "integer-image"
  ],
  "tasks": {
   "100 doors": {
@@ -38049,9 +38052,8 @@
     }
    ],
    "surface": [
-    "for-loops",
-    "integers",
-    "scalar-image"
+    "integer-for-loops",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
@@ -38060,8 +38062,8 @@
    "summary": "A bounded reverse loop prints the countdown from 10 to 0 using standard Integer'Image; every index and image length follows from the static range.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-15",
-    "record": "review-343c2f8.md"
+    "date": "2026-10-16",
+    "record": "for-loops-delivery-review.md"
    }
   },
   "Loops/For": {
@@ -38079,15 +38081,19 @@
     }
    ],
    "surface": [
-    "for-loops",
+    "integer-for-loops",
     "put"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 10,
    "approach": "A parameterless Main procedure holds an outer for loop over 1 .. 5 and an inner for loop over 1 .. I that calls Put (\"*\"), followed by Put_Line (\"\") to end each row. All bounds are static literals or the outer loop index, so no variables are carried between iterations and no guards are needed.",
-   "summary": "For loops terminate by construction, the inner bound is the outer loop index within a static range, and no arithmetic or indexing is involved, so no check depends on a loop-carried value. The only new surface is the for loop and output without a line terminator.",
-   "confidence": "high"
+   "summary": "The outer Integer index stays within 1 through 5 and bounds the nested loop; the sample uses immutable indexes and no loop-carried values.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-16",
+    "record": "for-loops-delivery-review.md"
+   }
   },
   "Loops/For with a specified step": {
    "revision": 412896,
@@ -38100,23 +38106,23 @@
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the stepped values 2, 4, 6, 8, 10 on one line."
+     "explanation": "Prints the stepped values 2, 4, 6, 8 and 10 to standard output, one per line."
     }
    ],
    "surface": [
-    "integers",
-    "for-loops",
-    "scalar-image"
+    "integer-for-loops",
+    "immutable-integers",
+    "integer-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 14,
-   "approach": "Main declares Step : constant Integer := 2, then loops I over 1 .. 5 and prints Integer'Image ((I * Step)) with Silver_IO.Put_Line. This displays 2, 4, 6, 8 and 10 with Ada's standard leading spaces, exercising constant declarations, grouped arithmetic, loops and formatting together.",
+   "approach": "Main declares Step : constant Integer := 2, then loops I over 1 .. 5 and prints Integer'Image ((I * Step)) with Silver_IO.Put_Line. As in the retained Ada solution's Looper_2, this computes a progression with step two while the loop index advances by one, retaining Ada's standard leading spaces.",
    "summary": "The index interval 1 through 5 and constant step 2 bound every product between 2 and 10, so no loop-carried arithmetic fact is needed.",
    "confidence": "high",
    "review": {
-    "date": "2026-10-15",
-    "record": "review-343c2f8.md"
+    "date": "2026-10-16",
+    "record": "for-loops-delivery-review.md"
    }
   },
   "Loops/Foreach": {

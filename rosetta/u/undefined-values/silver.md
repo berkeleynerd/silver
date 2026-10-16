@@ -2,7 +2,7 @@
 
 **Excluded from Silver: other, run-time error.** The task asks a program to exercise the language's notion of an undefined value, which in Ada means reading uninitialized or invalid scalars and testing them with 'Valid. SPARK Bronze flow analysis rules out reading uninitialized data, and producing an invalid value needs a configuration pragma or unchecked conversion, so no Silver program can do this.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point and enumerations.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared integer ranges, a base subtype bounding digit indexes, and fixed-bound for loops, but the loop-carried counters and the base-digit formatting need careful shaping without invariants.
 
-Position 470 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 470 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each base from 9 to 12 a for loop scans n over a fixed range bracketing sqrt
 - **termination**: Digit extraction uses a for loop of 12 fixed iterations that stops acting when the value reaches zero, so no while loop or variant is needed in a function.
 - **overflow**: The distinct-digit counter is a loop-carried value, so it uses a bounded subtype with a guard before each increment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string building, 'Image of scalars, for loops, procedures, functions and Put without a newline.
 

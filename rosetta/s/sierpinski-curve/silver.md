@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded iteration over fixed-size arrays with guards just before each index or append, so no annotation is needed, though loop-carried turtle position and buffer length need careful guard placement.
 
-Position 829 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 829 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Expand the Sierpinski curve L-system iteratively for order 3 in a fixed-capacity
 - **termination**: The while loops live in procedures, which get no termination check, and the rewrite count is a for loop over a fixed order.
 - **overflow**: Heading is a modular-style subtype index kept in 0..7 by an explicit wrap guard, and positions are range-typed so +/-1 steps are guarded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, case statements, for loops, while loops and procedures.
 

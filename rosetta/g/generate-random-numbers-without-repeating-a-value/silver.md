@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, for-loop indexes over the array's own range, and a mod whose divisor is provably positive, and no loop-carried value needs an invariant because the generator state is reduced by mod into its declared range each step. Fisher-Yates guarantees uniqueness by construction, so no retry loop or termination argument is needed.
 
-Position 130 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 130 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant seed drives a linear congruential generator over a bounded subtype (0
 - **range**: The swap index I + State mod (21 - I) must lie in 1 .. 20, which follows from I's loop range and the mod bound, a mild nonlinear fact the provers should discharge.
 - **overflow**: The generator step State * 75 + 74 stays far below the Integer limit because State is declared with a bounded range and is reduced by mod after each step.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars and Put without a newline.
 

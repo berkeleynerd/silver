@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a simple single-pass word substitution over a bounded buffer with no recursion or annotations needed, but the loop-carried positions and bounded output need careful guards.
 
-Position 562 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 562 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the example sentence in a bounded Character buffer, scan it once in a proc
 - **overflow**: Loop-carried read and write positions stay within the bounded Natural subtype range, so increments need guards against the capacity.
 - **termination**: The scan loops are inside procedures (or for loops over the input range) so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

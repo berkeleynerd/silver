@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is loop-free with bounded float operands, so each check follows from subtype ranges and guards just before the operation, but it depends on Float arithmetic and an admitted Sqrt with nonnegativity provable, which makes proof discharge depend on careful range guards.
 
-Position 1518 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1518 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent an uncertain number as a record of Value, Sigma and a Valid flag over 
 - **range**: Sqrt requires a nonnegative argument, which the prover must infer from a sum of squares (nonlinear floating point), so the code guards the argument with an explicit check before calling the admitted Sqrt.
 - **overflow**: Result magnitudes after each operation must fit the bounded subtype, so each operation checks the result bound in a guard and reports an error outcome otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, records, functions, procedures, Boolean objects, exponentiation, floating-point images, string building and Put without a newline.
 

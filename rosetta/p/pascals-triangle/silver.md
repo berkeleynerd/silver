@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every index is a loop variable within the array's bounds, so only the entry sum needs a guard, which is a plain comparison just before the assignment. Negative or zero row counts do not arise because the count is an embedded constant, and no recursion, floating point or annotations are needed.
 
-Position 444 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 444 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program embeds a fixed row count of 12, keeps one array of entries of a boun
 - **overflow**: The in-place row update adds two loop-carried entries, so each sum is computed in a wider type and guarded against the entry subtype's limit just before assignment, with overflow leading to a visible rejection message.
 - **range**: Entries are a bounded subtype, so the assignment range check discharges only through the explicit guard on the sum, not through any loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline, procedures and characters.
 

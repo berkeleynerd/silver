@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A single non-recursive function over bounded ranged types has a product check that follows from declared ranges alone, so proof is routine; the only new surface is functions, ranged types and integer image output.
 
-Position 297 in the [progression](../../progression.md#stage-10), in stage 10, which adds functions.
+Position 297 in the [progression](../../progression.md#stage-9), in stage 9, which adds functions.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a small input subtype and a wider result range type, define a function M
 
 - **overflow**: The Multiply function takes arguments of a small ranged subtype (for example -1000 .. 1000) and returns a wider ranged type, so the product provably fits without any guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, functions, procedures, 'Image of scalars and Put without a newline.
 

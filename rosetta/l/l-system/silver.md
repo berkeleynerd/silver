@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or bounded ranges inside procedures, and every array write is guarded by a capacity check, so the checks follow from types and guards without any invariant. The task's callback/closure-based generality is met with a case-statement interpreter over the embedded rabbit example, which needs no unsupported language feature.
 
-Position 780 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 780 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The current string is a fixed-capacity Character array with a length of a ranged
 - **index**: Appending a rewrite to the bounded buffer is guarded by an explicit capacity test just before each write, with overflow leading to a visible rejection.
 - **range**: The buffer length is a loop-carried value whose subtype range (0..Capacity) plus the pre-append guard keeps every index and increment in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, integers, arrays, string building, for loops, case statements and procedures.
 

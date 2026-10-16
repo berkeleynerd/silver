@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task asks the program to walk a directory tree and print files matching a pattern. A Silver-friendly solution does this with an explicit stack in a bounded array instead of recursion, plus a bounded wildcard matcher. It needs directory listing, console output and command-line arguments, none of which conflicts with an Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, loops, arrays and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks come from ranged subtypes, a capacity guard before each buffer append and for loops in procedures, so no annotations are needed and the recursive encoder in the existing solution becomes simple iteration. Error checking is expressed as an explicit rejection outcome rather than a silently altered result.
 
-Position 805 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 805 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Strings are fixed-capacity Character arrays with an explicit length held in a ra
 - **range**: Character arithmetic such as 'Pos(C) - 128 + 64 is guarded by explicit range tests on the code before each 'Val conversion, so each result stays within 0..255.
 - **termination**: Only for loops and a small state machine inside procedures are used, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, integers, Boolean objects, arrays, for loops, procedures, case statements, string indexing, string building and Put without a newline.
 

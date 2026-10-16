@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line bounded floating-point arithmetic with a for loop over embedded data and no recursion or annotation-requiring loops, so it should prove if the float ranges are bounded and elementary functions carry admitted contracts, but floating-point proof effort makes it plausible rather than likely.
 
-Position 1112 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1112 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the six test matrices as a constant array of 3x3 arrays of a bounded Long_
 - **division**: Divisions by the leading coefficient and by the Cardano radius are safe because the polynomial is monic and a zero or tiny radius is handled by an explicit branch.
 - **other**: The task has no specified root-finding method beyond estimating errors, so a closed-form solution without loops is chosen to avoid loop-carried float values with no invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, multidimensional arrays, records, for loops, procedures, functions, Boolean objects, integers, Put without a newline, 'Image of scalars and conditional expressions.
 

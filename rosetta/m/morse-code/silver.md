@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound.** The Silver-friendly solution holds the input text as a constant or bounded string, maps each character through a constant lookup array of dot/dash/gap symbols (enumeration plus array, no recursion or pointers), skips characters with no Morse code, and sends the resulting timed tones to an audio device through a sound library operation. The only missing piece is audio output, which is an effect Silver does not yet have; no rule is broken. The existing Ada solution's Windows-only Beep import and its Ada-specific packaging are not treated as requirements.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays and enumerations.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded arrays and integers with typed ranges, and the loop-carried depth and counters can be bounded by types and guards before use, though the nested DFS shape needs care and no annotation should be required. The extra-credit targets are optional and omitted, so the search stays tiny.
 
-Position 1542 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1542 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the seven required targets in a constant array and, for each, run iterativ
 - **termination**: The iterative DFS and deepening loops are while loops confined to procedures, which get no termination check, and the search function uses only for loops.
 - **range**: Candidate values and loop-carried indices are typed with bounded subtypes and guarded before each assignment so no range check depends on an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline, string building and block statements.
 

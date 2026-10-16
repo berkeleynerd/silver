@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array indexing and small-range integer arithmetic guarded by types, so the proofs should discharge; the remaining care is in the LCG arithmetic and in the shuffle-based construction, which avoids unbounded retry loops.
 
-Position 696 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 696 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a fixed 5x5 array of a 0..4 subtype, start from the cyclic square L(i,j) = (
 - **termination**: A retry loop (restart a row until it avoids column conflicts) lives in a procedure, which gets no termination check; to also keep the program honestly total, use a deterministic row-by-row backtrack-free construction (random permutation of symbols followed by random row and column permutations of a cyclic square) so every loop is a bounded for loop.
 - **other**: Showing every square is a Latin square needs no assertion; correctness follows from the construction, and a Fisher-Yates shuffle's swap indexes are bounded by the loop variable and a mod into the subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic inside nested fixed-range for loops with no recursion or annotations, so all range and overflow checks follow from subtype bounds.
 
-Position 151 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 151 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ For each n in 1 .. 49 a for loop over roots 1 .. 1000 computes the square and te
 - **overflow**: The root is a subtype with range 1 .. 1000 so its square is at most 1_000_000 and every product and quotient is bounded by types alone.
 - **termination**: All loops are for loops over fixed ranges (the prefix test divides by 10 a fixed 7 times), so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars, string building and procedures.
 

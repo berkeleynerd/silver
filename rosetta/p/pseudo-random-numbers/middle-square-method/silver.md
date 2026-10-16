@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The seed's declared range bounds the square below 10**12, so no overflow or range check needs a loop invariant, and the five-iteration for loop terminates by itself. The only new surface is ranged subtypes, integer arithmetic, a procedure and 'Image output.
 
-Position 118 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 118 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a seed subtype 0 .. 999_999 and a procedure Next (Seed : in out Seed_Typ
 
 - **range**: The squared seed is computed in a 64-bit integer type and the mod 1_000_000 result is converted back to the 0..999_999 seed subtype, which solvers discharge from the type bounds alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures and 'Image of scalars.
 

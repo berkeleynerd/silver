@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and limb operation is bounded by types or guards before use and all loops are for loops in procedures, but fixed-capacity big-number arithmetic carried through nested loops needs careful shaping.
 
-Position 1393 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1393 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Compute the 25-row triangle in a 2D Integer array with the standard recurrence T
 - **termination**: All loops are for loops with static bounds inside procedures, so no variant is needed.
 - **length**: Decimal digit output and row centering use bounded buffers whose lengths are guarded against the declared capacity before each write.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, big numbers, 'Image of scalars, string building and Put without a newline.
 

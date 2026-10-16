@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All divisions have nonzero literal-bounded divisors and loop indexes come from for ranges, and the single loop-carried multiplication is covered by an explicit guard before use, so no annotation is needed.
 
-Position 117 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 117 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ An outer for loop runs N over 1..50, with a product variable of a wide ranged in
 - **overflow**: The loop-carried product P is only known by its type range, so a guard (reject if P exceeds the type's upper bound divided by I) is placed just before the multiplication, and for 1..50 it never fires.
 - **range**: Image of the product and N is concatenated into a bounded output line whose length follows from the declared subtype ranges, with a fixed-size line bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

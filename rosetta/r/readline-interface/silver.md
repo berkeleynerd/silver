@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task asks for a command loop with at least two application commands, a recallable history and line editing. A Silver-friendly version reads lines, parses them against a fixed command set, keeps a bounded history array and has a specified outcome for unknown commands. Line editing and recall need terminal and stdin effects that Silver lacks today, but no Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, enumerations, loops and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations.** Excluded. The task requires placing an integer at the address of another object and printing that address, which needs address operations and overlay aliasing. Silver's Oracle bans unsafe constructs such as address arithmetic and unrestricted aliasing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and packages.
 

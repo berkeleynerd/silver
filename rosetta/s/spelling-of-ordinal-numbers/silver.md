@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic, constant tables and iterative buffer building with explicit capacity guards, so no annotations are needed, though the buffer-length and backward-scan loops need careful guarded shape. The optional alternate numeric forms (00123.0, 1.23e2) are skipped as optional.
 
-Position 858 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 858 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Hold the test numbers in a constant array of a positive 64-bit range subtype; fo
 - **index**: Finding the last word scans backward in a while loop whose index is loop-carried, so it needs a guard (i greater than zero) in the loop condition before each string access.
 - **other**: Padded fixed-length word tables need per-entry length handling because Silver has no unconstrained strings, so entries are stored with a separate length array to keep slices in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and case statements.
 

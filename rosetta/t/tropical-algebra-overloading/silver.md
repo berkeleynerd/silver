@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small bounded fixed-point values with explicit range guards before each addition and a for-loop power, so no annotation is needed, but fixed-point image formatting, the loop-carried accumulator guard, and the -Inf record make careful program shape necessary.
 
-Position 1576 in the [progression](../../progression.md#stage-39), in stage 39.
+Position 1576 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent a tropical value as a record holding a Boolean Is_Neg_Inf flag and a b
 - **range**: The loop-carried power accumulator is known only by its type after the first iteration, so the guard before each addition must be explicit and the exponent is a bounded positive subtype.
 - **other**: Representing real numbers by a bounded decimal fixed-point type with a separate negative-infinity flag is a documented resource limit that covers the task's example values (-0.001, 1.5, -0.5) exactly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Fixed point, records, Boolean objects, ranged subtypes, integers, functions, procedures, for loops, floating-point images and Put without a newline.
 

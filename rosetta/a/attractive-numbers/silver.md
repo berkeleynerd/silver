@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are bounded by 120 and the factor count by a small cap, so every check follows from types and a single guard, though loop-carried N and Count need careful shaping and a procedure-based while loop.
 
-Position 372 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 372 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each I in 2..120 a procedure counts prime factors by looping F over 2..120 a
 - **division**: The divisor is the for-loop index of 2..120, whose type range excludes zero.
 - **range**: The remaining quotient is a subtype of 1..120 and N/F with F at least 2 stays in range, which the provers handle without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

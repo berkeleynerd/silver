@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by for-loop ranges, so all arithmetic checks follow from types and static bounds, and for loops need no variants or invariants.
 
-Position 86 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 86 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Two nested for loops run a over 1..333 and b over a+1..500, compute c as 1000-a-
 - **overflow**: a*a+b*b, c*c and a*b*c are bounded by loop ranges (a<=333, b<=500, c<=1000, product under 1.7e8), so they fit Integer without any invariant.
 - **range**: c is computed as 1000-a-b inside loops with static bounds, so it lies in 167..998 and fits a subtype 1..1000 by interval reasoning.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, for loops, 'Image of scalars and Boolean objects.
 

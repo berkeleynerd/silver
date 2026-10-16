@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs HTTP fetching of Rosetta Code pages, which is an effect Silver lacks, not a conflict. A Silver-friendly solution can use a fixed-capacity array of task names and a fixed-capacity array of (author, count) records instead of the linked map, a loop over the tasks, and iterative parsing of the fetched HTML and history text, with no assertions, exceptions or recursion. The only other needs are a console report and bounded arrays sized above the observed 1360 tasks and 280 authors, which the Oracle permits as documented limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, records, loops and subprograms.
 

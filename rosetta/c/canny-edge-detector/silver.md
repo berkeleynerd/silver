@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, bounded pixel subtypes and for-loop ranges, with no recursion or floating point needed, but the nested stencil sums and many bounded integer subtypes require careful program shape to discharge. The task does not require file or window I/O, so text art on a small embedded image is faithful.
 
-Position 949 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 949 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds a small grayscale image as a constant 2D array of a 0..255 su
 - **termination**: Hysteresis tracing is done as a bounded number of full-image for-loop passes that promote weak pixels next to strong ones, instead of a stack-based while loop or recursion, so termination is automatic.
 - **other**: The embedded input is a small synthetic image of fixed size, such as 16x16, and the result is printed as text art; this is a documented resource limit rather than a silent narrowing of the task.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars and conditional expressions.
 

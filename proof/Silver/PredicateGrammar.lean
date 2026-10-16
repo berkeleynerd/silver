@@ -26,7 +26,8 @@ def Member (source : Source) : Prop := ∃ form, FormMember source form
 
 private theorem initial_ranges (source : Source) : Compose.Expressions.ValidState source initialState := by
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
-    Named.NameState.Valid, initialState, maxSourceLength, maxBindings]
+    Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
+    ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings]
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -80,29 +81,43 @@ instance memberDecidable (source : Source) : Decidable (Member source) :=
 
 theorem form_reading_valid {source : Source} {form : Form} {events : List Event} {items : List SourceStatement}
     (domain : SourceDomain source) (parsed : FormReading source form events items) :
-    ∃ program, decodePrefix form events items = some program ∧ program.Valid := by
+    ∃ scalars checks program,
+      Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
+      Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
+      decodePrefix form events items scalars
+        (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks = some program ∧ program.Valid := by
+  obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
+  obtain ⟨checks, initializerTrace⟩ := Sequence.tokens_initializer_trace parsed.header
+  have scalarChecked := prefix_scalar_checked scalarTrace
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
   have bodyValid := body_meaning valid.1 ranges.2.1 (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
-  apply prefix_decoded_valid form events items (Sequence.tokens_kinds parsed.header)
-  · simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial
-  · exact body_nonempty parsed.statements
-  · rw [context, ← arguments]
-    exact bodyValid.1
-  · refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
-    rw [context, ← arguments]
-    exact bodyValid.2.1
+  obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
+    (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks (Sequence.tokens_kinds parsed.header)
+    (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
+    (body_nonempty parsed.statements)
+    (by rw [context, ← arguments]; exact bodyValid.1)
+    (by
+      refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
+      rw [context, ← arguments, ← scalarChecked.2.2]
+      exact bodyValid.2.1)
+    scalarChecked.1 (prefix_initializer_checked domain.2.1 initializerTrace)
+  exact ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, programValid⟩
 
 def SourceMeaning (source : Source) (program : Program) : Prop :=
-  ∃ form events items, SourceDomain source ∧ selectedForm source = some form ∧
-    FormReading source form events items ∧ decodePrefix form events items = some program
+  ∃ form events items scalars checks, SourceDomain source ∧ selectedForm source = some form ∧
+    FormReading source form events items ∧
+    Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
+    Sequence.InitializerTokensAt source form.helper form.prefix initialState checks (prefixScan source form).state ∧
+    decodePrefix form events items scalars
+      (ScalarExpression.constants (prefixScan source form).state.scalarNames) checks = some program
 
 theorem meaning_member {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : Member source := by
-  obtain ⟨form, events, items, domain, _, parsed, _⟩ := meaning
+  obtain ⟨form, events, items, _, _, domain, _, parsed, _, _, _⟩ := meaning
   exact ⟨form, domain, events, items, parsed⟩
 
 theorem member_has_meaning {source : Source} (member : Member source) :
@@ -112,27 +127,45 @@ theorem member_has_meaning {source : Source} (member : Member source) :
   have success := List.find?_some selected
   have formMember := form_reading_sound (of_decide_eq_true success)
   obtain ⟨domain, events, items, parsed⟩ := formMember
-  obtain ⟨program, decoded, _⟩ := form_reading_valid domain parsed
-  exact ⟨program, form, events, items, domain, selected, parsed, decoded⟩
+  obtain ⟨scalars, checks, program, scalarTrace, initializerTrace, decoded, _⟩ := form_reading_valid domain parsed
+  exact ⟨program, form, events, items, scalars, checks, domain, selected, parsed, scalarTrace, initializerTrace, decoded⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
     (first : SourceMeaning source left) (second : SourceMeaning source right) : left = right := by
-  obtain ⟨form, events, items, _, selected, parsed, decoded⟩ := first
-  obtain ⟨otherForm, otherEvents, otherItems, _, otherSelected, other, otherDecoded⟩ := second
+  obtain ⟨form, events, items, scalars, checks, _, selected, parsed, scalarTrace, initializerTrace, decoded⟩ := first
+  obtain ⟨otherForm, otherEvents, otherItems, otherScalars, otherChecks, _, otherSelected, other, otherTrace, otherInitializerTrace, otherDecoded⟩ := second
   have formSame : form = otherForm := Option.some.inj (selected.symm.trans otherSelected)
   subst otherForm
   have eventsSame := (Sequence.tokens_unique parsed.header other.header).1
   have itemsSame := body_unique parsed.statements other.statements
+  have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
+  have checksSame := Sequence.initializer_tokens_unique initializerTrace otherInitializerTrace
+  subst otherChecks
   subst otherEvents
   subst otherItems
+  subst otherScalars
   exact Option.some.inj (decoded.symm.trans otherDecoded)
 
 theorem meaning_valid {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : program.Valid := by
-  obtain ⟨_, _, _, domain, _, parsed, decoded⟩ := meaning
-  obtain ⟨other, same, valid⟩ := form_reading_valid domain parsed
+  obtain ⟨_, _, _, scalars, checks, domain, _, parsed, scalarTrace, initializerTrace, decoded⟩ := meaning
+  obtain ⟨otherScalars, otherChecks, other, otherTrace, otherInitializerTrace, same, valid⟩ := form_reading_valid domain parsed
+  have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
+  have checksSame := Sequence.initializer_tokens_unique initializerTrace otherInitializerTrace
+  subst otherChecks
+  subst otherScalars
   have equal := Option.some.inj (same.symm.trans decoded)
   simpa only [equal] using valid
+
+/-- The canonical inventory contains exactly the raw initializer Image schemas
+read from the accepted header, before immutable Image specialization. -/
+theorem meaning_initializer_trace {source : Source} {program : Program}
+    (meaning : SourceMeaning source program) :
+    ∃ form, selectedForm source = some form ∧
+      Sequence.InitializerTokensAt source form.helper form.prefix initialState program.initializerChecks
+        (prefixScan source form).state := by
+  obtain ⟨form, _, _, _, checks, _, selected, _, _, trace, decoded⟩ := meaning
+  exact ⟨form, selected, (decoded_initializer_checks decoded).symm ▸ trace⟩
 
 theorem source_execution_sound {source : Source} {program : Program}
     (meaning : SourceMeaning source program) (arguments : Arguments.Runtime.Arguments) :

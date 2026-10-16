@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared ranges and guards just before use, with no annotations needed, but the large sieve and the guarded loop-carried counters make discharge depend on careful program shape.
 
-Position 407 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 407 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A Boolean sieve array over 2..4_100_000 is filled in a procedure using a for loo
 - **stack**: A sieve of about 4.1 million Booleans is a large fixed-size object whose storage is an unchecked environmental premise.
 - **termination**: The sieve and search loops are written in a procedure with for loops or bounded while loops, so no termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

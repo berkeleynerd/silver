@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the character-class guards, ranged year, month and day subtypes, and a bounded day-number formula, with no loops carrying values and no recursion, so the proofs should discharge without annotations.
 
-Position 1132 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1132 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the eight example date pairs as string literals and pass each pair with it
 - **overflow**: Year is restricted to 1..9999 and month to 1..12 by the parser, so the day-number formula (era and day-of-year arithmetic) is bounded well within Integer and the difference of two day numbers cannot overflow.
 - **index**: Every string index is a static position 1..10 into a String that is first checked to have length 10, and the month-length table is indexed by a month already validated to 1..12.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, 'Image of scalars, text parsing, case statements, for loops, procedures, functions and Put without a newline.
 

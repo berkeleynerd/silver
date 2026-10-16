@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter is bounded by ranged subtypes and capacity guards, so checks are routine, but the recursive DFS must be restructured into an explicit-stack procedure whose loop-carried state needs careful guards, with no annotation required.
 
-Position 731 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 731 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the graph as a fixed-capacity adjacency matrix or edge array of Boolea
 - **overflow**: Distances and the matching size are subtypes bounded by the vertex count, and increments are guarded by comparisons so the checks discharge from the types alone.
 - **other**: The explicit-stack DFS with per-vertex edge cursors must carry stack depth and cursors as loop-carried values bounded by their subtype ranges, which needs careful program shape but no annotation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

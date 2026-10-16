@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program uses only Booleans, a small ranged counter and a plain loop with exit when, and each check follows from declared ranges and the guard just before the increment. Ada has no true inverted assignment or trailing-if syntax, so the faithful demonstration is the traditional forms plus exit when, which needs no annotation.
 
-Position 187 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 187 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The main procedure declares Boolean variables Raining and Need_Umbrella and a co
 
 - **range**: The loop counter is a 1..10 subtype incremented after an immediately preceding exit when Foo >= 10, so the increment's range check follows from that guard alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects, integers, ranged subtypes and while loops.
 

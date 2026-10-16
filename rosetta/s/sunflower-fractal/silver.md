@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a bounded for loop over static ranges and pixel stores are guarded, so the main difficulty is floating-point range bounding for trig and power, which makes automatic discharge plausible but dependent on careful program shape.
 
-Position 1432 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1432 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The task is underspecified (draw a sunflower fractal), so the program fills a fi
 - **index**: Plotting disc pixels into a fixed 400x400 buffer needs a guard before each store, since the coordinates are computed rather than for-loop indexes over the array range.
 - **overflow**: The golden-angle accumulation can be reduced each iteration to stay within a fixed range, avoiding unbounded growth.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, functions, string building, 'Image of scalars, file output, Put without a newline, floating point and characters.
 

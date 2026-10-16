@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and the search ceiling, and the loops are for loops, so checks follow from types and guards; the plausibility rating reflects nonlinear D*D and the loop-carried counter needing careful guards.
 
-Position 383 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 383 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A function Is_Prime(N) uses a for loop over divisors 2..600 guarded by D*D <= N 
 - **index**: The count of found numbers is a loop-carried value, so it is held in a subtype 0..10000 and each increment is guarded by Count < 10000, and the first-fifty array is written only when Count <= 50.
 - **other**: Cost is about 200000 candidates times 19 powers times 600 trial divisions, which is a runtime concern but not a proof one; a fixed search ceiling means the program must visibly report if the 10000th is not reached.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

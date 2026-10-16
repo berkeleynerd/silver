@@ -23,55 +23,58 @@ def LengthOperand.evaluate (values : Values) : LengthOperand → Nat
   | .literal value => value
   | .binding index => (values index).length
 
-def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool) : Condition → Bool
+def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool)
+    (integers : Integer.Store := Integer.emptyStore) : Condition → Bool
   | .stringCompare unequal left right =>
-      if unequal then decide (left.evaluate values input ≠ right.evaluate values input)
-      else decide (left.evaluate values input = right.evaluate values input)
+      if unequal then decide (left.evaluate values input integers ≠ right.evaluate values input integers)
+      else decide (left.evaluate values input integers = right.evaluate values input integers)
   | .lengthCompare operator left right => operator.evaluate (values left).length (right.evaluate values)
+  | .scalarCompare operator left right => operator.evaluate (left.evaluate integers) (right.evaluate integers)
   | .inputValid => inputValid
-  | .parenthesized inner => inner.evaluate values input inputValid
-  | .negated inner => !(inner.evaluate values input inputValid)
+  | .parenthesized inner => inner.evaluate values input inputValid integers
+  | .negated inner => !(inner.evaluate values input inputValid integers)
   | .andThen left right =>
-      if left.evaluate values input inputValid then right.evaluate values input inputValid else false
+      if left.evaluate values input inputValid integers then right.evaluate values input inputValid integers else false
   | .orElse left right =>
-      if left.evaluate values input inputValid then true else right.evaluate values input inputValid
+      if left.evaluate values input inputValid integers then true else right.evaluate values input inputValid integers
 
 /-- Bounds are required precisely on paths which evaluate an operand. Name and
 grammar checking remain separate unconditional admission obligations. -/
-def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputValid : Bool) :
-    Condition → Prop
+def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputValid : Bool)
+    (integers : Integer.Store := Integer.emptyStore) : Condition → Prop
   | .stringCompare _ left right =>
-      SafeExpression left shape input.length ∧ SafeExpression right shape input.length
+      left.RuntimeSafe values input integers ∧ right.RuntimeSafe values input integers
   | .lengthCompare _ left right =>
       (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength
+  | .scalarCompare _ left right => left.Safe integers ∧ right.Safe integers
   | .inputValid => True
-  | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid
+  | .parenthesized inner | .negated inner => inner.Safe shape values input inputValid integers
   | .andThen left right =>
-      left.Safe shape values input inputValid ∧
-        (left.evaluate values input inputValid = true → right.Safe shape values input inputValid)
+      left.Safe shape values input inputValid integers ∧
+        (left.evaluate values input inputValid integers = true → right.Safe shape values input inputValid integers)
   | .orElse left right =>
-      left.Safe shape values input inputValid ∧
-        (left.evaluate values input inputValid = false → right.Safe shape values input inputValid)
+      left.Safe shape values input inputValid integers ∧
+        (left.evaluate values input inputValid integers = false → right.Safe shape values input inputValid integers)
 
-def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : Bool) :
-    Condition → Option Bool
+def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : Bool)
+    (integers : Integer.Store := Integer.emptyStore) : Condition → Option Bool
   | .stringCompare unequal left right =>
-      let a := left.evaluateLeft values input
-      let b := right.evaluateLeft values input
-      if a.length ≤ maxSourceLength ∧ b.length ≤ maxSourceLength then
-        some (if unequal then decide (a ≠ b) else decide (a = b))
-      else none
+      (left.checkedEvaluate values input integers).bind fun a =>
+        (right.checkedEvaluate values input integers).map fun b =>
+          if unequal then decide (a ≠ b) else decide (a = b)
   | .lengthCompare operator left right =>
       if (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength then
         some (operator.evaluate (values left).length (right.evaluate values))
       else none
+  | .scalarCompare operator left right => (left.checkedEvaluate integers).bind fun a =>
+      (right.checkedEvaluate integers).map fun b => operator.evaluate a b
   | .inputValid => some inputValid
-  | .parenthesized inner => inner.checkedEvaluate values input inputValid
-  | .negated inner => (inner.checkedEvaluate values input inputValid).map Bool.not
-  | .andThen left right => (left.checkedEvaluate values input inputValid).bind fun result =>
-      if result then right.checkedEvaluate values input inputValid else some false
-  | .orElse left right => (left.checkedEvaluate values input inputValid).bind fun result =>
-      if result then some true else right.checkedEvaluate values input inputValid
+  | .parenthesized inner => inner.checkedEvaluate values input inputValid integers
+  | .negated inner => (inner.checkedEvaluate values input inputValid integers).map Bool.not
+  | .andThen left right => (left.checkedEvaluate values input inputValid integers).bind fun result =>
+      if result then right.checkedEvaluate values input inputValid integers else some false
+  | .orElse left right => (left.checkedEvaluate values input inputValid integers).bind fun result =>
+      if result then some true else right.checkedEvaluate values input inputValid integers
 
 theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
     {values : Values} {input : Source} {summary : Summary}
@@ -85,19 +88,20 @@ theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
       simpa only [evaluate, Bound.summary_length] using (state index info found).1
 
 theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape}
-    {values : Values} {input : Source} {inputValid : Bool}
-    (safe : condition.Safe shape values input inputValid) (state : Fits shape input values) :
-    condition.checkedEvaluate values input inputValid =
-      some (condition.evaluate values input inputValid) := by
+    {values : Values} {input : Source} {inputValid : Bool} {integers : Integer.Store}
+    (safe : condition.Safe shape values input inputValid integers) (_state : Fits shape input values) :
+    condition.checkedEvaluate values input inputValid integers =
+      some (condition.evaluate values input inputValid integers) := by
   induction condition with
   | stringCompare unequal left right =>
-      have a := Expression.output_bound safe.1 state (Nat.le_refl _)
-      have b := Expression.output_bound safe.2 state (Nat.le_refl _)
-      simp only [checkedEvaluate, Expression.left_association, a, b, and_self,
-        ↓reduceIte, evaluate]
+      simp only [checkedEvaluate, Expression.checkedEvaluate_agrees safe.1,
+        Expression.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
   | lengthCompare operator left right =>
       change (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength at safe
       simp only [checkedEvaluate, safe, and_self, ↓reduceIte, evaluate]
+  | scalarCompare operator left right =>
+      simp only [checkedEvaluate, Integer.Expr.checkedEvaluate_agrees safe.1,
+        Integer.Expr.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
   | inputValid => rfl
   | parenthesized inner ih => exact ih safe
   | negated inner ih => simp only [checkedEvaluate, ih safe, Option.map_some, evaluate]
@@ -112,7 +116,7 @@ theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape
       split
       · rfl
       · rename_i skipped
-        have falseLeft : left.evaluate values input inputValid = false := Bool.eq_false_iff.mpr skipped
+        have falseLeft : left.evaluate values input inputValid integers = false := Bool.eq_false_iff.mpr skipped
         exact ihr (safe.2 falseLeft)
 
 /-- Equal String bytes imply equal affine lengths. A false String equality

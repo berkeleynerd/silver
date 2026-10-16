@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 digit subtype, bounded sums and a guard on the counter, with only for loops in a procedure, so no annotation is needed.
 
-Position 97 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 97 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Digit subtype 0..9 and a bounded Count subtype are used by a procedure Four_Ri
 - **overflow**: The loop-carried solution counter is declared in a bounded range subtype and incremented only under a guard just before the increment, since 10_000_000 combinations is the true maximum so no result changes.
 - **length**: Concatenating the 'Image of ranged digit subtypes and of the bounded counter gives statically bounded string lengths, so the result length check discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first four features (the extra-credit ones are optional) need only bounded buffers, guarded indexed scans and for-loop sorting, so every check follows from types and explicit guards with no annotation, though the paired-cursor comparison loops need careful guard placement.
 
-Position 1496 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1496 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each embedded test string is copied into a fixed-capacity record (character arra
 - **overflow**: Numeric fields are compared as digit runs (leading zeros dropped, then length, then lexical order) instead of being converted to integers, so no arithmetic can overflow however long the run is.
 - **termination**: All scanning while loops live in procedures, which get no termination check, and the sort uses for loops only.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, while loops, procedures, unconstrained arrays and string ordering.
 

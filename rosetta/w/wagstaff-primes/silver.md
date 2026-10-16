@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first 10 Wagstaff primes need p up to 61 and m below 2^63, so plain bounded integers and for-loop trial division suffice with all checks following from subtype ranges and guards. No annotations are needed, though the trial division runs roughly a billion iterations worst case at runtime.
 
-Position 335 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 335 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Loop p over the range 3..61, test p prime by trial division and compute m = (2^p
 - **termination**: The trial-division function uses only a for loop over a fixed range (with exit), so it terminates without a variant.
 - **range**: The divisor 2*D+3 over a fixed D range stays inside the number subtype, and N / Divisor is guarded by Divisor being at least 3.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, 'Image of scalars and string building.
 

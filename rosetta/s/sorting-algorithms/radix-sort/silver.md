@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All bounds are static and every loop is a for loop over fixed ranges, so checks follow from types and guards, but loop-carried counts and prefix sums need careful guards because no invariants can be written.
 
-Position 253 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 253 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 8 sample integers in a constrained array of a bounded Integer subtype 
 - **range**: Digit extraction uses a declared bounded value subtype with a negative-to-nonnegative offset so division and mod results provably land in 0..9.
 - **termination**: All loops are for loops over fixed ranges (a fixed number of digit passes), so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, Put without a newline, string building and while loops.
 

@@ -14,7 +14,7 @@ A library package holds a constant array of the six example numbers and one Jorv
 - **division**: M mod K and M / K discharge because K's subtype starts at 2.
 - **initialization**: The protected result array has to be initialized by its declaration, and the main procedure must wait on a protected entry until every task has reported, so it reads only results that have been written.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, packages, tasking, 'Image of scalars and Put without a newline.
 

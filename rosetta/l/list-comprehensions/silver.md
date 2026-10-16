@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only loop-carried value is the Count, which is guarded against capacity, and all arithmetic is bounded by small subtype ranges so every check follows from types and local guards; the list comprehension itself is rendered as nested for loops since Ada has no such construct.
 
-Position 590 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 590 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed n = 20 as a constant, declare a ranged subtype 1 .. 20 and an array of tri
 - **index**: Appending to the fixed-capacity result array is guarded by a Count < capacity test, with the capacity chosen above the number of triples (6 for n=20) and overflow reported visibly.
 - **length**: The output line is built in a bounded buffer whose size is sized for the maximum count of triples, with each append preceded by a length guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

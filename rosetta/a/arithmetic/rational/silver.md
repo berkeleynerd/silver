@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types, 64-bit intermediates and guards before divisions and narrowing, with no recursion (GCD is a bounded for loop) and no annotations, but the accumulated Rational sum across loop iterations requires careful range guarding.
 
-Position 1474 in the [progression](../../../progression.md#stage-29), in stage 29.
+Position 1474 in the [progression](../../../progression.md#stage-28), in stage 28.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A Rational record holds a numerator and a positive-ranged denominator, with oper
 - **termination**: GCD is a bounded for loop (Euclid needs fewer than 64 steps, exiting early) so no variant is needed, and the while-style searches live in procedures.
 - **discriminant**: Zero denominators are excluded by checking before constructing a Rational and reporting a visible failure status (a Valid flag out parameter).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, case statements and packages.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The parametric type and its map need only a generic package, a fixed-size array and a for loop, with no pointers or recursion. Every index comes from the array's own range and the mapped function's result is bounded by a symmetric declared range, so all checks are routine.
 
-Position 1526 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1526 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A generic package with a private Element_Type formal and a formal function F dec
 - **overflow**: The integer function mapped over the instance (for example negation) acts on a symmetric declared range such as -1000 .. 1000, so its result stays within the element type.
 - **other**: GNATprove proves the generic body once per instance, so the single Integer-range instance has only routine checks: the for loop over Node_Index applies the formal function to each element in place.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, functions, generics, packages and 'Image of scalars.
 

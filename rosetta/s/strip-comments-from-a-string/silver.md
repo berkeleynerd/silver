@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or slice bound derived from for-loop indexes over the string's own range, and there are no function loops, recursion or arithmetic beyond small index steps, so proofs should discharge unaided. The program must trim whitespace (the current task rules), which is done with simple for loops rather than a loop-carried while scan.
 
-Position 966 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 966 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The two example lines are embedded as String constants and passed to a procedure
 - **index**: The first and last kept positions are only assigned from for-loop indexes over Line'Range, so slice bounds stay within the string without an invariant.
 - **overflow**: Line'First and Line'Last arithmetic such as I - 1 is guarded by comparing I to Line'First, or avoided by using slices keyed to loop indexes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string indexing, unconstrained arrays, for loops, procedures and ranged subtypes.
 

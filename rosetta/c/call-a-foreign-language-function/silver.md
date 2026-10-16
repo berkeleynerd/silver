@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations.** Not a candidate. The task exists to demonstrate calling a foreign-language (C) function, and foreign-language calls are permanently outside Silver under the Oracle's fixed rules. Printing the result is the only other part, and that is just console output.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and subprograms.
 

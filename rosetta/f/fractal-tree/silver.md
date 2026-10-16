@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Text art satisfies the drawing requirement, and an explicit stack in a procedure avoids recursion while integer fixed-point rotation with ranged types and bounds guards keeps every check provable without annotations. Discharge depends on careful sizing of the stack and value ranges, so it is plausible rather than likely.
 
-Position 825 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 825 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The tree is drawn iteratively in a procedure using an explicit fixed-capacity st
 - **index**: The explicit branch stack index is a loop-carried value in a while loop, so a guard before each push (depth bounded by the fixed level count and stack capacity) is needed rather than an invariant.
 - **termination**: Recursion is replaced by an explicit stack in a procedure, which gets no termination check, and the line-drawing step uses a for loop over a fixed step count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, string building and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Simple nested for loops with static bounds and a guarded accumulator need no annotations, since the inner D range 1..N excludes zero and the sum is guarded before each addition. The only new needs are integer arithmetic, mod, for loops and integer-to-text output.
 
-Position 126 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 126 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main runs an outer for loop N in 1..100 and an inner for loop D in 1..N, adding 
 
 - **overflow**: The accumulator is loop-carried and unbounded after the first iteration, so each addition is preceded by an explicit guard against the subtype's upper limit with a visible rejection outcome, which GNATprove discharges directly from the guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars, Put without a newline and string building.
 

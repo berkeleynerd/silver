@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Trial division uses only guarded integer and limb arithmetic in procedures with bounded arrays, so the checks follow from declared ranges and guards, but the fixed-capacity big-number limb arithmetic and loop-carried divisor need careful shaping, hence plausible rather than likely.
 
-Position 1389 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1389 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the number as a fixed-capacity record of base-10^k limbs, divide it in
 - **termination**: All loops live in procedures (no termination check), and the trial-division while loop is placed in a procedure rather than a function, so no variant is needed.
 - **range**: Loop-carried divisor and factor count carry only type ranges, so the divisor subtype and count capacity are sized so that increments are guarded and an over-capacity input is rejected with a specified message rather than clamped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and big numbers.
 

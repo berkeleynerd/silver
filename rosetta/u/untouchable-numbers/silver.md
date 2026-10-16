@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop indexes and a saturating cap on the accumulator, so only the nonlinear index i*k and the large sieve size need careful shaping; no annotation is needed, but counts at 10,000 and above are impractical and are treated as optional.
 
-Position 271 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 271 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a constrained Boolean array Touched over 1..2000 and a sieve array of satur
 - **range**: A sieve bound of about 4 million (sufficient since any aliquot sum v needs n <= v*v) makes a large static array and a harmonic-sum loop count that only terminates trivially because for loops are used, so counts beyond 1000 or 2000 must be dropped as impractical.
 - **termination**: All loops are for loops or while loops inside procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

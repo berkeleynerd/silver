@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A class-wide copy initialized from a class-wide parameter, followed by a dispatching procedure call, raises no run-time check that can fail and needs no loop, arithmetic or heap use. So proof depends only on SPARK admitting tagged types and dispatching, which it does without annotations.
 
-Position 1559 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1559 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A package declares a tagged null record T with a primitive procedure Show that p
 
 - **other**: Flow analysis of the dispatching call relies on the generated Global of the root primitive covering the overriding, which holds because T's and S's Show procedures both touch only Silver_IO's output state.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Packages, tagged types and procedures.
 

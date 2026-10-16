@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic with iteration, so checks follow from ranged types and explicit guards with visible rejection, though several loop-carried values (denominator, term count, index accumulator) each need a guard placed just before use.
 
-Position 275 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 275 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Rationals are held as numerator and denominator in ranged subtypes (small bound 
 - **index**: The continued-fraction term array is capped at 64 entries and the Euclid while loop guards Count < 64 before each store, rejecting otherwise.
 - **range**: The parity fix Terms(Count)-1 needs a guard that the last term exceeds 1 so the result stays positive, which Euclid guarantees but the prover must see from a visible test.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

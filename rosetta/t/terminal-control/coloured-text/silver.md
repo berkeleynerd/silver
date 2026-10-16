@@ -6,7 +6,7 @@
 
 Declare an ESC Character constant (Character'Val (27)) and a constant array indexed by a 1 .. 6 subtype holding six equal-length colour code Strings such as "[31m" through "[36m". A for loop over the array's own range builds ESC & code & "Rosetta" & ESC & "[0m" by bounded concatenation and prints it with Silver_IO.Put_Line. About 24 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, arrays, ranged subtypes, for loops and string building.
 

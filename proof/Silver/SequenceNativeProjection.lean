@@ -34,10 +34,12 @@ def BodyToken : ShellToken → Prop
   | _ => False
 
 theorem full_expression_nondecreasing (text : Source) (position : Nat) (names : BindingEnvironment)
-    (accepted : (expressionAt text position names).after ≠ 0) :
-    position ≤ (expressionAt text position names).after := by
-  have progress := Compose.Expressions.model_tail_nondecreasing text names
-    ⟨position, 0, 0, 0, 0, false, true, false⟩
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    (accepted : (expressionAt text position names scalarNames integerHidden).after ≠ 0) :
+    position ≤ (expressionAt text position names scalarNames integerHidden).after := by
+  have progress := Compose.Expressions.model_tail_nondecreasing
+    (scalarNames := scalarNames) (integerHidden := integerHidden) text names
+    { position := position }
   exact progress.resolve_left accepted
 
 theorem full_comparison_progress {text : Source} {state : ParserState}
@@ -48,17 +50,19 @@ theorem full_comparison_progress {text : Source} {state : ParserState}
   dsimp only at accepted ⊢
   split <;> rename_i fitsBoth
   · simp only [Bool.and_eq_true] at fitsBoth
-    have leftPositive : (expressionAt text state.position state.names).after ≠ 0 := by
+    have leftPositive : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
       have fitting := fitsBoth.1.1
       simp only [fits, decide_eq_true_eq] at fitting
       exact fitting.1
     have rightPositive : (expressionAt text
-        (fixedAfter text (expressionAt text state.position state.names).after "=" false) state.names).after ≠ 0 := by
+        (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
+        state.names state.scalarNames).after ≠ 0 := by
       have fitting := fitsBoth.1.2
       simp only [fits, decide_eq_true_eq] at fitting
       exact fitting.1
     have first := full_expression_nondecreasing text state.position state.names leftPositive
-    have leftValid := Compose.Expressions.model_expression_valid text valid state.position state.names
+    have leftValid := Compose.Expressions.model_expression_valid
+      (scalarNames := state.scalarNames) (integerHidden := false) text valid state.position state.names
       stateValid.1 stateValid.2.1
     have middlePositive := Compose.Expressions.model_expression_input_nonzero text _ state.names rightPositive
     have middle := Compose.Expressions.model_fixed_advances text _ "=" false leftValid.1 (by decide) middlePositive
@@ -90,7 +94,7 @@ theorem context_same {context : Context} {scan : Scan} {result : ScanResult}
   cases context
   simp only [SameContext, expand] at same
   simp only [contextOf]
-  simp only [same.1, same.2.1, same.2.2.1]
+  simp only [same.1, same.2.1, same.2.2.1, same.2.2.2.2]
 
 theorem compact_position {context : Context} {result : ScanResult}
     (target : result.state.target ≤ context.names.length) :

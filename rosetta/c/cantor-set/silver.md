@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds and the only loop-carried value has a declared range that the update provably stays within, so every check follows from types and no annotation or recursion is needed.
 
-Position 485 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 485 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ One 81-character String buffer is reused for five rows (levels 0 to 4). For each
 - **range**: The loop-carried value J is a subtype 0 .. 80 and each update (J mod 27) * 3 is at most 78, so the range check discharges from the type and arithmetic alone.
 - **index**: The row index comes from a for loop over 1 .. 81, which is the String's own range, so indexing is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing and for loops.
 

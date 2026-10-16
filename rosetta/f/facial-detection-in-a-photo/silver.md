@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no construct outside SPARK. Every check depends on file-derived values or loop-carried sums, which careful guards and clamping can cover without annotations, but the JPEG decoder, the integral image and the floating-point cascade evaluation make discharge depend on how carefully the program is shaped.
 
-Position 1477 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1477 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ The program reads the JPEG into a fixed-capacity byte array and decodes baseline
 - **termination**: Entropy decoding and marker scanning use while loops, which are placed in procedures, and every function uses only for loops, so no variant is needed.
 - **other**: If the photograph turns out to be progressive JPEG rather than baseline, the decoder roughly doubles in size, though its proof obligations stay the same kind.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, packages, 'Image of scalars and file input.
 

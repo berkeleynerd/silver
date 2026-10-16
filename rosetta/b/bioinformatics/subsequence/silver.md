@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed array bounds, for-loop index ranges and a ranged generator state that bounds the one multiplication, so no invariant or variant is needed.
 
-Position 518 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 518 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A 200-character String is filled in a for loop from a deterministic Lehmer gener
 - **index**: The scan uses for I in 1 .. 197 with Sequence (I .. I + 3) and Sequence (I + k) accesses, which are in range of the 200-element string from the loop bounds alone.
 - **length**: Output lines are built by concatenating fixed-width pieces with bounded Image text, so a static length bound must be visible, which needs the image of a bounded Natural range padded to a known width.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, 'Image of scalars, for loops, procedures and arrays.
 

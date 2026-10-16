@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a rem by a nonzero literal on a bounded integer inside a for loop with no loop-carried state, so all of them follow from types and static bounds. Only the scalar-image and string-building library operations are new, and the program needs no annotations.
 
-Position 298 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 298 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
 A subtype Year_Number range 1 .. 9999 and a side-effect-free function Is_Leap_Year (Year) returning (Year rem 4 = 0) and then ((Year rem 100 /= 0) or else (Year rem 400 = 0)). Main runs a for loop over a fixed sample range such as 1896 .. 2004 and prints each year's 'Image concatenated with a leap or common verdict through Silver_IO.Put_Line. Rem by non-zero literals cannot fail, and the loop index stays within Year_Number's range by declaration. About 22 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars and string building.
 

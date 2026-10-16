@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by declared subtypes and all loops are for loops over static ranges, so the overflow, range and termination checks follow from types and guards without any annotation. The only extra surface is integer arithmetic, integer division, small functions and integer-to-text output.
 
-Position 889 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 889 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A Main procedure loops candidates n over a declared subtype 2 .. 33223 (a bound 
 - **termination**: Digit stripping uses a for loop over at most 5 iterations with an early exit rather than a while loop, so no variant is needed even if it sits in a function.
 - **index**: No array is needed because members are printed as they are found, and the counter is guarded to stay at or below 100.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, procedures, for loops, while loops, 'Image of scalars and conditional expressions.
 

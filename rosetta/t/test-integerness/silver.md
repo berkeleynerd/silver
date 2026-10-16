@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Decimal text parsed with guarded bounded-integer counters can decide integerness, including the huge -2.1e120 case, without floats or big numbers, so proofs should discharge with careful guards. The risk is loop-carried exponent and position arithmetic, but no annotation is needed.
 
-Position 1144 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1144 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Test values are embedded as decimal text (for example "25.000000", "-2.1e120", "
 - **range**: Positions computed from the decimal-point location plus the exponent are loop-carried and must be clamped by explicit guards against the string bounds before indexing.
 - **floating point**: Handling values as text avoids floating-point entirely, at the cost that NaN and Inf exist only as rejected spellings rather than as real float values.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, text parsing, for loops, while loops, procedures, functions, Put without a newline and conditional expressions.
 

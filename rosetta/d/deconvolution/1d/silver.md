@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact integer forward substitution replaces the floating-point approach, and every check follows from range subtypes, for-loop indexes and per-step magnitude guards, with no annotation required. The nonlinear multiply-accumulate in a loop and the text formatting need careful shape, hence plausible rather than likely.
 
-Position 1020 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1020 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use integer vectors (the task data are all integers) as constrained arrays of a 
 - **index**: Indices n-i and n come from for-loop ranges over bounded constrained arrays, but the lower bound max(0, n-|f|+1) must be written as a guarded computation so the bounds are provable.
 - **length**: Output lines are built in a bounded buffer sized for the largest vector, so Image concatenations need a fixed worst-case length bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, unconstrained arrays, for loops, procedures, 'Image of scalars, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a single-block hash over a fixed 12-byte message, built entirely from wraparound 32-bit modular arithmetic and constant tables with static for-loop bounds, so no overflow, index or termination obligation needs an invariant.
 
-Position 1294 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1294 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 12-character text "Rosetta Code", copy it into a fixed 64-byte block w
 - **index**: Message-word, rotation-amount and hex-digit lookups are indexed by array elements declared with subtypes 0..15 or 0..79, so the index checks follow from types.
 - **range**: Padding the 12-byte text into a fixed 64-byte block and converting Character'Pos to a byte use static lengths and a 0..255 subtype, so no guard beyond the constant length is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, arrays, for loops, procedures, functions, characters, integers, integer division, string indexing, string building and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing in the task conflicts with the Oracle, and all checks come from board bounds, fixed capacities and guards, but the program is large and the iterative search must avoid recursion and function loops, so discharge depends on careful program shape.
 
-Position 1476 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1476 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The board is a constrained 8x8 array of piece enumeration values, moves are reco
 - **range**: Parsing the user's move text must validate file, rank and length before converting to square indexes, rejecting bad input with a specified message and re-prompt.
 - **other**: Chess rules such as castling, en passant, promotion and draw detection add much shaped state, though each is plain bounded-array logic.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions, packages, Put without a newline, standard input, text parsing and 'Image of scalars.
 

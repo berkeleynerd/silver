@@ -1,7 +1,6 @@
 module
 
 public import Silver.PredicateFlags
-public import Silver.SequenceFormDisjoint
 
 @[expose] public section
 
@@ -50,6 +49,7 @@ mutual
     | .simple item => flag.simple item
     | .reject => false
     | .choice _ yes no => flag.statements yes || flag.statements no
+    | .forLoop _ _ _ _ body => flag.statements body
   termination_by item => sizeOf item
   def Flag.statements (flag : Flag) : List Statement → Bool
     | [] => false
@@ -66,6 +66,8 @@ mutual
     | choice condition yes tail =>
         simp only [SourceStatement.lower, Flag.statement, Flag.source,
           statements_lower_flags flag yes, alternative_lower_flags flag tail]
+    | forLoop index reverse lower upper body =>
+        simp only [SourceStatement.lower, Flag.statement, Flag.source, statements_lower_flags flag body]
   termination_by sizeOf item
   theorem alternative_lower_flags (flag : Flag) (tail : SourceAlternative) :
       flag.statements tail.lower = flag.alternative tail := by
@@ -86,8 +88,8 @@ mutual
   termination_by sizeOf items
 end
 
-theorem decoded_body {form events items program}
-    (decoded : decodePrefix form events items = some program) :
+theorem decoded_body {form events items scalars constants checks program}
+    (decoded : decodePrefix form events items scalars constants checks = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded
@@ -111,7 +113,7 @@ theorem meaning_selectors {source : Source} {program : Program}
     hasArguments source = program.hasArguments ∧
       hasAssignment source = Flag.assignment.statements program.statements ∧
       hasOutput source = Flag.output.statements program.statements := by
-  obtain ⟨form, events, items, domain, _, parsed, decoded⟩ := meaning
+  obtain ⟨form, events, items, _, _, domain, _, parsed, _, _, decoded⟩ := meaning
   have accepted := form_reading_complete ⟨domain, events, items, parsed⟩
   have body := decoded_body decoded
   refine ⟨(any_form_flag accepted Form.hasArguments).trans body.2.symm, ?_, ?_⟩

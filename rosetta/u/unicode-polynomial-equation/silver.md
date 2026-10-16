@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer parsing, arrays and string building, but a hand-written rational parser with many loop-carried values needs careful guards at every arithmetic step, so discharge is plausible without annotations rather than routine.
 
-Position 1520 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1520 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the test polynomials as byte strings, strip spaces into a bounded buffer, 
 - **range**: Multi-digit and signed exponents (including 007, scientific e-notation and negative superscripts) are accumulated in loops, so digit counts and magnitudes are capped by guards before each accumulation step.
 - **termination**: All parsing and gcd loops are while loops, which is acceptable because they live in procedures and not in functions, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

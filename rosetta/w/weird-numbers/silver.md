@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and Boolean-array DP with for-loop-derived indexes, so checks follow from subtypes and loop ranges, but the loop-carried sums and the capacity guards need careful shaping, with no annotation required.
 
-Position 405 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 405 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Iterate even candidates up to a documented limit of 16310 (enough for the 25th w
 - **range**: The candidate counter and divisor loop bound are subtypes capped at 16310 with a guard before each increment, and the found count is guarded before it reaches 25.
 - **termination**: All while loops live in procedures (the candidate search is in Main), and the subset-sum and divisor scans use for loops, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

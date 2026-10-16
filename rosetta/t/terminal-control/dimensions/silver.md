@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task only asks to read the terminal height and width into variables. That needs a terminal-size operation that Silver does not have yet, which makes it an effect rather than a conflict with any Oracle rule. A bounded Integer or natural-range pair is enough to hold the values, and the operation must specify what happens when no terminal is attached.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Indexing is safe because the loops run over the array's own range, but the loop-carried sum and product need explicit overflow guards with visible failure output since no invariant can be written. This is routine guarded arithmetic with no annotation needed.
 
-Position 171 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 171 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ An embedded constant array of ten Integers (1 to 10) is traversed by for loops o
 - **division**: The guard divides by the element, so it is placed under a test that the element is nonzero (zero is handled separately because it leaves the product at zero).
 - **length**: The output string is formed by concatenating literals with Integer'Image results, whose bounded length the prover must see against the declared String size.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, arrays, for loops, 'Image of scalars and Boolean objects.
 

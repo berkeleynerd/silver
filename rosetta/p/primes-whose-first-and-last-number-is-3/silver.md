@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by a ranged subtype and every loop is a for loop over static bounds, so all checks follow from types and no loop invariant is needed.
 
-Position 133 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 133 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A ranged subtype N of 3..3999 is iterated with a for loop, keeping candidates wi
 
 - **overflow**: d*d with d at most 63 and n in 3..3999 are bounded by declared ranges, so no overflow check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and Put without a newline.
 

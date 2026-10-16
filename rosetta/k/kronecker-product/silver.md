@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over array ranges with ranged element types, so only the nonlinear block-index arithmetic and the bounded row-text building need guards, and neither requires an annotation.
 
-Position 1017 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1017 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Matrices are two-dimensional arrays of a ranged element subtype, with the two sa
 - **overflow**: Elements are a declared subtype 0..1000 so each product is at most 10**6 and the products of dimensions stay within the small bounded matrix sizes, discharging by types.
 - **length**: Each output row is built in a fixed-capacity String buffer whose size covers 12 right-aligned columns of at most 7 characters, with the fill position guarded before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, unconstrained arrays, 'Image of scalars, string building, for loops, procedures and Put without a newline.
 

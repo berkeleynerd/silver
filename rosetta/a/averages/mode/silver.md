@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and counters follow from ranged subtypes and for loops over array ranges, with only the guarded counter increment needing care, so no annotation is required.
 
-Position 81 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 81 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the task's 14-element integer vector as a constant array of a ranged subty
 - **range**: Indexing the counts array by a data element needs the element type to be the same ranged subtype as the index (1..6), which makes the index check follow from types.
 - **length**: Concatenating image strings into an output line needs a fixed-size buffer or per-value Put_Line with a statically bounded length, since Integer'Image length is bounded by the subtype range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars and string building.
 

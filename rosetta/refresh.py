@@ -315,7 +315,10 @@ def choose(found: dict) -> list[str]:
     return chosen
 
 
-SURFACE_LABELS = {"booleans": "Boolean objects", "multidim-arrays": "multidimensional arrays",
+SURFACE_LABELS = {"integer-for-loops": "Integer range for loops",
+                  "immutable-integers": "immutable Integer arithmetic",
+                  "integer-image": "Integer image", "booleans": "Boolean objects",
+                  "multidim-arrays": "multidimensional arrays",
                   "scalar-image": "'Image of scalars", "float-image": "floating-point images",
                   "stdin-lines": "standard input", "put": "Put without a newline",
                   "more-arguments": "further arguments"}
@@ -337,6 +340,12 @@ USES = {"stdin": "standard input", "files": "files", "arguments": "arguments", "
 # The question each construct's admission must answer: the decidable rule under which every program
 # using it proves automatically.
 ADMISSION = {
+    "immutable-integers": "Which immutable Integer declarations and fully grouped signed arithmetic expressions "
+                          "have signed 32-bit interval bounds that discharge every check?",
+    "integer-for-loops": "Which ascending, reverse and nested Integer range loops preserve scoped immutable "
+                         "indexes, interval-safe bounds and automatic discharge throughout the body?",
+    "integer-image": "How do standard Integer image lengths, including leading spaces and signs, compose "
+                     "with bounded String expressions and every length check?",
     "integers": "Which integer types, literals and operators are admitted, and which range or guard rule makes "
                 "every +, - and * provably free of overflow?",
     "integer-division": "What must precede every /, mod and rem so that division by zero and the overflow of "
@@ -516,7 +525,7 @@ def assessment(task: dict, assessed: dict, policy: dict) -> str:
     surface = assessed.get("surface", assessed.get("features", []))
     if surface:
         text = listed([construct(name) for name in surface])
-        lines += ["## Language surface beyond today's Silver", "", text[:1].upper() + text[1:] + ".", ""]
+        lines += ["## Language surface recorded by this assessment", "", text[:1].upper() + text[1:] + ".", ""]
     if assessed["conflicts"]:
         lines += ["## Oracle conflicts", ""]
         lines += [f"- **{LABELS[c['kind']]}**: {c['explanation']}" for c in assessed["conflicts"]] + [""]

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, for-loop ranges and a counter bounded by a visible guard, with no while loops or recursion, so proofs should discharge without annotations. The only extra surface is integer-to-text formatting for output.
 
-Position 337 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 337 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the bound 100 in subtypes (Low 2..99, Full 2..9999) and use a for-loop tri
 - **overflow**: The counter is a subtype ranging 0..625 incremented under an explicit Count < 625 guard, and the concatenation P1*100+P2 is bounded by the declared pair ranges, so both checks follow from types and guards.
 - **range**: Trial division uses a function over N in 2..9999 with a for loop of divisors 2..99, so the mod operand is never zero and no loop-carried value needs an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, functions, for loops, 'Image of scalars, procedures and string building.
 

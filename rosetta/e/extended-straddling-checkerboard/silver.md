@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all work is in procedures over bounded buffers with explicit capacity and lookahead guards, but the loop-carried output and input cursors in the encoder and decoder require careful guard placement.
 
-Position 864 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 864 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the test message as a constant String, uppercase it by character, and keep
 - **range**: Character-to-digit and digit-to-table-index conversions occur only after a test that the character is a digit or letter, so the results stay inside the table subtypes.
 - **termination**: Decode's cursor-advancing loop is a while loop, which is acceptable only because it lives in a procedure and so gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions and case statements.
 

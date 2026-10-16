@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over small fixed arrays with explicit guards before each String index, so no annotation is needed, but loop-carried start and stop positions require careful guarding, hence plausible rather than likely.
 
-Position 1013 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1013 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the first five lines of the list (plus the blank-line case) as String cons
 - **length**: The printed result concatenates a short image of the length, a blank and the line, which fits a declared output bound once the line length limit is checked, with an over-long line rejected visibly.
 - **termination**: All iteration uses for loops inside functions, with the tokenizer written as a single for pass over Line'Range, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, procedures and functions.
 

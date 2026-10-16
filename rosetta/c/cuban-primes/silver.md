@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for loops with guards just before each use, so no annotation is needed, but loop-carried counters, the table index and the comma-formatting buffer need careful guarding and the nonlinear products rely on subtype ranges.
 
-Position 395 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 395 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use Long_Long_Integer values with ranged subtypes for n and the trial divisor; a
 - **index**: The 200-entry table is written only under an explicit guard that the stored count is below 200, and the running count is bounded by a guard before each increment since no invariant can be supplied.
 - **length**: Comma-formatted numbers are built in a fixed 20-character buffer filled from the right using a digit loop over a bounded value, with a guard on the position before each write.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

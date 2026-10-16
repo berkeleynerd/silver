@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with a for loop over a declared Positive range needs no loop-carried state, so division and range checks follow from types and loop bounds and no annotation is needed.
 
-Position 121 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 121 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a constant array of example positive integers (e.g. 45, 53, 64, 360) and a
 - **division**: The divisor is the for-loop index over 1 .. N with N of subtype Positive, so it is never zero and the mod check discharges from the loop range.
 - **overflow**: Numbers are declared in a bounded Positive subtype and the loop only uses the index and mod, so no loop-carried arithmetic can overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and divisors are provably nonzero, with fixed-count for loops inside procedures, so the proofs should go through, but the loop-carried digit counters and the 64-bit product bounds need careful guards.
 
-Position 947 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 947 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent numbers as Long_Long_Integer in a bounded subtype, with a procedure th
 - **index**: Digit indexes come from mod 10 on a non-negative value, so the 0..9 array index check follows from the type range once the dividend is a natural subtype.
 - **termination**: Every loop sits in a procedure, using for loops with fixed digit counts instead of while loops to extract digits, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

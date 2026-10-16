@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Encoding a single fixed constant into an 8-bit posit needs only bounded integer loops over at most 8 bits, so every check follows from range types and loop bounds, though the scaled-integer shifting needs careful sizing to keep overflow checks provable without invariants.
 
-Position 221 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 221 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed pi as a scaled integer constant and a fixed 8-bit, es=2 format, then deriv
 - **range**: The accumulated bit pattern is loop-carried and is kept inside a Natural subtype bounded by 255, with each shift preceded by a guard on the number of bits already emitted.
 - **floating point**: Avoided by representing pi as a fixed-point integer constant (3141592653589793 scaled by 10**15), so no floating-point reasoning is needed and rounding is exact integer arithmetic.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, 'Image of scalars and Put without a newline.
 

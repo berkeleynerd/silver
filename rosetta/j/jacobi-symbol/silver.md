@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is pure bounded integer arithmetic with a while loop inside a procedure, so termination is not checked and range and division checks follow from subtypes plus local guards; only careful guard placement in the loop-carried a, n values keeps it from being routine.
 
-Position 392 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 392 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Jacobi (A, N in; Result out) uses the standard reduction loop: reduc
 - **termination**: The Euclid-style reduction loop lives in a procedure, which gets no termination check, so no variant is needed.
 - **range**: After the swap step the new n must be positive, which is guarded by testing a /= 0 immediately before the swap rather than relying on a loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

@@ -17,7 +17,7 @@ private theorem lengthAt_fits {text context position literal operand result fact
     fitsSummary facts result.value.summary = true := by
   cases parsed with
   | number _ number => exact fitsSummary_fixed (IntegerLiteral.integer_bounds number).2.2
-  | @binding index info name after _ _ found _ _ _ =>
+  | @binding index info name after _ _ found _ _ _ _ =>
       have nonzero : index ≠ 0 := by intro zero; simp [Bindings.BindingEnvironment.get, zero] at found
       have member : info ∈ context.names := List.mem_of_getElem? (by
         simpa only [Bindings.BindingEnvironment.get, nonzero, ↓reduceIte] using found)
@@ -48,8 +48,8 @@ private theorem length_meaning {text context position facts left right leftResul
 
 private theorem string_meaning {text context position facts left right leftResult rightResult}
     (normal : NamesNormal context.names)
-    (leftRead : ExpressionAt text context.names position left leftResult)
-    (rightRead : ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult)
+    (leftRead : ExpressionAt (scalarNames := context.scalarNames) text context.names position left leftResult)
+    (rightRead : ExpressionAt (scalarNames := context.scalarNames) text context.names (comparisonAt text leftResult.after).after right rightResult)
     (ready : StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after)) :
     ConditionMeaning context facts (.stringCompare ((comparisonAt text leftResult.after).operator != .eq) left right)
       (stringResult facts leftResult rightResult (comparisonAt text leftResult.after)) := by
@@ -57,11 +57,12 @@ private theorem string_meaning {text context position facts left right leftResul
   have r := expression_reading_ready normal rightRead
   refine ⟨trivial, ⟨l.1.1, r.1.1, l.1.2.1, r.1.2.1,
     l.1.2.2.1, l.1.2.2.2, r.1.2.2.1, r.1.2.2.2⟩, ?_, ?_, ?_⟩
-  · simp only [Condition.checkBounds, l.2, r.2, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2, Bool.and_self]
+  · simp only [Condition.checkBounds, l.2, r.2, Bool.and_eq_true]
+    exact ⟨ready.2.2.2.2.2.1, ready.2.2.2.2.2.2⟩
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
 
 mutual
   theorem primary_valid {text context position facts condition result}
@@ -86,8 +87,12 @@ mutual
         have meaning := primary_valid normal namesValid bounded inner
         exact ⟨meaning.1.negated meaning.2, rfl⟩
     | length _ _ _ left right _ => exact ⟨length_meaning namesValid bounded left right, rfl⟩
-    | strings _ _ _ left right ready _ => exact ⟨string_meaning normal left right ready, rfl⟩
-    | primary _ _ _ _ inner =>
+    | scalars _ _ _ _ left right _ =>
+        exact ⟨⟨trivial, trivial, by
+          simp only [Condition.checkBounds, left.inferred, right.inferred,
+            Option.isSome_some, Bool.and_self], rfl, rfl⟩, rfl⟩
+    | strings _ _ _ _ left right ready _ => exact ⟨string_meaning normal left right ready, rfl⟩
+    | primary _ _ _ _ _ inner =>
         have meaning := primary_valid normal namesValid bounded inner
         refine ⟨meaning.1, ?_⟩
         cases condition <;> simp_all [Condition.isPrimary, Condition.isRelation]
@@ -107,11 +112,11 @@ mutual
           | false =>
               change result.whenFalse.Bounded
               rw [meaning.whenFalse]
-              exact Condition.refine_bounded bounded _ _ _
+              exact Condition.refine_bounded bounded _ _ _ _
           | true =>
               change result.whenTrue.Bounded
               rw [meaning.whenTrue]
-              exact Condition.refine_bounded bounded _ _ _
+              exact Condition.refine_bounded bounded _ _ _ _
         have rightMeaning := relation_valid normal namesValid reachedBound rightRead
         have nextMeaning := meaning.chain rightMeaning.1 (chainShape_selected shape compatible) rightMeaning.2
         exact chain_valid normal namesValid bounded rest nextMeaning (chainShape_next _ _ _)

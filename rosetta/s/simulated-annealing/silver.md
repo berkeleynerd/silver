@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and for-loop work with no recursion or annotations, but the floating-point exp, the million-iteration loop-carried energy and the formatting of scaled values need careful guards, so discharge is plausible rather than routine.
 
-Position 1318 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1318 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The path is an array 0..99 of cities with an inverse position array; a distance 
 - **overflow**: The 64-bit LCG step multiply needs a modulus and multiplier chosen so the product fits the integer type, or a modular type with wraparound.
 - **termination**: All loops are for loops or live in procedures, and the swap uses a position array rather than a search while loop, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, arrays, multidimensional arrays, floating point, for loops, while loops, procedures, functions, string building, 'Image of scalars, Put without a newline and case statements.
 

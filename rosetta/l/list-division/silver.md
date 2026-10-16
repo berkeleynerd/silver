@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loops and explicit guards on n, but the bounded offset arithmetic in nested loops needs careful shape so provers see the indexes stay in range, and no annotations are required.
 
-Position 1353 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1353 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Embed a fixed-capacity Integer array (capacity about 16) with a ranged length su
 - **overflow**: The running start offset and the (part-1)*d product are nonlinear loop-carried values that discharge only because every operand is a small ranged subtype.
 - **range**: Part sizes d and d+1 must be proven within the capacity subtype, which follows from the guard n <= length and the bounded length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, Put without a newline and exit status.
 

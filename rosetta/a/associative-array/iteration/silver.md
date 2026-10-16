@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Iteration over a small embedded fixed-capacity table with for loops over the array's own range needs only declared ranges and bounded slices, so every check follows from types.
 
-Position 1156 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1156 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The associative array is a fixed-capacity constant array of three records holdin
 - **length**: Concatenating a key slice with an Integer image has a computed length, which discharges because the key length subtype is at most 5 and the values are in a small declared range.
 - **range**: The key slice Key(1..Len) is in bounds because Len has a declared subtype 0..5 matching the fixed key buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, string indexing, string building, 'Image of scalars, for loops and enumerations.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task asks for an HTTPS GET of a fixed URL and printing the response body. That needs network access plus console output. No fixed Oracle rule is broken: a future admitted HTTPS client library whose failure outcomes are specified, writing into a bounded buffer, would be enough. So this task is a candidate, waiting on a network effect.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, loops and packages.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared subtype range (mod by non-zero literals, bounded image length, for-loop index), there are no loop-carried values, and the loops are plain for loops, so proofs should discharge without annotations.
 
-Position 307 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 307 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A ranged subtype (0..9999) is used for the values; a side-effect-free Suffix fun
 
 - **length**: Concatenating the integer image with the suffix has a bounded length because the index subtype has a declared range, so the result fits String bounds and the check discharges from types alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, functions, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic or indexing on small fixed-size arrays and ranged subtypes, with loops that are for loops or while loops inside procedures, so checks follow from types and nearby guards; the care needed is in carrying counts and digit buffers through nested loops without invariants.
 
-Position 925 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 925 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed a 16-character digit constant, loop bases 2 to 16 with a for loop, and sca
 - **division**: Division and mod use a base held in a subtype that excludes 0 and 1, so no division check can fail.
 - **length**: Reversed digit text is built in a bounded buffer with explicit length tracked and guarded, so no length check on assignment can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, for loops, while loops, procedures, string building, string indexing, 'Image of scalars, Put without a newline, arrays and conditional expressions.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded to 0..999 and every loop is a for loop over a static range, so overflow, range and division checks follow from types and no loop-carried value needs an invariant.
 
-Position 326 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 326 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
 Loop N over 2 .. 999 with a for loop; a function computes the reversed digits using a bounded for loop of three digit steps, so N is a palindrome when its reverse equals N. A trial-division primality test divides by D over a for loop from 2 to 31 (since 32*32 > 999), guarding D < N, and each hit is printed with Put and a space after its image. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and Put without a newline.
 

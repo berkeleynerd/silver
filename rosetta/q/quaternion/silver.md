@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line, loop-free float arithmetic on small embedded constants, so no loop invariants or termination variants are needed; the only non-routine work is bounding float operands and having an admitted Sqrt and float formatting. The tight data bounds make range guards easy, but floating-point proof and library availability keep it at plausible.
 
-Position 1082 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1082 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Define a bounded Float subtype and a Quaternion record of four such components, 
 - **floating point**: The norm needs Sqrt on a non-negative argument, which holds because the sum of squares of bounded values is non-negative, relying on the admitted elementary-function library's verified contract.
 - **other**: Float text formatting needs an admitted image operation with bounded output length, since Float'Image is not provable in an unannotated program.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, records, functions, procedures, floating-point images, string building, Put without a newline and Boolean objects.
 

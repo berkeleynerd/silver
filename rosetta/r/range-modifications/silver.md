@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All operations are bounded array scans and shifts over a small fixed capacity, with no recursion and no annotations needed, so checks follow from subtype ranges and guards before each access. The work lies in careful guarding of index shifts, boundary arithmetic and string-building lengths, hence plausible rather than likely.
 
-Position 640 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 640 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep the sequence as two fixed-capacity arrays of low and high bounds (about 16 
 - **length**: The output buffer is sized for capacity times the maximum range text, and a guard before each append checks the loop-carried length, so appends and Image slices cannot exceed bounds.
 - **range**: The loop-carried count and positions are held in subtypes bounded by capacity, and the neighbor-merge conditions are guarded explicitly before each array access.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices and levels come from for-loop ranges over constant bounds and explicit clamps, so no loop-carried value needs an invariant and the animation is a finite, fixed-length text rendering.
 
-Position 668 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 668 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A 41 by 41 Character grid is cleared to spaces each frame, then for each of 20 r
 - **index**: Rectangle edge coordinates are computed as center plus or minus a half-size from a for-loop index over 1..20, so they stay inside the 41 by 41 grid by subtype ranges, with the loop index type bounding the arithmetic.
 - **range**: The fade level is clamped with an explicit if to 0..9 before conversion to a digit Character, so the Character'Val check follows from the guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, for loops, string indexing, procedures, integer division and Put without a newline.
 

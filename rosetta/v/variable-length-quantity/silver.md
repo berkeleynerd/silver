@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small bounded subtypes with fixed-trip for loops and an explicit pre-multiply guard in decoding, so every check follows from types and guards without invariants.
 
-Position 1510 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1510 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the quantity as a subtype 0..2**28-1 and the encoding as a 4-element a
 - **index**: Octet buffer indexes come from for loops over the array's own range or a length variable constrained by its subtype to 1..4, so index checks follow from types.
 - **range**: Encoding a 28-bit value peels 7 bits per step with mod and / on a loop-carried value whose subtype is fixed, so the octet value always lies in 0..127 and the count stays within 4.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, Put without a newline and case statements.
 

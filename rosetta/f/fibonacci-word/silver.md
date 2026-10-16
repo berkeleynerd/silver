@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from array bounds and a few explicit overflow and positivity guards, but the carried sums and the floating-point entropy need careful guard placement, and the full 24-million-character words are not materialized.
 
-Position 1079 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1079 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store only per-word length and counts of 0 and 1 in arrays indexed 1..37 (the en
 - **division**: The length divisor is a loop-carried array element, so a guard that it is positive is placed directly before each division.
 - **index**: Short words are built in a bounded 34-character buffer only for words of length at most 34, with the length guarded before each copy.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, floating point, floating-point images, 'Image of scalars, string building, string indexing, procedures, functions and Put without a newline.
 

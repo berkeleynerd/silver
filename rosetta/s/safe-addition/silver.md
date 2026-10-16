@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The only nontrivial check is floating-point overflow of A + B, which a simple operand-range guard with a visible invalid outcome discharges; the remaining uncertainty is GNATprove's support for the Float'Adjacent attribute, not any annotation need.
 
-Position 1051 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1051 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ An Interval record holds Lower and Upper Float components plus a Valid flag, and
 - **floating point**: The bounds come from Float'Adjacent (Result, Float'First) and Float'Adjacent (Result, Float'Last), which never step past the type's extremes and so carry no range check, but whether GNATprove models 'Adjacent precisely enough (rather than rejecting or approximating it) is the main uncertainty.
 - **length**: The output line concatenates two Float'Image results with a separator, whose lengths are statically bounded by the attribute so the concatenation length check is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, records, functions and Boolean objects.
 

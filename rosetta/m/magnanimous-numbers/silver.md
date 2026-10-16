@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared ranges (candidates below 10^6, sums below 2*10^6), indexes are guarded and loops are for loops or sit in a procedure, so no annotation is needed. The 400th magnanimous number is 602081, which fits within the cap.
 
-Position 364 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 364 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function Is_Prime uses a for loop over divisors 2..1000 with an exit when d*d 
 - **index**: The results array has 400 slots and the store is guarded by count < 400 inside the while loop, with a visible message if the candidate cap is reached first.
 - **termination**: The unbounded search is a while loop inside a procedure, which gets no termination check, and the primality function uses only a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

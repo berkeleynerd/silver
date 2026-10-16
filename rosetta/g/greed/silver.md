@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from ranged types, a fixed 79 by 22 array and per-step bounds guards before each indexing, and the loops sit in procedures so no termination annotation is needed; the missing pieces are only Silver surface growth such as 2D arrays, loops, stdin and unbuffered Put.
 
-Position 1231 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1231 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The board is a two-dimensional array of 0..9 cells (0 meaning eaten) filled by a
 - **range**: The cursor, score and digit values live in ranged subtypes (score at most 1738) so loop-carried updates are bounded by their types without invariants.
 - **other**: A move needs a validate pass then an erase pass so that an illegal move leaves the board unchanged and reports a visible rejection.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string building, 'Image of scalars, for loops, while loops, case statements, procedures, functions, Boolean objects, Put without a newline and standard input.
 

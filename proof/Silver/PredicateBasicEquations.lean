@@ -25,12 +25,6 @@ theorem targetAt_expanded (text : Source) (context : Native.Context) (scan : Bod
     (targetAt text (expandedState context scan) false).target =
       (targetAt text (parserState context.model scan) false).target := (targetAt_expanded text context scan).2
 
-@[simp] theorem sameLength_project (facts : PathFacts.Native.Context) (left right : Summary) :
-    PathFacts.Native.sameLength facts left right = equalSummary facts.model left right := by
-  cases reachable : facts.validReachable <;>
-    simp [PathFacts.Native.sameLength, PathFacts.Native.Context.model, equalSummary, reachable,
-      PathFacts.Native.lengthAt_model, Bool.beq_eq_decide_eq]
-
 @[simp] theorem bodyToken_invalid (text : Source) (token : ShellToken) :
     bodyToken text invalidBody token = invalidBody := by
   cases token <;> simp [bodyToken, invalidBody, tokenAfter, fixedAfter]
@@ -40,9 +34,9 @@ theorem targetAt_expanded (text : Source) (context : Native.Context) (scan : Bod
 
 /-- Inhabited primitives; no implementation meaning is postulated. -/
 theorem model_primitive_equations :
-    modelPrimitives.token = tokenAfter ∧ modelPrimitives.expression = expressionAt ∧
-    modelPrimitives.target = targetAt ∧ modelPrimitives.fits = fitsSummary ∧
-    modelPrimitives.sameLength = equalSummary ∧ modelPrimitives.reject = PathFacts.Context.reject :=
+    modelPrimitives.token = tokenAfter ∧ modelPrimitives.expression = (fun text position names scalarNames => expressionAt text position names scalarNames) ∧
+    modelPrimitives.target = targetAt ∧ modelPrimitives.fits = fitsLengthSummary ∧
+    modelPrimitives.sameLength = equalLengthIntervals ∧ modelPrimitives.reject = PathFacts.Context.reject :=
   ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
 
 @[simp] theorem fixedAfter_zero (text : Source) (spelling : String) (word : Bool) :
@@ -60,7 +54,7 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
     Command.eval, Test.eval, Update.eval, modelPrimitives, Primitives.bodyToken,
     basicBody, basicRaw, basicKind, bodyTokens, List.foldl_cons, List.foldl_nil,
     bodyToken, tokenAfter, ShellToken.word, ShellToken.symbol, Native.Context.model,
-    bindingSummary]
+    bindingSummary, equalLengthIntervals_exact]
   simp +instances only [targetAt_expanded_position, targetAt_expanded_target,
     Bool.or_eq_true, Bool.and_eq_true, decide_eq_true_eq]
   dsimp +instances only [Native.Context.model]
@@ -70,13 +64,13 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
-  callAfter : primitive.callAfter = Compose.callAfter
+  callAfter : primitive.callAfter = (fun text names position operation scalarNames => Compose.callAfter text names position operation scalarNames)
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
-  expression : primitive.expression = expressionAt
+  expression : primitive.expression = (fun text position names scalarNames => expressionAt text position names scalarNames)
   target : primitive.target = targetAt
-  fits : primitive.fits = fitsSummary
-  sameLength : primitive.sameLength = equalSummary
+  fits : primitive.fits = fitsLengthSummary
+  sameLength : primitive.sameLength = equalLengthIntervals
   reject : primitive.reject = PathFacts.Context.reject
 
 theorem modelEquations : PrimitiveEquations modelPrimitives := ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩

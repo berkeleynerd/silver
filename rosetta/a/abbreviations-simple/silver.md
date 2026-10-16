@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or length bound on a fixed-size string and the number accumulation is capped by a guard, but tokenizer positions are loop-carried and need careful guards, so the program needs a deliberate shape and no annotation.
 
-Position 1027 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1027 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The command table and the sample input are embedded as constant Strings; a proce
 - **length**: The output buffer is fixed-capacity, and a guard before each append checks remaining room and otherwise reports a visible overflow outcome rather than truncating.
 - **termination**: The tokenizing scans are written as for loops, and the one while loop sits in a procedure, so no termination check is generated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, unconstrained arrays, for loops, while loops, procedures, functions and Put without a newline.
 

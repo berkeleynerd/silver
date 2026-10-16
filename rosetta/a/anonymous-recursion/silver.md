@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task requires recursion, but a nested recursive procedure with an out parameter avoids the termination-check problem a recursive function would have. Every arithmetic check follows from the declared ranges plus guards just before each operation, and the depth is statically bounded by the embedded test range.
 
-Position 1563 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1563 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Main contains a public-facing procedure Fib (X : Integer) that first tests X < 0
 - **termination**: The recursion is written as a nested procedure with an out parameter, which gets no termination check, so no Subprogram_Variant is needed.
 - **stack**: Recursion depth is at most the static upper bound of the embedded test range (for example 30), so it stays within the fixed-memory premise even though GNATprove does not check it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, for loops, procedures, recursive procedures and 'Image of scalars.
 

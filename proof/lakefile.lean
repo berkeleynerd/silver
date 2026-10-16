@@ -141,6 +141,51 @@ lean_lib IntegerLiteralBodySource where
   globs := #[.one `Silver.IntegerLiteralBodySource]
   needs := #[integerLiteralBodySource]
 
+input_file scalarsSpecSource where
+  path := "../src/silver_scalars.ads"
+  text := false
+
+lean_lib ScalarsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarsSpecSource]
+  needs := #[scalarsSpecSource]
+
+input_file scalarLiteralSpecSource where
+  path := "../src/silver_scalar_literals.ads"
+  text := false
+
+lean_lib ScalarLiteralSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarLiteralSpecSource]
+  needs := #[scalarLiteralSpecSource]
+
+input_file scalarLiteralBodySource where
+  path := "../src/silver_scalar_literals.adb"
+  text := false
+
+lean_lib ScalarLiteralBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarLiteralBodySource]
+  needs := #[scalarLiteralBodySource]
+
+input_file scalarExpressionSpecSource where
+  path := "../src/silver_scalar_expressions.ads"
+  text := false
+
+lean_lib ScalarExpressionSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarExpressionSpecSource]
+  needs := #[scalarExpressionSpecSource]
+
+input_file scalarExpressionBodySource where
+  path := "../src/silver_scalar_expressions.adb"
+  text := false
+
+lean_lib ScalarExpressionBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarExpressionBodySource]
+  needs := #[scalarExpressionBodySource]
+
 input_file pathFactsSpecSource where
   path := "../src/silver_path_facts.ads"
   text := false
@@ -167,3 +212,93 @@ lean_lib NamesBodySource where
   roots := #[]
   globs := #[.one `Silver.NamesBodySource]
   needs := #[namesBodySource]
+
+input_file imageTheorySpecSource where
+  path := "../src/silver_image_theory.ads"
+  text := false
+
+lean_lib ImageTheorySpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageTheorySpecSource]
+  needs := #[imageTheorySpecSource]
+
+input_file imageModelSpecSource where
+  path := "../src/silver_image_model.ads"
+  text := false
+
+lean_lib ImageModelSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelSpecSource]
+  needs := #[imageModelSpecSource]
+
+input_file imageModelBodySource where
+  path := "../src/silver_image_model.adb"
+  text := false
+
+lean_lib ImageModelBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelBodySource]
+  needs := #[imageModelBodySource]
+
+input_file imageModelTemplatesSpecSource where
+  path := "../src/silver_image_model_templates.ads"
+  text := false
+
+lean_lib ImageModelTemplatesSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelTemplatesSpecSource]
+  needs := #[imageModelTemplatesSpecSource]
+
+input_file imageModelTemplatesBodySource where
+  path := "../src/silver_image_model_templates.adb"
+  text := false
+
+lean_lib ImageModelTemplatesBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelTemplatesBodySource]
+  needs := #[imageModelTemplatesBodySource]
+
+input_file integerImageSpecSource where
+  path := "../src/silver_integer_image.ads"
+  text := false
+
+lean_lib IntegerImageSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.IntegerImageSpecSource]
+  needs := #[integerImageSpecSource]
+
+input_file lengthIntervalsSpecSource where
+  path := "../src/silver_length_intervals.ads"
+  text := false
+
+lean_lib LengthIntervalsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.LengthIntervalsSpecSource]
+  needs := #[lengthIntervalsSpecSource]
+
+input_file lengthIntervalsBodySource where
+  path := "../src/silver_length_intervals.adb"
+  text := false
+
+lean_lib LengthIntervalsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.LengthIntervalsBodySource]
+  needs := #[lengthIntervalsBodySource]
+
+input_file imageFilesSpecSource where
+  path := "../src/silver_image_files.ads"
+  text := false
+
+lean_lib ImageFilesSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageFilesSpecSource]
+  needs := #[imageFilesSpecSource]
+
+input_file imageFilesBodySource where
+  path := "../src/silver_image_files.adb"
+  text := false
+
+lean_lib ImageFilesBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageFilesBodySource]
+  needs := #[imageFilesBodySource]

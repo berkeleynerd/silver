@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with explicit guards and no recursion or annotations, but loop-carried lcm and counter values need careful subtype bounds and guards, so discharge depends on program shape.
 
-Position 834 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 834 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use subtype-bounded Integer/Long_Long_Integer values (n up to 5,000,000) with pr
 - **termination**: The gcd, prime-dividing and iteration-counting while loops are placed in procedures, which get no termination check, and the lambda and iteration helpers are procedures rather than functions.
 - **index**: The first-occurrence array is indexed by the iteration count, which is guarded by a comparison against the array bound before each use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and case statements.
 

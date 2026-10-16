@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by declared integer ranges and for-loop indexes, but the prime search and trial division carry loop values through while loops that need guards and must sit in procedures, so discharge depends on careful program shape.
 
-Position 916 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 916 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the three five-element Integer arrays as constants, loop over index 1..5 w
 - **range**: The search for the least prime at or above max needs a bounded outcome, so the candidate range includes a prime above 98 (101) and the loop exits with a visible rejection if the bound is hit.
 - **length**: Output text is built from a bounded buffer with a fixed capacity sized for five numbers of at most three digits plus separators.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, Boolean objects, Put without a newline, 'Image of scalars, string building and conditional expressions.
 

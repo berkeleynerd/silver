@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded character and slice work over a fixed-capacity buffer with explicit length guards, with no recursion, no loop-carried arithmetic beyond for-loop indexes, and no annotations needed.
 
-Position 986 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 986 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The name comes from the first argument into a fixed-capacity buffer with a lengt
 - **index**: Slices of the name after the first letter are only taken after a guard that the length is at least 1 and at most the fixed buffer capacity, so bounds discharge.
 - **length**: Each output line is built in a bounded buffer sized for the maximum name length (for example 32) times its few repetitions plus fixed text, so concatenation lengths are statically within capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, string building, ranged subtypes, integers, Boolean objects, for loops, procedures, unconstrained arrays and conditional expressions.
 

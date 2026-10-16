@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges with small declared subtypes, so index and overflow checks follow from types and local guards, and no variant or invariant is needed.
 
-Position 76 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 76 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 8-element example as a constant array of a Value subtype (1..20), then
 - **index**: Pole counts are indexed by bead value, which a declared Value subtype of 1..20 keeps within the poles array range.
 - **overflow**: Pole counters are bounded by the element count of 8 via a subtype range, and each increment is guarded by a comparison before the add since loop-carried values lose their bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

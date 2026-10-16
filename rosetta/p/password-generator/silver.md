@@ -2,7 +2,7 @@
 
 **Excluded from Silver: system randomness.** Included. The task needs bounded strings or character arrays for the four character sets, checked integer parsing of the length and count arguments, loops that fill each password, and an explicit guard rejecting a length below 4 or above a documented maximum. A fill method can guarantee one character from each group (for example, filling four positions first and shuffling), so no proof annotations are needed. None of this breaks an Oracle rule; the missing pieces are command-line options and an admitted random source seeded from system entropy.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, loops and subprograms.
 

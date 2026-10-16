@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the validated Side_Length subtype and for loops over the array's own bounds, so no annotation is needed. The GUI request is optional and text output satisfies the task.
 
-Position 1369 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1369 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ The program parses the first argument with a validating text-parse into a subtyp
 - **index**: The row and column indexes are for-loop variables over the constrained array's own range, and the output line buffer is sized for the maximum side length, so every index discharges.
 - **range**: The parsed length is validated against 1..Max_Side (Max_Side is a documented limit such as 40) before use; invalid or missing input is rejected with a usage message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string building, text parsing, for loops, procedures, conditional expressions, Put without a newline and exit status.
 

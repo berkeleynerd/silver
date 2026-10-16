@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task asks a language to define a new control-flow keyword (if2/else1/else2) that behaves like its built-in if. That is syntax extension, which Ada/SPARK cannot express and the Oracle forbids. The Ada entry's case-over-function workaround imitates the behaviour but adds no new language construct.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, enumerations, subprograms and loops.
 

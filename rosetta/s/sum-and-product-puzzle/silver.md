@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop over declared ranges with fixed-size arrays, so index and overflow checks follow from types and one saturating-counter guard, and no variants or recursion are needed.
 
-Position 99 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 99 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the puzzle bounds as constants and use for loops over subtypes 2..98 to bu
 - **index**: The product X*Y indexes a count array, which discharges because X and Y are subtypes 2..98 and the array is sized 0..9604 so the bound follows from the types.
 - **overflow**: Loop-carried counters are incremented only under a guard that saturates at 2, which preserves the needed distinction between zero, one and many decompositions and keeps the addition within its type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and string building.
 

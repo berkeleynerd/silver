@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first fifty values need only small bounded modular arithmetic inside for loops, so every check follows from declared ranges and the static loop bounds. The 64-bit stretch with prime factorization is optional and left out.
 
-Position 881 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 881 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ For each n in 1..50 a for loop over k in 1..50 updates f := (f * k) mod n starti
 - **overflow**: The running value f = k! mod n is kept in a subtype 0..50 and the product f*k is at most 50*50, so the multiplication is bounded by types without an invariant.
 - **division**: The divisor n is the loop index of a for loop over 1..50, so it is statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, Put without a newline and conditional expressions.
 

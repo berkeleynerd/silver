@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, subtype ranges and guards before use, and there are no recursion, functions with while loops or annotations, but the quadratic nested loops over a large fixed-capacity table with loop-carried best-length state need careful shaping.
 
-Position 1362 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1362 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Store words in a fixed-capacity array of records (padded 24-character buffer, le
 - **length**: Each line is copied into a fixed-length buffer only after a length guard, and over-long lines or too many words are rejected visibly.
 - **termination**: The read loop is a while loop inside a procedure, so it has no termination check, and all functions use only for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, for loops, while loops, procedures, functions, file input, Put without a newline and exit status.
 

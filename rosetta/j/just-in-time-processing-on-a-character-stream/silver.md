@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single pass over an embedded constant string with small bounded counters and a bounded output buffer, so no annotation is needed. The generalized separator and selection-function extras are optional and omitted.
 
-Position 779 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 779 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a constant text (pages, lines, tab-fields separated by formfeed, linefeed 
 - **overflow**: Page, line, field and position counters are loop-carried but are range-typed and incremented only after a guard against their upper bound, so the checks discharge.
 - **index**: Each text index comes from a for loop over the embedded text's own range and the output buffer is indexed only after a guard on its capacity, so the checks discharge.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, string indexing, string building, for loops, case statements, procedures and Put without a newline.
 

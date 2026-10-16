@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from small declared ranges, constant table indexing by a mod 10 digit, and one guard on the accumulator, and the only while loop sits in a procedure so no termination annotation is needed.
 
-Position 193 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 193 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant array of ten digit powers (with 0 taking the value 0, as the task's c
 - **overflow**: The loop-carried digit-power sum is only added to when it is at most 5000, so the sum stays below 5000 + 9**9 and fits in a 32-bit range type, and exceeding 5000 already rules out a match without changing any result.
 - **range**: The remaining number is a loop-carried value in 0 .. 5000 whose division by 10 stays in its type, and the digit is a mod 10 result used to index a 0 .. 9 table, so both follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

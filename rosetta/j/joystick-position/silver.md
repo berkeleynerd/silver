@@ -2,7 +2,7 @@
 
 **Excluded from Silver: hardware.** The task permits a plus-symbol crosshair on a terminal and text for button status, so a solution needs only console output plus a joystick device read, which is an effect Silver lacks rather than a conflict. The continuous redraw loop is a plain unbounded loop with no conflict under the Oracle rules, and the axes map to bounded integer ranges with a defined full-extent fallback for digital joysticks. No recursion, pointers, or exceptions are required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, arrays, characters and string operations.
 

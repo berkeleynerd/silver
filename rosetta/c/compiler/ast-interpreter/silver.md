@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because recursion is replaced by explicit stacks in procedures and all arithmetic, indexes and buffers are bounded by types and guards, but the many guarded loop-carried indexes and the text parsing make discharge depend on careful program shape.
 
-Position 1259 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1259 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ The program reads the AST lines from stdin into a fixed-capacity array of node r
 - **length**: Input lines, identifiers and string literals are copied into fixed-size bounded buffers with length guards that reject over-long tokens.
 - **initialization**: All node, variable and pool arrays are initialized by whole-array aggregates or for loops before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, Put without a newline and standard input.
 

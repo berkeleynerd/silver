@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a for loop over a constant or array range in the main procedure, and the only loop-carried values are bounded counters guarded by capacity comparisons, so the checks should discharge with careful program shape and no annotation.
 
-Position 560 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 560 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the 27-symbol Bacon table (a-z plus space) as a constant Stri
 - **length**: The output buffer is a fixed-length String assigned by element with a message length known as a constant, so no slice or concatenation length check depends on loop state.
 - **other**: If the message holds fewer letters than 5 times the plaintext length, the program prints a specified rejection line instead of silently truncating, and a plaintext character outside a-z or space is encoded as a space.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, integers, arrays, string indexing, string building, for loops, procedures, Boolean objects and Put without a newline.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value derives from constant loop ranges of 1..10, so the subtractions, the minimum and the image conversion all follow from types and static bounds, and there is no loop-carried accumulator.
 
-Position 44 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 44 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Nested for loops over a subtype Idx range 1 .. 10 compute the minimum of I-1, 10-I, J-1 and 10-J with if statements into a Natural-range variable. Each value is written with Put of its 'Image followed by a space, and each row ends with Put_Line of an empty string. All values are bounded 0..4 by the loop ranges, so no guards are needed. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, for loops, Put without a newline and 'Image of scalars.
 

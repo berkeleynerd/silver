@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, for-loop indexes over array ranges and a count guard, and all loops are for loops that terminate by themselves, so nothing needs an annotation; the work is only missing language surface (arrays, loops, functions, integer division, 'Image, Put).
 
-Position 345 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 345 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the nine values as a constant array of a bounded integer subtype 0..1000, 
 - **overflow**: The prime count incremented inside a loop is a ranged subtype 0..9 and each increment is guarded by a test against the capacity, so the range check discharges.
 - **index**: Sorting uses for loops over the array's own index range with a swap-based selection sort, so every index is within bounds without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-capacity decimal digit arrays with for loops keep every index and arithmetic check derivable from declared ranges, so no invariant is required.
 
-Position 450 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 450 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent each operand as a constant 20-element array of base-10 digits (2^64 em
 - **index**: Result indexes i+j-1 and i+20 are bounded by for-loop ranges 1..20 over a 1..40 array, so they discharge from static bounds.
 - **overflow**: The accumulator is a small ranged integer built from digit-typed operands (at most 9+81+9=99) and the carry is a 0..9 subtype, so ranges follow from types without a loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops and Put without a newline.
 

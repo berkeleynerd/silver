@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is only "generate contours", so a fixed embedded grid with per-cell case lookup uses for loops over the array's own ranges and small ranged integers, so every check follows from types and bounds. No loop-carried state, recursion or annotation is needed.
 
-Position 781 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 781 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a small constrained 2D Integer scalar field and a constant threshold, then
 - **index**: Corner lookups at x+1 and y+1 are safe because the cell loops run over 1 .. Width-1 and 1 .. Height-1 of the array's own constrained bounds.
 - **overflow**: Segment endpoint coordinates and the case code are small values in declared ranged subtypes, so sums such as 2*x+1 stay within the type range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, case statements, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** This task asks a program to show it can run code in its own language that is given to it at run time. Ada/SPARK has no such facility, and Silver may not add one, so the sample is excluded as outside SPARK.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

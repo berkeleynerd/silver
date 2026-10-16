@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the buffer's declared bounds and the read operation's verified postcondition, and the unbounded stream is handled by a procedure-level while loop that needs no variant.
 
-Position 1213 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1213 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Main declares a fixed-capacity String buffer, a Natural length and a Boolean end
 - **length**: An input line longer than the fixed buffer must have a specified visible outcome (for example splitting it across reads or rejecting it), which the admitted read operation's contract provides so the slice Line(1..Length) is always in range.
 - **termination**: The while loop sits in the Main procedure, which gets no termination check, so no variant is needed even though the input length is unbounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Standard input, while loops, string building, string indexing, integers, Boolean objects and ranged subtypes.
 

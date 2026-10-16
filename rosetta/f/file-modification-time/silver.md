@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task is to get and set a file's modification time, which needs admitted library operations for file metadata (read and write timestamps) with specified failure outcomes (missing file, permission denied). Nothing conflicts with the Oracle rules; these are effects Silver lacks today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and records.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small integers bounded by subtype ranges and explicit pre-operation guards, and loops are either for loops or while loops in procedures, so no annotation is needed, though the tokenizer and fold carry several loop-carried indexes that need careful guards.
 
-Position 581 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 581 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a table of number words (one to nineteen, tens, hundred, thousand, million
 - **length**: Word lookup compares fixed-width padded words against table entries, requiring each word to be copied into a fixed-length buffer only after a guard that its length fits the maximum word width, else the phrase is rejected.
 - **termination**: The while loops are placed only in procedures, which get no termination check, and the lookup uses for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, for loops, while loops, procedures, functions and 'Image of scalars.
 

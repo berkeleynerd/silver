@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task needs a sequential loop of jobs, a clock to take timestamps, and printed reports of at least three times. Tasking is not required because the jobs can run one after another. Needing a clock is an effect Silver lacks, not a rule conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, subprograms and floating point.
 

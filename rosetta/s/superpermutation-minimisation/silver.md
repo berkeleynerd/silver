@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything runs in procedures over fixed-bound arrays with ranged indexes and explicit capacity guards, but many loop-carried lengths and offsets without invariants make discharge depend on careful program shape rather than being routine.
 
-Position 575 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 575 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Keep the current superpermutation in a fixed Character array of 6000 with a rang
 - **overflow**: Lengths and factorial sums are held in ranged subtypes bounded by the buffer capacity and by 7!, and the loop-carried length is guarded before each increment.
 - **termination**: The overlap search runs as a decreasing for loop in a procedure, so no variant is needed and procedures get no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, string indexing, string building, 'Image of scalars and Put without a newline.
 

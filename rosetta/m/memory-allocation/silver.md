@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** SPARK's ownership model already admits a fixed-size allocation followed by an explicit Unchecked_Deallocation, and its null-dereference and leak checks follow from straight-line code, so the program should prove without annotations; Storage_Error stays under the Oracle's fixed-memory premise because the allocation does not grow with input.
 
-Position 1572 in the [progression](../../progression.md#stage-38), in stage 38.
+Position 1572 in the [progression](../../progression.md#stage-37), in stage 37.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Main shows stack allocation with a declare block that holds a small fixed-size I
 - **heap**: The program makes one heap allocation of fixed size that does not depend on input, so the Oracle's premise of sufficient memory covers it, and SPARK's leak check passes because the program calls Free explicitly before the pointer goes out of scope.
 - **other**: Dereferencing the pointer discharges its null check because the dereference comes straight after an initialized allocator (new T'(...)), and after Free the pointer is not used again.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, block statements, access types, generics and 'Image of scalars.
 

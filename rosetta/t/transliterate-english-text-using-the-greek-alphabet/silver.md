@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are string-index bounds that the loop condition and an explicit lookahead guard establish, with no nonlinear arithmetic, and the loop sits in a procedure so no variant is needed; the only new surface is Character handling, string indexing, case statements and Put.
 
-Position 997 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 997 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the task text as several String constants, one per output line, and pass e
 - **index**: The scan index is loop-carried in a while loop, but the loop condition I <= Text'Last gives the bound at each use, and the lookahead Text (I + 1) is guarded by I < Text'Last.
 - **overflow**: Advancing I by 1 or 2 is guarded by the I <= Text'Last loop condition and an I < Text'Last test before the two-letter step, so I + 2 stays within Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, case statements, unconstrained arrays, string indexing, while loops, procedures, integers, Put without a newline and ranged subtypes.
 

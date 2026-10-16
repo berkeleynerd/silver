@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed 3-character strings, a ranged generator state and an explicit length and character guard on the input line, and the only unbounded loops are while loops inside procedures. It needs several new features (stdin lines, character indexing, procedures, while loops, Put) but no annotation or recursion.
 
-Position 1228 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1228 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Sequences are fixed 3-character Strings of H and T, and a small deterministic li
 - **termination**: The input re-prompt loop and the toss-until-win loop are while loops inside procedures, which get no termination check, and end of input is handled by an explicit rejection so the prompt loop cannot spin.
 - **length**: The input line is checked for length 3 and only H or T characters before indexing or copying into the fixed three-character sequence.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, string building, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

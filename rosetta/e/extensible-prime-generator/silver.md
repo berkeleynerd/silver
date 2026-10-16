@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtypes, the array's static capacity and simple guards just before each increment, and the unbounded search runs in a procedure, so it needs no annotation. The required results stay far below the documented limits.
 
-Position 216 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 216 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Main keeps a fixed-capacity array of found primes and a nested Next_Prime proced
 - **division**: The array elements have a positive subtype, and an aggregate initializes them to 2, so Candidate mod P and Candidate / P (used in place of P * P to avoid nonlinear overflow) cannot divide by zero.
 - **termination**: The open-ended search for the next prime is a while loop inside a procedure, which gets no termination check, so it needs no variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, Boolean objects, 'Image of scalars and Put without a newline.
 

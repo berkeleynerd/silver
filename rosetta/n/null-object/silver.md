@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** In Ada, null exists only for access values, so the program needs an access type declaration, but with no allocation or dereference the only checks are initialization and the leak check on a known-null value, which discharge trivially.
 
-Position 1571 in the [progression](../../progression.md#stage-38), in stage 38, which adds access types.
+Position 1571 in the [progression](../../progression.md#stage-37), in stage 37, which adds access types.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main declares a pool-specific access type to Integer and a variable of that type
 
 - **heap**: The pool-specific access variable is never allocated, so the ownership memory-leak check at scope exit discharges because the value is known to be null.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Access types.
 

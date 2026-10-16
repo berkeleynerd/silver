@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled-integer arithmetic over ranged subtypes turns every check into a type-range or guard fact, and the only loop is a for loop over a fixed array, so no annotation is needed.
 
-Position 160 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 160 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Bearings are stored as integers scaled by 10000 (ten-thousandths of a degree) in
 - **overflow**: Bearings are scaled integers in a ranged subtype of plus or minus 1_800_000, so the difference of two lies within plus or minus 3_600_000 and the normalising if statements bring it back into range with no loop-carried value.
 - **length**: The output line is built in a fixed-size buffer whose capacity covers the longest sign, digits and four-decimal text, with a fixed digit count per field so no length check depends on a loop-carried value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and string building.
 

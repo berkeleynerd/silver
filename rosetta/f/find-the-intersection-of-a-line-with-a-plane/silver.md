@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded float subtypes, a for loop over the array's own range and explicit guards before the division and the final range conversion, but floating-point reasoning makes the discharge depend on careful program shape.
 
-Position 1045 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1045 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent vectors as a constrained array of three values of a bounded float subt
 - **division**: The division by the direction-normal dot product is guarded by an explicit test that its absolute value exceeds a small epsilon, with a visible rejection message otherwise, and the quotient is range-guarded before conversion back to the bounded subtype.
 - **range**: The computed intersection coordinates must be checked against the bounded subtype before assignment, so a guard with a specified outcome is needed for out-of-range results.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, for loops, functions, floating-point images and Put without a newline.
 

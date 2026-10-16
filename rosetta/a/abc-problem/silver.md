@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from constant array bounds and for-loop indexes over own ranges, with no loop-carried value needing an invariant, though correctness for general words would need backtracking which would be recursion or an explicit stack and is the main shape risk.
 
-Position 1536 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1536 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Blocks are two constant 20-character strings (face 1 and face 2) and a Boolean U
 - **index**: Word characters are indexed only by a for loop over the word's own range and block flags by a for loop over the fixed 1..20 range, so index checks follow from loop bounds.
 - **termination**: Only for loops are used (a fixed-count outer loop over the word and an inner loop over the blocks), so no variant is needed even inside a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, procedures, functions, Put without a newline and block statements.
 

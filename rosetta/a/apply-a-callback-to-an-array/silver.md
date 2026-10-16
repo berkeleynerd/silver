@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the declared element range and for-loop indexes over the array's own range, so the squares cannot overflow and no annotation is needed.
 
-Position 69 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 69 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a ranged integer subtype and a constrained array type of 10 elements, em
 
 - **overflow**: Squaring is safe because the element subtype is declared as a small range (e.g. -1000 .. 1000) so the product fits in Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline, procedures and string building.
 

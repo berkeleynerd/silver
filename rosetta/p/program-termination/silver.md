@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program needs only a String comparison, an if statement, output and one library operation that stops the process, so it has no arithmetic, index or loop checks and its proofs should discharge trivially. The only new piece is the exit operation's library-side contract.
 
-Position 1344 in the [progression](../../progression.md#stage-25), in stage 25, which adds exit status.
+Position 1344 in the [progression](../../progression.md#stage-24), in stage 24, which adds exit status.
 
 ## Failure paths to test
 
@@ -16,7 +16,7 @@ A single-threaded Main reads the first argument with First_Or_Default and tests 
 
 - **other**: The admitted stop operation must carry a verified no-return or program-exit contract so that flow analysis treats the code after it as unreachable without any annotation from the author.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Exit status.
 

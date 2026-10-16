@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic on small ranged subtypes in a fixed for loop with no loop-carried values, so the checks follow from types and the error case is a visible zero result.
 
-Position 782 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 782 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use ranged subtypes for Year, Month (1..12), Weekday (0..6) and N (1..5), a loop
 - **overflow**: The weekday-of-first computation uses a Sakamoto-style formula on ranged Year (1900..2100) and Month subtypes, so every intermediate is bounded and discharges from types.
 - **range**: Result day is computed as 1 + offset + 7*(N-1) in a small Integer range and returned as 0 when it exceeds the month length (a visible 'no such day' value), so no subtype check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, functions, 'Image of scalars, string building, case statements and Put without a newline.
 

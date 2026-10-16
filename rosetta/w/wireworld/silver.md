@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, enumeration cases and explicit edge guards, with only the neighbour counter and line-reading loop needing careful shape, so proofs should likely discharge with no annotations. The main new work is Silver's file input, 2D arrays and enumerations.
 
-Position 1335 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1335 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program reads the first argument as a file name, then reads lines into a fix
 - **initialization**: Both grids are fully initialized to empty cells before reading, and the next-generation grid is filled completely in each step.
 - **termination**: The file-reading while loop and any generation loop live in procedures, which get no termination check, and the generation count is a fixed for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, enumerations, multidimensional arrays, arrays, string indexing, case statements, for loops, while loops, procedures, file input, Put without a newline, 'Image of scalars and text parsing.
 

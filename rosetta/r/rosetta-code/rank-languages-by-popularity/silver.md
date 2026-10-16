@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs only a network fetch of one category listing, string scanning of its HTML, a bounded array of (count, language) records sorted by count and name, and printed output, all of which Silver can express with bounded sizes and explicit guards for malformed or missing input. The existing Ada solution's AWS library, exceptions and Ordered_Sets are not required by the task, so no fixed-rule conflict is raised.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, records, loops and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations, OS services.** Excluded: the task requires loading a shared library at run time and calling a function in it through its address at the ABI level. That needs foreign calls and an unchecked Address-to-subprogram conversion, which SPARK and the Oracle rules exclude, and no admitted library operation could give it a specified, provable behavior.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Access types and subprograms.
 

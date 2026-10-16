@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared ranges and for-loop indexes over the array's own range, with no loop-carried values beyond the bounded depth, so no annotations are needed. The task accepts any friendly text output, so an embedded indented tree is faithful.
 
-Position 516 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 516 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The tree is embedded as a preorder constant array of nodes, each with a ranged d
 
 - **index**: The line buffer index and slice bounds are discharged because depth is a ranged subtype whose maximum keeps 2*depth+1 within the fixed buffer length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building and for loops.
 

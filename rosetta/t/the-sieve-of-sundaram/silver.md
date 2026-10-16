@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from constant bounds, for-loop indexes and one guard on the culling index, with nothing needing an invariant, though the large array and loop-carried indices need careful shaping. The remaining uncertainty is stack size for the big array and the nonlinear start-index arithmetic.
 
-Position 228 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 228 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A constant-size Boolean array of 7.8 million entries marks composites: a for loo
 - **stack**: A Boolean array of about 7.8 million entries in Main may exceed the stack, which GNATprove does not check, so it rests on the fixed environmental memory premise.
 - **termination**: The while culling loop sits in the main procedure, which gets no termination check, and its guard step of p >= 3 makes it terminate anyway.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars and Put without a newline.
 

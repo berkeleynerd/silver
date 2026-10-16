@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on small ranged counts and all indices are guardable in procedure while loops, so nothing needs an invariant or variant, but the large amount of hand-written parsing with loop-carried indices means success depends on careful guard placement.
 
-Position 1501 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1501 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the eight sentences as String constants, copy each into a 512-character bo
 - **termination**: All scanning loops are while loops in procedures (no termination check), and number-word lookup is a for loop over a constant table, with no functions containing while loops.
 - **other**: Faithful handling of hyphenated and unhyphenated number words, 'single', 'hundred and', plural 'commas/apostrophes/hyphens' and the sentence 3 and 7 punctuation rules makes the parser logic branchy but needs no annotation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, records, string indexing, string building, string ordering, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

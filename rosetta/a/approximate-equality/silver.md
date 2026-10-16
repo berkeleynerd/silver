@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation works on embedded constants or bounded real subtypes with no loops, so all float overflow and range checks follow from types and literals and no annotation is needed. The only unusual need is Long_Float arithmetic with Sqrt, which is routine once operands are range-bounded.
 
-Position 883 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 883 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define a bounded Long_Float subtype Real, a function Approx_Equal that returns A
 - **floating point**: The subtraction and the scaling by 1.0e-9 cannot overflow because the operands are a bounded real subtype (about plus or minus 1.0e30), and the Sqrt argument is the literal 2.0, so its non-negativity precondition is trivially met.
 - **overflow**: Products such as Sqrt(2.0) * Sqrt(2.0) and the division 10000000000000.001 / 10000.0 involve only constants and a nonzero literal divisor, so the provers bound them directly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, Boolean objects, functions, procedures and conditional expressions.
 

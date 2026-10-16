@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-capacity limb arithmetic has every check bounded by subtype ranges or a capacity guard, but carries through nested loops and nonlinear products make discharge depend on careful program shape rather than being routine.
 
-Position 1377 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1377 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the number as a fixed-capacity little-endian array of base-10^9 limbs 
 - **range**: Converting the product quotient and remainder back to the limb and carry subtypes needs the prover to bound nonlinear products, which holds because every operand's type range is tight.
 - **termination**: All loops (multiply passes, digit counting, text extraction) are for loops or sit in procedures, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, big numbers, 'Image of scalars, string building and string indexing.
 

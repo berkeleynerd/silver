@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed 25-by-25 bounds, small ranged subtypes and for-loop indexes, and the iterative solver needs no recursion or annotations, but loop-carried indexes in the line-solving dynamic program and the explicit search stack need carefully placed guards.
 
-Position 1204 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1204 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The four embedded puzzles are stored as clue strings parsed (letter minus 'A' pl
 - **termination**: Constraint propagation and the backtracking search are while loops inside procedures with an explicit bounded stack, so no termination check arises and no function contains a loop without a for-loop bound.
 - **index**: The explicit search stack depth is limited by the cell count, and a guard before each push makes the bound visible without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, for loops, while loops, procedures, functions, case statements and Put without a newline.
 

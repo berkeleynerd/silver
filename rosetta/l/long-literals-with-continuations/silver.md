@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from a static constant string, a for-loop index over that string's own range, and one guard placed just before the counter increment, so no annotation is needed. The only new surface is integers, characters, string indexing and slicing, for loops and 'Image.
 
-Position 511 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 511 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Elements is a constant String built from about 16 string literals joined with &,
 - **overflow**: The loop-carried word counter is not bounded without an invariant, so the increment is guarded by a test just before it (Count < Natural'Last), with an else branch that prints a specified, visible error that can never be reached.
 - **index**: The start of the last word is kept as Start := I + 1, with I drawn from Elements'Range, so Start is Positive and at most Elements'Last + 1, and the slice Elements (Start .. Elements'Last) is either within bounds or empty.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string indexing, for loops and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and loop counts are fixed, so there is no recursion or variant need, but the proof depends on floating-point library contracts for Exp and power, and on range guards for the float series. This makes it plausible rather than likely.
 
-Position 1097 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1097 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the airport table as a constant 4x2 integer array and compute gamma at hal
 - **range**: Float-to-integer conversions used for fixed-decimal printing need guards on magnitude, and the elementary-function library must supply verified contracts for Exp, Log and Sqrt.
 - **division**: Divisions by x, k or the gamma value need explicit nonzero guards, with pdf at x = 0 returning a specified 0.0.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, arrays, multidimensional arrays, for loops, while loops, procedures, functions, Put without a newline and string building.
 

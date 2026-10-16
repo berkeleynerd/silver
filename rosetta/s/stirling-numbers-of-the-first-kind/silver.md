@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded nested for-loop over static ranges with a guarded recurrence, so checks should discharge, but the loop-carried array values need careful guard placement and the 'Image padding needs bounded buffers.
 
-Position 685 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 685 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a 13x13 constrained array of a ranged subtype (unsigned Stirling numbers, no
 - **index**: Row n-1 and column k-1 are safe because the loops run n from 1 and k from 1 with row 0 set separately, so the indexes follow from the loop ranges.
 - **length**: Padded output lines are built in a fixed-size buffer sized for 13 columns of width 12, with image lengths bounded by the entry subtype's range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, multidimensional arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

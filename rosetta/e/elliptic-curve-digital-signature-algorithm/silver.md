@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The toy ECDSA only needs bounded 64-bit modular arithmetic and loops in procedures, so no annotation is required, but loop-carried extended-gcd coefficients and nonlinear modular products need careful guards and subtypes.
 
-Position 647 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 647 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Curve parameters, points (with an infinity flag) and signature pairs are records
 - **division**: Every division and mod is preceded by an explicit nonzero check on the divisor (modulus, v in the gcd loop) with a visible rejection outcome.
 - **range**: Pseudo-random draws from a deterministic LCG are reduced mod r-1 plus 1 into a ranged subtype, and the order r is validated in range first.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

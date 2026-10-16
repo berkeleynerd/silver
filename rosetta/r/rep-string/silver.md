@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is two nested for loops over indexes bounded by the string's own length, so index checks follow from loop ranges and types with no invariants; the plausible rating reflects unconstrained-string index arithmetic and output line construction needing careful guards.
 
-Position 1001 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1001 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Check takes an unconstrained String, loops I from L/2 down to 1 and 
 - **overflow**: Computing S'First + J - 1 and concatenating slices into the output line needs the index subtype and a length guard so nothing exceeds the bounded buffer, which a guard before each Put_Line can supply.
 - **termination**: Only for loops are used (a Boolean flag records a mismatch rather than an early exit), so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, unconstrained arrays, for loops, while loops, procedures and string building.
 

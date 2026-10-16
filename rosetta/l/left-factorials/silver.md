@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic over fixed-capacity limb arrays in procedures with for loops, so checks follow from subtype ranges and capacity guards, but the carry loops over roughly 9000 limbs and nonlinear limb products need careful typing to discharge without invariants.
 
-Position 1382 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1382 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent big numbers as a record of a fixed array of base-10000 limbs (about 91
 - **termination**: All loops live in procedures (for loops over limb ranges, plus a while loop for digit counting), so no variant is needed.
 - **stack**: Two fixed arrays of about 9100 integers each are local objects whose size is static and modest.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, big numbers and Put without a newline.
 

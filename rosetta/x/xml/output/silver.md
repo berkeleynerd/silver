@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds, a bounded length subtype and a guard before each append, with no while loops or recursion, though the loop-carried output length needs careful guarding.
 
-Position 1009 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1009 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Escape_Text copies an input String into a fixed-size Character buffe
 - **range**: The loop-carried length is declared with a subtype bounded by the buffer capacity and checked against remaining room before each increment, with overflow giving a visible rejection message rather than truncation.
 - **length**: Printing the escaped slice Buffer (1 .. Length) needs Length to be known within the buffer bounds, which its declared subtype provides.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, unconstrained arrays, for loops, case statements, procedures and Put without a newline.
 

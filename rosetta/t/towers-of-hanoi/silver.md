@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This is a tiny recursive procedure whose only checks are a guarded decrement and concatenation of bounded image text, and procedures get no termination check, so proofs should discharge; the one soft spot is recursion depth, which the declared subtype bounds.
 
-Position 1562 in the [progression](../../progression.md#stage-36), in stage 36, which adds recursive procedures.
+Position 1562 in the [progression](../../progression.md#stage-35), in stage 35, which adds recursive procedures.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a three-value Pegs enumeration and a Disk_Count subtype of Natural with 
 - **stack**: The task requires recursion, but depth is capped by a declared subtype range on the disk count and Main uses 4 disks, so depth is a small fixed constant within the fixed-memory premise.
 - **range**: The Ndisks - 1 subtraction in each recursive call is guarded by the enclosing Ndisks > 0 test, so it discharges from the subtype range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, ranged subtypes, integers, 'Image of scalars, procedures, recursive procedures and string building.
 

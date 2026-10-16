@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over small constant ranges and a guard that the day number lies in 1..month length before it is converted to digits, with no loop-carried values or recursion. The only effect is console output of fixed-size text.
 
-Position 541 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 541 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The year is fixed at 1969 (not a leap year), with embedded constant arrays for m
 - **index**: Column positions in the 132-character line buffer and month-name slices are computed from for-loop indexes with small declared ranges, so the bounds follow from types and static ranges.
 - **overflow**: Day-number arithmetic (row*7 + column - start offset) uses small ranged subtypes and a guarded 1..days test before digit conversion, so no overflow or range check is left open.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared line-length bounds, for-loop indexes over buffer ranges and length guards before each substring comparison, and no recursion, input or termination annotation is needed because all loops are in procedures or are for loops. The embedded text keeps the task faithful without file input, though the long data table makes the program lengthy.
 
-Position 619 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 619 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The example text is embedded as a constant array of about 70 line records (a fix
 - **index**: Substring matching and printing from the Traceback offset index into fixed line buffers, discharged because every index is bounded by a for-loop range derived from the stored line length, which is a subtype-bounded field, with the match loop upper bound computed only after guarding Length >= pattern length.
 - **length**: Building the output slice from the Traceback offset to the line end needs a computed-length bounded buffer or a slice, discharged by guarding offset <= length before the slice and capping buffer capacity at the embedded maximum line length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, while loops, procedures and functions.
 

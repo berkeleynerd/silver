@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can use iteration, bounded arrays and guarded loops in procedures with no recursion, so checks follow from subtype ranges and guards, but the many loop-carried indexes and PPM parsing make the program shape delicate, and it needs file input and argument support that Silver lacks today.
 
-Position 1475 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1475 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 
@@ -24,7 +24,7 @@ The program reads a PPM image named by the first argument into a fixed-capacity 
 - **range**: Loop-carried box start and end indexes and the box count are held in ranged subtypes with explicit guards before each split, because no invariant can be written.
 - **other**: The image is limited to a documented pixel capacity, so larger inputs get a specified rejection rather than being truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, packages, Put without a newline, file input, further arguments and exit status.
 

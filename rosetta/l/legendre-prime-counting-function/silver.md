@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size arrays and ranged integers with explicit guards, and the recursion is replaced by an explicit stack in a procedure so no variant is needed, but the loop-carried stack top and signed accumulator need careful guard placement.
 
-Position 283 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 283 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A Boolean array sieves primes up to 31622 into a constrained prime array with a 
 - **division**: The divisor p_a is read from a prime array whose type is a subtype of 2..31623, so nonzero follows from the declared range.
 - **termination**: All while loops live in procedures, which get no termination check, and the sieve and pi loops are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

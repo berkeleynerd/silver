@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by array-bounds subtypes and fixed Limit and every check can be guarded just before use with a visible rejection, but the loop-carried sums and the multiple j need careful guards and a large fixed-capacity pair of arrays is needed.
 
-Position 910 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 910 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Two fixed-capacity arrays indexed 1..1_600_000 hold the divisor sum (starting at
 - **termination**: The sieve is written in the main procedure, which gets no termination check, so the while loop needs no variant.
 - **range**: Rendering a 7-digit number with its k count in a bounded string needs a sized buffer, which is routine given the integer subtype bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and conditional expressions.
 

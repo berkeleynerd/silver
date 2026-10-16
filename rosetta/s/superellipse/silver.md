@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed ranges with no loop-carried accumulators, so only the floating-point power and its finiteness need care, which range-constrained Float operands make plausible rather than certain.
 
-Position 869 in the [progression](../../progression.md#stage-16), in stage 16, which adds floating point.
+Position 869 in the [progression](../../progression.md#stage-15), in stage 15, which adds floating point.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Sample the plane on a fixed integer grid (for example X and Y from -20 to 20 sca
 - **range**: Float-to-integer or text-art cell mapping must stay within the row String bounds, which holds because the column is the for-loop index itself over the String's own range.
 - **other**: Whether the provers discharge the Elementary_Functions power contract and finiteness of the sum without help is uncertain, so ranged Float subtypes and a tolerance band test must carry the bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, characters, string indexing and for loops.
 

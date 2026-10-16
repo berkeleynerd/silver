@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-size array sorted by index arithmetic in procedures, so checks reduce to guarded cursor comparisons and bounded subtypes, though several loop-carried indices need careful guard placement without invariants.
 
-Position 919 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 919 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed an 8-element array of Integer, and implement merge sort bottom-up and iter
 - **overflow**: The doubling width and run-end computations (start + 2*width) are discharged by clamping to N before use and by subtype ranges bounded by N.
 - **termination**: All while loops are inside procedures, which get no termination check, and the pass loop is bounded by a width that doubles up to N.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Boolean objects and conditional expressions.
 

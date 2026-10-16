@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every cell is computed independently from its indices with small ranged arithmetic and explicit side guards inside for loops over the array's own range, so checks follow from types and guards without loop invariants.
 
-Position 887 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 887 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a constant N = 5, a 2-D array of a ranged subtype 0..N*N-1 indexed 0..N-
 - **overflow**: The per-cell ring and offset arithmetic is nonlinear (ring times side length) but all operands come from small ranged subtypes for N=5, so bounds follow from the types.
 - **range**: Each computed value must be shown to lie in 0..24 for the array element subtype, which the prover must derive from case-wise guards on ring and position and may need the ranged intermediate subtypes to make easy.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, 'Image of scalars, string building, Put without a newline, procedures and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges and guards just before each update or array write, with no annotation needed, but the loop-carried F, X and Y require careful guarding so the outlook is plausible rather than likely.
 
-Position 1540 in the [progression](../../../progression.md#stage-33), in stage 33.
+Position 1540 in the [progression](../../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program holds a 16x16 constrained 2D array of Character initialized to blank
 - **index**: Pixel coordinates Center plus or minus X or Y are checked by a single up-front test that the circle lies inside the 16x16 image (Reject otherwise), but the prover must relate the loop-carried X and Y to the bounds, so each plot is also guarded by a coordinate range test before the array write.
 - **range**: Y := Y - 1 is guarded by Y > 0 and X := X + 1 by X < Y, so the subtype ranges of X and Y hold without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures and block statements.
 

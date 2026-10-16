@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges of the index and power subtypes and from guards in the binary search, with no recursion and no loop-carried accumulator, but nonlinear power building and the while-loop search need careful typing to discharge.
 
-Position 249 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 249 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Precompute a constant-sized table of fifth powers for 0..250 in a subtype-bounde
 - **range**: For loops with A+1 style lower bounds are kept in range by limiting the outer indexes below 249 so the successor stays inside the Base subtype.
 - **termination**: The while-loop binary search lives in a procedure, which gets no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, integer division, procedures, 'Image of scalars and Put without a newline.
 

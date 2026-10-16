@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by a fixed-step scan in scaled integer arithmetic, avoiding floating point, so every check follows from the subtype bounds of the for loop index and carries no loop-carried values.
 
-Position 344 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 344 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Represent x in thousandths as an integer subtype -1000..3000 and compute a scale
 
 - **overflow**: X*X*X on a subtype bounded to -1000..3000 and held in a 64-bit integer stays near 2.7E10, so the nonlinear products are bounded by types and discharge.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars, string building and Put without a newline.
 

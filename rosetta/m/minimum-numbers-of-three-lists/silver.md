@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from a for loop over the arrays' own range and the values are fixed Integer constants, so every check follows from types and static bounds with no loop-carried state.
 
-Position 880 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 880 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
 Three constant arrays of five Integers with embedded data, and a Result array of the same type filled by a for loop over the array range using if comparisons to pick the minimum of the three elements. A second for loop prints each result with 'Image and Put, followed by a Put_Line to end the line. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline and conditional expressions.
 

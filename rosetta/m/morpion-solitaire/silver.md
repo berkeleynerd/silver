@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from fixed array bounds, subtype ranges and explicit pre-index guards, and the only loops needing care are bounded for loops inside a procedure, but the triply nested candidate scan with loop-carried coordinates and nonlinear LCG arithmetic makes discharge depend on careful program shape.
 
-Position 853 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 853 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The board is a fixed 2D Boolean array of occupied points plus four 2D Boolean ar
 - **termination**: The play loop is a for loop over a fixed maximum number of moves with a done flag, so no variant is needed and the game still ends when no legal move remains.
 - **range**: Selecting a random candidate uses mod of a count that is guarded to be positive, and the board must be sized large enough that a line never needs to leave it, with a specified stop outcome when a candidate would leave the grid.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and case statements.
 

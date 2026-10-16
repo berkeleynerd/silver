@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a handful of simple bounded loops with guarded accumulators, so every check follows from declared ranges and guards just before each operation, though the loop-carried sum and product need careful guards.
 
-Position 247 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 247 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each of the seven ranges is a loop in Main that calls a procedure Accumulate (Su
 - **overflow**: Each while-loop index update is guarded by the loop condition, which bounds the index just before the add or subtract, so the step cannot overflow its declared range.
 - **termination**: All while loops live in procedures, which get no termination check, and the fixed-step for loops terminate by themselves.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, while loops, for loops, procedures and 'Image of scalars.
 

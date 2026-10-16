@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no floating point or recursion since the 60-degree lattice makes integer step vectors exact, and all loops are for loops over static bounds. The only non-routine checks are the loop-carried position and buffer length, which in-grid and capacity guards just before each use make dischargeable without annotations.
 
-Position 823 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 823 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build the Koch command string iteratively from an axiom with the rule F -> F+F--
 - **overflow**: Rule expansion into a fixed-capacity command buffer is guarded by a length check before every append, and the fixed level (3 or 4) keeps the capacity a static bound.
 - **termination**: All iteration uses for loops over static ranges (level expansion, command scan, grid printing), so no variant is needed and the work can sit in procedures.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, for loops, case statements, procedures, string building and Put without a newline.
 

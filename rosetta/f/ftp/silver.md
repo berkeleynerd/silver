@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs network access to an FTP server and a binary file write, both external effects that admitted library operations could provide. Nothing in the task requires exceptions, annotations or unsafe code, so no fixed Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, records, loops, subprograms and packages.
 

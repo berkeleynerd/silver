@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by a 64-bit-safe range type and a fixed-count digit loop, so overflow, division and termination checks follow from types and local guards with no annotations; the only slightly delicate parts are the loop-carried counter and the fixed search window.
 
-Position 891 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 891 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A bounded Value subtype (0..2**40) is used; a function Divisor strips digits wit
 - **termination**: Digit stripping uses a fixed 10-iteration for loop instead of a while loop, so the function needs no variant.
 - **division**: The divisor is 10*first digit + last digit with first digit at least 1 for N at least 100, which the prover must see from guarded division by 10 (an explicit guard N >= 100 on the function or a rejecting branch covers it).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, functions, 'Image of scalars, Put without a newline and conditional expressions.
 

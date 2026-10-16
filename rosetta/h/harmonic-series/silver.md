@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a division by a ranged positive index or a guarded Float addition, and the while loops live in procedures so no variant is needed; the plausible rating reflects floating-point accumulation in loops and the need for float-to-text formatting.
 
-Position 1055 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1055 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a ranged subtype for the term index (1 .. 20000) and a Float accumulator; a 
 - **range**: The position counter in the while loop is loop-carried, so an explicit guard that it is below the subtype's upper bound precedes each increment, with a specified stop outcome at the limit of 20000 terms.
 - **other**: Float'Image output must be bounded in length for the output buffer, and the library must admit float-image formatting with a documented width.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, 'Image of scalars, string building, for loops, while loops, procedures, functions and Boolean objects.
 

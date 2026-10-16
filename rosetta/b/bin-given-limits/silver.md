@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array ranges, bounded subtypes and guards just before the operation, and all loops are for loops in procedures, so nothing needs an annotation. The only care is the guarded counter increment and the bounded text formatting.
 
-Position 993 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 993 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The two limit lists and two data lists are embedded as constant Integer arrays, 
 - **length**: Padded output lines are assembled in a fixed-size buffer whose length is bounded by the digit counts of the Integer-range limits and counts, so each append is guarded against the buffer capacity.
 - **index**: The bin index is computed in a reverse for loop over the limits' own range with a bin-index subtype one larger, so each count access is within bounds from types alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, for loops, procedures, functions, Boolean objects, 'Image of scalars, string building, string indexing and Put without a newline.
 

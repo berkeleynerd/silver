@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the 1..10 subtype, bounded line buffer and validated parsing, and the while loop is in a procedure so no variant is needed. The only new work is admitted stdin line reading and text-to-integer parsing with specified failure outcomes.
 
-Position 1345 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1345 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The secret is a constant in 1..10 produced by a small deterministic generator (o
 - **termination**: The guessing loop sits in the Main procedure, which gets no termination check, and end of input exits it through an explicit rejection.
 - **range**: The parsed guess is validated into a bounded integer before comparison, and unparsable or out-of-range lines print a specified message and ask again rather than being clamped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, text parsing, while loops, procedures, Put without a newline, standard input, exit status and string building.
 

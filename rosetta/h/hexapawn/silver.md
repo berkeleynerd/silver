@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation works on small fixed-size arrays and enumerations with range-typed indices and bounded loops inside procedures, so no invariant is needed, though the interactive parsing and large learned-move table require careful program shape. No recursion, heap or annotation is required, and learned state lives in memory for one run.
 
-Position 1256 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1256 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The board is a nine-element array of a Spot enumeration (empty, computer, player
 - **initialization**: The learned-move table (about 19683 by 27 Booleans) and the board must be fully initialized by aggregate or loop before use.
 - **other**: Learning discards the last move taken in a losing position, and an explicit guard resets that position's options when none remain, giving a specified fallback instead of silently altering results.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline, standard input and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a simple bind/unit composition over a small bounded integer record applied to four embedded values, so every check follows from subtype ranges and a Valid-flag guard before each operation.
 
-Position 604 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 604 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define a record Maybe_Int (Valid : Boolean; Value : Small_Int) with Unit and a B
 - **overflow**: Triple multiplies by 3 and Decrement subtracts 1, so the Integer ranges of the embedded values are bounded by a declared subtype and discharge from types alone.
 - **discriminant**: Maybe is a plain record with a Boolean Valid flag and a bounded value, avoiding discriminants, so no discriminant check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, arrays, for loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

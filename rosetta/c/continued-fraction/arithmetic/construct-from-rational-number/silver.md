@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared integer ranges and the while M2 /= 0 guard immediately before mod and division, and there is no recursion, function loop or annotation need, so proofs should discharge. The remaining effort is Silver surface (integers, ranged types, arrays, loops, Put and 'Image) rather than proof difficulty.
 
-Position 601 in the [progression](../../../../progression.md#stage-13), in stage 13.
+Position 601 in the [progression](../../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 18 numerator/denominator pairs in a constant array of records with a d
 - **division**: mod and / are discharged by the while M2 /= 0 loop condition, which holds just before each division.
 - **range**: Loop-carried M1 and M2 are assigned only values within their declared subtype range (the remainder lies within the bounds of the divisor's range), so the type alone covers them after the first iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

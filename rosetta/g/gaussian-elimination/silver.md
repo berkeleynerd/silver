@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing, loops and termination are routine, but floating-point loop-carried values need explicit magnitude and pivot guards with visible rejection outcomes, so discharge depends on careful program shape without needing annotations. Singular or overly large systems get a defined rejection rather than altered results.
 
-Position 1090 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1090 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Fixed 6x6 Real matrix and 6-element vector are embedded as constants, copied int
 - **range**: Row and column indexes come from for loops over the matrix's own constant range, and the pivot-row index is a variable of the index subtype, so index checks follow from types.
 - **overflow**: Assigning a result back into a range-restricted element needs the guard-before-store pattern, otherwise the subtype range check is unprovable after the first iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, multidimensional arrays, arrays, ranged subtypes, integers, for loops, procedures, Boolean objects and Put without a newline.
 

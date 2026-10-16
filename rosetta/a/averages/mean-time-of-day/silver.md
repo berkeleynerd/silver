@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All integer and string checks follow from subtypes and constants, but the proof hinges on floating-point trig sums and a rounding conversion being provably bounded, which needs careful guards and admitted Elementary_Functions contracts and no annotations.
 
-Position 874 in the [progression](../../../progression.md#stage-16), in stage 16.
+Position 874 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The four sample times are embedded as an array of seconds-of-day in a 0..86399 s
 - **overflow**: Seconds are held in a 0..86399 subtype and hour, minute and second digits come from division by constants, so the integer arithmetic is bounded by types.
 - **index**: Output characters are written to fixed positions 1..8 of an 8-character String from digit values in 0..9, so indexing and Character'Val range checks follow from the types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, floating point, arrays, for loops, procedures, string building and string indexing.
 

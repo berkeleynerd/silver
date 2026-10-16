@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain exact arithmetic plus a line-oriented expression parser, and every check can be bounded by range-limited rationals, capacity guards and an iterative evaluator in procedures, so no annotation is needed. The nonlinear cross-multiplication and parser state carried through loops make discharge depend on careful program shape, hence plausible.
 
-Position 1258 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1258 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Rationals are a record of range-limited numerator and positive denominator, norm
 - **index**: Stack pushes and line positions are guarded by explicit capacity and length tests that reject over-long or too deeply nested input with a specified message.
 - **range**: Digit accumulation in the number scanner is a loop-carried value, so each step is guarded against the declared limit before multiplying by ten.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, Put without a newline and standard input.
 

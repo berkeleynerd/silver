@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has a fixed small input and generates the order directly with integer arithmetic, so every check follows from a bounded subtype plus guards placed just before the operations, though the loop-carried current value needs careful guarding.
 
-Position 223 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 223 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Show (N : Limit_Range) walks 1..N in lexicographic order without sor
 - **range**: Dividing by 10 to step back up the tree can reach zero when n is below 10, so the step is guarded with cur >= 10 and the next-value step is skipped after the last element.
 - **termination**: The trailing-zero while loop sits in a procedure, which gets no termination check, and it halts anyway because each division by 10 shrinks the value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer arithmetic, fixed arrays and while loops inside procedures, so checks follow from ranged types and guards, but the many loop-carried list indexes and link updates make discharge depend on careful program shape.
 
-Position 646 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 646 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Polygons are fixed-capacity arrays of integer-coordinate point records with rang
 - **termination**: The traversal and visited-flag loops are while loops in procedures, which get no termination check, and bounded step counters stop cycles through broken links.
 - **other**: Degenerate cases (shared vertices, collinear or touching edges) must have a specified outcome such as rejecting the input, and integer rounding of intersection points changes geometry slightly and must be documented as the integer-grid contract.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions and 'Image of scalars.
 

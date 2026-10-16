@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded arrays, for loops and procedures with guards before each shift or index, so no annotation is needed, but the LCG arithmetic and length-tracking shifts need careful shape, hence plausible.
 
-Position 1192 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1192 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The sequence is a fixed-capacity array of a four-value Nucleotide enumeration (o
 - **index**: Random position is a mod of the generator output by current length, so it needs a guard that length is nonzero to avoid division by zero and out-of-range indexing.
 - **termination**: All loops are for loops or while loops inside procedures, so no termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, enumerations, arrays, records, string building, 'Image of scalars, case statements, for loops, while loops, procedures and Put without a newline.
 

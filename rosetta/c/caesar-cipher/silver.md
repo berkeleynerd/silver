@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index over the loop's own range or a Character'Val/mod computation bounded by constant types, with no loop-carried values, recursion or reading of input, so proofs should discharge routinely.
 
-Position 764 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 764 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant message String and a constant Key (a subtype range 1..25) are embedde
 - **range**: Character'Val needs its argument in 0..255, which follows because (x mod 26) + 65 lies in 65..90 or (x mod 26) + 97 lies in 97..122.
 - **overflow**: Character'Pos values are at most 255 and the key is a constant 1..25, so the sum before mod cannot overflow Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, for loops, functions and case statements.
 

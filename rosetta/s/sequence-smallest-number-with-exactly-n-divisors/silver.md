@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every check follows from subtype ranges and guards placed just before the operation, so the proofs should discharge with no annotations.
 
-Position 150 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 150 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Natural array Term(1..15) starts at zero; an outer for loop over candidates 1.
 - **overflow**: The divisor counter is a loop-carried value that only an invariant would bound by the candidate, so it is declared in a subtype 0..4096 and incremented only under an explicit count < 4096 guard, which never changes the true result because a number up to 4096 has at most 4096 divisors.
 - **index**: The table is indexed by the divisor count, so each store is guarded by count in 1..15 just before use, which discharges the index check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars and string building.
 

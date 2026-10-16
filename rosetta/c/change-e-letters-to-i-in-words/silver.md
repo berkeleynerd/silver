@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, range-typed indexes and explicit capacity guards, with the loops in procedures so no variant is needed, but it needs file input, string slicing and ordering that Silver lacks and careful guards on the search indexes.
 
-Position 1487 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1487 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program reads unixdict.txt line by line into a fixed-capacity array of padde
 - **termination**: The reading loop and the binary search are while loops placed in procedures, which get no termination check, and the per-word translation uses for loops.
 - **length**: Translated words are built in a bounded buffer whose length is checked against the stored word length before comparison, so slices stay within bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, string ordering, for loops, while loops, procedures, functions, Boolean objects, file input, Put without a newline and exit status.
 

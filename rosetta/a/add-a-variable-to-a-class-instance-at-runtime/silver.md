@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Excluded: the task needs members added to an existing class instance at run time (monkeypatching), and Ada/SPARK's static types cannot do that. The existing Ada solution also only imitates it, with a statically declared type extension that delegates to the original object through an access discriminant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, tagged types and string operations.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI, hardware.** The task requires an interactive windowed UI with hexagon widgets, mouse and keyboard selection, and colour changes. These are external effects Silver lacks (gui, hardware, stdin), not rule conflicts. A deterministic pseudo-random generator can supply the unique letters, and the state fits in bounded arrays of records.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, records, loops, subprograms, characters, enumerations, integers and floating point.
 

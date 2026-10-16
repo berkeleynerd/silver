@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is faithful with bounded arrays and explicit stacks in procedures, so every check is a guarded index or counter, but the size and number of loop-carried indices make discharge depend on careful program shape, and nothing needs an annotation.
 
-Position 1209 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1209 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the EBNF grammars and test sentences as String constants, tokenize each in
 - **stack**: Nested brackets and recursive grammar rules would need recursion, so the program uses a bounded explicit stack with a documented depth limit instead of recursive procedures.
 - **overflow**: Node and position counters are subtypes bounded by the pool and input capacity, so increments are guarded before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

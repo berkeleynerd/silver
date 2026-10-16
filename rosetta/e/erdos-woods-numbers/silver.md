@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype bounds and guards before mod, and loops sit in procedures so no variants are needed, but only the early terms fit a 64-bit bounded search, so the full 20 terms would need a big-number library.
 
-Position 246 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 246 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use a procedure Gcd with a while loop on subtype-bounded 64-bit integers, and a 
 - **range**: Loop-carried gcd values and the found-count are kept within their subtypes by the loop guards, since without invariants only type ranges are known after the first iteration.
 - **other**: Within the fixed limit on a, later terms (a exceeds 64 bits for the 20th) are not found, so the program reports as many as the bounded range allows, which the task explicitly permits for languages without arbitrary precision.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, 'Image of scalars and string building.
 

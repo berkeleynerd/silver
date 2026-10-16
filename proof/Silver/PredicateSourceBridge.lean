@@ -2,6 +2,10 @@ module
 
 public import Silver.PredicateSourceChecks
 public import Silver.IntegerLiteralSourceBridge
+public import Silver.LengthIntervalsSource
+public import Silver.ScalarExpressionSourceBridge
+public import Silver.ScalarEnvironmentSourceBridge
+public import Silver.ScalarsNativeSourceBridge
 public import Silver.PredicateEquations
 public import Silver.ComposeModel
 
@@ -20,6 +24,11 @@ open Compose
 structure CheckedSource : Prop where
   profile : SourceChecks.CheckedSource
   literals : IntegerLiteral.SourceBridge.CheckedSource
+  scalarExpressions : ScalarExpression.SourceChecks.CheckedSource
+  scalarEnvironments : ScalarExpression.EnvironmentSourceBridge.Checked Source.scalarExpressionSpecTokens
+  intervals : Integer.NativeSourceChecks.CheckedSource
+  stringIntervals : LengthIntervals.SourceBridge.ActualSource
+  stringBodies : LengthIntervals.SourceBridge.BodyInterpretation
   paths : PathFacts.SourceBridge.ActualSource
   pathBodies : PathFacts.SourceBridge.BodyInterpretation
   pathProjection : PathFacts.SourceBridge.ModelProjection
@@ -27,6 +36,11 @@ structure CheckedSource : Prop where
 theorem checked_source : CheckedSource where
   profile := SourceChecks.actualSource
   literals := IntegerLiteral.SourceBridge.checked_source
+  scalarExpressions := ScalarExpression.SourceChecks.checked_source
+  scalarEnvironments := ScalarExpression.EnvironmentSourceBridge.actual_source_checked
+  intervals := Integer.NativeSourceChecks.checked_source
+  stringIntervals := LengthIntervals.SourceBridge.actual_source
+  stringBodies := LengthIntervals.SourceBridge.body_interpretation
   paths := PathFacts.SourceBridge.actual_source
   pathBodies := PathFacts.SourceBridge.actual_body_interpretation
   pathProjection := PathFacts.SourceBridge.actual_model_projection
@@ -52,6 +66,7 @@ theorem interpreted_correspondence (calls : Implementation.Calls) (source : Inte
       calls.outer.assignment text = hasAssignment text ∧ calls.outer.output text = hasOutput text :=
   Implementation.correspondence calls
     (Compose.SourceBridge.interpreted_equations calls.outer.helpers source.helpers) source.definitions
+    (Compose.SourceBridge.interpreted_primitives calls.outer.helpers source.helpers)
     (interpreted_helpers calls source) text
 
 /-- GNATprove establishes the exact public wrapper postconditions included in

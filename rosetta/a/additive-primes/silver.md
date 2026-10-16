@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All bounds are small and static (N below 500, digit sum at most 22), so the checks follow from ranged types and a guard before the sieve write, and no loop invariant is needed.
 
-Position 209 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 209 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a Boolean array over 0..499 filled by a for-loop sieve (inner multiples adva
 - **index**: The sieve multiple N*P is guarded to be at most 499 before indexing, and the digit sum of a value in 2..499 is at most 22, so Prime(Sum) indexes safely when the array covers 0..499 or the sum is guarded.
 - **overflow**: Loop-carried Count and digit-sum accumulators are declared with ranged subtypes (Count 0..499, Sum 0..27), and the sieve product is bounded by P<=499 and N<=499 in Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars, Put without a newline, procedures and string building.
 

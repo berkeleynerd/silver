@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with nested for loops over static ranges needs only range-typed counters and mod with a loop-index divisor, so every check follows from types and one visible guard; only output formatting needs new library surface.
 
-Position 154 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 154 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A main procedure loops N over 1 .. 100 and an inner for loop D over 1 .. N count
 - **overflow**: The divisor counter is bounded by the loop range (at most 100 increments) and typed as a small range subtype, so increments are guarded by the type's upper bound or a Count < limit check.
 - **division**: The mod divisor is the for-loop index over 1 .. N, whose type range excludes zero, so the division check discharges from the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

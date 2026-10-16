@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared digit and count ranges plus a carry-out guard, and no loop needs an invariant, but the nested carry loops and guarded counters need careful shape; floating point is avoided with embedded expected constants.
 
-Position 1378 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1378 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Two fixed-capacity little-endian decimal digit arrays (220 digits, each element 
 - **index**: The first-digit scan walks a for loop over the digit array's own range and keeps the highest nonzero digit found, so every index is within bounds by construction.
 - **floating point**: Avoided by embedding the expected Benford percentages as integer hundredths constants instead of computing log10, and computing actual percentages with integer division.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, big numbers, string building and 'Image of scalars.
 

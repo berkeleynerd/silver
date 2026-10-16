@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every arithmetic check follows from subtype ranges of limb, prime and carry, and the only loop-carried quantity needing a guard is the used-limb count, so no annotation is needed, though the roughly 3e9 limb operations and the big-number shape make careful program structure necessary.
 
-Position 1390 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1390 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Sieve of Eratosthenes over a fixed Boolean array up to 1,299,709 fills a 100,000
 - **termination**: The sieve and prime-collection while loops live in procedures, which get no termination check, and the multiplication loops are for loops.
 - **overflow**: The sieve's multiple stepping (x*x and x+step) is guarded against exceeding the fixed sieve limit before each use, and a prime count that stays within the prime table must be guarded before storing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, big numbers and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed capacities, bounded year digits and guards before each index, with no variant or invariant needed, but the parsing and sort loops need careful shape and a file-line-reading library operation must exist.
 
-Position 1363 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1363 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Read up to 32 lines of at most 80 characters from table.txt into a fixed array o
 - **length**: Lines are stored in fixed 80-character buffers with a length field and printed as slices, so over-long lines must be rejected explicitly before storing.
 - **index**: The insertion sort over a fixed-capacity table uses while-loop indices and a j-1 step, discharged by a guard on j > 1 and by declared index subtypes, and it lives in a procedure so no termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, unconstrained arrays, string indexing, text parsing, for loops, while loops, procedures, functions, Boolean objects, file input and exit status.
 

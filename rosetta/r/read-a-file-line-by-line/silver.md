@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a simple read-and-echo loop whose checks follow from a bounded buffer and library contracts, with no loop-carried arithmetic. The plausible rating reflects the not-yet-existing file-input library and the over-long-line and open-failure handling that must be specified.
 
-Position 1330 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1330 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program has a Main procedure that opens a fixed, embedded file name through 
 - **termination**: The read-until-end-of-file loop must be a while loop inside a procedure, since procedures get no termination check and functions would.
 - **other**: The program depends on an admitted file-reading library with specified failure outcomes for a missing or unreadable file and for end of file, which Silver does not yet have.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, procedures, while loops, for loops, string building, file input and standard input.
 

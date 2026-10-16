@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a diamond drawing in the language, text art satisfies it, and a sequence of Put_Line calls on literals needs nothing beyond today's Silver and generates no run-time checks.
 
-Position 18 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

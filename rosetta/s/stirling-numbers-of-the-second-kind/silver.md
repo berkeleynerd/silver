@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for-loop ranges over a fixed 13x13 table and the largest entry (1379400) is small, so the only non-routine checks are the loop-carried overflow guard and padded-text formatting, none needing an annotation.
 
-Position 687 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 687 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Hold S2 in a 13 by 13 array of a ranged subtype, set the diagonal to 1, then fil
 - **index**: Indexes n+1 and k-1 are safe because the for-loop ranges (n in 0..11, k in 1..12) are written to stay inside the 0..12 array bounds.
 - **length**: Padded output lines are built in a fixed-size buffer whose size must be shown sufficient for 13 columns of width 12 plus the row label, with each image's width guarded before copying.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, Put without a newline and string building.
 

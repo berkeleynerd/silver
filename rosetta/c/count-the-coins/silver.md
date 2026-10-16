@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a static bound or a guard just before the operation, but the loop-carried Counter additions need explicit overflow guards, so discharge depends on program shape. The 64-bit range holds the optional answer, so no big-number support is needed and nothing needs an annotation.
 
-Position 907 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 907 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A ranged Counter type (0 .. 2**63-1) holds a ways-array Cnt over 0 .. 100_000 wi
 - **index**: Index A - Coin is safe because the guard Coin <= A and the positive Coin constant lie just before the access, with A ranging over the array's own range.
 - **range**: Goal and coin count are fixed constants within the 0 .. 100_000 array bound and the 6-element coin table, so every subscript follows from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and conditional expressions.
 

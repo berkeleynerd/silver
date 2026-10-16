@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and shift is bounded by array types and explicit guards before use, and the loops sit in procedures, so no annotation is needed, though loop-carried positions need careful bounded subtypes.
 
-Position 1014 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1014 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the texts and needles as String constants and write one procedure that bui
 - **overflow**: Start position and shift values are loop-carried, so they are held in bounded subtypes and each advance is guarded against the haystack length before the add.
 - **termination**: The scanning while loop lives in a procedure, which gets no termination check, and each iteration advances start by at least one.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

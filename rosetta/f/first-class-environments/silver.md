@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Plain Ada record values meet the task's idea of a first-class environment, and every check is routine apart from the two loop-carried increments. Explicit guards placed just before those increments discharge them, and the unbounded while loop is in a procedure, so no annotation is needed.
 
-Position 620 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 620 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each environment is a record with Value and Count components, which Ada can cons
 - **termination**: The outer while loop runs until every environment reaches 1, and it sits in the Main procedure, where GNATprove issues no termination check.
 - **initialization**: The array of environment records is fully initialized by an aggregate or a for loop over its own range before the first round, which flow analysis accepts when written as a single aggregate.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

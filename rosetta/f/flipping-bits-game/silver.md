@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result follows from declared ranges, for-loop index ranges or a validation guard placed just before use, and the game and retry loops live in procedures so no variant is needed. The outlook is plausible rather than likely because of the LCG multiplication and the guarded loop-carried move counter and input handling.
 
-Position 1242 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1242 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program uses a fixed 3x3 Boolean array (rows 1..3, columns 'a'..'c'), a targ
 - **termination**: The play loop and the start-generation loop (retry until start differs from target) are while loops in procedures, which get no termination check.
 - **initialization**: Boards are fully assigned by for loops over their own index ranges before use, and the equality check is a function with for loops, which terminate on their own.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

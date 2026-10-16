@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index follows from for loops over the arrays' own ranges, but the float arithmetic carried across steps needs a guard before each loop-carried operation, so the proofs hinge on careful program shape rather than annotations.
 
-Position 1109 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1109 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Three bodies are held in fixed-size arrays of records with mass, position and ve
 - **overflow**: Squaring and cubing coordinate differences is nonlinear, so the provers need position bounds tight enough that the cube of the distance stays within the float range, which the guarded ranges supply.
 - **floating point**: Square root must come from an admitted library operation with a contract on its input range, otherwise its result bound cannot be proved.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, floating-point images, 'Image of scalars, string building, Put without a newline, arrays, records, for loops, procedures, functions and conditional expressions.
 

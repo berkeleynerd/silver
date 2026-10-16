@@ -1,0 +1,65 @@
+{
+  "template_file_sha256": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b",
+  "templates": {
+    "String": {
+      "result": "exact constructor-tree and canonical-byte parity; IDs alone normalized",
+      "declarations": 15,
+      "includes": 8,
+      "canonical_bytes": 5618,
+      "canonical_sha256": "f98344dca9b6fc097bbcde99d0cf95947237bf0231db7523b8410494eda6545b",
+      "serialized_node_occurrences": 147,
+      "max_decoded_string_bytes": 79,
+      "max_number_with_zeroed_ids": 4,
+      "node_kinds": {
+        "W_BINDER": 3,
+        "W_CLONE_DECLARATION": 1,
+        "W_CLONE_SUBSTITUTION": 11,
+        "W_EFFECTS": 2,
+        "W_FUNCTION_DECL": 3,
+        "W_IDENTIFIER": 11,
+        "W_INCLUDE_DECLARATION": 8,
+        "W_LITERAL": 2,
+        "W_META_DECLARATION": 8,
+        "W_MODULE": 19,
+        "W_NAME": 53,
+        "W_RECORD_ACCESS": 1,
+        "W_RECORD_BINDER": 1,
+        "W_RECORD_DEFINITION": 1,
+        "W_THEORY_DECLARATION": 1,
+        "W_TRANSPARENT_TYPE_DEFINITION": 2,
+        "W_TYPE": 17,
+        "W_TYPE_DECL": 3
+      }
+    },
+    "Image": {
+      "result": "exact constructor-tree and canonical-byte parity; IDs alone normalized",
+      "declarations": 5,
+      "includes": 4,
+      "canonical_bytes": 8343,
+      "canonical_sha256": "e3fc2d6f39f8f7f69967e2ccc46d86882cf2f2fb339b20dbf6bb7778820fc495",
+      "serialized_node_occurrences": 265,
+      "max_decoded_string_bytes": 87,
+      "max_number_with_zeroed_ids": 4,
+      "node_kinds": {
+        "W_AXIOM": 3,
+        "W_AXIOM_DEP": 3,
+        "W_BINDER": 9,
+        "W_CALL": 12,
+        "W_CONNECTION": 1,
+        "W_EFFECTS": 2,
+        "W_FUNCTION_DECL": 2,
+        "W_IDENTIFIER": 40,
+        "W_INCLUDE_DECLARATION": 4,
+        "W_INTEGER_CONSTANT": 2,
+        "W_LITERAL": 4,
+        "W_MODULE": 33,
+        "W_NAME": 90,
+        "W_THEORY_DECLARATION": 1,
+        "W_TRIGGER": 3,
+        "W_TRIGGERS": 3,
+        "W_TYPE": 50,
+        "W_UNIVERSAL_QUANTIF": 3
+      }
+    }
+  }
+}

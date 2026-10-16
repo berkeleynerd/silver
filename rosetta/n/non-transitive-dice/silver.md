@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every die is a 4-element array over a 1..4 subtype and all loops are bounded for loops over fixed 35-entry ranges, so index and range checks follow from types and the only loop-carried values (counters) are guarded just before use.
 
-Position 679 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 679 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Enumerate the 35 sorted dice with four nested for loops (b in a..4, c in b..4, d
 - **index**: The die count and result counts are loop-carried, so each store into the 35-entry die table or the fixed-capacity result tables is guarded by a capacity test just before the write, and the capacities are sized for the known 35 dice, 3 triples and 4 quadruples with spare room.
 - **termination**: All iteration is bounded for loops inside procedures (face enumeration with a <= b <= c <= d, the 4x4 comparison, and the 35^3 and 35^4 index loops), so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures, functions, Put without a newline, 'Image of scalars and string building.
 

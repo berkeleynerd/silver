@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed-size arrays, bounded index subtypes and while loops inside procedures, so no annotation is needed, but the loop-carried indices need guards before each use to discharge without invariants.
 
-Position 238 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 238 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the ten values in a constant array of Integer indexed by a 0..9 subtype, a
 - **range**: Updates such as lo := p + 1 and hi := p - 1 are guarded by p < Index'Last and p > Index'First, with the empty-range cases handled as an exit from the selection loop.
 - **termination**: The selection and partition loops sit in procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

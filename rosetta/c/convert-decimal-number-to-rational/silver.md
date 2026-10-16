@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and guards before each accumulation, and the only loops with loop-carried state are for loops or a gcd while loop inside a procedure, so no annotation is needed, though the guarded parse and string building need careful shape.
 
-Position 1136 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1136 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the three example decimals as String constants ("0.75", "0.9054054", "0.51
 - **range**: The loop-carried accumulator and scale carry no invariant, so they are typed with ranged subtypes (digit count 0..17, value 0..10**17) and guarded before each update.
 - **length**: Output text is built in a fixed-size buffer sized for two 18-digit numbers plus separators, with the scalar image lengths bounded by the ranged types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops and procedures.
 

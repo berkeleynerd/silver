@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Bijective numeration needs only bounded integer arithmetic and loops, with every overflow and capacity check dischargeable by a guard just before the operation and a visible rejection outcome, but the loop-carried accumulator and output-buffer building make it depend on careful program shape. The "arbitrarily large" requirement is met only up to a documented fixed bound, which the Oracle permits as a resource limit.
 
-Position 413 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 413 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Lists are held as a fixed-capacity array of elements in 1..M plus a length, and 
 - **termination**: The unrank while loop is inside a procedure so no termination check is generated, and it is also bounded by the capacity guard.
 - **length**: Building output lines of computed length in a bounded buffer needs explicit capacity guards before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

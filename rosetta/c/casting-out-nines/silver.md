@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared subtypes, the accumulator is reduced each step so no loop invariant is needed, and loops are for loops over fixed ranges, so every check follows from types and simple guards.
 
-Position 349 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 349 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embedded constants set the range 1..100 and bases 10 and 16; function Co9 (value
 - **termination**: Digit extraction uses a for loop over a fixed maximum digit count (10 iterations) rather than a while loop, so no variant is needed even if co9 is a function.
 - **division**: Division by Base-1 is safe because Base is a subtype declared as 2..16 so Base-1 is at least 1, and the percentage divides by a count that is guarded to be nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can follow from declared ranges and guards placed just before use, but several loop-carried values (word count, letter counters, line length) each need an explicit guard and file failure needs a specified outcome, so discharge depends on careful program shape rather than annotations.
 
-Position 1336 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1336 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A procedure reads unixdict.txt line by line in a while loop into a fixed-capacit
 - **range**: The stored-word count is loop-carried across the file-reading while loop, so appending needs a guard against the fixed capacity just before the store.
 - **other**: Opening or reading the word file can fail, so the program needs an admitted file library with specified failure outcomes and must report a missing file visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string building, for loops, while loops, procedures, functions and file input.
 

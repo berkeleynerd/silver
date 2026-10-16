@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check (loop bounds, buffer index, Character'Val-free arithmetic) follows from the subtype ranges and a for loop over a static range, so proofs should discharge without annotations. The only new Silver surface is Character subtypes, for loops and String indexing, with no recursion, no floating point and no loop-carried values.
 
-Position 480 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 480 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare subtypes Lower and Upper as Character ranges 'a'..'z' and 'A'..'Z', and 
 
 - **index**: Each buffer index is computed from the loop character's position minus the position of the range's first letter, which is safe because the loop variable is typed to the subtype Lower or Upper so the index lies in 1..26.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, for loops, arrays, string indexing and integers.
 

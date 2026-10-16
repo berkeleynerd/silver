@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a bounded backtracking count that converts to an iterative procedure with fixed arrays, so all checks follow from ranged types and guards just before each access, though loop-carried indexes and the counter need careful guards. No annotation is required and the only effect is console output.
 
-Position 836 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 836 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a fixed list of rectangle sizes up to 10x10 and, for each, run an iterativ
 - **termination**: The depth-first search runs as a while loop inside a procedure, which gets no termination check, and no function contains a loop.
 - **stack**: The recursive search is replaced by an explicit fixed-capacity stack sized to the grid cell count, so no recursion depth depends on input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, case statements, 'Image of scalars, string building and Put without a newline.
 

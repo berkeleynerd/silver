@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and sum is bounded by ranged subtypes (the 100th term is 27219, so the 30000 limit is sufficient) and the loops run in a procedure, so no annotation is needed, though the loop-carried candidate and count depend on guards and the bounded output buffer needs careful shaping.
 
-Position 236 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 236 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a Boolean array Seen(1..60000) of sums already used and an array of 100 ter
 - **termination**: The search loop lives in a procedure, so no termination check arises, and it is bounded by the 100-term count and candidate limit anyway.
 - **length**: Joining the numbers into an output line needs a bounded buffer sized for 30 terms of at most 5 digits plus separators, with a guarded append position.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars, string building, Put without a newline and procedures.
 

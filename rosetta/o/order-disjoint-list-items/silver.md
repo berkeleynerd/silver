@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over fixed array ranges and all indexes come from subtype ranges or guards just before use, so no annotations are needed; only the loop-carried counters need routine guards.
 
-Position 617 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 617 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Words are fixed-length 3-character padded Strings held in a record with a fixed-
 - **index**: The write cursor for the output line and the next-N counter are loop-carried, so each gets a guard (capacity check and count check) immediately before its array or slice use.
 - **range**: The Count fields and N index live in subtypes bounded by the fixed capacity, and increments are guarded so the new value stays within the subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, while loops and procedures.
 

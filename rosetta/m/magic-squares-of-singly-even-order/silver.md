@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size for-loop and mod arithmetic over small declared ranges, so index and range checks follow from types, but the loop-carried Siamese position and swap indexes need careful subtyping, hence plausible rather than likely.
 
-Position 693 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 693 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Fixed n=6 with a 6x6 array of subtype 1..36; build the 3x3 odd magic square by t
 - **range**: Cell values are computed as base + offset*9 from loop indexes with small declared ranges, so the results stay inside the 1..36 element subtype by static range reasoning.
 - **length**: Each output row is assembled in a fixed 18-character buffer, padding each 'Image of a 1..36 value to width 3, so the bounded-string length checks follow from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

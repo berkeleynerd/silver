@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task counts files by size bucket across a directory tree. This needs only directory listing and metadata, an optional argument and text output. Buckets can be computed with integer comparisons against powers of ten, and traversal can use an explicit bounded stack, so nothing conflicts with the Oracle rules. A missing or invalid directory gets a specified message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, loops, subprograms, string operations and enumerations.
 

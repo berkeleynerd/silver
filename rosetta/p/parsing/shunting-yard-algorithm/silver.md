@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or length bound on small ranged counters that an explicit guard before each push, pop or append makes provable, and the while loops live in procedures so no variant is needed.
 
-Position 572 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 572 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The infix input is an embedded String constant scanned by a for loop over its in
 - **length**: Trace lines are assembled in fixed-capacity buffers with a length guard before each append, and overflow leads to a specified rejection.
 - **termination**: The popping loops are while loops inside a procedure, which get no termination check, and the token scan is a for loop over the constant string's range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

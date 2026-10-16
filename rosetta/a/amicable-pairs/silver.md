@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds, subtype ranges and guards placed just before use, but the loop-carried divisor-sum accumulator needs a cap guard to avoid overflow, so success depends on careful program shape.
 
-Position 162 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 162 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A constrained array Sums (2 .. 19_999) of a ranged integer subtype holds the pro
 - **index**: The partner M read from the sums array is used as an index only after an explicit guard that M is within 1 .. 19_999, so the access follows from a condition just before use.
 - **range**: Assigning the capped accumulator into the array element type and converting the loop index to the sum type are discharged by the declared subtype ranges and the cap guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops and 'Image of scalars.
 

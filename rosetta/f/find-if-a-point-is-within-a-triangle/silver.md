@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is loop-free integer arithmetic on bounded coordinates, so every overflow check discharges from the subtype ranges alone. The only deviation from the task's real coordinates is a documented integer-coordinate bound, which the Oracle permits as an explicit resource limit.
 
-Position 595 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 595 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Points and triangles are records of range-bounded integer coordinates, and a non
 
 - **overflow**: Coordinates are a subtype bounded to a documented range such as -1000..1000, so the cross-product terms stay far below the Integer limits and the checks follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, functions, records, 'Image of scalars and Put without a newline.
 

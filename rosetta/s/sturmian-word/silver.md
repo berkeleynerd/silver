@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer arithmetic with ranges set by declared limits, and the only loop-carried hazards (buffer position, search bounds) are covered by types and explicit guards, so no annotation is needed, but the nonlinear square-root search needs careful range shaping.
 
-Position 566 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 566 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the data (m=13, n=21, and a=5, b=1, m=-1, n=2 with k=32) as constants of d
 - **termination**: The integer square root uses a binary search while loop inside a procedure, which gets no termination check, and the other loops are for loops.
 - **index**: The output buffer index is a loop-carried value that is guarded by a capacity check before each append of one or two characters, since no invariant can be written.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

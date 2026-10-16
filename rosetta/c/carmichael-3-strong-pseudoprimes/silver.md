@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from loop-index ranges and small declared subtypes, with only nonlinear products and quotients needing interval propagation, and all loops are for loops so no variant is needed.
 
-Position 380 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 380 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a ranged integer type (0 .. 2**40) and a function Is_Prime doing for-loop tr
 - **range**: Assigning P2 and P3 into ranged subtypes needs the provers to bound quotients using D>=1 and H3>=1, which follows from the loop-index ranges but depends on careful typing.
 - **division**: The divisors D, H3 and P1-1 are nonzero because loop indexes start at 1 and P1 is at least 2.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only bounded for loops, mod and division by a nonzero loop index, and a range-limited counter are involved, so every check follows from types and a guard just before the increment.
 
-Position 149 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 149 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A single Main procedure uses a Positive range subtype 1 .. 20_000 for N and a fo
 
 - **overflow**: The loop-carried divisor count and best-so-far values are declared with a range of 0 .. 20_000 and the increment is guarded by a comparison against that bound, so the addition cannot overflow without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, string building, Put without a newline, for loops and procedures.
 

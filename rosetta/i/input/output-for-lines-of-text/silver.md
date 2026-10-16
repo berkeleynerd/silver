@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a ranged count subtype, a fixed-capacity line buffer with library-reported length and status, and a for loop that needs no invariant, so proofs should discharge once Silver gains the stdin line-reading and number-parsing operations.
 
-Position 1216 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1216 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ An admitted stdin library procedure reads the first line into a bounded buffer, 
 - **range**: The parsed count is validated into a bounded subtype (for example 0 to 1000) before the for loop, with a visible rejection otherwise, so the loop bounds are type-safe.
 - **length**: Each line is read by an admitted library operation into a fixed-capacity buffer with a length and status, and over-long or missing lines (end of input) are rejected visibly so the echo procedure only sees valid lengths.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, text parsing, string building, for loops, procedures and standard input.
 

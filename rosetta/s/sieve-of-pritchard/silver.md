@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexes are bounded by Limit-ranged subtypes and explicit comparisons, so checks should discharge without annotations, though several loop-carried values need careful typing and guarding.
 
-Position 918 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 918 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed Limit = 150 and keep the wheel as a Boolean array indexed 1..Limit, with s
 - **range**: Assigning np, prime and nlimit back into narrow subtypes needs a guard such as the min of step*prime and Limit computed with an if before the assignment.
 - **termination**: The while loops live only in the Main procedure, which gets no termination check, and the real step count is still finite by construction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, conditional expressions, 'Image of scalars, string building and procedures.
 

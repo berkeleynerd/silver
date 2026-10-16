@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded buffer, a length guard placed just before the indexing, and a for loop over a fixed three-element range, while the while loop lives in a procedure so it needs no variant.
 
-Position 1321 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1321 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ A procedure opens unixdict.txt through an admitted file-input operation and loop
 - **index**: Indexing the last three characters is guarded by testing that the line length exceeds 5 just before the comparison, so Length-2 and the three offsets are in range.
 - **length**: Lines are read into a fixed-capacity buffer and a line longer than the capacity gets a specified rejection outcome rather than silent truncation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File input, integers, ranged subtypes, arrays, string indexing, string building, for loops, while loops, procedures, Boolean objects and Put without a newline.
 

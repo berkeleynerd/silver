@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded integer arithmetic, a range-typed LCG, and a for-loop-indexed histogram, with only the counter increments and the LCG update needing careful typing or guards, and the rejection loop living in a procedure so no variant is needed.
 
-Position 391 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 391 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program uses a deterministic 16-bit linear congruential generator over a ran
 - **termination**: The rejection loop is a while loop inside a procedure, which gets no termination check, so no variant is needed.
 - **floating point**: Using scaled integers (0..1023 with the V modifier as integer arithmetic) avoids floating point entirely, keeping faithful distribution shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

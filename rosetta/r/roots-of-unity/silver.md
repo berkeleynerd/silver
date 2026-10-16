@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from loop ranges and declared Float subtypes, but it depends on a library whose Sin and Cos contracts bound the results and on careful float-to-text formatting.
 
-Position 1057 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1057 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Nested for loops over N in 2 .. 10 and K in 0 .. N-1 compute the angle as a Floa
 - **division**: K / N is safe because N comes from a for loop over 2 .. 10 so it is never zero.
 - **overflow**: Float products stay tiny because all operands are in small declared ranges, so provers discharge them with range guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, for loops, procedures, floating-point images, 'Image of scalars, Put without a newline, integer division and string building.
 

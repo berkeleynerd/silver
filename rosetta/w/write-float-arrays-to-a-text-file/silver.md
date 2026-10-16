@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-size loop over constrained arrays, so index and initialization checks are routine, and the only non-routine parts are float range guards for Sqrt and the specified contracts of admitted float-formatting and file-writing operations, none of which need an annotation.
 
-Position 1430 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1430 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program holds x and y as constrained four-element arrays of a non-negative f
 - **length**: Each formatted line must fit a fixed-size bounded buffer, which is sized for the two formatted columns (about 40 characters) and checked against the formatter's specified maximum length.
 - **other**: Scientific notation such as 1e+011 for large values depends on a specified admitted float-to-text operation with precision and exponent behavior, which Silver does not yet provide.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, arrays, for loops, procedures, ranged subtypes, string building, file output, Put without a newline and integers.
 

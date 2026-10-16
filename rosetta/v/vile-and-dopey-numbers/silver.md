@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges, fixed-length for loops and arrays indexed by guarded counts, with no recursion and no annotations needed, so proofs should discharge routinely. The only care needed is keeping the loop-carried counters in wide types and avoiding a while loop inside the function.
 
-Position 360 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 360 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ An Is_Vile function takes a value in 1 .. 1024, runs a for loop of 11 steps that
 - **termination**: The trailing-zero parity test is a function, so it uses a for loop with a fixed 11 iterations and a done flag instead of a while loop that would need a variant.
 - **range**: Halving the loop-carried value inside the parity test is guarded by testing that it is even and nonzero immediately before dividing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

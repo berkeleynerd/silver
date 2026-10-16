@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are range or guard checks on indices and arithmetic, but the loop-carried matrix entries have no invariants, so each nonlinear operation needs an explicit magnitude guard with a visible rejection, which makes discharge plausible rather than likely.
 
-Position 760 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 760 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use the integral LLLHnf variant with Long_Long_Integer matrices of fixed maximum
 - **termination**: The LLL main loop is a while loop with no variant, which is acceptable only because it lives in a procedure and the rejection flag plus a documented iteration cap give a specified outcome.
 - **range**: Integer replacement of the floating-point Gram-Schmidt rounding must keep every intermediate in range, which is why the integral LLL variant is used and overflow is rejected rather than approximated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

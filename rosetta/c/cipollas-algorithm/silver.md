@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The five required cases have p at most 1000003, so all arithmetic fits in 64-bit integers with range-typed residues and for loops, and every check follows from types and mod; the 50-digit extra credit is omitted as optional.
 
-Position 798 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 798 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the five (n, p) pairs in a constant array of a record type, with residues 
 - **termination**: The exponentiation and the search for a use for loops over fixed bit counts and a bounded candidate range with exit, and the search is a procedure with an explicit not-found outcome, so no variant is needed.
 - **division**: Every mod and division uses the constant modulus p taken from the embedded table whose subtype excludes zero, so the divisor is provably nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, case statements, procedures, functions and 'Image of scalars.
 

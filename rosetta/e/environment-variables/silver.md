@@ -2,7 +2,7 @@
 
 **Excluded from Silver: environment.** The task is to read one environment variable and print it. A Silver program can do this with a guarded library lookup (check that the variable exists, then read its value, with a visible message when it is absent) followed by text output. Nothing in the task breaks an Oracle rule, so it can be included once Silver admits an environment-variable library operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

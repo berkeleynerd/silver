@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over declared ranges with embedded data, and the only subtle spot is keeping candidate indexes within the fixed value limit by an explicit guard with a visible failure outcome, so proofs should discharge without annotations.
 
-Position 905 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 905 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each sequence is a constant-length array of 1..30 terms over a subtype of values
 - **termination**: A procedure Shares_Factor (or a function using a for loop over 2..Limit) tests common divisors with mod, avoiding a Euclid while loop whose termination a function could not prove, and all other loops are for loops.
 - **other**: If no candidate is found within the fixed value limit, the generator sets an out Boolean failure flag and the program prints a visible 'limit exceeded' message instead of silently altering a term.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars, string building and conditional expressions.
 

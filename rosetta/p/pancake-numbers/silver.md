@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The search is bounded (at most 362880 states) and uses only for loops and a procedure-level while loop, so no annotation is needed, but the loop-carried rank arithmetic and large array indexing require carefully placed guards.
 
-Position 474 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 474 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -16,7 +16,7 @@ For each n from 1 to 9, run a breadth-first search over all n! permutations of a
 - **termination**: The breadth-first search uses a while loop inside a procedure, which gets no termination check, while rank and flip helpers use only for loops.
 - **range**: Unranking uses division and mod by factorial constants held in a constant array, so divisors are statically non-zero and quotients are bounded by the digit subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, procedures, functions, Boolean objects, 'Image of scalars, string building and Put without a newline.
 

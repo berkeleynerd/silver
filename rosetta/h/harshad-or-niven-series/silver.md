@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small bounded integers with mod and division, and the checks on loop-carried values (digit sum, candidate, divisor) can each be handled by type bounds and a guard just before use, with no annotations required.
 
-Position 229 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 229 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Digit_Sum (in Natural bounded subtype, out sum) loops over a fixed s
 - **range**: The candidate counter is incremented in a while loop, so it is kept in a bounded subtype with an explicit loop condition (candidate below a documented limit such as 100000) that leads to a visible rejection outcome if reached.
 - **termination**: The search loops live in procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, Put without a newline and Boolean objects.
 

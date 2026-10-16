@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation because all state lives in bounded arrays and ranged counters guarded before each use and all loops are while loops inside procedures, but the large amount of loop-carried game state means careful guard placement is needed.
 
-Position 1261 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1261 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program uses a record per card (color and kind enumerations), a 108-card dec
 - **termination**: The turn and round loops are while loops inside procedures, which get no termination check, so none is required, though a turn cap may be needed to bound play.
 - **initialization**: The deck, hands and discard arrays must be fully initialized by loops before use, which flow analysis can miss for partially filled arrays unless whole-array aggregates are used first.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, arrays, multidimensional arrays, records, case statements, for loops, while loops, procedures, functions, string building, 'Image of scalars, text parsing, Put without a newline and standard input.
 

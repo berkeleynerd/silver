@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops in a procedure over constant ranges, so only the floating-point math and float-to-index conversion need attention, and both are handled with bounded types and explicit guards before use. Floating-point elementary functions are the only non-routine part, which makes discharge plausible rather than likely.
 
-Position 871 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 871 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a fixed 2D Character grid (about 60 columns by 30 rows) initialized to spac
 - **overflow**: Scale multiplications on floats stay far below the float limit because r, theta and the scale are bounded constants, so only the guarded integer conversion needs care.
 - **index**: Each grid write happens only after the row and column are tested against the array bounds just before the assignment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, floating point, arrays, multidimensional arrays, string indexing, string building, for loops, procedures and functions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged value types, guarded accumulation limits and a count guard before division, with no annotation needed. The main work is careful program shape for the loop-carried sum, count and text buffer, so discharge is plausible rather than routine.
 
-Position 1237 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1237 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A Main procedure loops with a while loop, reading one line at a time from stdin 
 - **division**: The division by the count is guarded by a check that at least one value was read, otherwise a 'no values' message is printed.
 - **index**: Building the decimal text of the average in a bounded buffer needs a position guard before each character is written, since the position is loop-carried.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, text parsing, 'Image of scalars, string building, string indexing, characters, while loops, procedures, standard input and Put without a newline.
 

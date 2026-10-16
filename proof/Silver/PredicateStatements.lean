@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateChecking
 public import Silver.SequenceSyntax
+public import Silver.IntegerIteration
 
 @[expose] public section
 
@@ -16,10 +17,11 @@ inductive Statement
   | simple (item : Sequence.SimpleStatement)
   | reject
   | choice (condition : Condition) (yes no : List Statement)
+  | forLoop (index : Nat) (reverse : Bool) (lower upper : Integer.Expr) (body : List Statement)
   deriving Repr
 
 def ExpressionReady (shape : Shape) (expression : Expression) : Prop :=
-  expression.Readable shape ∧ expression.LiteralsPrintable ∧
+  expression.StringReadable shape ∧ expression.LiteralsPrintable ∧
     expression ≠ [] ∧ expression.length ≤ maxExpressionOperands
 
 def SimpleWellFormed (shape : Shape) : Sequence.SimpleStatement → Prop
@@ -35,6 +37,7 @@ mutual
     | .choice condition yes no =>
         condition.Grammatical ∧ condition.Readable hasArguments shape ∧ yes ≠ [] ∧
           StatementsWellFormed hasArguments shape yes ∧ StatementsWellFormed hasArguments shape no
+    | .forLoop index _ _ _ body => index ≠ 0 ∧ body ≠ [] ∧ StatementsWellFormed hasArguments shape body
   termination_by item => sizeOf item
   def StatementsWellFormed (hasArguments : Bool) (shape : Shape) : List Statement → Prop
     | [] => True
@@ -85,73 +88,142 @@ theorem equalSummary_sound {context : Context} {left right : Summary} {length : 
           apply Interval.equal_sound (length := length) _ within
           simpa only [found, decide_eq_true_eq, Interval.Equal] using checked.1.2
 
-def checkAssignment (shape : Shape) (context : Context) (update : Assignment) : Bool :=
-  match shape update.target with
-  | some ⟨bound, true⟩ => fitsSummary context (update.value.summary shape) &&
-      equalSummary context (update.value.summary shape) bound.summary
-  | _ => false
+def equalLengthSummary (context : Context) (left : LengthSummary) (right : Summary) : Bool :=
+  if left.empty then
+    decide (right.dynamicCount ≠ 0 ∨ left.minimumLength ≤ right.staticLength)
+  else equalSummary context left.lower right && equalSummary context left.upper right
 
-def checkSimple (shape : Shape) (context : Context) : Sequence.SimpleStatement → Bool
+theorem equalLengthSummary_sound {context : Context} {left : LengthSummary} {right : Summary}
+    {inputLength actualLength : Nat} {valid rejected : Bool}
+    (allowed : context.Allows valid inputLength rejected)
+    (within : left.Contains inputLength actualLength)
+    (checked : equalLengthSummary context left right = true) :
+    actualLength = right.length inputLength := by
+  simp only [equalLengthSummary, within.1, Bool.false_eq_true, ↓reduceIte, Bool.and_eq_true] at checked
+  have lower := equalSummary_sound allowed checked.1
+  have upper := equalSummary_sound allowed checked.2
+  have low := within.2.1
+  have high := within.2.2
+  omega
+
+def checkAssignment (shape : Shape) (context : Context) (update : Assignment)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
+  match shape update.target, update.value.inferLength shape ranges with
+  | some ⟨bound, true⟩, some summary => fitsLengthSummary context summary &&
+      equalLengthSummary context summary bound.summary
+  | _, _ => false
+
+def checkSimple (shape : Shape) (context : Context) (item : Sequence.SimpleStatement)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
+  match item with
   | .null => true
-  | .assign update => checkAssignment shape context update
-  | .output expression | .put expression => fitsSummary context (expression.summary shape) && !context.invalidReachable
+  | .assign update => checkAssignment shape context update ranges
+  | .output expression | .put expression =>
+      match expression.inferLength shape ranges with
+      | some summary => fitsLengthSummary context summary && !context.invalidReachable
+      | none => false
+
+def loopContext (context : Context) (bounds : Integer.Interval) : Context :=
+  if bounds.isEmpty then Context.empty else context
+
+def loopAfter (before after : Context) (lower upper : Integer.Interval) : Context :=
+  if (Integer.loopBounds lower upper).isEmpty then before
+  else if Integer.loopDefinite lower upper then after else before.join after
 
 mutual
-  def Statement.check (shape : Shape) (context : Context) : Statement → Option Context
-    | .simple item => if checkSimple shape context item then some context else none
+  def Statement.check (shape : Shape) (context : Context) (item : Statement)
+      (ranges : Integer.Ranges := Integer.emptyRanges) : Option Context :=
+    match item with
+    | .simple item => if checkSimple shape context item ranges then some context else none
     | .reject => some context.reject
     | .choice condition yes no =>
-        if condition.checkBounds shape context then
-          (checkStatements shape (condition.refine shape context true) yes).bind fun afterYes =>
-            (checkStatements shape (condition.refine shape context false) no).map fun afterNo =>
+        if condition.checkBounds shape context ranges then
+          (checkStatements shape (condition.refine shape context true ranges) yes ranges).bind fun afterYes =>
+            (checkStatements shape (condition.refine shape context false ranges) no ranges).map fun afterNo =>
               afterYes.join afterNo
         else none
-  termination_by item => sizeOf item
-  def checkStatements (shape : Shape) (context : Context) : List Statement → Option Context
+    | .forLoop index _ lower upper body =>
+        (lower.infer ranges).bind fun a => (upper.infer ranges).bind fun b =>
+          let bounds := Integer.loopBounds a b
+          (checkStatements shape (loopContext context bounds) body
+            (Integer.put ranges index (some bounds))).map fun after => loopAfter context after a b
+  termination_by sizeOf item
+  def checkStatements (shape : Shape) (context : Context) (items : List Statement)
+      (ranges : Integer.Ranges := Integer.emptyRanges) : Option Context :=
+    match items with
     | [] => some context
-    | item :: rest => (item.check shape context).bind fun next => checkStatements shape next rest
-  termination_by items => sizeOf items
+    | item :: rest => (item.check shape context ranges).bind fun next => checkStatements shape next rest ranges
+  termination_by sizeOf items
 end
 
 /-- Successful completion must reject every reachable invalid-input path. -/
 def completed (context : Context) : Bool := !context.invalidReachable || context.invalidRejected
 
 theorem expression_safe_on_path {shape : Shape} {context : Context} {expression : Expression}
-    {input : Source} {valid rejected : Bool} (ready : ExpressionReady shape expression)
+    {ranges : Integer.Ranges} {integers : Integer.Store} {summary : LengthSummary}
+    {values : Values} {input : Source} {valid rejected : Bool}
+    (known : expression.inferLength shape ranges = some summary)
+    (state : Fits shape input values) (scalarState : Integer.Fits ranges integers)
     (allowed : context.Allows valid input.length rejected)
-    (checked : fitsSummary context (expression.summary shape) = true) :
-    SafeExpression expression shape input.length :=
-  ⟨ready.1, ready.2.1, ready.2.2.1, ready.2.2.2, fitsSummary_sound allowed checked⟩
+    (checked : fitsLengthSummary context summary = true) :
+    expression.RuntimeSafe values input integers :=
+  Expression.inferLength_runtimeSafe known state scalarState
+    (fitsLengthSummary_sound allowed (Expression.inferLength_sound known state scalarState).1 checked) (Nat.le_refl _)
+
+def executeAssignment (update : Assignment) (values : Values) (input : Source)
+    (integers : Integer.Store) : Values :=
+  put values update.target (update.value.evaluate values input integers)
 
 theorem assignment_checked_length {shape : Shape} {context : Context} {update : Assignment}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
     {values : Values} {input : Source} {valid rejected : Bool}
-    (ready : ExpressionReady shape update.value) (state : Fits shape input values)
+    (state : Fits shape input values) (scalarState : Integer.Fits ranges integers)
     (allowed : context.Allows valid input.length rejected)
-    (checked : checkAssignment shape context update = true) :
-    (update.value.evaluate values input).length = (values update.target).length := by
+    (checked : checkAssignment shape context update ranges = true) :
+    (update.value.evaluate values input integers).length = (values update.target).length := by
   unfold checkAssignment at checked
   split at checked
-  · rename_i bound target
+  · rename_i bound summary target known
     simp only [Bool.and_eq_true] at checked
-    have length := equalSummary_sound allowed checked.2
-    rw [Expression.evaluate_length state ready.1, (state update.target _ target).1]
-    rw [Bound.summary_length] at length
-    exact length
+    have within := (Expression.inferLength_sound known state scalarState).1
+    have equal := equalLengthSummary_sound allowed within checked.2
+    rw [(state update.target _ target).1]
+    simpa only [Bound.summary_length] using equal
+  · contradiction
+
+theorem assignment_checked_safe {shape : Shape} {context : Context} {update : Assignment}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
+    {values : Values} {input : Source} {valid rejected : Bool}
+    (state : Fits shape input values) (scalarState : Integer.Fits ranges integers)
+    (allowed : context.Allows valid input.length rejected)
+    (checked : checkAssignment shape context update ranges = true) :
+    update.value.RuntimeSafe values input integers := by
+  unfold checkAssignment at checked
+  split at checked
+  · rename_i bound summary target known
+    simp only [Bool.and_eq_true] at checked
+    exact expression_safe_on_path known state scalarState allowed checked.1
   · contradiction
 
 theorem assignment_preserves_on_path {shape : Shape} {context : Context} {update : Assignment}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
     {values : Values} {input : Source} {valid rejected : Bool}
     (ready : ExpressionReady shape update.value) (state : Fits shape input values)
+    (scalarState : Integer.Fits ranges integers)
     (printable : Bindings.Printable input) (allowed : context.Allows valid input.length rejected)
-    (checked : checkAssignment shape context update = true) :
-    Fits shape input (update.execute values input) := by
-  have equal := assignment_checked_length ready state allowed checked
-  intro index info found
-  by_cases same : index = update.target
-  · subst index
-    simp only [Assignment.execute, put_same]
-    exact ⟨equal.trans (state update.target info found).1,
-      Expression.evaluate_printable ready.1 ready.2.1 state printable⟩
-  · simpa only [Assignment.execute, put, same, ↓reduceIte] using state index info found
+    (checked : checkAssignment shape context update ranges = true) :
+    Fits shape input (executeAssignment update values input integers) := by
+  have equal := assignment_checked_length state scalarState allowed checked
+  unfold checkAssignment at checked
+  split at checked
+  · rename_i bound summary target known
+    intro index info found
+    by_cases same : index = update.target
+    · subst index
+      simp only [executeAssignment, put_same]
+      exact ⟨equal.trans (state update.target info found).1,
+        Expression.inferLength_printable known state printable ready.2.1⟩
+    · simpa only [executeAssignment, put, same, ↓reduceIte] using state index info found
+  · contradiction
 
 end Silver.Predicate

@@ -7,21 +7,44 @@ public import Silver.PredicateBodyReadings
 namespace Silver.Predicate
 open Compose Bindings PathFacts
 
+attribute [local irreducible] ScalarExpression.read
+
 mutual
   theorem statement_unique {text context scan left right first second}
       (a : StatementAt text context scan left first) (b : StatementAt text context scan right second) : left = right := by
     cases a with
-    | basic _ noIf reading _ =>
+    | basic _ noIf noFor reading _ =>
         cases b with
-        | basic _ _ other _ => exact (basic_unique reading other).1
+        | basic _ _ _ other _ => exact (basic_unique reading other).1
         | choice _ found => exact False.elim (found noIf)
+        | loop _ _ found => exact False.elim (found noFor)
     | choice _ found reading _ =>
         cases b with
         | basic _ noIf => exact False.elim (found noIf)
+        | loop _ noIf => exact False.elim (found noIf)
         | choice _ _ other _ =>
             obtain ⟨rfl, rfl, rfl⟩ := choice_unique reading other
             rfl
+    | loop _ noIf found reading _ =>
+        cases b with
+        | basic _ _ noFor => exact False.elim (found noFor)
+        | choice _ found => exact False.elim (found noIf)
+        | loop _ _ _ other _ =>
+            obtain ⟨rfl, rfl, rfl⟩ := loop_unique reading other
+            rfl
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loop_unique {text context scan leftLower rightLower leftUpper rightUpper leftBody rightBody first second}
+      (a : LoopAt text context scan leftLower leftUpper leftBody first)
+      (b : LoopAt text context scan rightLower rightUpper rightBody second) :
+      leftLower = rightLower ∧ leftUpper = rightUpper ∧ leftBody = rightBody := by
+    cases a with
+    | loop _ lowerRead upperRead _ bodyRead _ _ _ =>
+        cases b with
+        | loop _ otherLower otherUpper _ otherBody _ _ _ =>
+            exact ⟨(ScalarExpression.at_unique lowerRead otherLower).1,
+              (ScalarExpression.at_unique upperRead otherUpper).1, body_unique bodyRead otherBody⟩
+  termination_by (bodyRemaining text scan, 1)
 
   theorem choice_unique {text context scan leftCondition rightCondition leftYes rightYes leftTail rightTail first second}
       (a : ChoiceAt text context scan leftCondition leftYes leftTail first)

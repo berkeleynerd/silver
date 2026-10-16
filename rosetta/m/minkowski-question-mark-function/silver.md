@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be done with bounded integer arithmetic in procedures with capped loops and guards before each addition or multiplication, so no annotation is needed, but several loop-carried values need careful overflow guards.
 
-Position 420 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 420 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent numbers as bounded integer numerator/denominator pairs in a ranged sub
 - **range**: The inverse of a non-dyadic value such as -5/9 is approximated to a fixed number of bits (the 'is this really the exact inverse' question is answered by the stated precision), and the rational input is validated (denominator nonzero) before use.
 - **other**: phi and the root of 6x^2+14x+3=0 are irrational so cannot be held exactly; they are represented by integer convergents (Fibonacci ratios, and a bounded integer bisection), which approximates the task's 'don't worry about precision' allowance without floating point.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

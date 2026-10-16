@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer coordinates bounded by a declared range keep all dot-product and min/max checks inside Integer, and only for loops are used in functions, so no variants or invariants are needed.
 
-Position 902 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 902 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Convex polygons are fixed-capacity arrays of 5 integer-coordinate points (record
 - **overflow**: Coordinates are a subtype of -1000..1000, so edge components, dot products and running min/max stay far inside Integer and the loop-carried min/max are typed to a bounded Projection subtype that discharges without invariants.
 - **index**: The next-vertex index wraps with an explicit if on the array's last index, so every access is within the constant 1..5 bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, functions, procedures and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and loop bounds are static and the program is a procedure with only for loops, so the only non-routine obligations are float overflow and zero-pivot division, which explicit magnitude guards with a visible reject outcome can discharge without annotations. Float arithmetic in nested loops and float formatting make it plausible rather than likely.
 
-Position 1086 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1086 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A fixed 3x3 (constant N) example matrix is embedded and copied into an augmented
 - **index**: All indexes are for-loop variables over a fixed constrained subtype range, or a pivot row variable of that subtype, so they discharge.
 - **overflow**: Loop-carried float values only carry their type range after the first iteration, so each guard must be placed immediately before the operation rather than relying on earlier checks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, multidimensional arrays, for loops, procedures, floating-point images, Put without a newline and conditional expressions.
 

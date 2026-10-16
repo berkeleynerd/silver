@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes are subtype-ranged node, letter and pattern ids, the only while loop is in a procedure, and propagating match flags per pattern removes any need for output-link chasing, so only careful capacity guards on the counters are needed.
 
-Position 1549 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1549 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the five patterns and the text as String constants and build a bounded tri
 - **termination**: The BFS queue loop is a while loop kept inside a procedure so no termination check applies, and all other loops are for loops.
 - **initialization**: Transition, fail and match tables are fully initialized by aggregates or for loops before the BFS reads them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, Put without a newline and membership tests.
 

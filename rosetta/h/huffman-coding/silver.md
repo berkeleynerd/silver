@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the pointer tree and priority queue with index arrays and a linear-scan minimum search makes every check follow from ranged subtypes and guards, with only the loop-carried weights, counts and depths needing careful guarding and no annotations.
 
-Position 840 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 840 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the example string, counts character frequencies in a 256-ent
 - **index**: The code buffer is filled while walking leaf to root, so a guard on depth against the buffer capacity precedes each write and rejects the input if exceeded.
 - **initialization**: Parent, weight and active arrays are fully initialized with aggregates before the loops use them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, case statements, procedures and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control, delay.** The task is a looping or finite text spinner that cycles four ASCII frames with a 0.25 s delay and clears the previous frame, so it needs console output, terminal control and delay. Nothing in it breaks an Oracle rule, so it is a candidate once Silver gains those effects; a finite number of frames avoids any need for an endless loop or key-press polling.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, loops and enumerations.
 

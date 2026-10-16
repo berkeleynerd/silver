@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, but proof depends on floating-point Exp and Sqrt having bounded results and on guards that keep the iterates in a box, which makes discharge plausible rather than routine.
 
-Position 1066 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1066 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep x, y and the step size alfa as bounded Float variables inside a procedure; 
 - **division**: The step alfa/norm divides by the gradient norm, which is guarded by testing norm is above a small positive epsilon (norm at or below tolerance means converged) just before the division.
 - **termination**: The descent runs in a procedure with an explicit iteration cap, so no termination check applies and non-convergence has a specified outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, Boolean objects, functions, procedures, for loops, while loops and integers.
 

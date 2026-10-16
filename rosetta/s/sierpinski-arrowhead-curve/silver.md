@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded array indexing and small ranged counters with guards just before each write, and all loops sit in procedures as for loops, so nothing needs an annotation, though the loop-carried turtle position and buffer lengths demand careful guard placement.
 
-Position 1186 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1186 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build the arrowhead L-system string for a fixed order of 4 by iterative rewritin
 - **length**: L-system rewriting between two fixed-capacity character buffers guards each append against the capacity, reporting a visible error if the limit would be exceeded rather than truncating.
 - **overflow**: The symbol count and position coordinates are held in ranged subtypes small enough that increments are guarded and cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, enumerations, arrays, multidimensional arrays, string indexing, string building, case statements, for loops, procedures and Put without a newline.
 

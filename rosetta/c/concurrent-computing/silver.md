@@ -12,7 +12,7 @@ A library-level package declares three tasks, one per word, as Ravenscar/Jorvik 
 - **other**: Three tasks calling Put_Line on the same output are concurrent access to shared state, so Silver_IO would need to be an admitted synchronized operation, or output would need to go through a protected object, before flow analysis accepts it.
 - **overflow**: Turning the clock's seconds count into a delay in milliseconds is safe if the value is reduced with mod to a small ranged subtype before any multiplication.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, packages and tasking.
 

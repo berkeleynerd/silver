@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Using the precalculated pool avoids an unbounded rejection loop, every operand comes from small declared ranges or modular wraparound, and the only loop-carried value (the pool counter) is made safe by a guard placed just before its use, so all checks should discharge without annotations.
 
-Position 1275 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1275 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A subtype Coordinate covers -15 .. 15, and nested for loops collect every grid p
 - **division**: The random index uses 'Seed mod U32 (Pool_Count)' inside an 'if Pool_Count > 0' guard, so the divisor is provably nonzero, and the result plus 1 stays within 1 .. Pool_Count.
 - **overflow**: x*x + y*y is nonlinear, but with both operands in -15 .. 15 the sum is at most 450, and the generator uses a modular type that wraps by definition, so neither can overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, characters, arrays, string indexing and for loops.
 

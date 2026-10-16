@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges, for-loop indexes and a single guard before the accumulator addition, and no loop needs an invariant or variant, so proofs should discharge automatically.
 
-Position 333 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 333 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a bounded integer subtype for candidates 2..1_999_999 and a wide range ty
 - **overflow**: The D*D product in trial division is bounded because D is a for-loop index limited to 2..1414 so the square fits easily in Integer.
 - **termination**: Is_Prime uses only for loops with an exit, which terminate by construction, so no variant is required even inside a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions and 'Image of scalars.
 

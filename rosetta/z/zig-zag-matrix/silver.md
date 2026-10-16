@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the 1..5 index subtypes, the 0..24 element subtype and guards before each cursor step, with no recursion or functions with while loops, but the loop-carried cursors need careful guard placement. The program is plausible rather than likely for that reason.
 
-Position 909 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 909 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a constant Size of 5 and a 5 by 5 array of a 0..24 subtype, filled in a Main
 - **overflow**: The counter is a for-loop index bounded by 24 and stored in a 0..24 element subtype, so the store discharges from declared ranges.
 - **range**: Walking anti-diagonals with nested for loops and computing the cell from the diagonal and offset avoids loop-carried state but needs range guards on the computed row and column.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, Put without a newline, procedures and conditional expressions.
 

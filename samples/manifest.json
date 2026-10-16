@@ -940,6 +940,69 @@
           }
         }
       ]
+    },
+    {
+      "source": "for_loop_triangle.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "statement_sequence",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "literal_output",
+        "string_literal"
+      ],
+      "specification": "../language.md#scoped-finite-for-loops",
+      "expected": {
+        "stdout": "*\n**\n***\n****\n*****\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "for_loop_step.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "statement_sequence",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "integer_image",
+        "string_expression",
+        "expression_output",
+        "named_integer_constant"
+      ],
+      "specification": "../language.md#scoped-finite-for-loops",
+      "expected": {
+        "stdout": " 2\n 4\n 6\n 8\n 10\n",
+        "stderr": "",
+        "exit_status": 0
+      }
+    },
+    {
+      "source": "for_loop_countdown.adb",
+      "capabilities": [
+        "main_procedure",
+        "spark_mode_on",
+        "runtime_context",
+        "statement_sequence",
+        "for_loop",
+        "scalar_integer_literal",
+        "integer_expression",
+        "integer_image",
+        "string_expression",
+        "expression_output"
+      ],
+      "specification": "../language.md#scoped-finite-for-loops",
+      "expected": {
+        "stdout": " 10\n 9\n 8\n 7\n 6\n 5\n 4\n 3\n 2\n 1\n 0\n",
+        "stderr": "",
+        "exit_status": 0
+      }
     }
   ]
 }

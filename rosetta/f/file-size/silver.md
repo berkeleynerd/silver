@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task only needs to query the byte size of two named files (./input.txt and /input.txt) and print them, which requires a file-metadata effect and console output. A missing file can be reported as a specified outcome, so no fixed Oracle rule is violated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and string operations.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The only run-time checks are static initializations within declared ranges and images of static attribute values, so every proof obligation is trivial. The one open question is a language-policy one, not a proof one: whether Silver will also admit an explicit Size aspect, which is neither a pragma nor a contract, so no Oracle rule forbids it.
 
-Position 42 in the [progression](../../../progression.md#stage-3), in stage 3.
+Position 42 in the [progression](../../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 The program declares a few integer types whose ranges (for example 0 .. 1, 0 .. 255, -32_768 .. 32_767) set the minimum number of bits any object of the type must occupy, plus a variable of each type. Main then prints each type's bounds and its 'Size via 'Image with Put_Line, with no loops, arithmetic or guards needed. About 20 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes and 'Image of scalars.
 

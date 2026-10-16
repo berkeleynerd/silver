@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task needs two concurrent tasks, not processes, that communicate synchronously in both directions, and all of them must terminate cleanly. SPARK allows tasking only under Ravenscar/Jorvik, which forbid task termination, so no future Silver program could meet this requirement.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, loops, integers, string operations and packages.
 

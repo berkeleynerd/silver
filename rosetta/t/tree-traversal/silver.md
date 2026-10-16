@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no conflicts, since recursion and pointers can be replaced by array-backed nodes and explicit bounded stacks and queues in procedures, and the checks are index and capacity guards on loop-carried tops. Plausible rather than likely because several loop-carried stack and queue indices need careful guards and the postorder state logic is delicate.
 
-Position 831 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 831 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The tree is stored in arrays indexed by node number 1..9, holding Left, Right an
 - **termination**: The iterative traversals are while loops inside procedures, which get no termination check, so no variant is needed.
 - **length**: Output lines are built in a fixed-size buffer sized for 9 values plus label, with a guard before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, string building, 'Image of scalars, Put without a newline and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, for-loop indexes and guards before the sieve step and signature accumulation, with no annotation needed, but the loop-carried signature and sieve stride need careful guard placement.
 
-Position 388 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 388 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve of Eratosthenes into a constant-size Boolean array of 1_000_001 entries, t
 - **termination**: The while loops live only in procedures, which get no termination check, and the prime scan is a for loop over a static range.
 - **range**: The count of pairs and the output line buffer are given bounds large enough (count well under 1000) so subtype range and length checks follow from declarations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

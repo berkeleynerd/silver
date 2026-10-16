@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared range of N and the digit indexes, with a single guarded loop-carried Sum, so the proofs should discharge without annotations.
 
-Position 141 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 141 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant 10-entry array holds d**5 for each digit d, and a for loop runs N ove
 - **overflow**: The loop-carried Sum is the only unbounded accumulator, and an explicit guard before each addition rejects visibly if the limit would be exceeded, while the per-number digit sum is a loop-free six-term expression bounded by the table values.
 - **index**: The power table is indexed by digit expressions such as N mod 10 and (N / 10) mod 10 that are provably 0..9 from the non-negative range of N.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded nested for-loop enumeration with per-letter counts over embedded data, so every check follows from declared ranges and local guards without annotations, though the amount of guarded buffer and counter handling needs careful program shape.
 
-Position 750 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 750 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 50 states and the 5 fictitious names as padded fixed-length Character 
 - **length**: Output lines are assembled in a bounded buffer sized for four names plus separators, with each append guarded by the remaining capacity.
 - **termination**: Only for loops are used in procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, for loops, procedures and Put without a newline.
 

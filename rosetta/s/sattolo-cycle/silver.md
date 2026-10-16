@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array index subtypes, a reverse for loop with a nonzero modulus and a fixed-size output buffer, so no loop invariant is needed.
 
-Position 1277 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1277 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a constrained array of Integer (for example 11..22, plus a 52-element run)
 - **index**: Both swap indices lie in the declared index subtype because i comes from a reverse for loop over 1..Last and j is a mod result converted into a subtype whose range is guarded by j < i.
 - **length**: The output line buffer is fixed-capacity sized for 12 or 52 elements of at most 3 digits plus separators, so appends never exceed capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

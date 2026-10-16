@@ -2,7 +2,7 @@
 
 **Excluded from Silver: environment.** Included. The task only prints two host properties, and Ada exposes both as compile-time constants in package System (Word_Size and Default_Bit_Order). SPARK allows reading these constants, and doing so needs no run-time introspection, unsafe code or annotations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, enumerations and packages.
 

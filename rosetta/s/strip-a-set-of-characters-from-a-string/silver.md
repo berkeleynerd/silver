@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the constant strings' own ranges, and the only loop-carried value is the output count, which a bounded subtype and an explicit guard keep safe without any annotation.
 
-Position 501 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 501 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed the example text and the set "aei" as constants, build a Boolean Keep tabl
 
 - **index**: The write position Last is a loop-carried counter, so it is declared as a subtype with range 0..Max and guarded by Last < Max before each increment, which discharges index and range checks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures, Boolean objects and integers.
 

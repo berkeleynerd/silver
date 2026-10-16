@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain pointer rewiring that maps onto array indices with a null sentinel, so every check follows from index subtypes and guards placed just before each use. Traversal uses a bounded for loop over the pool, so no termination or loop-carried-value obligations arise.
 
-Position 1167 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1167 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent the list as a fixed-capacity array of node records (Data, Next, Prev) 
 - **index**: Links are indices into a fixed-capacity node pool with a Null_Link sentinel, so every dereference is guarded by an explicit not-null test and the index subtype covers the pool range.
 - **range**: The Insert procedure rejects a null anchor or null new link and a full pool with a visible outcome (reported by a printed message), so no index falls outside the pool.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, enumerations, arrays, records, procedures, functions, for loops, while loops, integers, Boolean objects, characters and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a modular type so no overflow or range check can fail, the only division is guarded by a nonzero test, and no loop needs an invariant since the for loop is fixed at ten iterations.
 
-Position 1270 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1270 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a 32-bit modular type and a function Next that computes c = x and (-x), 
 - **division**: The lowest-set-bit value c is the divisor, so the program guards that x is nonzero just before dividing and reports a specified rejection otherwise.
 - **overflow**: The sum x + c on a modular type cannot fail a check, and a guard that the sum is not smaller than x makes the wrap a visible rejected outcome instead of a silent wrong answer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integer division, for loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

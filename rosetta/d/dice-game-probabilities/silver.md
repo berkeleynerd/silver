@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact integer DP replaces the Monte Carlo of the existing solution, so there is no randomness or floating point, and all arithmetic stays well under 64 bits with guards just before each operation; the only non-routine parts are the loop-carried count accumulations and decimal formatting.
 
-Position 931 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 931 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute the exact distribution of dice sums by dynamic programming over a bounde
 - **division**: The divisor (total outcomes) is guarded non-zero before computing the scaled probability, and the product guard uses division by a count checked non-zero.
 - **length**: Decimal text is assembled in a fixed-size buffer whose length follows from the bounded digit count, with guards before each write.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded array and character work whose indexes follow from small subtypes and capacity guards, with no recursion or functions needing variants, so proofs should discharge routinely.
 
-Position 1446 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1446 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Keyword and message come from the first argument and an embedded example, with a
 - **range**: Letter-to-row/column lookups use a 1..5 subtype and a position array indexed by letter, so wraparound is computed with explicit if guards rather than mod on unbounded values.
 - **initialization**: The table and used-letter arrays are fully initialized by aggregates before the fill loop, and the fill count is guarded so the table is complete before any lookup.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, enumerations, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, case statements, procedures, functions, Boolean objects, integers, integer division, further arguments and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses for loops over fixed bounds in a procedure with integer-scaled frequencies, so the checks follow from ranged subtypes and mod 26 or key-length indexing, but the nested loops with loop-carried score sums need carefully sized subtypes and no annotation is required.
 
-Position 846 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 846 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The ciphertext (about 830 letters, whitespace pre-removed) is embedded as a Stri
 - **range**: Loop-carried running minimums and the best key length and shift need declared subtypes wide enough to hold their initial sentinel values, since no invariant can narrow them.
 - **division**: Mod by the key length and any normalisation by column size are safe only if the key length loop variable is a positive subtype and column counts are guarded against zero before dividing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, procedures, functions and case statements.
 

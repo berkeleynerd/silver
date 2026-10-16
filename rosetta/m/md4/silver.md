@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The single-block MD4 of a fixed 12-byte message is straight-line modular arithmetic inside for loops with constant tables, so every check follows from types and loop ranges and no annotation is needed.
 
-Position 1289 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1289 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed "Rosetta Code" as a constant String, copy its 12 bytes into a 64-byte padd
 - **range**: Hex digit selection uses a nibble value obtained by mod 16 and converted to a Character through a constant 16-entry digit table, so the index range holds by type.
 - **overflow**: All 32-bit word arithmetic uses a modular type where wraparound is defined and rotation is done by shifting with multiplication and division by powers of two, so no overflow check arises; only the rotate amounts need to be in a small subtype range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, characters, arrays, for loops, procedures, functions, string building, integers, integer division and Boolean objects.
 

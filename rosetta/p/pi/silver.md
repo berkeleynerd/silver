@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative fixed-array spigot arithmetic is bounded by declared ranges and local guards with no recursion or heap, so it plausibly proves, but the carried carry and nine-holding logic need careful guard placement and the task's run-forever requirement becomes a documented digit limit.
 
-Position 466 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 466 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses the Rabinowitz-Wagon spigot over a fixed-capacity array of rang
 - **index**: All array accesses use for-loop indexes over the array's own range, so they discharge without help.
 - **termination**: The held-back run of nines is handled in a procedure with a counted for loop, so no loop variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures and Put without a newline.
 

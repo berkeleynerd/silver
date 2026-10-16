@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, small ranged subtypes and for-loop indexes, and the non-structural fixpoint is placed in a procedure or bounded by a pass count so nothing needs an annotation. Nested loops with loop-carried counts and merge bookkeeping need careful shape, hence plausible rather than likely.
 
-Position 1190 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1190 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent an element as a Character subtype 'A'..'K' and a set as a Boolean arra
 - **index**: Set membership is a Boolean array indexed by an enumeration or 'A'..'K' subtype and sets are stored in a fixed-capacity array indexed by a bounded count, so indices are bounded by types and guards before each use.
 - **overflow**: The live-set count and write cursors are loop-carried values in a small ranged subtype and are guarded before each increment to stay within the fixed capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, enumerations, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars, integers, characters and string building.
 

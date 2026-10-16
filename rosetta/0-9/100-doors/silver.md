@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over the array's own range, a divisor that the loop range keeps in 1 .. 100, and constant-bounded image strings, with no loop-carried values.
 
-Position 115 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 115 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 Declare a subtype Door_Index range 1 .. 100 and a Boolean array over it initialised to False (closed), then run nested for loops over the pass number and door index, toggling the door with "not" when J mod I = 0. A final for loop prints each line as Door_Index'Image(I) & " is open" or " is closed" with Silver_IO.Put_Line using plain if statements. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and string building.
 

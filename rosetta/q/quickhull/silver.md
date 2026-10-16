@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursive algorithm can be turned into an iterative worklist in a procedure using bounded arrays and exact integer visibility tests, so only the final area sum uses floating point on bounded values. It is plausible rather than likely because many loop-carried indices and counters each need a guard and the program is large.
 
-Position 1121 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1121 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Store up to a fixed number of points as integer coordinate triples in a bounded 
 - **termination**: The face-processing while loop lives in a procedure so it needs no variant, but termination of the result is not proved and the loop is bounded by a counter of processed steps to guarantee it ends.
 - **division**: Point-to-plane distance divides by the normal magnitude, avoided by comparing the unnormalized integer dot product and rejecting degenerate (collinear or coplanar) inputs before any division.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, arrays, records, for loops, while loops, procedures, functions, floating-point images, 'Image of scalars, Put without a newline and integer division.
 

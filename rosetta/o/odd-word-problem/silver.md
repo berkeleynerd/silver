@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from character comparisons and a ranged depth counter guarded before each recursive call, but the task's no-collection rule forces recursion, which is acceptable only with an explicit depth limit and rejection of longer words. This makes the outlook plausible rather than likely, since stack use rests on that documented limit.
 
-Position 1565 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1565 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A Read_Char procedure fetches one character from stdin (with an end-of-input fla
 - **termination**: Only procedures are used (loops and recursion in procedures get no termination check), and the reading loop is guarded by end-of-input rejection, so no variant is needed.
 - **initialization**: The out parameter carrying the delimiter character back to the caller is assigned on every path through the recursive procedure.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, Boolean objects, ranged subtypes, integers, procedures, functions, recursive procedures, while loops, Put without a newline, standard input and exit status.
 

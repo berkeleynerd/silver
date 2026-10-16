@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Streaming output through unterminated Put means only a bounded line buffer is needed, and every index and length check is guarded by the returned line length, with no loop-carried arithmetic. It needs new stdin-line and Put library operations but no annotations, so proofs should discharge with careful shape around buffer bounds.
 
-Position 1351 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1351 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A single procedure streams stdin with a while loop until end of input, holding o
 - **termination**: The read-until-end-of-input loop lives in a procedure, which gets no termination check.
 - **initialization**: The in-record state flag and buffer must be initialized before the first line, which declarations can ensure.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, while loops, for loops, procedures, Put without a newline, standard input and exit status.
 

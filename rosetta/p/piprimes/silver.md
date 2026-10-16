@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic with static for-loop ranges and a guarded counter, so every check follows from types and guards. The main new needs are integers, mod, for loops, 'Image and Put without a line terminator.
 
-Position 1532 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1532 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A Main procedure runs a for loop over N in 2 .. 100 (after printing pi(1) = 0) a
 
 - **overflow**: The running prime count is a loop-carried value, so it is a subtype 0 .. 100 and the increment is guarded by a test that it is below 100, which the type range alone makes safe.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars, Put without a newline and block statements.
 

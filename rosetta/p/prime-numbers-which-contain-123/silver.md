@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a ranged array, ranged subtypes and guards placed immediately before each addition or index, and no loop needs an invariant because loop-carried values are either type-bounded or tested by the loop condition. Only the loop-carried counter and sieve step need a little care in program shape.
 
-Position 347 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 347 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A Boolean sieve array indexed 0..999_999 is filled by a procedure using a for lo
 - **index**: Sieve array indexes are protected by the loop condition j <= Limit and by for-loop indexes over the array's own range.
 - **termination**: All while loops (sieve stepping and digit stripping) live in procedures, which get no termination check, and functions contain only for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

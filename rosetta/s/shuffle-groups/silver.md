@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, fixed for-loop bounds and a few guards on loop-carried counters, with no recursion or heap use, so it is plausible rather than routine; the core task needs only values under about 1.5 million while the 10-digit exactly-4 stretch is both too slow and outside the chosen range.
 
-Position 844 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 844 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program loops n over a declared range (1000 up to about 1,500,000 for the st
 - **termination**: All loops are for loops over static ranges (a fixed 7 or 10 digit positions guarded by n > 0, candidates 1000..150000 and multipliers 2..9), so no variants are needed.
 - **length**: Output lines are concatenations of Image values and literals with a bounded maximum size, which must be sized so the bounded concatenation cannot exceed its limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars, string building and case statements.
 

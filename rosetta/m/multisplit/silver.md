@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged position subtypes, fixed capacities and guards placed just before each slice comparison, but several loop-carried positions need careful guards, so the outlook is plausible rather than likely.
 
-Position 1488 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1488 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The test string and the three separators are embedded as constants, stored in a 
 - **length**: Result arrays of pieces and separator records have fixed capacity, and a full table leads to a visible rejection message rather than truncation.
 - **termination**: The scanning loop is a while loop inside a procedure, which gets no termination check, and Pos increases on every iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, string indexing, string building, string ordering, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars and Boolean objects.
 

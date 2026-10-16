@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is small and bounded: all checks come from fixed array ranges, for-loop indexes, and guards on slice bounds and buffer room, with no recursion or annotations needed. The only care points are the loop-carried backtracking position and output buffer capacity, hence plausible rather than likely.
 
-Position 1022 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1022 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the dictionary (a, bc, abc, cd, b) as one constant String plus a constant 
 - **termination**: The backtracking while loop lives in a procedure, which gets no termination check, so no variant is needed.
 - **initialization**: The reachability and predecessor arrays are fully initialized by aggregates before the loops read them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

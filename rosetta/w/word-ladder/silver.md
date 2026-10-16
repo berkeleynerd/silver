@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays and nested for/while loops in procedures, so checks follow from range subtypes and capacity guards without annotations. The main uncertainty is the loop-carried queue and parent indexes plus the dictionary file-reading library operation, which needs specified failure outcomes.
 
-Position 1340 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1340 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Load the unixdict file through an admitted line-reading operation into a fixed-c
 - **termination**: The breadth-first search and path walk use while loops only inside procedures, which get no termination check, and the search is bounded by the visited marks anyway.
 - **initialization**: All arrays of words, parents and visited flags are fully initialized by loops or aggregates before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, procedures, functions, for loops, while loops, file input and Put without a newline.
 

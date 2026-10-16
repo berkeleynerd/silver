@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing floating point with exact integer fractions over 27720 and a deterministic bounded LCG makes every check follow from subtypes and for-loop bounds, with only the loop-carried counters needing careful guards.
 
-Position 1184 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1184 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Probabilities are exact integer numerators over 27720 (5544, 4620, 3960, 3465, 3
 - **range**: The draw is state mod 27720 so it lies in a declared subtype, and the cumulative-threshold scan uses a for loop over the item enumeration with the accumulated threshold typed to 0..27720.
 - **range**: Parts-per-million output scaling multiplies counts bounded by 1_000_000 by a constant, which fits in 64 bits via type bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, enumerations, arrays, records, for loops, while loops, 'Image of scalars, string building, procedures, functions and Put without a newline.
 

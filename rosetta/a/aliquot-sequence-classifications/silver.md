@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, loop-index bounds and a guard on the divisor-sum accumulator, but the loop-carried sum and bounded string assembly require careful program shape, and the optional 15355717786080 case is omitted.
 
-Position 416 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 416 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Terms are held in a 16-element array of a 64-bit subtype, with embedded input nu
 - **overflow**: The d*d test and n/d are nonlinear but are bounded because d is within a declared 24-bit-scale range and n is in a subtype capped at 2**47.
 - **length**: Each output line is assembled in a fixed buffer sized for 16 terms of up to 15 digits plus separators and the label, with index guards before every append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

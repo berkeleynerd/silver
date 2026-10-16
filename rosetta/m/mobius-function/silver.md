@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division with a for loop inside a procedure avoids function termination checks, and every value is bounded by declared subtypes, so all checks follow from types and loop ranges.
 
-Position 886 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 886 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Mobius (N : in Positive_Small; Result : out Mu_Range) uses a Value v
 - **range**: Value / P must stay within a 0..199 subtype after the first iteration; it does because Value is typed with that range and division by a positive P cannot increase it.
 - **overflow**: Negating a Result typed -1..1 is always in range, and a zero Result stays zero, so no loop-carried invariant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, Put without a newline and conditional expressions.
 

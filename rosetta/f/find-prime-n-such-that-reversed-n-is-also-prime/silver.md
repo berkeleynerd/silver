@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by a declared 0..999 subtype and fixed-range for loops, so overflow, range and termination checks follow from types and no invariants are needed.
 
-Position 884 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 884 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare subtype Small is Integer range 0 .. 999 and write a function Is_Prime th
 - **overflow**: The reversed value is computed with a fixed three-digit formula on a subtype 0..999, so every product and sum is bounded by the types and no loop-carried accumulator exists.
 - **termination**: Primality is tested by a for loop over the fixed range 2..31 inside a function, which terminates by itself and needs no variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars, Put without a newline, string building and conditional expressions.
 

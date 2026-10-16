@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer work over static-size arrays with for loops, so every check follows from types and constants and no loop invariant is needed. The task needs no input beyond embedded sample data, so only console output is required.
 
-Position 361 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 361 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a fixed-length constant array of integer waveform samples and a calibratio
 - **overflow**: The zero-crossing count times the sample rate stays in range because the sample array length and rate are static constants and the count is a for-loop accumulator typed to a subtype bounded by the array length.
 - **index**: The note lookup scans a constant 21-entry threshold array with a for loop over its own range and picks the note by a guarded comparison chain, so every index is statically in bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, Boolean objects, functions, procedures and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the recursive search with an explicit bounded stack in a procedure keeps every index and arithmetic check derivable from ranged types or an adjacent guard, so no annotation is needed, though the stack-depth and position guards require careful shape.
 
-Position 723 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 723 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The 7x6 puzzle is embedded as a constant mask in a 2D array of path numbers, and
 - **termination**: The search loop is a while loop inside a procedure, which GNATprove does not check for termination, and it is not claimed to be bounded.
 - **length**: Each printed row is assembled in a fixed-length buffer with a computed write position guarded by the buffer size, and path numbers 1..27 are split into two digits with / and mod.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The loop structure is simple and bounded by static ranges, but correctness needs big-number multiplication and modular exponentiation within fixed capacity, so discharge depends on a verified big-number library and careful carry guards rather than annotations. The twenty-term case needs about 1200-digit numbers and costly primality tests, so the ten-term version is the realistic target.
 
-Position 1397 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1397 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve primes below 3200 into a Boolean array, then keep a fixed-capacity digit-a
 - **termination**: All loops live in procedures (no termination check), and for loops are used where possible, so termination is not an obligation.
 - **range**: Capacity must be sized for the 20-term output (primorial of 457 primes is roughly 1200 digits), and exceeding it must lead to a specified rejection rather than a silent change.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, big numbers, Put without a newline, 'Image of scalars and string building.
 

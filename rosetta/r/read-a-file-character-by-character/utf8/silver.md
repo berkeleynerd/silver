@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Decoding UTF-8 is bounded integer arithmetic on bytes in a fixed buffer with explicit guards and a procedure-based loop, so every check follows from types and local guards. The only novelty is an admitted file-read operation, and invalid UTF-8 gets a specified rejection outcome.
 
-Position 1333 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1333 in the [progression](../../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program reads the named file once into a fixed-capacity byte array with a co
 - **overflow**: Accumulating across up to four bytes stays within Integer because each partial value is bounded by byte ranges and the factors are literals.
 - **other**: File contents must come from an admitted library read into a bounded buffer with documented capacity, and oversized files are rejected rather than truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, 'Image of scalars, case statements, for loops, while loops, procedures, functions, Put without a newline and file input.
 

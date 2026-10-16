@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and loops are for loops in procedures, so index and termination checks are routine, but floating-point log, sqrt and cos with accumulated sums need careful range guards for the provers to discharge the float overflow and domain checks. Outlook is plausible rather than likely because of the float-heavy arithmetic and float-to-index conversion.
 
-Position 1306 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1306 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -17,7 +17,7 @@ Embed a fixed-size sample array of Float (say 1000), fill it with a modular-type
 - **floating point**: Divisions by the sample count and the square root of a variance need guards showing the count is positive and the variance is nonnegative, which a nonlinear sum-of-squares loop makes hard for provers.
 - **termination**: All loops are for loops or live in procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, floating point, arrays, records, for loops, while loops, procedures, functions, string building, 'Image of scalars, floating-point images and Put without a newline.
 

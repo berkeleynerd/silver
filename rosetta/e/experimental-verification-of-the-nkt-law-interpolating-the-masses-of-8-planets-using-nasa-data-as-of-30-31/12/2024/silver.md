@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed 8-element for loop over embedded constants with only multiply, divide and subtract on bounded floats, so no annotations are needed, but the floating-point range and division-by-zero checks plus float-to-text output depend on careful bounded subtypes and guards.
 
-Position 1063 in the [progression](../../../../progression.md#stage-19), in stage 19.
+Position 1063 in the [progression](../../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the eight planets' names, x, v, NKTg1 and NASA mass as constant arrays of 
 - **overflow**: NKTg1 reaches 2e37 and masses reach 1.9e27, so the range subtype must be wide enough for these yet narrow enough that the quotient and difference stay finite, which needs careful choice of bounds.
 - **range**: Converting floating values to text through 'Image and bounded buffers needs a bounded string length, which fixed-size buffers and the float subtype range make checkable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, records, for loops, procedures, functions, integers, Boolean objects, conditional expressions, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter is bounded by the 64-character buffer or by the capped counter type, and the only loop-carried facts are a capped count and a Boolean flag whose safety follows from their types. Nothing needs an annotation, and the file-read failure and over-long-line cases have explicit rejection outcomes.
 
-Position 1320 in the [progression](../../progression.md#stage-24), in stage 24, which adds file input.
+Position 1320 in the [progression](../../progression.md#stage-23), in stage 23, which adds file input.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A main procedure opens unixdict.txt through an admitted file-input library opera
 - **length**: Lines are read into a fixed 64-character buffer with an explicit length, and a longer line takes a specified outcome (reject the input) so slices and indexes stay in bounds.
 - **termination**: The read-until-end-of-file while loop lives in a procedure, which gets no termination check, and the per-word scan is a for loop over the buffer's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, string building, integers, ranged subtypes, Boolean objects, for loops, while loops, procedures and file input.
 

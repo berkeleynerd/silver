@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is one prepend and one print on embedded literal data, so every length and index check follows from constants and a single guard before the copy. Silver already has bounded concatenation, so only a buffer with a computed length and slice printing are missing.
 
-Position 65 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 65 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Keep the variable as a fixed-capacity buffer (a String of capacity 32 plus a len
 
 - **length**: The result is built in a fixed-capacity buffer, so the program's literal sizes make the prepend fit statically and the length checks discharge from constants.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String building and Put without a newline.
 

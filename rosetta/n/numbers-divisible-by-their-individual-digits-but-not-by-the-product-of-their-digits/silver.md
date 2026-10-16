@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by types (N <= 999, digits <= 9, product <= 729) and every division is guarded by a nonzero test, with no loop-carried accumulator, so the checks should discharge from types and guards alone.
 
-Position 146 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 146 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A for loop runs N over 1..999 and splits N into hundreds, tens and units digits 
 - **division**: Each mod by a digit or by the product is preceded by an explicit nonzero guard that returns false for zero digits, so the check follows from the guard.
 - **overflow**: Digits are subtypes 0..9 and N is 1..999, so the product of at most three digits stays at most 729 with no loop-carried accumulator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and string building.
 

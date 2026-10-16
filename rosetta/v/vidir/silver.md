@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories, processes.** The task is a bulk file-renaming tool. It lists a directory to a text file, runs an external editor on it, then renames or deletes files to match the edit. None of this breaks an Oracle rule. It needs directory, file and process effects that Silver lacks today, and bounded string handling for parsing the edited lines. Invalid or mismatched edits can be rejected with a visible outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, loops, subprograms, arrays, records, integers and characters.
 

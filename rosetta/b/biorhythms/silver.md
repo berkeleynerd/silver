@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is integer over small declared ranges, mod results index tables of matching size, and there are no loops or recursion, so every check follows from types and one date-order guard. Floating point is avoided by tabulating the sine percentages, which keeps the output faithful to the task's example values.
 
-Position 366 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 366 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the birth and target dates as constants of ranged year, month and day subt
 - **index**: Each cycle position comes from mod 23, 28 or 33 into a subtype equal to the table's index range, so table lookups are statically in bounds.
 - **range**: The target date must not precede the birth date, so the program checks this just before subtracting and prints a specified rejection message otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, functions, procedures, 'Image of scalars and string building.
 

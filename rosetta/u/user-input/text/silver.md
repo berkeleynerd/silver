@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain console input of a string and an integer, and with an admitted bounded line reader and validating integer parser every check is a type or guard, so no annotation is needed.
 
-Position 1215 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1215 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A procedure Main prints a prompt with Put, reads one line into a fixed-capacity 
 - **range**: Parsing the integer line is discharged by an admitted validating parse operation that reports failure, and invalid input is rejected visibly rather than raising Constraint_Error.
 - **length**: Input lines longer than the fixed buffer are rejected or reported by the admitted line-reading operation, so the bounded string never overflows.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Standard input, text parsing, string building, ranged subtypes, 'Image of scalars, Put without a newline, procedures and Boolean objects.
 

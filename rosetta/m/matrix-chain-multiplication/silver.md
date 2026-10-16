@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded dynamic programming with for loops and type-bounded arithmetic, and the only non-routine parts are guarding the loop-carried split table and the explicit-stack reconstruction, which need no annotations but careful shape.
 
-Position 722 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 722 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the three dimension lists as constant arrays with dimensions subtyped 1..1
 - **termination**: The parenthesization is printed by an iterative while loop with an explicit bounded stack inside a procedure, which avoids recursion and function variant checks, but stack-overflow guards must reject rather than alter output.
 - **initialization**: The cost and split tables are filled fully in the loops, but flow analysis of 2D array element-wise initialization may need whole-array initial values in the declaration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, for loops, while loops, procedures, string building, 'Image of scalars and Put without a newline.
 

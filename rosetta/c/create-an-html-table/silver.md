@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a fixed-size for-loop over a small constant array with values bounded by a ranged subtype, so all checks follow from types and static bounds. The only new surface is arrays, integer image, bounded string building and non-newline Put.
 
-Position 651 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 651 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Store a 3-row by 3-column array of a 0..9999 subtype filled with sequential or L
 - **overflow**: A deterministic linear generator (or plain sequential values) is kept inside a 0..9999 subtype by reducing with mod before each assignment, so the arithmetic is bounded by the types.
 - **length**: Each row is assembled into a fixed-capacity buffer sized for the worst case of four 4-digit numbers plus tags, so concatenations cannot exceed it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, records, for loops, 'Image of scalars, string building, procedures and Put without a newline.
 

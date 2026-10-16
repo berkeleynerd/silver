@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded string scanning, integer-tenths parsing and line output in procedures, so no annotation should be needed, but the file-reading library operation and validated number parsing must exist in Silver and the digit accumulation needs careful guards.
 
-Position 1332 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1332 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program reads data.txt through an admitted line-reading file operation into 
 - **length**: Lines longer than the fixed buffer capacity must have a specified outcome (rejection or truncation reported visibly), and echoing the trimmed line needs a bounded length copy.
 - **termination**: The read-until-end-of-file loop lives in a procedure, which gets no termination check, so it is routine as long as the loop is not inside a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, text parsing, for loops, while loops, procedures, Boolean objects, file input and standard input.
 

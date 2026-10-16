@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed-size with ranged subtypes and for-loop indexes over array ranges, so index, range and overflow checks follow from types, and no loop needs an invariant or variant. The only care is a guard for the colour search finding nothing, which keeps this likely rather than certain.
 
-Position 678 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 678 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each example graph is embedded as constant arrays of edge endpoints (node number
 - **index**: Edge endpoints and colours are subtypes of the node and colour ranges, and the adjacency matrix is indexed only by those subtypes, so the checks follow from types.
 - **range**: The first-free-colour search could in principle find no colour, so the program ends the search with an explicit not-found guard that reports a visible failure rather than altering the result, and the colour count is bounded by the colour subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

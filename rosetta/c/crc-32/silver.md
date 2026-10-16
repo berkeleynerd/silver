@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is on modular values or bounded for-loop indexes, so no overflow, range or index check can fail, and no loop-carried fact beyond type ranges is needed. The expected output 414FA339 is a fixed visible result.
 
-Position 1267 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1267 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 43-character message as a String constant and keep the CRC in an Unsig
 - **range**: Hex digit lookup converts (crc / 16**k) mod 16 to a 0..15 index, which follows from the modular type range and the constant digit string's bounds.
 - **index**: Message bytes are read by a for loop over the constant string's own range, and the output buffer is filled by a for loop over its own fixed 8-character range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integer division, ranged subtypes, characters, string indexing, string building, for loops, integers and Boolean objects.
 

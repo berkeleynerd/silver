@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from bounded buffers, for-loop indexes over the line length and guarded counters, with no annotation needed because the loop-carried counters are bounded by an explicit visible rejection limit.
 
-Position 1350 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1350 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A procedure reads unixdict.txt through an admitted line-reading library operatio
 - **length**: Lines longer than the buffer capacity are rejected with a specified outcome rather than truncated.
 - **overflow**: The plausibility test compares ie against 2 times ei using counters bounded well below the integer limit so the multiplication cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, file input and exit status.
 

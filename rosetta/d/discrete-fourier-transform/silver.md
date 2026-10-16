@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static array ranges so indexes and termination are routine, but float accumulation across loop-carried sums and trig functions need bounded float types and admitted contracted math, making discharge depend on careful shape.
 
-Position 1541 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1541 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the sequence 2 3 5 7 11 in a constant array of a bounded float subtype, wi
 - **range**: The angle 2*pi*k*n/N needs a bounded integer product k*n with a range-limited N and a division guarded by N being at least 1.
 - **division**: The 1/N scaling and the angle division are safe because N is a constant in a positive subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, arrays, records, functions, procedures, for loops, block statements, floating-point images, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm uses only integer arithmetic that bounded subtypes and guards can keep in range, and the 64-bit limit is explicitly allowed by the task (show what you can), but the 7**N values up to 7**73 would need fixed-capacity big numbers to be fully faithful.
 
-Position 277 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 277 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a bounded 64-bit integer subtype and a procedure Isqrt(X, Result) implementi
 - **range**: The 7**N value is built by repeated multiplication by 49 under a guard against exceeding the Int64 limit, which restricts output to N up to 21 as the task permits for smaller-integer languages.
 - **index**: The comma-grouped output is built into a fixed 32-character buffer whose write positions must be guarded against underflow below the first index.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

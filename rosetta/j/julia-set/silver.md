@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes, constant loop bounds and an explicit escape guard placed before each store, so no annotation is needed, but the loop-carried fixed-point arithmetic needs careful shaping, hence plausible rather than likely.
 
-Position 463 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 463 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses scaled integer fixed-point (scale 4096) with a bounded subtype 
 - **floating point**: Scaled integer arithmetic replaces floating point so the provers deal only with bounded integer multiplication and division by a constant.
 - **index**: Row buffer positions are for-loop indexes over the buffer's own range and the iteration count maps to a character through a clamped table index, so the check is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string building, for loops, while loops, procedures and Put without a newline.
 

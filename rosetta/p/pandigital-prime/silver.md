@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop and all values have declared ranges, so overflow, index and range checks follow from types and no variant is needed. The only non-routine point is the nonlinear d*d, which declared bounds keep small.
 
-Position 783 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 783 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Pandigital takes a candidate in a declared range 0..99999999 and a
 - **overflow**: The trial-divisor square d*d is computed only for a divisor type bounded to 1..10000 and in a candidate type bounded to 0..99999999, so the product cannot overflow.
 - **index**: Digit values come from mod 10 on a non-negative ranged value so they lie in 0..9, which matches the Boolean seen-array index range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars, string building and case statements.
 

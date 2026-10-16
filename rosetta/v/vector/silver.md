@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are range and division-by-zero obligations discharged by guards placed just before each operation, with no loops or recursion, so no annotation is needed; integer components stand in for floats to keep the proofs routine.
 
-Position 608 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 608 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent a physical vector as a record of two components of a bounded integer s
 - **division**: Scalar division is guarded by a nonzero test that reports a visible rejection, and truncating integer division of a bounded component cannot overflow.
 - **length**: The pretty-print buffer is sized for the worst case of two signed 7-digit components plus punctuation, so concatenation lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, records, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over fixed-size Boolean grids in procedures, so the index and range checks follow from subtype ranges and local guards, though the many loop-carried shift and bounding-box values make the program shape delicate. No recursion, heap or annotations are needed, so it is plausible rather than certain.
 
-Position 757 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 757 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each polyomino as a fixed-size Boolean grid (record with a cell count)
 - **overflow**: The result counters and list indices are bounded by a declared capacity (for example 1285 for rank 9) and a guard rejects insertion when the list is full, which is a visible outcome.
 - **termination**: All loops live in procedures or are for loops, so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

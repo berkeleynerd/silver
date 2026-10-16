@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is integer-only modular arithmetic over small fixed-size digit arrays, so every check can follow from subtype ranges and explicit guards with visible failure outcomes, but several loop-carried values (remainder, digit sum, denominator count) need careful guarding.
 
-Position 643 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 643 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the example rational pairs, primes and precisions in a constant array of r
 - **termination**: The valuation-stripping and long-division loops are while loops inside procedures (no termination check), and the denominator-counting loop is a bounded for loop.
 - **range**: Valuation shifts and the carry-add loops index with v and k whose bounds are set from guarded subtype values, and the sum's lower index is clamped to the array range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

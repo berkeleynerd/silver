@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared range subtype, a bounded generator state and a validated parse flag tested just before use, with the loop confined to a procedure so no variant is needed. The only new library needs are line input and validated integer parsing, which the Oracle admits as specified operations.
 
-Position 1217 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1217 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program embeds fixed limits (for example 1 to 100) as a ranged subtype, deri
 - **overflow**: The deterministic generator step multiplies a state held in a bounded subtype by a constant, which fits in 64 bits by the state's declared range, and the result is reduced with mod into the limits.
 - **termination**: The guess loop lives in a procedure so it needs no termination check, and it also ends on end of input with a specified message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, text parsing, standard input, while loops, Put without a newline and procedures.
 

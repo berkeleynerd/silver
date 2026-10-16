@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task has no requirements beyond placing an animated snail in the language. A text-art snail printed frame by frame with delays between frames is a faithful, bounded and deterministic solution. It conflicts with none of the Oracle rules and needs only console output and delay.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, subprograms, arrays, characters and string operations.
 

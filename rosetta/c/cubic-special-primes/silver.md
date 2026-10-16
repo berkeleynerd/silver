@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small bounded integer ranges and a for-loop primality test, and the only while loop sits in the Main procedure, so no annotation is needed. The program needs only integer arithmetic, mod, a function, loops and number-to-text output, which are all routine.
 
-Position 318 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 318 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Prime(V : Integer) tests primality with a for loop over divisors 2
 - **overflow**: P stays below 15000 and N is capped at 25 by a guard before each increment, so P + N*N*N is at most about 30000 and fits in Integer.
 - **termination**: Is_Prime uses only a for loop over a fixed divisor range 2..122, so the function needs no variant, and the while loop lives in the Main procedure, which gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, while loops, 'Image of scalars and Put without a newline.
 

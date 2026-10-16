@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed embedded data with straight-line floating-point arithmetic in for loops, so all checks follow from ranged float subtypes and constant divisors. The risk is moderate because the program needs floating-point types, sqrt and float formatting, which Silver does not yet have, and the provers must bound products of roughly 1e37.
 
-Position 1078 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1078 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the five 2023 and five simulated 2024 records (date text, x, v, m) as cons
 - **division**: The relative error divides by the NASA mass, which is a positive constant of 1.0243e26, so the nonzero check is static.
 - **range**: Mass simulation m_prev + dm_dt*dt stays inside the mass subtype only because the loop is unrolled over the five embedded dates or each step is computed from an embedded value rather than carried through the loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, records, for loops, procedures, functions, floating-point images, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range on a fixed 9-cell board, a bounded generator, or a for loop with a visible guard, and no while loop sits inside a function, so no annotation is needed; interactive human input is optional and is left out in favour of the deterministic computer players.
 
-Position 458 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 458 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The board is a 9-element Character array (digits for free cells, 'X' or 'O' once
 - **overflow**: The deterministic generator state is a ranged subtype and each update is a small multiply, add and mod that fits Integer, so the range checks follow from the types.
 - **index**: Cell scans use a wrapped index of the form ((start + offset) mod 9) + 1 on a 1..9 array, which the provers discharge from the mod bound, and win lines come from a constant table of in-range indexes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, Boolean objects, arrays, for loops, procedures, functions and Put without a newline.
 

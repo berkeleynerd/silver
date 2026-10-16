@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index, length or counter bound that an explicit guard before the operation can discharge, and all open-ended loops sit in procedures, but the many loop-carried indexes and counts in the scan and lookup need careful guarding. The only new needs are bounded file reading and text building, with no annotation required.
 
-Position 1365 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1365 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program reads the path from the first argument, reads each line into a bound
 - **length**: Words longer than the fixed word buffer are rejected with a specified message, not truncated, so the tallies stay faithful.
 - **termination**: The line-reading and token-scanning loops are while loops inside procedures, which get no termination check, and the table scans are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, file input, Put without a newline and exit status.
 

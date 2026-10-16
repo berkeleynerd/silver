@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes over array ranges and one counter guard, with no recursion, no while loops and no annotations, so proofs should discharge automatically. The brute-force search cost is a run-time cost and not a proof obligation.
 
-Position 681 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 681 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Houses are a subtype 1..5 and each of the five attributes (colour, nationality, 
 
 - **index**: The permutation table is filled by nested for loops with a loop-carried row counter, so each write is preceded by an explicit guard that the counter is below 120, and the later search indexes the table only with for-loop variables over its own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops and procedures.
 

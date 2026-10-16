@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by six numbers and values below 10**9, so overflow, index and division checks follow from subtypes and local guards, but the explicit-stack search with many loop-carried indices needs careful program shape. Nothing requires an annotation, and the unbounded-recursion and heap problems are avoided.
 
-Position 744 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 744 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed three example games (six numbers and a target each, plus one from a determ
 - **termination**: The search is a while loop inside a procedure, which gets no termination check, so no variant is needed; recursion is avoided by using an explicit bounded stack of states.
 - **division**: Division is attempted only after guards that the divisor is nonzero and the remainder is zero, and subtraction only when the result stays positive.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, records, 'Image of scalars, string building and Put without a newline.
 

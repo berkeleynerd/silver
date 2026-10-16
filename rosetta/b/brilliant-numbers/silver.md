@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic stays within small declared ranges (n up to about 1.1 million, divisors up to about 1,010, a sieve to 10,000) using only for loops and guards in procedures, so every check follows from types and guards and no annotation is needed.
 
-Position 1547 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1547 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a sieve of primes up to 10_000 as a Boolean array built with nested for lo
 - **division**: The divisor p comes from a for-loop index starting at 2 and the found-factor variable is only used for n/p behind a guard p /= 0, so the division check follows from the guard.
 - **index**: The sieve index q is checked to be at most 10_000 by the digit-count test before use as an array index, so the index check follows from a guard just before the lookup.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and membership tests.
 

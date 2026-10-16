@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size 32-bit modular arithmetic over 256-element arrays with for loops, so wraparound never raises checks and indices are bounded by types or mod 256, needing no invariants. The only care is the Caesar mod-95 range and the Character conversion, which are covered by simple bounded subtypes.
 
-Position 1296 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1296 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the key and message as String constants, hold the 256-word mm and randrsl 
 - **range**: Caesar-shift arithmetic and Character'Val conversions are kept within 0..94 by computing on a bounded Integer subtype and applying mod 95 after adding a multiple of 95 to keep the operand non-negative, so the 32+n result is provably a printable Character.
 - **initialization**: All 256-element arrays and the message buffers are initialized with (others => 0) or fixed-length literals before the loops read them, so flow analysis passes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures, functions and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is a fixed seven-element array, indexes come from for loops or explicit bounds guards, and values stay within small ranged subtypes, so every check follows from types and local guards. Fractional rank is done in doubled integers, avoiding floating point, and no function needs a loop variant.
 
-Position 904 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 904 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the seven scores as a constant array of a small ranged subtype and the nam
 - **index**: Neighbour accesses at I-1 and I+1 are discharged by starting the for loop at 2 or ending it at 6, so the indexes stay inside the array's range.
 - **range**: Fractional ranking stores doubled ranks (I+J-1) in a small ranged subtype, with run boundaries found by a bounded for loop guard rather than a while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, procedures, Put without a newline and conditional expressions.
 

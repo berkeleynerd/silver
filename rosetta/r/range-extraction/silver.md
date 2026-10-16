@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded and iterative with an embedded input, so only the buffer-index and length checks on loop-carried positions need careful guard placement, and no annotation is needed. Integer-to-text conversion into the buffer adds some shape-dependence, hence plausible rather than likely.
 
-Position 558 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 558 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 33 integers in a constant array of a bounded integer subtype, and scan
 - **termination**: Any while loop (digit extraction) lives in a procedure, which gets no termination check, and the outer scan is a for loop.
 - **length**: The output is built in a fixed-capacity String buffer with an explicit length, and the final slice 1 .. Length is guarded to stay within the capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, string indexing, string building, 'Image of scalars, procedures and functions.
 

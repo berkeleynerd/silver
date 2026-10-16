@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes derive from validated characters mapped to 1..4 ranged subtypes, loops are for loops or live in procedures, and arithmetic is small and bounded, so every check follows from types and guards.
 
-Position 1230 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1230 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program keeps the 4x4 grid as a 16-element array of 1..16 (or a 4x4 array), 
 - **termination**: The interactive loop and the scramble loop are in a procedure (no termination check), and the scramble uses a for loop with a fixed move count and a deterministic generator.
 - **overflow**: The move counter and the generator state are bounded by a declared range with a guard that stops play or wraps the generator via mod on a small modulus, so no overflow can occur.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

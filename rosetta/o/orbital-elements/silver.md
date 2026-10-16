@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a short straight-line floating-point computation with no loops over carried values, so proofs depend on bounded real subtypes, guarded divisions and sqrt arguments, and admitted elementary functions. It is plausible rather than likely because floating-point range reasoning and float formatting need library support Silver lacks today.
 
-Position 1081 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1081 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses a bounded floating-point subtype Real, a 3-element array for ve
 - **overflow**: Floating-point operands are given bounded subtypes (for example a in 0.1..100.0 and e in 0.0..0.95) so no intermediate result can overflow or become infinite.
 - **floating point**: Formatting reals as fixed six-decimal text requires an admitted float-to-text operation with a bounded magnitude, as Float_IO is not available.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, records, procedures, functions, for loops, floating-point images, Put without a newline, string building, Boolean objects and conditional expressions.
 

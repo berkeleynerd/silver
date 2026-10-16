@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Denominators such as 1/1527612795642093418846225 and the 150-digit results exceed 64 bits, so the program needs fixed-capacity bignum arithmetic with long division and gcd; no annotation is strictly required if loops sit in procedures and each digit and index is guarded, but loop-carried bignum arithmetic makes discharge depend on careful program shape.
 
-Position 1414 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1414 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -17,7 +17,7 @@ Represent fractions as fixed-capacity decimal digit-array bignums (about 320 dig
 - **range**: Capacity limits on digit count and term count are explicit resource limits, and an overflowing result must be reported as a specified rejection, not silently truncated.
 - **other**: Bignum long division and gcd are the hardest nonlinear steps for provers without invariants, which is why the outlook is plausible rather than likely; the three-digit extra credit (2847-digit denominators) is optional and omitted.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions and big numbers.
 

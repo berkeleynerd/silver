@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges on a and b, a bounded norm search and a counter guarded before use, and the only loops are for loops, so no annotation is needed; the main effort is bounded string formatting of signed fixed-decimal values.
 
-Position 903 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 903 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use ranged integer subtypes for a and b in -30..30 and a function Is_Prime using
 - **range**: The prime counter is guarded by a comparison against 100 just before each increment and output, so it never leaves its declared range.
 - **length**: Each output line is assembled in a fixed-size buffer sized for the widest possible sign, digits and decimals, so concatenation lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, procedures, 'Image of scalars, string building and conditional expressions.
 

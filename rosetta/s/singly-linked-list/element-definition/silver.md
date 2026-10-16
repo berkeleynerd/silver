@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a record type with a numeric field and a mutable link, which an index-linked fixed array expresses without heap allocation, and all index checks follow from the ranged link type and a null-link guard.
 
-Position 587 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 587 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define a record Element with a numeric Data : Integer and a mutable Next link of
 - **index**: Link values are a ranged subtype 0..Capacity with 0 as the null link, and every traversal step guards the link against 0 just before indexing the pool, so the check discharges.
 - **termination**: The traversal runs in a procedure (no termination check) and is bounded anyway by a for loop over the pool's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, for loops, while loops, 'Image of scalars, string building and procedures.
 

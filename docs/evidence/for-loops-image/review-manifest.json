@@ -1,0 +1,25 @@
+{
+  "review_date": "2026-10-16",
+  "host": "linux-x86_64",
+  "scope": "source inspection and finite template reconstruction; no binary provenance or universal capacity theorem",
+  "spark2014_revision": "42554fc241fcd1fdf08d3a2feccb3f86912acbc0",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "native_template_sha256": "c17ac93034127b56efdf69654753296d132c729b5aaca4f013e6be86dce8a47b",
+  "retained_vendor_filename_inventory_sha256": "25eb178f43de8c30c12b6bccc88628f85761a4c5b2c0944b828be98891867fcd",
+  "retained_vendor_filename_inventory_scope": {
+    "runtime_ada_sources": 1574,
+    "gnatprove_share_ada_sources": 921,
+    "all_basenames_lowercase": true,
+    "starts_with_W_": []
+  },
+  "artifact_sha256": {
+    "gcc-inputs.json": "75018b371cf09198c00e6017f84ee47cc51ed4764771e71e3c47fc602d1df75f",
+    "reconstruct_integer_template.py": "616b31adf2a7203caaaf67727d311a65792f47063bdfde010b18dbbbb759cbf0",
+    "reconstruct_string_image_templates.py": "ddd570c0fad87e1daf29fc2149f7ce747716e5e856e7c983787933bf25284abf",
+    "string-image-template-parity.json": "25ea66b10379cff89cc6fe39cadf7ec3ac93d9485847b7998e5924a915eff1b5",
+    "template-field-audit.json": "abc12090ab587231c504d5e529c76ec6cd8160dce25155e4265fff8c22a7382a"
+  },
+  "counter_disassembly_sha256": "f615dbc2bbad9214e924542fc87722372edc6b39afe06333ebb2332a23473f11",
+  "installed_producer_sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1"
+}

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged types, a fixed array of buckets and for loops in procedures with no recursion or while loops, but loop-carried counters and the LCG multiplication need careful typing to avoid overflow; no annotations are needed.
 
-Position 179 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 179 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A deterministic Park-Miller generator advanced by a procedure with an in out sta
 - **range**: Mapping the generator value to a bucket index uses mod by a constant bucket count with the index subtype matching the array range, which is routine once the state type is bounded.
 - **overflow**: Computing the low and high thresholds as percentage of expected count is nonlinear but bounded by fixed constants for expected count and delta.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed type ranges, for-loop indexes and a bounded trial-division loop, but the digit-rotation arithmetic needs careful shaping so loop-carried values stay in range without invariants. The big-number repunit and stretch parts are optional and omitted.
 
-Position 381 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 381 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Restrict the 19-prime part to Integer arithmetic (largest result 199933, all rot
 - **termination**: Primality is trial division in a for loop over 2..999 with an early exit when d*d exceeds the candidate, so no while loop or variant is needed inside a function.
 - **division**: Divisors are loop indexes starting at 2 and powers of ten are constants, so every division and mod has a statically nonzero divisor.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, functions, procedures, 'Image of scalars and Put without a newline.
 

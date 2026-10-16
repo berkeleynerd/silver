@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every component is a static one-bit modular value assigned from literals in an aggregate, so the only checks are routine initialization and range checks that follow from the declarations. The open question is admitting representation clauses in Silver, not provability.
 
-Position 1268 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1268 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a one-bit modular type Bit and a record Rs_232_Layout with nine Bit comp
 
 - **other**: The task's core requirement is a record representation clause (and a 'Size clause), an ordinary Ada declaration that SPARK accepts but that Silver's surface catalogue does not yet name, so admitting it is a language-design decision rather than a proof obligation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, records and 'Image of scalars.
 

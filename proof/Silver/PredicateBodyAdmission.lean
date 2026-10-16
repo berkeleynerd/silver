@@ -31,16 +31,16 @@ def bodyTokens (text : Source) (scan : BodyScan) (tokens : List ShellToken) : Bo
   tokens.foldl (bodyToken text) scan
 
 def parserState (context : ParseContext) (scan : BodyScan) : ParserState :=
-  {position := scan.position, names := context.names, target := scan.target, capacity := scan.capacity}
+  {position := scan.position, names := context.names, scalarNames := context.scalarNames, target := scan.target, capacity := scan.capacity}
 
 inductive BasicKind | null | output | put | reject | assignment
   deriving DecidableEq, Repr
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if callAfter text context.names scan.position .output ≠ 0 then .output
-  else if callAfter text context.names scan.position .partialOutput ≠ 0 then .put
-  else if context.hasArguments && decide (callAfter text context.names scan.position .reject ≠ 0)
+  else if callAfter text context.names scan.position .output context.scalarNames ≠ 0 then .output
+  else if callAfter text context.names scan.position .partialOutput context.scalarNames ≠ 0 then .put
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames ≠ 0)
     then .reject
   else .assignment
 
@@ -48,29 +48,29 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
-      let value := expressionAt text call.position context.names
-      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames) "(" false) false}
+      let value := expressionAt text call.position context.names context.scalarNames
+      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsLengthSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput) "(" false) false}
-      let value := expressionAt text call.position context.names
-      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
+      let value := expressionAt text call.position context.names context.scalarNames
+      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsLengthSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := {scan with position := callAfter text context.names scan.position .reject}
+      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames}
       {call with facts := call.facts.reject}
   | .assignment =>
       let state := targetAt text (parserState context scan) false
       let target := bodyToken text {scan with position := state.position, target := state.target} (.symbol ":=")
-      let value := expressionAt text target.position context.names
+      let value := expressionAt text target.position context.names context.scalarNames
       let bound := ((context.names.get target.target).getD {}).bound
-      if value.after = 0 ∨ target.target = 0 ∨ !fitsSummary target.facts (summaryOf value) ∨
-          !equalSummary target.facts (summaryOf value) bound.summary
+      if value.after = 0 ∨ target.target = 0 ∨ !fitsLengthSummary target.facts (summaryOf value) ∨
+          !equalLengthSummary target.facts (summaryOf value) bound.summary
       then invalidBody
       else {target with position := value.after, assigned := true}
 
@@ -97,12 +97,78 @@ def branchStart (text : Source) (context : ParseContext) (scan : BodyScan) (keyw
   let yes := bodyToken text {start with position := condition.after, facts := condition.whenTrue} (.word "then")
   (yes, condition.whenFalse)
 
+/-- Source positions and inferred ranges of a loop header. Both bounds mask the
+new index name, as Ada's scope excludes reading an outer homonym there. -/
+structure LoopHeader where
+  first : Nat
+  after : Nat
+  reverse : Bool
+  lower : ScalarExpression.Result
+  upper : ScalarExpression.Result
+  entry : BodyScan
+  deriving Repr
+
+def loopFirst (text : Source) (scan : BodyScan) : Nat :=
+  skipAt text (fixedAfter text scan.position "for" true)
+
+def loopNameAfter (text : Source) (scan : BodyScan) : Nat := nameAfter text (loopFirst text scan)
+
+def loopInAfter (text : Source) (scan : BodyScan) : Nat :=
+  fixedAfter text (loopNameAfter text scan) "in" true
+
+def loopReverse (text : Source) (scan : BodyScan) : Bool :=
+  decide (fixedAfter text (loopInAfter text scan) "reverse" true ≠ 0)
+
+def loopLowerPosition (text : Source) (scan : BodyScan) : Nat :=
+  if loopReverse text scan then fixedAfter text (loopInAfter text scan) "reverse" true
+  else loopInAfter text scan
+
+def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : LoopHeader :=
+  let first := loopFirst text scan
+  let after := loopNameAfter text scan
+  let lower := ScalarExpression.read text (loopLowerPosition text scan) context.scalarNames first after
+  let upper := ScalarExpression.read text (fixedAfter text lower.after ".." false) context.scalarNames first after
+  let bounds := Integer.loopBounds lower.bounds upper.bounds
+  ⟨first, after, loopReverse text scan, lower, upper,
+    {scan with position := fixedAfter text upper.after "loop" true, facts := loopContext scan.facts bounds}⟩
+
+def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeader) : Bool :=
+  decide (header.first ≠ 0 ∧ header.first < header.after) &&
+    (!Named.forbiddenName text header.first header.after ||
+      Named.nameIs text header.first header.after ("string".toList.map Char.toNat)) &&
+    (!context.hasArguments ||
+      !Named.nameIs text header.first header.after ("silver_arguments".toList.map Char.toNat)) &&
+    decide (context.scalarNames.length ≠ ScalarExpression.maxBindings)
+
+def loopInner (context : ParseContext) (header : LoopHeader) : ParseContext :=
+  {context with scalarNames := context.scalarNames ++
+    [⟨header.first, header.after, Integer.loopBounds header.lower.bounds header.upper.bounds, false⟩]}
+
 mutual
   def statementBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
     if scan.position = 0 then invalidBody
     else if fixedAfter text scan.position "if" true ≠ 0 then conditionalBody text context scan
+    else if fixedAfter text scan.position "for" true ≠ 0 then loopBody text context scan
     else basicBody text context scan
   termination_by bodyRemaining text scan * 4 + 2
+  decreasing_by
+    all_goals simp_wf
+    all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
+    all_goals omega
+
+  def loopBody (text : Source) (context : ParseContext) (scan : BodyScan) : BodyScan :=
+    let header := loopHeader text context scan
+    if !loopNameAllowed text context header then invalidBody
+    else if header.entry.position ≤ scan.position then invalidBody
+    else if _advanced : bodyRemaining text header.entry < bodyRemaining text scan then
+      let body := readBody text (loopInner context header) header.entry .endOnly
+      if body.position ≤ scan.position then invalidBody else
+      let result := bodyTokens text
+        {body with facts := loopAfter scan.facts body.facts header.lower.bounds header.upper.bounds}
+        [.word "end", .word "loop", .symbol ";"]
+      if result.position ≤ scan.position then invalidBody else result
+    else invalidBody
+  termination_by bodyRemaining text scan * 4 + 1
   decreasing_by
     all_goals simp_wf
     all_goals (try dsimp (config := {zetaDelta := true}) only [bodyRemaining] at *)
@@ -193,7 +259,7 @@ def initialFacts (arguments : Bool) : Context :=
   if arguments then Context.initial maxSourceLength else ⟨some ⟨0, 0⟩, false, false⟩
 
 def contextOf (scan : ScanResult) : ParseContext :=
-  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0)⟩
+  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0), scan.state.scalarNames⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,

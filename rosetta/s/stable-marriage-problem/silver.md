@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and enumerations with index checks that follow from types and sentinel guards, and the only loop-carried state (proposal counters, free flags) is range-typed, so no annotation is needed. Plausible rather than likely because of the nested-array aggregates, the sentinel handling and the 'Image-based output strings.
 
-Position 1553 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1553 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Guys and girls are enumerations with a sentinel value plus subtypes excluding it
 - **termination**: The Gale-Shapley while loop lives in a procedure, which gets no termination check, so no variant is needed, though the loop-carried free and engaged flags are only typed, not bounded, so progress is never proved.
 - **length**: Output lines concatenate names from 'Image of enumerations whose maximum lengths are statically bounded, so the concatenation length checks need the bounded-concatenation support to discharge.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, ranged subtypes, arrays, multidimensional arrays, Boolean objects, 'Image of scalars, string building, for loops, while loops, procedures, functions and membership tests.
 

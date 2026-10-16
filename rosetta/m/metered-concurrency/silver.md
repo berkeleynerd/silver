@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task requires concurrent units coordinated by a counting semaphore. SPARK can express this under the Jorvik tasking profile: library-level worker tasks and a protected object with an Acquire entry guarded by Count < Max, plus Release and Count operations. The guard proves the increment cannot overflow, and the decrement is guarded too, so no fixed Oracle rule is broken. Silver would first need tasking, protected types, delay and an output operation safe for concurrent tasks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, integers, loops, subprograms and packages.
 

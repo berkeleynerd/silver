@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is straight-line code with no loops, so the only difficulty is floating-point overflow, division by zero and sqrt-domain checks, which range-bounded subtypes and explicit guards can address, though float formatting and sqrt need admitted library support.
 
-Position 1060 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1060 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Define a bounded float subtype for coordinates, a Point record, and a procedure 
 - **range**: Float-to-text formatting to two decimals needs an admitted library routine with a bounded input range, since 'Image on floats is not provable to a fixed format.
 - **floating point**: Provers must bound intermediate products of nonlinear float expressions, so subtypes with small ranges (such as plus or minus 1000.0) are needed and the guard on the sqrt argument may not be provable by simple range reasoning.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, records, procedures, floating-point images, Put without a newline, Boolean objects and ranged subtypes.
 

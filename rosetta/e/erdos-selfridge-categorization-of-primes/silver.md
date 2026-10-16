@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype-bounded indices and guarded divisions in procedure loops with no recursion, but several loop-carried values need careful range typing and the large fixed tables raise a stack-size premise. No annotation is needed, so discharge is plausible rather than routine.
 
-Position 276 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 276 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Boolean sieve array and a category array (subtype 0..12) are sized to the mill
 - **termination**: All loops are in procedures, where no termination check applies, and the factoring loop strictly divides n by a divisor of at least 2.
 - **stack**: A sieve of about 16 million Booleans and category bytes is a fixed-size array whose stack or static storage exhaustion lies outside the proof, treated as an environmental premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures and 'Image of scalars.
 

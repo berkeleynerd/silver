@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the 0..254 value range and capped counters with guards, and the unbounded-looking while loops sit in a procedure so no termination annotation is needed; the plausible rating reflects the loop-carried counters needing careful cap guards and the new integer, array-free string-building and 'Image surface.
 
-Position 382 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 382 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a Value subtype 0..254 and a function F returning (X*X+1) mod 255, then a
 - **overflow**: Using subtype Value is Integer range 0..254 makes X*X+1 at most 64517, and Power and Lambda are bounded by a declared Count subtype with a guard that stops (with a visible failure outcome) before they exceed it.
 - **range**: Loop-carried Power, Lambda and Mu are only bounded by their type ranges, so doubling Power and incrementing Lambda and Mu need guards against the declared cap just before each update.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

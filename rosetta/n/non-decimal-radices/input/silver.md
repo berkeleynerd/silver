@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from the Radix subtype, the string's own index range and an overflow guard before each accumulation, though the loop-carried accumulator needs careful guard shape.
 
-Position 1134 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1134 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Parse takes a String and a Radix (subtype 2..16) and returns an out 
 - **index**: Loops run over the string's own index range, so indexing is safe, and empty strings are rejected up front with a specified outcome.
 - **division**: The divisor is the Radix subtype whose lower bound is 2, so division by zero is excluded by type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, unconstrained arrays, for loops, procedures, 'Image of scalars and text parsing.
 

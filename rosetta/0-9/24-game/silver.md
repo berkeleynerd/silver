@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged types, fixed-capacity stacks and guards before each operation, with loops kept as for loops in procedures so no variant is needed, but the rational arithmetic and stack bookkeeping need careful guard placement.
 
-Position 1252 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1252 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program generates four digits with a deterministic linear congruential gener
 - **overflow**: The pseudo-random generator uses a linear congruential step on a range-bounded state with mod, so the product is bounded by the declared range and cannot overflow.
 - **initialization**: Stacks, counters and the digit-used flags are fully initialized by aggregates before the loops that read them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

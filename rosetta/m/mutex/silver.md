@@ -12,7 +12,7 @@ A library package declares a protected type Mutex with a private Boolean Owned, 
 - **tasking**: GNATprove cannot see the Seize/Release protocol, so it reports a data race when two tasks share the output resource that the mutex protects; it accepts shared state only when that state lives inside a protected object, which defeats the point of the mutex.
 - **termination**: Ravenscar and Jorvik tasks are expected never to terminate, so the demonstration program cannot reach a specified, completed end state.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, packages, Boolean objects, integers, for loops and procedures.
 

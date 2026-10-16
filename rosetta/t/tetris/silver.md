@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control, clock, delay.** Tetris can be written in plain bounded SPARK: a fixed 7x4x4x4 shape table, a bounded board array, and a deterministic pseudo-random piece generator, with text-art rendering. It needs interactive terminal key input, timing and delay effects that Silver lacks today, but no fixed Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, records, enumerations, loops, subprograms, integers and packages.
 

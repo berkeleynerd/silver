@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, range-typed counters and guards before each index or pad computation, but many loop-carried positions and widths need careful shaping, so the outlook is plausible rather than likely.
 
-Position 624 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 624 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The six embedded lines are concatenated into one constant String with a line-bre
 - **length**: The output buffer has a fixed capacity sized for the widest aligned line (columns times maximum width), and appends are guarded by remaining space so the length check holds.
 - **termination**: Any while loop scanning for the next dollar sign lives in a procedure, so no termination check arises, and for loops cover the rest.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

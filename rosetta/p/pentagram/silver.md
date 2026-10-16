@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for-loop integer arithmetic over ranged types and constant-size arrays with no loop-carried values, so all checks follow from types and static bounds; the task allows text art with distinct stroke, fill and background tokens.
 
-Position 671 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 671 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The five star vertices are embedded as integer constants on a roughly 41 by 21 c
 - **overflow**: The orientation products and sums use small ranged coordinate subtypes, so they stay far below the Integer limit and discharge from types alone.
 - **index**: Edge-drawing coordinates are computed by interpolation with a constant divisor, so the prover must show they stay in the grid ranges, which a clamp guard or ranged subtype makes routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops, procedures and functions.
 

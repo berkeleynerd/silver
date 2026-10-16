@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged subtypes and guards placed before each push or multiplication, and all loops sit in a procedure so no variants are needed, though several loop-carried indices and values need careful guards.
 
-Position 811 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 811 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Breadth-first generation of numbers with strictly ascending digits uses a fixed-
 - **termination**: The generator and trial-division loops live in a procedure, which has no termination check, and trial division can instead be a for loop over 2..11112 with exit when.
 - **overflow**: The trial-division square d*d is bounded by the loop range so it cannot overflow a 64-bit type, which is routine nonlinear arithmetic with bounded operands.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and case statements.
 

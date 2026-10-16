@@ -2,7 +2,7 @@
 
 **Excluded from Silver: other.** This task can be included. A Silver program could define the address schema with bounded types: an integer ID, bounded strings for street and city, a two-letter state code and a constrained ZIP code. It would create the table through an admitted database-library operation and report a visible outcome if that operation fails. Nothing breaks an Oracle rule; the only gap is that Silver has no database effect yet.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, string operations, integers and packages.
 

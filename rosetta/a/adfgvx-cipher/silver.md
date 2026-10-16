@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexes are bounded by small fixed ranges and guards, and loops are in procedures, so no annotation is needed, but the transposition index bookkeeping needs careful guard placement.
 
-Position 743 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 743 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds a fixed list of 9-letter repeat-free words and a fixed seed f
 - **range**: Ragged final-row column lengths and the ciphertext length are bounded by the fixed buffer capacity, with a visible rejection if plaintext exceeds it.
 - **initialization**: All arrays and buffers are fully initialized by aggregates or loops before reading.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures, functions, Boolean objects and Put without a newline.
 

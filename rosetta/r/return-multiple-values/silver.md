@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only non-trivial checks are the addition and subtraction overflow checks, and the declared range on the parameter subtype discharges them; out parameters are fully assigned, so flow analysis passes.
 
-Position 46 in the [progression](../../progression.md#stage-4), in stage 4, which adds procedures.
+Position 46 in the [progression](../../progression.md#stage-3), in stage 3, which adds procedures.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A local procedure Sum_And_Diff takes two in parameters of a bounded integer subt
 
 - **overflow**: The procedure's in parameters use a declared subtype such as range -1000 .. 1000, so the sum and difference provably fit in Integer without any contract.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, procedures and 'Image of scalars.
 

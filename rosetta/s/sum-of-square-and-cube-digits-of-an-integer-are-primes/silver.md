@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the loop index range, ranged subtypes and fixed unrolled digit extraction with no while loops or loop-carried accumulators, so proofs should discharge without annotations. The only new Silver surface is integer arithmetic, small functions, a for loop and integer-to-text output.
 
-Position 332 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 332 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A for loop over I in 5..99 computes the square and cube into ranged subtypes (0.
 - **overflow**: The digit sum is computed as an unrolled six-term expression over a bounded subtype (cube at most 970299), so no loop-carried accumulator exists and the sum fits trivially.
 - **range**: The conversion of N*N*N into the cube subtype is discharged from the declared range of the loop index 5..99, which solvers handle with bounded nonlinear multiplication.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and Put without a newline.
 

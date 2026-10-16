@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from a fixed-size buffer, guarded header parsing and range-bounded sample arithmetic with for-loop scans, but many file-derived offsets each need an explicit guard and the program depends on admitted binary file read and write operations that do not exist yet.
 
-Position 1454 in the [progression](../../../progression.md#stage-28), in stage 28.
+Position 1454 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -24,7 +24,7 @@ Read the input WAV into a fixed-capacity byte array through an admitted file lib
 - **termination**: Scanning loops are for loops over frame indexes or while loops inside procedures, which need no termination check.
 - **other**: Files larger than the fixed buffer capacity must be rejected visibly rather than truncated, and an all-silent input needs a specified outcome such as an empty data chunk.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, characters, arrays, for loops, while loops, procedures, functions, text parsing, further arguments, file input, file output, exit status, string indexing, string building, Boolean objects and 'Image of scalars.
 

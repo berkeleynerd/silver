@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer math with literal divisors on a ranged year, and every loop is a for loop over fixed small arrays, so checks follow from types and guards without annotations.
 
-Position 806 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 806 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 16 requested years in a constant array, define a ranged Year subtype, 
 - **index**: Day-offset-to-month conversion walks a constant month-length array with a for loop and a guarded subtraction, so the month index stays in 1..12 and a day-of-year past December is guarded as a specified outcome.
 - **range**: Computed day and month values assigned to subtypes are guarded by explicit range comparisons before conversion so no range check depends on a loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, string building, 'Image of scalars, Put without a newline and case statements.
 

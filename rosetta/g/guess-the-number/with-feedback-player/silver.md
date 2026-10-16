@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the ranged subtype of Low and High and a guard on Low <= High before each midpoint, and termination needs no variant because the loop is a bounded for loop in a procedure. The new needs are standard-input line reading, integer-to-text output and a few basic constructs, so the outlook is likely.
 
-Position 1218 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1218 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program embeds the limits 1 and 100 and keeps Low and High in a small ranged
 - **termination**: The binary search runs in a procedure as a for loop over a fixed 1 .. 100 iteration count with an exit when, so no variant is required.
 - **length**: The input line is read into a bounded buffer with an explicit length, and the comparison against the three feedback words is guarded by that length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, while loops, for loops, standard input, Put without a newline, 'Image of scalars, string building and string indexing.
 

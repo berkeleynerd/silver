@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The program lists the current directory and prints the names sorted. That needs an admitted directory-listing operation with specified failure outcomes, plus a bounded sort over fixed-capacity name storage, so no Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, string operations, loops and subprograms.
 

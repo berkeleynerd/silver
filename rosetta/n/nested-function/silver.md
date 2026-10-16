@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The nested-scope counter modification is expressible with nested procedures (functions cannot have side effects), and all checks follow from a ranged counter, a guard before the increment and bounded string lengths.
 
-Position 960 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 960 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Main declares a Counter of small ranged subtype and a nested procedure Make_List
 - **overflow**: The counter increment is guarded by a test against the subtype's upper bound just before the addition, so it discharges.
 - **length**: Concatenated item text has a statically bounded length from the 'Image of a small ranged subtype plus fixed literals, so assignment to the fixed-length buffer is checkable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, 'Image of scalars, string building, unconstrained arrays, procedures and for loops.
 

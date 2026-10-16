@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded iteration over fixed arrays with guards before each loop-carried addition or index, and no recursion is needed because the subset-sum is a table; the difficulty is only the guard discipline and the integer-to-text output.
 
-Position 422 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 422 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Enumerate divisors of n with a for loop into a fixed-capacity array, sum them wi
 - **termination**: All searching, divisor enumeration and subset-sum work is done in procedures using for loops or while loops over bounded counters, so no function needs a variant.
 - **other**: Search limits (n up to roughly 10^5 to 10^6 for the odd lists) are documented resource bounds, and the main search loops must stop with a specified outcome if a limit is hit before the required counts are found.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

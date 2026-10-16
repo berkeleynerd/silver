@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task permits static analysis of source text, which an ordinary file scan does, so nothing conflicts with the Oracle. Every loop-carried value (word length, table size, counts) can be guarded just before use, and the read loop sits in a procedure, so no annotation is needed.
 
-Position 1329 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1329 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A procedure opens the named source file and reads it line by line in a while loo
 - **length**: Comparing a scanned word with a stored entry uses slices bounded by length fields whose subtype is 0 .. Max_Word, so the slice bounds follow from the types.
 - **other**: Lines longer than the admitted file-reading operation's bounded buffer must be detected and given a specified outcome rather than silently truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and file input.
 

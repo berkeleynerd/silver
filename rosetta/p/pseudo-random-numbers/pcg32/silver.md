@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is modular or small-range integer arithmetic in for loops and procedures, so every check follows from types and static bounds with no recursion or while loop. The only mild care points are the nonlinear bucket index bound and the loop-carried counters, both handled by types.
 
-Position 1511 in the [progression](../../../progression.md#stage-31), in stage 31.
+Position 1511 in the [progression](../../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare modular types for 64-bit state and 32-bit output, hold state and increme
 - **index**: The bucket index (x*5)/2**32 with x a 32-bit value is at most 4, which the provers can show from the type bound by simple nonlinear reasoning.
 - **range**: The rotation amount state/2**59 lies in 0..31, which is converted into a subtype 0..31 before being used in 2**rot and 2**(32-rot).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, modular types, ranged subtypes, arrays, for loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

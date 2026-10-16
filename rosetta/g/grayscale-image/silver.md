@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the declared 0..255 ranges, the fixed array bounds and for-loop indexes over those bounds, and the integer luminance formula avoids floating point and stays far below the Integer limit. No loop-carried value needs an invariant.
 
-Position 665 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 665 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a Luminance subtype 0..255, a Pixel record of three Luminance channels, a
 - **range**: The quotient by 10000 is at most 255, which the provers can show by linear reasoning over the bounded channel ranges, so the conversion to the 0..255 Luminance subtype discharges.
 - **length**: Row text is built in a fixed-capacity buffer sized for the embedded image width times the maximum digits per value, so the concatenation length checks follow from static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, records, arrays, multidimensional arrays, for loops, 'Image of scalars, string building, Put without a newline and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the Number subtype range, constant tables and a capacity guard before each append, with the while loop confined to a procedure, but the loop-carried position and remaining value make discharge depend on careful program shape.
 
-Position 1002 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1002 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure takes a Number of subtype 1..3999 and fills a fixed 15-character buf
 - **termination**: The subtracting while loop sits in a procedure, which gets no termination check, so no variant is needed.
 - **length**: The output slice from index 1 to the final length is guarded by the same capacity check so Put_Line receives a valid slice.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and unconstrained arrays.
 

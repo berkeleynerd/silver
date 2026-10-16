@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the static loop range 1 .. 100 and constant divisors, so mod cannot divide by zero, 'Image of the bounded index has a known maximum length, and the for loop terminates by itself.
 
-Position 107 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 107 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 A parameterless Main uses a for loop over the static range 1 .. 100 with an integer loop index, and tests I mod 15, I mod 5 and I mod 3 in an if/elsif/else chain. Each branch calls Silver_IO.Put_Line with the literal Fizz, Buzz or FizzBuzz, and the else branch prints the number's text image with the leading space trimmed. No loop-carried state exists, so nothing needs a guard. About 16 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded text processing over fixed buffers with an explicit file stack, so no annotations are needed, but the many index and slice guards and the file-library dependency make careful program shape necessary.
 
-Position 1491 in the [progression](../../../progression.md#stage-30), in stage 30.
+Position 1491 in the [progression](../../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ The program takes input and output file names from the arguments, then processes
 - **length**: Extracting the quoted file name into a bounded buffer needs the computed slice length checked against the capacity before copying.
 - **termination**: The line-reading and scanning loops are while loops, so they must live in procedures (no termination check) and nesting is done by an explicit bounded stack of open files rather than recursion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, string ordering, text parsing, for loops, while loops, procedures, functions, further arguments, file input, file output, exit status and Put without a newline.
 

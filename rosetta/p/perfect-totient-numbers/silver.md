@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array bounds and subtype ranges, with the only loop-carried arithmetic (the chain sum and sieve multiple) kept safe by a guard before use, so it should discharge without annotations but depends on careful program shape.
 
-Position 220 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 220 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve a constant-bounded array Phi (1..5600) of totients by a prime-stepping whi
 - **range**: The sieve multiple m advances by p inside a while loop, so the loop condition m <= Limit must bound m before m + p and before the array index.
 - **termination**: All while loops sit in a procedure, which gets no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures and 'Image of scalars.
 

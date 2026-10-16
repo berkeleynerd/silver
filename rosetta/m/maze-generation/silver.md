@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, loop bounds and boundary or capacity guards placed right before each use, and the recursion becomes a procedure-level while loop with an explicit stack. It is plausible rather than likely because the stack pointer and current cell are loop-carried values needing careful guards, and the 2D wall updates need index reasoning.
 
-Position 827 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 827 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed-size grid (for example 8 by 11) of cells with wall flags and a visited fla
 - **termination**: The DFS runs as a while loop inside a procedure (no termination check) and recursion is replaced by an explicit stack, so no variant is needed.
 - **length**: Each output line is built in a fixed-length buffer sized 4*Width+1 and filled by index in for loops, so slice and assignment lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, case statements, for loops, while loops and procedures.
 
