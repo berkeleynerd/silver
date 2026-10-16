@@ -119,18 +119,42 @@ theorem refineLength_bounded {context : Context} (bounded : context.Bounded)
   · exact refineBounds_bounded bounded _ _ _ _
   · exact bounded
 
+theorem increasingLengthOverlap_bounded {context : Context} (bounded : context.Bounded)
+    (left right : LengthSummary) : (increasingLengthOverlap context left right).Bounded := by
+  unfold increasingLengthOverlap
+  split
+  · exact Context.empty_bounded
+  · exact Context.intersect_bounded bounded _
+
+theorem refineLengthOverlap_bounded {context : Context} (bounded : context.Bounded)
+    (left right : LengthSummary) : (refineLengthOverlap context left right).Bounded := by
+  unfold refineLengthOverlap
+  split
+  · exact Context.empty_bounded
+  · split
+    · exact increasingLengthOverlap_bounded bounded _ _
+    · split
+      · exact increasingLengthOverlap_bounded bounded _ _
+      · split
+        · exact bounded
+        · exact Context.empty_bounded
+
 theorem refineString_bounded {context : Context} (bounded : context.Bounded)
-    (shape : Shape) (unequal : Bool) (left right : Expression) (truth : Bool) :
-    (refineString shape context unequal left right truth).Bounded := by
+    (shape : Shape) (unequal : Bool) (left right : Expression) (truth : Bool)
+    (ranges : Integer.Ranges := Integer.emptyRanges) :
+    (refineString shape context unequal left right truth ranges).Bounded := by
   unfold refineString
   split
-  · exact refineAffineEqual_bounded bounded _ _
+  · split
+    · exact refineLengthOverlap_bounded bounded _ _
+    · exact bounded
   · exact bounded
 
 theorem Condition.refine_bounded {context : Context} (bounded : context.Bounded)
-    (shape : Shape) (condition : Condition) (truth : Bool) : (condition.refine shape context truth).Bounded := by
+    (shape : Shape) (condition : Condition) (truth : Bool)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : (condition.refine shape context truth ranges).Bounded := by
   induction condition generalizing context truth with
-  | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _
+  | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _ ranges
   | lengthCompare operator left right => exact refineLength_bounded bounded _ _ _ _ _
   | scalarCompare => exact bounded
   | inputValid =>
