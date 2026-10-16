@@ -1,7 +1,7 @@
 module
 
 public import Silver.StringLengths
-public import Silver.PredicateChecking
+public import Silver.PathFacts
 
 @[expose] public section
 
@@ -22,8 +22,8 @@ def refineLengthOverlap (context : Context) (left right : LengthSummary) : Conte
   if left.empty || right.empty then Context.empty
   else if right.dynamicCount < left.dynamicCount then increasingLengthOverlap context left right
   else if left.dynamicCount < right.dynamicCount then increasingLengthOverlap context right left
-  else keepIf context
-    (decide (left.minimumLength ≤ right.staticLength ∧ right.minimumLength ≤ left.staticLength))
+  else if left.minimumLength ≤ right.staticLength ∧ right.minimumLength ≤ left.staticLength
+    then context else Context.empty
 
 theorem increasingLengthOverlap_sound {context : Context} {left right : LengthSummary}
     {inputLength length : Nat} {valid rejected : Bool}
@@ -67,12 +67,12 @@ theorem refineLengthOverlap_sound {context : Context} {left right : LengthSummar
   · exact increasingLengthOverlap_sound allowed ‹_› a b
   · split
     · exact increasingLengthOverlap_sound allowed ‹_› b a
-    · apply keepIf_sound allowed
-      have coefficients : left.dynamicCount = right.dynamicCount := by omega
-      simp only [LengthSummary.Contains, LengthSummary.lower, LengthSummary.upper, Summary.length] at a b
-      simp only [decide_eq_true_eq]
-      rw [coefficients] at a
-      omega
+    · have coefficients : left.dynamicCount = right.dynamicCount := by omega
+      have compatible : left.minimumLength ≤ right.staticLength ∧ right.minimumLength ≤ left.staticLength := by
+        simp only [LengthSummary.Contains, LengthSummary.lower, LengthSummary.upper, Summary.length] at a b
+        rw [coefficients] at a
+        omega
+      simpa [compatible] using allowed
 
 theorem string_image_equality_overlap {context : Context} {left right : Expression}
     {shape : Shape} {ranges : Integer.Ranges} {leftSummary rightSummary : LengthSummary}
