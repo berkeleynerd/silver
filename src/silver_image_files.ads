@@ -29,7 +29,10 @@ package Silver_Image_Files with SPARK_Mode => On is
        Pre => Silver_Platform.Valid_Path (Input_Name)
          and then Silver_Platform.Valid_Path (Snapshot_Name)
          and then Input_Name /= Snapshot_Name,
-       Post => (Static => (if Success then Read_Ended and then Files_Closed
+       Post => (Runtime => (if Plan.Kind = Model.Refine then
+         Plan.Declarations_Offset < Plan.Includes_Offset
+         and then Plan.Includes_Offset < Plan.Bytes),
+         Static => (if Success then Read_Ended and then Files_Closed
          and then Read_Bytes = Copied_Bytes and then Read_Bytes = Written_Bytes
          and then Plan = Rechecked));
 

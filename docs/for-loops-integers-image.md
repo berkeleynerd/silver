@@ -345,3 +345,39 @@ Native Image admission at `1b341b9753` passed its complete focused 895-check
 SPARK run `20261016T145726-8c61071b3cc1` in the compose integration worktree.
 This supplements its earlier behavior/build evidence. It does not complete
 application proof coverage or the expanded report-capacity derivation.
+
+### SPARK adapter driver and installer
+
+The SPARK adapter now preserves native arguments, snapshots and validates the
+model, installs the exact theorem, and delegates to the original vendor
+`gnatwhy3`. An existing proof directory is retained; a private one is added only
+when none was supplied. The installer stages the complete theorem in that same
+filesystem, publishes it with non-replacing POSIX `link`, and checks the exact
+selected bytes even after a concurrent installation. A conflicting theorem
+produces a nonzero infrastructure failure and is left intact.
+
+The actual compiled SPARK adapter passed both positive native length probes:
+`20261016T152522-4dd522eb44a6` (constant assignment) and
+`20261016T152603-3707fe5b908f` (loop assignment). The wrong-length control
+`20261016T153013-5be59c3563dd` retained its original unproved length check and
+exit 1. These are original application checks; source bytes were not rewritten.
+
+Native verification run `20261016T153037-c806a0ad0176` passed the driver and
+streaming-file obligations but retained two installer path precondition failures.
+Its diagnostic records the remaining NUL-exclusion obligations after directory
+construction. Explicit executable path guards immediately before the two file
+operations fixed those obligations. Focused installer recheck
+`20261016T153529-701e021b8a76` succeeded, reporting 270 checks with the retained
+unchanged unit reports. Earlier range and initialization failures in
+`20261016T151630-66e297438403` remain in the ledger.
+
+Rebuild `20261016T153658-36a0881fc03c` and behavior run
+`20261016T153727-157d001533ea` checked the current executable: separate and inline
+proof-directory options, a path containing spaces, four concurrent installs,
+and a conflicting existing theorem. All passed. Evidence is retained under
+`tmp/image-wrapper-probes/adapter-checks-czrsgruh/`. This behavior check uses
+native model parsing without requesting new application proof searches.
+
+Production bootstrap/routing, complete scanner/schema and file-transform source
+correspondence, report-capacity derivation and capability-wide validation remain
+unfinished. These focused results do not yet admit Integer Image as supported.
