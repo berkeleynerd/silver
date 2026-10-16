@@ -68,7 +68,7 @@ def Check.toObligation (check : Check) : Semantics.Obligation := ⟨.runTimeSafe
 
 def Program.checks (program : Program) : List Check :=
   (declarationChecks program).map Check.declaration ++
-    (integerDeclarationChecks program).map Check.scalarDeclaration ++
+    (integerDeclarationChecks program ++ program.initializerChecks).map Check.scalarDeclaration ++
     (statementsObligations program.names.shape program.initialContext program.statements program.integerConstants.ranges).map Check.path
 
 theorem Program.declaration_checks_fragment {program : Program} (valid : program.Valid) :
@@ -89,10 +89,10 @@ theorem Program.checks_fragment {program : Program} (valid : program.Valid) :
     · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp declaration
       exact program.declaration_checks_fragment valid schema present
     · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp scalar
-      exact List.all_eq_true.mp (program.integer_declaration_checks_discharge valid) schema present
+      exact List.all_eq_true.mp (program.scalar_checks_discharge valid) schema present
   · obtain ⟨schema, present, rfl⟩ := List.mem_map.mp path
     obtain ⟨after, checked, _⟩ := valid.2.2.2.2.2
-    have bodyChecked := ((program.checkBody_iff after).mp checked).2
+    have bodyChecked := ((program.checkBody_iff after).mp checked).2.2
     exact (List.all_eq_true.mp (statements_obligations_discharge bodyChecked)) schema present
 
 theorem Program.checks_obligations (program : Program) :
