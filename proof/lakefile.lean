@@ -212,3 +212,12 @@ lean_lib NamesBodySource where
   roots := #[]
   globs := #[.one `Silver.NamesBodySource]
   needs := #[namesBodySource]
+
+input_file imageTheorySpecSource where
+  path := "../src/silver_image_theory.ads"
+  text := false
+
+lean_lib ImageTheorySpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageTheorySpecSource]
+  needs := #[imageTheorySpecSource]

@@ -244,3 +244,89 @@ length assertion for every `s` would contradict the existing
 `to_string__length` axiom at `s = 0`, making the proof context inconsistent.
 The intended fact is guarded by the signed 32-bit range and concerns
 `length (to_string (Standard__integer.attr__ATTRIBUTE_IMAGE v) 12)`.
+
+## Isolated typed-clone experiment
+
+The owner confirmed continuing after the custom adapter was explained. The
+2026-10-16 experiment now establishes a working native hook, while production
+implementation and its correspondence remain unfinished.
+
+An isolated copy of the vendor `gnatprove` executable selects a diagnostic
+Python wrapper for `gnatwhy3`; other vendor files remain unchanged. Before
+calling the original `gnatwhy3`, the wrapper preserves the original typed JSON
+and adds only an include of `Standard__integer` and this clone to
+`Standard_String__Img`:
+
+```text
+clone import silver_image.Integer_Image_Length as Silver_Image with
+  axiom .,
+  type image = Main.__image,
+  type text = Standard__string.string__,
+  function scalar_image = Standard__integer.attr__ATTRIBUTE_IMAGE,
+  function string_image = to_string,
+  function length = Standard__string.length
+```
+
+The external theorem fixes the size to `12`, guards the signed 32-bit range,
+and expands decimal length into nine signed threshold comparisons. The checked
+`IntegerImage`, `IntegerImageLength` and `IntegerImageRefinement` modules supply
+its mathematical basis and a model consistent with the original weak axioms.
+A separate actual-source rendering proof is being developed; a theorem file
+with matching words alone does not establish that connection.
+
+The prototype verifies structural preservation by deleting its two additions
+and comparing the entire parsed input with the original. Its JSON reserialization
+is only experimental. Production will preserve the original bytes by inserting
+at two validated array boundaries, validate the exact module/clone identities,
+and provide the corresponding SPARK and Lean proofs. No application source is
+rewritten, no original native check is removed or relabelled, and the Image
+warning remains in each native report.
+
+| Experiment | Managed run | Native result | Managed duration |
+| --- | --- | --- | ---: |
+| Parse typed clone and dump model | `20261016T143741-f6d78e108ea6` | Accepted; no proof attempted | 3.371 s |
+| Original constant assignment | `20261016T143823-f10ba4fd7c2e` | Original `VC_LENGTH_CHECK` proved | 3.601 s |
+| Original loop assignment | `20261016T143843-9111ba920619` | Original `VC_LENGTH_CHECK` proved | 3.578 s |
+| Three-character target for two-character Image | `20261016T143949-e4b328968f1b` | Original length check remains unproved; exit 1 | 17.836 s |
+
+The positive checks were discharged by CVC5/Z3; cancelled or unsuccessful
+individual prover attempts remain in the reports. The negative case is an
+intentional control, not an unresolved valid-program obligation. It does not
+by itself prove consistency or soundness; those remain mathematical and
+correspondence requirements. Initial parser launches encountered path,
+configuration-file and session-directory setup errors before the successful
+model dump; those logs are retained separately and are not proof attempts.
+
+The retained scripts, original/refined JSON, external theory, readable model,
+commands and reports are under `tmp/integer-image-native/tmp/image-probes/`:
+`refine_model.py`, `refinement_probe.py`, `refined-dump/`, and each case's
+`obj/explore/image-refinement/gnatprove/`. These Python files are diagnostics,
+not production compiler code. The planned production adapter is Silver-owned
+SPARK and must establish both native verification and semantic correspondence
+before this path can be used to claim supported admission.
+
+### Checked theorem rendering and typed-model core
+
+The fixed-size (12), signed-32-bit guarded theorem now has a typed Lean
+rendering and exact correspondence to `src/silver_image_theory.ads`.
+Focused native Linux run `20261016T150830-candidate` is identified by the
+managed ledger under `#15-image-theorem-rendering`; the successful check started
+at 15:08:35 UTC, built the module in 13 seconds and freshly audited 381
+declarations. This is the theorem constant's source correspondence, not yet a
+complete adapter or capability certificate.
+
+The preceding rendering diagnosis found two distinct issues: the imported
+`Nat.ofDigitChars` implementation needed an explicit implementation import for
+kernel reduction, and decoding the entire source literal into characters during
+closed equality checking consumed excessive memory. The retained run
+`20261016T150026-4fdacb90d927` was interrupted after 194 seconds of build time
+at approximately 22 GB RSS. A subsequent bounded attempt failed at the exact
+source-equality proof with a 2 GiB limit. Character-list construction and the
+existing kernel-checked reconstruction-witness mechanism replaced that reduction;
+no kernel bypass, additional axiom or weakened source equality was introduced.
+
+The streaming typed-model core is integrated from `09fa3f12bc`, with its native
+211-check result, focused 23-check warning repair and 22 positive/negative
+byte-preservation fixtures retained in its worktree and managed evidence.
+`6744087d39` proves insertion erasure, byte ordering and fresh IDs. Complete
+scanner-to-schema and wrapper-I/O correspondence remain outstanding.
