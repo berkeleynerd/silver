@@ -33,8 +33,8 @@ def maximal_retained_record(*, flow: bool = False, runtime: bool = False) -> dic
                 file="main.adb", how_proved="flow" if flow else "prover",
                 line=NATURAL_MAX, msg_id=NATURAL_MAX,
                 message={"text": ('"Written_Count" is set by "Put_Line" but not used after the call'
-                                  if flow else "length check proved")},
-                rule="INEFFECTIVE" if flow else "VC_LENGTH_CHECK",
+                                  if flow else "overflow check proved")},
+                rule="INEFFECTIVE" if flow else "VC_OVERFLOW_CHECK",
                 severity="warning" if flow else "info",
                 unproved_status=dict(status="limit", time=False, steps=False, memory=False))
     if flow:
@@ -60,6 +60,17 @@ def maximal_retained_record(*, flow: bool = False, runtime: bool = False) -> dic
     return data
 
 
+def maximal_image_advisory() -> dict:
+    # The pinned producer emits this complete warning schema without an entity,
+    # statistics, user-name payload or nonempty check tree.
+    return dict(check_tree={}, col=NATURAL_MAX, file="main.adb", how_proved="trivial",
+                line=NATURAL_MAX, rule="imprecise-image", severity="warning", suppressed="",
+                unproved_status={"status": "unknown"}, message={"text": (
+                    'references to the "Image" attribute are handled in an imprecise way, '
+                    'so nothing will be known about the evaluation of the attribute reference '
+                    'apart from a bound on its length [imprecise-image]')})
+
+
 def embedded_record_bytes(data: dict) -> int:
     encoded = json.dumps(data, indent=2)
     # Four spaces at every line: a record inside the top-level section array.
@@ -68,8 +79,13 @@ def embedded_record_bytes(data: dict) -> int:
 
 
 def main_envelope() -> int:
-    checks = SOURCE_BYTES // 5 + SOURCE_BYTES // 3 + 63
-    return (checks * MAIN_RECORD_BYTES + 2 * SOURCE_BYTES * FLOW_RECORD_BYTES
+    # Separate charges deliberately overcount the shared 63-operator budget,
+    # declaration sites and loop-bound conversions. Producer/frontend routes,
+    # rather than example report counts, justify them in the capacity record.
+    checks = (SOURCE_BYTES // 5 + SOURCE_BYTES // 3 + 63
+              + 63 + SOURCE_BYTES // 22 + 2 * (SOURCE_BYTES // 18))
+    image_warnings = 2 * (SOURCE_BYTES // 16)
+    return (checks * MAIN_RECORD_BYTES + (2 * SOURCE_BYTES + image_warnings) * FLOW_RECORD_BYTES
             + 2 * SOURCE_BYTES + METADATA_BYTES)
 
 
@@ -114,7 +130,8 @@ class CapacityEnvelopeTests(unittest.TestCase):
         self.assertLessEqual(embedded_record_bytes(maximal_retained_record(runtime=True)), MAIN_RECORD_BYTES)
         self.assertLessEqual(embedded_record_bytes(maximal_retained_record(flow=True, runtime=True)),
                              FLOW_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 13_064_192)
+        self.assertLessEqual(embedded_record_bytes(maximal_image_advisory()), FLOW_RECORD_BYTES)
+        self.assertEqual(main_envelope(), 15_028_224)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()

@@ -105,7 +105,7 @@ successful-check and accepted-advisory producer paths do not attach secondary
 locations, counterexamples, manual-proof commands or source excerpts.
 
 Including record indentation and comma/newline separators, these deliberately
-maximal schemas occupy 1318 proof-record bytes and 555 flow-record bytes before
+maximal baseline schemas occupy 1318 proof-record bytes and 555 flow-record bytes before
 the separately charged initializer name. Their 2048/1024-byte allowances leave
 room for the fixed producer formatting. These are bounds on the current
 producer's fields, not arbitrary unknown JSON members supplied by a different
@@ -200,6 +200,83 @@ totals alone do not establish them.
 
 Re-derive the counts and field allowances before admitting a capability that
 adds checks per source byte, changes diagnostics, or selects a new runtime.
+
+## For loops and integers extension
+
+The authorized For loops and integers implementation requires a new envelope
+before admission. The source review in
+[the detailed capacity evidence](for-loops-report-capacity.md) extends the
+String-language baseline above. It uses the same `spark2014`/Why3 revisions,
+the GNAT-FSF `gnatprove-16.1.0-1` recipe at
+`0334dd54a2c479faa3dfad47a911373581b11739`, and its selected GCC 16.1.0 frontend
+at `6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea`. This is a producer/frontend
+source-shape argument, with the same binary/tool trust boundary as the baseline;
+it is not a result inferred from passing sample programs.
+
+Add the following independent charges to the baseline:
+
+| Added retained component | Allowance |
+| --- | --- |
+| Scalar unary/binary arithmetic | 63 proof records at 2048 bytes |
+| Integer declaration root conversions | `floor(S/22)` proof records at 2048 bytes |
+| Two loop-bound roots | `2*floor(S/18)` proof records at 2048 bytes |
+| Image warnings | `2*floor(S/16)` warning records at 1024 bytes |
+
+The lexical work budget charges every `&`, unary/binary `+`/`-`, and `*` against
+one shared total of 63. A sign inside an exponent is literal syntax. The producer
+registers at most one overflow check per arithmetic operator; its operand
+translations target mathematical Integer and add no scalar range checks.
+Charging 63 again deliberately overcounts the shared concatenation/arithmetic
+budget. The shortest Integer declaration is `A:constant Integer:=0;` (22 bytes);
+its initializer has at most one final scalar range check. The shortest loop
+prefix is `for I in 0..0 loop` (18 bytes), and the prefixes are disjoint source
+spans. The two-record loop allowance is conservative: base-type bounds,
+unchecked index initialization/update and assumed implicit invariants introduce
+no additional registered checks on the selected path. Body checks occur at
+source sites, not once per iteration. Unrolling reuses the already translated
+Why program; the selected application command also disables it.
+
+Image warning JSON is appended without deduplication. Each source occurrence
+is transformed at most twice: once as an executable initializer and potentially
+once more in an immutable declaration's defining axiom. All other admitted
+placements translate it once per enclosing traversal. The reviewed frontend
+uses light SPARK expansion, rewrites String `/=` without copying either operand,
+and skips implicit String subtype-from-expression construction for nonstatic
+Image initializers. Generated actions and later identifier uses do not
+retranslate those initializers. These routes close the possible extra-warning
+paths; the detailed evidence records the functions and exact source lines.
+The shortest `Integer'Image(0)` occupies 16 bytes.
+
+The complete fixed Image warning schema, with maximal-width positions and
+pretty-print separators, occupies 535 bytes under the test serializer. It has
+an empty proof tree and no entity, statistics, trace or user-name payload;
+the 1024-byte allowance applies directly without projection. The longest
+accepted Main proof rule/message now includes `VC_OVERFLOW_CHECK` and
+`overflow check proved`, occupying 1322 bytes under the same serializer and
+still below the 2048-byte allowance. The unchanged
+flow categories retain the `2*S` charge: loop graphs reuse their bodies,
+constant Integer initialization adds no initializer advisory, and ordinary
+counted loops add no termination-success report. Intrinsic scalar/Image
+operations add no Ada callee, entity scope or metadata cardinality. The selected
+runtime envelopes remain unchanged.
+
+The extended Main bound is:
+
+```text
+13,064,192
+  + (63 + floor(4096/22) + 2*floor(4096/18))*2048
+  + 2*floor(4096/16)*1024
+= 15,028,224 < 16,777,216 bytes.
+```
+
+This leaves 1,748,992 bytes of headroom without changing the buffer.
+`tests/test_capacity.py` guards the extended formula and maximal fixed
+record schemas. The formula supports the authorized milestone; it does not
+by itself admit the language extension or establish automatic proof discharge.
+Both focused capacity tests passed on Linux x86_64 in managed run
+`20261016T163411-7b14b45862de`, including the existing dense-source admission
+regression. No unchanged compiler or Lean proof was repeated for this
+source-review and test-fixture update.
 
 ## Storage placement and validation
 
