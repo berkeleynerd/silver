@@ -31,6 +31,26 @@ package body Silver_Report_Projection_Member_Steps with SPARK_Mode => On is
       null;
    end Comma;
 
+   procedure Shallow_Kept (S : State) is
+   begin
+      null;
+   end Shallow_Kept;
+
+   procedure Closing_Retention (S : State; Item : Character) is
+   begin
+      null;
+   end Closing_Retention;
+
+   procedure Cursor_Retention (S : State; Item : Character) is
+   begin
+      null;
+   end Cursor_Retention;
+
+   procedure Array_Value_Or_Close (S : State; Item : Character) is
+   begin
+      null;
+   end Array_Value_Or_Close;
+
    procedure Join_Retained (Raw : Bytes.Sequence; First, Split, Last : Big_Natural) is
    begin
       null;

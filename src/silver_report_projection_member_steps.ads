@@ -79,6 +79,41 @@ is
            (if S.Stack (S.Depth).Container = Object_Container then Next_Key else Next_Item)
          and then Parents.Same (S, Model.Advance_Spec (S, ',').Following, S.Depth);
 
+   procedure Shallow_Kept (S : State)
+     with Global => null,
+       Pre => Structure.Well_Formed (S) and then not S.Failed and then S.Depth <= 3,
+       Post => Model.Keeping (S);
+
+   procedure Closing_Retention (S : State; Item : Character)
+     with Global => null,
+       Pre => Structure.Well_Formed (S) and then not S.Failed
+         and then Model.Keeping (S)
+         and then not Model.Advance_Spec (S, Item).Following.Failed
+         and then Model.Advance_Spec (S, Item).Following.Depth < S.Depth,
+       Post => Model.Advance_Spec (S, Item).Length = 1
+         and then Model.Advance_Spec (S, Item).Bytes (1) = Item;
+
+   procedure Cursor_Retention (S : State; Item : Character)
+     with Global => null,
+       Pre => Structure.Well_Formed (S) and then not S.Failed
+         and then Model.Keeping (S) and then S.Mode = Between_Tokens and then S.Depth > 0
+         and then S.Stack (S.Depth).Position in First_Key | Next_Key | First_Item | Next_Item
+         and then not Model.Advance_Spec (S, Item).Following.Failed,
+       Post => Model.Advance_Spec (S, Item).Length = 1
+         and then Model.Advance_Spec (S, Item).Bytes (1) = Item;
+
+   procedure Array_Value_Or_Close (S : State; Item : Character)
+     with Global => null,
+       Pre => Structure.Well_Formed (S) and then not S.Failed
+         and then S.Mode = Between_Tokens and then S.Depth > 0
+         and then S.Stack (S.Depth).Container = Array_Container
+         and then S.Stack (S.Depth).Position in First_Item | Next_Item
+         and then not Observations.Space (Item)
+         and then not Model.Advance_Spec (S, Item).Following.Failed,
+       Post => Parents.Ready_Value (S, Item) or else
+         (Item = ']' and then S.Stack (S.Depth).Position = First_Item
+          and then Model.Advance_Spec (S, Item).Following.Depth = S.Depth - 1);
+
    procedure Join_Retained (Raw : Bytes.Sequence; First, Split, Last : Big_Natural)
      with Global => null,
        Pre => First >= 1 and then First <= Split + 1 and then Split <= Last
