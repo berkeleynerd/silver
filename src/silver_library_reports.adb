@@ -2097,7 +2097,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           (if Kind = Main_Checks then
              Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
              and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
-               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_OVERFLOW_CHECK))
              and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
              and then Raw_Entity_Name (Text, Raw_Referenced_Entity
                (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
@@ -3331,6 +3332,9 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_String_Congruence
         (Raw, Raw_Field (Raw, L, JSON_rule),
          Text, Field_Spec (Text, R, JSON_rule), Atom_VC_LENGTH_CHECK);
+      Mixed_String_Congruence
+        (Raw, Raw_Field (Raw, L, JSON_rule),
+         Text, Field_Spec (Text, R, JSON_rule), Atom_VC_OVERFLOW_CHECK);
       Mixed_Test_Congruence
         (Raw, Raw_Field (Raw, L, JSON_line),
          Text, Field_Spec (Text, R, JSON_line));
