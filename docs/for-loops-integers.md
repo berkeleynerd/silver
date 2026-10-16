@@ -111,8 +111,11 @@ The [completed repair](report-capacity.md) derives retained-report capacity,
 projects the producer's larger reports, moves storage out of `Compile`'s stack,
 and proves the reader/projection/policy connection. Its 16 MiB allocation and
 current-language derivation are the integration baseline. The scalar, loop and
-Image envelope still needs complete check-site and warning-multiplicity
-accounting before admission. L1/L3's explicit proof-resource policy and L2/L4's
+Image envelope is now derived from the pinned producer/frontend routes:
+[15,028,224 retained Main bytes](report-capacity.md#for-loops-and-integers-extension),
+including scalar checks, loop-bound overcounts and non-deduplicated Image
+warnings, fit the existing 16,777,216-byte limit. The focused capacity tests
+passed; this sizing result does not complete automatic-discharge assurance. L1/L3's explicit proof-resource policy and L2/L4's
 capacity and placement repairs are complete prerequisites.
 
 The [Image diagnostic](for-loops-integers-image.md) identifies a distinct native
@@ -140,6 +143,7 @@ complete capability checkpoint:
 | Pure loop grammar, meaning and routing | `20261016T141638-0e61df079141` | Focused build and fresh audit, 12,749 declarations |
 | Decimal Image arithmetic length theorem | `20261016T141909-c41772e4f101` | Focused build and fresh audit, 240 declarations |
 | Consistent fixed-size Image refinement model | `20261016T142321-febc0b2f68ae` | Focused build and fresh audit, 279 declarations |
+| Extended report-capacity guard | `20261016T163411-7b14b45862de` | Both focused tests passed; producer/frontend sizing record linked above |
 
 The report-policy correction is `f2b71f3c5f`; it aligns the raw ghost policy and
 projection congruence with the executable overflow rule. Its earlier targeted
