@@ -109,6 +109,26 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertEqual(record["state"], "interrupted")
         self.assertIsNone(record["finish"])
 
+    def test_notes_recover_torn_appends_without_losing_original_fragments(self):
+        run_id = self.fail_obligation()
+        history.checkpoint(self.host, "issue39", "initial checkpoint", "inspect report")
+        notes = history.registry(self.host) / "notes.jsonl"
+        checkpoint_fragment = b'{"event":"checkpoint","summary":"interrupted'
+        with notes.open("ab") as stream:
+            stream.write(checkpoint_fragment)
+        history.checkpoint(self.host, "issue39", "recovered checkpoint", "read VC")
+        diagnostic_fragment = b'{"event":"diagnostic","summary":"also interrupted'
+        with notes.open("ab") as stream:
+            stream.write(diagnostic_fragment)
+        history.diagnose(self.host, run_id, "VC needs a bound", "inspect bound propagation")
+        report = history.status(self.host)
+        self.assertEqual([note["event"] for note in report["notes"]],
+                         ["checkpoint", "checkpoint", "diagnostic"])
+        fragments = [path.read_bytes() for path in notes.parent.glob("notes.jsonl.interrupted-*")]
+        self.assertCountEqual(fragments, [checkpoint_fragment, diagnostic_fragment])
+        with self.run_context():
+            pass
+
     def test_resolved_alias_and_ancestor_paths_contend_between_processes(self):
         self.resources[0].mkdir()
         alias = self.root / "alias"

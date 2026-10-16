@@ -63,8 +63,23 @@ def _metadata(root: Path):
 
 def _append(path: Path, record: dict) -> None:
     record = dict(record, utc=_utc(), monotonic_ns=time.monotonic_ns())
-    with path.open("a", encoding="utf-8") as stream:
-        stream.write(_json(record) + "\n")
+    # Callers hold the metadata lock. Preserve an interrupted append before
+    # restoring the newline boundary, so the next record cannot join its tail.
+    with path.open("a+b") as stream:
+        stream.seek(0, os.SEEK_END)
+        if stream.tell():
+            stream.seek(-1, os.SEEK_END)
+            if stream.read(1) != b"\n":
+                stream.seek(0)
+                previous = stream.read()
+                boundary = previous.rfind(b"\n") + 1
+                retained = path.with_name(path.name + ".interrupted-" + uuid.uuid4().hex)
+                with retained.open("xb") as fragment:
+                    fragment.write(previous[boundary:])
+                    fragment.flush()
+                    os.fsync(fragment.fileno())
+                stream.truncate(boundary)
+        stream.write((_json(record) + "\n").encode("utf-8"))
         stream.flush()
         os.fsync(stream.fileno())
 
