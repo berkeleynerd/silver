@@ -69,6 +69,25 @@ class ProvenanceTests(unittest.TestCase):
     def test_unchanged_content_is_accepted(self) -> None:
         self.audit()
 
+    def test_symlinked_selected_tool_root_is_accepted(self) -> None:
+        physical = self.root / "shared native tools"
+        self.host.tools.rename(physical)
+        self.host.tools.symlink_to(physical, target_is_directory=True)
+        for identity in self.manifest["tools"].values():
+            identity["path"] = str(physical / "test-tool")
+        self.audit()
+
+    def test_tool_links_cannot_escape_selected_tool_root(self) -> None:
+        outside = self.root / "other-tool"
+        outside.write_bytes((self.host.tools / "test-tool").read_bytes())
+        alias = self.host.tools / "outside-link"
+        alias.symlink_to(outside)
+        for path in (outside, alias):
+            with self.subTest(path=path):
+                self.manifest["tools"]["gnatprove"]["path"] = str(path)
+                with self.assertRaisesRegex(EvidenceError, "outside the selected native"):
+                    self.audit()
+
     def test_relative_report_paths_accept_warm_and_cold_evidence(self) -> None:
         for cold in (False, True):
             with self.subTest(cold=cold):

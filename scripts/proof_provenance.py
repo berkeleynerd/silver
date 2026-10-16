@@ -173,7 +173,7 @@ def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | Non
     require(manifest.get("inputs_sha256") == input_hashes(host), "proof input hashes changed; rerun GNATprove")
     require(manifest.get("reports_sha256") == report_hashes(report_dir), "proof report hashes changed")
     for name, identity in manifest.get("tools", {}).items():
-        require(name == "python" or Path(identity["path"]).is_relative_to(host.tools),
+        require(name == "python" or Path(identity["path"]).resolve().is_relative_to(host.tools.resolve()),
                 f"proof tool is outside the selected native tool directory: {name}")
         require(digest(Path(identity["path"])) == identity["sha256"], f"proof tool changed: {name}")
         if "version" in identity:
