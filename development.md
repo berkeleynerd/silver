@@ -280,7 +280,8 @@ Exploratory runs do not produce the audited success manifest.
 GNATprove failures remain failures; no automatic retry is performed. The
 recorded `DOC_END` diagnostic identifies an unexpected end of JSON input. A
 parallel-write race has not been established. `--jobs 1` is a diagnostic
-comparison, not a verified workaround; the default remains all cores. Preserve
+comparison, not a verified workaround; the default allocates the available managed
+worker budget. Preserve
 a recurrence's logs and inputs before another run replaces them. See
 [the workflow record](docs/proof-workflow.md) and
 [Hello World evidence](docs/hello-world.md) for observed failures and subsequent
