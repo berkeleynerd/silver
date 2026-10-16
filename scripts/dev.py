@@ -497,7 +497,10 @@ def main(arguments: list[str] | None = None) -> None:
                 invalidate_proof(reports)
         run.event("phase-start", phase="test" if args.action == "test" else "native-tool")
         invoke(host, actual, cwd=None if args.action == "test" else host.context, pass_fds=run.pass_fds, log=log)
-        run.event("phase-end", phase="test" if args.action == "test" else "native-tool")
+        run.event("phase-end", phase="test" if args.action == "test" else "native-tool", returncode=0)
+        if kind == "tool-gnatprove" and run.unresolved_obligations():
+            run.finish("failure", returncode=0, error="GNATprove returned unresolved proof obligations")
+            raise RuntimeError("GNATprove returned unresolved proof obligations; see retained run reports")
         if proof_run and proof_run.full:
             run.event("phase-start", phase="audit")
             audit_sources(host.root / "src", reports, host.generated, effective_command=command)
