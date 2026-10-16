@@ -26,9 +26,11 @@ from typing import TextIO
 if __package__:
     from .bootstrap_lean import lean_environment
     from .platforms import ROOT, HostLayout, native_layout
+    from .run_history import ManagedRun
 else:
     from bootstrap_lean import lean_environment
     from platforms import ROOT, HostLayout, native_layout
+    from run_history import ManagedRun
 
 PROOF = ROOT / "proof"
 CANDIDATES = {
@@ -308,7 +310,7 @@ def verify_run_inputs(host: HostLayout, inputs: dict[Path, bytes],
 
 
 def run_logged(command: list[str], *, cwd: Path, env: dict[str, str],
-               destination: TextIO) -> subprocess.CompletedProcess[str]:
+               destination: TextIO, pass_fds: tuple[int, ...] = ()) -> subprocess.CompletedProcess[str]:
     """Tee available output, including partial lines, while retaining audit text."""
     output: list[str] = []
     decoder = codecs.getincrementaldecoder("utf-8")()
@@ -321,7 +323,7 @@ def run_logged(command: list[str], *, cwd: Path, env: dict[str, str],
             print(text, end="", flush=True)
 
     with subprocess.Popen(command, cwd=cwd, env=env, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT) as process:
+                          stderr=subprocess.STDOUT, pass_fds=pass_fds) as process:
         assert process.stdout is not None
         try:
             while chunk := process.stdout.read1(65536):
@@ -335,6 +337,28 @@ def run_logged(command: list[str], *, cwd: Path, env: dict[str, str],
     return subprocess.CompletedProcess(command, returncode, "".join(output))
 
 
+def lean_failure_keys(output: str, phase: str, workspace: Path) -> list[str]:
+    """Identify repeated source diagnostics, without inventing IDs for tool crashes.
+
+    Lean does not publish GNATprove-style VC identifiers. Source location plus
+    the first error line is a diagnostic key, not a theorem identity guarantee.
+    Both direct Lean and Lake-prefixed error forms occur in retained output.
+    """
+    keys = set()
+    for line in re.sub(r"\x1b\[[0-9;]*m", "", output).splitlines():
+        match = re.fullmatch(r"(error: )?(.+?\.lean):(\d+):(\d+):\s*(error:\s*)?(.*)", line)
+        if match is None or not (match[1] or match[5]):
+            continue
+        source = Path(match[2])
+        absolute = (workspace / source).resolve()
+        try:
+            source = absolute.relative_to(workspace.resolve())
+        except ValueError:
+            source = absolute
+        keys.add(f"lean:{phase}:{source}:{match[3]}:{match[4]}:{match[6]}")
+    return sorted(keys)
+
+
 def main(arguments: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--target", action="append", default=[], metavar="MODULE",
@@ -346,13 +370,16 @@ def main(arguments: list[str] | None = None) -> None:
     parser.add_argument("--clean", action="store_true",
                         help="discard this host's proof workspace before building (does not imply replay)")
     parser.add_argument("--workers", type=nonnegative_integer, default=0,
-                        help="Lake workers for independent modules (default 0: available CPUs; "
-                             "reduce on quota-limited or shared hosts)")
+                        help="Lake workers for independent modules (default 0: coordinated available workers; "
+                             "separate Lean process threads are not an OS thread cap)")
     parser.add_argument("--threads", type=nonnegative_integer, default=0,
                         help="threads per Lean build/audit process (default 0: available CPUs; "
                              "separate from Lake workers)")
     parser.add_argument("--memory-mb", type=positive_integer,
                         help="optional resident-memory threshold per Lean process, in MiB")
+    parser.add_argument("--task", default=os.environ.get("SILVER_TASK", ""), help="issue or task reference for durable run history")
+    parser.add_argument("--reason", default="",
+                        help="rationale for repeating a successful clean/replay check unchanged")
     args = parser.parse_args(arguments)
     sources, inputs = capture_shared_inputs()
     targets = list(dict.fromkeys(args.target))
@@ -362,175 +389,211 @@ def main(arguments: list[str] | None = None) -> None:
     if targets and args.replay:
         parser.error("--replay/--full checks the complete project; omit --target")
     cpus = available_cpus()
-    args.workers = args.workers or cpus
     args.threads = args.threads or cpus
     detailed_integrity = args.provenance or args.replay
     started = time.monotonic()
     host = native_layout()
-    if host.artifacts.is_symlink():
-        raise RuntimeError("host artifact directory must not be a symbolic link")
-    host.artifacts.mkdir(parents=True, exist_ok=True)
     log = host.artifacts / ("lean-focused.log" if targets else "lean-proof.log")
     evidence = host.artifacts / ("lean-focused-evidence.json" if targets else "lean-evidence.json")
-    # A failed attempt must not retain prior success for this check's scope.
-    # Focused feedback leaves the content-bound complete record as history.
-    # Other host evidence and old flat-layout artifacts are untouched.
-    evidence.unlink(missing_ok=True)
-    for path, contents in inputs.items():
-        if path.suffix == ".lean":
-            check_proof_policy(path, contents)
-
-    # The checked-in candidates are never edited or used as trusted generated
-    # inputs. Each invocation regenerates their host-local replacements from src.
-    # SourceCertificates.lean is a protected handwritten import facade.
     checked_inputs = {str(path.relative_to(ROOT)): hashlib.sha256(data).hexdigest()
                       for path, data in inputs.items()}
     inputs_digest = hashlib.sha256(json.dumps(checked_inputs, sort_keys=True).encode()).hexdigest()
-
-    pin = inputs[PROOF / "lean-toolchain"].decode().strip()
-    prefix = "leanprover/lean4:v"
-    if not pin.startswith(prefix):
-        raise RuntimeError("proof/lean-toolchain must pin a concrete Lean version")
     lean = host.lean / "bin" / "lean"
     lake = lean.with_name("lake")
     checker = lean.with_name("leanchecker")
     tool_paths = [lean, lake, *([checker] if args.replay else [])]
-    tool_hashes = {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+    # Missing tools still produce a recorded preflight failure before any cache
+    # mutation. Successful checks retain the exact executable byte hashes.
+    tool_hashes = {str(path.relative_to(ROOT)):
+                   hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else "missing"
                    for path in tool_paths}
-    environment = lean_environment(host)
-    version = subprocess.run([str(lean), "--short-version"], check=True,
-                             text=True, capture_output=True, env=environment,
-                             cwd=host.artifacts).stdout.strip()
-    if version != pin.removeprefix(prefix):
-        raise RuntimeError(f"Lean {version} does not match {pin}")
+    run_inputs = {
+        "host": host.key, "scope": sorted(targets) if targets else "complete",
+        "sources": checked_inputs, "tools": tool_hashes,
+        "workspace": str(host.proof.resolve()),
+        "configuration": {"clean": args.clean, "replay": args.replay,
+                          "provenance": args.provenance, "workers": args.workers,
+                          "threads": args.threads, "memory_mb": args.memory_mb},
+    }
+    command = [sys.executable, str(Path(__file__).resolve()),
+               *(sys.argv[1:] if arguments is None else arguments)]
+    with ManagedRun(host=host, kind="lean", command=command, inputs=run_inputs,
+                    resources=[host.proof, log, evidence], workers=args.workers or None,
+                    task=args.task, reason=args.reason, expensive=args.clean or args.replay,
+                    evidence=[log, evidence], failure_reports=[log]) as run:
+        args.workers = run.workers
+        if host.artifacts.is_symlink():
+            raise RuntimeError("host artifact directory must not be a symbolic link")
+        host.artifacts.mkdir(parents=True, exist_ok=True)
+        # Failed checks cannot leave the previous success looking current.
+        # A rejected lease/rerun request has not started a check and preserves it.
+        for old in (log, evidence):
+            if old.is_file():
+                previous = run.directory / "previous-evidence"
+                previous.mkdir(exist_ok=True)
+                shutil.copy2(old, previous / old.name)
+                run.evidence.append(previous / old.name)
+        evidence.unlink(missing_ok=True)
+        log.unlink(missing_ok=True)
+        for path, contents in inputs.items():
+            if path.suffix == ".lean":
+                check_proof_policy(path, contents)
+        pin = inputs[PROOF / "lean-toolchain"].decode().strip()
+        prefix = "leanprover/lean4:v"
+        if not pin.startswith(prefix):
+            raise RuntimeError("proof/lean-toolchain must pin a concrete Lean version")
+        if "missing" in tool_hashes.values():
+            raise RuntimeError("pinned Lean tools are missing; run scripts/bootstrap_lean.py")
+        environment = lean_environment(host)
+        version = subprocess.run([str(lean), "--short-version"], check=True,
+                                 text=True, capture_output=True, env=environment,
+                                 cwd=host.artifacts, pass_fds=run.pass_fds).stdout.strip()
+        if version != pin.removeprefix(prefix):
+            raise RuntimeError(f"Lean {version} does not match {pin}")
+        run.event("preflight", outcome="success", tools_sha256=tool_hashes)
 
-    # Lake's compiled runtime uses this worker pool for independent build jobs.
-    # lean_environment removed any inherited value; the explicit -j option
-    # separately configures each Lean build/audit process. Neither setting
-    # parallelizes leanchecker's fresh replay.
-    environment["LEAN_NUM_THREADS"] = str(args.workers)
-    print(f"Lean concurrency: {args.workers} Lake workers, "
-          f"{args.threads} threads per Lean process ({cpus} available CPUs).", flush=True)
+        # Lake's compiled runtime uses this worker pool for independent build jobs.
+        # lean_environment removed any inherited value; the explicit -j option
+        # separately configures each Lean build/audit process. Neither setting
+        # parallelizes leanchecker's fresh replay.
+        environment["LEAN_NUM_THREADS"] = str(args.workers)
+        print(f"Lean concurrency: {args.workers} Lake workers, "
+              f"{args.threads} threads per Lean process ({cpus} available CPUs).", flush=True)
 
-    prepare_workspace(host, inputs, clean=args.clean)
-    prepare_tool_cache(host, tool_hashes)
-    # These are candidate certificates, not trusted results: Lean checks each
-    # line and reconstruction of the exact authoritative source bytes.
-    # The generator writes beside the final module so its authoritative-source
-    # path checks remain valid. Publish only changed bytes to preserve no-op runs.
-    for relative, source_name in CANDIDATES.items():
-        candidate = host.proof / relative
-        generated = candidate.with_suffix(".lean.pending")
-        require_regular_workspace_path(host, generated)
-        require_regular_workspace_path(host, candidate)
-        generated.unlink(missing_ok=True)
-        try:
-            subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
-                            "--source", source_name, "--output", str(generated)], cwd=ROOT, check=True)
+        prepare_workspace(host, inputs, clean=args.clean)
+        prepare_tool_cache(host, tool_hashes)
+        # These are candidate certificates, not trusted results: Lean checks each
+        # line and reconstruction of the exact authoritative source bytes.
+        # The generator writes beside the final module so its authoritative-source
+        # path checks remain valid. Publish only changed bytes to preserve no-op runs.
+        for relative, source_name in CANDIDATES.items():
+            candidate = host.proof / relative
+            generated = candidate.with_suffix(".lean.pending")
             require_regular_workspace_path(host, generated)
-            write_changed(candidate, generated.read_bytes())
-        finally:
+            require_regular_workspace_path(host, candidate)
             generated.unlink(missing_ok=True)
-    verify_workspace_inputs(host, inputs)
-    workspace_sources, workspace_hashes = capture_workspace_inputs(host)
-    if workspace_sources.keys() != sources.keys():
-        raise RuntimeError("host proof workspace does not contain exactly the shared project modules")
-    source_modules = set(sources)
-    lake_settings = ["-K", f"silverThreads={args.threads}"]
-    lean_settings = ["-DwarningAsError=true", f"-j{args.threads}"]
-    if args.memory_mb is not None:
-        lake_settings.extend(["-K", f"silverMemoryMb={args.memory_mb}"])
-        lean_settings.append(f"-M{args.memory_mb}")
-    audit_driver = None
-    build_targets = None
-    audit_path = Path("Silver/Audit.lean")
-    if targets:
-        build_targets = list(dict.fromkeys([*targets, "Silver.AxiomAudit"]))
-        audit_path = Path(".lake/silver-focused-audit.lean")
-        contents = ("".join(f"import {target}\n" for target in build_targets) +
-                    "\n#silver_audit\n").encode()
-        driver_path = host.proof / audit_path
-        require_regular_workspace_path(host, driver_path)
-        write_changed(driver_path, contents)
-        audit_driver = (driver_path, contents)
-    verify_run_inputs(host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
-    build_command = lake_build_command(lake, lake_settings, build_targets)
-    audit_command = [str(lake), *lake_settings, "env", str(lean), *lean_settings,
-                     str(audit_path)]
-    commands = [build_command, audit_command]
-    if args.replay:
-        commands.append([str(lake), *lake_settings, "env", str(checker), "--fresh", "Silver.Audit"])
-    compiled_hashes = None
-    visited: set[str] = set()
-    phases = []
-    with log.open("w") as destination:
-        def record(message: str) -> None:
-            destination.write(message + "\n")
-            destination.flush()
-            print(message, flush=True)
-
-        for phase, command in zip(("build", "audit", "kernel"), commands):
-            phase_started = time.monotonic()
-            started_at = datetime.now(timezone.utc).isoformat()
-            record(f"Lean phase {phase} started at {started_at}")
-            record("+ " + " ".join(command))
             try:
-                result = run_logged(command, cwd=host.proof, env=environment,
-                                    destination=destination)
-            except BaseException as error:
-                record(f"\nLean phase {phase} interrupted after "
-                       f"{time.monotonic() - phase_started:.3f}s: {type(error).__name__}")
-                raise
-            phases.append({"phase": phase, "started_at": started_at,
-                           "finished_at": datetime.now(timezone.utc).isoformat(),
-                           "elapsed_seconds": round(time.monotonic() - phase_started, 3),
-                           "exit_code": result.returncode})
-            record(f"\nLean phase {phase} finished at {phases[-1]['finished_at']}; "
-                   f"elapsed {phases[-1]['elapsed_seconds']:.3f}s; exit {result.returncode}")
-            if result.returncode:
-                raise RuntimeError(f"Lean check failed; see {log}")
-            workspace_sources = verify_run_inputs(
-                host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
-            if command == build_command:
-                if detailed_integrity:
-                    compiled_hashes = compiled_artifacts(host)
-                    if not compiled_hashes:
-                        raise RuntimeError("Lean build produced no compiled artifacts to audit")
-            else:
-                if detailed_integrity and compiled_hashes != compiled_artifacts(host):
-                    raise RuntimeError("compiled Lean artifacts changed during verification")
-                if command == audit_command:
-                    if "Silver axiom audit passed:" not in result.stdout:
-                        raise RuntimeError("Lean check completed without a freshly executed axiom audit")
-                    visited = audit_import_closure(workspace_sources, result.stdout, targets or None)
-    workspace_sources = verify_run_inputs(
-        host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
-    if detailed_integrity and compiled_hashes != compiled_artifacts(host):
-        raise RuntimeError("compiled Lean artifacts changed during verification")
-    result_record = {
-        "host": host.key, "lean_version": version,
-        "scope": "focused" if targets else "complete",
-        "targets": targets or ["Silver.Audit"],
-        "mode": "clean" if args.clean else "replay" if args.replay else
-                "focused" if targets else "incremental",
-        "clean_build": args.clean, "axiom_audit": "passed",
-        "kernel_recheck": "leanchecker --fresh Silver.Audit" if args.replay else None,
-        "threads_per_process": args.threads, "lake_workers": args.workers,
-        "available_cpus": cpus, "memory_mb_per_process": args.memory_mb,
-        "phases": phases, "tools_sha256": tool_hashes, "modules": sorted(visited),
-        "elapsed_seconds": round(time.monotonic() - started, 3),
-        "inputs_digest_sha256": inputs_digest,
-        "workspace": str(host.proof.relative_to(ROOT)),
-        "authoritative_source": "src", "log": str(log.relative_to(ROOT))}
-    if args.provenance:
-        result_record.update({"commands": commands, "inputs_sha256": checked_inputs,
-                              "workspace_inputs_sha256": workspace_hashes,
-                              "artifacts_sha256": compiled_hashes,
-                              "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
-    evidence.write_text(json.dumps(result_record, indent=2) + "\n")
-    label = "focused check (partial validation)" if targets else "complete project check"
-    print(f"Lean {label} and fresh axiom audit "
-          f"passed for {host.key}: {log}")
+                subprocess.run([sys.executable, str(PROOF / "generate_source_certificate.py"),
+                                "--source", source_name, "--output", str(generated)], cwd=ROOT, check=True,
+                                pass_fds=run.pass_fds)
+                require_regular_workspace_path(host, generated)
+                write_changed(candidate, generated.read_bytes())
+            finally:
+                generated.unlink(missing_ok=True)
+        verify_workspace_inputs(host, inputs)
+        workspace_sources, workspace_hashes = capture_workspace_inputs(host)
+        if workspace_sources.keys() != sources.keys():
+            raise RuntimeError("host proof workspace does not contain exactly the shared project modules")
+        source_modules = set(sources)
+        lake_settings = ["-K", f"silverThreads={args.threads}"]
+        lean_settings = ["-DwarningAsError=true", f"-j{args.threads}"]
+        if args.memory_mb is not None:
+            lake_settings.extend(["-K", f"silverMemoryMb={args.memory_mb}"])
+            lean_settings.append(f"-M{args.memory_mb}")
+        audit_driver = None
+        build_targets = None
+        audit_path = Path("Silver/Audit.lean")
+        if targets:
+            build_targets = list(dict.fromkeys([*targets, "Silver.AxiomAudit"]))
+            audit_path = Path(".lake/silver-focused-audit.lean")
+            contents = ("".join(f"import {target}\n" for target in build_targets) +
+                        "\n#silver_audit\n").encode()
+            driver_path = host.proof / audit_path
+            require_regular_workspace_path(host, driver_path)
+            write_changed(driver_path, contents)
+            audit_driver = (driver_path, contents)
+        verify_run_inputs(host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
+        build_command = lake_build_command(lake, lake_settings, build_targets)
+        audit_command = [str(lake), *lake_settings, "env", str(lean), *lean_settings,
+                         str(audit_path)]
+        commands = [build_command, audit_command]
+        if args.replay:
+            commands.append([str(lake), *lake_settings, "env", str(checker), "--fresh", "Silver.Audit"])
+        compiled_hashes = None
+        visited: set[str] = set()
+        phases = []
+        with log.open("w") as destination:
+            def record(message: str) -> None:
+                destination.write(message + "\n")
+                destination.flush()
+                print(message, flush=True)
+
+            for phase, command in zip(("build", "audit", "kernel"), commands):
+                phase_started = time.monotonic()
+                started_at = datetime.now(timezone.utc).isoformat()
+                run.event("phase_started", phase=phase, command=command, started_at=started_at)
+                record(f"Lean phase {phase} started at {started_at}")
+                record("+ " + " ".join(command))
+                try:
+                    result = run_logged(command, cwd=host.proof, env=environment,
+                                        destination=destination, pass_fds=run.pass_fds)
+                except BaseException as error:
+                    run.event("phase_interrupted", phase=phase, error=type(error).__name__,
+                              elapsed_seconds=round(time.monotonic() - phase_started, 3))
+                    record(f"\nLean phase {phase} interrupted after "
+                           f"{time.monotonic() - phase_started:.3f}s: {type(error).__name__}")
+                    raise
+                phases.append({"phase": phase, "started_at": started_at,
+                               "finished_at": datetime.now(timezone.utc).isoformat(),
+                               "elapsed_seconds": round(time.monotonic() - phase_started, 3),
+                               "exit_code": result.returncode})
+                run.event("phase_finished", **phases[-1])
+                record(f"\nLean phase {phase} finished at {phases[-1]['finished_at']}; "
+                       f"elapsed {phases[-1]['elapsed_seconds']:.3f}s; exit {result.returncode}")
+                if result.returncode:
+                    run.finish(outcome="interrupted" if result.returncode < 0 else "failure",
+                               returncode=result.returncode,
+                               failure_keys=lean_failure_keys(result.stdout, phase, host.proof))
+                    raise RuntimeError(f"Lean check failed; see {log}")
+                workspace_sources = verify_run_inputs(
+                    host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
+                if command == build_command:
+                    if detailed_integrity:
+                        compiled_hashes = compiled_artifacts(host)
+                        if not compiled_hashes:
+                            raise RuntimeError("Lean build produced no compiled artifacts to audit")
+                else:
+                    if detailed_integrity and compiled_hashes != compiled_artifacts(host):
+                        raise RuntimeError("compiled Lean artifacts changed during verification")
+                    if command == audit_command:
+                        if "Silver axiom audit passed:" not in result.stdout:
+                            raise RuntimeError("Lean check completed without a freshly executed axiom audit")
+                        visited = audit_import_closure(workspace_sources, result.stdout, targets or None)
+        workspace_sources = verify_run_inputs(
+            host, inputs, source_modules, workspace_hashes, tool_hashes, audit_driver)
+        if detailed_integrity and compiled_hashes != compiled_artifacts(host):
+            raise RuntimeError("compiled Lean artifacts changed during verification")
+        result_record = {
+            "host": host.key, "lean_version": version, "run_id": run.run_id,
+            "scope": "focused" if targets else "complete",
+            "targets": targets or ["Silver.Audit"],
+            "mode": "clean" if args.clean else "replay" if args.replay else
+                    "focused" if targets else "incremental",
+            "clean_build": args.clean, "axiom_audit": "passed",
+            "kernel_recheck": "leanchecker --fresh Silver.Audit" if args.replay else None,
+            "threads_per_process": args.threads, "lake_workers": args.workers,
+            "available_cpus": cpus, "memory_mb_per_process": args.memory_mb,
+            "phases": phases, "tools_sha256": tool_hashes, "modules": sorted(visited),
+            "elapsed_seconds": round(time.monotonic() - started, 3),
+            "inputs_digest_sha256": inputs_digest,
+            "workspace": str(host.proof.relative_to(ROOT)),
+            "authoritative_source": "src", "log": str(log.relative_to(ROOT))}
+        if args.provenance:
+            result_record.update({"commands": commands, "inputs_sha256": checked_inputs,
+                                  "workspace_inputs_sha256": workspace_hashes,
+                                  "artifacts_sha256": compiled_hashes,
+                                  "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
+        evidence.write_text(json.dumps(result_record, indent=2) + "\n")
+        # Canonical convenience paths can change on the next run. Keep this
+        # successful run's log and evidence alongside its durable event record.
+        retained_log = run.directory / log.name
+        retained_evidence = run.directory / evidence.name
+        shutil.copyfile(log, retained_log)
+        shutil.copyfile(evidence, retained_evidence)
+        run.evidence.extend([retained_log, retained_evidence])
+        label = "focused check (partial validation)" if targets else "complete project check"
+        print(f"Lean {label} and fresh axiom audit "
+              f"passed for {host.key}: {log}")
 
 
 if __name__ == "__main__":

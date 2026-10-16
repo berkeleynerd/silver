@@ -58,6 +58,13 @@ class ProvenanceTests(unittest.TestCase):
                          "inputs_sha256": input_hashes(self.host), "tools": tools,
                          "reports_sha256": report_hashes(self.reports)}
 
+        patch = mock.patch.object(proof_provenance, "tool_identities", return_value=tools)
+        patch.start()
+        self.addCleanup(patch.stop)
+        cpus = mock.patch("scripts.run_history.available_cpus", return_value=8)
+        cpus.start()
+        self.addCleanup(cpus.stop)
+
     def refresh_invocation(self) -> None:
         self.sarif["runs"][0]["invocations"][0]["commandLine"] = " ".join(self.command)
         (self.reports / "gnatprove.sarif").write_text(json.dumps(self.sarif))
@@ -234,6 +241,16 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(snapshot["mode"], "full")
         self.assertEqual(snapshot["initial_state"], {"sessions_present": True, "cache_entries_present": True})
 
+    def test_failed_tool_preflight_preserves_successful_reports(self) -> None:
+        (self.reports / MANIFEST).write_text("old completed evidence")
+        before = {path: path.read_bytes() for path in self.reports.iterdir()}
+        outside = self.root / "unselected-tool"
+        outside.write_bytes((self.host.tools / "test-tool").read_bytes())
+        self.manifest["tools"]["gnatprove"]["path"] = str(outside)
+        with self.assertRaisesRegex(EvidenceError, "outside the selected native"):
+            proof_provenance.begin_proof(self.host, self.command, self.reports)
+        self.assertEqual(before, {path: path.read_bytes() for path in self.reports.iterdir()})
+
     def test_cold_options_require_their_own_output_directory(self) -> None:
         for arguments in (["--cold"], ["--cold", "--jobs", "2"], ["-j2", "--cold"]):
             run = proof_arguments(arguments)
@@ -355,7 +372,7 @@ class ProvenanceTests(unittest.TestCase):
             dev.main(["prove"])
         command = run.call_args.args[1]
         self.assertNotIn("-f", command)
-        self.assertEqual(command[command.index("-j") + 1], "0")
+        self.assertEqual(command[command.index("-j") + 1], "8")
         self.assertIn(f"--memcached-server=file:{proof_cache(self.host)}", command)
         self.assertIn("--mode=all", command)
         self.assertIn("--checks-as-errors=on", command)
@@ -388,14 +405,15 @@ class ProvenanceTests(unittest.TestCase):
                     mock.patch.object(dev, "begin_proof") as begin, \
                     mock.patch.object(dev, "audit_sources") as audit, \
                     mock.patch.object(dev, "complete_proof") as complete:
-                dev.main(arguments)
+                dev.main([arguments[0], "--reason", "Check equivalent CLI spellings", *arguments[1:]])
                 command = run.call_args_list[0].args[1]
                 self.assertIn("-f", command)
                 self.assertEqual(command[command.index("-j") + 1], "3")
                 begin.assert_called_once()
                 audit.assert_called_once_with(self.root / "src", self.reports, self.host.generated,
                                               effective_command=command[command.index("--") + 1:])
-                complete.assert_called_once_with(self.host, self.reports, begin.return_value)
+                complete.assert_called_once_with(self.host, self.reports, begin.return_value,
+                                                 pass_fds=run.call_args.kwargs["pass_fds"])
                 self.assertEqual(run.call_count, 2)
 
     def test_invalid_worker_counts_fail_before_proof(self) -> None:

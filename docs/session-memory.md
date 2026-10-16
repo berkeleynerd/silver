@@ -1,5 +1,25 @@
 # Session memory
 
+## 2026-10-16 — Proof iteration controls delivered
+
+The owner-authorized tooling package #39 is implemented and validated at
+`666b87ecf8`, with review findings #41–#43 repaired. The
+[workflow record](proof-iteration.md#delivery-and-linux-evidence) identifies the
+actual native Linux checks, retained interruptions, cache reuse, exact review
+targets and final implementation separately from completion documentation.
+Managed runs now retain identities and evidence, coordinate resolved workspaces
+and workers, reject unjustified identical-success expensive repeats, require a
+diagnostic after recurring recognized obligations, and provide durable resumption
+notes. Required proof and source-correspondence audits remain unchanged.
+
+Routine publication remains authorized. For loops and integers remains paused;
+its unfinished canonical feature checkout and caches were preserved. The tooling
+integration is isolated in `tmp/iteration-workflow`; original-path native cache
+validation uses the clean prior repair checkout detached at the implementation
+commit, preserving its prior branch and scratch. Hosted CI stays disabled.
+No Oracle or language capability changed. CLI memory was unavailable and was not
+updated; issue handoffs and the checked-in records carry delivery status.
+
 ## 2026-10-16 — Proof iteration controls authorized
 
 The owner answered the proposed proof-iteration controls with “Make it so.”
@@ -18,8 +38,10 @@ validation and publication remain authorized; hosted CI stays disabled.
 
 For loops and integers and its unfinished work remain preserved separately.
 Its existing harness goal stays **paused**; this tooling instruction neither
-resumes nor completes it. Record the tooling authorization on `main` before
-claiming its issue, following [planning](planning.md#the-board). CLI memory was
+resumes nor completes it. [PR #40](https://github.com/berkeleynerd/silver/pull/40)
+recorded the tooling authorization on `main` as
+`2c30cfa3d78f9e960f0839bca09787241b4435c5` before #39 was claimed,
+following [planning](planning.md#the-board). CLI memory was
 unavailable and was not updated; this dated entry is the durable decision record.
 
 ## 2026-10-16 — Selected review repairs complete

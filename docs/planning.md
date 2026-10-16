@@ -130,7 +130,10 @@ does that, with the decision recorded in session memory.
    authorization.
 5. **Handoffs.** Comment on each affected issue with its state, evidence links
    and next step. Owner decisions and authorizations still go in the session
-   memory.
+   memory. For proof work, identify the relevant managed run IDs, current
+   diagnostic checkpoint and next smallest required check. Link the ledger and
+   evidence instead of duplicating timing history; see the
+   [proof-iteration record](proof-iteration.md).
 6. **Completion.** Close the issue through its commit, and update the roadmap's
    capability/milestone completion record, `language.md`, the catalogue, samples
    and capability record together as [development.md](../development.md) requires.

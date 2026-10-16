@@ -6,6 +6,43 @@ Updated on 2026-10-16 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
+## Proof iteration controls
+
+The owner authorized the [proof-iteration controls](docs/proof-iteration.md) with
+“Make it so” on 2026-10-16. [PR #40](https://github.com/berkeleynerd/silver/pull/40)
+recorded that authorization on `main` as
+`2c30cfa3d78f9e960f0839bca09787241b4435c5`. One
+[work package #39](https://github.com/berkeleynerd/silver/issues/39) in
+[milestone 2](https://github.com/berkeleynerd/silver/milestone/2) covers the run
+ledger, resolved-workspace leases, worker coordination, cheap preflight, reasons
+for identical-success expensive reruns, recurring-failure diagnosis and resume
+readout. The record separates implementation/validation evidence from that
+authorization commit. Implementation `666b87ecf8` passed the focused tests, native
+full audit and complete cached Lean/fresh-audit checkpoint; #41–#43 are repaired.
+See the [delivery evidence](docs/proof-iteration.md#delivery-and-linux-evidence)
+for run IDs, retained interrupted attempts and original-path cache validation.
+Consult the issue for publication status.
+
+At startup and after interruption, run:
+
+```sh
+python3 scripts/dev.py paths
+python3 scripts/dev.py runs status --task '#39'
+```
+
+Reconcile that readout with current Git inputs, issue authorization and the live
+harness objective/status. Retain successful objects and evidence, inspect active
+leases before launching another writer, and choose the next smallest outstanding
+check. The [runner interface](docs/proof-iteration.md#managed-interface) describes
+task labels, rerun reasons, diagnostic notes and the durable checkpoint command.
+No ledger entry substitutes for required assurance or authorizes new work.
+
+For loops and integers remains unfinished and preserved separately, with its
+harness **paused**. This tooling work does not resume or complete it. No Oracle
+or language change is included. Publication remains authorized, hosted CI stays
+disabled, and native macOS validation remains independent and nonblocking.
+CLI memory tools were unavailable and were not updated.
+
 ## Selected review repairs complete
 
 The eleven owner-selected findings from
@@ -628,8 +665,8 @@ original scope. The owner reports 96 GB physical RAM and can increase the
 sandbox allocation; physical capacity is distinct from RAM exposed here.
 Neither the host allocation nor the runner's default was changed by this task.
 Use `python3 scripts/dev.py paths` for the actual
-installation and artifact paths. GNATprove uses all cores by default; Lean uses
-all available Lake workers and per-process threads, with independent overrides.
+installation and artifact paths. GNATprove and Lean Lake workers allocate the remaining shared worker budget by
+default; Lean per-process threads independently default to all available CPUs.
 The [concurrency record](docs/lean-concurrency.md) distinguishes measured speedups
 from remaining serial work and explains the per-process memory threshold.
 

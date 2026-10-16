@@ -325,6 +325,10 @@ silver_executable=$(python3 scripts/dev.py paths --field executable)
 
 ## Proofs and platform evidence
 
+The [proof iteration controls](docs/proof-iteration.md) record managed runs,
+workspace ownership, repeated-check reasons and recovery across long sessions,
+with native Linux validation and review dispositions.
+
 The [Run Arguments record](docs/run-arguments.md) covers direct argument forwarding,
 status propagation, the verified driver and its Linux validation.
 
