@@ -18,8 +18,8 @@ def SchemaIdentities (document : JSON.DocumentSpan) : Prop :=
 def imageScope : List Nat := JSON.ascii "Standard_String__Img"
 
 /-- The exact finite clone/include constructors interpreted at this boundary.
-The source theory, alias, import mode, domain and insertion scope are all fixed;
-only the substitution list is a parameter. -/
+The source theory, alias, import mode, domain and insertion scope are all fixed.
+The consumer law below uses only the exact checked finite substitution list. -/
 def CloneImportShape (scope : List Nat) (declaration includeNode : JSON.Value)
     (substitutions : List JSON.Value) : Prop :=
   scope = imageScope ∧
@@ -44,7 +44,9 @@ is the predefined-source semantic view of its finite symbolic instantiation,
 not the native OCaml return type or a solver result. `contextValid` means that
 the original producer model forms a valid typed name environment, including
 its namespace uniqueness; successful Silver scanning does not establish it.
-`theorySource` observes the module text selected by the external library lookup. -/
+`theorySource` observes the module text selected by the external library lookup.
+`resolve` observes name resolution within the fixed `imageScope`, after its
+includes and original declarations, at the appended clone declaration. -/
 structure Calls where
   contextValid : JSON.DocumentSpan → Prop
   theorySource : String → String → Option String
@@ -53,8 +55,9 @@ structure Calls where
 
 /-- Named trusted GNAT/Why consumer interpretation boundary. These are finite
 primitive correspondence laws, not a verification of gnatwhy3. The first law
-reads the checked clone/import constructors and applies the externally resolved
-substitutions; it does not assume those substitutions resolve or an assertion
+reads the exact checked clone/import and finite substitution constructors and
+applies their externally resolved rows; it does not cover arbitrary lists with
+the same projected rows, assume resolution succeeds, or assume an assertion
 is true. The second identifies the five named predefined type/function roles
 only under complete selected schemas and a valid original context.
 
@@ -62,12 +65,12 @@ The reviewed constructor routes are gnat_ast_to_ptree.ml 76–117, 160–173,
 1240–1280 and 1315–1330, with the enum/JSON constructor decoding in gnat_ast.ml.
 Exact installed theory text and stable external lookup remain separate inputs. -/
 structure InterpretedConsumer (calls : Calls) : Prop where
-  cloneImport : ∀ document scope declaration includeNode substitutions,
+  cloneImport : ∀ document scope declaration includeNode,
     calls.contextValid document →
     calls.theorySource "silver_image" "Integer_Image_Length" = some Integer.Image.Theory.text →
-    CloneImportShape scope declaration includeNode substitutions →
+    CloneImportShape scope declaration includeNode Clone.substitutions →
     calls.interpretClone document scope declaration includeNode =
-      assemble (substitutions.map (fun value => calls.resolve document (CloneMeaning.row value)))
+      assemble (Clone.substitutions.map (fun value => calls.resolve document (CloneMeaning.row value)))
   resolvePredefined : ∀ document, calls.contextValid document → SchemaIdentities document →
     ∀ role : CloneMeaning.Role, calls.resolve document role.row = some role
 
@@ -92,7 +95,7 @@ theorem actual_clone_interpretation (calls : Calls) (consumer : InterpretedConsu
     (schemas : SchemaIdentities document)
     (installed : calls.theorySource "silver_image" "Integer_Image_Length" = some Integer.Image.Theory.text) :
     calls.interpretClone document imageScope Clone.declaration Clone.includeDeclaration = some CloneMeaning.predefined := by
-  rw [consumer.cloneImport document imageScope Clone.declaration Clone.includeDeclaration Clone.substitutions
+  rw [consumer.cloneImport document imageScope Clone.declaration Clone.includeDeclaration
     context installed checked_clone_shape, resolved_clone_rows calls consumer document context schemas]
   simp only [assemble, ↓reduceIte]
 
