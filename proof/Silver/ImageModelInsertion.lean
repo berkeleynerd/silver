@@ -7,20 +7,22 @@ public import Init.Omega
 @[expose] public section
 namespace Silver.ImageModel
 
-/-- The producer's signed32 Why_Node_Id occupies the lower half of Why_Node_Set.
-The trusted pinned consumer represents IDs as OCaml int on the supported64 hosts. -/
-def originalIdMaximum : Nat := 1073741823
-def insertedIdFirst : Nat := 1073741824
+/-- The producer serializes its independent Natural counter, whose maximum is
+2^31-1. The pinned consumer represents IDs as signed 63-bit OCaml integers on
+the supported 64-bit hosts, with maximum 2^62-1. -/
+def originalIdMaximum : Nat := 2147483647
+def insertedIdFirst : Nat := 2147483648
 def insertedNodeCount : Nat := 23
+def consumerIdMaximum : Nat := 4611686018427387903
 
 theorem inserted_band_bounded :
     originalIdMaximum < insertedIdFirst ∧
-    insertedIdFirst + insertedNodeCount - 1 ≤ 2147483647 := by decide +kernel
+    insertedIdFirst + insertedNodeCount - 1 ≤ consumerIdMaximum := by decide +kernel
 
 theorem inserted_id_fresh {original index : Nat}
     (bounded : original ≤ originalIdMaximum) (member : index < insertedNodeCount) :
-    original < insertedIdFirst + index ∧ insertedIdFirst + index ≤ 2147483647 := by
-  unfold originalIdMaximum insertedIdFirst insertedNodeCount at *
+    original < insertedIdFirst + index ∧ insertedIdFirst + index ≤ consumerIdMaximum := by
+  unfold originalIdMaximum insertedIdFirst insertedNodeCount consumerIdMaximum at *
   omega
 
 /-- The adapter emits its two fragments at validated original-byte offsets.

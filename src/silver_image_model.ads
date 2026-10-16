@@ -2,8 +2,8 @@
 --  The original byte stream is never rewritten by this package.
 package Silver_Image_Model with SPARK_Mode => On is
    type Byte_Count is range 0 .. 2 ** 63 - 1;
-   subtype Original_Node_Id is Natural range 0 .. 1_073_741_823;
-   First_Inserted_Id : constant := 1_073_741_824;
+   subtype Original_Node_Id is Natural range 0 .. 2_147_483_647;
+   First_Inserted_Id : constant := 2_147_483_648;
 
    type Plan_Kind is (Invalid_Model, Unchanged, Refine);
    type Plan is record

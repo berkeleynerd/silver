@@ -7,8 +7,8 @@ separately against their typed renderings; this shape excludes hidden bindings. 
 namespace Silver.ImageModel.SourceShape
 
 def spec : List String :=
-  ["package", "silver_image_model", "with", "spark_mode", "=>", "on", "is", "type", "byte_count", "is", "range", "0", "..", "2", "*", "*", "63", "-", "1", ";", "subtype", "original_node_id", "is", "natural", "range", "0", "..", "1_073_741_823", ";", "first_inserted_id", ":", "constant",
-   ":=", "1_073_741_824", ";", "type", "plan_kind", "is", "(", "invalid_model", ",", "unchanged", ",", "refine", ")", ";", "type", "plan", "is", "record", "kind", ":", "plan_kind", ":=", "invalid_model", ";", "bytes", ":", "byte_count", ":=", "0", ";", "declarations_offset", ":",
+  ["package", "silver_image_model", "with", "spark_mode", "=>", "on", "is", "type", "byte_count", "is", "range", "0", "..", "2", "*", "*", "63", "-", "1", ";", "subtype", "original_node_id", "is", "natural", "range", "0", "..", "2_147_483_647", ";", "first_inserted_id", ":", "constant",
+   ":=", "2_147_483_648", ";", "type", "plan_kind", "is", "(", "invalid_model", ",", "unchanged", ",", "refine", ")", ";", "type", "plan", "is", "record", "kind", ":", "plan_kind", ":=", "invalid_model", ";", "bytes", ":", "byte_count", ":=", "0", ";", "declarations_offset", ":",
    "byte_count", ":=", "0", ";", "includes_offset", ":", "byte_count", ":=", "0", ";", "greatest_id", ":", "original_node_id", ":=", "0", ";", "end", "record", ";", "type", "state", "is", "private", ";", "initial_state", ":", "constant", "state", ";", "procedure", "consume", "(",
    "current", ":", "in", "out", "state", ";", "item", ":", "character", ")", "with", "global", "=>", "null", ";", "function", "finish", "(", "current", ":", "state", ")", "return", "plan", "with", "global", "=>", "null", ",", "post", "=>", "(",
    "if", "finish", "'", "result", ".", "kind", "=", "refine", "then", "finish", "'", "result", ".", "declarations_offset", "<", "finish", "'", "result", ".", "includes_offset", "and", "then", "finish", "'", "result", ".", "includes_offset", "<", "finish", "'", "result", ".",
