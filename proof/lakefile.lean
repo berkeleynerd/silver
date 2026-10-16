@@ -168,6 +168,24 @@ lean_lib ScalarLiteralBodySource where
   globs := #[.one `Silver.ScalarLiteralBodySource]
   needs := #[scalarLiteralBodySource]
 
+input_file scalarExpressionSpecSource where
+  path := "../src/silver_scalar_expressions.ads"
+  text := false
+
+lean_lib ScalarExpressionSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarExpressionSpecSource]
+  needs := #[scalarExpressionSpecSource]
+
+input_file scalarExpressionBodySource where
+  path := "../src/silver_scalar_expressions.adb"
+  text := false
+
+lean_lib ScalarExpressionBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ScalarExpressionBodySource]
+  needs := #[scalarExpressionBodySource]
+
 input_file pathFactsSpecSource where
   path := "../src/silver_path_facts.ads"
   text := false

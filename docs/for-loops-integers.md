@@ -1,14 +1,51 @@
 # For loops and integers
 
-Authorized on 2026-10-15 by the owner's request to set this milestone as the
-goal, update its label and drive it to completion. The live goal and conversation
-title identify this work. Parent [stage #10](https://github.com/berkeleynerd/silver/issues/10)
+**Scoping only, by the owner’s latest instruction on 2026-10-15.** The delivery
+goal is paused. The implementation and evidence below are preserved unfinished
+work and do not authorize continuation; see [session memory](session-memory.md).
+
+Initially authorized on 2026-10-15 by the owner's request to set this milestone
+as the goal, update its label and drive it to completion; the later scoping-only
+instruction supersedes permission to continue implementation. Parent [stage #10](https://github.com/berkeleynerd/silver/issues/10)
 and [milestone 1](https://github.com/berkeleynerd/silver/milestone/1) track delivery.
 The [roadmap](../roadmap.md#for-loops-and-integers) records the ordered packages.
 
+## Review incorporated into scoping
+
+[PR #35](https://github.com/berkeleynerd/silver/pull/35), merged into main at
+`04bef694ed`, publishes the
+[review of e2c4fc2..343c2f8](https://github.com/berkeleynerd/silver/blob/04bef694ed6c70696f944f7be1316dc38a60047c/docs/reviews/review-343c2f8.md)
+and records the owner's decision: **B1 / #17 is the first work package**, before
+any new construct is admitted. This does not resume the milestone. The review's
+native results concern that baseline, not the unfinished implementation below.
+
+B1 is a current-language compile-failure risk: the 2 MiB report limit leaves only
+5,772–6,141 bytes for a valid dense static-shell construction, and timing-dependent
+prover credits can exceed that margin. The review observed near-limit reports
+and the credit-growth mechanism, not an overflowing dense run. Its approximately
+2.37 MB format-derived maximum applies to the reviewed construction; it is not
+a universal bound for the proposed extension.
+
+The repair's completion criteria are to derive capacity from report records and
+admitted source shapes, account for prover credits and interrupted-loser records,
+move the buffer off Compile's stack, re-prove affected readers/policies, and add a
+format-derived capacity regression. The bound must cover whichever new constructs
+are selected before admission. A suggested 4 MiB buffer is a candidate size, not
+the derivation. Related L2 headroom claims and L4 buffer placement are part of
+that assessment; other published findings retain their own issue dispositions.
+
+[Decision #34](https://github.com/berkeleynerd/silver/issues/34) remains open.
+Neither current motivating sample exercises integer arithmetic. Its options are
+to include scalar formatting and an appropriate sample, keep the candidate scope
+with a sample that uses arithmetic, or defer integers to the following stage.
+[L8 / #25](https://github.com/berkeleynerd/silver/issues/25) also requires a faithful
+reassessment of Colour bars/Display. No scope option is selected here, and no
+Rosetta construct is marked supported. The candidate rules and historical probes
+below remain available to inform that decision.
+
 ## Scope and completion
 
-The motivating programs are Rosetta's
+The originally proposed motivating programs were Rosetta's
 [Colour bars/Display](../rosetta/c/colour-bars/display/silver.md) and
 [Loops/For](../rosetta/l/loops/for/silver.md), including nested bounds that read an
 enclosing loop index. Determine explicit integer types, expressions, operators,
@@ -23,9 +60,9 @@ the authorized commits and GitHub tracking. Source preservation and complete
 obligation discharge remain mandatory. Existing 4096-byte source/value limits
 remain unless an explicit justified change is needed within this capability.
 
-## Selected initial fragment
+## Candidate initial fragment — scope decision pending
 
-This milestone admits immutable numeric values: initialized `constant Integer`
+The preserved candidate design admits immutable numeric values: initialized `constant Integer`
 declarations and scoped `for` loop indexes. Predefined `Integer` has the pinned
 GNAT signed 32-bit range, -2147483648 through 2147483647. Constants may read
 earlier Integer constants; String and scalar names share one source namespace
@@ -53,7 +90,8 @@ Package names retain the existing shell restrictions.
 Loop bodies compose with nested conditionals, null, String assignments, output
 and returning Reject. String bounds and selected-input facts are immutable;
 checking one body for every index interval establishes safety of repetition.
-Exit facts account for empty ranges. Loop membership and proofs do not enumerate
+Empty loops preserve entry facts; definitely nonempty loops retain body exit
+facts; uncertain loops join entry and body exit facts. Loop membership and proofs do not enumerate
 iterations, and finite Ada ranges supply termination. Applications use
 `--no-loop-unrolling`: automatic expansion is neither the admission rule nor
 the discharge argument.
@@ -66,7 +104,7 @@ an increment across arbitrary iterations. These are scope exclusions, not claims
 that Ada/SPARK forbids the features. Later progression scopes must account for
 any such forms their actual samples require.
 
-The candidate resource rule is 64 scalar leaves per expression and one shared
+The selected resource rule is 64 scalar leaves per expression and one shared
 63-operator source budget for String concatenation and scalar arithmetic. This
 retains every existing program while bounding the expanded proof/report cost;
 the complete source/value limits remain 4096 bytes. Actual-scope capacity probes pass, including a 4083-byte mixed program; these
@@ -119,3 +157,35 @@ caps literal exponents at 4096 and updates the model, grammar and actual-source
 proof together; the initial audit predates that repair. Native stress probes
 also exercised 140 nested loops and 1950 scalar parentheses within the source
 limit. These are isolated implementation checks, not the final full checkpoint.
+
+The initial scalar literal source bridge passed its focused Linux check and fresh
+axiom audit after correcting a stale return-type assertion in the source
+interface. That 17:15 UTC result covers the pre-exponent-cap literal implementation; later
+focused runs have superseded the root log. The first attempt retained its
+successful source certificate and reported the interface mismatch; the corrected
+run reused it. The cap model and typed equations subsequently passed a focused
+check and fresh audit in `d22c959d9d`; its retained log is
+`tmp/for-loops-planning/literal-cap-model.log`. The matching capped source check and fresh axiom audit passed at 17:53 UTC;
+its retained log is `tmp/for-loops-planning/literal-cap-source.log`. These are partial assurance results, not the completed milestone
+checkpoint.
+
+The interval helper's exact-source bridge passed its focused Linux check and
+fresh axiom audit at 17:40 UTC, for `6292d116c7` in
+`tmp/for-loops-scalar-proof`. It checks the complete source, numeric declarations,
+function headers and all typed expression renderings, and derives operation
+correctness from arbitrary callees satisfying those source equations. The report
+policy's independent focused SPARK audit also completed with all 972 checks
+proved; its exact inputs and retained reports are in the probe README. The
+broader native parser audit and integrated source/semantic checkpoint remain
+pending.
+
+The proof implementation separates arithmetic intervals and expression safety,
+ordered immutable constants, universal finite-loop execution and path-fact
+composition, independent source grammar, and the native source equations. Mixed
+header readings retain separate ordered String and Integer declaration traces;
+their stores share source names without changing existing String indexes.
+The native scanner must agree with those readings, and the checked obligation
+schemas must cover their full composition with input, branches, assignment,
+output and returning Reject. Exact source tokens, declarations, typed bodies,
+recursive equations and native refinement contracts jointly establish source
+correspondence. No pin or successful sample substitutes for those arguments.

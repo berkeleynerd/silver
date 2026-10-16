@@ -1,5 +1,30 @@
 # Session memory
 
+## 2026-10-15 — Merged review incorporated into milestone scoping
+
+[PR #35](https://github.com/berkeleynerd/silver/pull/35), merged to main at
+`04bef694ed`, publishes the review of `e2c4fc2..343c2f8` and records the owner's
+decisions to publish its findings and make [B1 / #17](https://github.com/berkeleynerd/silver/issues/17)
+the first work package of For loops and integers, before any new construct is
+admitted. Findings already exist as #17–#34; do not duplicate them.
+The owner asked this session to consider that review. The scoping-only pause
+continues, including the B1 implementation. The local roadmap and capability
+record now reflect the order and the open [scope decision #34](https://github.com/berkeleynerd/silver/issues/34).
+No integer-scope option has been selected. Existing implementation and evidence
+are preserved; the merged review does not validate those unfinished changes.
+
+## 2026-10-15 — For loops and integers restricted to scoping
+
+The owner subsequently instructed: “Remain at scoping. Do not proceed to begin
+work.” This supersedes the earlier implementation/delivery authorization for
+this milestone. Keep further activity to scoping; do not start or resume
+implementation, validation, integration, commits or publication without a newer
+owner instruction. The delivery harness goal is paused and the task title is
+**For loops and integers — scoping**. Existing local commits, uncommitted changes,
+worktrees and caches are preserved as unfinished work; no capability completion
+or publication is claimed. [Stage #10](https://github.com/berkeleynerd/silver/issues/10)
+tracks the hold. CLI memory was not updated.
+
 ## 2026-10-15 — For loops and integers goal authorized
 
 The owner asked to set the next language milestone as a goal, update its label,

@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateChecks
+public import Silver.PredicateGrammar
 public import Silver.Cursor
 
 @[expose] public section

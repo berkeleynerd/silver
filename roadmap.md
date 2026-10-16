@@ -16,37 +16,51 @@ next capability while retaining full assurance for the current language.
 
 ### For loops and integers
 
-**In progress**, owner-authorized on 2026-10-15 as the active harness goal.
-The task title is **For loops and integers — implementation and assurance**.
-[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) delivers
-[stage #10](https://github.com/berkeleynerd/silver/issues/10), motivated by
-Colour bars/Display and nested Loops/For. The independent Stage 1 sample
-collection is not a dependency. New constructs remain excluded until delivery.
+**Scoping only.** The delivery goal remains paused under the owner's instruction
+on 2026-10-15. The task title is **For loops and integers — scoping**. Existing
+implementation is unfinished and preserved; neither this plan nor the merged
+review resumes it.
 
-Ordered work packages, with native and formal work proceeding together once the
-admission design is settled:
+[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) tracks
+[stage #10](https://github.com/berkeleynerd/silver/issues/10). The owner made the
+report-capacity repair B1 the first work package in
+[PR #35](https://github.com/berkeleynerd/silver/pull/35), merged at `04bef694ed`.
+The review covers `e2c4fc2..343c2f8`; it does not validate the unfinished loop
+implementation. The independent Stage 1 sample collection is not a dependency.
+New constructs remain excluded until delivery.
 
-1. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
-   choose explicit integer/loop forms and composition rules, with isolated native
-   probes and a complete semantic/source-proof plan.
-2. [Native admission and regression programs #14](https://github.com/berkeleynerd/silver/issues/14):
+Planned work-package order, with implementation held until the owner resumes it:
+
+1. [B1: proof-report capacity #17](https://github.com/berkeleynerd/silver/issues/17):
+   repair the existing-language defect before admitting new constructs. Derive
+   report capacity from the producer's record format, move the report buffer off
+   the Compile stack, re-prove affected readers and policies, and add a
+   format-derived capacity regression. Re-derive the bound for any new constructs
+   selected for this milestone; correct the specimen-only headroom claims.
+2. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
+   settle [integer scope and its motivating sample #34](https://github.com/berkeleynerd/silver/issues/34),
+   then specify integer/loop forms, composition rules and the semantic/source-proof
+   plan. Scoping discussion can continue during the implementation pause.
+3. [Native admission and regression programs #14](https://github.com/berkeleynerd/silver/issues/14):
    verified SPARK recognizer/report changes, motivating samples and boundary,
-   failure-path and interaction regressions.
-3. [Universal and actual-source assurance #15](https://github.com/berkeleynerd/silver/issues/15):
+   failure-path and interaction regressions for the settled scope.
+4. [Universal and actual-source assurance #15](https://github.com/berkeleynerd/silver/issues/15):
    decidable membership, execution/termination, universal safety/discharge and
    correspondence to the actual authoritative source.
-4. [Stable validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
+5. [Stable validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
    stable native Linux proof/build/full tests and complete cached Lean checks,
    independent review, synchronized specifications/catalogue/Rosetta/evidence,
-   and authorized commits/publication.
+   and commits/publication under the authorization in effect when resumed.
 
-The [capability record](docs/for-loops-integers.md) holds design and evidence.
-Remaining decisions are the integer domain/operators and range rules; loop
-bounds, nesting, index scope and empty/reverse ranges; preservation of facts
-across iterations and joins; and explicit resource/report capacity. Resolve
-these within the authorized capability, retaining the Oracle, full source
-correspondence and automatic proof for every admitted composition. A partial
-package does not complete the milestone.
+The [capability record](docs/for-loops-integers.md) preserves the candidate design
+and partial evidence. Integer scope remains an owner decision: add scalar
+formatting and a suitable sample, retain the candidate arithmetic scope with a
+sample that exercises it, or defer integers to the following stage. The current
+Colour bars/Display assessment needs correction under
+[L8 / #25](https://github.com/berkeleynerd/silver/issues/25); labelled text rows
+do not establish faithful coverage of that task. Rosetta support and stage
+assignments must follow the resolved scope. A partial package does not complete
+the milestone.
 
 ### Partial Output
 

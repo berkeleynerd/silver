@@ -32,6 +32,8 @@ else:
 
 PROOF = ROOT / "proof"
 CANDIDATES = {
+    Path("Silver/ScalarExpressionSpecCertificate.lean"): "silver_scalar_expressions.ads",
+    Path("Silver/ScalarExpressionBodyCertificate.lean"): "silver_scalar_expressions.adb",
     Path("Silver/ScalarsSpecCertificate.lean"): "silver_scalars.ads",
     Path("Silver/ScalarLiteralSpecCertificate.lean"): "silver_scalar_literals.ads",
     Path("Silver/ScalarLiteralBodyCertificate.lean"): "silver_scalar_literals.adb",
