@@ -221,3 +221,39 @@ lean_lib ImageTheorySpecSource where
   roots := #[]
   globs := #[.one `Silver.ImageTheorySpecSource]
   needs := #[imageTheorySpecSource]
+
+input_file imageModelSpecSource where
+  path := "../src/silver_image_model.ads"
+  text := false
+
+lean_lib ImageModelSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelSpecSource]
+  needs := #[imageModelSpecSource]
+
+input_file imageModelBodySource where
+  path := "../src/silver_image_model.adb"
+  text := false
+
+lean_lib ImageModelBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelBodySource]
+  needs := #[imageModelBodySource]
+
+input_file imageModelTemplatesSpecSource where
+  path := "../src/silver_image_model_templates.ads"
+  text := false
+
+lean_lib ImageModelTemplatesSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelTemplatesSpecSource]
+  needs := #[imageModelTemplatesSpecSource]
+
+input_file imageModelTemplatesBodySource where
+  path := "../src/silver_image_model_templates.adb"
+  text := false
+
+lean_lib ImageModelTemplatesBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageModelTemplatesBodySource]
+  needs := #[imageModelTemplatesBodySource]

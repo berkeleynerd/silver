@@ -1,5 +1,10 @@
 module
 
+public import Silver.ImageModelSpecSource
+public import Silver.ImageModelBodySource
+public import Silver.ImageModelTemplatesSpecSource
+public import Silver.ImageModelTemplatesBodySource
+
 public import Silver.ScalarsSpecSource
 public import Silver.ScalarLiteralSpecSource
 public import Silver.ScalarLiteralBodySource

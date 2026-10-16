@@ -34,6 +34,11 @@ else:
 
 PROOF = ROOT / "proof"
 CANDIDATES = {
+    Path("Silver/ImageModelSpecCertificate.lean"): "silver_image_model.ads",
+    Path("Silver/ImageModelBodyCertificate.lean"): "silver_image_model.adb",
+    Path("Silver/ImageModelTemplatesSpecCertificate.lean"): "silver_image_model_templates.ads",
+    Path("Silver/ImageModelTemplatesBodyCertificate.lean"): "silver_image_model_templates.adb",
+
     Path("Silver/ScalarExpressionSpecCertificate.lean"): "silver_scalar_expressions.ads",
     Path("Silver/ScalarExpressionBodyCertificate.lean"): "silver_scalar_expressions.adb",
     Path("Silver/ScalarsSpecCertificate.lean"): "silver_scalars.ads",

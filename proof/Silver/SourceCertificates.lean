@@ -1,5 +1,10 @@
 module
 
+public import Silver.ImageModelSpecCertificate
+public import Silver.ImageModelBodyCertificate
+public import Silver.ImageModelTemplatesSpecCertificate
+public import Silver.ImageModelTemplatesBodyCertificate
+
 public import Silver.ScalarsSpecCertificate
 public import Silver.ScalarLiteralSpecCertificate
 public import Silver.ScalarLiteralBodyCertificate
