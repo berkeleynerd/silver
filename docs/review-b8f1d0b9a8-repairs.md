@@ -104,3 +104,13 @@ retention/cleanup, environment-query and diagnostic behavior; its native
 validation remains pending. The capacity repair record follows the validated
 scanner handoff. Original review evidence and prior native/Lean/test run artifacts
 remain untouched.
+
+
+The adapter lifecycle refinement for #59 distinguishes supplied proof
+directories from wholly private ones: successful calls with `--proof-dir`
+remove only the two exact adapter snapshots and attempt a nonrecursive empty
+directory removal. This protects proof artifacts even when the supplied path
+resolves inside the new workspace. Calls without a supplied proof directory
+may remove the whole checked private workspace after vendor completion.
+Failure/debug retention and native result preservation are unchanged; source
+implementation and its native validation remain separately tracked.

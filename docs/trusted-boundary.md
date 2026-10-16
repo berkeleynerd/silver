@@ -252,12 +252,18 @@ and the selected runtime exports that symbol. This is a runtime boundary,
 not a new Silver-owned implementation body exempted from verification.
 
 Before cleanup, the adapter rechecks the full fixed Image-workspace prefix,
-NUL-free path and six alphanumeric suffix characters. It invokes `/bin/rm`
-with the direct argument vector `-rf`, `--`, and that exact new directory;
-no shell or wildcard interprets the path. Normal filesystem semantics and
-absence of hostile concurrent replacement in the private workspace remain
-external premises. Cleanup failure reports on stderr and leaves any remaining
-files without changing the completed native result or its JSON stream.
+NUL-free path and six alphanumeric suffix characters. Without a supplied proof
+directory it invokes `/bin/rm` with the direct argument vector `-rf`, `--`,
+and that exact new directory. With a supplied `--proof-dir`, it instead uses
+nonrecursive `-fd`, `--`, the two exact adapter snapshot paths
+(`original.gnat-json` and `refined.gnat-json`), and the new directory. The
+last removal succeeds only if the directory is empty. This preserves supplied
+proof artifacts even if the caller's path resolves inside, or to, the new
+adapter workspace; a nonempty directory remains. No shell or wildcard
+interprets a path. Normal filesystem semantics and absence of hostile
+concurrent replacement remain external premises. Cleanup failure retains
+remaining files and diagnostics on stderr without changing the completed
+native result or its JSON stream.
 
 Adapter failures emit a fixed step-specific JSON error with `internal: false`
 and exit status 3. These diagnostics identify argument, workspace, snapshot,
