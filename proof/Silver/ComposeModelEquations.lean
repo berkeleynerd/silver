@@ -45,6 +45,26 @@ private theorem model_definition_scalarAppend : ∀ names item, names.length < S
 private theorem model_definition_scalarEmpty : ∀ value, value.Bounded →
     modelCalls.function .scalarEmpty value = value.isEmpty := by intros; rfl
 
+private theorem model_definition_imageMinimum : ∀ value, value.Bounded →
+    modelCalls.function .imageMinimum value = (LengthSummary.ofImage value).minimumLength := by intros; rfl
+
+private theorem model_definition_imageMaximum : ∀ value, value.Bounded →
+    modelCalls.function .imageMaximum value = (LengthSummary.ofImage value).staticLength := by intros; rfl
+
+private theorem model_definition_image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    modelCalls.function .image text position names scalarNames integerHidden =
+      imageBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
+  intros
+  dsimp +instances only [modelCalls, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get,
+    imageBody, imageAt, imageParts, imageValue, ShellToken.word, ShellToken.symbol, spelling, isWord]
+  simp +instances only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte]
+  have empty : ∀ bounds, (LengthSummary.ofImage bounds).empty = bounds.isEmpty := by
+    intro bounds
+    unfold LengthSummary.ofImage
+    split <;> simp_all
+  simp only [empty, Bool.decide_or, Bool.or_assoc]
+
 private theorem model_definition_nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     modelCalls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat) := by intros; rfl
@@ -121,10 +141,10 @@ private theorem model_definition_workBudget : ∀ text, ValidText text →
   intros
   dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, workBudgetBody, spelling, isWord, withinWorkBudget] <;> simp +instances
 
-private theorem model_definition_value : ∀ text, ValidText text → ∀ position names scalarNames,
+private theorem model_definition_value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    modelCalls.function .value text position names scalarNames =
-      valueBody.eval modelCalls (Context.locals {text,scalarNames,position,names}) := by
+    modelCalls.function .value text position names scalarNames integerHidden =
+      valueBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
   intros
   dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, valueBody, spelling, isWord, valueAt] <;> simp +instances
 
@@ -151,25 +171,27 @@ private theorem model_definition_stringDeclaration : ∀ text, ValidText text �
   let first := declarationFirst text state
   let after := declarationAfter text state
   let constant := declarationConstantAfter text state
-  let value := expressionAt text (declarationValuePosition text state) state.names state.scalarNames
+  let value := expressionAt text (declarationValuePosition text state) state.names state.scalarNames (declarationIntegerHidden text state)
   let following := fixedAfter text value.after ";" false
   change
     (if !newNameAllowed text state first after arguments ||
         decide (following = 0 ∨ state.names.length = maxBindings) ||
-        !fits value maxSourceLength then invalidState
+        !fits value maxSourceLength || value.emptyValue ||
+        decide (value.minimumLength ≠ value.staticLength) then invalidState
       else addBinding state first after value.value (decide (constant = 0)) following) = _
   have body : stringDeclarationBody.eval modelCalls (Context.locals {text,state,arguments}) =
       (if ((!newNameAllowed text state first after arguments || decide (following = 0)) ||
-          decide (state.names.length = maxBindings)) || !fits value maxSourceLength
+          decide (state.names.length = maxBindings)) || !fits value maxSourceLength ||
+          value.emptyValue || decide (value.minimumLength ≠ value.staticLength)
         then invalidState
         else addBinding state first after value.value (decide (constant = 0)) following) := by
     dsimp +instances only [stringDeclarationBody, Expr.eval, Context.locals, Locals.set,
       modelCalls, Calls.get, Field.get, spelling, isWord, ShellToken.symbol, ShellToken.word]
     dsimp +instances only [first, after, constant, value, following, declarationFirst, declarationAfter,
-      declarationConstantAfter, declarationColonAfter, declarationValuePosition,
+      declarationConstantAfter, declarationColonAfter, declarationValuePosition, declarationIntegerHidden,
       ExpressionResult.value]
     simp only [reduceCtorEq, String.reduceEq, ↓reduceIte, ↓reduceDIte, Bool.or_eq_true,
-      Bool.not_eq_true', decide_eq_true_eq, ne_eq, ite_not]
+      Bool.not_eq_true', Bool.decide_and, Bool.and_assoc, decide_eq_true_eq, ne_eq, ite_not]
   rw [body]
   simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
 
@@ -235,10 +257,10 @@ private theorem model_definition_declarations : ∀ text, ValidText text → ∀
   dsimp +instances only [declarationsBody, Expr.eval, Context.locals, modelCalls, Calls.get, Field.get, spelling, isWord]
   simp only [decide_eq_true_eq, ite_not]
 
-private theorem model_definition_expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+private theorem model_definition_expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    modelCalls.function .expressionStep text names scan scalarNames =
-      expressionStepBody.eval modelCalls (Context.locals {text,scalarNames,names,scan}) := by
+    modelCalls.function .expressionStep text names scan scalarNames integerHidden =
+      expressionStepBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,names,scan}) := by
   intros
   dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, expressionStepBody, spelling, isWord, expressionStep, ShellToken.symbol] <;> simp +instances [Bool.and_eq_true, Bool.or_eq_true, or_assoc]
 
@@ -261,15 +283,15 @@ private theorem model_definition_comparison : ∀ text, ValidText text → ∀ s
   generalize (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).namedSeen = d
   cases a <;> cases b <;> cases c <;> cases d <;> rfl
 
-private theorem model_definition_tail (ranges : RangeContracts modelCalls) : ∀ text, ValidText text → ∀ names scan scalarNames,
+private theorem model_definition_tail (ranges : RangeContracts modelCalls) : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    modelCalls.function .tail text names scan scalarNames =
-      tailBody.eval modelCalls (Context.locals {text,scalarNames,names,scan}) := model_tail_equation ranges
+    modelCalls.function .tail text names scan scalarNames integerHidden =
+      tailBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,names,scan}) := model_tail_equation ranges
 
-private theorem model_definition_expression : ∀ text, ValidText text → ∀ position names scalarNames,
+private theorem model_definition_expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    modelCalls.function .expression text position names scalarNames =
-      expressionBody.eval modelCalls (Context.locals {text,scalarNames,position,names}) := by
+    modelCalls.function .expression text position names scalarNames integerHidden =
+      expressionBody.eval modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
   intros
   dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, expressionBody, spelling, isWord, expressionAt] <;> simp +instances
 
@@ -292,7 +314,13 @@ private theorem model_definition_assignmentValue : ∀ text, ValidText text → 
     modelCalls.function .assignmentValue text state =
       assignmentBody.eval modelCalls (Context.locals {text,state}) := by
   intros
-  dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, assignmentBody, spelling, isWord, assignmentAt] <;> simp +instances [Bool.or_eq_true, or_assoc]
+  dsimp +instances only [modelCalls, modelPrimitives, Context.locals, Expr.eval, Calls.get, Locals.set, Field.get, assignmentBody, spelling, isWord, assignmentAt]
+  simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, or_assoc]
+  have reorder (a b c d e f : Prop) :
+      (a ∨ c ∨ d ∨ b ∨ e ∨ f) ↔ (a ∨ b ∨ c ∨ d ∨ e ∨ f) := by
+    simp only [or_left_comm]
+  congr 1
+  exact propext (reorder _ _ _ _ _ _)
 
 private theorem model_definition_output : ∀ text, ValidText text → ∀ state,
     ValidState text state →
@@ -356,6 +384,9 @@ theorem model_definitions (ranges : RangeContracts modelCalls) :
   scalarLiteral := model_definition_scalarLiteral
   scalarAppend := model_definition_scalarAppend
   scalarEmpty := model_definition_scalarEmpty
+  imageMinimum := model_definition_imageMinimum
+  imageMaximum := model_definition_imageMaximum
+  image := model_definition_image
   nameIs := model_definition_nameIs
   callAfter := model_definition_callAfter
   stepRange := model_definition_stepRange ranges
