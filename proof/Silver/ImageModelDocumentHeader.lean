@@ -15,7 +15,8 @@ theorem document_header (tables : Native.Tables) (document : JSON.DocumentSpan)
     (room : document.header.length ≤ 9223372036854775807) :
     let result := document.header.foldl (consume (Core.modelHelpers tables)) {}
     result.failed = false ∧ BeforeTheory result ∧ result.bytes = document.header.length ∧
-      (∀ kind, result.seen kind = false) ∧ result.declarations = 0 ∧ result.includes = 0 := by
+      (∀ kind, result.seen kind = false) ∧ result.declarations = 0 ∧ result.includes = 0 ∧
+      result.phase = .firstTheory ∧ result.matcher.inTheory = false := by
   let beforeName : Core.State :=
     {bytes := document.leading.length + 1 + document.beforeKey.length, depth := 1, phase := .rootKey}
   have lengthBound : document.leading.length + 1 + document.beforeKey.length + 1 + document.key.length + 1 +
@@ -39,6 +40,8 @@ theorem document_header (tables : Native.Tables) (document : JSON.DocumentSpan)
   have namedGood : named.failed = false := by simp [named, quotedResult, quoteContext, beforeName, keyEq]
   have namedPhase : named.phase = .rootColon := by simp [named, quotedResult, quoteContext, beforeName, keyEq]
   have namedPending : named.nodeIdPending = false := rfl
+  have namedInactive : named.matcher.inTheory = false :=
+    matcher_fold_active tables beforeName.matcher (JSON.stringBytes (JSON.ascii "theory_declarations"))
   let beforeColon := {named with bytes := named.bytes + document.beforeColon.length}
   let afterColon := {counted beforeColon with phase := TheoryNative.Phase.rootList, previousArrayStart := false}
   let beforeList := {afterColon with bytes := afterColon.bytes + document.afterColon.length}
@@ -64,7 +67,7 @@ theorem document_header (tables : Native.Tables) (document : JSON.DocumentSpan)
     rw [header, List.foldl_append (l := (document.leading ++ [123] ++ document.beforeKey) ++ ([34] ++ document.key ++ [34])),
       List.foldl_append (l := document.leading ++ [123] ++ document.beforeKey), initialPart, keyResult, suffix]
   rw [run]
-  refine ⟨namedGood, ⟨rfl, rfl, namedPending, .inl rfl⟩, ?_, fun _ => rfl, rfl, rfl⟩
+  refine ⟨namedGood, ⟨rfl, rfl, namedPending, .inl rfl⟩, ?_, fun _ => rfl, rfl, rfl, rfl, namedInactive⟩
   change document.leading.length + 1 + document.beforeKey.length + (document.key.length + 2) + document.beforeColon.length + 1 + document.afterColon.length + 1 = _
   simp only [JSON.DocumentSpan.header, List.length_append, List.length_cons, List.length_nil]
   omega
