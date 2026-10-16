@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small bounded subtypes, for-loop-only primality testing in a function, and a count guard before array stores, so no annotations are needed. The nonlinear digit arithmetic is bounded by subtypes and the place guard, making discharge likely.
 
-Position 364 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 363 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over the array's own range, a divisor that the loop range keeps in 1 .. 100, and constant-bounded image strings, with no loop-carried values.
 
-Position 116 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 115 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

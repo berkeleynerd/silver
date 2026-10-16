@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and cost sum can be bounded by subtypes and explicit guards, and the only unbounded loops live in procedures, so no annotation is needed, but many loop-carried values need careful guards.
 
-Position 851 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 850 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

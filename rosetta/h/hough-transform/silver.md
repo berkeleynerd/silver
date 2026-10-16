@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over array ranges, and every arithmetic result is bounded by ranged types and scaled integer tables, so overflow and index checks follow from types plus one guard before the accumulator update. Floating point and image-file I/O are avoided, leaving bounded integer work whose discharge depends on careful program shape.
 
-Position 708 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 707 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

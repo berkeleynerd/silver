@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a small floating-point loop with no input, and the reciprocal is safe because the ranged subtype keeps the divisor at least 1.0, but floating-point range proofs for 1 + 1/x are the only non-routine part and need no annotations.
 
-Position 1047 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1046 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

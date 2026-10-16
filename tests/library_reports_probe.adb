@@ -16,7 +16,18 @@ procedure Library_Reports_Probe is
       elsif Ada.Command_Line.Argument (1) = "runtime"
       then Silver_Library_Reports.Runtime_Interface
       else Silver_Library_Reports.Imported_Interface);
+   function Accepted (Text : String) return Boolean is
+     (Silver_Library_Reports.Complete_Application_Proof
+        (Text, Silver_Library_Reports.Static_Output));
 begin
+   if Ada.Command_Line.Argument (1) = "rebased" then
+      declare
+         Rebased : constant String (37 .. 36 + Report'Length) := Report;
+      begin
+         Ada.Text_IO.Put_Line (if Accepted (Rebased) then "accepted" else "rejected");
+      end;
+      return;
+   end if;
    if (if Ada.Command_Line.Argument (1) = "main"
        then Silver_Library_Reports.Complete_Application_Proof (Report)
        elsif Ada.Command_Line.Argument (1) = "static"

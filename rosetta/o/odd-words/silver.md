@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded types and guards, and no recursion, heap or annotation is needed, but the file-read, nonlinear odd-index arithmetic and binary-search cursors need careful shape, so the outlook is plausible rather than likely.
 
-Position 1493 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1493 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Failure paths to test
 

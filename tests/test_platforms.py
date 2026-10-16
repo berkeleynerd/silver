@@ -324,7 +324,8 @@ class PlatformIsolationTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory(prefix="silver platform tests-")
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name).resolve()
-        for relative in ("alire.toml", "silver.gpr", "proof/lean-toolchain",
+        for relative in ("alire.toml", "silver.gpr", "proof/silver_proof_containers.gpr",
+                         "proof/lean-toolchain",
                          "proof/lakefile.lean", "proof/generate_source_certificate.py",
                          *("src/" + source for source in check_lean.CANDIDATES.values())):
             destination = self.root / relative

@@ -1,0 +1,19 @@
+--  Proof-only containers from the pinned GNATprove installation. Keep compiler
+--  objects local to this checkout and host; never build into the tool cache.
+project Silver_Proof_Containers is
+   Host := external ("SILVER_HOST", "");
+   Prefix := external ("GNATPROVE_ALIRE_PREFIX", "");
+   for Source_Dirs use (Prefix & "/include/spark", Prefix & "/include/spark/full");
+   for Object_Dir use "../.silver/" & Host & "/proof-containers/obj";
+
+   GPR_Tool := external ("GPR_TOOL", "");
+   case GPR_Tool is
+      when "gnatprove" =>
+         for Externally_Built use "True";
+      when others => null;
+   end case;
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnat2022", "-gnatwI");
+   end Compiler;
+end Silver_Proof_Containers;

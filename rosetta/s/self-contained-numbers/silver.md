@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is tied to a type range or a guard placed directly before the operation, and the Collatz loops sit in procedures so no termination proof is demanded, but the loop-carried hailstone value needs a careful ceiling guard and the search bound (about 1.1 million starts) must be a stated resource limit.
 
-Position 918 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 917 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

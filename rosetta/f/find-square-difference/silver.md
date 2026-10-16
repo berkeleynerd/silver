@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** N is bounded by the loop range 1 .. 1000, so N*N stays under 1,000,000 and nothing can overflow, and Answer is only ever assigned N, which is within its declared range. The for loop terminates by itself and no check depends on a loop-carried value.
 
-Position 38 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 33 in the [progression](../../progression.md#stage-3), in stage 3, which adds integers, ranged subtypes and 'Image of scalars.
 
 ## Approach
 

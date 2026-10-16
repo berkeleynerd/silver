@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop indexes and capacity guards, and no recursion or annotation is needed, though the loop-carried buffer counts and substring search need careful shape. Needing file output is an effect Silver lacks today, not a conflict.
 
-Position 1497 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1497 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Failure paths to test
 

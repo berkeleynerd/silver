@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Small fixed-radix integer arithmetic in a for loop is checkable from types and a pre-addition guard on the one loop-carried accumulator, so no annotation is needed, though a 100-bit big-number version like the existing solution would need fixed-capacity digit arrays and be harder.
 
-Position 386 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 385 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

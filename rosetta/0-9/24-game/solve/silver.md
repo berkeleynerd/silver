@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops in procedures and the rational arithmetic can be kept in small ranged types with guards, so no annotation is needed, though the overflow and range guards across many nested combinations call for careful program shape.
 
-Position 850 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 849 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

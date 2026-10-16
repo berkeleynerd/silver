@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the string's own index range and the only arithmetic is on bounded character-code differences, so every check follows from types and loop ranges with no annotation needed.
 
-Position 986 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 985 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result is bounded by ranged subtypes, mod reductions and a capacity-bounded buffer, and the only unbounded loops are while loops in procedures, so no annotation is needed, though the LCG arithmetic and buffer-length tracking need careful shaping.
 
-Position 716 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 715 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

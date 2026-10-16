@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing in the task conflicts with the Oracle, because a text trace of a simulated pendulum meets the animation requirement, and the scaled-integer loop-carried state discharges only if each update is clamped or guarded, hence plausible rather than likely.
 
-Position 174 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 173 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-capacity arrays with ranged subtypes and explicit guards inside a procedure, so no termination check or annotation is needed, but loop-carried stack tops and counts require careful guard placement.
 
-Position 721 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 720 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

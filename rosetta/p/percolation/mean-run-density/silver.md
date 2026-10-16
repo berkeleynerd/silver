@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and for-loop bounds except the large loop-carried run counter, which needs a cap guard with a visible outcome; no annotation is needed and no recursion, heap or floating point is required, so the proofs will likely discharge with careful shape.
 
-Position 401 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 400 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

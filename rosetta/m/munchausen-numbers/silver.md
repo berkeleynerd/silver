@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from small declared ranges, constant table indexing by a mod 10 digit, and one guard on the accumulator, and the only while loop sits in a procedure so no termination annotation is needed.
 
-Position 194 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 193 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

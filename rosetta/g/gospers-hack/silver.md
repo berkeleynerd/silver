@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a modular type so no overflow or range check can fail, the only division is guarded by a nonzero test, and no loop needs an invariant since the for loop is fixed at ten iterations.
 
-Position 1271 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1270 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

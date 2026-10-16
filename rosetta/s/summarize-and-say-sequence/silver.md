@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes, for-loop indexes over fixed arrays and capacity guards before buffer writes, and the repeat-detection loop lives in a procedure so no variant is needed, but loop-carried buffer positions need careful guard placement.
 
-Position 743 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 742 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

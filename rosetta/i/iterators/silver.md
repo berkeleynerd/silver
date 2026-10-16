@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared index and length ranges plus a Cursor /= 0 guard before each dereference, and the list's while loop lives in a procedure, so no termination check or invariant is needed.
 
-Position 615 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 614 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

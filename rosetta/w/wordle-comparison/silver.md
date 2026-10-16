@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable over the arrays' own constrained range and the loops carry only Boolean flags and enumeration values, so all checks follow from types and no invariant or variant is needed. The fixed 5-letter bound is a documented resource limit and the task's same-length assumption is met by the Word subtype.
 
-Position 1171 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1170 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, small ranged subtypes and guards before each increment or parse, with no annotation required, but many loop-carried counters need careful guarding and stdin parsing support is needed.
 
-Position 1552 in the [progression](../../../progression.md#stage-33), in stage 33.
+Position 1552 in the [progression](../../../progression.md#stage-34), in stage 34.
 
 ## Failure paths to test
 

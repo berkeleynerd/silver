@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The toy ECDSA only needs bounded 64-bit modular arithmetic and loops in procedures, so no annotation is required, but loop-carried extended-gcd coefficients and nonlinear modular products need careful guards and subtypes.
 
-Position 648 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 647 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no construct outside SPARK. Every check depends on file-derived values or loop-carried sums, which careful guards and clamping can cover without annotations, but the JPEG decoder, the integral image and the floating-point cascade evaluation make discharge depend on how carefully the program is shaped.
 
-Position 1477 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1477 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 

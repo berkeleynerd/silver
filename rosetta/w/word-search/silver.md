@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is a bounded grid cell or fixed-capacity buffer slot that can be guarded just before use, and no recursion, heap or annotation is needed. The risk is the nonlinear generator and the loop-carried placement cursors, so careful guard placement is needed but no invariant.
 
-Position 1203 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1202 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

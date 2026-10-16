@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from loop-index ranges and small declared subtypes, with only nonlinear products and quotients needing interval propagation, and all loops are for loops so no variant is needed.
 
-Position 381 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 380 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -12,7 +12,7 @@ with the same total work distributable across expression positions.
 
 | Order | Work package | Status and required result |
 | --- | --- | --- |
-| 1 | Composition and capacity | Complete: eight compact current-runtime probes and one dense mixed workload passed proof, report policy, code generation and execution. The selected 64/63 limits retain the existing report capacity. Prior flat successes remain supporting evidence. |
+| 1 | Composition and capacity | Complete: eight compact current-runtime probes and one dense mixed workload passed proof, report policy, code generation and execution. The measured specimens fit the then-current report capacity; review B1 later disproved using those specimens as capacity assurance. Prior flat successes remain supporting evidence. |
 | 2 | Implementation and assurance | Complete: matching SPARK constants/arithmetic storage, Lean membership/source guards, catalogue/specification, sample and boundary/sibling tests. Universal model and complete source checks passed; 4096-byte source/value bounds and the assignment/literal repairs are preserved. |
 | 3 | Stable checkpoint and delivery | Complete: stable-input native proof/build and complete cached Lean/source checking; full suite plus test-only fixture correction/recheck; focused differential/code-generation pass; independent review and final content checks. This record accompanies the authorized implementation commit and publication. |
 
@@ -74,7 +74,8 @@ The eight compact probes have 24 combined execution checks, including exact
 The 4096-byte dense specimen has 758 assignments and 63 concatenations. The first
 63 assignments append a bound empty String to the input; the remaining assignments
 copy it directly, followed by `Reject`. It passed with fresh isolated proof
-sessions and a fresh solver cache, using the production 100,000-step options:
+sessions and a fresh solver cache, using the production 100,000-step options through a separate probe runner,
+not the production `silver compile` command:
 
 | Measurement | Result |
 | --- | --- |
@@ -94,11 +95,19 @@ benchmark. Exact source, project and runtime bytes remained unchanged. Across
 all nine probes, all nine admission checks, 45 native report-policy checks,
 nine builds and 27 executions passed.
 
-This result supports retaining the existing report buffer for this expansion;
-it is not a universal maximum or a proof of physical solver completion. The
-remaining margin is narrow. Reassess dense composition before further admission,
-producer or report-format changes, as recorded in the roadmap. No report truncation,
-relaxed acceptance policy or new statement-count restriction was introduced.
+**Correction, 2026-10-15 (review B1/L2):** this specimen does not justify the
+report buffer for the whole admitted language. Its 2,065,005 bytes comprise a
+2,060,006-byte deterministic floor and 4,999 bytes of timing-dependent prover
+credits. The static-shell single-output construction in
+[review-343c2f8](reviews/review-343c2f8.md#31-blocker) measured 2,091,011–2,091,380
+bytes, leaving only 5,772–6,141 bytes (0.28–0.29%) of the historical 2 MiB buffer.
+Additional prover credits can exceed that margin. The reviewed construction's
+format-derived maximum is 2,370,822 bytes; that is not a bound for every admitted
+program. The [repair record](review-343c2f8-repairs.md#report-capacity-correction)
+tracks the format-based capacity repair. Preserve these measurements as history;
+new language or producer/report-format changes require a fresh capacity argument.
+No report truncation, relaxed policy or statement-count restriction was introduced
+by the original expansion.
 
 A separate 306-source corpus compares native admission, the compiled Lean
 `Current.accepts`, and independently calculated expected verdicts. All agree;

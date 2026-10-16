@@ -6,10 +6,12 @@ Position 21 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
-The task asks for a descriptive answer, so the program is a parameterless Main with pragma SPARK_Mode (On) that prints a sequence of string literals with Silver_IO.Put_Line. The output states "Yes" and lists what Silver always restricts: no exception handlers, goto, pointers or aliasing, no unchecked conversion or foreign calls, no contracts or pragmas from authors, and effects only through admitted library operations. It has no input, branching or computation, so it needs no guards. About 20 lines.
+The task asks for a descriptive answer, so the program is a parameterless Main with pragma SPARK_Mode (On) that prints a sequence of string literals with Silver_IO.Put_Line. The output states "Yes" and lists what Silver currently restricts: no exception handlers, goto or pointers, no unrestricted aliasing, no unchecked conversion or foreign calls, no contracts or pragmas from authors, and effects only through admitted library operations. It has no input, branching or computation, so it needs no guards. About 20 lines.
 
 ## External effects
 
 - **console output** (allowed): The program prints the yes answer and the list of features Silver restricts, one Put_Line per line.
 
-Assessed on 2026-10-15 against page revision 391207 of the [task](https://rosettacode.org/wiki/Safe_mode) by claude-opus-5-5 at high effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 391207 of the [task](https://rosettacode.org/wiki/Safe_mode) by claude-opus-5-5 at high effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-15 by Codex through targeted source review; see the [review record](../../review-343c2f8.md).

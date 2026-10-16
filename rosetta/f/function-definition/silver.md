@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A single non-recursive function over bounded ranged types has a product check that follows from declared ranges alone, so proof is routine; the only new surface is functions, ranged types and integer image output.
 
-Position 298 in the [progression](../../progression.md#stage-9), in stage 9, which adds functions.
+Position 297 in the [progression](../../progression.md#stage-10), in stage 10, which adds functions.
 
 ## Approach
 

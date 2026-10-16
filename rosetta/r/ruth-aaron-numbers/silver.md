@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer trial division inside procedures with static bounds and guards, so checks are routine except the loop-carried sum accumulator and number formatting, which need careful guards but no annotations.
 
-Position 268 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 267 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

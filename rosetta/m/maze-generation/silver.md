@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, loop bounds and boundary or capacity guards placed right before each use, and the recursion becomes a procedure-level while loop with an explicit stack. It is plausible rather than likely because the stack pointer and current cell are loop-carried values needing careful guards, and the 2D wall updates need index reasoning.
 
-Position 828 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 827 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

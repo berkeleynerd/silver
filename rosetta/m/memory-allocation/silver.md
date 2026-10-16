@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** SPARK's ownership model already admits a fixed-size allocation followed by an explicit Unchecked_Deallocation, and its null-dereference and leak checks follow from straight-line code, so the program should prove without annotations; Storage_Error stays under the Oracle's fixed-memory premise because the allocation does not grow with input.
 
-Position 1572 in the [progression](../../progression.md#stage-37), in stage 37.
+Position 1572 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from digit ranges, static loop bounds and guards, and the DP avoids while loops and recursion; the only non-routine parts are loop-carried count sums needing cap guards.
 
-Position 699 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 698 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

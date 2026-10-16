@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is wraparound arithmetic on a modular type, static-bound array indexing in for loops and masked table lookups, so all checks follow from types and loop ranges with no loop-carried guard needed. The single-block fixed message is a documented resource limit that keeps the program faithful to the digest of the task's example string.
 
-Position 1285 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1284 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

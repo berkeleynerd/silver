@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and values come from ranged types and bounded tapes with explicit guards before each head move, and the loops live in procedures so no termination check or variant is needed. The only care needed is the guarded head and step counters, which need no annotations.
 
-Position 1180 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1179 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

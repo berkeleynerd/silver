@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic reduces to bounded integers and array indexing in for loops inside the main procedure, with guards before each accumulation, so checks should discharge without annotations, though the sieve's nonlinear index and the accumulator overflow guards need careful shape.
 
-Position 923 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 922 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable whose range (1 .. N - Pass, with Pass at least 1) keeps I + 1 inside the array, there are no while loops or loop-carried accumulators, and equal-length fixed Strings make the comparison length-safe, so all checks follow from types and loop bounds.
 
-Position 1479 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1479 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 

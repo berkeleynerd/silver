@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All integer checks follow from bounded counters and explicit rejection guards, and the floating-point part is short straight-line computation on ratios in [0,1], so it should discharge without annotations, though the ratio bounds and float formatting need careful shaping.
 
-Position 1368 in the [progression](../../../progression.md#stage-24), in stage 24.
+Position 1367 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

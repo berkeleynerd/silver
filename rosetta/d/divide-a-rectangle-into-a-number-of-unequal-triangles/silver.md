@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for/while loops inside procedures with explicit guards, so no annotation is needed, but the loop-carried LCG state, running offsets and string buffer building require careful guard placement.
 
-Position 628 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 627 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

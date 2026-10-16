@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed capacities, ranged indexes and guards, and everything runs in procedures, but the hash probing, key comparison and many loop-carried counters need careful shaping, and the external word list requires stdin line reading.
 
-Position 1367 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1366 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

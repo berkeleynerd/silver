@@ -31,7 +31,7 @@ RUBRIC = 2
 FIELDS = ("conflicts", "effects", "surface", "outlook", "risks", "size", "approach", "features", "summary",
           "confidence")
 DEFAULT_POLICY = {"allowed_effects": ["console-output", "arguments", "exit-status", "stdin", "files"],
-                  "excluded_constructs": []}
+                  "excluded_constructs": ["local-exceptions"]}
 # A workflow runs at most 1000 agents; leave room for escalations.
 CHUNK = 800
 

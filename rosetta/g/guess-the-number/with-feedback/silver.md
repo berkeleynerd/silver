@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared range subtype, a bounded generator state and a validated parse flag tested just before use, with the loop confined to a procedure so no variant is needed. The only new library needs are line input and validated integer parsing, which the Oracle admits as specified operations.
 
-Position 1218 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1217 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

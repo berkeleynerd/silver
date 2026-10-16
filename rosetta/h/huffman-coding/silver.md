@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Replacing the pointer tree and priority queue with index arrays and a linear-scan minimum search makes every check follow from ranged subtypes and guards, with only the loop-carried weights, counts and depths needing careful guarding and no annotations.
 
-Position 841 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 840 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

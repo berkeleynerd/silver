@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The integer recurrences use only constant coefficients on range-bounded state and mod by positive constants, so overflow and range checks follow from types. Two places rely on careful shape, though: the float-to-index conversion and the loop-carried bucket counters each need an explicit guard with a visible error branch, which makes the outlook plausible rather than likely.
 
-Position 876 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 875 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 

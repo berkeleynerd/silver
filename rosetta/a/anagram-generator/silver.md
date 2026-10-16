@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can follow from declared ranges and guards placed just before use, but several loop-carried values (word count, letter counters, line length) each need an explicit guard and file failure needs a specified outcome, so discharge depends on careful program shape rather than annotations.
 
-Position 1337 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1336 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

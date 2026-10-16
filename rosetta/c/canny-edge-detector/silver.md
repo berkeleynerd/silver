@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, bounded pixel subtypes and for-loop ranges, with no recursion or floating point needed, but the nested stencil sums and many bounded integer subtypes require careful program shape to discharge. The task does not require file or window I/O, so text art on a small embedded image is faithful.
 
-Position 950 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 949 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

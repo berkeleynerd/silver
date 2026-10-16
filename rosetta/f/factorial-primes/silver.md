@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for the first 10 factorial primes (up to 87178291199) fit in 64-bit integers, and every check follows from subtype ranges and a guard before the multiply, so no annotation is needed. Plausible rather than likely because of the guarded loop-carried factorial and the nonlinear square in trial division.
 
-Position 378 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 377 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

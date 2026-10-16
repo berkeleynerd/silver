@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-capacity typed ranges, for-loop indexes over the table and guards before use, with all while loops in procedures, but file reading, bounded line handling and the 2D table add shape-dependent work. No annotation is needed, so it is plausible rather than likely.
 
-Position 1335 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1334 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

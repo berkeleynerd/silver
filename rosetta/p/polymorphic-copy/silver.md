@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A class-wide copy initialized from a class-wide parameter, followed by a dispatching procedure call, raises no run-time check that can fail and needs no loop, arithmetic or heap use. So proof depends only on SPARK admitting tagged types and dispatching, which it does without annotations.
 
-Position 1559 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1559 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Approach
 

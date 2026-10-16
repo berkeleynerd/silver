@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a for-loop variable or a guarded subtype-typed index, with no arithmetic on loop-carried values, so checks are routine and no annotation is needed. Digits stay as characters in a bounded buffer, so the 22-digit stretch case needs no big numbers.
 
-Position 990 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 989 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

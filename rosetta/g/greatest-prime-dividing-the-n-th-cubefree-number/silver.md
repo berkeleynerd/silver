@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Trial division with ranged subtypes and guarded exponent and count updates keeps every check derivable from types and guards, but several loop-carried values need careful typing, so discharge is plausible rather than certain. No annotations, recursion or heap are needed, and the main new surface is integer arithmetic, loops, arrays and number formatting.
 
-Position 260 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 259 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

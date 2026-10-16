@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single pass over an embedded constant string with small bounded counters and a bounded output buffer, so no annotation is needed. The generalized separator and selection-function extras are optional and omitted.
 
-Position 780 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 779 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

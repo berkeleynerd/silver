@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a tiny fixed three-node tree serialized to console, which needs only bounded arrays, records and guarded for-loop appends with no annotations, so proofs should discharge routinely.
 
-Position 805 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 804 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

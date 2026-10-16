@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first 20 numbers fit in 64 bits when the sum is kept over the fixed common denominator, so every arithmetic check follows from ranged subtypes and one guard per addition, with while loops confined to procedures. The beyond-64-bit stretch parts are optional and left out.
 
-Position 273 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 272 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

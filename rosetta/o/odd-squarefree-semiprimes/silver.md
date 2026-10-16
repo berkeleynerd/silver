@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a small bounded for-loop computation over a declared range with no loop-carried accumulators and no termination checks needing variants, so all checks follow from types and static bounds.
 
-Position 310 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 309 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

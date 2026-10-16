@@ -32,6 +32,9 @@ class ProvenanceTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("fixture\n")
         (self.root / "silver.gpr").write_bytes((Path(__file__).resolve().parents[1] / "silver.gpr").read_bytes())
+        helper = self.root / "proof/silver_proof_containers.gpr"
+        helper.parent.mkdir(parents=True)
+        helper.write_bytes((Path(__file__).resolve().parents[1] / helper.relative_to(self.root)).read_bytes())
         self.reports = self.host.compiler / "obj/gnatprove"
         self.reports.mkdir(parents=True)
         self.command = ["gnatprove", "-P", "../../../silver.gpr", *PROOF_OPTIONS,
@@ -65,6 +68,25 @@ class ProvenanceTests(unittest.TestCase):
 
     def test_unchanged_content_is_accepted(self) -> None:
         self.audit()
+
+    def test_symlinked_selected_tool_root_is_accepted(self) -> None:
+        physical = self.root / "shared native tools"
+        self.host.tools.rename(physical)
+        self.host.tools.symlink_to(physical, target_is_directory=True)
+        for identity in self.manifest["tools"].values():
+            identity["path"] = str(physical / "test-tool")
+        self.audit()
+
+    def test_tool_links_cannot_escape_selected_tool_root(self) -> None:
+        outside = self.root / "other-tool"
+        outside.write_bytes((self.host.tools / "test-tool").read_bytes())
+        alias = self.host.tools / "outside-link"
+        alias.symlink_to(outside)
+        for path in (outside, alias):
+            with self.subTest(path=path):
+                self.manifest["tools"]["gnatprove"]["path"] = str(path)
+                with self.assertRaisesRegex(EvidenceError, "outside the selected native"):
+                    self.audit()
 
     def test_relative_report_paths_accept_warm_and_cold_evidence(self) -> None:
         for cold in (False, True):
@@ -394,6 +416,13 @@ class ProvenanceTests(unittest.TestCase):
                     self.audit()
         path.write_text(original)
         validate_project(self.host)
+
+    def test_changed_proof_container_project_is_rejected(self) -> None:
+        path = self.root / "proof/silver_proof_containers.gpr"
+        path.write_text(path.read_text().replace('/include/spark', '/other_sources'))
+        self.manifest["inputs_sha256"] = input_hashes(self.host)
+        with self.assertRaisesRegex(EvidenceError, "project differs"):
+            self.audit()
 
 
 if __name__ == "__main__":

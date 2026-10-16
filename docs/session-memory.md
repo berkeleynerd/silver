@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-16 — Selected review repairs complete
+
+The owner's instruction to fix the selected findings before further feature
+work was recorded through [PR #37](https://github.com/berkeleynerd/silver/pull/37),
+merged on `main` as `618c28a77cdf011f338a31fcb0e9022743a338de`. The delivery covers
+B1/#17, L1–L4/#18–#21 and L6–L11/#23–#28. The
+[repair record](review-343c2f8-repairs.md) identifies the original review target
+`e2c4fc2..343c2f8`, implementation `4355971666`, independent reviews and actual
+native Linux validation scope separately from the closing documentation commit.
+
+Final integration uses `fix/review-343c2f8-delivery`, following the original
+authorization branch. The current-language capacity/projection and stack repair,
+explicit existing proof-resource policy, lexical/catalogue agreement and selected
+planning/Rosetta repairs are complete. The final checkpoint also corrects the
+native audit's tool-directory symlink comparison. No language construct is
+newly admitted and no Oracle amendment was made.
+
+For loops and integers remains selected under its recorded authorization and
+settled standard Integer `'Image` scope. Its unfinished implementation and proofs
+remain preserved separately; #10 and #13–#16 continue to track the milestone.
+Re-derive report capacity for the new checks before admission. The existing
+harness goal remains **paused**; repair delivery neither resumes nor completes
+it. This harness state is separate from the milestone's recorded authorization.
+
+Routine publication remains authorized. The repair record distinguishes the
+full test suite from the affected audit-script recheck, cached native proof and
+Lean build from fresh auditing, and Linux evidence from independent macOS work.
+Hosted CI remains disabled. Preserve all isolated worktrees, caches, reports and
+unrelated canonical feature/scratch work. CLI memory was unavailable and was not
+updated; this file and issue handoffs carry the durable record.
+
 ## 2026-10-15 — Selected review repairs authorized before feature work
 
 The owner instructed this coding session: “Let's fix these before proceeding

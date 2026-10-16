@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks come from the for-loop index range, the declared count range and a capacity guard before each append, with no while loops or recursion, so proofs should discharge automatically. The set of identifier characters is the fixed Ada rule applied to every Character value, which is a faithful, bounded program.
 
-Position 970 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 969 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

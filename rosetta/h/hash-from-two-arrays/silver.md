@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array index ranges and all indexes and slices are bounded by declared subtypes, so the checks follow from types and guards with no loop-carried invariants needed.
 
-Position 603 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 602 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

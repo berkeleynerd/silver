@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is plain integer array scanning with no recursion, floating point or heap, and the percentage tests are rewritten as bounded integer comparisons, so every check follows from types and short guards.
 
-Position 81 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 80 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

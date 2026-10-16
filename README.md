@@ -107,7 +107,7 @@ statements still need their own safety facts. These additions complete the
 
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
-process-group memory**, producing a 1,734,274-byte Main report within the 2 MiB
+process-group memory**, producing a 1,734,274-byte Main report within the historical 2 MiB
 buffer. A 4095-byte argument-input program with 769 assignments took **49.5 minutes
 and 9.99 GiB**, producing a **1,983,843-byte** report with **113,309 bytes (5.4%)**
 of headroom. Expression limits do not cap assignment-driven proof work. These
@@ -124,8 +124,11 @@ fits 785 assignments: all 829 checks proved and its 2,020,723-byte report uses
 The [Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
 combines 758 assignments and 63 concatenations in 4096 bytes. It proved in
 53.6 minutes with 8.71 GiB sampled aggregate RSS; its 2,065,005-byte report leaves
-32,147 bytes (1.5%) of headroom. This is another specimen measurement, not a
-worst-case bound.
+32,147 bytes (1.5%) in the historical 2 MiB buffer. Review B1 subsequently found
+a denser static-shell construction leaving only 0.28–0.29%, with timing-dependent
+credits able to exceed that margin. See the
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction).
+These measurements do not establish a whole-language report-size bound.
 
 The [composed-result](samples/composed_result.adb) and
 [copied-result](samples/copied_result.adb) samples remain admitted instances of
@@ -174,10 +177,14 @@ on Linux, or Xcode Command Line Tools on macOS. On Debian/Ubuntu, the required
 native package is `libc6-dev`.
 
 Use the validated **8 MiB process stack** configuration for the compiler on Linux
-(`ulimit -s 8192` in a shell where that limit is permitted). The 2 MiB application
-report buffer and report-sized checker storage require stack headroom; a 2 MiB
-stack produced `Storage_Error` even for the null and Hello World samples.
-The recursive statement/predicate recognizer also uses the stack: a review's
+(`ulimit -s 8192` in a shell where that limit is permitted). Retained application
+audit data uses a 16 MiB library-level buffer, and the auditor reads that buffer
+without a report-sized stack copy. A streaming reader validates and omits only
+unaudited proof-tree metadata; original reports remain on disk. The earlier
+2 MiB stack allocation produced
+`Storage_Error` with a 2 MiB stack even for the null and Hello World samples;
+that historical result predates the [capacity repair](docs/report-capacity.md).
+The recursive statement/predicate recognizer still uses the stack: a review's
 deepest 4096-byte check needed about 3.6 MiB, and compiling its deepest parse
 passed at 6 MiB but failed at 5.5 MiB. These observations do not establish a
 universal exact minimum. Adequate memory and normal runtime

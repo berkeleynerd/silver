@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop bounds are static and the largest square is 961, so overflow and range checks follow from types and the for range, and mod by the literal 2 cannot divide by zero. No loop-carried value exists and no annotation is needed.
 
-Position 109 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 108 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

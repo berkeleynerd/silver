@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop with static bounds and all values are bounded by declared subtypes under a documented 31-exponent limit, so checks discharge without annotations; the task explicitly permits stopping at the implementation's maximum precision, so the 47th prime is not required.
 
-Position 314 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 313 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

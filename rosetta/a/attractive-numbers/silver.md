@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are bounded by 120 and the factor count by a small cap, so every check follows from types and a single guard, though loop-carried N and Count need careful shaping and a procedure-based while loop.
 
-Position 373 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 372 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared integer ranges and the while M2 /= 0 guard immediately before mod and division, and there is no recursion, function loop or annotation need, so proofs should discharge. The remaining effort is Silver surface (integers, ranged types, arrays, loops, Put and 'Image) rather than proof difficulty.
 
-Position 602 in the [progression](../../../../progression.md#stage-12), in stage 12.
+Position 601 in the [progression](../../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

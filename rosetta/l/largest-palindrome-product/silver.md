@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtype ranges, for-loop indexes over fixed array ranges and bounded products, so no loop invariant or variant is needed and the work stays in loops inside procedures or terminating for loops.
 
-Position 341 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 340 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

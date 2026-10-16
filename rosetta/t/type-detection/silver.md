@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a tagged-dispatch print demo with no arithmetic, loops or recursion, so every check is trivially routine and no annotation is needed. It only requires enumerations, case statements and a procedure with a String parameter beyond today's Silver.
 
-Position 1156 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1155 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

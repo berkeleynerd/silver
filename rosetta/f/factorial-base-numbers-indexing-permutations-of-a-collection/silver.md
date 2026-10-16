@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and arithmetic check is bounded by ranged subtypes, a validity guard before the rotation, and literal loop bounds, so nothing needs an annotation, but the odometer's loop-carried digits and the 40-million-iteration count need careful guard placement.
 
-Position 579 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 578 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

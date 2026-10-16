@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops over a fixed capacity and every narrowing or index is protected by a local guard, so no annotation should be needed, though carry chains and guarded integer accumulation require careful shape. The arbitrary-size requirement is met with a documented fixed capacity and explicit overflow reporting.
 
-Position 1399 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1398 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

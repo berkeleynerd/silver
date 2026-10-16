@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The checks reduce to modular wraparound arithmetic, a mod 6 result converted into 1..6, attribute bounds that follow from comparisons made just before each use, and fixed-size sums. The only unbounded loop is in a procedure, so nothing needs an annotation.
 
-Position 1275 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1274 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

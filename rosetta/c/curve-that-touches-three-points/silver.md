@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for a drawn curve, which text art satisfies, and a fixed-coefficient integer parabola over a ranged x with for loops and a bounded grid gives every check from types and a guard. Nothing needs an invariant, recursion or floating point.
 
-Position 653 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 652 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

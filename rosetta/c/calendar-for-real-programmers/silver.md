@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over small constant ranges and a guard that the day number lies in 1..month length before it is converted to digits, with no loop-carried values or recursion. The only effect is console output of fixed-size text.
 
-Position 542 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 541 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

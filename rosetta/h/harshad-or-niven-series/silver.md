@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small bounded integers with mod and division, and the checks on loop-carried values (digit sum, candidate, divisor) can each be handled by type bounds and a guard just before use, with no annotations required.
 
-Position 230 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 229 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

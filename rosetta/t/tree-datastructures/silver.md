@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only bounded arrays, bounded string buffers and while loops in procedures are needed, so no annotation is required, but loop-carried depth and buffer positions need explicit guards, which makes the outcome depend on careful program shape. Arbitrary trees are limited to documented node, depth and name capacities, with oversize input rejected.
 
-Position 954 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 953 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

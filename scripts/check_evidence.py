@@ -65,6 +65,68 @@ TRUSTED_RUNTIME_CALLEES = {
     "Ada.Text_IO.New_Line": "a-textio.ads",
 }
 
+# GNATprove interprets SPARK.Big_Integers (an Ada runtime rename) and the
+# selected functional sequence instance mathematically. These are vendor
+# premises, not proved Silver bodies. Keep names and declaration origins exact;
+# audit_sources enables them only after checking the actual Static ghost
+# Character/Use_Logical_Equality instance. See the SPARKlib trusted boundary.
+SEQUENCE_UNIT = "silver_report_projection_model"
+SEQUENCE_NAME = "Silver_Report_Projection_Model.Byte_Sequences"
+SEQUENCE_VENDOR = "spark-containers-functional-infinite_sequences.ads"
+SEQUENCE_DECLARATIONS = {
+    "Sequence": ((74, 9),), "Length": ((103, 13),), "Get": ((110, 13),),
+    "Last": ((119, 13),), "Logical_Eq": ((139, 13),), '"="': ((146, 13),),
+    "Lemma_Eq_Extensional": ((157, 14),), '"<"': ((166, 13),),
+    '"<="': ((178, 13),), "Equivalent_Sequences": ((194, 13),),
+    "Contains": ((209, 13),), "Find": ((227, 13),),
+    "Empty_Sequence": ((245, 13),), "Set": ((255, 13),),
+    "Add": ((269, 13), (282, 13)), "Remove": ((311, 13),),
+    "Iter_First": ((383, 13),), "Iter_Has_Element": ((386, 13),),
+    "Iter_Next": ((396, 13),), "Element_Logic_Equal": ((411, 13),),
+    "Constant_Range": ((417, 13),), "Equal_Prefix": ((436, 13),),
+    "Equal_Except": ((450, 13), (467, 13)), "Range_Equal": ((484, 13),),
+    "Range_Shifted": ((500, 13),), "Aggr_Append": ((534, 14),),
+}
+BIG_INTEGER_DECLARATIONS = {
+    '"="': (39,), '"<"': (41,), '"<="': (43,), '">"': (45,),
+    '">="': (47,), "To_Big_Integer": (49,), "To_Integer": (70,),
+    "From_String": (118,), '"+"': (135,), '"-"': (129, 138),
+}
+BIG_INTEGER_VALIDITY_TEXT = "function Is_Valid is assumed to return True"
+BIG_INTEGER_VALIDITY_LOCATIONS = {(36, 32), (54, 17), (60, 17)}
+
+
+def entity_origin(entity: dict) -> tuple:
+    return tuple((item.get("file"), item.get("line"), item.get("column"))
+                 for item in entity.get("sloc", []))
+
+
+def sequence_entities(instance: tuple[int, int, int]) -> set[tuple]:
+    line, package_column, name_column = instance
+    location = (SEQUENCE_UNIT + ".ads", line, package_column)
+    entries = {(SEQUENCE_NAME, ((SEQUENCE_UNIT + ".ads", line, name_column),))}
+    for name, positions in SEQUENCE_DECLARATIONS.items():
+        for vendor_line, column in positions:
+            entries.add((SEQUENCE_NAME + "." + name,
+                         ((SEQUENCE_VENDOR, vendor_line, column), location)))
+    entries.add((SEQUENCE_NAME + ".Eq_Checks.Logical_Eq",
+                 (("spark-containers-parameter_checks.ads", 54, 16),
+                  (SEQUENCE_VENDOR, 354, 4), location)))
+    return entries
+
+
+def big_integer_callee(entity: dict) -> bool:
+    return any(entity.get("name") == "Ada.Numerics.Big_Numbers.Big_Integers." + name
+               and entity_origin(entity) == (("a-nbnbin.ads", line, 13),)
+               for name, lines in BIG_INTEGER_DECLARATIONS.items() for line in lines)
+
+
+def big_integer_validity(rule: str, file: str, line: int, column: int,
+                         message: dict) -> bool:
+    return (rule == "error" and file == "a-nbnbin.ads"
+            and (line, column) in BIG_INTEGER_VALIDITY_LOCATIONS
+            and message == {"text": BIG_INTEGER_VALIDITY_TEXT})
+
 
 class EvidenceError(ValueError):
     """The supplied reports do not establish complete successful analysis."""
@@ -95,7 +157,7 @@ def source_tokens(source: Path) -> list[str]:
     text = data.decode("ascii")
     tokens: list[str] = []
     index = 0
-    literal_predecessors = {"return", "then", "else", "is", "when", "and", "or", "not"}
+    literal_predecessors = {"return", "then", "else", "is", "when", "and", "or", "not", "in"}
     while index < len(text):
         char = text[index]
         if char.isspace():
@@ -135,17 +197,41 @@ def source_tokens(source: Path) -> list[str]:
     return tokens
 
 
+def audit_sequence_instance(source: Path) -> tuple[int, int, int]:
+    tokens = "".join(source_tokens(source)).lower()
+    declaration = (
+        "packagesilver_report_projection_modelwithspark_mode=>on,ghost=>staticis"
+        "usespark.big_integers;usesilver_report_projection_types;"
+        "packagebyte_sequencesisnewspark.containers.functional.infinite_sequences"
+        "(element_type=>character,use_logical_equality=>true);")
+    require(tokens.count(declaration) == 1,
+            f"{source}: unreviewed proof-container instance or ghost context")
+    text = source.read_text()
+    declarations = list(re.finditer(
+        r"(?mi)^[ \t]*(package)[ \t]+(Byte_Sequences)\s+is\s+new\b", text))
+    require(len(declarations) == 1, f"{source}: ambiguous proof-container instance location")
+    match = declarations[0]
+    start = text.rfind("\n", 0, match.start(1)) + 1
+    return (text.count("\n", 0, match.start(1)) + 1,
+            match.start(1) - start + 1, match.start(2) - start + 1)
+
+
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
-                  application_kind: str | None = None) -> dict[str, int]:
+                  application_kind: str | None = None,
+                  proof_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
             "missing report or unexpected compilation-unit report")
     trusted_import_units = trusted_import_units or set()
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
-             "limitation_notes": 0, "imported_entities": 0}
+             "limitation_notes": 0, "imported_entities": 0,
+             "trusted_math_notes": 0, "vendor_spec_entities": 0}
+    require(proof_instance is None or (SEQUENCE_UNIT in expected_units and application_kind is None),
+            "vendor proof premises require the reviewed compiler model")
+    vendor_entities = set() if proof_instance is None else sequence_entities(proof_instance)
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
     if application_kind is not None:
@@ -156,6 +242,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     owned_locations: dict[str, set[str]] = {}
     diagnostics: Counter = Counter()
     assignment_diagnostics: Counter = Counter()
+    math_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
     summaries = {name: (int(analyzed), int(total)) for name, analyzed, total in
                  re.findall(r"in unit (\w+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
@@ -217,9 +304,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
                               and entities.get(key, {}).get("name") in TRUSTED_IMPORT_ENTITIES.get(unit, set()))
-            require(value == "all" or trusted_import, f"{unit}: entity outside full SPARK")
+            trusted_vendor = (unit == SEQUENCE_UNIT and value == "spec"
+                              and (entities[key].get("name"), entity_origin(entities[key])) in vendor_entities)
+            require(value == "all" or trusted_import or trusted_vendor,
+                    f"{unit}: entity outside full SPARK")
             if trusted_import:
                 stats["imported_entities"] += 1
+            if trusted_vendor:
+                stats["vendor_spec_entities"] += 1
         # entities may also name callees in trusted runtime units. Coverage is
         # required for the entities declared by this unit, not those imports.
         own_entities = {
@@ -230,6 +322,10 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         require(own_entities <= coverage.keys(), f"{unit}: missing owned entity coverage")
         require(summaries[unit] == (sum(coverage[key] == "all" for key in own_entities), len(own_entities)),
                 f"{unit}: summary/entity coverage mismatch")
+        if unit == SEQUENCE_UNIT and proof_instance is not None:
+            require(vendor_entities <= {(entities[key].get("name"), entity_origin(entities[key]))
+                                        for key in own_entities},
+                    f"{unit}: missing reviewed vendor declaration coverage")
         if unit in trusted_import_units:
             import_names = {entities[key]["name"] for key in own_entities}
             require(TRUSTED_IMPORT_ENTITIES[unit] <= import_names,
@@ -255,7 +351,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     for location in locations)
                 owned_dependency = name in owned_names and bool(locations) and all(
                     Path(location["file"]).name in owned_locations[name] for location in locations)
-                require(application or owned_dependency or trusted_runtime,
+                trusted_math = proof_instance is not None and big_integer_callee(entity)
+                require(application or owned_dependency or trusted_runtime or trusted_math,
                         f"{unit}: unapproved external assumption dependency {name}")
         for key in ("flow", "proof", "warn_error"):
             records = report.get(key)
@@ -303,10 +400,21 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             "application: suppressed or justified safety check")
                 limitation = (key == "warn_error" and record.get("rule") in PROOF_LIMITATION_NOTES
                               and record.get("severity") == "warning")
-                require(record.get("severity") == "info" or limitation or advisory,
+                math_note = (proof_instance is not None and key == "warn_error"
+                             and record.get("severity") == "warning"
+                             and record.get("how_proved") == "trivial"
+                             and record.get("unproved_status") == {"status": "unknown"}
+                             and big_integer_validity(record.get("rule"), record.get("file"),
+                                                      record.get("line"), record.get("col"),
+                                                      record.get("message")))
+                require(record.get("message", {}).get("text") != BIG_INTEGER_VALIDITY_TEXT or math_note,
+                        "vendor math note: unreviewed premise classification")
+                require(record.get("severity") == "info" or limitation or advisory or math_note,
                         f"{unit}: {key} diagnostic is not proved/info: {record}")
                 if limitation:
                     stats["limitation_notes"] += 1
+                if math_note:
+                    stats["trusted_math_notes"] += 1
                 require(record.get("how_proved") in ("flow", "prover", "trivial"),
                         f"{unit}: justified or unproved {key} result: {record}")
                 require(not record.get("justification") and not record.get("justified"),
@@ -325,6 +433,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                 diagnostics[diagnostic] += 1
                 if advisory:
                     assignment_diagnostics[diagnostic] += 1
+                if math_note:
+                    math_diagnostics[diagnostic] += 1
         stats["units"] += 1
         stats["entities"] += len(own_entities)
         stats["flow_checks"] += 0 if application else len(report["flow"])
@@ -381,9 +491,16 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         limitation = (result.get("ruleId") in PROOF_LIMITATION_NOTES
                       and result.get("kind") in ("open", "informational")
                       and result.get("level") == "warning")
-        require(result.get("kind") in ("pass", "informational") or limitation or advisory,
+        math_note = (diagnostic in math_diagnostics
+                     and result.get("kind") == "open" and result.get("level") == "warning"
+                     and big_integer_validity(result.get("ruleId"), location["artifactLocation"]["uri"],
+                                              region["startLine"], region["startColumn"],
+                                              result.get("message")))
+        require(diagnostic not in math_diagnostics or math_note,
+                "vendor math note: SARIF must preserve the exact premise classification")
+        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note,
                 f"SARIF result not proved: {result}")
-        require(result.get("level", "none") in ("none", "note") or limitation or advisory,
+        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note,
                 f"SARIF warning/error: {result}")
         # GNATprove marks its disabled-by-default limitation diagnostics as
         # externally suppressed. This is not an obligation suppression.
@@ -422,8 +539,10 @@ def audit_sources(source_dir: Path, report_dir: Path,
             audit_import_spec(source)
     expected_units = {path.stem for path in sources}
     trusted_units = {path.stem for path in sources if path.name in TRUSTED_IMPORT_SPECS}
+    model = source_dir / (SEQUENCE_UNIT + ".ads")
+    proof_instance = audit_sequence_instance(model) if model in sources else None
     stats = audit_reports(report_dir, expected_units, trusted_units,
-                          effective_command=effective_command)
+                          effective_command=effective_command, proof_instance=proof_instance)
     for source in sources:
         report = report_dir / f"{source.stem}.spark"
         require(report.stat().st_mtime_ns >= source.stat().st_mtime_ns,

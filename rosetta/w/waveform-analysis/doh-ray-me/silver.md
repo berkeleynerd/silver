@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer work over static-size arrays with for loops, so every check follows from types and constants and no loop invariant is needed. The task needs no input beyond embedded sample data, so only console output is required.
 
-Position 362 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 361 in the [progression](../../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

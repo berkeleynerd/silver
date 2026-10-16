@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops with array indices and sums that can be guarded explicitly, so no invariant is needed, though several loop-carried counters require careful guard placement. The unbounded-n requirement is met by a documented resource limit with specified rejection.
 
-Position 385 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 384 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

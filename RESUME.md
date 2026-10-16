@@ -1,10 +1,41 @@
 # Silver handoff
 
-Updated on 2026-10-15 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+Updated on 2026-10-16 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
+
+## Selected review repairs complete
+
+The eleven owner-selected findings from
+[review `e2c4fc2..343c2f8`](docs/reviews/review-343c2f8.md) are repaired: #17–#21
+and #23–#28. Authorization is [PR #37](https://github.com/berkeleynerd/silver/pull/37),
+merged as `618c28a77cdf011f338a31fcb0e9022743a338de`; final integration uses
+`fix/review-343c2f8-delivery`. The [repair record](docs/review-343c2f8-repairs.md)
+identifies implementation `4355971666`, successful checks and independent reviews
+separately from the original review target and closing documentation commit.
+
+The current language has a source/producer-derived retained-report envelope,
+actual raw-to-projection-to-bounded-policy correspondence and repaired storage
+placement. The delivery also makes the existing prover memory allowance explicit,
+adds lexical/catalogue regressions and corrects selected planning/Rosetta records.
+The native audit, build, full suite and complete cached Lean/fresh-audit checkpoint
+passed. The record distinguishes the full suite from the affected recheck after
+the final Python-only provenance repair. No macOS rerun, hosted CI or independent
+kernel replay is claimed.
+
+No feature work was performed in this repair delivery. For loops and integers
+remains unfinished under its existing authorization and settled Integer `'Image`
+scope. Canonical feature work is preserved and unadmitted. Its harness goal remains
+**paused**, separately from that authorization, and is not resumed or completed
+by these repairs. Read the live objective/status before goal work.
+
+Recovery is `tmp/review-repairs-active.json`; the repair record locates retained
+evidence in the integration worktree. Preserve worktrees, caches, reports,
+foreign-host artifacts and unrelated scratch. Publication remains authorized;
+GitHub Actions remains disabled. CLI memory was unavailable and was not updated.
+The following delivery sections retain their historical scope.
 
 ## Partial Output complete
 
@@ -71,8 +102,11 @@ one obsolete rejection expectation; its test-only correction and all eight
 affected methods passed afterward. The record distinguishes those scopes,
 cache reuse and the fresh axiom audit from independent replay. Nine current-runtime
 composition probes passed proof, production report policy, build and execution.
-The dense case fits the report buffer with 1.5% headroom; costs and the future
-capacity-reassessment trigger are explicit.
+The dense case fit the then-current report buffer with 1.5% headroom. Correction
+on 2026-10-15: review B1 found a denser static-shell case with only 0.28–0.29%
+and timing-dependent credits able to exceed the limit. The
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction)
+supersedes any inference that the earlier specimen justified that capacity.
 
 Recovery is `tmp/larger-expressions-active.json`. Preserve all canonical/isolated
 caches, earlier evidence and unrelated `rosetta.md` and `tmp/` work. The

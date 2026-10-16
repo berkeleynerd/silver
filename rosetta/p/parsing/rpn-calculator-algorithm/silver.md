@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-integer operation on array-stack values that can be guarded just before use with a visible rejection, and no annotation is needed, but many loop-carried values (stack contents, depth, cursor, scaled results) each need their own guard, so discharge depends on careful program shape.
 
-Position 856 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 855 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for common pointer and reference operations. SPARK's ownership-checked access types, allocators, deallocation and in out parameters can show these with literal values, so the null, overflow and leak checks all follow from straight-line control flow. The only open question is whether the Oracle's subtractive profile admits access types at all, and nothing here conflicts with a fixed rule.
 
-Position 1573 in the [progression](../../progression.md#stage-37), in stage 37.
+Position 1573 in the [progression](../../progression.md#stage-38), in stage 38.
 
 ## Approach
 

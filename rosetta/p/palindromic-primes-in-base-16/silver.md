@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are tiny bounded integers below 500, so every check follows from declared ranges and for-loop bounds with no loop-carried values needing invariants.
 
-Position 518 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 517 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

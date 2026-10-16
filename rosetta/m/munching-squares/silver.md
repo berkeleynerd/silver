@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes are for-loop variables over static ranges and the xor result lives in a mod 256 type that exactly matches the table range, so every check follows from types and bounds. The only dependency is an admitted file-output operation with specified failure outcomes.
 
-Position 1423 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1423 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

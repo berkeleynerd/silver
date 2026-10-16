@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the Base subtype, a for loop over the buffer's own range, and one overflow guard on the accumulator, so no annotation is needed.
 
-Position 1131 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1130 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

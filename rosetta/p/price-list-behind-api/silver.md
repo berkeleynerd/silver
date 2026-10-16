@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data lives in fixed arrays with price-bounded indexes and for loops, and the one while loop is in a procedure, so checks follow from types and guards; the loop-carried counters and the output formatting need careful guarding, hence plausible.
 
-Position 631 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 630 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

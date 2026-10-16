@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the ranged subtype of Low and High and a guard on Low <= High before each midpoint, and termination needs no variant because the loop is a bounded for loop in a procedure. The new needs are standard-input line reading, integer-to-text output and a few basic constructs, so the outlook is likely.
 
-Position 1219 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1218 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

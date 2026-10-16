@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and for-loop work with a single guarded addition, and the only while loop is in a procedure, so no annotation is needed, but the guard on the sum and the index arithmetic make it depend on program shape.
 
-Position 275 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 274 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

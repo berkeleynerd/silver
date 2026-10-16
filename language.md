@@ -312,7 +312,7 @@ even if every statement is null or assignment.
 Compilation cost can be substantial even without concatenation: a 4096-byte
 program containing 800 assignments proved in 36.4 minutes with 8.89 GiB peak
 process-group memory on the reviewer's Linux sandbox. Its Main report was
-1,734,274 bytes of the 2 MiB application capacity. A 4095-byte argument-input
+1,734,274 bytes of the historical 2 MiB application capacity. A 4095-byte argument-input
 program with 769 assignments proved in 49.5 minutes with 9.99 GiB peak
 process-group memory. Its 1,983,843-byte report leaves 113,309 bytes (5.4%) of
 headroom. These are observations for those programs and host, not worst-case
@@ -329,9 +329,15 @@ identifies that retained measurement. The
 [Larger Expressions dense probe](docs/larger-expressions.md#dense-composition-and-report-capacity)
 combines 758 assignments and 63 concatenations in 4096 bytes. It proved all
 865 checks in 53.6 minutes, with 8.71 GiB sampled aggregate process RSS and a
-2,065,005-byte Main report, leaving 32,147 bytes (1.5%) of headroom. This was a
-fresh-session specimen run that overlapped other validation, not a universal
-resource bound. The
+2,065,005-byte Main report, leaving 32,147 bytes (1.5%) in the historical 2 MiB
+buffer. This was a separate fresh-session probe, not production `silver compile`.
+Review B1 later found a denser static-shell construction with only 0.28–0.29%
+headroom; timing-dependent prover credits can exceed that margin. The
+[capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction)
+distinguishes the deterministic floor and measured credits. The
+[report-capacity repair](docs/report-capacity.md) derives the current 16 MiB
+allocation from source and producer-format bounds. These specimens do not
+establish a universal resource bound. The
 [branch capacity assessment](docs/branches.md#bounded-5bc-capacity-assessment--2026-10-14)
 records the specimen and smaller matching probe. The original
 [capacity follow-up](docs/statement-sequencing.md#external-review-and-capacity-follow-up)

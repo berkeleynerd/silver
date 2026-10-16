@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indexes and counters are bounded by ranged subtypes and boundary guards, and recursion and unbounded loops are avoided in functions, so no annotation is needed, but careful shape is required for the flood fill, neighbour counting and input parsing.
 
-Position 1251 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1250 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is straight-line code over static constants, so every check follows from static values and nothing needs an annotation. The only new needs are the 'Size attribute, integer division by a literal and 'Image output.
 
-Position 105 in the [progression](../../../progression.md#stage-7), in stage 7, which adds integer division.
+Position 104 in the [progression](../../../progression.md#stage-8), in stage 8, which adds integer division.
 
 ## Approach
 

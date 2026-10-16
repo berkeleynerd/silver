@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from String parameter bounds, an equal-length guard before the character loop and an 'A'..'Z' guard before the Character'Val shift, and the only loop is a for loop, so proof should discharge automatically.
 
-Position 1482 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1482 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
