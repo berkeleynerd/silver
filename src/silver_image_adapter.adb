@@ -16,6 +16,8 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
    use type Silver_Image_Model.Plan_Kind;
    Count : constant Natural := Argument_Count;
    Native_Succeeded : Boolean;
+   --  Passthrough calls set their own exit status and have no workspace to release.
+   pragma Unreferenced (Native_Succeeded);
 
    type Failure_Kind is
      (Too_Many_Arguments, Invalid_Argument, Invalid_Native_Path, Native_Spawn,
@@ -52,9 +54,9 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
    function Valid_Argument (Item : String) return Boolean is
      (for all Ch of Item => Ch /= Character'Val (0));
 
-   procedure Native
-     (Replacement, Added_Proof_Directory : String; Success : out Boolean)
-     with Pre => Count <= Natural'Last - 2
+   function Native (Replacement, Added_Proof_Directory : String) return Boolean
+     with Side_Effects, Always_Terminates => False,
+       Pre => Count <= Natural'Last - 2
        and then Valid_Argument (Replacement)
        and then Valid_Argument (Added_Proof_Directory)
        and then (if Replacement'Length /= 0 then Count > 0)
@@ -63,7 +65,6 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
       Args : Argument_List_Access := new Argument_List (1 .. Count + Extra);
       Status : Integer;
    begin
-      Success := False;
       for Index in 1 .. Count loop
          pragma Loop_Invariant
            (for all Previous in 1 .. Index - 1 =>
@@ -80,7 +81,7 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
                Free_List (Args);
                pragma Assert (Args = null);
                Failure (Invalid_Argument);
-               return;
+               return False;
             end if;
             Args (Index) := new String'
               (if Index = Count and then Replacement'Length /= 0 then Replacement else Item);
@@ -94,7 +95,7 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
          Free_List (Args);
          pragma Assert (Args = null);
          Failure (Invalid_Native_Path);
-         return;
+         return False;
       end if;
       pragma Assert
         (Static => Args'First = 1 and then Args'Last = Count + Extra
@@ -111,15 +112,18 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
       pragma Assert (Args = null);
       if Status in 0 .. 255 then
          Set_Exit_Status (Ada.Command_Line.Exit_Status (Status));
-         Success := Status = 0;
+         return Status = 0;
       else
          Failure (Native_Spawn);
+         return False;
       end if;
    end Native;
 
    procedure Release_Workspace (Directory : Workspace_Path; Supplied_Proof : Boolean) is
       Args : Argument_List_Access;
       Status : Integer;
+      --  Best-effort cleanup cannot replace the completed native tool's result.
+      pragma Unreferenced (Status);
    begin
       if Silver_Image_Runtime.Environment_Value
         ("SILVER_KEEP_IMAGE_WORKSPACES", "") = "1"
@@ -151,11 +155,8 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
       Status := Spawn ("/bin/rm", Args.all);
       Free_List (Args);
       pragma Assert (Args = null);
-      if Status /= 0 then
-         --  rm retains its inherited stderr. Native JSON is already complete;
-         --  preserve that stream, its status and any files left after failure.
-         return;
-      end if;
+      --  rm retains its inherited stderr. Native JSON is already complete;
+      --  preserve that stream, its status and any files left after failure.
    end Release_Workspace;
 
    procedure Process_Input (Input : String)
@@ -203,7 +204,7 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
          if not Success then Failure (Snapshot_Model); return; end if;
          if Plan.Kind = Silver_Image_Model.Unchanged then
             --  The native model needs no added theorem; preserve its argv.
-            Native ("", "", Native_OK);
+            Native_OK := Native ("", "");
             if Native_OK then Release_Workspace (Directory, Proof_Index /= 0); end if;
             return;
          end if;
@@ -221,7 +222,7 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
             if not Success then Failure (Theory_Installation); return; end if;
             Silver_Image_Files.Refine (Snapshot, Refined, Plan, Success);
             if not Success then Failure (Model_Refinement); return; end if;
-            Native (Refined, (if Proof_Index = 0 then Selected else ""), Native_OK);
+            Native_OK := Native (Refined, (if Proof_Index = 0 then Selected else ""));
             if Native_OK then Release_Workspace (Directory, Proof_Index /= 0); end if;
          end;
       end;
@@ -231,7 +232,7 @@ begin
    if Count > Natural'Last - 2 then
       Failure (Too_Many_Arguments);
    elsif Count = 0 then
-      Native ("", "", Native_Succeeded);
+      Native_Succeeded := Native ("", "");
    else
       declare
          Last : constant String := Argument (Count);
@@ -239,7 +240,7 @@ begin
          if Last'Length >= 10 and then Last (Last'Last - 9 .. Last'Last) = ".gnat-json" then
             if Valid_Path (Last) then Process_Input (Last); else Failure (Input_Path); end if;
          else
-            Native ("", "", Native_Succeeded);
+            Native_Succeeded := Native ("", "");
          end if;
       end;
    end if;
