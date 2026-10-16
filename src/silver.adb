@@ -146,6 +146,30 @@ procedure Silver with SPARK_Mode => On is
          Build_Returned_Success : Boolean with Ghost => Static;
          Build_Command_Matched : Boolean with Ghost => Static;
 
+         --  Keep the streaming observation proof local to report loading;
+         --  callers use the established audit result and exact returned slice.
+         procedure Read_Proof
+           with Pre => Valid_Path (Report_Name),
+             Post => (Runtime => Report_Last <= Report'Length
+               and then (if Report_Complete then Report_Read and then not Report_Too_Long),
+               Static => (if Report_Complete then
+                 (if Output_Mode then
+                    Silver_Library_Reports.Application_Report_Policy
+                      (Report (1 .. Report_Last), Application_Kind)
+                  else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))))
+         is
+         begin
+            Silver_Report_Reader.Read_Report
+              (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+            Report_Complete := False;
+            if Report_Read and then not Report_Too_Long then
+               Report_Complete := (if Output_Mode then
+                 Silver_Library_Reports.Complete_Application_Proof
+                   (Report (1 .. Report_Last), Application_Kind)
+                else Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last)));
+            end if;
+         end Read_Proof;
+
          procedure Prove
            with Pre => (Runtime => Valid_Command (Proof_Command),
              Static => Source_Written and then Initial_Source_Matched and then Project_Written
@@ -235,6 +259,9 @@ procedure Silver with SPARK_Mode => On is
       begin
          --  No user-supplied path is interpolated into a shell command. All
          --  command paths below use the checked private workspace name.
+         pragma Assert (Static =>
+           Valid_Command (Proof_Command) and then Valid_Command (Build_Command)
+             and then Valid_Path (Executable));
          pragma Assert
            (Valid_Path (Snapshot) and then Valid_Path (Project)
             and then Valid_Path (Report_Name)
@@ -286,16 +313,11 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Verification failure for admitted Silver: toolchain or implementation defect.");
             return;
          end if;
-         Silver_Report_Reader.Read_Report
-           (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+         Read_Proof;
          if not Report_Read or else Report_Too_Long then
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;
          end if;
-         Report_Complete := (if Output_Mode then
-           Silver_Library_Reports.Complete_Application_Proof
-             (Report (1 .. Report_Last), Application_Kind)
-          else Silver_Reports.Complete_Null_Proof (Report (1 .. Report_Last)));
          if not Report_Complete then
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;
