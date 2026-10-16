@@ -284,3 +284,21 @@ lean_lib LengthIntervalsBodySource where
   roots := #[]
   globs := #[.one `Silver.LengthIntervalsBodySource]
   needs := #[lengthIntervalsBodySource]
+
+input_file imageFilesSpecSource where
+  path := "../src/silver_image_files.ads"
+  text := false
+
+lean_lib ImageFilesSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.ImageFilesSpecSource]
+  needs := #[imageFilesSpecSource]
+
+input_file imageFilesBodySource where
+  path := "../src/silver_image_files.adb"
+  text := false
+
+lean_lib ImageFilesBodySource where
+  roots := #[]
+  globs := #[.one `Silver.ImageFilesBodySource]
+  needs := #[imageFilesBodySource]

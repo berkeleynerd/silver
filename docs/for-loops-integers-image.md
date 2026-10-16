@@ -399,3 +399,40 @@ checks including retained unchanged unit reports. This establishes the byte
 transform contract. Connecting the complete observed read sequence to the
 scanner's source interpretation, then to the selected JSON schema and Lean
 splice theorem, remains required.
+
+
+### Checked Files loop and splice interpretation
+
+The native `silver_image_files.ads` and `.adb` now have byte-bound source
+captures, independently kernel-checked lexical reconstruction, and explicit
+Lake file dependencies. `ImageFilesSource` checks the complete Snapshot and
+Refine procedure blocks against typed loop renderings, including their exact
+initialization, I/O guards, exit paths, cleanup and final Finish statements.
+The source interpretation uses the documented Ada frontend and libc frame
+contracts; it does not infer execution semantics from a matching hash.
+
+`ImageFilesTrace` proves that every finite execution of either loop produces
+an operational `NativeScan` of its exact accumulated `Read_Bytes`. An insertion
+failure exits before Consume; an output failure exits after Consume. Each
+iteration therefore either preserves the input/scanner pair or appends one
+Character byte and performs exactly one Consume call. The state-typing
+premises are the native types checked by SPARK. Together with the existing
+helper/scanner body interpretations, this identifies the final scanner state
+and Finish result with the mathematical fold over the observed bytes.
+
+`ImageFilesSplice` separately interprets the actual static `Spliced_Prefix`
+expression: mathematical integer conversions, one-based sequence reads,
+conditional lengths and the three independently quantified byte spans.
+Its theorem converts that expression to `SpliceObservations` and then to the
+exact two-insertion splice, without assuming a splice operation in the native
+contract. The source check binds this interpreted expression to the entire
+actual specification. Native byte safety and the successful-I/O postconditions
+remain the separately checked SPARK obligations recorded above.
+
+The focused Linux source check completed at 16:28:18 UTC on 2026-10-16 with a
+fresh audit of 11,006 imported declarations (`#15-image-file-source`;
+`/tmp/silver-image-file-source.log`). It retained the first successful Files
+capture and earlier scanner objects. The existing source-binding/Lake-dependency
+regression also passed (`#15-image-file-bindings`). This is a focused result;
+initial-state/schema/template composition, the complete integrated audit and
+milestone validation remain outstanding.

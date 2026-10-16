@@ -4,6 +4,7 @@ public import Silver.Source
 public import Silver.PredicateCorrespondence
 public import Silver.PredicateNativeSourceBridge
 public import Silver.PathFactsSourceBridge
+public import Silver.ImageFilesSource
 
 public import Silver.PredicateExamples
 

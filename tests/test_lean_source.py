@@ -39,6 +39,8 @@ CERTIFICATE_MODULES = (
 # These constants have dedicated checked rendering or capture proofs. Their
 # byte dependencies remain explicit and equally pinned.
 EXTRA_SOURCE_BINDINGS = {
+    "ImageFilesSpecSource": ("imageFilesSpec", "silver_image_files.ads"),
+    "ImageFilesBodySource": ("imageFilesBody", "silver_image_files.adb"),
     "LengthIntervalsSpecSource": ("lengthIntervalsSpec", "silver_length_intervals.ads"),
     "LengthIntervalsBodySource": ("lengthIntervalsBody", "silver_length_intervals.adb"),
     "IntegerImageSpecSource": ("integerImageSpec", "silver_integer_image.ads"),
