@@ -132,6 +132,7 @@ theorem Condition.refine_bounded {context : Context} (bounded : context.Bounded)
   induction condition generalizing context truth with
   | stringCompare unequal left right => exact refineString_bounded bounded _ _ _ _ _
   | lengthCompare operator left right => exact refineLength_bounded bounded _ _ _ _ _
+  | scalarCompare => exact bounded
   | inputValid =>
       cases truth
       · exact Context.assumeInvalid_bounded _

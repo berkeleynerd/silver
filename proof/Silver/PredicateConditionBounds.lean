@@ -62,16 +62,22 @@ mutual
           · try dsimp only
             split
             · exact invalidCondition_bounded
+            · exact ⟨bounded, bounded⟩
+          · try dsimp only
+            split
             · try dsimp only
               split
               · exact invalidCondition_bounded
               · try dsimp only
-                by_cases equal : (comparisonAt text (expressionAt text position context.names).after).operator == Comparison.eq
-                · simp only [equal, ↓reduceIte]
-                  exact ⟨refineAffineEqual_bounded bounded _ _, bounded⟩
-                · simp only [equal, Bool.false_eq_true, ↓reduceIte]
-                  exact ⟨bounded, refineAffineEqual_bounded bounded _ _⟩
-          · exact readPrimary_bounded text context position facts bounded
+                split
+                · exact invalidCondition_bounded
+                · try dsimp only
+                  by_cases equal : (comparisonAt text (expressionAt text position context.names context.scalarNames).after).operator == Comparison.eq
+                  · simp only [equal, ↓reduceIte]
+                    exact ⟨refineAffineEqual_bounded bounded _ _, bounded⟩
+                  · simp only [equal, Bool.false_eq_true, ↓reduceIte]
+                    exact ⟨bounded, refineAffineEqual_bounded bounded _ _⟩
+            · exact readPrimary_bounded text context position facts bounded
   termination_by (remainingAt text position, 2)
 
   theorem conditionTail_bounded (text : Source) (context : ParseContext) (result : ConditionResult) (chained : Option Bool)

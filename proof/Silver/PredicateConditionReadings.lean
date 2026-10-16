@@ -35,9 +35,9 @@ mutual
           {result with after := fixedAfter text result.after ")" false}
     | valid {position facts} : position ≠ 0 → fixedAfter text position "(" false = 0 →
         context.hasArguments = true →
-        callAfter text context.names position .validity ≠ 0 →
+        callAfter text context.names position .validity context.scalarNames ≠ 0 →
         PrimaryAt text context position facts .inputValid
-          ⟨callAfter text context.names position .validity, facts.assumeValid, facts.assumeInvalid⟩
+          ⟨callAfter text context.names position .validity context.scalarNames, facts.assumeValid, facts.assumeInvalid⟩
 
   inductive RelationAt (text : Source) (context : ParseContext) : Nat → Context → Condition → ConditionResult → Prop
     | negated {position facts inner result} : position ≠ 0 →
@@ -55,10 +55,20 @@ mutual
           ⟨rightResult.after,
             refineBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value true,
             refineBounds facts (comparisonAt text leftResult.after).operator leftResult.value rightResult.value false⟩
+    | scalars {position facts left right leftResult rightResult} : position ≠ 0 →
+        fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
+        leftResult.after ≠ 0 →
+        ScalarExpression.At text context.scalarNames position left leftResult →
+        ScalarExpression.At text context.scalarNames (comparisonAt text leftResult.after).after right rightResult →
+        position < rightResult.after →
+        RelationAt text context position facts
+          (.scalarCompare (comparisonAt text leftResult.after).operator.toInteger left right)
+          ⟨rightResult.after, facts, facts⟩
     | strings {position facts left right leftResult rightResult} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
-        ExpressionAt text context.names position left leftResult →
-        ExpressionAt text context.names (comparisonAt text leftResult.after).after right rightResult →
+        (ScalarExpression.read text position context.scalarNames).after = 0 →
+        ExpressionAt (scalarNames := context.scalarNames) text context.names position left leftResult →
+        ExpressionAt (scalarNames := context.scalarNames) text context.names (comparisonAt text leftResult.after).after right rightResult →
         StringRelationReady facts leftResult rightResult (comparisonAt text leftResult.after) →
         position < rightResult.after →
         RelationAt text context position facts
@@ -66,7 +76,8 @@ mutual
           (stringResult facts leftResult rightResult (comparisonAt text leftResult.after))
     | primary {position facts inner result} : position ≠ 0 →
         fixedAfter text position "not" true = 0 → (lengthAt text context position false).after = 0 →
-        (expressionAt text position context.names).after = 0 →
+        (ScalarExpression.read text position context.scalarNames).after = 0 →
+        (expressionAt text position context.names context.scalarNames).after = 0 →
         PrimaryAt text context position facts inner result →
         RelationAt text context position facts inner result
 
@@ -123,9 +134,14 @@ theorem relation_complete {text context position facts condition result}
   | length positive noNot leftPositive left right advanced =>
       rw [readRelation]
       simp [positive, noNot, lengthAt_complete left, leftPositive, lengthAt_complete right, Nat.not_le.mpr advanced]
-  | @strings position facts leftExpr rightExpr leftResult rightResult positive noNot noLength left right ready advanced =>
-      have leftEq : expressionAt text position context.names = leftResult := expressionTail_complete left
-      have rightEq : expressionAt text (comparisonAt text leftResult.after).after context.names = rightResult := expressionTail_complete right
+  | scalars positive noNot noLength leftPositive left right advanced =>
+      rw [readRelation]
+      simp only [positive, noNot, noLength, ScalarExpression.read_complete left,
+        leftPositive, ScalarExpression.read_complete right, Nat.not_le.mpr advanced,
+        ne_eq, not_true_eq_false, not_false_eq_true, ↓reduceIte]
+  | @strings position facts leftExpr rightExpr leftResult rightResult positive noNot noLength noScalar left right ready advanced =>
+      have leftEq : expressionAt text position context.names context.scalarNames = leftResult := expressionTail_complete left
+      have rightEq : expressionAt text (comparisonAt text leftResult.after).after context.names context.scalarNames = rightResult := expressionTail_complete right
       have operatorAllowed : ¬((comparisonAt text leftResult.after).after = 0 ∨
           ((comparisonAt text leftResult.after).operator ≠ .eq ∧ (comparisonAt text leftResult.after).operator ≠ .ne)) := by
         rcases ready with ⟨_, present, kind, _⟩
@@ -134,13 +150,13 @@ theorem relation_complete {text context position facts condition result}
         · rcases kind with equal | unequal
           · exact different.1 equal
           · exact different.2 unequal
-      simp only [readRelation, positive, noNot, noLength, ne_eq, not_true_eq_false, ↓reduceIte,
+      simp only [readRelation, positive, noNot, noLength, noScalar, ne_eq, not_true_eq_false, ↓reduceIte,
         leftEq, ready.1,
         operatorAllowed, rightEq,
         Nat.not_le.mpr advanced, ready.2.2.2.2.1, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2,
         Bool.not_true, Bool.false_eq_true, or_self, not_false_eq_true, stringResult]
-  | primary positive noNot noLength noExpression primary =>
-      simp only [readRelation, positive, noNot, noLength, noExpression, ne_eq, not_true_eq_false,
+  | primary positive noNot noLength noScalar noExpression primary =>
+      simp only [readRelation, positive, noNot, noLength, noScalar, noExpression, ne_eq, not_true_eq_false,
         ↓reduceIte, primary_complete primary]
 
 
