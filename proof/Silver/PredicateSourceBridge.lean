@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateSourceChecks
 public import Silver.IntegerLiteralSourceBridge
-public import Silver.PathFactsSourceBridge
+public import Silver.LengthIntervalsSource
 public import Silver.ScalarExpressionSourceBridge
 public import Silver.ScalarEnvironmentSourceBridge
 public import Silver.ScalarsNativeSourceBridge
@@ -27,6 +27,8 @@ structure CheckedSource : Prop where
   scalarExpressions : ScalarExpression.SourceChecks.CheckedSource
   scalarEnvironments : ScalarExpression.EnvironmentSourceBridge.Checked Source.scalarExpressionSpecTokens
   intervals : Integer.NativeSourceChecks.CheckedSource
+  stringIntervals : LengthIntervals.SourceBridge.ActualSource
+  stringBodies : LengthIntervals.SourceBridge.BodyInterpretation
   paths : PathFacts.SourceBridge.ActualSource
   pathBodies : PathFacts.SourceBridge.BodyInterpretation
   pathProjection : PathFacts.SourceBridge.ModelProjection
@@ -37,6 +39,8 @@ theorem checked_source : CheckedSource where
   scalarExpressions := ScalarExpression.SourceChecks.checked_source
   scalarEnvironments := ScalarExpression.EnvironmentSourceBridge.actual_source_checked
   intervals := Integer.NativeSourceChecks.checked_source
+  stringIntervals := LengthIntervals.SourceBridge.actual_source
+  stringBodies := LengthIntervals.SourceBridge.body_interpretation
   paths := PathFacts.SourceBridge.actual_source
   pathBodies := PathFacts.SourceBridge.actual_body_interpretation
   pathProjection := PathFacts.SourceBridge.actual_model_projection

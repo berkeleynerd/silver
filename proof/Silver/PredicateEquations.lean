@@ -123,11 +123,11 @@ theorem model_basic_links : BasicNative.Links modelCalls.basicPrimitives modelCa
   expression := rfl
   target := rfl
   fits facts summary := by
-    rw [PathFacts.Native.fitsBody_eval]
-    exact (PathFacts.Native.fits_model facts summary).symm
+    rw [LengthIntervals.Native.fitsBody_eval, LengthIntervals.Native.fits_model]
+    rfl
   sameLength facts left right := by
-    rw [PathFacts.Native.sameLengthBody_eval]
-    exact (BasicNative.sameLength_project facts left right).symm
+    rw [LengthIntervals.Native.sameLengthBody_eval, LengthIntervals.Native.sameLength_model]
+    rfl
   reject facts := by
     rw [PathFacts.Native.rejectedBody_eval]
     exact (PathFacts.Native.rejected_model facts).symm
