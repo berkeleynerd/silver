@@ -1,5 +1,6 @@
 with SPARK.Big_Integers;
 with Silver_Report_Observations;
+with Silver_Report_Projection_Observations;
 
 package body Silver_Library_Reports with SPARK_Mode => On is
    use SPARK.Big_Integers;
@@ -2452,6 +2453,206 @@ package body Silver_Library_Reports with SPARK_Mode => On is
       Mixed_Initializer_Message (Raw, L, Text, R);
       Mixed_Output_Message (Raw, L, Text, R);
    end Mixed_Test_Congruence;
+
+   package Projection_Observations renames Silver_Report_Projection_Observations;
+   type Field_Projection_Kind is (Preserved_Value, Check_List_Value);
+
+   function Raw_Field_Agreement
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span;
+      Kind : Field_Projection_Kind := Preserved_Value) return Boolean is
+     (if L = Raw_Scan.Missing then R = Raw_Scan.Missing
+      elsif L = Raw_Scan.Malformed then R = Raw_Scan.Malformed
+      elsif Kind = Preserved_Value then Projection_Observations.Same_Content (Raw, L, Projected, R)
+      else Projection_Observations.Check_List (Raw, L, Projected, R))
+     with Ghost => Static;
+
+   procedure Raw_Merge_Agreement
+     (Raw : Raw_Bytes.Sequence; L1, L2 : Raw_Scan.Span;
+      Projected : Raw_Bytes.Sequence; R1, R2 : Raw_Scan.Span; Kind : Field_Projection_Kind)
+     with Ghost => Static, Global => null,
+       Pre => Raw_Field_Agreement (Raw, L1, Projected, R1, Kind)
+         and then Raw_Field_Agreement (Raw, L2, Projected, R2, Kind),
+       Post => Raw_Field_Agreement
+         (Raw, Raw_Merge_Field (L1, L2), Projected, Raw_Merge_Field (R1, R2), Kind)
+   is
+   begin
+      null;
+   end Raw_Merge_Agreement;
+
+   --  An observation of one named lookup, before duplicate-sensitive merging.
+   --  The result policy is not part of this member relation.
+   function Field_Query_Observations
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; LP : Raw_Scan.Offset;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; RP : Raw_Scan.Offset;
+      Name : String; Kind : Field_Projection_Kind) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Raw, L) and then Raw_Scan.Valid (Projected, R)
+         and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
+         and then RP >= R.First + 1 and then RP <= Raw_Bytes.Length (Projected) + 1,
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Raw) + 1 - LP);
+
+   function Field_Query_Observations
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; LP : Raw_Scan.Offset;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; RP : Raw_Scan.Offset;
+      Name : String; Kind : Field_Projection_Kind) return Boolean is
+     (declare LM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Raw, L, LP);
+              RM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Projected, R, RP);
+      begin LM.State = RM.State and then
+        (case LM.State is
+           when Raw_Scan.Broken | Raw_Scan.Finished => True,
+           when Raw_Scan.Present =>
+             Raw_String_Equal (Raw, LM.Key, Name) = Raw_String_Equal (Projected, RM.Key, Name)
+             and then (if Raw_String_Equal (Raw, LM.Key, Name) then
+               Raw_Field_Agreement (Raw, LM.Value, Projected, RM.Value, Kind))
+             and then Field_Query_Observations
+               (Raw, L, LM.Next, Projected, R, RM.Next, Name, Kind)));
+
+   procedure Field_Query_Congruence
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; LP : Raw_Scan.Offset;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; RP : Raw_Scan.Offset;
+      Name : String; Kind : Field_Projection_Kind)
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Raw, L) and then Raw_Scan.Valid (Projected, R)
+         and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
+         and then RP >= R.First + 1 and then RP <= Raw_Bytes.Length (Projected) + 1
+         and then Field_Query_Observations (Raw, L, LP, Projected, R, RP, Name, Kind),
+       Post => Raw_Field_Agreement
+         (Raw, Raw_Field_From (Raw, L, Name, LP),
+          Projected, Raw_Field_From (Projected, R, Name, RP), Kind),
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Raw) + 1 - LP)
+   is
+      LM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Raw, L, LP);
+      RM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Projected, R, RP);
+   begin
+      if LM.State = Raw_Scan.Present then
+         Field_Query_Congruence (Raw, L, LM.Next, Projected, R, RM.Next, Name, Kind);
+         Raw_Merge_Agreement
+           (Raw, (if Raw_String_Equal (Raw, LM.Key, Name) then LM.Value else Raw_Scan.Missing),
+            Raw_Field_From (Raw, L, Name, LM.Next),
+            Projected, (if Raw_String_Equal (Projected, RM.Key, Name) then RM.Value else Raw_Scan.Missing),
+            Raw_Field_From (Projected, R, Name, RM.Next), Kind);
+      end if;
+   end Field_Query_Congruence;
+
+   procedure Raw_Word_Congruence
+     (Raw : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Expected : String)
+     with Ghost => Static, Global => null,
+       Post => Raw_String_Equal (Raw, Item, Expected) =
+         Projection_Observations.Word (Raw, Item, Expected)
+   is
+   begin
+      null;
+   end Raw_Word_Congruence;
+
+   procedure Raw_Expected_Congruence
+     (Raw : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Left, Right : String)
+     with Ghost => Static, Global => null,
+       Pre => Left = Right,
+       Post => Raw_String_Equal (Raw, Item, Left) = Raw_String_Equal (Raw, Item, Right)
+   is
+   begin
+      null;
+   end Raw_Expected_Congruence;
+
+   procedure Raw_Content_String_Congruence
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; Expected : String)
+     with Ghost => Static, Global => null,
+       Pre => Projection_Observations.Same_Content (Raw, L, Projected, R),
+       Post => Raw_String_Equal (Raw, L, Expected) = Raw_String_Equal (Projected, R, Expected)
+   is
+   begin
+      pragma Assert (Raw_Bytes.Get (Raw, L.First) = Raw_Bytes.Get (Projected, R.First));
+      pragma Assert (Raw_Bytes.Get (Raw, L.Last) = Raw_Bytes.Get (Projected, R.Last));
+      if L.Last - L.First = SPARK.Big_Integers.To_Big_Integer (Expected'Length) + 1 then
+         pragma Assert (for all I in Expected'Range =>
+           Raw_Bytes.Get (Raw, L.First + 1 + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) =
+             Raw_Bytes.Get (Projected, R.First + 1 + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)));
+      end if;
+   end Raw_Content_String_Congruence;
+
+   procedure Raw_Name_Unique
+     (Raw : Raw_Bytes.Sequence; Item : Raw_Scan.Span; First, Second : String)
+     with Ghost => Static, Global => null,
+       Pre => Raw_String_Equal (Raw, Item, First) and then Raw_String_Equal (Raw, Item, Second),
+       Post => First = Second
+   is
+   begin
+      pragma Assert (First'Length = Second'Length);
+      for I in 1 .. First'Length loop
+         pragma Assert (First (First'First + (I - 1)) = Raw_Bytes.Get (Raw, Item.First + SPARK.Big_Integers.To_Big_Integer (I)));
+         pragma Assert (Second (Second'First + (I - 1)) = Raw_Bytes.Get (Raw, Item.First + SPARK.Big_Integers.To_Big_Integer (I)));
+         pragma Loop_Invariant (for all J in 1 .. I =>
+           First (First'First + (J - 1)) = Second (Second'First + (J - 1)));
+      end loop;
+   end Raw_Name_Unique;
+
+   procedure Record_Field_Queries
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; LP : Raw_Scan.Offset;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; RP : Raw_Scan.Offset; Name : String)
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Raw, L) and then Raw_Scan.Valid (Projected, R)
+         and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
+         and then RP >= R.First + 1 and then RP <= Raw_Bytes.Length (Projected) + 1
+         and then Name /= Projection_Observations.Tree_Name
+         and then Projection_Observations.Record_Members (Raw, L, LP, Projected, R, RP),
+       Post => Field_Query_Observations (Raw, L, LP, Projected, R, RP, Name, Preserved_Value),
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Raw) + 1 - LP)
+   is
+      LM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Raw, L, LP);
+      RM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Projected, R, RP);
+   begin
+      if LM.State = Raw_Scan.Present then
+         Record_Field_Queries (Raw, L, LM.Next, Projected, R, RM.Next, Name);
+         Raw_Content_String_Congruence (Raw, LM.Key, Projected, RM.Key, Name);
+         if Raw_String_Equal (Raw, LM.Key, Name) then
+            Raw_Word_Congruence (Raw, LM.Key, Projection_Observations.Tree_Name);
+            if Projection_Observations.Word (Raw, LM.Key, Projection_Observations.Tree_Name) then
+               Raw_Name_Unique (Raw, LM.Key, Name, Projection_Observations.Tree_Name);
+            end if;
+         end if;
+      end if;
+   end Record_Field_Queries;
+
+   procedure Root_Field_Queries
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; LP : Raw_Scan.Offset;
+      Projected : Raw_Bytes.Sequence; R : Raw_Scan.Span; RP : Raw_Scan.Offset;
+      Name : String; Kind : Field_Projection_Kind)
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Raw, L) and then Raw_Scan.Valid (Projected, R)
+         and then LP >= L.First + 1 and then LP <= Raw_Bytes.Length (Raw) + 1
+         and then RP >= R.First + 1 and then RP <= Raw_Bytes.Length (Projected) + 1
+         and then Kind = (if Name = Projection_Observations.Flow_Name
+           or else Name = Projection_Observations.Proof_Name then Check_List_Value else Preserved_Value)
+         and then Projection_Observations.Root_Members (Raw, L, LP, Projected, R, RP),
+       Post => Field_Query_Observations (Raw, L, LP, Projected, R, RP, Name, Kind),
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Raw) + 1 - LP)
+   is
+      LM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Raw, L, LP);
+      RM : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Projected, R, RP);
+   begin
+      if LM.State = Raw_Scan.Present then
+         Root_Field_Queries (Raw, L, LM.Next, Projected, R, RM.Next, Name, Kind);
+         Raw_Content_String_Congruence (Raw, LM.Key, Projected, RM.Key, Name);
+         if Raw_String_Equal (Raw, LM.Key, Name) then
+            Raw_Word_Congruence (Raw, LM.Key, Projection_Observations.Flow_Name);
+            Raw_Word_Congruence (Raw, LM.Key, Projection_Observations.Proof_Name);
+            if Kind = Preserved_Value then
+               if Projection_Observations.Word (Raw, LM.Key, Projection_Observations.Flow_Name) then
+                  Raw_Name_Unique (Raw, LM.Key, Name, Projection_Observations.Flow_Name);
+               end if;
+               if Projection_Observations.Word (Raw, LM.Key, Projection_Observations.Proof_Name) then
+                  Raw_Name_Unique (Raw, LM.Key, Name, Projection_Observations.Proof_Name);
+               end if;
+            elsif Name = Projection_Observations.Flow_Name then
+               Raw_Expected_Congruence (Raw, LM.Key, Name, Projection_Observations.Flow_Name);
+            else
+               Raw_Expected_Congruence (Raw, LM.Key, Name, Projection_Observations.Proof_Name);
+            end if;
+         end if;
+      end if;
+   end Root_Field_Queries;
 
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind)
      return Boolean is
