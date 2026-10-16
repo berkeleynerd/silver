@@ -194,8 +194,26 @@ def hash_paths(paths: list[Path]) -> dict[str, str]:
         files = sorted(item for item in path.rglob("*") if item.is_file()) if path.is_dir() else [path]
         for item in files:
             if "__pycache__" not in item.parts:
-                result[str(item)] = digest(item)
+                result[str(item.resolve())] = digest(item)
     return result
+
+
+def custom_executable_identity(host: HostLayout, selector: str, *,
+                               pass_fds: tuple[int, ...] = ()) -> dict[str, str]:
+    """Resolve the original selector in the same Alire environment as execution."""
+    resolver = ("import pathlib,shutil,sys; "
+                "p=shutil.which(sys.argv[1]); "
+                "print('SILVER_EXECUTABLE=' + str(pathlib.Path(p).resolve()) if p else 'SILVER_EXECUTABLE=')")
+    resolved = subprocess.run(alire_command(host, "exec", "--", sys.executable,
+                              "-c", resolver, selector), cwd=host.context,
+                              env=tool_environment(host), check=True, capture_output=True,
+                              text=True, pass_fds=pass_fds)
+    paths_found = [line.split("=", 1)[1] for line in resolved.stdout.splitlines()
+                   if line.startswith("SILVER_EXECUTABLE=")]
+    if len(paths_found) != 1 or not paths_found[0]:
+        raise RuntimeError("cannot identify custom tool executable")
+    executable = Path(paths_found[0])
+    return {"path": str(executable), "sha256": digest(executable)}
 
 
 def scheduled_arguments(arguments: list[str], requested: int) -> tuple[list[str], int]:
@@ -438,6 +456,9 @@ def main(arguments: list[str] | None = None) -> None:
         if Path(command[0]).name in ("gnatprove", "gprbuild") and command[1:] not in (["--help"], ["--version"], ["-h"]):
             tail, jobs = scheduled_arguments(command[1:], jobs)
             command = [command[0], *tail]
+    declared_inputs = ([Path(path).absolute() for path in args.input]
+                       if args.action == "tool" else [])
+    executable_selector = None
     query = args.action == "tool" and command[1:] in (["--help"], ["--version"], ["-h"])
     initial = {"scope": scope, "arguments": extra,
                "mode": "cold" if proof_run and proof_run.cold else "full" if proof_run and proof_run.full else args.action}
@@ -464,29 +485,20 @@ def main(arguments: list[str] | None = None) -> None:
                                                host.root / "alire.toml", host.generated, host.context)
                              if path.exists()]
             else:
-                selected += [Path(path).resolve() for path in args.input]
+                # Keep selectors, not a preflight snapshot of symlink targets.
+                # hash_paths resolves their files anew at each stability check.
+                selected += declared_inputs
                 selected += [host.alr, host.context / "alire.toml"]
             inputs = dict(initial, inputs_sha256=hash_paths(selected))
         if args.action == "tool" and args.input and prepared is not None:
-            inputs["declared_inputs_sha256"] = hash_paths([Path(path).resolve() for path in args.input])
+            inputs["declared_inputs_sha256"] = hash_paths(declared_inputs)
         if args.action == "tool" and prepared is None and not query:
             identities = tool_identities(host, pass_fds=run.pass_fds)
             validate_tool_identities(host, identities)
             inputs["tools"] = identities
-            # Arbitrary tool executables are not identified by their basename.
-            resolver = ("import pathlib,shutil,sys; "
-                        "p=shutil.which(sys.argv[1]); "
-                        "print('SILVER_EXECUTABLE=' + str(pathlib.Path(p).resolve()) if p else 'SILVER_EXECUTABLE=')")
-            resolved = subprocess.run(alire_command(host, "exec", "--", sys.executable,
-                                      "-c", resolver, command[0]), cwd=host.context,
-                                      env=tool_environment(host), check=True, capture_output=True,
-                                      text=True, pass_fds=run.pass_fds)
-            paths_found = [line.split("=", 1)[1] for line in resolved.stdout.splitlines()
-                           if line.startswith("SILVER_EXECUTABLE=")]
-            if len(paths_found) != 1 or not paths_found[0]:
-                raise RuntimeError("cannot identify custom tool executable")
-            executable = Path(paths_found[0])
-            inputs["executable"] = {"path": str(executable), "sha256": digest(executable)}
+            executable_selector = command[0]
+            inputs["executable"] = custom_executable_identity(
+                host, executable_selector, pass_fds=run.pass_fds)
         run.prepare(inputs, expensive=bool(proof_run and proof_run.full))
         run.event("phase-end", phase="preflight")
         snapshot = None
@@ -554,12 +566,12 @@ def main(arguments: list[str] | None = None) -> None:
         else:
             if hash_paths(selected) != inputs["inputs_sha256"]:
                 raise RuntimeError("declared run inputs changed during execution")
-        if "declared_inputs_sha256" in inputs and hash_paths(
-                [Path(path).resolve() for path in args.input]) != inputs["declared_inputs_sha256"]:
+        if "declared_inputs_sha256" in inputs and hash_paths(declared_inputs) != inputs["declared_inputs_sha256"]:
             raise RuntimeError("declared run inputs changed during execution")
         if kind == "tool-gnatprove":
             retain_exploration(run, "exploratory-evidence")
-        if "executable" in inputs and digest(Path(inputs["executable"]["path"])) != inputs["executable"]["sha256"]:
+        if executable_selector is not None and custom_executable_identity(
+                host, executable_selector, pass_fds=run.pass_fds) != inputs["executable"]:
             raise RuntimeError("custom tool executable changed during execution")
 
 

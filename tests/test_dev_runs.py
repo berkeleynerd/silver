@@ -258,6 +258,64 @@ class DevRunTests(unittest.TestCase):
         self.assertEqual(record["state"], "failure")
         self.assertEqual(record["inputs"]["inputs_sha256"][str(self.custom_source)], original)
 
+    def assert_input_retarget_rejected(self, arguments, selector, replacement):
+        original_inputs = dev.hash_paths([selector])
+        self.assertEqual(sorted(original_inputs.values()),
+                         sorted(dev.hash_paths([replacement]).values()))
+
+        def retarget(*args, **kwargs):
+            selector.unlink()
+            selector.symlink_to(replacement, target_is_directory=replacement.is_dir())
+
+        with mock.patch.object(dev, "invoke", side_effect=retarget) as invoke:
+            with self.assertRaisesRegex(RuntimeError, "declared run inputs changed"):
+                self.main(arguments)
+        self.assertEqual(invoke.call_count, 1)
+        record, = self.records()
+        self.assertEqual(record["state"], "failure")
+        self.assertTrue(original_inputs.items() <= record["inputs"]["inputs_sha256"].items())
+
+    def test_custom_input_file_symlink_retarget_is_drift_even_with_identical_bytes(self):
+        arguments = self.custom_arguments()
+        original = self.root / "original.gpr"
+        self.custom_project.rename(original)
+        replacement = self.root / "replacement.gpr"
+        replacement.write_bytes(original.read_bytes())
+        self.custom_project.symlink_to(original)
+        self.assert_input_retarget_rejected(arguments, self.custom_project, replacement)
+
+    def test_custom_input_directory_symlink_retarget_is_drift_even_with_identical_bytes(self):
+        arguments = self.custom_arguments()
+        original = self.root / "original inputs"
+        self.custom.rename(original)
+        replacement = self.root / "replacement inputs"
+        replacement.mkdir()
+        (replacement / "main.adb").write_bytes((original / "main.adb").read_bytes())
+        self.custom.symlink_to(original, target_is_directory=True)
+        self.assert_input_retarget_rejected(arguments, self.custom, replacement)
+
+    def test_custom_executable_symlink_retarget_is_drift_even_with_identical_bytes(self):
+        arguments = self.custom_arguments()
+        original = self.host.tools / "original-tool"
+        self.custom_tool.rename(original)
+        replacement = self.host.tools / "replacement-tool"
+        replacement.write_bytes(original.read_bytes())
+        replacement.chmod(0o755)
+        self.custom_tool.symlink_to(original)
+
+        def retarget(*args, **kwargs):
+            self.custom_tool.unlink()
+            self.custom_tool.symlink_to(replacement)
+
+        with mock.patch.object(dev, "invoke", side_effect=retarget) as invoke:
+            with self.assertRaisesRegex(RuntimeError, "custom tool executable changed"):
+                self.main(arguments)
+        self.assertEqual(invoke.call_count, 1)
+        record, = self.records()
+        self.assertEqual(record["state"], "failure")
+        self.assertEqual(record["inputs"]["executable"],
+                         {"path": str(original), "sha256": proof_provenance.digest(replacement)})
+
     def test_new_file_in_declared_directory_is_input_drift(self):
         arguments = self.custom_arguments()
         added = self.custom / "new.ads"
