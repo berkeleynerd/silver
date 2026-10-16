@@ -3,6 +3,7 @@ module
 public import Silver.ComposeSourceChecks
 public import Silver.LexicalSourceBridge
 public import Silver.NamesSourceBridge
+public import Silver.ScalarExpressionSourceBridge
 public import Silver.ComposeEvaluation
 
 @[expose] public section
@@ -19,6 +20,7 @@ open Silver.SourceBridge
 open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
+  scalarExpressions : ScalarExpression.SourceChecks.CheckedSource
   names : Names.SourceBridge.CheckedSource
   namesLexical : Names.fixedAt = Compose.fixedAt ∧ Names.take = Compose.fixedAfter
   inherited : Lexical.SourceBridge.CheckedSource
@@ -35,6 +37,7 @@ structure CheckedSource : Prop where
     (names.extend info).active = names.active ++ [info]
 
 theorem checked_source : CheckedSource where
+  scalarExpressions := ScalarExpression.SourceChecks.checked_source
   names := Names.SourceBridge.checked_source
   namesLexical := ⟨rfl, rfl⟩
   inherited := Lexical.SourceBridge.checked_source
