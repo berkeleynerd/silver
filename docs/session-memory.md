@@ -1,5 +1,40 @@
 # Session memory
 
+## 2026-10-16 — Existing For loops and integers goal resumed
+
+The owner explicitly instructed this session to resume the existing goal
+“with this fact in mind”: the goal remains appropriate and unfinished after its
+prerequisite repairs and tooling work. This instruction revokes the earlier
+pause for the same [For loops and integers milestone](../roadmap.md#for-loops-and-integers),
+tracked by [#10](https://github.com/berkeleynerd/silver/issues/10) and #13–#16.
+Do not replace the goal or treat completed prerequisite work as feature delivery.
+
+The settled standard Integer `'Image` scope remains part of the milestone,
+including Ada's leading space for non-negative values. Preserve the selected
+immutable Integer/forward-and-reverse-loop fragment and existing exclusions.
+No further owner scope decision is pending. The
+[selected review repairs](review-343c2f8-repairs.md) and
+[proof-iteration controls](proof-iteration.md) are complete. Use the managed
+ledger, resolved-workspace leases, coordinated workers, provenance preflight and
+diagnostic checkpoints for resumed implementation and validation.
+
+First reconcile the preserved feature implementation and proofs with current
+`main`, retaining uncommitted work, scratch and caches. Continue #13's scope and
+automatic-proof boundary, including the scalar/loop/Image report-capacity
+derivation, then native implementation #14 and universal/actual-source assurance
+#15 together, followed by #16's stable Linux validation, review and delivery.
+No new construct is supported until the complete milestone obligations pass.
+
+At resumption, the live harness still reports **paused** and the available goal
+tool exposes no resume operation. The owner's instruction authorizes continued
+work on that same objective; do not claim that its stored harness status has
+changed or create a replacement goal to bypass it. Recheck the live status at
+handoff and keep that distinction explicit.
+
+Routine commits and publication remain authorized; hosted CI stays disabled.
+The Oracle and required assurance remain unchanged. CLI memory was unavailable
+and was not updated; this entry and the issue handoffs record the resumption.
+
 ## 2026-10-16 — Proof iteration controls delivered
 
 The owner-authorized tooling package #39 is implemented and validated at
