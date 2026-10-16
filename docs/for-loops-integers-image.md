@@ -309,7 +309,7 @@ before this path can be used to claim supported admission.
 
 The fixed-size (12), signed-32-bit guarded theorem now has a typed Lean
 rendering and exact correspondence to `src/silver_image_theory.ads`.
-Focused native Linux run `20261016T150830-candidate` is identified by the
+Focused native Linux run `20261016T150831-ea146f445bd2` is identified by the
 managed ledger under `#15-image-theorem-rendering`; the successful check started
 at 15:08:35 UTC, built the module in 13 seconds and freshly audited 381
 declarations. This is the theorem constant's source correspondence, not yet a
