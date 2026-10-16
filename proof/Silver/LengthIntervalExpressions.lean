@@ -160,7 +160,7 @@ def increasingBody : Expr .context :=
       (.local "numerator" "natural"
         (.group (.ite (.gt (low right) (high left)) (.sub (low right) (high left)) (.number 0)))
         (.local "low" "natural"
-          (.div (.group (.sub (.add (v "numerator") (v "difference")) (.number 1))) (v "difference"))
+          (.div (.group (.sub (.group (.add (v "numerator") (v "difference"))) (.number 1))) (v "difference"))
           (.local "high" "natural" (.div (.group (.sub (high right) (low left))) (v "difference"))
             (.intersect facts (v "low") (v "high"))))))))
 def refineEqualBody : Expr .context :=

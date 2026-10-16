@@ -21,7 +21,7 @@ package body Silver_Length_Intervals with SPARK_Mode => On is
             Numerator : constant Natural :=
               (if Right.Minimum_Length > Left.Static_Length
                then Right.Minimum_Length - Left.Static_Length else 0);
-            Low : constant Natural := (Numerator + Difference - 1) / Difference;
+            Low : constant Natural := ((Numerator + Difference) - 1) / Difference;
             High : constant Natural := (Right.Static_Length - Left.Minimum_Length) / Difference;
          begin Paths.Intersect (Facts, Low, High)));
 
