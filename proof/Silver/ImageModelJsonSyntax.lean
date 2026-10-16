@@ -1,6 +1,6 @@
 module
 
-public import Silver.ImageModelCharacter
+public import Silver.ImageModelDecodedNative
 
 @[expose] public section
 namespace Silver.ImageModel.JSON
