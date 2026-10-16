@@ -50,18 +50,19 @@ def PayloadAt (text : Source) (form : Form) (token : ShellToken)
       event = some (.declarations values next.names)
   | .argumentDeclaration => ∃ fallback, ArgumentAt text state fallback next ∧ event = some (.argument fallback)
   | .assignmentValue => ∃ value, ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames) ∧
-      event = some (.assignment ⟨state.target, value⟩)
+      event = some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames)⟩)
   | .literal => ∃ bytes, LiteralReading text (skipAt text state.position) bytes (literalAt text (skipAt text state.position)) ∧
       event = some (.literal bytes)
   | .capacity => event = some (.capacity next.capacity)
   | .outputExpression => ∃ expression,
       ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames) ∧
-      event = some (.output expression)
+      event = some (.output (expression.freezeImages (frozenIntegers state.scalarNames)))
   | .comparisonExpression => ∃ left right,
       ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames) ∧
       ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
         right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames) ∧
-      event = some (.comparison left right)
+      event = some (.comparison (left.freezeImages (frozenIntegers state.scalarNames))
+        (right.freezeImages (frozenIntegers state.scalarNames)))
   | _ => event = none
 
 /-- An assignment target denotes the declared mutable cell whose source name
@@ -186,14 +187,14 @@ theorem step_payload (text : Source) (form : Form) (token : ShellToken) (state :
         · simp [step, positive, assignmentAt, fits, failed, invalidState] at accepted
         · exact failed
       obtain ⟨value, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
-      exact ⟨some (.assignment ⟨state.target, value⟩), value, parsed, rfl⟩
+      exact ⟨some (.assignment ⟨state.target, value.freezeImages (frozenIntegers state.scalarNames)⟩), value, parsed, rfl⟩
   | outputExpression =>
       have success : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
         by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
         · simp [step, positive, outputAt, fits, failed, invalidState] at accepted
         · exact failed
       obtain ⟨expression, parsed⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position success
-      exact ⟨some (.output expression), expression, parsed, rfl⟩
+      exact ⟨some (.output (expression.freezeImages (frozenIntegers state.scalarNames))), expression, parsed, rfl⟩
   | comparisonExpression =>
       have leftSuccess : (expressionAt text state.position state.names state.scalarNames).after ≠ 0 := by
         by_cases failed : (expressionAt text state.position state.names state.scalarNames).after = 0
@@ -207,7 +208,8 @@ theorem step_payload (text : Source) (form : Form) (token : ShellToken) (state :
         · exact failed
       obtain ⟨left, first⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names state.position leftSuccess
       obtain ⟨right, second⟩ := expressionAt_sound (scalarNames := state.scalarNames) text state.names _ rightSuccess
-      exact ⟨some (.comparison left right), left, right, first, second, rfl⟩
+      exact ⟨some (.comparison (left.freezeImages (frozenIntegers state.scalarNames))
+        (right.freezeImages (frozenIntegers state.scalarNames))), left, right, first, second, rfl⟩
 
 theorem step_sound (text : Source) (form : Form) (token : ShellToken) (state : ParserState)
     (positive : state.position ≠ 0) (accepted : (step text form token state).position ≠ 0) :
@@ -266,7 +268,8 @@ def TargetValid (state : ParserState) : Prop :=
   state.target = 0 ∨ ∃ bound, state.names.shape state.target = some ⟨bound, true⟩
 
 def StateValid (state : ParserState) : Prop :=
-  NamesNormal state.names ∧ state.capacity ≤ maxSourceLength ∧ TargetValid state
+  NamesNormal state.names ∧ state.capacity ≤ maxSourceLength ∧ TargetValid state ∧
+    ScalarExpression.StaticEnvironment state.scalarNames
 
 def StreamValid (shape : Shape) (capacity : Nat) : List Event → Prop
   | [] => True
@@ -285,32 +288,37 @@ def EventValid (state next : ParserState) (event : Option Event) : Prop :=
     StreamValid state.names.shape state.capacity (event.toList ++ rest)
 
 theorem initial_valid : StateValid initialState := by
-  refine ⟨?_, Nat.le_refl _, Or.inl rfl⟩
+  refine ⟨?_, Nat.le_refl _, Or.inl rfl, ScalarExpression.static_empty⟩
   intro index info present
   simp [initialState, BindingEnvironment.get] at present
 
 theorem assignment_safe {text : Source} {state : ParserState} {value : Expression}
-    (normal : NamesNormal state.names) (valid : TargetValid state)
+    (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
+    (valid : TargetValid state)
     (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position value (expressionAt text state.position state.names state.scalarNames))
     (accepted : (assignmentAt text state).position ≠ 0) :
-    (Bindings.Assignment.mk state.target value).Valid state.names.shape ∧
-      SafeExpression value state.names.shape state.capacity ∧
+    (Bindings.Assignment.mk state.target (value.freezeImages (frozenIntegers state.scalarNames))).Valid state.names.shape ∧
+      SafeExpression (value.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
       (assignmentAt text state).names = state.names ∧ (assignmentAt text state).capacity = state.capacity ∧
       (assignmentAt text state).target = state.target := by
   generalize valueEq : expressionAt text state.position state.names state.scalarNames = result at *
   generalize infoEq : (state.names.get state.target).getD {} = info
   have observed : assignmentAt text state =
-      if !fits result state.capacity || decide (state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
+      if !fits result state.capacity || result.emptyValue || decide (result.minimumLength ≠ result.staticLength ∨ state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
           result.dynamicCount ≠ (if info.dynamic then 1 else 0)) then invalidState
       else {state with position := result.after} := by simp only [assignmentAt, valueEq, infoEq]
   have bounded : fits result state.capacity = true := by
     by_cases good : fits result state.capacity = true
     · exact good
     · simp [observed, good, invalidState] at accepted
-  have correct : ¬(state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
+  have correct : ¬(result.minimumLength ≠ result.staticLength ∨ state.target = 0 ∨ result.staticLength ≠ info.staticLength ∨
       result.dynamicCount ≠ (if info.dynamic then 1 else 0)) := by
     intro bad
     simp [observed, bad, invalidState] at accepted
+  have nonempty : result.emptyValue = false := by
+    cases empty : result.emptyValue with
+    | false => rfl
+    | true => simp [observed, empty, invalidState] at accepted
   have nonzero : state.target ≠ 0 := by omega
   obtain zero | ⟨bound, present⟩ := valid
   · exact False.elim (nonzero zero)
@@ -320,41 +328,40 @@ theorem assignment_safe {text : Source} {state : ParserState} {value : Expressio
     have actualEq : actual = info := by simpa [found] using infoEq
     subst actual
     have boundEq : info.bound = bound := congrArg CellInfo.bound cellEq
-    have summaries := expressionTail_summary normal (by simp) parsed
-    simp only [Nat.zero_add] at summaries
-    have readable := expressionTail_readable parsed
-    have same : value.summary state.names.shape = bound.summary := by
-      rw [← boundEq]
-      simp only [Expression.summary, ← summaries.1, ← summaries.2]
+    have exact : result.minimumLength = result.staticLength := by omega
+    have summary := expressionAt_frozen_summary normal static parsed exact
+    have safe := expressionAt_safe normal static parsed bounded
+    have same : (value.freezeImages (frozenIntegers state.scalarNames)).summary state.names.shape = bound.summary := by
+      rw [summary, ← boundEq]
       have lengthEq : result.staticLength = info.staticLength := by omega
       have countEq : result.dynamicCount = if info.dynamic then 1 else 0 := by omega
       have zero := normal _ _ found
       cases dynamic : info.dynamic
       · simp [BindingInfo.bound, Bindings.Bound.summary, lengthEq, countEq, dynamic]
       · simp [BindingInfo.bound, Bindings.Bound.summary, lengthEq, countEq, dynamic, zero dynamic]
-    refine ⟨⟨bound, present, Expression.infer_iff.mpr ⟨readable.1, same⟩, readable.2⟩,
-      expressionAt_safe normal parsed (decide_eq_true_eq.mp bounded).2, ?_⟩
-    simp [observed, bounded, correct]
+    refine ⟨⟨bound, present, Expression.infer_iff.mpr ⟨safe.1, same⟩, safe.2.1⟩, safe, ?_⟩
+    simp [observed, bounded, correct, nonempty]
 
 theorem output_safe {text : Source} {state : ParserState} {expression : Expression}
-    (normal : NamesNormal state.names)
+    (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (parsed : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position expression (expressionAt text state.position state.names state.scalarNames))
     (accepted : (outputAt text state).position ≠ 0) :
-    SafeExpression expression state.names.shape state.capacity ∧ outputAt text state =
+    SafeExpression (expression.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧ outputAt text state =
       {state with position := (expressionAt text state.position state.names state.scalarNames).after} := by
   have bounded : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true := by
     by_cases good : fits (expressionAt text state.position state.names state.scalarNames) state.capacity = true
     · exact good
     · simp [outputAt, good, invalidState] at accepted
-  exact ⟨expressionAt_safe normal parsed (decide_eq_true_eq.mp bounded).2, by simp [outputAt, bounded]⟩
+  exact ⟨expressionAt_safe normal static parsed bounded, by simp [outputAt, bounded]⟩
 
 theorem comparison_safe {text : Source} {state : ParserState} {left right : Expression}
-    (normal : NamesNormal state.names)
+    (normal : NamesNormal state.names) (static : ScalarExpression.StaticEnvironment state.scalarNames)
     (first : ExpressionAt (scalarNames := state.scalarNames) text state.names state.position left (expressionAt text state.position state.names state.scalarNames))
     (second : ExpressionAt (scalarNames := state.scalarNames) text state.names (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false)
       right (expressionAt text (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames))
     (accepted : (comparisonAt text state).position ≠ 0) :
-    SafeExpression left state.names.shape state.capacity ∧ SafeExpression right state.names.shape state.capacity ∧
+    SafeExpression (left.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
+      SafeExpression (right.freezeImages (frozenIntegers state.scalarNames)) state.names.shape state.capacity ∧
     comparisonAt text state = {state with position := (expressionAt text
       (fixedAfter text (expressionAt text state.position state.names state.scalarNames).after "=" false) state.names state.scalarNames).after} := by
   dsimp only [comparisonAt] at accepted ⊢
@@ -363,8 +370,8 @@ theorem comparison_safe {text : Source} {state : ParserState} {left right : Expr
     rw [ite_eq_left good]
     simp only [Bool.and_eq_true] at good
     obtain ⟨⟨leftBound, rightBound⟩, _⟩ := good
-    exact ⟨expressionAt_safe normal first (decide_eq_true_eq.mp leftBound).2,
-      expressionAt_safe normal second (decide_eq_true_eq.mp rightBound).2, rfl⟩
+    exact ⟨expressionAt_safe normal static first leftBound,
+      expressionAt_safe normal static second rightBound, rfl⟩
   · exact False.elim (accepted rfl)
 
 /-- Equality has a resolved String object on at least one side. Literal-only
@@ -390,21 +397,24 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
   | declarations =>
       obtain ⟨values, source, rfl⟩ := payload
       obtain ⟨capacity, target, _, _⟩ := declarations_fields source
-      refine ⟨⟨declarations_normal source valid.1, capacity ▸ valid.2.1, ?_⟩, ?_⟩
-      · rcases valid.2.2 with zero | ⟨bound, present⟩
+      refine ⟨⟨declarations_normal source valid.1, capacity ▸ valid.2.1, ?_, declarations_static source valid.2.2.2⟩, ?_⟩
+      · rcases valid.2.2.1 with zero | ⟨bound, present⟩
         · exact Or.inl (target.trans zero)
-        · exact Or.inr ⟨bound, target ▸ declarations_extend (declarations_shape valid.1 source) present⟩
+        · exact Or.inr ⟨bound, target ▸ declarations_extend (declarations_shape valid.1 valid.2.2.2 source) present⟩
       · intro rest remaining
-        exact ⟨declarations_shape valid.1 source, capacity ▸ remaining⟩
+        exact ⟨declarations_shape valid.1 valid.2.2.2 source, capacity ▸ remaining⟩
   | argumentDeclaration =>
       obtain ⟨fallback, source, rfl⟩ := payload
       obtain ⟨empty, names, _⟩ := argument_shape source
       obtain ⟨capacity, target⟩ := argument_fields source
       have targetZero : state.target = 0 := by
-        rcases valid.2.2 with zero | ⟨bound, present⟩
+        rcases valid.2.2.1 with zero | ⟨bound, present⟩
         · exact zero
         · rw [empty] at present; cases present
-      refine ⟨⟨argument_normal source, capacity ▸ valid.2.1, Or.inl (target.trans targetZero)⟩, ?_⟩
+      have static : ScalarExpression.StaticEnvironment next.scalarNames := by
+        cases source
+        exact valid.2.2.2
+      refine ⟨⟨argument_normal source, capacity ▸ valid.2.1, Or.inl (target.trans targetZero), static⟩, ?_⟩
       have fallbackDomain : Printable fallback ∧ fallback.length ≤ maxSourceLength := by
         cases source with
         | argument _ _ _ _ literal =>
@@ -427,9 +437,12 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
       obtain ⟨value, source, rfl⟩ := payload
       simp only [step, positive, ↓reduceIte] at scanned
       subst next
-      obtain ⟨safe, rhsSafe, names, capacity, target⟩ := assignment_safe valid.1 valid.2.2 source following
+      obtain ⟨safe, rhsSafe, names, capacity, target⟩ := assignment_safe valid.1 valid.2.2.2 valid.2.2.1 source following
+      have scalarNames : (assignmentAt text state).scalarNames = state.scalarNames := by
+        dsimp only [assignmentAt] at following ⊢
+        split <;> (try split) <;> simp_all [invalidState]
       refine ⟨?_, ?_⟩
-      · simpa only [StateValid, TargetValid, names, capacity, target] using valid
+      · simpa only [StateValid, TargetValid, names, capacity, target, scalarNames] using valid
       · intro rest remaining
         change _ ∧ _ ∧ StreamValid state.names.shape state.capacity rest
         exact ⟨safe, rhsSafe, by simpa only [names, capacity] using remaining⟩
@@ -437,14 +450,14 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
       obtain ⟨expression, source, rfl⟩ := payload
       simp only [step, positive, ↓reduceIte] at scanned
       subst next
-      obtain ⟨safe, same⟩ := output_safe valid.1 source following
+      obtain ⟨safe, same⟩ := output_safe valid.1 valid.2.2.2 source following
       rw [same]
       exact ⟨valid, fun _ remaining => ⟨safe, remaining⟩⟩
   | comparisonExpression =>
       obtain ⟨left, right, first, second, rfl⟩ := payload
       simp only [step, positive, ↓reduceIte] at scanned
       subst next
-      obtain ⟨leftSafe, rightSafe, same⟩ := comparison_safe valid.1 first second following
+      obtain ⟨leftSafe, rightSafe, same⟩ := comparison_safe valid.1 valid.2.2.2 first second following
       rw [same]
       exact ⟨valid, fun _ remaining => ⟨leftSafe, rightSafe, remaining⟩⟩
   | capacity =>
@@ -463,7 +476,7 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
         rw [resultEq] at bounds
         have same : capacityAt text state = {state with position := result.after, capacity := result.value} := by simp [observed, failed]
         rw [same]
-        exact ⟨⟨valid.1, bounds.2.2, valid.2.2⟩, fun _ remaining => ⟨bounds.2.2, remaining⟩⟩
+        exact ⟨⟨valid.1, bounds.2.2, valid.2.2.1, valid.2.2.2⟩, fun _ remaining => ⟨bounds.2.2, remaining⟩⟩
   | dynamicReference =>
       simp only [PayloadAt] at payload
       subst event
@@ -492,7 +505,7 @@ theorem step_valid {text : Source} {form : Form} {token : ShellToken}
           intro isfalse
           exact accepted (Or.inr (Or.inr (Or.inl (by simpa only [found, Option.getD_some] using isfalse))))
         have mutable : info.mutable = true := by cases h : info.mutable <;> simp_all only [Bool.false_eq_true]
-        refine ⟨⟨valid.1, valid.2.1, Or.inr ⟨info.bound, ?_⟩⟩, fun _ remaining => remaining⟩
+        refine ⟨⟨valid.1, valid.2.1, Or.inr ⟨info.bound, ?_⟩, valid.2.2.2⟩, fun _ remaining => remaining⟩
         simp [BindingEnvironment.shape, found, BindingInfo.cell, mutable]
 
 inductive Parsed (text : Source) (form : Form) : List ShellToken → ParserState → List Event → Prop
