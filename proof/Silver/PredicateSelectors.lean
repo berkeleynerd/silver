@@ -88,8 +88,8 @@ mutual
   termination_by sizeOf items
 end
 
-theorem decoded_body {form events items scalars constants program}
-    (decoded : decodePrefix form events items scalars constants = some program) :
+theorem decoded_body {form events items scalars constants checks program}
+    (decoded : decodePrefix form events items scalars constants checks = some program) :
     program.statements = lowerStatements items ∧ program.hasArguments = form.hasArguments := by
   unfold decodePrefix at decoded
   split at decoded <;> cases decoded
@@ -113,7 +113,7 @@ theorem meaning_selectors {source : Source} {program : Program}
     hasArguments source = program.hasArguments ∧
       hasAssignment source = Flag.assignment.statements program.statements ∧
       hasOutput source = Flag.output.statements program.statements := by
-  obtain ⟨form, events, items, _, domain, _, parsed, _, decoded⟩ := meaning
+  obtain ⟨form, events, items, _, _, domain, _, parsed, _, _, decoded⟩ := meaning
   have accepted := form_reading_complete ⟨domain, events, items, parsed⟩
   have body := decoded_body decoded
   refine ⟨(any_form_flag accepted Form.hasArguments).trans body.2.symm, ?_, ?_⟩

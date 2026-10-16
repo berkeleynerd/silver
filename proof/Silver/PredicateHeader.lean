@@ -3,6 +3,7 @@ module
 public import Silver.PredicateShell
 public import Silver.PredicateHeaderDecode
 public import Silver.SequenceScalarTrace
+public import Silver.SequenceInitializerTrace
 
 @[expose] public section
 
@@ -87,5 +88,11 @@ theorem prefix_scalar_checked {source form values}
         Integer.Constants.ranges (ScalarExpression.constants (prefixScan source form).state.scalarNames) := by
   have checked := Sequence.scalar_tokens_checked trace ScalarExpression.static_empty
   exact ⟨checked.1, checked.2, ScalarExpression.static_ranges checked.2⟩
+
+theorem prefix_initializer_checked {source form checks}
+    (domain : source.length ≤ maxSourceLength)
+    (trace : Sequence.InitializerTokensAt source form.helper form.prefix initialState checks
+      (prefixScan source form).state) : Integer.discharged checks = true :=
+  Sequence.initializer_tokens_discharge domain trace Compose.initial_valid
 
 end Silver.Predicate

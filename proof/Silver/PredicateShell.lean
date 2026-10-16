@@ -2,6 +2,7 @@ module
 
 public import Silver.PredicateBodySound
 public import Silver.PredicateBodyMeaning
+public import Silver.ComposeStateBounds
 public import Silver.PredicateBodyUnique
 public import Silver.SequenceContext
 
