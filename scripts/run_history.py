@@ -104,6 +104,8 @@ def _runs(root: Path) -> list[dict]:
         for event in events:
             if event.get("event") == "prepared":
                 start.update({key: event[key] for key in ("inputs", "fingerprint", "scope", "expensive")})
+            elif event.get("event") == "command":
+                start.update({key: event[key] for key in ("command", "cwd") if key in event})
         terminal = next((event for event in reversed(events)
                          if event.get("event") == "finished"), None)
         active = _leased(directory / "lease")
@@ -156,9 +158,11 @@ def _report_files(paths) -> list[Path]:
     selected = set()
     for source in paths:
         path = Path(source)
-        selected.update(path.glob("*.spark") if path.is_dir() else [path])
         if path.is_dir():
-            selected.update([path / "gnatprove.sarif", path / "gnatprove.out"])
+            selected.update(item for item in path.rglob("*")
+                            if item.suffix == ".spark" or item.name in ("gnatprove.sarif", "gnatprove.out"))
+        else:
+            selected.add(path)
     return sorted(path for path in selected if path.is_file())
 
 
@@ -330,13 +334,12 @@ class ManagedRun:
         copies = []
         for index, source in enumerate(self.failure_reports if outcome != "success" else ()):
             source = Path(source)
-            paths = [*source.glob("*.spark"), source / "gnatprove.sarif", source / "gnatprove.out"] if source.is_dir() else [source]
-            for path in paths:
-                if path.is_file():
-                    target = self.directory / "reports" / str(index) / path.name
-                    target.parent.mkdir(parents=True, exist_ok=True)
-                    target.write_bytes(path.read_bytes())
-                    copies.append(dict(original=str(path), retained=str(target)))
+            for path in _report_files([source]):
+                relative = path.relative_to(source) if source.is_dir() else Path(path.name)
+                target = self.directory / "reports" / str(index) / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(path.read_bytes())
+                copies.append(dict(original=str(path), retained=str(target)))
         with _metadata(self.root):
             _append(self.directory / "events.jsonl", dict(details, event="finished", run_id=self.run_id,
                 outcome=outcome, returncode=returncode, duration_seconds=(time.monotonic_ns() - self._start_ns) / 1e9,

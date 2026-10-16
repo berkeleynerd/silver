@@ -231,6 +231,29 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertEqual(finish["failure_keys"], [])
         self.assertEqual(len(finish["retained_reports"]), 1)
 
+    def test_custom_workspace_reports_are_recursive_and_preserve_distinct_paths(self):
+        workspace = self.root / "custom"
+        stale = workspace / "old/obj/gnatprove/unit.spark"
+        stale.parent.mkdir(parents=True)
+        stale.write_text(json.dumps({"proof": [{"file": "old.adb", "line": 1, "col": 1,
+            "rule": "VC_RANGE_CHECK", "severity": "medium", "how_proved": "unproved"}]}))
+        with self.run_context(failure_reports=[workspace]) as run:
+            current = workspace / "new/obj/gnatprove/unit.spark"
+            current.parent.mkdir(parents=True)
+            current.write_text(json.dumps({"proof": [{"file": "new.adb", "line": 1, "col": 1,
+                "rule": "VC_RANGE_CHECK", "severity": "medium", "how_proved": "unproved"}]}))
+            (current.parent / "gnatprove.out").write_text("new failure diagnostics")
+            run.event("command", command=["actual-tool", "-j", "1"], cwd=str(workspace))
+            run.finish("failure", returncode=1)
+        record = self.records()[0]
+        self.assertEqual(record["command"], ["actual-tool", "-j", "1"])
+        self.assertEqual(record["cwd"], str(workspace))
+        self.assertEqual(record["finish"]["failure_keys"], ["new.adb:1:1:VC_RANGE_CHECK"])
+        retained = run.directory / "reports/0"
+        self.assertEqual((retained / stale.relative_to(workspace)).read_bytes(), stale.read_bytes())
+        self.assertEqual((retained / current.relative_to(workspace)).read_bytes(), current.read_bytes())
+        self.assertEqual((retained / "new/obj/gnatprove/gnatprove.out").read_text(), "new failure diagnostics")
+
     def fail_obligation(self, **options):
         with self.run_context(**options) as run:
             run.finish("failure", returncode=1, failure_keys=["unit.adb:1:1:VC_RANGE_CHECK"])
