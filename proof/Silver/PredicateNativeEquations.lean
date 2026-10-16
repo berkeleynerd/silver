@@ -12,7 +12,7 @@ set_option maxHeartbeats 2000000
 
 structure Inputs where
   text : Source := []
-  context : Context := ⟨[], 0, 0⟩
+  context : Context := ⟨[], 0, 0, []⟩
   position : Nat := 0
   facts : PathFacts.Context := PathFacts.Context.empty
   value : Compose.ExpressionResult := Compose.invalidExpression
@@ -50,7 +50,7 @@ def lengthEquation (calls : Calls) (text : Source) (context : Context) (position
   let index := calls.lookup text context.names first after
   let number := calls.integer text first
   if literal && decide (number.after ≠ 0) then ⟨number.after, .fixed number.value⟩
-  else if index = 0 then ⟨0, .fixed 0⟩
+  else if index = 0 ∨ calls.scalarLookup text context.scalarNames first after ≠ 0 then ⟨0, .fixed 0⟩
   else ⟨calls.take text (calls.take text after .apostrophe) .lengthName,
     calls.bound ((context.names.get index).getD {})⟩
 
@@ -62,7 +62,7 @@ def primaryEquation (calls : Calls) (text : Source) (context : Context) (positio
     let result := calls.condition text context after facts
     {result with after := calls.take text result.after .rightParenthesis}
   else if context.dynamicFirst = 0 then invalidCondition
-  else ⟨calls.callAfter text context.names position .validity,
+  else ⟨calls.callAfter text context.names position .validity context.scalarNames,
     calls.assumeValid facts, calls.assumeInvalid facts⟩
 
 def relationEquation (calls : Calls) (text : Source) (context : Context) (position : Nat)
@@ -70,6 +70,7 @@ def relationEquation (calls : Calls) (text : Source) (context : Context) (positi
   if position = 0 then invalidCondition else
   let after := calls.take text position .notKeyword
   let leftLength := calls.length text context position false
+  let leftScalar := calls.scalarRead text position context.scalarNames
   if after ≠ 0 then
     let result := calls.primary text context after facts
     ⟨result.after, result.whenFalse, result.whenTrue⟩
@@ -80,13 +81,17 @@ def relationEquation (calls : Calls) (text : Source) (context : Context) (positi
     else ⟨rightLength.after,
       calls.refineBounds facts operator.operator leftLength.value rightLength.value true,
       calls.refineBounds facts operator.operator leftLength.value rightLength.value false⟩
+  else if leftScalar.after ≠ 0 then
+    let operator := calls.comparison text leftScalar.after
+    let rightScalar := calls.scalarRead text operator.after context.scalarNames
+    if rightScalar.after ≤ position then invalidCondition else ⟨rightScalar.after, facts, facts⟩
   else
-    let left := calls.expression text position context.names
+    let left := calls.expression text position context.names context.scalarNames
     if left.after ≠ 0 then
       let operator := calls.comparison text left.after
       if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition
       else
-        let right := calls.expression text operator.after context.names
+        let right := calls.expression text operator.after context.names context.scalarNames
         if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
             !calls.fits facts (calls.summary left) ∨ !calls.fits facts (calls.summary right)
         then invalidCondition
@@ -126,57 +131,57 @@ def modelEquation (calls : Calls) (text : Source) (context : Context) (position 
 
 theorem summary_denotation (calls : Calls) (value : Compose.ExpressionResult) :
     summaryBody.eval calls ({value} : Inputs).locals = summaryOf value := by
-  dsimp +instances only [summaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [summaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [summaryOf]
 
 theorem bound_denotation (calls : Calls) (binding : Bindings.BindingInfo) :
     boundBody.eval calls ({binding} : Inputs).locals = binding.bound := by
-  dsimp +instances only [boundBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [boundBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [Bindings.BindingInfo.bound]
 
 theorem bindingSummary_denotation (calls : Calls) (binding : Bindings.BindingInfo) :
     bindingSummaryBody.eval calls ({binding} : Inputs).locals = binding.bound.summary := by
-  dsimp +instances only [bindingSummaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [bindingSummaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   cases dynamic : binding.dynamic <;> simp [Bindings.BindingInfo.bound, Bindings.Bound.summary, dynamic]
 
 theorem comparison_denotation (calls : Calls) (text : Source) (position : Nat) :
     comparisonBody.eval calls ({text, position} : Inputs).locals = comparisonEquation calls text position := by
-  dsimp +instances only [comparisonBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [comparisonBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [comparisonEquation]
 
 theorem length_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (literal : Bool) :
     lengthBody.eval calls ({text, context, position, literal} : Inputs).locals = lengthEquation calls text context position literal := by
-  dsimp +instances only [lengthBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [lengthBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [lengthEquation]
 
 theorem primary_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context) :
     primaryBody.eval calls ({text, context, position, facts} : Inputs).locals = primaryEquation calls text context position facts := by
-  dsimp +instances only [primaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [primaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [primaryEquation]
 
 theorem relation_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context) :
     relationBody.eval calls ({text, context, position, facts} : Inputs).locals = relationEquation calls text context position facts := by
-  dsimp +instances only [relationBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [relationBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [relationEquation, or_assoc]
 
 theorem chainToken_denotation (calls : Calls) (text : Source) (position : Nat) :
     chainTokenBody.eval calls ({text, position} : Inputs).locals = chainTokenEquation calls text position := by
-  dsimp +instances only [chainTokenBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [chainTokenBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [chainTokenEquation]
 
 theorem chainAfter_denotation (calls : Calls) (text : Source) (position : Nat) (operator : Token) :
     chainAfterBody.eval calls ({text, position, operator} : Inputs).locals = chainAfterEquation calls text position operator := by
-  dsimp +instances only [chainAfterBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [chainAfterBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [chainAfterEquation]
 
 theorem tail_denotation (calls : Calls) (text : Source) (context : Context) (result : ConditionResult) (operator : Token) (chained : Bool) :
     tailBody.eval calls ({text, context, result, operator, chained} : Inputs).locals = tailEquation calls text context result operator chained := by
-  dsimp +instances only [tailBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [tailBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [tailEquation]
 
 theorem model_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context) :
     modelBody.eval calls ({text, context, position, facts} : Inputs).locals = modelEquation calls text context position facts := by
-  dsimp +instances only [modelBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
+  dsimp +instances only [modelBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
   simp [modelEquation]
 
 theorem condition_denotation (calls : Calls) (text : Source) (context : Context) (position : Nat) (facts : PathFacts.Context) :

@@ -23,13 +23,15 @@ def chainTokenModel (text : Source) (position : Nat) : Token :=
   else .endKeyword
 
 def modelCalls : Calls where
-  callAfter := Compose.callAfter
+  callAfter := fun text names position operation scalarNames => Compose.callAfter text names position operation scalarNames
   take := takeModel
   skip := skipAt
   nameAfter := Compose.nameAfter
   lookup := lookupName
+  scalarLookup := ScalarExpression.lookup
+  scalarRead := fun text position names => ScalarExpression.read text position names
   integer := IntegerLiteral.read
-  expression := expressionAt
+  expression := fun text position names scalarNames => expressionAt text position names scalarNames
   summary := summaryOf
   bound := Bindings.BindingInfo.bound
   bindingSummary := fun binding => binding.bound.summary

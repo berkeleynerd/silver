@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateConditionSound
 public import Silver.PredicateConditionBounds
-public import Silver.ComposeModelRanges
+public import Silver.ComposeBounds
 
 @[expose] public section
 

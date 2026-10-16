@@ -40,7 +40,7 @@ theorem targetAt_expanded (text : Source) (context : Native.Context) (scan : Bod
 
 /-- Inhabited primitives; no implementation meaning is postulated. -/
 theorem model_primitive_equations :
-    modelPrimitives.token = tokenAfter ∧ modelPrimitives.expression = expressionAt ∧
+    modelPrimitives.token = tokenAfter ∧ modelPrimitives.expression = (fun text position names scalarNames => expressionAt text position names scalarNames) ∧
     modelPrimitives.target = targetAt ∧ modelPrimitives.fits = fitsSummary ∧
     modelPrimitives.sameLength = equalSummary ∧ modelPrimitives.reject = PathFacts.Context.reject :=
   ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
@@ -70,10 +70,10 @@ theorem basicEval_model (text : Source) (context : Native.Context) (scan : BodyS
 /-- Calls in the typed block are connected to already checked source primitives.
 The model below is an explicit inhabitant, rather than an assumed equation set. -/
 structure PrimitiveEquations (primitive : Primitives) : Prop where
-  callAfter : primitive.callAfter = Compose.callAfter
+  callAfter : primitive.callAfter = (fun text names position operation scalarNames => Compose.callAfter text names position operation scalarNames)
   associationAfter : primitive.associationAfter = Names.associationAfter
   token : primitive.token = tokenAfter
-  expression : primitive.expression = expressionAt
+  expression : primitive.expression = (fun text position names scalarNames => expressionAt text position names scalarNames)
   target : primitive.target = targetAt
   fits : primitive.fits = fitsSummary
   sameLength : primitive.sameLength = equalSummary

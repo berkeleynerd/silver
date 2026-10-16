@@ -12,7 +12,7 @@ arbitrary until their source equations or inherited contracts are applied. -/
 namespace Silver.Predicate.Native
 
 inductive Ty
-  | number | truth | source | token | operation | comparison | binding | names | context | result | literal | length | compared | condition | summary | bound | facts | arrow (domain codomain : Ty)
+  | number | truth | source | token | operation | comparison | binding | names | scalarNames | scalarResult | context | result | literal | length | compared | condition | summary | bound | facts | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
@@ -24,6 +24,8 @@ inductive Ty
   | .comparison => Comparison
   | .binding => Bindings.BindingInfo
   | .names => Compose.BindingEnvironment
+  | .scalarNames => ScalarExpression.Environment
+  | .scalarResult => ScalarExpression.Result
   | .context => Context
   | .result => Compose.ExpressionResult
   | .literal => IntegerLiteral.Result
@@ -44,7 +46,9 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .comparison => .eq
   | .binding => {}
   | .names => []
-  | .context => ⟨[], 0, 0⟩
+  | .scalarNames => []
+  | .scalarResult => ScalarExpression.invalid
+  | .context => ⟨[], 0, 0, []⟩
   | .result => Compose.invalidExpression
   | .literal => IntegerLiteral.invalid
   | .length => ⟨0, .fixed 0⟩
@@ -56,7 +60,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .arrow _ b => fun _ => b.default
 
 inductive Function
-  | callAfter | take | skip | nameAfter | lookup | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
+  | callAfter | take | skip | nameAfter | lookup | scalarLookup | scalarRead | integer | expression | summary | bound | bindingSummary | comparison | length | primary | relation | condition | model | chainToken | chainAfter | tail | assumeValid | assumeInvalid | refineBounds | fits | refineEqual | join
   deriving DecidableEq, Repr
 
 def Function.name : Function → List String
@@ -65,6 +69,8 @@ def Function.name : Function → List String
   | .skip => ["skip_at"]
   | .nameAfter => ["name_after"]
   | .lookup => ["lookup_name"]
+  | .scalarLookup => ["scalar_expressions", ".", "lookup"]
+  | .scalarRead => ["scalar_expressions", ".", "read_expression"]
   | .integer => ["silver_integer_literals", ".", "read_integer"]
   | .expression => ["expression_at"]
   | .summary => ["summary_of"]
@@ -87,13 +93,15 @@ def Function.name : Function → List String
   | .join => ["paths", ".", "join"]
 
 @[reducible] def Function.type : Function → Ty
-  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation .number)))
+  | .callAfter => .arrow .source (.arrow .names (.arrow .number (.arrow .operation (.arrow .scalarNames .number))))
   | .take => .arrow .source (.arrow .number (.arrow .token (.number)))
   | .skip => .arrow .source (.arrow .number (.number))
   | .nameAfter => .arrow .source (.arrow .number (.number))
   | .lookup => .arrow .source (.arrow .names (.arrow .number (.arrow .number (.number))))
+  | .scalarLookup => .arrow .source (.arrow .scalarNames (.arrow .number (.arrow .number .number)))
+  | .scalarRead => .arrow .source (.arrow .number (.arrow .scalarNames .scalarResult))
   | .integer => .arrow .source (.arrow .number (.literal))
-  | .expression => .arrow .source (.arrow .number (.arrow .names (.result)))
+  | .expression => .arrow .source (.arrow .number (.arrow .names (.arrow .scalarNames .result)))
   | .summary => .arrow .result (.summary)
   | .bound => .arrow .binding (.bound)
   | .bindingSummary => .arrow .binding (.summary)
@@ -114,13 +122,15 @@ def Function.name : Function → List String
   | .join => .arrow .facts (.arrow .facts (.facts))
 
 structure Calls where
-  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → Nat
+  callAfter : Source → Compose.BindingEnvironment → Nat → Names.Operation → ScalarExpression.Environment → Nat
   take : Source → Nat → Token → Nat
   skip : Source → Nat → Nat
   nameAfter : Source → Nat → Nat
   lookup : Source → Compose.BindingEnvironment → Nat → Nat → Nat
+  scalarLookup : Source → ScalarExpression.Environment → Nat → Nat → Nat
+  scalarRead : Source → Nat → ScalarExpression.Environment → ScalarExpression.Result
   integer : Source → Nat → IntegerLiteral.Result
-  expression : Source → Nat → Compose.BindingEnvironment → Compose.ExpressionResult
+  expression : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → Compose.ExpressionResult
   summary : Compose.ExpressionResult → Bindings.Summary
   bound : Bindings.BindingInfo → Bindings.Bound
   bindingSummary : Bindings.BindingInfo → Bindings.Summary
@@ -146,6 +156,8 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
   | .skip => calls.skip
   | .nameAfter => calls.nameAfter
   | .lookup => calls.lookup
+  | .scalarLookup => calls.scalarLookup
+  | .scalarRead => calls.scalarRead
   | .integer => calls.integer
   | .expression => calls.expression
   | .summary => calls.summary
@@ -169,6 +181,8 @@ def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
 
 inductive Field : Ty → Ty → Type
   | contextNames : Field .context .names
+  | contextScalarNames : Field .context .scalarNames
+  | scalarAfter : Field .scalarResult .number
   | dynamicFirst : Field .context .number
   | bindingLength : Field .binding .number
   | bindingDynamic : Field .binding .truth
@@ -188,6 +202,8 @@ inductive Field : Ty → Ty → Type
 
 def Field.name : Field a b → String
   | .contextNames => "names"
+  | .contextScalarNames => "scalar_names"
+  | .scalarAfter => "after"
   | .dynamicFirst => "dynamic_first"
   | .bindingLength => "static_length"
   | .bindingDynamic => "dynamic"
@@ -207,6 +223,8 @@ def Field.name : Field a b → String
 
 def Field.get : Field a b → a.meaning → b.meaning
   | .contextNames, value => value.names
+  | .contextScalarNames, value => value.scalarNames
+  | .scalarAfter, value => value.after
   | .dynamicFirst, value => value.dynamicFirst
   | .bindingLength, value => value.staticLength
   | .bindingDynamic, value => value.dynamic
@@ -344,8 +362,8 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .invalid => invalidCondition
 
 namespace Expr
-def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) : Expr .number :=
-  .app (.app (.app (.app (.function .callAfter) text) names) position) operation
+def callOperation (text : Expr .source) (names : Expr .names) (position : Expr .number) (operation : Expr .operation) (scalarNames : Expr .scalarNames) : Expr .number :=
+  .app (.app (.app (.app (.app (.function .callAfter) text) names) position) operation) scalarNames
 
 def callTake (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .token) : Expr .number :=
   .app (.app (.app (.function .take) x0) x1) x2
@@ -359,11 +377,17 @@ def callNameAfter (x0 : Expr .source) (x1 : Expr .number) : Expr .number :=
 def callLookup (x0 : Expr .source) (x1 : Expr .names) (x2 : Expr .number) (x3 : Expr .number) : Expr .number :=
   .app (.app (.app (.app (.function .lookup) x0) x1) x2) x3
 
+def callScalarLookup (text : Expr .source) (names : Expr .scalarNames) (first after : Expr .number) : Expr .number :=
+  .app (.app (.app (.app (.function .scalarLookup) text) names) first) after
+
+def callScalarRead (text : Expr .source) (position : Expr .number) (names : Expr .scalarNames) : Expr .scalarResult :=
+  .app (.app (.app (.function .scalarRead) text) position) names
+
 def callInteger (x0 : Expr .source) (x1 : Expr .number) : Expr .literal :=
   .app (.app (.function .integer) x0) x1
 
-def callExpression (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .names) : Expr .result :=
-  .app (.app (.app (.function .expression) x0) x1) x2
+def callExpression (x0 : Expr .source) (x1 : Expr .number) (x2 : Expr .names) (scalarNames : Expr .scalarNames) : Expr .result :=
+  .app (.app (.app (.app (.function .expression) x0) x1) x2) scalarNames
 
 def callSummary (x0 : Expr .result) : Expr .summary :=
   .app (.function .summary) x0
