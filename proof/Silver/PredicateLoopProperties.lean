@@ -54,6 +54,22 @@ theorem loopHeader_readings {text : Source} {context : ParseContext} {scan : Bod
   obtain ⟨lower, lowerRead⟩ := ScalarExpression.read_sound (loopLowerPosition_bound text scan) lowerPositive
   exact ⟨lower, upper, lowerRead, upperRead⟩
 
+theorem loopInner_valid_environment {text : Source} {context : ParseContext} {scan : BodyScan}
+    (valid : ScalarExpression.ValidEnvironment text context.scalarNames)
+    (allowed : loopNameAllowed text context (loopHeader text context scan) = true)
+    (positive : (loopHeader text context scan).entry.position ≠ 0) :
+    ScalarExpression.ValidEnvironment text (loopInner context (loopHeader text context scan)).scalarNames := by
+  obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings positive
+  simp only [loopNameAllowed, Bool.and_eq_true, decide_eq_true_eq] at allowed
+  have firstPositive := allowed.1.1.1.1
+  have ordered := allowed.1.1.1.2
+  have space := allowed.2
+  have afterBound := model_name_valid text (loopFirst text scan)
+  exact ScalarExpression.validEnvironment_append valid (by have := valid.1; omega)
+    ⟨Nat.pos_of_ne_zero firstPositive, ordered, afterBound,
+      Integer.loopBounds_bounded (Integer.Expr.infer_bounded lowerRead.inferred)
+        (Integer.Expr.infer_bounded upperRead.inferred)⟩
+
 theorem loopBody_shape {text : Source} {context : ParseContext} {scan : BodyScan}
     (positive : (loopBody text context scan).position ≠ 0) :
     let header := loopHeader text context scan
