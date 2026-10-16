@@ -72,7 +72,10 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  selected results additionally permit the exact unused-assignment advisory.
    --  All sequence forms permit the exact ineffective/unreachable-statement
    --  advisories from constant-folded comparisons and loops, and four exact unused ghost
-   --  output messages from each of Put and Put_Line. Other diagnostics are rejected.
+   --  output messages from each of Put and Put_Line. The warning list permits
+   --  only the pinned Image advisory, with its exact message and producer state,
+   --  no entity or justification, empty suppression string and empty proof tree.
+   --  Other diagnostics are rejected.
    --  These advisories do not remove safety checks or fixed object bounds.
    --  GNAT can omit callees after static elimination, including sequences with
    --  no output. Main-only reports retain the same check/dependency audit;

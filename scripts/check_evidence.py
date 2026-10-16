@@ -57,6 +57,9 @@ TRUSTED_IMPORT_ENTITIES = {
 # actual flow/proof checks must still be discharged. See the contracts-recursive
 # and numeric-variant entries in SPARK 16.1 UG proof_limitations.rst.
 PROOF_LIMITATION_NOTES = {"contracts-recursive", "numeric-variant"}
+IMAGE_ADVISORY_TEXT = ('references to the "Image" attribute are handled in an imprecise way, '
+                       'so nothing will be known about the evaluation of the attribute reference '
+                       'apart from a bound on its length [imprecise-image]')
 # Runtime units need verification even when the compiler Main does not call them.
 # GNATprove's default only analyzes Main and its transitive dependency closure.
 PROOF_OPTIONS = ["-U", "--mode=all", "--report=all", "--warnings=error",
@@ -267,12 +270,14 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     if application_kind is not None:
         require("main" in expected_units, "application audit requires Main")
         stats["assignment_advisories"] = 0
+        stats["image_advisories"] = 0
     reports = {unit: read_json(report_dir / f"{unit}.spark") for unit in expected_units}
     owned_names: set[str] = set()
     owned_locations: dict[str, set[str]] = {}
     diagnostics: Counter = Counter()
     assignment_diagnostics: Counter = Counter()
     math_diagnostics: Counter = Counter()
+    image_diagnostics: Counter = Counter()
     summary = (report_dir / "gnatprove.out").read_text()
     summaries = {name: (int(analyzed), int(total)) for name, analyzed, total in
                  re.findall(r"in unit (\w+), (\d+) subprograms and packages out of (\d+) analyzed", summary)}
@@ -327,7 +332,6 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                 and type(location.get("column")) is int and location["column"] > 0
                                 for location in item["sloc"]),
                         "application: unexpected entity declaration")
-            require(report.get("warn_error") == [], "application: unexpected warning record")
             require(isinstance(report.get("flow"), list),
                     "application: missing flow diagnostics")
         require(coverage.keys() <= entities.keys(), f"{unit}: coverage names an unknown entity")
@@ -390,6 +394,24 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             require(isinstance(records, list), f"{unit}: missing {key} results")
             for record in records:
                 require(isinstance(record, dict), f"{unit}: malformed {key} record")
+                image_note = application and key == "warn_error"
+                if image_note:
+                    require(record.get("severity") == "warning"
+                            and record.get("how_proved") == "trivial"
+                            and record.get("rule") == "imprecise-image"
+                            and record.get("file") == "main.adb"
+                            and type(record.get("line")) is int and record["line"] > 0
+                            and type(record.get("col")) is int and record["col"] > 0
+                            and isinstance(record.get("message"), dict)
+                            and record["message"].get("text") == IMAGE_ADVISORY_TEXT
+                            and isinstance(record.get("unproved_status"), dict)
+                            and record["unproved_status"].get("status") == "unknown"
+                            and record.get("check_tree") == {}
+                            and record.get("suppressed") == ""
+                            and not any(field in record for field in
+                                        ("entity", "justification", "justified", "annot_kind", "justif_msg")),
+                            "application: unexpected Image advisory")
+                    stats["image_advisories"] += 1
                 advisory = application and key == "flow"
                 if advisory:
                     require(record.get("severity") == "warning"
@@ -440,7 +462,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                                       record.get("message")))
                 require(record.get("message", {}).get("text") != BIG_INTEGER_VALIDITY_TEXT or math_note,
                         "vendor math note: unreviewed premise classification")
-                require(record.get("severity") == "info" or limitation or advisory or math_note,
+                require(record.get("severity") == "info" or limitation or advisory or math_note or image_note,
                         f"{unit}: {key} diagnostic is not proved/info: {record}")
                 if limitation:
                     stats["limitation_notes"] += 1
@@ -450,7 +472,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                         f"{unit}: justified or unproved {key} result: {record}")
                 require(not record.get("justification") and not record.get("justified"),
                         f"{unit}: justified result")
-                require(("suppressed" not in record or (limitation and record["suppressed"] == ""))
+                require(("suppressed" not in record or ((limitation or image_note) and record["suppressed"] == ""))
                         and not record.get("annot_kind") and not record.get("justif_msg"),
                         f"{unit}: suppressed result")
                 require(isinstance(record.get("rule"), str) and isinstance(record.get("file"), str)
@@ -466,6 +488,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     assignment_diagnostics[diagnostic] += 1
                 if math_note:
                     math_diagnostics[diagnostic] += 1
+                if image_note:
+                    image_diagnostics[diagnostic] += 1
         stats["units"] += 1
         stats["entities"] += len(own_entities)
         stats["flow_checks"] += 0 if application else len(report["flow"])
@@ -529,14 +553,20 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                                               result.get("message")))
         require(diagnostic not in math_diagnostics or math_note,
                 "vendor math note: SARIF must preserve the exact premise classification")
-        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note,
+        image_note = (diagnostic in image_diagnostics
+                      and location["artifactLocation"]["uri"] == "main.adb"
+                      and result.get("kind") == "open" and result.get("level") == "warning")
+        require(diagnostic not in image_diagnostics or image_note,
+                "application: SARIF must preserve the exact Image advisory classification")
+        require(result.get("kind") in ("pass", "informational") or limitation or advisory or math_note or image_note,
                 f"SARIF result not proved: {result}")
-        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note,
+        require(result.get("level", "none") in ("none", "note") or limitation or advisory or math_note or image_note,
                 f"SARIF warning/error: {result}")
         # GNATprove marks its disabled-by-default limitation diagnostics as
         # externally suppressed. This is not an obligation suppression.
         suppressions = result.get("suppressions", [])
-        require(not suppressions or (limitation and suppressions == [{"kind": "external"}]),
+        require((not image_note and not suppressions)
+                or ((limitation or image_note) and suppressions == [{"kind": "external"}]),
                 "suppressed SARIF diagnostic")
         sarif_diagnostics[diagnostic] += 1
     require(diagnostics == sarif_diagnostics, "SARIF and SPARK diagnostic coverage disagree")

@@ -553,6 +553,17 @@ waive safety checks. Repeated output permits exactly `"NAME" is set by
 `Put_Line` and NAME one of `Written_Count`,
 `Flushed`, `Succeeded` or `Written_Bytes`. Other messages remain rejected. Some legal names make GNATprove omit an advisory.
 
+The application warning list also permits the pinned `imprecise-image` advisory
+described in the [Image producer record](for-loops-integers-image.md). Its full
+message, warning severity, trivial provenance, Main filename, positive location,
+unknown status, absent entity and justification fields, empty suppression string
+and structurally empty proof tree are checked. In SARIF, the matching advisory
+must retain the producer's open/warning classification and exact external
+suppression marker. These fields classify a disabled-by-default advisory; they
+do not suppress a required safety check. Runtime warning policies stay unchanged.
+The raw-byte policy and its correspondence with the projected report include
+these warning records, whose complete bytes are preserved by projection.
+
 A bare-Main report may have an empty flow list and may contain proved safety
 checks and approved dependencies. Sequencing removed the earlier nonempty-flow
 and empty-proof/dependency conditions for that entity shape, while retaining
