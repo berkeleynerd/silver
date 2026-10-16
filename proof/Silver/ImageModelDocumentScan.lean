@@ -13,29 +13,27 @@ structure SpanReady (tables : Native.Tables) (state : Core.State) (span : JSON.T
   depthRoom : 3 + (JSON.fieldsBytes span.spans).length ≤ 9223372036854775807
   accepted : (span.bytes.foldl (consume (Core.modelHelpers tables)) state).failed = false
 
-/-- Actual initialized whole-document scanning and Finish select an original
-Image entry. The returned plan offsets are that entry's computed original
+/-- Successful initialized whole-document scanning selects an original
+Image entry. The final scanner offsets are that entry's computed original
 field positions; neither acceptance nor offsets are supplied for the entry. -/
-theorem document_image_entry (tables : Native.Tables) (document : JSON.DocumentSpan)
+theorem document_image_state_entry (tables : Native.Tables) (document : JSON.DocumentSpan)
     (room : document.bytes.length ≤ 9223372036854775807)
     (depthRoom : ∀ entry ∈ document.entries, 3 + (JSON.fieldsBytes entry.span.spans).length ≤ 9223372036854775807)
-    (refined : (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).kind = .refine) :
+    (accepted : (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).failed = false)
+    (imageSeen : (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).seen .image = true) :
     ∃ preceding entry following atSpan,
       document.entries = preceding ++ entry :: following ∧
       atSpan.bytes = (document.header ++ JSON.entryPrefix preceding ++ entry.leading).length ∧
       SpanReady tables atSpan entry.span ∧ selectedName entry.span.theory.name none = some .image ∧
-      (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).declarations =
+      (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).declarations =
         (fieldsScope (scope (openedTheory tables atSpan)) (atSpan.bytes + 1) entry.span.spans).candidateDeclarations ∧
-      (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).includes =
+      (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).includes =
         (fieldsScope (scope (openedTheory tables atSpan)) (atSpan.bytes + 1) entry.span.spans).candidateIncludes := by
   let start := document.header.foldl (consume (Core.modelHelpers tables)) {}
   let middle := document.listBytes.foldl (consume (Core.modelHelpers tables)) start
   let final := document.bytes.foldl (consume (Core.modelHelpers tables)) {}
-  obtain ⟨valid, finalSeen, _⟩ := FinishNative.refine_ready final.finishView refined
-  have finalGood : final.failed = false := by
-    cases failed : final.failed with
-    | false => rfl
-    | true => simp [FinishNative.Test.eval, Core.State.finishView, failed] at valid
+  have finalSeen : final.seen .image = true := imageSeen
+  have finalGood : final.failed = false := accepted
   have bound : document.header.length + document.listBytes.length + document.footer.length ≤ 9223372036854775807 := by
     rw [document.bytes_split] at room
     simpa only [List.length_append] using room
@@ -51,7 +49,6 @@ theorem document_image_entry (tables : Native.Tables) (document : JSON.DocumentS
     have prefixGood := consume_prefix_good (Core.modelHelpers tables) {} (document.header ++ document.listBytes) document.footer
       (by rw [← document.bytes_split]; exact finalGood)
     simpa only [List.foldl_append] using prefixGood
-  obtain ⟨planDeclarations, planIncludes, _⟩ := FinishNative.refine_offsets final.finishView refined
   by_cases empty : document.entries = []
   · have listRun : middle = {start with bytes := start.bytes + document.emptyList.length} := by
       change document.listBytes.foldl (consume (Core.modelHelpers tables)) start = _
@@ -97,7 +94,34 @@ theorem document_image_entry (tables : Native.Tables) (document : JSON.DocumentS
            simp only [JSON.TheoryEntry.bytes, List.length_append] at room
            omega,
         ready.depthRoom, entryRun.2.1⟩
-    · exact planDeclarations.trans (sameDeclarations.trans declarations)
-    · exact planIncludes.trans (sameIncludes.trans includes)
+    · exact sameDeclarations.trans declarations
+    · exact sameIncludes.trans includes
+
+
+/-- The native refining plan inherits the source-position witnesses from the
+successful initialized scan. -/
+theorem document_image_entry (tables : Native.Tables) (document : JSON.DocumentSpan)
+    (room : document.bytes.length ≤ 9223372036854775807)
+    (depthRoom : ∀ entry ∈ document.entries, 3 + (JSON.fieldsBytes entry.span.spans).length ≤ 9223372036854775807)
+    (refined : (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).kind = .refine) :
+    ∃ preceding entry following atSpan,
+      document.entries = preceding ++ entry :: following ∧
+      atSpan.bytes = (document.header ++ JSON.entryPrefix preceding ++ entry.leading).length ∧
+      SpanReady tables atSpan entry.span ∧ selectedName entry.span.theory.name none = some .image ∧
+      (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).declarations =
+        (fieldsScope (scope (openedTheory tables atSpan)) (atSpan.bytes + 1) entry.span.spans).candidateDeclarations ∧
+      (FinishNative.model (document.bytes.foldl (consume (Core.modelHelpers tables)) {}).finishView).includes =
+        (fieldsScope (scope (openedTheory tables atSpan)) (atSpan.bytes + 1) entry.span.spans).candidateIncludes := by
+  let final := document.bytes.foldl (consume (Core.modelHelpers tables)) {}
+  obtain ⟨valid, seen, _⟩ := FinishNative.refine_ready final.finishView refined
+  have good : final.failed = false := by
+    cases failed : final.failed with
+    | false => rfl
+    | true => simp [FinishNative.Test.eval, Core.State.finishView, failed] at valid
+  obtain ⟨preceding, entry, following, atSpan, position, bytes, ready, name, declarations, includes⟩ :=
+    document_image_state_entry tables document room depthRoom good seen
+  obtain ⟨planDeclarations, planIncludes, _⟩ := FinishNative.refine_offsets final.finishView refined
+  exact ⟨preceding, entry, following, atSpan, position, bytes, ready, name,
+    planDeclarations.trans declarations, planIncludes.trans includes⟩
 
 end Silver.ImageModel.ScannerNative
