@@ -27,7 +27,8 @@ def modelCalls : Calls where
     | .contextAfter => Names.contextAfter
     | .operationAfter => Names.operationAfter
     | .associationAfter => Names.associationAfter
-    | .callAfter => callAfter
+    | .callAfter => fun text names position operation scalarNames =>
+      callAfter text names position operation scalarNames
     | .skip => skipAt
     | .nameAfter => nameAfter
     | .fixedAfter => fun text position token => fixedAfter text position (spelling token) (isWord token)
@@ -37,18 +38,26 @@ def modelCalls : Calls where
     | .literal => literalAt
     | .workTail => workTail
     | .workBudget => withinWorkBudget
-    | .value => valueAt
+    | .value => fun text position names scalarNames => valueAt text position names scalarNames
     | .newName => newNameAllowed
     | .addBinding => addBinding
+    | .stringDeclaration => stringDeclarationAt
+    | .scalarDeclaration => scalarDeclarationAt
+    | .scalarLookup => ScalarExpression.lookup
+    | .scalarRead => fun text position names => ScalarExpression.read text position names
+    | .scalarAppend => fun names item => names ++ [item]
+    | .scalarEmpty => Integer.Interval.isEmpty
+    | .scalarLiteral => ScalarLiteral.read
+    | .nameIs => fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
     | .declaration => declarationAt
     | .argument => argumentAt
     | .declarations => declarationsAt
     | .readDeclarations => declarationsAt
-    | .expressionStep => expressionStep
+    | .expressionStep => fun text names scan scalarNames => expressionStep text names scan scalarNames
     | .fits => fits
     | .comparison => comparisonAt
-    | .tail => expressionTail
-    | .expression => expressionAt
+    | .tail => fun text names scan scalarNames => expressionTail text names scan scalarNames
+    | .expression => fun text position names scalarNames => expressionAt text position names scalarNames
     | .target => targetAt
     | .dynamic => dynamicAt
     | .assignmentValue => assignmentAt

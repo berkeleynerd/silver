@@ -43,6 +43,10 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .app f x => f.Legal calls locals ∧ x.Legal calls locals
   | .field _ x => x.Legal calls locals
   | .count x => x.Legal calls locals
+  | .scalarCount x => x.Legal calls locals
+  | .operatorByte x => x.Legal calls locals
+  | .scalarBinding a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals
+  | .stateScalar s p names => s.Legal calls locals ∧ p.Legal calls locals ∧ names.Legal calls locals
   | .item x i => x.Legal calls locals ∧ i.Legal calls locals
   | .add x y => x.Legal calls locals ∧ y.Legal calls locals
   | .sub x y => x.Legal calls locals ∧ y.Legal calls locals
@@ -85,10 +89,12 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .firstForm _ source => source.Legal calls locals
   | .operation _ => True
   | .number n => True
+  | .word _ => True
   | .truth b => True
   | .variable name => True
   | .maxLength  => True
   | .maxBindings  => True
+  | .maxScalarBindings => True
   | .maxOperands  => True
   | .maxConcatenations => True
   | .token tok => True
@@ -273,6 +279,39 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     have h0 := Expr.eval_lexical calls meaning locals x legal
     dsimp only [Expr.eval, lexical]
     rw [h0]
+    all_goals rfl
+
+  | .scalarCount x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .operatorByte x, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    all_goals rfl
+
+  | .scalarBinding a b c d, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2, h3]
+    all_goals rfl
+
+  | .stateScalar s p names, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals s legal.1
+    have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals names legal.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1, h2]
     all_goals rfl
 
   | .item x i, legal => by
@@ -659,10 +698,12 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 
   | .operation _, _ => rfl
   | .number n, _ => rfl
+  | .word _, _ => rfl
   | .truth b, _ => rfl
   | .variable name, _ => rfl
   | .maxLength , _ => rfl
   | .maxBindings , _ => rfl
+  | .maxScalarBindings, _ => rfl
   | .maxOperands , _ => rfl
   | .maxConcatenations, _ => rfl
   | .token tok, _ => rfl
@@ -672,7 +713,9 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
   | .invalidResult , _ => rfl
   | .invalidScan, _ => rfl
   | .function symbol, legal => by
-      cases symbol <;> simp_all [Expr.Legal, Function.isLexical, Expr.eval, Calls.get, lexical]
+      cases symbol <;>
+        dsimp +instances only [Expr.Legal, Function.isLexical, Expr.eval, Calls.get, lexical] at legal ⊢ <;>
+        simp_all
   | .andThen a b, legal => by
       have ha := Expr.eval_lexical calls meaning locals a legal.1
       dsimp only [Expr.eval]
@@ -712,9 +755,9 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
 /-- Native SPARK establishes the domains of executed lexical calls in these
 bodies. No field asserts equality to the membership or semantic model. -/
 structure LegalHelpers (calls : Calls) : Prop where
-  callAfter : ∀ text, ValidText text → ∀ names position operation,
-    ValidNames text names → ValidCursor text position →
-    callAfterBody.Legal calls (Context.locals {text,names,position,operation})
+  callAfter : ∀ text, ValidText text → ∀ names position operation scalarNames,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidCursor text position →
+    callAfterBody.Legal calls (Context.locals {text,scalarNames,names,position,operation})
   skip : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     skipBody.Legal calls (Context.locals {text,position})
@@ -736,15 +779,21 @@ structure LegalHelpers (calls : Calls) : Prop where
   literal : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     literalBody.Legal calls (Context.locals {text,position})
-  value : ∀ text, ValidText text → ∀ position names,
-    ValidCursor text position → ValidNames text names →
-    valueBody.Legal calls (Context.locals {text,position,names})
+  value : ∀ text, ValidText text → ∀ position names scalarNames,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    valueBody.Legal calls (Context.locals {text,scalarNames,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
     ValidState text state → ValidCursor text first → ValidCursor text after →
     newNameBody.Legal calls (Context.locals {text,state,first,after,arguments})
   addBinding : ∀ text, ValidText text → ∀ state first after value mutable following,
     ValidState text state → ValidCursor text first → ValidCursor text after → ValidValue text value → ValidCursor text following → state.names.length < maxBindings →
     addBindingBody.Legal calls (Context.locals {text,state,first,after,value,mutable,following})
+  stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    ValidState text state →
+    stringDeclarationBody.Legal calls (Context.locals {text,state,arguments})
+  scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
+    ValidState text state →
+    scalarDeclarationBody.Legal calls (Context.locals {text,state,arguments})
   declaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     declarationBody.Legal calls (Context.locals {text,state,arguments})
@@ -754,21 +803,21 @@ structure LegalHelpers (calls : Calls) : Prop where
   declarations : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     declarationsBody.Legal calls (Context.locals {text,state,arguments})
-  expressionStep : ∀ text, ValidText text → ∀ names scan,
-    ValidNames text names → ValidScan text scan →
-    expressionStepBody.Legal calls (Context.locals {text,names,scan})
-  tail : ∀ text, ValidText text → ∀ names scan,
-    ValidNames text names → ValidScan text scan →
-    tailBody.Legal calls (Context.locals {text,names,scan})
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
+    expressionStepBody.Legal calls (Context.locals {text,scalarNames,names,scan})
+  tail : ∀ text, ValidText text → ∀ names scan scalarNames,
+    ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
+    tailBody.Legal calls (Context.locals {text,scalarNames,names,scan})
   fits : ∀ text, ValidText text → ∀ result capacity,
     ValidResult text result → capacity ≤ maxSourceLength →
     fitsBody.Legal calls (Context.locals {text,result,capacity})
   comparison : ∀ text, ValidText text → ∀ state,
     ValidState text state →
     comparisonBody.Legal calls (Context.locals {text,state})
-  expression : ∀ text, ValidText text → ∀ position names,
-    ValidCursor text position → ValidNames text names →
-    expressionBody.Legal calls (Context.locals {text,position,names})
+  expression : ∀ text, ValidText text → ∀ position names scalarNames,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    expressionBody.Legal calls (Context.locals {text,scalarNames,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
     ValidState text state →
     targetBody.Legal calls (Context.locals {text,state,sameTarget})
@@ -811,6 +860,12 @@ theorem normalized_helpers (calls : Calls)
     HelperEquations calls where
   ranges := source.ranges
   names := source.names
+  scalarLookup := source.scalarLookup
+  scalarRead := source.scalarRead
+  scalarLiteral := source.scalarLiteral
+  scalarAppend := source.scalarAppend
+  scalarEmpty := source.scalarEmpty
+  nameIs := source.nameIs
   callAfter := by
     intros
     apply Eq.trans
@@ -878,6 +933,18 @@ theorem normalized_helpers (calls : Calls)
     · apply source.addBinding <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.addBinding <;> assumption
+  stringDeclaration := by
+    intros
+    apply Eq.trans
+    · apply source.stringDeclaration <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.stringDeclaration <;> assumption
+  scalarDeclaration := by
+    intros
+    apply Eq.trans
+    · apply source.scalarDeclaration <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.scalarDeclaration <;> assumption
   declaration := by
     intros
     apply Eq.trans
