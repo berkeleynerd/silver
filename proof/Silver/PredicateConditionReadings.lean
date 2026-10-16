@@ -14,10 +14,10 @@ resolution. This does not grant byte equalities to mutable objects. -/
 def StringRelationReady (facts : Context) (left right : ExpressionResult) (operator : ComparisonResult) : Prop :=
   left.after ≠ 0 ∧ operator.after ≠ 0 ∧ (operator.operator = .eq ∨ operator.operator = .ne) ∧
     right.after ≠ 0 ∧ (left.namedSeen || right.namedSeen) = true ∧
-    fitsSummary facts (summaryOf left) = true ∧ fitsSummary facts (summaryOf right) = true
+    fitsLengthSummary facts (summaryOf left) = true ∧ fitsLengthSummary facts (summaryOf right) = true
 
 def stringResult (facts : Context) (left right : ExpressionResult) (operator : ComparisonResult) : ConditionResult :=
-  let equalFacts := refineAffineEqual facts (summaryOf left) (summaryOf right)
+  let equalFacts := refineLengthOverlap facts (summaryOf left) (summaryOf right)
   ⟨right.after, if operator.operator == .eq then equalFacts else facts,
     if operator.operator == .eq then facts else equalFacts⟩
 

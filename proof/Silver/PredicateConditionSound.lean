@@ -155,7 +155,7 @@ mutual
                   rw [ite_eq_left failed]
                 exact accepted (congrArg ConditionResult.after resultEq)
               have boundedValues : ¬(right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
-                  !fitsSummary facts (summaryOf left) ∨ !fitsSummary facts (summaryOf right)) := by
+                  !fitsLengthSummary facts (summaryOf left) ∨ !fitsLengthSummary facts (summaryOf right)) := by
                 intro failed
                 have unfolded : readRelation text context position facts = invalidCondition := by
                   simp only [readRelation, zero, noNot, noLength, noScalar, ne_eq, not_true_eq_false,

@@ -74,9 +74,9 @@ mutual
                 · try dsimp only
                   by_cases equal : (comparisonAt text (expressionAt text position context.names context.scalarNames).after).operator == Comparison.eq
                   · simp only [equal, ↓reduceIte]
-                    exact ⟨refineAffineEqual_bounded bounded _ _, bounded⟩
+                    exact ⟨refineLengthOverlap_bounded bounded _ _, bounded⟩
                   · simp only [equal, Bool.false_eq_true, ↓reduceIte]
-                    exact ⟨bounded, refineAffineEqual_bounded bounded _ _⟩
+                    exact ⟨bounded, refineLengthOverlap_bounded bounded _ _⟩
             · exact readPrimary_bounded text context position facts bounded
   termination_by (remainingAt text position, 2)
 

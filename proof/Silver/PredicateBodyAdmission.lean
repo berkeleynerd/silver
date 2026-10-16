@@ -50,14 +50,14 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   | .output =>
       let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames) "(" false) false}
       let value := expressionAt text call.position context.names context.scalarNames
-      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
+      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsLengthSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
       let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
       let value := expressionAt text call.position context.names context.scalarNames
-      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
+      if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsLengthSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
@@ -69,8 +69,8 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
       let target := bodyToken text {scan with position := state.position, target := state.target} (.symbol ":=")
       let value := expressionAt text target.position context.names context.scalarNames
       let bound := ((context.names.get target.target).getD {}).bound
-      if value.after = 0 ∨ target.target = 0 ∨ !fitsSummary target.facts (summaryOf value) ∨
-          !equalSummary target.facts (summaryOf value) bound.summary
+      if value.after = 0 ∨ target.target = 0 ∨ !fitsLengthSummary target.facts (summaryOf value) ∨
+          !equalLengthSummary target.facts (summaryOf value) bound.summary
       then invalidBody
       else {target with position := value.after, assigned := true}
 

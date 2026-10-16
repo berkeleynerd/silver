@@ -59,7 +59,7 @@ structure ConditionResult where
 
 def invalidCondition : ConditionResult := ⟨0, Context.empty, Context.empty⟩
 
-def summaryOf (value : ExpressionResult) : Summary := ⟨value.staticLength, value.dynamicCount⟩
+def summaryOf (value : ExpressionResult) : LengthSummary := value.lengthSummary
 
 def remainingAt (text : Source) (position : Nat) : Nat := text.length + 1 - position
 
@@ -127,9 +127,9 @@ mutual
           else
             let right := expressionAt text operator.after context.names context.scalarNames
             if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
-                !fitsSummary facts (summaryOf left) ∨ !fitsSummary facts (summaryOf right) then invalidCondition
+                !fitsLengthSummary facts (summaryOf left) ∨ !fitsLengthSummary facts (summaryOf right) then invalidCondition
             else
-              let equalFacts := refineAffineEqual facts (summaryOf left) (summaryOf right)
+              let equalFacts := refineLengthOverlap facts (summaryOf left) (summaryOf right)
               ⟨right.after, if operator.operator == .eq then equalFacts else facts,
                 if operator.operator == .eq then facts else equalFacts⟩
         else readPrimary text context position facts
