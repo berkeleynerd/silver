@@ -330,3 +330,18 @@ The streaming typed-model core is integrated from `09fa3f12bc`, with its native
 byte-preservation fixtures retained in its worktree and managed evidence.
 `6744087d39` proves insertion erasure, byte ordering and fresh IDs. Complete
 scanner-to-schema and wrapper-I/O correspondence remain outstanding.
+
+The streaming I/O wrapper (`Silver_Image_Files`) is implemented in SPARK. Its
+focused run `20261016T151227-cf59226b2441` proved all 153 checks after adding the
+missing reset postcondition and recording the close result on early failure.
+It observes each successful libc byte operation, validates while snapshotting,
+retains original-byte order during insertion, and revalidates the entire second
+read against the selected plan before reporting success. The final insertion
+sequence/actual-source bridge remains outstanding. The first run
+`20261016T150738-3ab0512e7be0` retains the three failed initialization invariants
+and two unused-status warnings; no retry with unchanged inputs was used.
+
+Native Image admission at `1b341b9753` passed its complete focused 895-check
+SPARK run `20261016T145726-8c61071b3cc1` in the compose integration worktree.
+This supplements its earlier behavior/build evidence. It does not complete
+application proof coverage or the expanded report-capacity derivation.

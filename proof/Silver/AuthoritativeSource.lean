@@ -1,5 +1,7 @@
 module
 
+public import Silver.ImageTheorySpecSource
+
 public import Silver.ImageModelSpecSource
 public import Silver.ImageModelBodySource
 public import Silver.ImageModelTemplatesSpecSource
