@@ -155,16 +155,16 @@ package body Silver_Image_Model_Templates with SPARK_Mode => On is
       65 => "_INCLUDE_DECLARATION"",0,1,[""W_MODULE"",0,1,""int"",""Int""],1,0]],""Module defining to_string/of_string functions, created in Gnat2Why",
       66 => ".Types.Translate_Type""]                                                                                                         ");
    Declarations_Fragment_Data : constant Chunks :=
-     (1 => ",[""W_CLONE_DECLARATION"",1073741844,1,[""W_MODULE"",1073741843,1,""silver_image"",""Integer_Image_Length""],""Silver_Image"",2,[[""W_CLONE",
-      2 => "_SUBSTITUTION"",1073741830,1,0,[""W_NAME"",1073741828,1,""image"","""",null,false],[""W_NAME"",1073741829,1,""__image"","""",[""W_MODULE"",1073",
-      3 => "741824,1,""_gnatprove_standard"",""Main""],false]],[""W_CLONE_SUBSTITUTION"",1073741833,1,0,[""W_NAME"",1073741831,1,""text"","""",null,fals",
-      4 => "e],[""W_NAME"",1073741832,1,""string__"","""",[""W_MODULE"",1073741825,1,"""",""Standard__string""],false]],[""W_CLONE_SUBSTITUTION"",10737418",
-      5 => "36,1,1,[""W_NAME"",1073741834,1,""scalar_image"","""",null,false],[""W_NAME"",1073741835,1,""attr__ATTRIBUTE_IMAGE"","""",[""W_MODULE"",107374",
-      6 => "1826,1,"""",""Standard__integer""],false]],[""W_CLONE_SUBSTITUTION"",1073741839,1,1,[""W_NAME"",1073741837,1,""string_image"","""",null,fals",
-      7 => "e],[""W_NAME"",1073741838,1,""to_string"","""",null,false]],[""W_CLONE_SUBSTITUTION"",1073741842,1,1,[""W_NAME"",1073741840,1,""length"","""",",
-      8 => "null,false],[""W_NAME"",1073741841,1,""length"","""",[""W_MODULE"",1073741827,1,"""",""Standard__string""],false]]],1]                      ");
+     (1 => ",[""W_CLONE_DECLARATION"",2147483668,1,[""W_MODULE"",2147483667,1,""silver_image"",""Integer_Image_Length""],""Silver_Image"",2,[[""W_CLONE",
+      2 => "_SUBSTITUTION"",2147483654,1,0,[""W_NAME"",2147483652,1,""image"","""",null,false],[""W_NAME"",2147483653,1,""__image"","""",[""W_MODULE"",2147",
+      3 => "483648,1,""_gnatprove_standard"",""Main""],false]],[""W_CLONE_SUBSTITUTION"",2147483657,1,0,[""W_NAME"",2147483655,1,""text"","""",null,fals",
+      4 => "e],[""W_NAME"",2147483656,1,""string__"","""",[""W_MODULE"",2147483649,1,"""",""Standard__string""],false]],[""W_CLONE_SUBSTITUTION"",21474836",
+      5 => "60,1,1,[""W_NAME"",2147483658,1,""scalar_image"","""",null,false],[""W_NAME"",2147483659,1,""attr__ATTRIBUTE_IMAGE"","""",[""W_MODULE"",214748",
+      6 => "3650,1,"""",""Standard__integer""],false]],[""W_CLONE_SUBSTITUTION"",2147483663,1,1,[""W_NAME"",2147483661,1,""string_image"","""",null,fals",
+      7 => "e],[""W_NAME"",2147483662,1,""to_string"","""",null,false]],[""W_CLONE_SUBSTITUTION"",2147483666,1,1,[""W_NAME"",2147483664,1,""length"","""",",
+      8 => "null,false],[""W_NAME"",2147483665,1,""length"","""",[""W_MODULE"",2147483651,1,"""",""Standard__string""],false]]],1]                      ");
    Includes_Fragment_Data : constant Chunks :=
-     (1 => ",[""W_INCLUDE_DECLARATION"",1073741846,1,[""W_MODULE"",1073741845,1,"""",""Standard__integer""],1,2]                                    ");
+     (1 => ",[""W_INCLUDE_DECLARATION"",2147483670,1,[""W_MODULE"",2147483669,1,"""",""Standard__integer""],1,2]                                    ");
 
    function Length (Item : Kind) return Positive is
      (case Item is
