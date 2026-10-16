@@ -3,12 +3,16 @@ package body Silver_Report_Observations with SPARK_Mode => On is
      return String
    is
       Result : String (1 .. Count) := (others => Character'Val (0));
+      I : Natural := 0;
    begin
-      for I in Result'Range loop
-         Result (I) := Bytes.Get (Raw, First + To_Big_Integer (I - 1));
+      while I < Count loop
+         pragma Loop_Invariant (I <= Count);
          pragma Loop_Invariant
            (for all J in 1 .. I =>
              Result (J) = Bytes.Get (Raw, First + To_Big_Integer (J - 1)));
+         pragma Loop_Variant (Decreases => Count - I);
+         I := I + 1;
+         Result (I) := Bytes.Get (Raw, First + To_Big_Integer (I - 1));
       end loop;
       return Result;
    end Window;

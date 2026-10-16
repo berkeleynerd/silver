@@ -84,7 +84,7 @@ package body Silver_Report_Projection_Continuations with SPARK_Mode => On is
                Container_Continuation
                  (Raw, Target, First, Position + 1, Last, Outer_Start, Shift, Base,
                   Observations.Pushed (Raw_Openers, Level + 1, Item),
-                  Observations.Pushed (Target_Openers, Outer + Level + 1, Item),
+                  Observations.Pushed (Target_Openers, (Outer + Level) + 1, Item),
                   Final_Openers, Outer, Level + 1, False, False);
             elsif Item in '}' | ']' then
                pragma Assert ((Item = '}' and then Target_Openers (Outer + Level) = '{')
