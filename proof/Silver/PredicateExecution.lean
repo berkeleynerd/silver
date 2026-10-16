@@ -16,6 +16,26 @@ open Sequence (Execution Effect EffectsValid)
 set_option maxRecDepth 10000
 set_option maxHeartbeats 500000
 
+def executeSimpleStatement (input : Source) (values : Values) (item : Sequence.SimpleStatement)
+    (integers : Integer.Store) : Execution :=
+  match item with
+  | .null => ⟨values, []⟩
+  | .assign update => ⟨executeAssignment update values input integers, []⟩
+  | .output expression => ⟨values, [.output (expression.evaluate values input integers)]⟩
+  | .put expression => ⟨values, [.put (expression.evaluate values input integers)]⟩
+
+def checkedSimpleStatement (input : Source) (values : Values) (item : Sequence.SimpleStatement)
+    (integers : Integer.Store) : Option Execution :=
+  match item with
+  | .null => some ⟨values, []⟩
+  | .assign update => (update.value.checkedEvaluate values input integers).bind fun value =>
+      if value.length = (values update.target).length then
+        some ⟨Bindings.put values update.target value, []⟩ else none
+  | .output expression => (expression.checkedEvaluate values input integers).map fun value =>
+      ⟨values, [.output value]⟩
+  | .put expression => (expression.checkedEvaluate values input integers).map fun value =>
+      ⟨values, [.put value]⟩
+
 def executeIterations (step : Values → Int → Execution) : Values → List Int → Execution
   | values, [] => ⟨values, []⟩
   | values, index :: rest =>
@@ -33,7 +53,7 @@ mutual
   def Statement.execute (input : Source) (inputValid : Bool) (values : Values) (item : Statement)
       (integers : Integer.Store := Integer.emptyStore) : Execution :=
     match item with
-    | .simple item => item.execute input values
+    | .simple item => executeSimpleStatement input values item integers
     | .reject => ⟨values, [.reject]⟩
     | .choice condition yes no =>
         if condition.evaluate values input inputValid integers
@@ -59,7 +79,7 @@ mutual
   def Statement.checkedExecute (input : Source) (inputValid : Bool) (values : Values) (item : Statement)
       (integers : Integer.Store := Integer.emptyStore) : Option Execution :=
     match item with
-    | .simple item => item.checkedExecute input values
+    | .simple item => checkedSimpleStatement input values item integers
     | .reject => some ⟨values, [.reject]⟩
     | .choice condition yes no =>
         (condition.checkedEvaluate values input inputValid integers).bind fun outcome =>
@@ -109,39 +129,47 @@ structure ExecutionSound (shape : Shape) (context : Context) (input : Source)
   agreement : ordinary = some result
 
 theorem simple_execution_sound {shape : Shape} {context : Context}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
     {item : Sequence.SimpleStatement} {input : Source} {values : Values} {valid rejected : Bool}
-    (wellFormed : SimpleWellFormed shape item) (checked : checkSimple shape context item = true)
+    (wellFormed : SimpleWellFormed shape item) (checked : checkSimple shape context item ranges = true)
     (state : Fits shape input values) (printable : Bindings.Printable input)
-    (allowed : context.Allows valid input.length rejected) :
+    (allowed : context.Allows valid input.length rejected) (scalarState : Integer.Fits ranges integers) :
     ExecutionSound shape context input valid rejected
-      (item.execute input values) (item.checkedExecute input values) := by
+      (executeSimpleStatement input values item integers) (checkedSimpleStatement input values item integers) := by
   cases item with
   | null =>
-      exact ⟨state, by simp [Sequence.SimpleStatement.execute, EffectsValid],
-        by simp [Sequence.SimpleStatement.execute, NoOutput],
-        by simpa [Sequence.SimpleStatement.execute, rejectedAfter] using allowed, rfl⟩
+      exact ⟨state, by simp [executeSimpleStatement, EffectsValid],
+        by simp [executeSimpleStatement, NoOutput],
+        by simpa [executeSimpleStatement, rejectedAfter] using allowed, rfl⟩
   | assign update =>
-      have preserved := assignment_preserves_on_path wellFormed.1 state printable allowed checked
-      have length := assignment_checked_length wellFormed.1 state allowed checked
-      refine ⟨preserved, by simp [Sequence.SimpleStatement.execute, EffectsValid],
-        by simp [Sequence.SimpleStatement.execute, NoOutput], ?_, ?_⟩
-      · simpa [Sequence.SimpleStatement.execute, rejectedAfter] using allowed
-      · simp [Sequence.SimpleStatement.checkedExecute, Sequence.SimpleStatement.execute,
-          Expression.left_association, length, Assignment.execute]
+      have preserved := assignment_preserves_on_path wellFormed.1 state scalarState printable allowed checked
+      have length := assignment_checked_length state scalarState allowed checked
+      have safe := assignment_checked_safe state scalarState allowed checked
+      refine ⟨preserved, by simp [executeSimpleStatement, EffectsValid],
+        by simp [executeSimpleStatement, NoOutput], ?_, ?_⟩
+      · simpa [executeSimpleStatement, rejectedAfter] using allowed
+      · simp [checkedSimpleStatement, executeSimpleStatement,
+          Expression.checkedEvaluate_agrees safe, length, executeAssignment]
   | output expression | put expression =>
-      simp only [checkSimple, Bool.and_eq_true, Bool.not_eq_true'] at checked
-      have safe := expression_safe_on_path wellFormed allowed checked.1
-      have outputValid := expression_domain safe state printable (Nat.le_refl _)
-      refine ⟨state, ?_, ?_, ?_, ?_⟩
-      · intro effect member
-        simp only [Sequence.SimpleStatement.execute, List.mem_singleton] at member
-        subst effect
-        exact outputValid
-      · intro invalid
-        have inputValid := Context.output_requires_valid_input allowed checked.2
-        simp [invalid] at inputValid
-      · simpa [Sequence.SimpleStatement.execute, rejectedAfter, isReject] using allowed
-      · simp [Sequence.SimpleStatement.checkedExecute, Sequence.SimpleStatement.execute, Expression.left_association]
+      simp only [checkSimple] at checked
+      split at checked
+      · rename_i summary known
+        simp only [Bool.and_eq_true, Bool.not_eq_true'] at checked
+        have safe := expression_safe_on_path known state scalarState allowed checked.1
+        have outputValid : (expression.evaluate values input integers).length ≤ maxSourceLength ∧
+            Bindings.Printable (expression.evaluate values input integers) :=
+          ⟨safe.2, Expression.inferLength_printable known state printable wellFormed.2.1⟩
+        refine ⟨state, ?_, ?_, ?_, ?_⟩
+        · intro effect member
+          simp only [executeSimpleStatement, List.mem_singleton] at member
+          subst effect
+          exact outputValid
+        · intro invalid
+          have inputValid := Context.output_requires_valid_input allowed checked.2
+          simp [invalid] at inputValid
+        · simpa [executeSimpleStatement, rejectedAfter, isReject] using allowed
+        · simp [checkedSimpleStatement, executeSimpleStatement, Expression.checkedEvaluate_agrees safe]
+      · contradiction
 
 /-- Input facts are immutable and rejection is sticky across any iteration. -/
 theorem allows_after_effects {context : Context} {valid : Bool} {length : Nat} {rejected : Bool}
@@ -204,7 +232,7 @@ mutual
         · rename_i good
           cases checked
           simpa only [Statement.execute, Statement.checkedExecute] using
-            simple_execution_sound wellFormed good state printable allowed
+            simple_execution_sound wellFormed good state printable allowed scalarState
         · contradiction
     | reject =>
         simp only [Statement.check, Option.some.injEq] at checked
@@ -222,7 +250,7 @@ mutual
           simp only [Option.bind_eq_some_iff, Option.map_eq_some_iff] at checked
           obtain ⟨afterYes, yesChecked, afterNo, noChecked, rfl⟩ := checked
           have comparison := condition.checkedEvaluate_of_checkBounds state wellFormed.2.1 allowed bounded scalarState
-          have refined := condition.refine_sound (integers := integers) state wellFormed.2.1 allowed
+          have refined := condition.refine_sound (integers := integers) state wellFormed.2.1 allowed scalarState
           cases outcome : condition.evaluate values input valid integers with
           | true =>
               simp only [outcome] at refined
