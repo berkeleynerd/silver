@@ -82,6 +82,8 @@ SEQUENCE_INSTANCES = {
     SEQUENCE_UNIT: SEQUENCE_NAME,
     "silver_image_files": "Silver_Image_Files.Bytes",
 }
+SIGNED_CONVERSION_UNIT = "silver_image_files"
+SIGNED_CONVERSION_NAME = "Silver_Image_Files.Counts"
 SEQUENCE_VENDOR = "spark-containers-functional-infinite_sequences.ads"
 SEQUENCE_DECLARATIONS = {
     "Sequence": ((74, 9),), "Length": ((103, 13),), "Get": ((110, 13),),
@@ -124,6 +126,15 @@ def sequence_entities(instance: tuple[int, int, int], *, unit: str = SEQUENCE_UN
                  (("spark-containers-parameter_checks.ads", 54, 16),
                   (SEQUENCE_VENDOR, 354, 4), location)))
     return entries
+
+
+def signed_conversion_entities(instance: tuple[int, int, int]) -> set[tuple]:
+    """The two vendor specs of the reviewed byte-count conversion instance."""
+    line, package_column, _ = instance
+    location = (SIGNED_CONVERSION_UNIT + ".ads", line, package_column)
+    return {(SIGNED_CONVERSION_NAME + "." + name,
+             (("a-nbnbin.ads", vendor_line, 16), location))
+            for name, vendor_line in (("To_Big_Integer", 82), ("From_Big_Integer", 85))}
 
 
 def big_integer_callee(entity: dict) -> bool:
@@ -242,12 +253,40 @@ def audit_sequence_instance(source: Path) -> tuple[int, int, int]:
             match.start(1) - start + 1, match.start(2) - start + 1)
 
 
+def audit_signed_conversion_instance(source: Path) -> tuple[int, int, int]:
+    # The complete declaration prefix fixes both visible generic resolution and
+    # its actual signed type. No earlier declaration can shadow either name.
+    tokens = "".join(source_tokens(source)).lower()
+    declaration = (
+        "withada.text_io;withspark.big_integers;"
+        "withspark.containers.functional.infinite_sequences;"
+        "withsilver_image_model;withsilver_platform;"
+        "packagesilver_image_fileswithspark_mode=>onis"
+        "packagemodelrenamessilver_image_model;usetypemodel.plan;"
+        "usetypemodel.plan_kind;usetypemodel.byte_count;"
+        "packagebytesisnewspark.containers.functional.infinite_sequences"
+        "(element_type=>character,use_logical_equality=>true);usetypebytes.sequence;"
+        "usespark.big_integers;packagecountsisnewsigned_conversions(model.byte_count);")
+    require(source.stem == SIGNED_CONVERSION_UNIT and tokens.startswith(declaration)
+            and tokens.count("packagecountsisnew") == 1,
+            f"{source}: unreviewed signed-conversion instance or context")
+    text = source.read_text()
+    declarations = list(re.finditer(
+        r"(?mi)^[ \t]*(package)[ \t]+(Counts)\s+is\s+new\b", text))
+    require(len(declarations) == 1, f"{source}: ambiguous signed-conversion instance location")
+    match = declarations[0]
+    start = text.rfind("\n", 0, match.start(1)) + 1
+    return (text.count("\n", 0, match.start(1)) + 1,
+            match.start(1) - start + 1, match.start(2) - start + 1)
+
+
 def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
                   proof_instance: tuple[int, int, int] | None = None,
-                  proof_instances: dict[str, tuple[int, int, int]] | None = None) -> dict[str, int]:
+                  proof_instances: dict[str, tuple[int, int, int]] | None = None,
+                  signed_conversion_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
@@ -265,6 +304,11 @@ def audit_reports(report_dir: Path, expected_units: set[str],
             "vendor proof premises require the reviewed compiler model")
     vendor_entities = {unit: sequence_entities(instance, unit=unit)
                        for unit, instance in instances.items()}
+    if signed_conversion_instance is not None:
+        require(SIGNED_CONVERSION_UNIT in instances and application_kind is None,
+                "signed-conversion premises require the reviewed compiler model")
+        vendor_entities[SIGNED_CONVERSION_UNIT].update(
+            signed_conversion_entities(signed_conversion_instance))
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
     if application_kind is not None:
@@ -342,7 +386,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                               and (entities[key].get("name"), entity_origin(entities[key]))
                                   in vendor_entities.get(unit, set()))
             require(value == "all" or trusted_import or trusted_vendor,
-                    f"{unit}: entity outside full SPARK")
+                    f"{unit}: entity outside full SPARK: {entities[key].get('name')} "
+                    f"at {entity_origin(entities[key])}")
             if trusted_import:
                 stats["imported_entities"] += 1
             if trusted_vendor:
@@ -605,8 +650,12 @@ def audit_sources(source_dir: Path, report_dir: Path,
     trusted_units = {path.stem for path in sources if path.name in TRUSTED_IMPORT_SPECS}
     proof_instances = {unit: audit_sequence_instance(source_dir / (unit + ".ads"))
                        for unit in SEQUENCE_INSTANCES if source_dir / (unit + ".ads") in sources}
+    conversion_source = source_dir / (SIGNED_CONVERSION_UNIT + ".ads")
+    conversion_instance = (audit_signed_conversion_instance(conversion_source)
+                           if conversion_source in sources else None)
     stats = audit_reports(report_dir, expected_units, trusted_units,
-                          effective_command=effective_command, proof_instances=proof_instances)
+                          effective_command=effective_command, proof_instances=proof_instances,
+                          signed_conversion_instance=conversion_instance)
     for source in sources:
         report = report_dir / f"{source.stem}.spark"
         require(report.stat().st_mtime_ns >= source.stat().st_mtime_ns,

@@ -16,7 +16,9 @@ from scripts.check_evidence import (EvidenceError, TRUSTED_IMPORT_ENTITIES,
 from scripts import proof_provenance, bootstrap
 from scripts.check_evidence import PROOF_OPTIONS
 from scripts.check_evidence import (BIG_INTEGER_VALIDITY_TEXT, SEQUENCE_NAME, SEQUENCE_UNIT,
-                                    audit_sequence_instance, sequence_entities)
+                                    audit_sequence_instance, sequence_entities,
+                                    SIGNED_CONVERSION_UNIT, SIGNED_CONVERSION_NAME,
+                                    audit_signed_conversion_instance, signed_conversion_entities)
 from scripts.platforms import HostLayout
 
 
@@ -1037,7 +1039,7 @@ class VendorProofEvidenceTests(unittest.TestCase):
         source = (root / "src/silver_image_files.ads").read_text()
         target = self.path / "silver_image_files.ads"
         target.write_text(source)
-        self.assertEqual(audit_sequence_instance(target), (11, 4, 12))
+        self.assertEqual(audit_sequence_instance(target), (12, 4, 12))
         for old, new in (("Ghost => Static", "Ghost => Check"),
                          ("Ghost => Static", ""),
                          ("Element_Type => Character", "Element_Type => Integer"),
@@ -1047,6 +1049,96 @@ class VendorProofEvidenceTests(unittest.TestCase):
                 target.write_text(source.replace(old, new))
                 with self.assertRaisesRegex(EvidenceError, "unreviewed proof-container"):
                     audit_sequence_instance(target)
+
+    def test_signed_conversion_requires_exact_type_and_visible_generic(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        source = (root / "src/silver_image_files.ads").read_text()
+        target = self.path / "silver_image_files.ads"
+        target.write_text(source)
+        self.assertEqual(audit_signed_conversion_instance(target), (16, 4, 12))
+        for old, new in (("Signed_Conversions (Model.Byte_Count)", "Signed_Conversions (Integer)"),
+                         ("Signed_Conversions (", "Unsigned_Conversions ("),
+                         ("package Counts is new", "package Other is new"),
+                         ("renames Silver_Image_Model", "renames Other_Model"),
+                         ("with SPARK.Big_Integers;", "with Other.Big_Integers;"),
+                         ("use SPARK.Big_Integers;", "use Other.Big_Integers;"),
+                         ("SPARK_Mode => On", "SPARK_Mode => Off"),
+                         ("   package Counts is new", "   package Signed_Conversions renames Other;\n"
+                          "   package Counts is new"),
+                         ("end Silver_Image_Files;", "package Counts is new Signed_Conversions (Model.Byte_Count);\n"
+                          "end Silver_Image_Files;")):
+            with self.subTest(replacement=new):
+                self.assertIn(old, source)
+                target.write_text(source.replace(old, new))
+                with self.assertRaisesRegex(EvidenceError, "unreviewed signed-conversion"):
+                    audit_signed_conversion_instance(target)
+        target.write_text("-- retained layout change\n" + source)
+        self.assertEqual(audit_signed_conversion_instance(target), (17, 4, 12))
+        other = self.path / "other.ads"
+        other.write_text(source)
+        with self.assertRaisesRegex(EvidenceError, "unreviewed signed-conversion"):
+            audit_signed_conversion_instance(other)
+
+    def test_signed_conversion_specs_require_both_exact_vendor_origins(self) -> None:
+        self.prepare_vendor()
+        unit = SIGNED_CONVERSION_UNIT
+        sequence_instance = (12, 4, 12)
+        conversion_instance = (16, 4, 12)
+        image = copy.deepcopy(self.initial_report)
+        image["entities"] = {" 1": {"name": "Silver_Image_Files",
+                                   "sloc": [{"file": unit + ".ads", "line": 7, "column": 9}]}}
+        image["spark"] = {" 1": "all"}
+        declarations = sequence_entities(sequence_instance, unit=unit) | signed_conversion_entities(conversion_instance)
+        for index, (name, locations) in enumerate(sorted(declarations), 2):
+            key = f" {index}"
+            image["entities"][key] = {"name": name,
+                "sloc": [{"file": file, "line": line, "column": col} for file, line, col in locations]}
+            image["spark"][key] = "spec"
+        initial = copy.deepcopy(image)
+
+        def audit(conversion=conversion_instance) -> dict:
+            for name, report in (("main", self.report), (SEQUENCE_UNIT, self.model), (unit, image)):
+                (self.path / (name + ".spark")).write_text(json.dumps(report))
+            self.refresh_reports()
+            return audit_reports(self.path, {"main", SEQUENCE_UNIT, unit},
+                proof_instances={SEQUENCE_UNIT: self.instance, unit: sequence_instance},
+                signed_conversion_instance=conversion)
+
+        self.assertEqual(audit()["vendor_spec_entities"], 62)
+        with self.assertRaisesRegex(EvidenceError, "outside full SPARK") as failure:
+            audit(None)
+        self.assertIn(SIGNED_CONVERSION_NAME + ".", str(failure.exception))
+        self.assertIn("a-nbnbin.ads", str(failure.exception))
+        for operation in ("To_Big_Integer", "From_Big_Integer"):
+            for mutation in ("name", "vendor_file", "vendor_line", "vendor_column",
+                             "instance_file", "instance_line", "instance_column",
+                             "extra_origin", "missing", "owned_helper"):
+                with self.subTest(operation=operation, mutation=mutation):
+                    image = copy.deepcopy(initial)
+                    key = next(key for key, entity in image["entities"].items()
+                               if entity["name"] == SIGNED_CONVERSION_NAME + "." + operation)
+                    entity = image["entities"][key]
+                    if mutation == "name":
+                        entity["name"] = "Other.Counts." + operation
+                    elif mutation in ("vendor_file", "instance_file"):
+                        entity["sloc"][0 if mutation == "vendor_file" else 1]["file"] = "unreviewed.ads"
+                    elif mutation in ("vendor_line", "vendor_column", "instance_line", "instance_column"):
+                        position, field = mutation.split("_")
+                        entity["sloc"][0 if position == "vendor" else 1][field] += 1
+                    elif mutation == "extra_origin":
+                        entity["sloc"].append({"file": "unreviewed.ads", "line": 1, "column": 1})
+                    elif mutation == "missing":
+                        del image["entities"][key]
+                        del image["spark"][key]
+                    else:
+                        image["spark"][" 1"] = "spec"
+                    with self.assertRaises(EvidenceError):
+                        audit()
+        image = copy.deepcopy(initial)
+        audit()
+        with self.assertRaisesRegex(EvidenceError, "reviewed compiler model"):
+            audit_reports(self.path, {"main", SEQUENCE_UNIT, unit},
+                          signed_conversion_instance=conversion_instance)
 
     def test_multiple_instances_keep_separate_exact_declaration_origins(self) -> None:
         self.prepare_vendor()
