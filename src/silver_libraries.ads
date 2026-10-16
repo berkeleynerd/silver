@@ -1,6 +1,7 @@
 with Ada.Text_IO;
 with Silver_Platform;
 with Silver_Library_Reports;
+with Silver_Report_Reader;
 
 package Silver_Libraries with SPARK_Mode => On is
    Max_Source_Length : constant Positive := 16_384;
@@ -49,8 +50,13 @@ package Silver_Libraries with SPARK_Mode => On is
 
    procedure Check_Proof_Evidence (Directory : String; Success : out Boolean)
      with Global => (In_Out => Ada.Text_IO.File_System,
-                     Output => (Silver_Platform.Read_Bytes, Silver_Platform.Read_Count,
-                                Silver_Platform.Read_Ended, Silver_Platform.Read_Closed,
+                     Output => (Silver_Report_Reader.Raw_Bytes,
+                                Silver_Report_Reader.Projected_Bytes,
+                                Silver_Report_Reader.Report_Bytes,
+                                Silver_Report_Reader.Report_Length,
+                                Silver_Report_Reader.Report_State,
+                                Silver_Report_Reader.Report_Ended,
+                                Silver_Report_Reader.Report_Closed,
                                 Proof_Complete, Accepted_Reports)),
           Pre => Valid_Directory (Directory)
             and then Directory'Length <= Silver_Platform.Max_Path_Length - 45,
