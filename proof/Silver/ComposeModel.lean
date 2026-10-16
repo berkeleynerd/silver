@@ -15,6 +15,17 @@ premise of correspondence for arbitrary implementation callees. -/
 namespace Silver.Compose.SourceBridge
 
 theorem model_interpreted : InterpretedSource Expressions.modelCalls where
+  imageLengths := by
+    refine ⟨Integer.Image.Native.modelCalls, Integer.Native.Function.eval,
+      Integer.Image.NativeSource.model_interpreted, ?_⟩
+    intro bounds bounded
+    have minimum := Integer.Image.Native.minimumLength_eq bounds bounded
+    have maximum := Integer.Image.Native.maximumLength_eq bounds bounded
+    change (LengthSummary.ofImage bounds).minimumLength = Integer.Image.Native.minimumLength bounds ∧
+      (LengthSummary.ofImage bounds).staticLength = Integer.Image.Native.maximumLength bounds
+    rw [minimum, maximum]
+    unfold LengthSummary.ofImage
+    split <;> exact ⟨rfl, rfl⟩
   lexical := ⟨Guarded.Expressions.modelCalls, fixedAt, rfl, Lexical.model_interpreted⟩
   definitions := (Expressions.model_definitions Expressions.model_ranges).toHelperEquations
   legal := Expressions.model_legal.toLegalHelpers

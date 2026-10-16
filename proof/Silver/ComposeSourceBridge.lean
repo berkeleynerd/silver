@@ -1,10 +1,12 @@
 module
 
 public import Silver.ComposeSourceChecks
+public import Silver.ComposeEquations
 public import Silver.LexicalSourceBridge
 public import Silver.NamesSourceBridge
 public import Silver.ScalarExpressionSourceBridge
 public import Silver.ComposeEvaluation
+public import Silver.IntegerImageNativeSource
 
 @[expose] public section
 
@@ -20,6 +22,7 @@ open Silver.SourceBridge
 open Silver.Compose.Expressions
 
 structure CheckedSource : Prop where
+  imageLengths : Integer.Image.NativeSource.CheckedSource
   scalarExpressions : ScalarExpression.SourceChecks.CheckedSource
   names : Names.SourceBridge.CheckedSource
   namesLexical : Names.fixedAt = Compose.fixedAt ∧ Names.take = Compose.fixedAfter
@@ -37,6 +40,7 @@ structure CheckedSource : Prop where
     (names.extend info).active = names.active ++ [info]
 
 theorem checked_source : CheckedSource where
+  imageLengths := Integer.Image.NativeSource.checked_source
   scalarExpressions := ScalarExpression.SourceChecks.checked_source
   names := Names.SourceBridge.checked_source
   namesLexical := ⟨rfl, rfl⟩
@@ -56,6 +60,11 @@ def NativeForm (form : Form) : Prop := form ∈ helperForms
 /-- Helper definitions and executed lexical-call domains, with Step restricted
 to the two shell tags actually declared by the native implementation. -/
 structure InterpretedSource (calls : Expressions.Calls) : Prop where
+  imageLengths : ∃ (imageCalls : Integer.Image.Native.Calls) (scalarCalls : Integer.Native.Calls),
+    Integer.Image.NativeSource.InterpretedSource imageCalls scalarCalls ∧
+      ∀ bounds, bounds.Bounded →
+        calls.function .imageMinimum bounds = imageCalls.minimumLength bounds ∧
+        calls.function .imageMaximum bounds = imageCalls.maximumLength bounds
   lexical : ∃ (helpers : Guarded.Expressions.Calls)
       (token : Source → Nat → String → Bool → Bool),
     calls.primitive = Lexical.primitives helpers token ∧
@@ -77,9 +86,24 @@ theorem interpreted_primitives (calls : Expressions.Calls)
   exact Lexical.interpreted_primitives helpers token interpreted
 
 theorem interpreted_equations (calls : Expressions.Calls)
-    (source : InterpretedSource calls) : Expressions.HelperEquations calls :=
-  Expressions.normalized_helpers calls (interpreted_primitives calls source)
-    source.definitions source.legal
+    (source : InterpretedSource calls) : Expressions.HelperEquations calls := by
+  obtain ⟨imageCalls, scalarCalls, imageSource, linked⟩ := source.imageLengths
+  have minimum : ∀ bounds, bounds.Bounded →
+      calls.function .imageMinimum bounds = (LengthSummary.ofImage bounds).minimumLength := by
+    intro bounds bounded
+    rw [(linked bounds bounded).1,
+      Integer.Image.NativeSource.minimumLength_eq imageCalls scalarCalls imageSource bounds bounded]
+    unfold LengthSummary.ofImage
+    split <;> rfl
+  have maximum : ∀ bounds, bounds.Bounded →
+      calls.function .imageMaximum bounds = (LengthSummary.ofImage bounds).staticLength := by
+    intro bounds bounded
+    rw [(linked bounds bounded).2,
+      Integer.Image.NativeSource.maximumLength_eq imageCalls scalarCalls imageSource bounds bounded]
+    unfold LengthSummary.ofImage
+    split <;> rfl
+  exact Expressions.normalized_helpers calls (interpreted_primitives calls source)
+    {source.definitions with imageMinimum := minimum, imageMaximum := maximum} source.legal
 
 theorem interpreted_step (calls : Expressions.Calls) (source : InterpretedSource calls)
     (text : Source) (valid : Expressions.ValidText text) (form : Form) (token : ShellToken)
