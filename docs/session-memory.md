@@ -1,5 +1,27 @@
 # Session memory
 
+## 2026-10-16 — Proof iteration controls authorized
+
+The owner answered the proposed proof-iteration controls with “Make it so.”
+Implement them as one cohesive tooling milestone and
+[work package #39](https://github.com/berkeleynerd/silver/issues/39): durable
+`dev.py`/`check_lean.py` run records including exploratory GNATprove, actual
+resolved-workspace locking and worker coordination, cheap provenance preflight,
+rationale for identical-success expensive reruns, recurring-obligation diagnostic
+checkpoints, and a resume/handoff readout. The
+[scope and evidence record](proof-iteration.md) states completion criteria.
+
+Required obligation discharge, actual-source correspondence and fresh Lean
+auditing remain intact. No Oracle/language amendment, arbitrary proof timeout or
+additional owner-approval ceremony is authorized or needed. Routine commits,
+validation and publication remain authorized; hosted CI stays disabled.
+
+For loops and integers and its unfinished work remain preserved separately.
+Its existing harness goal stays **paused**; this tooling instruction neither
+resumes nor completes it. Record the tooling authorization on `main` before
+claiming its issue, following [planning](planning.md#the-board). CLI memory was
+unavailable and was not updated; this dated entry is the durable decision record.
+
 ## 2026-10-16 — Selected review repairs complete
 
 The owner's instruction to fix the selected findings before further feature
