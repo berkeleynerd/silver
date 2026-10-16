@@ -33,8 +33,8 @@ private theorem branch_meaning {text context scan keyword condition}
     (bounded : scan.facts.Bounded) (parsed : BranchAt text context scan keyword condition) :
     condition.Grammatical ∧ condition.Readable context.hasArguments context.names.shape ∧
     condition.checkBounds context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = true ∧
-    (branchStart text context scan keyword).1.facts = condition.refine context.names.shape scan.facts true ∧
-    (branchStart text context scan keyword).2 = condition.refine context.names.shape scan.facts false := by
+    (branchStart text context scan keyword).1.facts = condition.refine context.names.shape scan.facts true (ScalarExpression.ranges context.scalarNames) ∧
+    (branchStart text context scan keyword).2 = condition.refine context.names.shape scan.facts false (ScalarExpression.ranges context.scalarNames) := by
   have meaning := condition_valid normal nv bounded parsed
   exact ⟨meaning.grammatical, meaning.readable, meaning.checked, meaning.whenTrue, meaning.whenFalse⟩
 
@@ -93,10 +93,10 @@ mutual
         have conditionGood := branch_meaning normal nv bounded conditionRead
         have yesBound : (branchStart text context scan "if").1.facts.Bounded := by
           rw [conditionGood.2.2.2.1]
-          exact Condition.refine_bounded bounded _ _ _
+          exact Condition.refine_bounded bounded _ _ _ _
         have noBound : (branchStart text context scan "if").2.Bounded := by
           rw [conditionGood.2.2.2.2]
-          exact Condition.refine_bounded bounded _ _ _
+          exact Condition.refine_bounded bounded _ _ _ _
         have yesGood := body_meaning normal nv yesBound yesRead
         have noGood := alternative_meaning normal nv noBound noRead
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
@@ -130,10 +130,10 @@ mutual
         have conditionGood := branch_meaning normal nv bounded conditionRead
         have yesBound : (branchStart text context scan "elsif").1.facts.Bounded := by
           rw [conditionGood.2.2.2.1]
-          exact Condition.refine_bounded bounded _ _ _
+          exact Condition.refine_bounded bounded _ _ _ _
         have noBound : (branchStart text context scan "elsif").2.Bounded := by
           rw [conditionGood.2.2.2.2]
-          exact Condition.refine_bounded bounded _ _ _
+          exact Condition.refine_bounded bounded _ _ _ _
         have yesGood := body_meaning normal nv yesBound yesRead
         have noGood := alternative_meaning normal nv noBound noRead
         have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq

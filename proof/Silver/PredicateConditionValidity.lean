@@ -57,11 +57,12 @@ private theorem string_meaning {text context position facts left right leftResul
   have r := expression_reading_ready normal rightRead
   refine ⟨trivial, ⟨l.1.1, r.1.1, l.1.2.1, r.1.2.1,
     l.1.2.2.1, l.1.2.2.2, r.1.2.2.1, r.1.2.2.2⟩, ?_, ?_, ?_⟩
-  · simp only [Condition.checkBounds, l.2, r.2, ready.2.2.2.2.2.1, ready.2.2.2.2.2.2, Bool.and_self]
+  · simp only [Condition.checkBounds, l.2, r.2, Bool.and_eq_true]
+    exact ⟨ready.2.2.2.2.2.1, ready.2.2.2.2.2.2⟩
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
   · rcases ready.2.2.1 with equal | equal <;>
-      simp [stringResult, Condition.refine, refineString, equal, l.2, r.2]
+      simp [stringResult, summaryOf, Condition.refine, refineString, equal, l.2, r.2]
 
 mutual
   theorem primary_valid {text context position facts condition result}
@@ -111,11 +112,11 @@ mutual
           | false =>
               change result.whenFalse.Bounded
               rw [meaning.whenFalse]
-              exact Condition.refine_bounded bounded _ _ _
+              exact Condition.refine_bounded bounded _ _ _ _
           | true =>
               change result.whenTrue.Bounded
               rw [meaning.whenTrue]
-              exact Condition.refine_bounded bounded _ _ _
+              exact Condition.refine_bounded bounded _ _ _ _
         have rightMeaning := relation_valid normal namesValid reachedBound rightRead
         have nextMeaning := meaning.chain rightMeaning.1 (chainShape_selected shape compatible) rightMeaning.2
         exact chain_valid normal namesValid bounded rest nextMeaning (chainShape_next _ _ _)

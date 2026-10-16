@@ -145,11 +145,12 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (outputStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (outputStart text context scan).position context.names context.scalarNames)) = true := by
           apply true_of_not_neg
-          simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (outputStart text context scan).facts
+          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (outputStart text context scan).facts
               (summaryOf (expressionAt text (outputStart text context scan).position context.names context.scalarNames))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
+        simp only [summaryOf] at fits
         have valid : scan.facts.invalidReachable = false := by
           cases h : scan.facts.invalidReachable with
           | false => rfl
@@ -168,11 +169,12 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (putStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (putStart text context scan).position context.names context.scalarNames)) = true := by
           apply true_of_not_neg
-          simpa only [bodyTokens_facts] using (show ¬(!fitsSummary (putStart text context scan).facts
+          simpa only [bodyTokens_facts] using (show ¬(!fitsLengthSummary (putStart text context scan).facts
               (summaryOf (expressionAt text (putStart text context scan).position context.names context.scalarNames))) = true from
             fun bad => good (Or.inr (Or.inr bad)))
+        simp only [summaryOf] at fits
         have valid : scan.facts.invalidReachable = false := by
           cases h : scan.facts.invalidReachable with
           | false => rfl
@@ -196,20 +198,21 @@ theorem basic_meaning {text context scan item result}
       · exact False.elim (raw rfl)
       · rename_i good
         rw [ite_eq_right good] at resultEq
-        have fits : fitsSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames)) = true := by
+        have fits : fitsLengthSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames)) = true := by
           apply true_of_not_neg
           exact fun bad => good (Or.inr (Or.inr (Or.inl bad)))
-        have equal : equalSummary scan.facts
+        have equal : equalLengthSummary scan.facts
             (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames)) info.bound.summary = true := by
           apply true_of_not_neg
           intro bad
           apply good
           right; right; right
-          change (!equalSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames))
+          change (!equalLengthSummary scan.facts (summaryOf (expressionAt text (assignmentStart text context scan).position context.names context.scalarNames))
             ((context.names.get (assignmentTarget text context scan).target).getD {}).bound.summary) = true
           simpa only [found, Option.getD_some] using bad
         simp only [SourceStatement.WellFormed, SimpleWellFormed]
         refine ⟨⟨ready.1, info.bound, targetShape⟩, ?_⟩
+        simp only [summaryOf] at fits equal
         have factsEq : scan.facts = result.facts := by
           simpa only [bodyToken_facts] using congrArg BodyScan.facts resultEq
         rw [← factsEq]
