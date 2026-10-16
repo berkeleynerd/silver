@@ -145,6 +145,22 @@ package body Silver_Report_Observation_Windows with SPARK_Mode => On is
          0, False, False, Bytes.Get (Left, Start) in '{' | '[');
    end Value_Spec_Window;
 
+   procedure Closed_Value_Window
+     (Left, Right : Bytes.Sequence; First, Last, Start : Offset; Shift : Big_Integer)
+   is
+   begin
+      pragma Assert (Bytes.Get (Left, Start) = Bytes.Get (Right, Start + Shift));
+      if Bytes.Get (Left, Start) = '"' then
+         Value_From_Window
+           (Left, Right, First, Last, Start, Start + 1, Shift,
+            Observations.Empty_Nesting, 0, True, False, False);
+      else
+         Value_From_Window
+           (Left, Right, First, Last, Start, Start, Shift,
+            Observations.Empty_Nesting, 0, False, False, True);
+      end if;
+   end Closed_Value_Window;
+
    procedure Value_Spec_Equivalent
      (Left, Right : Bytes.Sequence; First, Last, Start : Offset; Shift : Big_Integer)
    is

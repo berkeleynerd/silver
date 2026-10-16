@@ -73,8 +73,10 @@ is
          and then Position >= Start and then Position <= Bytes.Length (Text) + 1,
        Post => Observations.Value_From
            (Text, Start, Position, Openers, Level, Quoted, Escaped, Container) = 0
-         or else Observations.Value_From
-           (Text, Start, Position, Openers, Level, Quoted, Escaped, Container) + 1 >= Position,
+         or else (if Quoted or else Container then Observations.Value_From
+           (Text, Start, Position, Openers, Level, Quoted, Escaped, Container) >= Position
+         else Observations.Value_From
+           (Text, Start, Position, Openers, Level, Quoted, Escaped, Container) + 1 >= Position),
        Subprogram_Variant => (Decreases => Bytes.Length (Text) + 1 - Position);
 
    procedure Value_From_Window
@@ -87,8 +89,10 @@ is
          and then Position >= Start and then Position <= Last + 1
          and then Observations.Value_From
            (Left, Start, Position, Openers, Level, Quoted, Escaped, Container) > 0
-         and then Observations.Value_From
-           (Left, Start, Position, Openers, Level, Quoted, Escaped, Container) < Last,
+         and then (Observations.Value_From
+           (Left, Start, Position, Openers, Level, Quoted, Escaped, Container) < Last
+           or else ((Quoted or else Container) and then Observations.Value_From
+             (Left, Start, Position, Openers, Level, Quoted, Escaped, Container) = Last)),
        Post => Observations.Value_From
            (Right, Start + Shift, Position + Shift, Openers, Level, Quoted, Escaped, Container) =
          Observations.Value_From
@@ -102,6 +106,19 @@ is
          and then Start >= First and then Start <= Last + 1
          and then Observations.Value_Spec (Left, Start) > 0
          and then Observations.Value_Spec (Left, Start) < Last,
+       Post => Observations.Value_Spec (Right, Start + Shift) =
+         Observations.Value_Spec (Left, Start) + Shift;
+
+   --  Quotes and containers consume their final byte; primitive termination
+   --  needs the following delimiter and uses Value_Spec_Window instead.
+   procedure Closed_Value_Window
+     (Left, Right : Bytes.Sequence; First, Last, Start : Offset; Shift : Big_Integer)
+     with Global => null,
+       Pre => Same_Window (Left, Right, First, Last, Shift)
+         and then Start >= First and then Start <= Last
+         and then Bytes.Get (Left, Start) in '"' | '{' | '['
+         and then Observations.Value_Spec (Left, Start) > 0
+         and then Observations.Value_Spec (Left, Start) <= Last,
        Post => Observations.Value_Spec (Right, Start + Shift) =
          Observations.Value_Spec (Left, Start) + Shift;
 
