@@ -2,15 +2,20 @@
 from __future__ import annotations
 
 from pathlib import Path
+import os
 import tempfile
 import unittest
+from unittest import mock
 
 from tests import test_shared_bindings as shared
 from tests.test_shared_bindings import output, program
+from tests.test_silver import HOST
 
 
 class IntegerImageTests(unittest.TestCase):
     check = shared.SharedBindingsTests.check
+    compile = shared.SharedBindingsTests.compile
+    run_program = shared.SharedBindingsTests.run_program
 
     def setUp(self) -> None:
         temporary = tempfile.TemporaryDirectory(prefix='silver integer image-')
@@ -91,6 +96,58 @@ class IntegerImageTests(unittest.TestCase):
         body = b'if (+N)=1 then null;end if;' * 63
         self.check(program(b'N:constant Integer:=1;', body + output(b"Integer'Image(N)")))
         self.check(program(b'N:constant Integer:=1;', body + output(b"Integer'Image((N + 1))")), 2)
+
+    def test_scalar_leaf_boundary_and_loop_image_compositions(self) -> None:
+        scalar = b'1'
+        for _ in range(63):
+            scalar = b'(' + scalar + b'+1)'
+        self.check(program(b'', output(b"Integer'Image(" + scalar + b')')))
+        self.check(program(b'', output(b"Integer'Image((" + scalar + b'+1))')), 2)
+        for body in (
+            b'for I in reverse 3..1 loop ' + output(b"Integer'Image(I)") + b'end loop;',
+            b'for I in 1..3 loop if Integer\'Image(I)=Integer\'Image(I) then null;end if;end loop;',
+            b'for I in 3..1 loop if Integer\'Image(I)="" then null;end if;end loop;',
+            b'for I in 1..3 loop for J in I..2 loop S:=Integer\'Image(J);end loop;end loop;',
+        ):
+            with self.subTest(body=body):
+                self.check(program(b'S:String:=" 0";', body))
+        self.check(program(b'', b'for I in 1..3 loop Silver_Arguments.Reject;end loop;',
+                           arguments=True))
+
+    def test_native_extreme_images_and_fixed_width_assignment(self) -> None:
+        declarations = (b'Low:constant Integer:=-2147483648;'
+                        b'High:constant Integer:=2147483647;'
+                        b'S:String:=Integer\'Image(Low);')
+        body = (output(b'S') + b'S:=Integer\'Image(High);' + output(b'S')
+                + b'for I in 2147483646..2147483647 loop S:=Integer\'Image(I);'
+                + output(b'S') + b'end loop;'
+                + b'for I in reverse -2147483648..-2147483647 loop S:=Integer\'Image(I);'
+                + output(b'S') + b'end loop;')
+        before = set(HOST.artifacts.glob('imagews-*'))
+        # Default operation leaves no successful Unchanged or Refine snapshots.
+        with mock.patch.dict(os.environ, {'SILVER_KEEP_IMAGE_WORKSPACES': ''}):
+            executable, report = self.compile(program(declarations, body), 'static')
+        self.assertEqual(set(HOST.artifacts.glob('imagews-*')), before)
+        self.run_program(executable,
+                         b'-2147483648\n 2147483647\n 2147483646\n 2147483647\n'
+                         b'-2147483647\n-2147483648\n')
+        checks = [item for item in report['proof'] if item['rule'] == 'VC_LENGTH_CHECK']
+        self.assertTrue(checks)
+        self.assertTrue(all(item['severity'] == 'info' for item in checks), checks)
+
+    def test_native_composite_argument_loop(self) -> None:
+        body = (b'for I in 1..3 loop if Input="reject" then Silver_Arguments.Reject;else '
+                b'for J in I..2 loop S:=Integer\'Image(J);'
+                b'if Integer\'Image(I)=Integer\'Image(J) then '
+                b'Silver_IO.Put("[");Silver_IO.Put(S);Silver_IO.Put("]");'
+                b'else Silver_IO.Put(".");end if;end loop;'
+                + output(b'S') + b'end if;end loop;'
+                + b'for K in reverse 3..1 loop '
+                b'if Integer\'Image(K)="" then Silver_IO.Put("unreachable");end if;end loop;')
+        executable, _ = self.compile(program(b'S:String:=" 0";', body, arguments=True), 'selected')
+        self.run_program(executable, b'[ 1]. 2\n[ 2] 2\n 2\n', (b'go',))
+        self.run_program(executable, b'', (b'reject',), 1)
+        self.run_program(executable, b'', (b'x' * 4097,), 1)
 
 
 if __name__ == '__main__':

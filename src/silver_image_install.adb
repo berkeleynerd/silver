@@ -34,6 +34,9 @@ package body Silver_Image_Install with SPARK_Mode => On is
            and then Observed = Silver_Image_Theory.Theory_Text;
          return;
       end if;
+      --  Both 0 (created) and -1 (including already exists) are normal here.
+      --  The following mkdtemp/write/read operations detect inaccessible or
+      --  non-directory parents; mkdir's return alone cannot distinguish them.
       Status := C_Mkdir (Interfaces.C.To_C (Directory), 8#700#);
       if Status /= 0 and then Status /= -1 then return; end if;
       Status := C_Mkdir (Interfaces.C.To_C (Root & "/sessions"), 8#700#);
