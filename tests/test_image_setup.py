@@ -105,6 +105,37 @@ class ImageSetupTests(unittest.TestCase):
         self.prepare()
         self.validate()
 
+    def test_original_support_tool_must_resolve_inside_native_tools(self) -> None:
+        self.prepare()
+        config = self.host.generated / "silver_image_config.ads"
+        before_config = (config.read_bytes(), config.stat().st_mtime_ns)
+        before_overlay = self.host.image_tools.stat().st_ino
+        before_entries = {path: path.lstat().st_mtime_ns
+                          for path in self.host.image_tools.rglob("*")}
+        for target in (self.host.image_adapter, self.host.root / "external-gnatwhy3"):
+            with self.subTest(target=target):
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(b"not the original native support tool")
+                self.original.unlink()
+                self.original.symlink_to(target)
+                with self.assertRaisesRegex(RuntimeError, "original native gnatwhy3"):
+                    bootstrap.validate_image_setup(self.host, self.native)
+                with self.assertRaisesRegex(RuntimeError, "original native gnatwhy3"):
+                    self.prepare()
+                self.assertEqual(before_config, (config.read_bytes(), config.stat().st_mtime_ns))
+                self.assertEqual(before_overlay, self.host.image_tools.stat().st_ino)
+                self.assertEqual(before_entries,
+                                 {path: path.lstat().st_mtime_ns for path in before_entries})
+
+    def test_original_support_tool_may_link_inside_native_tools(self) -> None:
+        actual = self.host.tools / "original-gnatwhy3"
+        self.original.rename(actual)
+        self.original.symlink_to(actual)
+        self.prepare()
+        bootstrap.validate_image_setup(self.host, self.native)
+        self.assertEqual((self.host.generated / "silver_image_config.ads").read_bytes(),
+                         bootstrap.image_configuration(actual))
+
     def test_foreign_host_setup_cannot_write_anything(self) -> None:
         foreign_key = "macos-aarch64" if host_key() != "macos-aarch64" else "linux-aarch64"
         foreign = HostLayout(self.host.root, foreign_key)

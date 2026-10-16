@@ -296,14 +296,25 @@ def image_overlay_entries(host: HostLayout, vendor: Path) -> dict[Path, tuple[st
     return entries
 
 
-def validate_image_setup(host: HostLayout, native_gnatprove: Path) -> None:
-    """Independently recompute generated configuration and overlay selection."""
+def image_vendor(host: HostLayout, native_gnatprove: Path) -> Path:
+    """Resolve both original executables before creating any adapter binding."""
     native_gnatprove = native_gnatprove.resolve(strict=True)
     vendor = native_gnatprove.parent.parent
     if (native_gnatprove.name != "gnatprove" or native_gnatprove.parent.name != "bin"
             or not vendor.is_relative_to(host.tools.resolve())
             or vendor.is_relative_to(host.image_tools)):
         raise RuntimeError("Image setup requires the selected original native GNATprove release")
+    original = (vendor / "libexec/spark/bin/gnatwhy3").resolve(strict=True)
+    if (not original.is_relative_to(host.tools.resolve())
+            or original.is_relative_to(host.image_tools.resolve())
+            or original == host.image_adapter.resolve()):
+        raise RuntimeError("Image setup requires the selected original native gnatwhy3")
+    return vendor
+
+
+def validate_image_setup(host: HostLayout, native_gnatprove: Path) -> None:
+    """Independently recompute generated configuration and overlay selection."""
+    vendor = image_vendor(host, native_gnatprove)
     config = host.generated / "silver_image_config.ads"
     expected = image_configuration(vendor / "libexec/spark/bin/gnatwhy3")
     if not config.is_file() or config.read_bytes() != expected:
@@ -335,12 +346,7 @@ def validate_image_setup(host: HostLayout, native_gnatprove: Path) -> None:
 def prepare_image_tools(host: HostLayout, native_gnatprove: Path) -> None:
     """Create a private host overlay without writing to the vendor installation."""
     require_native(host)
-    native_gnatprove = native_gnatprove.resolve(strict=True)
-    vendor = native_gnatprove.parent.parent
-    if (native_gnatprove.name != "gnatprove" or native_gnatprove.parent.name != "bin"
-            or not vendor.is_relative_to(host.tools.resolve())
-            or vendor.is_relative_to(host.image_tools)):
-        raise RuntimeError("Image setup requires the selected original native GNATprove release")
+    vendor = image_vendor(host, native_gnatprove)
     entries = image_overlay_entries(host, vendor)
     config = image_configuration(vendor / "libexec/spark/bin/gnatwhy3")
     try:
