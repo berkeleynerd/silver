@@ -7,9 +7,11 @@ recorded on main in
 The subsequent instruction to fix the selected review findings before further
 feature work is recorded in
 [`618c28a77c`](https://github.com/berkeleynerd/silver/commit/618c28a77cdf011f338a31fcb0e9022743a338de).
-The [repair record](review-343c2f8-repairs.md) tracks that prerequisite work.
-Existing feature work remains unfinished and preserved; this scope record
-does not claim implementation, validation or admission of any new construct.
+The [repair record](review-343c2f8-repairs.md) records the completed prerequisite
+work. On 2026-10-16 the owner explicitly resumed the same unfinished feature
+goal after those repairs and the [iteration controls](proof-iteration.md).
+[Session memory](session-memory.md) records the current authorization.
+Implementation and assurance are in progress; no new construct is supported yet.
 
 [Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
 [stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery.
@@ -97,21 +99,56 @@ under #13/#17. They are not supported language limits until delivery.
 
 ## Report capacity and automatic proof
 
-[B1/#17](https://github.com/berkeleynerd/silver/issues/17) is a defect in the
-current language: the reviewed dense static construction leaves only
+[B1/#17](https://github.com/berkeleynerd/silver/issues/17) was repaired for the
+currently admitted language. The reviewed dense static construction left only
 5,772–6,141 bytes in the 2 MiB report buffer, and additional prover credits can
 exceed that margin. The review observed the near-limit reports and credit-growth
 mechanism, not an overflowing dense run. Its approximately 2.37 MB bound covers
 that construction; it is not a bound for every admitted program. A suggested
 4 MiB allocation is a candidate size, not a derivation.
 
-Completion requires capacity derived from report records and admitted source
-shapes, including multiple prover credits, six-digit step counts and
-interrupted-loser records; moving the buffer off `Compile`'s stack; affected
-reader/policy proofs; and a format-derived capacity regression. The derivation
-must be extended for scalar, loop and Image checks before they are admitted.
-L2 capacity claims and L4 placement are part of that repair; L1/L3 establish the
-effective proof configuration and its regression coverage.
+The [completed repair](report-capacity.md) derives retained-report capacity,
+projects the producer's larger reports, moves storage out of `Compile`'s stack,
+and proves the reader/projection/policy connection. Its 16 MiB allocation and
+current-language derivation are the integration baseline. The scalar, loop and
+Image envelope still needs complete check-site and warning-multiplicity
+accounting before admission. L1/L3's explicit proof-resource policy and L2/L4's
+capacity and placement repairs are complete prerequisites.
+
+The [Image diagnostic](for-loops-integers-image.md) identifies a distinct native
+automatic-discharge gap: the producer's abstract Image model supplies a maximum
+length but cannot establish the exact length required by valid assignments.
+More solver effort cannot derive the missing semantic relation. The Image scope
+remains selected while its sound proof-model refinement is implemented.
+
+## Resumed integration evidence, 2026-10-16
+
+The preserved feature edits were backed up and committed, then integrated with
+the repaired/tooling `main` and resumption PR #46. Scalar declarations and
+expressions, scoped comparisons and loop semantics have been recovered into
+the feature branch. Native predicate/body and Compose source correspondence
+remain in progress. These are focused Linux x86_64 results, not the stable
+complete capability checkpoint:
+
+| Work | Managed run | Result |
+| --- | --- | --- |
+| Integrated compiler build | `20261016T134941-c356c3687463` | Build passed |
+| Executable report policy | `20261016T135126-e3772e557073` | 36 tests passed |
+| Scalar expression actual-source bridge | `20261016T140242-b1fc5652e763` | Focused build and fresh audit, 5,993 declarations |
+| Scalar native predicates and basic statements | `20261016T141025-50886957b0e0` | Focused build and fresh audit, 13,721 declarations |
+| Raw/retained overflow-policy congruence | `20261016T141258-fe22f824887c` | All 59 targeted native checks proved |
+| Pure loop grammar, meaning and routing | `20261016T141638-0e61df079141` | Focused build and fresh audit, 12,749 declarations |
+| Decimal Image arithmetic length theorem | `20261016T141909-c41772e4f101` | Focused build and fresh audit, 240 declarations |
+| Consistent fixed-size Image refinement model | `20261016T142321-febc0b2f68ae` | Focused build and fresh audit, 279 declarations |
+
+The report-policy correction is `f2b71f3c5f`; it aligns the raw ghost policy and
+projection congruence with the executable overflow rule. Its earlier targeted
+generation was interrupted after inspection found the missing congruence call;
+that incomplete run remains retained. The successful focused proof does not
+replace the pending complete compiler audit. The Image proofs establish decimal
+length/interval facts and consistency with the weak model at size 12; they do
+not yet connect a native adapter to authoritative source and emitted checks.
+The managed ledger retains attempts, timings, diagnostics and exact input scope.
 
 ## Completion and preserved work
 
@@ -124,12 +161,13 @@ cached Lean check with a fresh audit, then independent review. macOS validation
 remains independent and nonblocking. A pin update or passing sample does not
 establish source correspondence or the universal guarantee.
 
-Exploratory implementation and partial proofs remain on the local
-`feat/for-loops-integers` branch and its focused worktrees, based on
-`343c2f8f5a`. Preserve `tmp/for-loops-probes/`,
+Implementation and partial proofs remain on `feat/for-loops-integers` and its
+focused worktrees. Its historical baseline was `343c2f8f5a`; repaired `main` is
+now integrated. Preserve `tmp/for-loops-probes/`,
 `tmp/for-loops-integers-active.json` and proof caches. Their earlier results
-predate the Image scope change and are not evidence of complete delivery;
-recheck exact inputs and live issue handoffs before resuming feature work.
+predate the Image scope change and are not evidence of complete delivery. The
+refreshed active checkpoint retains a link to its historical paused record;
+recheck exact inputs, the live harness and issue handoffs when continuing work.
 
 ## Historical pre-Image evidence and recovery
 
