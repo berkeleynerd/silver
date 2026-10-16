@@ -334,6 +334,12 @@ class ManagedRun:
         with _metadata(self.root):
             _append(self.directory / "events.jsonl", dict(details, event=event_name, run_id=self.run_id))
 
+    def unresolved_obligations(self) -> list[str]:
+        """Return final failures in this run's changed/new owned reports."""
+        changed_reports = [path for path in _report_files(self.failure_reports)
+                           if _report_identity(path) != self._report_baseline.get(str(path))]
+        return sorted(set([*self.failure_keys, *failed_obligations(changed_reports)]))
+
     def finish(self, outcome: str = "success", returncode: int | None = None, failure_keys=(), **details) -> None:
         if self._finished:
             return
@@ -341,10 +347,7 @@ class ManagedRun:
             raise RunHistoryError(f"invalid run outcome: {outcome}")
         if outcome == "success" and returncode not in (0, None):
             raise RunHistoryError("a nonzero child status cannot finish successfully")
-        changed_reports = [path for path in _report_files(self.failure_reports)
-                           if _report_identity(path) != self._report_baseline.get(str(path))]
-        keys = sorted(set([*self.failure_keys, *failure_keys,
-                          *failed_obligations(changed_reports)])) if outcome == "failure" else []
+        keys = sorted(set([*self.unresolved_obligations(), *failure_keys])) if outcome == "failure" else []
         # Preserve reports before a later managed command replaces its output.
         copies = []
         for index, source in enumerate(self.failure_reports if outcome != "success" else ()):

@@ -251,6 +251,21 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
         self.assertEqual(finish["failure_keys"], [])
         self.assertEqual(len(finish["retained_reports"]), 1)
 
+    def test_unresolved_obligations_are_available_before_a_tool_exits_successfully(self):
+        report = self.root / "unit.spark"
+        failed = {"file": "unit.adb", "line": 1, "col": 1, "rule": "VC_RANGE_CHECK",
+                  "severity": "medium", "how_proved": "unproved"}
+        report.write_text(json.dumps({"proof": [failed]}))
+        with self.run_context(failure_reports=[report]) as run:
+            self.assertEqual(run.unresolved_obligations(), [])
+            report.write_text(json.dumps({"proof": [dict(failed, line=2)]}))
+            self.assertEqual(run.unresolved_obligations(), ["unit.adb:2:1:VC_RANGE_CHECK"])
+            run.finish("failure", returncode=0)
+        self.assertEqual(self.records()[0]["state"], "failure")
+        self.assertEqual(self.records()[0]["finish"]["failure_keys"], ["unit.adb:2:1:VC_RANGE_CHECK"])
+        with self.run_context(failure_keys=["explicit-key"]) as explicit:
+            self.assertEqual(explicit.unresolved_obligations(), ["explicit-key"])
+
     def test_custom_workspace_reports_are_recursive_and_preserve_distinct_paths(self):
         workspace = self.root / "custom"
         stale = workspace / "old/obj/gnatprove/unit.spark"
