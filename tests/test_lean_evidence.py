@@ -292,9 +292,10 @@ class LeanRunnerPhaseTests(unittest.TestCase):
                 state.after_generation(host)
             return subprocess.CompletedProcess(command, 0)
 
-        def run_logged(command, *, cwd, env, destination):
+        def run_logged(command, *, cwd, env, destination, pass_fds=()):
+            self.assertTrue(pass_fds, "Lean child must inherit the workspace lease")
             self.assertEqual(cwd, host.proof)
-            self.assertEqual(env["LEAN_NUM_THREADS"], "2")
+            self.assertEqual(env["LEAN_NUM_THREADS"], str(getattr(state, "expected_workers", 2)))
             phase = "build" if "build" in command else "audit" if command[-1].endswith(".lean") else "kernel"
             state.phases.append(phase)
             state.commands.append(command)
@@ -333,6 +334,9 @@ class LeanRunnerPhaseTests(unittest.TestCase):
             patches.enter_context(mock.patch.object(check_lean, name, value))
         patches.enter_context(mock.patch.object(check_lean, "native_layout", return_value=host))
         patches.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=2))
+        patches.enter_context(mock.patch("scripts.run_history.available_cpus", return_value=2))
+        patches.enter_context(mock.patch("scripts.run_history.registry",
+                                         return_value=host.artifacts / "run-history"))
         patches.enter_context(mock.patch.object(check_lean, "lean_environment", return_value=dict(os.environ)))
         patches.enter_context(mock.patch.object(check_lean.subprocess, "run", side_effect=run))
         patches.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
