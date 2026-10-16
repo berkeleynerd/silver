@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateBodyCorrespondence
+public import Silver.PredicateLoopImports
 
 @[expose] public section
 
@@ -17,6 +18,7 @@ def bodyTokens : List ShellToken :=
   [.word "if", .word "for", .word "then", .word "end", .word "elsif", .word "else", .symbol ";"]
 
 structure HelperMeaning (primitive : Primitives) : Prop where
+  loop : LoopNative.ImportsMeaning primitive.loop
   token : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     ∀ token, token ∈ bodyTokens →
     primitive.token text position token = tokenAfter text position token
@@ -30,6 +32,7 @@ structure HelperMeaning (primitive : Primitives) : Prop where
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
+    loop := LoopNative.totalizeImports primitive.loop
     token := fun text position token =>
       if ValidText text ∧ position ≤ text.length + 1 ∧ token ∈ bodyTokens then
         primitive.token text position token else tokenAfter text position token
@@ -85,8 +88,11 @@ theorem totalize_eq_model (primitive : Primitives) (meaning : HelperMeaning prim
     · rename_i valid
       exact meaning.predicate text valid.1 context valid.2.1 position valid.2.2.1 facts valid.2.2.2
     · rfl
+  have loops : (totalize primitive).loop = modelPrimitives.loop :=
+    LoopNative.totalizeImports_eq_model meaning.loop
   cases h : totalize primitive
-  simp only [h] at tokens basics predicates
+  simp only [h] at loops tokens basics predicates
+  cases loops
   cases tokens
   cases basics
   cases predicates
@@ -98,7 +104,7 @@ structure DefinitionEquations (primitive : Primitives) (calls : Calls) : Prop wh
   statement : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.statement text context scan = statementEval (totalize primitive) calls {text,context,scan}
   loop : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
-    ValidScan text context scan → calls.loop text context scan = LoopNative.eval calls.read text context scan
+    ValidScan text context scan → calls.loop text context scan = LoopNative.evalWith (LoopNative.totalizeImports primitive.loop) calls.read text context scan
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.conditional text context scan = conditionalFunction.eval (totalize primitive) calls {text,context,scan}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
@@ -113,13 +119,15 @@ theorem equations_of_definitions (primitive : Primitives) (calls : Calls)
   have normalized := totalize_eq_model primitive meaning
   exact {
     statement := by simpa only [normalized] using definitions.statement
-    loop := definitions.loop
+    loop := by
+      simpa only [LoopNative.evalWith_of_meaning meaning.loop] using definitions.loop
     conditional := by simpa only [normalized] using definitions.conditional
     alternative := by simpa only [normalized] using definitions.alternative
     tail := by simpa only [normalized] using definitions.tail
     read := by simpa only [normalized] using definitions.read }
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
+  loop := LoopNative.model_imports_meaning
   token _ _ _ _ _ _ := rfl
   basic _ _ _ _ _ _ := rfl
   predicate _ _ _ _ _ _ _ _ := rfl
@@ -128,7 +136,8 @@ theorem model_definition_equations : DefinitionEquations modelPrimitives modelCa
   have normalized := totalize_eq_model modelPrimitives model_helper_meaning
   exact {
     statement := by simpa only [normalized] using model_equations.statement
-    loop := model_equations.loop
+    loop := by
+      simpa only [LoopNative.evalWith_of_meaning model_helper_meaning.loop] using model_equations.loop
     conditional := by simpa only [normalized] using model_equations.conditional
     alternative := by simpa only [normalized] using model_equations.alternative
     tail := by simpa only [normalized] using model_equations.tail

@@ -3,6 +3,7 @@ module
 public import Silver.PredicateOuterEquations
 public import Silver.PredicateAdapter
 public import Silver.ComposeModelEquations
+public import Silver.ComposeModelRanges
 
 @[expose] public section
 namespace Silver.Predicate.Outer

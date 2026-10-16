@@ -13,6 +13,7 @@ namespace Silver.Predicate.BodyNative
 open Compose
 
 structure Primitives where
+  loop : LoopNative.Imports
   token : Source → Nat → ShellToken → Nat
   basic : Source → Native.Context → BodyScan → BodyScan
   predicate : Source → Native.Context → Nat → PathFacts.Context → ConditionResult
@@ -237,6 +238,7 @@ def alternativeFunction : Function := ⟨.input, false, [.conditionVariable, .ye
       (.choose (.present (.word "end") .input) (.ret .input) (.ret .invalid))))⟩
 
 def modelPrimitives : Primitives where
+  loop := LoopNative.modelImports
   token := tokenAfter
   basic text context scan := basicBody text context.model scan
   predicate text context position facts := readCondition text context.model position facts
