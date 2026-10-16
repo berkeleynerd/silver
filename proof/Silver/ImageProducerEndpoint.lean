@@ -86,3 +86,34 @@ theorem producer_refined_document
   exact ⟨refined, refined_document calls source document room (document.field_room room) refined parse sound parsed⟩
 
 end Silver.ImageModel
+
+namespace Silver.ImageModel.FilesSource
+open FilesNative
+
+/-- The forward producer guarantee also holds for the actual initialized
+native loop and Finish calls, through their checked source interpretation. -/
+theorem native_producer_finishes
+    (calls : Templates.Calls) (templates : Templates.InterpretedSource calls)
+    (nativeHelpers : Core.Helpers)
+    (helpers : SourceBridge.NativeHelperBodies calls.tables nativeHelpers)
+    (runStructural runConsume : Core.State → Nat → Core.State)
+    (scanner : SourceBridge.InterpretedScanner
+      (SourceBridge.totalizedHelpers calls.tables nativeHelpers) runStructural runConsume)
+    (runFinish : FinishNative.Input → FinishNative.Plan)
+    (finish : SourceBridge.InterpretedFinish runFinish)
+    (initial : Core.State) (initialSource : SourceBridge.InterpretedInitial initial)
+    (before after : Frame) (empty : before.read = []) (started : before.current = initial)
+    (command : Command) (selected : command = snapshot ∨ command = refine)
+    (execution : LoopRun command runConsume before after)
+    (document : JSON.DocumentSpan) (input : after.read = document.bytes)
+    (producer : ProducerSchemas document)
+    (room : document.bytes.length ≤ 9223372036854775807) :
+    (ScannerNative.SelectedPresent document.entries .image → (runFinish after.current.finishView).kind = .refine) ∧
+      (¬ ScannerNative.SelectedPresent document.entries .image → (runFinish after.current.finishView).kind = .unchanged) := by
+  have plan := initialized_plan command selected calls.tables nativeHelpers helpers
+    runStructural runConsume scanner runFinish finish initial initialSource before after empty started execution
+  rw [input] at plan
+  rw [plan]
+  exact producer_finishes calls templates document producer room
+
+end Silver.ImageModel.FilesSource
