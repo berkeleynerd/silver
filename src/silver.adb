@@ -159,8 +159,13 @@ procedure Silver with SPARK_Mode => On is
                   else Silver_Reports.Recognizes_Null_Report (Report (1 .. Report_Last)))))
          is
          begin
-            Silver_Report_Reader.Read_Report
-              (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+            if Output_Mode then
+               Silver_Report_Reader.Read_Report
+                 (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+            else
+               --  The null recognizer has its own raw-text policy.
+               Read_File (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+            end if;
             Report_Complete := False;
             if Report_Read and then not Report_Too_Long then
                Report_Complete := (if Output_Mode then

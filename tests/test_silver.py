@@ -478,7 +478,14 @@ class SilverIntegrationTests(unittest.TestCase):
                         report["skip_flow_proof"] = [1]
                     report = {"padding": "", **report}
                     report["padding"] = "x" * (size - len(json.dumps(report)))
-                target.write_text(json.dumps(report))
+                encoded = json.dumps(report)
+                if mode == "null_raw_report_limit":
+                    # A duplicate section with a large tree distinguishes raw
+                    # null-policy input from projected application input. The
+                    # raw recognizer must retain its 256 KiB rejection.
+                    extra = json.dumps({"proof": [{"check_tree": {"reason": "x" * 300000}}]})
+                    encoded = encoded[:-1] + "," + extra[1:]
+                target.write_text(encoded)
                 if mode == "source_changed_during_proof":
                     snapshot.write_text("source changed by external tool")
             else:
@@ -497,7 +504,8 @@ class SilverIntegrationTests(unittest.TestCase):
         for mode in ("tool_failure", "missing_report", "flow_only", "outside_spark", "extra_entity",
                      "unproved", "nonempty_flow", "skipped_flow", "stopped", "skipped", "assumption", "warning",
                      "source_changed_during_proof", "build_failure", "source_changed_during_build",
-                     "success", "run_failure", "large_report", "maximum_report", "oversized_report", "large_rejected"):
+                     "success", "run_failure", "large_report", "maximum_report", "oversized_report", "large_rejected",
+                     "null_raw_report_limit"):
             with self.subTest(mode=mode):
                 (sandbox / "scenario").write_text(mode)
                 (sandbox / "build_invoked").unlink(missing_ok=True)
