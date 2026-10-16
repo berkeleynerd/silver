@@ -32,7 +32,7 @@ inductive Ty
   | .length => LengthResult
   | .compared => ComparisonResult
   | .condition => ConditionResult
-  | .summary => Bindings.Summary
+  | .summary => Compose.LengthSummary
   | .bound => Bindings.Bound
   | .facts => PathFacts.Context
   | .arrow a b => a.meaning → b.meaning
@@ -54,7 +54,7 @@ def Ty.default : (ty : Ty) → ty.meaning
   | .length => ⟨0, .fixed 0⟩
   | .compared => ⟨0, .eq⟩
   | .condition => invalidCondition
-  | .summary => ⟨0, 0⟩
+  | .summary => {}
   | .bound => .fixed 0
   | .facts => PathFacts.Context.empty
   | .arrow _ b => fun _ => b.default
@@ -88,8 +88,8 @@ def Function.name : Function → List String
   | .assumeValid => ["paths", ".", "assume_valid"]
   | .assumeInvalid => ["paths", ".", "assume_invalid"]
   | .refineBounds => ["paths", ".", "refine_bounds"]
-  | .fits => ["paths", ".", "fits"]
-  | .refineEqual => ["paths", ".", "refine_equal"]
+  | .fits => ["length_intervals", ".", "fits"]
+  | .refineEqual => ["length_intervals", ".", "refine_equal"]
   | .join => ["paths", ".", "join"]
 
 @[reducible] def Function.type : Function → Ty
@@ -131,9 +131,9 @@ structure Calls where
   scalarRead : Source → Nat → ScalarExpression.Environment → ScalarExpression.Result
   integer : Source → Nat → IntegerLiteral.Result
   expression : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → Compose.ExpressionResult
-  summary : Compose.ExpressionResult → Bindings.Summary
+  summary : Compose.ExpressionResult → Compose.LengthSummary
   bound : Bindings.BindingInfo → Bindings.Bound
-  bindingSummary : Bindings.BindingInfo → Bindings.Summary
+  bindingSummary : Bindings.BindingInfo → Compose.LengthSummary
   comparison : Source → Nat → ComparisonResult
   length : Source → Context → Nat → Bool → LengthResult
   primary : Source → Context → Nat → PathFacts.Context → ConditionResult
@@ -146,8 +146,8 @@ structure Calls where
   assumeValid : PathFacts.Context → PathFacts.Context
   assumeInvalid : PathFacts.Context → PathFacts.Context
   refineBounds : PathFacts.Context → Comparison → Bindings.Bound → Bindings.Bound → Bool → PathFacts.Context
-  fits : PathFacts.Context → Bindings.Summary → Bool
-  refineEqual : PathFacts.Context → Bindings.Summary → Bindings.Summary → PathFacts.Context
+  fits : PathFacts.Context → Compose.LengthSummary → Bool
+  refineEqual : PathFacts.Context → Compose.LengthSummary → Compose.LengthSummary → PathFacts.Context
   join : PathFacts.Context → PathFacts.Context → PathFacts.Context
 
 def Calls.get (calls : Calls) : (f : Function) → f.type.meaning
@@ -187,6 +187,8 @@ inductive Field : Ty → Ty → Type
   | bindingLength : Field .binding .number
   | bindingDynamic : Field .binding .truth
   | resultAfter : Field .result .number
+  | resultMinimum : Field .result .number
+  | resultEmpty : Field .result .truth
   | resultLength : Field .result .number
   | resultDynamic : Field .result .number
   | resultNamed : Field .result .truth
@@ -208,6 +210,8 @@ def Field.name : Field a b → String
   | .bindingLength => "static_length"
   | .bindingDynamic => "dynamic"
   | .resultAfter => "after"
+  | .resultMinimum => "minimum_length"
+  | .resultEmpty => "empty_value"
   | .resultLength => "static_length"
   | .resultDynamic => "dynamic_count"
   | .resultNamed => "named_seen"
@@ -229,6 +233,8 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .bindingLength, value => value.staticLength
   | .bindingDynamic, value => value.dynamic
   | .resultAfter, value => value.after
+  | .resultMinimum, value => value.minimumLength
+  | .resultEmpty, value => value.emptyValue
   | .resultLength, value => value.staticLength
   | .resultDynamic, value => value.dynamicCount
   | .resultNamed, value => value.namedSeen
@@ -269,7 +275,7 @@ inductive Expr : Ty → Type
   | elsif : Expr .truth → Expr a → Expr a → Expr a
   | local (name : String) (typeName : List String) : Expr a → Expr b → Expr b
   | locals : Expr a → Expr a
-  | summary : Expr .number → Expr .number → Expr .summary
+  | summary : Expr .number → Expr .number → Expr .number → Expr .truth → Expr .summary
   | bound : Expr .number → Expr .truth → Expr .bound
   | compared : Expr .number → Expr .comparison → Expr .compared
   | length : Expr .number → Expr .bound → Expr .length
@@ -320,7 +326,8 @@ def Expr.render : Expr ty → List String
   | .local name typeName value rest => [name, ":", "constant"] ++ typeName ++ [":="] ++ value.render ++ [";"] ++
       (match rest with | .local _ _ _ _ => rest.render | _ => ["begin"] ++ rest.render)
   | .locals body => ["declare"] ++ body.render
-  | .summary left right | .bound left right | .compared left right | .length left right =>
+  | .summary low high count empty => aggregate [low.render, high.render, count.render, empty.render]
+  | .bound left right | .compared left right | .length left right =>
       aggregate [left.render, right.render]
   | .condition after yes no => aggregate [after.render, yes.render, no.render]
   | .updateAfter value after => ["("] ++ value.render ++ ["with", "delta", "after", "=>"] ++ after.render ++ [")"]
@@ -353,7 +360,7 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
       if guard.eval calls locals then yes.eval calls locals else no.eval calls locals
   | .local name _ value rest => rest.eval calls (locals.set _ name (value.eval calls locals))
   | .locals value => value.eval calls locals
-  | .summary left right => ⟨left.eval calls locals, right.eval calls locals⟩
+  | .summary low high count empty => ⟨low.eval calls locals, high.eval calls locals, count.eval calls locals, empty.eval calls locals⟩
   | .bound value dynamic => if dynamic.eval calls locals then .argument else .fixed (value.eval calls locals)
   | .compared after operator => ⟨after.eval calls locals, operator.eval calls locals⟩
   | .length after value => ⟨after.eval calls locals, value.eval calls locals⟩

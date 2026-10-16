@@ -41,8 +41,8 @@ structure HelperMeaning (calls : Calls) : Prop where
   assumeInvalid : ∀ facts, calls.assumeInvalid facts = facts.assumeInvalid
   refineBounds : ∀ facts operator left right truth,
     calls.refineBounds facts operator left right truth = Predicate.refineBounds facts operator left right truth
-  fits : ∀ facts summary, calls.fits facts summary = fitsSummary facts summary
-  refineEqual : ∀ facts left right, calls.refineEqual facts left right = refineAffineEqual facts left right
+  fits : ∀ facts summary, calls.fits facts summary = fitsLengthSummary facts summary
+  refineEqual : ∀ facts left right, calls.refineEqual facts left right = refineLengthOverlap facts left right
   join : ∀ left right, calls.join left right = left.join right
 
 /-- Arbitrary-callee equations obtained by evaluating the exact checked source
@@ -85,7 +85,7 @@ include defs in
 theorem bound_meaning (binding : Bindings.BindingInfo) : calls.bound binding = binding.bound := by
   rw [defs.bound, bound_denotation]
 include defs in
-theorem bindingSummary_meaning (binding : Bindings.BindingInfo) : calls.bindingSummary binding = binding.bound.summary := by
+theorem bindingSummary_meaning (binding : Bindings.BindingInfo) : calls.bindingSummary binding = LengthSummary.ofExact binding.bound.summary := by
   rw [defs.bindingSummary, bindingSummary_denotation]
 
 include helpers defs
@@ -168,7 +168,7 @@ theorem relation_normalized (text : Source) (tv : ValidText text)
   have scalarComparisonBound := Predicate.comparison_bound text _ scalarBound
   rw [helpers.scalarRead text tv _ context.scalarNames scalarComparisonBound cv.2.2]
   rw [helpers.expression text tv position context.names context.scalarNames bounded cv.1 cv.2.2]
-  have expressionBound := (model_expression_valid (scalarNames := context.scalarNames) text tv position context.names bounded cv.1).1
+  have expressionBound := (model_expression_valid (scalarNames := context.scalarNames) (integerHidden := false) text tv position context.names bounded cv.1).1
   rw [comparison_meaning helpers defs text tv _ expressionBound]
   have comparisonBound := Predicate.comparison_bound text _ expressionBound
   rw [helpers.expression text tv _ context.names context.scalarNames comparisonBound cv.1 cv.2.2]

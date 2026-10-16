@@ -132,7 +132,7 @@ def modelEquation (calls : Calls) (text : Source) (context : Context) (position 
 theorem summary_denotation (calls : Calls) (value : Compose.ExpressionResult) :
     summaryBody.eval calls ({value} : Inputs).locals = summaryOf value := by
   dsimp +instances only [summaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
-  simp [summaryOf]
+  simp [summaryOf, Compose.ExpressionResult.lengthSummary]
 
 theorem bound_denotation (calls : Calls) (binding : Bindings.BindingInfo) :
     boundBody.eval calls ({binding} : Inputs).locals = binding.bound := by
@@ -140,9 +140,9 @@ theorem bound_denotation (calls : Calls) (binding : Bindings.BindingInfo) :
   simp [Bindings.BindingInfo.bound]
 
 theorem bindingSummary_denotation (calls : Calls) (binding : Bindings.BindingInfo) :
-    bindingSummaryBody.eval calls ({binding} : Inputs).locals = binding.bound.summary := by
+    bindingSummaryBody.eval calls ({binding} : Inputs).locals = Compose.LengthSummary.ofExact binding.bound.summary := by
   dsimp +instances only [bindingSummaryBody, Expr.eval, Expr.declared, Inputs.locals, Locals.set, Calls.get, Field.get, Expr.callOperation, Expr.callTake, Expr.callSkip, Expr.callNameAfter, Expr.callLookup, Expr.callInteger, Expr.callScalarLookup, Expr.callScalarRead, Expr.callExpression, Expr.callSummary, Expr.callBound, Expr.callBindingSummary, Expr.callComparison, Expr.callLength, Expr.callPrimary, Expr.callRelation, Expr.callCondition, Expr.callModel, Expr.callChainToken, Expr.callChainAfter, Expr.callTail, Expr.callAssumeValid, Expr.callAssumeInvalid, Expr.callRefineBounds, Expr.callFits, Expr.callRefineEqual, Expr.callJoin]
-  cases dynamic : binding.dynamic <;> simp [Bindings.BindingInfo.bound, Bindings.Bound.summary, dynamic]
+  cases dynamic : binding.dynamic <;> simp [Bindings.BindingInfo.bound, Bindings.Bound.summary, Compose.LengthSummary.ofExact, dynamic]
 
 theorem comparison_denotation (calls : Calls) (text : Source) (position : Nat) :
     comparisonBody.eval calls ({text, position} : Inputs).locals = comparisonEquation calls text position := by

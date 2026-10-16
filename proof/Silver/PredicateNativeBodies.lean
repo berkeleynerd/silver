@@ -14,7 +14,9 @@ def declared (name : String) (typeName : List String) (value : Expr a) (body : E
 end Expr
 
 def summaryBody : Expr .summary :=
-  .summary (.field .resultLength (.variable "value")) (.field .resultDynamic (.variable "value"))
+  .summary (.field .resultMinimum (.variable "value"))
+    (.field .resultLength (.variable "value")) (.field .resultDynamic (.variable "value"))
+    (.field .resultEmpty (.variable "value"))
 
 def boundBody : Expr .bound :=
   .bound (.field .bindingLength (.variable "value")) (.field .bindingDynamic (.variable "value"))
@@ -22,7 +24,8 @@ def boundBody : Expr .bound :=
 def bindingSummaryBody : Expr .summary :=
   let value : Expr .binding := .variable "value"
   .summary (.group (.ite (.field .bindingDynamic value) (.number 0) (.field .bindingLength value)))
-    (.group (.ite (.field .bindingDynamic value) (.number 1) (.number 0)))
+    (.group (.ite (.field .bindingDynamic value) (.number 0) (.field .bindingLength value)))
+    (.group (.ite (.field .bindingDynamic value) (.number 1) (.number 0))) (.truth false)
 
 def comparisonBody : Expr .compared :=
   let text : Expr .source := .variable "text"

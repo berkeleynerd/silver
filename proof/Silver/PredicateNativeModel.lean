@@ -34,7 +34,7 @@ def modelCalls : Calls where
   expression := fun text position names scalarNames => expressionAt text position names scalarNames
   summary := summaryOf
   bound := Bindings.BindingInfo.bound
-  bindingSummary := fun binding => binding.bound.summary
+  bindingSummary := fun binding => LengthSummary.ofExact binding.bound.summary
   comparison := comparisonAt
   length := fun text context position literal => lengthAt text context.model position literal
   primary := fun text context position facts => readPrimary text context.model position facts
@@ -47,8 +47,8 @@ def modelCalls : Calls where
   assumeValid := PathFacts.Context.assumeValid
   assumeInvalid := PathFacts.Context.assumeInvalid
   refineBounds := Predicate.refineBounds
-  fits := fitsSummary
-  refineEqual := refineAffineEqual
+  fits := fitsLengthSummary
+  refineEqual := refineLengthOverlap
   join := PathFacts.Context.join
 
 /-- Replace only already interpreted helper calls. The five mutually recursive
