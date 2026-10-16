@@ -16,7 +16,11 @@ open Compose Bindings PathFacts
 structure ParseContext where
   names : Compose.BindingEnvironment
   hasArguments : Bool
+  scalarNames : ScalarExpression.Environment := []
   deriving Repr
+
+def Comparison.toInteger : Comparison → Integer.Comparison
+  | .eq => .eq | .ne => .ne | .lt => .lt | .le => .le | .gt => .gt | .ge => .ge
 
 structure ComparisonResult where
   after : Nat
@@ -43,7 +47,7 @@ def lengthAt (text : Source) (context : ParseContext) (position : Nat) (literal 
   let index := lookupName text context.names first after
   let number := IntegerLiteral.read text first
   if literal && decide (number.after ≠ 0) then ⟨number.after, .fixed number.value⟩
-  else if index = 0 then ⟨0, .fixed 0⟩
+  else if index = 0 ∨ ScalarExpression.lookup text context.scalarNames first after ≠ 0 then ⟨0, .fixed 0⟩
   else ⟨fixedAfter text (fixedAfter text after "'" false) "length" true,
     ((context.names.get index).getD {}).bound⟩
 
@@ -87,7 +91,7 @@ mutual
         {result with after := fixedAfter text result.after ")" false}
       else invalidCondition
     else if !context.hasArguments then invalidCondition
-    else ⟨callAfter text context.names position .validity, facts.assumeValid, facts.assumeInvalid⟩
+    else ⟨callAfter text context.names position .validity context.scalarNames, facts.assumeValid, facts.assumeInvalid⟩
   termination_by remainingAt text position * 5 + 1
   decreasing_by all_goals simp_wf; all_goals try dsimp (config := {zetaDelta := true}) only at *; all_goals omega
 
@@ -109,12 +113,19 @@ mutual
           refineBounds facts operator.operator leftLength.value rightLength.value true,
           refineBounds facts operator.operator leftLength.value rightLength.value false⟩
       else
-        let left := expressionAt text position context.names
+        let leftScalar := ScalarExpression.read text position context.scalarNames
+        if leftScalar.after ≠ 0 then
+          let operator := comparisonAt text leftScalar.after
+          let rightScalar := ScalarExpression.read text operator.after context.scalarNames
+          if rightScalar.after ≤ position then invalidCondition
+          else ⟨rightScalar.after, facts, facts⟩
+        else
+        let left := expressionAt text position context.names context.scalarNames
         if left.after ≠ 0 then
           let operator := comparisonAt text left.after
           if operator.after = 0 ∨ (operator.operator ≠ .eq ∧ operator.operator ≠ .ne) then invalidCondition
           else
-            let right := expressionAt text operator.after context.names
+            let right := expressionAt text operator.after context.names context.scalarNames
             if right.after ≤ position ∨ !(left.namedSeen || right.namedSeen) ∨
                 !fitsSummary facts (summaryOf left) ∨ !fitsSummary facts (summaryOf right) then invalidCondition
             else
