@@ -1,11 +1,14 @@
 module
 
 public import Silver.PredicateBodyReadings
+public import Silver.PredicateBodyBounds
 
 @[expose] public section
 
 namespace Silver.Predicate
 open Compose Bindings PathFacts
+
+attribute [local irreducible] ScalarExpression.read
 
 private theorem basic_bounded {text context scan item result}
     (normal : NamesNormal context.names) (bounded : scan.facts.Bounded)
@@ -42,11 +45,43 @@ mutual
       item.WellFormed context.hasArguments context.names.shape ∧
       item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
-    | basic _ _ reading _ =>
+    | basic _ _ _ reading _ =>
         have meaning := basic_meaning normal reading
         exact ⟨meaning.1, meaning.2, basic_bounded normal bounded reading⟩
     | choice _ _ reading _ => exact choice_meaning normal nv bounded reading
+    | loop _ _ _ reading _ => exact loop_meaning normal nv bounded reading
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loop_meaning {text context scan lower upper body result}
+      (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
+      (bounded : scan.facts.Bounded) (parsed : LoopAt text context scan lower upper body result) :
+      (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+        lower upper body).WellFormed context.hasArguments context.names.shape ∧
+      (SourceStatement.forLoop (context.scalarNames.length + 1) (loopHeader text context scan).reverse
+        lower upper body).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) =
+          some result.facts ∧ result.facts.Bounded := by
+    cases parsed with
+    | loop _ lowerRead upperRead _ bodyRead resultEq _ _ =>
+        have bodyGood := body_meaning (context := loopInner context (loopHeader text context scan))
+          (scan := (loopHeader text context scan).entry) normal nv (loopContext_bounded bounded _) bodyRead
+        have factsEq : result.facts = _ := congrArg BodyScan.facts resultEq
+        simp only [bodyTokens_facts] at factsEq
+        refine ⟨?_, ?_, ?_⟩
+        · simp only [SourceStatement.WellFormed]
+          exact ⟨by omega, body_nonempty bodyRead, bodyGood.1⟩
+        · simp only [SourceStatement.lower, Statement.check, lowerRead.inferred, upperRead.inferred,
+            Option.bind_some]
+          have checked := bodyGood.2.1
+          simp only [loopInner, ScalarExpression.ranges_append] at checked
+          have entryFacts : (loopHeader text context scan).entry.facts =
+              loopContext scan.facts (Integer.loopBounds (loopHeader text context scan).lower.bounds
+                (loopHeader text context scan).upper.bounds) := rfl
+          rw [entryFacts] at checked
+          rw [checked]
+          simp only [Option.map_some, factsEq]
+        · rw [factsEq]
+          exact loopAfter_bounded bounded bodyGood.2.2 _ _
+  termination_by (bodyRemaining text scan, 1)
 
   theorem choice_meaning {text context scan condition yes tail result}
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)

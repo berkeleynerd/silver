@@ -9,6 +9,8 @@ set_option backward.dsimp.instances true
 namespace Silver.Predicate
 open Compose Bindings PathFacts Compose.Expressions
 
+attribute [local irreducible] ScalarExpression.read
+
 private theorem branch_sound {text context scan keyword}
     (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
     (positive : (branchStart text context scan keyword).1.position ≠ 0) :
@@ -62,11 +64,29 @@ mutual
       obtain ⟨condition, yes, tail, parsed⟩ := choice_sound text context scan tv nv sv (equation ▸ accepted)
       exact ⟨_, .choice positive found (equation ▸ parsed) rfl⟩
     · have missing : fixedAfter text scan.position "if" true = 0 := by simpa using found
-      have equation : statementBody text context scan = basicBody text context scan := by
-        rw [statementBody]; simp [positive, found, ↓reduceIte]
-      obtain ⟨item, parsed⟩ := basic_sound (equation ▸ accepted)
-      exact ⟨item, .basic positive missing (equation ▸ parsed) rfl⟩
+      by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
+      · have equation : statementBody text context scan = loopBody text context scan := by
+          rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
+        obtain ⟨lower, upper, body, parsed⟩ := loop_sound text context scan tv nv (equation ▸ accepted)
+        exact ⟨_, .loop positive missing loopFound (equation ▸ parsed) rfl⟩
+      · have noLoop : fixedAfter text scan.position "for" true = 0 := by simpa using loopFound
+        have equation : statementBody text context scan = basicBody text context scan := by
+          rw [statementBody]; simp [positive, found, loopFound, ↓reduceIte]
+        obtain ⟨item, parsed⟩ := basic_sound (equation ▸ accepted)
+        exact ⟨item, .basic positive missing noLoop (equation ▸ parsed) rfl⟩
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loop_sound (text : Source) (context : ParseContext) (scan : BodyScan)
+      (tv : ValidText text) (nv : ValidNames text context.names)
+      (accepted : (loopBody text context scan).position ≠ 0) :
+      ∃ lower upper body, LoopAt text context scan lower upper body (loopBody text context scan) := by
+    obtain ⟨allowed, entryForward, advanced, bodyForward, equation, _⟩ := loopBody_shape accepted
+    obtain ⟨lower, upper, lowerRead, upperRead⟩ := loopHeader_readings (by omega :
+      (loopHeader text context scan).entry.position ≠ 0)
+    obtain ⟨body, bodyRead⟩ := body_sound text (loopInner context (loopHeader text context scan))
+      (loopHeader text context scan).entry .endOnly tv nv (loopHeader_bound text context scan) (by omega)
+    exact ⟨lower, upper, body, .loop allowed lowerRead upperRead advanced bodyRead equation accepted rfl⟩
+  termination_by (bodyRemaining text scan, 1)
 
   theorem choice_sound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1)
