@@ -705,13 +705,18 @@ end Probe;
 
     def test_application_report_bound_preserves_runtime_domain(self) -> None:
         data = json.dumps(assignment_report(False))
-        padded = data + " " * (2_097_152 - len(data))
+        padded = data + " " * (16_777_216 - len(data))
         self.assertTrue(self.accepts(padded, kind="static"))
         self.assertFalse(self.accepts(padded + " ", kind="static"))
         runtime = json.dumps(report())
         maximum = runtime + " " * (262_144 - len(runtime))
         self.assertTrue(self.accepts(maximum))
         self.assertFalse(self.accepts(maximum + " "))
+
+    def test_non_one_based_application_report_preserves_policy(self) -> None:
+        self.assertTrue(self.accepts(assignment_report(False), kind="rebased"))
+        self.assertFalse(self.accepts("{}", kind="rebased"))
+        self.assertFalse(self.accepts("", kind="rebased"))
 
     def test_repeated_output_ghost_advisories_are_exact(self) -> None:
         for kind in ("static", "main", "assignment", "selected"):

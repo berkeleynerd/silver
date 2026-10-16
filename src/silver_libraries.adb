@@ -2,6 +2,7 @@ with Silver_Build;
 with Silver_Platform;
 with Silver_Library_Reports;
 with Silver_Library_Sources;
+with Silver_Report_Reader;
 
 package body Silver_Libraries with SPARK_Mode => On is
    use Silver_Platform;
@@ -58,7 +59,7 @@ package body Silver_Libraries with SPARK_Mode => On is
                  when Silver_Library_Reports.Runtime_Interface => "silver_runtime.spark");
             Accepted : Boolean;
          begin
-            Read_File (Name, Report, Last, Too_Long, Read_Success);
+            Silver_Report_Reader.Read_Report (Name, Report, Last, Too_Long, Read_Success);
             if not Read_Success or else Too_Long then
                return;
             end if;

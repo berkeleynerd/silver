@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import platform
 from pathlib import Path
 import shutil
 import subprocess
@@ -17,6 +18,7 @@ from tests import test_silver
 from tests.test_library_reports import (
     report as runtime_report, argument_report,
     assignment_call_report as output_call_report,
+    main_report,
 )
 
 ROOT = test_silver.ROOT
@@ -134,7 +136,8 @@ class OutputIntegrityTests(unittest.TestCase):
         alr.chmod(0o755)
 
     def invoke_scenario(self, scenario: dict, command: str = "run",
-                        arguments: tuple[str | bytes, ...] = ()) -> subprocess.CompletedProcess[str]:
+                        arguments: tuple[str | bytes, ...] = (), *,
+                        stack_bytes: int | None = None) -> subprocess.CompletedProcess[str]:
         (self.sandbox / "scenario.json").write_text(json.dumps(scenario))
         for name in ("workspace", "proof_invoked", "build_invoked", "run_invoked", "arguments.json"):
             (self.sandbox / name).unlink(missing_ok=True)
@@ -144,12 +147,17 @@ class OutputIntegrityTests(unittest.TestCase):
         caller.mkdir(exist_ok=True)
         for name in LIBRARIES:
             (caller / name).write_text("caller-owned source must not be selected")
+        def set_stack_limit() -> None:
+            import resource
+            resource.setrlimit(resource.RLIMIT_STACK, (stack_bytes, stack_bytes))
         return subprocess.run([str(self.silver), command, str(self.source), *arguments], cwd=caller,
-                              env=os.environ.copy(), capture_output=True, text=True, timeout=30)
+                              env=os.environ.copy(), capture_output=True, text=True, timeout=30,
+                              preexec_fn=set_stack_limit if stack_bytes is not None else None)
 
     def run_scenario(self, scenario: dict, command: str = "run",
-                     arguments: tuple[str | bytes, ...] = ()) -> tuple[subprocess.CompletedProcess[str], Path]:
-        result = self.invoke_scenario(scenario, command, arguments)
+                     arguments: tuple[str | bytes, ...] = (), *,
+                     stack_bytes: int | None = None) -> tuple[subprocess.CompletedProcess[str], Path]:
+        result = self.invoke_scenario(scenario, command, arguments, stack_bytes=stack_bytes)
         output = result.stdout + result.stderr
         marker = self.sandbox / "workspace"
         self.assertTrue(marker.is_file(), output)
@@ -225,6 +233,16 @@ class OutputIntegrityTests(unittest.TestCase):
                 self.assertNotIn("output failure", output)
                 self.assertTrue((self.sandbox / "run_invoked").exists())
 
+    @unittest.skipUnless(sys.platform == "linux" and platform.machine() == "x86_64",
+                         "the retained 8 MiB / 190,000-argument regression is Linux x86-64")
+    def test_large_argument_vector_with_eight_mib_stack(self) -> None:
+        arguments = ("",) * 190_000
+        result, _ = self.run_scenario({}, arguments=("--", *arguments),
+                                      stack_bytes=8 * 1024 * 1024)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(json.loads((self.sandbox / "arguments.json").read_text()), list(arguments))
+        self.assertIn("Execution completed successfully.", result.stdout)
+
     def test_missing_application_keeps_ambiguous_runtime_status(self) -> None:
         # GNAT's Spawn reports the same status for failed exec and child exit 1.
         # The driver must preserve it without inventing a cause.
@@ -249,12 +267,67 @@ class OutputIntegrityTests(unittest.TestCase):
         fixture = self.fixtures / "main.spark"
         original = fixture.read_bytes()
         self.addCleanup(fixture.write_bytes, original)
-        maximum = original + b" " * (2_097_152 - len(original))
+        maximum = original + b" " * (16_777_216 - len(original))
         fixture.write_bytes(maximum)
         result, _ = self.run_scenario({})
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         fixture.write_bytes(maximum + b" ")
         self.assert_rejected({}, False, "missing or incomplete proof evidence")
+
+    def test_large_opaque_proof_trees_preserve_complete_original_reports(self) -> None:
+        # Exercise the real report readers for Main and selected runtime units.
+        # Only external proof/build tools are fixtures. The opaque loser text
+        # exceeds both the application and runtime audit-storage bounds.
+        for name in ("main.spark", "silver_io.spark", "silver_arguments.spark"):
+            with self.subTest(report=name):
+                fixture = self.fixtures / name
+                original = fixture.read_bytes()
+                try:
+                    data = json.loads(original)
+                    if name == "main.spark":
+                        data["proof"] = main_report(1)["proof"]
+                    data["proof"][0]["check_tree"] = [{"proof_attempts": {
+                        "Z3": {"result": 'Failure\\\"[]{}\n' + "x" * 17_000_000}}}]
+                    raw = json.dumps(data).encode()
+                    fixture.write_bytes(raw)
+                    result, workspace = self.run_scenario({}, command="compile")
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertEqual((workspace / "obj/gnatprove" / name).read_bytes(), raw)
+                    self.assertEqual(fixture.read_bytes(), raw)
+                finally:
+                    fixture.write_bytes(original)
+
+    def test_malformed_opaque_proof_tree_stops_before_build(self) -> None:
+        fixture = self.fixtures / "main.spark"
+        original = fixture.read_bytes()
+        self.addCleanup(fixture.write_bytes, original)
+        data = json.loads(original)
+        data["proof"] = main_report(1)["proof"]
+        data["proof"][0]["check_tree"] = "OPAQUE_SENTINEL"
+        encoded = json.dumps(data)
+        for malformed in ('"bad\\q"', '"bad\\u12', '[{"result":"unfinished',
+                          '{"mismatch":[1,2}', '{"missing":}', '[1,]'):
+            with self.subTest(opaque=malformed):
+                fixture.write_text(encoded.replace('"OPAQUE_SENTINEL"', malformed))
+                self.assert_rejected({}, False, "missing or incomplete proof evidence")
+
+    def test_dense_review_construction_accepts_maximal_credit_report(self) -> None:
+        from tests.test_capacity import dense_report, dense_source
+        fixture = self.fixtures / "main.spark"
+        original = fixture.read_bytes()
+        self.addCleanup(fixture.write_bytes, original)
+        self.addCleanup(self.source.write_bytes, SOURCE)
+        raw = dense_report().encode()
+        self.assertGreater(len(raw), 2_097_152)
+        fixture.write_bytes(raw)
+        self.source.write_bytes(dense_source())
+        result = self.invoke_scenario({}, command="compile")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        workspace = Path((self.sandbox / "workspace").read_text())
+        self.addCleanup(shutil.rmtree, workspace)
+        self.assertEqual((workspace / "main.adb").read_bytes(), dense_source())
+        self.assertEqual((workspace / "obj/gnatprove/main.spark").read_bytes(), raw)
+        self.assertTrue((self.sandbox / "build_invoked").exists())
 
     def test_missing_runtime_report_stops_before_build(self) -> None:
         for name in ("silver_io.spark", "silver_output_libc.spark", "silver_arguments.spark", "silver_runtime.spark"):

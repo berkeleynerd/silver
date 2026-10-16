@@ -1442,13 +1442,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           or else Report_Policy (Report, Selected_Mixed_Without_Query)
           or else Report_Policy (Report, Selected_Effects_Without_Query));
 
-   function Audit_Report (Report : String; Kind : Audit_Kind) return Boolean
-     with Post => (Static => Audit_Report'Result = Report_Policy (Report, Kind))
+   function Audit_Normalized_Report (Text : String; Kind : Audit_Kind) return Boolean
+     with Pre => Text'First = 1,
+       Post => (Static => Audit_Normalized_Report'Result = Report_Policy (Text, Kind))
    is
    begin
-      if Report'Length not in 1 .. Max_Report_Length then return False; end if;
+      if Text'Length not in 1 .. Max_Report_Length then return False; end if;
       declare
-         Text : constant String (1 .. Report'Length) := Report;
          Start : Offset := 1;
          Last : Offset;
          Tail : Offset;
@@ -1490,6 +1490,29 @@ package body Silver_Library_Reports with SPARK_Mode => On is
               and then (if Kind = IO_Body then List_OK
                 (Text, Field (Text, Object, JSON_proof), Entities, Put_Postconditions))));
       end;
+   end Audit_Normalized_Report;
+
+   --  Keep the uncommon rebasing copy in its own call frame. The driver and
+   --  runtime-evidence reader already supply slices starting at one.
+   function Audit_Rebased_Report (Report : String; Kind : Audit_Kind) return Boolean
+     with Pre => Report'Length in 1 .. Max_Report_Length,
+       Post => (Static => Audit_Rebased_Report'Result = Report_Policy (Report, Kind))
+   is
+      Text : constant String (1 .. Report'Length) := Report;
+   begin
+      return Audit_Normalized_Report (Text, Kind);
+   end Audit_Rebased_Report;
+
+   function Audit_Report (Report : String; Kind : Audit_Kind) return Boolean
+     with Post => (Static => Audit_Report'Result = Report_Policy (Report, Kind))
+   is
+   begin
+      if Report'Length not in 1 .. Max_Report_Length then return False; end if;
+      if Report'First = 1 then
+         return Audit_Normalized_Report (Report, Kind);
+      else
+         return Audit_Rebased_Report (Report, Kind);
+      end if;
    end Audit_Report;
 
    function Complete_Runtime_Proof

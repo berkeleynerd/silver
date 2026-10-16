@@ -11,6 +11,8 @@ with Silver_Output_Profile;
 with Silver_Libraries;
 with Silver_Catalogue;
 with Silver_Numbers;
+with Silver_Report_Storage;
+with Silver_Report_Reader;
 
 procedure Silver with SPARK_Mode => On is
    use Ada.Text_IO;
@@ -122,7 +124,7 @@ procedure Silver with SPARK_Mode => On is
          Observed : String (1 .. Silver_Profile.Max_Source_Length) :=
            (others => Character'Val (0));
          Observed_Last : Natural := 0;
-         Report : String (1 .. Silver_Library_Reports.Max_Report_Length);
+         Report : String renames Silver_Report_Storage.Bytes;
          Report_Last : Natural;
          Report_Read : Boolean;
          Report_Too_Long : Boolean;
@@ -284,7 +286,8 @@ procedure Silver with SPARK_Mode => On is
             Failure ("Verification failure for admitted Silver: toolchain or implementation defect.");
             return;
          end if;
-         Read_File (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
+         Silver_Report_Reader.Read_Report
+           (Report_Name, Report, Report_Last, Report_Too_Long, Report_Read);
          if not Report_Read or else Report_Too_Long then
             Failure ("Verification failure for admitted Silver: missing or incomplete proof evidence.");
             return;

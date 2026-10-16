@@ -2,7 +2,7 @@ package Silver_Library_Reports with SPARK_Mode => On is
    --  Source-bounded application sequences can produce many proved checks and
    --  exact ghost-output advisories. This capacity uses the documented pinned
    --  producer envelope; it is not an additional statement-count restriction.
-   Max_Report_Length : constant Positive := 2_097_152;
+   Max_Report_Length : constant Positive := 16_777_216;
    Max_Runtime_Report_Length : constant Positive := 262_144;
    type Report_Kind is
      (Library_Body, Imported_Interface, Arguments_Body, Runtime_Interface);
