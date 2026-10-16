@@ -41,11 +41,17 @@ pull requests, parent issue and sub-issue progress):
 | Constructs | Text | Construct identifiers a stage adds, as in `rosetta/assess.js` |
 
 Backlog holds proposed items the owner has not authorized, and Ready holds
-authorized items not yet started. An agent moves an item to Ready only when the
-session memory records the owner's authorization. In review means awaiting
-validation or an independent review.
-A direct current owner request also authorizes work; record that authorization
-in session memory without waiting for a separate Ready transition or approval.
+authorized items not yet started. In review means awaiting validation or an
+independent review.
+
+An owner authorization, pause or revocation counts as recorded only when a dated
+entry in the [session memory](session-memory.md) on `main` states it. Comments on
+the affected issues cite that commit, and the board's statuses change in the
+same step: an agent moves an item to Ready only once its authorization is on
+`main`, and a pause or revocation returns the affected items to Backlog. A direct
+current owner request also authorizes work; record it on `main` the same way
+before claiming the work, without waiting for a separate Ready transition or
+approval.
 
 **Labels** carry the kind of item, so agents can filter with `gh issue list`.
 They replace GitHub's default labels.
@@ -73,7 +79,8 @@ milestone's work packages. A completed milestone is closed.
 
 **Workflows**, also set up in the web interface: add every new repository issue
 to the board with Status Backlog; set Status to Done when an issue closes or a
-linked pull request merges.
+linked pull request merges. An agent that finds an issue missing from the board,
+or a closed issue whose status was not updated, fixes it by hand.
 
 ## Issues and commits
 
@@ -114,13 +121,19 @@ does that, with the decision recorded in session memory.
    increment in its milestone, with scope and completion criteria, in the same
    planning step. Record the milestone's order and remaining decisions in the
    roadmap.
-4. **Review findings.** File each material finding as an issue with
-   `type: finding` and its severity. The review report remains the evidence. Its
-   disposition (fixed, deferred with a reason or rejected with a reason) goes in
-   the issue and, as before, in the capability record.
+4. **Review findings and follow-ups.** File each material finding as an issue
+   with `type: finding` and its severity. The review report remains the
+   evidence. Its disposition (fixed, deferred with a reason or rejected with a
+   reason) goes in the issue and, as before, in the capability record. When a
+   follow-up's trigger occurs, preserve its evidence at once, before another run
+   replaces the inputs or logs, and comment on the issue; a repair still needs
+   authorization.
 5. **Handoffs.** Comment on each affected issue with its state, evidence links
    and next step. Owner decisions and authorizations still go in the session
-   memory.
+   memory. For proof work, identify the relevant managed run IDs, current
+   diagnostic checkpoint and next smallest required check. Link the ledger and
+   evidence instead of duplicating timing history; see the
+   [proof-iteration record](proof-iteration.md).
 6. **Completion.** Close the issue through its commit, and update the roadmap's
    capability/milestone completion record, `language.md`, the catalogue, samples
    and capability record together as [development.md](../development.md) requires.
@@ -140,6 +153,13 @@ admission questions, failure paths and driver samples. Stage numbers change
 whenever the progression is re-rendered, so update the Stage field after each
 re-render and do not put stage numbers in titles or links. Create stage issues
 for the next few stages only, and sample sub-issues only for the active stage.
+
+Generated stages and owner-selected milestones can differ. Record the mapping
+in the roadmap and stage issue when a coherent milestone spans stages or admits
+only part of a broad construct identifier. Keep the remaining forms and samples
+explicit; do not mark the whole identifier supported until its assessed uses
+are covered, or the identifier and assessments have been split to describe the
+delivered fragment accurately. A re-render does not authorize the next stage.
 
 When a milestone admits a construct, add its identifier to `supported` in
 [rosetta/coverage.json](../rosetta/coverage.json), update the description of

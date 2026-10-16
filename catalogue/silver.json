@@ -73,7 +73,7 @@
         "quote_escape": "\"\"",
         "empty_allowed": true,
         "case_preserved": true,
-        "final_bracket_boundary": "a closing quote after decoded [ cannot immediately precede an ASCII letter, digit or underscore",
+        "final_bracket_boundary": "if a literal's final decoded character is [, its closing quote cannot immediately precede an ASCII letter, digit or underscore",
         "boundary_purpose": "avoid GNAT bracket wide-character encoding"
       }
     },

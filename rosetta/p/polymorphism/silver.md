@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Each operation only copies Integer fields and prints them with 'Image, with no arithmetic, indexing or loops, so every check is trivial. The only new ground is SPARK's support for tagged types and dispatching, which proves without annotations.
 
-Position 1560 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1560 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Approach
 

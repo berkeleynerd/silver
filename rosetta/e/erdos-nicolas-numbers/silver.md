@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by array-bounds subtypes and fixed Limit and every check can be guarded just before use with a visible rejection, but the loop-carried sums and the multiple j need careful guards and a large fixed-capacity pair of arrays is needed.
 
-Position 911 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 910 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

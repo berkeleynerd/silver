@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over fixed arrays with ranged integers and no recursion, so checks follow from types and a single division guard, but string building and nonlinear weighted sums need careful range shaping.
 
-Position 640 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 639 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared subtypes (day count 0..146096, year 0..399, month 1..12), and loops use for-loop indexes with guards before each subtraction, so every check follows from types and local guards with no variant or invariant needed.
 
-Position 526 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 525 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

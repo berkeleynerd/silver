@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes are bounded by ranged subtypes and explicit guards and the search is a while loop in a procedure, so no annotation is needed, but the several loop-carried positions and the explicit stack make careful program shape necessary.
 
-Position 746 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 745 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is a fixed-shape loop nest over small bounded integer arrays with no recursion, so only the quadratic growth of the row entries and shrinking row indices need care, which range-limited subtypes and guards can cover without annotations. The floating-point coefficients of the original are replaced by bounded integers, a documented resource limit.
 
-Position 733 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 732 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

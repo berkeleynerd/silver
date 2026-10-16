@@ -14,53 +14,79 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Proof iteration controls
+
+**Complete on 2026-10-16.** The owner's “Make it so” instruction selected one
+cohesive tooling milestone before further feature work. Its
+[single work package #39](https://github.com/berkeleynerd/silver/issues/39) in
+[milestone 2](https://github.com/berkeleynerd/silver/milestone/2) delivers a durable
+run ledger, resolved-workspace locks and worker coordination, cheap provenance
+preflight, rationale for identical-success expensive reruns, recurring-obligation
+diagnostic checkpoints, and resume/handoff readout. The
+[record](docs/proof-iteration.md) defines scope and completion criteria.
+
+The common runner controls, native/Lean integration, focused regressions and
+independent review are complete. The record identifies the final Linux evidence
+and repaired review findings. These are parts of one work package, with no
+remaining owner policy decision. Required assurance stays
+unchanged; no language construct or Oracle amendment is included. For loops and
+integers remains preserved separately, and its harness stays paused.
+
 ### For loops and integers
 
-**Scoping only.** The delivery goal remains paused under the owner's instruction
-on 2026-10-15. The task title is **For loops and integers — scoping**. Existing
-implementation is unfinished and preserved; neither this plan nor the merged
-review resumes it.
+**Selected; current-language review repairs complete.** The owner resumed
+the milestone on 2026-10-15 with standard Integer `'Image`, then requested the
+selected [review repairs](docs/review-343c2f8-repairs.md) before proceeding.
+Those eleven findings are repaired and validated for the currently admitted
+language. This repair delivery performs no language-feature work.
+[Session memory](docs/session-memory.md) records both instructions on `main`.
+[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
+[stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery;
+unfinished implementation and proof work remain preserved, not supported.
 
-[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) tracks
-[stage #10](https://github.com/berkeleynerd/silver/issues/10). The owner made the
-report-capacity repair B1 the first work package in
-[PR #35](https://github.com/berkeleynerd/silver/pull/35), merged at `04bef694ed`.
-The review covers `e2c4fc2..343c2f8`; it does not validate the unfinished loop
-implementation. The independent Stage 1 sample collection is not a dependency.
-New constructs remain excluded until delivery.
+Ordered work packages:
 
-Planned work-package order, with implementation held until the owner resumes it:
-
-1. [B1: proof-report capacity #17](https://github.com/berkeleynerd/silver/issues/17):
-   repair the existing-language defect before admitting new constructs. Derive
-   report capacity from the producer's record format, move the report buffer off
-   the Compile stack, re-prove affected readers and policies, and add a
-   format-derived capacity regression. Re-derive the bound for any new constructs
-   selected for this milestone; correct the specimen-only headroom claims.
+1. [Report capacity and placement #17](https://github.com/berkeleynerd/silver/issues/17):
+   **complete for the currently admitted language**. The
+   [capacity repair](docs/report-capacity.md) delivers the source/producer
+   envelope, streaming projection, reader/policy correspondence, library-level
+   storage and regressions. Re-derive the envelope for scalar, loop and Image
+   checks under #13–#16 before their admission.
 2. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
-   settle [integer scope and its motivating sample #34](https://github.com/berkeleynerd/silver/issues/34),
-   then specify integer/loop forms, composition rules and the semantic/source-proof
-   plan. Scoping discussion can continue during the implementation pause.
+   apply the settled Integer `'Image` decision to the existing immutable scalar
+   and loop fragment, its resource rules, composition/discharge plan and samples.
+   This scope work may inform #17; it does not admit the new constructs.
 3. [Native admission and regression programs #14](https://github.com/berkeleynerd/silver/issues/14):
-   verified SPARK recognizer/report changes, motivating samples and boundary,
-   failure-path and interaction regressions for the settled scope.
+   verified SPARK admission/report changes and executable boundary, failure-path
+   and interaction regressions.
 4. [Universal and actual-source assurance #15](https://github.com/berkeleynerd/silver/issues/15):
    decidable membership, execution/termination, universal safety/discharge and
-   correspondence to the actual authoritative source.
+   correspondence to the actual authoritative source, alongside native work.
 5. [Stable validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
-   stable native Linux proof/build/full tests and complete cached Lean checks,
-   independent review, synchronized specifications/catalogue/Rosetta/evidence,
-   and commits/publication under the authorization in effect when resumed.
+   stable native Linux proof/build/full tests, complete cached Lean checks with
+   fresh audit, independent review and synchronized specifications/catalogue/
+   Rosetta/evidence before completion and publication.
 
-The [capability record](docs/for-loops-integers.md) preserves the candidate design
-and partial evidence. Integer scope remains an owner decision: add scalar
-formatting and a suitable sample, retain the candidate arithmetic scope with a
-sample that exercises it, or defer integers to the following stage. The current
-Colour bars/Display assessment needs correction under
-[L8 / #25](https://github.com/berkeleynerd/silver/issues/25); labelled text rows
-do not establish faithful coverage of that task. Rosetta support and stage
-assignments must follow the resolved scope. A partial package does not complete
-the milestone.
+The [capability record](docs/for-loops-integers.md) specifies immutable signed
+32-bit Integer constants, fully grouped `+`, `-` and `*`, comparisons, scoped
+forward/reverse loops, and standard Integer `'Image` with its leading space.
+The motivating programs are nested Loops/For, Loops/For with a specified step
+(constant step times loop index), and Loops/Downward for. Colour bars/Display
+now has a faithful image-file assessment requiring future file output.
+[Decision #34](https://github.com/berkeleynerd/silver/issues/34) is settled;
+its Image length/composition and proof/report consequences remain work under
+#13–#16. Mutable integers, custom subtypes, conversions and division remain
+excluded from this milestone.
+
+The corrected generated progression has for loops in stage 2, integers/ranged
+subtypes/scalar images in stage 3, procedures in stage 4, and arrays in stage 5.
+This milestone spans stage 2 and an immutable Integer/Image subset of stage 3;
+it does not deliver every integer form or every stage-3 sample. Remaining scalar
+forms and ranged subtypes stay on [#11](https://github.com/berkeleynerd/silver/issues/11),
+and arrays on [#12](https://github.com/berkeleynerd/silver/issues/12). Procedures
+remain the following generated candidate, to receive a stage issue when selected
+as a near-term target. The independent Stage 1 sample collection is not a
+dependency. A partial work package does not complete this milestone.
 
 ### Partial Output
 
@@ -119,8 +145,12 @@ available across expression positions; it was not scaled mechanically from thirt
 All three work packages are complete: composition/capacity selection, matching
 native/Lean implementation and regressions, and a stable Linux checkpoint and
 delivery. Nine current-runtime probes cover grouping, repeated static/dynamic
-references, path guards and dense sequences. The dense case proved and its report
-fits the existing buffer, with 1.5% headroom. The
+references, path guards and dense sequences. The historical argument-shell
+specimen proved and fit the buffer with 1.5% measured headroom. The review's
+denser static construction left only 0.28–0.29%; timing-dependent prover credits
+can exceed that margin. These measurements do not establish universal capacity;
+see the [capacity correction](docs/review-343c2f8-repairs.md#report-capacity-correction).
+The
 [delivery record](docs/larger-expressions.md) gives the measured costs and limits.
 
 Universal membership/composition/discharge and actual-source proofs passed at the
@@ -143,9 +173,9 @@ linked records retain detailed findings, reasons and historical scope. Closed or
 rejected review suggestions are not new tasks.
 
 New language/API capabilities and release tooling remain direction rather than
-follow-ups. Additional argument APIs, broader API placement, loops and resizable
+follow-ups. Additional argument APIs, broader API placement and resizable
 strings need their own motivating scope and assurance. For loops and integers
-are now selected above; other new capabilities remain unselected.
+are selected above; other new capabilities remain unselected.
 Distribution/provenance and extra provers remain
 [deferred until needed](#deferred-until-needed). Hosted CI stays disabled; its
 dormant wording is revisited only if reactivation is authorized. macOS validation

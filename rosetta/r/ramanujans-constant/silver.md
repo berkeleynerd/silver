@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure integer big-number arithmetic with fixed bounds and console output, so it needs no annotations, but proofs over looped limb arithmetic depend on careful typing and guards, hence plausible rather than likely.
 
-Position 1392 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1391 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

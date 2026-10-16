@@ -111,7 +111,7 @@ package body Silver_Catalogue with SPARK_Mode => On is
       Put_Line ("        ""quote_escape"": ""\""\"""",");
       Put_Line ("        ""empty_allowed"": true,");
       Put_Line ("        ""case_preserved"": true,");
-      Put_Line ("        ""final_bracket_boundary"": ""a closing quote after decoded [ cannot immediately precede an ASCII letter, digit or underscore"",");
+      Put_Line ("        ""final_bracket_boundary"": ""if a literal's final decoded character is [, its closing quote cannot immediately precede an ASCII letter, digit or underscore"",");
       Put_Line ("        ""boundary_purpose"": ""avoid GNAT bracket wide-character encoding""");
       Put_Line ("      }");
       Put_Line ("    },");

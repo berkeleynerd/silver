@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There are no loops, recursion or contracts needed, and the integer indexing follows from subtype ranges, so only the bounded float arithmetic and the float-to-integer floor conversion need careful range subtypes. The outlook is plausible rather than likely because floating-point proof and float formatting are the weaker areas of the provers and the library.
 
-Position 1095 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1094 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

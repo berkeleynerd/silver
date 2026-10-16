@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every division is by a non-zero literal, quantities are bounded by the ranged input subtype so no overflow can occur, and the only loop-carried value (buffer length) is guarded by capacity tests before each append, so no annotation is needed.
 
-Position 527 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 526 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

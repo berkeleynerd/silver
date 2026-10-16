@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over ranged integers and a fixed digit array, so no annotations are needed, but carry/length checks in loop-carried digit arithmetic and the search limit require careful guards. Extra credit d of 7 to 9 is optional and omitted.
 
-Position 1375 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1374 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

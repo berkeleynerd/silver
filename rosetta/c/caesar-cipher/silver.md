@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index over the loop's own range or a Character'Val/mod computation bounded by constant types, with no loop-carried values, recursion or reading of input, so proofs should discharge routinely.
 
-Position 765 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 764 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -58,6 +58,13 @@ items whose owner authorization is recorded, or work the owner requests directly
 - Validate in proportion to the change using the workflow in `development.md`.
   Report evidence by actual inputs and native platform. Cached results, clean
   reruns, retained macOS evidence and configured CI are distinct claims.
+- Read the managed run summary before starting or resuming expensive validation.
+  Coordinate actual workspaces and worker allocations across subthreads; retain
+  successful evidence and record the reason for an identical-success expensive
+  rerun. Recurring failed obligations need a diagnostic checkpoint with evidence,
+  the attempted changes and the next hypothesis. Follow the
+  [proof-iteration workflow](docs/proof-iteration.md); its ledger never replaces
+  required obligation, source-correspondence or provenance checks.
 - Review source-shape pin changes together with their source and semantic proof
   changes. Updating a pin alone does not establish correspondence.
 - Use focused subthreads with explicit file ownership and review their results.

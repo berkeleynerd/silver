@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed-capacity decimal digit arrays with for loops keep every index and arithmetic check derivable from declared ranges, so no invariant is required.
 
-Position 451 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 450 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

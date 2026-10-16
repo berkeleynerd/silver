@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and guards (n at most about 1.1e9, sums well under 2**62) and the loops sit in procedures needing no variants, but loop-carried accumulators and the 64-bit nonlinear d*d need careful range shaping.
 
-Position 255 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 254 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

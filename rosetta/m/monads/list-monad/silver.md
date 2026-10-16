@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small ranged integers and every loop is a for loop over a constant range, so overflow, index and range checks follow from types and the capacity guard.
 
-Position 55 in the [progression](../../../progression.md#stage-4), in stage 4.
+Position 54 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 

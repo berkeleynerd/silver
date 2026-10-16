@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only non-trivial checks are the addition and subtraction overflow checks, and the declared range on the parameter subtype discharges them; out parameters are fully assigned, so flow analysis passes.
 
-Position 34 in the [progression](../../progression.md#stage-3), in stage 3, which adds procedures, ranged subtypes and 'Image of scalars.
+Position 46 in the [progression](../../progression.md#stage-4), in stage 4, which adds procedures.
 
 ## Approach
 

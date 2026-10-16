@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the range-subtyped for-loop indexes and static array bounds with no loop-carried accumulator, so proofs should discharge without annotations. The only mild concern is the nonlinear products, which are bounded by the 1..2200 operand ranges.
 
-Position 96 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 95 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

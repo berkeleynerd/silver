@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size for loops over constant arrays with wraparound modular arithmetic, so no loop-carried value needs an invariant and no run-time check can fail. The cost is only the surface growth (modular types, 2-D arrays, image output), not any proof difficulty.
 
-Position 1288 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1287 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain integer array work with while loops confined to procedures and fixed bounds, so no annotation is needed, but many loop-carried potentials, indices and quantities each need a careful guard to discharge without invariants.
 
-Position 759 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 758 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

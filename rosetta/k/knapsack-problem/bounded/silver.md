@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This is a bounded dynamic-programming program built from fixed-size for loops over static ranges, ranged subtypes and a W <= J guard before each table index, so no annotation is needed. The only added work is the multi-dimensional table, records and number formatting for output.
 
-Position 678 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 677 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

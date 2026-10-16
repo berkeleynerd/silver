@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by types and array ranges with a deterministic generator and only for loops, so the only non-routine checks are the float accumulator bounds and float output formatting, which need careful shape but no annotation.
 
-Position 1050 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1049 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared ranges (N at most 999, digit sum at most 27) and every loop is a for loop over fixed bounds, so no invariants are needed; the only new surface is integer-to-text conversion and character-wise substring comparison.
 
-Position 525 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 524 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

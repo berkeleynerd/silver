@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** "The task is a single pass over a fixed embedded string with a bounded output buffer, so every check follows from for-loop ranges and capacity guards placed before each append. No recursion, exceptions or annotations are required, and the optional thead header row is a simple first-row flag."
 
-Position 776 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 775 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

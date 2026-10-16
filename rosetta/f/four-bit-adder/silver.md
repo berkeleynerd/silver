@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is Boolean logic on constant-index array elements with fixed-length string output, so no overflow, range or termination obligation can arise and all checks follow from static bounds and for-loop ranges.
 
-Position 779 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 778 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

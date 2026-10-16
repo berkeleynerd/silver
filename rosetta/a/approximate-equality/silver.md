@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation works on embedded constants or bounded real subtypes with no loops, so all float overflow and range checks follow from types and literals and no annotation is needed. The only unusual need is Long_Float arithmetic with Sqrt, which is routine once operands are range-bounded.
 
-Position 884 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 883 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

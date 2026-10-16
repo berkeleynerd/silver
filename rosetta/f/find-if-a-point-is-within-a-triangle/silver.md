@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is loop-free integer arithmetic on bounded coordinates, so every overflow check discharges from the subtype ranges alone. The only deviation from the task's real coordinates is a documented integer-coordinate bound, which the Oracle permits as an explicit resource limit.
 
-Position 596 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 595 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

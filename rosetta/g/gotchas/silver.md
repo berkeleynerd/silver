@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is open-ended, so a program showing only gotchas that behave deterministically (division truncation, mod versus rem, 1-based array bounds, string slice bounds) needs only literal or ranged operands and for loops over array ranges, which discharge from types alone. Nothing requires demonstrating an actual run-time error, so no conflict arises.
 
-Position 509 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 508 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

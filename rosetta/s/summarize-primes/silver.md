@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in for loops with guarded accumulators, so no annotation is needed, but the loop-carried sum and count need careful guards and the output formatting needs bounded string building.
 
-Position 377 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 376 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A quine needs only constant strings, a quote character built from its code and bounded concatenation, so every check follows from static lengths and nothing requires an annotation or dynamic behavior. Self-reference is by construction rather than by reading files, so no Oracle rule is violated.
 
-Position 436 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 435 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

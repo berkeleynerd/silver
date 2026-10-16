@@ -100,10 +100,9 @@ class LibraryReportTests(unittest.TestCase):
         cls.temp = tempfile.TemporaryDirectory(prefix="silver-library-reports-")
         cls.directory = Path(cls.temp.name)
         host = native_layout()
-        (cls.directory / "probe.gpr").write_text(f'''project Probe is
+        (cls.directory / "probe.gpr").write_text(f'''with "{ROOT / 'proof/silver_proof_containers.gpr'}";
+project Probe is
    for Source_Dirs use ("{ROOT / 'src'}", "{ROOT / 'tests'}");
-   for Source_Files use ("library_reports_probe.adb", "silver_library_reports.ads",
-                         "silver_library_reports.adb");
    for Object_Dir use "obj";
    for Exec_Dir use ".";
    for Main use ("library_reports_probe.adb");
@@ -113,7 +112,8 @@ class LibraryReportTests(unittest.TestCase):
 end Probe;
 ''')
         result = subprocess.run(alire_command(host, "exec", "--", "gprbuild", "-P",
-                                             cls.directory / "probe.gpr", "-j2"),
+                                             cls.directory / "probe.gpr", "-j2", "-p",
+                                             "-XSILVER_HOST=" + host.key),
                                 cwd=host.context, env=tool_environment(host),
                                 capture_output=True, text=True, timeout=120)
         if result.returncode:
@@ -706,13 +706,18 @@ end Probe;
 
     def test_application_report_bound_preserves_runtime_domain(self) -> None:
         data = json.dumps(assignment_report(False))
-        padded = data + " " * (2_097_152 - len(data))
+        padded = data + " " * (16_777_216 - len(data))
         self.assertTrue(self.accepts(padded, kind="static"))
         self.assertFalse(self.accepts(padded + " ", kind="static"))
         runtime = json.dumps(report())
         maximum = runtime + " " * (262_144 - len(runtime))
         self.assertTrue(self.accepts(maximum))
         self.assertFalse(self.accepts(maximum + " "))
+
+    def test_non_one_based_application_report_preserves_policy(self) -> None:
+        self.assertTrue(self.accepts(assignment_report(False), kind="rebased"))
+        self.assertFalse(self.accepts("{}", kind="rebased"))
+        self.assertFalse(self.accepts("", kind="rebased"))
 
     def test_repeated_output_ghost_advisories_are_exact(self) -> None:
         for kind in ("static", "main", "assignment", "selected"):

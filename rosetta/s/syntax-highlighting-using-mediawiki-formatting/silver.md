@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-index or bounded-length operation guardable just before use, and all unbounded loops can sit in procedures, so no annotations are needed, though many loop-carried positions need careful guards. No Oracle rule is violated since the task is pure text transformation.
 
-Position 1249 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1248 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

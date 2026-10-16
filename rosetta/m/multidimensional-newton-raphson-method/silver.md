@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and loops are statically bounded and divisions are guarded, but floating-point arithmetic through the Newton and elimination loops needs careful range guards to discharge overflow checks without invariants, so the outcome depends on program shape.
 
-Position 1101 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1100 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes over array ranges and one counter guard, with no recursion, no while loops and no annotations, so proofs should discharge automatically. The brute-force search cost is a run-time cost and not a proof obligation.
 
-Position 682 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 681 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

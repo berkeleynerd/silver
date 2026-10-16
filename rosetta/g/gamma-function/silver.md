@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing and loop control follow from the array range and for loops, but the Horner accumulator is a loop-carried float needing bounded-subtype guards and the reciprocal needs a zero guard, so discharge depends on careful shape with no annotation required.
 
-Position 1066 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1065 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

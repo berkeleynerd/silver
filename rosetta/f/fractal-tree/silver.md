@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Text art satisfies the drawing requirement, and an explicit stack in a procedure avoids recursion while integer fixed-point rotation with ranged types and bounds guards keeps every check provable without annotations. Discharge depends on careful sizing of the stack and value ranges, so it is plausible rather than likely.
 
-Position 826 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 825 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

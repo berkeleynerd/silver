@@ -8,7 +8,9 @@
    "stdin",
    "files"
   ],
-  "excluded_constructs": []
+  "excluded_constructs": [
+   "local-exceptions"
+  ]
  },
  "supported": [
   "put"
@@ -12008,20 +12010,24 @@
    "conflicts": [],
    "effects": [
     {
-     "effect": "console-output",
-     "explanation": "The bars are drawn as text art lines on standard output, which meets the task without a window or display."
+     "effect": "files",
+     "explanation": "Writes a PPM image containing the required coloured bars, through a future admitted file-output operation with specified failure outcomes."
     }
    ],
    "surface": [
     "for-loops",
-    "integers"
+    "file-output"
    ],
    "outlook": "likely",
    "risks": [],
-   "size": 25,
-   "approach": "The program builds one constant 80-character row made of eight 10-character bars, each filled with its own character and labelled with its colour (BLACK, RED, GREEN, BLUE, MAGENTA, CYAN, YELLOW, WHITE) via fixed-length String constants and concatenation. A for loop over a literal range of 1 to 8 prints that row eight times with Put_Line to give the bars height, so there is no input and no guard is needed.",
-   "summary": "Everything is constant text printed in a bounded for loop, so no check can fail and no loop-carried value exists.",
-   "confidence": "high"
+   "size": 35,
+   "approach": "Write a fixed P3 PPM header for an 80 by 8 image, then repeat eight rows of ten black, red, green, blue, magenta, cyan, yellow and white pixels in that order using fixed RGB text and bounded loops. Close the file and report any creation, partial-write or close failure through the specified file-output outcome; a viewer displays the resulting coloured image.",
+   "summary": "The program produces actual coloured bars in an image file, rather than replacing colour with labels, and needs file output that Silver has not admitted.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Colour pinstripe/Display": {
    "revision": 415364,
@@ -17094,10 +17100,6 @@
     {
      "kind": "runtime-error",
      "explanation": "The task requires letting a division by zero actually happen and detecting the resulting error (Constraint_Error, a trap, or an IEEE infinity) without first checking the denominator. Oracle rule 2 says every admitted program must prove that no division-by-zero check can fail and that floating-point division never overflows to an infinity. The only way to prove that is the explicit denominator guard the task forbids."
-    },
-    {
-     "kind": "exception-handling",
-     "explanation": "Without testing the denominator, the only way an Ada program can detect integer division by zero is to handle the Constraint_Error it raises. SPARK, and therefore Silver, excludes exception handlers (Oracle rule 8)."
     }
    ],
    "effects": [
@@ -17111,8 +17113,12 @@
     "floating-point",
     "subprograms"
    ],
-   "summary": "Excluded. The task requires detecting a divide-by-zero error without checking whether the denominator is zero, so the error must be allowed to occur and then be observed. Silver must prove such an error impossible, which needs exactly that denominator check, and it cannot handle exceptions.",
-   "confidence": "high"
+   "summary": "The task requires observing a failed division-by-zero check without a preceding denominator guard, whereas every admitted Silver program must prove that check cannot fail.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Determinant and permanent": {
    "revision": 414153,
@@ -21661,23 +21667,27 @@
    "tier": "deep",
    "model": "claude-opus-5-5",
    "effort": "high",
-   "conflicts": [
-    {
-     "kind": "exception-handling",
-     "explanation": "The task's whole requirement is to show an exception handling routine and to throw (raise) a new exception. SPARK does not allow exception handlers, and Silver requires every program to prove that no exception is raised."
-    }
-   ],
+   "conflicts": [],
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Printing a message to show that the exception was caught."
+     "explanation": "Prints a message from the handler to demonstrate that the locally raised exception was caught."
     }
    ],
-   "features": [
-    "subprograms"
+   "summary": "SPARK 16.1 supports this local raise and handler without an Exceptional_Cases annotation, but Silver excludes local exceptions until their admission and composition rules are established.",
+   "confidence": "high",
+   "rubric": 2,
+   "surface": [
+    "local-exceptions"
    ],
-   "summary": "The task asks for code that raises a new exception and handles it. Exception handlers are outside SPARK, and Silver's rule that no exception may be raised forbids this, so no future Silver program can meet the task.",
-   "confidence": "high"
+   "outlook": "likely",
+   "risks": [],
+   "size": 10,
+   "approach": "Declare one user exception in Main, raise it explicitly in Main, and handle it in the same subprogram with a literal Put_Line call. No exception crosses a call and all ordinary run-time checks must still prove.",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Exceptions/Catch an exception thrown in a nested call": {
    "revision": 413261,
@@ -21687,12 +21697,12 @@
    "effort": "high",
    "conflicts": [
     {
-     "kind": "exception-handling",
-     "explanation": "The task requires declaring two user-defined exceptions U0 and U1, raising them from baz, and catching U0 (but not U1) in foo. Exception handlers are excluded by SPARK and Oracle rule 8, and rule 2 forbids any exception being raised."
+     "kind": "annotations",
+     "explanation": "The required propagation from baz through intervening calls needs Exceptional_Cases contracts on program-defined subprograms, which Silver authors cannot supply."
     },
     {
      "kind": "runtime-error",
-     "explanation": "U1 is deliberately left uncaught, so the task requires showing an unhandled exception propagating and ending the program. Rule 2 says every admitted program must prove that no exception is raised."
+     "explanation": "The task deliberately leaves U1 uncaught so that it propagates out of the program, conflicting with proof of every required exception obligation."
     }
    ],
    "effects": [
@@ -21704,8 +21714,12 @@
    "features": [
     "subprograms"
    ],
-   "summary": "Excluded. The whole task is to raise user-defined exceptions in a nested call and catch one of them while the other goes uncaught. That needs exception handlers and run-time exception propagation, which SPARK and the Oracle rule against any raised exception make permanently unavailable.",
-   "confidence": "high"
+   "summary": "The nested-call propagation requires author-written exceptional contracts, and the deliberate uncaught U1 outcome cannot satisfy the required proof obligations; local handlers alone are not a conflict.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Executable library": {
    "revision": 414191,
@@ -24670,10 +24684,6 @@
     {
      "kind": "runtime-error",
      "explanation": "The task is to find the recursion limit, which means recursing until the stack runs out and then observing that failure (the Ada solution catches Storage_Error). Silver programs must be proved free of run-time errors and resource exhaustion, so a program cannot be written to reach that limit and watch it happen."
-    },
-    {
-     "kind": "exception-handling",
-     "explanation": "The only way to see the limit from inside the program is to handle the stack-overflow exception (Storage_Error). SPARK does not allow exception handlers."
     }
    ],
    "effects": [
@@ -24687,8 +24697,12 @@
     "integers",
     "subprograms"
    ],
-   "summary": "Not a candidate. The task needs unbounded recursion until the stack overflows, plus a way to detect that overflow. Silver forbids exhausting the stack and handling exceptions, and a fixed, documented depth limit would not report the system's real limit.",
-   "confidence": "high"
+   "summary": "The task deliberately exhausts the stack to discover its limit, which violates the sufficient-memory premise; a fixed bounded recursion depth would change the required result.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Find minimum number of coins that make a given value": {
    "revision": 409680,
@@ -32746,10 +32760,6 @@
     {
      "kind": "runtime-error",
      "explanation": "The task requires performing arithmetic \"such that the result would overflow\" and demonstrating what happens. Rule 2 requires every Silver program to be proved free of overflow and range check failures, so no admitted program can perform or observe an overflowing computation."
-    },
-    {
-     "kind": "exception-handling",
-     "explanation": "In Ada, overflow raises Constraint_Error, and the task says that when overflow triggers an exception the program must show how it is caught. Rule 8 means exception handlers are never available in SPARK/Silver."
     }
    ],
    "effects": [
@@ -32761,8 +32771,12 @@
    "features": [
     "integers"
    ],
-   "summary": "The task exists to run computations that overflow fixed-size integers and show the result, which for Ada means a raised and caught Constraint_Error. Silver requires automatic proof that no overflow or exception can occur and has no exception handlers, so this sample cannot be included.",
-   "confidence": "high"
+   "summary": "The task deliberately performs overflowing fixed-size arithmetic, whereas every admitted Silver program must prove its overflow checks; catching the resulting Constraint_Error cannot discharge those obligations.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Integer roots": {
    "revision": 406156,
@@ -38035,18 +38049,20 @@
     }
    ],
    "surface": [
-    "integers",
-    "ranged-subtypes",
     "for-loops",
-    "scalar-image",
-    "put"
+    "integers",
+    "scalar-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 8,
-   "approach": "The program is a parameterless Main procedure with pragma SPARK_Mode (On) containing a single for loop over reverse 0 .. 10, whose loop index is an Integer. Each iteration converts the index to text with Integer'Image, trims the leading space, and writes it with Silver_IO.Put_Line. The loop bounds are static and no guards are needed.",
-   "summary": "The loop has static bounds, so it terminates by construction, and the loop index lies in a small known range, so Integer'Image cannot fail a length or range check. The only new surface is for loops over a reverse range and integer-to-text conversion.",
-   "confidence": "high"
+   "approach": "Main runs a single for loop over reverse 0 .. 10 and writes Integer'Image (I) with Silver_IO.Put_Line on each pass. Ada's leading space for non-negative values is retained, so no slicing, trimming or declared subtype is needed.",
+   "summary": "A bounded reverse loop prints the countdown from 10 to 0 using standard Integer'Image; every index and image length follows from the static range.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Loops/For": {
    "revision": 415373,
@@ -38090,15 +38106,18 @@
    "surface": [
     "integers",
     "for-loops",
-    "put",
     "scalar-image"
    ],
    "outlook": "likely",
    "risks": [],
    "size": 14,
-   "approach": "A parameterless Main loops I over the static range 1 .. 5 and prints I * 2 as the step-2 value, using Silver_IO.Put with an integer image. An if statement before each value prints the \", \" separator except for the first, and Put_Line ends the line.",
-   "summary": "The loop bounds are static and I * 2 is at most 10, so no overflow or range check needs a loop invariant, and the output needs only an integer-image Put.",
-   "confidence": "high"
+   "approach": "Main declares Step : constant Integer := 2, then loops I over 1 .. 5 and prints Integer'Image ((I * Step)) with Silver_IO.Put_Line. This displays 2, 4, 6, 8 and 10 with Ada's standard leading spaces, exercising constant declarations, grouped arithmetic, loops and formatting together.",
+   "summary": "The index interval 1 through 5 and constant step 2 bound every product between 2 and 10, so no loop-carried arithmetic fact is needed.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Loops/Foreach": {
    "revision": 415246,
@@ -57118,8 +57137,8 @@
      "explanation": "The task's core requirement is to demonstrate rendezvous: task entries, accept statements, requeue and timed entry calls. SPARK supports tasking only under the Ravenscar/Jorvik profiles, which allow no task entries, so it rules out rendezvous and requeue. The language task also says that if the language lacks rendezvous, they are to be built from other primitives. That would mean blocking entries with parameters that callers from several tasks can use. Ravenscar/Jorvik protected objects cannot provide that, so the use case's printer monitor cannot be written faithfully in SPARK."
     },
     {
-     "kind": "exception-handling",
-     "explanation": "The use case requires the Out_Of_Ink exception to propagate back to the caller when both printers are out of ink. The language task also requires exceptions to stay consistent with rendezvous, propagating in both tasks. SPARK forbids exception handlers, and Oracle rule 2 forbids raising exceptions at all."
+     "kind": "annotations",
+     "explanation": "The required Out_Of_Ink propagation across program-defined calls needs Exceptional_Cases contracts, which Silver authors cannot write."
     }
    ],
    "effects": [
@@ -57136,8 +57155,12 @@
     "subprograms",
     "integers"
    ],
-   "summary": "Rendezvous is excluded. The task requires task entries with accept and requeue between concurrent tasks (the two printer monitors and two writer tasks), which SPARK's Ravenscar/Jorvik tasking does not allow. It also requires an Out_Of_Ink exception to propagate to the caller, which SPARK and the Oracle forbid.",
-   "confidence": "high"
+   "summary": "The required task rendezvous remains outside the pinned SPARK profiles, and the required cross-call Out_Of_Ink propagation needs exceptional contracts that Silver program authors cannot supply.",
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Rep-string": {
    "revision": 414723,
@@ -59592,9 +59615,13 @@
    "outlook": "likely",
    "risks": [],
    "size": 20,
-   "approach": "The task asks for a descriptive answer, so the program is a parameterless Main with pragma SPARK_Mode (On) that prints a sequence of string literals with Silver_IO.Put_Line. The output states \"Yes\" and lists what Silver always restricts: no exception handlers, goto, pointers or aliasing, no unchecked conversion or foreign calls, no contracts or pragmas from authors, and effects only through admitted library operations. It has no input, branching or computation, so it needs no guards.",
+   "approach": "The task asks for a descriptive answer, so the program is a parameterless Main with pragma SPARK_Mode (On) that prints a sequence of string literals with Silver_IO.Put_Line. The output states \"Yes\" and lists what Silver currently restricts: no exception handlers, goto or pointers, no unrestricted aliasing, no unchecked conversion or foreign calls, no contracts or pragmas from authors, and effects only through admitted library operations. It has no input, branching or computation, so it needs no guards.",
    "summary": "The program only prints fixed string literals with Put_Line, which today's Silver already supports, so its only proof obligations are trivial initialization and data-flow checks.",
-   "confidence": "high"
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Safe primes and unsafe primes": {
    "revision": 413008,
@@ -59935,9 +59962,13 @@
    "outlook": "likely",
    "risks": [],
    "size": 70,
-   "approach": "A library package declares a public function in its spec and keeps a helper procedure visible only in its body, while Main contains a nested procedure that can be called only within Main, and each call prints a line saying where that name is visible. To demonstrate labels, two named nested for loops over small static ranges use `exit Outer when` to leave the outer loop from inside the inner one, with printed lines explaining that this name is visible only inside its own loop. A printed note explains that goto statement labels are absent because SPARK excludes goto.",
+   "approach": "A library package declares a public function in its spec and keeps a helper procedure visible only in its body, while Main contains a nested procedure that can be called only within Main, and each call prints a line saying where that name is visible. To demonstrate labels, two named nested for loops over small static ranges use `exit Outer when` to leave the outer loop from inside the inner one, with printed lines explaining that this name is visible only inside its own loop. A printed note explains that goto statement labels are absent because Silver has not established admission and control-flow composition rules for goto, although SPARK 16.1 permits forward goto.",
    "summary": "Every check in the program follows from string literals, static for-loop ranges and calls without arithmetic on loop-carried values, so the proofs should discharge without annotations, and the task allows explaining goto labels instead of using them.",
-   "confidence": "high"
+   "confidence": "high",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Sealed classes and methods": {
    "revision": 413221,
@@ -59968,27 +59999,31 @@
    "model": "claude-opus-5-5",
    "effort": "high",
    "escalated_from": "claude-sonnet-5-5",
-   "conflicts": [
-    {
-     "kind": "exception-handling",
-     "explanation": "The task explicitly says to raise an exception when the needle is missing from the haystack. Silver admits no raised exceptions (rule 2), and SPARK does not allow exception handlers (rule 8), so this requirement cannot be met as written."
-    }
-   ],
+   "conflicts": [],
    "effects": [
     {
      "effect": "console-output",
-     "explanation": "Prints the index found for each needle, or the not-found outcome."
+     "explanation": "Prints the smallest matching index or the locally handled missing-needle outcome."
     }
    ],
-   "features": [
+   "summary": "Static array bounds and an ascending for loop make the search safe and preserve the first-match requirement; the required raise can be local, so the exclusion is Silver local-exception scope rather than an Oracle conflict.",
+   "confidence": "high",
+   "rubric": 2,
+   "surface": [
     "arrays",
-    "string-operations",
-    "loops",
     "integers",
-    "subprograms"
+    "for-loops",
+    "scalar-image",
+    "local-exceptions"
    ],
-   "summary": "Searching a bounded array of strings for the smallest index of a needle is easy to do in Silver with a loop and string comparison. However, the task explicitly requires raising an exception when the needle is missing, and Silver forbids that, so the sample is excluded.",
-   "confidence": "medium"
+   "outlook": "likely",
+   "risks": [],
+   "size": 25,
+   "approach": "Main holds a bounded constant array of equal-length strings and scans it in increasing index order, printing the first matching index and returning immediately. If no element matches, Main explicitly raises a declared exception and handles it locally with a not-found message; no exception crosses a call.",
+   "review": {
+    "date": "2026-10-15",
+    "record": "review-343c2f8.md"
+   }
   },
   "Search a list of records": {
    "revision": 413222,

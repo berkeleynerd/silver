@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices are clamped by explicit guards or come from for loops over the arrays' own ranges, and values are bounded by declared subtypes, so only careful shape of the nested loops is needed with no annotation.
 
-Position 695 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 694 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

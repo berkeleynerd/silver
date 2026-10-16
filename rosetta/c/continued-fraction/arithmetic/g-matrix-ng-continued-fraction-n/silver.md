@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with guards just before each product and division, and the embedded demo data stays far below the bounds, so the proofs should discharge but only with carefully placed range guards on loop-carried matrix entries.
 
-Position 853 in the [progression](../../../../progression.md#stage-14), in stage 14.
+Position 852 in the [progression](../../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

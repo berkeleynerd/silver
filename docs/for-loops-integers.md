@@ -1,123 +1,142 @@
 # For loops and integers
 
-**Scoping only, by the owner’s latest instruction on 2026-10-15.** The delivery
-goal is paused. The implementation and evidence below are preserved unfinished
-work and do not authorize continuation; see [session memory](session-memory.md).
+The owner selected this milestone on 2026-10-15 and resumed it with standard
+Integer `'Image` in [decision #34](https://github.com/berkeleynerd/silver/issues/34),
+recorded on main in
+[`39d0ad38e6`](https://github.com/berkeleynerd/silver/commit/39d0ad38e6).
+The subsequent instruction to fix the selected review findings before further
+feature work is recorded in
+[`618c28a77c`](https://github.com/berkeleynerd/silver/commit/618c28a77cdf011f338a31fcb0e9022743a338de).
+The [repair record](review-343c2f8-repairs.md) tracks that prerequisite work.
+Existing feature work remains unfinished and preserved; this scope record
+does not claim implementation, validation or admission of any new construct.
 
-Initially authorized on 2026-10-15 by the owner's request to set this milestone
-as the goal, update its label and drive it to completion; the later scoping-only
-instruction supersedes permission to continue implementation. Parent [stage #10](https://github.com/berkeleynerd/silver/issues/10)
-and [milestone 1](https://github.com/berkeleynerd/silver/milestone/1) track delivery.
-The [roadmap](../roadmap.md#for-loops-and-integers) records the ordered packages.
+[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
+[stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery.
+The [roadmap](../roadmap.md#for-loops-and-integers) records the order: report
+capacity repair #17 first, scope/automatic-proof boundary #13, native admission
+#14, universal and actual-source assurance #15, then validation/review/delivery
+#16. Scope work can inform the repair; no new construct precedes its completion.
 
-## Review incorporated into scoping
+## Motivating programs
 
-[PR #35](https://github.com/berkeleynerd/silver/pull/35), merged into main at
-`04bef694ed`, publishes the
-[review of e2c4fc2..343c2f8](https://github.com/berkeleynerd/silver/blob/04bef694ed6c70696f944f7be1316dc38a60047c/docs/reviews/review-343c2f8.md)
-and records the owner's decision: **B1 / #17 is the first work package**, before
-any new construct is admitted. This does not resume the milestone. The review's
-native results concern that baseline, not the unfinished implementation below.
+- [Loops/For](../rosetta/l/loops/for/silver.md): nested loops whose inner upper
+  bound reads the outer index, printing the specified triangle of asterisks.
+- [Loops/For with a specified step](../rosetta/l/loops/for-with-a-specified-step/silver.md):
+  declare `Step : constant Integer := 2`, loop `I` over `1 .. 5`, and print
+  `Integer'Image ((I * Step))` with `Put_Line`. Expected lines are ` 2`, ` 4`,
+  ` 6`, ` 8` and ` 10`, including the leading spaces. This exercises immutable
+  declarations, grouped arithmetic, loops and formatting together.
+- [Loops/Downward for](../rosetta/l/loops/downward-for/silver.md): a reverse loop
+  prints the countdown from ` 10` through ` 0`, preserving standard image format.
 
-B1 is a current-language compile-failure risk: the 2 MiB report limit leaves only
-5,772–6,141 bytes for a valid dense static-shell construction, and timing-dependent
-prover credits can exceed that margin. The review observed near-limit reports
-and the credit-growth mechanism, not an overflowing dense run. Its approximately
-2.37 MB format-derived maximum applies to the reviewed construction; it is not
-a universal bound for the proposed extension.
+Colour bars/Display is no longer a milestone driver: its corrected assessment
+requires actual coloured pixels in a PPM image and future file output. The
+[Rosetta review](../rosetta/review-343c2f8.md) records the correction. Generated
+stages are planning candidates: this owner-selected milestone covers for loops
+and a bounded immutable Integer/Image fragment, not every integer form or every
+sample in the later ranged-subtype stage. No construct identifier becomes
+supported merely because its first fragment has an implementation.
 
-The repair's completion criteria are to derive capacity from report records and
-admitted source shapes, account for prover credits and interrupted-loser records,
-move the buffer off Compile's stack, re-prove affected readers/policies, and add a
-format-derived capacity regression. The bound must cover whichever new constructs
-are selected before admission. A suggested 4 MiB buffer is a candidate size, not
-the derivation. Related L2 headroom claims and L4 buffer placement are part of
-that assessment; other published findings retain their own issue dispositions.
+## Selected fragment
 
-[Decision #34](https://github.com/berkeleynerd/silver/issues/34) remains open.
-Neither current motivating sample exercises integer arithmetic. Its options are
-to include scalar formatting and an appropriate sample, keep the candidate scope
-with a sample that uses arithmetic, or defer integers to the following stage.
-[L8 / #25](https://github.com/berkeleynerd/silver/issues/25) also requires a faithful
-reassessment of Colour bars/Display. No scope option is selected here, and no
-Rosetta construct is marked supported. The candidate rules and historical probes
-below remain available to inform that decision.
+Immutable scalar values are initialized `constant Integer` declarations and
+scoped `for` indexes. The pinned GNAT `Integer` range is -2147483648 through
+2147483647. Constants may read earlier Integer constants. Scalar and String
+declarations share names, with separate typed values; existing String rules and
+the first immutable argument declaration retain their meaning.
 
-## Scope and completion
+Scalar expressions use literals, visible scalar names, parentheses, unary signs
+and fully parenthesized binary `+`, `-` and `*`. Each intermediate result must
+fit Integer throughout the inferred operand interval, including negation of the
+minimum value. Grouping preserves the selected evaluation order. Comparisons
+compose with existing conditions; they do not yet narrow scalar intervals.
+Admission therefore requires no facts about mutable scalar values carried
+between iterations and no author annotations.
 
-The originally proposed motivating programs were Rosetta's
-[Colour bars/Display](../rosetta/c/colour-bars/display/silver.md) and
-[Loops/For](../rosetta/l/loops/for/silver.md), including nested bounds that read an
-enclosing loop index. Determine explicit integer types, expressions, operators,
-loop forms and permitted compositions from their semantics and automatic proof
-requirements. No new form is supported until the specification, catalogue,
-native implementation and complete universal/actual-source assurance agree.
+Forward and `reverse` loops evaluate scalar lower and upper bounds once on
+entry. Nested bounds may read differently named enclosing indexes. An index is
+immutable, local to its loop and hides outer homonyms, including use-visible
+operation names; its own name is also hidden in its bounds, so an inner
+`for I in 1 .. I` cannot read the outer `I`. Scalar declarations must respect
+visibility of the `Integer` type mark. Existing String objects named `Integer`
+remain legal, and package-name restrictions remain shell-dependent.
 
-Deliver executable samples and boundary/composition regressions, a stable native
-Linux full proof audit/build/test checkpoint and complete cached Lean validation,
-independent semantic review, synchronized Rosetta progression and evidence, and
-the authorized commits and GitHub tracking. Source preservation and complete
-obligation discharge remain mandatory. Existing 4096-byte source/value limits
-remain unless an explicit justified change is needed within this capability.
+Bodies compose with nested loops, conditionals, `null`, String assignments,
+output and returning `Reject`. Fixed String bounds and selected-input facts
+remain central to the composition argument. Empty loops preserve entry facts;
+definitely nonempty loops retain body exit facts; uncertain loops join entry
+and body exit facts. Membership and proofs must not enumerate iterations.
+Finite Ada ranges establish termination, and application proof uses
+`--no-loop-unrolling` so expansion is not the admission or discharge argument.
 
-## Candidate initial fragment — scope decision pending
+`Integer'Image (E)` uses Ada's standard decimal representation of an admitted
+scalar expression: one leading space for a non-negative value, or a minus sign
+for a negative value. No trimming, replacement formatting or hidden source is
+permitted. Its result is an ordinary String expression for output and the
+existing String-expression positions. Signed 32-bit images have at most eleven
+characters; admission must derive the actual possible length or length interval
+from `E` and prove intermediate concatenation capacity and equal-length
+assignment in every admitted composition. A maximum length alone does not
+establish assignment length equality. Image evaluation, its predefined source
+semantics and native emitted obligations belong in the universal discharge and
+source-correspondence arguments.
 
-The preserved candidate design admits immutable numeric values: initialized `constant Integer`
-declarations and scoped `for` loop indexes. Predefined `Integer` has the pinned
-GNAT signed 32-bit range, -2147483648 through 2147483647. Constants may read
-earlier Integer constants; String and scalar names share one source namespace
-but keep separate typed stores. The input declaration remains first in the
-argument shell. Ordinary String declarations and mutable String assignments
-retain their existing meaning.
+Mutable Integer objects, custom scalar types/subtypes, conversions, division,
+other scalar images and additional loop forms remain excluded. Mutable scalar
+values require separate value-flow and loop-carried assurance; subtypes and
+conversions require their own range-check rules. These are Silver scope choices,
+not claims that Ada/SPARK forbids the features.
 
-Scalar expressions use literals, visible scalar names, parentheses, unary signs,
-and fully parenthesized binary `+`, `-` and `*`. Every intermediate result must
-fit Integer for the entire inferred operand interval, including negation of the
-minimum value. Full binary grouping avoids Ada's permitted reassociation and
-its native diagnostic. Scalar comparisons compose with existing predicates;
-they do not yet narrow scalar intervals. Arithmetic therefore needs no facts
-about values carried between iterations or author-written annotations.
+The earlier selected resource design uses 64 scalar leaves per expression and
+one shared 63-operator source budget for concatenation and scalar arithmetic,
+with the existing 4096-byte source/value bounds. Nonnegative literal exponents
+are capped at 4096; exponent signs do not consume arithmetic operators. These
+choices must be checked again with Image's generated checks and compositions
+under #13/#17. They are not supported language limits until delivery.
 
-Forward and `reverse` loops take scalar lower and upper expressions. Bounds are
-evaluated once on entry; nested bounds may read differently named enclosing
-indexes. The loop index is immutable, scoped to its loop and hides any outer
-homonym, including use-visible operation names. Ada also hides the index's own
-name in its bounds: an inner `for I in 1 .. I` cannot read an outer `I`. A scalar
-declaration named `Integer`, or one after another object has hidden that type
-mark, is invalid. Existing String objects named `Integer` remain legal.
-Package names retain the existing shell restrictions.
+## Report capacity and automatic proof
 
-Loop bodies compose with nested conditionals, null, String assignments, output
-and returning Reject. String bounds and selected-input facts are immutable;
-checking one body for every index interval establishes safety of repetition.
-Empty loops preserve entry facts; definitely nonempty loops retain body exit
-facts; uncertain loops join entry and body exit facts. Loop membership and proofs do not enumerate
-iterations, and finite Ada ranges supply termination. Applications use
-`--no-loop-unrolling`: automatic expansion is neither the admission rule nor
-the discharge argument.
+[B1/#17](https://github.com/berkeleynerd/silver/issues/17) is a defect in the
+current language: the reviewed dense static construction leaves only
+5,772–6,141 bytes in the 2 MiB report buffer, and additional prover credits can
+exceed that margin. The review observed the near-limit reports and credit-growth
+mechanism, not an overflowing dense run. Its approximately 2.37 MB bound covers
+that construction; it is not a bound for every admitted program. A suggested
+4 MiB allocation is a candidate size, not a derivation.
 
-Mutable Integer objects, custom scalar types/subtypes, conversions, scalar
-formatting, division and additional loop forms remain outside this initial
-fragment. Mutable integers would require separate value-flow and loop-carried
-assurance: the probes show that an initializer or pre-loop guard does not justify
-an increment across arbitrary iterations. These are scope exclusions, not claims
-that Ada/SPARK forbids the features. Later progression scopes must account for
-any such forms their actual samples require.
+Completion requires capacity derived from report records and admitted source
+shapes, including multiple prover credits, six-digit step counts and
+interrupted-loser records; moving the buffer off `Compile`'s stack; affected
+reader/policy proofs; and a format-derived capacity regression. The derivation
+must be extended for scalar, loop and Image checks before they are admitted.
+L2 capacity claims and L4 placement are part of that repair; L1/L3 establish the
+effective proof configuration and its regression coverage.
 
-The selected resource rule is 64 scalar leaves per expression and one shared
-63-operator source budget for String concatenation and scalar arithmetic. This
-retains every existing program while bounding the expanded proof/report cost;
-the complete source/value limits remain 4096 bytes. Actual-scope capacity probes pass, including a 4083-byte mixed program; these
-resource choices still require the universal discharge and source bridges before
-delivery. Exponent signs do not consume arithmetic operators. The selected
-literal syntax caps nonnegative exponents at 4096, a conservative explicit scope
-limit rather than a claim about Ada or GNAT's maximum exponent.
+## Completion and preserved work
 
-The existing predicate model has String bindings, length facts and finite branch
-sequences. Its semantic, obligation and actual-source models must all grow with
-the native recognizer. Updating source certificates alone is insufficient.
+Deliver decidable admission, execution and termination, universal safety and
+automatic obligation discharge, and correspondence to the authoritative source
+and actual native compiler. Update the language, catalogue, implementation,
+proofs, samples, Rosetta supported identifiers and capability status together.
+Run the stable native Linux proof/build/full-test checkpoint and complete
+cached Lean check with a fresh audit, then independent review. macOS validation
+remains independent and nonblocking. A pin update or passing sample does not
+establish source correspondence or the universal guarantee.
 
-## Evidence and recovery
+Exploratory implementation and partial proofs remain on the local
+`feat/for-loops-integers` branch and its focused worktrees, based on
+`343c2f8f5a`. Preserve `tmp/for-loops-probes/`,
+`tmp/for-loops-integers-active.json` and proof caches. Their earlier results
+predate the Image scope change and are not evidence of complete delivery;
+recheck exact inputs and live issue handoffs before resuming feature work.
+
+## Historical pre-Image evidence and recovery
+
+The following retained implementation results predate the settled Image scope,
+the selected review repairs and proof-iteration controls. They establish only
+their stated inputs; current scope and authorization are recorded above and in
+[session memory](session-memory.md).
 
 Baseline/review start: `343c2f8f5a`. Implementation branch:
 `feat/for-loops-integers`. Host: Linux x86_64, established with

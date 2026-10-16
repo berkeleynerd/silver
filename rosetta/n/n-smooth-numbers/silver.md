@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged digit, carry and index subtypes plus guards, but the fixed-capacity big-number arithmetic in loops and the guarded table indices make discharge depend on careful program shape rather than being routine.
 
-Position 1384 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1383 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

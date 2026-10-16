@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Using the precalculated pool avoids an unbounded rejection loop, every operand comes from small declared ranges or modular wraparound, and the only loop-carried value (the pool counter) is made safe by a guard placed just before its use, so all checks should discharge without annotations.
 
-Position 1276 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1275 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

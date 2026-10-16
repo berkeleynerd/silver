@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a pure integer walk over a bounded grid whose checks follow from ranged subtypes and explicit pre-store guards, so it needs no annotations and only mild guard shaping for the loop-carried coordinates.
 
-Position 814 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 813 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

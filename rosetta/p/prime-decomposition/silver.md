@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Trial division uses only guarded integer and limb arithmetic in procedures with bounded arrays, so the checks follow from declared ranges and guards, but the fixed-capacity big-number limb arithmetic and loop-carried divisor need careful shaping, hence plausible rather than likely.
 
-Position 1390 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1389 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

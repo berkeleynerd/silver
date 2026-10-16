@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges below 2**31 and every loop can be a for loop or sit in a procedure, so checks follow from types and guards, but careful range shaping of loop-carried residues and text parsing make it plausible rather than likely.
 
-Position 1190 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1189 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 

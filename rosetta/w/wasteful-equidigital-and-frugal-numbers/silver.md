@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic on bounded ranges inside procedures with loops and guards, so no annotations are needed, but proofs depend on carefully ranged subtypes and guards for loop-carried trial-division and counter values.
 
-Position 293 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 292 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

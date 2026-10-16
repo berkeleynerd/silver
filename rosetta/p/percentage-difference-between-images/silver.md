@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged types and guards before each operation, but header parsing and the loop-carried bounded sum need careful guarded shape, and the task needs file-input operations Silver lacks today; decoding the JPEGs is replaced by the permitted bitmap alternative.
 
-Position 1456 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1456 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Failure paths to test
 

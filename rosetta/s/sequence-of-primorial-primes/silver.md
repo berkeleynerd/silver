@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The loop structure is simple and bounded by static ranges, but correctness needs big-number multiplication and modular exponentiation within fixed capacity, so discharge depends on a verified big-number library and careful carry guards rather than annotations. The twenty-term case needs about 1200-digit numbers and costly primality tests, so the ten-term version is the realistic target.
 
-Position 1398 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1397 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

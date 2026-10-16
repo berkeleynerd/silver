@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer coordinates bounded by a declared range keep all dot-product and min/max checks inside Integer, and only for loops are used in functions, so no variants or invariants are needed.
 
-Position 903 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 902 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

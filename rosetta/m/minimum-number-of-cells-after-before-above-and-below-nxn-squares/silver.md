@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value derives from constant loop ranges of 1..10, so the subtractions, the minimum and the image conversion all follow from types and static bounds, and there is no loop-carried accumulator.
 
-Position 46 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 44 in the [progression](../../progression.md#stage-3), in stage 3.
 
 ## Approach
 

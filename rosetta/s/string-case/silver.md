@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check (string index within 1 .. 9, Character'Val argument within 0 .. 255) follows from the fixed loop bounds and the range guard immediately before the conversion, with no loop-carried state. No termination, nonlinear or floating-point issues arise.
 
-Position 501 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 500 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

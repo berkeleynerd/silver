@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, a constant factorial table indexed by values mod Base, and for loops with a single guard on the digit sum, so proofs should discharge without annotations. The only real gaps are Silver's missing arrays, loops, functions and Integer'Image output.
 
-Position 891 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 890 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

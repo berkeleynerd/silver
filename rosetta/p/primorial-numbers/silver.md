@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every arithmetic check follows from subtype ranges of limb, prime and carry, and the only loop-carried quantity needing a guard is the used-limb count, so no annotation is needed, though the roughly 3e9 limb operations and the big-number shape make careful program structure necessary.
 
-Position 1391 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1390 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

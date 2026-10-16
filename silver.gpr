@@ -1,3 +1,4 @@
+with "proof/silver_proof_containers.gpr";
 project Silver is
    type Host_Kind is ("linux-aarch64", "linux-x86_64", "macos-aarch64", "macos-x86_64");
    Host : Host_Kind := external ("SILVER_HOST", "");

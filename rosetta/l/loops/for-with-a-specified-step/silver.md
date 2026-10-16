@@ -1,19 +1,21 @@
 # Loops/For with a specified step
 
-**Candidate: proofs likely to discharge automatically.** The loop bounds are static and I * 2 is at most 10, so no overflow or range check needs a loop invariant, and the output needs only an integer-image Put.
+**Candidate: proofs likely to discharge automatically.** The index interval 1 through 5 and constant step 2 bound every product between 2 and 10, so no loop-carried arithmetic fact is needed.
 
-Position 41 in the [progression](../../../progression.md#stage-3), in stage 3.
+Position 39 in the [progression](../../../progression.md#stage-3), in stage 3.
 
 ## Approach
 
-A parameterless Main loops I over the static range 1 .. 5 and prints I * 2 as the step-2 value, using Silver_IO.Put with an integer image. An if statement before each value prints the ", " separator except for the first, and Put_Line ends the line. About 14 lines.
+Main declares Step : constant Integer := 2, then loops I over 1 .. 5 and prints Integer'Image ((I * Step)) with Silver_IO.Put_Line. This displays 2, 4, 6, 8 and 10 with Ada's standard leading spaces, exercising constant declarations, grouped arithmetic, loops and formatting together. About 14 lines.
 
 ## Language surface beyond today's Silver
 
-Integers, for loops, Put without a newline and 'Image of scalars.
+Integers, for loops and 'Image of scalars.
 
 ## External effects
 
 - **console output** (allowed): Prints the stepped values 2, 4, 6, 8, 10 on one line.
 
-Assessed on 2026-10-15 against page revision 412896 of the [task](https://rosettacode.org/wiki/Loops/For_with_a_specified_step) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 412896 of the [task](https://rosettacode.org/wiki/Loops/For_with_a_specified_step) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-15 by Codex through targeted source review; see the [review record](../../../review-343c2f8.md).

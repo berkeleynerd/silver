@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular arithmetic cannot overflow and is never checked, and dividing by a static nonzero constant produces no division check, so every remaining obligation is routine initialization and flow.
 
-Position 1266 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1265 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

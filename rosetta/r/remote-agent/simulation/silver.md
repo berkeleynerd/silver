@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded-grid indexing, small enums and a ranged LCG with guards before each use, so nothing needs an annotation, but the number of guarded loop-carried values and the stream handling make discharge depend on careful program shape. The task is underspecified, so a stdin/stdout stream is a faithful reading with no Oracle conflict.
 
-Position 1256 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1255 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

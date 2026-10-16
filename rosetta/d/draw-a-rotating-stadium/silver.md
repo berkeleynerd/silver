@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The picture is rendered as text art frames with integer-only math over small fixed ranges and for loops in procedures, so every check follows from declared types and loop bounds with no annotations needed.
 
-Position 537 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 536 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

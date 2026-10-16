@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small ranged subtypes, a bounded generator and parse-then-validate guards just before use, and the round count is fixed so no loop needs an invariant or variant. The task is under-specified, so a simple interactive round-based game meets it without recursion, heap or annotations.
 
-Position 1227 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1226 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

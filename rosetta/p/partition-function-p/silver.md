@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static loop ranges, a guard on the pentagonal offset just before each array index, and an overflow guard just before each accumulation that leads to a visible capacity message, so nothing needs an invariant. The documented 64-bit limit (about n = 400) is a permitted resource bound because the task requires only a function and its values; P(666) and the timed P(6666) bonus would need fixed-capacity big numbers.
 
-Position 159 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 158 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

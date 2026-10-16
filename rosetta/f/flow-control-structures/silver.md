@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to document flow-control structures, with goto as one example. A program that demonstrates labeled exit, exit when, and early return in procedures meets it without goto or asynchronous transfer of control. All of its checks follow from static loop ranges and guards placed just before each operation.
 
-Position 211 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 210 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

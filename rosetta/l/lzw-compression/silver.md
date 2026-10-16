@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to bounded-array indexing and range-typed codes with capacity guards placed immediately before use, and the loops sit in procedures with no recursion, but several loop-carried counters and the decoder's chain walk need carefully shaped guards.
 
-Position 934 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 933 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 

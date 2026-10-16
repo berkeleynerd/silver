@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic in for loops with no loop-carried values needing invariants, so checks follow from range subtypes. The only non-trivial item is the output cutoff and number-to-text formatting, which are routine.
 
-Position 322 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 321 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

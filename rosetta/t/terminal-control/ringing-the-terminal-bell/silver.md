@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is one constant Character written to standard output, so every check is trivial and the only needed growth is a character-valued Put in Silver_IO. The task is satisfied by writing the BEL byte, with no terminal-control library needed.
 
-Position 433 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 432 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

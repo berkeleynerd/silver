@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from the Radix subtype, the string's own index range and an overflow guard before each accumulation, though the loop-carried accumulator needs careful guard shape.
 
-Position 1135 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1134 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 

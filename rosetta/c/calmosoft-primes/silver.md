@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every bound follows from the fixed p(n) < 100 limit, with sums at most 1060 and a for-loop-only trial division, so checks follow from subtypes and guards placed just before the arithmetic.
 
-Position 366 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 365 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

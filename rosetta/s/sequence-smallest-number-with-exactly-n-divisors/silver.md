@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every check follows from subtype ranges and guards placed just before the operation, so the proofs should discharge with no annotations.
 
-Position 151 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 150 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

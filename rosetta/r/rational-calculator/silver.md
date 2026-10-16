@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain exact arithmetic plus a line-oriented expression parser, and every check can be bounded by range-limited rationals, capacity guards and an iterative evaluator in procedures, so no annotation is needed. The nonlinear cross-multiplication and parser state carried through loops make discharge depend on careful program shape, hence plausible.
 
-Position 1259 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1258 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

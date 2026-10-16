@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is in floating-point arithmetic over embedded data, so it depends on range guards and bounded subtypes plus admitted elementary-function contracts (Log, Exp, Sqrt, lgamma), but needs no annotation if loops are capped procedure loops. The main difficulty is bounding loop-carried floats and Float image formatting rather than any conflict with the Oracle.
 
-Position 1100 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1099 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no floating point or recursion since the 60-degree lattice makes integer step vectors exact, and all loops are for loops over static bounds. The only non-routine checks are the loop-carried position and buffer length, which in-grid and capacity guards just before each use make dischargeable without annotations.
 
-Position 824 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 823 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

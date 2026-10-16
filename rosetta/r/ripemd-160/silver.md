@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a single-block hash over a fixed 12-byte message, built entirely from wraparound 32-bit modular arithmetic and constant tables with static for-loop bounds, so no overflow, index or termination obligation needs an invariant.
 
-Position 1295 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1294 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

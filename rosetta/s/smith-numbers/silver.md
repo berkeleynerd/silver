@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in a procedure with nested for and while loops, so no recursion or termination proof is needed, but loop-carried accumulators and the shrinking quotient need careful range subtypes and guards because no invariants can be written.
 
-Position 223 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 222 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

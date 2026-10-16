@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loop indexes and short guards, with no recursion or heap, though the nested loop-carried dictionary size and counts need careful guards, so discharge is plausible rather than certain.
 
-Position 554 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 553 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

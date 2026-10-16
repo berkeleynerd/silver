@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is either wrapping modular arithmetic, an array index taken from a static for-loop range, or a Character-to-word conversion bounded by its type. There are no while loops, no recursion and no loop-carried integer accumulators, so nothing needs an annotation. Leaving out the optional parallelism keeps the program faithful.
 
-Position 1292 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1291 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is bounded by declared index ranges and guards before use, and the recursion can be replaced by a bounded explicit stack inside procedures, so nothing needs an annotation, but the loop-carried segment bounds and stack pointer need careful guard placement.
 
-Position 243 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 242 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

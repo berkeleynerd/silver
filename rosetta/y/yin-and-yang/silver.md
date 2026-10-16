@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Text art meets the task's picture requirement, and every check is integer arithmetic on small ranged subtypes inside for loops, so proofs follow from types and loop bounds with no loop-carried state.
 
-Position 448 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 447 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small integer arithmetic on range-bounded values with explicit guards before each index and addition, so proofs should discharge without invariants. The only moderate effort is formatting the numbers into a bounded output buffer.
 
-Position 357 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 356 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

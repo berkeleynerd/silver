@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges, fixed for-loop bounds and a guard before the counter increment, so no loop invariant or variant is needed. The program is only a bounded trial-division loop with 'Image output, which is within reach once integers, for loops, functions and Put exist.
 
-Position 318 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 317 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

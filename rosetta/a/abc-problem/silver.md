@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from constant array bounds and for-loop indexes over own ranges, with no loop-carried value needing an invariant, though correctness for general words would need backtracking which would be recursion or an explicit stack and is the main shape risk.
 
-Position 1536 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1536 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 

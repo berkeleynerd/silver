@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a handful of simple bounded loops with guarded accumulators, so every check follows from declared ranges and guards just before each operation, though the loop-carried sum and product need careful guards.
 
-Position 248 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 247 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

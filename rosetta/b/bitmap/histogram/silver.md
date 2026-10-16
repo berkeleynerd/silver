@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size arrays and for loops whose indexes follow from declared ranges, with the only non-routine checks being the loop-carried counts, which explicit guards with a visible rejection outcome can bound without an annotation.
 
-Position 692 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 691 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -465,9 +465,11 @@ preservation; neither follows from an empty Main report. `model_tool_contract`
 shows that the interface is jointly inhabited, not that physical tools have
 been verified. The null specialization retains its empty-obligation argument.
 
-In particular, completion of the pinned external solvers within the application
-configuration's 100,000-step limit remains an explicit premise. Lean proves
-neither those solvers nor a universal bound on their work. Native experiments
+In particular, automatic discharge by the pinned proof portfolio within the application
+configuration's 100,000 normalized steps and 1,000 MiB per-prover-process memory
+limit, with sufficient environmental resources, remains an explicit premise.
+Lean proves neither those solvers nor a universal bound on their work. Native
+experiments
 exercise maximal source/operand lengths, capacity boundaries and report shapes;
 the earlier measured margins belong in [the historical record](string-results.md).
 Expression evidence is in [common-expressions.md](common-expressions.md);
@@ -569,11 +571,36 @@ independent Static ghost `Runtime_Report_Policy` and `Application_Report_Policy`
 These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
-tables do not replace that refinement. Application reports have a 2,097,152-byte
-domain; runtime reports retain 262,144 bytes. A maximal 175-output source produced
-314,746 bytes, demonstrating the need for the larger application buffer. The
-complete producer envelope fitting 2 MiB remains an explicit premise; it is not
-a Lean-derived JSON-size bound. See [capacity evidence](statement-sequencing.md).
+tables do not replace that refinement. Retained application audit data has a
+16,777,216-byte domain; runtime data retains 262,144 bytes. These are storage
+bounds after the streaming projection of unaudited `check_tree` values, not
+limits on original evidence-file length. The original reports remain unchanged,
+and every record and policy-relevant field remains in the audited input.
+The [capacity repair](report-capacity.md) records the current source/producer
+envelope and the projection's SPARK argument. It is not a Lean-derived JSON-size
+bound. The earlier [capacity evidence](statement-sequencing.md) keeps its
+historical input and buffer scope.
+
+The stream-to-policy argument starts with the actual reader's uncapped raw-byte
+sequence. `Complete`, `Model.Refines` and `Model.Matches` connect that sequence
+to the streaming state, emitted bytes and returned buffer prefix.
+`Actual_Projection` derives independent, ordered
+`Audit_Projection_Observations` from the complete raw input, including projected
+scanner endpoints, exact retained content and selected `{}` replacements.
+`From_Buffer` identifies the emitted sequence with `From_String` of the actual
+prefix. The application/runtime correspondence theorems then equate
+`Unbounded_Application_Report_Policy` or `Unbounded_Runtime_Report_Policy` on
+the raw sequence with the corresponding bounded policy on that prefix.
+
+The driver saves Main's raw sequence and successful EOF/close observation before
+runtime reads reuse the reader's ghost state. The runtime audit saves each
+selected report in its own snapshot. Build and publication require the saved
+raw-policy facts together with the executable audit results and completed reads.
+The separate null recognizer retains its raw reader and 262,144-byte policy
+domain; it is outside this structural correspondence theorem. The
+[repair checkpoint](review-343c2f8-repairs.md#integrated-checkpoint) records the
+validation status of the complete argument.
+
 Static erasure removes proof computations from the executable while all their
 GNATprove obligations remain; real report guards and assertion/overflow checks
 remain enabled.
@@ -601,12 +628,24 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=0 -j0`.
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0`.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a
 catch-all list of frontend compiler warnings, and this policy does not claim
 that GNAT emits no such warnings.
+
+The explicit memory allowance preserves GNATprove 16.1's previous effective
+level-2 policy: `--memlimit=0` was treated as unset and still selected 1,000 MiB.
+This caps each external prover process, not aggregate compilation memory;
+frontend/flow work and concurrent prover processes require additional host
+resources. On Linux the pinned Why3 runner applies an address-space limit of
+1,048,576,000 bytes. The 100,000-step setting is normalized by GNATprove: the
+effective Why3 step limits are 100,000 for Alt-Ergo, 3,515,000 for CVC5, and
+80,450,000 for Z3. The [proof-policy repair record](proof-policy-repairs.md)
+records the regression and measured limits. This policy does not assert that
+each solver succeeds within its allowance: the review observed Alt-Ergo running
+out of memory on an admitted goal, while Z3 proved every measured hard goal.
 
 Every fresh output compilation proves its selected libraries as well as Main.
 Zero wall-clock timeout does not prevent crashes or resource failure, and the
@@ -650,12 +689,17 @@ capture, observed I/O, report-policy refinement and driver ordering are verified
 alongside bounds, overflow, initialization, invariants and termination where
 applicable. Every Silver-owned compiler/runtime body and the generated
 `Silver_Build`/`Silver_Library_Sources` units require full SPARK coverage.
-Only the exact reviewed external imports receive specification-only coverage.
+Specification-only coverage is restricted to the approved external import
+declarations and the exact Static ghost Character-sequence vendor instance
+described in [the boundary audit](trusted-boundary.md#audit-of-the-boundary).
+Every Silver-owned implementation and proof helper still requires full coverage.
 
 `Complete_Null_Proof` retains equality with its independent bounded report-pattern
 policy and requires the genuine null report's completed single-entity analysis
 and empty checks. Its narrower format guarantees are distinct from the output
-report traversal. Both depend on faithful producer reports.
+report traversal. The driver preserves the raw-file reader on this route;
+projection correspondence applies to the application and runtime traversal
+policies. Both depend on faithful producer reports.
 
 Run the complete compiler audit with `python3 scripts/dev.py prove --full`.
 It forces analysis and refreshes reports, with explicit logical options:

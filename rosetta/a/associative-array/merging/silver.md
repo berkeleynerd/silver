@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop index over a bounded range or a guarded Count+1, and all loops are for loops in procedures, so no invariant or variant is needed.
 
-Position 101 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 100 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

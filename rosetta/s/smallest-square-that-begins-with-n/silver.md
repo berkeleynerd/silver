@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic inside nested fixed-range for loops with no recursion or annotations, so all range and overflow checks follow from subtype bounds.
 
-Position 152 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 151 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

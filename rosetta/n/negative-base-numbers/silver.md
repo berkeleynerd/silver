@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from declared ranges, a bounded buffer and explicit guards, but the loop-carried accumulators and the remainder correction need carefully shaped guards for the provers to discharge automatically.
 
-Position 569 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 568 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

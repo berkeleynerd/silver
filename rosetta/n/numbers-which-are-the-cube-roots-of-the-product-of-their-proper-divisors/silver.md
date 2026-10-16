@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and a fixed 512 trial-division limit, and every loop is a for loop, so checks follow from types and guards; the only care needed is saturating the loop-carried counters and bounding the text buffer.
 
-Position 176 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 175 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

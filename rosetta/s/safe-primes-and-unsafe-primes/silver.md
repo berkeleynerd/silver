@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the static range of a for-loop index or the declared range of a counter, plus one guard before each increment that can never be false. No loop or call needs a variant, and no memory use grows with input, so the proof should discharge without annotations.
 
-Position 358 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 357 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

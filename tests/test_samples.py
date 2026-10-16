@@ -6,13 +6,58 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 
 from scripts.check_evidence import audit_reports
 from tests.test_silver import HOST, ROOT, SILVER, invoke
 
 
 class SupportedSampleTests(unittest.TestCase):
+    def assert_application_proof_policy(self, report: Path, *, output: bool) -> None:
+        command = json.loads(report.read_text())["runs"][0]["invocations"][0]["commandLine"].split()
+        options = {
+            "mode": "all", "report": "all", "checks-as-errors": "on",
+            "warnings": "continue" if output else "error", "level": "2",
+            "prover": "cvc5,z3,altergo", "steps": "100000", "timeout": "0",
+            "memlimit": "1000",
+        }
+        for name, value in options.items():
+            self.assertEqual([arg for arg in command if arg.startswith(f"--{name}=")],
+                             [f"--{name}={value}"])
+        self.assertIn("-U", command)
+        self.assertIn("-j0", command)
+        self.assertIn("--no-loop-unrolling", command)
+
+        # GNATprove normalizes --steps for each pinned solver; Why3 records
+        # the resulting raw limits. Per-attempt overrides also take effect.
+        steps = {"altergo": "100000", "CVC5": "3515000", "Z3": "80450000"}
+        seen = set()
+        sessions = list(report.parent.rglob("why3session.xml"))
+        if output:
+            self.assertTrue(sessions, "missing effective application prover limits")
+        for path in sessions:
+            session = ET.parse(path).getroot()
+            provers = {item.attrib["id"]: item.attrib for item in session.findall("prover")}
+            for prover in provers.values():
+                if prover["name"] == "Trivial":
+                    continue  # Why3's internal trivial prover has its own limits.
+                name = prover["name"]
+                self.assertIn(name, steps, path)
+                seen.add(name)
+                expected = {"timelimit": "0", "steplimit": steps[name], "memlimit": "1000"}
+                self.assertEqual({key: prover.get(key) for key in expected}, expected, path)
+            for proof in session.iter("proof"):
+                prover = provers[proof.attrib["prover"]]
+                if prover["name"] != "Trivial":
+                    expected = {"timelimit": "0", "steplimit": steps[prover["name"]],
+                                "memlimit": "1000"}
+                    self.assertEqual({key: proof.get(key, prover.get(key)) for key in expected},
+                                     expected, path)
+        if output:
+            self.assertEqual(seen, set(steps))
+
     def test_manifest_samples(self) -> None:
         self.assertTrue(SILVER.is_file(), "build the actual SPARK compiler first")
         directory = ROOT / "samples"
@@ -52,13 +97,9 @@ class SupportedSampleTests(unittest.TestCase):
                 self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
                 reports = list(workspace.rglob("gnatprove.sarif"))
                 self.assertEqual(len(reports), 1)
-                command = json.loads(reports[0].read_text())["runs"][0]["invocations"][0]["commandLine"].split()
                 assignment = "string_assignment" in sample["capabilities"]
                 output = "runtime_context" in sample["capabilities"]
-                self.assertEqual([argument for argument in command if argument.startswith("--warnings=")],
-                                 ["--warnings=continue" if output else "--warnings=error"])
-                self.assertIn("--checks-as-errors=on", command)
-                self.assertIn("--no-loop-unrolling", command)
+                self.assert_application_proof_policy(reports[0], output=output)
                 units = {snapshots[0].stem}
                 if output:
                     units |= {"silver_io", "silver_output_libc", "silver_arguments", "silver_runtime"}
@@ -86,6 +127,53 @@ class SupportedSampleTests(unittest.TestCase):
                         self.assertEqual(execution.stdout, expected["stdout"].encode("utf-8"))
                         self.assertEqual(execution.stderr, expected["stderr"].encode("utf-8"))
                 self.assertEqual(source.read_bytes(), data, "compilation modified sample source")
+
+    def test_maximum_dynamic_expression(self) -> None:
+        # This admitted 64-leaf source previously needed more than the old
+        # 10,000 normalized steps. Compile it, not just its membership check.
+        data = ("with Silver_IO;with Silver_Arguments;procedure Main is pragma SPARK_Mode(On);"
+                'D:constant String:=Silver_Arguments.First_Or_Default("");begin '
+                "if Silver_Arguments.Input_Is_Valid and then D'Length<=64 then Silver_IO.Put_Line("
+                + "&".join(["D"] * 64)
+                + ");else Silver_Arguments.Reject;end if;end Main;").encode("ascii")
+        with tempfile.TemporaryDirectory(prefix="silver-proof-policy-") as directory:
+            source = Path(directory) / "main.adb"
+            source.write_bytes(data)
+            admission = invoke("check", source)
+            self.assertEqual(admission.returncode, 0, admission.stdout)
+            # Test-runner deadline only; production proof has no wall-clock limit.
+            compilation = subprocess.run([str(SILVER), "compile", str(source)], cwd=ROOT,
+                                         text=True, stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, timeout=300)
+            self.assertEqual(compilation.returncode, 0, compilation.stdout)
+            match = re.search(r"^Executable: (.+)$", compilation.stdout, re.MULTILINE)
+            self.assertIsNotNone(match, compilation.stdout)
+            executable = Path(match.group(1))
+            if not executable.is_absolute():
+                executable = ROOT / executable
+            workspace = executable.parent.parent
+            self.assertEqual(workspace.parent, HOST.artifacts)
+            self.addCleanup(shutil.rmtree, workspace)
+            snapshots = [path for path in workspace.rglob("*.adb") if path.read_bytes() == data]
+            self.assertEqual(len(snapshots), 1, "missing byte-identical proof/build source")
+            reports = list(workspace.rglob("gnatprove.sarif"))
+            self.assertEqual(len(reports), 1)
+            self.assert_application_proof_policy(reports[0], output=True)
+            statistics = audit_reports(reports[0].parent,
+                                       {snapshots[0].stem, "silver_io", "silver_output_libc",
+                                        "silver_arguments", "silver_runtime"},
+                                       {"silver_output_libc", "silver_runtime"},
+                                       application_kind="argument")
+            self.assertEqual(statistics["units"], 5)
+            self.assertGreater(statistics["proof_checks"], 0)
+            for arguments, expected in (([], b"\n"), (["x" * 64], b"x" * 4096 + b"\n")):
+                with self.subTest(arguments=arguments):
+                    execution = subprocess.run([str(executable), *arguments], timeout=10,
+                                               capture_output=True)
+                    self.assertEqual(execution.returncode, 0, execution.stderr)
+                    self.assertEqual(execution.stdout, expected)
+                    self.assertEqual(execution.stderr, b"")
+            self.assertEqual(source.read_bytes(), data, "compilation modified author source")
 
 
 if __name__ == "__main__":

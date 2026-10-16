@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Subset enumeration by bitmask with Boolean state flags and a bounded output buffer needs only range-typed values and guards just before each use, so every check follows from types and local conditions.
 
-Position 532 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 531 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 

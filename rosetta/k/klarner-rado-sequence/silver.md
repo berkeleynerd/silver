@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and explicit guards on the loop-carried pointers and counters, and the for loop needs no variant, but the several loop-carried values and the capacity choice make discharge depend on careful program shape.
 
-Position 103 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 102 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 

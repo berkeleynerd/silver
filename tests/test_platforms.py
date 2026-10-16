@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts import bootstrap, bootstrap_lean, check_lean, dev, platforms
+from scripts import bootstrap, bootstrap_lean, check_lean, dev, platforms, run_history
 
 
 def archive_bytes(members: dict[str, bytes]) -> bytes:
@@ -233,8 +233,11 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
         return subprocess.CompletedProcess(args, 0, output)
 
     def run_logged(arguments: list[str], *, cwd: Path, env: dict[str, str],
-                   destination: io.TextIOBase) -> subprocess.CompletedProcess[str]:
-        result = run(arguments, cwd=cwd, env=env)
+                   destination: io.TextIOBase, pass_fds: tuple[int, ...] = ()) -> subprocess.CompletedProcess[str]:
+        assert pass_fds, "Lean/Lake must inherit the managed workspace lease"
+        for descriptor in pass_fds:
+            os.fstat(descriptor)
+        result = run(arguments, cwd=cwd, env=env, pass_fds=pass_fds)
         destination.write(result.stdout)
         destination.flush()
         print(result.stdout, end="", flush=True)
@@ -263,6 +266,8 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
                                                    side_effect=lambda: platforms.native_layout(root)))
         stack.enter_context(mock.patch.object(check_lean, "PROOF", root / "proof"))
         stack.enter_context(mock.patch.object(check_lean, "available_cpus", return_value=available_cpus))
+        stack.enter_context(mock.patch.object(run_history, "available_cpus", return_value=available_cpus))
+        stack.enter_context(mock.patch.object(run_history, "registry", return_value=host.artifacts / "run-history"))
         stack.enter_context(mock.patch.object(bootstrap.urllib.request, "urlopen", side_effect=download))
         stack.enter_context(mock.patch.object(subprocess, "run", side_effect=run))
         stack.enter_context(mock.patch.object(check_lean, "run_logged", side_effect=run_logged))
@@ -324,7 +329,8 @@ class PlatformIsolationTests(unittest.TestCase):
         temporary = tempfile.TemporaryDirectory(prefix="silver platform tests-")
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name).resolve()
-        for relative in ("alire.toml", "silver.gpr", "proof/lean-toolchain",
+        for relative in ("alire.toml", "silver.gpr", "proof/silver_proof_containers.gpr",
+                         "proof/lean-toolchain",
                          "proof/lakefile.lean", "proof/generate_source_certificate.py",
                          *("src/" + source for source in check_lean.CANDIDATES.values())):
             destination = self.root / relative
@@ -520,7 +526,30 @@ class PlatformIsolationTests(unittest.TestCase):
         host = platforms.HostLayout(self.root, platforms.host_key())
         bootstrap.prepare_context(host)
         mock_lockfile(host)
+        host.alr.parent.mkdir(parents=True, exist_ok=True)
+        host.alr.write_text("mock Alire executable\n")
+        prepared = {"inputs_sha256": {"src/fixture.adb": "fixture-input-hash"},
+                    "tools": {"gnatprove": "mock-tool-identity"}}
+        original_invoke = dev.invoke
+
+        def invoke_fixture(selected_host, command, *, cwd=None, pass_fds=(), log=None):
+            # Keep the actual subprocess environment/routing code under test;
+            # the log-streaming implementation is covered by its own tests.
+            self.assertIsNotNone(log)
+            self.assertEqual(log.name, "native.log")
+            self.assertTrue((log.parent / "events.jsonl").is_file())
+            self.assertTrue(pass_fds)
+            for descriptor in pass_fds:
+                os.fstat(descriptor)
+            log.write_text("mocked native routing output\n")
+            original_invoke(selected_host, command, cwd=cwd, pass_fds=pass_fds)
+
         with mock.patch.object(dev, "native_layout", return_value=host), \
+                mock.patch.object(run_history, "registry", return_value=host.artifacts / "run-history"), \
+                mock.patch.object(run_history, "available_cpus", return_value=3), \
+                mock.patch.object(dev, "preflight", return_value=prepared) as preflight, \
+                mock.patch.object(dev, "input_hashes", return_value=prepared["inputs_sha256"]), \
+                mock.patch.object(dev, "invoke", side_effect=invoke_fixture), \
                 mock.patch.object(dev, "begin_proof") as begin, \
                 mock.patch.object(dev, "audit_sources") as audit_reports, \
                 mock.patch.object(dev, "complete_proof") as complete:
@@ -534,6 +563,8 @@ class PlatformIsolationTests(unittest.TestCase):
                     self.assertEqual(invocation["cwd"], host.context)
                     self.assertEqual(invocation["env"]["ALIRE_SETTINGS_DIR"], str(host.alire_settings))
                     self.assertNotIn("ALR_CONFIG", invocation["env"])
+                    self.assertTrue(invocation["pass_fds"])
+                    preflight.assert_called_with(host, pass_fds=invocation["pass_fds"])
                     context = Path(command[command.index("-C") + 1])
                     project = Path(command[command.index("-P") + 1])
                     self.assertEqual((context / project).resolve(), self.root / "silver.gpr")
@@ -541,12 +572,13 @@ class PlatformIsolationTests(unittest.TestCase):
                     if action == "prove":
                         begin.assert_called_once_with(
                             host, command[command.index("--") + 1:],
-                            host.compiler / "obj/verification/gnatprove")
+                            host.compiler / "obj/verification/gnatprove", cold=False, prepared=prepared)
                         audit_reports.assert_called_once_with(
                             host.root / "src", host.compiler / "obj/verification/gnatprove",
                             host.generated, effective_command=command[command.index("--") + 1:])
                         complete.assert_called_once_with(
-                            host, host.compiler / "obj/verification/gnatprove", begin.return_value)
+                            host, host.compiler / "obj/verification/gnatprove", begin.return_value,
+                            pass_fds=invocation["pass_fds"])
                         self.assertEqual(run.call_count, 2)
                         audit = run.call_args_list[1].args[0]
                         self.assertEqual(Path(audit[audit.index("--generated-dir") + 1]), host.generated)

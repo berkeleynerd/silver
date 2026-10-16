@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is faithful with bounded arrays and explicit stacks in procedures, so every check is a guarded index or counter, but the size and number of loop-carried indices make discharge depend on careful program shape, and nothing needs an annotation.
 
-Position 1210 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1209 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

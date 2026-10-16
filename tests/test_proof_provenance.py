@@ -32,6 +32,9 @@ class ProvenanceTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text("fixture\n")
         (self.root / "silver.gpr").write_bytes((Path(__file__).resolve().parents[1] / "silver.gpr").read_bytes())
+        helper = self.root / "proof/silver_proof_containers.gpr"
+        helper.parent.mkdir(parents=True)
+        helper.write_bytes((Path(__file__).resolve().parents[1] / helper.relative_to(self.root)).read_bytes())
         self.reports = self.host.compiler / "obj/gnatprove"
         self.reports.mkdir(parents=True)
         self.command = ["gnatprove", "-P", "../../../silver.gpr", *PROOF_OPTIONS,
@@ -55,6 +58,13 @@ class ProvenanceTests(unittest.TestCase):
                          "inputs_sha256": input_hashes(self.host), "tools": tools,
                          "reports_sha256": report_hashes(self.reports)}
 
+        patch = mock.patch.object(proof_provenance, "tool_identities", return_value=tools)
+        patch.start()
+        self.addCleanup(patch.stop)
+        cpus = mock.patch("scripts.run_history.available_cpus", return_value=8)
+        cpus.start()
+        self.addCleanup(cpus.stop)
+
     def refresh_invocation(self) -> None:
         self.sarif["runs"][0]["invocations"][0]["commandLine"] = " ".join(self.command)
         (self.reports / "gnatprove.sarif").write_text(json.dumps(self.sarif))
@@ -65,6 +75,25 @@ class ProvenanceTests(unittest.TestCase):
 
     def test_unchanged_content_is_accepted(self) -> None:
         self.audit()
+
+    def test_symlinked_selected_tool_root_is_accepted(self) -> None:
+        physical = self.root / "shared native tools"
+        self.host.tools.rename(physical)
+        self.host.tools.symlink_to(physical, target_is_directory=True)
+        for identity in self.manifest["tools"].values():
+            identity["path"] = str(physical / "test-tool")
+        self.audit()
+
+    def test_tool_links_cannot_escape_selected_tool_root(self) -> None:
+        outside = self.root / "other-tool"
+        outside.write_bytes((self.host.tools / "test-tool").read_bytes())
+        alias = self.host.tools / "outside-link"
+        alias.symlink_to(outside)
+        for path in (outside, alias):
+            with self.subTest(path=path):
+                self.manifest["tools"]["gnatprove"]["path"] = str(path)
+                with self.assertRaisesRegex(EvidenceError, "outside the selected native"):
+                    self.audit()
 
     def test_relative_report_paths_accept_warm_and_cold_evidence(self) -> None:
         for cold in (False, True):
@@ -212,6 +241,16 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(snapshot["mode"], "full")
         self.assertEqual(snapshot["initial_state"], {"sessions_present": True, "cache_entries_present": True})
 
+    def test_failed_tool_preflight_preserves_successful_reports(self) -> None:
+        (self.reports / MANIFEST).write_text("old completed evidence")
+        before = {path: path.read_bytes() for path in self.reports.iterdir()}
+        outside = self.root / "unselected-tool"
+        outside.write_bytes((self.host.tools / "test-tool").read_bytes())
+        self.manifest["tools"]["gnatprove"]["path"] = str(outside)
+        with self.assertRaisesRegex(EvidenceError, "outside the selected native"):
+            proof_provenance.begin_proof(self.host, self.command, self.reports)
+        self.assertEqual(before, {path: path.read_bytes() for path in self.reports.iterdir()})
+
     def test_cold_options_require_their_own_output_directory(self) -> None:
         for arguments in (["--cold"], ["--cold", "--jobs", "2"], ["-j2", "--cold"]):
             run = proof_arguments(arguments)
@@ -333,7 +372,7 @@ class ProvenanceTests(unittest.TestCase):
             dev.main(["prove"])
         command = run.call_args.args[1]
         self.assertNotIn("-f", command)
-        self.assertEqual(command[command.index("-j") + 1], "0")
+        self.assertEqual(command[command.index("-j") + 1], "8")
         self.assertIn(f"--memcached-server=file:{proof_cache(self.host)}", command)
         self.assertIn("--mode=all", command)
         self.assertIn("--checks-as-errors=on", command)
@@ -366,14 +405,15 @@ class ProvenanceTests(unittest.TestCase):
                     mock.patch.object(dev, "begin_proof") as begin, \
                     mock.patch.object(dev, "audit_sources") as audit, \
                     mock.patch.object(dev, "complete_proof") as complete:
-                dev.main(arguments)
+                dev.main([arguments[0], "--reason", "Check equivalent CLI spellings", *arguments[1:]])
                 command = run.call_args_list[0].args[1]
                 self.assertIn("-f", command)
                 self.assertEqual(command[command.index("-j") + 1], "3")
                 begin.assert_called_once()
                 audit.assert_called_once_with(self.root / "src", self.reports, self.host.generated,
                                               effective_command=command[command.index("--") + 1:])
-                complete.assert_called_once_with(self.host, self.reports, begin.return_value)
+                complete.assert_called_once_with(self.host, self.reports, begin.return_value,
+                                                 pass_fds=run.call_args.kwargs["pass_fds"])
                 self.assertEqual(run.call_count, 2)
 
     def test_invalid_worker_counts_fail_before_proof(self) -> None:
@@ -394,6 +434,13 @@ class ProvenanceTests(unittest.TestCase):
                     self.audit()
         path.write_text(original)
         validate_project(self.host)
+
+    def test_changed_proof_container_project_is_rejected(self) -> None:
+        path = self.root / "proof/silver_proof_containers.gpr"
+        path.write_text(path.read_text().replace('/include/spark', '/other_sources'))
+        self.manifest["inputs_sha256"] = input_hashes(self.host)
+        with self.assertRaisesRegex(EvidenceError, "project differs"):
+            self.audit()
 
 
 if __name__ == "__main__":

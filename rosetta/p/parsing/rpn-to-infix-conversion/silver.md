@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and length check follows from bounded subtypes and explicit capacity guards in procedures, and the only loops are a scanner while loop in a procedure and for loops printing the stack, so no annotations are needed, but many loop-carried lengths make the shape delicate.
 
-Position 1031 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 1030 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

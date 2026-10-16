@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from bounded buffers, for-loop indexes over the line length and guarded counters, with no annotation needed because the loop-carried counters are bounded by an explicit visible rejection limit.
 
-Position 1351 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1350 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small ranged vertex indexes, for loops over fixed ranges and a guarded explicit stack that replaces recursion, but the loop-carried depth and counters need careful guard placement rather than being routine.
 
-Position 1551 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1551 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 

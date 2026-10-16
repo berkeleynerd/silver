@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The five required cases have p at most 1000003, so all arithmetic fits in 64-bit integers with range-typed residues and for loops, and every check follows from types and mod; the 50-digit extra credit is omitted as optional.
 
-Position 799 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 798 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

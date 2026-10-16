@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no arithmetic, indexing or loop-carried data, so no run-time check needs discharging. The loop never ends, but it is in a procedure, which gets no termination check, so only the bare loop construct must be added to Silver.
 
-Position 183 in the [progression](../../../progression.md#stage-8), in stage 8, which adds while loops.
+Position 182 in the [progression](../../../progression.md#stage-9), in stage 9, which adds while loops.
 
 ## Approach
 

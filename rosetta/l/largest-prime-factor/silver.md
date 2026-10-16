@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division fits in a procedure's while loop (so no termination check) with only an overflow-safe guard and a P >= 2 subtype needed, and the 64-bit range covers 600851475143. The only non-routine point is loop-carried P and N bounds, which declared ranges and the guard supply without annotations.
 
-Position 186 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 185 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 

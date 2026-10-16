@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded string indexing within S'Range plus a case on a Character, so all checks follow from types and the for-loop range, and no annotation or recursion is needed.
 
-Position 771 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 770 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array ranges, bounded subtypes and guards just before the operation, and all loops are for loops in procedures, so nothing needs an annotation. The only care is the guarded counter increment and the bounded text formatting.
 
-Position 994 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 993 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 

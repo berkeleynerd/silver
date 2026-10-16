@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded buffer, a length guard placed just before the indexing, and a for loop over a fixed three-element range, while the while loop lives in a procedure so it needs no variant.
 
-Position 1322 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1321 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 

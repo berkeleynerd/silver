@@ -78,6 +78,11 @@ the driver. Successful allocation, sufficient stack and OS argument/environment
 and process resources remain environmental premises; there is no new Silver
 argument-count or aggregate-byte cap.
 
+The later [report-capacity repair](report-capacity.md) moves the driver's report
+buffer off the primary stack before spawning and removes its normal auditor's
+report-sized copy. This addresses review L4's 190,000-argument failure; GNAT's
+own spawn storage and ordinary OS resource limits still apply.
+
 ## Validation
 
 Focused driver tests passed **22/22** and evidence-policy tests **39/39**.

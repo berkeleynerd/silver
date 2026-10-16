@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over declared ranges, so there is no termination or invariant issue, and the only nonlinear terms (2**P and D*D) are bounded by the declared ranges; the fixed exponent limit is a documented resource bound because the task says "until some limitation is reached".
 
-Position 1505 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1505 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 

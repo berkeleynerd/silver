@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes are subtype-ranged node, letter and pattern ids, the only while loop is in a procedure, and propagating match flags per pattern removes any need for output-link chasing, so only careful capacity guards on the counters are needed.
 
-Position 1549 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1549 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 

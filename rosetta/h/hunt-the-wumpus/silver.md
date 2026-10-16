@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is by a ranged room subtype, arithmetic is bounded by types, and all loops live in procedures, so checks should discharge from types and guards, but the pile of loop-carried game state, input parsing and the PRNG need careful shape. No annotation is required and the Ada solution's exception handlers are replaced by explicit input validation.
 
-Position 1255 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1254 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

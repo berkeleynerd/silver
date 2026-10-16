@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Streaming output through unterminated Put means only a bounded line buffer is needed, and every index and length check is guarded by the returned line length, with no loop-carried arithmetic. It needs new stdin-line and Put library operations but no annotations, so proofs should discharge with careful shape around buffer bounds.
 
-Position 1352 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1351 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

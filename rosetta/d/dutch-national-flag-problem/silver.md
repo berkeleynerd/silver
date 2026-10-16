@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range, all state is bounded by declared types, and the only loop-carried values (counters, write position, generator state) can be range-bounded or guarded, so no annotations are needed. The sort is a counting sort rather than the swap-based Dijkstra partition, since the latter needs loop invariants to bound its three indices.
 
-Position 1173 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1172 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Approach
 

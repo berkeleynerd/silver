@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs demonstrating overloaded operators on a few types, which is straight-line code with ranged-type arithmetic whose checks follow from declared ranges, so no annotation is required. Floating point, complex types and generics from the Ada example are optional and left out.
 
-Position 592 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 591 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is into fixed arrays indexed by guarded or ranged values and the only loop-carried cursor is guarded before each use, so no annotation is needed, but the decrypt cursor and buffer lengths make the program shape-sensitive.
 
-Position 846 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 845 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 

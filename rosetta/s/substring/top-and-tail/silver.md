@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only new surface is slicing a String by static bounds, and every slice bound is statically within the constant's range so the index and length checks discharge without guards. There are no loops, arithmetic or input.
 
-Position 478 in the [progression](../../../progression.md#stage-11), in stage 11, which adds string indexing.
+Position 477 in the [progression](../../../progression.md#stage-12), in stage 12, which adds string indexing.
 
 ## Approach
 

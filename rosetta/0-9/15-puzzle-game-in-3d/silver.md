@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a playable text-art cube puzzle needing stdin and console output, and all checks come from ranged types, fixed-size arrays and adjacency guards before each swap, so no annotation is needed, though the rendering and input-validation code needs careful shape.
 
-Position 1245 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1244 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the bounded buffer type, for-loop indexes over 1 .. Length and comparisons of stored positions with no arithmetic, so no loop-carried value needs an invariant. The only non-routine parts are the library read operation and the guard rejecting over-long lines.
 
-Position 1350 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1349 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 

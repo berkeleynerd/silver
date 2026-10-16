@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All bounds come from array ranges and small ranged subtypes, with every loop-carried quantity (running sum, sieve products, counters) either type-bounded or guarded before use, and no recursion, while loops in functions or annotations are needed. The work lies in careful guard placement for nonlinear index products and the running sum, hence plausible rather than likely.
 
-Position 175 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 174 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 

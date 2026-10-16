@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything except the Pell primes fits in bounded 64-bit integer loops, but the 10th Pell prime needs about 116-bit primality testing, which forces big-number modular arithmetic whose checks are bounded by types and guards without annotations, so success depends on careful program shape.
 
-Position 1414 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1413 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Approach
 

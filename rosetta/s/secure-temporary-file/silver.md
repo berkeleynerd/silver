@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Exclusive creation and collision handling belong to the admitted library operation's specified contract, so all the program has to prove is initialization and a guarded branch on the success flag, which discharges routinely. The real work is admitting a temporary-file operation with specified failure outcomes; the proofs themselves are not the hard part.
 
-Position 1419 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1418 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 

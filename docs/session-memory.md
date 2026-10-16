@@ -1,6 +1,135 @@
 # Session memory
 
-## 2026-10-15 — Merged review incorporated into milestone scoping
+## 2026-10-16 — Proof iteration controls delivered
+
+The owner-authorized tooling package #39 is implemented and validated at
+`666b87ecf8`, with review findings #41–#43 repaired. The
+[workflow record](proof-iteration.md#delivery-and-linux-evidence) identifies the
+actual native Linux checks, retained interruptions, cache reuse, exact review
+targets and final implementation separately from completion documentation.
+Managed runs now retain identities and evidence, coordinate resolved workspaces
+and workers, reject unjustified identical-success expensive repeats, require a
+diagnostic after recurring recognized obligations, and provide durable resumption
+notes. Required proof and source-correspondence audits remain unchanged.
+
+Routine publication remains authorized. For loops and integers remains paused;
+its unfinished canonical feature checkout and caches were preserved. The tooling
+integration is isolated in `tmp/iteration-workflow`; original-path native cache
+validation uses the clean prior repair checkout detached at the implementation
+commit, preserving its prior branch and scratch. Hosted CI stays disabled.
+No Oracle or language capability changed. CLI memory was unavailable and was not
+updated; issue handoffs and the checked-in records carry delivery status.
+
+## 2026-10-16 — Proof iteration controls authorized
+
+The owner answered the proposed proof-iteration controls with “Make it so.”
+Implement them as one cohesive tooling milestone and
+[work package #39](https://github.com/berkeleynerd/silver/issues/39): durable
+`dev.py`/`check_lean.py` run records including exploratory GNATprove, actual
+resolved-workspace locking and worker coordination, cheap provenance preflight,
+rationale for identical-success expensive reruns, recurring-obligation diagnostic
+checkpoints, and a resume/handoff readout. The
+[scope and evidence record](proof-iteration.md) states completion criteria.
+
+Required obligation discharge, actual-source correspondence and fresh Lean
+auditing remain intact. No Oracle/language amendment, arbitrary proof timeout or
+additional owner-approval ceremony is authorized or needed. Routine commits,
+validation and publication remain authorized; hosted CI stays disabled.
+
+For loops and integers and its unfinished work remain preserved separately.
+Its existing harness goal stays **paused**; this tooling instruction neither
+resumes nor completes it. [PR #40](https://github.com/berkeleynerd/silver/pull/40)
+recorded the tooling authorization on `main` as
+`2c30cfa3d78f9e960f0839bca09787241b4435c5` before #39 was claimed,
+following [planning](planning.md#the-board). CLI memory was
+unavailable and was not updated; this dated entry is the durable decision record.
+
+## 2026-10-16 — Selected review repairs complete
+
+The owner's instruction to fix the selected findings before further feature
+work was recorded through [PR #37](https://github.com/berkeleynerd/silver/pull/37),
+merged on `main` as `618c28a77cdf011f338a31fcb0e9022743a338de`. The delivery covers
+B1/#17, L1–L4/#18–#21 and L6–L11/#23–#28. The
+[repair record](review-343c2f8-repairs.md) identifies the original review target
+`e2c4fc2..343c2f8`, implementation `4355971666`, independent reviews and actual
+native Linux validation scope separately from the closing documentation commit.
+
+Final integration uses `fix/review-343c2f8-delivery`, following the original
+authorization branch. The current-language capacity/projection and stack repair,
+explicit existing proof-resource policy, lexical/catalogue agreement and selected
+planning/Rosetta repairs are complete. The final checkpoint also corrects the
+native audit's tool-directory symlink comparison. No language construct is
+newly admitted and no Oracle amendment was made.
+
+For loops and integers remains selected under its recorded authorization and
+settled standard Integer `'Image` scope. Its unfinished implementation and proofs
+remain preserved separately; #10 and #13–#16 continue to track the milestone.
+Re-derive report capacity for the new checks before admission. The existing
+harness goal remains **paused**; repair delivery neither resumes nor completes
+it. This harness state is separate from the milestone's recorded authorization.
+
+Routine publication remains authorized. The repair record distinguishes the
+full test suite from the affected audit-script recheck, cached native proof and
+Lean build from fresh auditing, and Linux evidence from independent macOS work.
+Hosted CI remains disabled. Preserve all isolated worktrees, caches, reports and
+unrelated canonical feature/scratch work. CLI memory was unavailable and was not
+updated; this file and issue handoffs carry the durable record.
+
+## 2026-10-15 — Selected review repairs authorized before feature work
+
+The owner instructed this coding session: “Let's fix these before proceeding
+further,” referring to B1 with L2/L4, L1/L3, L6/L7, L8/L9 and L10/L11 in
+[review-343c2f8](reviews/review-343c2f8.md). Implement and validate those repairs
+before further language-feature work. Existing issues #17–#21 and #23–#28 track
+them; do not duplicate the findings or expand this instruction to every review
+item. [The repair record](review-343c2f8-repairs.md) gives the ordered scope and
+evidence. The B1 repair remains the first work package of the language milestone.
+
+The Integer `'Image` decision recorded in main commit `39d0ad38e6` stands;
+#34 is closed. Feature implementation remains preserved separately while these
+repairs are delivered. The repair branch is `fix/review-343c2f8`, based on
+`39d0ad38e6`; implementation streams use isolated worktrees and host artifacts.
+Routine commits, validation and publication under the existing authorization
+apply to these repairs. No Oracle amendment or new language admission is part
+of this repair task. The earlier delivery harness goal is not marked complete
+by these repairs. CLI memory was unavailable and was not updated.
+
+## 2026-10-15 — For loops and integers resumed with Integer `'Image`
+
+The owner settled the three decisions raised by
+[review-343c2f8](reviews/review-343c2f8.md):
+
+- **Scope (#34).** For loops and integers also delivers Integer `'Image`, in
+  Ada's standard format with a leading space for non-negative values, so
+  integer results can be printed. The rest of the selected fragment stands:
+  `constant Integer` declarations, fully parenthesized `+`, `-` and `*`,
+  comparisons, and scoped forward and `reverse` `for` loops. Mutable Integer
+  objects, custom subtypes, conversions and division stay excluded. The scope
+  record is updated under #13.
+- **State.** The milestone was authorized on 2026-10-15, as recorded on its
+  feature branch in `29b1438`, and paused at scoping at 18:11 UTC by the
+  instruction recorded on #10. The owner now lifts the pause, so the milestone's
+  authorization applies again: the B1 repair (#17) comes first, then #14 to #16.
+- **Recording (#26).** An authorization, pause or revocation counts as recorded
+  only when a dated entry in this file on `main` states it. Issue comments cite
+  the commit, and board statuses change in the same step, as
+  [planning](planning.md#the-board) now states.
+- **Board (#30).** The owner configures the board's views and workflows in
+  GitHub's web interface.
+
+## 2026-10-15 — Audit of e2c4fc2 to 343c2f8
+
+The owner received [review-343c2f8](reviews/review-343c2f8.md), the audit of
+every change from `e2c4fc2` to `343c2f8`, and decided:
+
+- Publish the report and file its findings: blocker B1 and lows L1 to L15 as
+  issues #17 to #32, the 26 info items as #33, and L8's scope question as
+  decision #34.
+- Make the B1 repair (#17, report capacity) the first work package of For loops
+  and integers, before that milestone admits any new construct. This does not
+  resume the milestone, which stays paused at scoping as recorded on #10.
+
+## 2026-10-15 — Merged review incorporated into milestone scoping (historical)
 
 [PR #35](https://github.com/berkeleynerd/silver/pull/35), merged to main at
 `04bef694ed`, publishes the review of `e2c4fc2..343c2f8` and records the owner's
@@ -13,7 +142,7 @@ record now reflect the order and the open [scope decision #34](https://github.co
 No integer-scope option has been selected. Existing implementation and evidence
 are preserved; the merged review does not validate those unfinished changes.
 
-## 2026-10-15 — For loops and integers restricted to scoping
+## 2026-10-15 — For loops and integers restricted to scoping (historical)
 
 The owner subsequently instructed: “Remain at scoping. Do not proceed to begin
 work.” This supersedes the earlier implementation/delivery authorization for
@@ -25,7 +154,7 @@ worktrees and caches are preserved as unfinished work; no capability completion
 or publication is claimed. [Stage #10](https://github.com/berkeleynerd/silver/issues/10)
 tracks the hold. CLI memory was not updated.
 
-## 2026-10-15 — For loops and integers goal authorized
+## 2026-10-15 — For loops and integers goal authorized (historical)
 
 The owner asked to set the next language milestone as a goal, update its label,
 and drive it to completion. This authorizes **For loops and integers**, tracked

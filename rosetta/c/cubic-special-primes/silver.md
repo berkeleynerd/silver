@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small bounded integer ranges and a for-loop primality test, and the only while loop sits in the Main procedure, so no annotation is needed. The program needs only integer arithmetic, mod, a function, loops and number-to-text output, which are all routine.
 
-Position 319 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 318 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 

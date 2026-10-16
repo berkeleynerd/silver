@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the declared element range and for-loop indexes over the array's own range, so the squares cannot overflow and no annotation is needed.
 
-Position 70 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 69 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 

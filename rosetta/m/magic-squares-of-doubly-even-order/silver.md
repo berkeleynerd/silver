@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed-size 8x8 fill by a closed-form formula with for loops over static ranges, so every index and range check follows from types and loop bounds with no loop-carried unbounded values. Only the new surface for 2D arrays, integer-to-text conversion and Put is missing.
 
-Position 656 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 655 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 

@@ -18,7 +18,8 @@ MANIFEST = "proof-provenance.json"
 # Complete reviewed project token shape, including all source/output selection
 # and compiler switches. Hashing a changed project as an input is not approval
 # to add configuration pragmas, per-file switches, or different source roots.
-REVIEWED_PROJECT_SHA256 = "0c3200cd7a057a7cfb0b8a622c693c17e56d7c0c4d6542be9fe45717384e4abf"
+REVIEWED_PROJECT_SHA256 = "b8ab872790384c0780cf723715b280ccc8da1e0aa2da9ae6bad8299c7daa4f44"
+REVIEWED_PROOF_CONTAINERS_SHA256 = "d7d01aa26019acda2de623f117956021d432737a5900822394e63fbf4e7941d5"
 
 
 def digest(path: Path) -> str:
@@ -54,7 +55,8 @@ def invalidate_proof(report_dir: Path) -> None:
 
 
 def input_hashes(host: HostLayout) -> dict[str, str]:
-    required = [host.root / "silver.gpr", host.root / "alire.toml",
+    required = [host.root / "silver.gpr", host.root / "proof/silver_proof_containers.gpr",
+                host.root / "alire.toml",
                 host.context / "alire.toml", host.context / "alire/alire.lock",
                 host.generated / "silver_build.ads"]
     for path in required:
@@ -69,7 +71,7 @@ def input_hashes(host: HostLayout) -> dict[str, str]:
     return {str(path.relative_to(host.root)): digest(path) for path in sorted(paths)}
 
 
-def tool_identities(host: HostLayout) -> dict:
+def tool_identities(host: HostLayout, *, pass_fds: tuple[int, ...] = ()) -> dict:
     # Resolve the exact executables in the same sanitized Alire environment as
     # the proof invocation; never infer tools from whatever happens to be on PATH.
     program = '''import json, pathlib, shutil, subprocess, sys
@@ -92,12 +94,12 @@ print("SILVER_TOOLS_JSON=" + json.dumps(tools, sort_keys=True))
 '''
     result = subprocess.run(alire_command(host, "exec", "--", sys.executable, "-c", program),
                             cwd=host.context, env=tool_environment(host), check=True,
-                            text=True, capture_output=True)
+                            text=True, capture_output=True, pass_fds=pass_fds)
     lines = [line for line in result.stdout.splitlines() if line.startswith("SILVER_TOOLS_JSON=")]
     require(len(lines) == 1, "tool identification did not return an unambiguous result")
     identities = json.loads(lines[0].split("=", 1)[1])
     alire_version = subprocess.run([str(host.alr), "--version"], cwd=host.context,
-                                   env=tool_environment(host), check=True, text=True, capture_output=True)
+                                   env=tool_environment(host), check=True, text=True, capture_output=True, pass_fds=pass_fds)
     identities["alr"] = {"path": str(host.alr.resolve()),
                           "version": alire_version.stdout + alire_version.stderr}
     for identity in identities.values():
@@ -107,15 +109,48 @@ print("SILVER_TOOLS_JSON=" + json.dumps(tools, sort_keys=True))
     return identities
 
 
+def validate_tool_identities(host: HostLayout, identities: dict) -> None:
+    """Check native containment and identity before any expensive proof phase."""
+    for name, identity in identities.items():
+        require(name == "python" or Path(identity["path"]).resolve().is_relative_to(host.tools.resolve()),
+                f"proof tool is outside the selected native tool directory: {name}")
+        require(digest(Path(identity["path"])) == identity["sha256"], f"proof tool changed: {name}")
+        if "version" in identity:
+            require(hashlib.sha256(identity["version"].encode()).hexdigest() == identity["version_sha256"],
+                    f"proof version record changed: {name}")
+        require(name in {"gnat2why", "gnatwhy3", "why3server"} or bool(identity.get("version")),
+                f"missing proof tool version: {name}")
+    require({"gnatprove", "gnatls", "gcc", "gprbuild", "cvc5", "z3", "alt-ergo",
+             "gnat2why", "gnatwhy3", "why3server", "python", "alr"} == identities.keys(),
+            "incomplete proof tool identities")
+
+
 def validate_project(host: HostLayout) -> None:
-    tokens = source_tokens(host.root / "silver.gpr")
-    actual = hashlib.sha256("".join(tokens).encode("ascii")).hexdigest()
-    require(actual == REVIEWED_PROJECT_SHA256,
-            "project differs from the reviewed source selection and check configuration")
+    for relative, expected in (("silver.gpr", REVIEWED_PROJECT_SHA256),
+                               ("proof/silver_proof_containers.gpr",
+                                REVIEWED_PROOF_CONTAINERS_SHA256)):
+        tokens = source_tokens(host.root / relative)
+        actual = hashlib.sha256("".join(tokens).encode("ascii")).hexdigest()
+        require(actual == expected,
+                "project differs from the reviewed source selection and check configuration: "
+                + relative)
 
 
-def begin_proof(host: HostLayout, command: list[str], report_dir: Path, *, cold: bool = False) -> dict:
+def preflight(host: HostLayout, *, pass_fds: tuple[int, ...] = ()) -> dict:
     validate_project(host)
+    inputs = input_hashes(host)
+    tools = tool_identities(host, pass_fds=pass_fds)
+    validate_tool_identities(host, tools)
+    return {"inputs_sha256": inputs, "tools": tools}
+
+
+def begin_proof(host: HostLayout, command: list[str], report_dir: Path, *, cold: bool = False,
+                prepared: dict | None = None) -> dict:
+    validate_project(host)
+    # Reject bad tools/inputs before deleting any earlier successful evidence.
+    prepared = preflight(host) if prepared is None else prepared
+    require(input_hashes(host) == prepared["inputs_sha256"], "proof inputs changed after preflight")
+    validate_tool_identities(host, prepared["tools"])
     cache = selected_proof_cache(host, report_dir, cold=cold)
     initial_state = {
         "sessions_present": any(report_dir.rglob("why3session.xml")),
@@ -130,7 +165,7 @@ def begin_proof(host: HostLayout, command: list[str], report_dir: Path, *, cold:
         path.unlink(missing_ok=True)
     snapshot = {"schema": 1, "host": host.key, "command": command,
                 "mode": "cold" if cold else "full", "initial_state": initial_state,
-                "inputs_sha256": input_hashes(host), "tools": tool_identities(host)}
+                **prepared}
     (report_dir / "proof-inputs.json").write_text(json.dumps(snapshot, indent=2) + "\n")
     return snapshot
 
@@ -140,9 +175,10 @@ def report_hashes(report_dir: Path) -> dict[str, str]:
     return {path.name: digest(path) for path in sorted(paths)}
 
 
-def complete_proof(host: HostLayout, report_dir: Path, snapshot: dict) -> None:
+def complete_proof(host: HostLayout, report_dir: Path, snapshot: dict, *,
+                   pass_fds: tuple[int, ...] = ()) -> None:
     require(input_hashes(host) == snapshot["inputs_sha256"], "proof inputs changed during verification")
-    require(tool_identities(host) == snapshot["tools"], "proof tools changed during verification")
+    require(tool_identities(host, pass_fds=pass_fds) == snapshot["tools"], "proof tools changed during verification")
     manifest = dict(snapshot, complete=True, reports_sha256=report_hashes(report_dir))
     validate_provenance(host, report_dir, manifest)
     (report_dir / MANIFEST).write_text(json.dumps(manifest, indent=2) + "\n")
@@ -166,18 +202,7 @@ def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | Non
     validate_project(host)
     require(manifest.get("inputs_sha256") == input_hashes(host), "proof input hashes changed; rerun GNATprove")
     require(manifest.get("reports_sha256") == report_hashes(report_dir), "proof report hashes changed")
-    for name, identity in manifest.get("tools", {}).items():
-        require(name == "python" or Path(identity["path"]).is_relative_to(host.tools),
-                f"proof tool is outside the selected native tool directory: {name}")
-        require(digest(Path(identity["path"])) == identity["sha256"], f"proof tool changed: {name}")
-        if "version" in identity:
-            require(hashlib.sha256(identity["version"].encode()).hexdigest() == identity["version_sha256"],
-                    f"proof version record changed: {name}")
-        require(name in {"gnat2why", "gnatwhy3", "why3server"} or bool(identity.get("version")),
-                f"missing proof tool version: {name}")
-    require({"gnatprove", "gnatls", "gcc", "gprbuild", "cvc5", "z3", "alt-ergo",
-             "gnat2why", "gnatwhy3", "why3server", "python", "alr"} == manifest.get("tools", {}).keys(),
-            "incomplete proof tool identities")
+    validate_tool_identities(host, manifest.get("tools", {}))
     command = manifest.get("command", [])
     require(isinstance(command, list) and command[:3] == ["gnatprove", "-P", "../../../silver.gpr"],
             "unexpected proof project/command")
