@@ -377,7 +377,7 @@ def main(arguments: list[str] | None = None) -> None:
                              "separate from Lake workers)")
     parser.add_argument("--memory-mb", type=positive_integer,
                         help="optional resident-memory threshold per Lean process, in MiB")
-    parser.add_argument("--task", default="", help="issue or task reference for durable run history")
+    parser.add_argument("--task", default=os.environ.get("SILVER_TASK", ""), help="issue or task reference for durable run history")
     parser.add_argument("--reason", default="",
                         help="rationale for repeating a successful clean/replay check unchanged")
     args = parser.parse_args(arguments)
@@ -427,6 +427,12 @@ def main(arguments: list[str] | None = None) -> None:
         host.artifacts.mkdir(parents=True, exist_ok=True)
         # Failed checks cannot leave the previous success looking current.
         # A rejected lease/rerun request has not started a check and preserves it.
+        for old in (log, evidence):
+            if old.is_file():
+                previous = run.directory / "previous-evidence"
+                previous.mkdir(exist_ok=True)
+                shutil.copy2(old, previous / old.name)
+                run.evidence.append(previous / old.name)
         evidence.unlink(missing_ok=True)
         log.unlink(missing_ok=True)
         for path, contents in inputs.items():

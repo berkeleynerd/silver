@@ -69,7 +69,7 @@ def project_reports(host: HostLayout, arguments: list[str]) -> Path:
     reports = host.compiler / "obj/gnatprove"
     redirects = ("-P", "--project", "--relocate-build-tree", "--root-dir",
                  "--object-dir", "--exec-dir", "--src-subdirs", "--config",
-                 "--autoconf", "--db", "--target", "-cargs", "-bargs", "-largs")
+                 "--autoconf", "--db", "--target", "-o", "-cargs", "-bargs", "-largs")
     for index, argument in enumerate(arguments):
         if "SILVER_HOST" in argument or argument.startswith(redirects):
             raise RuntimeError("prove/build select the native project and output paths; "
@@ -236,11 +236,12 @@ def tool_resources(host: HostLayout, command: list[str], workspaces: list[str],
         elif argument.startswith("--project="):
             projects.append(argument.split("=", 1)[1])
         if argument.startswith(("--relocate-build-tree", "--root-dir", "--object-dir", "--exec-dir",
-                                "--src-subdirs", "--config", "--autoconf", "--db", "--target")):
+                                "--src-subdirs", "--config", "--autoconf", "--db", "--target",
+                                "-o", "-cargs", "-bargs", "-largs")):
             redirect = True
         if argument.startswith("-X") and argument != f"-XSILVER_HOST={host.key}":
             redirect = True
-    standard = (Path(command[0]).name in ("gnatprove", "gprbuild") and len(projects) == 1
+    standard = (command[0] in ("gnatprove", "gprbuild") and len(projects) == 1
                 and (host.context / projects[0]).resolve() == host.root / "silver.gpr"
                 and f"-XSILVER_HOST={host.key}" in command and not redirect)
     resources = [host.context, *(Path(path).resolve() for path in workspaces)]
@@ -274,12 +275,24 @@ def tool_resources(host: HostLayout, command: list[str], workspaces: list[str],
 
 def proof_scope(command: list[str]) -> list[str]:
     targets = []
+    mode = "all"
     for index, argument in enumerate(command[1:], 1):
         if argument in ("-P", "--project") and index + 1 < len(command):
             targets.append("project:" + command[index + 1])
-        elif argument.endswith((".adb", ".ads")) or argument.startswith(("--limit-", "-P", "--project=")):
+        elif argument.startswith("-P"):
+            targets.append("project:" + argument[2:])
+        elif argument.startswith("--project="):
+            targets.append("project:" + argument.split("=", 1)[1])
+        elif argument == "--mode" and index + 1 < len(command):
+            mode = command[index + 1]
+        elif argument.startswith("--mode="):
+            mode = argument.split("=", 1)[1]
+        elif argument.startswith("--limit-"):
+            targets.append(argument if "=" in argument else
+                           argument + "=" + (command[index + 1] if index + 1 < len(command) else ""))
+        elif argument.endswith((".adb", ".ads")):
             targets.append(argument)
-    return targets or ["compiler"]
+    return ["mode:" + mode, *(targets or ["compiler"])]
 
 
 def main(arguments: list[str] | None = None) -> None:
@@ -418,6 +431,20 @@ def main(arguments: list[str] | None = None) -> None:
             identities = tool_identities(host, pass_fds=run.pass_fds)
             validate_tool_identities(host, identities)
             inputs["tools"] = identities
+            # Arbitrary tool executables are not identified by their basename.
+            resolver = ("import pathlib,shutil,sys; "
+                        "p=shutil.which(sys.argv[1]); "
+                        "print('SILVER_EXECUTABLE=' + str(pathlib.Path(p).resolve()) if p else 'SILVER_EXECUTABLE=')")
+            resolved = subprocess.run(alire_command(host, "exec", "--", sys.executable,
+                                      "-c", resolver, command[0]), cwd=host.context,
+                                      env=tool_environment(host), check=True, capture_output=True,
+                                      text=True, pass_fds=run.pass_fds)
+            paths_found = [line.split("=", 1)[1] for line in resolved.stdout.splitlines()
+                           if line.startswith("SILVER_EXECUTABLE=")]
+            if len(paths_found) != 1 or not paths_found[0]:
+                raise RuntimeError("cannot identify custom tool executable")
+            executable = Path(paths_found[0])
+            inputs["executable"] = {"path": str(executable), "sha256": digest(executable)}
         run.prepare(inputs, expensive=bool(proof_run and proof_run.full))
         run.event("phase-end", phase="preflight")
         snapshot = None
