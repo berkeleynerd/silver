@@ -11,6 +11,7 @@ import argparse
 from dataclasses import dataclass, field
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -359,7 +360,10 @@ def main(arguments: list[str] | None = None) -> None:
                 workspace = host.compiler / "obj" / ("cold-" + uuid.uuid4().hex[:16])
                 reports = workspace / "gnatprove"
                 # Do not create directories until the run owns its workspace.
-            cache = selected_proof_cache(host, reports, cold=proof_run.cold)
+            # Reserve the namespace before reading its lock-derived cache key.
+            # Missing setup is then a recorded preflight failure under the lease.
+            cache = (reports.parent / "cache" if proof_run.cold
+                     else host.artifacts / "proof-cache/gnatprove")
         else:
             extra, jobs = scheduled_arguments(extra, jobs)
         relative = reports.parent.relative_to(host.compiler / "obj")
@@ -419,6 +423,7 @@ def main(arguments: list[str] | None = None) -> None:
         snapshot = None
         if args.action in ("prove", "build"):
             if proof_run:
+                cache = selected_proof_cache(host, reports, cold=proof_run.cold)
                 cache.mkdir(parents=True, exist_ok=True)
                 options = [*PROOF_OPTIONS, "-j", str(run.workers), f"--memcached-server=file:{cache}"]
                 if proof_run.full:
@@ -434,6 +439,17 @@ def main(arguments: list[str] | None = None) -> None:
         actual = command if args.action == "test" else alire_command(host, "exec", "--", *command)
         run.event("command", command=actual, cwd=str(host.root if args.action == "test" else host.context))
         if proof_run:
+            # Preserve outputs of an interrupted or earlier run before summaries
+            # or its completed manifest can be replaced by this invocation.
+            prior = [*reports.glob("*.spark"), reports / "gnatprove.sarif",
+                     reports / "gnatprove.out", reports / MANIFEST, reports / "proof-inputs.json"]
+            for source in prior:
+                if source.is_file():
+                    destination = run.directory / "previous-reports" / source.name
+                    destination.parent.mkdir(exist_ok=True)
+                    shutil.copy2(source, destination)
+            if (run.directory / "previous-reports").exists():
+                run.evidence.append(run.directory / "previous-reports")
             if proof_run.full:
                 snapshot = begin_proof(host, command, reports, cold=proof_run.cold, prepared=prepared)
                 print(f"Full GNATprove evidence: {reports / MANIFEST}", flush=True)
@@ -450,6 +466,13 @@ def main(arguments: list[str] | None = None) -> None:
             invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
                           "--source-dir", str(host.root / "src"), "--generated-dir", str(host.generated),
                           "--report-dir", str(reports)], pass_fds=run.pass_fds, log=log)
+            retained = run.directory / "proof-evidence"
+            retained.mkdir()
+            for source in [*reports.glob("*.spark"), reports / "gnatprove.sarif",
+                           reports / "gnatprove.out", reports / MANIFEST, reports / "proof-inputs.json"]:
+                if source.is_file():
+                    shutil.copy2(source, retained / source.name)
+            run.evidence.append(retained)
             run.event("phase-end", phase="audit")
         elif prepared is not None:
             if input_hashes(host) != prepared["inputs_sha256"]:
