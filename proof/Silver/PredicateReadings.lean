@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateAdmission
 public import Silver.PredicateStatements
-public import Silver.ComposeStateBounds
+public import Silver.ComposeBounds
 
 @[expose] public section
 
@@ -121,13 +121,11 @@ theorem lengthAt_unique {text context position literal left right leftResult rig
 
 theorem expression_reading_ready {text names scalarNames position expression result}
     (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result) :
-    ExpressionReady names.shape expression ∧ expression.summary names.shape = summaryOf result := by
+    ExpressionReady names.shape expression ∧
+      expression.inferLength names.shape (ScalarExpression.ranges scalarNames) = some result.lengthSummary := by
   have readable := expressionTail_readable parsed
   have count := expressionTail_count normal (by simp) parsed
   have nonempty := expressionTail_nonempty normal (by simp) rfl rfl parsed
-  have summary := expressionTail_summary normal (by simp) parsed
-  refine ⟨⟨readable.1, readable.2, nonempty, by simpa using count⟩, ?_⟩
-  simp only [Expression.summary, summaryOf, Nat.zero_add] at summary ⊢
-  rw [summary.1, summary.2]
+  exact ⟨⟨readable.1, readable.2, nonempty, by simpa using count⟩, expressionAt_inferLength normal parsed⟩
 
 end Silver.Predicate
