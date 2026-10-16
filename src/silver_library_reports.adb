@@ -26,6 +26,8 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         when Runtime_Interface => Argv_Interface);
 
    Atom_Empty : constant String := "";
+   Initialization_Prefix : constant String := """initialization of \""";
+   Initialization_Suffix : constant String := "\"" has no effect""";
    Atom_INEFFECTIVE : constant String := "INEFFECTIVE";
    Atom_DEAD_CODE : constant String := "DEAD_CODE";
    Atom_statement_no_effect : constant String := "statement has no effect";
@@ -1172,16 +1174,14 @@ package body Silver_Library_Reports with SPARK_Mode => On is
        Pre => Text'First = 1 and then Text'Length <= Max_Report_Length;
 
    function Initializer_Message (Text : String; Item : Span) return Boolean is
-     (declare Prefix : constant String := """initialization of \""";
-              Suffix : constant String := "\"" has no effect""";
-      begin Valid (Text, Item)
-        and then (Item.Last - Item.First) + 1 > Prefix'Length + Suffix'Length
-        and then (Item.Last - Item.First) + 1 <= Prefix'Length + Suffix'Length + 4_096
-        and then Text (Item.First .. (Item.First + Prefix'Length) - 1) = Prefix
-        and then Text ((Item.Last - Suffix'Length) + 1 .. Item.Last) = Suffix
-        and then Text (Item.First + Prefix'Length) in 'A' .. 'Z' | 'a' .. 'z'
-        and then Text (Item.Last - Suffix'Length) /= '_'
-        and then (for all I in Item.First + Prefix'Length .. Item.Last - Suffix'Length =>
+     (Valid (Text, Item)
+        and then (Item.Last - Item.First) + 1 > Initialization_Prefix'Length + Initialization_Suffix'Length
+        and then (Item.Last - Item.First) + 1 <= Initialization_Prefix'Length + Initialization_Suffix'Length + 4_096
+        and then Text (Item.First .. (Item.First + Initialization_Prefix'Length) - 1) = Initialization_Prefix
+        and then Text ((Item.Last - Initialization_Suffix'Length) + 1 .. Item.Last) = Initialization_Suffix
+        and then Text (Item.First + Initialization_Prefix'Length) in 'A' .. 'Z' | 'a' .. 'z'
+        and then Text (Item.Last - Initialization_Suffix'Length) /= '_'
+        and then (for all I in Item.First + Initialization_Prefix'Length .. Item.Last - Initialization_Suffix'Length =>
           Text (I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
           and then (if Text (I) = '_' then Text (I - 1) /= '_')));
 
@@ -2000,15 +2000,13 @@ package body Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static;
 
    function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
-     (declare Prefix : constant String := """initialization of \""";
-              Suffix : constant String := "\"" has no effect""";
-              PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Prefix'Length);
-              SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Suffix'Length);
+     (declare PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Initialization_Prefix'Length);
+              SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Initialization_Suffix'Length);
       begin Raw_Scan.Valid (Text, Item)
         and then Item.Last - Item.First + 1 > PL + SL
         and then Item.Last - Item.First + 1 <= PL + SL + 4_096
-        and then Raw_Literal_At (Text, Item.First, Prefix)
-        and then Raw_Literal_At (Text, Item.Last - SL + 1, Suffix)
+        and then Raw_Literal_At (Text, Item.First, Initialization_Prefix)
+        and then Raw_Literal_At (Text, Item.Last - SL + 1, Initialization_Suffix)
         and then Raw_Bytes.Get (Text, Item.First + PL) in 'A' .. 'Z' | 'a' .. 'z'
         and then Raw_Bytes.Get (Text, Item.Last - SL) /= '_'
         and then (for all I in Text =>
@@ -2306,6 +2304,154 @@ package body Silver_Library_Reports with SPARK_Mode => On is
           or else Raw_Report_Policy (Report, Selected_Put_Without_Query)
           or else Raw_Report_Policy (Report, Selected_Mixed_Without_Query)
           or else Raw_Report_Policy (Report, Selected_Effects_Without_Query));
+
+   --  This agreement is about field bytes and malformed/missing observations.
+   --  Raw positions and the original sequence have no storage bound.
+   function Mixed_Content
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span) return Boolean is
+     (Text'First = 1 and then Raw_Scan.Valid (Raw, L) and then Valid (Text, R)
+      and then L.Last - L.First = SPARK.Big_Integers.To_Big_Integer (R.Last - R.First)
+      and then Raw_Scan.Window_Matches (Raw, L.First, Text (R.First .. R.Last)))
+     with Ghost => Static;
+
+   function Mixed_Field
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span) return Boolean is
+     (if L = Raw_Scan.Missing then R = Missing
+      elsif L = Raw_Scan.Malformed then R = Malformed
+      else Mixed_Content (Raw, L, Text, R))
+     with Ghost => Static;
+
+   procedure Literal_Window_Congruence
+     (Raw : Raw_Bytes.Sequence; First : Raw_Scan.Offset; Text, Expected : String)
+     with Ghost => Static, Global => null,
+       Pre => Text'Length = Expected'Length
+         and then Raw_Scan.Window_Matches (Raw, First, Text),
+       Post => Raw_Literal_At (Raw, First, Expected) = (Text = Expected)
+   is
+   begin
+      if Text = Expected then
+         pragma Assert (for all I in Expected'Range =>
+           Raw_Bytes.Get (Raw, First + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) =
+             Expected (I));
+      elsif Raw_Literal_At (Raw, First, Expected) then
+         for I in Text'Range loop
+            pragma Assert (I - Text'First < Expected'Length);
+            pragma Assert
+              (Text (I) = Raw_Bytes.Get
+                 (Raw, First + SPARK.Big_Integers.To_Big_Integer (I - Text'First)));
+            pragma Assert (Text (I) = Expected (Expected'First + (I - Text'First)));
+            pragma Loop_Invariant (for all J in Text'First .. I =>
+              Text (J) = Expected (Expected'First + (J - Text'First)));
+         end loop;
+      end if;
+   end Literal_Window_Congruence;
+
+   procedure Mixed_String_Congruence
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span; Expected : String)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_String_Equal (Raw, L, Expected) = String_Equal (Text, R, Expected)
+   is
+   begin
+      if Mixed_Content (Raw, L, Text, R) then
+         pragma Assert (Raw_Bytes.Get (Raw, L.First) = Text (R.First));
+         pragma Assert (Raw_Bytes.Get (Raw, L.Last) = Text (R.Last));
+         if R.Last - R.First >= 1 and then R.Last - R.First - 1 = Expected'Length then
+            pragma Assert (Raw_Scan.Window_Matches
+              (Raw, L.First + 1, Text (R.First + 1 .. R.Last - 1)));
+            Literal_Window_Congruence
+              (Raw, L.First + 1, Text (R.First + 1 .. R.Last - 1), Expected);
+         end if;
+      end if;
+   end Mixed_String_Congruence;
+
+   procedure Mixed_Byte_Correspondence
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Content (Raw, L, Text, R),
+       Post => (for all I in Raw =>
+         (if I >= L.First and then I <= L.Last then
+            I - L.First <= SPARK.Big_Integers.To_Big_Integer (R.Last - R.First)
+            and then Raw_Bytes.Get (Raw, I) =
+              Text (R.First + SPARK.Big_Integers.To_Integer (I - L.First))))
+   is
+   begin
+      pragma Assert (for all I in Raw =>
+        (if I >= L.First and then I <= L.Last then
+           I - L.First <= SPARK.Big_Integers.To_Big_Integer (R.Last - R.First)));
+   end Mixed_Byte_Correspondence;
+
+   procedure Mixed_Basic_Tests
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Positive_Number (Raw, L) = Positive_Number (Text, R)
+         and then Raw_Nonempty_String (Raw, L) = Nonempty_String (Text, R)
+   is
+   begin
+      if Mixed_Content (Raw, L, Text, R) then
+         Mixed_Byte_Correspondence (Raw, L, Text, R);
+         pragma Assert (Raw_Bytes.Get (Raw, L.First) = Text (R.First));
+         pragma Assert (Raw_Bytes.Get (Raw, L.Last) = Text (R.Last));
+      end if;
+   end Mixed_Basic_Tests;
+
+   procedure Mixed_Output_Message
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Output_Message (Raw, L) = Output_Message (Text, R)
+   is
+   begin
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_unused_Written_Count);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_unused_Flushed);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_unused_Succeeded);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_unused_Written_Bytes);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_put_unused_Written_Count);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_put_unused_Flushed);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_put_unused_Succeeded);
+      Mixed_String_Congruence (Raw, L, Text, R, Atom_put_unused_Written_Bytes);
+   end Mixed_Output_Message;
+
+   procedure Mixed_Initializer_Message
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Initializer_Message (Raw, L) = Initializer_Message (Text, R)
+   is
+   begin
+      if Mixed_Content (Raw, L, Text, R) then
+         Mixed_Byte_Correspondence (Raw, L, Text, R);
+         if (R.Last - R.First) + 1 > Initialization_Prefix'Length + Initialization_Suffix'Length then
+            Literal_Window_Congruence
+              (Raw, L.First, Text (R.First .. R.First + Initialization_Prefix'Length - 1), Initialization_Prefix);
+            Literal_Window_Congruence
+              (Raw, L.Last - SPARK.Big_Integers.To_Big_Integer (Initialization_Suffix'Length) + 1,
+               Text (R.Last - Initialization_Suffix'Length + 1 .. R.Last), Initialization_Suffix);
+         end if;
+      end if;
+   end Mixed_Initializer_Message;
+
+   procedure Mixed_Test_Congruence
+     (Raw : Raw_Bytes.Sequence; L : Raw_Scan.Span; Text : String; R : Span)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then Mixed_Field (Raw, L, Text, R),
+       Post => Raw_Positive_Number (Raw, L) = Positive_Number (Text, R)
+         and then Raw_Nonempty_String (Raw, L) = Nonempty_String (Text, R)
+         and then Raw_Initializer_Message (Raw, L) = Initializer_Message (Text, R)
+         and then Raw_Output_Message (Raw, L) = Output_Message (Text, R)
+   is
+   begin
+      Mixed_Basic_Tests (Raw, L, Text, R);
+      Mixed_Initializer_Message (Raw, L, Text, R);
+      Mixed_Output_Message (Raw, L, Text, R);
+   end Mixed_Test_Congruence;
 
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind)
      return Boolean is
