@@ -47,4 +47,18 @@ package body Silver_Report_Projection_Mapping with SPARK_Mode => On is
       Spans.Output_Prefix (Raw, Low, High);
       Spans.Output_Prefix (Raw, High, Bytes.Length (Raw));
    end Nonempty_Range;
+
+   procedure Interior_Position (Raw : Bytes.Sequence; Low, Position, High : Big_Natural) is
+   begin
+      Emission_At (Raw, Low);
+      Emission_At (Raw, High);
+      Spans.Output_Prefix (Raw, Low, Position - 1);
+      Spans.Output_Prefix (Raw, Position - 1, High - 1);
+   end Interior_Position;
+
+   procedure Interior_End (Raw : Bytes.Sequence; Position, High : Big_Natural) is
+   begin
+      Emission_At (Raw, High);
+      Spans.Output_Prefix (Raw, Position, High - 1);
+   end Interior_End;
 end Silver_Report_Projection_Mapping;

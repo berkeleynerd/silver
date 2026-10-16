@@ -63,4 +63,22 @@ is
          and then Model.Advance_Spec
            (Model.Scan_State (Raw, Low - 1), Bytes.Get (Raw, Low)).Length > 0,
        Post => Scan.Valid (Output (Raw), Mapped (Raw, Low, High));
+
+   procedure Interior_Position (Raw : Bytes.Sequence; Low, Position, High : Big_Natural)
+     with Global => null,
+       Pre => Low >= 1 and then Low < Position and then Position <= High
+         and then High <= Bytes.Length (Raw)
+         and then Model.Advance_Spec
+           (Model.Scan_State (Raw, Low - 1), Bytes.Get (Raw, Low)).Length > 0
+         and then Model.Advance_Spec
+           (Model.Scan_State (Raw, High - 1), Bytes.Get (Raw, High)).Length > 0,
+       Post => First (Raw, Position) > First (Raw, Low)
+         and then First (Raw, Position) <= Last (Raw, High);
+
+   procedure Interior_End (Raw : Bytes.Sequence; Position, High : Big_Natural)
+     with Global => null,
+       Pre => Position < High and then High <= Bytes.Length (Raw)
+         and then Model.Advance_Spec
+           (Model.Scan_State (Raw, High - 1), Bytes.Get (Raw, High)).Length > 0,
+       Post => Last (Raw, Position) < Last (Raw, High);
 end Silver_Report_Projection_Mapping;
