@@ -6,6 +6,8 @@ public import Silver.PredicateBodyProperties
 namespace Silver.Predicate
 open Compose Bindings PathFacts Compose.Expressions
 
+attribute [local irreducible] ScalarExpression.read
+
 /-- Native target and capacity fields remain in their declared domains. -/
 def Controls (context : ParseContext) (scan : BodyScan) : Prop :=
   scan.target ≤ context.names.length ∧ scan.capacity ≤ maxSourceLength
@@ -64,8 +66,28 @@ mutual
     · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
     · split
       · exact conditionalBody_controls text context scan sv
-      · exact basicBody_controls text context scan sv
+      · split
+        · exact loopBody_controls text context scan sv
+        · exact basicBody_controls text context scan sv
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loopBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
+      (sv : Controls context scan) : Controls context (loopBody text context scan) := by
+    rw [loopBody]
+    dsimp only
+    split
+    · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+    · split
+      · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+      · split
+        · split
+          · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+          · split
+            · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+            · exact bodyTokens_controls text context _ _
+                (readBody_controls text (loopInner context (loopHeader text context scan)) _ .endOnly sv)
+        · exact ⟨Nat.zero_le _, Nat.zero_le _⟩
+  termination_by (bodyRemaining text scan, 1)
 
   theorem conditionalBody_controls (text : Source) (context : ParseContext) (scan : BodyScan)
       (sv : Controls context scan) :

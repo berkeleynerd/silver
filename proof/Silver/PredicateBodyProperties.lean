@@ -1,11 +1,13 @@
 module
 
 public import Silver.PredicateBodyAdmission
-public import Silver.PredicateConditionSound
+public import Silver.PredicateLoopProperties
 
 @[expose] public section
 namespace Silver.Predicate
 open Compose Bindings PathFacts Compose.Expressions
+
+attribute [local irreducible] ScalarExpression.read
 
 @[simp] theorem bodyToken_position (text : Source) (scan : BodyScan) (token : ShellToken) :
     (bodyToken text scan token).position = tokenAfter text scan.position token := rfl
@@ -145,8 +147,30 @@ mutual
     · exact Nat.zero_le _
     · split
       · exact conditionalBody_bound text context scan tv nv sv
-      · exact basicBody_bound text context scan tv nv sv
+      · split
+        · exact loopBody_bound text context scan tv nv sv
+        · exact basicBody_bound text context scan tv nv sv
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loopBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
+      (tv : ValidText text) (nv : ValidNames text context.names) (_sv : scan.position ≤ text.length + 1) :
+      (loopBody text context scan).position ≤ text.length + 1 := by
+    rw [loopBody]
+    dsimp only
+    split
+    · exact Nat.zero_le _
+    · split
+      · exact Nat.zero_le _
+      · split
+        · split
+          · exact Nat.zero_le _
+          · split
+            · exact Nat.zero_le _
+            · exact bodyTokens_bound text _ _
+                (readBody_bound text (loopInner context (loopHeader text context scan)) _ .endOnly tv nv
+                  (loopHeader_bound text context scan))
+        · exact Nat.zero_le _
+  termination_by (bodyRemaining text scan, 1)
 
   theorem conditionalBody_bound (text : Source) (context : ParseContext) (scan : BodyScan)
       (tv : ValidText text) (nv : ValidNames text context.names) (sv : scan.position ≤ text.length + 1) :
@@ -285,7 +309,11 @@ theorem statementBody_progress (text : Source) (context : ParseContext) (scan : 
     · rw [ite_eq_left found] at positive ⊢
       exact conditionalBody_progress text context scan positive
     · rw [ite_eq_right found] at positive ⊢
-      exact basicBody_progress text context scan positive
+      by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
+      · rw [ite_eq_left loopFound] at positive ⊢
+        exact loopBody_progress text context scan positive
+      · rw [ite_eq_right loopFound] at positive ⊢
+        exact basicBody_progress text context scan positive
 
 theorem bodyTail_nondecreasing (text : Source) (context : ParseContext) (scan : BodyScan) (stop : BodyStop)
     (positive : (bodyTail text context scan stop).position ≠ 0) :
