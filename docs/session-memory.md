@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-16 — For loops and integers review remediation authorized
+
+The owner instructed, **“Proceed with the remediation you have recommended,”**
+after the disposition of [review-b8f1d0b9a8](reviews/review-b8f1d0b9a8.md).
+This authorizes the ordered [remediation milestone](https://github.com/berkeleynerd/silver/milestone/3)
+and [repair record](review-b8f1d0b9a8-repairs.md): L1's token-boundary
+operator-budget repair; L2–L9 and L13's evidence, handoff and producer-boundary
+corrections; L10/L12's practical adapter retention and diagnostics; L14's
+regressions; and L11/L15 as separate subsequent proof increments. Existing
+#31 is reused for L8. Findings are the tracked increments, with related
+documentation batched together rather than duplicated in parent tickets.
+
+The review is retained with an appended disposition correcting its capacity
+wording and proof-file counts. Preserve successful and failed validation,
+manual cache-reuse evidence, all worktrees and scratch. Existing review tests
+retain their actual input scope and skips; do not repeat them merely to obtain
+a managed record. Required current-input obligation discharge and actual-source
+correspondence remain unchanged. This instruction does not require a clean
+rebuild, independent kernel replay, generic provenance framework, hostile-cache
+defenses or historical commit rewrites.
+
+Milestone 1 remains complete. The remediation adds no language construct and
+amends no Oracle guarantee; broader capabilities remain Backlog. Routine
+commits and publication remain authorized, hosted CI remains disabled and
+native macOS validation remains independent. Implementation claims follow
+publication of this authorization on `main`, with the commit cited in issue
+handoffs. Future reviews should consolidate candidates before verification,
+reserve extra independent checks for blocker claims or disagreements, and
+check whole-team cost before repeated broad work. CLI memory was unavailable
+and was not updated.
+
 ## 2026-10-16 — For loops and integers delivered
 
 The resumed owner-authorized milestone is implemented and validated on Linux

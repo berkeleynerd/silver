@@ -14,6 +14,42 @@ next capability while retaining full assurance for the current language.
 
 ## Current development sequence
 
+### Review of For loops and integers
+
+**Authorized on 2026-10-16**, after the completed milestone below. The owner
+selected the recommended remediation of [review-b8f1d0b9a8](docs/reviews/review-b8f1d0b9a8.md).
+[Milestone 3](https://github.com/berkeleynerd/silver/milestone/3) uses its
+finding issues as the increments; the [repair record](docs/review-b8f1d0b9a8-repairs.md)
+contains completion criteria and evidence scope. Delivery of one increment
+does not complete the remaining work.
+
+1. **Recognizer and capacity premise:** L1 [#51](https://github.com/berkeleynerd/silver/issues/51),
+   native token-boundary counting with its Lean mirror, source correspondence
+   and 63/64-boundary regressions. This is prerequisite to further constructs.
+2. **Batched evidence and boundary corrections:** L2–L7 #52–#57, L8 under
+   existing #31, L9 #58 and L13 #62. Preserve historical evidence, disclose
+   actual input/cache scope, correct handoff status and document producer and
+   invocation premises. This documentation stream can proceed alongside L1.
+3. **Adapter operations:** L10 #59 and L12 #61, explicit workspace lifetime
+   and retention plus useful fail-closed diagnostics, with affected assurance.
+4. **Regression coverage:** L14 #63, selected admission/composition cases and
+   two native regressions, integrated with the preceding changes.
+5. **Separate proof follow-ups:** L11 #60 (internal template spelling/meaning
+   determinism and stronger endpoints) and L15 #64 (representative
+   kernel-checked recognizer witnesses). Keep their completion separate.
+6. **Integration:** independent review and proportionate current-input native,
+   Lean and regression validation for the combined changes; exact scope and
+   retained failures remain in the repair record. No redundant parent ticket
+   or duplicate expensive success run is required.
+
+No owner policy decision remains open for this scope. There is no new language
+construct, Oracle amendment, mandatory clean/replay run or generic provenance
+framework. The previous milestone and its harness completion are not reversed.
+Existing open Rosetta/planning suggestions remain separate; procedures receive
+a stage issue when selected as a near-term capability. Future review effort
+uses candidate consolidation, extra independent checking for blocker claims
+or disagreements, and a whole-team cost checkpoint.
+
 ### Proof iteration controls
 
 **Complete on 2026-10-16.** The owner's “Make it so” instruction selected one
