@@ -16,6 +16,7 @@ open Bindings Compose PathFacts
 inductive Obligation
   | range (context : Context) (summary : Summary)
   | length (context : Context) (left right : Summary)
+  | intervalLength (context : Context) (left : LengthSummary) (right : Summary)
   | validInput (context : Context)
   | scalar (obligation : Integer.Obligation)
   | impossible
@@ -24,6 +25,7 @@ inductive Obligation
 def Obligation.discharge : Obligation → Bool
   | .range context summary => fitsSummary context summary
   | .length context left right => equalSummary context left right
+  | .intervalLength context left right => equalLengthSummary context left right
   | .validInput context => !context.invalidReachable
   | .scalar obligation => obligation.discharge
   | .impossible => false
@@ -33,6 +35,9 @@ def Obligation.Valid : Obligation → Prop
       context.Allows valid length rejected → summary.length length ≤ maxSourceLength
   | .length context left right => ∀ valid length rejected,
       context.Allows valid length rejected → left.length length = right.length length
+  | .intervalLength context left right => ∀ valid inputLength rejected actualLength,
+      context.Allows valid inputLength rejected → left.Contains inputLength actualLength →
+        actualLength = right.length inputLength
   | .validInput context => ∀ valid length rejected,
       context.Allows valid length rejected → valid = true
   | .scalar obligation => obligation.Valid
@@ -42,6 +47,8 @@ theorem Obligation.discharge_sound {check : Obligation} (checked : check.dischar
   cases check with
   | range context summary => exact fun _ _ _ allowed => fitsSummary_sound allowed checked
   | length context left right => exact fun _ _ _ allowed => equalSummary_sound allowed checked
+  | intervalLength context left right =>
+      exact fun _ _ _ _ allowed within => equalLengthSummary_sound allowed within checked
   | validInput context =>
       have safe : context.invalidReachable = false := by simpa [Obligation.discharge] using checked
       exact fun _ _ _ allowed => Context.output_requires_valid_input allowed safe
@@ -57,11 +64,39 @@ theorem scalar_discharged (checks : List Integer.Obligation) :
     discharged (checks.map Obligation.scalar) = Integer.discharged checks := by
   simp only [discharged, Integer.discharged, List.all_map, Function.comp_def, Obligation.discharge]
 
+def imageObligations (expression : Expression) (ranges : Integer.Ranges) : List Obligation :=
+  expression.flatMap fun atom => match atom with
+    | .image scalar => (scalar.obligations ranges).map Obligation.scalar
+    | _ => []
+
+theorem image_obligations_discharge {expression : Expression} {shape : Shape}
+    {ranges : Integer.Ranges} {summary : LengthSummary}
+    (known : expression.inferLength shape ranges = some summary) :
+    discharged (imageObligations expression ranges) = true := by
+  induction expression generalizing summary with
+  | nil => rfl
+  | cons atom rest ih =>
+      simp only [Expression.inferLength, Option.bind_eq_some_iff, Option.map_eq_some_iff] at known
+      obtain ⟨first, atomKnown, remaining, restKnown, _⟩ := known
+      have tail := ih restKnown
+      simp only [imageObligations, List.flatMap_cons, discharged_append]
+      change (discharged _ && discharged (imageObligations rest ranges)) = true
+      rw [tail, Bool.and_true]
+      cases atom with
+      | literal | argument | reference => rfl
+      | image scalar =>
+          simp only [Operand.inferLength, Option.map_eq_some_iff] at atomKnown
+          obtain ⟨bounds, found, _⟩ := atomKnown
+          exact (scalar_discharged _).trans (Integer.Expr.obligations_discharge found)
+
 def Condition.obligations (shape : Shape) (condition : Condition) (context : Context)
     (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
   match condition with
   | .stringCompare _ left right =>
-      [.range context (left.summary shape), .range context (right.summary shape)]
+      imageObligations left ranges ++ imageObligations right ranges ++
+        match left.inferLength shape ranges, right.inferLength shape ranges with
+        | some a, some b => [.range context a.upper, .range context b.upper]
+        | _, _ => [.impossible]
   | .lengthCompare _operator left right =>
       match shape left, right.bound shape with
       | some info, some bound => [.range context info.bound.summary, .range context bound.summary]
@@ -71,15 +106,25 @@ def Condition.obligations (shape : Shape) (condition : Condition) (context : Con
   | .inputValid => []
   | .parenthesized inner | .negated inner => inner.obligations shape context ranges
   | .andThen left right =>
-      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context true) ranges
+      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context true ranges) ranges
   | .orElse left right =>
-      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context false) ranges
+      left.obligations shape context ranges ++ right.obligations shape (left.refine shape context false ranges) ranges
 
 theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (context : Context)
     (ranges : Integer.Ranges := Integer.emptyRanges) :
     discharged (condition.obligations shape context ranges) = condition.checkBounds shape context ranges := by
   induction condition generalizing context with
-  | stringCompare unequal left right => simp [obligations, discharged, Obligation.discharge, checkBounds]
+  | stringCompare unequal left right =>
+      cases leftKnown : left.inferLength shape ranges with
+      | none => simp [obligations, checkBounds, leftKnown, discharged, Obligation.discharge]
+      | some a =>
+          cases rightKnown : right.inferLength shape ranges with
+          | none => simp [obligations, checkBounds, leftKnown, rightKnown, discharged, Obligation.discharge]
+          | some b =>
+              simp only [obligations, checkBounds, leftKnown, rightKnown, discharged_append,
+                image_obligations_discharge leftKnown, image_obligations_discharge rightKnown,
+                Bool.true_and]
+              simp [discharged, Obligation.discharge]
   | lengthCompare operator left right =>
       simp only [obligations, checkBounds]
       split <;> simp_all [discharged, Obligation.discharge]
@@ -92,33 +137,51 @@ theorem Condition.obligations_exact (condition : Condition) (shape : Shape) (con
   | andThen left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
   | orElse left right ihl ihr => simp only [obligations, discharged_append, ihl, ihr, checkBounds]
 
-def simpleObligations (shape : Shape) (context : Context) : Sequence.SimpleStatement → List Obligation
+def simpleObligations (shape : Shape) (context : Context) (item : Sequence.SimpleStatement)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
+  match item with
   | .null => []
-  | .assign update =>
-      match shape update.target with
-      | some ⟨bound, true⟩ => [.range context (update.value.summary shape),
-          .length context (update.value.summary shape) bound.summary]
-      | _ => [.impossible]
-  | .output expression | .put expression => [.range context (expression.summary shape), .validInput context]
+  | .assign update => imageObligations update.value ranges ++
+      match shape update.target, update.value.inferLength shape ranges with
+      | some ⟨bound, true⟩, some summary => [.range context summary.upper,
+          .intervalLength context summary bound.summary]
+      | _, _ => [.impossible]
+  | .output expression | .put expression => imageObligations expression ranges ++
+      match expression.inferLength shape ranges with
+      | some summary => [.range context summary.upper, .validInput context]
+      | none => [.impossible]
 
-theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Sequence.SimpleStatement) :
-    discharged (simpleObligations shape context item) = checkSimple shape context item := by
+theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Sequence.SimpleStatement)
+    (ranges : Integer.Ranges := Integer.emptyRanges) :
+    discharged (simpleObligations shape context item ranges) = checkSimple shape context item ranges := by
   cases item with
   | null => rfl
-  | output expression | put expression => simp [simpleObligations, discharged, Obligation.discharge, checkSimple]
+  | output expression | put expression =>
+      cases known : expression.inferLength shape ranges with
+      | none => simp [simpleObligations, checkSimple, known, discharged, Obligation.discharge]
+      | some summary =>
+          simp only [simpleObligations, checkSimple, known, discharged_append,
+            image_obligations_discharge known, Bool.true_and]
+          simp [discharged, Obligation.discharge]
   | assign update =>
-      simp only [simpleObligations, checkSimple, checkAssignment]
-      split <;> simp_all [discharged, Obligation.discharge]
+      simp only [simpleObligations, checkSimple, checkAssignment, discharged_append]
+      split
+      · rename_i bound summary target known
+        rw [image_obligations_discharge known]
+        simp [target, known, discharged, Obligation.discharge]
+      ·
+        simp only [discharged, List.all_cons, List.all_nil, Obligation.discharge,
+          Bool.false_and, Bool.and_false]
 
 mutual
   def Statement.obligations (shape : Shape) (context : Context) (item : Statement)
       (ranges : Integer.Ranges := Integer.emptyRanges) : List Obligation :=
     match item with
-    | .simple item => simpleObligations shape context item
+    | .simple item => simpleObligations shape context item ranges
     | .reject => []
     | .choice condition yes no => condition.obligations shape context ranges ++
-        statementsObligations shape (condition.refine shape context true) yes ranges ++
-        statementsObligations shape (condition.refine shape context false) no ranges
+        statementsObligations shape (condition.refine shape context true ranges) yes ranges ++
+        statementsObligations shape (condition.refine shape context false ranges) no ranges
     | .forLoop index _ lower upper body =>
         (lower.obligations ranges ++ upper.obligations ranges).map Obligation.scalar ++
           match lower.infer ranges, upper.infer ranges with
