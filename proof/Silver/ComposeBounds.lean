@@ -29,16 +29,18 @@ def ValidNames (text : Source) (names : BindingEnvironment) : Prop :=
 
 def ValidValue (text : Source) (value : ValueResult) : Prop :=
   value.after ≤ text.length + 1 ∧ value.valueFirst ≤ text.length + 1 ∧
-    value.staticLength ≤ maxSourceLength ∧ value.reference ≤ maxBindings
+    value.staticLength ≤ maxSourceLength ∧ value.reference ≤ maxBindings ∧
+    value.minimumLength ≤ maxSourceLength
 
 def ValidResult (text : Source) (result : ExpressionResult) : Prop :=
   result.after ≤ text.length + 1 ∧ result.staticLength ≤ maxSourceLength ∧
-    result.dynamicCount ≤ maxExpressionOperands
+    result.dynamicCount ≤ maxExpressionOperands ∧ result.minimumLength ≤ maxSourceLength
 
 def ValidScan (text : Source) (scan : ExpressionState) : Prop :=
   ValidCursor text scan.position ∧ scan.staticLength ≤ maxSourceLength ∧
     scan.dynamicCount ≤ scan.operands ∧ scan.operands ≤ maxExpressionOperands ∧
-    scan.depth ≤ maxSourceLength + 1 ∧ (scan.position = 0 ∨ scan.depth < scan.position)
+    scan.depth ≤ maxSourceLength + 1 ∧ (scan.position = 0 ∨ scan.depth < scan.position) ∧
+    scan.minimumLength ≤ maxSourceLength
 
 theorem model_skip_valid (text : Source) (position : Nat)
     (bound : ValidCursor text position) : ValidCursor text (skipAt text position) := by
@@ -127,12 +129,53 @@ theorem model_literal_valid (text : Source) (valid : ValidText text) (position :
     have finish := Output.literalEnd_bounds text (position + 1) accepted.2.2.2
     have length := Guarded.literalLength_bound text (position + 1)
     simp only [ValidValue]
-    exact ⟨finish.2, by omega, by obtain ⟨_, bounded⟩ := valid; omega, by simp⟩
+    exact ⟨finish.2, by omega, by obtain ⟨_, bounded⟩ := valid; omega, by simp, by obtain ⟨_, bounded⟩ := valid; omega⟩
   · simp [invalidValue, ValidValue]
 
+theorem image_lengthBounds_bounded (bounds : Integer.Interval) (bounded : bounds.Bounded) :
+    (Integer.Image.lengthBounds bounds).1 ≤ 11 ∧
+      (Integer.Image.lengthBounds bounds).2 ≤ 11 := by
+  have lower := Integer.Image.magnitude_bounded bounds.lower bounded.1
+  have upper := Integer.Image.magnitude_bounded bounds.upper bounded.2
+  have lo : Integer.Image.minimumMagnitude bounds ≤ 2147483648 := by
+    simp only [Integer.Image.minimumMagnitude]
+    split <;> omega
+  have hi : Integer.Image.maximumMagnitude bounds ≤ 2147483648 := by
+    simp only [Integer.Image.maximumMagnitude]
+    omega
+  have loDigits := (Integer.Image.decimalDigits_le_iff (Integer.Image.minimumMagnitude bounds) 10 (by decide)).mpr
+    (show Integer.Image.minimumMagnitude bounds < 10000000000 by omega)
+  have hiDigits := (Integer.Image.decimalDigits_le_iff (Integer.Image.maximumMagnitude bounds) 10 (by decide)).mpr
+    (show Integer.Image.maximumMagnitude bounds < 10000000000 by omega)
+  simp only [Integer.Image.lengthBounds]
+  omega
+
+theorem model_image_valid (text : Source) (position : Nat) (names : BindingEnvironment)
+    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) :
+    ValidValue text (imageAt text position names scalarNames integerHidden) := by
+  by_cases rejected : (imageAt text position names scalarNames integerHidden).after = 0
+  · dsimp only [imageAt] at rejected ⊢
+    split
+    · simp [ValidValue, invalidValue]
+    · rename_i accepted
+      simp only [accepted, Bool.false_eq_true, ↓reduceIte, imageValue] at rejected
+      have progress : position < (imageParts text position scalarNames).following := by
+        simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, not_or] at accepted
+        omega
+      omega
+  · obtain ⟨expression, parsed⟩ := image_sound rejected
+    rw [image_complete parsed]
+    have bounded := Integer.Expr.infer_bounded parsed.scalar.inferred
+    have lengths := image_lengthBounds_bounded _ bounded
+    have following : (imageParts text position scalarNames).following ≤ text.length + 1 :=
+      fixedAfter_result_bound text _ ")" false (by decide)
+    dsimp only [imageValue, ValidValue]
+    unfold LengthSummary.ofImage
+    split <;> simp only <;> unfold maxSourceLength maxBindings <;> omega
+
 theorem model_value_valid (text : Source) (valid : ValidText text) (position : Nat)
-    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (namesValid : ValidNames text names) :
-    ValidValue text (valueAt (scalarNames := scalarNames) text position names) := by
+    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (namesValid : ValidNames text names) :
+    ValidValue text (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names) := by
   unfold valueAt
   dsimp only
   split
@@ -146,12 +189,12 @@ theorem model_value_valid (text : Source) (valid : ValidText text) (position : N
       have indexBound := model_lookup_valid text names (skipAt text position) (nameAfter text (skipAt text position))
       simp only [present, Option.getD_some, ValidValue]
       exact ⟨model_name_valid text _, infoValid.2.1, infoValid.2.2,
-        Nat.le_trans indexBound namesValid.1⟩
-    · simp [invalidValue, ValidValue]
+        Nat.le_trans indexBound namesValid.1, infoValid.2.2⟩
+    · exact model_image_valid text position names scalarNames integerHidden
 
-theorem model_value_advances (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment}
-    (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) text position names).after ≠ 0) :
-    position < (valueAt (scalarNames := scalarNames) text position names).after := by
+theorem model_value_advances (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    (bound : ValidCursor text position) (nonzero : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names).after ≠ 0) :
+    position < (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names).after := by
   by_cases quoted : (literalAt text (skipAt text position)).after ≠ 0
   · have literalAdvance := literalAt_advances text (skipAt text position) quoted
     have startNonzero : skipAt text position ≠ 0 := by
@@ -170,19 +213,22 @@ theorem model_value_advances (text : Source) (position : Nat) (names : BindingEn
       dsimp only
       rw [ite_eq_right quoted, ite_eq_left found]
       exact Nat.lt_of_le_of_lt skipped name.2.1
-    · simp [valueAt, quoted, found, invalidValue] at nonzero
+    · have accepted : (imageAt text position names scalarNames integerHidden).after ≠ 0 := by
+        simpa [valueAt, quoted, found] using nonzero
+      obtain ⟨expression, parsed⟩ := image_sound accepted
+      simpa [valueAt, quoted, found, image_complete parsed, imageValue] using parsed.following
 
 theorem model_invalid_scan_valid (text : Source) : ValidScan text invalidExpressionState := by
   simp [ValidScan, ValidCursor, invalidExpressionState]
 
 theorem model_scan_valid (text : Source) (valid : ValidText text)
-    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (scan : ExpressionState)
+    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
-    ValidScan text (expressionStep (scalarNames := scalarNames) text names scan) ∧
-      ((expressionStep (scalarNames := scalarNames) text names scan).position = 0 ∨
-       (expressionStep (scalarNames := scalarNames) text names scan).complete = true ∨
-       scan.position < (expressionStep (scalarNames := scalarNames) text names scan).position) := by
-  have atomValid := model_value_valid (scalarNames := scalarNames) text valid scan.position names namesValid
+    ValidScan text (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan) ∧
+      ((expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).position = 0 ∨
+       (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).complete = true ∨
+       scan.position < (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).position) := by
+  have atomValid := model_value_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid scan.position names namesValid
   have textBound := valid.2
   have openBound := model_fixed_valid text scan.position "(" false scanValid.1
   have joinBound := model_fixed_valid text scan.position "&" false scanValid.1
@@ -190,7 +236,7 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
   have openAdvance := model_fixed_advances text scan.position "(" false scanValid.1 (by decide)
   have joinAdvance := model_fixed_advances text scan.position "&" false scanValid.1 (by decide)
   have closeAdvance := model_fixed_advances text scan.position ")" false scanValid.1 (by decide)
-  have atomAdvance := model_value_advances (scalarNames := scalarNames) text scan.position names scanValid.1
+  have atomAdvance := model_value_advances (scalarNames := scalarNames) (integerHidden := integerHidden) text scan.position names scanValid.1
   unfold expressionStep
   dsimp only
   split
@@ -207,7 +253,7 @@ theorem model_scan_valid (text : Source) (valid : ValidText text)
         · split
           · exact ⟨model_invalid_scan_valid text, Or.inl rfl⟩
           · rename_i admitted
-            have nonempty : (valueAt (scalarNames := scalarNames) text scan.position names).after ≠ 0 := by omega
+            have nonempty : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text scan.position names).after ≠ 0 := by omega
             have advance := atomAdvance nonempty
             simp only [ValidScan, ValidCursor, ValidValue] at scanValid atomValid ⊢
             split <;> exact ⟨by omega, Or.inr (Or.inr advance)⟩
@@ -232,9 +278,9 @@ theorem model_result_valid (text : Source) (scan : ExpressionState)
   omega
 
 theorem model_tail_valid (text : Source) (valid : ValidText text)
-    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (scan : ExpressionState)
+    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (scan : ExpressionState)
     (namesValid : ValidNames text names) (scanValid : ValidScan text scan) :
-    ValidResult text (expressionTail (scalarNames := scalarNames) text names scan) := by
+    ValidResult text (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan) := by
   rw [expressionTail]
   split
   · simp [ValidResult, invalidExpression]
@@ -244,23 +290,23 @@ theorem model_tail_valid (text : Source) (valid : ValidText text)
       split
       · simp [ValidResult, invalidExpression]
       · split
-        · exact model_result_valid text _ (model_scan_valid (scalarNames := scalarNames) text valid names scan namesValid scanValid).1
+        · exact model_result_valid text _ (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid names scan namesValid scanValid).1
         · split
-          · exact model_tail_valid (scalarNames := scalarNames) text valid names _ namesValid
-              (model_scan_valid (scalarNames := scalarNames) text valid names scan namesValid scanValid).1
+          · exact model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid names _ namesValid
+              (model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid names scan namesValid scanValid).1
           · simp [ValidResult, invalidExpression]
 termination_by text.length + 1 - scan.position
 
 theorem model_expression_valid (text : Source) (valid : ValidText text) (position : Nat)
-    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (bound : ValidCursor text position)
-    (namesValid : ValidNames text names) : ValidResult text (expressionAt (scalarNames := scalarNames) text position names) := by
-  apply model_tail_valid (scalarNames := scalarNames) text valid names _ namesValid
+    (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (bound : ValidCursor text position)
+    (namesValid : ValidNames text names) : ValidResult text (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names) := by
+  apply model_tail_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid names _ namesValid
   exact ⟨bound, by simp, by simp, by simp, by simp,
-    by change position = 0 ∨ 0 < position; omega⟩
+    by change position = 0 ∨ 0 < position; omega, by simp⟩
 
-theorem model_scan_completed_position (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment}
-    (scan : ExpressionState) (finished : (expressionStep (scalarNames := scalarNames) text names scan).complete = true) :
-    (expressionStep (scalarNames := scalarNames) text names scan).position = scan.position := by
+theorem model_scan_completed_position (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    (scan : ExpressionState) (finished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).complete = true) :
+    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).position = scan.position := by
   unfold expressionStep at finished ⊢
   dsimp only at finished ⊢
   repeat' split at finished
@@ -268,9 +314,9 @@ theorem model_scan_completed_position (text : Source) (names : BindingEnvironmen
 
 /-- Even outside the verified machine domain, successful recursion cannot move
 backwards: completed steps retain the cursor and recursive calls strictly advance. -/
-theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (scan : ExpressionState) :
-    (expressionTail (scalarNames := scalarNames) text names scan).after = 0 ∨
-      scan.position ≤ (expressionTail (scalarNames := scalarNames) text names scan).after := by
+theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (scan : ExpressionState) :
+    (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).after = 0 ∨
+      scan.position ≤ (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan).after := by
   rw [expressionTail]
   split
   · exact Or.inl rfl
@@ -281,10 +327,10 @@ theorem model_tail_nondecreasing (text : Source) (names : BindingEnvironment) {s
       · exact Or.inl rfl
       · split
         · rename_i finished
-          exact Or.inr (Nat.le_of_eq (model_scan_completed_position (scalarNames := scalarNames) text names scan finished).symm)
+          exact Or.inr (Nat.le_of_eq (model_scan_completed_position (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan finished).symm)
         · split
           · rename_i advancing
-            rcases model_tail_nondecreasing (scalarNames := scalarNames) text names (expressionStep (scalarNames := scalarNames) text names scan) with zero | forward
+            rcases model_tail_nondecreasing (scalarNames := scalarNames) (integerHidden := integerHidden) text names (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names scan) with zero | forward
             · exact Or.inl zero
             · exact Or.inr (Nat.le_trans (by omega) forward)
           · exact Or.inl rfl
@@ -295,8 +341,8 @@ theorem model_fixed_input_nonzero (text : Source) (position : Nat) (spelling : S
   intro zero
   simp [fixedAfter, zero] at nonzero
 
-theorem model_expression_input_nonzero (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment}
-    (nonzero : (expressionAt (scalarNames := scalarNames) text position names).after ≠ 0) : position ≠ 0 := by
+theorem model_expression_input_nonzero (text : Source) (position : Nat) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
+    (nonzero : (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names).after ≠ 0) : position ≠ 0 := by
   intro zero
   subst position
   simp [expressionAt, expressionTail, invalidExpression] at nonzero
