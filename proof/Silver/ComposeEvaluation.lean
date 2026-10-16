@@ -1,7 +1,7 @@
 module
 
 public import Silver.ComposeLexical
-public import Silver.ComposeEquations
+public import Silver.ComposeContracts
 
 @[expose] public section
 
@@ -40,6 +40,7 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
       (a.eval calls locals).length ≤ maxSourceLength
   | .lexAllowed a => a.Legal calls locals ∧
       True
+  | .defaultFalse f => f.Legal calls locals
   | .app f x => f.Legal calls locals ∧ x.Legal calls locals
   | .field _ x => x.Legal calls locals
   | .count x => x.Legal calls locals
@@ -72,12 +73,12 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .tokensLast x => x.Legal calls locals
   | .tokenIndex x i => x.Legal calls locals ∧ i.Legal calls locals
   | .binding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
-  | .value a b c d e => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals
-  | .result a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals
+  | .value a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
+  | .result a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
   | .mul x y => x.Legal calls locals ∧ y.Legal calls locals
-  | .scan a b c d e f g h => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals
+  | .scan a b c d e f g h i j => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals ∧ g.Legal calls locals ∧ h.Legal calls locals ∧ i.Legal calls locals ∧ j.Legal calls locals
   | .scanDepth s p d => s.Legal calls locals ∧ p.Legal calls locals ∧ d.Legal calls locals
-  | .scanAtom s p l d o n => s.Legal calls locals ∧ p.Legal calls locals ∧ l.Legal calls locals ∧ d.Legal calls locals ∧ o.Legal calls locals ∧ n.Legal calls locals
+  | .scanAtom s p m l d o n e => s.Legal calls locals ∧ p.Legal calls locals ∧ m.Legal calls locals ∧ l.Legal calls locals ∧ d.Legal calls locals ∧ o.Legal calls locals ∧ n.Legal calls locals ∧ e.Legal calls locals
   | .scanNeed s p => s.Legal calls locals ∧ p.Legal calls locals
   | .scanComplete s => s.Legal calls locals
   | .statePosition s p => s.Legal calls locals ∧ p.Legal calls locals
@@ -257,6 +258,11 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [established]
     rw [h0]
     all_goals rfl
+
+  | .defaultFalse f, legal => by
+    have same := Expr.eval_lexical calls meaning locals f legal
+    dsimp only [Expr.eval]
+    rw [same]
 
   | .app f x, legal => by
     dsimp only [Expr.Legal] at legal
@@ -527,44 +533,7 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h5]
     all_goals rfl
 
-  | .value a b c d e, legal => by
-    dsimp only [Expr.Legal] at legal
-    have h0 := Expr.eval_lexical calls meaning locals a legal.1
-    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
-    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
-    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
-    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2
-    dsimp only [Expr.eval, lexical]
-    rw [h0]
-    rw [h1]
-    rw [h2]
-    rw [h3]
-    rw [h4]
-    all_goals rfl
-
-  | .result a b c d, legal => by
-    dsimp only [Expr.Legal] at legal
-    have h0 := Expr.eval_lexical calls meaning locals a legal.1
-    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
-    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
-    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2
-    dsimp only [Expr.eval, lexical]
-    rw [h0]
-    rw [h1]
-    rw [h2]
-    rw [h3]
-    all_goals rfl
-
-  | .mul x y, legal => by
-    dsimp only [Expr.Legal] at legal
-    have h0 := Expr.eval_lexical calls meaning locals x legal.1
-    have h1 := Expr.eval_lexical calls meaning locals y legal.2
-    dsimp only [Expr.eval, lexical]
-    rw [h0]
-    rw [h1]
-    all_goals rfl
-
-  | .scan a b c d e f g h, legal => by
+  | .value a b c d e f g h, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
@@ -585,6 +554,57 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h7]
     all_goals rfl
 
+  | .result a b c d e f, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    all_goals rfl
+
+  | .mul x y, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals x legal.1
+    have h1 := Expr.eval_lexical calls meaning locals y legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    all_goals rfl
+
+  | .scan a b c d e f g h i j, legal => by
+    dsimp only [Expr.Legal] at legal
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
+    have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals g legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals h legal.2.2.2.2.2.2.2.1
+    have h8 := Expr.eval_lexical calls meaning locals i legal.2.2.2.2.2.2.2.2.1
+    have h9 := Expr.eval_lexical calls meaning locals j legal.2.2.2.2.2.2.2.2.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0]
+    rw [h1]
+    rw [h2]
+    rw [h3]
+    rw [h4]
+    rw [h5]
+    rw [h6]
+    rw [h7]
+    rw [h8]
+    rw [h9]
+    all_goals rfl
+
   | .scanDepth s p d, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals s legal.1
@@ -596,14 +616,16 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h2]
     all_goals rfl
 
-  | .scanAtom s p l d o n, legal => by
+  | .scanAtom s p m l d o n e, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals s legal.1
     have h1 := Expr.eval_lexical calls meaning locals p legal.2.1
-    have h2 := Expr.eval_lexical calls meaning locals l legal.2.2.1
-    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
-    have h4 := Expr.eval_lexical calls meaning locals o legal.2.2.2.2.1
-    have h5 := Expr.eval_lexical calls meaning locals n legal.2.2.2.2.2
+    have h2 := Expr.eval_lexical calls meaning locals m legal.2.2.1
+    have h3 := Expr.eval_lexical calls meaning locals l legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals d legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals o legal.2.2.2.2.2.1
+    have h6 := Expr.eval_lexical calls meaning locals n legal.2.2.2.2.2.2.1
+    have h7 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.2.2.2
     dsimp only [Expr.eval, lexical]
     rw [h0]
     rw [h1]
@@ -611,6 +633,8 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h3]
     rw [h4]
     rw [h5]
+    rw [h6]
+    rw [h7]
     all_goals rfl
 
   | .scanNeed s p, legal => by
@@ -779,9 +803,12 @@ structure LegalHelpers (calls : Calls) : Prop where
   literal : ∀ text, ValidText text → ∀ position,
     ValidCursor text position →
     literalBody.Legal calls (Context.locals {text,position})
-  value : ∀ text, ValidText text → ∀ position names scalarNames,
+  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    valueBody.Legal calls (Context.locals {text,scalarNames,position,names})
+    imageBody.Legal calls (Context.locals {text,scalarNames,integerHidden,position,names})
+  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    valueBody.Legal calls (Context.locals {text,scalarNames,integerHidden,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
     ValidState text state → ValidCursor text first → ValidCursor text after →
     newNameBody.Legal calls (Context.locals {text,state,first,after,arguments})
@@ -803,21 +830,21 @@ structure LegalHelpers (calls : Calls) : Prop where
   declarations : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     declarationsBody.Legal calls (Context.locals {text,state,arguments})
-  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    expressionStepBody.Legal calls (Context.locals {text,scalarNames,names,scan})
-  tail : ∀ text, ValidText text → ∀ names scan scalarNames,
+    expressionStepBody.Legal calls (Context.locals {text,scalarNames,integerHidden,names,scan})
+  tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    tailBody.Legal calls (Context.locals {text,scalarNames,names,scan})
+    tailBody.Legal calls (Context.locals {text,scalarNames,integerHidden,names,scan})
   fits : ∀ text, ValidText text → ∀ result capacity,
     ValidResult text result → capacity ≤ maxSourceLength →
     fitsBody.Legal calls (Context.locals {text,result,capacity})
   comparison : ∀ text, ValidText text → ∀ state,
     ValidState text state →
     comparisonBody.Legal calls (Context.locals {text,state})
-  expression : ∀ text, ValidText text → ∀ position names scalarNames,
+  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    expressionBody.Legal calls (Context.locals {text,scalarNames,position,names})
+    expressionBody.Legal calls (Context.locals {text,scalarNames,integerHidden,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
     ValidState text state →
     targetBody.Legal calls (Context.locals {text,state,sameTarget})
@@ -865,6 +892,8 @@ theorem normalized_helpers (calls : Calls)
   scalarLiteral := source.scalarLiteral
   scalarAppend := source.scalarAppend
   scalarEmpty := source.scalarEmpty
+  imageMinimum := source.imageMinimum
+  imageMaximum := source.imageMaximum
   nameIs := source.nameIs
   callAfter := by
     intros
@@ -915,6 +944,12 @@ theorem normalized_helpers (calls : Calls)
     · apply source.literal <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.literal <;> assumption
+  image := by
+    intros
+    apply Eq.trans
+    · apply source.image <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.image <;> assumption
   value := by
     intros
     apply Eq.trans

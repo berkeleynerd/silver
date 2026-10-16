@@ -105,9 +105,15 @@ private theorem model_legal_literal : ∀ text, ValidText text → ∀ position,
   · intro _ inside _ _
     exact ⟨valid.1, valid.2, Nat.succ_pos _, Nat.add_le_add_right inside 1⟩
 
-private theorem model_legal_value : ∀ text, ValidText text → ∀ position names scalarNames,
+private theorem model_legal_image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    valueBody.Legal modelCalls (Context.locals {text,scalarNames,position,names}) := by
+    imageBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
+  intros
+  dsimp +instances only [imageBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
+
+private theorem model_legal_value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    valueBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
   intros
   dsimp +instances only [valueBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
@@ -158,15 +164,15 @@ private theorem model_legal_declarations : ∀ text, ValidText text → ∀ stat
   intros
   dsimp +instances only [declarationsBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Field.get] <;> simp +instances
 
-private theorem model_legal_expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+private theorem model_legal_expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    expressionStepBody.Legal modelCalls (Context.locals {text,scalarNames,names,scan}) := by
+    expressionStepBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,names,scan}) := by
   intros
   dsimp +instances only [expressionStepBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
-private theorem model_legal_tail : ∀ text, ValidText text → ∀ names scan scalarNames,
+private theorem model_legal_tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    tailBody.Legal modelCalls (Context.locals {text,scalarNames,names,scan}) := by
+    tailBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,names,scan}) := by
   intros
   dsimp +instances only [tailBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
@@ -182,9 +188,9 @@ private theorem model_legal_comparison : ∀ text, ValidText text → ∀ state,
   intros
   dsimp +instances only [comparisonBody, Expr.Legal, Expr.eval, Function.isLexical, Context.locals, Locals.set, Field.get] <;> simp +instances
 
-private theorem model_legal_expression : ∀ text, ValidText text → ∀ position names scalarNames,
+private theorem model_legal_expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    expressionBody.Legal modelCalls (Context.locals {text,scalarNames,position,names}) := by
+    expressionBody.Legal modelCalls (Context.locals {text,scalarNames,integerHidden,position,names}) := by
   intros
   dsimp +instances only [expressionBody, Expr.Legal, Function.isLexical] <;> simp +instances
 
@@ -283,6 +289,7 @@ theorem model_legal : LegalBodies modelCalls where
   lookupFrom := model_legal_lookupFrom
   lookup := model_legal_lookup
   literal := model_legal_literal
+  image := model_legal_image
   value := model_legal_value
   newName := model_legal_newName
   addBinding := model_legal_addBinding

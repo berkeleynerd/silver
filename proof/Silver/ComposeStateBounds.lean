@@ -227,7 +227,7 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :
-    ValidValue text ⟨following, 0, 0, 0, true, false, false, 0⟩ :=
+    ValidValue text ⟨following, 0, 0, 0, true, true, false, 0⟩ :=
   ⟨bound, by simp, by simp, by simp, by simp⟩
 
 theorem model_argument_valid (text : Source) (valid : ValidText text)
@@ -254,7 +254,7 @@ theorem model_argument_valid (text : Source) (valid : ValidText text)
       have empty : state.names.length = 0 := by omega
       simp [empty, maxBindings, maxSourceLength]
     have added := model_add_binding_valid text state (argumentFirst text state) (argumentAfter text state)
-      ⟨following, 0, 0, 0, true, false, false, 0⟩ false following stateValid nameValid
+      ⟨following, 0, 0, 0, true, true, false, 0⟩ false following stateValid nameValid
       (model_dynamic_value_valid text following followingBound) followingBound room
     exact ⟨added.1, added.2.1, Or.inr nameValid, added.2.2.2⟩
 

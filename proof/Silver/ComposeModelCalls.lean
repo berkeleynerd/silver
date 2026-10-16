@@ -1,6 +1,6 @@
 module
 
-public import Silver.ComposeEquations
+public import Silver.ComposeContracts
 
 @[expose] public section
 
@@ -38,7 +38,10 @@ def modelCalls : Calls where
     | .literal => literalAt
     | .workTail => workTail
     | .workBudget => withinWorkBudget
-    | .value => fun text position names scalarNames => valueAt text position names scalarNames
+    | .image => imageAt
+    | .imageMinimum => fun bounds => (LengthSummary.ofImage bounds).minimumLength
+    | .imageMaximum => fun bounds => (LengthSummary.ofImage bounds).staticLength
+    | .value => fun text position names scalarNames integerHidden => valueAt text position names scalarNames integerHidden
     | .newName => newNameAllowed
     | .addBinding => addBinding
     | .stringDeclaration => stringDeclarationAt
@@ -53,11 +56,11 @@ def modelCalls : Calls where
     | .argument => argumentAt
     | .declarations => declarationsAt
     | .readDeclarations => declarationsAt
-    | .expressionStep => fun text names scan scalarNames => expressionStep text names scan scalarNames
+    | .expressionStep => fun text names scan scalarNames integerHidden => expressionStep text names scan scalarNames integerHidden
     | .fits => fits
     | .comparison => comparisonAt
-    | .tail => fun text names scan scalarNames => expressionTail text names scan scalarNames
-    | .expression => fun text position names scalarNames => expressionAt text position names scalarNames
+    | .tail => fun text names scan scalarNames integerHidden => expressionTail text names scan scalarNames integerHidden
+    | .expression => fun text position names scalarNames integerHidden => expressionAt text position names scalarNames integerHidden
     | .target => targetAt
     | .dynamic => dynamicAt
     | .assignmentValue => assignmentAt

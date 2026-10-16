@@ -31,9 +31,12 @@ theorem model_ranges : RangeContracts modelCalls where
   literal := by
     intro text valid position _
     exact model_literal_valid text valid position
+  image := by
+    intro text _ position names scalarNames integerHidden _ _ _
+    exact model_image_valid text position names scalarNames integerHidden
   value := by
-    intro text valid position names scalarNames _ namesValid _
-    exact model_value_valid (scalarNames := scalarNames) text valid position names namesValid
+    intro text valid position names scalarNames integerHidden _ namesValid _
+    exact model_value_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid position names namesValid
   stringDeclaration := by
     intro text valid state arguments stateValid
     refine ⟨model_string_declaration_valid text valid state arguments stateValid, ?_⟩
@@ -59,11 +62,11 @@ theorem model_ranges : RangeContracts modelCalls where
     intro text valid state arguments stateValid
     exact model_declarations_valid text valid state arguments stateValid
   expressionStep := by
-    intro text valid names scan scalarNames namesValid _ scanValid
-    exact model_scan_valid (scalarNames := scalarNames) text valid names scan namesValid scanValid
+    intro text valid names scan scalarNames integerHidden namesValid _ scanValid
+    exact model_scan_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid names scan namesValid scanValid
   expression := by
-    intro text valid position names scalarNames bound namesValid _
-    exact model_expression_valid (scalarNames := scalarNames) text valid position names bound namesValid
+    intro text valid position names scalarNames integerHidden bound namesValid _
+    exact model_expression_valid (scalarNames := scalarNames) (integerHidden := integerHidden) text valid position names bound namesValid
   step := by
     intro text valid form token state _ stateValid
     exact model_step_valid text valid form token state stateValid
