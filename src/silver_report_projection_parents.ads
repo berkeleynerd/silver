@@ -34,6 +34,16 @@ is
      with Global => null, Pre => Whole (Left, Middle, Base) and then Whole (Middle, Right, Base),
        Post => Whole (Left, Right, Base);
 
+   procedure Whole_Head
+     (Raw : Bytes.Sequence; First, Last : Big_Natural; Left : State; Base : Depth_Range)
+     with Global => null,
+       Pre => First >= 1 and then First <= Last + 1 and then Last <= Bytes.Length (Raw)
+         and then Whole (Left, Model.Scan_State (Raw, First - 1), Base)
+         and then (for all I in Raw =>
+           (if First < I and then I <= Last then Whole (Left, Model.Scan_State (Raw, I - 1), Base))),
+       Post => (for all I in Raw =>
+         (if First <= I and then I <= Last then Whole (Left, Model.Scan_State (Raw, I - 1), Base)));
+
    procedure Lift_Whole
      (Raw : Bytes.Sequence; First, Last : Big_Natural;
       Left, Middle : State; Base : Depth_Range)

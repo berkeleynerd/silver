@@ -9,6 +9,13 @@ package body Silver_Report_Projection_Parents with SPARK_Mode => On is
       null;
    end Whole_Transitive;
 
+   procedure Whole_Head
+     (Raw : Bytes.Sequence; First, Last : Big_Natural; Left : State; Base : Depth_Range)
+   is
+   begin
+      null;
+   end Whole_Head;
+
    procedure Lift_Whole
      (Raw : Bytes.Sequence; First, Last : Big_Natural;
       Left, Middle : State; Base : Depth_Range)
