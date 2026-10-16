@@ -117,8 +117,8 @@ theorem cell_self (tables : Tables) (state : Matcher) (kind : Theory) (item : Na
 
 /-- Every loop iteration updates exactly its own table cursor. The native array
 loop therefore denotes the three independent mathematical stream matchers. -/
-theorem match_cells (tables : Tables) (state : Matcher) (item : Nat) (kind : Theory) :
-    (matchCommands.eval tables item state kind).cells kind =
+theorem match_cells (tables : Tables) (state : Matcher) (item : Nat) (entry kind : Theory) :
+    (matchCommands.eval tables item state entry).cells kind =
       if state.inTheory then matchByte (tables.byte kind) (tables.length kind) (state.cells kind) item
       else state.cells kind := by
   by_cases active : state.inTheory = true
