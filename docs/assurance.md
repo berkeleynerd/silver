@@ -489,6 +489,20 @@ shell, filesystem and toolchain. Detected infrastructure or verification failure
 prevents publication and is reported as a defect, never as nonmembership or
 successful proof.
 
+Integer Image adds a proved semantic refinement of the selected producer model.
+Its theory constant, model recognizer and exact byte-splice are tied to their
+authoritative SPARK sources. The production driver connects them through native
+SPARK contracts and reviewed call ordering: successful snapshot/model selection,
+exact theorem installation, successful refinement, then original-vendor spawning.
+The installer's successful postcondition establishes complete theorem-byte
+readback; the driver's Static argument equality establishes the exact original
+options with only the selected model replacement and optional proof-directory
+pair. Native source review checks the selected file paths and error branches.
+The [Image adapter boundary](trusted-boundary.md#image-proof-adapter-boundary)
+states the remaining executable-selection, filesystem and process assumptions.
+These distinct arguments do not add an unproved model axiom or a whole-CLI
+correspondence claim.
+
 ## Selected library sources and evidence
 
 Every output project selects the unchanged application `main.adb` and exactly

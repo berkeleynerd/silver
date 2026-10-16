@@ -46,7 +46,7 @@ that a configured pathname selects the intended executable.
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
 | Shell and inherited environment | `/bin/sh` interpretation behind `system` for proof/build tools, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Application arguments use direct runtime spawning. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |
-| Python setup and generated `Silver_Build` | Correct installation anchoring, byte encoding, shell quoting, and external command prefix | Generated declarations are included in SPARK verification and evidence hashes. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |
+| Python setup and generated `Silver_Build`/`Silver_Image_Config` | Correct installation anchoring, byte encoding, shell quoting, external command prefix and original Image support-tool selection | Generated declarations are included in SPARK verification and evidence hashes. Bootstrap and provenance check the private Image overlay and original vendor binding. External-tool selection is reviewed configuration, not a proved property of those tools. Python is not a runtime Silver dispatcher. |
 | Python evidence and replay scripts | Honest collection, comparison, and reporting of inputs, tools, diagnostics and artifacts | Tests and content-bound results detect stale/mismatched evidence; detailed Lean provenance is optional. Scripts are trusted for evidence reporting; hashes do not authenticate against an actor who can rewrite both evidence and manifests. |
 | Lean 4.34.1 kernel, local object cache and source embedding | Kernel checking, correctly built imported objects, source literals, and Lean's standard logical foundations | Handwritten authoritative bindings, candidate reconstruction checks, source dependencies and fresh actual-import/axiom audit. Separate `leanchecker` replay is optional for investigations and explicit audits. No project-specific axioms or unfinished proofs are permitted. |
 | Restricted Ada-to-Lean semantic interpretation | Frontend meaning of the fixed fragment: predefined operators, indexing, evaluation, statement sequencing, branches, loops, returns and machine bounds | Whole-source byte/token/declaration checks constrain the input; GNATprove supplies executable refinement. This is not a verified general Ada parser or complete compiler-semantics theorem. |
@@ -86,17 +86,17 @@ not change language membership or establish automatic proof completion.
 
 All Silver-owned executable implementation is in the SPARK bodies under `src/`:
 `silver`, both profile recognizers, lexical helpers, catalogue export, platform and library
-snapshot helpers, both report checkers, decimal rendering, `silver_io`, and
-`silver_arguments`.
+snapshot helpers, both report checkers, decimal rendering, the Image model,
+streaming files, theorem installer and adapter, `silver_io`, and `silver_arguments`.
 GNATprove checks all bodies, their specifications, and the
-host-local generated `Silver_Build` and `Silver_Library_Sources` SPARK
+host-local generated `Silver_Build`, `Silver_Image_Config` and `Silver_Library_Sources` SPARK
 specifications. `Silver_Build`
 contains absolute installation paths, shell-quoted paths, and the command prefix
 used to invoke Alire. Verification checks their use as SPARK values; bootstrap's
 choice of the installation and intended external tools remains reviewed
 configuration. `Silver_Library_Sources` contains the exact selected runtime
 source bytes, checked against the current installation by the audit.
-Four additional SPARK specifications declare existing external
+The import-only SPARK specifications declare existing external
 entry points; none has a Silver-owned implementation body.
 
 | Binding in `silver_libc.ads` | Existing libc symbol | Purpose |
@@ -120,6 +120,10 @@ entry points; none has a Silver-owned implementation body.
 | --- | --- | --- |
 | `Spawn` | `system__os_lib__spawn__2` | Copy the argument values, spawn the named executable, wait and return the runtime's process result |
 | `Free_List` | `system__strings__free__2` | Free each owned string and the argument list, then clear the caller's pointer |
+
+| Binding in `silver_image_libc.ads` | Existing libc symbol | Behavior relied upon |
+| --- | --- | --- |
+| `C_Link` | `link` | Atomically create a hard link to the staged theorem on the same filesystem, without replacing an existing destination; zero reports success and -1 reports failure |
 
 The two argument imports use the GNAT Ada calling convention, including its ABI
 for an unconstrained `String` result. Exit-status and libc imports use the C
@@ -213,6 +217,50 @@ Detected compiler infrastructure failures use the driver's failure status;
 application process results follow the boundary above. Resource exhaustion
 or external runtime exceptions can still terminate the process outside that
 ordinary diagnostic path.
+
+### Image proof adapter boundary
+
+Applications invoke a private GNATprove overlay. Its copied vendor GNATprove
+finds the compiled `Silver_Image_Adapter` at its normal `gnatwhy3` location;
+other support entries retain the selected vendor paths. Compiler verification
+uses the original vendor GNATprove directly. Bootstrap resolves both original
+executables inside the native tools directory, rejects delegation back to the
+adapter, and embeds the original `gnatwhy3` path and digest in
+`Silver_Image_Config`. The provenance check recomputes the overlay and binding.
+Genuine matching executables, stable installations, Alire's environment and
+GNATprove's relative support-tool lookup remain external premises. The generated
+digest is evidence of selected configuration, not a runtime binary attestation.
+
+The adapter uses the same direct-spawn ABI and immutable argument vector as
+`Run_Application`. Native Static loop invariants and the assertion immediately
+before `Spawn` establish the exact forwarded vector: every original argument is
+preserved except the final model pathname when refinement is selected. A
+`--proof-dir` pair is appended only when the caller supplied no proof directory.
+The selected original executable receives those arguments without a shell;
+statuses 0 through 255 are propagated and other results become infrastructure
+failure. Source review checks the option selection and call ordering separately
+from those proved copy properties.
+
+`Ensure_Theory`'s successful postcondition establishes a complete, closed read
+of exactly `Silver_Image_Theory.Theory_Text`. Both successful source paths read
+`Directory & "/_theories/silver_image.mlw"`. If installation is needed, the body
+writes the complete constant into a private directory on that filesystem,
+publishes with non-replacing `link`, and rereads the selected destination even
+if another invocation published first. A conflicting theorem remains unchanged
+and fails the byte comparison. The driver calls the native prover only after
+successful installation and model refinement. The exact theory constant,
+scanner and byte-splice have their own semantic/source correspondence; this
+installer postcondition and driver ordering do not claim a general filesystem
+or CLI theorem.
+
+Reading those observations as the bytes subsequently consumed by GNATprove
+requires faithful libc reads/writes/close/link, stable model and theorem files
+after their successful checks, and sufficient resources. The unchanged-model
+route preserves the original model argument under the same stable-file premise.
+These are the existing physical filesystem and tool boundary, now applied to
+the added proof artifact. They do not authorize modifying the author's source
+or removing native obligations. The [Image record](for-loops-integers-image.md)
+separates native probes and proof evidence from the milestone's complete audit.
 
 ## Literal-output boundary
 
@@ -391,8 +439,10 @@ Changing a binding, contract, or external symbol therefore requires deliberate
 review of this boundary and an updated pin. These pins protect the reviewed
 interface; they are not proofs of the runtime implementations.
 
-The report model also instantiates the vendor's functional infinite sequence
-for `Character`, with logical equality, inside a `Ghost => Static` package.
+The report model and Image file observations instantiate the vendor's functional
+infinite sequence for `Character`, with logical equality. The report instance
+is inside a `Ghost => Static` package; `Silver_Image_Files.Bytes` is used by
+Static observations and byte-splice contracts.
 The auditor separately identifies the reviewed vendor entities and source
 locations generated by that exact instance. Their `spec` coverage relies on
 SPARKlib's contracts; every Silver-owned model, observation and proof helper

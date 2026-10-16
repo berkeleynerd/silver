@@ -42,12 +42,17 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
          pragma Loop_Invariant
            (for all Previous in 1 .. Index - 1 =>
              Args (Previous) /= null and then Valid_Argument (Args (Previous).all));
+         pragma Loop_Invariant
+           (Static => (for all Previous in 1 .. Index - 1 =>
+             Args (Previous) /= null and then Args (Previous).all =
+               (if Previous = Count and then Replacement'Length /= 0
+                then Replacement else Argument (Previous))));
          declare
             Item : constant String := Argument (Index);
          begin
             if not Valid_Argument (Item) then
                Free_List (Args);
-      pragma Assert (Args = null);
+               pragma Assert (Args = null);
                Failure;
                return;
             end if;
@@ -61,10 +66,20 @@ procedure Silver_Image_Adapter with SPARK_Mode => On is
       end if;
       if not Valid_Path (Silver_Image_Config.Native_Gnatwhy3) then
          Free_List (Args);
-      pragma Assert (Args = null);
+         pragma Assert (Args = null);
          Failure;
          return;
       end if;
+      pragma Assert
+        (Static => Args'First = 1 and then Args'Last = Count + Extra
+         and then (for all Index in 1 .. Count => Args (Index) /= null
+           and then Args (Index).all =
+             (if Index = Count and then Replacement'Length /= 0
+              then Replacement else Argument (Index)))
+         and then (if Extra = 2 then
+           Args (Count + 1) /= null and then Args (Count + 1).all = "--proof-dir"
+           and then Args (Count + 2) /= null
+           and then Args (Count + 2).all = Added_Proof_Directory));
       Status := Spawn (Silver_Image_Config.Native_Gnatwhy3, Args.all);
       Free_List (Args);
       pragma Assert (Args = null);
