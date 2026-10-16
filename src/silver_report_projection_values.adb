@@ -114,7 +114,9 @@ package body Silver_Report_Projection_Values with SPARK_Mode => On is
      with Pre => Structure.Well_Formed (Current) and then not Current.Failed
        and then (Retained_Context (Before)
          or else (Before.Depth = 1 and then Before.Stack (1).Role = Root_Object
-           and then Starter /= '['))
+           and then Starter /= '[')
+         or else (Before.Depth = 2 and then Before.Stack (2).Role = Check_List
+           and then Starter /= '{'))
        and then (Current = Before or else
          (Parents.Whole (Before, Current, Before.Depth)
           and then Inside_Value (Current, Before.Depth, Item)
@@ -133,6 +135,10 @@ package body Silver_Report_Projection_Values with SPARK_Mode => On is
             pragma Assert (Starter = '{');
             pragma Assert (Current.Stack (2).Container = Object_Container);
             pragma Assert (Current.Stack (2).Role /= Check_List);
+            pragma Assert (Current.Stack (3).Role /= Check_Record);
+         elsif Before.Depth = 2 then
+            pragma Assert (Starter = '[');
+            pragma Assert (Current.Stack (3).Container = Array_Container);
             pragma Assert (Current.Stack (3).Role /= Check_Record);
          end if;
       end if;

@@ -87,12 +87,16 @@ is
      (Retained_Context (Model.Scan_State (Raw, Start - 1))
       or else (Model.Scan_State (Raw, Start - 1).Depth = 1
         and then Model.Scan_State (Raw, Start - 1).Stack (1).Role = Root_Object
-        and then Bytes.Get (Raw, Start) /= '['))
+        and then Bytes.Get (Raw, Start) /= '[')
+      or else (Model.Scan_State (Raw, Start - 1).Depth = 2
+        and then Model.Scan_State (Raw, Start - 1).Stack (2).Role = Check_List
+        and then Bytes.Get (Raw, Start) /= '{'))
      with Pre => Start >= 1 and then Start <= Bytes.Length (Raw);
 
    procedure Retained_Projection (Raw : Bytes.Sequence; Start : Big_Natural)
      with Global => null,
        Pre => Ready (Raw, Start) and then Retained_Value (Raw, Start),
        Post => Observations.Value_Spec (Raw, Start) >= Start
+         and then Spans.Retained (Raw, Start, Observations.Value_Spec (Raw, Start))
          and then Spans.Exact_Range (Raw, Start, Observations.Value_Spec (Raw, Start));
 end Silver_Report_Projection_Values;
