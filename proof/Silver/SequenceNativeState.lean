@@ -16,6 +16,7 @@ structure Context where
   names : BindingEnvironment
   dynamicFirst : Nat
   dynamicAfter : Nat
+  scalarNames : ScalarExpression.Environment
   deriving DecidableEq, Repr
 
 structure Scan where
@@ -29,14 +30,14 @@ structure Scan where
 def invalid : Scan := ⟨0, 0, 0, false, false⟩
 
 def contextOf (scan : ScanResult) : Context :=
-  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter⟩
+  ⟨scan.state.names, scan.state.dynamicFirst, scan.state.dynamicAfter, scan.state.scalarNames⟩
 
 def bodyOf (scan : ScanResult) : Scan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity, scan.assigned, scan.output⟩
 
 def expand (context : Context) (scan : Scan) : ScanResult :=
   ⟨⟨scan.position, context.names, context.dynamicFirst, context.dynamicAfter,
-      scan.target, scan.capacity⟩, scan.assigned, scan.output⟩
+      scan.target, scan.capacity, context.scalarNames⟩, scan.assigned, scan.output⟩
 
 def compact (context : Context) (scan : ScanResult) : Scan :=
   if scan.state.position = 0 ∨ context.names.length < scan.state.target then invalid
@@ -47,7 +48,8 @@ def lift (context : Context) (scan : Scan) : ScanResult :=
 
 def ValidContext (text : Source) (context : Context) : Prop :=
   Compose.Expressions.ValidNames text context.names ∧
-    (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text
+    (⟨context.dynamicFirst, context.dynamicAfter⟩ : Named.NameState).Valid text ∧
+    ScalarExpression.ValidEnvironment text context.scalarNames
 
 def ValidScan (text : Source) (context : Context) (scan : Scan) : Prop :=
   scan.position ≤ text.length + 1 ∧ scan.target ≤ context.names.length ∧
@@ -66,12 +68,12 @@ theorem expand_parts (scan : ScanResult) : expand (contextOf scan) (bodyOf scan)
 theorem parts_valid (text : Source) (scan : ScanResult)
     (valid : Compose.Expressions.ValidState text scan.state) :
     ValidContext text (contextOf scan) ∧ ValidScan text (contextOf scan) (bodyOf scan) :=
-  ⟨⟨valid.2.1, valid.2.2.1⟩, valid.1, valid.2.2.2.1, valid.2.2.2.2⟩
+  ⟨⟨valid.2.1, valid.2.2.1, valid.2.2.2.2.2⟩, valid.1, valid.2.2.2.1, valid.2.2.2.2.1⟩
 
 theorem expand_valid (text : Source) (context : Context) (scan : Scan)
     (contextValid : ValidContext text context) (scanValid : ValidScan text context scan) :
     Compose.Expressions.ValidState text (expand context scan).state :=
-  ⟨scanValid.1, contextValid.1, contextValid.2, scanValid.2.1, scanValid.2.2⟩
+  ⟨scanValid.1, contextValid.1, contextValid.2.1, scanValid.2.1, scanValid.2.2, contextValid.2.2⟩
 
 theorem invalid_valid (text : Source) (context : Context) : ValidScan text context invalid := by
   simp [ValidScan, invalid]
@@ -83,7 +85,7 @@ theorem compact_valid (text : Source) (context : Context) (scan : ScanResult)
   split
   · exact invalid_valid text context
   · rename_i successful
-    refine ⟨valid.1, ?_, valid.2.2.2.2⟩
+    refine ⟨valid.1, ?_, valid.2.2.2.2.1⟩
     simp only [not_or, Nat.not_lt] at successful
     exact successful.2
 
