@@ -807,6 +807,19 @@ class ProofEvidenceTests(unittest.TestCase):
         with self.assertRaisesRegex(EvidenceError, "conflicting/repeated"):
             self.audit()
 
+    def test_membership_character_literals_preserve_source_policy(self) -> None:
+        target = self.path / "main.adb"
+        source = '''procedure Main is
+          function Special (C : Character) return Boolean is
+            (C in '"' | '\\' | '/');
+          begin null; end Main;
+        '''
+        target.write_text(source)
+        audit_source_policy(target)
+        target.write_text(source.replace("begin null;", "pragma Assume (False); begin null;"))
+        with self.assertRaisesRegex(EvidenceError, "forbidden assumption/check-policy pragma"):
+            audit_source_policy(target)
+
     def test_comment_format_effectors_and_qualified_expression_cannot_hide_pragma(self) -> None:
         target = self.path / "attack.adb"
         for byte in (11, 12, 133, 255):

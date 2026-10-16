@@ -95,7 +95,7 @@ def source_tokens(source: Path) -> list[str]:
     text = data.decode("ascii")
     tokens: list[str] = []
     index = 0
-    literal_predecessors = {"return", "then", "else", "is", "when", "and", "or", "not"}
+    literal_predecessors = {"return", "then", "else", "is", "when", "and", "or", "not", "in"}
     while index < len(text):
         char = text[index]
         if char.isspace():
