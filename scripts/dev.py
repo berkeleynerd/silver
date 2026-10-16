@@ -318,7 +318,10 @@ def main(arguments: list[str] | None = None) -> None:
     path_parser = commands.add_parser("paths")
     path_parser.add_argument("--field", help="print one path instead of JSON")
     runs = commands.add_parser("runs").add_subparsers(dest="operation", required=True)
-    runs.add_parser("status").add_argument("--task", default="")
+    readout = runs.add_parser("status")
+    readout.add_argument("--task", default="")
+    readout.add_argument("--limit", type=int, default=20,
+                         help="latest completed runs to show, plus all active runs; 0 shows all")
     diagnostic = runs.add_parser("diagnose")
     diagnostic.add_argument("run_id")
     diagnostic.add_argument("--summary", required=True)
@@ -341,6 +344,15 @@ def main(arguments: list[str] | None = None) -> None:
     if args.action == "runs":
         if args.operation == "status":
             result = status(host, args.task)
+            if args.limit < 0:
+                parser.error("--limit must be nonnegative")
+            result["total_runs"] = len(result["runs"])
+            active = [run for run in result["runs"] if run["active"]]
+            completed = [run for run in result["runs"] if not run["active"]]
+            selected = completed[-args.limit:] if args.limit else completed
+            result["omitted_completed_runs"] = len(completed) - len(selected)
+            result["runs"] = [*selected, *active]
+            result["notes"] = result["notes"][-20:]
             # Keep detailed event streams/input hashes in each durable record;
             # this is the concise readout used at resume.
             result["runs"] = [{key: value for key, value in run.items()
@@ -507,6 +519,11 @@ def main(arguments: list[str] | None = None) -> None:
         else:
             if hash_paths(selected) != inputs["inputs_sha256"]:
                 raise RuntimeError("declared run inputs changed during execution")
+        if "declared_inputs_sha256" in inputs and hash_paths(
+                [Path(path).resolve() for path in args.input]) != inputs["declared_inputs_sha256"]:
+            raise RuntimeError("declared run inputs changed during execution")
+        if "executable" in inputs and digest(Path(inputs["executable"]["path"])) != inputs["executable"]["sha256"]:
+            raise RuntimeError("custom tool executable changed during execution")
 
 
 if __name__ == "__main__":
