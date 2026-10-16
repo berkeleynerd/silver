@@ -41,10 +41,8 @@ variable (calls : Templates.Calls) (source : Templates.InterpretedSource calls)
     (room : document.bytes.length ≤ 9223372036854775807)
     (depthRoom : ∀ entry ∈ document.entries, 3 + (JSON.fieldsBytes entry.span.spans).length ≤ 9223372036854775807)
     (refined : (scanPlan calls.tables document).kind = .refine)
-    (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
-    (parsed : ∀ kind, parse (Templates.theoryValue kind).encode = some (Templates.theoryValue kind).meaning)
 
-include source room depthRoom refined sound parsed
+include source room depthRoom refined
 
 theorem selected_schemas : SelectedSchemas document := by
   intro kind
@@ -53,12 +51,12 @@ theorem selected_schemas : SelectedSchemas document := by
   obtain ⟨normal, _, matched⟩ := Templates.accepted_selected_schema calls source state entry.span kind
     ready.good ready.before.mode ready.before.pending ready.before.depth ready.before.phase
     ready.room ready.depthRoom selected ready.accepted
-  refine ⟨entry, ?_, selected, Templates.selected_meaning entry.span kind normal matched parse sound (parsed kind)⟩
+  refine ⟨entry, ?_, selected, Templates.selected_meaning entry.span kind normal matched⟩
   rw [position]
   simp
 
 /-- Actual initialized acceptance, interpreted native template bytes and the
-partial external parser boundary determine the entire refined document. The
+internally proved canonical determinism determine the entire refined document. The
 offsets are derived from the consumed original spans, never supplied as a
 splicing premise. -/
 theorem refined_document :
@@ -74,7 +72,7 @@ theorem refined_document :
     ready.good ready.before.mode ready.before.pending ready.before.depth ready.before.phase
     ready.room ready.depthRoom selected ready.accepted
   obtain ⟨_, declarations, includes, decls, incs, _, _, declNonempty, incNonempty⟩ :=
-    Templates.selected_schema_meaning entry.span .image normal matched parse sound (parsed .image)
+    Templates.selected_schema_meaning entry.span .image normal matched
   obtain ⟨a, b, da, ib, ordered, bounded, spelling⟩ :=
     entry.span.refined_spelling calls.tables state normal declarations includes decls incs declNonempty incNonempty
       Clone.declaration Clone.includeDeclaration _ _ TemplateValidity.clone_declaration_canonical TemplateValidity.clone_include_canonical
@@ -93,7 +91,7 @@ theorem refined_document :
       document.leading ++ core ++ document.trailing := by
     rw [declarationCut, includeCut]
     exact output
-  refine ⟨⟨selected_schemas calls source document room depthRoom refined parse sound parsed,
+  refine ⟨⟨selected_schemas calls source document room depthRoom refined,
     preceding, entry, following, core, position, selected, outputShape, syntaxProof⟩, ?_⟩
   apply erase_splice
   · rw [declarationCut, includeCut]; omega

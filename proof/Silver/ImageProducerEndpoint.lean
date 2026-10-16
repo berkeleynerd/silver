@@ -74,16 +74,14 @@ theorem producer_refined_document
     (calls : Templates.Calls) (source : Templates.InterpretedSource calls)
     (document : JSON.DocumentSpan) (producer : ProducerSchemas document)
     (room : document.bytes.length ≤ 9223372036854775807)
-    (image : ScannerNative.SelectedPresent document.entries .image)
-    (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
-    (parsed : ∀ kind, parse (Templates.theoryValue kind).encode = some (Templates.theoryValue kind).meaning) :
+    (image : ScannerNative.SelectedPresent document.entries .image) :
     let plan := scanPlan calls.tables document
     let output := splice document.bytes Clone.declarationsFragment Clone.includesFragment plan.declarations plan.includes
     plan.kind = .refine ∧ RefinedDocument document output ∧
       eraseInsertions output plan.declarations plan.includes
         Clone.declarationsFragment.length Clone.includesFragment.length = document.bytes := by
   have refined := (producer_finishes calls source document producer room).1 image
-  exact ⟨refined, refined_document calls source document room (document.field_room room) refined parse sound parsed⟩
+  exact ⟨refined, refined_document calls source document room (document.field_room room) refined⟩
 
 end Silver.ImageModel
 

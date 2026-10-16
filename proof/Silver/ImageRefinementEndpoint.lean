@@ -29,8 +29,8 @@ open FilesNative
 
 /-- End-to-end conditional refinement of the recorded native file execution.
 The assumptions are the named interpretation boundaries of the checked native
-source, the separately verified SPARK postcondition, and partial external JSON
-parser soundness with successful parsing of the three finite templates.
+source and the separately verified SPARK postcondition. Canonical JSON
+determinism is proved internally, with no external parser-success premise.
 Schema matching, selected occurrences, array nonemptiness, insertion offsets,
 exact output syntax and original-byte recovery are conclusions. -/
 theorem native_refined_document
@@ -49,8 +49,6 @@ theorem native_refined_document
     (document : JSON.DocumentSpan) (input : after.read = document.bytes)
     (room : document.bytes.length ≤ 9223372036854775807)
     (depthRoom : ∀ entry ∈ document.entries, 3 + (JSON.fieldsBytes entry.span.spans).length ≤ 9223372036854775807)
-    (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
-    (parsed : ∀ kind, parse (Templates.theoryValue kind).encode = some (Templates.theoryValue kind).meaning)
     (output : List Nat)
     (contract : FilesSplice.expression.eval
       { original := after.read, refined := output,
@@ -82,7 +80,7 @@ theorem native_refined_document
   change Templates.nativeFragment calls .includes = Clone.includesFragment at incBytes
   rw [declBytes, incBytes, input, plan] at exactOutput
   rw [declBytes, incBytes, input] at recovery
-  have model := refined_document calls templates document room depthRoom modelRefined parse sound parsed
+  have model := refined_document calls templates document room depthRoom modelRefined
   refine ⟨?_, recovery, Clone.inserted_ids_unique, Clone.inserted_ids_count, ?_,
     CloneMeaning.clone_interpretation, CloneMeaning.predefined_assertion⟩
   · rw [exactOutput]
