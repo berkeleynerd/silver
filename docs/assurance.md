@@ -571,11 +571,36 @@ independent Static ghost `Runtime_Report_Policy` and `Application_Report_Policy`
 These specifications describe byte traversal, quoted strings, nesting, audited
 fields, entities, dependencies and every emitted record, without calling the
 executable acceptance traversal. Shared elementary predicates and immutable
-tables do not replace that refinement. Application reports have a 2,097,152-byte
-domain; runtime reports retain 262,144 bytes. A maximal 175-output source produced
-314,746 bytes, demonstrating the need for the larger application buffer. The
-complete producer envelope fitting 2 MiB remains an explicit premise; it is not
-a Lean-derived JSON-size bound. See [capacity evidence](statement-sequencing.md).
+tables do not replace that refinement. Retained application audit data has a
+16,777,216-byte domain; runtime data retains 262,144 bytes. These are storage
+bounds after the streaming projection of unaudited `check_tree` values, not
+limits on original evidence-file length. The original reports remain unchanged,
+and every record and policy-relevant field remains in the audited input.
+The [capacity repair](report-capacity.md) records the current source/producer
+envelope and the projection's SPARK argument. It is not a Lean-derived JSON-size
+bound. The earlier [capacity evidence](statement-sequencing.md) keeps its
+historical input and buffer scope.
+
+The stream-to-policy argument starts with the actual reader's uncapped raw-byte
+sequence. `Complete`, `Model.Refines` and `Model.Matches` connect that sequence
+to the streaming state, emitted bytes and returned buffer prefix.
+`Actual_Projection` derives independent, ordered
+`Audit_Projection_Observations` from the complete raw input, including projected
+scanner endpoints, exact retained content and selected `{}` replacements.
+`From_Buffer` identifies the emitted sequence with `From_String` of the actual
+prefix. The application/runtime correspondence theorems then equate
+`Unbounded_Application_Report_Policy` or `Unbounded_Runtime_Report_Policy` on
+the raw sequence with the corresponding bounded policy on that prefix.
+
+The driver saves Main's raw sequence and successful EOF/close observation before
+runtime reads reuse the reader's ghost state. The runtime audit saves each
+selected report in its own snapshot. Build and publication require the saved
+raw-policy facts together with the executable audit results and completed reads.
+The separate null recognizer retains its raw reader and 262,144-byte policy
+domain; it is outside this structural correspondence theorem. The
+[repair checkpoint](review-343c2f8-repairs.md#integrated-checkpoint) records the
+validation status of the complete argument.
+
 Static erasure removes proof computations from the executable while all their
 GNATprove obligations remain; real report guards and assertion/overflow checks
 remain enabled.
@@ -664,12 +689,17 @@ capture, observed I/O, report-policy refinement and driver ordering are verified
 alongside bounds, overflow, initialization, invariants and termination where
 applicable. Every Silver-owned compiler/runtime body and the generated
 `Silver_Build`/`Silver_Library_Sources` units require full SPARK coverage.
-Only the exact reviewed external imports receive specification-only coverage.
+Specification-only coverage is restricted to the approved external import
+declarations and the exact Static ghost Character-sequence vendor instance
+described in [the boundary audit](trusted-boundary.md#audit-of-the-boundary).
+Every Silver-owned implementation and proof helper still requires full coverage.
 
 `Complete_Null_Proof` retains equality with its independent bounded report-pattern
 policy and requires the genuine null report's completed single-entity analysis
 and empty checks. Its narrower format guarantees are distinct from the output
-report traversal. Both depend on faithful producer reports.
+report traversal. The driver preserves the raw-file reader on this route;
+projection correspondence applies to the application and runtime traversal
+policies. Both depend on faithful producer reports.
 
 Run the complete compiler audit with `python3 scripts/dev.py prove --full`.
 It forces analysis and refreshes reports, with explicit logical options:

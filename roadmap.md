@@ -16,9 +16,11 @@ next capability while retaining full assurance for the current language.
 
 ### For loops and integers
 
-**Selected; review repairs precede further feature work.** The owner resumed
+**Selected; current-language review repairs complete.** The owner resumed
 the milestone on 2026-10-15 with standard Integer `'Image`, then requested the
 selected [review repairs](docs/review-343c2f8-repairs.md) before proceeding.
+Those eleven findings are repaired and validated for the currently admitted
+language. This repair delivery performs no language-feature work.
 [Session memory](docs/session-memory.md) records both instructions on `main`.
 [Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
 [stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery;
@@ -27,10 +29,11 @@ unfinished implementation and proof work remain preserved, not supported.
 Ordered work packages:
 
 1. [Report capacity and placement #17](https://github.com/berkeleynerd/silver/issues/17):
-   derive a format-based bound covering the admitted language, account for
-   timing-dependent prover credits and interrupted records, move the buffer off
-   `Compile`'s stack, and verify the reader/policies and capacity regression.
-   Re-derive the bound for scalar, loop and Image checks before their admission.
+   **complete for the currently admitted language**. The
+   [capacity repair](docs/report-capacity.md) delivers the source/producer
+   envelope, streaming projection, reader/policy correspondence, library-level
+   storage and regressions. Re-derive the envelope for scalar, loop and Image
+   checks under #13–#16 before their admission.
 2. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
    apply the settled Integer `'Image` decision to the existing immutable scalar
    and loop fragment, its resource rules, composition/discharge plan and samples.

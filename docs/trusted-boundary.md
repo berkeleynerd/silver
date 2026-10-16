@@ -42,6 +42,7 @@ that a configured pathname selects the intended executable.
 | GNAT 16.1 and its Ada runtime | Ada/SPARK frontend meaning, code generation, ABI, binder/startup behavior, runtime checks, and static-ghost erasure | Alire release origins and recorded binary identities; compiler builds retain `-gnata` and `-gnato`. GNAT and runtime bodies are external. |
 | GNATprove 16.1, its translation/Why3 tools, and bundled CVC5, Z3, and Alt-Ergo | Sound flow analysis and solver results, faithful and complete obligation generation, accurate reported evidence, and pinned solver completion for every source schema accepted by Lean's endpoint-discharge checker | Fixed proof options, complete coverage audit, and tool/version hashes. Solver soundness and [bounded-fragment completion](assurance.md#automatic-completion-and-the-external-boundary) are explicit premises; Lean does not prove completion within 100,000 normalized steps and 1,000 MiB per prover process with sufficient environmental resources, and no completeness claim for arbitrary SPARK is made. |
 | GPRbuild 26.0 and native build tools | Project interpretation, compilation/link commands, and successful artifacts | Native Alire selection and recorded identities. Assembler, linker, sysroot, and platform development tools remain external. |
+| SPARKlib shipped with the selected GNATprove release | Sound ghost-container contracts and GNATprove's mathematical interpretation of unbounded integers and sequences | The report-projection model uses these only as Static ghost observations. The reviewed source-only project selects the pinned installation and keeps build objects under the native host's artifact directory. This is part of the GNATprove trust boundary, not new Silver-owned runtime code or a claim that Silver re-proves the vendor library. |
 | Alire 2.1.1 and its release index | Dependency resolution, deployment, environment setup, and integrity of published packages | Pinned Alire archive SHA256 values, checked tool version families and origin hashes, host-specific settings/cache/toolchains. |
 | OS, libc, and runtime services | Filesystem and process semantics, private workspace creation, resource allocation, command-line ABI, and exception behavior | Explicit imports and observed I/O contracts below. Stable files, sufficient resources, and functioning services are premises. Ordinary Ada I/O exceptions are not proved impossible. |
 | Shell and inherited environment | `/bin/sh` interpretation behind `system` for proof/build tools, native utility discovery, dynamic loading, and SDK selection | Setup quotes fixed paths; the driver appends only a checked workspace suffix. Application arguments use direct runtime spawning. Alire/GPR overrides listed below are removed. Other state, including `PATH`, loader settings and macOS developer/SDK settings, remains trusted. |
@@ -66,15 +67,17 @@ comments and punctuation preserve the ordinary ASCII literal. This restriction
 keeps the pinned frontend premise consistent with the admitted bytes.
 
 The recorded Linux report-capacity checks used an 8 MiB process stack. `compile`
-and `run`, including the null route, allocate the 2 MiB report buffer on the
-stack; application report auditing also copies the used report slice. The
+and `run` now use a 16 MiB library-level buffer for retained audit data. Their
+one-based report slices take the auditor's direct path without a report-sized stack copy. The
+generic non-one-based path retains a rebasing copy in a separate frame; the
+driver does not use it. See the [capacity repair](report-capacity.md). The
 recursive statement/predicate recognizer consumes stack even for `check`.
 The review of `4503d17` measured 3,688 KiB for a 4096-byte source with 1,994
 condition parentheses; its deepest compile failed at 5,632 KiB and passed at
 6,144 KiB. These measurements include the existing assertions-enabled build;
 they do not establish a universal exact minimum. The external
 [sequencing review](reviews/review-9b99d52.md) observed `Storage_Error` and exit
-status 1 with a 2 MiB stack, before publication. Such resource exceptions are
+status 1 with a 2 MiB stack before the report-storage repair. Such resource exceptions are
 not currently mapped to the driver's normal infrastructure-error status 3.
 Sufficient stack and memory are environmental premises; these observations do
 not change language membership or establish automatic proof completion.
@@ -376,8 +379,8 @@ still uses the reviewed frontend and GNAT premises. See the
 `scripts/check_evidence.py` enumerates all Ada source units under `src/` and
 `.silver/<host>/generated/`, requires fresh `.spark` reports, and checks each
 owned entity. Full implementation entities must have `all` SPARK coverage.
-Exactly the fourteen imported functions/procedures
-above may have `spec` coverage. Their enclosing package declarations and any
+The approved OS/runtime import declarations above may have `spec` coverage.
+Their enclosing package declarations and any
 flow/proof diagnostics are still audited; a package initialization error is not
 waived because the package contains imports.
 
@@ -387,6 +390,25 @@ and whitespace outside strings. It also rejects a corresponding `.adb` body.
 Changing a binding, contract, or external symbol therefore requires deliberate
 review of this boundary and an updated pin. These pins protect the reviewed
 interface; they are not proofs of the runtime implementations.
+
+The report model also instantiates the vendor's functional infinite sequence
+for `Character`, with logical equality, inside a `Ghost => Static` package.
+The auditor separately identifies the reviewed vendor entities and source
+locations generated by that exact instance. Their `spec` coverage relies on
+SPARKlib's contracts; every Silver-owned model, observation and proof helper
+still requires `all` coverage. The instance shape is checked so this treatment
+cannot silently extend to a different element type, equality or executable use.
+
+GNATprove interprets the selected `SPARK.Big_Integers` operations as mathematical
+integers, as documented in the
+[pinned Big Numbers Library description](../references/spark/16.1/docs/ug/en/source/spark_libraries.rst).
+The installed alias uses `Ada.Numerics.Big_Numbers.Big_Integers`. Its exact
+`function Is_Valid is assumed to return True` diagnostic at the reviewed vendor
+declarations records this tool premise. The evidence checker counts it separately
+from proved checks, matches its JSON and SARIF representations, and restricts
+dependency references to reviewed vendor operations. This is neither a proof of
+the vendor implementation nor permission to assume a Silver-owned obligation.
+Other validity messages, source suppressions and unproved checks remain rejected.
 
 All actual flow/proof checks must be discharged. The audit rejects skipped
 analysis, `pragma Assume`, justified checks, unproved checks, missing coverage,
@@ -517,6 +539,8 @@ empty flow, proof, skipped-proof, `Assume`, and warning/error lists. Zero checks
 are expected for null alone on this driver route; entity coverage prevents
 accepting an empty analysis merely because it has no failures. Every output
 shell now uses the source-selected application policy described below.
+Null retains the original raw-file reader and its 262,144-byte recognizer limit;
+its separate text policy is not applied to projected report bytes.
 
 GNATprove establishes the checker's exact functional contract:
 `Complete_Null_Proof'Result = Recognizes_Null_Report (Report)`. The independent
@@ -532,8 +556,11 @@ to them use `Ghost => Static` and the `Static` assertion level. GNAT erases thos
 proof-only computations, preventing recursive stack growth during report
 processing. GNATprove still verifies all obligations of this report unit,
 including its refinement contract. The executable checks and global
-`-gnata`/`-gnato` switches are retained. Application reports have a 2,097,152-byte
-capacity; runtime reports retain their separate 262,144-byte bound. A native
+`-gnata`/`-gnato` switches are retained. Retained application audit data has a
+16,777,216-byte capacity after the streaming projection; runtime reports retain
+their separate 262,144-byte bound. The projection uses the producer's byte-oriented
+JSON token grammar and trusts its encoding of raw non-ASCII string bytes;
+it does not add a UTF-8 validator. A native
 negative experiment with a deliberately false static contract fails verification
 as expected; see the repair record for this and maximum-size runtime tests.
 
@@ -663,10 +690,16 @@ The [larger-expression record](larger-expressions.md) gives the composition and
 capacity evidence and its limits. Proof cost can differ
 by expression position. [Sequencing probes](statement-sequencing.md) produced
 314,746-byte and 469,246-byte Main reports within the source/operator limits,
-exceeding the previous application buffer. The application capacity is now 2 MiB;
-the runtime capacity stays 262,144 bytes. Faithful complete producer reports
-fitting that envelope remain an explicit tool premise, not a proved JSON-size
-or solver-time bound. The initial dense 800-assignment run was externally stopped
+exceeding the previous application buffer. Retained application audit data now
+has a 16 MiB domain; retained runtime data stays within 262,144 bytes. The
+[capacity repair](report-capacity.md) derives their envelopes from current
+source and producer fields. A streaming reader validates the complete JSON
+and replaces only immediate `check_tree` values in flow/proof records, removing
+the dependency on unbounded unsuccessful-solver reason text. Original evidence
+stays unchanged. Faithful complete producer structure remains a tool premise;
+the derivation is neither a solver-time bound nor a Lean JSON-size theorem.
+The following measurements used the historical 2 MiB raw-report capacity.
+The initial dense 800-assignment run was externally stopped
 before report generation; the external review subsequently completed that static
 case within the application report buffer. The subsequent 769-assignment
 argument-input case also completed, using 94.6% of that buffer with 5.4% headroom.

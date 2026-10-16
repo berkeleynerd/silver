@@ -2,9 +2,10 @@
 
 This 2026-10-15 record addresses L1/#18 and L3/#20 from the
 [review of e2c4fc2..343c2f8](reviews/review-343c2f8.md#32-low), under the
-[selected-repair authorization](review-343c2f8-repairs.md). The implementation
-starts from `618c28a77cdf011f338a31fcb0e9022743a338de`. It changes no language
-membership rule or Oracle guarantee.
+[selected-repair authorization](review-343c2f8-repairs.md). The isolated implementation
+starts from `39d0ad38e6`, under the authorization published in
+`618c28a77cdf011f338a31fcb0e9022743a338de`; that intervening commit changes only
+documentation. It changes no language membership rule or Oracle guarantee.
 
 ## Explicit policy
 

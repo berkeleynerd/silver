@@ -9,6 +9,12 @@ streaming reader consumes its complete JSON, replacing only immediate
 `{}`. Every other byte, including whitespace, stays in the audit input. The
 original `.spark` file stays unchanged on disk.
 
+The separate null-program recognizer still receives the original report bytes
+through `Silver_Platform.Read_File`. Its recognizer retains a 262,144-byte
+raw-policy limit, even though the shared read buffer can hold 16,777,216 bytes.
+The streaming projection applies to the output-application and runtime policies;
+it does not alter the null recognizer's substring-based policy.
+
 The reader validates discarded values too, using the existing byte-oriented
 JSON token grammar: string escapes and control bytes are checked, while raw
 non-ASCII string bytes rely on the trusted producer's encoding. This does not
@@ -212,8 +218,25 @@ forwards 190,000 empty arguments correctly under an explicit 8 MiB stack limit.
 External proof/build tools are controlled fixtures in these driver regressions;
 they do not replace native SPARK verification or establish universal discharge.
 
-The projection transition and reader safety/observation checks pass focused
-GNATprove validation. The independent uncapped stream model, policy-preservation
-lemmas and final integrated validation are still being completed; this draft
-record does not yet claim B1 complete. Root integration records final evidence
-and finding disposition once those obligations pass.
+The SPARK argument follows the actual reader observations. `Complete`,
+`Model.Refines` and `Model.Matches` connect the complete raw byte sequence,
+streaming state, emitted sequence and returned buffer prefix. The composition
+theorem derives `Audit_Projection_Observations` from the complete raw sequence:
+ordered member/item scans preserve duplicates and keys, retain non-tree content,
+and replace precisely the selected tree values with `{}`. The composition
+theorem derives the projected scanner endpoints from the complete raw input;
+it takes no target-endpoint or acceptance premise.
+
+The representation lemma identifies the emitted sequence with `From_String`
+of the actual returned prefix. The policy correspondence layer connects the
+uncapped raw policy to the bounded policy on that prefix. Driver contracts save
+Main's raw report separately, and runtime contracts save each selected report
+before the next read. Successful build and publication require those saved
+raw-policy facts as well as the executable audit results and completed reads.
+
+Transition, reader, representation, record/list/root composition, caller and
+policy-correspondence checks passed, followed by the complete Linux
+[integration checkpoint](review-343c2f8-repairs.md#integrated-checkpoint).
+B1 is complete for the currently admitted language. The separate null route
+retains its raw reader and recognizer and is outside this structural
+correspondence argument.
