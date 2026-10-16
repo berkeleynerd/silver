@@ -2,8 +2,9 @@ module
 
 public import Silver.PredicateNativeHelpers
 public import Silver.ComposeModelCalls
+public import Silver.ComposeEquations
 public import Silver.IntegerLiteralEquations
-public import Silver.PathNativeEquations
+public import Silver.LengthIntervalExpressions
 
 @[expose] public section
 namespace Silver.Predicate.Native
@@ -81,7 +82,7 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.integer text position = integer text position
   expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
     ScalarExpression.ValidEnvironment text scalarNames →
-    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames
+    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames false
   assumeValid : ∀ facts : Paths,
     calls.assumeValid facts.model =
       (PathFacts.Native.assumeValidBody.eval ({facts} : PathInputs).locals).model
@@ -92,10 +93,10 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
     calls.refineBounds facts.model operator left.model right.model truth =
       (PathFacts.Native.refineBoundsBody.eval ({facts, operator, leftBound := left, rightBound := right, truth} : PathInputs).locals).model
   fits : ∀ (facts : Paths) value,
-    calls.fits facts.model value = PathFacts.Native.fitsBody.eval ({facts, value} : PathInputs).locals
+    calls.fits facts.model value = LengthIntervals.Native.fitsBody.eval ({facts, value} : LengthIntervals.Native.Inputs).locals
   refineEqual : ∀ (facts : Paths) left right,
     calls.refineEqual facts.model left right =
-      (PathFacts.Native.refineEqualBody.eval ({facts, leftSummary := left, rightSummary := right} : PathInputs).locals).model
+      (LengthIntervals.Native.refineEqualBody.eval ({facts, left, right} : LengthIntervals.Native.Inputs).locals).model
   join : ∀ left right : Paths,
     calls.join left.model right.model =
       (PathFacts.Native.joinBody.eval ({leftFacts := left, rightFacts := right} : PathInputs).locals).model
@@ -148,10 +149,10 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     simpa only [PathFacts.Native.refineBoundsBody_eval, PathInputs.locals, PathFacts.Native.refineBounds_model, reify_model, reifyBound_model] using equation
   fits facts value := by
     have equation := links.fits (reify facts) value
-    simpa only [PathFacts.Native.fitsBody_eval, PathInputs.locals, PathFacts.Native.fits_model, reify_model] using equation
+    simpa only [LengthIntervals.Native.fitsBody_eval, LengthIntervals.Native.fits_model, reify_model] using equation
   refineEqual facts left right := by
     have equation := links.refineEqual (reify facts) left right
-    simpa only [PathFacts.Native.refineEqualBody_eval, PathInputs.locals, PathFacts.Native.refineEqual_model, reify_model] using equation
+    simpa only [LengthIntervals.Native.refineEqualBody_eval, LengthIntervals.Native.refineEqual_model, reify_model] using equation
   join left right := by
     have equation := links.join (reify left) (reify right)
     simpa only [PathFacts.Native.joinBody_eval, PathInputs.locals, PathFacts.Native.join_model, reify_model] using equation
@@ -177,11 +178,11 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
     rw [PathFacts.Native.refineBoundsBody_eval]
     exact (PathFacts.Native.refineBounds_model facts operator left right truth).symm
   fits facts value := by
-    rw [PathFacts.Native.fitsBody_eval]
-    exact (PathFacts.Native.fits_model facts value).symm
+    rw [LengthIntervals.Native.fitsBody_eval]
+    exact (LengthIntervals.Native.fits_model facts value).symm
   refineEqual facts left right := by
-    rw [PathFacts.Native.refineEqualBody_eval]
-    exact (PathFacts.Native.refineEqual_model facts left right).symm
+    rw [LengthIntervals.Native.refineEqualBody_eval]
+    exact (LengthIntervals.Native.refineEqual_model facts left right).symm
   join left right := by
     rw [PathFacts.Native.joinBody_eval]
     exact (PathFacts.Native.join_model left right).symm

@@ -37,8 +37,8 @@ structure HelperMeaning (primitive : Primitives) : Prop where
     primitive.expression text position names scalarNames = expressionAt text position names scalarNames
   target : ∀ text state sameTarget, TargetDomain text state →
     primitive.target text state sameTarget = targetAt text state sameTarget
-  fits : ∀ facts summary, primitive.fits facts summary = fitsSummary facts summary
-  sameLength : ∀ facts left right, primitive.sameLength facts left right = equalSummary facts left right
+  fits : ∀ facts summary, primitive.fits facts summary = fitsLengthSummary facts summary
+  sameLength : ∀ facts left right, primitive.sameLength facts left right = equalLengthIntervals facts left right
   reject : ∀ facts, primitive.reject facts = facts.reject
 
 /-- Formal total-function extension, not an executable check or replacement.
@@ -177,14 +177,14 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
   callAfter : primitive.callAfter = inherited.function .callAfter
   associationAfter : primitive.associationAfter = inherited.names.associationAfter
   token : primitive.token = inherited.function .takeToken
-  expression : primitive.expression = inherited.function .expression
+  expression : primitive.expression = fun text position names scalarNames => inherited.function .expression text position names scalarNames false
   target : primitive.target = inherited.function .target
   fits : ∀ (facts : PathFacts.Native.Context) summary,
     primitive.fits facts.model summary =
-      PathFacts.Native.fitsBody.eval ({facts, value := summary} : Native.Libraries.PathInputs).locals
+      LengthIntervals.Native.fitsBody.eval ({facts, value := summary} : LengthIntervals.Native.Inputs).locals
   sameLength : ∀ (facts : PathFacts.Native.Context) left right,
-    primitive.sameLength facts.model left right = PathFacts.Native.sameLengthBody.eval
-      ({facts, leftSummary := left, rightSummary := right} : Native.Libraries.PathInputs).locals
+    primitive.sameLength facts.model left right = LengthIntervals.Native.sameLengthBody.eval
+      ({facts, left, right} : LengthIntervals.Native.Inputs).locals
   reject : ∀ facts : PathFacts.Native.Context,
     primitive.reject facts.model =
       (PathFacts.Native.rejectedBody.eval ({facts} : Native.Libraries.PathInputs).locals).model
@@ -210,12 +210,12 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
     exact Expressions.interpreted_target inherited source text valid.1 state sameTarget valid.2
   fits facts summary := by
     have equation := links.fits (Native.Libraries.reify facts) summary
-    simpa only [PathFacts.Native.fitsBody_eval, Native.Libraries.PathInputs.locals,
-      PathFacts.Native.fits_model, Native.Libraries.reify_model] using equation
+    simpa only [LengthIntervals.Native.fitsBody_eval,
+      LengthIntervals.Native.fits_model, Native.Libraries.reify_model] using equation
   sameLength facts left right := by
     have equation := links.sameLength (Native.Libraries.reify facts) left right
-    simpa only [PathFacts.Native.sameLengthBody_eval, Native.Libraries.PathInputs.locals,
-      sameLength_project, Native.Libraries.reify_model] using equation
+    simpa only [LengthIntervals.Native.sameLengthBody_eval,
+      LengthIntervals.Native.sameLength_model, Native.Libraries.reify_model] using equation
   reject facts := by
     have equation := links.reject (Native.Libraries.reify facts)
     simpa only [PathFacts.Native.rejectedBody_eval, Native.Libraries.PathInputs.locals,
