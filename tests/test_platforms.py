@@ -176,7 +176,16 @@ def setup_worker(root: Path, key: str, concurrent: bool = False,
                     tool = args[args.index("--") + 1]
                     patch = platforms.HOST_KEYS.index(key)
                     version = f"26.0.{patch}" if tool == "gprbuild" else f"16.1.{patch}"
-                    output = f"{tool} {version}\n"
+                    if tool == sys.executable and "SILVER_GNATPROVE=" in args[-1]:
+                        vendor = host.tools / "vendor-gnatprove"
+                        for relative in ("bin/gnatprove", "libexec/spark/bin/gnatwhy3"):
+                            path = vendor / relative
+                            path.parent.mkdir(parents=True, exist_ok=True)
+                            path.write_bytes((key + relative).encode())
+                            path.chmod(0o755)
+                        output = "SILVER_GNATPROVE=" + json.dumps(str(vendor / "bin/gnatprove")) + "\n"
+                    else:
+                        output = f"{tool} {version}\n"
                 else:
                     raise AssertionError(f"unexpected Alire command: {args}")
         elif executable == host.lean / "bin/lean":
@@ -654,7 +663,7 @@ class InstallationEnvironmentTests(unittest.TestCase):
             caller = parent / "other working directory"
             caller.mkdir()
             project = host.artifacts / "program-Ab12cd/program.gpr"
-            command = (configuration["Alire_Exec"] + "gnatprove -P "
+            command = (configuration["Alire_Exec"] + configuration["Image_Gnatprove"] + " -P "
                        + configuration["Quoted_Root_Directory"]
                        + "/program-Ab12cd/program.gpr --mode=all")
             environment = dict(os.environ,
@@ -668,7 +677,8 @@ class InstallationEnvironmentTests(unittest.TestCase):
             observation = json.loads(result.stdout)
             self.assertEqual(observation["cwd"], str(host.context))
             self.assertEqual(observation["args"],
-                             ["-n", "exec", "--", "gnatprove", "-P", str(project), "--mode=all"])
+                             ["-n", "exec", "--", str(host.image_tools / "bin/gnatprove"),
+                              "-P", str(project), "--mode=all"])
             actual_environment = observation["environment"]
             self.assertEqual(actual_environment["ALIRE_SETTINGS_DIR"], str(host.alire_settings))
             self.assertEqual(actual_environment["SILVER_PLATFORM_TEST_UNRELATED"], "preserve")

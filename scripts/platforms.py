@@ -84,6 +84,14 @@ class HostLayout:
         return self.artifacts / "compiler"
 
     @property
+    def image_tools(self) -> Path:
+        return self.artifacts / "image-tools"
+
+    @property
+    def image_adapter(self) -> Path:
+        return self.compiler / "bin/silver_image_adapter"
+
+    @property
     def proof(self) -> Path:
         return self.artifacts / "proof"
 

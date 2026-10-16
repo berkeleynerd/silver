@@ -8,9 +8,11 @@ import subprocess
 import sys
 
 if __package__:
+    from .bootstrap import validate_image_setup
     from .platforms import HostLayout, alire_command, tool_environment
     from .check_evidence import EvidenceError, PROOF_OPTIONS, read_json, require, source_tokens
 else:
+    from bootstrap import validate_image_setup
     from platforms import HostLayout, alire_command, tool_environment
     from check_evidence import EvidenceError, PROOF_OPTIONS, read_json, require, source_tokens
 
@@ -18,7 +20,7 @@ MANIFEST = "proof-provenance.json"
 # Complete reviewed project token shape, including all source/output selection
 # and compiler switches. Hashing a changed project as an input is not approval
 # to add configuration pragmas, per-file switches, or different source roots.
-REVIEWED_PROJECT_SHA256 = "b8ab872790384c0780cf723715b280ccc8da1e0aa2da9ae6bad8299c7daa4f44"
+REVIEWED_PROJECT_SHA256 = "1fe91d60cdee7e02f7baca7207100d4d7bfe275c0a0a684dffdd13f96e288cbb"
 REVIEWED_PROOF_CONTAINERS_SHA256 = "d7d01aa26019acda2de623f117956021d432737a5900822394e63fbf4e7941d5"
 
 
@@ -59,6 +61,8 @@ def input_hashes(host: HostLayout) -> dict[str, str]:
                 host.root / "alire.toml",
                 host.context / "alire.toml", host.context / "alire/alire.lock",
                 host.generated / "silver_build.ads"]
+    if (host.root / "src/silver_image_adapter.adb").is_file():
+        required.append(host.generated / "silver_image_config.ads")
     for path in required:
         require(path.is_file(), f"missing proof input: {path}")
     paths = set(required)
@@ -136,11 +140,25 @@ def validate_project(host: HostLayout) -> None:
                 + relative)
 
 
+def validate_image_binding(host: HostLayout, identities: dict) -> None:
+    if not (host.root / "src/silver_image_adapter.adb").is_file():
+        return
+    native = Path(identities["gnatprove"]["path"])
+    original = (native.parent.parent / "libexec/spark/bin/gnatwhy3").resolve()
+    require(original == Path(identities["gnatwhy3"]["path"]),
+            "Image adapter vendor binding differs from recorded original gnatwhy3")
+    try:
+        validate_image_setup(host, native)
+    except (OSError, RuntimeError) as error:
+        raise EvidenceError(str(error)) from error
+
+
 def preflight(host: HostLayout, *, pass_fds: tuple[int, ...] = ()) -> dict:
     validate_project(host)
     inputs = input_hashes(host)
     tools = tool_identities(host, pass_fds=pass_fds)
     validate_tool_identities(host, tools)
+    validate_image_binding(host, tools)
     return {"inputs_sha256": inputs, "tools": tools}
 
 
@@ -203,6 +221,7 @@ def validate_provenance(host: HostLayout, report_dir: Path, manifest: dict | Non
     require(manifest.get("inputs_sha256") == input_hashes(host), "proof input hashes changed; rerun GNATprove")
     require(manifest.get("reports_sha256") == report_hashes(report_dir), "proof report hashes changed")
     validate_tool_identities(host, manifest.get("tools", {}))
+    validate_image_binding(host, manifest["tools"])
     command = manifest.get("command", [])
     require(isinstance(command, list) and command[:3] == ["gnatprove", "-P", "../../../silver.gpr"],
             "unexpected proof project/command")

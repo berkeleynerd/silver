@@ -29,6 +29,8 @@ ROOT = Path(__file__).resolve().parents[1]
 # contract tokens (comments/whitespace excluded), not just their filenames.
 # Any interface change requires reviewing the external trust boundary again.
 TRUSTED_IMPORT_SPECS = {
+    # POSIX link: atomic publication without replacing an existing theorem file.
+    "silver_image_libc.ads": "a238d42e792493f88179a0cb75bf21a55417911edc15f80726c86760fa48cd56",
     # fopen, fgetc, fputc, ferror, fclose, system, mkdir, mkdtemp
     "silver_libc.ads": "fb760228a2f4a4521fb2ea1959c52454de49717f0c5762c4e462daf1b72b7d0d",
     # ada__command_line__argument_count, ada__command_line__argument,
@@ -47,6 +49,7 @@ TRUSTED_IMPORT_ENTITIES = {
     "silver_process_runtime": {"Silver_Process_Runtime.Spawn", "Silver_Process_Runtime.Free_List"},
     "silver_output_libc": {f"Silver_Output_Libc.{name}" for name in
                            ("Put_Byte", "Flush", "Set_Exit_Status")},
+    "silver_image_libc": {"Silver_Image_Libc.C_Link"},
 }
 
 # These documented proof limitations withhold information from the prover;
@@ -72,6 +75,10 @@ TRUSTED_RUNTIME_CALLEES = {
 # Character/Use_Logical_Equality instance. See the SPARKlib trusted boundary.
 SEQUENCE_UNIT = "silver_report_projection_model"
 SEQUENCE_NAME = "Silver_Report_Projection_Model.Byte_Sequences"
+SEQUENCE_INSTANCES = {
+    SEQUENCE_UNIT: SEQUENCE_NAME,
+    "silver_image_files": "Silver_Image_Files.Bytes",
+}
 SEQUENCE_VENDOR = "spark-containers-functional-infinite_sequences.ads"
 SEQUENCE_DECLARATIONS = {
     "Sequence": ((74, 9),), "Length": ((103, 13),), "Get": ((110, 13),),
@@ -101,15 +108,16 @@ def entity_origin(entity: dict) -> tuple:
                  for item in entity.get("sloc", []))
 
 
-def sequence_entities(instance: tuple[int, int, int]) -> set[tuple]:
+def sequence_entities(instance: tuple[int, int, int], *, unit: str = SEQUENCE_UNIT) -> set[tuple]:
+    name_prefix = SEQUENCE_INSTANCES[unit]
     line, package_column, name_column = instance
-    location = (SEQUENCE_UNIT + ".ads", line, package_column)
-    entries = {(SEQUENCE_NAME, ((SEQUENCE_UNIT + ".ads", line, name_column),))}
+    location = (unit + ".ads", line, package_column)
+    entries = {(name_prefix, ((unit + ".ads", line, name_column),))}
     for name, positions in SEQUENCE_DECLARATIONS.items():
         for vendor_line, column in positions:
-            entries.add((SEQUENCE_NAME + "." + name,
+            entries.add((name_prefix + "." + name,
                          ((SEQUENCE_VENDOR, vendor_line, column), location)))
-    entries.add((SEQUENCE_NAME + ".Eq_Checks.Logical_Eq",
+    entries.add((name_prefix + ".Eq_Checks.Logical_Eq",
                  (("spark-containers-parameter_checks.ads", 54, 16),
                   (SEQUENCE_VENDOR, 354, 4), location)))
     return entries
@@ -199,16 +207,31 @@ def source_tokens(source: Path) -> list[str]:
 
 def audit_sequence_instance(source: Path) -> tuple[int, int, int]:
     tokens = "".join(source_tokens(source)).lower()
-    declaration = (
-        "packagesilver_report_projection_modelwithspark_mode=>on,ghost=>staticis"
-        "usespark.big_integers;usesilver_report_projection_types;"
-        "packagebyte_sequencesisnewspark.containers.functional.infinite_sequences"
-        "(element_type=>character,use_logical_equality=>true);")
+    require(source.stem in SEQUENCE_INSTANCES, f"{source}: unreviewed proof-container unit")
+    if source.stem == SEQUENCE_UNIT:
+        declaration = (
+            "packagesilver_report_projection_modelwithspark_mode=>on,ghost=>staticis"
+            "usespark.big_integers;usesilver_report_projection_types;"
+            "packagebyte_sequencesisnewspark.containers.functional.infinite_sequences"
+            "(element_type=>character,use_logical_equality=>true);")
+    else:
+        # This executable unit has static ghost observations; the instance's
+        # element/equality policy and every observation declaration stay exact.
+        declaration = (
+            "packagesilver_image_fileswithspark_mode=>onis"
+            "packagemodelrenamessilver_image_model;usetypemodel.plan;"
+            "usetypemodel.plan_kind;usetypemodel.byte_count;"
+            "packagebytesisnewspark.containers.functional.infinite_sequences"
+            "(element_type=>character,use_logical_equality=>true);usetypebytes.sequence;")
+        for observation in ("read_bytes", "copied_bytes", "written_bytes"):
+            require(tokens.count(observation + ":bytes.sequence:=bytes.empty_sequencewithghost=>static;") == 1,
+                    f"{source}: unreviewed proof-container ghost observation")
     require(tokens.count(declaration) == 1,
             f"{source}: unreviewed proof-container instance or ghost context")
     text = source.read_text()
+    name = SEQUENCE_INSTANCES[source.stem].split(".")[-1]
     declarations = list(re.finditer(
-        r"(?mi)^[ \t]*(package)[ \t]+(Byte_Sequences)\s+is\s+new\b", text))
+        r"(?mi)^[ \t]*(package)[ \t]+(" + re.escape(name) + r")\s+is\s+new\b", text))
     require(len(declarations) == 1, f"{source}: ambiguous proof-container instance location")
     match = declarations[0]
     start = text.rfind("\n", 0, match.start(1)) + 1
@@ -220,7 +243,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                   trusted_import_units: set[str] | None = None, *,
                   effective_command: list[str] | None = None,
                   application_kind: str | None = None,
-                  proof_instance: tuple[int, int, int] | None = None) -> dict[str, int]:
+                  proof_instance: tuple[int, int, int] | None = None,
+                  proof_instances: dict[str, tuple[int, int, int]] | None = None) -> dict[str, int]:
     """Fail closed on missing coverage, skipped work, assumptions or failures."""
     require(bool(expected_units), "no implementation units selected for auditing")
     require({path.stem for path in report_dir.glob("*.spark")} == expected_units,
@@ -229,9 +253,15 @@ def audit_reports(report_dir: Path, expected_units: set[str],
     stats = {"units": 0, "entities": 0, "flow_checks": 0, "proof_checks": 0,
              "limitation_notes": 0, "imported_entities": 0,
              "trusted_math_notes": 0, "vendor_spec_entities": 0}
-    require(proof_instance is None or (SEQUENCE_UNIT in expected_units and application_kind is None),
+    instances = dict(proof_instances or {})
+    if proof_instance is not None:
+        require(SEQUENCE_UNIT not in instances, "duplicate compiler proof-container instance")
+        instances[SEQUENCE_UNIT] = proof_instance
+    require(not instances or (instances.keys() <= expected_units
+            and instances.keys() <= SEQUENCE_INSTANCES.keys() and application_kind is None),
             "vendor proof premises require the reviewed compiler model")
-    vendor_entities = set() if proof_instance is None else sequence_entities(proof_instance)
+    vendor_entities = {unit: sequence_entities(instance, unit=unit)
+                       for unit, instance in instances.items()}
     require(application_kind in (None, "static", "argument", "assigned", "selected"),
             "unknown application report policy")
     if application_kind is not None:
@@ -304,8 +334,9 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         for key, value in coverage.items():
             trusted_import = (unit in trusted_import_units and value == "spec"
                               and entities.get(key, {}).get("name") in TRUSTED_IMPORT_ENTITIES.get(unit, set()))
-            trusted_vendor = (unit == SEQUENCE_UNIT and value == "spec"
-                              and (entities[key].get("name"), entity_origin(entities[key])) in vendor_entities)
+            trusted_vendor = (value == "spec"
+                              and (entities[key].get("name"), entity_origin(entities[key]))
+                                  in vendor_entities.get(unit, set()))
             require(value == "all" or trusted_import or trusted_vendor,
                     f"{unit}: entity outside full SPARK")
             if trusted_import:
@@ -322,8 +353,8 @@ def audit_reports(report_dir: Path, expected_units: set[str],
         require(own_entities <= coverage.keys(), f"{unit}: missing owned entity coverage")
         require(summaries[unit] == (sum(coverage[key] == "all" for key in own_entities), len(own_entities)),
                 f"{unit}: summary/entity coverage mismatch")
-        if unit == SEQUENCE_UNIT and proof_instance is not None:
-            require(vendor_entities <= {(entities[key].get("name"), entity_origin(entities[key]))
+        if unit in vendor_entities:
+            require(vendor_entities[unit] <= {(entities[key].get("name"), entity_origin(entities[key]))
                                         for key in own_entities},
                     f"{unit}: missing reviewed vendor declaration coverage")
         if unit in trusted_import_units:
@@ -351,7 +382,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                     for location in locations)
                 owned_dependency = name in owned_names and bool(locations) and all(
                     Path(location["file"]).name in owned_locations[name] for location in locations)
-                trusted_math = proof_instance is not None and big_integer_callee(entity)
+                trusted_math = bool(instances) and big_integer_callee(entity)
                 require(application or owned_dependency or trusted_runtime or trusted_math,
                         f"{unit}: unapproved external assumption dependency {name}")
         for key in ("flow", "proof", "warn_error"):
@@ -400,7 +431,7 @@ def audit_reports(report_dir: Path, expected_units: set[str],
                             "application: suppressed or justified safety check")
                 limitation = (key == "warn_error" and record.get("rule") in PROOF_LIMITATION_NOTES
                               and record.get("severity") == "warning")
-                math_note = (proof_instance is not None and key == "warn_error"
+                math_note = (bool(instances) and key == "warn_error"
                              and record.get("severity") == "warning"
                              and record.get("how_proved") == "trivial"
                              and record.get("unproved_status") == {"status": "unknown"}
@@ -531,6 +562,9 @@ def audit_sources(source_dir: Path, report_dir: Path,
         require(binding.is_file(), f"missing runtime source binding: {binding}")
         require(binding.read_bytes() == runtime_source_configuration(source_dir),
                 "embedded runtime source bytes differ from current source; bootstrap and rebuild")
+        if (source_dir / "silver_image_adapter.adb").is_file():
+            require((generated_dir / "silver_image_config.ads").is_file(),
+                    "missing original Image vendor binding; bootstrap and rebuild")
         sources.extend(sorted(path for path in generated_dir.rglob("*")
                               if path.suffix in (".ads", ".adb")))
     for source in sources:
@@ -539,10 +573,10 @@ def audit_sources(source_dir: Path, report_dir: Path,
             audit_import_spec(source)
     expected_units = {path.stem for path in sources}
     trusted_units = {path.stem for path in sources if path.name in TRUSTED_IMPORT_SPECS}
-    model = source_dir / (SEQUENCE_UNIT + ".ads")
-    proof_instance = audit_sequence_instance(model) if model in sources else None
+    proof_instances = {unit: audit_sequence_instance(source_dir / (unit + ".ads"))
+                       for unit in SEQUENCE_INSTANCES if source_dir / (unit + ".ads") in sources}
     stats = audit_reports(report_dir, expected_units, trusted_units,
-                          effective_command=effective_command, proof_instance=proof_instance)
+                          effective_command=effective_command, proof_instances=proof_instances)
     for source in sources:
         report = report_dir / f"{source.stem}.spark"
         require(report.stat().st_mtime_ns >= source.stat().st_mtime_ns,

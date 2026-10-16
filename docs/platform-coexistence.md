@@ -13,6 +13,17 @@ and no cleanup or migration of another host's artifacts.
   this generated specification and the adjacent `silver_library_sources.ads`
   containing exact expected runtime sources; external-tool selection remains reviewed setup
   configuration.
+- `generated/silver_image_config.ads` binds the Image adapter to the original
+  Alire-selected vendor `gnatwhy3` path and digest. Bootstrap creates
+  `.silver/<host>/image-tools/`, copying the selected `gnatprove` executable so
+  it resolves its support files in that private overlay. Vendor support paths
+  remain symlinks to the original release; only `gnatwhy3` selects the compiled
+  `compiler/bin/silver_image_adapter`. The vendor installation is unchanged.
+  `silver.gpr` builds both SPARK executables. Application proofs invoke overlay
+  `gnatprove` under the Alire environment; compiler verification uses the
+  original vendor tools. Provenance checks recompute the exact generated
+  configuration, original tool binding and overlay layout. These are source
+  and tool-selection checks, not binary attestations.
 - `.silver/<host>/compiler/` owns compiler objects, the executable, GNATprove
   intermediates, and content-bound proof provenance. The GPR project requires a
   supported `SILVER_HOST`; development tooling supplies the native value.

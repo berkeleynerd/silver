@@ -115,7 +115,7 @@ procedure Silver with SPARK_Mode => On is
            "   end Compiler;" & LF &
            "end Program;" & LF;
          Proof_Command : constant String :=
-           Silver_Build.Alire_Exec & "gnatprove -P " & Shell_Directory & "/program.gpr" &
+           Silver_Build.Alire_Exec & Silver_Build.Image_Gnatprove & " -P " & Shell_Directory & "/program.gpr" &
            " -U --mode=all --report=all" &
            (if Output_Mode then " --warnings=continue" else " --warnings=error") &
            " --checks-as-errors=on" &

@@ -47,7 +47,7 @@ class OutputIntegrityTests(unittest.TestCase):
         prepare_context(cls.host)
         built = subprocess.run(
             alire_command(HOST, "exec", "--", "gprbuild", "-P", cls.sandbox / "silver.gpr",
-                          "-XSILVER_HOST=" + HOST.key, "--subdirs=explore/output-integrity", "-p", "-j2"),
+                          "-XSILVER_HOST=" + HOST.key, "--subdirs=explore/output-integrity", "-p", "-j2", "silver.adb"),
             cwd=HOST.context, env=tool_environment(HOST), capture_output=True, text=True, timeout=120)
         if built.returncode:
             raise AssertionError(built.stdout + built.stderr)
@@ -82,7 +82,7 @@ class OutputIntegrityTests(unittest.TestCase):
             workspace = project.parent
             (root / "workspace").write_text(str(workspace))
             libraries = ("silver_io.ads", "silver_io.adb", "silver_output_libc.ads", "silver_arguments.ads", "silver_arguments.adb", "silver_runtime.ads")
-            if "gnatprove" in sys.argv:
+            if any(Path(argument).name == "gnatprove" for argument in sys.argv):
                 # Confirm the proof input is exactly the selected local source
                 # set, not the caller's cwd or an expanded search directory.
                 text = project.read_text()

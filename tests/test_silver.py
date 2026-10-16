@@ -386,7 +386,7 @@ class SilverIntegrationTests(unittest.TestCase):
         # Compile the unchanged implementation with fixture-specific paths.
         # The production binary has no caller-controlled tool override.
         build = subprocess.run(alire_command(HOST, "exec", "--", "gprbuild", "-P",
-                               sandbox / "silver.gpr", "-XSILVER_HOST=" + HOST.key, "-p"),
+                               sandbox / "silver.gpr", "-XSILVER_HOST=" + HOST.key, "-p", "silver.adb"),
                                cwd=HOST.context, env=tool_environment(HOST),
                                capture_output=True, text=True, timeout=120)
         self.assertEqual(build.returncode, 0, build.stdout + build.stderr)
@@ -438,7 +438,7 @@ class SilverIntegrationTests(unittest.TestCase):
                 raise SystemExit("driver project path is invalid after Alire -C")
             (sandbox / "routing_checked").write_text(str(project.resolve()))
             snapshot = project.parent / "main.adb"
-            if "gnatprove" in sys.argv:
+            if any(Path(argument).name == "gnatprove" for argument in sys.argv):
                 if mode == "tool_failure":
                     raise SystemExit(1)
                 if mode == "missing_report":

@@ -1032,6 +1032,64 @@ class VendorProofEvidenceTests(unittest.TestCase):
             audit_reports(self.path, {"main", SEQUENCE_UNIT}, proof_instance=self.instance,
                           application_kind="static")
 
+    def test_image_instance_requires_exact_static_ghost_observations(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        source = (root / "src/silver_image_files.ads").read_text()
+        target = self.path / "silver_image_files.ads"
+        target.write_text(source)
+        self.assertEqual(audit_sequence_instance(target), (11, 4, 12))
+        for old, new in (("Ghost => Static", "Ghost => Check"),
+                         ("Ghost => Static", ""),
+                         ("Element_Type => Character", "Element_Type => Integer"),
+                         ("Use_Logical_Equality => True", "Use_Logical_Equality => False"),
+                         ("package Bytes is new", "package Other is new")):
+            with self.subTest(replacement=new):
+                target.write_text(source.replace(old, new))
+                with self.assertRaisesRegex(EvidenceError, "unreviewed proof-container"):
+                    audit_sequence_instance(target)
+
+    def test_multiple_instances_keep_separate_exact_declaration_origins(self) -> None:
+        self.prepare_vendor()
+        unit = "silver_image_files"
+        instance = (11, 4, 12)
+        image = copy.deepcopy(self.initial_report)
+        image["entities"] = {" 1": {"name": "Silver_Image_Files",
+                                      "sloc": [{"file": unit + ".ads", "line": 6, "column": 9}]}}
+        image["spark"] = {" 1": "all"}
+        for index, (name, locations) in enumerate(sorted(sequence_entities(instance, unit=unit)), 2):
+            key = f" {index}"
+            image["entities"][key] = {"name": name,
+                "sloc": [{"file": file, "line": line, "column": col} for file, line, col in locations]}
+            image["spark"][key] = "spec"
+        initial = copy.deepcopy(image)
+
+        def audit() -> dict:
+            for name, report in (("main", self.report), (SEQUENCE_UNIT, self.model), (unit, image)):
+                (self.path / (name + ".spark")).write_text(json.dumps(report))
+            self.refresh_reports()
+            return audit_reports(self.path, {"main", SEQUENCE_UNIT, unit},
+                proof_instances={SEQUENCE_UNIT: self.instance, unit: instance})
+
+        self.assertEqual(audit()["vendor_spec_entities"], 60)
+        for mutation in ("unit", "instance", "name", "helper", "missing"):
+            with self.subTest(mutation=mutation):
+                image = copy.deepcopy(initial)
+                key = next(key for key, entity in image["entities"].items()
+                           if entity["name"] == "Silver_Image_Files.Bytes.Length")
+                if mutation == "unit":
+                    image["entities"][key]["sloc"][-1]["file"] = SEQUENCE_UNIT + ".ads"
+                elif mutation == "instance":
+                    image["entities"][key]["sloc"][-1]["line"] += 1
+                elif mutation == "name":
+                    image["entities"][key]["name"] = SEQUENCE_NAME + ".Length"
+                elif mutation == "helper":
+                    image["spark"][" 1"] = "spec"
+                else:
+                    del image["entities"][key]
+                    del image["spark"][key]
+                with self.assertRaises(EvidenceError):
+                    audit()
+
 
 if __name__ == "__main__":
     unittest.main()
