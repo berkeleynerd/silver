@@ -273,6 +273,22 @@ def tool_resources(host: HostLayout, command: list[str], workspaces: list[str],
     return resources, reports, standard
 
 
+def retain_exploration(run: ManagedRun, destination: str) -> None:
+    """Keep custom/standard exploratory outputs, including an interrupted predecessor."""
+    retained = run.directory / destination
+    for index, root in enumerate(run.failure_reports):
+        root = Path(root)
+        paths = root.rglob("*") if root.is_dir() else [root]
+        for path in paths:
+            if path.is_file() and (path.suffix == ".spark" or path.name in ("gnatprove.sarif", "gnatprove.out")):
+                relative = path.relative_to(root) if root.is_dir() else Path(path.name)
+                target = retained / str(index) / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, target)
+    if retained.exists():
+        run.evidence.append(retained)
+
+
 def proof_scope(command: list[str]) -> list[str]:
     targets = []
     mode = "all"
@@ -495,6 +511,8 @@ def main(arguments: list[str] | None = None) -> None:
                 run.evidence.append(reports / MANIFEST)
             else:
                 invalidate_proof(reports)
+        if kind == "tool-gnatprove":
+            retain_exploration(run, "previous-reports")
         run.event("phase-start", phase="test" if args.action == "test" else "native-tool")
         invoke(host, actual, cwd=None if args.action == "test" else host.context, pass_fds=run.pass_fds, log=log)
         run.event("phase-end", phase="test" if args.action == "test" else "native-tool", returncode=0)
@@ -525,6 +543,8 @@ def main(arguments: list[str] | None = None) -> None:
         if "declared_inputs_sha256" in inputs and hash_paths(
                 [Path(path).resolve() for path in args.input]) != inputs["declared_inputs_sha256"]:
             raise RuntimeError("declared run inputs changed during execution")
+        if kind == "tool-gnatprove":
+            retain_exploration(run, "exploratory-evidence")
         if "executable" in inputs and digest(Path(inputs["executable"]["path"])) != inputs["executable"]["sha256"]:
             raise RuntimeError("custom tool executable changed during execution")
 
