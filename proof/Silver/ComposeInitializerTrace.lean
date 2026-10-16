@@ -33,6 +33,14 @@ theorem declaration_image_checks {text : Source} {state : ParserState}
   obtain ⟨raw, result, parsed, _, rfl⟩ := trace
   exact Expression.image_obligations_discharge (expressionAt_inferLength normal parsed)
 
+theorem declaration_image_unique {text : Source} {state : ParserState} {declaration : Declaration}
+    {first second : List Integer.Obligation}
+    (left : DeclarationChecksAt text state declaration first)
+    (right : DeclarationChecksAt text state declaration second) : first = second := by
+  obtain ⟨raw, result, parsed, _, rfl⟩ := left
+  obtain ⟨other, otherResult, otherParsed, _, rfl⟩ := right
+  rw [(expressionTail_unique parsed otherParsed).1]
+
 inductive InitializerChecksAt (text : Source) (arguments : Bool) :
     ParserState → List Integer.Obligation → ParserState → Prop
   | done {state : ParserState} : state.position ≠ 0 →
@@ -85,5 +93,36 @@ theorem initializer_checks_valid {text : Source} {arguments : Bool} {state final
     ∀ check ∈ checks, check.Valid := by
   have all := List.all_eq_true.mp (initializer_checks_discharge normal trace)
   exact fun check member => Integer.Obligation.discharge_sound (all check member)
+
+theorem initializer_trace_unique {text : Source} {arguments : Bool} {state leftState rightState : ParserState}
+    {left right : List Integer.Obligation} (first : InitializerChecksAt text arguments state left leftState)
+    (second : InitializerChecksAt text arguments state right rightState) : left = right ∧ leftState = rightState := by
+  induction first generalizing right rightState with
+  | done positive stop =>
+      cases second with
+      | done => exact ⟨rfl, rfl⟩
+      | string _ more _ _ _ _ | scalar _ more _ _ => exact False.elim (stop more)
+  | string positive more noScalar parsed checks rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ _ other otherChecks remaining =>
+          obtain ⟨rfl, rfl⟩ := declaration_unique parsed other
+          have same := declaration_image_unique checks otherChecks
+          obtain ⟨rfl, rfl⟩ := ih remaining
+          exact ⟨congrArg (fun initial => initial ++ _) same, rfl⟩
+      | scalar _ _ other _ =>
+          have accepted := scalar_declaration_positive other
+          rw [← scalar_declaration_complete other, noScalar] at accepted
+          contradiction
+  | scalar positive more parsed rest ih =>
+      cases second with
+      | done _ stop => exact False.elim (stop more)
+      | string _ _ noScalar _ _ _ =>
+          have accepted := scalar_declaration_positive parsed
+          rw [← scalar_declaration_complete parsed, noScalar] at accepted
+          contradiction
+      | scalar _ _ other remaining =>
+          obtain ⟨rfl, rfl⟩ := scalar_declaration_unique parsed other
+          exact ih remaining
 
 end Silver.Compose
