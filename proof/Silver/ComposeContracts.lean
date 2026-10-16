@@ -62,6 +62,7 @@ structure Context where
   mutable : Bool := false
   sameTarget : Bool := false
   dynamicSeen : Bool := false
+  integerHidden : Bool := false
 
 def Context.locals (ctx : Context) : Locals
   | .source, _ => ctx.text
@@ -71,7 +72,8 @@ def Context.locals (ctx : Context) : Locals
     | "following" => ctx.following | "next_token" => ctx.nextToken | "capacity" => ctx.capacity | _ => 0
   | .truth, name => match name with
     | "arguments" => ctx.arguments | "mutable" => ctx.mutable
-    | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen | _ => false
+    | "same_target" => ctx.sameTarget | "dynamic_seen" => ctx.dynamicSeen
+    | "integer_hidden" => ctx.integerHidden | _ => false
   | .names, _ => ctx.names
   | .scalarNames, _ => ctx.scalarNames
   | .state, _ => ctx.state
@@ -98,9 +100,12 @@ structure HelperRanges (calls : Calls) : Prop where
     calls.function .lookupName text names first after ≤ names.length
   literal : ∀ text, ValidText text → ∀ position, ValidCursor text position →
     ValidValue text (calls.function .literal text position)
-  value : ∀ text, ValidText text → ∀ position names scalarNames,
+  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ValidValue text (calls.function .value text position names scalarNames)
+    ValidValue text (calls.function .image text position names scalarNames integerHidden)
+  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    ValidValue text (calls.function .value text position names scalarNames integerHidden)
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments, ValidState text state →
     ValidState text (calls.function .stringDeclaration text state arguments) ∧
       ((calls.function .stringDeclaration text state arguments).position = 0 ∨
@@ -117,15 +122,15 @@ structure HelperRanges (calls : Calls) : Prop where
     ValidState text (calls.function .argument text state)
   declarations : ∀ text, ValidText text → ∀ state arguments, ValidState text state →
     ValidState text (calls.function .declarations text state arguments)
-  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    ValidScan text (calls.function .expressionStep text names scan scalarNames) ∧
-      ((calls.function .expressionStep text names scan scalarNames).position = 0 ∨
-       (calls.function .expressionStep text names scan scalarNames).complete = true ∨
-       scan.position < (calls.function .expressionStep text names scan scalarNames).position)
-  expression : ∀ text, ValidText text → ∀ position names scalarNames,
+    ValidScan text (calls.function .expressionStep text names scan scalarNames integerHidden) ∧
+      ((calls.function .expressionStep text names scan scalarNames integerHidden).position = 0 ∨
+       (calls.function .expressionStep text names scan scalarNames integerHidden).complete = true ∨
+       scan.position < (calls.function .expressionStep text names scan scalarNames integerHidden).position)
+  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    ValidResult text (calls.function .expression text position names scalarNames)
+    ValidResult text (calls.function .expression text position names scalarNames integerHidden)
 
 structure RangeContracts (calls : Calls) : Prop extends HelperRanges calls where
   step : ∀ text, ValidText text → ∀ form token state,
@@ -149,6 +154,10 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) :
     calls.function .scalarAppend names item = names ++ [item]
   scalarEmpty : ∀ value, value.Bounded →
     calls.function .scalarEmpty value = value.isEmpty
+  imageMinimum : ∀ value, value.Bounded →
+    calls.function .imageMinimum value = (LengthSummary.ofImage value).minimumLength
+  imageMaximum : ∀ value, value.Bounded →
+    calls.function .imageMaximum value = (LengthSummary.ofImage value).staticLength
   nameIs : ∀ text, ValidText text → ∀ first after word,
     ValidName text first after → 0 < word.toList.length → word.toList.length ≤ 16 →
     calls.function .nameIs text first after word = Named.nameIs text first after (word.toList.map Char.toNat)
@@ -190,10 +199,14 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) :
       workTailBody.eval evaluator (Context.locals {text,position,remaining})
   workBudget : ∀ text, ValidText text →
     calls.function .workBudget text = workBudgetBody.eval evaluator (Context.locals {text})
-  value : ∀ text, ValidText text → ∀ position names scalarNames,
+  image : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .value text position names scalarNames =
-      valueBody.eval evaluator (Context.locals {text,scalarNames,position,names})
+    calls.function .image text position names scalarNames integerHidden =
+      imageBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
+  value : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
+    ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
+    calls.function .value text position names scalarNames integerHidden =
+      valueBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
   newName : ∀ text, ValidText text → ∀ state first after arguments,
     ValidState text state → ValidCursor text first → ValidCursor text after →
     calls.function .newName text state first after arguments =
@@ -220,14 +233,14 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) :
     ValidState text state →
     calls.function .declarations text state arguments =
       declarationsBody.eval evaluator (Context.locals {text,state,arguments})
-  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames,
+  expressionStep : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    calls.function .expressionStep text names scan scalarNames =
-      expressionStepBody.eval evaluator (Context.locals {text,scalarNames,names,scan})
-  tail : ∀ text, ValidText text → ∀ names scan scalarNames,
+    calls.function .expressionStep text names scan scalarNames integerHidden =
+      expressionStepBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,names,scan})
+  tail : ∀ text, ValidText text → ∀ names scan scalarNames integerHidden,
     ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames → ValidScan text scan →
-    calls.function .tail text names scan scalarNames =
-      tailBody.eval evaluator (Context.locals {text,scalarNames,names,scan})
+    calls.function .tail text names scan scalarNames integerHidden =
+      tailBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,names,scan})
   fits : ∀ text, ValidText text → ∀ result capacity,
     ValidResult text result → capacity ≤ maxSourceLength →
     calls.function .fits result capacity =
@@ -236,10 +249,10 @@ structure HelperEquations (calls : Calls) (evaluator : Calls := lexical calls) :
     ValidState text state →
     calls.function .comparison text state =
       comparisonBody.eval evaluator (Context.locals {text,state})
-  expression : ∀ text, ValidText text → ∀ position names scalarNames,
+  expression : ∀ text, ValidText text → ∀ position names scalarNames integerHidden,
     ValidCursor text position → ValidNames text names → ScalarExpression.ValidEnvironment text scalarNames →
-    calls.function .expression text position names scalarNames =
-      expressionBody.eval evaluator (Context.locals {text,scalarNames,position,names})
+    calls.function .expression text position names scalarNames integerHidden =
+      expressionBody.eval evaluator (Context.locals {text,scalarNames,integerHidden,position,names})
   target : ∀ text, ValidText text → ∀ state sameTarget,
     ValidState text state →
     calls.function .target text state sameTarget =

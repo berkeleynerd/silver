@@ -63,7 +63,7 @@ theorem model_string_declaration_valid (text : Source) (valid : ValidText text)
     ValidState text (stringDeclarationAt text state arguments) := by
   have nameBound : ValidCursor text (declarationParts text state).after := model_name_valid text _
   have resultBound : ValidResult text (declarationParts text state).value :=
-    model_expression_valid (scalarNames := state.scalarNames) text valid _ state.names (model_declaration_position_valid text state stateValid) stateValid.2.1
+    model_expression_valid (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text valid _ state.names (model_declaration_position_valid text state stateValid) stateValid.2.1
   have followingBound : ValidCursor text (declarationParts text state).following :=
     model_fixed_valid text _ _ _ resultBound.1
   unfold stringDeclarationAt
@@ -74,8 +74,8 @@ theorem model_string_declaration_valid (text : Source) (valid : ValidText text)
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, not_or] at admitted
     apply model_add_binding_valid text state _ _ _ _ _ stateValid
     · apply model_new_name_valid text state _ _ arguments nameBound
-      simpa using admitted.1.1
-    · exact ⟨resultBound.1, by simp [ExpressionResult.value], resultBound.2.1, by simp [ExpressionResult.value]⟩
+      simpa using admitted.1.1.1.1
+    · exact ⟨resultBound.1, by simp [ExpressionResult.value], resultBound.2.1, by simp [ExpressionResult.value], resultBound.2.2.2⟩
     · exact followingBound
     · have bound := stateValid.2.1.1
       omega
@@ -94,21 +94,21 @@ theorem model_string_declaration_advances (text : Source) (valid : ValidText tex
     change (declarationParts text state).following ≠ 0 at nonzero
     have sourceNameBound : ValidCursor text (declarationParts text state).after := model_name_valid text _
     have resultBound : ValidResult text (declarationParts text state).value :=
-      model_expression_valid (scalarNames := state.scalarNames) text valid _ state.names
+      model_expression_valid (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text valid _ state.names
         (model_declaration_position_valid text state stateValid) stateValid.2.1
     have resultNonzero : (declarationParts text state).value.after ≠ 0 :=
       model_fixed_input_nonzero text _ ";" false nonzero
     have startNonzero : declarationValuePosition text state ≠ 0 :=
-      model_expression_input_nonzero (scalarNames := state.scalarNames) text _ state.names resultNonzero
+      model_expression_input_nonzero (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text _ state.names resultNonzero
     have expressionForward : declarationValuePosition text state ≤ (declarationParts text state).value.after := by
-      rcases model_tail_nondecreasing (scalarNames := state.scalarNames) text state.names {position := declarationValuePosition text state} with zero | forward
+      rcases model_tail_nondecreasing (scalarNames := state.scalarNames) (integerHidden := declarationIntegerHidden text state) text state.names {position := declarationValuePosition text state} with zero | forward
       · exact False.elim (resultNonzero zero)
       · exact forward
     have endingForward : (declarationParts text state).value.after < (declarationParts text state).following :=
       model_fixed_advances text _ ";" false resultBound.1 (by decide) nonzero
     simp only [Bool.or_eq_true, Bool.not_eq_true', decide_eq_true_eq, not_or] at admitted
     have nameValid : ValidName text (declarationParts text state).first (declarationParts text state).after :=
-      model_new_name_valid text state _ _ arguments sourceNameBound (by simpa using admitted.1.1)
+      model_new_name_valid text state _ _ arguments sourceNameBound (by simpa using admitted.1.1.1.1)
     have firstNonzero : declarationFirst text state ≠ 0 := Nat.ne_of_gt nameValid.1
     have skipped : state.position ≤ declarationFirst text state := skipAt_advances text _ stateValid.1 firstNonzero
     have nameForward : state.position < declarationAfter text state := Nat.lt_of_le_of_lt skipped nameValid.2.1
@@ -227,8 +227,8 @@ theorem model_declaration_advances (text : Source) (valid : ValidText text)
 
 theorem model_dynamic_value_valid (text : Source) (following : Nat)
     (bound : ValidCursor text following) :
-    ValidValue text ⟨following, 0, 0, true, 0⟩ :=
-  ⟨bound, by simp, by simp, by simp⟩
+    ValidValue text ⟨following, 0, 0, 0, true, false, false, 0⟩ :=
+  ⟨bound, by simp, by simp, by simp, by simp⟩
 
 theorem model_argument_valid (text : Source) (valid : ValidText text)
     (state : ParserState) (stateValid : ValidState text state) :
@@ -254,7 +254,7 @@ theorem model_argument_valid (text : Source) (valid : ValidText text)
       have empty : state.names.length = 0 := by omega
       simp [empty, maxBindings, maxSourceLength]
     have added := model_add_binding_valid text state (argumentFirst text state) (argumentAfter text state)
-      ⟨following, 0, 0, true, 0⟩ false following stateValid nameValid
+      ⟨following, 0, 0, 0, true, false, false, 0⟩ false following stateValid nameValid
       (model_dynamic_value_valid text following followingBound) followingBound room
     exact ⟨added.1, added.2.1, Or.inr nameValid, added.2.2.2⟩
 
@@ -316,9 +316,9 @@ theorem model_output_valid (text : Source) (valid : ValidText text) (state : Par
 
 theorem model_comparison_valid (text : Source) (valid : ValidText text) (state : ParserState)
     (stateValid : ValidState text state) : ValidState text (comparisonAt text state) := by
-  have left := model_expression_valid (scalarNames := state.scalarNames) text valid _ _ stateValid.1 stateValid.2.1
+  have left := model_expression_valid (scalarNames := state.scalarNames) (integerHidden := false) text valid _ _ stateValid.1 stateValid.2.1
   have equalPosition := model_fixed_valid text (expressionAt text state.position state.names state.scalarNames).after "=" false left.1
-  have right := model_expression_valid (scalarNames := state.scalarNames) text valid _ _ equalPosition stateValid.2.1
+  have right := model_expression_valid (scalarNames := state.scalarNames) (integerHidden := false) text valid _ _ equalPosition stateValid.2.1
   unfold comparisonAt
   dsimp only
   split
