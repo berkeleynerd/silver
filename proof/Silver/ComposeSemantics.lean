@@ -1,19 +1,17 @@
 module
 
 public import Silver.ComposeAdmission
+public import Silver.StringExecution
 
 @[expose] public section
 
 namespace Silver.Compose
 open Named Bindings
 
-def NamesNormal (names : BindingEnvironment) : Prop :=
-  ∀ index info, names.get index = some info → info.dynamic = true → info.staticLength = 0
-
-theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
+theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
     {left right : Operand} {leftResult rightResult : ValueResult}
-    (first : ValueAt (scalarNames := scalarNames) text names position left leftResult)
-    (second : ValueAt (scalarNames := scalarNames) text names position right rightResult) :
+    (first : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position left leftResult)
+    (second : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position right rightResult) :
     left = right ∧ leftResult = rightResult := by
   have results := (value_complete first).symm.trans (value_complete second)
   refine ⟨?_, results⟩
@@ -22,57 +20,54 @@ theorem value_unique {text : Source} {names : BindingEnvironment} {scalarNames :
       cases second with
       | literal _ _ _ other => exact congrArg Bindings.Value.literal (Output.literalAt_unique parsed other).1
       | reference _ name _ _ _ _ => exact False.elim (identifier_not_quote name quote)
-  | reference _ name _ _ _ _ =>
+      | image =>
+          have different := congrArg ValueResult.nonliteralSeen results
+          simp [imageValue] at different
+  | reference _ name _ positive _ _ =>
       cases second with
       | literal _ _ quote _ => exact False.elim (identifier_not_quote name quote)
       | reference => exact congrArg Bindings.Value.reference (congrArg ValueResult.reference results)
-
-theorem value_normal {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
-    {value : Operand} {result : ValueResult} (normal : NamesNormal names)
-    (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
-    result.dynamicSeen = true → result.staticLength = 0 := by
-  cases parsed with
-  | literal => simp
-  | reference _ _ _ _ _ present => exact normal _ _ present
-
-theorem value_summary {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
-    {value : Operand} {result : ValueResult} (normal : NamesNormal names)
-    (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
-    value.staticLength names.shape = result.staticLength ∧
-      value.dynamicCount names.shape = (if result.dynamicSeen then 1 else 0) := by
-  have inferred := value_infer parsed
-  have zero := value_normal normal parsed
-  simp only [Operand.staticLength, Operand.dynamicCount, Operand.bound, inferred, Option.getD_some,
-    ValueResult.bound]
-  cases dynamic : result.dynamicSeen
-  · simp [Bound.staticPart, Bound.dynamicPart]
-  · simp [Bound.staticPart, Bound.dynamicPart, zero dynamic]
+      | image =>
+          have different := congrArg ValueResult.reference results
+          simp only [imageValue] at different
+          exact False.elim (positive different)
+  | image _ _ parsed =>
+      cases second with
+      | literal =>
+          have different := congrArg ValueResult.nonliteralSeen results
+          simp [imageValue] at different
+      | reference _ _ _ positive _ _ =>
+          have different := congrArg ValueResult.reference results
+          simp only [imageValue] at different
+          exact False.elim (positive different.symm)
+      | image _ _ other =>
+          exact congrArg Bindings.Value.image (ScalarExpression.at_unique parsed.scalar other.scalar).1
 
 /-- The source scanner emits an atom only at an operand position. Parentheses
 and separators preserve its order; the grouping theorem covers all trees over
 that ordered list, including every bounded intermediate. -/
 def EmissionAt (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (emitted : Expression) (scalarNames : ScalarExpression.Environment := []) : Prop :=
+    (emitted : Expression) (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : Prop :=
   if state.needOperand = true ∧ fixedAfter text state.position "(" false = 0 then
-    ∃ atom, ValueAt (scalarNames := scalarNames) text names state.position atom (valueAt (scalarNames := scalarNames) text state.position names) ∧ emitted = [atom]
+    ∃ atom, ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state.position atom (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names) ∧ emitted = [atom]
   else emitted = []
 
-theorem emission_sound {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
+theorem emission_sound {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
     (positive : state.position ≠ 0) (unfinished : state.complete = false)
-    (accepted : (expressionStep (scalarNames := scalarNames) text names state).position ≠ 0) :
-    ∃ emitted, EmissionAt (scalarNames := scalarNames) text names state emitted := by
+    (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position ≠ 0) :
+    ∃ emitted, EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted := by
   by_cases reading : state.needOperand = true ∧ fixedAfter text state.position "(" false = 0
-  · have success : (valueAt (scalarNames := scalarNames) text state.position names).after ≠ 0 := by
-      by_cases failed : (valueAt (scalarNames := scalarNames) text state.position names).after = 0
+  · have success : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).after ≠ 0 := by
+      by_cases failed : (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).after = 0
       · simp [expressionStep, positive, unfinished, reading.1, reading.2, failed, invalidExpressionState] at accepted
       · exact failed
     obtain ⟨atom, parsed⟩ := value_sound text state.position names success
     exact ⟨[atom], by rw [EmissionAt, ite_eq_left reading]; exact ⟨atom, parsed, rfl⟩⟩
   · exact ⟨[], by rw [EmissionAt, ite_eq_right reading]⟩
 
-theorem emission_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
-    {left right : Expression} (first : EmissionAt (scalarNames := scalarNames) text names state left)
-    (second : EmissionAt (scalarNames := scalarNames) text names state right) : left = right := by
+theorem emission_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
+    {left right : Expression} (first : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state left)
+    (second : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state right) : left = right := by
   unfold EmissionAt at first second
   split at first
   · rename_i reading
@@ -84,9 +79,20 @@ theorem emission_unique {text : Source} {names : BindingEnvironment} {scalarName
     rw [ite_eq_right notReading] at second
     exact first.trans second.symm
 
-theorem emission_readable {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
-    {emitted : Expression} (parsed : EmissionAt (scalarNames := scalarNames) text names state emitted) :
-    emitted.Readable names.shape ∧ emitted.LiteralsPrintable := by
+theorem value_readable {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
+    {value : Operand} {result : ValueResult}
+    (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value result) :
+    value.StringReadable names.shape := by
+  cases parsed with
+  | literal | image => trivial
+  | reference positive identifier selected nonzero unmasked present =>
+      rename_i after index name info
+      exact ⟨info.cell, by simp [BindingEnvironment.shape, present]⟩
+
+theorem emission_readable {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
+    {emitted : Expression} (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted) :
+    emitted.StringReadable names.shape ∧ emitted.LiteralsPrintable := by
   unfold EmissionAt at parsed
   split at parsed
   · obtain ⟨atom, source, rfl⟩ := parsed
@@ -94,54 +100,60 @@ theorem emission_readable {text : Source} {names : BindingEnvironment} {scalarNa
     · intro item member
       have same := List.mem_singleton.mp member
       subst item
-      exact ⟨_, value_infer source⟩
+      exact value_readable source
     · intro item member
       have same := List.mem_singleton.mp member
       subst item
       exact value_literals source
   · subst emitted
-    simp [Expression.Readable, Expression.LiteralsPrintable]
+    simp [Expression.StringReadable, Expression.LiteralsPrintable]
 
-theorem emission_accounting {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
+theorem emission_accounting {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
     {emitted : Expression} (normal : NamesNormal names)
     (positive : state.position ≠ 0) (unfinished : state.complete = false)
-    (accepted : (expressionStep (scalarNames := scalarNames) text names state).position ≠ 0)
+    (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position ≠ 0)
     (bounded : state.operands ≤ maxExpressionOperands)
-    (parsed : EmissionAt (scalarNames := scalarNames) text names state emitted) :
-    (expressionStep (scalarNames := scalarNames) text names state).staticLength = state.staticLength + emitted.staticLength names.shape ∧
-    (expressionStep (scalarNames := scalarNames) text names state).dynamicCount = state.dynamicCount + emitted.dynamicCount names.shape ∧
-    (expressionStep (scalarNames := scalarNames) text names state).operands = state.operands + emitted.length ∧
-    (expressionStep (scalarNames := scalarNames) text names state).operands ≤ maxExpressionOperands ∧
-    (state.needOperand = true → emitted = [] →
-      (expressionStep (scalarNames := scalarNames) text names state).needOperand = true ∧ (expressionStep (scalarNames := scalarNames) text names state).complete = false) := by
+    (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted) :
+    ∃ summary, emitted.inferLength names.shape (ScalarExpression.ranges scalarNames) = some summary ∧
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).lengthSummary =
+        state.lengthSummary.add summary ∧
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).operands = state.operands + emitted.length ∧
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).operands ≤ maxExpressionOperands ∧
+      (state.needOperand = true → emitted = [] →
+        (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).needOperand = true ∧
+          (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = false) := by
   by_cases reading : state.needOperand = true ∧ fixedAfter text state.position "(" false = 0
   · rw [EmissionAt, ite_eq_left reading] at parsed
     obtain ⟨atom, source, rfl⟩ := parsed
-    have allowed : ¬(state.operands = maxExpressionOperands ∨ (valueAt (scalarNames := scalarNames) text state.position names).after = 0 ∨
-        (valueAt (scalarNames := scalarNames) text state.position names).staticLength > maxSourceLength - state.staticLength) := by
+    have allowed : ¬(state.operands = maxExpressionOperands ∨
+        (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).after = 0 ∨
+        (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).staticLength > maxSourceLength - state.staticLength ∨
+        (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).minimumLength > maxSourceLength - state.minimumLength) := by
       intro failed
       simp [expressionStep, positive, unfinished, reading.1, reading.2, failed, invalidExpressionState] at accepted
-    have summary := value_summary normal source
-    simp only [expressionStep, positive, unfinished, Bool.false_eq_true, ↓reduceIte, reading.1,
-      reading.2, ne_eq, not_true_eq_false, allowed, Expression.staticLength, Expression.dynamicCount,
-      List.length_singleton, Nat.add_zero, summary.1, summary.2]
-    exact ⟨True.intro, True.intro, True.intro, by omega, by simp⟩
+    have inferred := value_inferLength normal source
+    refine ⟨(valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).lengthSummary, ?_, ?_⟩
+    · simp only [Expression.inferLength, inferred, Option.bind_some, Option.map_some, LengthSummary.add_zero]
+    · simp only [expressionStep, positive, unfinished, Bool.false_eq_true, ↓reduceIte, reading.1,
+        reading.2, ne_eq, not_true_eq_false, allowed, List.length_singleton]
+      exact ⟨rfl, True.intro, by omega, by simp⟩
   · rw [EmissionAt, ite_eq_right reading] at parsed
     subst emitted
+    refine ⟨{}, rfl, ?_⟩
+    simp only [LengthSummary.add_zero, List.length_nil, Nat.add_zero]
     by_cases need : state.needOperand = true
     · have opening : fixedAfter text state.position "(" false ≠ 0 := fun absent => reading ⟨need, absent⟩
-      simp [expressionStep, positive, unfinished, need, opening, Expression.staticLength,
-        Expression.dynamicCount, bounded]
-    · simp only [expressionStep, positive, unfinished, Bool.false_eq_true, ↓reduceIte, need,
-        Expression.staticLength, Expression.dynamicCount, List.length_nil, Nat.add_zero]
+      simp [expressionStep, positive, unfinished, need, opening, ExpressionState.lengthSummary, bounded]
+    · simp only [expressionStep, positive, unfinished, Bool.false_eq_true, ↓reduceIte, need]
       split
-      · exact ⟨rfl, rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
+      · exact ⟨rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
       · rename_i noJoin
         split
-        · exact ⟨rfl, rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
+        · exact ⟨rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
         · rename_i noClose
           split
-          · exact ⟨rfl, rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
+          · exact ⟨rfl, rfl, bounded, fun contradiction => False.elim contradiction⟩
           · rename_i noEnd
             have closeZero : fixedAfter text state.position ")" false = 0 := by
               by_cases zero : fixedAfter text state.position ")" false = 0
@@ -150,36 +162,36 @@ theorem emission_accounting {text : Source} {names : BindingEnvironment} {scalar
             simp [expressionStep, positive, unfinished, need, noJoin, closeZero, noEnd, invalidExpressionState] at accepted
 
 inductive ExpressionTailAtCore (text : Source) (names : BindingEnvironment)
-    (scalarNames : ScalarExpression.Environment) :
+    (scalarNames : ScalarExpression.Environment) (integerHidden : Bool) :
     ExpressionState → Expression → ExpressionResult → Prop
   | done {state} : state.position ≠ 0 → state.complete = true →
-      ExpressionTailAtCore text names scalarNames state [] state.result
+      ExpressionTailAtCore text names scalarNames integerHidden state [] state.result
   | last {state emitted} : state.position ≠ 0 → state.complete = false →
-      (expressionStep (scalarNames := scalarNames) text names state).position ≠ 0 →
-      (expressionStep (scalarNames := scalarNames) text names state).complete = true →
-      EmissionAt (scalarNames := scalarNames) text names state emitted →
-      ExpressionTailAtCore text names scalarNames state emitted (expressionStep (scalarNames := scalarNames) text names state).result
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position ≠ 0 →
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = true →
+      EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted →
+      ExpressionTailAtCore text names scalarNames integerHidden state emitted (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).result
   | next {state emitted rest result} : state.position ≠ 0 → state.complete = false →
-      (expressionStep (scalarNames := scalarNames) text names state).position ≠ 0 →
-      (expressionStep (scalarNames := scalarNames) text names state).complete = false →
-      text.length + 1 - (expressionStep (scalarNames := scalarNames) text names state).position < text.length + 1 - state.position →
-      EmissionAt (scalarNames := scalarNames) text names state emitted →
-      ExpressionTailAtCore text names scalarNames (expressionStep (scalarNames := scalarNames) text names state) rest result →
-      ExpressionTailAtCore text names scalarNames state (emitted ++ rest) result
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position ≠ 0 →
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = false →
+      text.length + 1 - (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position < text.length + 1 - state.position →
+      EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted →
+      ExpressionTailAtCore text names scalarNames integerHidden (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state) rest result →
+      ExpressionTailAtCore text names scalarNames integerHidden state (emitted ++ rest) result
 
 abbrev ExpressionTailAt (text : Source) (names : BindingEnvironment) (state : ExpressionState)
-    (expression : Expression) (result : ExpressionResult) (scalarNames : ScalarExpression.Environment := []) : Prop :=
-  ExpressionTailAtCore text names scalarNames state expression result
+    (expression : Expression) (result : ExpressionResult) (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : Prop :=
+  ExpressionTailAtCore text names scalarNames integerHidden state expression result
 
 def ExpressionAt (text : Source) (names : BindingEnvironment) (position : Nat)
     (expression : Expression) (result : ExpressionResult)
-    (scalarNames : ScalarExpression.Environment := []) : Prop :=
-  ExpressionTailAt (scalarNames := scalarNames) text names {position := position} expression result
+    (scalarNames : ScalarExpression.Environment := []) (integerHidden : Bool := false) : Prop :=
+  ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names {position := position} expression result
 
-theorem expressionTail_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_complete {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
-    expressionTail (scalarNames := scalarNames) text names state = result := by
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
+    expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names state = result := by
   induction parsed with
   | done positive finished => rw [expressionTail]; simp only [positive, finished, ↓reduceIte]
   | last positive unfinished nextPositive finished _ =>
@@ -190,9 +202,9 @@ theorem expressionTail_complete {text : Source} {names : BindingEnvironment} {sc
       simp only [positive, unfinished, Bool.false_eq_true, ↓reduceIte, nextPositive, nextUnfinished,
         advancing, ↓reduceDIte, ih]
 
-theorem expressionTail_sound (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (state : ExpressionState)
-    (accepted : (expressionTail (scalarNames := scalarNames) text names state).after ≠ 0) :
-    ∃ expression, ExpressionTailAt (scalarNames := scalarNames) text names state expression (expressionTail (scalarNames := scalarNames) text names state) := by
+theorem expressionTail_sound (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (state : ExpressionState)
+    (accepted : (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).after ≠ 0) :
+    ∃ expression, ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression (expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names state) := by
   by_cases positive : state.position = 0
   · rw [expressionTail] at accepted
     simp only [positive, ↓reduceIte, invalidExpression, ne_eq, not_true_eq_false] at accepted
@@ -201,22 +213,22 @@ theorem expressionTail_sound (text : Source) (names : BindingEnvironment) {scala
       rw [expressionTail]
       simpa only [positive, finished, ↓reduceIte] using ExpressionTailAtCore.done positive finished
     · have unfinished : state.complete = false := Bool.eq_false_iff.mpr finished
-      by_cases nextPositive : (expressionStep (scalarNames := scalarNames) text names state).position = 0
+      by_cases nextPositive : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position = 0
       · rw [expressionTail] at accepted
         simp only [positive, unfinished, Bool.false_eq_true, ↓reduceIte, nextPositive, invalidExpression,
           ne_eq, not_true_eq_false] at accepted
       · obtain ⟨emitted, emission⟩ := emission_sound positive unfinished nextPositive
-        by_cases nextFinished : (expressionStep (scalarNames := scalarNames) text names state).complete = true
+        by_cases nextFinished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = true
         · refine ⟨emitted, ?_⟩
           rw [expressionTail]
           simpa only [positive, unfinished, Bool.false_eq_true, ↓reduceIte, nextPositive, nextFinished]
             using ExpressionTailAtCore.last positive unfinished nextPositive nextFinished emission
-        · have nextUnfinished : (expressionStep (scalarNames := scalarNames) text names state).complete = false := Bool.eq_false_iff.mpr nextFinished
-          by_cases advancing : text.length + 1 - (expressionStep (scalarNames := scalarNames) text names state).position < text.length + 1 - state.position
-          · have reduced : expressionTail (scalarNames := scalarNames) text names state = expressionTail (scalarNames := scalarNames) text names (expressionStep (scalarNames := scalarNames) text names state) := by
+        · have nextUnfinished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = false := Bool.eq_false_iff.mpr nextFinished
+          by_cases advancing : text.length + 1 - (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position < text.length + 1 - state.position
+          · have reduced : expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names state = expressionTail (scalarNames := scalarNames) (integerHidden := integerHidden) text names (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state) := by
               rw [expressionTail]
               simp only [positive, unfinished, Bool.false_eq_true, ↓reduceIte, nextPositive, nextUnfinished, advancing, ↓reduceDIte]
-            obtain ⟨rest, parsed⟩ := expressionTail_sound text names (expressionStep (scalarNames := scalarNames) text names state) (reduced ▸ accepted)
+            obtain ⟨rest, parsed⟩ := expressionTail_sound text names (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state) (reduced ▸ accepted)
             refine ⟨emitted ++ rest, ?_⟩
             rw [reduced]
             exact .next positive unfinished nextPositive nextUnfinished advancing emission parsed
@@ -225,17 +237,17 @@ theorem expressionTail_sound (text : Source) (names : BindingEnvironment) {scala
               advancing, ↓reduceDIte, invalidExpression, ne_eq, not_true_eq_false] at accepted
 termination_by text.length + 1 - state.position
 
-theorem expressionAt_sound (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} (position : Nat)
-    (accepted : (expressionAt (scalarNames := scalarNames) text position names).after ≠ 0) :
-    ∃ expression, ExpressionAt (scalarNames := scalarNames) text names position expression (expressionAt (scalarNames := scalarNames) text position names) :=
+theorem expressionAt_sound (text : Source) (names : BindingEnvironment) {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} (position : Nat)
+    (accepted : (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names).after ≠ 0) :
+    ∃ expression, ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position expression (expressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text position names) :=
   expressionTail_sound text names _ accepted
 
-theorem expressionTail_readable {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_readable {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
-    expression.Readable names.shape ∧ expression.LiteralsPrintable := by
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
+    expression.StringReadable names.shape ∧ expression.LiteralsPrintable := by
   induction parsed with
-  | done => simp [Expression.Readable, Expression.LiteralsPrintable]
+  | done => simp [Expression.StringReadable, Expression.LiteralsPrintable]
   | last _ _ _ _ emitted => exact emission_readable emitted
   | next _ _ _ _ _ emitted _ ih =>
       have first := emission_readable emitted
@@ -249,73 +261,73 @@ theorem expressionTail_readable {text : Source} {names : BindingEnvironment} {sc
         · exact first.2 atom before
         · exact ih.2 atom after
 
-theorem expressionTail_count {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_count {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (bounded : state.operands ≤ maxExpressionOperands)
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
     state.operands + expression.length ≤ maxExpressionOperands := by
   induction parsed with
   | done => simpa using bounded
   | last positive unfinished accepted _ emitted =>
-      have facts := emission_accounting normal positive unfinished accepted bounded emitted
+      obtain ⟨summary, inferred, facts⟩ := emission_accounting normal positive unfinished accepted bounded emitted
       omega
   | next positive unfinished accepted _ _ emitted _ ih =>
-      have facts := emission_accounting normal positive unfinished accepted bounded emitted
-      have remaining := ih facts.2.2.2.1
+      obtain ⟨summary, inferred, facts⟩ := emission_accounting normal positive unfinished accepted bounded emitted
+      have remaining := ih facts.2.2.1
       simp only [List.length_append]
       omega
 
-theorem expressionTail_nonempty {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_nonempty {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (bounded : state.operands ≤ maxExpressionOperands)
     (need : state.needOperand = true) (unfinished : state.complete = false)
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) : expression ≠ [] := by
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) : expression ≠ [] := by
   intro empty
   induction parsed with
   | done _ finished => simp [unfinished] at finished
   | last positive incomplete accepted finished emitted =>
-      have facts := emission_accounting normal positive incomplete accepted bounded emitted
-      have impossible := facts.2.2.2.2 need empty
+      obtain ⟨summary, inferred, facts⟩ := emission_accounting normal positive incomplete accepted bounded emitted
+      have impossible := facts.2.2.2 need empty
       simp [impossible.2] at finished
   | next positive incomplete accepted _ _ emitted _ ih =>
       obtain ⟨firstEmpty, restEmpty⟩ := List.append_eq_nil_iff.mp empty
-      have facts := emission_accounting normal positive incomplete accepted bounded emitted
-      have next := facts.2.2.2.2 need firstEmpty
-      exact ih facts.2.2.2.1 next.1 next.2 restEmpty
+      obtain ⟨summary, inferred, facts⟩ := emission_accounting normal positive incomplete accepted bounded emitted
+      have next := facts.2.2.2 need firstEmpty
+      exact ih facts.2.2.1 next.1 next.2 restEmpty
 
-theorem expressionTail_summary {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_summary {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (normal : NamesNormal names) (bounded : state.operands ≤ maxExpressionOperands)
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
-    result.staticLength = state.staticLength + expression.staticLength names.shape ∧
-    result.dynamicCount = state.dynamicCount + expression.dynamicCount names.shape := by
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
+    ∃ summary, expression.inferLength names.shape (ScalarExpression.ranges scalarNames) = some summary ∧
+      result.lengthSummary = state.lengthSummary.add summary := by
   induction parsed with
-  | done => simp [ExpressionState.result, Expression.staticLength, Expression.dynamicCount]
+  | done => exact ⟨{}, rfl, by simp [ExpressionState.result, ExpressionResult.lengthSummary, ExpressionState.lengthSummary]⟩
   | last positive unfinished accepted _ emitted =>
-      have facts := emission_accounting normal positive unfinished accepted bounded emitted
-      exact ⟨facts.1, facts.2.1⟩
+      obtain ⟨summary, inferred, facts⟩ := emission_accounting normal positive unfinished accepted bounded emitted
+      exact ⟨summary, inferred, facts.1⟩
   | next positive unfinished accepted _ _ emitted _ ih =>
-      have facts := emission_accounting normal positive unfinished accepted bounded emitted
-      have remaining := ih facts.2.2.2.1
-      simp only [Expression.staticLength_append, Expression.dynamicCount_append]
-      constructor <;> omega
+      obtain ⟨first, inferred, facts⟩ := emission_accounting normal positive unfinished accepted bounded emitted
+      obtain ⟨remaining, restInferred, resultSummary⟩ := ih facts.2.2.1
+      refine ⟨first.add remaining, ?_, ?_⟩
+      · simp only [Expression.inferLength_append, inferred, restInferred, Option.bind_some, Option.map_some]
+      · rw [resultSummary, facts.1, LengthSummary.add_assoc]
 
-theorem expressionAt_safe {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position capacity : Nat}
+theorem expressionAt_inferLength {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
     {expression : Expression} {result : ExpressionResult} (normal : NamesNormal names)
-    (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result)
-    (safe : result.staticLength + result.dynamicCount * capacity ≤ maxSourceLength) :
-    SafeExpression expression names.shape capacity := by
-  have counts := expressionTail_count normal (by simp) parsed
-  have nonempty := expressionTail_nonempty normal (by simp) rfl rfl parsed
-  have summaries := expressionTail_summary normal (by simp) parsed
-  simp only [Nat.zero_add] at counts summaries
-  exact ⟨(expressionTail_readable parsed).1, (expressionTail_readable parsed).2,
-    nonempty, counts, by simpa only [summaries.1, summaries.2] using safe⟩
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position expression result) :
+    expression.inferLength names.shape (ScalarExpression.ranges scalarNames) = some result.lengthSummary := by
+  obtain ⟨summary, inferred, same⟩ := expressionTail_summary normal (by simp) parsed
+  have initial : (ExpressionState.lengthSummary {position := position}) = ({} : LengthSummary) := rfl
+  rw [initial, LengthSummary.zero_add] at same
+  rwa [same]
 
-theorem expressionTail_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_unique {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {left right : Expression} {leftResult rightResult : ExpressionResult}
-    (first : ExpressionTailAt (scalarNames := scalarNames) text names state left leftResult)
-    (second : ExpressionTailAt (scalarNames := scalarNames) text names state right rightResult) :
+    (first : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state left leftResult)
+    (second : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state right rightResult) :
     left = right ∧ leftResult = rightResult := by
   have results := (expressionTail_complete first).symm.trans (expressionTail_complete second)
   refine ⟨?_, results⟩
@@ -340,11 +352,11 @@ theorem expressionTail_unique {text : Source} {names : BindingEnvironment} {scal
 
 /-- Completion can be produced only after an operand and outside every pair
 of parentheses. The source trace therefore cannot finish a malformed grouping. -/
-theorem expressionStep_finished {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
+theorem expressionStep_finished {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
     (positive : state.position ≠ 0) (unfinished : state.complete = false)
-    (finished : (expressionStep (scalarNames := scalarNames) text names state).complete = true) :
-    (expressionStep (scalarNames := scalarNames) text names state).needOperand = false ∧
-      (expressionStep (scalarNames := scalarNames) text names state).depth = 0 := by
+    (finished : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).complete = true) :
+    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).needOperand = false ∧
+      (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).depth = 0 := by
   dsimp only [expressionStep] at finished ⊢
   simp only [positive, unfinished, Bool.false_eq_true, ↓reduceIte] at finished ⊢
   by_cases need : state.needOperand = true
@@ -367,10 +379,10 @@ theorem expressionStep_finished {text : Source} {names : BindingEnvironment} {sc
           exact ⟨rfl, empty⟩
         · simp [invalidExpressionState] at finished
 
-theorem expressionTail_balanced {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_balanced {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
     (initial : state.complete = true → state.needOperand = false ∧ state.depth = 0)
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
     ∃ final : ExpressionState, result = final.result ∧ final.complete = true ∧
       final.needOperand = false ∧ final.depth = 0 := by
   induction parsed with
@@ -380,36 +392,37 @@ theorem expressionTail_balanced {text : Source} {names : BindingEnvironment} {sc
   | next _ _ _ unfinished _ _ _ ih =>
       exact ih (by intro finished; simp [unfinished] at finished)
 
-theorem expressionAt_balanced {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionAt_balanced {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {position : Nat} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result) :
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position expression result) :
     ∃ final : ExpressionState, result = final.result ∧ final.complete = true ∧
       final.needOperand = false ∧ final.depth = 0 :=
   expressionTail_balanced (by simp) parsed
 
 def Operand.isNamed : Operand → Bool
-  | .reference _ => true
+  | .reference _ | .image _ => true
   | _ => false
 
 def Expression.hasName (expression : Expression) : Bool := expression.any Operand.isNamed
 
-theorem value_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {position : Nat}
-    {value : Operand} {result : ValueResult} (parsed : ValueAt (scalarNames := scalarNames) text names position value result) :
-    value.isNamed = decide (result.reference ≠ 0) := by
+theorem value_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {position : Nat}
+    {value : Operand} {result : ValueResult} (parsed : ValueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position value result) :
+    value.isNamed = result.nonliteralSeen := by
   cases parsed with
   | literal => rfl
-  | reference _ _ _ nonzero _ => simp [Operand.isNamed, nonzero]
+  | reference | image => rfl
 
-theorem emission_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {state : ExpressionState}
+theorem emission_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {state : ExpressionState}
     {emitted : Expression} (positive : state.position ≠ 0) (unfinished : state.complete = false)
-    (accepted : (expressionStep (scalarNames := scalarNames) text names state).position ≠ 0)
-    (parsed : EmissionAt (scalarNames := scalarNames) text names state emitted) :
-    (expressionStep (scalarNames := scalarNames) text names state).namedSeen = (state.namedSeen || emitted.hasName) := by
+    (accepted : (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).position ≠ 0)
+    (parsed : EmissionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state emitted) :
+    (expressionStep (scalarNames := scalarNames) (integerHidden := integerHidden) text names state).namedSeen = (state.namedSeen || emitted.hasName) := by
   by_cases reading : state.needOperand = true ∧ fixedAfter text state.position "(" false = 0
   · rw [EmissionAt, ite_eq_left reading] at parsed
     obtain ⟨atom, source, rfl⟩ := parsed
-    have allowed : ¬(state.operands = maxExpressionOperands ∨ (valueAt (scalarNames := scalarNames) text state.position names).after = 0 ∨
-        (valueAt (scalarNames := scalarNames) text state.position names).staticLength > maxSourceLength - state.staticLength) := by
+    have allowed : ¬(state.operands = maxExpressionOperands ∨ (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).after = 0 ∨
+        (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).staticLength > maxSourceLength - state.staticLength ∨
+        (valueAt (scalarNames := scalarNames) (integerHidden := integerHidden) text state.position names).minimumLength > maxSourceLength - state.minimumLength) := by
       intro failed
       simp [expressionStep, positive, unfinished, reading.1, reading.2, failed, invalidExpressionState] at accepted
     simp [expressionStep, positive, unfinished, reading.1, reading.2, allowed, Expression.hasName, value_named source]
@@ -435,9 +448,9 @@ theorem emission_named {text : Source} {names : BindingEnvironment} {scalarNames
               · exact False.elim (noClose ⟨zero, noEnd⟩)
             simp [expressionStep, positive, unfinished, need, noJoin, closeZero, noEnd, invalidExpressionState] at accepted
 
-theorem expressionTail_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionTail_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {state : ExpressionState} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionTailAt (scalarNames := scalarNames) text names state expression result) :
+    (parsed : ExpressionTailAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names state expression result) :
     result.namedSeen = (state.namedSeen || expression.hasName) := by
   induction parsed with
   | done => simp [ExpressionState.result, Expression.hasName]
@@ -446,27 +459,39 @@ theorem expressionTail_named {text : Source} {names : BindingEnvironment} {scala
       rw [ih, emission_named positive unfinished accepted emitted]
       simp [Expression.hasName, List.any_append, Bool.or_assoc]
 
-theorem expressionAt_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionAt_named {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment} {integerHidden : Bool}
     {position : Nat} {expression : Expression} {result : ExpressionResult}
-    (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result) : result.namedSeen = expression.hasName := by
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position expression result) : result.namedSeen = expression.hasName := by
   simpa using expressionTail_named parsed
 
 
 /-- A source derivation fixes atom order and verifies every bracket/operand
 transition. Every association of those atoms has the same value; all of its
 subexpressions satisfy the same source-position capacity bound. -/
-theorem expressionAt_grouped_semantics {text : Source} {names : BindingEnvironment} {scalarNames : ScalarExpression.Environment}
+theorem expressionAt_grouped_semantics {text : Source} {names : BindingEnvironment}
+    {scalarNames : ScalarExpression.Environment} {integerHidden : Bool} {integers : Integer.Store}
     {position capacity : Nat} {expression : Expression} {result : ExpressionResult}
     {whole part : GroupedExpression} {values : Values} {input : Source}
-    (normal : NamesNormal names) (parsed : ExpressionAt (scalarNames := scalarNames) text names position expression result)
+    (normal : NamesNormal names)
+    (parsed : ExpressionAt (scalarNames := scalarNames) (integerHidden := integerHidden) text names position expression result)
     (fitsResult : fits result capacity = true) (state : Fits names.shape input values)
+    (scalarState : Integer.Fits (ScalarExpression.ranges scalarNames) integers)
     (inputBound : input.length ≤ capacity) (ordered : whole.flatten = expression)
     (subexpression : GroupedExpression.Subexpression part whole) :
-    whole.evaluate values input = expression.evaluate values input ∧
-      (part.evaluate values input).length ≤ maxSourceLength := by
-  have safe := expressionAt_safe normal parsed (decide_eq_true_eq.mp fitsResult).2
-  refine ⟨?_, GroupedExpression.intermediate_bound subexpression (ordered ▸ safe) state inputBound⟩
-  rw [← GroupedExpression.flatten_evaluate, ordered]
-
+    whole.evaluate values input integers = expression.evaluate values input integers ∧
+      (part.evaluate values input integers).length ≤ maxSourceLength := by
+  have known := expressionAt_inferLength normal parsed
+  have nonempty := (Expression.inferLength_sound known state scalarState).1.1
+  change result.emptyValue = false at nonempty
+  have fitsBound : result.lengthSummary.upper.length capacity ≤ maxSourceLength := by
+    have checked := (decide_eq_true_eq.mp fitsResult).2
+    simpa only [ExpressionResult.lengthSummary, nonempty, Bool.false_eq_true, false_or,
+      LengthSummary.upper, Summary.length] using checked
+  have bound := Expression.inferLength_bound known state scalarState fitsBound inputBound
+  have same : whole.evaluate values input integers = expression.evaluate values input integers := by
+    rw [← GroupedExpression.flatten_evaluate whole values input integers, ordered]
+  refine ⟨same, ?_⟩
+  rw [← same] at bound
+  exact Nat.le_trans (GroupedExpression.subexpression_length subexpression values input integers) bound
 
 end Silver.Compose

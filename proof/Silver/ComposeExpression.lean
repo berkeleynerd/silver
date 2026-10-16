@@ -59,13 +59,16 @@ def GroupedExpression.flatten : GroupedExpression → Expression
   | .concatenate left right => left.flatten ++ right.flatten
   | .parenthesized inner => inner.flatten
 
-def GroupedExpression.evaluate (values : Values) (input : Source) : GroupedExpression → Source
-  | .atom value => value.evaluate values input
-  | .concatenate left right => left.evaluate values input ++ right.evaluate values input
-  | .parenthesized inner => inner.evaluate values input
+def GroupedExpression.evaluate (values : Values) (input : Source) (expression : GroupedExpression)
+    (integers : Integer.Store := Integer.emptyStore) : Source :=
+  match expression with
+  | .atom value => value.evaluate values input integers
+  | .concatenate left right => left.evaluate values input integers ++ right.evaluate values input integers
+  | .parenthesized inner => inner.evaluate values input integers
 
-theorem GroupedExpression.flatten_evaluate (grouped : GroupedExpression) (values : Values) (input : Source) :
-    grouped.flatten.evaluate values input = grouped.evaluate values input := by
+theorem GroupedExpression.flatten_evaluate (grouped : GroupedExpression) (values : Values) (input : Source)
+    (integers : Integer.Store := Integer.emptyStore) :
+    grouped.flatten.evaluate values input integers = grouped.evaluate values input integers := by
   induction grouped with
   | atom => simp [flatten, Expression.evaluate, evaluate]
   | concatenate left right ihl ihr => simp [flatten, Expression.evaluate_append, ihl, ihr, evaluate]
@@ -78,8 +81,9 @@ inductive GroupedExpression.Subexpression : GroupedExpression → GroupedExpress
   | parens {part inner} : Subexpression part inner → Subexpression part (.parenthesized inner)
 
 theorem GroupedExpression.subexpression_length {part whole : GroupedExpression}
-    (member : Subexpression part whole) (values : Values) (input : Source) :
-    (part.evaluate values input).length ≤ (whole.evaluate values input).length := by
+    (member : Subexpression part whole) (values : Values) (input : Source)
+    (integers : Integer.Store := Integer.emptyStore) :
+    (part.evaluate values input integers).length ≤ (whole.evaluate values input integers).length := by
   induction member with
   | self => exact Nat.le_refl _
   | left member ih => simp only [evaluate, List.length_append]; omega

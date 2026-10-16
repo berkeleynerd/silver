@@ -39,6 +39,17 @@ def LengthSummary.add (left right : LengthSummary) : LengthSummary :=
   ⟨left.minimumLength + right.minimumLength, left.staticLength + right.staticLength,
     left.dynamicCount + right.dynamicCount, left.empty || right.empty⟩
 
+@[simp] theorem LengthSummary.add_zero (summary : LengthSummary) : summary.add {} = summary := by
+  cases summary
+  simp [add]
+
+@[simp] theorem LengthSummary.zero_add (summary : LengthSummary) : ({} : LengthSummary).add summary = summary := by
+  cases summary
+  simp [add]
+
+theorem LengthSummary.add_assoc (a b c : LengthSummary) : (a.add b).add c = a.add (b.add c) := by
+  simp [add, Nat.add_assoc, Bool.or_assoc]
+
 def LengthSummary.exact (summary : LengthSummary) : Option Summary :=
   if !summary.empty && decide (summary.minimumLength = summary.staticLength)
   then some summary.upper else none
@@ -94,6 +105,16 @@ def Expression.inferLength (expression : Expression) (shape : Shape)
   | [] => some {}
   | atom :: rest => (atom.inferLength shape ranges).bind fun first =>
       (Expression.inferLength rest shape ranges).map first.add
+
+theorem Expression.inferLength_append (left right : Expression) (shape : Shape) (ranges : Integer.Ranges) :
+    (left ++ right).inferLength shape ranges = (left.inferLength shape ranges).bind fun first =>
+      (right.inferLength shape ranges).map first.add := by
+  induction left with
+  | nil => cases known : right.inferLength shape ranges <;> simp [inferLength, known]
+  | cons atom rest ih =>
+      simp only [List.cons_append, inferLength, ih]
+      cases atom.inferLength shape ranges <;> cases Expression.inferLength rest shape ranges <;>
+        cases right.inferLength shape ranges <;> simp [LengthSummary.add_assoc]
 
 def Expression.ImagesSafe (expression : Expression) (integers : Integer.Store) : Prop :=
   ∀ atom ∈ expression, atom.ImagesSafe integers
