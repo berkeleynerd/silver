@@ -15,6 +15,8 @@ from scripts.check_evidence import (EvidenceError, TRUSTED_IMPORT_ENTITIES,
                                     audit_sources)
 from scripts import proof_provenance, bootstrap
 from scripts.check_evidence import PROOF_OPTIONS
+from scripts.check_evidence import (BIG_INTEGER_VALIDITY_TEXT, SEQUENCE_NAME, SEQUENCE_UNIT,
+                                    audit_sequence_instance, sequence_entities)
 from scripts.platforms import HostLayout
 
 
@@ -848,6 +850,186 @@ class ProofEvidenceTests(unittest.TestCase):
         self.sarif["runs"][0]["results"] = [{"kind": "pass", "level": "none", "suppressions": [{"kind": "inSource"}]}]
         with self.assertRaises(EvidenceError):
             self.audit()
+
+
+class VendorProofEvidenceTests(unittest.TestCase):
+    refresh_reports = ProofEvidenceTests.refresh_reports
+
+    def setUp(self) -> None:
+        ProofEvidenceTests.setUp(self)
+        self.initial_report = copy.deepcopy(self.report)
+        self.initial_sarif = copy.deepcopy(self.sarif)
+
+    def prepare_vendor(self) -> None:
+        self.report = copy.deepcopy(self.initial_report)
+        self.sarif = copy.deepcopy(self.initial_sarif)
+        self.instance = (14, 4, 12)
+        self.model = copy.deepcopy(self.report)
+        self.model["entities"] = {" 1": {"name": "Silver_Report_Projection_Model",
+                                       "sloc": [{"file": SEQUENCE_UNIT + ".ads",
+                                                 "line": 8, "column": 9}]}}
+        self.model["spark"] = {" 1": "all"}
+        for index, (name, locations) in enumerate(sorted(sequence_entities(self.instance)), 2):
+            key = f" {index}"
+            self.model["entities"][key] = {
+                "name": name, "sloc": [{"file": file, "line": line, "column": col}
+                                       for file, line, col in locations]}
+            self.model["spark"][key] = "spec"
+
+    def prepare_note(self) -> None:
+        self.prepare_vendor()
+        self.note = {"rule": "error", "severity": "warning", "how_proved": "trivial",
+                     "file": "a-nbnbin.ads", "line": 60, "col": 17, "check_tree": {},
+                     "message": {"text": BIG_INTEGER_VALIDITY_TEXT},
+                     "unproved_status": {"status": "unknown"}}
+        self.report["warn_error"] = [self.note]
+        self.sarif["runs"][0]["results"] = [{"ruleId": "error", "kind": "open", "level": "warning"}]
+
+    def audit_vendor(self) -> dict:
+        (self.path / "main.spark").write_text(json.dumps(self.report))
+        (self.path / (SEQUENCE_UNIT + ".spark")).write_text(json.dumps(self.model))
+        self.refresh_reports()
+        return audit_reports(self.path, {"main", SEQUENCE_UNIT}, proof_instance=self.instance)
+
+    def test_exact_vendor_premises_are_counted_separately_from_checks(self) -> None:
+        self.prepare_note()
+        stats = self.audit_vendor()
+        self.assertEqual(stats["vendor_spec_entities"], 30)
+        self.assertEqual(stats["trusted_math_notes"], 1)
+        self.assertEqual(stats["proof_checks"], 0)
+        self.assertEqual(stats["limitation_notes"], 0)
+        self.assertEqual(stats["imported_entities"], 0)
+        for line, col in ((36, 32), (54, 17)):
+            self.note.update(line=line, col=col)
+            self.assertEqual(self.audit_vendor()["trusted_math_notes"], 1)
+
+    def test_unknown_warning_and_changed_vendor_note_are_rejected(self) -> None:
+        changes = ({"rule": "VC_ASSERT"}, {"file": "silver_report_projection_model.ads"},
+                   {"file": "/other/a-nbnbin.ads"}, {"line": 61}, {"col": 18},
+                   {"message": {"text": BIG_INTEGER_VALIDITY_TEXT + "."}},
+                   {"message": {"text": "an unclassified warning"}},
+                   {"severity": "info"}, {"severity": "medium"},
+                   {"how_proved": "prover"}, {"unproved_status": {"status": "valid"}},
+                   {"suppressed": ""}, {"justification": "trusted"},
+                   {"annot_kind": "False_Positive"}, {"justif_msg": "trusted"})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_note()
+                self.note.update(change)
+                with self.assertRaises(EvidenceError):
+                    self.audit_vendor()
+
+    def test_vendor_note_cannot_replace_flow_or_proof_results(self) -> None:
+        for section in ("flow", "proof"):
+            with self.subTest(section=section):
+                self.prepare_note()
+                self.report["warn_error"] = []
+                self.report[section] = [self.note]
+                with self.assertRaises(EvidenceError):
+                    self.audit_vendor()
+                self.report[section] = []
+        self.prepare_note()
+        self.report["proof"] = [{"severity": "medium", "how_proved": "unproved"}]
+        with self.assertRaises(EvidenceError):
+            self.audit_vendor()
+
+    def test_vendor_note_requires_exact_sarif_and_diagnostic_coverage(self) -> None:
+        changes = ({"kind": "pass", "level": "none"}, {"kind": "informational"},
+                   {"level": "error"}, {"ruleId": "numeric-variant"},
+                   {"message": {"text": "different premise"}},
+                   {"suppressions": [{"kind": "external"}]},
+                   {"locations": [{"physicalLocation": {
+                       "artifactLocation": {"uri": "/other/a-nbnbin.ads"},
+                       "region": {"startLine": 60, "startColumn": 17}}}]})
+        for change in changes:
+            with self.subTest(change=change):
+                self.prepare_note()
+                self.sarif["runs"][0]["results"][0].update(change)
+                with self.assertRaises(EvidenceError):
+                    self.audit_vendor()
+        self.prepare_note()
+        self.audit_vendor()
+        path = self.path / "gnatprove.sarif"
+        sarif = json.loads(path.read_text())
+        sarif["runs"][0]["results"] *= 2
+        path.write_text(json.dumps(sarif))
+        with self.assertRaisesRegex(EvidenceError, "diagnostic coverage disagree"):
+            audit_reports(self.path, {"main", SEQUENCE_UNIT}, proof_instance=self.instance)
+
+    def test_vendor_specs_do_not_exempt_owned_helpers_or_unknown_declarations(self) -> None:
+        self.prepare_vendor()
+        self.model["spark"][" 1"] = "spec"
+        with self.assertRaisesRegex(EvidenceError, "outside full SPARK"):
+            self.audit_vendor()
+        for change in ("name", "vendor_file", "vendor_line", "instance", "missing"):
+            with self.subTest(change=change):
+                self.prepare_vendor()
+                key = next(key for key, entity in self.model["entities"].items()
+                           if entity["name"] == SEQUENCE_NAME + ".Length")
+                entity = self.model["entities"][key]
+                if change == "name":
+                    entity["name"] = SEQUENCE_NAME + ".Unproved_Owned_Helper"
+                elif change == "vendor_file":
+                    entity["sloc"][0]["file"] = "silver_report_projection_model.ads"
+                elif change == "vendor_line":
+                    entity["sloc"][0]["line"] += 1
+                elif change == "instance":
+                    entity["sloc"][-1]["line"] += 1
+                else:
+                    del self.model["entities"][key]
+                    del self.model["spark"][key]
+                with self.assertRaises(EvidenceError):
+                    self.audit_vendor()
+
+    def test_exact_big_integer_dependency_and_origin_are_required(self) -> None:
+        self.prepare_vendor()
+        entity = {"name": 'Ada.Numerics.Big_Numbers.Big_Integers."+"',
+                  "sloc": [{"file": "a-nbnbin.ads", "line": 135, "column": 13}]}
+        self.report["entities"][" 2"] = entity
+        self.report["assumptions"][0]["assumptions"] = [{"arg": 2, "predicate": "CLAIM_POST"}]
+        self.audit_vendor()
+        for change in ("operation", "file", "line", "extra_origin"):
+            with self.subTest(change=change):
+                bad = copy.deepcopy(entity)
+                if change == "operation":
+                    bad["name"] = 'Ada.Numerics.Big_Numbers.Big_Integers."*"'
+                elif change == "file":
+                    bad["sloc"][0]["file"] = "unreviewed.ads"
+                elif change == "line":
+                    bad["sloc"][0]["line"] += 1
+                else:
+                    bad["sloc"].append({"file": "unreviewed.ads", "line": 1, "column": 1})
+                self.report["entities"][" 2"] = bad
+                with self.assertRaisesRegex(EvidenceError, "unapproved external assumption"):
+                    self.audit_vendor()
+
+    def test_proof_instance_requires_exact_static_ghost_character_binding(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        source = (root / "src" / (SEQUENCE_UNIT + ".ads")).read_text()
+        target = self.path / (SEQUENCE_UNIT + ".ads")
+        target.write_text(source)
+        self.assertEqual(audit_sequence_instance(target), (14, 4, 12))
+        for old, new in (("Ghost => Static", "Ghost => Check"),
+                         ("Ghost => Static", ""),
+                         ("Element_Type => Character", "Element_Type => Integer"),
+                         ("Use_Logical_Equality => True", "Use_Logical_Equality => False"),
+                         ("Functional.Infinite_Sequences", "Functional.Unreviewed_Sequences")):
+            with self.subTest(replacement=new):
+                self.assertIn(old, source)
+                target.write_text(source.replace(old, new))
+                with self.assertRaisesRegex(EvidenceError, "unreviewed proof-container"):
+                    audit_sequence_instance(target)
+        target.write_text("-- retained layout change\n" + source)
+        self.assertEqual(audit_sequence_instance(target), (15, 4, 12))
+
+    def test_vendor_premises_require_source_enabled_compiler_scope(self) -> None:
+        self.prepare_note()
+        self.audit_vendor()
+        with self.assertRaises(EvidenceError):
+            audit_reports(self.path, {"main", SEQUENCE_UNIT})
+        with self.assertRaisesRegex(EvidenceError, "reviewed compiler model"):
+            audit_reports(self.path, {"main", SEQUENCE_UNIT}, proof_instance=self.instance,
+                          application_kind="static")
 
 
 if __name__ == "__main__":
