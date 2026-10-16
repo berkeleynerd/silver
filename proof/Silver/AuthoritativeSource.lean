@@ -1,5 +1,8 @@
 module
 
+public import Silver.LengthIntervalsSpecSource
+public import Silver.LengthIntervalsBodySource
+public import Silver.IntegerImageSpecSource
 public import Silver.ImageTheorySpecSource
 
 public import Silver.ImageModelSpecSource

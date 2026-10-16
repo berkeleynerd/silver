@@ -36,9 +36,12 @@ CERTIFICATE_MODULES = (
     "ImageModelSpecCertificate", "ImageModelBodyCertificate",
     "ImageModelTemplatesSpecCertificate", "ImageModelTemplatesBodyCertificate",
 )
-# These constants have dedicated checked rendering proofs rather than generated
-# token certificates. Their byte dependencies remain explicit and equally pinned.
+# These constants have dedicated checked rendering or capture proofs. Their
+# byte dependencies remain explicit and equally pinned.
 EXTRA_SOURCE_BINDINGS = {
+    "LengthIntervalsSpecSource": ("lengthIntervalsSpec", "silver_length_intervals.ads"),
+    "LengthIntervalsBodySource": ("lengthIntervalsBody", "silver_length_intervals.adb"),
+    "IntegerImageSpecSource": ("integerImageSpec", "silver_integer_image.ads"),
     "ImageTheorySpecSource": ("imageTheorySpec", "silver_image_theory.ads"),
 }
 SPEC = importlib.util.spec_from_file_location(

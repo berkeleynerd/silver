@@ -257,3 +257,30 @@ lean_lib ImageModelTemplatesBodySource where
   roots := #[]
   globs := #[.one `Silver.ImageModelTemplatesBodySource]
   needs := #[imageModelTemplatesBodySource]
+
+input_file integerImageSpecSource where
+  path := "../src/silver_integer_image.ads"
+  text := false
+
+lean_lib IntegerImageSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.IntegerImageSpecSource]
+  needs := #[integerImageSpecSource]
+
+input_file lengthIntervalsSpecSource where
+  path := "../src/silver_length_intervals.ads"
+  text := false
+
+lean_lib LengthIntervalsSpecSource where
+  roots := #[]
+  globs := #[.one `Silver.LengthIntervalsSpecSource]
+  needs := #[lengthIntervalsSpecSource]
+
+input_file lengthIntervalsBodySource where
+  path := "../src/silver_length_intervals.adb"
+  text := false
+
+lean_lib LengthIntervalsBodySource where
+  roots := #[]
+  globs := #[.one `Silver.LengthIntervalsBodySource]
+  needs := #[lengthIntervalsBodySource]
