@@ -10,20 +10,23 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass, field
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
+import uuid
 
 if __package__:
     from .check_evidence import PROOF_OPTIONS, audit_sources
     from .proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
-                                   selected_proof_cache, validate_project)
+                                   selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
+    from .run_history import ManagedRun, status, diagnose, checkpoint
     from .platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 else:
     from check_evidence import PROOF_OPTIONS, audit_sources
     from proof_provenance import (MANIFEST, begin_proof, complete_proof, invalidate_proof,
-                                  selected_proof_cache, validate_project)
+                                  selected_proof_cache, validate_project, preflight, input_hashes, digest, tool_identities, validate_tool_identities)
+    from run_history import ManagedRun, status, diagnose, checkpoint
     from platforms import HostLayout, alire_command, native_layout, require_native, tool_environment
 
 
@@ -38,11 +41,26 @@ def paths(host: HostLayout) -> dict[str, str]:
             "lean": str(host.lean), "proof": str(host.proof)}
 
 
-def invoke(host: HostLayout, command: list[str], *, cwd: Path | None = None) -> None:
+def invoke(host: HostLayout, command: list[str], *, cwd: Path | None = None,
+           pass_fds: tuple[int, ...] = (), log: Path | None = None) -> None:
     require_native(host)
-    subprocess.run(command, cwd=host.root if cwd is None else cwd,
+    options = dict(cwd=host.root if cwd is None else cwd,
                    env=tool_environment(host) if cwd == host.context else None,
-                   check=True)
+                   pass_fds=pass_fds)
+    if log is None:
+        subprocess.run(command, check=True, **options)
+        return
+    with log.open("a", encoding="utf-8") as stream:
+        with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                              text=True, errors="replace", **options) as process:
+            assert process.stdout is not None
+            for line in process.stdout:
+                stream.write(line)
+                stream.flush()
+                print(line, end="", flush=True)
+            result = process.wait()
+            if result:
+                raise subprocess.CalledProcessError(result, command)
 
 
 def project_reports(host: HostLayout, arguments: list[str]) -> Path:
@@ -80,7 +98,7 @@ class ProofRun:
 
 def worker_count(value: str) -> int:
     if not value.isascii() or not value.isdecimal():
-        raise ValueError("jobs must be a nonnegative integer (0 uses all cores)")
+        raise ValueError("jobs must be a nonnegative integer (0 allocates available workers)")
     return int(value)
 
 
@@ -165,21 +183,136 @@ def exploratory_tool(host: HostLayout, command: list[str]) -> None:
         raise RuntimeError("exploratory GNATprove requires --subdirs=explore or --subdirs=explore/<name>")
 
 
+
+def hash_paths(paths: list[Path]) -> dict[str, str]:
+    """Capture declared input bytes, including dirty and untracked source files."""
+    result = {}
+    for path in paths:
+        if not path.exists():
+            raise RuntimeError(f"missing declared run input: {path}")
+        files = sorted(item for item in path.rglob("*") if item.is_file()) if path.is_dir() else [path]
+        for item in files:
+            if "__pycache__" not in item.parts:
+                result[str(item)] = digest(item)
+    return result
+
+
+def scheduled_arguments(arguments: list[str], requested: int) -> tuple[list[str], int]:
+    """Resolve one worker declaration instead of letting a forwarded -j override it."""
+    result = []
+    index = 0
+    while index < len(arguments):
+        argument = arguments[index]
+        if argument in ("-j", "--jobs"):
+            index += 1
+            if index == len(arguments):
+                raise RuntimeError("jobs requires a nonnegative integer")
+            requested = worker_count(arguments[index])
+        elif argument.startswith("--jobs="):
+            requested = worker_count(argument.split("=", 1)[1])
+        elif argument.startswith("-j"):
+            requested = worker_count(argument[2:])
+        else:
+            result.append(argument)
+        index += 1
+    return result, requested
+
+
+def tool_resources(host: HostLayout, command: list[str], workspaces: list[str],
+                   declared_inputs: list[str]) -> tuple[list[Path], Path | None, bool]:
+    """Infer only the reviewed project. Arbitrary GPRs need declared outputs/inputs."""
+    if command[1:] in (["--version"], ["--help"], ["-h"]):
+        return [host.context], None, False
+    projects = []
+    redirect = False
+    for index, argument in enumerate(command[1:], 1):
+        if argument in ("-P", "--project"):
+            if index + 1 >= len(command):
+                raise RuntimeError("project requires a path")
+            projects.append(command[index + 1])
+        elif argument.startswith("-P"):
+            projects.append(argument[2:])
+        elif argument.startswith("--project="):
+            projects.append(argument.split("=", 1)[1])
+        if argument.startswith(("--relocate-build-tree", "--root-dir", "--object-dir", "--exec-dir",
+                                "--src-subdirs", "--config", "--autoconf", "--db", "--target")):
+            redirect = True
+        if argument.startswith("-X") and argument != f"-XSILVER_HOST={host.key}":
+            redirect = True
+    standard = (Path(command[0]).name in ("gnatprove", "gprbuild") and len(projects) == 1
+                and (host.context / projects[0]).resolve() == host.root / "silver.gpr"
+                and f"-XSILVER_HOST={host.key}" in command and not redirect)
+    resources = [host.context, *(Path(path).resolve() for path in workspaces)]
+    reports = None
+    if standard:
+        subdirs = []
+        for index, argument in enumerate(command):
+            if argument == "--subdirs":
+                subdirs.extend([argument, command[index + 1]])
+            elif argument.startswith("--subdirs="):
+                subdirs.append(argument)
+        reports = project_reports(host, subdirs)
+        relative = reports.parent.relative_to(host.compiler / "obj")
+        resources.extend([reports.parent, host.compiler / "bin" / relative,
+                          host.artifacts / "proof-containers/obj" / relative])
+    elif not workspaces or not declared_inputs:
+        raise RuntimeError("custom tool runs require --workspace and --input declarations; "
+                           "list actual writable roots and source/configuration inputs")
+    # A custom local solver cache is writable even outside the object tree.
+    for index, argument in enumerate(command):
+        if argument == "--memcached-server" and index + 1 < len(command):
+            value = command[index + 1]
+        elif argument.startswith("--memcached-server="):
+            value = argument.split("=", 1)[1]
+        else:
+            continue
+        if value.startswith("file:"):
+            resources.append((host.context / value[5:]).resolve())
+    return resources, reports, standard
+
+
+def proof_scope(command: list[str]) -> list[str]:
+    targets = []
+    for index, argument in enumerate(command[1:], 1):
+        if argument in ("-P", "--project") and index + 1 < len(command):
+            targets.append("project:" + command[index + 1])
+        elif argument.endswith((".adb", ".ads")) or argument.startswith(("--limit-", "-P", "--project=")):
+            targets.append(argument)
+    return targets or ["compiler"]
+
+
 def main(arguments: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="action", required=True)
     for action in ("prove", "build", "test", "tool"):
         child = commands.add_parser(action)
+        child.add_argument("--task", default=os.environ.get("SILVER_TASK", ""))
+        child.add_argument("--reason", default="")
+        child.add_argument("--jobs", "-j", type=worker_count, default=0,
+                           help="reserved workers; 0 allocates available workers (default)")
         if action == "prove":
             child.add_argument("--full", "-f", action="store_true",
                                help="force all units and audit complete proof evidence")
             child.add_argument("--cold", action="store_true",
                                help="full audit with fresh isolated objects, sessions and solver cache")
-            child.add_argument("--jobs", "-j", type=worker_count, default=0,
-                               help="parallel workers; 0 uses all cores (default)")
+        if action == "tool":
+            child.add_argument("--workspace", action="append", default=[],
+                               help="actual writable root of a custom tool run (repeatable)")
+            child.add_argument("--input", action="append", default=[],
+                               help="custom source/configuration input file or directory (repeatable)")
         child.add_argument("arguments", nargs=argparse.REMAINDER)
     path_parser = commands.add_parser("paths")
     path_parser.add_argument("--field", help="print one path instead of JSON")
+    runs = commands.add_parser("runs").add_subparsers(dest="operation", required=True)
+    runs.add_parser("status").add_argument("--task", default="")
+    diagnostic = runs.add_parser("diagnose")
+    diagnostic.add_argument("run_id")
+    diagnostic.add_argument("--summary", required=True)
+    diagnostic.add_argument("--next-step", required=True)
+    note = runs.add_parser("checkpoint")
+    note.add_argument("--task", default=os.environ.get("SILVER_TASK", ""))
+    note.add_argument("--summary", required=True)
+    note.add_argument("--next-check", required=True)
     args = parser.parse_args(arguments)
     host = native_layout()
     if args.action == "paths":
@@ -191,70 +324,139 @@ def main(arguments: list[str] | None = None) -> None:
         else:
             print(json.dumps(values, indent=2))
         return
-    extra = args.arguments
-    if extra[:1] == ["--"]:
-        extra = extra[1:]
-    if args.action == "test":
-        invoke(host, [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v", *extra])
-        return
-    if not host.alr.is_file() or not (host.context / "alire.toml").is_file():
-        raise RuntimeError("native toolchain is not set up; run python3 scripts/bootstrap.py")
-    reports = host.compiler / "obj/gnatprove"
-    proof_run = None
-    if args.action in ("prove", "build"):
-        reports = project_reports(host, extra)
-        tool = "gnatprove" if args.action == "prove" else "gprbuild"
-        if args.action == "prove":
-            proof_run = proof_arguments(extra, full=args.full, cold=args.cold, jobs=args.jobs)
-            extra = proof_run.arguments
-            validate_project(host)
-            if proof_run.cold:
-                objects = host.compiler / "obj"
-                objects.mkdir(parents=True, exist_ok=True)
-                workspace = Path(tempfile.mkdtemp(prefix="cold-", dir=objects))
-                extra = [f"--subdirs={workspace.name}"]
-                reports = workspace / "gnatprove"
-            cache = selected_proof_cache(host, reports, cold=proof_run.cold)
-            cache.mkdir(parents=True, exist_ok=True)
-            options = [*PROOF_OPTIONS, "-j", str(proof_run.jobs),
-                       f"--memcached-server=file:{cache}"]
-            if proof_run.full:
-                options.append("-f")
+    if args.action == "runs":
+        if args.operation == "status":
+            result = status(host, args.task)
+            # Keep detailed event streams/input hashes in each durable record;
+            # this is the concise readout used at resume.
+            result["runs"] = [{key: value for key, value in run.items()
+                               if key not in ("events", "inputs")}
+                              for run in result["runs"]]
+        elif args.operation == "diagnose":
+            result = diagnose(host, args.run_id, args.summary, args.next_step)
         else:
-            options = ["-p"]
-        command = [tool, "-P", "../../../silver.gpr", *options, *extra,
-                   f"-XSILVER_HOST={host.key}"]
+            result = checkpoint(host, args.task, args.summary, args.next_check)
+        print(json.dumps(result, indent=2))
+        return
+    extra = args.arguments[1:] if args.arguments[:1] == ["--"] else args.arguments
+    proof_run = None
+    reports = None
+    cache = None
+    standard = False
+    jobs = args.jobs
+    kind = args.action
+    scope = ["compiler"]
+    if args.action == "test":
+        command = [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v", *extra]
+        resources = [host.artifacts]
+        scope = extra or ["all-tests"]
+    elif args.action in ("prove", "build"):
+        reports = project_reports(host, extra)
+        if args.action == "prove":
+            proof_run = proof_arguments(extra, full=args.full, cold=args.cold, jobs=jobs)
+            extra, jobs = proof_run.arguments, proof_run.jobs
+            if proof_run.cold:
+                workspace = host.compiler / "obj" / ("cold-" + uuid.uuid4().hex[:16])
+                reports = workspace / "gnatprove"
+                # Do not create directories until the run owns its workspace.
+            cache = selected_proof_cache(host, reports, cold=proof_run.cold)
+        else:
+            extra, jobs = scheduled_arguments(extra, jobs)
+        relative = reports.parent.relative_to(host.compiler / "obj")
+        resources = [host.context, reports.parent, host.compiler / "bin" / relative,
+                     host.artifacts / "proof-containers/obj" / relative]
+        if cache is not None:
+            resources.append(cache)
+        command = ["gnatprove" if proof_run else "gprbuild", *extra]
+        standard = True
     else:
         if not extra:
             parser.error("tool requires a command; for example: tool -- gnatls --version")
         command = extra
         exploratory_tool(host, command)
-    snapshot = None
-    if proof_run is not None:
-        workers = "all cores" if proof_run.jobs == 0 else f"{proof_run.jobs} workers"
-        if proof_run.full:
-            mode = "Cold" if proof_run.cold else "Full"
-            print(f"{mode} GNATprove validation ({workers}); native solver cache enabled.", flush=True)
-            print(f"Proof evidence: {reports / MANIFEST}", flush=True)
-            if proof_run.cold:
-                snapshot = begin_proof(host, command, reports, cold=True)
-            else:
-                snapshot = begin_proof(host, command, reports)
+        resources, reports, standard = tool_resources(host, command, args.workspace, args.input)
+        kind = "tool-" + Path(command[0]).name
+        scope = proof_scope(command)
+        if Path(command[0]).name in ("gnatprove", "gprbuild") and command[1:] not in (["--help"], ["--version"], ["-h"]):
+            tail, jobs = scheduled_arguments(command[1:], jobs)
+            command = [command[0], *tail]
+    query = args.action == "tool" and command[1:] in (["--help"], ["--version"], ["-h"])
+    initial = {"scope": scope, "arguments": extra,
+               "mode": "cold" if proof_run and proof_run.cold else "full" if proof_run and proof_run.full else args.action}
+    with ManagedRun(host, kind, command, initial, resources,
+                    workers=0 if query else jobs or None, task=args.task, reason=args.reason,
+                    evidence=[reports] if reports else [], failure_reports=[reports] if reports else
+                    [Path(path).resolve() for path in args.workspace] if args.action == "tool" else []) as run:
+        print(f"Managed run: {run.run_id} ({run.directory})", flush=True)
+        if args.action != "test" and (not host.alr.is_file() or not (host.context / "alire.toml").is_file()):
+            raise RuntimeError("native toolchain is not set up; run python3 scripts/bootstrap.py")
+        log = run.directory / "native.log"
+        run.evidence.append(log)
+        run.event("phase-start", phase="preflight")
+        prepared = preflight(host, pass_fds=run.pass_fds) if standard else None
+        if prepared is not None:
+            inputs = dict(initial, **prepared)
         else:
-            invalidate_proof(reports)
-            print(f"Incremental GNATprove ({workers}); native solver cache enabled. "
-                  "Use prove --full for complete validation.", flush=True)
-    invoke(host, alire_command(host, "exec", "--", *command), cwd=host.context)
-    if proof_run is not None and proof_run.full:
-        audit_sources(host.root / "src", reports, host.generated,
-                      effective_command=command)
-        complete_proof(host, reports, snapshot)
-        invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
-                      "--source-dir", str(host.root / "src"),
-                      "--generated-dir", str(host.generated),
-                      "--report-dir", str(reports)])
-    elif proof_run is not None:
-        print("Incremental GNATprove completed.", flush=True)
+            selected = [host.root / "scripts", Path(sys.executable).resolve()]
+            if args.action == "test":
+                selected += [host.root / item for item in ("tests", "src", "proof", "samples", "catalogue")
+                             if (host.root / item).exists()]
+                selected += [path for path in (host.compiler / "bin/silver", host.root / "silver.gpr",
+                                               host.root / "alire.toml", host.generated, host.context)
+                             if path.exists()]
+            else:
+                selected += [Path(path).resolve() for path in args.input]
+                selected += [host.alr, host.context / "alire.toml"]
+            inputs = dict(initial, inputs_sha256=hash_paths(selected))
+        if args.action == "tool" and args.input and prepared is not None:
+            inputs["declared_inputs_sha256"] = hash_paths([Path(path).resolve() for path in args.input])
+        if args.action == "tool" and prepared is None and not query:
+            identities = tool_identities(host, pass_fds=run.pass_fds)
+            validate_tool_identities(host, identities)
+            inputs["tools"] = identities
+        run.prepare(inputs, expensive=bool(proof_run and proof_run.full))
+        run.event("phase-end", phase="preflight")
+        snapshot = None
+        if args.action in ("prove", "build"):
+            if proof_run:
+                cache.mkdir(parents=True, exist_ok=True)
+                options = [*PROOF_OPTIONS, "-j", str(run.workers), f"--memcached-server=file:{cache}"]
+                if proof_run.full:
+                    options.append("-f")
+                if proof_run.cold:
+                    extra = [f"--subdirs={reports.parent.name}"]
+            else:
+                options = ["-p", "-j", str(run.workers)]
+            command = ["gnatprove" if proof_run else "gprbuild", "-P", "../../../silver.gpr",
+                       *options, *extra, f"-XSILVER_HOST={host.key}"]
+        elif args.action == "tool" and Path(command[0]).name in ("gnatprove", "gprbuild") and not query:
+            command += ["-j", str(run.workers)]
+        actual = command if args.action == "test" else alire_command(host, "exec", "--", *command)
+        run.event("command", command=actual, cwd=str(host.root if args.action == "test" else host.context))
+        if proof_run:
+            if proof_run.full:
+                snapshot = begin_proof(host, command, reports, cold=proof_run.cold, prepared=prepared)
+                print(f"Full GNATprove evidence: {reports / MANIFEST}", flush=True)
+                run.evidence.append(reports / MANIFEST)
+            else:
+                invalidate_proof(reports)
+        run.event("phase-start", phase="test" if args.action == "test" else "native-tool")
+        invoke(host, actual, cwd=None if args.action == "test" else host.context, pass_fds=run.pass_fds, log=log)
+        run.event("phase-end", phase="test" if args.action == "test" else "native-tool")
+        if proof_run and proof_run.full:
+            run.event("phase-start", phase="audit")
+            audit_sources(host.root / "src", reports, host.generated, effective_command=command)
+            complete_proof(host, reports, snapshot, pass_fds=run.pass_fds)
+            invoke(host, [sys.executable, str(host.root / "scripts/check_evidence.py"),
+                          "--source-dir", str(host.root / "src"), "--generated-dir", str(host.generated),
+                          "--report-dir", str(reports)], pass_fds=run.pass_fds, log=log)
+            run.event("phase-end", phase="audit")
+        elif prepared is not None:
+            if input_hashes(host) != prepared["inputs_sha256"]:
+                raise RuntimeError("run inputs changed during execution; retain outputs and rerun the affected check")
+        else:
+            if hash_paths(selected) != inputs["inputs_sha256"]:
+                raise RuntimeError("declared run inputs changed during execution")
 
 
 if __name__ == "__main__":
