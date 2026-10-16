@@ -2,7 +2,7 @@ module
 
 public import Silver.PredicateBodyAdmission
 public import Silver.PredicateNativeState
-public import Silver.PathNativeEquations
+public import Silver.LengthIntervalModel
 
 @[expose] public section
 
@@ -20,8 +20,8 @@ structure Primitives where
   token : Source → Nat → ShellToken → Nat
   expression : Source → Nat → Compose.BindingEnvironment → ScalarExpression.Environment → ExpressionResult
   target : Source → ParserState → Bool → ParserState
-  fits : PathFacts.Context → Summary → Bool
-  sameLength : PathFacts.Context → Summary → Summary → Bool
+  fits : PathFacts.Context → LengthSummary → Bool
+  sameLength : PathFacts.Context → LengthSummary → LengthSummary → Bool
   reject : PathFacts.Context → PathFacts.Context
 
 structure Frame where
@@ -32,7 +32,7 @@ structure Frame where
   value : ExpressionResult := {}
   state : ParserState := invalidState
 
-def bindingSummary (info : Compose.BindingInfo) : Summary := info.bound.summary
+def bindingSummary (info : Compose.BindingInfo) : LengthSummary := .ofExact info.bound.summary
 
 def Primitives.bodyToken (primitive : Primitives) (text : Source) (scan : BodyScan) (token : ShellToken) : BodyScan :=
   {scan with position := primitive.token text scan.position token}
@@ -68,10 +68,10 @@ def Test.render : Test → List String
   | .hasArguments => ["context", ".", "dynamic_first", "/=", "0"]
   | .zeroValue => ["value", ".", "after", "=", "0"]
   | .invalidInput => ["result", ".", "facts", ".", "invalid_reachable"]
-  | .notFits => ["not", "paths", "."] ++ call "fits"
+  | .notFits => ["not", "length_intervals", "."] ++ call "fits"
       [["result", ".", "facts"], call "summary_of" [["value"]]]
   | .zeroTarget => ["result", ".", "target", "=", "0"]
-  | .notSameLength => ["not", "paths", "."] ++ call "same_length"
+  | .notSameLength => ["not", "length_intervals", "."] ++ call "same_length"
       [["result", ".", "facts"], call "summary_of" [["value"]], call "binding_summary"
         [["context", ".", "names", ".", "items", "(", "result", ".", "target", ")"]]]
   | .orElse left right => left.render ++ ["or", "else"] ++ right.render
@@ -173,8 +173,8 @@ def modelPrimitives : Primitives where
   token := tokenAfter
   expression := fun text position names scalarNames => expressionAt text position names scalarNames
   target := targetAt
-  fits := fitsSummary
-  sameLength := equalSummary
+  fits := fitsLengthSummary
+  sameLength := equalLengthIntervals
   reject := PathFacts.Context.reject
 
 end Silver.Predicate.BasicNative
