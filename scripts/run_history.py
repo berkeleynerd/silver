@@ -374,9 +374,20 @@ def status(host: HostLayout, task: str = "") -> dict:
         if task:
             runs = [run for run in runs if run.get("task") == task]
             notes = [note for note in notes if note.get("task") == task]
+        scopes = {_json([run["task"], run["kind"], run["scope"]]): run for run in runs}
+        diagnostics_required = []
+        for scope in scopes.values():
+            repeated = {key: count for key, count in _pending_failures(runs, notes, scope).items()
+                        if count >= 3}
+            if repeated:
+                latest = next(run for run in reversed(runs) if _same_scope(run, scope)
+                              and run["state"] == "failure"
+                              and repeated.keys() & set(run["finish"].get("failure_keys", [])))
+                diagnostics_required.append(dict(task=scope["task"], kind=scope["kind"],
+                    scope=scope["scope"], run_id=latest["run_id"], failure_counts=repeated))
         return dict(registry=str(root), host=host.key, machine=socket.gethostname(),
                     runs=runs, notes=notes, available_cpus=available_cpus(),
-                    reserved_workers=reserved_workers)
+                    reserved_workers=reserved_workers, diagnostics_required=diagnostics_required)
 
 
 def diagnose(host: HostLayout, run_id: str, summary: str, next_step: str) -> dict:

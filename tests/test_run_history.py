@@ -262,10 +262,17 @@ with history.ManagedRun(host, 'holder', ['test'], {}, [pathlib.Path(sys.argv[2])
     def test_three_recurrences_need_diagnosis_and_changed_inputs_do_not_hide_them(self):
         for value in range(3):
             run_id = self.fail_obligation(inputs={"source": str(value)})
+            required = history.status(self.host)["diagnostics_required"]
+            self.assertEqual(bool(required), value == 2)
+        self.assertEqual(required, [{"task": "issue39", "kind": "proof", "scope": "proof",
+                                    "run_id": run_id,
+                                    "failure_counts": {"unit.adb:1:1:VC_RANGE_CHECK": 3}}])
+        self.assertEqual(history.status(self.host, "another-task")["diagnostics_required"], [])
         with self.assertRaisesRegex(history.RunHistoryError, "diagnostic"):
             with self.run_context(inputs={"source": "another edit"}):
                 self.fail("fourth unchanged obligation attempt")
         history.diagnose(self.host, run_id, "guard is absent from VC context", "inspect generated VC")
+        self.assertEqual(history.status(self.host)["diagnostics_required"], [])
         with self.run_context():
             pass
         self.assertEqual(history.status(self.host)["notes"][0]["event"], "diagnostic")
