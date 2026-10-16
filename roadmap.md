@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Proof iteration controls
 
-**Authorized on 2026-10-16.** The owner's “Make it so” instruction selects one
+**Complete on 2026-10-16.** The owner's “Make it so” instruction selected one
 cohesive tooling milestone before further feature work. Its
 [single work package #39](https://github.com/berkeleynerd/silver/issues/39) in
 [milestone 2](https://github.com/berkeleynerd/silver/milestone/2) delivers a durable
@@ -25,9 +25,10 @@ preflight, rationale for identical-success expensive reruns, recurring-obligatio
 diagnostic checkpoints, and resume/handoff readout. The
 [record](docs/proof-iteration.md) defines scope and completion criteria.
 
-Implement the common runner controls, validate their native and Lean integration,
-then review and publish the complete tooling change. These are parts of one
-work package, with no remaining owner policy decision. Required assurance stays
+The common runner controls, native/Lean integration, focused regressions and
+independent review are complete. The record identifies the final Linux evidence
+and repaired review findings. These are parts of one work package, with no
+remaining owner policy decision. Required assurance stays
 unchanged; no language construct or Oracle amendment is included. For loops and
 integers remains preserved separately, and its harness stays paused.
 

@@ -47,7 +47,7 @@ tests from proof execution and cached artifacts from fresh auditing.
 Update [development guidance](../development.md), [session guidance](../AGENTS.md)
 and [the handoff](../RESUME.md) for the concrete runner interface once it exists.
 Implementation details, validation evidence and review disposition belong below
-in this record. The authorization-only change does not claim delivery.
+in this record. The authorization-only change did not claim delivery; the evidence below records the implementation.
 
 ## Managed interface
 
@@ -58,7 +58,9 @@ python3 scripts/dev.py runs status --task '#39'
 ```
 
 Omit `--task` to include all task labels in this repository's native host and
-machine history. Read the live Git status, issue authorization and harness goal
+machine history. Status shows the latest 20 completed runs plus every active run;
+`--limit 0` shows all runs. The latest 20 checkpoint/diagnostic notes and required
+obligation diagnoses accompany the readout. Read live Git status, issue authorization and harness goal
 separately: a task label organizes records and never authorizes or resumes work.
 
 `dev.py prove`, `build`, `test` and `tool`, and `check_lean.py`, accept `--task REF`
@@ -84,8 +86,9 @@ It never silently skips a required check or treats the ledger as its proof.
 
 Exploratory GNATprove continues through `dev.py tool`. The reserved `explore`
 output and separate-cache rules in [development](../development.md) still apply.
-For a custom project whose inputs and writable paths cannot be derived from the
-normal project, declare the actual writable workspace roots with repeatable
+For a custom tool or project whose inputs and writable paths cannot be derived
+from the reviewed native project (including explicit executable paths and output
+redirection), declare the actual writable workspace roots with repeatable
 `--workspace PATH` and additional source/configuration inputs with repeatable
 `--input PATH`, before `-- gnatprove ...`. These declarations let the managed
 runner record and coordinate the custom run; they do not prove that an arbitrary
@@ -145,7 +148,9 @@ hypothesis or experiment. A failed solver attempt within an otherwise successful
 proof is not an unresolved obligation. The diagnosis is durable and appears in
 the resume readout. It adds no automatic retry, arbitrary timeout or final retry
 limit, and never reclassifies a failed proof as success. Automated obligation
-identity only covers diagnostics the runners recognize; the agent must also
+identity covers GNATprove report locations and recognized Lean source locations
+plus the first diagnostic line. Moving or rewording a Lean diagnostic may change
+its key; the agent must also
 notice recurring failures that the parser cannot identify.
 
 At a meaningful checkpoint or interruption, save a concise pointer:
@@ -166,3 +171,104 @@ The controls govern managed entrypoints. Direct tool commands and arbitrary shel
 wrappers can bypass them. The ledger is locally trusted workflow history rather
 than tamper-proof storage, and resource reservations cannot establish that a proof
 strategy is economical. Review the observed evidence and next experiment.
+
+
+## Delivery and Linux evidence
+
+Implemented at `666b87ecf8e98b5731e56465541dad4143bf2b0d` on
+2026-10-16. Later completion edits are documentation only. The working branch is
+`feat/proof-iteration-controls`; the authorization remains PR #40. No Ada, Lean
+proof, Oracle, catalogue or admitted-language source changed.
+
+Validation ran on native Linux x86-64. The integration checkout is
+`tmp/iteration-workflow`. Native full validation used the preserved repair
+checkout `tmp/review-repairs-343c2f8`, detached at the same implementation commit,
+to reuse its original-path sessions and solver cache. Its prior branch, ignored
+scratch and evidence remain retained. The canonical feature checkout and its
+nine tracked modifications were left intact.
+
+| Check | Evidence and result |
+| --- | --- |
+| Run-history regressions | 19 tests: real process death/inherited leases, cross-worktree and symlink overlap, worker grants, torn journal recovery, recurrence scope and diagnostics, retained nested reports. |
+| Native command integration | 24 tests: full/cold rationale, preflight-before-mutation, real short-process logging/FD inheritance, custom declarations and input/executable drift including retargeted symlinks, report retention, status and zero-exit unresolved checks. Native proof execution is mocked in these fixtures. |
+| Native provenance regressions | 27 tests: existing evidence/tool/configuration binding plus early tool rejection preserving prior evidence. |
+| Lean regression suites | 72 runner, source and module tests passed in 134.789 s, including small native Lean fixtures. The 10 new ledger integration tests were also rechecked after the core updates. |
+| Platform routing | 16 tests passed in 46.400 s, covering mocked native/foreign tools, concurrent host isolation and symlinked temporary directories. |
+| Native build | Passed in 3.546 s at `9d733b6f07`; the later selector repair changes only custom-tool drift checks. Native sources were unchanged. |
+| Complete native audit | Passed in 31.094 s, with eight workers and reused sessions/cache: 61 units, 830 entities, 1,070 flow checks and 12,848 proof checks. Required report and provenance audits passed. |
+| Complete cached Lean | Passed in 16.450 s, with four Lake workers/four threads per process and a fresh audit of 57,302 declarations. Independent kernel replay was not requested. |
+| Native exploratory failure probe | A small scratch overflow obligation produced tool exit 0; the managed command correctly failed, retained `iteration_probe.adb:3:11:VC_OVERFLOW_CHECK` and its reports, and recorded the distinction in 2.783 s. This is a runner probe, not admitted Silver source. |
+
+These are 158 distinct focused tests, plus the native checks above. The native
+command, provenance, ledger and platform suites were checked on the final runner;
+the earlier broader Lean suite was supplemented by its affected ledger cases and
+the final complete project check. The full
+application test suite, a cold full proof, native macOS validation and hosted CI
+were not rerun for this tooling change. Hosted Actions remains disabled.
+
+The durable ledger is in the shared Git common directory under
+`silver-runs/linux-x86_64/d140f139bb2e1ef1/`. Each listed run has its command,
+input identities, resolved workspaces, phase timestamps and outcome in
+`runs/<run-id>/events.jsonl`:
+
+- Build: `20261016T130946-96feac6342a1`.
+- Complete native audit: `20261016T131452-4eaf28ae2657`; its `proof-evidence/`
+  retains the manifest, input snapshot and reports. The convenience manifest is
+  `.silver/linux-x86_64/compiler/obj/gnatprove/proof-provenance.json` in the
+  original repair checkout.
+- Final complete Lean: `20261016T131453-0287972fb552`; its log and
+  `lean-evidence.json` are copied into the run directory. The convenience files
+  are in the integration checkout's `.silver/linux-x86_64/`.
+- Exploratory probe: `20261016T131351-1d967ce5f947`, task `#39-probe`; its retained
+  reports and `native.log` explain the expected failure with tool return code 0.
+- Managed native-command tests: `20261016T131537-a16020f7fe73`, task `#39-tests`.
+- Managed platform tests: `20261016T131607-32018c63248a`, task `#39-tests`.
+
+Additional fixture logs and a ledger snapshot are under
+`tmp/iteration-workflow/.silver/linux-x86_64/iteration-validation/`. The managed
+platform-test run is discoverable under task `#39-tests` in the same ledger.
+The native and Lean checkpoints ran concurrently with reservations totaling
+12 workers. The native audit records 1.308 s preflight, 24.078 s native tool
+time and 4.791 s audit time; its remaining elapsed time covers ledger/report
+retention and setup. A conflicting test request was refused while the Lean workspace
+was leased, then passed after that lease ended.
+
+Two development attempts are retained explicitly. The initial build exposed
+GPRbuild's required attached `-jN` syntax; its failed run
+`20261016T130828-80fc59745e00` took 1.973 s before the repair. Native audit
+`20261016T131044-c3fd4b080352` was interrupted after 156.827 s when the copied
+worktree's cache was observed recomputing solver work after path relocation.
+Its partial reports and log remain intact; it is not successful proof evidence.
+The checkpoint note records the move to the original cache location. An earlier
+complete cached Lean check took 13.649 s; only the later check covers the final
+selector-repair inputs.
+
+Copying GNATprove cache files to a new checkout path does not guarantee reuse.
+Preserve the original cache location where practical, inspect actual activity,
+and record a diagnosed change of validation location. Lean cache reuse in this
+check was effective. Neither cache presence nor a prior successful ledger entry
+establishes current proof validity.
+
+## Review and disposition
+
+Independent source review targeted `9ace0e10bc0a8db51099bc6c8174fc5022d66945`,
+then `9d733b6f07bcfa82ef815fd9e3e1b4e5fd6e4df7`. The following findings were
+independently confirmed and repaired within #39:
+
+| Finding | Disposition |
+| --- | --- |
+| [#41](https://github.com/berkeleynerd/silver/issues/41): a torn shared notes append could corrupt the next note | Fixed in `d1564ab227`: retain the incomplete bytes separately, truncate to the last committed newline, then append under the metadata lock. Regression verifies repeated interruption and subsequent diagnosis. |
+| [#42](https://github.com/berkeleynerd/silver/issues/42): exploratory exit 0 could hide unresolved obligations | Fixed in `08d011bce7` and `0a585427a3`: inspect current reports independently of exit status, retain failed validation with tool status 0, and count its obligation. Fixture and native probe passed. |
+| [#43](https://github.com/berkeleynerd/silver/issues/43): retargeted custom selectors could evade drift checks | Fixed in `666b87ecf8`: re-resolve original input/executable selectors and compare paths and bytes. Three regressions reproduced the old defect and now pass, including retargeting to identical bytes. |
+
+Integration review also corrected native output redirection/resource inference,
+actual executable identity, report/log retention, stale-report recurrence,
+proof-mode/target scoping, and the concise status readout. The two original
+findings were re-reviewed as repaired; the final selector change received source
+review and the targeted regressions above. No review action remains outstanding
+for this tooling package. Direct unmanaged commands, arbitrary wrappers and
+adversarial workspace mutation remain outside the cooperative control boundary.
+
+The For loops and integers harness remains paused. CLI memory was unavailable
+and was not updated; checked-in session memory, issue handoffs and the live
+ledger carry the continuation record.

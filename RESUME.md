@@ -17,7 +17,11 @@ recorded that authorization on `main` as
 ledger, resolved-workspace leases, worker coordination, cheap preflight, reasons
 for identical-success expensive reruns, recurring-failure diagnosis and resume
 readout. The record separates implementation/validation evidence from that
-authorization commit; consult the issue for live delivery status.
+authorization commit. Implementation `666b87ecf8` passed the focused tests, native
+full audit and complete cached Lean/fresh-audit checkpoint; #41–#43 are repaired.
+See the [delivery evidence](docs/proof-iteration.md#delivery-and-linux-evidence)
+for run IDs, retained interrupted attempts and original-path cache validation.
+Consult the issue for publication status.
 
 At startup and after interruption, run:
 
@@ -661,8 +665,8 @@ original scope. The owner reports 96 GB physical RAM and can increase the
 sandbox allocation; physical capacity is distinct from RAM exposed here.
 Neither the host allocation nor the runner's default was changed by this task.
 Use `python3 scripts/dev.py paths` for the actual
-installation and artifact paths. GNATprove uses all cores by default; Lean uses
-all available Lake workers and per-process threads, with independent overrides.
+installation and artifact paths. GNATprove and Lean Lake workers allocate the remaining shared worker budget by
+default; Lean per-process threads independently default to all available CPUs.
 The [concurrency record](docs/lean-concurrency.md) distinguishes measured speedups
 from remaining serial work and explains the per-process memory threshold.
 
