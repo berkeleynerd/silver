@@ -26,8 +26,8 @@ def LengthOperand.evaluate (values : Values) : LengthOperand → Nat
 def Condition.evaluate (values : Values) (input : Source) (inputValid : Bool)
     (integers : Integer.Store := Integer.emptyStore) : Condition → Bool
   | .stringCompare unequal left right =>
-      if unequal then decide (left.evaluate values input ≠ right.evaluate values input)
-      else decide (left.evaluate values input = right.evaluate values input)
+      if unequal then decide (left.evaluate values input integers ≠ right.evaluate values input integers)
+      else decide (left.evaluate values input integers = right.evaluate values input integers)
   | .lengthCompare operator left right => operator.evaluate (values left).length (right.evaluate values)
   | .scalarCompare operator left right => operator.evaluate (left.evaluate integers) (right.evaluate integers)
   | .inputValid => inputValid
@@ -43,7 +43,7 @@ grammar checking remain separate unconditional admission obligations. -/
 def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputValid : Bool)
     (integers : Integer.Store := Integer.emptyStore) : Condition → Prop
   | .stringCompare _ left right =>
-      SafeExpression left shape input.length ∧ SafeExpression right shape input.length
+      left.RuntimeSafe values input integers ∧ right.RuntimeSafe values input integers
   | .lengthCompare _ left right =>
       (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength
   | .scalarCompare _ left right => left.Safe integers ∧ right.Safe integers
@@ -59,11 +59,9 @@ def Condition.Safe (shape : Shape) (values : Values) (input : Source) (inputVali
 def Condition.checkedEvaluate (values : Values) (input : Source) (inputValid : Bool)
     (integers : Integer.Store := Integer.emptyStore) : Condition → Option Bool
   | .stringCompare unequal left right =>
-      let a := left.evaluateLeft values input
-      let b := right.evaluateLeft values input
-      if a.length ≤ maxSourceLength ∧ b.length ≤ maxSourceLength then
-        some (if unequal then decide (a ≠ b) else decide (a = b))
-      else none
+      (left.checkedEvaluate values input integers).bind fun a =>
+        (right.checkedEvaluate values input integers).map fun b =>
+          if unequal then decide (a ≠ b) else decide (a = b)
   | .lengthCompare operator left right =>
       if (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength then
         some (operator.evaluate (values left).length (right.evaluate values))
@@ -91,15 +89,13 @@ theorem LengthOperand.evaluate_summary {operand : LengthOperand} {shape : Shape}
 
 theorem Condition.checkedEvaluate_refines {condition : Condition} {shape : Shape}
     {values : Values} {input : Source} {inputValid : Bool} {integers : Integer.Store}
-    (safe : condition.Safe shape values input inputValid integers) (state : Fits shape input values) :
+    (safe : condition.Safe shape values input inputValid integers) (_state : Fits shape input values) :
     condition.checkedEvaluate values input inputValid integers =
       some (condition.evaluate values input inputValid integers) := by
   induction condition with
   | stringCompare unequal left right =>
-      have a := Expression.output_bound safe.1 state (Nat.le_refl _)
-      have b := Expression.output_bound safe.2 state (Nat.le_refl _)
-      simp only [checkedEvaluate, Expression.left_association, a, b, and_self,
-        ↓reduceIte, evaluate]
+      simp only [checkedEvaluate, Expression.checkedEvaluate_agrees safe.1,
+        Expression.checkedEvaluate_agrees safe.2, Option.bind_some, Option.map_some, evaluate]
   | lengthCompare operator left right =>
       change (values left).length ≤ maxSourceLength ∧ right.evaluate values ≤ maxSourceLength at safe
       simp only [checkedEvaluate, safe, and_self, ↓reduceIte, evaluate]

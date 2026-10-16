@@ -3,6 +3,7 @@ module
 public import Silver.ComposeExpression
 public import Silver.IntegerChecks
 public import Silver.IntegerComparisons
+public import Silver.StringExecution
 
 @[expose] public section
 
@@ -72,7 +73,7 @@ def LengthOperand.summary (shape : Shape) : LengthOperand → Option Summary
 may use path facts; validity calls also require the argument package context. -/
 def Condition.Readable (hasArguments : Bool) (shape : Shape) : Condition → Prop
   | .stringCompare _ left right =>
-      left.Readable shape ∧ right.Readable shape ∧ left.LiteralsPrintable ∧ right.LiteralsPrintable ∧
+      left.StringReadable shape ∧ right.StringReadable shape ∧ left.LiteralsPrintable ∧ right.LiteralsPrintable ∧
       left ≠ [] ∧ left.length ≤ maxExpressionOperands ∧
       right ≠ [] ∧ right.length ≤ maxExpressionOperands
   | .lengthCompare _ left right => (∃ info, shape left = some info) ∧ right.Readable shape

@@ -2,6 +2,7 @@ module
 
 public import Silver.PathFacts
 public import Silver.PredicateSemantics
+public import Silver.StringLengthRefinement
 
 @[expose] public section
 
@@ -227,50 +228,60 @@ theorem refineLength_sound {shape : Shape} {context : Context} {operator : Compa
   · exact allowed
 
 def refineString (shape : Shape) (context : Context) (unequal : Bool)
-    (left right : Expression) (truth : Bool) : Context :=
-  if unequal != truth then refineAffineEqual context (left.summary shape) (right.summary shape)
+    (left right : Expression) (truth : Bool) (ranges : Integer.Ranges := Integer.emptyRanges) : Context :=
+  if unequal != truth then
+    match left.inferLength shape ranges, right.inferLength shape ranges with
+    | some a, some b => refineLengthOverlap context a b
+    | _, _ => context
   else context
 
 theorem refineString_sound {shape : Shape} {context : Context} {unequal truth valid rejected : Bool}
     {left right : Expression} {values : Values} {input : Source}
+    {ranges : Integer.Ranges} {integers : Integer.Store}
     (state : Fits shape input values) (allowed : context.Allows valid input.length rejected)
-    (leftNames : left.Readable shape) (rightNames : right.Readable shape)
-    (known : (Condition.stringCompare unequal left right).evaluate values input valid = truth) :
-    (refineString shape context unequal left right truth).Allows valid input.length rejected := by
-  cases unequal <;> cases truth
-  · exact allowed
-  · exact refineAffineEqual_sound allowed (string_equality_lengths state leftNames rightNames known)
-  · exact refineAffineEqual_sound allowed (string_inequality_false_lengths state leftNames rightNames known)
+    (scalarState : Integer.Fits ranges integers)
+    (known : (Condition.stringCompare unequal left right).evaluate values input valid integers = truth) :
+    (refineString shape context unequal left right truth ranges).Allows valid input.length rejected := by
+  unfold refineString
+  split
+  · rename_i equalBranch
+    have equal : left.evaluate values input integers = right.evaluate values input integers := by
+      cases unequal <;> cases truth <;> simp_all [Condition.evaluate]
+    split
+    · rename_i a b leftFound rightFound
+      exact string_image_equality_overlap leftFound rightFound state scalarState allowed equal
+    · exact allowed
   · exact allowed
 
-def Condition.refine (shape : Shape) : Condition → Context → Bool → Context
-  | .stringCompare unequal left right, context, truth =>
-      refineString shape context unequal left right truth
-  | .lengthCompare operator left right, context, truth =>
-      refineLength shape context operator left right truth
-  | .scalarCompare _ _ _, context, _ => context
-  | .inputValid, context, truth => if truth then context.assumeValid else context.assumeInvalid
-  | .parenthesized inner, context, truth => inner.refine shape context truth
-  | .negated inner, context, truth => inner.refine shape context (!truth)
-  | .andThen left right, context, truth =>
-      let reached := left.refine shape context true
-      if truth then right.refine shape reached true
-      else (left.refine shape context false).join (right.refine shape reached false)
-  | .orElse left right, context, truth =>
-      let reached := left.refine shape context false
-      if truth then (left.refine shape context true).join (right.refine shape reached true)
-      else right.refine shape reached false
+def Condition.refine (shape : Shape) (condition : Condition) (context : Context) (truth : Bool)
+    (ranges : Integer.Ranges := Integer.emptyRanges) : Context :=
+  match condition with
+  | .stringCompare unequal left right => refineString shape context unequal left right truth ranges
+  | .lengthCompare operator left right => refineLength shape context operator left right truth
+  | .scalarCompare _ _ _ => context
+  | .inputValid => if truth then context.assumeValid else context.assumeInvalid
+  | .parenthesized inner => inner.refine shape context truth ranges
+  | .negated inner => inner.refine shape context (!truth) ranges
+  | .andThen left right =>
+      let reached := left.refine shape context true ranges
+      if truth then right.refine shape reached true ranges
+      else (left.refine shape context false ranges).join (right.refine shape reached false ranges)
+  | .orElse left right =>
+      let reached := left.refine shape context false ranges
+      if truth then (left.refine shape context true ranges).join (right.refine shape reached true ranges)
+      else right.refine shape reached false ranges
 
 /-- Every actual outcome is represented in its refined context. Right-hand
 short-circuit operands receive only the facts from the reached left outcome. -/
 theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArguments : Bool}
-    {context : Context} {integers : Integer.Store} {values : Values} {input : Source} {valid rejected : Bool}
+    {context : Context} {ranges : Integer.Ranges} {integers : Integer.Store} {values : Values} {input : Source} {valid rejected : Bool}
     (state : Fits shape input values) (readable : condition.Readable hasArguments shape)
-    (allowed : context.Allows valid input.length rejected) :
-    (condition.refine shape context (condition.evaluate values input valid integers)).Allows valid input.length rejected := by
+    (allowed : context.Allows valid input.length rejected)
+    (scalarState : Integer.Fits ranges integers) :
+    (condition.refine shape context (condition.evaluate values input valid integers) ranges).Allows valid input.length rejected := by
   induction condition generalizing context with
   | stringCompare unequal left right =>
-      exact refineString_sound state allowed readable.1 readable.2.1 rfl
+      exact refineString_sound state allowed scalarState rfl
   | lengthCompare operator left right => exact refineLength_sound state allowed rfl
   | scalarCompare => exact allowed
   | inputValid =>
@@ -285,7 +296,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       | false =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, Bool.false_eq_true, ↓reduceIte] using
-            (Context.join_left (right := right.refine shape (left.refine shape context true) false) leftAllowed)
+            (Context.join_left (right := right.refine shape (left.refine shape context true ranges) false ranges) leftAllowed)
       | true =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
@@ -293,7 +304,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
           | false =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
-                (Context.join_right (left := left.refine shape context false) rightAllowed)
+                (Context.join_right (left := left.refine shape context false ranges) rightAllowed)
           | true => simpa only [refine, evaluate, outcome, rightOutcome, ↓reduceIte] using rightAllowed
   | orElse left right ihl ihr =>
       have leftAllowed := ihl readable.1 allowed
@@ -301,7 +312,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
       | true =>
           simp only [outcome] at leftAllowed
           simpa only [refine, evaluate, outcome, ↓reduceIte] using
-            (Context.join_left (right := right.refine shape (left.refine shape context false) true) leftAllowed)
+            (Context.join_left (right := right.refine shape (left.refine shape context false ranges) true ranges) leftAllowed)
       | false =>
           simp only [outcome] at leftAllowed
           have rightAllowed := ihr readable.2 leftAllowed
@@ -309,7 +320,7 @@ theorem Condition.refine_sound {condition : Condition} {shape : Shape} {hasArgum
           | true =>
               simp only [rightOutcome] at rightAllowed
               simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using
-                (Context.join_right (left := left.refine shape context true) rightAllowed)
+                (Context.join_right (left := left.refine shape context true ranges) rightAllowed)
           | false => simpa only [refine, evaluate, outcome, rightOutcome, Bool.false_eq_true, ↓reduceIte] using rightAllowed
 
 def fitsSummary (context : Context) (summary : Summary) : Bool :=
@@ -340,7 +351,9 @@ def Condition.checkBounds (shape : Shape) (condition : Condition) (context : Con
     (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
   match condition with
   | .stringCompare _ left right =>
-      fitsSummary context (left.summary shape) && fitsSummary context (right.summary shape)
+      match left.inferLength shape ranges, right.inferLength shape ranges with
+      | some a, some b => fitsSummary context a.upper && fitsSummary context b.upper
+      | _, _ => false
   | .lengthCompare _ left right =>
       match shape left, right.bound shape with
       | some info, some bound => fitsSummary context info.bound.summary && fitsSummary context bound.summary
@@ -349,9 +362,9 @@ def Condition.checkBounds (shape : Shape) (condition : Condition) (context : Con
   | .inputValid => true
   | .parenthesized inner | .negated inner => inner.checkBounds shape context ranges
   | .andThen left right =>
-      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context true) ranges
+      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context true ranges) ranges
   | .orElse left right =>
-      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context false) ranges
+      left.checkBounds shape context ranges && right.checkBounds shape (left.refine shape context false ranges) ranges
 
 /-- Operand bounds use incoming facts, including only the earlier operand's
 selected outcome when the right-hand side is reached. -/
@@ -364,11 +377,15 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
     condition.Safe shape values input valid integers := by
   induction condition generalizing context with
   | stringCompare unequal left right =>
-      rcases readable with ⟨leftNames, rightNames, leftPrint, rightPrint,
-        leftNonempty, leftOperands, rightNonempty, rightOperands⟩
-      simp only [checkBounds, Bool.and_eq_true] at checked
-      exact ⟨⟨leftNames, leftPrint, leftNonempty, leftOperands, fitsSummary_sound allowed checked.1⟩,
-        ⟨rightNames, rightPrint, rightNonempty, rightOperands, fitsSummary_sound allowed checked.2⟩⟩
+      simp only [checkBounds] at checked
+      split at checked
+      · rename_i a b leftFound rightFound
+        simp only [Bool.and_eq_true] at checked
+        exact ⟨Expression.inferLength_runtimeSafe leftFound state scalarState
+            (fitsSummary_sound allowed checked.1) (Nat.le_refl _),
+          Expression.inferLength_runtimeSafe rightFound state scalarState
+            (fitsSummary_sound allowed checked.2) (Nat.le_refl _)⟩
+      · contradiction
   | lengthCompare operator left right =>
       simp only [checkBounds] at checked
       split at checked
@@ -394,14 +411,14 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound (integers := integers) state readable.1 allowed
+      have next := left.refine_sound (integers := integers) state readable.1 allowed scalarState
       simpa only [reached] using next
   | orElse left right ihl ihr =>
       simp only [checkBounds, Bool.and_eq_true] at checked
       refine ⟨ihl readable.1 allowed checked.1, ?_⟩
       intro reached
       apply ihr readable.2 _ checked.2
-      have next := left.refine_sound (integers := integers) state readable.1 allowed
+      have next := left.refine_sound (integers := integers) state readable.1 allowed scalarState
       simpa only [reached] using next
 
 theorem Condition.checkedEvaluate_of_checkBounds {condition : Condition} {shape : Shape}
