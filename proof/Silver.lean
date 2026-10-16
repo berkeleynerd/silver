@@ -5,6 +5,7 @@ public import Silver.PredicateCorrespondence
 public import Silver.PredicateNativeSourceBridge
 public import Silver.PathFactsSourceBridge
 public import Silver.ImageFilesSource
+public import Silver.ImageConsumerEndpoint
 
 public import Silver.PredicateExamples
 
@@ -13,6 +14,7 @@ public import Silver.PredicateSelectors
 public import Silver.PredicateGrammar
 
 public import Silver.IntegerLiteralSourceBridge
+public import Silver.ScalarLiteralSourceBridge
 
 public import Silver.Admission
 public import Silver.Cursor
