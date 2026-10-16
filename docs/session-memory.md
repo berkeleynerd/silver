@@ -18,8 +18,10 @@ validation and publication remain authorized; hosted CI stays disabled.
 
 For loops and integers and its unfinished work remain preserved separately.
 Its existing harness goal stays **paused**; this tooling instruction neither
-resumes nor completes it. Record the tooling authorization on `main` before
-claiming its issue, following [planning](planning.md#the-board). CLI memory was
+resumes nor completes it. [PR #40](https://github.com/berkeleynerd/silver/pull/40)
+recorded the tooling authorization on `main` as
+`2c30cfa3d78f9e960f0839bca09787241b4435c5` before #39 was claimed,
+following [planning](planning.md#the-board). CLI memory was
 unavailable and was not updated; this dated entry is the durable decision record.
 
 ## 2026-10-16 — Selected review repairs complete

@@ -113,6 +113,14 @@ python3 scripts/dev.py test -- -p test_string_assignment.py
 python3 scripts/check_lean.py --target Silver.PredicateChecks
 ```
 
+Use the managed run summary at startup, after interruption and before an expensive
+checkpoint. Compare retained evidence with the current inputs and configuration,
+then choose the smallest outstanding check. The
+[proof-iteration record](docs/proof-iteration.md) describes the ledger, workspace
+leases, provenance preflight and runner interface. These controls record and
+coordinate development work; required proof manifests and actual artifact checks
+remain authoritative.
+
 Choose the test file for the affected behavior. Batch recognizer and proof edits
 before rebuilding the expensive source certificates; focused model proofs give
 early feedback, while actual-source correspondence remains required at the
@@ -142,9 +150,10 @@ Documentation-only changes need link, consistency and whitespace checks,
 without unrelated proof or test reruns.
 
 GNATprove uses incremental analysis and its native local filesystem result cache.
-The default worker count is all detected cores (`--jobs 0`); use `--jobs N` when
-memory or concurrent work calls for a limit. Incremental runs preserve sessions
-and reports but invalidate the previous completed full-audit manifest. They
+The default `--jobs 0` reserves the available managed worker budget; use `--jobs N`
+to reserve a smaller share for concurrent work or memory pressure. With no other
+managed run, the budget starts at the detected CPU count. Incremental runs preserve
+sessions and reports but invalidate the previous completed full-audit manifest. They
 provide development feedback, not a new full assurance record.
 
 Lean retains Lake artifacts and rebuilds changed dependencies. The
@@ -166,12 +175,12 @@ public interface or exposed-definition changes still propagate. Keep `Audit.lean
 retain transitive private-declaration coverage. Preserve `.olean.server` and
 `.olean.private` alongside ordinary objects and Lake metadata when copying a
 cache. See the [module migration](docs/lean-modules.md) for measurements and
-invalidation controls. `--workers N` controls
-Lake's workers for
-independent modules; `--threads N` separately controls each Lean build/audit
-process. Both default to `0`, selecting the CPUs available through process
-affinity and Python's CPU count. Explicit counts permit
-lower settings for CPU quotas, competing workloads or memory pressure. Worker
+invalidation controls. `--workers N` controls Lake's workers for independent
+modules; its default `0` reserves the available managed worker budget.
+`--threads N` separately controls each Lean build/audit process. Its default `0`
+selects the CPUs available through process affinity and Python's CPU count.
+Explicit counts permit lower settings for CPU quotas, competing workloads or
+memory pressure. Worker
 pools can multiply across modules; these settings are not strict OS-thread caps
 or a promise that every proof uses every core. The
 [concurrency record](docs/lean-concurrency.md) measures the selected settings and
@@ -202,6 +211,21 @@ cadence allows incomplete experiments during development, but does not defer
 complete obligation discharge or source correspondence beyond capability
 completion. The compiler's proof and report checks on each admitted user program
 remain mandatory and unchanged.
+
+Before an expensive repeat with identical successful inputs and settings, record
+the concrete reason, such as a cache investigation or explicit measurement.
+Changing only an output directory does not justify redoing successful work.
+The runner still executes requested checks; it neither accepts ledger success as
+proof nor silently substitutes an old result. Routine cached iteration needs no
+boilerplate rationale, and a reason requires no additional owner approval.
+
+When an obligation repeatedly fails, stop blind reruns and write a diagnostic
+checkpoint: the failed obligation, attempts and changed inputs, retained evidence,
+current hypothesis and next experiment. A failed solver attempt within an
+otherwise successful proof does not count as an unresolved obligation. The
+checkpoint makes the next attempt deliberate; it adds no fixed proof timeout,
+retry ceiling or weaker discharge rule. Keep the diagnostic with the run history
+and identify it in the issue handoff.
 
 Full GNATprove validation forces unit analysis, regenerates reports and audits
 complete coverage and provenance; native sessions and solver-cache results may
