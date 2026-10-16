@@ -6,6 +6,7 @@ public import Silver.ImageModelTheoryRefinement
 public import Silver.ImageModelSelectedTemplate
 public import Silver.ImageModelSelectedMeaning
 public import Silver.ImageModelCloneMeaning
+public import Silver.ImageModelTemplateValidity
 
 @[expose] public section
 namespace Silver.ImageModel
@@ -60,9 +61,7 @@ theorem selected_schemas : SelectedSchemas document := by
 partial external parser boundary determine the entire refined document. The
 offsets are derived from the consumed original spans, never supplied as a
 splicing premise. -/
-theorem refined_document
-    (cloneSyntax : JSON.AsciiSpelling Clone.declaration Clone.declaration.encode)
-    (includeSyntax : JSON.AsciiSpelling Clone.includeDeclaration Clone.includeDeclaration.encode) :
+theorem refined_document :
     let plan := scanPlan calls.tables document
     let output := splice document.bytes Clone.declarationsFragment Clone.includesFragment plan.declarations plan.includes
     RefinedDocument document output ∧
@@ -78,7 +77,7 @@ theorem refined_document
     Templates.selected_schema_meaning entry.span .image normal matched parse sound (parsed .image)
   obtain ⟨a, b, da, ib, ordered, bounded, spelling⟩ :=
     entry.span.refined_spelling calls.tables state normal declarations includes decls incs declNonempty incNonempty
-      Clone.declaration Clone.includeDeclaration _ _ cloneSyntax includeSyntax
+      Clone.declaration Clone.includeDeclaration _ _ TemplateValidity.clone_declaration_canonical TemplateValidity.clone_include_canonical
   have declarationCut : (scanPlan calls.tables document).declarations =
       (document.header ++ JSON.entryPrefix preceding ++ entry.leading).length + a :=
     declOffset.trans (by rw [da, prefixLength])

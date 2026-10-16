@@ -51,8 +51,6 @@ theorem native_refined_document
     (depthRoom : ∀ entry ∈ document.entries, 3 + (JSON.fieldsBytes entry.span.spans).length ≤ 9223372036854775807)
     (parse : List Nat → Option JSON.Meaning) (sound : JSON.ParserSound parse)
     (parsed : ∀ kind, parse (Templates.theoryValue kind).encode = some (Templates.theoryValue kind).meaning)
-    (cloneSyntax : JSON.AsciiSpelling Clone.declaration Clone.declaration.encode)
-    (includeSyntax : JSON.AsciiSpelling Clone.includeDeclaration Clone.includeDeclaration.encode)
     (output : List Nat)
     (contract : FilesSplice.expression.eval
       { original := after.read, refined := output,
@@ -84,7 +82,7 @@ theorem native_refined_document
   change Templates.nativeFragment calls .includes = Clone.includesFragment at incBytes
   rw [declBytes, incBytes, input, plan] at exactOutput
   rw [declBytes, incBytes, input] at recovery
-  have model := refined_document calls templates document room depthRoom modelRefined parse sound parsed cloneSyntax includeSyntax
+  have model := refined_document calls templates document room depthRoom modelRefined parse sound parsed
   refine ⟨?_, recovery, Clone.inserted_ids_unique, Clone.inserted_ids_count, ?_,
     CloneMeaning.clone_interpretation, CloneMeaning.predefined_assertion⟩
   · rw [exactOutput]
