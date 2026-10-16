@@ -29,7 +29,7 @@ private theorem branch_meaning {text context scan keyword condition}
     (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
     (bounded : scan.facts.Bounded) (parsed : BranchAt text context scan keyword condition) :
     condition.Grammatical ∧ condition.Readable context.hasArguments context.names.shape ∧
-    condition.checkBounds context.names.shape scan.facts = true ∧
+    condition.checkBounds context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = true ∧
     (branchStart text context scan keyword).1.facts = condition.refine context.names.shape scan.facts true ∧
     (branchStart text context scan keyword).2 = condition.refine context.names.shape scan.facts false := by
   have meaning := condition_valid normal nv bounded parsed
@@ -40,7 +40,7 @@ mutual
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : StatementAt text context scan item result) :
       item.WellFormed context.hasArguments context.names.shape ∧
-      item.lower.check context.names.shape scan.facts = some result.facts ∧ result.facts.Bounded := by
+      item.lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | basic _ _ reading _ =>
         have meaning := basic_meaning normal reading
@@ -52,7 +52,7 @@ mutual
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : ChoiceAt text context scan condition yes tail result) :
       (SourceStatement.choice condition yes tail).WellFormed context.hasArguments context.names.shape ∧
-      (SourceStatement.choice condition yes tail).lower.check context.names.shape scan.facts = some result.facts ∧ result.facts.Bounded := by
+      (SourceStatement.choice condition yes tail).lower.check context.names.shape scan.facts (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | choice conditionRead _ yesRead _ noRead resultEq _ _ =>
         have conditionGood := branch_meaning normal nv bounded conditionRead
@@ -82,7 +82,7 @@ mutual
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : AlternativeAt text context scan tail result) :
       tail.WellFormed context.hasArguments context.names.shape ∧
-      checkStatements context.names.shape scan.facts tail.lower = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts tail.lower (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | absent =>
         simp only [SourceAlternative.WellFormed, SourceAlternative.lower, checkStatements]
@@ -118,7 +118,7 @@ mutual
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : BodyTailAt text context stop scan items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items ∧
-      checkStatements context.names.shape scan.facts (lowerStatements items) = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | done =>
         simp only [SourceStatementsWellFormed, lowerStatements, checkStatements]
@@ -135,7 +135,7 @@ mutual
       (normal : NamesNormal context.names) (nv : Compose.Expressions.ValidNames text context.names)
       (bounded : scan.facts.Bounded) (parsed : BodyAt text context scan stop items result) :
       SourceStatementsWellFormed context.hasArguments context.names.shape items ∧
-      checkStatements context.names.shape scan.facts (lowerStatements items) = some result.facts ∧ result.facts.Bounded := by
+      checkStatements context.names.shape scan.facts (lowerStatements items) (ScalarExpression.ranges context.scalarNames) = some result.facts ∧ result.facts.Bounded := by
     cases parsed with
     | cons item _ rest _ =>
         have first := statement_meaning normal nv bounded item

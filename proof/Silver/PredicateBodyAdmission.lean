@@ -31,16 +31,16 @@ def bodyTokens (text : Source) (scan : BodyScan) (tokens : List ShellToken) : Bo
   tokens.foldl (bodyToken text) scan
 
 def parserState (context : ParseContext) (scan : BodyScan) : ParserState :=
-  {position := scan.position, names := context.names, target := scan.target, capacity := scan.capacity}
+  {position := scan.position, names := context.names, scalarNames := context.scalarNames, target := scan.target, capacity := scan.capacity}
 
 inductive BasicKind | null | output | put | reject | assignment
   deriving DecidableEq, Repr
 
 def basicKind (text : Source) (context : ParseContext) (scan : BodyScan) : BasicKind :=
   if fixedAfter text scan.position "null" true ≠ 0 then .null
-  else if callAfter text context.names scan.position .output ≠ 0 then .output
-  else if callAfter text context.names scan.position .partialOutput ≠ 0 then .put
-  else if context.hasArguments && decide (callAfter text context.names scan.position .reject ≠ 0)
+  else if callAfter text context.names scan.position .output context.scalarNames ≠ 0 then .output
+  else if callAfter text context.names scan.position .partialOutput context.scalarNames ≠ 0 then .put
+  else if context.hasArguments && decide (callAfter text context.names scan.position .reject context.scalarNames ≠ 0)
     then .reject
   else .assignment
 
@@ -48,26 +48,26 @@ def basicRaw (text : Source) (context : ParseContext) (scan : BodyScan) : BodySc
   match basicKind text context scan with
   | .null => bodyToken text scan (.word "null")
   | .output =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output) "(" false) false}
-      let value := expressionAt text call.position context.names
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .output context.scalarNames) "(" false) false}
+      let value := expressionAt text call.position context.names context.scalarNames
       if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .put =>
-      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput) "(" false) false}
-      let value := expressionAt text call.position context.names
+      let call := {scan with position := Names.associationAfter text (fixedAfter text (callAfter text context.names scan.position .partialOutput context.scalarNames) "(" false) false}
+      let value := expressionAt text call.position context.names context.scalarNames
       if value.after = 0 ∨ call.facts.invalidReachable ∨ !fitsSummary call.facts (summaryOf value)
       then invalidBody else
       let result := bodyToken text {call with position := value.after} (.symbol ")")
       {result with output := true}
   | .reject =>
-      let call := {scan with position := callAfter text context.names scan.position .reject}
+      let call := {scan with position := callAfter text context.names scan.position .reject context.scalarNames}
       {call with facts := call.facts.reject}
   | .assignment =>
       let state := targetAt text (parserState context scan) false
       let target := bodyToken text {scan with position := state.position, target := state.target} (.symbol ":=")
-      let value := expressionAt text target.position context.names
+      let value := expressionAt text target.position context.names context.scalarNames
       let bound := ((context.names.get target.target).getD {}).bound
       if value.after = 0 ∨ target.target = 0 ∨ !fitsSummary target.facts (summaryOf value) ∨
           !equalSummary target.facts (summaryOf value) bound.summary
@@ -193,7 +193,7 @@ def initialFacts (arguments : Bool) : Context :=
   if arguments then Context.initial maxSourceLength else ⟨some ⟨0, 0⟩, false, false⟩
 
 def contextOf (scan : ScanResult) : ParseContext :=
-  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0)⟩
+  ⟨scan.state.names, decide (scan.state.dynamicFirst ≠ 0), scan.state.scalarNames⟩
 
 def bodyOf (scan : ScanResult) : BodyScan :=
   ⟨scan.state.position, scan.state.target, scan.state.capacity,
