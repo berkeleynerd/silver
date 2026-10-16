@@ -1,6 +1,7 @@
 module
 
 public import Silver.PredicateNativeHelpers
+public import Silver.ComposeModelCalls
 public import Silver.IntegerLiteralEquations
 public import Silver.PathNativeEquations
 
@@ -74,10 +75,13 @@ structure Links (calls : Native.Calls) (composed : Compose.Expressions.Calls)
   lookup : ∀ text, ValidText text → ∀ names first after,
     ValidNames text names → first ≤ text.length + 1 → after ≤ text.length + 1 →
     calls.lookup text names first after = composed.function .lookupName text names first after
+  scalarLookup : calls.scalarLookup = composed.function .scalarLookup
+  scalarRead : calls.scalarRead = composed.function .scalarRead
   integer : ∀ text, ValidText text → ∀ position, position ≤ text.length + 1 →
     calls.integer text position = integer text position
-  expression : ∀ text, ValidText text → ∀ position names, position ≤ text.length + 1 → ValidNames text names →
-    calls.expression text position names = composed.function .expression text position names
+  expression : ∀ text, ValidText text → ∀ position names scalarNames, position ≤ text.length + 1 → ValidNames text names →
+    ScalarExpression.ValidEnvironment text scalarNames →
+    calls.expression text position names scalarNames = composed.function .expression text position names scalarNames
   assumeValid : ∀ facts : Paths,
     calls.assumeValid facts.model =
       (PathFacts.Native.assumeValidBody.eval ({facts} : PathInputs).locals).model
@@ -107,9 +111,9 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
     (refinement : ∀ text, IntegerLiteral.Native.ValidText text → ∀ position, position ≤ text.length + 1 →
       integer text position = literals.model text position)
     (links : Links calls composed integer) : HelperMeaning calls where
-  callAfter text tv names position operation nv pv := by
+  callAfter text tv names position operation scalarNames nv sv pv := by
     rw [links.callAfter]
-    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv
+    exact Compose.Expressions.interpreted_callAfter composed composedEquations text tv names position operation nv pv sv
   take text tv position token bounded := by
     rw [links.take text tv position token bounded,
       Compose.Expressions.interpreted_take composed composedEquations text tv position token.shell bounded (token_valid token)]
@@ -121,12 +125,18 @@ theorem helper_meaning (calls : Native.Calls) (composed : Compose.Expressions.Ca
   lookup text tv names first after nv fv av := by
     rw [links.lookup text tv names first after nv fv av,
       Compose.Expressions.interpreted_lookup composed composedEquations text tv names first after nv fv av]
+  scalarLookup text tv names first after nv fv av := by
+    rw [links.scalarLookup]
+    exact composedEquations.scalarLookup text tv names first after nv fv av
+  scalarRead text tv position names pv nv := by
+    rw [links.scalarRead]
+    exact composedEquations.scalarRead text tv position names pv nv
   integer text tv position bounded := by
     rw [links.integer text tv position bounded]
     exact IntegerLiteral.Native.executable_refinement literals literalEquations integer refinement text tv position bounded
-  expression text tv position names bounded nv := by
-    rw [links.expression text tv position names bounded nv,
-      Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv]
+  expression text tv position names scalarNames bounded nv sv := by
+    rw [links.expression text tv position names scalarNames bounded nv sv,
+      Compose.Expressions.interpreted_expression composed composedEquations text tv position names bounded nv sv]
   assumeValid facts := by
     have equation := links.assumeValid (reify facts)
     simpa only [PathFacts.Native.assumeValidBody_eval, PathInputs.locals, PathFacts.Native.assumeValid_model, reify_model] using equation
@@ -153,8 +163,10 @@ theorem model_links : Links Native.modelCalls Compose.Expressions.modelCalls Int
   skip _ _ _ _ := rfl
   name _ _ _ _ := rfl
   lookup _ _ _ _ _ _ _ _ := rfl
+  scalarLookup := rfl
+  scalarRead := rfl
   integer _ _ _ _ := rfl
-  expression _ _ _ _ _ _ := rfl
+  expression _ _ _ _ _ _ _ _ := rfl
   assumeValid facts := by
     rw [PathFacts.Native.assumeValidBody_eval]
     exact (PathFacts.Native.assumeValid_model facts).symm

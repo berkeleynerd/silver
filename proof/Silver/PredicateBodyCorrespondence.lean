@@ -11,6 +11,8 @@ set_option backward.dsimp.instances true
 set_option maxRecDepth 10000
 set_option maxHeartbeats 1000000
 
+attribute [local irreducible] ScalarExpression.read
+
 abbrev ValidText := Compose.Expressions.ValidText
 
 def ValidScan (text : Source) (context : Native.Context) (scan : BodyScan) : Prop :=
@@ -38,6 +40,8 @@ scanner equivalence. Native range types and preconditions select the domain. -/
 structure Equations (calls : Calls) : Prop where
   statement : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.statement text context scan = statementEval modelPrimitives calls {text,context,scan}
+  loop : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
+    ValidScan text context scan → calls.loop text context scan = LoopNative.eval calls.read text context scan
   conditional : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
     ValidScan text context scan → calls.conditional text context scan = conditionalFunction.eval modelPrimitives calls {text,context,scan}
   alternative : ∀ text, ValidText text → ∀ context, Native.ValidContext text context → ∀ scan,
@@ -51,8 +55,12 @@ theorem model_equations : Equations modelCalls where
   statement text _ context _ scan _ := by
     by_cases zero : scan.position = 0
     all_goals by_cases found : fixedAfter text scan.position "if" true ≠ 0
+    all_goals by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
     all_goals simp +instances [modelCalls, statementBody, statementEval, Test.eval, ScanExpr.eval,
-      modelPrimitives, tokenAfter, ShellToken.word, zero, found]
+      modelPrimitives, tokenAfter, ShellToken.word, zero, found, loopFound] <;> simp_all
+  loop text _ context _ scan _ := by
+    rw [LoopNative.eval_equation]
+    exact model_loop_equation text context scan
   conditional text tv context cv scan sv := by
     rw [conditional_eval]
     exact model_conditional_equation text context scan tv cv.1 sv.1
@@ -82,7 +90,41 @@ mutual
       · rw [ite_eq_left found, ite_eq_left found]
         exact conditional_unique calls equations text tv context cv scan sv
       · rw [ite_eq_right found, ite_eq_right found]
+        by_cases loopFound : fixedAfter text scan.position "for" true ≠ 0
+        · rw [ite_eq_left loopFound, ite_eq_left loopFound]
+          exact loop_unique calls equations text tv context cv scan sv
+        · rw [ite_eq_right loopFound, ite_eq_right loopFound]
   termination_by (bodyRemaining text scan, 2)
+
+  theorem loop_unique (calls : Calls) (equations : Equations calls) (text : Source)
+      (tv : ValidText text) (context : Native.Context) (cv : Native.ValidContext text context)
+      (scan : BodyScan) (sv : ValidScan text context scan) :
+      calls.loop text context scan = loopBody text context.model scan := by
+    rw [equations.loop text tv context cv scan sv, LoopNative.eval_equation,
+      model_loop_equation text context scan]
+    unfold LoopNative.equation
+    dsimp only [modelCalls]
+    by_cases allowed : loopNameAllowed text context.model (loopHeader text context.model scan) = true
+    · simp only [allowed, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
+      by_cases failed : (loopHeader text context.model scan).entry.position ≤ scan.position
+      · simp only [failed, ↓reduceIte]
+      · rw [ite_eq_right failed, ite_eq_right failed]
+        have positive : (loopHeader text context.model scan).entry.position ≠ 0 := by omega
+        have innerValid : Native.ValidContext text (LoopNative.inner context (loopHeader text context.model scan)) :=
+          ⟨cv.1, cv.2.1, loopInner_valid_environment (text := text) (context := context.model) (scan := scan) cv.2.2 allowed positive⟩
+        have entryValid : ValidScan text (LoopNative.inner context (loopHeader text context.model scan))
+            (loopHeader text context.model scan).entry :=
+          by
+          refine ⟨loopHeader_bound text context.model scan, ?_, ?_⟩
+          · exact sv.2.1
+          · exact loopContext_bounded sv.2.2
+              (Integer.loopBounds (loopHeader text context.model scan).lower.bounds
+                (loopHeader text context.model scan).upper.bounds)
+        have advanced := remaining_lt entryValid.1 (Nat.lt_of_not_ge failed)
+        rw [read_unique calls equations text tv _ innerValid _ .endOnly entryValid]
+    · have disallowed := Bool.eq_false_iff.mpr allowed
+      simp only [disallowed, Bool.not_false, ↓reduceIte]
+  termination_by (bodyRemaining text scan, 1)
 
   theorem conditional_unique (calls : Calls) (equations : Equations calls) (text : Source)
       (tv : ValidText text) (context : Native.Context) (cv : Native.ValidContext text context)

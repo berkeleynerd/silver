@@ -12,7 +12,7 @@ set_option maxHeartbeats 10000000
 source checks extract these same bodies from the authoritative certificate. -/
 
 def candidate_statement_body : List String :=
-  ["if", "scan", ".", "position", "=", "0", "then", "invalid_body", "elsif", "take_token", "(", "text", ",", "scan", ".", "position", ",", "if_keyword", ")", "/=", "0", "then", "conditional_body", "(", "text", ",", "context", ",", "scan", ")", "else", "basic_body", "(", "text", ",", "context", ",", "scan", ")"]
+  ["if", "scan", ".", "position", "=", "0", "then", "invalid_body", "elsif", "take_token", "(", "text", ",", "scan", ".", "position", ",", "if_keyword", ")", "/=", "0", "then", "conditional_body", "(", "text", ",", "context", ",", "scan", ")", "elsif", "take_token", "(", "text", ",", "scan", ".", "position", ",", "for_keyword", ")", "/=", "0", "then", "loop_body", "(", "text", ",", "context", ",", "scan", ")", "else", "basic_body", "(", "text", ",", "context", ",", "scan", ")"]
 
 theorem rendered_statement_body : statementRender = candidate_statement_body := by
   simp only [statementRender, Test.render, ScanExpr.render]

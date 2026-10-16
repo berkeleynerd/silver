@@ -16,8 +16,9 @@ def basicTokens : List ShellToken :=
 def TokenDomain (text : Source) (position : Nat) (token : ShellToken) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ token ∈ basicTokens
 
-def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) : Prop :=
-  Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.ValidNames text names
+def ExpressionDomain (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment) : Prop :=
+  Expressions.ValidText text ∧ Expressions.ValidCursor text position ∧ Expressions.ValidNames text names ∧
+    ScalarExpression.ValidEnvironment text scalarNames
 
 def TargetDomain (text : Source) (state : ParserState) : Prop :=
   Expressions.ValidText text ∧ Expressions.ValidState text state
@@ -26,14 +27,14 @@ def TargetDomain (text : Source) (state : ParserState) : Prop :=
 already have unconditional scalar projections in PathFactsSourceBridge and
 sameLength_project; no out-of-domain Compose helper equality is assumed. -/
 structure HelperMeaning (primitive : Primitives) : Prop where
-  callAfter : ∀ text names position operation, ExpressionDomain text position names →
-    primitive.callAfter text names position operation = Compose.callAfter text names position operation
+  callAfter : ∀ text names position operation scalarNames, ExpressionDomain text position names scalarNames →
+    primitive.callAfter text names position operation scalarNames = Compose.callAfter text names position operation scalarNames
   associationAfter : ∀ text position formal, Expressions.ValidText text → Expressions.ValidCursor text position →
     primitive.associationAfter text position formal = Names.associationAfter text position formal
   token : ∀ text position token, TokenDomain text position token →
     primitive.token text position token = tokenAfter text position token
-  expression : ∀ text position names, ExpressionDomain text position names →
-    primitive.expression text position names = expressionAt text position names
+  expression : ∀ text position names scalarNames, ExpressionDomain text position names scalarNames →
+    primitive.expression text position names scalarNames = expressionAt text position names scalarNames
   target : ∀ text state sameTarget, TargetDomain text state →
     primitive.target text state sameTarget = targetAt text state sameTarget
   fits : ∀ facts summary, primitive.fits facts summary = fitsSummary facts summary
@@ -46,14 +47,14 @@ typed source equations use this extension. All legal call values are retained. -
 noncomputable def totalize (primitive : Primitives) : Primitives := by
   classical
   exact {
-    callAfter := fun text names position operation => if ExpressionDomain text position names then
-      primitive.callAfter text names position operation else Compose.callAfter text names position operation
+    callAfter := fun text names position operation scalarNames => if ExpressionDomain text position names scalarNames then
+      primitive.callAfter text names position operation scalarNames else Compose.callAfter text names position operation scalarNames
     associationAfter := fun text position formal => if Expressions.ValidText text ∧ Expressions.ValidCursor text position then
       primitive.associationAfter text position formal else Names.associationAfter text position formal
     token := fun text position token => if TokenDomain text position token then
       primitive.token text position token else tokenAfter text position token
-    expression := fun text position names => if ExpressionDomain text position names then
-      primitive.expression text position names else expressionAt text position names
+    expression := fun text position names scalarNames => if ExpressionDomain text position names scalarNames then
+      primitive.expression text position names scalarNames else expressionAt text position names scalarNames
     target := fun text state sameTarget => if TargetDomain text state then
       primitive.target text state sameTarget else targetAt text state sameTarget
     fits := primitive.fits
@@ -61,8 +62,8 @@ noncomputable def totalize (primitive : Primitives) : Primitives := by
     reject := primitive.reject }
 
 theorem totalize_callAfter (primitive : Primitives) (text : Source) (names : Compose.BindingEnvironment)
-    (position : Nat) (operation : Names.Operation) (valid : ExpressionDomain text position names) :
-    (totalize primitive).callAfter text names position operation = primitive.callAfter text names position operation := by
+    (position : Nat) (operation : Names.Operation) (scalarNames : ScalarExpression.Environment) (valid : ExpressionDomain text position names scalarNames) :
+    (totalize primitive).callAfter text names position operation scalarNames = primitive.callAfter text names position operation scalarNames := by
   simp only [totalize, valid, ↓reduceIte]
 
 theorem totalize_associationAfter (primitive : Primitives) (text : Source) (position : Nat) (formal : Bool)
@@ -75,9 +76,9 @@ theorem totalize_token (primitive : Primitives) (text : Source) (position : Nat)
     (totalize primitive).token text position token = primitive.token text position token := by
   simp only [totalize, valid, ↓reduceIte]
 
-theorem totalize_expression (primitive : Primitives) (text : Source) (position : Nat) (names : Compose.BindingEnvironment)
-    (valid : ExpressionDomain text position names) :
-    (totalize primitive).expression text position names = primitive.expression text position names := by
+theorem totalize_expression (primitive : Primitives) (text : Source) (position : Nat) (names : Compose.BindingEnvironment) (scalarNames : ScalarExpression.Environment)
+    (valid : ExpressionDomain text position names scalarNames) :
+    (totalize primitive).expression text position names scalarNames = primitive.expression text position names scalarNames := by
   simp only [totalize, valid, ↓reduceIte]
 
 theorem totalize_target (primitive : Primitives) (text : Source) (state : ParserState) (sameTarget : Bool)
@@ -88,10 +89,10 @@ theorem totalize_target (primitive : Primitives) (text : Source) (state : Parser
 theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning primitive) :
     PrimitiveEquations (totalize primitive) where
   callAfter := by
-    funext text names position operation
+    funext text names position operation scalarNames
     dsimp only [totalize]
     split
-    · exact meaning.callAfter text names position operation ‹_›
+    · exact meaning.callAfter text names position operation scalarNames ‹_›
     · rfl
   associationAfter := by
     funext text position formal
@@ -106,10 +107,10 @@ theorem totalize_equations {primitive : Primitives} (meaning : HelperMeaning pri
     · exact meaning.token text position token ‹_›
     · rfl
   expression := by
-    funext text position names
+    funext text position names scalarNames
     dsimp only [totalize]
     split
-    · exact meaning.expression text position names ‹_›
+    · exact meaning.expression text position names scalarNames ‹_›
     · rfl
   target := by
     funext text state sameTarget
@@ -129,10 +130,10 @@ theorem basicEval_normalized {primitive : Primitives} (meaning : HelperMeaning p
   basicEval_of_equations (totalize_equations meaning) text context scan
 
 theorem model_helper_meaning : HelperMeaning modelPrimitives where
-  callAfter _ _ _ _ _ := rfl
+  callAfter _ _ _ _ _ _ := rfl
   associationAfter _ _ _ _ _ := rfl
   token _ _ _ _ := rfl
-  expression _ _ _ _ := rfl
+  expression _ _ _ _ _ := rfl
   target _ _ _ _ := rfl
   fits _ _ := rfl
   sameLength _ _ _ := rfl
@@ -191,9 +192,9 @@ structure Links (primitive : Primitives) (inherited : Expressions.Calls) : Prop 
 theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Expressions.Calls}
     (source : Expressions.HelperEquations inherited) (links : Links primitive inherited) :
     HelperMeaning primitive where
-  callAfter text names position operation valid := by
+  callAfter text names position operation scalarNames valid := by
     rw [links.callAfter]
-    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation valid.2.2 valid.2.1
+    exact Expressions.interpreted_callAfter inherited source text valid.1 names position operation valid.2.2.1 valid.2.1 valid.2.2.2
   associationAfter text position formal valid bounded := by
     rw [links.associationAfter]
     exact Names.interpreted_association inherited.names source.names text valid position formal bounded
@@ -201,9 +202,9 @@ theorem HelperMeaning.of_inherited {primitive : Primitives} {inherited : Express
     rw [links.token, Expressions.interpreted_take inherited source text valid.1 position token
       valid.2.1 (basicToken_valid token valid.2.2)]
     exact basicToken_model text position token valid.2.2
-  expression text position names valid := by
+  expression text position names scalarNames valid := by
     rw [links.expression]
-    exact Expressions.interpreted_expression inherited source text valid.1 position names valid.2.1 valid.2.2
+    exact Expressions.interpreted_expression inherited source text valid.1 position names valid.2.1 valid.2.2.1 valid.2.2.2
   target text state sameTarget valid := by
     rw [links.target]
     exact Expressions.interpreted_target inherited source text valid.1 state sameTarget valid.2

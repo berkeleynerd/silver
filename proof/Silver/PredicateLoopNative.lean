@@ -33,9 +33,9 @@ inductive Test
 def Test.eval (frame : Frame) : Test → Bool
   | .invalidName => decide (frame.first = 0 ∨ frame.after ≤ frame.first) ||
       (Named.forbiddenName frame.text frame.first frame.after &&
-        decide (fixedAfter frame.text frame.first "string" true ≠ frame.after)) ||
+        !Named.nameIs frame.text frame.first frame.after ("string".toList.map Char.toNat)) ||
       (decide (frame.context.dynamicFirst ≠ 0) &&
-        decide (fixedAfter frame.text frame.first "silver_arguments" true = frame.after)) ||
+        Named.nameIs frame.text frame.first frame.after ("silver_arguments".toList.map Char.toNat)) ||
       decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
   | .reverse => decide (fixedAfter frame.text frame.result.position "reverse" true ≠ 0)
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)

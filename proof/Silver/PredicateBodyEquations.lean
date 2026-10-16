@@ -179,4 +179,19 @@ theorem model_read_equation (text : Source) (context : Native.Context) (scan : B
       (statementBody_progress text context.model scan zero)
     simp only [zero, advanced, ↓reduceIte, ↓reduceDIte]
 
+theorem model_loop_equation (text : Source) (context : Native.Context) (scan : BodyScan) :
+    loopBody text context.model scan = LoopNative.equation modelCalls.read text context scan := by
+  rw [loopBody]
+  unfold LoopNative.equation
+  dsimp only [modelCalls]
+  by_cases allowed : loopNameAllowed text context.model (loopHeader text context.model scan) = true
+  · simp only [allowed, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
+    by_cases failed : (loopHeader text context.model scan).entry.position ≤ scan.position
+    · simp only [failed, ↓reduceIte]
+    · have advanced := remaining_lt (loopHeader_bound text context.model scan) (Nat.lt_of_not_ge failed)
+      simp only [failed, advanced, ↓reduceIte, ↓reduceDIte, LoopNative.inner_model]
+      rfl
+  · have disallowed := Bool.eq_false_iff.mpr allowed
+    simp only [disallowed, Bool.not_false, ↓reduceIte]
+
 end Silver.Predicate.BodyNative
