@@ -13,6 +13,36 @@ open Compose
 
 abbrev Reader := Source → Native.Context → BodyScan → BodyStop → BodyScan
 
+/-- Imported operations retain their native call identities. The independent
+model is one interpretation; source bridges supply the actual interpretation. -/
+@[ext] structure Imports where
+  token : Source → Nat → ShellToken → Nat
+  skip : Source → Nat → Nat
+  nameAfter : Source → Nat → Nat
+  forbidden : Source → Nat → Nat → Bool
+  nameIs : Source → Nat → Nat → String → Bool
+  readScalar : Source → Nat → ScalarExpression.Environment → Nat → Nat → ScalarExpression.Result
+  append : ScalarExpression.Environment → ScalarExpression.Binding → ScalarExpression.Environment
+  isEmpty : Integer.Interval → Bool
+  normalize : Integer.Interval → Integer.Interval
+  join : PathFacts.Context → PathFacts.Context → PathFacts.Context
+  emptyBounds : Integer.Interval
+  emptyFacts : PathFacts.Context
+
+def modelImports : Imports where
+  token := tokenAfter
+  skip := skipAt
+  nameAfter := Compose.nameAfter
+  forbidden := Named.forbiddenName
+  nameIs := fun text first after word => Named.nameIs text first after (word.toList.map Char.toNat)
+  readScalar := fun text position names first after => ScalarExpression.read text position names first after
+  append := fun names item => names ++ [item]
+  isEmpty := Integer.Interval.isEmpty
+  normalize := Integer.Interval.normalize
+  join := PathFacts.Context.join
+  emptyBounds := Integer.Interval.empty
+  emptyFacts := PathFacts.Context.empty
+
 structure Frame where
   text : Source
   context : Native.Context
@@ -41,6 +71,21 @@ def Test.eval (frame : Frame) : Test → Bool
   | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
   | .empty => frame.bounds.isEmpty
   | .indefinite => !frame.definite
+
+def Test.evalWith (imports : Imports) (frame : Frame) : Test → Bool
+  | .invalidName => decide (frame.first = 0 ∨ frame.after ≤ frame.first) ||
+      (imports.forbidden frame.text frame.first frame.after &&
+        !imports.nameIs frame.text frame.first frame.after "string") ||
+      (decide (frame.context.dynamicFirst ≠ 0) &&
+        imports.nameIs frame.text frame.first frame.after "silver_arguments") ||
+      decide (frame.context.scalarNames.length = ScalarExpression.maxBindings)
+  | .reverse => decide (imports.token frame.text frame.result.position (.word "reverse") ≠ 0)
+  | .nonadvancing => decide (frame.result.position ≤ frame.scan.position)
+  | .empty => imports.isEmpty frame.bounds
+  | .indefinite => !frame.definite
+
+@[simp] theorem Test.evalWith_model (frame : Frame) (test : Test) :
+    test.evalWith modelImports frame = test.eval frame := by cases test <;> rfl
 
 def call := Compose.Expressions.call
 
@@ -77,6 +122,28 @@ def Update.eval (read : Reader) (frame : Frame) : Update → Frame
   | .joinFacts => {frame with result := {frame.result with facts := frame.scan.facts.join frame.result.facts}}
   | .readBody => {frame with result := read frame.text frame.inner frame.result .endOnly}
   | .token value => {frame with result := bodyToken frame.text frame.result value}
+
+def Update.evalWith (imports : Imports) (read : Reader) (frame : Frame) : Update → Frame
+  | .inside => {frame with result := {frame.result with position := imports.token frame.text frame.after (.word "in")}}
+  | .reverse => {frame with result := {frame.result with position := imports.token frame.text frame.result.position (.word "reverse")}}
+  | .low => {frame with low := imports.readScalar frame.text frame.result.position frame.context.scalarNames frame.first frame.after}
+  | .delimiter => {frame with result := {frame.result with position := imports.token frame.text frame.low.after (.symbol "..")}}
+  | .high => {frame with high := imports.readScalar frame.text frame.result.position frame.context.scalarNames frame.first frame.after}
+  | .opening => {frame with result := {frame.result with position := imports.token frame.text frame.high.after (.word "loop")}}
+  | .bounds => {frame with bounds := if imports.isEmpty frame.low.bounds || imports.isEmpty frame.high.bounds
+      then imports.emptyBounds else imports.normalize ⟨frame.low.bounds.lower, frame.high.bounds.upper⟩}
+  | .definite => {frame with definite := (!imports.isEmpty frame.low.bounds && !imports.isEmpty frame.high.bounds &&
+      decide (frame.low.bounds.upper ≤ frame.high.bounds.lower))}
+  | .inner => {frame with inner := {frame.inner with scalarNames := (imports.append frame.context.scalarNames
+      ⟨frame.first, frame.after, frame.bounds, false⟩)}}
+  | .emptyFacts => {frame with result := {frame.result with facts := imports.emptyFacts}}
+  | .restoreFacts => {frame with result := {frame.result with facts := frame.scan.facts}}
+  | .joinFacts => {frame with result := {frame.result with facts := imports.join frame.scan.facts frame.result.facts}}
+  | .readBody => {frame with result := read frame.text frame.inner frame.result .endOnly}
+  | .token value => {frame with result := {frame.result with position := imports.token frame.text frame.result.position value}}
+
+@[simp] theorem Update.evalWith_model (read : Reader) (frame : Frame) (update : Update) :
+    update.evalWith modelImports read frame = update.eval read frame := by cases update <;> rfl
 
 def emptyBounds (side : String) : List String := ["scalars", "."] ++ call "is_empty" [[side, ".", "bounds"]]
 
@@ -116,6 +183,24 @@ def Command.eval (read : Reader) (frame : Frame) (next : Frame → BodyScan) : C
   | .sequence first second => first.eval read frame (fun updated => second.eval read updated next)
   | .choose test yes no => if test.eval frame then yes.eval read frame next else no.eval read frame next
 
+def Command.evalWith (imports : Imports) (read : Reader) (frame : Frame) (next : Frame → BodyScan) : Command → BodyScan
+  | .nothing => next frame
+  | .update value => next (value.evalWith imports read frame)
+  | .invalid => invalidBody
+  | .result => frame.result
+  | .sequence first second => first.evalWith imports read frame
+      (fun updated => second.evalWith imports read updated next)
+  | .choose test yes no => if test.evalWith imports frame then yes.evalWith imports read frame next
+      else no.evalWith imports read frame next
+
+@[simp] theorem Command.evalWith_model (command : Command) (read : Reader) (frame : Frame)
+    (next : Frame → BodyScan) :
+    command.evalWith modelImports read frame next = command.eval read frame next := by
+  induction command generalizing frame next with
+  | sequence first second ihFirst ihSecond => simp only [evalWith, eval, ihFirst, ihSecond]
+  | choose test yes no ihYes ihNo => simp only [evalWith, eval, Test.evalWith_model, ihYes, ihNo]
+  | _ => simp only [evalWith, eval, Update.evalWith_model]
+
 mutual
   def Command.render : Command → List String
     | .nothing => [] | .update value => value.render
@@ -146,6 +231,19 @@ def initial (text : Source) (context : Native.Context) (scan : BodyScan) : Frame
 
 def eval (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
   commands.eval read (initial text context scan) (fun _ => invalidBody)
+
+def initialWith (imports : Imports) (text : Source) (context : Native.Context) (scan : BodyScan) : Frame :=
+  let result := {scan with position := imports.token text scan.position (.word "for")}
+  let first := imports.skip text result.position
+  {text, context, scan, result, first, after := imports.nameAfter text first, inner := context}
+
+def evalWith (imports : Imports) (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) : BodyScan :=
+  commands.evalWith imports read (initialWith imports text context scan) (fun _ => invalidBody)
+
+@[simp] theorem evalWith_model (read : Reader) (text : Source) (context : Native.Context) (scan : BodyScan) :
+    evalWith modelImports read text context scan = eval read text context scan := by
+  simp only [evalWith, Command.evalWith_model]
+  rfl
 
 def render : List String :=
   ["result", ":", "body_scan", ":="] ++ call "body_token" [["text"], ["context"], ["scan"], ["for_keyword"]] ++
