@@ -182,6 +182,10 @@ private theorem candidate_statement_body_body : Source.expressionBody "statement
   rw [BodyNative.rendered_statement_body]
   decide +kernel
 
+private theorem candidate_loop_body_body : ordinaryFunction "loop_body" SourceShape.bodyTokens = some LoopNative.render := by
+  rw [LoopNative.rendered_candidate]
+  decide +kernel
+
 private theorem candidate_conditional_body_body : ordinaryFunction "conditional_body" SourceShape.bodyTokens = some (BodyNative.conditionalFunction.render "conditional_body") := by
   rw [BodyNative.rendered_conditional_body]
   decide +kernel
@@ -300,6 +304,12 @@ private theorem candidate_body_statement_body_spec_header : functionHeader "stat
   decide +kernel
 
 private theorem candidate_body_statement_body_impl_header : functionHeader "statement_body" "is" SourceShape.bodyTokens = some body_statement_body_impl_header := by
+  decide +kernel
+
+private theorem candidate_body_loop_body_spec_header : functionHeader "loop_body" ";" SourceShape.bodyTokens = some body_loop_body_spec_header := by
+  decide +kernel
+
+private theorem candidate_body_loop_body_impl_header : functionHeader "loop_body" "is" SourceShape.bodyTokens = some body_loop_body_impl_header := by
   decide +kernel
 
 private theorem candidate_body_conditional_body_spec_header : functionHeader "conditional_body" ";" SourceShape.bodyTokens = some body_conditional_body_spec_header := by
@@ -491,6 +501,7 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   native := native_checked
   basic_body_body := candidate_basic_body_body
   statement_body_body := candidate_statement_body_body
+  loop_body_body := candidate_loop_body_body
   conditional_body_body := candidate_conditional_body_body
   alternative_body_body := candidate_alternative_body_body
   body_tail_body := candidate_body_tail_body
@@ -525,6 +536,8 @@ theorem candidate_checked : Checked SourceShape.specTokens SourceShape.bodyToken
   body_basic_body_impl_header := candidate_body_basic_body_impl_header
   body_statement_body_spec_header := candidate_body_statement_body_spec_header
   body_statement_body_impl_header := candidate_body_statement_body_impl_header
+  body_loop_body_spec_header := candidate_body_loop_body_spec_header
+  body_loop_body_impl_header := candidate_body_loop_body_impl_header
   body_conditional_body_spec_header := candidate_body_conditional_body_spec_header
   body_conditional_body_impl_header := candidate_body_conditional_body_impl_header
   body_alternative_body_spec_header := candidate_body_alternative_body_spec_header

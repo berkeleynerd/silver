@@ -3,6 +3,7 @@ module
 public import Silver.PredicateNativeSourceChecks
 public import Silver.PredicateBasicSourceCandidate
 public import Silver.PredicateBodyCandidates
+public import Silver.PredicateLoopCandidate
 public import Silver.PredicateAdapterSourceCandidate
 public import Silver.PredicateOuterCandidates
 public import Silver.PredicateSourceShape
@@ -77,7 +78,7 @@ def spec_spelling_spec_header : List String :=
   ["(", "token", ":", "token_kind", ")", "return", "string", "with", "global", "=>", "null", ",", "post", "=>", "spelling", "'", "result", "'", "first", "=", "1", "and", "then", "spelling", "'", "result", "'", "length", "in", "1", "..", "16"]
 
 def spec_is_word_token_spec_header : List String :=
-  ["(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "or_keyword", "|", "not_keyword", "|", "null_keyword", ")"]
+  ["(", "token", ":", "token_kind", ")", "return", "boolean", "with", "global", "=>", "null", ",", "post", "=>", "is_word_token", "'", "result", "=", "(", "token_kind", "'", "pos", "(", "token", ")", "in", "0", "..", "10", "or", "else", "token", "in", "constant_keyword", "|", "string_name", "|", "arguments_name", "|", "first_or_default_name", "|", "if_keyword", "|", "input_is_valid_name", "|", "then_keyword", "|", "else_keyword", "|", "elsif_keyword", "|", "reject_name", "|", "and_keyword", "|", "length_name", "|", "or_keyword", "|", "not_keyword", "|", "null_keyword", "|", "integer_name", "|", "for_keyword", "|", "in_keyword", "|", "reverse_keyword", "|", "loop_keyword", ")"]
 
 def spec_is_argument_form_impl_header : List String :=
   ["(", "form", ":", "form_kind", ")", "return", "boolean"]
@@ -92,6 +93,12 @@ def body_statement_body_spec_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "statement_body", "'", "result", ")", "and", "then", "(", "statement_body", "'", "result", ".", "position", "=", "0", "or", "else", "statement_body", "'", "result", ".", "position", ">", "scan", ".", "position", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "scan", ".", "position", ",", "decreases", "=>", "2", ")"]
 
 def body_statement_body_impl_header : List String :=
+  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan"]
+
+def body_loop_body_spec_header : List String :=
+  ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan", "with", "global", "=>", "null", ",", "pre", "=>", "text", "'", "first", "=", "1", "and", "then", "text", "'", "length", "in", "1", "..", "max_source_length", "and", "then", "valid_context", "(", "text", ",", "context", ")", "and", "then", "valid_body", "(", "text", ",", "context", ",", "scan", ")", ",", "post", "=>", "valid_body", "(", "text", ",", "context", ",", "loop_body", "'", "result", ")", "and", "then", "(", "loop_body", "'", "result", ".", "position", "=", "0", "or", "else", "loop_body", "'", "result", ".", "position", ">", "scan", ".", "position", ")", ",", "subprogram_variant", "=>", "(", "decreases", "=>", "(", "text", "'", "last", "+", "1", ")", "-", "scan", ".", "position", ",", "decreases", "=>", "1", ")"]
+
+def body_loop_body_impl_header : List String :=
   ["(", "text", ":", "string", ";", "context", ":", "body_context", ";", "scan", ":", "body_scan", ")", "return", "body_scan"]
 
 def body_conditional_body_spec_header : List String :=
@@ -218,7 +225,7 @@ def scan_result_declaration : List String :=
   ["record", "state", ":", "parser_state", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
 
 def body_context_declaration : List String :=
-  ["record", "names", ":", "binding_environment", ";", "dynamic_first", ",", "dynamic_after", ":", "literal_position", ";", "end", "record"]
+  ["record", "names", ":", "binding_environment", ";", "scalar_names", ":", "scalar_expressions", ".", "environment", ";", "dynamic_first", ",", "dynamic_after", ":", "literal_position", ";", "end", "record"]
 
 def body_scan_declaration : List String :=
   ["record", "facts", ":", "paths", ".", "context", ";", "position", ":", "literal_position", ";", "target", ":", "binding_count", ";", "capacity", ":", "capacity_value", ";", "assigned", ",", "output", ":", "boolean", ";", "end", "record"]
@@ -230,7 +237,7 @@ def form_kind_declaration : List String :=
   ["(", "direct_form", ",", "argument_form", ")"]
 
 def token_kind_declaration : List String :=
-  ["(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "or_keyword", ",", "not_keyword", ",", "not_equal", ",", "less", ",", "greater", ",", "greater_equal", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ",", "context_clauses", ")"]
+  ["(", "with_keyword", ",", "io_name", ",", "procedure_keyword", ",", "main_name", ",", "is_keyword", ",", "pragma_keyword", ",", "spark_mode_name", ",", "on_name", ",", "begin_keyword", ",", "put_line_name", ",", "end_keyword", ",", "left_parenthesis", ",", "right_parenthesis", ",", "semicolon", ",", "dot", ",", "string_literal", ",", "colon", ",", "constant_keyword", ",", "string_name", ",", "assignment", ",", "arguments_name", ",", "first_or_default_name", ",", "if_keyword", ",", "input_is_valid_name", ",", "then_keyword", ",", "else_keyword", ",", "elsif_keyword", ",", "reject_name", ",", "ampersand", ",", "and_keyword", ",", "or_keyword", ",", "not_keyword", ",", "not_equal", ",", "less", ",", "greater", ",", "greater_equal", ",", "apostrophe", ",", "length_name", ",", "less_equal", ",", "capacity_literal", ",", "equal", ",", "argument_declaration", ",", "declarations", ",", "assignment_target", ",", "target_reference", ",", "dynamic_reference", ",", "assignment_value", ",", "output_expression", ",", "comparison_expression", ",", "null_keyword", ",", "statements", ",", "context_clauses", ",", "integer_name", ",", "for_keyword", ",", "in_keyword", ",", "reverse_keyword", ",", "loop_keyword", ",", "range_delimiter", ")"]
 
 def token_sequence_declaration : List String :=
   ["array", "(", "positive", "range", "<", ">", ")", "of", "token_kind"]
@@ -272,7 +279,7 @@ def concatenation_count_declaration : List String :=
   ["natural", "range", "0", "..", "max_concatenations"]
 
 def valid_context_expression : List String :=
-  ["valid_names", "(", "text", ",", "context", ".", "names", ")", "and", "then", "valid_name_state", "(", "text", ",", "context", ".", "dynamic_first", ",", "context", ".", "dynamic_after", ")"]
+  ["valid_names", "(", "text", ",", "context", ".", "names", ")", "and", "then", "scalar_expressions", ".", "valid_environment", "(", "text", ",", "context", ".", "scalar_names", ")", "and", "then", "valid_name_state", "(", "text", ",", "context", ".", "dynamic_first", ",", "context", ".", "dynamic_after", ")"]
 
 def valid_body_expression : List String :=
   ["scan", ".", "position", "<=", "text", "'", "last", "+", "1", "and", "then", "scan", ".", "target", "<=", "context", ".", "names", ".", "count"]
@@ -283,6 +290,7 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   native : NativeSourceChecks.Checked bodyTokens
   basic_body_body : ordinaryFunction "basic_body" bodyTokens = some (BasicNative.basicRender)
   statement_body_body : Source.expressionBody "statement_body" bodyTokens = some (BodyNative.statementRender)
+  loop_body_body : ordinaryFunction "loop_body" bodyTokens = some LoopNative.render
   conditional_body_body : ordinaryFunction "conditional_body" bodyTokens = some (BodyNative.conditionalFunction.render "conditional_body")
   alternative_body_body : ordinaryFunction "alternative_body" bodyTokens = some (BodyNative.alternativeFunction.render "alternative_body")
   body_tail_body : ordinaryFunction "body_tail" bodyTokens = some (BodyNative.tailFunction.render "body_tail")
@@ -317,6 +325,8 @@ structure Checked (specTokens bodyTokens : List String) : Prop where
   body_basic_body_impl_header : functionHeader "basic_body" "is" bodyTokens = some body_basic_body_impl_header
   body_statement_body_spec_header : functionHeader "statement_body" ";" bodyTokens = some body_statement_body_spec_header
   body_statement_body_impl_header : functionHeader "statement_body" "is" bodyTokens = some body_statement_body_impl_header
+  body_loop_body_spec_header : functionHeader "loop_body" ";" bodyTokens = some body_loop_body_spec_header
+  body_loop_body_impl_header : functionHeader "loop_body" "is" bodyTokens = some body_loop_body_impl_header
   body_conditional_body_spec_header : functionHeader "conditional_body" ";" bodyTokens = some body_conditional_body_spec_header
   body_conditional_body_impl_header : functionHeader "conditional_body" "is" bodyTokens = some body_conditional_body_impl_header
   body_alternative_body_spec_header : functionHeader "alternative_body" ";" bodyTokens = some body_alternative_body_spec_header
