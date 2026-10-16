@@ -1,4 +1,5 @@
 with Silver_Report_Observations;
+with Silver_Report_Projection_Observations;
 
 package Silver_Library_Reports with SPARK_Mode => On is
    --  Source-bounded application sequences can produce many proved checks and
@@ -28,6 +29,27 @@ package Silver_Library_Reports with SPARK_Mode => On is
      (Report : Silver_Report_Observations.Bytes.Sequence;
       Kind : Application_Kind := Argument_Output) return Boolean
      with Ghost => Static, Global => null;
+
+   --  The original report is an unbounded mathematical byte sequence. Only
+   --  storage of the projected representation is limited. The premise records
+   --  actual scanner/member observations; it never assumes audit acceptance.
+   procedure Application_Projection_Correspondence
+     (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String;
+      Kind : Application_Kind := Argument_Output)
+     with Ghost => Static, Global => null,
+       Pre => Projected'First = 1 and then Projected'Length <= Max_Report_Length
+         and then Silver_Report_Projection_Observations.Audit_Projection_Observations
+           (Original, Silver_Report_Observations.From_String (Projected)),
+       Post => Unbounded_Application_Report_Policy (Original, Kind) =
+         Application_Report_Policy (Projected, Kind);
+
+   procedure Runtime_Projection_Correspondence
+     (Original : Silver_Report_Observations.Bytes.Sequence; Projected : String; Kind : Report_Kind)
+     with Ghost => Static, Global => null,
+       Pre => Projected'First = 1 and then Projected'Length <= Max_Runtime_Report_Length
+         and then Silver_Report_Projection_Observations.Audit_Projection_Observations
+           (Original, Silver_Report_Observations.From_String (Projected)),
+       Post => Unbounded_Runtime_Report_Policy (Original, Kind) = Runtime_Report_Policy (Projected, Kind);
 
    --  Source-specific GNATprove 16.1 report policy for the selected runtime.
    --  This is a bounded format/coverage audit under the trusted tool premise,
