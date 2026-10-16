@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes and for-loop indexes, with no loop-carried accumulators and only for loops inside functions, so proofs should discharge without annotations.
 
-Position 529 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 529 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Prime over a subtype 0..5000 tests divisors with a for loop over 2
 - **overflow**: Coordinates are subtypes of -50..50 so a*a+b*b is at most 5000, which the provers bound easily despite the nonlinear multiplication.
 - **division**: The mod divisor is a for-loop index over 2..70, so it is statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, for loops, functions, procedures and Put without a newline.
 

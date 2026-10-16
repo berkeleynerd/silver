@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The loop index is bounded by its declared range so the square fits in the wide type and the only loop-carried state is a Boolean and a ranged result, so every check follows from types; the not-found branch gives a visible outcome rather than narrowing behavior.
 
-Position 184 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 184 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a candidate subtype 1 .. 99_736 and a 64-bit square type, then loop over
 
 - **overflow**: The square of a candidate up to 99_736 reaches about 9.95e9, so it is computed in a declared 64-bit-range type whose range type bounds make the multiplication provably safe.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, 'Image of scalars and string building.
 

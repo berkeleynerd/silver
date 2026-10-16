@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index, length and counter is bounded by declared subtypes and explicit guards before use, with the only loop being a procedure-level while that needs no termination proof, so no annotation is needed but the bounded-table and file-input library behavior must be carefully shaped.
 
-Position 1331 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1331 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A procedure reads unixdict.txt through an admitted file-input library operation 
 - **initialization**: Word buffers and the table are fully initialized by aggregates and only the first Count entries are read, so the flow analysis is routine but must be shaped carefully.
 - **termination**: The line-reading while loop sits in a procedure, which gets no termination check, and the ordered test uses a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures, Put without a newline and file input.
 

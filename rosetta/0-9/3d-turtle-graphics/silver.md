@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only asks for a 3D house and bar chart, which text art meets, and integer projection over bounded grids has types or guards bounding every check.
 
-Position 675 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 675 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the cube corners, pyramid apex and five bar heights as constant integer ar
 - **overflow**: Integer-scaled rotation and projection arithmetic is discharged by declaring coordinates as small ranged subtypes and using a fixed table of precomputed sine and cosine values.
 - **index**: Projected points are clipped by an explicit guard to the character grid bounds before each plot, and out-of-grid points are skipped as a documented behavior.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string building, for loops, procedures, functions, Put without a newline and 'Image of scalars.
 

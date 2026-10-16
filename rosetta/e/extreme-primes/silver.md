@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is plain integer arithmetic with types and cap guards bounding the loop-carried sum and divisors, and the loops can be shaped as for loops in functions or while loops in procedures, so no annotation is needed. The main burden is careful range subtypes for the accumulators and number-to-text output.
 
-Position 821 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 821 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Values are integers in a subtype capped at 10**12; Is_Prime is a function using 
 - **range**: Next-prime search is a bounded for loop and, if it finds nothing within the window, the program prints a specified failure message instead of continuing.
 - **other**: Trial division over about 100k sums up to 8e10 is slow but only affects runtime, not proof, and the 10,000th stretch extra is omitted as optional.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, case statements, 'Image of scalars, string building and Put without a newline.
 

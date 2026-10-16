@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing can be made safe by explicit bound guards before each operation, and the only unbounded-looking loop is a while loop in a procedure, so no annotation is needed, though several loop-carried values each need a careful guard.
 
-Position 284 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 284 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a 64-bit integer term, a count of primes used, and a fixed-capacity array o
 - **division**: Trial division by stored primes is nonlinear and loop-carried, so a guard that the divisor is at least 2 precedes each mod and the divisor range is a declared subtype.
 - **termination**: The next-prime search uses a while loop, which is acceptable because it lives in a procedure, and it is bounded by a candidate-limit guard that rejects rather than looping unboundedly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

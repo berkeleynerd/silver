@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and loops are statically bounded and divisions are guarded, but floating-point arithmetic through the Newton and elimination loops needs careful range guards to discharge overflow checks without invariants, so the outcome depends on program shape.
 
-Position 1100 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1100 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Fixed-capacity 3x3 Float matrices and 3-element vectors with an active size, a p
 - **division**: Pivot division requires a guard that the absolute pivot exceeds a small epsilon, with a singular-Jacobian outcome printed as a visible failure.
 - **overflow**: Each updated guess is checked against a fixed magnitude bound before storing, since loop-carried float values are known only by their type range without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, arrays, multidimensional arrays, for loops, procedures, functions, Boolean objects, Put without a newline and string building.
 

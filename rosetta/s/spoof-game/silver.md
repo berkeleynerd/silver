@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small ranged subtypes, a bounded generator and parse-then-validate guards just before use, and the round count is fixed so no loop needs an invariant or variant. The task is under-specified, so a simple interactive round-based game meets it without recursion, heap or annotations.
 
-Position 1226 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1226 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program plays a fixed number of rounds in a for loop inside a procedure, kee
 - **overflow**: The deterministic generator multiplies a state bounded to a 31-bit subtype by a constant, which fits in 64 bits by the declared range, though the nonlinear product needs the provers to cope.
 - **range**: Parsed player input is checked against 0..3 for coins and 0..6 for guesses before conversion to the ranged subtypes, with a Reject outcome on invalid or missing input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, Put without a newline, standard input, text parsing and 'Image of scalars.
 

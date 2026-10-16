@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed-bound arrays and guarded loop-carried values with no recursion or heap, so no annotation is needed, but several accumulators each need a careful guard.
 
-Position 832 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 832 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed a Boolean sieve over 2..999999 built with a while loop in a procedure (mar
 - **termination**: The sieve's while loop and any digit-extraction loop stay in procedures, which get no termination check.
 - **stack**: Three million-entry arrays are fixed-size but large, so they depend on the environmental memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and case statements.
 

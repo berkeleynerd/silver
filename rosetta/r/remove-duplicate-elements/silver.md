@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The quadratic scan uses only for loops, bounded arrays and a guarded counter, so every index and range check follows from types and one explicit guard with no annotations needed.
 
-Position 204 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 204 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the example array (1,2,3,4,5,5,6,7,1) as a constant array of Integer in a 
 - **index**: The output count is a loop-carried value, so it is declared with a range subtype equal to the array capacity and incremented only under an explicit guard that Count is below the capacity (the output array is as large as the input, so this guard always holds).
 - **range**: The Count increment would not be provable from the type alone after the first iteration, so the guard Count < Capacity just before the increment discharges it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, 'Image of scalars, string building, Put without a newline, procedures and Boolean objects.
 

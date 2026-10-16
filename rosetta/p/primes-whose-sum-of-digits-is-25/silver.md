@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by a ranged subtype and every loop is a static-bound for loop, so overflow, division and termination checks follow from types alone with no annotations.
 
-Position 327 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 327 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare subtype Candidate is Integer range 1..4999; a function Digit_Sum extract
 - **overflow**: The digit sum and the prime-test product are bounded because N is a subtype of 1..4999 and the divisor loop runs over a fixed range 2..70.
 - **termination**: Only for loops with static bounds are used inside functions, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars, Put without a newline and string building.
 

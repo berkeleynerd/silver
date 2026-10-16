@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string and array manipulation in procedures with explicit capacity guards and visible rejection, so no annotations are needed, but index and length checks on loop-carried positions make careful program shape necessary.
 
-Position 1243 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1243 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Store the story as a fixed-capacity array of lines, each a bounded String buffer
 - **overflow**: Line counts, lengths and shift offsets are bounded by subtype ranges (e.g. 0..200 lines, 0..1000 characters) so arithmetic on them cannot overflow.
 - **termination**: All loops live in procedures, so no termination check applies, and the replace-all scan advances past each replacement so it still finishes in practice.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, string indexing, string building, for loops, while loops, procedures, standard input, Put without a newline and Boolean objects.
 

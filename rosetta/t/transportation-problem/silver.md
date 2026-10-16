@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain integer array work with while loops confined to procedures and fixed bounds, so no annotation is needed, but many loop-carried potentials, indices and quantities each need a careful guard to discharge without invariants.
 
-Position 758 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 758 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 2x3 example (supply, demand, integer cost matrix) as constants in boun
 - **termination**: The stepping loop, potential propagation and cycle search are all while loops inside procedures (never functions), so no termination check arises, and an iteration cap with a visible reject outcome bounds them.
 - **initialization**: The plan, potentials and visited-flag arrays are fully initialized by aggregates or for loops before the while loops read them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

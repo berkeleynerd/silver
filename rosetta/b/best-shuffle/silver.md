@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from for-loop ranges over a fixed-capacity buffer, with only the loop-carried score needing a guard, and no recursion, annotations or exceptions are required. The greedy swap is deterministic and acceptable under the task, so the outlook is plausible rather than likely because of the guarded accumulator and string assembly.
 
-Position 552 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 552 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each embedded test string is copied into a fixed-capacity Character array with a
 - **index**: Swap indexes come from nested for loops over the buffer's own range, so every index check follows from the loop bounds.
 - **length**: The output line is concatenated from bounded pieces whose maximum lengths are statically below the buffer capacity, with the Image of a small ranged score.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, 'Image of scalars, arrays, for loops and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only the count is required and it follows from a bounded iterative DP, but the arithmetic is nonlinear big-number work carried through nested loops with no invariants, so it needs careful guarding yet no annotation. The optional ASCII-art enumeration is left out.
 
-Position 1387 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1387 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Compute rooted-tree counts (carbon with up to three child subtrees) by size usin
 - **overflow**: Combination counts (multisets of k subtrees of equal size) are computed by an additive DP instead of exact division, avoiding nonlinear division while keeping each step a bounded big-number add or small multiply.
 - **termination**: All iteration is for loops or while loops inside procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, big numbers, 'Image of scalars, text parsing, string building, Put without a newline and exit status.
 

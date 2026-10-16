@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All state is small bounded integers updated by guarded transitions inside a procedure-based while loop with a fixed move cap, so every check follows from types and guards without invariants.
 
-Position 1220 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1220 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -16,7 +16,7 @@ The program keeps elapsed time and the sand remaining in the upper bulb of each 
 
 - **overflow**: Elapsed time and sand counters are ranged integers with a capped move count, and each update is guarded by a comparison just before it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, while loops, procedures, standard input and Put without a newline.
 

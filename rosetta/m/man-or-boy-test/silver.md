@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program has no true closures or recursion, so the Oracle is not violated, but its iterative defunctionalised evaluator carries many loop-carried indices and values that each need hand-placed guards, making automatic discharge plausible but not routine. Fixed capacity (about 800 frames, depth about 1000) covers k = 10 where A is called 722 times, and larger k would be rejected visibly.
 
-Position 843 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 843 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Model each Algol activation record as an entry in a fixed-size array of records 
 - **termination**: The driver is a while loop inside a procedure, which gets no termination check, and a step-budget counter bounds work and rejects when exhausted.
 - **stack**: The Algol recursion is replaced by an explicit fixed-capacity stack and a frame pool so no input-dependent recursion depth exists.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, case statements and 'Image of scalars.
 

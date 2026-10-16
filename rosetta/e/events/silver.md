@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task asks for a manual-reset event that one task waits on while the main program signals it after 1 second. That needs a second task and a synchronization object. SPARK allows this under the Ravenscar/Jorvik profiles, using a protected object with a Boolean-barrier entry, so no fixed Oracle rule is broken. It only needs tasking, delay and console output, which Silver does not have yet.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, records and packages.
 

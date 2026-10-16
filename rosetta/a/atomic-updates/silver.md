@@ -13,7 +13,7 @@ A library package declares a protected object holding a 13-element array of boun
 - **range**: The clamped increment between -Data(J) and Data(I) keeps both buckets non-negative through explicit if guards before each update.
 - **overflow**: The displayed sum of 13 buckets fits because each bucket is bounded by a declared range whose 13-fold product lies within Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, arrays, for loops, while loops, procedures, functions, packages, tasking, 'Image of scalars and Put without a newline.
 

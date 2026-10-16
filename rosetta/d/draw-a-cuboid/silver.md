@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by a fixed-size ASCII-art grid with static dimensions and for loops only, so all index and range checks follow from constants and loop ranges without any annotation.
 
-Position 653 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 653 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Use a constant 10x11 Character grid (Height 3, Width 2, Depth 4 as static consta
 
 - **index**: Every Result(row, col) index is an affine expression of for-loop variables with constant Width, Height and Depth, so a fixed-size subtype-ranged array with static bounds lets the provers discharge each index check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, multidimensional arrays, for loops, procedures, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded floating-point arithmetic over a fixed 96-element array with a capped search loop in a procedure, so no annotation is needed, but proving no overflow in Exp and the squares depends on careful range guards and an admitted Exp.
 
-Position 1071 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1071 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the 96 daily totals as a constant Integer array and implement the sum of s
 - **termination**: The search loop lives in a procedure and uses a fixed iteration cap so no variant is needed and the result is not altered.
 - **other**: Whether the elementary function library admits Exp with a verified contract is an assumption about future library operations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, arrays, for loops, procedures, functions, string building and Put without a newline.
 

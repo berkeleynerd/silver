@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is on integers bounded by a fixed 500,000 limit, with array accesses guarded just before use and loops confined to procedures, so no annotation is needed, though the several loop-carried indexes require careful guard placement.
 
-Position 265 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 265 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve the primes up to a fixed bound of 500,000 (above the 10,000th Ramanujan pr
 - **range**: The slot index c+1 for the Ramanujan table is guarded to be at most 10,000 before use, so counts above that are simply skipped as irrelevant to the required outputs.
 - **termination**: The sieve while loops live in procedures, which get no termination check, and each makes progress by a positive stride.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

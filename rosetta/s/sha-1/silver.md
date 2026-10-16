@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is wraparound arithmetic on a modular type, static-bound array indexing in for loops and masked table lookups, so all checks follow from types and loop ranges with no loop-carried guard needed. The single-block fixed message is a documented resource limit that keeps the program faithful to the digest of the task's example string.
 
-Position 1284 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1284 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program hashes an embedded message such as "Rosetta Code" (shorter than 56 b
 - **range**: Hex-digit lookup uses Shift_Right and a mask of 15 on a 32-bit modular word, then converts to an index subtype of 0..15, which the provers discharge from the mask bound.
 - **overflow**: All round arithmetic is in a modular type where addition wraps by definition, so no overflow check arises; conversions from Character'Pos (0..255) into the word type are statically in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, characters, arrays, for loops, string indexing, string building, integers, procedures, functions and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** A shunting-yard parser with explicit stacks plus postorder array evaluation avoids recursion, heap use and while loops in functions. Every check rests on a guard placed just before the operation or on 64-bit arithmetic over 32-bit-ranged operands, but there are many loop-carried stack tops and counters and one nonlinear multiply, so discharge depends on careful program shape.
 
-Position 1145 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1145 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -17,7 +17,7 @@ The AST is a fixed-capacity array of node records (an operator Character, a lite
 - **initialization**: The node, stack and value arrays are initialized whole with aggregates at declaration, so no element read depends on loop-established facts.
 - **termination**: The while loop that reduces operators while they have higher precedence lives in a procedure, so it gets no termination check, and the precedence helper function has no loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, unconstrained arrays, text parsing, 'Image of scalars, for loops, while loops, procedures and functions.
 

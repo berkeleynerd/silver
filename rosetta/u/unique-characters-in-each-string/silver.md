@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Character-indexed array type, a capped counter guarded just before the increment, and for loops over the arrays' own ranges, so no annotation is needed. The only missing pieces are arrays, Character indexing, for loops, procedures and unterminated character output.
 
-Position 974 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 974 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the three strings as constants and keep a Count array indexed by Character
 - **overflow**: The per-character count is capped at 2 by a guard just before the increment, so the increment cannot overflow its small range subtype.
 - **index**: Counts are indexed by Character over an array whose index type is Character and the string is walked with for loops over its own 'Range, so every index check follows from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, arrays, unconstrained arrays, string indexing, for loops, procedures, integers, Put without a newline and Boolean objects.
 

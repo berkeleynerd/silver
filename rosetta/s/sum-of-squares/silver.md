@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Element squares are bounded by the declared element subtype and indexes by Count's range, and the only loop-carried value (the sum) is protected by one guard just before the addition, so everything discharges without annotations. Integers stand in for the numeric vector, avoiding floating-point proof difficulty.
 
-Position 56 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 56 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The vector is a fixed-capacity array of a ranged element subtype (for example -1
 
 - **overflow**: The loop-carried Sum is known only by its type after the first iteration, so an explicit guard before each addition rejects with a visible message if the sum would exceed the Integer limit, which is unreachable for the bounded elements but provable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures and 'Image of scalars.
 

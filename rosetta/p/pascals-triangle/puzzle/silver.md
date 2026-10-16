@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a bounded sum of for-loop indexes with declared ranges, the only loop-carried state is a Boolean flag, and no annotation, recursion or while loop is needed, so all checks follow from types and ranges.
 
-Position 94 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 94 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Brute-force search with nested for loops over X and Z in a small declared range 
 
 - **overflow**: X and Z are for-loop indexes over a small declared range and every brick is a short sum computed directly from them in one expression, so no overflow check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, for loops, procedures, 'Image of scalars and Put without a newline.
 

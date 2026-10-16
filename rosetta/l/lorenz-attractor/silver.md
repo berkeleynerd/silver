@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-iteration for loops, fixed grid bounds and guarded float steps mean every check follows from types or a guard just before the use, but the floating-point Euler recurrence needs careful magnitude guards because no loop invariant can be written. No annotations or recursion are needed, so discharge is plausible rather than certain.
 
-Position 911 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 911 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program holds X, Y, Z as Float and integrates the Lorenz equations (sigma 10
 - **range**: Converting the float position to a grid column or row needs a guard that the scaled value lies within the grid range, and out-of-range points are skipped without altering the plotted result of in-range points.
 - **overflow**: Nonlinear products such as X*(Rho-Z) need the operand bounds from the guard to be strong enough that the provers show no float overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, floating point, multidimensional arrays, string indexing, for loops, procedures and conditional expressions.
 

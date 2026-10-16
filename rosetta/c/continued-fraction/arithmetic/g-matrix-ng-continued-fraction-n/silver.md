@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with guards just before each product and division, and the embedded demo data stays far below the bounds, so the proofs should discharge but only with carefully placed range guards on loop-carried matrix entries.
 
-Position 852 in the [progression](../../../../progression.md#stage-15), in stage 15.
+Position 852 in the [progression](../../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The state is four bounded integer variables for the matrix, and the source is ei
 - **range**: Narrowing the computed 64-bit results back to the bounded entry subtype follows from the guard checks made just before, which the provers handle as linear bounds on the products of bounded operands.
 - **termination**: The only while loops are in procedures, which get no termination check, and an explicit iteration cap with a visible reject outcome keeps the infinite sqrt(2) source finite.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and case statements.
 

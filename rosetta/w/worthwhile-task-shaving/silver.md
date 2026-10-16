@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by constant tables and a wide declared integer range, loops are for loops over array ranges, and output is plain text, so all checks follow from types and static bounds. The only care needed is the 64-bit product range and fixed-width cell buffer lengths.
 
-Position 459 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 459 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Constant arrays hold the nine shaved-seconds values, the six per-five-year frequ
 - **overflow**: The product of frequency, shaved seconds and five years reaches about 8e9, so it is computed in a declared 64-bit range type whose constant array elements bound every operand.
 - **length**: Each cell is built in a fixed 13-character buffer with a padding procedure that guards the number's digit count before copying, so no slice can exceed the buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building, Put without a newline and characters.
 

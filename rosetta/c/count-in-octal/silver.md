@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from Natural and Integer types and for loops over fixed ranges with no loop-carried value needing an invariant, and the digit buffer of 11 characters holds Integer'Last in octal (17777777777), so the program should prove without annotations.
 
-Position 487 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 487 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Loop I over 0 .. Integer'Last (the maximum of the numeric type in use, as the ta
 - **range**: Each digit is Character'Val (48 + N rem 8) where N is a Natural, so the digit is bounded to 0..7 by the type and the Character range check discharges.
 - **index**: The digit buffer is a fixed 11-character String indexed by a for loop over its own range, and the start-of-number index is found by a for loop over the same range, so index checks follow from the loop bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string building, string indexing and for loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Because the Engel step keeps the denominator fixed and shrinks the numerator, everything fits in 64-bit ranged integers with guards and no products or big numbers, so proofs should discharge with careful range subtypes and guards. Outlook is plausible rather than likely because of the loop-carried numerator range checks and the fixed term capacity.
 
-Position 282 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 282 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Each rational is an embedded numerator and a power-of-ten denominator (pi, e, sq
 - **overflow**: The reverse conversion computes n = (n + d) / a backwards, and the loop-carried result is checked against d with a visible rejection before it is stored in the ranged subtype.
 - **termination**: All while loops are inside procedures, which receive no termination check, and the numerator strictly decreases so the loop also terminates in practice.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

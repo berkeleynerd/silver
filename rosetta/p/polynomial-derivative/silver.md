@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by declared coefficient and degree ranges and all loops are for loops over array ranges in procedures, so every check follows from types and guards without annotations.
 
-Position 616 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 616 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent a polynomial as a record holding a bounded coefficient array (index 0.
 - **overflow**: The product i*coef(i) is bounded by declaring coefficients in a small range such as -1000..1000 and degree at most 8, so it fits Integer.
 - **length**: Output text is built in a fixed-size buffer sized for the worst-case term count and digits, with a guard before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, for loops, procedures, Put without a newline, string building and 'Image of scalars.
 

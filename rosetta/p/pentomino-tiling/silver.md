@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays and small ranged integers, and the search can be turned into an iterative procedure with explicit stack and guards, so no annotations are needed, but the loop-carried indices and the backtracking state require careful program shape.
 
-Position 866 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 866 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The 12 pentominoes' orientations are embedded as constant tables of cell offsets
 - **range**: The stack depth and position cursor are declared with subtypes bounded by 12 and 64 and guarded before each increment or decrement, with a visible outcome if a bound is hit.
 - **overflow**: All counters and positions are small ranged subtypes, so the arithmetic on them stays within Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Put without a newline, string building and case statements.
 

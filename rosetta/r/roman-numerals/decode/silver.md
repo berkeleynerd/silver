@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The decoder is a single for loop over a bounded string with a character-to-value case statement, so index checks follow from the loop range and the accumulator is bounded by the length cap times 1000, which fits in Integer.
 
-Position 785 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 785 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 14 example numerals as fixed-length String constants (a table of strin
 - **overflow**: The running total is loop-carried, so it is held in an Integer-range subtype with each digit value at most 1000, and the length is capped at a fixed bound (for example 32) with an over-length numeral rejected visibly, so the sum stays within range.
 - **range**: The subtractive step is computed by comparing each digit with the next and adding or subtracting its value, and unknown letters give a visible rejection outcome, so no value leaves its range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, arrays, for loops, case statements, procedures, 'Image of scalars, string building and Put without a newline.
 

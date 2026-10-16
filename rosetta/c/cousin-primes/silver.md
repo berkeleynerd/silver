@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges, fixed for-loop bounds and a guard before the counter increment, so no loop invariant or variant is needed. The program is only a bounded trial-division loop with 'Image output, which is within reach once integers, for loops, functions and Put exist.
 
-Position 317 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 317 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ An Is_Prime function takes a subtype Natural 0 .. 1003 and tests divisors D in 2
 - **overflow**: The pair counter is a loop-carried value, so it is declared as a subtype with range 0 .. 1000 and incremented only under a guard that it is below 1000, which the 995 candidates can never reach.
 - **termination**: Is_Prime uses only a for loop over the fixed divisor range 2 .. 31, so the function termination check discharges without a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars, Put without a newline and procedures.
 

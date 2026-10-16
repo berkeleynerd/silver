@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loop bounds and values are small and typed (counts at most 17, sums at most 1377, totals below 10^17), so most checks follow from types, with guards needed only on the accumulating total and multinomial product and on the odometer's carried state.
 
-Position 286 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 286 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Enumerate all multisets of k items from the ten squares as count vectors (ten co
 - **termination**: The enumeration and the chain-to-1-or-89 loops are while loops, which is acceptable only because they sit in procedures, which get no termination check.
 - **range**: The sum of squared values (at most 1377) is accumulated in a loop, so it is kept in a Natural subtype with a guard before indexing the precomputed 1-or-89 table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, procedures, for loops, while loops, 'Image of scalars, string building and Put without a newline.
 

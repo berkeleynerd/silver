@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task only asks to run a fixed command like 'ls', so the only thing it needs is a process-execution effect. No Oracle rule rules that out, because Rule 6 lets a specified library operation such as a spawn with a checked return code provide it; the foreign-call import in the existing solution is just one way to write it, not a requirement, so the task is a candidate once a process library is admitted.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and subprograms.
 

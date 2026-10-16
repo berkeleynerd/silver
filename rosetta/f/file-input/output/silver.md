@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the buffer's declared capacity, the Length subtype and status guards before the slice write, with no loops or recursion in user code. The needed whole-file read and write operations are new library effects with specified failure outcomes, not Oracle conflicts.
 
-Position 1568 in the [progression](../../../progression.md#stage-37), in stage 37.
+Position 1568 in the [progression](../../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program holds the file contents in a fixed-capacity String buffer (for examp
 
 - **length**: The input size is unknown, so the read operation must report the byte count within the buffer capacity or an explicit too-large status, and the slice written is guarded by that status and a Length subtype bounded by the capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File input, file output, string building, string indexing, ranged subtypes, exit status and standard error.
 

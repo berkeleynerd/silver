@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only loop-carried value is Count, which a guard placed just before the increment protects; every other check follows from static for-loop index ranges and a ranged parameter subtype. Termination needs no variant because there are no while loops and no recursion.
 
-Position 311 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 311 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Main has a for loop over the candidates P in 2 .. 1500, a bound that is document
 - **range**: Passing 2 * P + 1 to Is_Prime, whose parameter subtype is 1 .. 3001, follows directly from the static range of the for-loop index P.
 - **termination**: Is_Prime uses only a for loop that exits early on D * D > N or a found divisor, so the function needs no variant to prove termination.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions and 'Image of scalars.
 

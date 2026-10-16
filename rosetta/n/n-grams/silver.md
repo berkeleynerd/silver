@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loop indexes and short guards, with no recursion or heap, though the nested loop-carried dictionary size and counts need careful guards, so discharge is plausible rather than certain.
 
-Position 553 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 553 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The embedded text "Live and let live" is held as a String constant, and for N in
 - **index**: Gram start positions and comparison offsets are for-loop indexes bounded so that i+k stays within the text, with the loop upper bound computed from 'Length and N guarded before use.
 - **length**: Each gram is copied into a fixed 4-character buffer after upper-casing, and the output line is built in a bounded buffer so its computed length is within the declared capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, procedures and Put without a newline.
 

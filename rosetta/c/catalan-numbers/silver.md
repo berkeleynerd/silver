@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain bounded integer arithmetic with 15 iterations, and the overflow and range checks discharge from the wide temporary type plus an explicit guard before the assignment. Nonlinear multiply and divide on loop-carried values make it depend on careful program shape rather than being routine.
 
-Position 161 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 161 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use the iterative recurrence C_n = C_(n-1)*2*(2n-1)/(n+1) in a single for loop o
 - **division**: The divisor I+1 is at least 2 because I is a for-loop index in 1..15, which is routine.
 - **length**: Building the 'N = value' output line needs a bounded buffer sized for the largest Image text, which is routine once the lengths are statically bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

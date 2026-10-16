@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes are range-typed constants 1..4 and merges use for loops over fixed arrays, so checks follow from types and guards, but capped tile and score arithmetic and the generator's modular arithmetic need careful range guards, hence plausible rather than likely.
 
-Position 1554 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1554 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The 4x4 board is a two-dimensional array of tiles with a capped range type, and 
 - **termination**: The turn loop is a while loop in a procedure bounded by end of input, so no termination check applies, and merging uses only for loops over fixed ranges.
 - **initialization**: The board, score and generator state are fully initialised by aggregates before the first turn.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, Put without a newline, standard input and membership tests.
 

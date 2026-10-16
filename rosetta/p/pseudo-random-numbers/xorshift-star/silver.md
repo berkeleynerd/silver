@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything reduces to modular 64-bit arithmetic and a bounded for loop with a small guarded counter array, so all checks follow from types and literal bounds without annotations. The task's float step is replaced by an exactly equivalent integer computation, and the Ada solution's Unseeded_Error exception is not needed because the seeds are fixed nonzero constants.
 
-Position 1273 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1273 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a modular Unsigned_64 state, with the xorshift steps written as xor with div
 - **index**: The bucket index is (Unsigned_64 (R) * 5) / 4294967296 with R an Unsigned_32, so it lies in 0..4, which the provers should establish from the type bounds, and a guard before indexing makes it routine.
 - **overflow**: The 100_000 increments of a bucket count are loop-carried, so each increment is guarded by a comparison against a literal bound (or uses a counter type whose range exceeds the iteration count) so no invariant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and string building.
 

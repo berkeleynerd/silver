@@ -12,7 +12,7 @@ A library package would declare a protected Checkpoint with a ready count, worke
 - **overflow**: The arrival count and cycle counter inside the protected object are loop-carried across entries, so they need declared ranges with explicit wraparound or reset guards before each increment.
 - **termination**: Ravenscar and Jorvik forbid task termination, so workers must loop forever or idle after a fixed number of cycles, leaving a program that never exits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, packages, integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops and procedures.
 

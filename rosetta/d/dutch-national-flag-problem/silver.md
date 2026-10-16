@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range, all state is bounded by declared types, and the only loop-carried values (counters, write position, generator state) can be range-bounded or guarded, so no annotations are needed. The sort is a counting sort rather than the swap-based Dijkstra partition, since the latter needs loop invariants to bound its three indices.
 
-Position 1172 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1172 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Balls are a fixed-capacity array of 12 over an enumeration (Red, White, Blue), f
 - **overflow**: The per-color counters are loop-carried, so each increment sits behind an explicit guard against the array capacity, with the guard's alternative leaving the counter unchanged.
 - **index**: The write position in the counting-sort refill is loop-carried, so it is guarded against the last array index before each store and the loops run over the array's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, enumerations, arrays, for loops, procedures, functions, Boolean objects, conditional expressions, string building, 'Image of scalars and Put without a newline.
 

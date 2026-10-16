@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared 1..8 coordinate types, a fixed 64-entry stack and guards placed before each board access, and iterative backtracking in a procedure avoids both recursion and variants, though many loop-carried values need careful guarding.
 
-Position 1193 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1193 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 8x8 example as a constant array of small integers (blocked, free, star
 - **termination**: The search loop is a while loop inside a procedure, which gets no termination check, so the proof does not require a variant.
 - **length**: Rendering each board row into a fixed-width text buffer needs computed offsets and integer images, which are discharged by fixed cell widths and guards on buffer position.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, multidimensional arrays, string building, 'Image of scalars, case statements, for loops, while loops, procedures, Put without a newline and characters.
 

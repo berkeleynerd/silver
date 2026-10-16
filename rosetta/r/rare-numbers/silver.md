@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and guards just before each operation, but the reversal accumulator and square-root search are loop-carried nonlinear arithmetic needing careful range-bounded types, and running to 2e9 is slow though not a proof issue.
 
-Position 402 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 402 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure loops a candidate n over a declared 64-bit range from 10 up to a doc
 - **termination**: The unbounded-looking search and binary-search while loops must live in procedures, since functions would need variants; the outer search is bounded by a range-typed counter with an explicit stop at the limit.
 - **range**: Values around 2.04e9 exceed 32-bit Integer, so a 64-bit declared range is needed and n+1 must be guarded at the upper limit with a visible outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is straight-line code calling SPARK-annotated Ada.Numerics.Elementary_Functions on literal in-domain arguments, so no loop-carried facts are needed; the only uncertainty is floating-point finiteness checks and whether the admitted library exposes the Ada.Numerics functions and Float'Image.
 
-Position 1042 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1042 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A parameterless Main procedure declares Float constants (Ada.Numerics.Pi, Ada.Nu
 - **range**: Floor and Ceiling results are shown as floats via Float'Floor and Float'Ceiling, avoiding any Float-to-Integer conversion range check.
 - **length**: Concatenating a label with Float'Image results into Put_Line needs the bounded image length known to the prover, so each image is printed with a short label in a separate Put_Line or in a bounded buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, 'Image of scalars, ranged subtypes, procedures and Put without a newline.
 

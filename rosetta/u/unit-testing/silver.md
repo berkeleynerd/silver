@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** A hand-written test driver needs only bounded integer arithmetic, Boolean flags, straight-line calls and if comparisons, with no loops or loop-carried values, so every check follows from declared ranges. Assertions and contracts are not needed because failures are detected by explicit comparisons with visible outcomes.
 
-Position 1348 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1348 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -16,7 +16,7 @@ The program defines a small pure function over a declared integer range (for exa
 
 - **overflow**: The function under test multiplies values of a declared small range whose result subtype is sized for the maximum product, so the nonlinear multiplication is bounded by types alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, functions, procedures and exit status.
 

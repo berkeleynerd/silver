@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged index subtypes, modular label types and guards, and loops sit in procedures, but many loop-carried indices and bit-shift amounts need careful guarding and no annotation is needed. The recursive traversal is rewritten iteratively, so nothing needs a variant.
 
-Position 1316 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1316 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a fixed example tree (a Cartesian tree built from the sample array) in con
 - **termination**: The stack-climbing and traversal while loops live in procedures, which get no termination check, and the query function uses only straight-line code.
 - **range**: The fixed tree size limit must be a visible rejection when exceeded, and the shift-count lookup table must be indexed only with guarded nonzero masks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and case statements.
 

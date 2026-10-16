@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain deterministic enumeration with small fixed bounds and no annotations are needed since loops live in procedures, but the successor algorithm's loop-carried indexes and levels need careful guards to prove automatically.
 
-Position 465 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 465 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Fix N (for example 5, with the 9-tree output) and enumerate rooted trees as cano
 - **overflow**: The parenthesis buffer position advances in a loop, which is discharged by a buffer of fixed size 2*N and a guard before each write, with the per-tree close count bounded by the level subtype.
 - **termination**: Enumeration uses a while loop with an exit when no successor exists, which is safe because it lives in a procedure and so gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, procedures, string building and Put without a newline.
 

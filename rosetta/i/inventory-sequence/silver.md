@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index or counter increment that a guard immediately before it can discharge, and the loops live in a procedure so no variant is needed. It is plausible rather than likely because the index and counter values are loop-carried and the position of the first element at or above 10,000 may be large, requiring a wide integer type and a visible limit outcome.
 
-Position 260 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 260 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Only the occurrence counts are needed to generate the sequence, so the program k
 - **termination**: The main loops are while loops inside the Main procedure, which gets no termination check, and the sequence is known to keep growing so reaching the 10,000 threshold is not proof-relevant.
 - **range**: The line-formatting buffer for the first-100 display uses fixed-width text built from image conversions, so lengths must be bounded by the integer subtype ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline and Boolean objects.
 

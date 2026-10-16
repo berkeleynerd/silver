@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or addition on values bounded by the Limit constant, and all loops live in a procedure so no variants are needed, but sieve loop-carried indexes and the large fixed array make careful guarding necessary.
 
-Position 269 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 269 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A constant Limit just above 10,000,000 sizes a fixed Boolean sieve array that a 
 - **overflow**: Sums of neighbouring primes and the running counts stay within 32-bit Integer because values never exceed about 10,000,100, and the sieve step addition is guarded by the loop condition.
 - **stack**: A Boolean sieve of several million entries (odd-only storage helps) is a large fixed object whose memory is an environmental premise that GNATprove does not check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only fixed-size arrays, bounded float arithmetic and iterative traversal, with no annotations required, but float range guards and fixed-width decimal formatting make discharge depend on careful program shape.
 
-Position 1200 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1200 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -17,7 +17,7 @@ The network is an embedded array of nodes in post-order (kind Leaf, Series or Pa
 - **overflow**: Bottom-up and top-down passes are plain for loops over the node array, with float values clamped by type ranges so no overflow check depends on loop-carried facts.
 - **other**: Formatting floats to exactly three decimals with column alignment requires a bounded rounding-and-digit routine with guarded range checks on the scaled integer conversion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, floating point, floating-point images, arrays, records, string building, for loops, while loops, procedures, functions and Put without a newline.
 

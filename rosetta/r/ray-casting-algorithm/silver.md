@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled integers with cross-multiplication replace floating point and division, so all checks follow from the coordinate subtype bounds and bounded for-loops with no loop-carried value needing an invariant.
 
-Position 618 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 618 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Coordinates are integers scaled by 100000 (so 2.5 is 250000 and epsilon is 1) st
 - **division**: Cross-multiplication replaces the slope divisions and the infinite-slope cases, so no division by zero can arise.
 - **range**: The epsilon nudge adds one scaled unit to a Y coordinate whose subtype leaves headroom, and the side counter stays within Natural because it is incremented at most once per for-loop iteration over a bounded array.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, functions, procedures, Put without a newline, 'Image of scalars and string building.
 

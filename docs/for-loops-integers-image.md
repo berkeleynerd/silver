@@ -1,5 +1,13 @@
 # Integer Image automatic-discharge diagnostic
 
+**Historical diagnostic and implementation checkpoints, 2026-10-16.** The
+failed probes and outstanding-work statements below describe their recorded
+inputs and times. The subsequent remedy, complete producer/scanner/consumer
+source chain and final Linux validation are recorded in the
+[capability delivery](for-loops-integers.md#stable-delivery-evidence) and
+[independent review](reviews/review-410ed2c.md). These earlier failures remain
+preserved as the reason the semantic refinement was needed.
+
 This record belongs to [scope #13](https://github.com/berkeleynerd/silver/issues/13)
 and [assurance #15](https://github.com/berkeleynerd/silver/issues/15) of
 [For loops and integers](for-loops-integers.md). The owner resumed that existing

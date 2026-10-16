@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** N is bounded by the loop range 1 .. 1000, so N*N stays under 1,000,000 and nothing can overflow, and Answer is only ever assigned N, which is within its declared range. The for loop terminates by itself and no check depends on a loop-carried value.
 
-Position 33 in the [progression](../../progression.md#stage-3), in stage 3, which adds integers, ranged subtypes and 'Image of scalars.
+Position 35 in the [progression](../../progression.md#stage-2), in stage 2, which adds for loops, integers, ranged subtypes and 'Image of scalars.
 
 ## Approach
 
 An Answer variable of type Integer range 0 .. 1000 starts at 0, and a for loop over N in 1 .. 1000 tests Answer = 0 and then N*N - (N-1)*(N-1) > 1000, recording the first N that satisfies it. After the loop it prints Integer'Image (Answer) with Put_Line. The loop has no accumulator, so there is no loop-carried arithmetic and no exit statement is needed. About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, for loops and 'Image of scalars.
 

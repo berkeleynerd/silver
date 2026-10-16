@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from ranged position subtypes, for-loop indexes over the array ranges and guards placed just before character lookups, and the cyclic-reference risk is handled by a bounded loop in a procedure.
 
-Position 543 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 543 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each wheel group is embedded as constant Strings (for example "1B2" and "34") wi
 - **index**: Mapping a wheel-name character to a wheel index and reading the current character both need explicit range guards, which are placed just before each use and discharge directly.
 - **termination**: Name-reference chains that could cycle forever are cut off by a bounded for loop inside a procedure, so no variant is needed and an over-deep chain is rejected visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures and 'Image of scalars.
 

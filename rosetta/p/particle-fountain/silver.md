@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer fixed-point arithmetic over declared ranges with bounds guards before each array index and only for loops in procedures, so no annotation is needed. Plausible rather than likely because many loop-carried position and velocity values each need a clamp or guard to stay in range.
 
-Position 1305 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1305 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program keeps 2000 particles in fixed-size arrays of integer fixed-point x, 
 - **index**: Particle coordinates index the text-art grid only after explicit bounds guards, and the emit index wraps with mod over the array length.
 - **termination**: All loops are for loops or live in procedures, so the frame loop is a bounded for loop and no function carries a while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, string building, 'Image of scalars, Put without a newline and modular types.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the constants' own ranges and the loop-carried positions and counters have bounded subtypes with guards, so no annotation is needed. The outlook is plausible rather than likely because the nested word scanning and buffer appends need careful guard placement.
 
-Position 576 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 576 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The command table and the sample input are embedded String constants; for loops 
 - **length**: The output buffer has a fixed capacity and a guard before each append rejects (visibly reports) results that would not fit, while the embedded input is sized so the required output always fits.
 - **overflow**: The output length counter and the capital-letter count are declared with ranges bounded by the buffer and table sizes and are incremented only under guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops, procedures, functions and Put without a newline.
 

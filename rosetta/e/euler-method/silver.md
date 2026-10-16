@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by static for-loop ranges and a range-constrained float subtype, so no annotation is needed, but proving float updates stay in range and relying on an admitted exp and float formatting makes discharge depend on careful program shape.
 
-Position 1062 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1062 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Define a bounded float subtype for temperature, a Euler_Step function computing 
 - **overflow**: Time is an integer for-loop index from 0 to 100 stepping by the step size via a count loop (t = i*h with i bounded), so integer multiplication is bounded by static ranges.
 - **length**: Float formatting into a fixed-capacity buffer needs a documented maximum width and a library routine with specified length behavior.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, integers, integer division, for loops, procedures, functions, 'Image of scalars, floating-point images, string building and Put without a newline.
 

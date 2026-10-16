@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The recursion in the task's pseudo-code can be replaced by an explicit pending-steps counter in a procedure, so no variant is needed and all checks follow from bounded subtypes and guards. The nonrecursive form is a faithful equivalent, and the only non-routine items are loop-carried counters that need explicit bound guards.
 
-Position 1299 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1299 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A Step procedure advances a deterministic modular LCG in an in out state, moves 
 - **overflow**: The pseudo-random generator uses a modular type so wraparound is by definition, avoiding any overflow check.
 - **termination**: Step_Up is a procedure so no termination check applies, and the attempt loop is a for loop with a fixed maximum anyway.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, while loops, for loops, modular types and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses static bounds, for loops and a small fixed grid, so only the nonlinear spiral index formula and sieve index arithmetic need guard-shaped code, with no annotations required.
 
-Position 913 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 913 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a fixed Size (for example 29) and compute a Boolean sieve array over 1..Si
 - **range**: Proving the cell number lies in 1..Size*Size needs nonlinear reasoning, so the program guards the value before indexing the sieve and treats an out-of-range value as not prime, which is never reached.
 - **index**: Sieve marking of I*J relies on J being at most Max/I, so a guard before the store keeps the index within the array.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, procedures, functions and conditional expressions.
 

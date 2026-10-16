@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a declared coordinate subtype and all array accesses are protected by guards just before use, but several loop-carried stack indices need careful guard placement, so discharge is plausible rather than certain.
 
-Position 626 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 626 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The 20 example points are embedded as a constant array of a Point record with co
 - **length**: The output line is assembled with 'Image of each coordinate into a bounded buffer whose size covers the worst case, with a guard before each append.
 - **termination**: All while loops live in procedures, which get no termination check, and the cross product is a plain non-recursive function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, for loops, while loops, procedures, functions, Boolean objects, 'Image of scalars, string building and Put without a newline.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded exhaustive search over a ranged loop index computes the inverse (1969, equivalent to -48) so that A * X is at most about 85000 and mod by the constant 2017 is never a division by zero, with no loop-carried arithmetic and no recursion or while loop needing a variant.
 
-Position 116 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 116 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
 Main declares constants A = 42 and M = 2017, a ranged subtype Candidate 1..M-1, and a Boolean Found with an Integer Inverse initialized to 0. A for loop over Candidate tests (A * X) mod M = 1 and records the first match, then Main prints the inverse, or a specified "no inverse exists" message when none was found. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops and 'Image of scalars.
 

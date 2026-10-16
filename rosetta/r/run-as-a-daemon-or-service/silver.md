@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes, delay.** The task needs a loop that writes a message to stdout about once a second, plus an operating-system process operation that detaches the program from the terminal or launches it with stdin and stdout redirected to files. These are external effects that admitted library operations could provide in a future Silver, so no fixed Oracle rule is broken and the task is a candidate.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops, string operations and subprograms.
 

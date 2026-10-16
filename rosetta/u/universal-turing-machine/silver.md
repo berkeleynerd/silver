@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and values come from ranged types and bounded tapes with explicit guards before each head move, and the loops live in procedures so no termination check or variant is needed. The only care needed is the guarded head and step counters, which need no annotations.
 
-Position 1179 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1179 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A generic-free procedure Run takes a rules table (2-D array indexed by ranged st
 - **index**: The head position is loop-carried, so each move is guarded (left only when head is above 1, right only when below the tape capacity) and an off-tape move halts with a visible 'tape limit' outcome.
 - **overflow**: The step counter is incremented only inside a loop condition that tests it against a declared maximum, so the increment cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, enumerations, characters, arrays, multidimensional arrays, records, string building, case statements, for loops, while loops, procedures and Boolean objects.
 

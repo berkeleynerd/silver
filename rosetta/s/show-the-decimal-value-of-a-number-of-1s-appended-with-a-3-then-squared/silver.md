@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is eight fixed values with a single squaring, so overflow and index checks follow directly from the declared subtype ranges and the for loop over the array's own range. The only new needs are integer-to-text conversion and bounded string building.
 
-Position 71 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 71 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Hold the eight roots (3, 13, 113, ..., 11111113) as a constant array of a ranged
 - **overflow**: Each root is at most 111111113, so the square is at most about 1.3e16, which fits in a 64-bit range type and is checked from the declared subtype bounds.
 - **length**: The line buffer is sized for two 'Image results plus separators, and each Image length is bounded by the subtype range so the concatenation fits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

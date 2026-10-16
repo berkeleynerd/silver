@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and guards (n at most about 1.1e9, sums well under 2**62) and the loops sit in procedures needing no variants, but loop-carried accumulators and the 64-bit nonlinear d*d need careful range shaping.
 
-Position 254 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 254 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure computes the proper divisor sum of an odd candidate by trial divisio
 - **termination**: The trial-division and candidate-search while loops live in procedures, which get no termination check, so no variant is needed.
 - **division**: The divisor d is a loop counter starting at 1 and incremented only under a guard, but its lower bound must come from its subtype since an invariant cannot be written.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, while loops, for loops, 'Image of scalars and Put without a newline.
 

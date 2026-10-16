@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes plus guards placed just before each operation, and the only loop is a while loop inside a procedure, so nothing needs an annotation. The main gap is the missing admitted file-input operation and bounded line reading, not any proof difficulty.
 
-Position 1361 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1361 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The log file is read line by line in a while loop within a procedure, with fixed
 - **termination**: The read loop is a while loop inside a procedure, which gets no termination check, so no variant is needed.
 - **other**: The program depends on an admitted file-reading library operation with specified end-of-file, open-failure and over-long-line outcomes that does not yet exist.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, arrays, records, for loops, while loops, procedures, Put without a newline, 'Image of scalars, file input and exit status.
 

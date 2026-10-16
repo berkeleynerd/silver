@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the validated -1000..1000 ranges and a bounded line buffer, with no loop-carried values, recursion or annotations needed.
 
-Position 1214 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1214 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Read one line from standard input into a bounded buffer, then parse two integers
 
 - **range**: Parsed values are validated to lie in -1000..1000 before conversion to a ranged subtype, so the sum stays within -2000..2000 and cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, text parsing, standard input and 'Image of scalars.
 

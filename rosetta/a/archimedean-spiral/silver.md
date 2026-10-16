@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed grids with guards before each Float-to-Integer conversion and array store, so it should prove without annotations, though floating-point trig and conversions need careful range guards.
 
-Position 870 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 870 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A constant 2D Character grid (about 41 by 41) is filled with spaces, then a for 
 - **index**: Grid indexes are formed only after the guard shows the converted offsets lie within the subtype range, so the array store is safe.
 - **termination**: All loops are for loops over fixed ranges, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, floating point, multidimensional arrays, string building, for loops, procedures and Put without a newline.
 

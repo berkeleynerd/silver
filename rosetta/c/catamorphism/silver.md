@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Higher-order function parameters are not available in SPARK, so reduce is expressed with an operation enumeration, and all indexes come from the array's own range while the only loop-carried arithmetic is bounded by subtype limits and explicit guards. Discharge depends on careful guard placement for the accumulator but needs no annotation.
 
-Position 1182 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1182 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a small element subtype, a fixed array of four embedded values (1,2,3,4)
 - **overflow**: The product accumulator is loop-carried so the prover knows only its subtype; the program uses a bounded accumulator subtype and a guard before each multiplication that reports a visible rejection message rather than clamping.
 - **range**: The accumulator assignment must fit its subtype for Add and Mul, which the same pre-operation guard on the bound discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, enumerations, arrays, for loops, case statements, functions, procedures and 'Image of scalars.
 

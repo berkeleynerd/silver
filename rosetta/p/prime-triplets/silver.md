@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Primality by trial division over static ranges in for loops needs no loop-carried facts, so all range, overflow and division checks follow from subtype bounds and the loop index guards.
 
-Position 882 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 882 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A subtype P_Range is 2..5510 and a Boolean function Is_Prime(N : P_Range) loops 
 - **termination**: Only for loops are used (primality by trial division over a fixed divisor range, no while loops or recursion), so the function termination check is trivial.
 - **length**: Each output line is built from three Integer'Image values concatenated into a bounded buffer sized for the 42 triples, which needs a sized-string guard or per-triple Put_Line to keep lengths provable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, procedures, for loops, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

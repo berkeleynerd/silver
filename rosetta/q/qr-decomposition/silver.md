@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed array ranges, so index and termination checks are routine, but float arithmetic with sqrt and divisions needs range-bounded Float subtypes, guards and an admitted sqrt, which makes discharge depend on careful program shape rather than on annotations.
 
-Position 1111 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1111 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 3x3 Wikipedia matrix, and a small fixed-size least-squares example (fo
 - **index**: Loops over submatrix rows and columns are indexed by for-loops over declared constant ranges of fixed-size arrays, so indexing is routine.
 - **floating point**: Formatting reals with 4 decimals needs a bounded scaled-integer conversion with range guards because float-image is not available, and sqrt requires an admitted elementary-function library with a non-negative argument guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, floating-point images, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

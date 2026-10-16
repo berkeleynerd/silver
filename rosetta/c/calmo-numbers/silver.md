@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops with small ranged types and the divisor sums are recomputed from bounded array elements, so every check follows from types and local guards.
 
-Position 156 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 156 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A single Main procedure loops n from 2 to 999 with a for loop, scans d from 2 to
 - **overflow**: Triple sums are computed fresh from three array elements each bounded to 0..999 (at most 2997), so no loop-carried accumulator exists and the addition discharges from types alone.
 - **index**: The slot index is a subtype 0..2 that is reset by a guard just before it would pass 2, so indexing the three-element array is checked locally.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task is to print RAINBOW with each letter in a different color. That needs only text output plus terminal color control, so it is an effect Silver lacks today rather than a rule conflict. A bounded loop or array of color codes over the letters would work.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string operations, loops and arrays.
 

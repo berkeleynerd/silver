@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays, indexes and counters have declared ranges and are guarded just before use, and the only non-for loop is a stepping while loop inside a procedure, so no annotation is needed; the loop-carried count increments and the text formatting require careful guard placement, hence plausible rather than likely.
 
-Position 387 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 387 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build a Counts array indexed 1..99_999 of a ranged subtype by a sieve: for each 
 - **length**: Each 6-character column is written into a fixed 80-character line buffer at a position guarded to stay within bounds, flushing every ten entries.
 - **termination**: The stepping while loop lives in a procedure so no termination check arises, and the primality test uses for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

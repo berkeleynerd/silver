@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from declared subtypes, array bounds and for-loop ranges, with the only nontrivial parts being the carry in the digit-array multiply and the capacity guards. The program is plausible rather than likely because the fixed-capacity big-number arithmetic runs through nested loops and the search limits must be sized so the required outputs fit.
 
-Position 940 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 940 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent each power as a fixed-capacity array of decimal digits (about 2000 dig
 - **termination**: The search over integers and exponents uses for loops or while loops only inside procedures, so no variant is needed.
 - **length**: Result lines are assembled in a fixed-size bounded buffer, with a guard before each append so a full buffer is handled visibly rather than silently truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, string building, 'Image of scalars, Put without a newline and conditional expressions.
 

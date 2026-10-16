@@ -2,7 +2,7 @@
 
 **Excluded from Silver: system randomness.** This task can be covered once Silver admits a library operation that reads system entropy (for example from /dev/urandom), has a specified outcome when that source is unavailable, and returns a 32-bit integer for the program to print. It needs nothing that breaks an Oracle rule: it is a single bounded read, a 32-bit integer (or modular) type, and text output.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

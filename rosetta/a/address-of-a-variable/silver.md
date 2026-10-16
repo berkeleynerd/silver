@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations, hardware.** The task asks a program to get and set the memory address of a variable. That needs System.Address, address clauses at absolute locations or overlays, and address-to-integer conversion. These are unsafe, aliasing constructs that the Oracle never admits, so the sample is excluded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

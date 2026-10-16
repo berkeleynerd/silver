@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small and bounded by ranged subtypes and a for-loop-based digit extraction, so checks follow from types, but careful shaping is needed to avoid a while loop in a function and to build the output text.
 
-Position 373 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 373 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the bases 2, 3, 5, 11 in a constant array and count n from 0 to 24 in a fo
 - **division**: The base is a constrained subtype with minimum 2 so division and mod by the base cannot be zero.
 - **length**: Output lines are built in a bounded buffer sized for 25 terms of at most two digits plus the label, with Put_Line of a fixed-length slice.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

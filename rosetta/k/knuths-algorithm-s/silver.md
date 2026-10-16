@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds and every array index comes from a mod expression or a for index, so checks follow from types without annotations; the only subtlety is the modular LCG and the count bounds.
 
-Position 1280 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1280 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the generator as a modular 32-bit LCG state in a record with the 3-ele
 - **range**: The random index is computed as state mod 3 + 1 and the keep test as state mod I < N, both bounded by the divisor so no guard beyond I > 0 is needed.
 - **overflow**: The item counter I runs only over a for loop of 1 .. 10 so I and its division are statically bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, arrays, for loops, while loops, procedures, records, 'Image of scalars, string building and Put without a newline.
 

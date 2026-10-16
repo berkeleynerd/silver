@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a function of a for-loop index over subtypes with small declared ranges, so all overflow, division and index checks follow from types and static bounds with no loop-carried state, though nonlinear integer arithmetic needs the ranges to be tight.
 
-Position 894 in the [progression](../../../../progression.md#stage-17), in stage 17.
+Position 894 in the [progression](../../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program holds a 16x16 array of Character initialised to blanks, computes 21 
 - **overflow**: The Bezier numerator sums four products of at most 20^3 times a coordinate of at most 16, which fits easily in Integer, and the discharge relies on coordinates and the sample index being declared range subtypes.
 - **range**: Each interpolated pixel is computed with a fresh value per for-loop iteration (no loop-carried error term), and a guard that rejects out-of-bitmap points keeps the 2D array index in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops, procedures and conditional expressions.
 

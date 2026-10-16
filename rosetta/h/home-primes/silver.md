@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards placed just before the multiplication, append or increment, and all unbounded loops live in procedures, but several loop-carried 19-digit values and nonlinear guards make discharge dependent on careful program shape. The stretch goal for 65 and the impossible HP49 goal are optional and omitted.
 
-Position 419 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 419 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Values are held in a 64-bit signed range subtype (all required values stay below
 - **length**: The output line buffer is sized for the longest chain at about 30 characters per entry and each append is guarded by the remaining capacity.
 - **termination**: All unbounded loops (trial division, chain iteration) sit in procedures, which get no termination check, though the trial-division run of up to about 4e8 steps is slow rather than unprovable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

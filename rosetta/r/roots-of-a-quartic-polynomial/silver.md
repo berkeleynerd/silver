@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There are no loops apart from for loops over fixed data, and no recursion, so termination and indexing are routine. Discharge depends on placing magnitude and precondition guards before every nonlinear floating-point operation and elementary-function call, which takes careful program shape but no annotations.
 
-Position 1114 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1114 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Complex record of two Long_Float components with small add, subtract, multiply
 - **other**: Preconditions of the SPARK elementary functions (Sqrt argument non-negative, Arccos argument in [-1,1], Arctan not both zero, ** with non-negative base) must be met by guards such as clamping (r + re)/2 and the Arccos argument against rounding just before the call, which the provers cannot otherwise derive from IEEE facts like sqrt(x*x+y*y) >= |x|.
 - **range**: Formatting a root as text requires the float image or rounding conversion to stay within its target type, which a magnitude guard before conversion discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, floating point, floating-point images, 'Image of scalars, records, arrays, Boolean objects, functions, procedures, for loops and Put without a newline.
 

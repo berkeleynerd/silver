@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every Lah number up to L(12,12) is at most about 4.4e9, so a 64-bit ranged array with explicit guards proves overflow and index freedom without annotations, though the loop-carried table entries make it depend on careful guard placement.
 
-Position 686 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 686 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a 13x13 array of a 64-bit range subtype, fill it with the recurrence L(n,k) 
 - **range**: Storing the sum into a bounded Lah_Value subtype needs that same visible-reject guard because no invariant can carry the bound across iterations.
 - **index**: Row and column indexes come from for loops over the array's own ranges, with n-1 and k-1 reads guarded by explicit tests for n and k of at least 1.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

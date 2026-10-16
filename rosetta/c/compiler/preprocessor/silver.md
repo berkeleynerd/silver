@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to bounded buffer indexing and length guards placed before each append, and recursion is avoided by an explicit include stack and fixed capacities, so nothing needs an annotation; the heavy loop-carried cursor state and string building make discharge depend on careful program shape.
 
-Position 1461 in the [progression](../../../progression.md#stage-28), in stage 28.
+Position 1461 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -25,7 +25,7 @@ Lines are held in fixed-capacity character buffers with explicit lengths, macros
 - **termination**: All scanning and expansion loops live in procedures (no termination check), and include nesting uses an explicit five-entry file stack instead of recursion.
 - **overflow**: Substitution can grow a line, so output length is checked against capacity before each append and macro expansion is performed in a single non-nested pass over the definition.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, text parsing, for loops, while loops, procedures, functions, further arguments, standard input, file input, file output, Put without a newline and exit status.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over fixed-capacity arrays in procedures with explicit guards, so no annotations should be needed, but 128-bit arithmetic, text parsing and guarded loop-carried positions need careful shape and the required multithreading cannot be provided.
 
-Position 1459 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1459 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -24,7 +24,7 @@ Parse A and W from the arguments into bounded unsigned values (accepting digits 
 - **other**: The task asks for 16 parallel threads, which cannot be expressed without tasking, so the program processes the 16 rails sequentially as logical partitions, a deviation from the stated requirement.
 - **floating point**: The square root bound must be computed by integer search rather than floating point to keep the proof routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, big numbers, Boolean objects, characters, arrays, unconstrained arrays, string indexing, text parsing, 'Image of scalars, string building, for loops, while loops, procedures, functions, further arguments, file output and exit status.
 

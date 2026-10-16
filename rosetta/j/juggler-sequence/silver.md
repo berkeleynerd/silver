@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task's 20..39 range is small and its values fit in 64 bits, so every check follows from subtype ranges and guards placed before the multiplication, with only the loop-carried term and square-root search needing careful guards. The optional big-integer part is skipped, and no annotations are needed.
 
-Position 235 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 235 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a 64-bit integer for the current term, with an integer-square-root procedure
 - **termination**: The sequence while loop and the square-root search loop live in procedures, which get no termination check, but a step counter capped by a guard with visible rejection gives a safe bound.
 - **floating point**: Avoided entirely by using integer arithmetic (a^1.5 = a * isqrt(a), a^0.5 = isqrt(a)), so faithful floor results need no floating-point proofs.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

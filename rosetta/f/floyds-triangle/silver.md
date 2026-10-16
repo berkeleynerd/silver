@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by small declared ranges (at most 105 and 14 rows), numbers come from closed-form arithmetic rather than loop-carried state, and loops are for loops, so every check follows from types and static bounds.
 
-Position 507 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 507 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Print_Triangle takes a row count in a declared range 1..14 and is ca
 - **index**: The row buffer is sized for the widest row (14 columns of at most 3 digits plus separators), and a for loop over the columns with a width of at most 4 per column keeps the write position within bounds by static arithmetic.
 - **overflow**: Row and column indexes are declared subtypes (1..14) so the running value r*(r-1)/2+i is at most 105 and fits its declared range without any loop-carried accumulator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, string building, 'Image of scalars and string indexing.
 

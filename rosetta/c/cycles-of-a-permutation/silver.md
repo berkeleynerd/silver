@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed 15-element arrays with indexes drawn from a 1..15 subtype and loops confined to procedures, so checks follow from types and bounded guards without annotations; the main care is loop-carried counters and the lcm arithmetic.
 
-Position 756 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 756 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Letters are fixed 15-character String constants and permutations are arrays of a
 - **index**: The cycle-element counter is a loop-carried value, so it is guarded against the capacity of 15 before each append since no invariant can be written.
 - **length**: Output lines are built from bounded buffers with explicit capacity guards before each concatenation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

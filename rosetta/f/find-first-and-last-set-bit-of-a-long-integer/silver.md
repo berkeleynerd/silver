@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses modular words, static for loops and unrolled if-chain searches whose indexes are bounded by subtypes, so checks follow from types and guards without annotations; the only careful part is the carry-checked multi-limb multiplication.
 
-Position 1309 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1309 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a 64-bit modular Word for the host-word case with an unrolled six-step binar
 - **overflow**: Multiplying a 32-bit limb by 1302 plus carry is held in a 64-bit modular type so it cannot wrap, and the carry-out of the top limb is checked and rejected, with 1302^12 fitting in 128 bits.
 - **termination**: All loops are for loops with static bounds and the search is an unrolled if-chain, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, integers, arrays, for loops, procedures, functions, 'Image of scalars and Put without a newline.
 

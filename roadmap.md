@@ -34,64 +34,61 @@ now separately resumed the existing For loops and integers goal below.
 
 ### For loops and integers
 
-**Resumed on 2026-10-16; integration and scope reconciliation first.** The owner
-explicitly resumed the same unfinished goal, retaining the settled standard
-Integer `'Image` scope. The eleven selected
-[review repairs](docs/review-343c2f8-repairs.md) and the
-[proof-iteration controls](docs/proof-iteration.md) are complete prerequisites.
-Reconcile the preserved feature work with current `main`, then finish the
-scope/automatic-proof boundary and continue implementation and assurance in the
-order below. Apply the managed proof workflow throughout.
-[Session memory](docs/session-memory.md) records this instruction and distinguishes
-it from the harness record, which still reports paused because the available
-tool has no resume operation. No replacement goal or scope expansion is needed.
-[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
-[stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery;
-unfinished implementation and proof work remain preserved, not supported.
+**Complete on Linux x86_64, 2026-10-16.** The
+[capability record](docs/for-loops-integers.md) admits immutable signed-32-bit
+Integer constants, fully grouped `+`, `-` and `*`, comparisons, scoped
+forward/reverse loops and standard Integer `'Image`, including Ada's leading
+space. These compose with the existing String, input, path and output rules.
+The [delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence)
+records complete native proof/build/tests, the complete cached Lean build and
+fresh audit, source/semantic review and the exact validation inputs.
 
-Ordered work packages:
+The owner resumed this same unfinished goal on 2026-10-16 after the selected
+[review repairs](docs/review-343c2f8-repairs.md) and
+[proof-iteration controls](docs/proof-iteration.md). The dated
+[session memory](docs/session-memory.md) preserves that authorization and its
+historical harness-status distinction. The settled [Image decision #34](https://github.com/berkeleynerd/silver/issues/34)
+required exact Image-length composition, including valid fixed-length
+assignments; the delivered producer/scanner/consumer refinement supplies that
+connection without author annotations or source replacement.
+
+[Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
+[stage #10](https://github.com/berkeleynerd/silver/issues/10) followed this order:
 
 1. [Report capacity and placement #17](https://github.com/berkeleynerd/silver/issues/17):
-   **complete for the currently admitted language**. The
-   [capacity repair](docs/report-capacity.md) delivers the source/producer
-   envelope, streaming projection, reader/policy correspondence, library-level
-   storage and regressions. Re-derive the envelope for scalar, loop and Image
-   checks under #13–#16 before their admission.
+   the prerequisite source/producer envelope, streaming projection,
+   reader/policy correspondence and library-level storage. The
+   [scalar/loop/Image extension](docs/report-capacity.md#for-loops-and-integers-extension)
+   derives the new retained-report envelope within the existing allocation.
 2. [Scope and automatic-proof boundary #13](https://github.com/berkeleynerd/silver/issues/13):
-   apply the settled Integer `'Image` decision to the existing immutable scalar
-   and loop fragment, its resource rules, composition/discharge plan and samples.
-   This scope work may inform #17; it does not admit the new constructs.
-3. [Native admission and regression programs #14](https://github.com/berkeleynerd/silver/issues/14):
-   verified SPARK admission/report changes and executable boundary, failure-path
-   and interaction regressions.
+   exact scalar/loop/Image rules, resource bounds, complete composition and
+   discharge schemas, producer assumptions and motivating programs.
+3. [Native admission and regressions #14](https://github.com/berkeleynerd/silver/issues/14):
+   verified SPARK admission/report changes with boundary, failure-path and
+   interaction regressions.
 4. [Universal and actual-source assurance #15](https://github.com/berkeleynerd/silver/issues/15):
-   decidable membership, execution/termination, universal safety/discharge and
-   correspondence to the actual authoritative source, alongside native work.
-5. [Stable validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
-   stable native Linux proof/build/full tests, complete cached Lean checks with
-   fresh audit, independent review and synchronized specifications/catalogue/
-   Rosetta/evidence before completion and publication.
+   decidable membership, finite execution/termination, safety/discharge and
+   correspondence to authoritative source. Forward producer acceptance and
+   exact native refinement/consumer meaning are separate checked connections.
+5. [Validation, review and delivery #16](https://github.com/berkeleynerd/silver/issues/16):
+   stable native Linux and whole-project Lean evidence, independent review and
+   synchronized language/catalogue/samples/Rosetta/capability records.
 
-The [capability record](docs/for-loops-integers.md) specifies immutable signed
-32-bit Integer constants, fully grouped `+`, `-` and `*`, comparisons, scoped
-forward/reverse loops, and standard Integer `'Image` with its leading space.
-The motivating programs are nested Loops/For, Loops/For with a specified step
-(constant step times loop index), and Loops/Downward for. Colour bars/Display
-now has a faithful image-file assessment requiring future file output.
-[Decision #34](https://github.com/berkeleynerd/silver/issues/34) is settled;
-its Image length/composition and proof/report consequences remain work under
-#13–#16. Mutable integers, custom subtypes, conversions and division remain
-excluded from this milestone.
+The motivating programs are the nested triangle, computed step sequence and
+reverse countdown. The step example multiplies the index by a constant; it
+adds no stride clause. Colour bars/Display remains future file output, based
+on its faithful image-file assessment. Mutable integers, custom subtypes,
+conversions, division and other scalar images remain excluded.
 
-The corrected generated progression has for loops in stage 2, integers/ranged
-subtypes/scalar images in stage 3, procedures in stage 4, and arrays in stage 5.
-This milestone spans stage 2 and an immutable Integer/Image subset of stage 3;
-it does not deliver every integer form or every stage-3 sample. Remaining scalar
-forms and ranged subtypes stay on [#11](https://github.com/berkeleynerd/silver/issues/11),
-and arrays on [#12](https://github.com/berkeleynerd/silver/issues/12). Procedures
-remain the following generated candidate, to receive a stage issue when selected
-as a near-term target. The independent Stage 1 sample collection is not a
-dependency. A partial work package does not complete this milestone.
+The coordinated Rosetta delivery supports only `integer-for-loops`,
+`immutable-integers` and `integer-image`. Their three reviewed drivers are
+baseline stage 1. Broad `for-loops`, `integers` and `scalar-image` remain
+unsupported. Remaining scalar/loop forms and ranged subtypes are stage 2 on
+[#11](https://github.com/berkeleynerd/silver/issues/11), procedures stage 3 and
+arrays stage 4 on [#12](https://github.com/berkeleynerd/silver/issues/12).
+The stage fields and issue bodies follow this mapping. Procedures receive a
+stage issue when selected as a near-term target. This delivery and stage
+movement authorize no later capability.
 
 ### Partial Output
 
@@ -304,6 +301,7 @@ sequence.
 | Statement sequencing and assignment | Supported | Nonempty finite sequences, fixed-bound assignments, one-level choices and returning output effects; [validation record and resource follow-up](docs/statement-sequencing.md). | [samples/statement_sequence.adb](samples/statement_sequence.adb) |
 | Equality, guards and branches | Supported | Nested conditionals, `elsif`, optional `else`, bounded predicates/integer literals and path-sensitive assignments, output and rejection; [completed 5a–5c validation](docs/branches.md). | [samples/conditional_statements.adb](samples/conditional_statements.adb), [samples/path_guards.adb](samples/path_guards.adb) |
 | Names and Calls | Supported | Reordered/grouped/repeated contexts, use-visible calls with local-name hiding, and named `Item`/`Default` actuals for existing operations; [completed validation](docs/names-and-calls.md). | [samples/names_calls.adb](samples/names_calls.adb) |
+| For loops and integers | Supported | Immutable signed-32-bit Integer constants, scoped forward/reverse loops, grouped arithmetic, comparisons and standard Integer Image, composed with existing String/path/output rules; [complete delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence). | [Triangle](samples/for_loop_triangle.adb), [computed step](samples/for_loop_step.adb), [countdown](samples/for_loop_countdown.adb) in the coordinated delivery |
 
 The output target covers admitted literals and bounded command-line
 messages; the text `Hello, world!` receives no special treatment. String literals do not imply support for

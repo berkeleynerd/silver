@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array ranges and bounded remainder arithmetic, but 20-digit values exceed 64 bits so the work rides on digit-array or big-number handling in loops, which makes it plausible rather than likely.
 
-Position 1371 in the [progression](../../progression.md#stage-26), in stage 26, which adds big numbers.
+Position 1371 in the [progression](../../progression.md#stage-25), in stage 25, which adds big numbers.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each length n from 1 to 20, enumerate candidates over digits 1 and 2 in incr
 - **index**: Candidate digit arrays are indexed by for loops over the array's own range, and the odometer increment uses guards on the digit index so carry never leaves bounds.
 - **other**: Trial division of 20-digit candidates up to about 1.5e10 is correct but slow, so a fixed-capacity big-number Miller-Rabin library would be needed to run fast and the stretch to 2000 digits is out of scope.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string building, 'Image of scalars, for loops, while loops, procedures, functions and big numbers.
 

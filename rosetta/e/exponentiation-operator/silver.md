@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded subtypes and guards placed just before each multiply or divide in for loops, with no annotations needed, but the loop-carried accumulators (especially the floating-point one) make discharge depend on careful program shape.
 
-Position 1070 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1070 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Declare bounded subtypes for base, exponent and result, and write procedures Exp
 - **division**: Negative exponents divide by the base, so a zero base is rejected with a specified outcome before the loop.
 - **range**: Exponent is a declared bounded subtype so the for loop ranges are static, and negating its lowest value cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, 'Image of scalars, string building, for loops, procedures, functions and Boolean objects.
 

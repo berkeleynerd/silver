@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a bounded for loop, ranged subtypes, a 0..9 array indexed by mod 10 and an explicit nonzero-digit guard before each mod, so no annotation is needed and no while loop or function loop termination is involved. The hexadecimal stretch goal is optional and omitted.
 
-Position 510 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 510 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Search candidates in descending order from 9876432 in steps of 504 (a multiple o
 - **division**: Both N mod Digit and the digit extraction guard Digit /= 0 explicitly in the preceding branch (zero digit rejects the candidate), so the divisor is provably nonzero.
 - **index**: The Seen array is indexed 0..9 by a value computed as T mod 10, whose range is statically 0..9, so every index check follows from the type bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars and string indexing.
 

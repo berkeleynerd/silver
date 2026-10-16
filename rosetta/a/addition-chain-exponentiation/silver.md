@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer search state is bounded by types and guards, and the float matrix multiplication can be range-bounded with a visible rejection outcome, so no annotations are needed, but loop-carried float sums and the search-shape guards make discharge depend on careful program structure.
 
-Position 1116 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1116 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Find a shortest addition chain for each exponent by iterative deepening depth-fi
 - **termination**: The search uses while loops only inside procedures, which get no termination check, and the iterative-deepening limit is capped at a fixed maximum so the loops are finite.
 - **other**: Exhaustive optimal-chain search for 31415 and 27182 may be slow at run time, which is a performance matter and not a proof obligation, though the fixed depth cap must be sized so the optimal lengths are reachable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, floating-point images, 'Image of scalars, arrays, multidimensional arrays, for loops, while loops, procedures, functions, string building and Put without a newline.
 

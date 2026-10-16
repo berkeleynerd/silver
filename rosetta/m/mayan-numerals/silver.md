@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for-loop over fixed-size arrays and buffers with types that bound every loop-carried value, so every check follows from types and static bounds, and no annotation, recursion, or while loop is needed.
 
-Position 808 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 808 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each embedded number (4005, 8017, 326205, 886205, plus 16000) is held in a Natur
 - **index**: Buffer positions are computed from the digit position (5 columns each), so the index arithmetic is bounded by the loop range over the 5 digit positions and the fixed buffer length (at most 26 characters), which makes it routine for the provers.
 - **range**: The digit extraction repeatedly divides a loop-carried value, but the value's Natural type bounds it and mod 20 gives 0..19, so the digit conversions into the 0..19 subtype need no invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, case statements, for loops, procedures and Put without a newline.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The demonstration only validates a bounded argument: it checks lengths against literals and indexes characters in a for loop over the string's own range, so every check comes from static bounds and guards. "Untrusted code" needs no program construct, because Silver has no way to evaluate code at run time and the prose explanation says so.
 
-Position 503 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 503 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
 Main reads the first argument with First_Or_Default, rejects it through Input_Is_Valid and Reject when malformed, and rejects it when its 'Length is outside a documented limit. A for loop over the argument's own index range sets a Boolean flag if any character falls outside an allowed set (letters, digits, space), tested with plain character comparisons. Only input that passes every check is echoed with Put_Line, and anything else gets a visible rejection message. The prose explanation covers what the Oracle guarantees: no eval or dynamic code, no exceptions, no unchecked conversions, external effects only through admitted operations, and every check proven. About 35 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, for loops and Boolean objects.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is a static literal so the overflow checks on 15625 and 1953125 are decided at compile time and discharge trivially; the program has no loops, recursion or input.
 
-Position 1503 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1503 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
 Declare Integer constants for (5**3)**2 and 5**(3**2) with all operands static literals, then print each with a literal label and Integer'Image concatenated via Put_Line. A third line states that unparenthesised 5**3**2 is not valid Ada, so Silver source must parenthesize. About 14 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, exponentiation, 'Image of scalars and string building.
 

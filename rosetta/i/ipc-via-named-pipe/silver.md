@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes, OS services, delay.** The task is a server that tallies bytes written to an 'in' FIFO and reports the running total to readers of an 'out' FIFO. A Silver-friendly solution can poll both pipes in one sequential loop, with a bounded total and a visible outcome on overflow, so no Oracle rule is broken. It does need FIFO, file and inter-process effects that Silver lacks today and that would have to come from admitted library operations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops, integers, subprograms and packages.
 

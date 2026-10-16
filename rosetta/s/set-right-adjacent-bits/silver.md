@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from array ranges, for-loop indexes and a counter typed 0 .. 10_000 whose only decrement is guarded, with no while loops, recursion or nonlinear arithmetic, so proofs should discharge without annotations.
 
-Position 537 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 537 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Bits are held in a fixed-capacity Boolean array indexed 1 .. 10_000 with a separ
 - **range**: The run counter is a subtype 0 .. 10_000 that is only decremented under an explicit guard that it is greater than zero, so the decrement check discharges from the guard and the type range.
 - **index**: All indexing is by for loops over the bit array's own range with a declared 10_000-bit capacity, and the 66-bit example is checked against the capacity by an explicit guard before copying.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, for loops, procedures and Put without a newline.
 

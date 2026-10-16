@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a fixed sequence of Put_Line calls with String literals, which Silver already supports, so no check can fail and nothing needs an annotation.
 
-Position 26 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 29 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

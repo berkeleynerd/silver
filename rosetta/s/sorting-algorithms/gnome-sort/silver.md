@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Gnome sort is a small while loop over a fixed 10-element array whose indices are bounded by types and guards just before each access, and it sits in a procedure so no variant is needed.
 
-Position 206 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 206 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a constant 10-element Integer array in a fixed-range indexed array variabl
 - **index**: The loop-carried index I is typed Positive-ranged and each array access is guarded by explicit tests (I >= 2 and I <= size) just before use, so the checks discharge without an invariant.
 - **overflow**: The counter J is bounded by a guard (J <= Size + 1) with an explicit visible outcome of stopping, and since the Size is 10 the sort cannot exceed it in practice, but the guard is what lets the prover accept J + 1.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, 'Image of scalars, string building, Put without a newline and procedures.
 

@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a static literal constant and the output is fixed text plus 'Image of in-range constants, so no check depends on loop-carried values or annotations.
 
-Position 68 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 68 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
 The program prints String-literal lines stating Ada's rule (underscore only, single, between digits) and declares Integer constants written with separators such as 1_000_000 and 16#FF_FF#. It compares each with its separator-free literal using if statements and prints the 'Image of each value and an equal or differs line. All values are static constants within Integer, so no loop or guard is needed. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over array ranges, and every arithmetic result is bounded by ranged types and scaled integer tables, so overflow and index checks follow from types plus one guard before the accumulator update. Floating point and image-file I/O are avoided, leaving bounded integer work whose discharge depends on careful program shape.
 
-Position 707 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 707 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a small bitmap (for example 32 by 32 rows of '#' and '.') as a constant ar
 - **index**: The computed rho row index is guarded by an explicit range comparison just before the accumulator update, and the guard is never taken for in-image pixels because the table scale bounds rho.
 - **range**: Accumulator counts are ranged and incremented only when below the type maximum, which is at least the pixel count of the embedded image, so the saturation guard never changes a real result.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops and procedures.
 

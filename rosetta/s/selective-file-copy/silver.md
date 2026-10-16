@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed record widths, a length guard before slicing, and digit validation before conversion, with only the file-library effects missing from Silver today. Discharge depends on careful program shape around the parse and the bounded output buffer but needs no annotations.
 
-Position 1449 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1449 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ A record type holds fields a (5 chars), b (10 chars), a signed integer c (digits
 - **termination**: The read-until-end-of-file loop is a while loop inside a procedure, which receives no termination check.
 - **other**: File open, read and write failures must surface as specified outcomes from the admitted file library operations rather than exceptions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, records, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, file input, file output and further arguments.
 

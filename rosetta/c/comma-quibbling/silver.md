@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded iteration over fixed-capacity arrays and a bounded output buffer, so every index and length check follows from range types and one capacity guard before each append, with no recursion, while loops in functions, or annotations needed.
 
-Position 980 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 980 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Words are held in a fixed array of fixed-width String slots with a parallel arra
 - **index**: The write position is a loop-carried value, so before each append a guard compares it with the buffer capacity and, on failure, emits a visible rejection, which lets the slice-assignment index and length checks discharge from the position's range type.
 - **length**: Each word's stored length is a subtype bounded by the word slot width, so slicing a word to its length is within bounds without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures, unconstrained arrays and records.
 

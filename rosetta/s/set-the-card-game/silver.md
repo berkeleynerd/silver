@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop indexes and constant divisors, with no recursion, no loop-carried unbounded value and no heap use, so proofs should discharge without annotations. The only careful shape is keeping the generator state in a bounded subtype.
 
-Position 803 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 803 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Cards are integers 0..80 whose four base-3 digits encode number, symbol, colour 
 - **index**: Shuffle swaps index with Seed mod (I+1), which is provably within 0..I for a for-loop index over the array's own range, and set-search indexes come from nested for loops with the next index starting at the previous plus one.
 - **range**: Card digit extraction divides a Card subtype 0..80 by constants 1, 3, 9 and 27 and takes mod 3, so each result lies in 0..2 and indexes the attribute cases directly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, case statements, procedures, functions, Put without a newline, 'Image of scalars and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the Candidate range, the for-loop index range and one explicit guard before the accumulator addition, so no annotation is needed and the proofs should discharge.
 
-Position 310 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 310 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a bounded subtype Candidate of Positive range 1 .. 10000 as the document
 - **overflow**: The divisor-sum accumulator is loop-carried with no invariant, so an explicit guard before the addition leaves the loop once the sum exceeds N, which keeps Sum + I within Integer without changing the result.
 - **division**: The divisor I comes from a for loop starting at 1, so the range of I rules out a zero divisor in N mod I.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions and 'Image of scalars.
 

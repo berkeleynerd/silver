@@ -2,7 +2,7 @@
 
 **Excluded from Silver: run-time error.** The task deliberately exhausts the stack to discover its limit, which violates the sufficient-memory premise; a fixed bounded recursion depth would change the required result.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Recursion, integers and subprograms.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Duval's algorithm is plain iteration over a fixed-length String inside a procedure, so no termination check applies, and the index checks can be discharged by redundant explicit guards plus ranged subtypes, though loop-carried indices need careful shaping.
 
-Position 548 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 548 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The Thue-Morse string is embedded as a 128-character String constant, and Duval'
 - **overflow**: Integer additions on indices are bounded by the wide subtype ranges and the fixed string length, so they discharge from types and guards.
 - **length**: Printing the slice s(i .. i + (j - k) - 1) needs a guard that the slice lies within 1 .. n, otherwise a visible reject outcome is taken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, while loops and procedures.
 

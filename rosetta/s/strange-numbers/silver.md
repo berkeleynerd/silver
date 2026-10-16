@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from digit ranges, static loop bounds and guards, and the DP avoids while loops and recursion; the only non-routine parts are loop-carried count sums needing cap guards.
 
-Position 698 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 698 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Part one loops A over 101..499 and splits it into three digits by static divisio
 - **overflow**: The row-printing counter is loop-carried and is kept in a small ranged subtype reset to zero by a guard, so its increment is checked just before use.
 - **range**: Neighbour digit indexes (digit plus or minus a prime step) are guarded by explicit bounds tests before indexing the table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, 'Image of scalars, Put without a newline, procedures, functions and string building.
 

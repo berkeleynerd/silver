@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer arithmetic in tenths with small declared ranges avoids floating point, and the sort and greedy fill are bounded loops over a fixed 9-element array with guards before each access, so checks follow from types and guards. Output formatting needs integer-to-text conversion but nothing needs an annotation.
 
-Position 801 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 801 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the 9 items as parallel constant arrays of names, weights (in tenths o
 - **division**: The value-per-weight ratio is avoided by comparing cross-products, and the partial-value division uses a constant positive weight type so the divisor is provably nonzero.
 - **index**: Insertion sort over an array of 9 items uses a for loop for the outer index and a guarded while loop in a procedure for the inner index, with the index test placed before each access.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, string building, 'Image of scalars, case statements, for loops, procedures, functions and Put without a newline.
 

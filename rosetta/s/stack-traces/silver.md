@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Excluded. The task requires inspecting the real run-time call stack, including the function name in each frame. That is reflection on program structure, which SPARK cannot express (GNAT.Traceback relies on addresses and debug symbols outside SPARK).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Subprograms and string operations.
 

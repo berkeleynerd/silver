@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Sieve and count loops index a fixed array by for-loop ranges with guards, and parsing is the only loop-carried arithmetic, so no annotations are needed; the nonlinear multiple indexing is the main prover risk.
 
-Position 1355 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1355 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Parse the first argument into a Natural bounded by a documented maximum (for exa
 - **index**: Sieve multiples J*I are computed in a loop with loop-carried values, discharged by a for loop over J in 2..Limit/I so the product is bounded, though nonlinear reasoning is needed.
 - **range**: The count is a Natural bounded by the fixed sieve capacity, so accumulating it in a for loop stays within its type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Put without a newline and exit status.
 

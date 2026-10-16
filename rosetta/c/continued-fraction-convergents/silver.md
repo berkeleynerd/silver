@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic in procedures with for loops or procedure-only while loops, and the loop-carried overflow and zero-division risks are handled by visible guards, so no annotation is needed, but it takes careful program shape.
 
-Position 946 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 946 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the five test cases as constants; rationals use a Euclid while loop in a p
 - **range**: Partial quotients come from division and are stored in a bounded array indexed by a for-loop counter, with the term count capped at a declared maximum such as 16.
 - **length**: Output text is assembled in a fixed-size bounded buffer with explicit remaining-capacity guards before each append, sized well above the longest line printed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array bounds, for loops over bounded ranges, a length guard before indexing and case-range-bounded row arithmetic, with no loop-carried values and no function loops. The only new surface is arrays, string indexing, case statements and a procedure, all within the usual routine proofs.
 
-Position 996 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 996 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Punch procedure takes an unconstrained String, rejects over-80-column text and
 - **index**: Card columns are addressed as I with I in 1..Text'Length after an explicit Text'Length > 80 rejection guard, and the source character as Text (Text'First + I - 1), which follows from the guard and the loop range.
 - **range**: Each case alternative computes a row from Character'Pos differences, which the case choice range ('A'..'I', 'J'..'R', 'S'..'Z', 'a'..'i', 'j'..'r', 's'..'z', '0'..'9') bounds inside 0..12.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, unconstrained arrays, string indexing, string building, case statements, for loops and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The first ten deceptive numbers (91, 259, 451, 481, 703, 1729, 2821, 2981, 3367, 3641) are small, so for loops over typed ranges with modular remainders keep all arithmetic bounded and need no invariants or variants.
 
-Position 319 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 319 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Two functions on a bounded Candidate subtype (for example 2..20000): Is_Composit
 - **division**: Every mod uses n drawn from a for-loop range starting at 49 or a divisor from 2, so the divisor is statically nonzero.
 - **range**: The match counter is a subtype 0..10 incremented only under an explicit count < 10 guard, so the increment cannot exceed its range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops and 'Image of scalars.
 

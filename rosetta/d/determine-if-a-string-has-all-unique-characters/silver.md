@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop indexes over declared bounded ranges and a Pos/16 and mod 16 hex lookup bounded by the Character type, with no loop-carried accumulators and no recursion, while loops or functions needing variants.
 
-Position 976 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 976 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Check takes a bounded string record (a 40-character array and a Leng
 - **length**: Concatenating the echoed string with text could overflow the index range if the parameter were unbounded, so the program stores each test string in a bounded record (Length 0..40 plus a 40-character buffer) or prints pieces separately with Put, making every length statically bounded.
 - **range**: The hex digit lookup uses Character'Pos divided by 16 and mod 16, whose results are bounded 0..15 by the Pos range 0..255, so indexing the constant string "0123456789ABCDEF" discharges from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, unconstrained arrays, records, string indexing, 'Image of scalars, for loops, procedures, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nested groups, symbol lookup and decimal masses can be handled with scaled integers, a bounded explicit stack and guards before each loop-carried addition, so no annotation is needed, but the guard placement needs care.
 
-Position 867 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 867 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The element table is a constant array of records (three-character symbol, length
 - **range**: Digit runs are accumulated into a count in a bounded subtype, so a guard rejects counts that would exceed the cap before each multiply-by-ten-and-add.
 - **termination**: All loops are for loops or while loops inside procedures with a strictly advancing cursor, so no variant is needed as long as no function contains a while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

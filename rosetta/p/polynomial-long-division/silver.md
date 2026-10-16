@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded coefficient and index types plus explicit guards, and the while loop is replaced by a for loop in a procedure, so no annotation is needed, though loop-carried coefficient arithmetic needs careful range guards.
 
-Position 828 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 828 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Polynomials are fixed-capacity arrays of a bounded coefficient subtype indexed 0
 - **index**: Shifted indices (I+K) are guarded against the fixed capacity before each access, and the degree is found by a reverse for loop over the array range.
 - **range**: Degree values use a subtype including -1 for the zero polynomial, with loop-carried degree typed by that range so no invariant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline and case statements.
 

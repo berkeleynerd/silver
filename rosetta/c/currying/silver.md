@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Currying is expressed the Ada way, as partial application through nested generic instantiation with no closures or access-to-subprogram values. The only non-trivial check is the addition in Sum, and the operands' declared subtype bounds it, so every check follows from types and static values.
 
-Position 1525 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1525 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A generic package Curry_3, which takes a generic formal function Func, holds nes
 - **overflow**: The three-argument Sum takes parameters of a declared small subtype (for example -1000 .. 1000) and returns Integer, so X + Y + Z cannot overflow whatever the arguments.
 - **range**: Instance actuals and call arguments are static literals inside the small subtype, so the range checks at instantiation and at each call discharge statically.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, functions, generics, packages and 'Image of scalars.
 

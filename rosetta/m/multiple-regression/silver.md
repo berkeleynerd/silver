@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain linear algebra on small fixed arrays with for loops, but float arithmetic carried through elimination loops needs careful range guards and a nonzero-pivot test, so discharge depends on program shape without any annotation. Output needs float-to-text formatting, which Silver lacks today.
 
-Position 1105 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1105 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the two example datasets in fixed-size constrained Float arrays, form the 
 - **index**: Pivot search and row swaps use for-loop indexes over fixed array ranges, so indexes are routine, but a while-loop pivot search needs a guard on its running index.
 - **termination**: Elimination uses only for loops and procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars, floating-point images and conditional expressions.
 

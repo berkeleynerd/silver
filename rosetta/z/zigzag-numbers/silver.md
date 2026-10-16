@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is iterative with bounded arrays and for loops, and the only unusual parts are the add-with-carry big number (A(30) exceeds 64 bits) and guarded while-loop scans in procedures, none of which needs an annotation.
 
-Position 1392 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1392 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Permutations of 1..n (n at most 5) are enumerated in lexicographic order with an
 - **range**: Entringer-table row and column indexes come from for loops over the array's own ranges, but the loop-carried big-number cells are only bounded by their limb types, which suffices for the additions.
 - **length**: Rendering a two-limb number into a decimal text buffer needs a fixed 27-digit buffer with padded limb digits so slice lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, big numbers, Put without a newline, 'Image of scalars, string building and Boolean objects.
 

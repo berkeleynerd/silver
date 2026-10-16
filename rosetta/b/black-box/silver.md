@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and positions are bounded by subtypes and guards placed before each step, and the only loop carrying state is a while loop inside a procedure, so no annotation is needed, though the loop-carried beam state needs careful guard placement.
 
-Position 833 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 833 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the four atoms of a fixed 8 x 8 board in a Boolean array and trace a beam 
 - **termination**: The beam-tracing loop lives in a procedure, which gets no termination check, so no variant is needed (the beam always exits in the real game).
 - **overflow**: The exit-numbering counter is a small ranged integer incremented at most once per entry point, bounded by a guard against its subtype maximum.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, case statements, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

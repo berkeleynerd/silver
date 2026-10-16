@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the Base subtype, a for loop over the buffer's own range, and one overflow guard on the accumulator, so no annotation is needed.
 
-Position 1130 in the [progression](../../../progression.md#stage-20), in stage 20.
+Position 1130 in the [progression](../../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Base is a subtype range 2..36 and the digits come from a constant String "012345
 - **index**: To_Base fills a 32-character buffer from the end with a for loop over its own range, guarded by Temp > 0, so the index is the loop variable and needs no invariant (a Natural has at most 31 binary digits).
 - **range**: Digit values come from a bounded scan of the 36-character digit table and are checked against Base before use, so they stay in 0..35.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Boolean objects and conditional expressions.
 

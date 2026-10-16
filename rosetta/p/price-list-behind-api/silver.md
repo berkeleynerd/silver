@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data lives in fixed arrays with price-bounded indexes and for loops, and the one while loop is in a procedure, so checks follow from types and guards; the loop-carried counters and the output formatting need careful guarding, hence plausible.
 
-Position 630 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 630 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Generate 100,000 prices with a bounded LCG (mod reduced into 0..100_000) into a 
 - **termination**: The range-splitting while loop sits in a procedure, which gets no termination check, and the price scan advances a bounded index each iteration.
 - **stack**: Several 100K-element arrays are large locals, and stack exhaustion is not proved, so it rests on the memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and records.
 

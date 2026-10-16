@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The integer recurrences use only constant coefficients on range-bounded state and mod by positive constants, so overflow and range checks follow from types. Two places rely on careful shape, though: the float-to-index conversion and the loop-carried bucket counters each need an explicit guard with a visible error branch, which makes the outlook plausible rather than likely.
 
-Position 875 in the [progression](../../../progression.md#stage-16), in stage 16.
+Position 875 in the [progression](../../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The generator state is two 3-element arrays of declared 64-bit ranged types (0 .
 - **floating point**: Converting Floor(Next_Float * 5.0) to a bucket index needs the value in 0 .. 4, which the prover may not derive through the float division, so an explicit guard (0.0 <= Scaled and Scaled < 5.0) with a visible rejection branch that never fires is placed just before the conversion.
 - **overflow**: Each bucket count is a loop-carried accumulator whose bound across 100_000 iterations needs an invariant, so the increment is guarded by Counts(J) < Count_Type'Last with a visible error outcome in the else branch.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, floating point, procedures, for loops and 'Image of scalars.
 

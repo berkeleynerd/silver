@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and index checks follow from type ranges plus a couple of visible guards placed in the loop body, and nothing needs an annotation, but the while loop must stay in a procedure and the guards must be placed carefully.
 
-Position 1472 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1472 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A package Hailstones with a procedure Compute(N, Seq, Len, Ok) fills a fixed 512
 - **termination**: The Collatz while loop must live in a procedure (no termination check there), so hailstone is written as a procedure with an out length rather than a function.
 - **overflow**: Counting 100,000 starts in a count array uses a range-bounded element type so increments (at most 100,000) cannot overflow after a cap guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, packages, 'Image of scalars, string building, Boolean objects and conditional expressions.
 

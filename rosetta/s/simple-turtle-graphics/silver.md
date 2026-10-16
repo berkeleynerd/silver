@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array drawing with explicit clipping guards and for loops, with no recursion or annotations needed, though loop-carried turtle coordinates and the scaling arithmetic need careful range guards. The existing interactive menu is not required, so embedded data and text-art output suffice.
 
-Position 1195 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1195 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the canvas as a fixed 2D Character array and the turtle as a record of
 - **division**: Bar-chart scaling divides by the maximum value, which is guarded against zero by drawing nothing and giving a visible all-zero outcome.
 - **overflow**: Scaled bar heights multiply value by square size, so values are range-limited by their type and an oversized value is rejected visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, for loops, while loops, case statements, procedures, Put without a newline, string building and 'Image of scalars.
 

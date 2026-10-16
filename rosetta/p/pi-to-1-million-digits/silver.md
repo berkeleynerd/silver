@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range-subtyped limbs, carries and for-loop indexes over the array's own range, with all while loops in procedures, so no annotation is needed, but the large fixed-capacity big-number arithmetic carried through nested loops makes discharge depend on careful program shape.
 
-Position 1381 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1381 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent pi as a fixed-capacity array of base-10^9 limbs (about 111,200 limbs, 
 - **range**: Carries and quotients are narrowed into limb subtypes only after an explicit guard or by construction from the division by the base, which provers handle for a constant base.
 - **other**: A Machin-style series over a fixed array of about 112,000 base-10^9 limbs needs roughly 10^11 limb operations, so it proves easily but runs for minutes, which is a performance cost and not a proof cost.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, procedures, big numbers, string building and Put without a newline.
 

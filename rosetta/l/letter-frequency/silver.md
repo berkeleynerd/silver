@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the array's declared character-subtype index, a guard before each counter increment, and a for loop over the array's own range, with the only loop being a while loop in a procedure. The remaining dependence is on an admitted file-reading library with specified failure outcomes, which Silver lacks today.
 
-Position 1346 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1346 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A 26-element array of bounded counts indexed by a subtype 'A'..'Z' is zeroed by 
 - **termination**: The read loop is a while loop inside a procedure, which gets no termination check, and the end-of-file test comes from the admitted library operation.
 - **index**: The array is indexed by a character subtype A to Z after a range guard on each character, so the index check is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, procedures, file input, 'Image of scalars, string building, exit status and case statements.
 

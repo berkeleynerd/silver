@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from modular wraparound, declared ranges and a length guard on a fixed buffer, with no loop-carried value needing an invariant, but the long unrolled-or-looped arithmetic with table indexing needs careful shape to discharge reliably.
 
-Position 1317 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1317 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A 32-bit modular word type, constant tables for the 64 sine constants, shifts an
 - **length**: Block count and total padded length are computed from the guarded input length, and the hex output buffer is a fixed 32-character string filled by index.
 - **range**: Character'Pos to byte and nibble to hex-digit conversions are bounded by types (0..255, 0..15), and 64-bit length bytes come from the guarded length times 8.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integers, integer division, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, for loops, case statements, procedures, functions and Boolean objects.
 

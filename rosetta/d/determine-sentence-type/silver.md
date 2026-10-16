@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded string indexing within S'Range plus a case on a Character, so all checks follow from types and the for-loop range, and no annotation or recursion is needed.
 
-Position 770 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 770 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The four sentences are embedded as String constants, and a procedure Classify (S
 
 - **index**: The last-character and last-punctuation scan index only within the string's own range, guarded by a Length-greater-than-zero test, with a for loop in reverse over S'Range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String indexing, characters, case statements, procedures, string building, Put without a newline, arrays, for loops, integers and ranged subtypes.
 

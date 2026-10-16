@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by float subtypes and fixed-count for loops with no annotations, but proving float range/overflow on a loop-carried iterate through nonlinear arithmetic depends on careful clamping, so it is plausible rather than likely.
 
-Position 1068 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1068 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A function Nth_Root takes a bounded float subtype A (1.0 to 1.0e9) and N in a sm
 - **division**: The divisor x is nonzero because its subtype has a lower bound of 1.0 and A below 1 is handled by taking the root of 1/A, with inputs outside the documented range rejected visibly.
 - **termination**: Iteration uses a for loop with a fixed count (about 5000) instead of a convergence test, so no variant is needed and the result is exact to printed precision since Newton converges monotonically.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, 'Image of scalars, string building, for loops, procedures, functions, arrays and records.
 

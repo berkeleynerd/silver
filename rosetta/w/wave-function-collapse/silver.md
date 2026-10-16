@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays, tile indices and the LCG are bounded by declared ranges and explicit guards, and the collapse loop can be a fixed-count for loop in a procedure, so no annotation is needed, but the many loop-carried counters and computed indices make discharge depend on careful program shape.
 
-Position 753 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 753 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the five 3x3 blocks as a constant 3-D array of 0/1 pixels, precompute hori
 - **termination**: The collapse loop is a for loop over the 64 cells, so no while loop or variant is needed, and every helper is a non-recursive procedure.
 - **range**: Entropy and candidate counters accumulate in loops, so they are declared with ranges covering their maximum (5 tiles, 64 cells) and incremented only under an explicit bound guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, procedures, functions, Put without a newline, string building and 'Image of scalars.
 

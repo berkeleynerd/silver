@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything fits in fixed-capacity limb arrays with for-loop indexes and shift-and-add arithmetic needing no division by large values, so no annotation is required, but loop-carried big-number arithmetic needs careful guarded program shape.
 
-Position 1401 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1401 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent big numbers as fixed-capacity arrays of limbs (about 160 to 320 bits) 
 - **termination**: Loops that convert to decimal or find the top limb are while loops, so they live in procedures or are rewritten as for loops over the fixed capacity.
 - **length**: Decimal and decoded-text output buffers are fixed-size with a documented maximum and a specified rejection outcome if the number does not fit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

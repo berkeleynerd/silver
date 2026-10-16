@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexing is over fixed-length constant strings and a bounded buffer using for loops inside procedures, so checks follow from static bounds and one size guard; the only gap is that Silver needs file read and write operations with specified failure outcomes.
 
-Position 1428 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1428 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Declare constant 52-character Alphabet and Key strings and a fixed-capacity text
 - **index**: The alphabet lookup uses a for loop over the 52-character alphabet's own range and the key has the same fixed length, so the index checks are static.
 - **length**: The input is read into a fixed-capacity buffer with a reported length, and a file larger than the capacity is rejected with a visible message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, ranged subtypes, string indexing, string building, for loops, procedures, functions, Boolean objects, file input and file output.
 

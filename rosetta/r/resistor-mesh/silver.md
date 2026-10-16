@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only a fixed-size grid and a bounded float relaxation, which is feasible with explicit bound guards and an iteration cap, but float range checks on loop-carried voltages and the convergence tolerance make discharge depend on careful program shape and on formatting a float to text.
 
-Position 1072 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1072 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store node voltages in a 10x10 array of a bounded float subtype, fix A at (2,2) 
 - **division**: The divisor is a neighbour count of 2, 3 or 4 taken from fixed edge tests, and the final division by the current difference is guarded against zero with a reject outcome.
 - **range**: Array indices i-1 and i+1 are used only under explicit boundary tests just before the access, so index checks discharge.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, multidimensional arrays, for loops, while loops, procedures, floating-point images, Put without a newline, Boolean objects and functions.
 

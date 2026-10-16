@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no required I/O beyond drawing, so text art from an integer fixed-point version needs only bounded arithmetic, for loops and guarded array indexing, which should discharge without annotations. The main care is bounding the loop-carried intersection value and keeping the plotted rows in range, so the outlook is plausible rather than likely.
 
-Position 938 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 938 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a constant-size 2D array of intensity values 0..255 as a canvas, with line e
 - **division**: The gradient division by dx is guarded by a dx = 0 branch that plots the single point.
 - **range**: Loop-carried intersection y has no invariant, so it is typed with a wide fixed-point subtype and clamped by guards before conversion to a row index.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, procedures, functions, conditional expressions, string building and Put without a newline.
 

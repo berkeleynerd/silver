@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic with bounded subtypes, and the only non-routine items are the nonzero-gcd divisor and the product bound, both handled by a guard and a range choice; the while loop sits in a procedure so no termination check applies. It is plausible rather than likely because the gcd's nonzero-ness is not inferable without an invariant and must be guarded.
 
-Position 219 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 219 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Declare a bounded integer subtype and a procedure Gcd that runs Euclid's algorit
 - **termination**: The Euclid while loop must be inside a procedure (not a function) so no variant is needed, with the result returned via an out parameter.
 - **range**: Loop-carried M and N are known only by their subtype after the first iteration, so declaring them in the bounded subtype keeps mod and assignments in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, procedures, while loops, 'Image of scalars, string building and Put without a newline.
 

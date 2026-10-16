@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from range-bounded digit arrays and for-loops, but the roughly 110-bit values force multi-step fixed-capacity big-number arithmetic carried through loops, so discharge depends on careful carry and capacity guards rather than being routine.
 
-Position 1404 in the [progression](../../../progression.md#stage-26), in stage 26.
+Position 1404 in the [progression](../../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the four strings in fixed-length buffers, count symbol frequencies and cum
 - **termination**: Big-number divide by a small value, subtraction-based quotient digits and the radix-power loop are written as for loops or as procedure while loops with a bounded counter, avoiding functions with while loops.
 - **range**: Decoding must guard that the quotient digit and symbol lookup index stay within the table size, rejecting a malformed code instead of continuing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and big numbers.
 

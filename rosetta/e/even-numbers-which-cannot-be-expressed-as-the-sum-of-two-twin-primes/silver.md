@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop (sieve strides can be done as an inner for over multiples using guarded index arithmetic), all indexes and sums are bounded by declared ranges or guards, and no function needs termination variants, so proofs should discharge without annotations.
 
-Position 898 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 898 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Sieve primes up to 5002 into a Boolean array with nested for loops, collect twin
 - **index**: Array indices for the sieve, twin-prime table and sum-marking are all bounded by explicit guards (sum <= 5000, table count < capacity) or by for-loop ranges over the array's own range.
 - **overflow**: All values are in subtype 0..10000 or small counters bounded by the table capacity, so sums of two entries stay far below Integer'Last.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

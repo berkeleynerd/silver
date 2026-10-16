@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No big numbers are needed because only prefix remainders modulo at most 25 are tracked, and every loop is a procedure while loop over bounded subtypes, so checks follow from types and depth guards. The nonroutine part is the loop-carried depth cursor and counters, which need careful typing.
 
-Position 472 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 472 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Digits of the current prefix are held in a fixed array of 25 digit values with a
 - **range**: Counters (total at most 20457, per-length counts) are loop-carried and typed with a generous range subtype so increments cannot overflow.
 - **termination**: The depth-first search is a while loop inside a procedure, which gets no termination check, and the real bound is the 25-digit depth limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, procedures, functions, for loops, while loops, 'Image of scalars, string building and Put without a newline.
 

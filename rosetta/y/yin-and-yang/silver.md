@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Text art meets the task's picture requirement, and every check is integer arithmetic on small ranged subtypes inside for loops, so proofs follow from types and loop bounds with no loop-carried state.
 
-Position 447 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 447 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A function Cell (R, X, Y) returns a Character ('#', '.', or ' ') using integer c
 
 - **overflow**: Squared-distance tests on coordinates are discharged because the radius is a small ranged subtype (for example 1 .. 20) and the loop indexes are bounded by it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, for loops, procedures, functions and Put without a newline.
 

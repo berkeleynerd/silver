@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small and bounded by declared subtypes and for-loop ranges, so overflow, range and length checks follow from types and no loop invariant or recursion is needed. The only open question is the new surface (integer image, exponentiation, string building), not provability.
 
-Position 1506 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1506 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use the integer case only: subtype Base is Integer range -5 .. 5 and subtype Pow
 - **overflow**: x ** p and its negation are bounded by ranged subtypes (x in -5..5, p in 2..3, so at most 125 in magnitude), so the overflow checks discharge from types alone.
 - **length**: Concatenating 'Image text of ranged integers into one Put_Line argument needs the bounded image lengths to be known, which follows from the subtype ranges but depends on how the library handles 'Image.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, exponentiation, ranged subtypes, for loops, 'Image of scalars and string building.
 

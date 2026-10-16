@@ -2,7 +2,7 @@
 
 **Excluded from Silver: graphics, GUI, clock.** The task requires a live rotating 3D F drawn through WebGL or OpenGL ES 2.0, so it needs graphics, a window and animation timing. Those are external effects Silver lacks, not conflicts with any Oracle rule. A bounded-array, iteration-based Ada solution calling admitted GL bindings is conceivable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, arrays, loops, subprograms and records.
 

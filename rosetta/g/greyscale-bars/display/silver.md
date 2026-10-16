@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is small, bounded integer work driven by for-loop indexes with ranged types, so every check follows from types and static bounds. The only new needs are file output and integer-to-text formatting, which are library and surface growth rather than proof difficulty.
 
-Position 1422 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1422 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ The program writes a P2 PGM file of 64 columns by 64 rows, split into four 16-ro
 - **range**: The computed grey value is at most 255 and, for the reversed rows, 255 minus a value in 0..255, so it fits a 0..255 subtype.
 - **length**: Each output line is built in a fixed-size bounded buffer sized for 64 values of up to 3 digits plus spaces, with the length checked before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars, string building, Put without a newline, file output and procedures.
 

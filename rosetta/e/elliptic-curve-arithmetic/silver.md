@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No annotations are needed because all loops are fixed-count for loops and each float operation can be guarded by magnitude and epsilon checks, but the proof depends on careful per-operation range guards in floating-point code, and the integer-only route is unavailable because y^2 = x^3 + 7 has no nonzero rational torsion or integer points.
 
-Position 1104 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1104 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Point record holds bounded-float x, y and an Is_Infinity flag; Double, Add, Ne
 - **overflow**: Repeated doubling in the optional multiply function squares coordinate size, so the program bounds n small and rejects with a visible message when a coordinate leaves the allowed magnitude.
 - **termination**: The Newton iterations that find a starting point (cube root or square root) use fixed-count for loops in procedures or functions, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, records, Boolean objects, functions, procedures, for loops, integers, conditional expressions and Put without a newline.
 

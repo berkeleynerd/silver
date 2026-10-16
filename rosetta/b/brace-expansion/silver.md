@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded string buffers, array scanning and a worklist loop in a procedure, so every check follows from ranged types and explicit capacity guards with overflow of capacity rejected visibly, but the brace and comma association logic makes the program shape delicate.
 
-Position 754 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 754 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -17,7 +17,7 @@ Represent a string as a record holding a fixed-capacity Character array and a ra
 - **termination**: Recursion is replaced by a worklist loop inside a procedure, which gets no termination check, so no variant is needed.
 - **other**: The paired-brace and innermost-comma rules (escapes, unmatched braces, nearest-opener association) require careful scanning code whose correctness is not proved but whose run-time safety follows from guarded indexes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

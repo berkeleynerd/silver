@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing and counts can be made safe with range types, mod and explicit guards in procedures, and the only unbounded behavior (endless wars) is cut off by a documented round cap with a visible outcome; the arithmetic is small and linear apart from the LCG, so no annotation is needed.
 
-Position 642 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 642 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Cards are ranks 2..14 in a 52-element array, shuffled with a Fisher-Yates pass d
 - **overflow**: The LCG shuffle seed update is nonlinear (multiply then mod), so the seed gets a small range type and the product stays far below Integer'Last.
 - **termination**: War can in principle cycle forever, so the game runs in a procedure with a documented cap on rounds and a specified 'undecided after N rounds' outcome rather than a while loop in a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops with array indices and sums that can be guarded explicitly, so no invariant is needed, though several loop-carried counters require careful guard placement. The unbounded-n requirement is met by a documented resource limit with specified rejection.
 
-Position 384 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 384 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ One for loop over k in 1..1000 classifies each integer as the next R value or an
 - **index**: The R-count and S-count indices into the fixed arrays are loop-carried, so each use needs an explicit guard just before it (for example r_count <= s_count and counts below capacity) with a visible failure outcome.
 - **overflow**: The running next-R value is an accumulator, so it is held in a bounded integer subtype and guarded against the 1000 limit before each addition.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building, Put without a newline and functions.
 

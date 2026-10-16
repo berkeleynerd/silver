@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from enumeration-indexed arrays and bounded counters with explicit capacity guards, and the recursion-free DFS sits in a procedure so no variants are needed. It is plausible rather than likely because the stack and output counters are loop-carried values that need guards before each use.
 
-Position 1191 in the [progression](../../../progression.md#stage-21), in stage 21.
+Position 1191 in the [progression](../../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the 18 files as an enumeration type and the dependencies as an 18x18 B
 - **termination**: The DFS loop lives in a procedure, so no termination check arises, and marking each file visited when pushed bounds the work and stack depth by 18 even if the data had a cycle.
 - **overflow**: Counters and child cursors are subtypes bounded by 0..18 and are incremented only under guards, so range checks discharge from types and tests just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, integers, 'Image of scalars, string building and Put without a newline.
 

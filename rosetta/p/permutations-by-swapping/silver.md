@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the subtype ranges of the indices and counters, and each increment is guarded by the comparison just before it, so the loop needs no invariant; the while loop sits in a procedure, so no termination check arises.
 
-Position 212 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 212 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The program holds the three items in a fixed array of a small index subtype, run
 
 - **index**: Heap's counters and the loop index live in small ranged subtypes, and each increment is guarded by the comparison just before it, so the swap indices and increments stay within the array and subtype bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is simple integer simulation whose checks follow from subtype ranges and a length-cap guard, and no annotation is needed because the while loop lives in a procedure; the work is in keeping the many loop-carried values bounded by guards.
 
-Position 1302 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1302 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A procedure-only program keeps the generator state, steps behind, staircase leng
 - **overflow**: The linear congruential generator state is a modular type so wraparound is the defined arithmetic and the reduction to an index uses a bounded unsigned value.
 - **termination**: The escape loop is a while loop inside a procedure, so no termination check is generated, but the run is only bounded by the length cap.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, for loops, while loops, procedures, 'Image of scalars and string building.
 

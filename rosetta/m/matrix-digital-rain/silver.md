@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay, terminal control.** The task asks for an animated terminal rain effect. A single-task solution can use a deterministic pseudo-random generator, a fixed-size array of column states, and frame-by-frame redraw with ANSI escapes, so it needs only console output, terminal control, delays and optional input. No Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, arrays, loops, subprograms, packages and enumerations.
 

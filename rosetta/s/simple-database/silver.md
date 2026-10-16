@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded buffers, ranged counts and guards before each index, with no recursion or annotation needed, but the program is large and relies on admitted multi-argument and file operations that Silver lacks today. Outlook is plausible because loop-carried cursors and counts need careful guards, not because any fact requires an invariant.
 
-Position 1499 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1499 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -24,7 +24,7 @@ Entries are records of bounded description, category and date text (fixed buffer
 - **initialization**: The entry table and buffers are fully initialized by aggregate before loading, so flow analysis passes.
 - **other**: File open, read and write failures and a full database must each map to a specified visible outcome, which depends on the admitted file library exposing status results.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, records, arrays, string indexing, string building, string ordering, text parsing, for loops, while loops, procedures, functions, further arguments, file input, file output, exit status and Put without a newline.
 

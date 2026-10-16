@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a single bounded for loop over an array with a subtype-bounded counter and one capacity guard, so all checks follow from types and a guard just before the operation; the only added surface is ordinary strings, characters and procedures with no recursion, while loops or annotations.
 
-Position 968 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 968 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Squeeze takes an unconstrained String and a Character, copies charac
 - **index**: The loop-carried output length has no invariant, so a guard 'Len < Res'Last' before each append (Reject on failure, which is unreachable for real inputs) lets the Res(Len+1) index and Len+1 range checks discharge from the subtype alone.
 - **length**: Inputs are capped by a documented 72-character buffer, with a visible Reject outcome for longer strings, so slices Res(1..Len) are provably within bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, procedures and conditional expressions.
 

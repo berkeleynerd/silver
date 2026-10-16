@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The Leibniz-style sum over permutations needs no recursion or annotations, and bounded entries plus guards before each loop-carried addition and index use should let overflow and index checks discharge, though the iterative permutation generator makes the shape delicate.
 
-Position 930 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 930 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Matrices are constrained 2D Integer arrays in a fixed maximum size (5x5) with ra
 - **index**: Permutation indices are updated in while loops without invariants, so they are held in ranged subtypes with a guard just before each array access.
 - **termination**: Permutation enumeration (an iterative next-permutation procedure) uses while loops, so it lives in a procedure and is bounded by an explicit step counter instead of recursion or Laplace expansion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and conditional expressions.
 

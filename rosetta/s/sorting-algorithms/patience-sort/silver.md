@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-size arrays, for loops and subtype-bounded indices let nearly every check follow from types and guards just before use, but the loop-carried pile and link indices need careful guards, so the outlook is plausible rather than likely.
 
-Position 103 in the [progression](../../../progression.md#stage-7), in stage 7.
+Position 103 in the [progression](../../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 25 example integers in a constant array; deal each element in a for lo
 - **index**: Each array access through a stored pile top or link index is guarded by a non-zero test just before use, since no invariant ties these values to the 1..25 array range.
 - **overflow**: Element values are held in a bounded integer subtype so comparisons and the image conversion cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, Put without a newline and string building.
 

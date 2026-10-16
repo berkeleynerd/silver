@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every array index and counter is bounded by a fixed-length index subtype and the loop-carried position can be guarded in the loop condition, so no annotation is needed. The procedure form avoids termination checks, and the only care needed is the duplicate-skip and cycle-rotation guards.
 
-Position 1538 in the [progression](../../../progression.md#stage-33), in stage 33.
+Position 1538 in the [progression](../../../progression.md#stage-32), in stage 32.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the two example integer arrays as constant aggregates copied into fixed-si
 - **overflow**: Position and the write counter are declared as ranged subtypes bounded by the fixed array length so increments cannot overflow, with the counter guarded before each increment.
 - **termination**: All loops are in procedures, which get no termination check, and the cycle-rotation while loop is bounded by a guard on the write counter at the array length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, 'Image of scalars, string building, for loops, while loops, procedures, Put without a newline and block statements.
 

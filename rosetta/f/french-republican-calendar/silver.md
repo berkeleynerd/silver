@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is bounded date arithmetic over a 14-year range with fixed tables and for loops, so every check follows from ranged subtypes and range guards without annotations; the later-date leap-year method can be omitted by documenting the 1805 limit.
 
-Position 810 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 810 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Dates are held as records or separate parameters of ranged subtypes. Gregorian t
 - **overflow**: Day counts and year sums are held in ranged subtypes (years 1..14, days 0..6000) with the input checked against that range first, so additions and mod/div on them discharge from type bounds.
 - **range**: Month and day lookups for names and month lengths index constant arrays whose index subtypes match the computed month/day subtypes, with a guard rejecting out-of-range dates before conversion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, case statements, for loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

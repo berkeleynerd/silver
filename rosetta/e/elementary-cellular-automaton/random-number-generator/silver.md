@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a bounded for loop and needs no invariant: the byte accumulator is modular, every neighbor index is guarded at the boundary, and the arrays are initialized by aggregates, so all checks follow from types and local guards.
 
-Position 1269 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1269 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The automaton is a constant-size array (0 .. 63) of Boolean that starts with onl
 - **overflow**: The byte accumulator B := B * 2 + Bit uses a mod 256 type, so no overflow check exists, and eight shifts never wrap, so the result is the faithful value.
 - **initialization**: The cell arrays are declared with (others => False) aggregates before the per-element update loops, so flow analysis sees them fully initialized.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, modular types, Boolean objects, arrays, for loops and 'Image of scalars.
 

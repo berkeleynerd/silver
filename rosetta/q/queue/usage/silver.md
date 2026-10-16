@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a bounded circular-buffer queue with guarded push and pop and no unbounded loop-carried values, so every check follows from subtypes and guards placed just before use.
 
-Position 598 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 598 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A record holds a constant-capacity Integer array, a Head index and a Count in 0 
 - **index**: Push and Pop use a fixed-capacity circular array indexed by a ranged subtype, with full and empty guards placed before each access and a visible Boolean failure outcome.
 - **range**: Count and head index updates wrap by explicit if comparisons, so they stay within their subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, procedures, functions and Put without a newline.
 

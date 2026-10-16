@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small bounded subtypes, for-loop-only primality testing in a function, and a count guard before array stores, so no annotations are needed. The nonlinear digit arithmetic is bounded by subtypes and the place guard, making discharge likely.
 
-Position 363 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 363 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare a subtype Num 0..9999, a function Is_Prime using a for loop over divisor
 - **range**: The array of 600 results is indexed by a count that is guarded to be below 600 before each store, which is needed because the count is loop-carried and has no invariant.
 - **termination**: Primality uses a for loop over divisors 2..99 (since 99*99 exceeds 9999) inside a function, so no variant is needed, and the outer search is a for loop over 1..9999.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

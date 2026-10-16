@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared ranges (K*K at most 961, divisors within the value's range, Count at most 31) and for-loops over static ranges, so no invariant is needed.
 
-Position 305 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 305 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
 A function Is_Prime takes a value in a subtype 2..1000 and uses a for loop over divisors 2..Value-1 with mod and an early return of False, so termination is automatic and no while loop is needed. The main procedure loops K over 1..31 with N = K*K held in a 1..961 subtype, calls Is_Prime (N+1), and prints N via 'Image concatenated into a Put_Line, with a Count of type 0..31 incremented only on hits and printed at the end. About 35 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and string building.
 

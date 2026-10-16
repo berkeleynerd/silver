@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter can be kept safe with declared ranges, for-loop bounds, and capacity or non-zero guards placed just before the operation, and no while loop or recursion appears inside a function. Several loop-carried counters each need careful guarding, though, so discharge depends on the program's shape.
 
-Position 1455 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1455 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ Main validates three arguments (the file name, N in 1 .. Max_N and an output len
 - **range**: The selected candidate index is loop-carried through a second scan, so it is initialised to a valid word index and assigned only from the for-loop index, keeping it in range without an invariant.
 - **stack**: The fixed-capacity word table is a static resource limit, so its stack or static storage is a fixed environmental premise rather than input-dependent growth.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, for loops, while loops, procedures, functions, Put without a newline, further arguments, text parsing and file input.
 

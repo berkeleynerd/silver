@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a byte-to-field range check guarded just before use, a for-loop index, or a static bound, and tagged types with dispatching procedures are supported by SPARK without annotations. Serialization uses hand-written byte encoding because SPARK has no stream attributes, and nothing else needs an annotation.
 
-Position 1561 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1561 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A package declares a tagged root record (Message, with an Id field in a declared
 - **other**: Flow analysis of dispatching Print calls needs every overriding Print to touch the same globals (the output state) as the root's Print, which holds because they all write only through Silver_IO.
 - **other**: SPARK excludes stream attributes such as 'Class'Output and 'Class'Input, so serialization must be written by hand as a kind byte plus field bytes through an admitted binary file library whose failure outcomes are specified.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, integer division, modular types, arrays, records, tagged types, packages, procedures, 'Image of scalars, for loops, file output and file input.
 

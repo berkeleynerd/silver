@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Loop indexes are statically bounded 1..12, so the product is at most 144 and every overflow, range and index check follows from types, with no loop-carried state.
 
-Position 512 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 512 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
 Nested for loops over 1..12 compute Row * Column in a subtype range 1..144 and print each cell right-aligned in a width-4 field, using spaces for cells left of the diagonal. A small procedure fills a fixed 4-character String buffer by digit extraction with / and mod, and Put emits it without a line terminator; the header row and dashed separator are built from literals. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, for loops, procedures and Put without a newline.
 

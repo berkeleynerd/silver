@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Recursion is replaced by an explicit-stack loop inside a procedure over fixed-size arrays, so all indexing and counter checks follow from subtypes and local guards without annotations, though many loop-carried stack pointers require careful guarding.
 
-Position 746 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 746 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 13-vertex, 22-edge example as constant arrays of a Vertex subtype, and
 - **range**: Edge endpoints come from embedded constant arrays of a vertex subtype, so using them as indices is safe by declaration, while the component id of an unassigned vertex (-1 sentinel) must be guarded before any use as an index.
 - **termination**: The iterative DFS and stack-popping while loops live only in procedures, which get no termination check, and the result is simply bounded by the program's guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

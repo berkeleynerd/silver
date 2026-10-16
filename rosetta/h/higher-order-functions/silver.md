@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program has no loops, recursion or heap use, and its only arithmetic is a multiplication that the parameter's declared range bounds, so every check follows from types and should discharge automatically. One open question is whether a generic formal subprogram counts as faithfully passing a function as an argument. If a run-time access-to-subprogram value is required instead, SPARK still supports that without annotations, but access-types would join the surface.
 
-Position 1522 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1522 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main declares a small ranged subtype, a plain function Square over it, and a gen
 
 - **overflow**: The passed function (for example Square) takes a parameter of a declared subtype such as range -1000 .. 1000, so its product is bounded by the types and cannot overflow Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, functions, generics and 'Image of scalars.
 

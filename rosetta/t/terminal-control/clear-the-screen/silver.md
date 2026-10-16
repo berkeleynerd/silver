@@ -6,7 +6,7 @@
 
 A Main procedure declares a constant 4-character String built from Character'Val (27) followed by the literal "[2J", then writes it once with a no-newline Put. There are no loops, arrays or inputs, so no guards are needed. About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada models a variadic function as a procedure over an unconstrained array, and every index, length and range check follows from declared subtype ranges, 'Range loops, and guards placed before the copy, so no annotation is needed.
 
-Position 1444 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1444 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A record type holds a fixed-capacity String buffer with a ranged length, and an 
 - **length**: Copying a command-line argument into a fixed buffer slice is preceded by a guard that the argument length does not exceed Capacity, rejecting longer arguments visibly.
 - **range**: The argument count is checked against the array capacity before the runtime list is filled, so the for-loop index over 1 .. Count stays in the array's range and too many arguments are rejected.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, records, string indexing, string building, for loops, procedures and further arguments.
 

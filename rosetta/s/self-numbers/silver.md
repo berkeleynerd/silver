@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by ranged types, a fixed-size table and fixed-size windows, with only for loops and simple guards, so no annotation should be needed. It is plausible rather than likely because of the loop-carried count, the segment arithmetic and the roughly 10^9-iteration run that must stay within declared ranges.
 
-Position 393 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 393 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses a segmented sieve: a fixed 1,000,000-entry Boolean window, a pr
 - **range**: The self-number counter is a loop-carried value, so its increment is guarded by count being below the limit (100_000_000), which holds trivially because the outer loop stops when reached.
 - **initialization**: The digit-sum table (entries 0..27) is built by a for loop using the direct formula i/100 + (i/10 mod 10) + i mod 10, so no recurrence on earlier entries is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars and Put without a newline.
 

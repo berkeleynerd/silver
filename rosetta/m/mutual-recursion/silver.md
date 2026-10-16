@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task requires mutual recursion. Written as functions it would need variant annotations, but written as procedures it has no termination check, and the one non-routine range fact (the inner result is at most N) is covered by a visible guard that never fires. Discharge therefore depends on careful program shape rather than annotations.
 
-Position 1564 in the [progression](../../progression.md#stage-36), in stage 36.
+Position 1564 in the [progression](../../progression.md#stage-35), in stage 35.
 
 ## Approach
 
@@ -15,7 +15,7 @@ F and M are mutually recursive procedures over a declared subtype 0..Max. Each t
 - **initialization**: The R and Ok out parameters are given default values at the start of each procedure, so every early-exit path leaves them initialized.
 - **stack**: Recursion depth grows linearly with N, but N is bounded by the embedded constant range 0..19, so the depth is fixed rather than input-dependent and stays within the sufficient-memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, for loops, procedures, recursive procedures and 'Image of scalars.
 

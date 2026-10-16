@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is plain integer arithmetic on declared ranges, and the only non-routine checks are the loop-carried doubling and sum, which an explicit rejecting guard against a documented limit makes dischargeable without annotations.
 
-Position 369 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 369 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a bounded subtype of Long_Long_Integer for operands, small functions Halv
 - **termination**: Halving is done in a procedure with a while loop (or a for loop with a fixed 31-step bound inside the function), so no variant is needed.
 - **range**: Halve and double are functions on subtypes where 2*n and n/2 stay in range by declaration, with the doubling guard supplying the upper bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, procedures, 'Image of scalars and string building.
 

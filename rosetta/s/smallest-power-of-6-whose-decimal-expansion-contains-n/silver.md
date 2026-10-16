@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs big numbers (6^m exceeds 64 bits), but a fixed-capacity digit array with narrow subtypes lets every check follow from types and one count guard, so no annotation is needed. Discharge depends on careful shape of the carry loop and pattern search, hence plausible rather than likely.
 
-Position 1373 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1373 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the current power of 6 as a fixed 80-element array of decimal digits (
 - **range**: Re-narrowing the carry and digit values from the quotient and remainder of a division by 10 requires the type bounds on the operands, which hold, but it depends on careful subtype declarations.
 - **termination**: All loops are for loops or live in procedures, so no variant is needed, and the exponent limit of 100 keeps the power within 80 digits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, 'Image of scalars, string building, for loops, while loops, big numbers, Boolean objects, procedures and Put without a newline.
 

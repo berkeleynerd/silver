@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a single call with a String literal, so every check is trivial once Silver admits a standard-error output operation.
 
-Position 1567 in the [progression](../../../progression.md#stage-37), in stage 37, which adds standard error.
+Position 1567 in the [progression](../../../progression.md#stage-36), in stage 36, which adds standard error.
 
 ## Approach
 
 A parameterless Main procedure with pragma SPARK_Mode (On) calls an admitted standard-error Put_Line operation with the literal "Goodbye, World!". There is no data, control flow or guard. About 6 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Standard error.
 

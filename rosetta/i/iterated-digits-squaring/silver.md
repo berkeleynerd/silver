@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, array bounds and non-loop-carried digit expressions, with the only loop-carried values being a 64-bit counter and a range-typed chain value inside a procedure, so no annotation is needed.
 
-Position 339 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 339 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure fills a Boolean table Ends_89 over 0..648 by following each value's 
 - **range**: The eight-term digit-square sum is written as one non-loop-carried expression of table lookups bounded by 81 each, so the 0..648 result range check is a linear fact over constant array values that the provers should discharge.
 - **termination**: The chain-following while loop (until the value is 1 or 89) lives in a procedure that fills the 0..648 lookup table, so no termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions and 'Image of scalars.
 

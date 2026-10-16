@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded array scan whose indexes are range-typed and guarded just before use, with capacity overflow producing a visible outcome, so no annotation is needed. The loop-carried positions in replace-all and join make discharge depend on careful guard placement rather than being routine.
 
-Position 631 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 631 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent a binary string as a record holding a Length in 0..Capacity and a fixe
 - **index**: Substring and replace use loop-carried read and write positions, which discharge because they are Natural subtypes bounded by the capacity and guarded immediately before each array access.
 - **termination**: Replace scans with a while loop, so it is a procedure with a position that always advances; functions use only for loops, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

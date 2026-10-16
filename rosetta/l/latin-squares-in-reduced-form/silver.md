@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task fits an iterative bounded backtracking procedure over fixed-size arrays with small ranged integers, so every check follows from types and guards, though cursor and counter bookkeeping in the loop needs careful guarding.
 
-Position 842 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 842 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a fixed 6x6 Integer array with Boolean used-per-row and used-per-column arra
 - **initialization**: The row, column and used-value arrays are fully initialized by aggregates or for loops before the search loop so flow analysis sees no uninitialized reads.
 - **termination**: The unbounded-looking backtracking while loop lives in a procedure, which has no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is straight-line floating-point arithmetic with no loops or recursion, so termination and indexing are trivial, but proving no overflow, no division by zero and a nonnegative sqrt argument through degree-4 nonlinear expressions depends on bounded input ranges and many guards, hence plausible rather than likely.
 
-Position 1106 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1106 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the three example circles as record constants with bounded float component
 - **range**: The square root needs a nonnegative argument, so a guard on the discriminant D prints a specified 'no real solution' outcome when D is negative.
 - **overflow**: Products of values up to the bound can exceed the float range unless each intermediate is guarded or the input subtype is small enough (for example magnitude at most 1000.0), which restricts the domain only by a documented limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, records, ranged subtypes, Boolean objects, procedures, functions and Put without a newline.
 

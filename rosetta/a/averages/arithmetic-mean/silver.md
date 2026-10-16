@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from small declared ranges, a fixed capacity and an explicit zero-count guard, but the accumulating sum and the digit-by-digit fraction need carefully guarded loop-carried values, so discharge depends on program shape rather than being routine.
 
-Position 172 in the [progression](../../../progression.md#stage-8), in stage 8.
+Position 172 in the [progression](../../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The vector is a fixed-capacity array of a bounded integer subtype plus a Count, 
 - **division**: Division by the element count is guarded by an explicit Count = 0 branch that prints a specified 'undefined' outcome.
 - **length**: The decimal text of the mean is built in a fixed-size buffer whose size is bounded by the declared value ranges and a fixed number of fraction digits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

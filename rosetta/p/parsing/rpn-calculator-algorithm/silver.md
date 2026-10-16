@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-integer operation on array-stack values that can be guarded just before use with a visible rejection, and no annotation is needed, but many loop-carried values (stack contents, depth, cursor, scaled results) each need their own guard, so discharge depends on careful program shape.
 
-Position 855 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 855 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The expression is an embedded String constant scanned by a cursor in a procedure
 - **range**: Rendering each scaled value as a fixed five-decimal string in a bounded buffer needs digit-count guards because the value's magnitude is known only from its type.
 - **termination**: Tokenizer and exponent loops are while loops inside procedures, which get no termination check, so none is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures and Put without a newline.
 

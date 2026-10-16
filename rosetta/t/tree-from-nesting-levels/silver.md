@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks reduce to bounded subtypes and capacity guards placed right before each buffer write, and no annotation is needed, but the loop-carried depth and buffer position need careful guard shape.
 
-Position 1018 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1018 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each embedded input is a constant array of a small Positive-range subtype with a
 - **range**: The nesting depth variable is loop-carried and typed as a bounded subtype, with increments and decrements guarded by comparisons against the target level so the type range suffices.
 - **overflow**: Level values come from a subtype bounded to a small range in embedded data, so image and increment arithmetic stays within range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, characters, string indexing, string building, 'Image of scalars, Put without a newline and unconstrained arrays.
 

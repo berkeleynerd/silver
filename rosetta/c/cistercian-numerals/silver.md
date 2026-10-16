@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtypes, constant tables and for-loop indexes over fixed bounds with no loop-carried accumulator, but the coordinate arithmetic needs careful range-subtype design to discharge unaided.
 
-Position 835 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 835 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the eight example values in a constant array of a 0 .. 9999 subtype, split
 - **overflow**: The digit split with / and mod on a value of subtype 0 .. 9999 yields results bounded by the types, so only simple division range checks arise.
 - **length**: Each output row is a fixed-length String assigned from a same-length buffer, and the heading is concatenated with the Image of a bounded value, so its length is statically bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, procedures, functions and Boolean objects.
 

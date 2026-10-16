@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a fixed 99_999 limit and trial divisors up to 316, so loops are for loops or while loops inside procedures with guards before every multiplication, and no annotation is needed; the provers must handle the modest nonlinear totient and power updates.
 
-Position 285 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 285 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Numbers are a subtype 1..99_999; procedures with for loops over trial divisors 2
 - **range**: The scan counter is bounded by a fixed Limit of 99999 with an explicit exit guard, so the search cannot walk past the type, and the 50-th and 20-th results are checked to be found within that limit with a specified message otherwise.
 - **index**: Digit-count array is indexed 2..5 only after a guard that the digit class lies in that range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

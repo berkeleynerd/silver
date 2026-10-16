@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed-capacity arrays, ranged indices and capacity guards, but the explicit-stack parser replacing recursion is a large loop-heavy program whose index and loop-carried bounds need careful guarding, so it is plausible rather than likely.
 
-Position 1262 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1262 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Read the lexer output from stdin into a bounded token table of records holding a
 - **overflow**: Integer literals stay as text and are never converted to numbers, so no arithmetic can overflow, while line and node counters are ranged subtypes bounded by their capacities.
 - **initialization**: Token and node arrays are fully initialized by aggregate before use, and record fields are set before any read.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, text parsing, case statements, for loops, while loops, procedures, functions and standard input.
 

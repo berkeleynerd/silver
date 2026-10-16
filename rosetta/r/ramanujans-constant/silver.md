@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure integer big-number arithmetic with fixed bounds and console output, so it needs no annotations, but proofs over looped limb arithmetic depend on careful typing and guards, hence plausible rather than likely.
 
-Position 1391 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1391 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent fixed-point numbers as a fixed-capacity array of decimal limbs scaled 
 - **range**: Number of Taylor terms and the digit width of 1e18-sized values must be statically bounded constants sized for e^(pi*sqrt(163)), about 18 integer digits plus roughly 50 fractional digits.
 - **division**: Division of a digit array by the term index k is guarded because k comes from a for loop starting at 1.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

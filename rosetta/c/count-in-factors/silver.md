@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges and guards just before the operations, since trial division with a bounded divisor and a halving cofactor needs no invariant, and the loops sit in procedures so no termination check applies. The only extras are Put and 'Image output, which are not yet in Silver.
 
-Position 196 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 196 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ An outer for loop counts N over a subtype 1..10_000 (an explicit documented limi
 - **range**: The remaining cofactor is only divided by a divisor of at least 2, so it stays within its subtype after each division.
 - **division**: The divisor is declared in a subtype starting at 2, so division by zero is excluded by type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

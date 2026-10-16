@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded text scanning, scaled-integer arithmetic and string building, all of which can be guarded explicitly, though many loop-carried positions and accumulators need careful guards.
 
-Position 1151 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1151 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the SMIL document as a String constant, then scan it with bounded while lo
 - **termination**: All scanning loops are while loops placed in procedures, which get no termination check, and parsing helpers that return values are written as procedures with out parameters.
 - **range**: Decimal parsing and formatting of values like 0.56 depend on digit-by-digit accumulation whose loop-carried values need guards or capped subtype ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions and case statements.
 

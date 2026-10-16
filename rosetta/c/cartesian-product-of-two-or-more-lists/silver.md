@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs bounded arrays, nested for loops and integer-to-text output, all of which have types or guards bounding every index and length, and no recursion or heap is required. Plausible rather than likely because the n-ary odometer and text-buffer building carry loop-carried values that need careful range-bounded subtypes.
 
-Position 726 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 726 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Lists are fixed-capacity arrays (a 2D array of values plus an array of lengths, 
 - **length**: Appending numbers to a bounded text buffer needs a guard that remaining capacity covers the digits, with a visible reject outcome otherwise.
 - **termination**: All iteration is done in procedures with for loops or one while loop over a bounded odometer, so no function termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, records, for loops, while loops, procedures, 'Image of scalars, string building, Put without a newline, characters and string indexing.
 

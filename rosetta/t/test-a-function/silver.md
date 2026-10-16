@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The testing library is replaced by plain executable checks over a simple for-loop palindrome function, whose index and overflow checks follow from the loop range and Text'Length without annotations. The loop is terminating by construction and the test counter is bounded by the fixed number of cases, so nothing needs an invariant.
 
-Position 1347 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1347 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Define a non-recursive Palindrome function over an unconstrained String using a 
 - **index**: Text(Text'First + Offset) and Text(Text'Last - Offset) stay within bounds because Offset is below Text'Length / 2, which the provers handle from the for-loop range without an invariant.
 - **overflow**: Text'First + Offset cannot overflow since Offset is less than Text'Length and the sum is at most Text'Last, which is a simple linear fact.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Functions, Boolean objects, for loops, integers, integer division, unconstrained arrays, string indexing, procedures and exit status.
 

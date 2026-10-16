@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are small bounded integers and the recurrence is a simple loop in a procedure, so the only non-routine checks are the guarded nonlinear updates of loop-carried values, which discharge with explicit range guards. No annotation is needed.
 
-Position 257 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 257 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ One procedure runs the next-term recurrence (k = (n+b)/d, then c' = k*c-a, d' = 
 - **termination**: The generation loop is a while loop in a procedure, which gets no termination check, or can be written as a for loop over a fixed maximum term count with an exit when the sequence reaches 1/1.
 - **overflow**: The term counter reaches about 304193 and is a loop-carried value, so it is held in a range subtype with an explicit guard before each increment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

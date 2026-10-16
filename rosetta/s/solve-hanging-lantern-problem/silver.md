@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The answer is a product of binomial coefficients over bounded arrays with for loops, so checks follow from types and guards, but the loop-carried accumulator needs an explicit overflow guard and the input must be parsed and validated, which makes discharge depend on careful program shape.
 
-Position 1360 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1360 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The columns are chains, so the answer is the multinomial N!/(n1!...nk!), compute
 - **range**: The running prefix sum of lanterns is loop-carried and is kept within the limit by a guard before each addition, rejecting inputs whose total exceeds it.
 - **termination**: Input reading uses for loops over the validated column count in a procedure, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, text parsing, standard input, 'Image of scalars, Boolean objects and exit status.
 

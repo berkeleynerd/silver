@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all loops are for loops over fixed digit ranges in procedures and every arithmetic value is bounded by the digit type, but the nested big-number multiplication inside the search loops makes discharge depend on careful program shape. The needed big-number support (digit arrays, multiply, compare, print) is a sizeable new surface.
 
-Position 1379 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1379 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent numbers as fixed-capacity little-endian decimal digit arrays with a do
 - **termination**: Only for loops and procedures are used (digit-by-digit search from the top position with trial digits 9 down to 0), so no variant is needed.
 - **other**: The task's no-arbitrary-limits clause is met only as an explicit documented fixed capacity (for example 64 digits for the 38-digit example), and the optional 2001-digit example would need a much larger capacity that makes the nested loops heavier for the provers.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, for loops, procedures, functions, Boolean objects, big numbers, string building, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for-loop trial division over small declared ranges with the only loop-carried values being a guarded sum and two small counters, so all checks follow from types and guards without annotations.
 
-Position 355 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 355 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function Is_Prime(N : Natural range 0..100000) tests divisors with a for loop 
 - **range**: The count and the column counter are loop-carried and are kept in small ranged subtypes with guards before increment, with the count at most 168 by type.
 - **division**: The mod divisors are loop constants from a for loop starting at 2, so the nonzero check follows from the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars, Put without a newline, string building and procedures.
 

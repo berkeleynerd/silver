@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data are static and positive-ranged, so overflow and division checks follow from the subtypes and for-loop indexes over the array's own range, and nothing needs an annotation. The remaining uncertainty is the float provers on the product chain and the as-yet-absent float formatting library.
 
-Position 1064 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1064 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 2024 reference record and the five 2025 NASA rows as constant arrays o
 - **range**: Formatting each Long_Float result as scientific-notation text needs a bounded image routine or scaling to integers with guarded conversion, which depends on an admitted library operation that does not exist yet.
 - **floating point**: Reproducing the printed rounded values relies on float-image output that is deterministic across targets, which is an environmental premise rather than a proof matter.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, records, for loops, floating-point images, string building, integers, Boolean objects and procedures.
 

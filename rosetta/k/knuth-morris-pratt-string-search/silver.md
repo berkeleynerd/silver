@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is only a pointer to the algorithm, which is plain index arithmetic on bounded arrays in procedures, so no annotation is needed. The risk lies in loop-carried indices (lon, i, j) without invariants, which explicit guards and bounded subtypes should let the provers discharge.
 
-Position 567 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 567 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the example texts and patterns as String constants, copy each into a bound
 - **range**: Table entries and match positions are stored into subtypes bounded by the maximum pattern and text lengths, which holds by type but must be stated so the assignments discharge.
 - **length**: Inputs of different lengths live in fixed-capacity buffers with a separate length variable, and the embedded data must fit the declared capacity (about 220 characters).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, for loops, while loops, procedures, 'Image of scalars, Put without a newline and string building.
 

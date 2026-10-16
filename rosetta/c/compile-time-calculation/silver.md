@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The only arithmetic is a static expression that the compiler folds to 3628800, which fits in Integer, so no run-time check remains apart from the routine 'Image and output call. The proof should discharge trivially once integer constants and 'Image are admitted.
 
-Position 34 in the [progression](../../progression.md#stage-3), in stage 3.
+Position 36 in the [progression](../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Main declares a static Integer constant Factorial_10 equal to 10*9*8*7*6*5*4*3*2*1, which Ada evaluates exactly at compile time as a static expression. Main then prints it with Silver_IO.Put_Line(Integer'Image(Factorial_10)). It has no loops, guards or input. About 8 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and 'Image of scalars.
 

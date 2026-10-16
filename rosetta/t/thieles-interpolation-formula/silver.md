@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array and for-loop code that avoids recursion and needs no annotations, but proof depends on floating-point range bounds and zero-denominator guards through the nested loops, and on an admitted trig library or embedded table. This makes it plausible rather than likely.
 
-Position 1083 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1083 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed or compute a 32-entry table of x, sin, cos, tan in fixed-size Long_Float a
 - **index**: The triangular table uses computed slices and indices like N-I+1 and I-2, which discharge only if written as for loops over 2D constrained bounds with explicit guards.
 - **other**: Trig functions need an admitted elementary-function library with bounded contracts, since Silver authors cannot write their own and the table could instead be embedded as literals.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, arrays, for loops, ranged subtypes, procedures, functions, floating-point images and Put without a newline.
 

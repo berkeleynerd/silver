@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops over fixed arrays or ranged subtypes, and the moduli and product are range-limited with an explicit guard, so every check follows from types and guards without an invariant.
 
-Position 139 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 139 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed n=[3,5,7] and a=[2,3,2] in constrained arrays of ranged subtypes, check pa
 - **overflow**: The running product and the sum of a*s*N/n are loop-carried, so they are held in a 64-bit type with moduli subtyped to 1..1000 and a guard before each multiplication that reports no-solution if the product would exceed a fixed limit.
 - **division**: Every divisor and modulus comes from a subtype with a lower bound of 1, so the nonzero check follows from the type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures and 'Image of scalars.
 

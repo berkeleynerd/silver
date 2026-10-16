@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only straight-line floating-point arithmetic on constant operands with bounded types, so no annotations are required, but the proofs depend on admitted elementary functions with verified contracts and on float formatting.
 
-Position 1043 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1043 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a small record type for a complex number with Long_Float parts bounded by
 - **overflow**: Complex multiplication and addition of values in a declared small float subtype stay far below the type limit, so the float overflow checks follow from the type range.
 - **length**: Float-to-text formatting must go into a fixed-capacity buffer through an admitted float-image operation whose length bound is verified.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, records, floating-point images, functions, procedures, Put without a newline, string building and ranged subtypes.
 

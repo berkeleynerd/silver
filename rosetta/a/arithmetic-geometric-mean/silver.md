@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded floating-point arithmetic, Sqrt and a fixed-count loop, so checks reduce to range and non-negativity facts, but float range reasoning and the admitted Sqrt contract make discharge depend on careful typing.
 
-Position 1040 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1040 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare a bounded non-negative floating-point subtype and a function AGM that ru
 - **range**: Assigning (A+G)/2 and Sqrt(A*G) back to range-limited loop-carried variables relies on provers bounding float products, so guards or a wide-enough range subtype are needed.
 - **termination**: A for loop with a fixed iteration count (for example 10 rounds, ample for convergence) replaces the epsilon-driven loop, so termination is automatic in a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, for loops, functions and floating-point images.
 

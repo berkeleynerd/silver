@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The only checks are Bronze-level initialization and data flow of two in-mode Boolean parameters; Boolean operators and literal output cannot raise a run-time error, so everything discharges trivially.
 
-Position 93 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 93 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
 A nested procedure Print_Logic (A, B : in Boolean) evaluates A and B, A or B, A xor B and not A, and for each one an if/else chooses between two fixed String literals such as "A and B is TRUE" and "A and B is FALSE" to pass to Put_Line. Main calls Print_Logic four times with the embedded literal pairs (True, True), (True, False), (False, True) and (False, False), first printing a header line for each pair the same way. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects and procedures.
 

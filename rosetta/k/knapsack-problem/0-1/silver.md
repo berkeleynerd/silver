@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound for loops over constant arrays with fixed data, so indexes and termination are routine, and the only non-routine check is the loop-carried sum bound, which a visible guard with a Reject outcome can handle without annotations.
 
-Position 826 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 826 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed item weights and values as constant arrays of a ranged subtype (22 items),
 - **index**: All table indexes come from for-loop ranges over constant bounds (1..22, 0..400) so they discharge, though the 2D array write inside nested loops adds some solver load.
 - **initialization**: The 23 by 401 table is fully initialized by an aggregate with others so flow analysis is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, case statements, procedures, 'Image of scalars and Put without a newline.
 

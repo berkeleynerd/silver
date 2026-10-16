@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-range array index or a guarded addition in for loops, so nothing needs an annotation, but the loop-carried triangle sums depend on careful bound guards and the 2D array and text formatting are beyond today's Silver.
 
-Position 718 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 718 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a 15-element sequence array of a bounded integer subtype and a 15x15 triang
 - **range**: Generating factorial inputs by multiplication needs a guard before each product (or the factorial sequence is embedded as constants) so that the loop-carried accumulator stays within the subtype.
 - **length**: Each output line is built in a fixed-size buffer sized for 15 numbers of up to 20 characters, with an explicit guard before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values are bounded by static ranges and explicit caps (primorial of 9 is about 2.2e8, m below a few hundred), so checks follow from subtypes and guards, but several loop-carried accumulators and nested primality loops need careful shaping.
 
-Position 397 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 397 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute primorial(n) for n=1..9 iteratively with the next prime found by a trial
 - **index**: Insertion into the fixed-size result array and the dedupe/sort loops are guarded by count against the array bounds, with for loops over the array's own range for sorting.
 - **division**: The modulus in the trial division uses a divisor from a for loop range starting at 2, so it is never zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

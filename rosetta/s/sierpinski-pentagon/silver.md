@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops with static bounds, and the fixed-point coordinates live in bounded subtypes with convex-combination updates, so the checks follow from types and linear arithmetic with no recursion or floating point.
 
-Position 673 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 673 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the five pentagon vertex coordinates as a constant array of fixed-point in
 - **overflow**: The per-level map x' = (v*618 + x*382)/1000 is a convex combination of values in a declared subtype -1000..1000, so the result stays in range from the type alone, with every constant visible to the prover.
 - **index**: Grid row and column are computed as (coordinate+1000)*size/2001 from range-typed values, so they land in the grid bounds by linear arithmetic, and a guard before each plot makes this certain.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops and procedures.
 

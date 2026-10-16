@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only non-static checks are the index J - Gap and the update of J, and the while guard J > Gap written just before them discharges both. The while loop sits in the Main procedure, so it gets no termination check, and elements are only compared and moved, never computed with arithmetic.
 
-Position 195 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 195 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Main declares a subtype Index range 1 .. 10, a constrained Integer array type ov
 - **index**: The read A (J - Gap) inside the insertion loop sits behind the short-circuit guard J > Gap in the while condition, so J - Gap is at least 1 and at most 9, inside the array's static range.
 - **range**: The loop-carried J : Index is updated by J := J - Gap only under the same J > Gap guard, so the result stays within Index's declared range 1 .. 10 without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops and 'Image of scalars.
 

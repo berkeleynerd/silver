@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed bounds, a 0..255 prime table and guards before each loop-carried update, and the search is a while loop confined to a procedure so no variant is needed, but the explicit-stack search and counter guards need careful shape.
 
-Position 1359 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1359 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read one line into a bounded buffer of at most 32 characters (rejecting longer i
 - **range**: Character'Pos differences are computed in a wider integer subtype so they fit the 0..255 prime table index.
 - **termination**: The search uses while loops only inside a procedure, which gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, 'Image of scalars, for loops, while loops, procedures, standard input, exit status, string building and conditional expressions.
 

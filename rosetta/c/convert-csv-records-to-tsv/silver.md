@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is pure string scanning with character-level rules and no conflicts, and every index and buffer length is guarded just before use, though several loop-carried positions need careful guards because there are no invariants.
 
-Position 1143 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1143 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the thirteen test records as String constants (building the T
 - **overflow**: Pos+1 and Len+2 on loop-carried Integer values need guards (Pos < Line'Last, Len <= Capacity-2) or ranged subtypes so the increments cannot overflow.
 - **termination**: The field-scanning while loops live in a procedure, which gets no termination check, and each iteration advances Pos.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, unconstrained arrays, for loops, while loops, procedures and text parsing.
 

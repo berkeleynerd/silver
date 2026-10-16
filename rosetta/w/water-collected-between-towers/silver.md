@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from the declared height subtype, for loops over array ranges and a guarded accumulator, with no recursion or while loops, so it should prove without annotations but depends on careful guard placement for the loop-carried sum. Nothing here conflicts with the Oracle, and the new needs are only arrays, loops, procedures and integer-to-text.
 
-Position 178 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 178 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Heights are stored in a fixed-capacity array of a 0..9 subtype with an explicit 
 - **index**: Loops run over the array's own range so all indexing is statically in bounds, and series shorter than the fixed capacity are handled with a validated length used as the loop bound.
 - **length**: Output lines are built by concatenation of Image text with bounded lengths, so the result buffer must be sized for the worst case.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and integer division.
 

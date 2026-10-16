@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the static Vertex range and the closure's while loop sits in a procedure, so the only non-routine check is the degree accumulator's increment, which depends on loop unrolling or careful typing rather than an annotation.
 
-Position 699 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 699 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The example graph is a constant two-dimensional Boolean adjacency matrix over a 
 - **range**: Returning the count as a Degree subtype 0..N-1 and comparing Degree(U)+Degree(V) >= N stays within Integer because the function's return subtype bounds each operand.
 - **termination**: The repeat-until-no-edge-added closure loop is a while loop placed in the Main procedure, so it needs no variant, and the degree and completeness functions use only for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, functions, 'Image of scalars and Put without a newline.
 

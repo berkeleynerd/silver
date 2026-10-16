@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by static subtype ranges and every loop is a for loop, so checks follow from types and no variant or invariant is required. Only integers, for loops, a Boolean function and integer-to-text output must be added to Silver.
 
-Position 888 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 888 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Since p+(p+2)=2(p+1) is a square only when p=2M^2-1, the program loops M over a 
 - **overflow**: D*D in trial division is bounded because D is a subtype range of at most 3163 and candidates stay under 10,000,001, so Integer cannot overflow.
 - **termination**: Only for loops are used (with exit), so functions need no variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars, Put without a newline and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from small ranged subtypes, a fixed capacity of 7 and guards before each index update, and the while loop sits in a procedure so no termination proof is needed; the careful shape of the loop-carried binary-search bounds keeps this at plausible rather than likely.
 
-Position 1358 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1358 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The seven colours are embedded as an enumeration (or index 1..7 with a case-base
 - **initialization**: The sorted array is fully initialized by an aggregate and the shift loop runs over the array's own range, so flow analysis is routine.
 - **other**: Reading each answer requires a specified outcome for end of input or an unrecognized response (reject with exit status), which depends on an admitted stdin library operation with a documented failure result.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, enumerations, arrays, case statements, for loops, while loops, procedures, Put without a newline, standard input, exit status and string building.
 

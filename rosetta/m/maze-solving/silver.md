@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to fixed-size array indexing, ranged distance labels and for loops with guards placed just before each neighbour access, so no annotation is needed, though loop-carried position and distance values need careful subtype ranges and guards.
 
-Position 717 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 717 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The maze is an embedded fixed-size constant grid of walls and open cells, with a
 - **overflow**: Distance labels are assigned from for-loop indexes whose range sits inside the label subtype, and the traceback subtracts 1 only after a guard that the label is above 0.
 - **termination**: Every iteration is a bounded for loop (a relaxation pass count equal to the cell count, then a traceback of the same bound) so no while loop or recursion is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, for loops and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes and guards just before each increment, and the only loops that need termination (while) sit in a procedure. The 100th Tau number is 1096, so a 2000 bound is ample, and the nested loops need no invariants.
 
-Position 334 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 334 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Main procedure runs a while loop with a candidate n in a ranged subtype 1..200
 - **overflow**: The divisor counter is a loop-carried value, so it is a ranged subtype with a guard before each increment, which can never trigger for candidates up to the bound.
 - **range**: The candidate and found-count variables are loop-carried, so they are ranged subtypes bounded by the largest needed value (1096, with a margin) and a guard before each increment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

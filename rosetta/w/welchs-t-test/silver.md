@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is in floating-point arithmetic over embedded data, so it depends on range guards and bounded subtypes plus admitted elementary-function contracts (Log, Exp, Sqrt, lgamma), but needs no annotation if loops are capped procedure loops. The main difficulty is bounding loop-carried floats and Float image formatting rather than any conflict with the Oracle.
 
-Position 1099 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1099 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the two data sets as constant Float arrays of fixed size, compute means an
 - **range**: Log, Sqrt and Exp arguments (including lgamma via Lanczos or Stirling) must be guarded to positive or bounded values, and the elementary-function library contracts must admit those ranges.
 - **overflow**: Loop-carried float accumulators in the series term and value are only bounded by their subtype ranges, so range-checked clamps are needed and must not alter the result for the given data.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, arrays, for loops, while loops, procedures, functions and Put without a newline.
 

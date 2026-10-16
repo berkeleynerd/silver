@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is bounded by declared coordinate ranges, fixed array capacity and for-loops in procedures, so no annotation is needed, but the fixed-point nonlinear arithmetic and string-buffer length reasoning require careful program shape.
 
-Position 637 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 637 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use the Robinson-triangle deflation (P3) with integer fixed-point coordinates sc
 - **length**: Each SVG line is built in a bounded buffer from scalar images and literals, so the buffer length must be shown to exceed the worst-case text, which requires bounded coordinate digits.
 - **termination**: All iteration sits in procedures with for loops over fixed depths and array ranges, so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, string building, 'Image of scalars, for loops, while loops, procedures, functions and Boolean objects.
 

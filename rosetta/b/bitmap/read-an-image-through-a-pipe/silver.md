@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task needs a delegate process to convert a foreign image to PPM, whose output is parsed into a bounded bitmap array (header validation, bounded dimensions, pixel records). That is a process/pipe effect plus ordinary SPARK data handling, so no fixed Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, records, loops, subprograms, integers, characters and string operations.
 

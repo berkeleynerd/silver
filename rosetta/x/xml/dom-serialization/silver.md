@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a tiny fixed three-node tree serialized to console, which needs only bounded arrays, records and guarded for-loop appends with no annotations, so proofs should discharge routinely.
 
-Position 804 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 804 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent the DOM as a fixed-capacity array of node records (kind, parent index,
 - **index**: Appending into the fixed-capacity output buffer is guarded by a length check against the capacity, with an overflow outcome of rejecting the document, and child and node indexes come from for-loops over the arrays' own ranges.
 - **range**: The buffer length counter is loop-carried, so each append checks remaining capacity just before writing so the counter stays within its subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, arrays, records, for loops, case statements, procedures, functions, string indexing, string building and Put without a newline.
 

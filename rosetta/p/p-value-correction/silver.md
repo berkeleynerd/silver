@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-size array loops over embedded data with for loops in procedures, so index and termination checks are routine, but floating-point range bounds and the Hommel index arithmetic need careful guards, and fixed-decimal formatting of floats needs a custom routine, making discharge plausible rather than likely.
 
-Position 1205 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1205 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 50 p-values in a constant Float array subtype-restricted to 0.0..1.0, 
 - **termination**: All loops are for loops or live in procedures, so no variant is needed, and the Hommel nested loops run over fixed ranges.
 - **range**: Hommel index arithmetic such as N-J+1 and the running minimum updates must stay within the subtype 1..50, which follows from loop ranges on J and explicit guards but needs careful shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, arrays, for loops, while loops, procedures, functions, 'Image of scalars, floating-point images, Put without a newline, string building, enumerations and case statements.
 

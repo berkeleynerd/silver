@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The iterative table-based dynamic program uses only for-loop indexes, subtype-bounded indices and guards, so checks should discharge without annotations, but loop-carried counters in the traceback require careful guards.
 
-Position 688 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 688 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the two example strings as constants, fill a (0..M)x(0..N) Natural-subtype
 - **termination**: The traceback while loop lives in a procedure, which gets no termination check, while the table fill uses only for loops.
 - **length**: The output slice of the result buffer must be proven within bounds from the guarded cursor, and the string lengths are fixed capacities checked against the embedded inputs.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

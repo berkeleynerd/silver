@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is fixed embedded data pushed through a few multiplications and one division in a for loop, with no recursion, while loops or input, so checks follow from float subtype ranges. The only non-routine parts are float overflow bounds up to 1e40 and hand-written scientific-notation formatting.
 
-Position 1088 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1088 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the five simulated records (date text, x, v, m) and the five NASA velociti
 - **overflow**: Float overflow checks on m*v, x*p and dm/dt*p discharge because the embedded constants sit inside the declared subtype ranges and the result subtype is wide enough, though the provers need the range bounds stated through the types.
 - **range**: Converting a float to scientific-notation text needs exponent and mantissa extraction, which is done with guarded comparison loops over bounded decades, and this is the least routine part.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, records, for loops, functions, procedures, string building and Put without a newline.
 

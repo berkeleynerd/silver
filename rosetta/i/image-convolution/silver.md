@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges, border guards placed just before indexing, and an unrolled nine-term sum with no loop-carried accumulator, so no annotation is needed; the main care is keeping integer kernel coefficients (real-valued kernels replaced by scaled integers) tightly bounded.
 
-Position 708 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 708 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed a small constrained 2-D array of Pixel (0..255) as the test image and a 3x
 - **division**: The kernel divisor is a constant subtype of positive integers (1..64), so division by zero cannot occur.
 - **overflow**: The conversion of pixels and coefficients to a wider working range for the product relies on solver handling of small nonlinear products, which is routine given the tight type bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

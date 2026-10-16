@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges and the data is fixed, so every index and arithmetic check follows from declared ranges and one clamp; text art satisfies the task since no display is required.
 
-Position 658 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 658 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed x and y as constant Integer arrays of 10 elements (y in tenths, e.g. 27, 2
 
 - **index**: Scaling y to a row index is nonlinear and is discharged by clamping the computed row into the grid's row subtype before indexing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, procedures and Put without a newline.
 

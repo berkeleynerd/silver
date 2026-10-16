@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded string scanning and integer stepping that guards and declared limits can cover, but the many loop-carried indexes and the capacity and overflow guards make the shape delicate, with no need for annotations.
 
-Position 1149 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1149 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the ten test patterns as String constants in a fixed table an
 - **length**: Every expansion is appended to a fixed-capacity bounded buffer with an explicit check that the output length and the product of counts for multiple ranges fit, with a specified rejection or literal outcome if not.
 - **range**: Zero-padded formatting computes digits into a fixed-width buffer with width bounded by the parsed digit limit, so character positions stay in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions and case statements.
 

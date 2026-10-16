@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtype ranges, for-loop indexes over the array's own range, and an up-front validation of n, so no loop invariant or other annotation is needed. The outlook is likely because the loops are plain for loops with bounded values and the only non-routine part, text parsing, is a validated library operation.
 
-Position 1123 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1123 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Declare a subtype Count is Integer range 1 .. 100 and an array of 1 .. 100 of an
 - **overflow**: Item values are I * 10 with I in a declared 1..100 subtype, so the product stays within a bounded element subtype and discharges from types.
 - **length**: The output line is built in a fixed-size buffer sized for three image fields, which the declared subtype ranges bound statically.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, text parsing, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the array's own index range and the only arithmetic is the J+1 index bounded by the loop range, so every check follows from types and static bounds; the function has no while loops or recursion, so no termination annotation is needed.
 
-Position 323 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 323 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Define a fixed-length Integer array type of 8 elements, a procedure that bubble-
 
 - **index**: The bubble-sort inner access to J+1 is safe because the inner for loop bound is N-I with I in 1..N-1, which the provers derive from the loop index ranges without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, procedures and functions.
 

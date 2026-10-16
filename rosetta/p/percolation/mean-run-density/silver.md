@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and for-loop bounds except the large loop-carried run counter, which needs a cap guard with a visible outcome; no annotation is needed and no recursion, heap or floating point is required, so the proofs will likely discharge with careful shape.
 
-Position 400 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 400 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a deterministic 31-bit linear congruential generator held in a ranged intege
 - **range**: Scaled K, delta and p(1-p) in ten-thousandths are computed by integer division by a nonzero constant trials times n, with guards before each conversion to the narrower output subtype.
 - **termination**: All loops are for loops over fixed ranges or live in procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

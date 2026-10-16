@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops over fixed array ranges with bounded float subtypes, so checks reduce to range and guard facts, but float accumulation, Sqrt and the float-to-integer conversion need careful bounding for the provers.
 
-Position 877 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 877 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 25 circles as constant arrays of centre x, centre y and radius in boun
 - **range**: Converting the float area scaled by 1e6 to an integer for printing needs a guard on the magnitude, which the bounded accumulator type provides.
 - **floating point**: Reaching six digits requires an exact per-strip union length with roughly 100000 midpoint strips, and the float rounding behavior of that sum is not provable but is only an accuracy concern rather than a check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, arrays, ranged subtypes, for loops, integers, 'Image of scalars, string building, Boolean objects and functions.
 

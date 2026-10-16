@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded arrays, for loops and explicit-stack while loops in procedures with capacity guards, so no annotation is needed, but many loop-carried indices and buffer positions require careful guarding.
 
-Position 1206 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1206 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Expressions live in a fixed-capacity node pool (arrays of kind, left, right and 
 - **overflow**: Loop-carried counters (node count, stack top, output position) are subtypes bounded by the pool and buffer capacities, with a guard before each increment.
 - **other**: The fixpoint repetition of simplification is replaced by a fixed bounded number of for-loop passes with hash-consed node ids so equality is an index comparison, which must still produce the same final result as the task's fixpoint.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

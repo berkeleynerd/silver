@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over embedded fixed-size text with slice comparisons and small bounded counters, so checks follow from types and positional guards, but several loop-carried counters and padded-name handling need careful guard placement.
 
-Position 569 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 569 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the example pages as a constant array of fixed-width padded text lines, an
 - **length**: The language name extracted between the header marker and the closing braces is copied into a fixed-width padded buffer, with an explicit guard that rejects over-long names with a visible message.
 - **index**: The language table lookup and insertion use a bounded entry count, with a guard that reports a full table visibly rather than dropping the tag.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

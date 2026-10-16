@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** DES is a fixed-size, loop-over-constant-tables computation in which every index and arithmetic result is bounded by ranged subtypes and for-loop ranges, so no loop invariant or recursion is needed. The main cost is the large amount of constant table data and index-heavy but statically bounded code.
 
-Position 682 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 682 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The key and plaintext are embedded as constant arrays of bits (a subtype 0..1) a
 - **range**: The S-box index is row (0..3) times 16 plus column (0..15) over ranged bit and nibble subtypes, and XOR is written as (a + b) mod 2, so the results stay within the declared subtypes.
 - **other**: The key, plaintext and expected output are embedded as constant bit or hex tables, so no parsing is required and the only size concern is roughly 400 constant table entries.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops, procedures and functions.
 

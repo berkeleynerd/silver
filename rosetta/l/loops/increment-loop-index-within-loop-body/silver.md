@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by a declared 64-bit range and explicit guards, and the only unbounded loop sits in a procedure, so no annotation is needed. The nonlinear product, loop-carried buffer position and index doubling need careful guards, so discharge depends on program shape.
 
-Position 557 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 557 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a ranged 64-bit integer subtype for the index, a function Is_Prime that tria
 - **termination**: The unbounded main search loop is a while/exit loop inside a procedure, which gets no termination check, while Is_Prime uses a bounded for loop with exit so the function terminates automatically.
 - **range**: The prime counter is bounded by the loop's exit at 42 so its increment is safe, but the prover only knows its type range, so the counter type must be a small ranged subtype with a guard before incrementing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and functions.
 

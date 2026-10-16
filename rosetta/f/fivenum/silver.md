@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check reduces to array indices guarded by Count and bounded float values, and the sort uses only for loops over static ranges, so no invariant is needed, but float arithmetic and float formatting make it depend on careful shape.
 
-Position 1188 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1188 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The three embedded data sets are fixed-capacity arrays of a bounded Float subtyp
 - **overflow**: Sorting with nested for loops over fixed index ranges needs no loop-carried index arithmetic, so only the bounded midpoint sums matter.
 - **other**: Float formatting needs an admitted library routine with specified output, since 'Image text is not the fixed decimal layout the task shows.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, arrays, enumerations, for loops, procedures, functions, Boolean objects and Put without a newline.
 

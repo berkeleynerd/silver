@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed vertex bounds, ranged subtypes and sentinel guards, and the loops are while loops in procedures, so no annotation is needed; the plausible rating reflects the many loop-carried indices that each need a guard just before use.
 
-Position 851 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 851 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the 5-cycle example (and possibly one more graph) as a consta
 - **range**: The circular queue head, tail and count are loop-carried, so they are kept in subtypes with a capacity of N*N and updated with explicit wrap guards instead of mod on unbounded values.
 - **overflow**: Flattened adjacency indexing v*N+i and the matching-size counter stay within small declared ranges, so the arithmetic is bounded by types with fixed N.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline, string building and case statements.
 

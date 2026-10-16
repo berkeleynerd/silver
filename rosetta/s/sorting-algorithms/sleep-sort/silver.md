@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** Sleep sort starts one task per command-line integer, and each task delays in proportion to its value before printing it. This needs tasking, delay, arguments and console output. Bounded argument counts, validated integer parsing and a bounded value range fit Silver's rules, and nothing in the task breaks a fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking, integers, arrays, loops, subprograms and string operations.
 

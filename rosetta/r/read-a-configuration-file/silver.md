@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is a bounded index into an embedded constant or fixed buffer, so guards before each use discharge the checks and no invariant is needed, but the many loop-carried positions make the proof depend on careful program shape.
 
-Position 574 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 574 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The configuration text is embedded as a String constant with line-feed separator
 - **termination**: All scanning loops are while loops inside procedures, which get no termination check, while any function stays loop-free or uses for loops only.
 - **range**: Line-start and line-end positions advance in a while loop, so they are held in subtypes bounded by the embedded text length and checked before each increment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

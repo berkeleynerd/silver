@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The Silver-friendly solution fetches the Programming_Tasks category list and each task's raw wikitext over HTTP, scans each line for the "=={{header|" marker, and prints per-task and total counts. The only missing capabilities are network access and fixed-capacity text buffers for titles and response lines, which the Oracle's bounded-resource rule permits. Nothing in the task requires a run-time error, exceptions, assertions or unsafe constructs. Confidence is medium because the network effect and the bounded-capacity behavior for an unbounded category listing are design choices.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays and loops.
 

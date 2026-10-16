@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on bounded byte values with mod and division by literals and a for loop over a static array range, so every check follows from types and static bounds with no loop-carried unbounded values.
 
-Position 453 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 453 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a fixed-length constant array of byte values (type 0..255) as the data, si
 - **index**: Each 6-bit group is computed with mod and / on a Natural byte value, giving 0..63 that indexes a constant 64-character alphabet string, so the index check follows from the arithmetic bounds.
 - **range**: Combining up to three bytes into a 24-bit Natural and the output position (3-byte group index times 4) are bounded by the fixed embedded array length, so the loop-carried output offset is a for-loop index expression with static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, string building, procedures and Put without a newline.
 

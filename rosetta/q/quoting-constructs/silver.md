@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is open-ended documentation of quoting constructs, so a straight-line program of literals, constants and bounded concatenation needs only static checks. No loop-carried values, arithmetic on inputs or recursion arise, so proofs should discharge automatically.
 
-Position 446 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 446 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
 A parameterless Main holds String constants showing Ada's quoting forms (double-quoted literals with a doubled quote, concatenation with Character'Val for newline, character literals, and based or underscored numeric literals). It prints each example plus a fixed explanatory line with Put_Line, using Integer'Image only on constants whose lengths are statically bounded. There are no loops and no input, so all control flow is straight-line. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters and 'Image of scalars.
 

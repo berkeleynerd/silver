@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over bounded arrays with for loops, so checks follow from subtypes and guards, but the nested carry loops in bignum multiplication and the tree construction need careful range shaping. No annotation is required, hence plausible rather than likely.
 
-Position 1395 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1395 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Build Knuth's power tree iteratively level by level in a Parent array over 1..19
 - **termination**: All loops are for loops or live in procedures, so no variant is needed, though the path walk to the root must be a bounded for loop with an early exit guard.
 - **floating point**: Avoided by computing 1.1^81 exactly as 11^81 over 10^81 in the fixed-capacity bignum and printing the decimal point by string building.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, records, big numbers, 'Image of scalars, string building and Put without a newline.
 

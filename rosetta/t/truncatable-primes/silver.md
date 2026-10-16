@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over static ranges with all indexes bounded by subtypes or guards, so no invariants or variants are needed and the sieve and truncation checks should discharge routinely.
 
-Position 159 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 159 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Boolean sieve array over 0..999_999 is filled using nested for loops (I in 2..
 - **overflow**: The sieve index I*K is bounded by the for-loop upper bound K in I..Max/I with I at most 1000, which provers should discharge though it is mildly nonlinear.
 - **index**: Truncation arithmetic (N mod Power(K), N / 10) stays within 0..999_999 by subtype ranges, so Composite indexing is safe, with a guard to skip zero digits before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to describe or show how far a language can simulate AOP, so a wrapper-based demo with embedded data and a range-bounded addition needs only type-range and static-value checks and no annotations.
 
-Position 301 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 301 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The program defines a plain Add2 function on a ranged subtype, and a wrapper pro
 
 - **overflow**: Add2 takes a subtype whose range stops 2 below Integer'Last, so X + 2 cannot overflow, and the demo passes the literal 5.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, functions, procedures, 'Image of scalars and string building.
 

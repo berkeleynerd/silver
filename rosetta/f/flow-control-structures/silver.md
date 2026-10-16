@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only to document flow-control structures, with goto as one example. A program that demonstrates labeled exit, exit when, and early return in procedures meets it without goto or asynchronous transfer of control. All of its checks follow from static loop ranges and guards placed just before each operation.
 
-Position 210 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 210 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main shows the flow-control constructs SPARK keeps. It uses a labeled outer for 
 
 - **overflow**: The counter in the plain loop is incremented only after an `exit when Count >= Limit` test just before it, so the increment is bounded by that guard without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, 'Image of scalars, for loops, while loops and procedures.
 

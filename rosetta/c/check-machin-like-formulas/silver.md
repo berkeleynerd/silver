@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs exact big-integer arithmetic, which Silver can do with fixed-capacity limb arrays whose carries and indexes are bounded by types and for loops, so no annotation is needed, though the careful signed big-number shape makes it plausible rather than likely.
 
-Position 1399 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1399 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store each formula as a record of up to five (multiplier, numerator, denominator
 - **range**: Signed big values use sign-magnitude, and subtraction compares magnitudes first so no limb goes negative.
 - **other**: Capacity must hold roughly 1200 decimal digits (total multiplicity 283 of factors up to 12944), so about 350 limbs of base 10000 are declared as a documented resource limit with a visible rejection on overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, big numbers, 'Image of scalars and string building.
 

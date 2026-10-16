@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged digit and bit subtypes, for-loop indexes over static bounds and a guard before each remainder update, and no annotation is needed because all loops are for loops in procedures. It is plausible rather than likely because fixed-capacity big-number arithmetic with loop-carried carries and remainders is carried through nested loops.
 
-Position 1375 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1375 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed k as a constant array of about 543 decimal digits (subtype 0..9), convert 
 - **range**: Each halving pass must reduce a 543-digit decimal array in place with a carry that stays a digit, which holds only if the digit elements are a 0..9 subtype and the 10*carry+digit expression is bounded by types.
 - **termination**: All loops are for loops inside procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, procedures, big numbers, string building, string indexing and Put without a newline.
 

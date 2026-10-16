@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices and loop bounds are static, so only the float accumulator in the nested loop and the Cos contract are non-routine, making discharge plausible with careful range subtypes and guards but no annotations.
 
-Position 1053 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1053 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Main declares a constant N of 10 and two arrays of bounded float sub
 - **overflow**: The accumulator w is loop-carried and with no invariant is known only by its type, so it needs a bounded float subtype and a visible rejection guard before each addition, which the provers can discharge only if the guard is checked on w plus the term of magnitude at most 1.
 - **range**: Assigning the sum back into a bounded float subtype needs the guard to dominate the assignment, and the nonlinear products with the index need declared ranges on the operands.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, arrays, for loops, floating-point images, 'Image of scalars, string building, Put without a newline and procedures.
 

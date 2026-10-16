@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed for-loop ranges, a static array bound and one explicit guard before the indexed store, and no loop-carried value needs an invariant. The only new work is arrays, for loops, integer arithmetic and integer-to-text conversion.
 
-Position 119 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 119 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Boolean array indexed 0..100 starts all False, and three nested for loops over
 - **index**: The array index N = 6x+9y+20z is guarded by an explicit N <= 100 test just before the store, and its lower bound of 0 follows from the nonnegative for-loop ranges.
 - **overflow**: The loop ranges 0..16, 0..11 and 0..5 bound the sum to at most 295, which is trivially within Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, Boolean objects, arrays, for loops and 'Image of scalars.
 

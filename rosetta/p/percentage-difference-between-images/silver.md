@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged types and guards before each operation, but header parsing and the loop-carried bounded sum need careful guarded shape, and the task needs file-input operations Silver lacks today; decoding the JPEGs is replaced by the permitted bitmap alternative.
 
-Position 1456 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1456 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Read both PPM files through an admitted file-input operation into fixed-capacity
 - **division**: The divisor 765 times width times height is shown nonzero only by rejecting images whose parsed width or height is zero.
 - **stack**: Two fixed-capacity pixel buffers of roughly 786 KB each depend on sufficient memory, which is a fixed environmental premise outside the proof.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, Put without a newline, further arguments, exit status and file input.
 

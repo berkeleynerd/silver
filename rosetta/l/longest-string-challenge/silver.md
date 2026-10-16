@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and guards placed before table appends and slice copies, with out-of-limit input given a specified rejection; the only unknowns are stdin line-reading operations and slice-copy proof shape.
 
-Position 1354 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1354 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A fixed table of up to 256 stored lines (each a 1..255 character buffer plus a l
 - **length**: Copying a line into a table slot slices by its length, which is a subtype bounded by the maximum line length and checked on read.
 - **overflow**: The loop-carried tie count and best length are subtypes bounded by their maxima, with the increment guarded just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, string indexing, string building, for loops, while loops, procedures, standard input and exit status.
 

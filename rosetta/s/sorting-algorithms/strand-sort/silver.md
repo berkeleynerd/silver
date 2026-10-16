@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses fixed capacity arrays and bounded subtypes with procedures only, so no variants are needed, but several loop-carried cursors in the extraction and merge need explicit guards for the provers to discharge index and range checks.
 
-Position 565 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 565 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 15 sample integers in a constant array of a bounded subtype, then in a
 - **range**: Element values are a bounded subtype (-100..100) so comparisons and the Image conversion never overflow.
 - **length**: Output line text is built in a fixed-size String buffer sized for 15 elements of at most 5 characters each, with a guarded write position.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and string indexing.
 

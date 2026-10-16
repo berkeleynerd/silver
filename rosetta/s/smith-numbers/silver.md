@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in a procedure with nested for and while loops, so no recursion or termination proof is needed, but loop-carried accumulators and the shrinking quotient need careful range subtypes and guards because no invariants can be written.
 
-Position 222 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 222 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A main procedure loops with a for loop over n in 4..9999, computes the digit sum
 - **range**: The remaining quotient and trial divisor are loop-carried, so they are held in ranged subtypes of 1..9999 and 2..10000 with guards before each division and increment so no range check depends on an invariant.
 - **division**: The divisor comes from a for-loop range starting at 2 and the digit divisor is the literal 10, so division by zero is excluded by static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, 'Image of scalars and Put without a newline.
 

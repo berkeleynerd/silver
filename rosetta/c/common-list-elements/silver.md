@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from for-loop ranges over the arrays themselves and the single loop-carried counter is bounded by its subtype and a guard, so all checks discharge without annotations. No while loops, recursion or functions with loops are needed.
 
-Position 91 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 91 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The three example lists are constant Integer arrays embedded in the program, and
 - **index**: The result counter is a loop-carried value, so the program guards each append with a test of Count against the array capacity (8, equal to the length of the first list) just before the indexed store.
 - **range**: Count is declared with a subtype 0 .. 8 and incremented only inside that guard, so the increment's range check follows from the guard and the type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building, Put without a newline and procedures.
 

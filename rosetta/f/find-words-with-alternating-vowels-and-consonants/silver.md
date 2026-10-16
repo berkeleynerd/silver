@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index and length facts that follow from the for-loop range and the length guard, and the only loop-carried value is a Boolean, so no invariant is needed; the work lies in the file-input library operation, not in proofs.
 
-Position 1322 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1322 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Main procedure opens unixdict.txt through an admitted file-input operation and l
 - **index**: Character indexing happens in a for loop over 1 .. Length, guarded by Length > 9 so empty lines are never indexed.
 - **termination**: The read loop is a while loop inside a procedure, so it gets no termination check, and the per-word scan is a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects, characters, integers, ranged subtypes, string indexing, string building, for loops, while loops, procedures, functions and file input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded range subtypes, fixed array bounds and for loops over the array range, with no recursion or while loops needed, so proofs should discharge without annotations. The only mild care is the LCG product bound and the free-square index search.
 
-Position 530 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 530 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Keep the first rank in an 8-element Character array initialised to blanks, and a
 - **index**: Choosing the k-th free square uses a for loop over the board's own range and a guard that the found position is within 0..7 before writing, with the draw reduced by mod to a count of free squares.
 - **division**: mod uses constant nonzero divisors, or a free-square count guarded to be positive, so division by zero cannot occur.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures and Put without a newline.
 

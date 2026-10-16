@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada's generic formal subprogram expresses the eatable constraint directly without tagged types, and GNATprove analyses each instance, where the only checks are a count increment and index guarded by Count < Capacity, so proof should discharge without annotations.
 
-Position 1528 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1528 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A generic package Food_Boxes takes a private Food type, a formal procedure Eat (
 - **initialization**: The box's array of a formal private element type has no default value, so the generic takes an Empty formal object to initialize every slot by aggregate, and flow analysis then sees it fully initialized.
 - **index**: Add writes Items (Count + 1) only after testing Count < Capacity, with Count declared in 0 .. Capacity, so the index and range checks follow from that guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Generics, packages, records, arrays, integers, ranged subtypes, Boolean objects and procedures.
 

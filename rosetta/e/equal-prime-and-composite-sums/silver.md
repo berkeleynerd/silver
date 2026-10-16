@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Six terms need only sums up to about 18.9 million and numbers below about 6,500, so a fixed sieve and 64-bit sums fit, and each loop-carried check is covered by an explicit capacity or cap guard without annotations. The loop-carried pointers and sums make shape matter, hence plausible rather than likely.
 
-Position 248 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 248 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build a Boolean sieve array over 2..20000 with nested for loops, then advance a 
 - **range**: Sieve marking computes multiples as I times K with K running over a for-loop range bounded by Limit/I, so the product stays within the array bounds from the loop range alone.
 - **termination**: The two-pointer search is a while loop kept in the main procedure (not a function), so no variant is needed, and the sieve and digit-formatting loops are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars, string building, Put without a newline and procedures.
 

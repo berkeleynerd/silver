@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over small fixed arrays with character-to-digit mapping, so checks follow from declared ranges and capacity guards, but the quadratic distinct-key counting and string-key comparison need careful shape to avoid loop-carried counter overflow.
 
-Position 1489 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1489 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a modest fixed word list (the task allows a list at the author's discretio
 - **overflow**: Counters are declared as ranged subtypes bounded by the word capacity, and an explicit guard rejects overflow of the table before incrementing.
 - **length**: Words longer than the fixed buffer length are counted as an explicit rejected or unrepresentable outcome rather than being truncated, so string lengths stay within declared bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, string indexing, string ordering, 'Image of scalars, string building, for loops, while loops, procedures, functions, case statements, Boolean objects and Put without a newline.
 

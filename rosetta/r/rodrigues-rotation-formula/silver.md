@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is a short straight-line floating-point computation with no loops or recursion, so termination is trivial, but overflow, division, sqrt and arccos domain checks each need explicit guards and bounded component subtypes, plus an admitted elementary-functions library with verified contracts.
 
-Position 1073 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1073 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A record of three bounded Float components with functions for dot product, cross
 - **range**: Arccos needs its argument within -1.0..1.0, which rounding can violate, so the ratio is checked or clamped before the call with a visible outcome.
 - **other**: Output formatting converts floats to scaled integers printed as fixed decimals, which adds rounding and range checks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, records, functions, ranged subtypes, floating-point images, string building, integers and integer division.
 

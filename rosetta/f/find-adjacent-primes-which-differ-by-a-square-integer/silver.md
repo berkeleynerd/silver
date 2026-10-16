@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every loop-carried value is a ranged subtype or guarded, so index, range and overflow checks follow from types and guards without any invariant. The only non-routine items are the large fixed array and the nonlinear sieve index, both handled by bounds.
 
-Position 92 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 92 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Boolean array indexed 0..1_000_000 is filled by a sieve of Eratosthenes using 
 - **index**: The sieve multiple i*m is guarded by an explicit comparison against the array bound just before indexing, and the operands are small enough that the product cannot overflow.
 - **stack**: A one-million-element Boolean sieve is a fixed-size object that depends on the environment having enough stack or static storage, which GNATprove does not check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and string building.
 

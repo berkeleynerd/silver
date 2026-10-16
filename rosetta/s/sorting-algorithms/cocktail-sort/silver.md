@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index I and I+1 lies within the static range 1..32 because the for loops run over literal bounds inside the string's own range, and the outer loop sits in a procedure with only a Boolean carried across iterations, so no invariant is needed.
 
-Position 491 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 491 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
 Main holds the 32-character example as a fixed-length String variable and a Boolean Swapped flag, then runs an outer loop with exit when not Swapped containing a forward for loop and a reverse for loop over 1 .. 31, each comparing and swapping adjacent characters via a Character temporary. The sort is inlined in Main so all bounds are static literals, and Data is printed before and after. About 32 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String indexing, characters, Boolean objects, for loops and while loops.
 

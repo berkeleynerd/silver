@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small integer arithmetic with for-loop indexes and a capped accumulator guard, so it should discharge with careful program shape, though the accumulator and search limit need explicit guards. No annotations, recursion, or exotic effects are needed beyond console output.
 
-Position 908 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 908 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A function Sigma(N) loops I in 1 .. N with trial division (N mod I = 0), adding 
 - **termination**: The search uses a while loop inside a procedure (no termination check), while the divisor-sum function uses only a for loop, so no variant is needed.
 - **division**: The mod divisor is the for-loop index starting at 1, so it is statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, 'Image of scalars, string building and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over the array's own range and all indexes and float sums are bounded by declared types, so every check follows from declarations; only float formatting and float range reasoning need some care.
 
-Position 1037 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1037 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the ten example values in a constrained array of a bounded float subtype, 
 - **floating point**: The sum of the two middle values cannot overflow because the element subtype is a bounded float range such as -1.0E6 .. 1.0E6, so the addition is discharged from the type bounds.
 - **index**: Loop-carried min_idx stays in the array index subtype, and i+1 is safe because the inner range is guarded by i being at most 10, so the swap indexes discharge from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, for loops, integers, integer division, floating-point images, procedures and Put without a newline.
 

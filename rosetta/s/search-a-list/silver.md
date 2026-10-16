@@ -6,7 +6,7 @@
 
 Main holds a bounded constant array of equal-length strings and scans it in increasing index order, printing the first matching index and returning immediately. If no element matches, Main explicitly raises a declared exception and handles it locally with a not-found message; no exception crosses a call. About 25 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, integers, for loops, 'Image of scalars and local exceptions.
 

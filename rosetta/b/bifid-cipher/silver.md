@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over bounded ranges inside procedures with a length guard, so every index and range check follows from types and guards without invariants; the only mildly delicate part is coordinate index arithmetic over unconstrained strings.
 
-Position 990 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 990 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each Polybius square is a 25-character String constant; a lookup function scans 
 - **range**: Square lookup returns a 0..24 position from a for loop over the 25-letter key, with a Boolean found flag so unknown characters give a visible rejection instead of an unchecked index.
 - **overflow**: Offset arithmetic on an unconstrained String's 'First is bounded by the 40-character length guard, so no sum can exceed Integer'Last.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, for loops, procedures, functions and conditional expressions.
 

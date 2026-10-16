@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative FFT over a fixed 8-point embedded input with constant twiddles uses only for loops and bounded float types, so checks follow from per-stage type ranges, though floating-point range reasoning and float-to-text formatting need careful shape. No annotations or recursion are required, and no Oracle rule is broken.
 
-Position 1089 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1089 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the 8-point example as a complex record array of bounded floa
 - **overflow**: Index arithmetic for butterfly positions at each stage uses small ranged integer types fixed for N = 8, so no wraparound is possible.
 - **length**: Formatted number text is built in fixed-size buffers sized for the bounded value range, so concatenation lengths are statically within limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, records, for loops, procedures, integers, integer division, 'Image of scalars, string building, Put without a newline, functions and Boolean objects.
 

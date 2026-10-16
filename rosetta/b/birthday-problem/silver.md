@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data are fixed-size arrays and ranged integers with loops bounded by constants, so every index and overflow check follows from types and no loop needs a variant or invariant; the only care needed is declaring ranges on several loop-carried counters.
 
-Position 348 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 348 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ For each multiplicity m in 2..5, run a fixed number of trials; each trial resets
 - **index**: Day indexes come from a mod 365 on a non-negative ranged value and group-size histogram indexes come from a for loop bounded by the pigeonhole limit 4*365+1, so both discharge from types.
 - **overflow**: Per-day counters and histogram tallies are loop-carried, so they are declared with ranges wide enough for trials times people and incremented under a guard just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

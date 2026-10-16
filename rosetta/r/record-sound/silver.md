@@ -2,7 +2,7 @@
 
 **Excluded from Silver: hardware, delay.** The Silver-friendly solution records a fixed number of 16-bit mono samples into a bounded array (a documented resource limit) using a loop, then writes them as raw PCM to a file. Only the audio capture device is an effect Silver lacks; the task has no run-time error, exception, annotation or outside-SPARK requirement, so it is a feature and effect gap rather than an Oracle conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays and loops.
 

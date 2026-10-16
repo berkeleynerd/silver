@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by types and array ranges with a deterministic generator and only for loops, so the only non-routine checks are the float accumulator bounds and float output formatting, which need careful shape but no annotation.
 
-Position 1049 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1049 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A constant-seeded linear congruential generator keeps its state in a range subty
 - **floating point**: A faithful Box-Muller version would need Sqrt, Log and Cos from an admitted library with positivity preconditions, so the program uses the sum-of-12-uniforms approximation (mean 1.0, standard deviation 0.5 after scaling) instead, a variation the task text allows.
 - **other**: Formatting floats with 'Image has no verified contract in plain SPARK, so the output may instead print scaled integers or need an admitted float-formatting library operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, 'Image of scalars, arrays, for loops, procedures and functions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on a wraparound modular type with for loops over fixed nibble indexes, so no overflow, range or index check depends on a loop-carried value and nothing needs an annotation.
 
-Position 1278 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1278 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent the two 32-bit halves and the key element as a 32-bit modular type, th
 - **range**: Each nibble extracted from the 32-bit sum by division and mod 16 is converted to a 0..15 table index, which follows from the mod bound and discharges without loop-carried facts.
 - **index**: The hexadecimal output digit lookup uses a value reduced mod 16 into a 16-character constant, so the index bound is statically evident.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, arrays, multidimensional arrays, integer division, for loops, functions, procedures, characters, string indexing and string building.
 

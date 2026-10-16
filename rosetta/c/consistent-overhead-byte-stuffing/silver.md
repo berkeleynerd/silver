@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded array and counter logic that types and just-before guards can discharge, but several loop-carried indexes and the hex formatting need careful guard placement, so it is plausible rather than likely.
 
-Position 1314 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1314 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Bytes are a modular 8-bit type stored in fixed-capacity arrays (about 600 bytes)
 - **termination**: All loops are for loops or while loops inside procedures, so no termination check is generated.
 - **other**: Xor with a non-zero marker needs a modular Byte type with conversions, which is routine once the byte type is a modular 8-bit type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, characters, arrays, records, string building, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars and case statements.
 

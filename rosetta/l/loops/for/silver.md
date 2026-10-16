@@ -1,19 +1,21 @@
 # Loops/For
 
-**Candidate: proofs likely to discharge automatically.** For loops terminate by construction, the inner bound is the outer loop index within a static range, and no arithmetic or indexing is involved, so no check depends on a loop-carried value. The only new surface is the for loop and output without a line terminator.
+**Candidate: proofs likely to discharge automatically.** The outer Integer index stays within 1 through 5 and bounds the nested loop; the sample uses immutable indexes and no loop-carried values.
 
-Position 32 in the [progression](../../../progression.md#stage-2), in stage 2, which adds for loops.
+Position 13 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
 A parameterless Main procedure holds an outer for loop over 1 .. 5 and an inner for loop over 1 .. I that calls Put ("*"), followed by Put_Line ("") to end each row. All bounds are static literals or the outer loop index, so no variables are carried between iterations and no guards are needed. About 10 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
-For loops and Put without a newline.
+Integer range for loops and Put without a newline.
 
 ## External effects
 
 - **console output** (allowed): Prints five lines of asterisks to standard output.
 
-Assessed on 2026-10-15 against page revision 415373 of the [task](https://rosettacode.org/wiki/Loops/For) by claude-sonnet-5-5 at medium effort; confidence high. The inclusion policy is in `rosetta/coverage.json`.
+Initially assessed on 2026-10-15 against page revision 415373 of the [task](https://rosettacode.org/wiki/Loops/For) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
+
+Revised on 2026-10-16 by Codex through targeted source review; see the [review record](../../../for-loops-delivery-review.md).

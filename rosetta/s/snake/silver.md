@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded arrays, ranged coordinates and for loops with guards before each index, and the only while loop sits in a procedure, so no annotation is needed; the main care is guarding loop-carried length and head coordinates, and the interactive stdin plus random food are met by line input and a deterministic generator.
 
-Position 1295 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1295 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The board is a fixed 10x10 grid, and the snake is two fixed-capacity coordinate 
 - **range**: The snake length is a subtype bounded by the board's cell count and growth is guarded by a full-board win outcome, so the increment is checked against that bound.
 - **termination**: The input loop is a while loop with exit inside a procedure (no termination check), and food placement uses a for loop over cells instead of a retry while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions, standard input, 'Image of scalars and modular types.
 

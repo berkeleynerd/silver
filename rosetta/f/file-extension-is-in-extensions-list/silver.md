@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a length guard before indexing and for loops over the extension's own range, no loop-carried value needs an invariant, and functions contain only terminating for loops.
 
-Position 988 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 988 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the test filenames and the extension list (including tar.bz2, so the extra
 - **index**: The suffix comparison indexes the filename at offsets from its last character, which is discharged by an explicit guard that the filename is longer than the extension plus the dot and a for loop over the extension's own range.
 - **overflow**: Index arithmetic from Name'Last and Ext'Length is safe because the preceding length guard bounds the offset, with String indexes limited to Positive.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects, characters, string indexing, unconstrained arrays, for loops, functions, procedures, integers and ranged subtypes.
 

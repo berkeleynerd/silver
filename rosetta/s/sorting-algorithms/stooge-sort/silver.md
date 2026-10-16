@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and stack push can be guarded just before use with values drawn from bounded subtypes, so no annotation is needed, but the loop-carried frame indices and stack pointer make discharge depend on careful program shape. Avoiding recursion keeps stack depth a fixed documented limit rather than input-dependent.
 
-Position 920 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 920 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the 15 embedded integers in a constrained array of a bounded Integer subty
 - **overflow**: The stack pointer increments inside a while loop and is discharged only by a guard against the stack capacity before each push.
 - **termination**: Termination is not checked for procedures, so the while loop needs no variant, but the work must stay in a procedure rather than a function.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and conditional expressions.
 

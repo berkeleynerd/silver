@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop and all indexes derive from S'Range and the loop bounds, so the checks follow from types and loop ranges with no invariants or recursion; the only care needed is bounded subtypes for the loop-carried best start and length.
 
-Position 762 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 762 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a constant sample String and use three nested for loops over its own range
 - **index**: S(I+K) and S(J-K) are discharged because K runs over 0 .. (J-I)/2 inside I .. J, which are loop ranges over S'Range, so both indexes stay within I .. J.
 - **range**: The best-start and best-length variables are carried through loops, so they are declared as subtypes bounded by the string's range and length and assigned only from loop indexes, making the slice S(Best_Start .. Best_Start + Best_Len - 1) provably in bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, string indexing, for loops and case statements.
 

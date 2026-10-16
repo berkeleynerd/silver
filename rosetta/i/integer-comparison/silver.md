@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** After validated parsing, the program only compares two Integer values, which raises no run-time checks, so every obligation follows from the parse operation's contract and explicit rejection of invalid input.
 
-Position 1442 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1442 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Main reads two command-line arguments, parses each into an Integer with validati
 
 - **overflow**: Converting argument text to Integer must reject out-of-range digit strings, which a validated parse operation (or a guard before each multiply-add) discharges, after which the three comparisons carry no checks at all.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, text parsing and further arguments.
 

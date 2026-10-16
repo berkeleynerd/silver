@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are index and range checks on loop-carried positions that explicit capacity guards just before each access can discharge without invariants, and loops live in procedures so no variants are needed. The guards give a visible rejection outcome for overflow cases that the actual sequence never reaches within the chosen term count.
 
-Position 460 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 460 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Hold the current term as a fixed-capacity Character array (capacity 256) plus a 
 - **range**: The run count is loop-carried and must become one digit, so a guard (Count <= 9) is placed before Character'Val and rejects visibly otherwise, though the real sequence from 1 never exceeds 3.
 - **overflow**: Counters are subtypes bounded by the buffer capacity (about 256) so increments stay in range after a guard against the bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, procedures, string building and Put without a newline.
 

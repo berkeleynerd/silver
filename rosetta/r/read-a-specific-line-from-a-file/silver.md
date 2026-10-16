@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from a small counter, a bounded buffer and guards before each store, but the task needs an admitted library file-reading operation that reports failure and over-long lines as specified outcomes, and Silver has none yet. Nothing needs an annotation, and the original Ada exception handlers are replaced by explicit status results.
 
-Position 1462 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1462 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program takes the file name from the first argument (or embeds a fixed name)
 - **overflow**: The line counter is a range-typed value capped at 7 by the loop's exit condition, so increments are guarded.
 - **other**: The admitted file-read library operation must report open failure and end-of-file as specified outcomes that the program turns into messages.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, file input, standard input and further arguments.
 

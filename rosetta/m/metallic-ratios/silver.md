@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small-range or fixed-capacity digit-array work inside bounded for loops, so checks should follow from types and guards, but the carried big-number arithmetic and long division make discharge depend on careful program shape. Nothing requires an annotation, recursion, or heap use.
 
-Position 1386 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1386 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each Lucas term as a fixed-capacity array of decimal digits (about 40 
 - **termination**: The convergence search is an outer for loop with a fixed iteration cap above the 80 needed for b=1, so no variant is needed.
 - **range**: Each long-division digit is found by at most 9 guarded subtractions of a fixed-capacity number, so the digit stays in 0..9 through a guard rather than a proof-derived invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, string building, 'Image of scalars, big numbers and Put without a newline.
 

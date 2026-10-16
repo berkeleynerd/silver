@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays are statically bounded, and every loop-carried counter can be kept in range with an explicit guard before use, so no annotation is needed, but the many guarded counters and the Image-based text building require careful program shape.
 
-Position 278 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 278 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a Boolean Removed array over 1..22000 and a ludic result array of fixed capa
 - **termination**: All loops live in procedures, and the sieve uses for loops over the fixed 1..22000 range, so no termination check or variant is needed.
 - **length**: Output lines built from 'Image fragments need bounded buffers sized for the maximum number of digits and items per line.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

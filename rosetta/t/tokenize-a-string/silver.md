@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter check follows from ranged subtypes, for loops over the input's own range and a capacity guard just before each store, so no invariant or variant is needed. The program needs only Put and a few basic Ada features, and its token arrays are fixed-size.
 
-Position 502 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 502 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 23-character input as a String constant and declare two bounded arrays
 - **index**: Token start and stop positions stored in arrays are loop-carried, so they are declared with a subtype of the input's index range and the count is guarded against the array capacity before each store.
 - **overflow**: The token counter is a small ranged subtype that is incremented only after a guard confirms it is below its maximum.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, for loops and Put without a newline.
 

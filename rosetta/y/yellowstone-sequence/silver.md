@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded integer arithmetic and array indexing in procedures with guards before each access, and the extra plot is optional, so no annotation or function variant is required. The only non-routine point is the candidate search limit, which a visible Reject branch handles; the actual maximum in the first 30 terms is 51, well within the table.
 
-Position 215 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 215 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a Boolean array Used (1 .. 200) and a 30-element array of the sequence valu
 - **termination**: GCD is a procedure with a while loop (no termination check is generated), and the search loop is also in a procedure, so no variant is needed.
 - **division**: The mod operation sits inside a while loop whose condition is B /= 0, which is the guard placed just before the operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

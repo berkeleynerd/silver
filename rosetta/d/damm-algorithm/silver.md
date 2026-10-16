@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 subtype of both the state and the table entries plus a per-character digit guard, so no loop invariant is needed; the only new surface is a 2D constant table, string indexing and a for loop in a procedure.
 
-Position 967 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 967 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Define subtype Digit is Integer range 0 .. 9 and a constant 10x10 Digit table ho
 - **index**: Character-to-digit conversion and the table lookup are guarded by a per-character check that the character lies in '0'..'9', and the running state is a 0..9 subtype, so the two-dimensional index checks follow from types.
 - **range**: Assigning the table entry to the 0..9 state variable needs no loop invariant because the table element type is the same 0..9 subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, multidimensional arrays, arrays, unconstrained arrays, string indexing, for loops, procedures, Boolean objects and Put without a newline.
 

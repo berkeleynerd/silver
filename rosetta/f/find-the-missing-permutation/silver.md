@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for-loop ranges over a constant String, and the only loop-carried values are small column sums protected by explicit guards, with the final letter conversion guarded before use. No loop invariant, recursion or while loop is needed, so every check should discharge from types and guards.
 
-Position 885 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 885 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The 23 given permutations are embedded as one 92-character String constant, and 
 - **overflow**: The four column sums are loop-carried, so each addition is guarded by a bound test just before it, or the sums use a type whose range makes the addition safe.
 - **range**: The expression 60 minus the column sum is only converted to a letter after an if guard checks it lies in 1..4, with a rejection message otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, arrays, for loops and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has no Oracle conflict and needs only floats, arrays and for loops, but float arithmetic in loop-carried accumulators and bisection depends on range subtypes and guards that provers may only discharge with careful shape.
 
-Position 1052 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1052 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the integers 1 to 10 in a constant array of a bounded float subtype and co
 - **division**: The harmonic mean divides by the reciprocal sum, so a guard on the sum being positive precedes the division with a visible rejection outcome.
 - **overflow**: Float'Image output of computed values must stay within bounded string buffers sized for the maximum image length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, for loops, integers, conditional expressions and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operand is bounded by the Points subtype, so all overflow and division checks discharge from types, and the only loop is a for loop over a static range with no loop-carried values.
 
-Position 314 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 314 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare subtype Points is Integer range 1 .. 20 and two side-effect-free functio
 
 - **overflow**: The degree-four polynomial and the product n*(n-1)*(n-2)*(n-3) stay far below Integer'Last because the argument is a subtype 1 .. 20, so the provers bound every intermediate by range reasoning.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars, string building and functions.
 

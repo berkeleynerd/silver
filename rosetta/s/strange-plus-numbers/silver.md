@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by the 101..499 loop range and digit sums of at most 18, every loop is a terminating for loop, and the only loop-carried value is a counter that a guard keeps in range, so checks follow from types and guards.
 
-Position 331 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 331 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A for loop runs N over 101..499, splitting it into three digits with / and mod o
 
 - **overflow**: The qualifying-number counter is loop-carried, so it is typed 0..400 and incremented only under an explicit if Count < 400 guard to discharge the range check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and Put without a newline.
 

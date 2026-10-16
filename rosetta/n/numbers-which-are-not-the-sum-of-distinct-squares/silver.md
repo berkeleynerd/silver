@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over small ranged subtypes with a Boolean array, so each index and arithmetic check follows from types and the loop range; the only subtlety is documenting the fixed limit, which Oracle rule 7 allows.
 
-Position 88 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 88 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Keep a Boolean array Reachable (0 .. Limit) with Reachable (0) true, where Limit
 - **index**: The reachable-sum update reads Reachable (S - K*K) inside a reverse for loop over S in K*K .. Limit, and an explicit guard on S >= K*K just before the access keeps the index in range without an invariant.
 - **overflow**: K*K and S - K*K are bounded by declared subtypes (K at most the square root of Limit, S at most Limit), so the arithmetic cannot overflow or leave the index range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and procedures.
 

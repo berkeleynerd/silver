@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and a fixed 512 trial-division limit, and every loop is a for loop, so checks follow from types and guards; the only care needed is saturating the loop-carried counters and bounding the text buffer.
 
-Position 175 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 175 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Divisor_Count takes N in a ranged subtype and loops I over 1..512 wi
 - **length**: Formatted output lines are built in a fixed-size buffer sized for 10 numbers of at most 6 digits plus padding, with a guarded write position before each append.
 - **other**: The program must give a visible failure outcome if fewer than 50,000 matches are found within the 300000 limit; the real 50,000th value is 223735, so this path is never taken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

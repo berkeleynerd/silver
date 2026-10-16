@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static array bounds and for-loop ranges, the swap involves no arithmetic on elements, and the unannotated while-style outer loop sits in a procedure where no termination proof is demanded, so it should discharge automatically.
 
-Position 205 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 205 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds a constant 9-element Integer array (5,4,6,3,7,2,8,1,9) in a f
 - **index**: The inner loop runs J over a subtype range ending one before the array's last index so J + 1 stays in bounds by static range, with no loop-carried index.
 - **overflow**: Element values are a bounded integer subtype and only compared and swapped, never added, and the only arithmetic is J + 1 on a small index subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

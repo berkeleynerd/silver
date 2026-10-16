@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types, the fixed-length digit loop and small guards before each carried increment, and the roughly 42 million iterations are a runtime cost, not a proof issue; the main work is careful guard placement for the counters, hence plausible.
 
-Position 378 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 378 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A pure Boolean function copies the candidate into a local, then runs a fixed 10-
 - **termination**: The digit scan is a for loop over a fixed 10 positions inside a function, so no variant is needed, while the unbounded candidate search with a while loop lives in a procedure with no termination check.
 - **division**: Only division and mod by the literal 10 are used, so no zero-divisor check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, functions, 'Image of scalars, string building and Put without a newline.
 

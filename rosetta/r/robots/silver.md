@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing here needs recursion, floating point or annotations, and all coordinates are range-typed grid indices guarded at boundaries, so only the LCG arithmetic and the many loop-carried positions need careful guarding; the task itself is only a game clone with no specified behavior beyond that, so a text turn-based form is faithful.
 
-Position 1251 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1251 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program uses a fixed-size 2D array of cell kinds (enumeration) with a bounde
 - **termination**: The main game loop and the search for an empty cell are while loops inside procedures with bounded attempt counters and end-of-input exit, so no termination check applies.
 - **initialization**: The board, robot array and counters are fully initialized by for loops before use, which is routine but touches several nested arrays.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, for loops, while loops, case statements, procedures, functions, string building, 'Image of scalars, Put without a newline and standard input.
 

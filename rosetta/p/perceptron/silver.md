@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integers, constant-size arrays and for loops inside procedures, so checks follow from types and a few visible guards, but loop-carried weight updates require careful bound guards and scaled-integer arithmetic in place of floating point.
 
-Position 471 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 471 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses fixed-point-style scaled integers instead of floating point: a 
 - **range**: Scaled integer arithmetic replaces floating point, with every product of weight, coordinate and error falling inside declared subtype bounds that the provers handle as bounded nonlinear multiplication.
 - **index**: Grid cell and training-sample indices come from for-loop ranges over the arrays' own bounds, so they discharge routinely.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, procedures, functions, string building, Put without a newline and 'Image of scalars.
 

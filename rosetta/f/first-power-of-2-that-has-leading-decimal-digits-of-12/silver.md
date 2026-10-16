@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from the bounded mantissa subtype and the guards on the doubling and the counter, so no annotation is needed; the outlook is only plausible because correctness over about 1.9e8 truncating iterations depends on a documented precision limit.
 
-Position 1514 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1514 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure Find(Prefix_Divisor, L, N, J, Found) keeps the power of two as an 18
 - **range**: The exponent counter is a bounded subtype and is incremented only after a guard against the limit, with a visible not-found outcome when the limit is reached, so the 193-million-iteration loop needs no invariant.
 - **other**: Keeping only the top 18 digits makes the result depend on truncation error that accumulates over about 1.9e8 doublings, so faithfulness to the expected values (such as 193060223) rests on a documented precision limit rather than a proof, and exact 58-million-digit big numbers are infeasible.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, for loops, while loops, procedures, 'Image of scalars, string building and Boolean objects.
 

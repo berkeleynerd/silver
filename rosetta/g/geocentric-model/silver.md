@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Rotation is rendered as deterministic text-art frames from an integer lookup table, so every check follows from declared ranges, for-loop indexes and mod reductions without loop-carried facts needing an invariant. The task is a graphical animation, but text frames satisfy it and no recursion, floating point or timing is needed.
 
-Position 676 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 676 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the six bodies (distance, angular speed in whole degrees per frame, glyph)
 - **index**: Planet grid coordinates come from table-based integer sine and cosine times a fixed radius, so each is clamped by guard or ranged subtype to the grid bounds before indexing.
 - **overflow**: Angle accumulation is reduced with mod 360 each frame and the frame count is a small declared range, so products with scaled sine values stay far below 32-bit limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, procedures, functions, records, string building and Put without a newline.
 

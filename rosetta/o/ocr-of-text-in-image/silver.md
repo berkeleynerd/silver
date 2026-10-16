@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** There is no fixed Oracle conflict because the task allows geometric line-gap measurement, and the bounded-array row scan is mostly ranged integer arithmetic that types and guards discharge, though real text recognition is the hard, uncertain part.
 
-Position 1341 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1341 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read a bounded grayscale PGM image into a fixed two-dimensional pixel array afte
 - **range**: Loop-carried band counters must stay below the band array capacity, which needs an explicit guard before each band is recorded that rejects images with too many bands.
 - **other**: Real glyph recognition is far larger than gap detection, so the faithful program recognizes layout geometry only and a limited template match of the known glyph set would be needed to print the text itself.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, functions, text parsing, string building, 'Image of scalars, file input and Put without a newline.
 

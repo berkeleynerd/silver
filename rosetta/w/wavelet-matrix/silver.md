@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static ranges in procedures and every carried value is held in a declared range with a guard just before use, so no annotation is needed, but the loop-carried l, r and k updates need careful guarding. The task text gives no concrete queries, so the existing solution's five sample queries are used as the embedded data.
 
-Position 737 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 737 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program stores the six embedded values (each below 4096) in a fixed array, b
 - **index**: Rank-table lookups use positions typed 0..N and levels typed as the level range, so the for-loop indexes and the typed l and r keep indexing safe.
 - **division**: Extracting a bit by dividing by a power of two uses a constant divisor taken from a static table, so division by zero is excluded by construction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures, functions and 'Image of scalars.
 

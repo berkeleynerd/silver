@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from for-loop ranges, ranged digit subtypes and a guard before the array index, with no loop-carried unbounded values, so proofs should discharge automatically. The only extra needs are integer arithmetic, arrays, loops and number-to-text output.
 
-Position 157 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 157 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed a Boolean array Consummate(0 .. 7000); a for loop over N in 1 .. 400000 co
 - **overflow**: Counters and the digit sum are bounded by loop ranges and ranged digit subtypes, so no loop-carried unbounded value exists; the 400000 bound is documented as sufficient since sum is at most 54 and ratios are capped at 7000.
 - **index**: The array index N / Sum is guarded by a comparison with 7000 immediately before the assignment.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building and procedures.
 

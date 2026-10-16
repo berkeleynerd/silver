@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, for-loop indexes over array ranges and capacity guards just before each bin increment, and all loops are for loops or sit in procedures so no variant is needed. The animation is plain text frames with a deterministic LCG, so no annotations or unbounded recursion arise.
 
-Position 1126 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1126 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Fixed constants give a box with 8 pin rows and 9 bins; a procedure drops balls o
 - **index**: Ball positions advance by one per row inside a ranged subtype and explicit guards clamp the bin index before indexing the bin array.
 - **length**: Frame lines are built in fixed-width buffers filled by for loops over the buffer's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, procedures, functions and Boolean objects.
 

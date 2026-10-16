@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared ranges (N at most 999, digit sum at most 27) and every loop is a for loop over fixed bounds, so no invariants are needed; the only new surface is integer-to-text conversion and character-wise substring comparison.
 
-Position 524 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 524 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ For each N in the subtype 0..999, a procedure writes N and its digit sum (0..27)
 - **index**: The substring scan uses for-loop offsets limited to Length(N) - Length(S) and guarded by Length(S) <= Length(N), so slice bounds follow from the guard.
 - **range**: Digit extraction in a for loop over a fixed three-digit width keeps each digit in 0..9 via mod 10, and the sum is typed 0..27, so the conversion to Character is bounded by types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, for loops, while loops, procedures, Put without a newline and Boolean objects.
 

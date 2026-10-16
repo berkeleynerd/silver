@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range check on scan variables bounded by subtypes and guarded by and then tests, in plain procedure-level while loops, so no annotation is needed. The only new surface is Character comparison, String slicing and while loops.
 
-Position 490 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 490 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed a constant String with leading and trailing spaces and tabs (tabs built vi
 - **index**: The scan indexes are subtypes ranging from 0 to N+1 and each Text(I) read is guarded by an and then bound test just before it, so slice and element checks follow from the loop conditions.
 - **overflow**: Each increment or decrement happens inside a loop whose condition keeps the index strictly inside the subtype range, so the type range alone discharges it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, while loops and for loops.
 

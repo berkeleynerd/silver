@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation, since every loop value sits in a bounded limb subtype or behind a guard, but the fixed-capacity big-number arithmetic carried through many nested loops makes discharge depend on careful program shape.
 
-Position 1409 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1409 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent numbers as a record of a fixed-capacity array of 16-bit limbs (about 4
 - **termination**: The Miller-Rabin exponent-halving and candidate-search loops are while loops, so they live in procedures (no termination check), with the m search capped by a documented bound and a specified failure message.
 - **other**: Modular multiplication must use double-and-add with modular add rather than long division to avoid Knuth-D index arithmetic, costing run time but keeping every loop-carried value type-bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, big numbers, 'Image of scalars, Put without a newline and string building.
 

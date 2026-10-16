@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared subtypes, a per-step mod-bounded hash and a loop condition guarding chain indexing, with no function loops needing variants, so no annotation is required. The new surface (records, arrays, string indexing, 'Image, procedures) is large but each piece is routine for GNATprove.
 
-Position 613 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 613 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Tables A and B are constant arrays of records (Age with a fixed 8-character padd
 - **termination**: The chain walk is a while loop inside a procedure, which gets no termination check, and the other loops are for loops.
 - **length**: Names are fixed-length padded 8-character strings, and output text is built in a bounded buffer whose index is guarded against capacity before each write.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

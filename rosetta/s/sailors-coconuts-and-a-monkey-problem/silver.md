@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with explicit limit guards, so no annotation is needed, but the loop-carried pile, division by a variable and the subtract-after-test pattern make discharge depend on careful typing and guards.
 
-Position 252 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 252 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A search procedure takes a sailor count (subtype 2..9) and, starting from a cand
 - **range**: The subtraction nc - (nc / n + 1) inside the sailor loop needs nc >= 1, which the preceding remainder test (nc mod n = 1) supplies, though the provers must handle division by a variable n.
 - **termination**: The search loop is a while loop, so it lives in a procedure, where no termination check applies, and the upper-limit guard also bounds it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, Boolean objects, 'Image of scalars and string building.
 

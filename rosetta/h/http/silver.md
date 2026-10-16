@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task only asks to fetch a URL over HTTP and print what comes back. A future Silver could do this through an admitted HTTP client library operation that specifies what happens on failure, so no fixed Oracle rule is broken. What is missing today is the network effect.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and packages.
 

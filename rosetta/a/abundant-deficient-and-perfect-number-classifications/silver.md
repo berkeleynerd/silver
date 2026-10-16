@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static for-loop bounds, a nonzero divisor D and guards placed just before the loop-carried additions, with no recursion or annotation needed. The only care is capping the divisor sum and the counters with visible guards that cannot alter the required classification.
 
-Position 138 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 138 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Main iterates N over 1 .. 20_000 with a nested for loop over D in 1 .. N/2, addi
 - **overflow**: The three class counters are loop-carried, so each increment sits behind a guard that the counter is below 20000 or is typed as a range sized to the 20000 iterations.
 - **termination**: All loops are for loops in the Main procedure with static bounds, so no termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars, Put without a newline and procedures.
 

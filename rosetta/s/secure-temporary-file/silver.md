@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Exclusive creation and collision handling belong to the admitted library operation's specified contract, so all the program has to prove is initialization and a guarded branch on the success flag, which discharges routinely. The real work is admitting a temporary-file operation with specified failure outcomes; the proofs themselves are not the hard part.
 
-Position 1418 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1418 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Main calls an admitted Silver file-library operation, such as Create_Temporary (
 
 - **initialization**: The file handle and the success flag are out parameters of the admitted create operation, so flow analysis sees them initialized on every path, and the write happens only on the path where creation succeeded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File output, Boolean objects and exit status.
 

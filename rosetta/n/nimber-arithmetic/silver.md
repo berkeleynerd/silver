@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded 16-bit modular xor and shifts with array indexes from ranged subtypes, so checks are routine except for the careful table fill order that replaces the recursion without needing a variant.
 
-Position 1304 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1304 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a 16-bit modular type for nimbers, nim-addition as xor, and nim-multiplicati
 - **range**: The fill order must make every referenced entry already computed, and the entries for (i-h, j-h) combined with the constant 3*2^(h-1) need indices kept in 0..15, which requires guards on the shifted exponents.
 - **overflow**: All nim values below 65536 stay in a 16-bit modular type where xor and shifts cannot overflow, and ordinary products only occur for disjoint power-of-two pairs, giving 2^(i+j) with i+j at most 30 so a 32-bit modular type is needed for them or the pair is skipped by a guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, functions, integers, integer division, 'Image of scalars, string building, Put without a newline and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a plain dynamic-programming problem on small fixed strings that needs only bounded arrays, nested for loops and one guarded while loop in a procedure, so all checks follow from subtype ranges and local guards without annotations. It is plausible rather than likely because the backtrack's loop-carried indices and output position each need explicit guards.
 
-Position 697 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 697 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the two strings as constants, fill a 0..7 by 0..6 LCS length table with ne
 - **termination**: The backtrack while loop lives in a procedure, which gets no termination check, and each iteration decrements i or j anyway.
 - **length**: The output slice Buf(k+1 .. 13) is taken only after a guard that k is within the buffer bounds, and the 13-character buffer is sized for the maximum supersequence length of 7+6.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

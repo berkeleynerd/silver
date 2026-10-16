@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on values bounded by Integer and loop counts are fixed at most 10, so overflow, index and range checks follow from types and one guard, and the error case is a visible Boolean outcome rather than an exception.
 
-Position 455 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 455 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The 17 test values are embedded in a constant Integer array and a for loop over 
 - **overflow**: Negating the input is guarded by rejecting Integer'First (or typing the embedded inputs in a narrower subtype), and digit-count and power-of-ten loops are for loops bounded to 10 iterations on a value kept within a declared range.
 - **index**: The three-character result buffer is filled by a for loop over its own range, and the digit characters come from Character'Val of a value in 48..57 established by mod 10.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, procedures, string building, 'Image of scalars, Put without a newline and Boolean objects.
 

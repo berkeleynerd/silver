@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from for-loop ranges over the strings' own indexes plus a bounded counter, so no annotation is needed, but the loop-carried counter requires a careful type and guard choice.
 
-Position 998 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 998 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Count takes unconstrained String parameters, loops over each stone in
 - **overflow**: The loop-carried counter is known only by its type after the first iteration, so it is declared as a ranged subtype whose upper bound exceeds the documented string-length limit and the increment is guarded, which GNATprove can discharge only if the subtype and limit are chosen so the guard never needs to change the result.
 - **index**: Both loops iterate over each string's own 'Range, so indexing checks follow directly from the loop bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, for loops, functions, unconstrained arrays and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded by declared ranges and every arithmetic value fits a small range subtype, so proofs should discharge with careful guards and without any invariants, provided digit-peeling and trial division are written as for loops or in procedures.
 
-Position 379 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 379 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a bounded subtype for candidates, procedures Same_Digits and Is_Brazilian re
 - **range**: The search for the next candidate is bounded by a fixed maximum (the 20th prime Brazilian is 757) and exits with a visible reject if the bound is reached, so counters and n+1 stay in type range.
 - **index**: Result storage is a fixed array of 20 entries indexed by a counter guarded with Count < 20 before each store.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

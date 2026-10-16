@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operand is bounded by small declared ranges (m at most 180, periods at most a few hundred), so loop-carried values need only a few range guards and all loops can be for loops or procedure loops with no annotations, though the lcm and power arithmetic need careful guarded shape.
 
-Position 421 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 421 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use ranged subtypes (modulus 1..180, a 64-bit Period type with a stated cap) and
 - **termination**: Trial division, the Fibonacci cycle search and Euclid's gcd are written as for loops with early exit or as procedures, because while loops inside functions would need a variant.
 - **range**: The Fibonacci pair modulo m stays below m through the type range of the loop-carried variables plus a guard that m is at least 1 before the mod, so the sum a+b cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

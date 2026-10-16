@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes and index guards placed just before array accesses, and the loops live in procedures, so nothing needs an annotation, but the loop-carried heap indexes require careful guard placement.
 
-Position 822 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 822 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A fixed-capacity binary max-heap (capacity 16) stores records of a ranged priori
 - **range**: Insert on a full queue and Remove on an empty queue are guarded by Count tests that return a Boolean success flag, and the main program prints a rejection message for the failure outcome, which cannot occur with the five embedded items.
 - **termination**: The sift loops are while loops inside procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, case statements, 'Image of scalars and string building.
 

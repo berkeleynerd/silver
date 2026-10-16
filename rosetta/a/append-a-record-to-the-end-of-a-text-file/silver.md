@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing follow from bounded field lengths and buffer guards, so no annotation is needed, but the line builder's loop-carried length and the file library's specified failure outcomes require careful shape. The task has no Oracle conflicts and needs file operations Silver lacks today.
 
-Position 1433 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1433 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Define a record type with fixed-capacity String fields and length components, an
 - **termination**: Any digit-extraction or read-back while loop must live in a procedure, since functions cannot carry loop variants.
 - **other**: The file library must specify behavior and failure outcomes for create, append and open failures so every I/O error path has a visible result.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, arrays, ranged subtypes, integers, 'Image of scalars, string building, string indexing, for loops, while loops, procedures, functions, file input, file output and Boolean objects.
 

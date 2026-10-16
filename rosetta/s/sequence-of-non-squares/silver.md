@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Replacing sqrt with the integer interval identity keeps all arithmetic in small declared ranges inside for loops, so every check follows from types and static bounds with no invariant needed.
 
-Position 89 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 89 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Avoid floating point by using the integer identity that round(sqrt n) = k exactl
 - **overflow**: The k*k+k bounds and n+k sums stay below about 1_001_000 because k is a subtype 1..1000, so the provers discharge them from ranges alone.
 - **range**: The inner loop's upper bound is clamped to 1_000_000 with a guard and k*k-k+1 is at least 1 for k in 1..1000, so no loop-carried value needs an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, for loops, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All bounds come from array ranges and small ranged subtypes, with every loop-carried quantity (running sum, sieve products, counters) either type-bounded or guarded before use, and no recursion, while loops in functions or annotations are needed. The work lies in careful guard placement for nonlinear index products and the running sum, hence plausible rather than likely.
 
-Position 174 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 174 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute a Moebius array (Integer range -1..1, indices 1..1000) with a prime siev
 - **range**: Negating the Moebius value and assigning the running sum to a ranged subtype need guards because only type ranges are known inside loops.
 - **length**: Padded number text is built in a fixed-length buffer sized for the widest 3-character value, with a guard before each slice or copy.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

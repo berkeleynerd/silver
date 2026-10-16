@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared subtype ranges and guards placed just before the increments, the divisor-count function uses only a for loop, and the unbounded-looking search is in a procedure with an explicit limit, so no annotation is required (the largest term is 4624 versus a 100000 limit).
 
-Position 328 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 328 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare subtype Candidate is Integer range 1 .. 100000 and a function Count_Divi
 - **termination**: The while search lives in the Main procedure (no termination check) and exits with a visible rejection message if N reaches the fixed limit, so it always ends.
 - **range**: The loop-carried N is incremented only under a guard N < Limit, so the subtype range check discharges just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, functions, 'Image of scalars and Put without a newline.
 

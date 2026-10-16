@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic with a for loop for popcount and guarded loop-carried values, so checks should discharge with explicit pre-operation guards and no annotations. The risk is only the loop-carried accumulator and multiplication guards and the bounded string building.
 
-Position 401 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 401 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a ranged 64-bit signed integer subtype in place of unsigned wraparound bit t
 - **termination**: The search for the next evil or odious number uses while loops, which live in procedures (no termination check) and are guarded against exceeding the type's upper bound.
 - **length**: Each output line is built in a fixed-capacity buffer sized for 30 numbers of at most 20 characters, with an append guard before each concatenation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

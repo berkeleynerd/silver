@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index, orientation sum and stack push is bounded by declared subtypes or an explicit guard, and the search uses an explicit stack in procedures, so no annotation is needed. The outlook is only plausible because the large amount of loop-carried state and the explicit solvability validation demand careful program shape.
 
-Position 1368 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1368 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The cube is a record of two fixed arrays (cubie permutation and orientation for 
 - **other**: Rejecting malformed, unsolvable or beyond-depth-limit cubes with a visible message is required, so the validity check (permutation, orientation sum and parity) must be explicit executable code rather than an assumption.
 - **initialization**: All cube-state and table arrays are filled by full-range for loops or aggregates before use, which flow analysis accepts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions, Put without a newline and exit status.
 

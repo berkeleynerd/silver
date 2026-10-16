@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small bounded subtypes and bounds guards before each array access, with no recursion needed because the backtracking uses an explicit stack in a procedure, but the many loop-carried indices and counters need careful guard placement.
 
-Position 749 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 749 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the two puzzles as constant 9x9 integer arrays, copy each into a working g
 - **initialization**: The grid, the fixed-size position stack and the clue table are fully initialised by aggregates or loops before the search starts.
 - **termination**: The backtracking while loop lives in a procedure so no termination check applies, although running time is exponential in the worst case and not proven.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and integer division.
 

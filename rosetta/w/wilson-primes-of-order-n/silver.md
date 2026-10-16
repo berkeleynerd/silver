@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Modular factorial arithmetic keeps every value inside bounded 64-bit ranged subtypes, so no big numbers or annotations are required and all loops terminate by construction. The outlook is plausible rather than likely because of the nonlinear bounded multiplications and the careful row-buffer construction.
 
-Position 409 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 409 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Work with residues modulo p*p instead of big integers: for each odd candidate p 
 - **length**: Each row is built in a fixed 55-character buffer with five-wide columns computed from n, and every image is guarded to fit in five characters before being copied in.
 - **termination**: All loops are for loops or sit in the main procedure, with primality by trial division over a for loop, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

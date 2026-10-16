@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded types and guards, and no recursion, heap or annotation is needed, but the file-read, nonlinear odd-index arithmetic and binary-search cursors need careful shape, so the outlook is plausible rather than likely.
 
-Position 1493 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1493 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Load unixdict.txt line by line into a fixed array of records, each holding a bou
 - **termination**: The binary search and file-reading loops are while loops, so they live in procedures, which get no termination check.
 - **other**: Binary search is only correct if the list is sorted, so the load step checks ordering and rejects an unsorted file rather than assuming it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, string ordering, for loops, while loops, procedures, functions, file input and Put without a newline.
 

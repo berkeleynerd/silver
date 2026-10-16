@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..9 digit subtype bounds and for-loop indexes, with no accumulators, recursion or while loops, so the proofs should discharge automatically. The only growth needed is ranged subtypes, for loops, integer arithmetic and character conversion for output.
 
-Position 451 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 451 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare subtype Digit is Integer range 0 .. 9 and enumerate S, E, N, D, O, R, Y 
 - **overflow**: The sums 1000*S+100*E+10*N+D and the MONEY value are over Digit-typed operands bounded 0..9, so every result is at most 99999 and fits Integer, and the provers handle this linear bound routinely.
 - **range**: Converting a Digit to a Character via 48 + digit stays within Character'Val's 0..255 range because the digit subtype is statically 0..9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, integers, characters, Boolean objects, for loops, string building and 'Image of scalars.
 

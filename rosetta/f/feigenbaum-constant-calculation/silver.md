@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops with no recursion or while loops, but loop-carried floating-point values need range and nonzero guards before every update and division, so discharge depends on careful program shape. Formatting to 8 decimals also needs a guarded float-to-text conversion.
 
-Position 1513 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1513 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a bounded float subtype for a, x, y, d, a1, a2 and d1, with nested for loops
 - **division**: The divisions by y, d1 and (a - a1) are guarded by explicit nonzero tests with a specified rejection outcome, though a zero denominator cannot be excluded by types alone.
 - **range**: The Newton updates of a feed back through 10 inner iterations per i, so a, a1, a2 and d need a bounded float subtype with guards to keep stored values in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, integers, exponentiation, for loops, string building and 'Image of scalars.
 

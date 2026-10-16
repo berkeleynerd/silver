@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static array bounds, a ranged length subtype, modular wraparound and mod by static constants, and printing word by word avoids a loop-carried buffer position, so all checks should discharge without annotations.
 
-Position 1279 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1279 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ An embedded constant array holds capitalized words as fixed-width String (1 .. 9
 - **index**: Word slices Words (I)(1 .. Lengths (I)) and the chosen index (State mod Word_Count) + 1 are safe because the length table has subtype 1 .. 9 and the mod result is bounded by the array range.
 - **range**: Converting the modular PRNG state to the word index and the 10 .. 99 suffix stays in range because mod by a static positive constant bounds the result, and digit characters come from Character'Val of '0' plus a value in 0 .. 9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, characters, arrays, string indexing, text parsing, for loops and Put without a newline.
 

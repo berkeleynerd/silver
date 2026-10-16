@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing follows from for-loop ranges and while-condition guards, but the loop-carried best length/start and match counter need careful guards since no invariants exist, so discharge depends on program shape. No annotation, recursion or non-trivial arithmetic is required.
 
-Position 549 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 549 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the two strings as constant String(1..11) and String(1..16); a procedure L
 - **overflow**: Indices and lengths use small ranged subtypes so sums like I+K stay far below Integer'Last, discharged by types alone.
 - **termination**: The inner while loop sits in a procedure (no termination check) and the function-style wrapper is avoided in favor of a procedure with out parameters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from the bounded float subtype and the capped counter, so no annotation is needed, but floating-point range reasoning plus the missing float parse and format library make it plausible rather than likely.
 
-Position 1127 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1127 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Parse the first argument into a Double subtype bounded to +/-1.0e9 (reject other
 - **range**: Parsing the user's number must validate syntax and the +/-1.0e9 bound, rejecting anything else, since the loop-carried value is known only by its subtype.
 - **other**: Formatting a Double as text needs an admitted library routine with a specified result length, because 'Image-style output has no proven bound otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, integers, text parsing, floating-point images, 'Image of scalars, string building, while loops, procedures and Boolean objects.
 

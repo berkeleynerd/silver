@@ -2,7 +2,7 @@
 
 **Excluded from Silver: run-time error.** The task requires observing a failed division-by-zero check without a preceding denominator guard, whereas every admitted Silver program must prove that check cannot fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, floating point and subprograms.
 

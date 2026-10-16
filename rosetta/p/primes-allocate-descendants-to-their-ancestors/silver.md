@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is in bounded arrays with for-loop indexes, and the only loop-carried arithmetic (products and fill counters) is covered by explicit capacity and overflow guards, so it should prove without annotations but needs careful shape.
 
-Position 429 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 429 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Primes below 100 and a parent table (sum of prime factors by trial division) are
 - **other**: The program must sort the 557 descendants of 46 using an insertion sort in a procedure whose indexes come from for loops over the array range, which is routine but loop-carried comparisons need guards.
 - **stack**: A roughly 5 MB value array is large for a Main-local object, but stack exhaustion is an environmental premise rather than a proof obligation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

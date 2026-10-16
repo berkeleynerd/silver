@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array accesses are bounded by index subtypes or guards and the loops live in procedures, so nothing requires an annotation, but the loop-carried Heap's counters need careful guard placement.
 
-Position 555 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 555 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the 11 characters of the embedded input in a constrained Character array i
 - **termination**: The generation loop is a while loop inside a procedure, which gets no termination check, and it exits when Heap's index passes the end.
 - **other**: A reachability fallback prints a visible 'no sorted permutation' outcome if the generator ends without finding one, so no unproven assumption is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures and integer division.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, 1..49 bounded loops and a guard before each increment, and the only while loops sit in procedures, so no annotation is needed.
 
-Position 213 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 213 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep Seq as an array (1..50) of Candidate (subtype 1..49) plus a Used Boolean ar
 - **index**: Sequence array is indexed 1..50 and the predecessor lookups count-1 and count are guarded by count >= 2, and the used-flag array is indexed by values in 1..49 by type.
 - **division**: The mod in gcd is guarded by the while condition b /= 0, so the divisor is provably nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

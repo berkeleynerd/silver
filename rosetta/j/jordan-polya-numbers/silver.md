@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged types and guards before each multiplication and append, with loops confined to procedures, but the loop-carried counters and the dedupe-and-sort shape need careful guarding, so discharge is plausible rather than routine.
 
-Position 261 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 261 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Keep a bounded array of distinct J-P numbers up to 100 million, starting from 1;
 - **overflow**: Products x*f are computed only after a guard x <= Limit / f in a 64-bit range type, and the loop-carried count and cursor are typed with ranges that bound them.
 - **termination**: All while loops sit inside procedures, which get no termination check, and the inner multiplication loop strictly grows its value toward the limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

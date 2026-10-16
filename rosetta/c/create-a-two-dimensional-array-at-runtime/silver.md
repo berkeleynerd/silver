@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from the Dimension subtype, the array's own bounds, a static digit test, or an overflow guard placed just before the accumulator update, so no annotation is needed. The runtime-sized stack array stays within a fixed, documented size limit.
 
-Position 1535 in the [progression](../../progression.md#stage-33), in stage 33.
+Position 1535 in the [progression](../../progression.md#stage-32), in stage 32.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Main reads two arguments and calls a Parse_Dimension procedure on each. The proc
 - **stack**: The matrix lives on the stack with a size that depends on input, but a documented subtype Dimension is range 1 .. 100 caps it at a fixed size, which fits the sufficient-memory premise.
 - **index**: Indexing Matrix (Rows, Cols) is safe because Rows and Cols are the upper bounds of the block-declared array, and both have subtype Dimension.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, text parsing, for loops, procedures, multidimensional arrays, unconstrained arrays, block statements, 'Image of scalars and further arguments.
 

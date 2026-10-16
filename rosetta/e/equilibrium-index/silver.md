@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is two for loops over an array's own range, so indexes and termination are routine, but the loop-carried sums need guards because no invariant can be written, which makes discharge depend on careful shape. Nothing needs an annotation, recursion or heap, so the outlook is plausible.
 
-Position 1004 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1004 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the example sequence (and a few more) as constrained arrays of a ranged el
 - **index**: All array accesses are for-loop indexes over the array's own range, and the result array is indexed by the same range, so these are routine.
 - **other**: The task's 'very long' sequence is met only by a documented fixed capacity, which Oracle rule 7 allows, with over-capacity input given a specified rejection outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, procedures, 'Image of scalars, Put without a newline, string building, unconstrained arrays, functions and integer division.
 

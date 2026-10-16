@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges and for-loop bounds, and the only while loops are in a procedure, so no annotation is needed. The risk is limited to a few loop-carried counters and image-string indexing that need careful guards.
 
-Position 559 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 559 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Main iterates odd k from 11 over a bounded Integer range with an early exit once
 - **termination**: The inner division while loop and the outer search live in procedures (the substring check is a function with only for loops), so no variant is needed.
 - **range**: Divisions by f are safe because f starts at 11, and v only shrinks by exact division, so its subtype range holds without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, string indexing, 'Image of scalars, for loops, while loops, procedures and functions.
 

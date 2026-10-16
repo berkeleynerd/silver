@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded fixed-capacity big-number arithmetic in procedures with limb types that bound all intermediate values, so no annotation is needed, but the multi-precision multiplication, folding reduction and fixed-base Miller-Rabin demand careful program shape for the provers.
 
-Position 1407 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1407 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent numbers as fixed arrays of 16-bit limbs (64 limbs for the 1024-bit cas
 - **termination**: The search for k and the Miller-Rabin square loop are while loops, so they are placed in procedures (no termination check) and bounded by a explicit cap on k that yields a visible failure outcome.
 - **range**: Reduction modulo 2^N - k uses folding (2^N is congruent to k) instead of long division, but the repeated fold count is a loop-carried quantity that needs a fixed iteration count rather than an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, big numbers, Put without a newline and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is bounded by declared capacities and guards on stored lengths, with no recursion, so checks follow from types and local guards, but several loop-carried offsets and the while-loop permutation need careful shaping.
 
-Position 861 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 861 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Each sequence is a record holding a Length and a Character array of capacity 100
 - **termination**: Heap's iterative permutation uses a while loop with loop-carried index state, which is acceptable only in a procedure (no termination check) and with its swap indexes typed by the sequence-count subtype.
 - **other**: Exhaustive permutation of the roughly nine surviving strings in the last example is about 362880 candidates, which is a runtime cost rather than a proof obligation, and a subset DP would avoid it at the price of more indexed arithmetic.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and integer division.
 

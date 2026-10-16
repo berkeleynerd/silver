@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada has few implicit conversions (literals and subtype widening), so a faithful demonstration uses only constants, subtype ranges and guarded explicit conversions that GNATprove discharges from types and guards, with no loops or recursion.
 
-Position 72 in the [progression](../../progression.md#stage-6), in stage 6.
+Position 72 in the [progression](../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a chain of integer subtypes of increasing size (for example 8-bit, 16-bi
 
 - **range**: Narrowing explicit conversions between the declared integer types are applied only to constants or after an explicit if guard on the value's range, so each range check follows from the guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, 'Image of scalars, string building and Put without a newline.
 

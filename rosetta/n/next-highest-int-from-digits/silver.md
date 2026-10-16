@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a for-loop variable or a guarded subtype-typed index, with no arithmetic on loop-carried values, so checks are routine and no annotation is needed. Digits stay as characters in a bounded buffer, so the 22-digit stretch case needs no big numbers.
 
-Position 989 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 989 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Each test number is an embedded digit string copied into a fixed 22-character bu
 - **initialization**: Lower and Higher are given default values up front and only read after the Found guard, so flow analysis passes.
 - **length**: Inputs are checked to be digits and at most 22 long before copying into the fixed 22-slot buffer, with invalid input rejected visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, Boolean objects, for loops, while loops, procedures and conditional expressions.
 

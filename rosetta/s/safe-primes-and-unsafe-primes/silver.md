@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the static range of a for-loop index or the declared range of a counter, plus one guard before each increment that can never be false. No loop or call needs a variant, and no memory use grows with input, so the proof should discharge without annotations.
 
-Position 357 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 357 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A side-effect-free Is_Prime function does trial division with a for loop over D 
 - **overflow**: In Is_Prime the trial divisor D runs over the static range 2 .. 3163, so D * D is at most about 10 million and the provers bound it easily from the loop index's range.
 - **termination**: Is_Prime is a function, so it uses a for loop over a static divisor range that returns early, which is the shape that needs no variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, Boolean objects, functions, for loops, 'Image of scalars and Put without a newline.
 

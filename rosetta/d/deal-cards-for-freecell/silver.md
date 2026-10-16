@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared state range, the for-loop indexes and the divisor 52 - i, with no loop-carried value needing a guard beyond its type, so the proofs should discharge without annotations.
 
-Position 520 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 520 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the deck as an array of 52 integers 0..51 and the seed and state as a 
 - **range**: The state is carried through the loop but is reduced with mod 2**31 into its declared range type each step, so no invariant is needed.
 - **index**: The pick is the random value mod (52 - i) with i a for-loop index over 0..51, so the divisor is at least 1 and the pick is below the shrinking length; deck(51 - i) is also within 0..51.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures and Put without a newline.
 

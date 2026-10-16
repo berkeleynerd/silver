@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task needs a command-line program that walks a directory tree, compares file contents by hash or byte comparison, and prints duplicate sets sorted by size. This works with bounded arrays and strings and iteration (an explicit stack for the directory walk), so it needs only directory, file, argument and console effects. It has no fixed-rule conflict, but it depends on library operations that do not exist yet. The extra-credit parts, removing or linking files and detecting identical subtrees, are optional.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string operations, arrays, records, loops, subprograms, packages and big numbers.
 

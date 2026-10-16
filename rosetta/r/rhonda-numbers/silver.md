@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small integer work bounded by a documented search limit, and the only loop-carried hazards (digit product and factor sum) can be handled with caps and range types without annotations, though the careful shape makes discharge plausible rather than routine.
 
-Position 403 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 403 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Iterate bases 2 to 16 with a for loop, skip primes by trial division, and for ea
 - **division**: Divisors are the base (at least 2) and the trial factor (at least 2), both visible from their subtypes or loop ranges.
 - **index**: The results array is indexed only after a guard that the count is below ten.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

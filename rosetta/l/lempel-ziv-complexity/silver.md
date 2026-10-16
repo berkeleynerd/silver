@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm only needs bounded integer counters, character comparisons and a while loop inside a procedure, so no termination proof is needed. Several loop-carried relations (I < U, U+Vmax <= N+1) would normally need an invariant, so each must be replaced by an explicit guard just before its use. That makes discharge depend on careful program shape rather than being routine.
 
-Position 1006 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1006 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Main calls a procedure Report(S : String) once for each of the 18 embedded test 
 - **length**: The result line concatenates the test string with an image, so the procedure first rejects strings longer than the documented 64-character limit, which bounds the concatenation and keeps every offset computation from overflowing.
 - **termination**: The while loop sits in a procedure, so no termination check arises, and every iteration either advances V or I toward a bound fixed by N.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, procedures, unconstrained arrays, string indexing, while loops and 'Image of scalars.
 

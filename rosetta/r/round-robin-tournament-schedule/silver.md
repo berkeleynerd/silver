@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from for-loop ranges over a fixed 12-element array of a bounded subtype, with no while loops, recursion or loop-carried arithmetic, so every check follows from types and static bounds.
 
-Position 59 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 59 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a constrained array of 12 elements of a 1..12 subtype, filled by a for loop,
 - **index**: The opponent index 13 - I and the rotation index K - 1 are computed from for-loop bounds (1..6 and 2..12) so they stay within 1..12 by static range reasoning.
 - **range**: Circle elements are of a subtype 1..12 and are only ever assigned other elements of the same subtype, so no value check depends on a loop-carried fact.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, arrays, for loops, 'Image of scalars and integers.
 

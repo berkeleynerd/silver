@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All integer checks follow from bounded counters and explicit rejection guards, and the floating-point part is short straight-line computation on ratios in [0,1], so it should discharge without annotations, though the ratio bounds and float formatting need careful shaping.
 
-Position 1367 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1367 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Read the file line by line in a procedure, validate each line as seven 0/1 field
 - **division**: Dividing by group size N is guarded by rejecting data in which any of the four groups is empty.
 - **length**: Parsing each line of seven 0/1 fields needs index guards on a bounded line buffer and a check of the line length, otherwise the line is rejected.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, floating-point images, text parsing, floating point, for loops, while loops, procedures, functions, Put without a newline, file input and exit status.
 

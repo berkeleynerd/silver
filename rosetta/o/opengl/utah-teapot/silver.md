@@ -12,7 +12,7 @@ The standard 306 control points and 32 bicubic patches (16 indices each) are emb
 - **index**: Patch index entries are declared as a vertex-index subtype matching the control-point array's range, so looking up control points by stored indices discharges from the types.
 - **range**: The parameter u = Float(K) / Float(N) for a for-loop index K in 0 .. N with static positive N stays in [0,1], which provers can establish from the static bounds before passing it to the basis functions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, integers, integer division, arrays, multidimensional arrays, records, for loops, procedures and functions.
 

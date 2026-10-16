@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is only a video-described elevator GUI, so a faithful text simulation with a bounded queue and 0..6 floor range needs just ranged types, small arrays and guarded updates, all of which GNATprove discharges from types and guards. No annotation, recursion or heap is needed, and the graphical display is replaced by text output.
 
-Position 1176 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1176 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A text simulation keeps the car floor (subtype 0..6), a door Boolean, a WAIT-sig
 - **index**: The queue shift loop runs over a for range derived from the count subtype, so indexes stay within the array's own bounds.
 - **termination**: All loops live in procedures (which get no termination check), and the move loop steps the floor one at a time toward the target within a 0..6 range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, case statements, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

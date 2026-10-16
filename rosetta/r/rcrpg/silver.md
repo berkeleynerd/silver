@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-grid index or bounded-counter range check that an explicit guard just before the operation discharges, and the only loop is a while loop in a procedure, so no annotation is needed. The task needs stdin line reading and string-command parsing that Silver lacks today, but nothing conflicts with the Oracle.
 
-Position 1246 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1246 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The world is a small fixed 3D grid (for example 0..4 per axis) with a record per
 - **length**: Input lines are read into a fixed-capacity buffer, and over-long lines are rejected with a visible message rather than truncated.
 - **termination**: The command loop is a while loop inside a procedure, so no termination check applies, and end of input exits it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, Put without a newline, standard input and integer division.
 

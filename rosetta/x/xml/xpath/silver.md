@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task reduces to substring search over a fixed embedded document with a handful of bounded scans, so every index check follows from for-loop ranges and explicit length guards. Plausible rather than likely because the careful position arithmetic across several scan phases needs guards on each loop-carried offset.
 
-Position 563 in the [progression](../../../progression.md#stage-12), in stage 12.
+Position 563 in the [progression](../../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The XML document is embedded as a constant String, and a Find_Tag-style helper p
 - **overflow**: Positions are subtype-bounded to the document length so the arithmetic computing end offsets stays within the declared range.
 - **termination**: All scanning is in a procedure using for loops, so no variant is needed and no function contains a while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, for loops, while loops, procedures, functions, Boolean objects and Put without a newline.
 

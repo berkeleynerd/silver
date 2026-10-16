@@ -64,6 +64,81 @@ The assurance targets are the User's Guide definitions of
 The [trusted boundary](trusted-boundary.md) names the frontend, proof tools,
 runtime imports, ABI and environmental assumptions used throughout.
 
+## For loops and standard Integer Image
+
+The [completed Linux capability checkpoint](for-loops-integers.md#stable-delivery-evidence)
+records the coordinated scanner/schema, consumer and whole-document endpoint
+audits, complete native validation and independent review for the delivered
+fragment. The external premises below remain part of the assurance claim.
+
+The scalar grammar combines immutable signed-32-bit Integer constants and
+scoped indexes with grouped arithmetic, comparisons and standard Integer Image.
+Interval proofs cover every intermediate operation, including minimum-value
+negation; comparisons do not silently narrow scalar ranges. Bounds are read
+once at loop entry. The semantic loop argument is induction over the finite Ada
+range, independent of runtime iteration counts and solver unrolling. Existing
+String snapshots, path facts, returning output/rejection effects and fixed-bound
+assignments compose through empty, definitely nonempty and uncertain loops.
+Image contributes its derived length interval to every String expression
+position, including concatenation and assignment.
+
+The source argument must use the checked scalar-literal/expression, interval,
+Predicate and Compose equations together, retaining their executable refinements.
+It must then join the actual Image scanner's initialized execution to complete
+normalized template matching and original insertion offsets. The full typed
+Integer, String and Image schemas are checked against the native template bytes;
+partial name or tag observations do not establish their meaning. Broad producer
+string spelling is handled before accepted-match liveness establishes ASCII.
+Equal valid normalized bytes are interpreted through the explicit external
+JSON parser soundness contract described in the [trusted boundary](trusted-boundary.md#image-proof-adapter-boundary),
+with semantic integer projection and successful parsing of the finite selected
+templates. It makes no universal success assumption for unbounded numbers. This is
+not an unrestricted injectivity claim about raw-number `Value.encode`.
+
+The reverse connection covers every admitted program's generated model:
+unchanged or refinement, as appropriate. The
+[complete producer review](for-loops-image-producer-review.md) establishes the
+pinned source routes for exact selected templates whenever emitted, unique
+selected names, Image's Integer/String dependencies and broad document syntax.
+`ProducerSchemas.envelope` derives scanner requirements using finite template
+validity and source-interpreted table bytes. `producer_finishes` and
+`FilesSource.native_producer_finishes` derive successful initialized scanning
+and `Finish`, including models without Image, without assuming acceptance.
+`JSON.DocumentSpan.field_room` derives per-theory room from the physical
+whole-file bound. Faithful external serialization in the intended Natural
+counter domain remains an explicit premise; the compiled counter increment
+is unchecked. Generic well-typed JSON or parser faithfulness alone does not
+supply these precise producer-format properties.
+
+The exact clone fixes all five substitutions, qualified primitive identities,
+type roles, import and alias scope. Its signature instantiates
+`IntegerImageTheory.assertion_valid` at size 12. The asserted decimal length is
+therefore derived from predefined Image semantics and the proved theory, not
+assumed from scanner acceptance or supplied as an unproved model axiom.
+`ImageModelConsumerBoundary` connects the actual consumer's returned signature
+through the reviewed finite constructor, namespace and primitive-meaning
+contract. That contract concerns the actual checked `Clone.substitutions`,
+not arbitrary trees with equivalent decoded role rows. The fixed mathematical
+role decoder alone does not establish the consumer connection.
+Scanner-derived offsets, the native Files contract and syntax-preserving
+insertion must establish the complete transformed document. Removing precisely
+the two added spans recovers the original bytes in order. The corrected 23-ID
+band is fresh above every admitted producer counter and within the consumer's
+integer range; see the [producer review](for-loops-image-schema.md).
+
+`FilesSource.native_refined_document` in `ImageRefinementEndpoint` connects
+those facts to the actual template selectors, initialized scanner, native file
+execution and refined output. `producer_refined_document` in
+`ImageProducerEndpoint` derives refinement from the producer contract;
+`RefinedDocument.consumer_instance` in `ImageConsumerEndpoint` identifies the
+actual inserted clone and its scope and derives the interpreted Image assertion.
+The final audit recorded in the capability checkpoint covers this combined chain. Source certificates, separate
+model theorems, matching hashes or successful examples do not individually
+establish the composition. Physical filesystem, parser, qualified-name
+resolution and tool execution remain explicit external premises; Silver-owned
+matching, exact payload selection, source correspondence and obligation
+discharge remain required proofs.
+
 ## Membership and composition
 
 `Current.Member` is the union of the null grammar and `Predicate.Member`.
@@ -413,7 +488,12 @@ retain the external-tool premises below.
 
 `PredicateObligations` associates each body expression and assignment with its
 path's range or exact-length schema. `PredicateChecks` combines those with the
-shared declaration schemas. Initializers use the full 4096-byte input domain;
+shared declaration schemas. Scalar interval proofs additionally establish each
+intermediate signed-32-bit arithmetic result and its overflow obligation;
+Integer Image contributes its exact possible length interval. Loop schemas
+cover once-evaluated bounds, scoped indexes, finite iteration and the composed
+String/path facts for empty, nonempty and uncertain ranges.
+Initializers use the full 4096-byte input domain;
 body sites use the valid-length interval and separate invalid-input case that
 reach them, including the right operands of short-circuit predicates. Prefix
 and grouping results cover intermediate concatenations. The recursive statement
@@ -424,8 +504,9 @@ output site, ruling out invalid-input output; this semantic schema does not add
 another accepted native safety-record class. Path-check refinement preserves the
 exact normalized schema and context; declaration checks retain their shared
 refinement rules.
-Every emitted safety obligation must correspond to the appropriate range or
-length channel; report acceptance is not that correspondence proof.
+Every emitted safety obligation must correspond to the appropriate range,
+length or overflow channel and its scalar, Image, loop or String/path schema;
+report acceptance is not that correspondence proof.
 
 The arithmetic argument bounds each admitted String value by 4096 bytes and
 accounts for predefined concatenation's range arithmetic. Its conservative
@@ -450,7 +531,7 @@ faithful completed parsing, obligation generation, completion of proof for every
 source schema accepted by the Lean endpoint-discharge checker, fixed-library
 proof completion, same-source build completion, and preservation and realization
 of modeled execution.
-The generation relation must associate every emitted range/length check with
+The generation relation must associate every emitted range/length/overflow check with
 its source schema; that association alone does not establish that the producer
 omitted no required obligation. Faithful and complete GNATprove generation,
 applicable static elimination, accurate diagnostics and the accepted report
@@ -489,9 +570,12 @@ shell, filesystem and toolchain. Detected infrastructure or verification failure
 prevents publication and is reported as a defect, never as nonmembership or
 successful proof.
 
-Integer Image adds a proved semantic refinement of the selected producer model.
-Its theory constant, model recognizer and exact byte-splice are tied to their
-authoritative SPARK sources. The production driver connects them through native
+Integer Image's completed delivery requires the full semantic/source refinement
+above, in addition to the arithmetic theory and byte-splice properties. The
+[capability checkpoint](for-loops-integers.md#stable-delivery-evidence) names
+`ImageProducerEndpoint`, `ImageRefinementEndpoint` and `ImageConsumerEndpoint`
+and records the final combined audit/review evidence. The production
+driver connects them through native
 SPARK contracts and reviewed call ordering: successful snapshot/model selection,
 exact theorem installation, successful refinement, then original-vendor spawning.
 The installer's successful postcondition establishes complete theorem-byte
@@ -544,8 +628,8 @@ All output shells use `Complete_Application_Proof`; only null retains
 | Assigned | Static sequence containing assignment | Main, optionally Put and/or Put_Line | Above plus exact unused-assignment advisory |
 | Selected | Argument-input sequence containing assignment | Main and argument callees, optionally Put and/or Put_Line; producer may eliminate calls | Above plus exact unused-assignment advisory |
 
-Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK` or
-`VC_LENGTH_CHECK`, with the expected Main filename/entity, valid positive
+Every emitted Main safety record must be a proved/info `VC_RANGE_CHECK`,
+`VC_LENGTH_CHECK` or `VC_OVERFLOW_CHECK`, with the expected Main filename/entity, valid positive
 location, prover completion and no suppression or justification. Empty safety
 lists are permitted when checks were eliminated. Required coverage, progress
 and dependency fields remain checked; dependencies must identify approved
@@ -602,7 +686,9 @@ bounds after the streaming projection of unaudited `check_tree` values, not
 limits on original evidence-file length. The original reports remain unchanged,
 and every record and policy-relevant field remains in the audited input.
 The [capacity repair](report-capacity.md) records the current source/producer
-envelope and the projection's SPARK argument. It is not a Lean-derived JSON-size
+envelope and the projection's SPARK argument. Its scalar/loop/Image extension
+bounds retained Main reports by 15,028,224 bytes within the unchanged
+16,777,216-byte domain, including non-deduplicated Image advisories. It is not a Lean-derived JSON-size
 bound. The earlier [capacity evidence](statement-sequencing.md) keeps its
 historical input and buffer scope.
 
@@ -653,7 +739,9 @@ stable file contents still requires the documented external semantics and absenc
 of concurrent replacement. Comprehensive per-program attestations remain deferred.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0`.
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--no-loop-unrolling`. Loop expansion is not an admission or automatic-discharge
+argument.
 Null uses `--warnings=error`; all output routes use `--warnings=continue` so
 their precisely permitted advisories can be classified from the complete report. Every selected library report remains strict. Successful process exit
 and accepted report content are separate requirements. `warn_error` is not a
@@ -701,7 +789,7 @@ indistinguishable launch failure.
 
 The configured proof/build tools still use the existing shell command path.
 This CLI change adds native SPARK obligations, not a new Lean CLI correspondence
-theorem; the seventeen embedded source bindings and application semantics are
+theorem; the embedded source bindings and application semantics are
 unchanged. The [Run Arguments record](run-arguments.md) tracks the current
 checkpoint and its actual validation status.
 

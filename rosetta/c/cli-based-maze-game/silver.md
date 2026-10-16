@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task is a text maze game: a randomly generated bounded grid, hero moves from typed commands, and monsters, bombs, treasure and revolving doors updated by plain game logic. Monsters can move after each hero move instead of in a forked process, and a bounded-array grid with a seeded pseudo-random generator fits Silver, so nothing breaks an Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, arrays, records, enumerations, loops and subprograms.
 

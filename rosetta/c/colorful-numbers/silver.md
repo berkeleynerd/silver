@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded subtypes and for loops, but the loop-carried product and table index need guards placed just before use, so discharge depends on careful program shape without any annotation.
 
-Position 417 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 417 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A function Is_Colorful takes a number in subtype 0..98_765_432, rejects it outri
 - **termination**: Digit extraction by repeated division is written as a for loop over at most 8 positions, so no variant is needed and the search over 0..98765432 is a for loop in a procedure.
 - **range**: Counts and the total (57256) are kept in subtypes with ample range, and the per-number digit array is indexed only by for-loop indexes over its own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, functions, procedures, 'Image of scalars, string building and Put without a newline.
 

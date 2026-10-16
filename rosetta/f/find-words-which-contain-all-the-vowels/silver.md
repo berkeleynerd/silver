@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from loop ranges, a bounded buffer with a library-provided length, and tallies capped by explicit guards, so no annotation is needed. The only new needs are file reading and ordinary loops, character, and case constructs.
 
-Position 1325 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1325 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Main opens unixdict.txt through an admitted library reader and loops with a whil
 - **length**: A line longer than the buffer capacity has a specified outcome of being reported as rejected rather than truncated, so printing the word as Line (1 .. Length) is always in range.
 - **termination**: The read-until-end-of-file while loop lives in the Main procedure, which gets no termination check, and the inner loops are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File input, while loops, for loops, characters, string indexing, string building, ranged subtypes, integers, Boolean objects, procedures, case statements and arrays.
 

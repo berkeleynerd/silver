@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small enumerations, bounded counters and a procedure-hosted while loop with explicit guards, so all checks follow from types and guards, though the new stdin line reading and enumeration/array surface must exist first.
 
-Position 1229 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1229 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A Choice enumeration (Rock, Paper, Scissors) indexes a count array of bounded su
 - **termination**: The round loop is a while loop inside a procedure, which gets no termination check, and it is also capped by a fixed maximum round count.
 - **index**: The choice enumeration indexes the count arrays directly, and the weighted pick is a chain of comparisons that always ends in a defined branch.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, string indexing, 'Image of scalars, case statements, for loops, while loops, procedures, functions, standard input and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, for-loop ranges and guards before counter increments, with integer scaled scores instead of floating point, so no annotation is needed, but the many loop-carried counters demand careful guard placement. The dictionary must be an embedded subset because reading the full task list is peripheral and file input is unnecessary.
 
-Position 952 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 952 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds a fixed dictionary of Rosetta task names as constant strings 
 - **overflow**: Scores are scaled integers (twice the intersection times 10000 divided by the total) with bounded operands, and ranking compares by integer cross-multiplication, avoiding floating point.
 - **termination**: All loops are for loops or live in procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, Boolean objects, conditional expressions and Put without a newline.
 

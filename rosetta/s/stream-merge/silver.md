@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from bounded buffer types, a Has_Item guard before every comparison, and a while loop confined to a procedure, so no annotation is needed once Silver gains file reading, string ordering and extra arguments.
 
-Position 1485 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1485 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Each stream is a record holding an open admitted file reader, a fixed-capacity l
 - **length**: Each line is read into a fixed-capacity buffer with a length field, and a line longer than the capacity is rejected with a visible outcome, so slice and comparison bounds follow from the length subtype.
 - **index**: Comparing buffered lines uses only the prefix 1 .. Length of each buffer, which is bounded by the declared capacity, and the minimum-selection loop runs over the array's own range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, Boolean objects, ranged subtypes, integers, procedures, while loops, string ordering, string building, string indexing, file input, further arguments, exit status, arrays and for loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Trial division fits in a procedure's while loop (so no termination check) with only an overflow-safe guard and a P >= 2 subtype needed, and the 64-bit range covers 600851475143. The only non-routine point is loop-carried P and N bounds, which declared ranges and the guard supply without annotations.
 
-Position 185 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 185 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Hold N and the candidate divisor P in 64-bit ranged integer subtypes, with N sta
 - **division**: P is declared in a subtype with lower bound 2, so N / P and N mod P cannot divide by zero even though P is loop-carried.
 - **range**: Assigning N := N / P and P := P + 1 to range-typed variables needs the provers to see P stays at most the type's upper bound, which holds because P <= N / P implies P <= sqrt N and N is at most 600851475143.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, while loops, 'Image of scalars and Put without a newline.
 

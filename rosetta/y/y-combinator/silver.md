@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Excluded. The task asks for a stateless fixed-point combinator that turns non-recursive functions into recursive ones, which requires first-class functions and closures. Ada/SPARK cannot express those, and the FreeBASIC entry gets around this only by not implementing a real combinator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, subprograms, recursion and access types.
 

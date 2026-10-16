@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by declared ranges below 2**31 and every loop can be a for loop or sit in a procedure, so checks follow from types and guards, but careful range shaping of loop-carried residues and text parsing make it plausible rather than likely.
 
-Position 1189 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1189 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Restrict n to a declared range 0 .. 2**31-1 so residue products fit in Long_Long
 - **range**: The pseudo-random base is reduced with mod into 2..n-2 after guarding n > 3, and the generator state is kept bounded by a small LCG reduced with mod.
 - **other**: A deterministic generator with a fixed round count is a faithful reading of the randomized test, and text parsing must validate digits and range so invalid input is rejected.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, arrays, for loops, while loops, procedures, functions, text parsing, 'Image of scalars, Put without a newline and string building.
 

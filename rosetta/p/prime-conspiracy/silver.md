@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed array bounds, ranged digit subtypes and guards placed before the increments, with no recursion or annotations needed. Plausible rather than likely because the sieve stride and the many loop-carried counters need careful guards, and the large array leans on the memory premise.
 
-Position 712 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 712 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Run a Sieve of Eratosthenes into a fixed Boolean array sized to the 1,000,000th 
 - **overflow**: The percentage count*10000/total uses counts at most 1,000,000 and a positive total, so the product and the division are bounded by types.
 - **heap**: The 15.5-million-entry Boolean sieve is a large static array whose memory is not proved, which is covered by the fixed environmental memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

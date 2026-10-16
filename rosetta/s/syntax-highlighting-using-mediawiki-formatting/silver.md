@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is a bounded-index or bounded-length operation guardable just before use, and all unbounded loops can sit in procedures, so no annotations are needed, though many loop-carried positions need careful guards. No Oracle rule is violated since the task is pure text transformation.
 
-Position 1248 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1248 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program reads each stdin line into a bounded buffer with a length, then a pr
 - **termination**: All while loops live in procedures, which get no termination check, and the keyword search uses a for loop in a function.
 - **overflow**: Position and length counters are subtypes bounded by the fixed line capacity, so increments are safe given the loop guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is a bounded for-loop character comparison over constant strings, so every index and length check follows from the clamped loop bound computed just before use and no loop-carried fact needs an invariant. The only new surface is unconstrained String parameters, string indexing and slices, and Natural counters.
 
-Position 984 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 984 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The first string of each test set is kept as a constant, and a procedure Narrow 
 - **index**: Indexing both strings at First + I - 1 is safe because the for loop bound is the minimum of the current prefix length and both string lengths, computed just before the loop.
 - **overflow**: Computing A'First + I - 1 for an unconstrained String could in principle overflow, but I is bounded by A'Length so the sum stays at or below A'Last.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, unconstrained arrays, string indexing, for loops, procedures, Boolean objects and Put without a newline.
 

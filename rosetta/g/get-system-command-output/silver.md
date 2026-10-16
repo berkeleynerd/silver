@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task asks for running a system command and capturing its output in a collection. This is a process-execution effect that a future Silver library operation could specify, with bounded output and a specified failure outcome. It breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, string operations and loops.
 

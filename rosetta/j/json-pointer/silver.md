@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from declared ranges on node indexes and lengths, for loops over static arrays and pointer ranges, and explicit guards before buffer appends and digit accumulation, so no annotation is needed and outlook is likely.
 
-Position 1181 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1181 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The example document is embedded as a constant array of node records (kind enume
 - **overflow**: Accumulating an array-index token's digits is guarded by checking the value is below a small bound before multiplying by 10, and an out-of-bound value is reported as an error.
 - **range**: The current node, the token length and stored key or text lengths are declared range subtypes, so slices such as Key (1 .. Key_Len) and node lookups stay in bounds after each loop iteration without invariants.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, unconstrained arrays, string indexing, string building, for loops, procedures and functions.
 

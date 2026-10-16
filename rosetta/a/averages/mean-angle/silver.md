@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Indexing and bounds are routine, but the task fundamentally needs floating-point trigonometry whose discharge depends on admitted elementary-function contracts and bounded accumulators, so it is plausible rather than likely; the 90/180/270/360 case is handled by an explicit guard rather than an exception.
 
-Position 1059 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1059 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed each angle list as a constant array of a bounded float subtype in degrees 
 - **other**: The list [90,180,270,360] has a sum of essentially zero, so the program guards on a small magnitude threshold and prints a specified 'mean undefined' outcome rather than raising Argument_Error, which keeps the behavior visible and faithful.
 - **floating point**: Printing a degree value to two decimals needs a float-formatting routine that stays within a bounded buffer, for example by scaling to an integer in a declared range and converting it to text.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, arrays, for loops, procedures, functions, Boolean objects, Put without a newline and string building.
 

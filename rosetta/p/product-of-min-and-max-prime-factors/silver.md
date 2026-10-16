@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-bound for loops over a 100-element array with component values constrained by a subtype, so index, range and overflow checks follow from types and loop bounds with no loop-carried unbounded values.
 
-Position 148 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 148 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Two constant-size arrays of subtype 0 .. 100 indexed 1 .. 100 hold the smallest 
 - **index**: Inner loop index P*K is bounded by iterating K over 1 .. 100/P, which provers handle as a nonlinear but small-range fact, with a guard (if P*K <= 100) before use as a fallback.
 - **overflow**: Min*Max product is bounded by 100*100 because both array components have subtype 0 .. 100, so no overflow in Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, integer division, 'Image of scalars and Put without a newline.
 

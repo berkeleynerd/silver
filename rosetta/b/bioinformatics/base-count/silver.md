@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the constant string's static bounds, for-loop indexes over its own range, and a guard before each counter increment, so no annotation is needed. The only care is the loop-carried counters and the fixed-width text formatting.
 
-Position 774 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 774 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The 500-base sequence is embedded as a constant String, printed 70 bases per lin
 - **index**: Line slices use a for loop over line numbers with start and end computed from constants and clamped by a guard against the sequence length, so slice bounds follow from static bounds.
 - **length**: Each output line is built in a fixed-size bounded buffer (position prefix of width 3 plus up to 70 characters), sized statically so no length check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, 'Image of scalars, case statements, for loops, procedures and Put without a newline.
 

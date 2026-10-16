@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound loops over small ranges with typed integer and float data, but the float formatting and the loop-carried total and error computations need careful range guards.
 
-Position 1076 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1076 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A deterministic LCG with a ranged state picks f(x) as state mod N plus 1, and a 
 - **index**: The visited array is indexed by a random value mapped with mod into 1..N, whose range follows from a range-typed conversion after the mod.
 - **termination**: All loops are for loops over fixed ranges with a Boolean stop flag instead of exit, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, floating point, floating-point images, 'Image of scalars, string building, for loops, procedures, functions and Put without a newline.
 

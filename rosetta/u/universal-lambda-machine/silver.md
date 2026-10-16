@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The interpreter needs only bounded arrays, records and procedure loops with explicit capacity guards, so no annotation is needed, but the many loop-carried pool indices and the pointer-to-index redesign make careful program shape necessary. Non-halting or oversized programs end through a specified resource-limit outcome rather than a hidden failure.
 
-Position 1460 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1460 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Read the input into a bounded buffer, parse the BLC term into a fixed-capacity a
 - **overflow**: Reference counts and bit accumulators are bounded by pool capacity or masked into small ranged types so guards suffice.
 - **other**: The existing design uses heap cells and a reference-count free list, so the program must replace them with index-based array pools and an explicit capacity limit, and stack or heap exhaustion becomes a specified rejection.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, unconstrained arrays, case statements, for loops, while loops, procedures, functions, standard input, Put without a newline, further arguments and text parsing.
 

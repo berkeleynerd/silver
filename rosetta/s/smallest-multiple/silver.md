@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Only a bounded accumulator multiplication and mod are involved, with for loops that terminate by themselves, so overflow and division checks discharge from the explicit guard and constant divisors in 1..20.
 
-Position 125 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 125 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Keep an accumulator in a Long_Long_Integer variable starting at 1; for each divi
 
 - **overflow**: The loop-carried accumulator is a 64-bit integer, so each multiplication is guarded by an explicit check that the accumulator is below a fixed limit, with a visible Reject outcome otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and Put without a newline.
 

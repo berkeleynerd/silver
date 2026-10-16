@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges, fixed buffers and for loops over the buffer, with only the loop-carried counters needing guards, and line reading happens in a procedure so no variants are needed. The remaining work is an admitted file-reading operation and careful guard placement.
 
-Position 1352 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1352 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ Open the dictionary and, in a first pass, read each line into a bounded 64-chara
 - **length**: Each line is read into a fixed 64-character buffer with a length, and over-long lines get a specified rejection outcome instead of truncation, so indexes stay within the buffer.
 - **termination**: The line-reading while loops sit in a procedure, which gets no termination check, and the per-character loops are for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures, file input and exit status.
 

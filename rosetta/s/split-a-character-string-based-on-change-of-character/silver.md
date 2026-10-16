@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The for loop indexes the constant's own range and the previous-character access is guarded by I > S'First, so all checks are routine and no annotation is needed. Output is a streamed sequence of Put calls, avoiding any bounded output buffer.
 
-Position 482 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 482 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
 Embed the example string as a String constant and run one for loop over its index range. For each position after the first, print ", " when the character differs from the previous one (guarded by an index greater than S'First), then print the character as a one-character slice, and end with a line terminator. No buffer or loop-carried value is needed, so every index check follows from the loop range and the guard. About 22 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, string indexing, for loops and Put without a newline.
 

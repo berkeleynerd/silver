@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task needs bounded loops, integer-based position and velocity arithmetic (altitude grows by an integer accelerating step each frame) and fixed ASCII-art strings printed to stdout, with sleeps for timing. Nothing in it breaks an Oracle rule, so it is a candidate once Silver gains console loops, integer arithmetic and a delay operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, string operations and arrays.
 

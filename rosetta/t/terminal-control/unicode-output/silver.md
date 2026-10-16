@@ -2,7 +2,7 @@
 
 **Excluded from Silver: environment.** The program checks the locale environment for a UTF-8 setting, then prints the three-byte UTF-8 form of U+25B3, or else prints an error message and exits nonzero. This needs only environment access, console output and exit status. The task's 'error should be raised' can be met by a reported error outcome, so no exception is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters and string operations.
 

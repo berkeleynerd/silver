@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and counter is bounded by declared ranges or guards placed just before use, and recursion is replaced by an explicit stack in a procedure's while loop, so no annotation is needed, though the many loop-carried indices make the guard placement delicate.
 
-Position 736 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 736 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The puzzle is embedded as a padded fixed-size integer grid (hole, blank, or give
 - **termination**: The backtracking search is an iterative while loop with an explicit path stack inside a procedure, which gets no termination check, so no variant is needed.
 - **other**: Exhausting the search prints a visible 'no solution' outcome, and the givens (1 and the cell count present) are validated at start.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

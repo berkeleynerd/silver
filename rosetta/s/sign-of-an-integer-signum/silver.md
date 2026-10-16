@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The function is a three-way comparison with no loop-carried values, so every check follows from types and guards. Integer has no signed zero, so the optional signed-zero clause does not apply and nothing conflicts with the Oracle.
 
-Position 761 in the [progression](../../progression.md#stage-15), in stage 15, which adds case statements.
+Position 761 in the [progression](../../progression.md#stage-14), in stage 14, which adds case statements.
 
 ## Approach
 
 Declare a function Signum over Integer returning Integer in -1 .. 1, using an if/elsif/else on x < 0 and x > 0, and embed the examples -10, 42 and 0 in a constant Integer array. A for loop over the array's own range calls Signum and prints each input and result via 'Image concatenation into a bounded String; Integer'Image of an Integer is bounded and fits a fixed buffer. About 30 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, functions, procedures, for loops, arrays, 'Image of scalars, string building and case statements.
 

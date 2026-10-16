@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 1..1850 subtypes, the bounded products and the explicit guard before the array store, and all loops are for loops in a procedure, so no annotation is needed.
 
-Position 1545 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1545 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a subtype N_Range is Integer range 1 .. 1850 and a Boolean array Represe
 - **overflow**: Products a*b and c*(a+b) are nonlinear, but a, b and c are subtypes of 1..1850 so the sum is at most about 10 million, well inside Integer, and the provers handle these bounded products.
 - **index**: The Boolean marker array is indexed by the sum only after an explicit guard that the sum is at most 1850, so the index check follows from the guard just before the store.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, Put without a newline, string building and membership tests.
 

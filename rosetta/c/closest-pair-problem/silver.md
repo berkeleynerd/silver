@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Integer coordinates in a bounded subtype make every squared-distance, index and accumulator check follow from types, and only for loops are used so no termination or invariant is needed.
 
-Position 61 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 61 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Points are two constant arrays of ranged integer coordinates (X and Y, 10 entrie
 - **overflow**: Coordinates are a subtype 0..10000 so each squared difference is at most 10**8 and the sum of two fits in Integer, discharged from types alone.
 - **index**: Nested for loops run over the array's own index subtype with the inner range starting at I+1, so every index check is static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops and 'Image of scalars.
 

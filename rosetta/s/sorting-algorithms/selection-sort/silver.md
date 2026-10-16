@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Selection sort over a fixed-size array uses only for loops with static bounds and indices drawn from the array's own range, so index and range checks discharge from types without invariants; the output formatting is the only extra surface.
 
-Position 77 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 77 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the ten example values in a constrained array of a declared bounded intege
 - **index**: Index into A(Min) and A(J) stays safe because Min is typed as the array's index subtype and J ranges over the array's own indices, with the outer loop bounded by a constant range.
 - **overflow**: Integer image formatting is the only arithmetic, and element values are a bounded subtype so the 'Image buffer length is statically sufficient.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, Put without a newline, 'Image of scalars and string building.
 

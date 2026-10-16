@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded subtypes, fixed for-loop bounds and a guard before the one loop-carried addition, and no while loop or recursion is needed. Only new surface (functions, integers, loops, 'Image) is required, with no annotations.
 
-Position 768 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 768 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Prime on a bounded Natural subtype (up to 100000) tests divisibili
 - **overflow**: The running prefix sum is loop-carried, so it is declared in a bounded range subtype and an explicit guard before each addition rejects the case where the sum would exceed the bound, which never happens for primes below 1000 (total 76127).
 - **range**: Trial division uses a for loop up to a fixed bound of 281 with a guard d*d <= n, so the product d*d stays within the declared range and the modulus is never zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, case statements, 'Image of scalars, string building, Put without a newline and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are fixed-range for loops over constant arrays and every value is bounded by declared subtypes, so no loop-carried fact needs an invariant; the invalid-character path becomes a visible outcome instead of Constraint_Error.
 
-Position 771 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 771 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the ten example SEDOLs in a constant array of 6-character Strings with a c
 - **overflow**: The weighted sum accumulates in a loop, but each term is at most 35*9 and there are six terms, so a subtype Sum range of 0..2000 with a per-term bound from the character-value subtype lets the addition discharge from types alone.
 - **range**: The character-to-value mapping is done by a case on the Character with an explicit rejecting branch, so the resulting value lies in a declared 0..35 subtype, and the final (10 - Sum mod 10) mod 10 is bounded by mod.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, case statements, procedures, functions and Boolean objects.
 

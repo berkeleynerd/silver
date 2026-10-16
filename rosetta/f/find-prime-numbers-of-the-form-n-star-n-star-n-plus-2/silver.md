@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the declared subtype ranges and a for loop with static bounds, and the function has no while loop or recursion, so it needs no variant or invariant.
 
-Position 302 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 302 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A function Is_Prime takes a value in a bounded subtype (2 .. 7_880_601), rejects
 
 - **overflow**: n is a subtype 1..199 so n*n*n+2 is at most 7,880,601 and d*d with d at most 2807 stays far below Integer'Last, so both discharge from declared ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions and 'Image of scalars.
 

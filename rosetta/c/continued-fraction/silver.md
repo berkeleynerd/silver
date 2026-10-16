@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a fixed-step reverse for-loop with positive coefficients, so termination is trivial and checks follow from ranged subtypes. The nonroutine part is bounding the float accumulator so the division and conversions discharge, and Silver lacking float formatting.
 
-Position 1061 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1061 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Write one procedure per series (or a single procedure with a selector) that runs
 - **range**: Float conversion of the integer coefficients and the Fraction result must stay inside the declared float subtype range, which needs explicit bounds such as 0.0 .. 1.0 for the tail since each tail value is at most B/A.
 - **other**: Printing a float needs an admitted float-to-text library operation (or integer scaling to fixed decimals via integer-division digit emission), since Silver has no float formatting yet.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, arrays, for loops, procedures, functions, Put without a newline, 'Image of scalars, string building, string indexing, characters and while loops.
 

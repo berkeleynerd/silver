@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..19 subtype, the loop over the buffer's own range and the bounded multiply-add, with no loop-carried value needing an invariant; the only new work is stdin line reading and a case statement over 20 literals.
 
-Position 1222 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1222 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ The program prints a welcome and a prompt, reads one question line into a bounde
 - **overflow**: The hash step multiplies a value of subtype 0..19 by a small constant and adds a Character position (at most 255), so the result fits Integer and a mod 20 returns it to the subtype, which types alone establish.
 - **index**: The for loop runs over the question buffer's own index range and the answer selector has subtype 0..19, so the case statement is complete and every index is in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, case statements, for loops, procedures and standard input.
 

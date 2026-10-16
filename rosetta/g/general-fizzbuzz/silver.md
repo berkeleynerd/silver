@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded by validated ranges and fixed buffers, and the work is simple loops in procedures, but the text parsing of user input with loop-carried accumulators and buffer indexing requires careful guards, hence plausible rather than likely.
 
-Position 1239 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1239 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Store three records of factor (Positive range) plus a bounded word buffer with l
 - **length**: Words are stored in fixed-capacity buffers with a length field and over-long or empty words are rejected, so slices stay in range.
 - **termination**: All loops live in procedures (the output and parsing loops are for loops or bounded while loops) so no termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, Put without a newline and standard input.
 

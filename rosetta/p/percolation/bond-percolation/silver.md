@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed grid bounds, guarded neighbour indexes and ranged integer types, and the only unbounded-looking loop is a while loop in a procedure, so no annotation is needed. It is plausible rather than likely because of the nonlinear PRNG arithmetic and the several loop-carried counters that need careful typing.
 
-Position 734 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 734 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program stores the vertical and horizontal walls of the 10x10 grid in two Bo
 - **termination**: The flood-fill sweeps repeat in a while loop until nothing changes, but this lives in a procedure, which gets no termination check, and the number of sweeps is in fact bounded by the 100 cells.
 - **range**: Counts and percentages are loop-carried, so they are typed as 0..100 and 0..10 subtypes with guards before increments to keep range checks provable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

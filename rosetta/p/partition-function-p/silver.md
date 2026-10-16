@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from static loop ranges, a guard on the pentagonal offset just before each array index, and an overflow guard just before each accumulation that leads to a visible capacity message, so nothing needs an invariant. The documented 64-bit limit (about n = 400) is a permitted resource bound because the task requires only a function and its values; P(666) and the timed P(6666) bonus would need fixed-capacity big numbers.
 
-Position 158 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 158 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A procedure fills a local array P(0..Max_N) of Long_Long_Integer, initialized wi
 - **index**: The index I-J stays within 0..I because the pentagonal offset J is tested to be at most I just before use, and I comes from a for loop over the array's own range.
 - **overflow**: The nonlinear offset K*(3K-1)/2 cannot overflow because K comes from a for loop over a small static range, so the product is statically bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures and 'Image of scalars.
 

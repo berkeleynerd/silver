@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by small declared ranges and the loops are for loops over array ranges or a while loop in a procedure, so no annotation is needed. The care needed is in keeping loop-carried indexes in range through initialised defaults and in bounding the running totals.
 
-Position 725 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 725 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 4x5 cost matrix, supplies and demands as constant arrays of small rang
 - **overflow**: The penalty is the difference of two costs held in an Integer-based subtype, and a sentinel for a missing second minimum is a fixed in-range constant, so the subtraction cannot overflow.
 - **other**: A pass that finds no active row or column must leave the loop with a specified outcome; this is a guard on the loop condition, not a change to results, so the 3100 result is unaffected.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

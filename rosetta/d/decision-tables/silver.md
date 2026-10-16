@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is fixed-size and indexed by enumeration types, loops are for loops over static ranges, and the only dynamic risk is end of input, which a guard handles, so every check follows from types and bounds.
 
-Position 1219 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1219 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -16,7 +16,7 @@ Define enumerations for conditions and actions, a Boolean array indexed by condi
 
 - **other**: Reading an answer may hit end of input, so the program treats missing input as 'no' (or rejects) with a specified outcome rather than raising an exception.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, ranged subtypes, Boolean objects, characters, arrays, records, for loops, case statements, procedures, Put without a newline and standard input.
 

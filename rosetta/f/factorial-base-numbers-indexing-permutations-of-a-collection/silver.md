@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and arithmetic check is bounded by ranged subtypes, a validity guard before the rotation, and literal loop bounds, so nothing needs an annotation, but the odometer's loop-carried digits and the 40-million-iteration count need careful guard placement.
 
-Position 578 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 578 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Permutations are Natural arrays of fixed capacity 52 with a length n, and factor
 - **termination**: The odometer enumeration uses a while loop inside a procedure, which gets no termination check, with the counter stopping when the carry runs off the most significant place.
 - **range**: Loop-carried digit arrays in the odometer lose their invariants after the first iteration, so each digit is a ranged subtype and an increment is guarded by comparing the digit against its radix limit before adding one.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions, string building, string indexing, 'Image of scalars and Put without a newline.
 

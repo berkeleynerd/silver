@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over fixed bounds with range-typed table cells, and the only division is guarded by a validated non-zero length, so all checks follow from types and guards without annotations. The embedded dictionary replaces the large word file, a documented resource limit, and a plain edit-distance similarity satisfies the task's "any algorithm" allowance.
 
-Position 680 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 680 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed a small fixed dictionary of lowercase words in a constant array of fixed-c
 - **division**: The percentage divides by the longer word length, which is guarded to be at least 1 because an empty argument is rejected before use.
 - **range**: Percentage is computed as (longer - distance) * 100 / longer where distance never exceeds longer, which a guard before the subtraction makes explicit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, for loops, procedures, functions and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Streaming mean, variance and histogram over a deterministic integer fixed-point generator needs only integers, arrays, loops and text building, with all checks following from ranged types and a few overflow guards on loop-carried accumulators. It is plausible rather than likely because the accumulators and the nonlinear LCG and variance arithmetic depend on careful range sizing.
 
-Position 415 in the [progression](../../../progression.md#stage-10), in stage 10.
+Position 415 in the [progression](../../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A deterministic linear congruential generator over a ranged integer state yields
 - **division**: Mean and variance divide by the sample size, which is a nonzero constant or ranged subtype of the loop, so the divisor is provably positive.
 - **termination**: The integer square root is a bounded for loop or a while loop inside a procedure, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

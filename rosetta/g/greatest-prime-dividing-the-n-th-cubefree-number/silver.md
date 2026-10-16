@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Trial division with ranged subtypes and guarded exponent and count updates keeps every check derivable from types and guards, but several loop-carried values need careful typing, so discharge is plausible rather than certain. No annotations, recursion or heap are needed, and the main new surface is integer arithmetic, loops, arrays and number formatting.
 
-Position 259 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 259 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A for loop scans candidates 2 to a fixed bound of 200000; for each, a procedure 
 - **termination**: The exponent-stripping while loop is in a procedure so it needs no variant, and the outer scan is a for loop over a fixed candidate range.
 - **range**: The running count and the largest-prime-factor variable are loop-carried, so each is declared with a range wide enough for its maximum and increments are guarded by the count limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

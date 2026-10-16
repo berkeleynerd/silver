@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is arrays, ranged integers and procedure while loops with guards before each index or update, so no annotation is needed, but the 64-bit loop-carried sieve arithmetic and bounded tables to reach 10^6 need careful shaping.
 
-Position 287 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 287 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A segmented sieve (base primes up to 65536 from a plain sieve, then fixed-size B
 - **division**: Sieve marking uses mod and division by base primes, which are nonzero because the base-prime array holds only values of at least 2 by subtype.
 - **termination**: All unbounded searches are while loops inside procedures, which get no termination check, and functions use only for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

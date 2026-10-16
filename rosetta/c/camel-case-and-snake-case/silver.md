@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded character-by-character string processing in procedures with for loops and explicit capacity guards, so all index, range and overflow checks follow from types and guards just before use. The main work needed is Silver growing character, string indexing, slices, unconstrained String parameters and procedures.
 
-Position 994 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 994 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Samples are String constants embedded in the program (the non-ASCII sample is ke
 - **length**: Input length is checked against a fixed maximum before conversion, and the result is shown as a slice 1 .. Len of the buffer, whose bound follows from the guarded type of Len.
 - **termination**: Trimming uses while loops inside procedures, which get no termination check, and the conversion loops are for loops over the input range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

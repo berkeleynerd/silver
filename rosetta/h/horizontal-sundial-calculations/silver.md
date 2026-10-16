@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No contracts or recursion are needed and every loop is a bounded for loop in a procedure, but floating-point trigonometry with no prover-visible bounds on Tan and hand-written decimal parsing make discharge depend on careful range guards.
 
-Position 1240 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1240 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ A procedure reads three lines from stdin, parses each into a Float with validati
 - **range**: Parsing decimal text into Float with validation (sign, digits, one point, length limit) needs loop-carried accumulators kept in range by guards or by a bounded digit count.
 - **length**: Float'Image output must fit a fixed-size buffer when building each report line.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, text parsing, standard input, Put without a newline, for loops, ranged subtypes, procedures, 'Image of scalars, string building, Boolean objects and conditional expressions.
 

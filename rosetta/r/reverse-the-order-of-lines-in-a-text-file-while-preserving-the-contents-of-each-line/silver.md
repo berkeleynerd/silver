@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from fixed array capacities, bounded counters and explicit capacity guards, and the reverse output is a plain for loop. The one new dependency is an admitted bounded line-reading library operation with specified failure outcomes.
 
-Position 1326 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1326 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ The program takes the file name from the first argument, then a procedure reads 
 - **index**: Line count and line length are checked against the fixed capacities before every store, and a violation calls Reject, so each buffer index is guarded just before use.
 - **range**: The reading loop's carried line count is held in a subtype bounded by the capacity, with the guard before each increment keeping it in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and file input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer arithmetic with a single explicit zero-determinant guard before the only division, so every check follows from types and a guard; the Ada solution's Float and exception are replaced by exact integers and a visible message.
 
-Position 143 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 143 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent the four points as constants of a bounded Coordinate subtype and solve
 - **overflow**: Coordinates are a declared subtype of -1000..1000 so the cross-product terms stay far inside Integer.
 - **length**: The output line is concatenated from short Integer'Image results whose maximum length is bounded by the coordinate subtype and fits the target buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, string building and procedures.
 

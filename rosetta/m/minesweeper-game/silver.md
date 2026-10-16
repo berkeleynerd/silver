@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indexes and counters are bounded by ranged subtypes and boundary guards, and recursion and unbounded loops are avoided in functions, so no annotation is needed, but careful shape is required for the flood fill, neighbour counting and input parsing.
 
-Position 1250 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1250 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Two 6 by 4 arrays hold mine placement and cell state (hidden, marked, opened), w
 - **termination**: The recursive flood fill is replaced by a for-loop repeated a fixed 24 passes over the grid, so no variant is needed, and the play loop and mine placement loop are while loops in procedures with no termination check.
 - **range**: Move parsing of the command letter and two coordinates validates length and digit characters and range-checks the coordinates before converting, with invalid lines printing a rejection and reprompting.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Put without a newline, standard input and conditional expressions.
 

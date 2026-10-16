@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is bounded and fits in 64-bit integers with explicit guards, and no annotations are needed because recursion is replaced by an explicit stack, but proving no overflow in the lcm/product and root loops without invariants depends on careful guard placement.
 
-Position 296 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 296 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Replace the recursive processLevel with an iterative depth-first search over fix
 - **range**: Loop-carried values such as m, L, p and the explicit DFS stack depth are known only by type after the first iteration, so they need subtypes bounded to 2^62 and depth index guards before every use.
 - **division**: Divisors p+1, L and m are loop-carried, so each division is guarded by an explicit nonzero test just before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

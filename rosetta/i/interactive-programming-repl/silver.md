@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task asks how to start the language's built-in interactive mode (REPL) and how to define a function in it, which means evaluating code typed in at run time. Ada/SPARK has no such mode, and the task rules out writing your own, so it is excluded. The string function itself (s1 & sep & sep & s2) would be easy, but a compiled program like the FreeBASIC one does not do what the task asks.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and subprograms.
 

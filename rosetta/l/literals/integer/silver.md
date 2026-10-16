@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a static literal within Integer's range, so the only checks are compile-time constant range checks plus a call to 'Image, which raise nothing, and the proofs are trivial.
 
-Position 41 in the [progression](../../../progression.md#stage-3), in stage 3.
+Position 41 in the [progression](../../../progression.md#stage-2), in stage 2.
 
 ## Approach
 
 Main declares Integer constants written as Ada based literals (2#10_1101_0111#, 8#1_327#, 10#727#, 16#2D7#, with underscores and an exponent form like 7#1#E2). Each one is printed with Silver_IO.Put_Line of the constant's 'Image. There are no loops, no input and no arithmetic beyond static literal values. About 20 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and 'Image of scalars.
 

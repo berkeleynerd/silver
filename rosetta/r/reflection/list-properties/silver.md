@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task asks for an object's properties to be listed through reflection, which is introspection of program structure that Ada/SPARK cannot express. Printing hand-picked fields would just be ordinary output and would not meet the reflection requirement, so this sample is excluded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, tagged types and string operations.
 

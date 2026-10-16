@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-capacity arrays with ranged subtypes and explicit guards inside a procedure, so no termination check or annotation is needed, but loop-carried stack tops and counts require careful guard placement.
 
-Position 720 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 720 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the two OCaml example graphs as constrained 2D edge arrays of ranged-subty
 - **index**: The edge-shift loop reads edges(i+1) with i at most count-1, which follows from count's subtype bound because the loop bounds are read once from a ranged variable.
 - **other**: The reject guard on stack capacity changes behavior only for graphs exceeding the documented limit, which is a visible specified outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, Put without a newline, 'Image of scalars and string building.
 

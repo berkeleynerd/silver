@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a bounded array walk whose indexes can be guarded immediately before use, so no annotation is needed, but several loop-carried indexes (i, k, run count) need careful guard placement.
 
-Position 414 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 414 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed-capacity array of 30 values of a 0..3 subtype holds the sequence, and a 4-
 - **termination**: Loops live in procedures (while loops get no termination check) and the fixed-bound for loops terminate by themselves; the cycle position is computed with a guarded wraparound rather than mod on an unbounded value.
 - **length**: Output lines are built in bounded buffers sized for 30 elements of at most one digit plus separators, with an explicit capacity guard before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, procedures, functions, for loops, while loops, 'Image of scalars, string building and Put without a newline.
 

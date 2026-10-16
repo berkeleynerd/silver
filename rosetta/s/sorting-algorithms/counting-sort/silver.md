@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtypes and short guards, but the loop-carried write position and the count increments need a guard each, so the proof depends on careful program shape rather than being fully routine.
 
-Position 82 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 82 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds a constant 30-element array of values in the subtype 0 .. 99,
 - **index**: The write position in the output pass is a loop-carried value, so it is guarded with a visible rejection outcome before each store, and the value-indexed count access is safe because input values have a subtype 0 .. 99 that matches the count array's index range.
 - **range**: The inner for loop runs over 1 .. Count(I), which is bounded by the count subtype, so no accumulator needs an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline, string building and procedures.
 

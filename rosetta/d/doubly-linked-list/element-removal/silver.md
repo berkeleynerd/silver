@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded array and index arithmetic over declared subtypes with explicit guards before each access, so all checks follow from types and guards without any invariants.
 
-Position 610 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 610 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Nodes live in a fixed-capacity array of records (5-character padded String value
 - **termination**: List traversal uses a for loop bounded by Capacity (stopping early when the link is 0) in a procedure, so no while loop variant is needed.
 - **range**: Removal rewrites neighbour links only after checking the target node is in use and its Prev and Next are nonzero, with the value-not-found case printing a visible message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, string indexing, for loops, while loops, procedures, functions and Put without a newline.
 

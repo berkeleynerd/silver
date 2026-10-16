@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index is a for-loop variable over a fixed subtype range with offsets of at most 3 inside the 20-wide array, and the product is bounded by the cell subtype, so all checks follow from types and no loop invariant is needed.
 
-Position 660 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 660 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The 20x20 grid is a constant two-dimensional array of a Cell subtype 0..99 with 
 
 - **overflow**: Each product of four cells is bounded by 99^4 (about 98 million) because the cell subtype is 0..99, which fits in Integer and is routine for the provers given the declared ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, multidimensional arrays, for loops, 'Image of scalars and string building.
 

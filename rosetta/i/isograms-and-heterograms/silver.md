@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared subtypes, fixed capacities with explicit reject guards, and loops in procedures, but it needs a file-reading library operation, string ordering and careful guard placement in the sort and the counting loops.
 
-Position 1492 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1492 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Each line of unixdict.txt is read into a bounded buffer with a length (rejecting
 - **termination**: Line reading and insertion-sort shifting use while loops, but they live in procedures, which get no termination check.
 - **initialization**: The count table and result arrays are fully initialized by aggregates or reset loops per word, so flow analysis is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, string ordering, 'Image of scalars, for loops, while loops, procedures, functions, file input, Put without a newline, exit status and conditional expressions.
 

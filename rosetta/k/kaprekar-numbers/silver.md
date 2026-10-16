@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the declared ranges (squares below 10**8), and both loops are for loops over static ranges, so every check discharges without invariants and nothing needs termination proof. The optional million-number count and base 17 parts are left out.
 
-Position 131 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 131 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant array holds the powers of ten 10 through 10**8, and a for loop over N
 - **overflow**: N is a subtype 1 .. 9_999 so N*N is at most about 10**8 and fits in a 32-bit Integer, and the count is bounded by the loop range, so each check follows from types.
 - **index**: The powers-of-ten table is indexed only by a for-loop variable over the table's own range, so no guard is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs network fetching of Rosetta Code category data, string parsing of JSON-like responses, a sort, and console text output. All of this fits Oracle rules once network access is an admitted library effect: bounded arrays for the category and language lists, iteration for paging and sorting, and an explicit outcome for failed or malformed downloads. The task has no required exceptions, assertions, or run-time error demonstrations, so there are no conflicts. The sample date header is not required by the task text and is left out, so no clock effect is listed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, records, loops and integers.
 

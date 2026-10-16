@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Exhaustive search over three bounded for-loop indexes with exact scaled integer arithmetic gives every check a static bound, and nothing needs a loop invariant or variant. The only new surface is integer arithmetic, ranged subtypes, for loops and integer-to-text conversion for output.
 
-Position 73 in the [progression](../../../progression.md#stage-6), in stage 6.
+Position 73 in the [progression](../../../progression.md#stage-5), in stage 5.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Scale the data to exact integers (weight in tenths, volume in thousandths, limit
 
 - **overflow**: The value, weight and volume sums are linear in for-loop indexes with static ranges (at most 10, 16 and 12 items), so the largest total of 88800 fits Integer and the checks discharge from the index types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, for loops, 'Image of scalars and string building.
 

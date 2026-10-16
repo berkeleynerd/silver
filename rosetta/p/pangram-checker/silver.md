@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from for-loop indexes over the string's own range and from character-range guards placed just before computing the letter index, and for loops need no termination annotation.
 
-Position 971 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 971 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
 A function Is_Pangram takes an unconstrained String and fills a Boolean array indexed by a 0..25 subtype, using a for loop over Text'Range and, for each character, an if guard on 'a'..'z' and 'A'..'Z' that computes the index from Character'Pos differences. A second for loop over the array checks that every letter was seen. A small procedure prints TRUE or FALSE for each of four embedded example sentences, including non-pangrams. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, for loops, functions and procedures.
 

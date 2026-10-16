@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed-size arrays in procedures, so termination and indexing are routine, but loop-carried distance arithmetic needs explicit magnitude guards with a visible rejection outcome to discharge overflow without invariants.
 
-Position 739 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 739 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 4-vertex example as a fixed-capacity edge list (parallel arrays or a 2
 - **index**: Vertex indices are a declared subtype and edge arrays are walked with for loops over their own range, so indexing is routine except for the augmented source vertex, which gets its own index slot V+1.
 - **termination**: All loops are bounded for loops inside procedures (V-1 relaxation passes, V Dijkstra rounds), so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures, 'Image of scalars, Put without a newline and string building.
 

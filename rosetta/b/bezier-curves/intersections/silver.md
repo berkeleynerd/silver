@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is a fixed-count for loop over bounded floats with no loop-carried values beyond bracket endpoints whose subtype range keeps arithmetic safe, so it should prove without annotations, but floating-point range bounding and float output make it need careful shaping.
 
-Position 1077 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1077 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Reduce the two parabolas analytically to y = 5(1-x^2) and x = 2 - 20s + 20s^2 wi
 - **termination**: Bisection uses a for loop over a fixed iteration count inside a procedure, so no variant is needed.
 - **other**: Float-to-text formatting of the coordinates must come from an admitted library operation, since 'Image on floats is not yet available.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, for loops, procedures, functions, Boolean objects, integers, Put without a newline and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and guards placed just before indexing, and recursion is replaced by an explicit-stack while loop in a procedure, so no annotation is needed; the nested loop-carried search state keeps it at plausible rather than likely.
 
-Position 1129 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1129 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program parses a two-character square such as e4 from the first argument, re
 - **termination**: The explicit-stack backtracking search is a while loop inside a procedure, which gets no termination check, so no variant is required.
 - **other**: Plain greedy Warnsdorff can fail from some start squares, so the program uses iterative backtracking over Warnsdorff-ordered moves with an explicit stack, which is faithful but adds loop-carried state that must stay within ranged types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, Put without a newline, Boolean objects and text parsing.
 

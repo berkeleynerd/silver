@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Iterative table filling replaces the recursive memoized solution, and every index and range check is covered by a guard placed immediately before use, so no invariant is needed. The guards never fire for this sequence at the required sizes, and rejection is a specified outcome if they did.
 
-Position 62 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 62 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Fill a constant-size array of 100000 elements typed with a subtype 0..100000 ite
 - **range**: The sum of two terms is stored in a 0..100000 element subtype, so a guard that the sum is at most 100000 precedes the store, rejecting otherwise.
 - **overflow**: Terms are bounded by the element subtype so the sum of two and the decrease counter (at most 100000) stay far below the Integer limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars and Put without a newline.
 

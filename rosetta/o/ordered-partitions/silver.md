@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is on small bounded index or length types with guards before each array access and append, and the only loops with carried state live in procedures, so no termination check or invariant is needed; the care needed is in the index guards and buffer capacity.
 
-Position 934 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 934 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the sizes (2,0,2) in a bounded array of at most 4 blocks with values 0..8,
 - **length**: Output line text is assembled in a fixed-capacity buffer sized for the maximum 8 elements and 4 blocks, with a capacity guard before each append and a visible rejection if exceeded.
 - **overflow**: Block sizes and their sum are bounded by ranged subtypes so the running offset into the permutation cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, string building, 'Image of scalars, characters and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All operands are bounded by declared integer ranges and for-loop ranges, with no recursion or while loops, so only the unannotated accumulator needs a small explicit guard to discharge.
 
-Position 370 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 370 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A constant Boolean array marks primes 0..64, and a function computes the populat
 - **range**: The count indexes a Boolean prime table of 0..64, so the accumulator's subtype range or the cap guard must bound it before indexing.
 - **overflow**: The candidate number is a loop-carried counter; using for loops over fixed integer ranges (1..100 with a found-count guard, and 888_888_877..888_888_888) keeps it bounded by the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, functions, procedures, for loops, 'Image of scalars and Put without a newline.
 

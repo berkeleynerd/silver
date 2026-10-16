@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded for-loop over small ranges with explicit overflow guards before each multiplication and addition, so checks follow from types and local guards, but several loop-carried accumulators make the program shape matter.
 
-Position 937 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 937 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use Long_Long_Integer values with a precomputed factorial table (0..20) built by
 - **termination**: All loops are for loops or bounded scans inside functions, with no while loops or recursion in functions, so no variant is needed.
 - **other**: Alternating-factorial signed accumulation is bounded by the same guarded factorials (n at most 9), so the sum fits in Long_Long_Integer, but the prover must see the bound through the loop-carried sum, which a range guard before each add provides.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, functions, procedures, 'Image of scalars, Put without a newline, string building and conditional expressions.
 

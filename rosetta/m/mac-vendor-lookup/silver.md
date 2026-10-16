@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network, delay.** The task needs a network lookup of a MAC address, returning N/A for no match and a null result for network or API errors. No fixed Oracle rule is broken, so network is only an effect Silver lacks today, with a delay between calls and console output. A future admitted network library operation with specified failure outcomes could cover it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, loops and subprograms.
 

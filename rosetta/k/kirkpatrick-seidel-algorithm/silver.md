@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything uses bounded integer coordinates, fixed arrays and explicit guarded stacks inside procedures, so checks follow from types and guards, but the nonlinear cross products and loop-carried stack indexes require careful program shape.
 
-Position 427 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 427 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Points are held in two parallel fixed-capacity arrays of a small ranged coordina
 - **termination**: The while loops that pop non-left turns and drain the interval stack live in procedures, which get no termination check, so no variant is needed.
 - **other**: Replacing recursion with an explicit bounded stack keeps the divide-and-conquer shape without stack-depth risk, but the stack capacity must be guarded and overflow of it must have a visible rejected outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

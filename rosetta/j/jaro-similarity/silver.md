@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from for-loop ranges over array indices, clamped window bounds and small-range integers, and the floating point of the original is replaced by scaled integer arithmetic, but the loop-carried match count and clamped indices require careful guards.
 
-Position 1016 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1016 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure takes two String parameters (length capped by a documented bound), m
 - **overflow**: Scaled score arithmetic multiplies lengths, match counts and 100000 in bounded subtypes, which fits in 64 bits for strings capped at a small documented length.
 - **division**: Divisions by match count and string lengths are each preceded by a guard on m = 0 and on empty strings, with m = 0 giving the specified score 0.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, 'Image of scalars, for loops, procedures and Put without a newline.
 

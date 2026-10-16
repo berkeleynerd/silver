@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI.** The task is an interactive GUI form, so it needs a window with a text field and two buttons whose enabled state is recomputed from the value. Nothing in the wording breaks an Oracle rule: manual entry outside 0..10 is allowed, so the value must be a bounded integer with a specified outcome for unparsable or out-of-range text (for example rejecting it), and the event loop can be a plain iteration over GUI events. The existing Ada solution's exception-based parsing is not required and is left out.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, string operations, loops and subprograms.
 

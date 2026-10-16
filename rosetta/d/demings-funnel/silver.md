@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges, fixed array bounds and guards before loop-carried additions, with no recursion or annotations, but nonlinear sums of squares, the square root and decimal formatting need careful shaping.
 
-Position 424 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 424 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 100 dx and dy values as constant arrays of scaled integers (thousandth
 - **termination**: An integer square root for the standard deviation is a while loop that must live in a procedure, or a for loop over a fixed bound, to avoid needing a variant.
 - **division**: Division by the sample count uses a constant count of 100, so it is never zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are bounded for loops and the data is small, but floating-point checks on loop-carried accumulators only discharge through declared range subtypes plus explicit guards, so success depends on careful program shape; Silver also needs float types and float formatting that it lacks today.
 
-Position 1085 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1085 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed-size arrays of a bounded Real subtype hold the previous and current Romber
 - **termination**: All loops are for loops over fixed small ranges and exp is a fixed-term Taylor series, so no variant or recursion is needed.
 - **range**: The Taylor terms term*x/k stay bounded only through a guard on the magnitude of each term, which must hold for x in [-3, 3] without changing the computed value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, for loops, functions, procedures, integers, Boolean objects, 'Image of scalars and string building.
 

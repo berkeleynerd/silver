@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations, other.** Excluded: the task's whole point is to export a C-convention Query function that writes through a raw char* and a size_t* passed in by a C main program. That needs foreign-language interop and unchecked pointer access, which the Oracle's rules (no foreign-language calls, no unrestricted aliasing) rule out for good.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, string operations, subprograms, packages and access types.
 

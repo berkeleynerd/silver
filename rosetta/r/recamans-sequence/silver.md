@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only integer arithmetic, a fixed-size Boolean array and for loops, and every loop-carried check is closed by subtype ranges and guards placed just before the use. The 328002-term optional part is a bounded loop, so no annotation is needed.
 
-Position 239 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 239 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ One main procedure keeps the current term in a bounded integer subtype and a Boo
 - **range**: The subtraction a(n)-n is checked for positivity before being assigned to the non-negative subtype, and the mapping of Natural-valued terms into the array index is guarded.
 - **termination**: All loops live in the main procedure, which gets no termination check, and the 328002-term search uses a for loop over a fixed 2_000_000 range with exit when.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars, string building, procedures and Put without a newline.
 

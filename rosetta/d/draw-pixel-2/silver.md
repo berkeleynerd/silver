@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI, graphics, delay.** The task explicitly asks for a window, so the GUI and graphics effects are real requirements, not conflicts. A Silver-friendly solution uses a deterministic generator over an integer range 0..639 by 0..479 to pick the pixel, a loop that waits for a quit event, and a short delay between polls. Nothing in the task requires assertions, exceptions, unsafe constructs or run-time errors, so no fixed Oracle rule is broken. The existing Ada solution's use of the SDL binding is only evidence of the effect and does not add a conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers and loops.
 

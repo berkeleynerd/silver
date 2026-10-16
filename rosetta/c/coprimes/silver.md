@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Euclid's gcd on Natural values with the mod guarded by the loop condition has no overflow, range or division risk, and as a procedure loop it needs no variant.
 
-Position 192 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 192 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Report procedure takes two Natural parameters, runs Euclid's algorithm in a wh
 - **termination**: The Euclid while loop lives in a procedure, which gets no termination check, so no variant is needed.
 - **division**: The mod by N is guarded by the loop condition N /= 0, which is visible just before the operation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, procedures and while loops.
 

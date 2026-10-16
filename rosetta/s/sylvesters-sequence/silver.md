@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because all loops are for loops in procedures over fixed-size digit arrays, but terms reach about 10^104 and the fraction about 10^208, so a fixed-capacity decimal bignum with nested-loop multiplication is needed and discharge depends on careful guards and bounded carry types.
 
-Position 1025 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1025 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each number as a fixed-capacity little-endian array of about 220 base-
 - **range**: Decimal digit values and Character'Val(48 + d) need digits to be a subtype 0..9, which the carry normalisation (mod 10, / 10) must establish for each stored digit.
 - **length**: The output buffer for a number must be sized for the maximum digit count (about 210) and the trimmed leading-zero slice computed with a guard so the length is never negative.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, procedures, string building, string indexing, unconstrained arrays and Put without a newline.
 

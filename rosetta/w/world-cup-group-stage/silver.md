@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed ranges inside procedures, so termination is free and the checks reduce to guarded accumulator increments and bounded array indexes. The nonroutine parts are loop-carried sums and counts plus text formatting, which need careful shape but no annotations.
 
-Position 820 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 820 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A for loop over outcome numbers 0..728 decodes six base-3 digits into win/draw/l
 - **range**: Decoding the outcome number into base-3 digits with div and mod must stay within 0..2 per game, which follows from mod 3 on a bounded non-negative loop index.
 - **other**: Formatting counts into fixed-width columns needs bounded string building with padding computed from digit counts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, records, string building, 'Image of scalars, for loops, procedures, case statements, characters and Put without a newline.
 

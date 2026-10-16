@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Euclid's algorithm needs only Natural-typed loop variables, and since T mod N with N nonzero yields a value below N, every range and division check follows from types and the loop guard without an invariant. Putting the loop in a procedure avoids the function termination obligation.
 
-Position 186 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 186 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Gcd takes two Natural values and returns a Natural out parameter, ru
 - **termination**: The Euclid while loop is in a procedure, which gets no termination check, so no variant is needed.
 - **division**: The loop condition N /= 0 immediately guards the mod, so the division check discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, while loops, procedures, 'Image of scalars and string building.
 

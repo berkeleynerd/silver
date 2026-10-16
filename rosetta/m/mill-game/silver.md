@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index or small counter that follows from the 1..24 subtype, validated parsing and guards, and all loops are for loops or while loops in procedures, but the many loop-carried counters and the sizeable game logic make discharge depend on careful program shape.
 
-Position 1257 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1257 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The board is a 24-element array of an enumeration (Empty, White, Black) with con
 - **initialization**: The board array is fully initialized by an aggregate and the table constants are static aggregates, so data-flow checks are routine.
 - **length**: Input lines are read into a fixed-capacity buffer with an explicit length and parsed with validation, so overlong or non-numeric input leads to a visible re-prompt rather than a failed check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

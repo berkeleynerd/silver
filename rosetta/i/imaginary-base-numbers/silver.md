@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded-integer work in a procedure with fixed-count for loops, so every check follows from subtype ranges and a few input guards, though the carry and weight arithmetic need careful range shaping.
 
-Position 841 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 841 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 1..16 and negated integer and imaginary test values, represent each Ga
 - **termination**: Using for loops with a fixed digit count avoids any variant, and the conversion is a procedure, so no termination check arises.
 - **other**: Inputs outside the supported range or not representable in the fixed digit count must be rejected visibly with a printed message, which is a specified outcome and not a silent narrowing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, for loops, procedures, functions, string building, string indexing, 'Image of scalars and case statements.
 

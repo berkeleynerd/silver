@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a picture with no window requirement, so text art satisfies it, and integer-scaled geometry with grid-bounds guards keeps all checks routine apart from bounded fixed-point multiplication and the explicit-stack subdivision.
 
-Position 839 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 839 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use integer-scaled geometry (rectangle edge lengths divided by a fixed-point pla
 - **index**: Plotted pixel coordinates are loop-carried values, so each is guarded by an explicit in-bounds test before writing to the character grid, with out-of-range points skipped visibly as clipped.
 - **termination**: Arc and subdivision traversal is done with bounded for loops over a fixed iteration depth and an explicit work stack array in a procedure, avoiding recursion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, case statements, Put without a newline and string building.
 

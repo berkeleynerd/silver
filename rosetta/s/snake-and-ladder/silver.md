@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indices, sums and generator updates are bounded by subtypes and guards placed right before use, and the loops live in procedures so no variants are needed, but the several loop-carried values (positions, generator state) need careful typing.
 
-Position 936 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 936 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The board is a constant array of 100 destination squares (identity except at the
 - **index**: The board is a table indexed by squares 1..100 whose destination values are static and typed as squares, and the position stays in range because moves past 100 are rejected before adding.
 - **overflow**: The position plus roll sum is bounded by the Square subtype (at most 100) plus 6, which fits easily in Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, 'Image of scalars, string building, for loops, while loops, procedures, functions, conditional expressions and Put without a newline.
 

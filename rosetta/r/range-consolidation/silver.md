@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All task data fit a scaled-integer representation, so every check follows from ranged types, for-loop indexes and capacity guards without needing loop invariants. Floating point is avoided, leaving only the loop-carried write index and text buffer length as guard-dependent obligations.
 
-Position 944 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 944 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each bound as an integer count of tenths (the task data all have one d
 - **range**: The count of ranges is a bounded subtype (0..5) and the sort and merge loops use for-loop indexes over the array's own range, with the neighbour index guarded just before use.
 - **length**: Output text is built in a fixed-size buffer sized for the largest line (up to 5 ranges of about 12 characters), with each append guarded by the remaining capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, procedures, Put without a newline and conditional expressions.
 

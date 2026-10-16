@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is about indexing with shifting bounds held in loop-carried variables, which discharge through widened types plus guards just before each access, and the while loop is in a procedure so no variant is required; the careful shape needed makes it plausible rather than likely.
 
-Position 812 in the [progression](../../../progression.md#stage-15), in stage 15.
+Position 812 in the [progression](../../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program holds the example ten Integers in a constrained array of a ranged in
 - **range**: The updates End := NewEnd - 1 and Begin := NewBegin + 1 could leave the declared range, so the range is widened by one on each side and a guard clamps via loop exit when bounds cross, with no change to the sorted result.
 - **termination**: The while loop sits in a procedure, which gets no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, Put without a newline, 'Image of scalars and case statements.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is integer arithmetic over ranged subtypes with fixed-size arrays and loops whose bounds are guarded, so every check follows from types and guards without annotations; the only demands are a modest set of new surface features and explicit handling when the search limit is exceeded.
 
-Position 795 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 795 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program scans candidates N in a for loop up to a fixed limit, and a procedur
 - **termination**: The trial-division while loop lives in a procedure (no termination check) and also exits when D exceeds the fixed bound, while the outer scan is a for loop.
 - **other**: If the fixed search limit is reached before 400,000 Blum integers are found, the program must print a specified failure message rather than silently truncating, which an explicit guard on the count provides.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, case statements, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

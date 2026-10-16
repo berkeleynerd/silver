@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is a self-written formatting routine over embedded data, which needs only bounded buffers, guarded indexing and simple integer arithmetic, so no annotation should be needed beyond careful guards on the loop-carried buffer position.
 
-Position 816 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 816 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds a constant format string and the argument values (an integer 
 - **range**: The format-string scan index advances by one or two inside the loop, so a guard that the next character exists is placed before each lookahead after % or backslash.
 - **overflow**: Digit extraction and comma insertion use a constant embedded Integer value whose type range bounds the divisions, so the digit loop is a bounded for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, 'Image of scalars, case statements, for loops, procedures and Put without a newline.
 

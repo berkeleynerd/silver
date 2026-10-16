@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index into a fixed constant text or small result table, guardable by explicit comparisons before each access, and the loops sit in procedures so no variants are needed; the nonroutine parts are only the loop-carried positions and the paren-balance counter, which need careful guarding but no annotation.
 
-Position 838 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 838 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The sample text is an embedded constant String (ASCII, with the non-ASCII charac
 - **range**: Start and end positions of each found URI are held in subtypes of the text index range and are only assigned from guarded positions, with trailing-punctuation trimming guarded by a start-less-than-end test.
 - **length**: Found URIs are stored as start/end index pairs in a fixed-capacity array, and a full table is handled by a visible stop that prints a truncation message rather than dropping results silently.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

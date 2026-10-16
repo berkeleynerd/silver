@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is either wrapping modular arithmetic, an array index taken from a static for-loop range, or a Character-to-word conversion bounded by its type. There are no while loops, no recursion and no loop-carried integer accumulators, so nothing needs an annotation. Leaving out the optional parallelism keeps the program faithful.
 
-Position 1291 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1291 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program has its own single-block SHA-256: a mod 2**32 word type, a constant 
 - **range**: Converting Character'Pos of a letter (at most 255) to the 32-bit modular word type is in range by the type of Character'Pos alone.
 - **overflow**: All SHA-256 additions, rotations and shifts happen on a mod 2**32 type, so they wrap by definition and need no overflow check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, characters, arrays, for loops, functions, procedures and string building.
 

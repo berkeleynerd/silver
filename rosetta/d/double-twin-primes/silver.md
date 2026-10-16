@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by the constant limit 1000, loops are for loops over static ranges, and nothing needs a loop invariant or variant, so the proofs should discharge from types and ranges.
 
-Position 200 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 200 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a Boolean array indexed 2..1000 filled by a nested for-loop sieve (marking m
 - **overflow**: Trial-division squares and candidate+8 stay far below the limits of a subtype bounded to 1000, so the checks follow from types and a guard before the array access.
 - **index**: The scan loop runs only to 992 so I+8 stays within the 2..1000 array range, which is a static bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

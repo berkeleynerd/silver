@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task needs only integer and array computation: a bounded n*n*n incidence cube for n up to 256, a Jacobson-Matthews move loop driven by a deterministic pseudo-random generator, reduction to reduced form, and frequency counts over 4 or 56 reduced squares. It also needs text output and elapsed-time measurement, and nothing in it breaks an Oracle rule. The order-256 cube has about 16.7 million cells, which a fixed-capacity array can hold within documented resource limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, records, loops, subprograms and big numbers.
 

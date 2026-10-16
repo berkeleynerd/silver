@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a small bounded recurrence on a fixed-size array where the values fit comfortably in a ranged subtype and a guard before each addition removes the only loop-carried overflow risk, so no annotation is needed.
 
-Position 58 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 58 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A procedure Show (First, Second, Add) fills a constant-size array of 25 values o
 
 - **overflow**: The recurrence L(n-1)+L(n-2)+Add is loop-carried, so each step is preceded by a guard comparing the operands against the subtype's upper limit and rejecting visibly instead of altering results.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and Put without a newline.
 

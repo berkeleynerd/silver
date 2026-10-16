@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indexes, character conversions and window arithmetic follow from subtype ranges and for-loop indexes over fixed buffers, and no recursion, while loop in a function or annotation is needed. The only care needed is bounding the occurrence counters and giving the greedy generator a visible failure branch, hence plausible rather than likely.
 
-Position 570 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 570 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Generate B(10,4) with the greedy prefer-largest method: start from four zeros an
 - **other**: Correctness of the greedy generator (always finding an unused digit) cannot be proved, so the generator must end in an explicit reject branch, which keeps the run-time-error proofs independent of it.
 - **overflow**: The mod/multiply window arithmetic is nonlinear but its operands are bounded by subtype ranges, so results stay within 0..9999.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, procedures, Boolean objects and Put without a newline.
 

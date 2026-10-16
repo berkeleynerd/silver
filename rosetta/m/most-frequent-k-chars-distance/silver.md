@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is a bounded for-loop over arrays and strings with plain integer arithmetic, so the checks follow from types and guards, but several loop-carried counters need careful range subtypes and guards to discharge without invariants.
 
-Position 628 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 628 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Strings are fixed-capacity buffers (a record of a length and a 128-character arr
 - **index**: Counts are indexed by Character'Pos in an array declared over the full Character range, and string positions come from for loops over the string's own range, so indexing is routine.
 - **range**: The first-occurrence position and selection results are stored in ranged subtypes and must be guarded because loop-carried values are known only by type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, 'Image of scalars, for loops, procedures and functions.
 

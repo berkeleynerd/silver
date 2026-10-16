@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All array indices and divisions follow from declared lengths and guards, but the floating-point updates to loop-carried coefficients need explicit magnitude guards with a visible rejection, so discharge depends on careful program shape.
 
-Position 1095 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1095 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Coefficients are held in fixed-capacity arrays of a bounded Float subtype with e
 - **index**: Indices i+j+1 stay within the dividend because loop bounds derive from the declared lengths and the divisor length is guarded to be at most the dividend length.
 - **length**: Output text is built in a fixed-capacity buffer sized for the embedded examples, with a guard that rejects when appending would exceed capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, arrays, records, procedures, for loops, floating-point images, string building, Put without a newline, integers and Boolean objects.
 

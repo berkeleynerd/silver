@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The operations are straight-line floating-point expressions over range-bounded inputs with one explicit zero-denominator guard, so they should prove without annotations, but float arithmetic and float-to-text formatting make it depend on careful range shaping.
 
-Position 1075 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1075 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Define a bounded Real subtype and a Complex record of two Float components, with
 - **range**: Results are stored in wider-range or plain Float components so the range checks on record construction follow from the bounded input domain rather than needing a postcondition.
 - **overflow**: Nonlinear products and the reciprocal of a guarded denominator must be bounded by the range subtype and the threshold, which is likely but needs the guard shaped so the solvers can see the bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, records, functions, procedures, integers, Put without a newline, string building, conditional expressions and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program needs only bounded floating-point arithmetic inside a for loop with a guarded nonzero divisor, so no annotation is required, but float reasoning and the Float image formatting make discharge depend on careful range bounds.
 
-Position 1041 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1041 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A generic-free function Map_Range takes a1, a2, b1, b2 and s as bounded Float su
 - **range**: Converting the Float result back into the second-range subtype needs a bound on the result; with s inside [a1,a2] and the guard in place the result is within [b1,b2], but the prover must reason about rounding at the boundary, which may need a clamp-free guard on the computed value.
 - **length**: Each output line concatenates two Float'Image results with fixed text, so the bounded string buffer must be sized for the maximum image length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, functions, for loops, floating-point images and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every value in the triangle fits in bounded integer subtypes and only the final 53-digit sum needs a fixed-capacity big number, so all checks follow from type ranges and explicit guards without annotations, though loop-carried rational and carry arithmetic needs careful shape.
 
-Position 1400 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1400 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Store the 18-row triangle as two 2-D arrays (numerator, denominator) of bounded 
 - **index**: Triangle entries a(i,j) with j up to i+1 and digit positions during big-number multiply and divide are indexed by loop-carried values, which discharge through for-loops over the arrays' own ranges or guards before each access.
 - **range**: Rational terms with negative numerators require the big-number sum to handle sign, done by accumulating positive and negative terms separately and subtracting after a comparison guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, while loops, procedures, functions, big numbers, string building, 'Image of scalars, Put without a newline, Boolean objects and conditional expressions.
 

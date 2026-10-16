@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the 0..63 value subtype, for-loop indexes over groups of a length-checked input, and a guarded fixed buffer, with no loop-carried accumulator wider than its type. The task needs nothing an annotation would supply, and the only dependence is careful program shape around padding and index arithmetic.
 
-Position 773 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 773 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds the encoded sample as a String constant and defines a procedu
 - **range**: Each Base64 character maps through a case or if chain to a 0..63 subtype or an invalid flag, so the byte arithmetic (v1*4 + v2/16, and so on) stays within 0..255 by type ranges and Character'Val is only applied to a value already in range.
 - **length**: The decoded output goes into a fixed-capacity buffer sized for at most three quarters of the input length, and the final Put_Line prints only the filled prefix, so no slice can exceed bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, procedures, functions and case statements.
 

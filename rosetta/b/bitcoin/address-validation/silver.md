@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from byte and carry subtypes, from modular arithmetic that cannot overflow, or from static for-loop bounds. There are no while loops or recursion, so nothing needs a variant or invariant.
 
-Position 1293 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1293 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Main reads the address with First_Or_Default, defaulting to the task's example. 
 - **range**: Assigning Temp / 256 to the carry and Temp mod 256 to a byte, and converting digest words to bytes with mod 256 on the modular type, discharge from the just-computed values.
 - **index**: The SHA-256 message schedule reads W(I-2), W(I-7), W(I-15) and W(I-16) for I in 16..63, which follows from the static loop bounds, and the argument is scanned with a for loop over its own 'Range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, for loops, procedures and functions.
 

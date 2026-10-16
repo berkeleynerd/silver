@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic with for-loop indices and guarded sums inside a procedure, so checks should discharge by types and guards, though the loop-carried sum and the search limit need careful shape.
 
-Position 227 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 227 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Keep a 1000-element array of Positive values and a count; for each candidate in 
 - **range**: Stored elements are candidates from a bounded for loop and the count is guarded, so no subtype range check on the array contents or count can fail.
 - **length**: Each output row is built in a fixed-size buffer using a guarded position, so concatenation lengths stay within the buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

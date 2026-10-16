@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded-array iteration and guarded integer additions in procedures with no recursion or functions needing variants, so proofs should discharge with careful guard placement but no annotations.
 
-Position 295 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 295 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Compute ordered-factorization counts H(n) for n up to 29808 in a constrained Lon
 - **termination**: All while loops are in procedures, which get no termination check, so no variant is needed.
 - **other**: Stretch numbers beyond 29808 are optional and would need a larger sized cap and rejection path, so the program stops at the seventh term.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

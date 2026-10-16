@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based trees with iterative stack-driven traversal need only type-range and pre-push guards, with no recursion, heap or tasks, so no annotation is required; the number of loop-carried indices (stack top, two iterators) makes discharge depend on careful program shape. The task allows any solution, so the concurrency in the Ada version is not required.
 
-Position 735 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 735 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Trees are stored in a fixed-capacity array of node records (character value, lef
 - **termination**: The traversal loops are while loops inside procedures, which get no termination check, so no variant is needed.
 - **stack**: Recursion is replaced by an explicit fixed-capacity stack array, so no input-dependent stack depth arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

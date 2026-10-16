@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a nested for-loop nearest-site search over bounded integer coordinates with squared distances, so all checks follow from declared ranges and for-loop indexes and no loop invariant, floating point or recursion is needed. The only new needs are arrays, records, bounded text building and an admitted file-writing operation.
 
-Position 1429 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1429 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Use a fixed 64 by 64 pixel grid and a constant array of 12 site records (x, y, c
 - **overflow**: Squared integer distances are computed on coordinates in a small declared range such as 0..63, so the sum of squares fits easily in Integer and discharges from types.
 - **index**: Pixel and site loops run over the arrays' own index ranges and the nearest-site index is a subtype of the site array index initialized before the inner loop, so every index check follows from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, records, for loops, procedures, string building, 'Image of scalars, file output and Put without a newline.
 

@@ -2,15 +2,15 @@
 
 **Candidate: proofs likely to discharge automatically.** A bounded reverse loop prints the countdown from 10 to 0 using standard Integer'Image; every index and image length follows from the static range.
 
-Position 35 in the [progression](../../../progression.md#stage-3), in stage 3.
+Position 8 in the [progression](../../../progression.md#stage-1), in stage 1.
 
 ## Approach
 
 Main runs a single for loop over reverse 0 .. 10 and writes Integer'Image (I) with Silver_IO.Put_Line on each pass. Ada's leading space for non-negative values is retained, so no slicing, trimming or declared subtype is needed. About 8 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
-For loops, integers and 'Image of scalars.
+Integer range for loops and Integer image.
 
 ## External effects
 
@@ -18,4 +18,4 @@ For loops, integers and 'Image of scalars.
 
 Initially assessed on 2026-10-15 against page revision 412893 of the [task](https://rosettacode.org/wiki/Loops/Downward_for) by claude-sonnet-5-5 at medium effort; current confidence high. The inclusion policy is in `rosetta/coverage.json`.
 
-Revised on 2026-10-15 by Codex through targeted source review; see the [review record](../../../review-343c2f8.md).
+Revised on 2026-10-16 by Codex through targeted source review; see the [review record](../../../for-loops-delivery-review.md).

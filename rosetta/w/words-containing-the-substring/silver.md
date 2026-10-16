@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is a loop-index or guard-based bound on a small fixed buffer and the while loop sits in a procedure, so no annotation is needed; the only new ingredients are bounded line reading from a file and character indexing.
 
-Position 1323 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1323 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A procedure opens unixdict.txt via an admitted file-reading library, reads each 
 - **overflow**: The found-word counter is incremented only under an explicit guard against its declared capacity, with an overflow outcome of stopping and reporting rather than wrapping.
 - **length**: Lines longer than the fixed 40-character buffer are reported by the library reader as a specified outcome (reject or truncate-flag) and handled by an explicit branch rather than silently dropped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, Put without a newline, file input and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is small bounded integer arithmetic with trial division in a for-loop function, and the only while loop is in the Main procedure with a guard condition that bounds all loop-carried values.
 
-Position 308 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 308 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Is_Prime on a ranged subtype (0 .. 2200) does trial division with a f
 - **overflow**: The loop-carried P and I are declared with ranged subtypes and the while condition P + I < 1050 is tested just before P + I and I + 2, so both stay in range without an invariant.
 - **termination**: The primality test is a function containing only a for loop over a fixed range, and the while loop lives in the Main procedure, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, while loops and 'Image of scalars.
 

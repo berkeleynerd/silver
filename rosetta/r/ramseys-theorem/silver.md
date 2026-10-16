@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size array work with static loop bounds and a small modulus, so index and range checks follow from the declared subtypes, and the only loop-carried value is a Boolean flag.
 
-Position 661 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 661 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Embed the Paley graph on 17 nodes (nodes adjacent when their difference is a qua
 
 - **index**: The edge test indexes a residue table with (i - j + 17) mod 17, which the prover bounds to 0..16 from the declared index subtypes, and the matrix and row-string indexes are for-loop variables over their own ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing and for loops.
 

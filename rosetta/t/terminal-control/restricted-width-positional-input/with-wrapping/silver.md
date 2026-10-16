@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task needs a bounded-string line editor with a fixed 8-character visible window (showing the trailing characters when input is longer), positioned on the terminal at row 3, column 5. Nothing in it breaks an Oracle rule: it only needs terminal, stdin and console-output effects that Silver lacks today, plus bounded strings and loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, loops, subprograms, characters and integers.
 

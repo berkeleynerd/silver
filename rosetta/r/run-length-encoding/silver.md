@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Encode and decode are iterative loops over a bounded input in a procedure, with each loop-carried index and count protected by guards that reject on overflow, so no annotation is needed but several guards must be placed carefully.
 
-Position 564 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 564 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds the example input as a String constant and, in the main proce
 - **termination**: All loops live in a procedure, which gets no termination check, so while loops need no variant.
 - **range**: Digit extraction with division and mod and conversion to Character via 'Val needs the count bounded by a range type or guard so the digit lies in 0..9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, while loops, for loops and procedures.
 

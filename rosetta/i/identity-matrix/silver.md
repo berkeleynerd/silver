@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or range check on for-loop variables bounded by a guarded N, with no loop-carried values or recursion, so proofs should discharge automatically. The only new library need is validated integer parsing of the argument, which the Oracle's admitted operations must supply.
 
-Position 1122 in the [progression](../../progression.md#stage-20), in stage 20, which adds text parsing.
+Position 1122 in the [progression](../../progression.md#stage-19), in stage 19, which adds text parsing.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ Declare a bounded square array type Matrix (1..16, 1..16) of a 0..1 subtype, par
 - **range**: The parsed size must be checked against the fixed capacity 1..16 by an explicit guard before it is converted to the size subtype, with out-of-range input rejected visibly.
 - **initialization**: The matrix is fully initialized by an others => 0 aggregate before the diagonal loop, so flow analysis passes; the loop writes only in-range indexes of the for-loop variable.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, text parsing, Put without a newline and procedures.
 

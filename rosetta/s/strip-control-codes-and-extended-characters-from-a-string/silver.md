@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded character-by-character filtering in a for loop, so checks follow from types and one guard on the loop-carried count, with no recursion or annotations needed (the Ada solution's recursive function would be replaced by iteration).
 
-Position 550 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 550 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the sample as a constant String built from literals and Character'Val code
 - **index**: Writing Out(Count) after the guarded increment discharges because Count is declared in 0 .. buffer length and the guard bounds it just before use.
 - **initialization**: The output buffers must be fully initialized (for example with spaces) before slices are printed, which a declaration initializer provides.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string indexing, string building, for loops, integers, ranged subtypes and procedures.
 

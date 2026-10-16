@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and arithmetic check follows from the array bounds, the bounded Gap subtype and for-loop ranges, with the only unbounded loop in a procedure where termination is not checked. The data are small fixed integers, so no annotation is needed.
 
-Position 194 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 194 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program holds the example values in a constrained Integer array of fixed len
 - **overflow**: The gap update Gap * 4 / 5 stays in Integer range because Gap is a subtype bounded by the array length, and a guard clamps the result to at least 1.
 - **index**: Index I + Gap is safe because the for loop runs I from 1 to N - Gap, which gives I + Gap <= N, and the outer for-loop index range comes from the array bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, 'Image of scalars and Put without a newline.
 

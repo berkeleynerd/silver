@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Scaled-integer arithmetic on a ranged subtype makes every overflow and range check follow from declared types, and there are no loop-carried values beyond a short digit-writing loop over a fixed buffer, so proofs should discharge without annotations.
 
-Position 155 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 155 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent temperatures as integer hundredths (K = 2100 for the embedded example 
 - **overflow**: The kelvin value is a ranged subtype of hundredths (0 to 100_000_000), so K*9, the subtractions and the C, F and R results all fit in Integer by static range reasoning.
 - **length**: The text-formatting procedure writes digits into a fixed-size buffer sized for the widest value (sign, up to 10 digits, point, two decimals), so no index or length check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, string building and procedures.
 

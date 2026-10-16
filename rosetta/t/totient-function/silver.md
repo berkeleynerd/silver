@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from subtype ranges, a static for-loop bound and guards, and the only while loop sits in a procedure, so no annotation is needed; the loop-carried Tot and counter arithmetic need careful range typing and guards, which makes discharge plausible rather than certain.
 
-Position 244 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 244 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Totient (N : in Positive_Limit; Phi : out Natural_Limit) copies N in
 - **overflow**: I * I is avoided by looping I over the static range 2 .. 316 so that I * I <= 99856 is safe in Integer.
 - **termination**: The inner while loop dividing N2 by I exists only in a procedure (totient as an out-parameter procedure), so no termination check is generated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, procedures, for loops, while loops, 'Image of scalars and string building.
 

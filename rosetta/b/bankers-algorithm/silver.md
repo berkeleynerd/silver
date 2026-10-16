@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is bounded array arithmetic on embedded data with nested for loops and one while loop in a procedure, so every check follows from ranged subtypes and explicit guards, and nothing needs a variant or invariant.
 
-Position 1171 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1171 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program embeds the example (4 resource types, 3 processes) as constrained ar
 - **termination**: The outer scheduling loop lives in a procedure, which gets no termination check, and it also ends because each pass either marks a process finished or exits.
 - **index**: All indexing is by for-loop variables over the fixed constrained array ranges, so index checks follow from the loop ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, multidimensional arrays, records, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and conditional expressions.
 

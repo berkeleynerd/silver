@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from bounded integer subtypes, fixed array capacity and explicit guards before each operation, with no annotation-only facts, but the loop-carried parser accumulator and count need carefully placed guards.
 
-Position 1141 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1141 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the task's example inputs as String constants and process each in a proced
 - **division**: The range divisor is replaced by 1 when all values are equal, which is a visible and specified outcome (all lowest bars).
 - **termination**: The tokenizing while loop lives in a procedure, which gets no termination check, and always advances the position by at least one.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, text parsing, for loops, while loops and procedures.
 

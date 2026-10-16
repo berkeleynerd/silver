@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is on small fixed-bound arrays with guards before each increment and index, and the only unbounded loop is in a procedure, so no annotation is needed, but the loop-carried cell counts mean the guards must be placed carefully.
 
-Position 729 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 729 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program uses a 3 by 3 constrained two-dimensional array of a bounded cell su
 - **termination**: Stabilisation uses a while loop that lives in a procedure, which gets no termination check, so no variant is needed.
 - **index**: Neighbour indexes are checked against the grid bounds by explicit if tests just before each access, and the scan loops run over the array's own ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, while loops, procedures, functions, 'Image of scalars and Put without a newline.
 

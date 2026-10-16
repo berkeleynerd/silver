@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and length is determined by static array bounds and for-loop ranges over them, with Boolean-only cell arithmetic, so all checks follow from types and no annotation or while loop is needed.
 
-Position 513 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 513 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a constrained Boolean array of 20 cells initialised from the task's example 
 - **index**: Neighbour access Culture(I+1) and Culture(I-1) is guarded by looping I over 2..19 and handling cells 1 and 20 separately, so all indexes are statically within 1..20.
 - **length**: The output line buffer has fixed length sized for the 'Generation N ' prefix plus 20 cells, and each slice assignment uses constant-bounded indexes so lengths match.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects, characters, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building, string indexing, integers and Put without a newline.
 

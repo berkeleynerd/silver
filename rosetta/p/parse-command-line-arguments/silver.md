@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check comes from the for-loop range, a 'Length guard just before each character read, and the library's bound on argument length. No loop-carried arithmetic or termination obligation remains, so proof should discharge without annotations.
 
-Position 1443 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1443 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ Main loops over 1 .. Argument_Count with a for loop and keeps a Boolean that say
 - **length**: Concatenating labels with argument text discharges only if the admitted argument operation's contract bounds argument length so the bounded concatenation cannot exceed its capacity.
 - **range**: Argument indexes come from a for loop over 1 .. Argument_Count, so the library's index precondition follows from the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Further arguments, for loops, integers, Boolean objects, characters, string indexing, unconstrained arrays and 'Image of scalars.
 

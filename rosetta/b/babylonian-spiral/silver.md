@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in nested for loops inside a procedure, with no recursion or floats, so checks follow from subtype ranges and a few guards on the carried position and length; the nonlinear products stay within Integer because the window is small.
 
-Position 923 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 923 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use pure integer arithmetic instead of floating point: keep the previous step as
 - **range**: The loop-carried position and previous squared length know only their subtype ranges, so each update is preceded by an explicit guard that rejects the run (visible outcome) if the new value would leave the declared range.
 - **other**: The nearest-longer-vector search uses a fixed-size window, so if no candidate is found the program rejects visibly, a documented resource limit that is never hit for 40 points.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, 'Image of scalars, string building, for loops, procedures and conditional expressions.
 

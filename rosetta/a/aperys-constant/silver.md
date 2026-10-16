@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to fixed-capacity limb arrays with small-integer multiply/divide in for loops inside procedures, so checks follow from ranged types and array ranges, but carry bounds, Wedeniwski multiplier sizes and guard-digit truncation require careful shaping.
 
-Position 1403 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1403 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent each value as a fixed-capacity array of base-10^4 limbs (integer part 
 - **other**: Alternating signs are handled by keeping separate positive and negative fixed-point accumulators and subtracting once at the end after a comparison guard, so borrows never go negative.
 - **index**: All limb loops run over the array's own range with a fixed digit capacity including guard digits, and digit-to-text output indexes a fixed 100-digit buffer with for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, characters, string building, for loops, procedures, functions and big numbers.
 

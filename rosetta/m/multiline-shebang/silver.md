@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The multiline header lives entirely in Ada comments, so the Silver source stays ordinary SPARK. The only executable logic is a for loop over the argument count with indexing that the loop range guards, which discharges routinely once the argument library exposes the command name and the argument count.
 
-Position 1441 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1441 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -16,7 +16,7 @@ The file is a shell/Ada polyglot: its first lines are Ada comments that start wi
 
 - **length**: Joining a label, an Integer'Image and an argument of unknown length must stay within the bounded concatenation limit, so the program either prints the pieces with separate output calls or uses an admitted operation whose contract bounds argument lengths.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Further arguments, for loops, integers and 'Image of scalars.
 

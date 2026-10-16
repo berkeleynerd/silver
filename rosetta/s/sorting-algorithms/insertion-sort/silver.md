@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the index subtype and the J > 0 guard evaluated just before use, and the while loop sits in a procedure so no variant is needed, hence no annotation is required.
 
-Position 190 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 190 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ An embedded constant-initialised variable array of 10 Integers indexed 1 .. 10 i
 - **index**: The loop-carried shift index J is declared with a subtype 0 .. N-1, so A(J+1) stays within 1 .. N from its type alone and A(J) and J-1 are guarded by J > 0 in the while condition, with no invariant needed.
 - **overflow**: The Integer values are only compared, copied and printed (no arithmetic on them), and index arithmetic is bounded by the small index subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded arrays, ranged indexes and iterative stack loops in procedures, so checks follow from types and guards before each push or pop, but many loop-carried stack pointers and positions need careful guards. No annotation is needed, though the parser's shape makes automatic discharge plausible rather than certain.
 
-Position 1458 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1458 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program reads the expression from the first argument (defaulting to embedded
 - **termination**: All parsing and evaluation loops live in procedures (no termination check), and the evaluator is an iterative stack machine over postfix tokens, so no function needs a variant.
 - **initialization**: Stacks, token buffers and the variable table are fully initialized by aggregates before any loop reads them.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions, Put without a newline, further arguments and exit status.
 

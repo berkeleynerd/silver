@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic sits in small constant for-loop ranges and the only loop-carried counter is guarded before its increment, so every check follows from types and guards. No while loops, functions or recursion are involved, so there are no termination obligations.
 
-Position 83 in the [progression](../../progression.md#stage-7), in stage 7, which adds Boolean objects.
+Position 83 in the [progression](../../progression.md#stage-6), in stage 6, which adds Boolean objects.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main runs a for loop of N over 1 .. 40, computes Sq := N*N, and uses an inner fo
 
 - **overflow**: The loop-carried Count is incremented only under an explicit Count < 30 guard, and N*N and I*I*I are bounded by the for-loop ranges (N up to 40, I up to 13), so no overflow check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, Boolean objects, for loops, 'Image of scalars and Put without a newline.
 

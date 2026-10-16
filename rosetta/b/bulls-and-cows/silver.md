@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexing, arithmetic and validation follow from small constant ranges and guards placed just before use, and the only loop-carried counters are small and guardable, so no annotation is needed; the program does depend on a stdin-line operation with a defined end-of-input outcome and on bounded-buffer string handling that Silver lacks today.
 
-Position 1236 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1236 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Fixed-seed linear congruential generator over a ranged state picks four distinct
 - **termination**: The guess loop is a while loop inside a procedure, so no termination check applies, and end of input must exit the loop with a specified outcome.
 - **length**: The input line must be checked to have length exactly 4 before indexing, with the line read into a bounded buffer whose overlong input is rejected as malformed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, Boolean objects, Put without a newline, standard input and text parsing.
 

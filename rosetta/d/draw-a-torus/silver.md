@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks only for a drawn torus, which text art satisfies, and a table-driven integer renderer needs only for loops with types, ranges and guards just before each division and index, so it should discharge without annotations although the many nonlinear products make it dependent on careful range declarations.
 
-Position 705 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 705 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed 64-entry integer sine and cosine tables (scaled by 256) as constant arrays
 - **index**: Projected column and row are range-tested against the grid bounds just before the buffer write, and luminance is clamped before indexing the character ramp.
 - **range**: Intermediate coordinates are computed into wider declared subtypes and tested against the buffer range before conversion, so narrowing conversions are guarded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building and for loops.
 

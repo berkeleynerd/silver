@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded string scanning and rewriting over embedded data, so all checks come from buffer-capacity and index guards before each access, though several loop-carried positions need careful guarding without invariants.
 
-Position 1031 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1031 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the three example texts as an array of fixed-length line constants with a 
 - **overflow**: The output length and scan position are loop-carried but are held in bounded subtypes with guards before each increment.
 - **termination**: All scanning is done with for loops or with while loops inside procedures, so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

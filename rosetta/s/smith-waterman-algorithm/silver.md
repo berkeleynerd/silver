@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded by small fixed sizes and ranged score types, and every index is guarded, so no annotation is needed. The 2D array, clamped max computations and the reversed traceback buffers need careful shaping, hence plausible rather than likely.
 
-Position 727 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 727 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The two example sequences (8 characters each) are embedded as constants with fix
 - **termination**: The traceback while loop lives in a procedure, which gets no termination check, and each step also decreases i or j.
 - **length**: Aligned output is built in fixed buffers sized to the sum of both sequence capacities, with a guard on the fill position before each character append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures and Put without a newline.
 

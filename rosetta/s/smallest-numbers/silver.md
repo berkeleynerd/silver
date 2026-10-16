@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything reduces to bounded digit-array arithmetic and a bounded substring scan, so checks follow from declared ranges and guards, but the carry loops and the length-guarded scanning require careful program shape.
 
-Position 1372 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1372 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store k**k as little-endian decimal digits in a Natural-length-bounded array, bu
 - **index**: The substring scan over the digit array needs offsets guarded against the current length before each comparison, since no invariant can be written.
 - **termination**: The search over k is a bounded for loop (k in 1..40) with an explicit not-found outcome, in a procedure, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline, big numbers and Boolean objects.
 

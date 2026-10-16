@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only bounded integer arithmetic, array iteration and text output, and the sole non-routine checks are loop-carried sums and counters that need explicit guards but no annotations.
 
-Position 231 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 231 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Represent numbers as a ranged 64-bit integer subtype and hold the embedded test 
 - **range**: The persistence counter in the outer while loop is also loop-carried and needs a bounded type with a guard before each increment, which is safe because digit sums shrink the number but that fact is not visible to the prover.
 - **termination**: The while loops live inside a procedure so no termination check applies, and the inner digit loop can alternatively be a for loop over a fixed 19 digit positions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

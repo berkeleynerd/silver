@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range types and guards before arithmetic, and the loops sit in procedures so no variant is required, but the loop-carried candidate and trial-division arithmetic need careful bounding, so discharge is plausible rather than certain.
 
-Position 255 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 255 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Is_Prime_Proc(P, Result) does trial division with a while loop (d <=
 - **termination**: The unbounded-looking search and the primality loop are while loops placed in procedures, which get no termination check, whereas a primality function with a while loop would fail one.
 - **other**: The full product for n = 9 exceeds 64 bits, so the program prints the factorized form (as the task allows) rather than needing big numbers.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

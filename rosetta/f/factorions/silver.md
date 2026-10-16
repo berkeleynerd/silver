@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, a constant factorial table indexed by values mod Base, and for loops with a single guard on the digit sum, so proofs should discharge without annotations. The only real gaps are Silver's missing arrays, loops, functions and Integer'Image output.
 
-Position 890 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 890 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A constant array of factorials 0..11 is embedded as an aggregate, and a function
 - **index**: Digits come from mod Base with Base a subtype 9..12, so each digit lies in 0..11 and indexes the 12-entry factorial constant array without a guard.
 - **division**: The Base subtype excludes 0, so the division and mod by Base discharge from the declared range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, conditional expressions, 'Image of scalars, Put without a newline and string building.
 

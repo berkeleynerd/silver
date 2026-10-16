@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be bounded by types (single deck, at most a handful of cards per hand, 365*50 hands) and the recursion is replaced by an explicit stack in procedures, but float probability accumulation, the stack-index guards and split and double rule handling make the proof shape demanding though annotation-free.
 
-Position 1208 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1208 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Cards are ranks 1..10 held as a 10-element array of remaining counts; hand total
 - **termination**: Enumeration and simulation loops live in procedures (no termination check) and the only functions use for loops over fixed ranges.
 - **division**: Every probability division by the cards remaining is guarded by a test that the count is nonzero, which holds for a single deck since at most 11 cards are drawn from 52.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, enumerations, floating point, arrays, multidimensional arrays, records, string building, 'Image of scalars, floating-point images, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

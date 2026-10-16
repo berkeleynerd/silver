@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and counter is bounded by static constants and for-loop ranges, so the checks follow from types and no annotation is needed. The only new needs are a binary file-output operation plus basic arrays and integers.
 
-Position 1426 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1426 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ The program fixes a page width of about 800 pixels and 11 bands of 40 pixel rows
 - **index**: The colour index is computed as stripe number mod 8 into an 8-entry colour table, so the mod result keeps it inside the array range.
 - **overflow**: Pixel x positions and stripe counts are bounded by a fixed page width and 11 bands, so every counter stays inside its declared range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures and file output.
 

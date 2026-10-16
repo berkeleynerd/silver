@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task needs a file rename (not copy), symlink-target resolution, and writing new text, all doable through a specified file and directory library operation with defined failure outcomes. Nothing in it breaks an Oracle rule; it only needs file and directory effects Silver lacks today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

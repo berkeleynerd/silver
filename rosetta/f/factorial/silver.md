@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Iterative factorial over a ranged argument with a division-based guard on the accumulator needs no annotation, but the nonlinear loop-carried multiply makes discharge depend on program shape rather than being routine.
 
-Position 163 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 163 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Declare subtype Arg is Integer range 0 .. 20 and subtype Fact is Long_Long_Integ
 - **range**: The result subtype 1 .. 20! and the argument subtype 0 .. 20 make assignments and the 'Image conversion routine checks follow from declared ranges.
 - **length**: Concatenating a literal with two 'Image results into Put_Line needs a bound on the image lengths, which follow from the ranged subtypes (at most 2 and 19 digits).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, procedures, 'Image of scalars, string building and Boolean objects.
 

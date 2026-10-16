@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is plain bounded floating-point arithmetic with recursion convertible to an explicit stack in a procedure, so no annotation is needed, but float range proofs through loop-carried values need careful guarding. The expected output 0.459698 is a bounded computation with depth cap, so it is faithful under the Oracle.
 
-Position 1092 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1092 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Intervals are records of (a, fa, b, fb, tol, whole, m, fm, depth) held in a fixe
 - **range**: Accumulating the result across loop iterations loses all facts except the type range, so the accumulator is clamped by a guard that rejects out-of-range totals rather than silently altering the answer.
 - **floating point**: sin must come from a hand-written Taylor series over a bounded argument in 0..1 in a for loop, whose nonlinear float arithmetic discharges only because operands are range-bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, arrays, records, floating-point images, for loops, while loops, procedures, functions, Put without a newline, string building and conditional expressions.
 

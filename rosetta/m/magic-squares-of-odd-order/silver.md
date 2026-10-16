@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or arithmetic bound that follows from subtypes, a small documented maximum N, and guards before each wraparound step, so no annotation is needed. The fill loop only needs the types of its carried positions, which are tight enough because the wrap tests are explicit.
 
-Position 666 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 666 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a constant-capacity two-dimensional Natural array (e.g. 15x15) and a procedu
 - **overflow**: N is bounded to an odd value up to a documented maximum such as 15, so N*N and the magic constant N*(N*N+1)/2 stay within Integer without needing a loop invariant.
 - **range**: Computing the next position as 'if X >= N-1 then 0 else X+1' keeps the result inside the subtype, and the start column N/2 is within range given N in 3..15.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, procedures, Put without a newline and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an array index or a subtype range, discharged by for-loop bounds over the array's own ranges or by a guard just before the access, and nothing needs a loop invariant, recursion or heap, so the proofs should discharge routinely.
 
-Position 893 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 893 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The image is a fixed-capacity two-dimensional array (for example 16 by 8) of Pix
 - **index**: Set_Pixel and Get_Pixel take X and Y as Positive and test them against the fixed Width and Height with an explicit guard that reports out-of-range coordinates, so every array access is provably in bounds.
 - **initialization**: The Image array is fully assigned by Fill (or an aggregate) before any read, which is easy for flow analysis on a whole-array aggregate but would be less routine if left uninitialised, so Allocate returns an all-black aggregate.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, records, arrays, multidimensional arrays, characters, for loops, procedures, functions, Boolean objects, integers, Put without a newline and conditional expressions.
 

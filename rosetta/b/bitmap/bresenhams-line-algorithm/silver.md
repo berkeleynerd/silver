@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer Bresenham on a small fixed grid has all indexes and arithmetic bounded by 1..16 subtypes and for loops, so checks should discharge without annotations, though the nonlinear rounding division and subtype conversions need careful shaping. Silver today lacks arrays, loops, procedures, characters and integers, which are needed.
 
-Position 914 in the [progression](../../../progression.md#stage-17), in stage 17.
+Position 914 in the [progression](../../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program declares a Coord subtype 1..16 and a 16x16 Character array filled wi
 - **index**: Pixel stores use Coord-typed indexes over the array's own ranges so they discharge by type.
 - **termination**: All loops are for loops inside procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, procedures, string building, conditional expressions and Boolean objects.
 

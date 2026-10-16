@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static or loop-bounded ranges and every index and divisor is bounded by types and loop ranges, so only the counter needs a guard.
 
-Position 358 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 358 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Fill a Boolean primality table over 0..2999 using trial division in a for loop w
 - **overflow**: The loop-carried triplet counter has no invariant, so it is guarded by an explicit check against its type's upper bound with a visible Reject outcome before each increment.
 - **index**: The sum of three loop indexes, each at most 999, is at most 2997, which interval reasoning on for-loop ranges shows fits a prime table indexed 0..2999.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars, string building and functions.
 

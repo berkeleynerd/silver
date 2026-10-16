@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs declarations of abstract and interface types and a few dispatching calls with no loops, recursion or dynamic memory, so every check is a routine range check on a bounded counter or needs none.
 
-Position 1558 in the [progression](../../progression.md#stage-35), in stage 35.
+Position 1558 in the [progression](../../progression.md#stage-34), in stage 34.
 
 ## Approach
 
 A package declares a limited interface with an abstract Describe procedure, an abstract tagged record type with a concrete Counter component and a concrete Increment operation plus an abstract Process operation, and a concrete derived type that implements both. Main creates one object of the concrete type and calls its operations through a class-wide parameter so dispatching is shown, with all values being small bounded integers and no loops, access types or recursion. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Packages, tagged types, procedures, records, integers and functions.
 

@@ -1,10 +1,12 @@
 # Output source-shape review for Integer, loops and Image
 
-Review date: 2026-10-16. This record accompanies the `ReviewedOutputShape`
-refresh and Compose native Image bridge. Capability delivery remains pending:
-root must complete the Predicate source endpoint, typed-JSON/schema/template
-composition and stable integrated validation. A complete token pin establishes
-source identity; the semantic claims also require the typed interpretations,
+Review date: 2026-10-16. This record preserves the earlier `ReviewedOutputShape`
+refresh and Compose native Image bridge checkpoint. The subsequent completed
+Predicate, producer/schema, native file and consumer chain and final Linux
+validation are recorded in the [capability delivery](for-loops-integers.md#stable-delivery-evidence)
+and [independent review](reviews/review-410ed2c.md). Status statements below
+retain their historical checkpoint scope. A complete token pin establishes
+source identity; semantic claims also require the typed interpretations,
 callee links and native contract checks below.
 
 The prior reviewed pin was `a9e29b5099`. Each of its seven literal token lists

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes come from for loops over the array range and all float operations are bounded by the subtype and loop guards, but float arithmetic and float-to-text formatting need careful range-shaped code, so discharge is plausible rather than routine.
 
-Position 1110 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1110 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the twelve test values in a constant array of a bounded Float subtype, and
 - **range**: Loop-carried tmp is reassigned to the subtype only after a guard (tmp >= 360.0 or tmp <= -360.0) makes the result in range, which holds from the loop condition alone.
 - **length**: Float-to-text formatting into fixed-width bounded buffers with 8 decimals needs a library or hand-built routine whose output length is provably bounded by the value range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, for loops, while loops, procedures, functions, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs only network access to an SMTP server plus bounded string handling for the addresses, subject and body, with the server name and login as parameters. Nothing in the task requires exceptions, assertions, unchecked code or recursion, and the Ada solution's use of AWS and pragma-free exception-based reporting is not a fixed-rule conflict. Status is reported by returning a result the caller can inspect, so no conflict arises from the reporting method. The network effect is a missing capability, not a conflict under the Oracle.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

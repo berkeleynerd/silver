@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic in procedures with guards before each product and store, so checks follow from types and guards, but several loop-carried values (place value, counts, divisor) need careful guarding and the task's full table needs big numbers beyond the documented cap.
 
-Position 288 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 288 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Values are held in a bounded 62-bit integer subtype with the base and digit in s
 - **range**: Loop-carried place value and counts are declared with bounded subtypes and guarded before multiplying by the base, since without invariants only type ranges are known.
 - **other**: Bases whose answers exceed the 64-bit cap (for example 10 and 12) are reported as exceeding the documented limit instead of computed, because big-number arithmetic with modular exponentiation would add many loop-carried guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

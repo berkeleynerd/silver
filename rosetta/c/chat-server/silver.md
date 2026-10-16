@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task needs a listening socket, several clients served at once, and a shared client list, all of which are network and concurrency effects rather than conflicts. A Silver-friendly version uses a fixed number of client slots, each handled by a task declared statically, with bounded nickname and line lengths and a specified outcome for overlong input. Nothing in the task requires exceptions, assertions, access types, or recursion, so the only SPARK feature beyond today's Silver is tasking.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tasking.
 

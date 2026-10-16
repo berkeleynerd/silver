@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a fixed two-equation linear solve done as straight-line integer arithmetic, so all checks follow from bounded types and one divisor guard. No loops, recursion or annotations are needed.
 
-Position 134 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 134 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the two equations as named integer constants of a small ranged subtype, so
 - **division**: The divisor a2 - b2*a1 is tested against zero by an explicit if just before the division, with a visible 'no unique solution' output otherwise.
 - **overflow**: Coefficients are declared as a small ranged subtype (about -1000..1000), so every product and difference fits in Integer and the checks follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes and 'Image of scalars.
 

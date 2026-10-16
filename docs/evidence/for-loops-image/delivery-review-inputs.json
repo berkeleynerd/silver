@@ -1,0 +1,335 @@
+{
+  "review_date": "2026-10-16",
+  "host": "linux-x86_64",
+  "status": "historical initial review snapshot at410ed2c83e plus the recorded prospective delivery diff; subsequent repair and validation are recorded in the addendum below",
+  "implementation_commit": "410ed2c83e90dca6265723b3359cfdfc1a47a8b5",
+  "tracked_delivery_diff_sha256": "e92bf7ca937f88cd908f068c62ee02daab20d0d53cecf30bd5a31aa4238dabb6",
+  "tracked_delivery_changed_files": 1754,
+  "tracked_delivery_generated_scope": "All1743 changed Rosetta tracked files byte-match the previously reviewed isolated render; exactly3/1782 assessments change. See rosetta/for-loops-delivery-review.md.",
+  "key_reviewed_file_sha256": {
+    "development.md": "df7f57f9bdae99413ac1c3d4294e240e071873790923013218eb6fa609a217f0",
+    "roadmap.md": "d72af25cf3cf6b3e7592d3a2664de8d846ae0f630e0c9d2c8415ef355b6d62c2",
+    "language.md": "163799fcefbdfcb78ca12e35c3d89a855a6eb6c1e0a5e8dcf1cfa3bcd3b7e757",
+    "catalogue/silver.json": "80250e230416a7bb49cfa0229fd2de3f5d407d4d04de00f7b1e913c5681338bd",
+    "src/silver_catalogue.adb": "1a8d280e129a619604b483181a8c3206314ec0155d4edfe0e8c613018d53d2c3",
+    "samples/manifest.json": "15263e22617a6f6723be20ac8ae5d1bbf01497572a6ae3a168e7b2e497f7367a",
+    "tests/test_silver.py": "3b924692aa97ced4b822ce40c2c6e07d7ccf86ba7e8af811fe1ff8ce4c4e9b35",
+    "docs/for-loops-integers.md": "13c2346d92ac60cb52a1da43404160b6f8a594f567db392e2292da62bac01824",
+    "docs/assurance.md": "fb8d0deb470d9f5d1deaeab276734c7cd48b3506d7dc2ef7e0474952c79f7bd9",
+    "docs/trusted-boundary.md": "c71070db6619c3e63bbd48ee1885bc4b60d00a9b50275ec564ba1342c4584abf",
+    "docs/for-loops-image-schema.md": "a25cfd5261a13a34ccb12a9190a1baf7c0af2cd806211c7bb1e7764aa1c7dbef",
+    "rosetta/coverage.json": "62e70ee49ee4292384053ef503ff173f0ae3636ae17fae72812f8b4266a329c9",
+    "rosetta/assess.js": "c8cf424af3424b66d00857b0c21717390cdbe6951d015daca503c773b28c391f",
+    "rosetta/refresh.py": "77a8c71b7b6d012044216e4f1685efb9ff5c7ad604ef1a6be5a0a772dd7016c7",
+    "rosetta/progression.md": "8c803c8080180c725a96f6b89b37f0f97060b5481bbf7010c0ad6999ce107bb4",
+    "proof/Silver/ImageProducerEndpoint.lean": "00ec57e3b64081e9ff1df1c67ac490c2e67ac66099778a5285b66dcab1d6758a",
+    "proof/Silver/ImageRefinementEndpoint.lean": "a22895f63fa5c9e21e13a47859b69c3afff8578142d2021123d92cf26c771dee",
+    "proof/Silver/ImageModelConsumerBoundary.lean": "d80ffca58cab9d7a3c132e3d8c2f7b0832549e2b4dd2abf5b422ef9d362048cf",
+    "proof/Silver/ImageConsumerEndpoint.lean": "3fa6fb7f07813f2df79315b5ba87d4f2818b331b211b2f8ba3f2fc8ed0406e0c",
+    "proof/Silver.lean": "91804ec555e9382ac5884d5a0a69c1b30502e7287096539d680fae8adc107dad"
+  },
+  "untracked_delivery_file_sha256": {
+    "docs/for-loops-image-producer-review.md": "cf0e7db311ca832f98b8ba9c957462d888356848b16ef30ddb9e57831de05f7b",
+    "rosetta/for-loops-delivery-review.md": "9c40375c661a3a4a034cf0159e696cab3758da29ef45f9578fbbb2ea131e9575",
+    "samples/for_loop_countdown.adb": "280a416fa5f040d1bf32f6230ca9d77e72a03602cbd7d2641ee2e8e7f74d9969",
+    "samples/for_loop_step.adb": "dc8f33010a2b0a1bb77afc55a184a1f6b4e73d7bed1ca6e94ab0880c984a7e6c",
+    "samples/for_loop_triangle.adb": "ce6943ed7aa45e94437d5bb4be5301aad213628cf46267447f4c741c290beab6",
+    "docs/evidence/for-loops-image/gcc-inputs.json": "75018b371cf09198c00e6017f84ee47cc51ed4764771e71e3c47fc602d1df75f",
+    "docs/evidence/for-loops-image/reconstruct_integer_template.py": "616b31adf2a7203caaaf67727d311a65792f47063bdfde010b18dbbbb759cbf0",
+    "docs/evidence/for-loops-image/reconstruct_string_image_templates.py": "ddd570c0fad87e1daf29fc2149f7ce747716e5e856e7c983787933bf25284abf",
+    "docs/evidence/for-loops-image/review-manifest.json": "bf29e89a472cd24a58f65dd9bdfb6fd7016d66cfd4dc6c3fba554792bd49894e",
+    "docs/evidence/for-loops-image/string-image-template-parity.json": "25ea66b10379cff89cc6fe39cadf7ec3ac93d9485847b7998e5924a915eff1b5",
+    "docs/evidence/for-loops-image/template-field-audit.json": "abc12090ab587231c504d5e529c76ec6cd8160dce25155e4265fff8c22a7382a"
+  },
+  "focused_consumer_evidence": {
+    "run_id": "20261016T181946-7b6c0b241b3c",
+    "target": [
+      "Silver.ImageConsumerEndpoint"
+    ],
+    "scope": "focused",
+    "clean_build": false,
+    "axiom_audit": "passed",
+    "declaration_count": 15974,
+    "inputs_digest_sha256": "9588c3565843803a66feb16acd07f37d33c0c1a77d4bdb62a552b255deec37c7",
+    "evidence_sha256": "0fbe3ef49d5077adef8a5542ad4d0f6e8b04040edd3db95603afbe48c26e3970",
+    "independent_kernel_recheck": null
+  },
+  "core_independent_review": {
+    "target": "410ed2c83e90dca6265723b3359cfdfc1a47a8b5",
+    "result": "no material findings within the exact semantic/source and native/report integration scopes in review record",
+    "read_only": true,
+    "new_test_or_proof_runs": false,
+    "known_exclusion": "SequenceNativeState repair d313c43f30 and final complete validation are separate",
+    "reviewed_source_sha256": {
+      "proof/Silver/ScalarExpressionAdmission.lean": "67a7ed1c2d6c3e1950590481b7666eaa335a6cb56dbccfe57e0f38b349ffaf6a",
+      "proof/Silver/IntegerExpressions.lean": "304c00434f5781ba4cd2176b0328d06b3ef444f0e003dd87b7354e13c55ba691",
+      "proof/Silver/ComposeScalarDeclarations.lean": "63d93614472039e792b0d10a479ef29edaaab0bc46d139b474160f4d3e9fc9db",
+      "proof/Silver/ComposeInitializerTrace.lean": "8e7509805a84abb26eebc337c34a71b73d2fcd023e46a434c5ecc1b636f0a22c",
+      "proof/Silver/PredicateHeaderDecode.lean": "4a4f73983be8b9eba37644f4905a4e89930e176c42a2308c6b13fd808c10609b",
+      "proof/Silver/PredicateGrammar.lean": "109b67ba85e7560ccce5366162b5e947de98a818a0f69f02774af8d15bb4f35e",
+      "proof/Silver/IntegerIteration.lean": "0b9ba11c0da79931b13c26f1d515155614968a0ff1b94a5560e62577751a408e",
+      "proof/Silver/PredicateExecution.lean": "197ce20eb972ca36cb20d1edecd88e4cf02b535853f6f4412faced20dabd207f",
+      "proof/Silver/PredicateObligations.lean": "bab4041b000f7788be72f1b3bf309da9a2c1bf7553d3383a5663da1306ee17b7",
+      "proof/Silver/PredicateComposition.lean": "ac0dabe3e2840e2513b470d178f48068e054404e691aeb8afef508d71718690c",
+      "proof/Silver/PredicateChecks.lean": "0028b209ee790ea079dfba9d36d60b0a6fa3e46e4a9042ffde9371a1306d3cc0",
+      "proof/Silver/Current.lean": "2ec4b7e6515f347fc9aa8658c7fc0d56008e23df5a5f214644dc976f723d4afa",
+      "proof/Silver/PredicateSourceBridge.lean": "138b52b577a88acdf6ef74e18ee011398356ccc8cfa38c4aaa0f0d0c4431e42f",
+      "proof/Silver/PredicateEquations.lean": "b071a9baac91cc9ec469ac80d374175422911b0deae3b683254ccd1c8ee935a5",
+      "proof/Silver/PredicateCorrespondence.lean": "705354f3fe49d9bee99705abf842bd4b66d6bccacd1766b52425ad8b1f541197",
+      "src/silver_output_profile.adb": "b2a987239757efe51ca02e664f857a4ac7ac4546605ca7eacd22a13265667888",
+      "src/silver.adb": "9da875a136d52adc818c1ac6a0b2fb217580cf8ee29c18b823538ff91d9b310b",
+      "src/silver_report_reader.adb": "d4e802a1f5b593f7d0b4636c3fb439a92e4022b9cc043da97214d2acd247e893",
+      "src/silver_report_projection_audit.adb": "f1b6e5ca767f8c87e6a2c327378abce41c110ff120d3dc7e7d2036859f63e8d0",
+      "src/silver_libraries.adb": "1f5e1fe3517466c7bd158d017194a7e31f0dfa8b0cd7c1202b67ab65cc3499ea",
+      "src/silver_library_reports.adb": "a27b3dd560b4205b7b630b37d5c01d5afbf0dfabd2814dfc421623f4d0d22f02"
+    }
+  },
+  "initial_snapshot_pending_validation": "At the initial 410ed2c83e review snapshot, native checkpoint 20261016T174150-cf80d84be8db and full Lean 20261016T182210-c5c7e1fc74a1 were not final success evidence. The failed Lean checkpoint exposed stale SequenceNativeState conversions; the five-file repair and subsequent complete successful audit at b5cd3f0231 are recorded below.",
+  "repair_and_validation_addendum": {
+    "implementation_review_target": "b5cd3f02318e1ba9329ae63117a5b3c6285b6515",
+    "original_repair_commits": [
+      "d313c43f30",
+      "9387c14e2c"
+    ],
+    "integrated_repair_commits": [
+      "e962f6c130",
+      "b5cd3f0231"
+    ],
+    "review": "root and independent review, plus planning review of all five final diffs; no material finding",
+    "native_or_script_changes": false,
+    "reviewed_source_sha256": {
+      "proof/Silver/SequenceNativeState.lean": "fa63a06ab5be168a8d0febe173f38b188ca4d5babed36274355e98558f5a9d7a",
+      "proof/Silver/SequenceNativeExpressions.lean": "fd48435aeeeab10552c78189c8b52a6ce5a9ac375a4b38b0e8aaf399b2dad6fd",
+      "proof/Silver/SequenceNativeProjection.lean": "0b42a3008bf01760f4622cef7b3a21218014cef6a4c2d544053745caa2b625c1",
+      "proof/Silver/SequenceBodyContext.lean": "472cb5f087e14d91f78f56095f18e429f29d10afa9e88b007e771d7966c26b12",
+      "proof/Silver/SequenceEquations.lean": "b1a16b8fe66b4560121717df3c464cd411724040825f53ac9f1e1df4f307aa7a"
+    },
+    "focused_repair_run": "20261016T183321-18be4f8b7386",
+    "focused_fresh_audit_declarations": 17497,
+    "complete_lean_run": "20261016T183420-1c5451b2e0df",
+    "complete_lean_state": "passed",
+    "complete_modules": 458,
+    "complete_fresh_audit_declarations": 87185,
+    "complete_lean_inputs_digest_sha256": "bddde13b8c4d4748f1385affdd05433686d05e741de72a78baa07a21b1db6b54",
+    "validation_record": "docs/evidence/for-loops-integers/delivery-validation.json",
+    "native_final_state": "repaired_native_audit_passed_in_later_addendum",
+    "scope_note": "Five-proof-file Sequence repair and complete Lean success at b5cd3f0231, before the later #48/#49 native-audit repairs."
+  },
+  "native_audit_findings_addendum": {
+    "original_native_run": "20261016T174150-cf80d84be8db",
+    "original_managed_outcome": "failure",
+    "original_elapsed_seconds": 7957.651,
+    "native_checks_proved": 15083,
+    "retained_unit_reports": 74,
+    "first_audit_failure": "two exact vendor Signed_Conversions spec entities missing from classifier",
+    "subsequent_retained_report_finding": "one operator-reassociation advisory at silver_length_intervals.adb:24:50",
+    "issues": [
+      48,
+      49
+    ],
+    "repair_implementation_commit": "4cd2fe8aaebfe84e0c9f4a644e562b6bd8b1e26e",
+    "repair_review_state": "root_final_diff_review_passed_both_repairs; independent_conversion_review_was_pre_final_diff_approach_review",
+    "repaired_native_validation_state": "passed",
+    "repaired_complete_lean_validation_state": "passed",
+    "validation_record": "docs/evidence/for-loops-integers/delivery-validation.json",
+    "original_failure_preserved": true,
+    "length_interval_repair": {
+      "original_commit": "515a23fee9",
+      "integrated_commit": "19b2f6c6b6",
+      "changed_files": [
+        "src/silver_length_intervals.adb",
+        "proof/Silver/LengthIntervalExpressions.lean",
+        "proof/Silver/LengthIntervalsCapture.lean"
+      ],
+      "native_source_sha256": "d4ee9c074c57596e6e6140e1cf9b312ebb08b5728462095c6a71551c05ac230d",
+      "review": "root reviewed actual grouped evaluation and exact source capture",
+      "final_validation_state": "complete_native_and_lean_passed",
+      "final_native_run": "20261016T200519-b3b644edcb13",
+      "final_complete_lean_run": "20261016T200453-9fe1b554e036"
+    },
+    "length_interval_focused_validation": {
+      "run_id": "20261016T200019-35e244ca5e83",
+      "state": "passed",
+      "scope": "focused",
+      "target": "Silver.LengthIntervalsSource",
+      "fresh_audit_declarations": 10850,
+      "elapsed_seconds": 62.645,
+      "lake_workers": 2,
+      "threads_per_process": 1,
+      "complete_validation": false
+    },
+    "vendor_conversion_repair": {
+      "original_commit": "ab2f7dd5cc",
+      "integrated_commit": "4cd2fe8aaebfe84e0c9f4a644e562b6bd8b1e26e",
+      "changed_files": [
+        "scripts/check_evidence.py",
+        "tests/test_evidence.py"
+      ],
+      "reviewed_source_sha256": {
+        "scripts/check_evidence.py": "3e482d5cbe22d72a07cbf5d01344f2220962e897facd016073126aea6b200efa",
+        "tests/test_evidence.py": "3d231ec04c18950d2ce8e7c38c106465509b27160acb3c4b8ab817e94439001e"
+      },
+      "final_diff_review": "root reviewed the final actual checker/test diff; no material finding",
+      "independent_review_scope": "audit_conversion_review approved diagnosis and approach before the final diff; not a final-diff review",
+      "source_checks": "actual source context, type argument, generic instance and both exact vendor declarations; owned coverage unchanged",
+      "diagnostic_change": "rejected entity count and exact origins are reported",
+      "final_validation_state": "complete_native_and_lean_passed",
+      "final_native_run": "20261016T200519-b3b644edcb13",
+      "final_complete_lean_run": "20261016T200453-9fe1b554e036"
+    },
+    "vendor_conversion_focused_validation": {
+      "run_id": "20261016T200038-4ff6886d5c6a",
+      "state": "passed",
+      "scope": "focused",
+      "worktree": "tmp/for-loops-predicate-source",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_evidence.py"
+      ],
+      "tests_passed": 53,
+      "test_runner_elapsed_seconds": 1.403,
+      "managed_elapsed_seconds": 2.038317361,
+      "complete_validation": false
+    },
+    "repaired_complete_lean_run": "20261016T200453-9fe1b554e036",
+    "repaired_complete_lean_inputs_digest_sha256": "15412eec1ffa7bf87e2b8aa0abac38474261f68cb85bd9f366ae9f530fbf0ff8",
+    "repaired_complete_lean_evidence_sha256": "2b545808d7375833b9918a55bb1adc7e366fd7a9938e00578548bcacb48245e7",
+    "repaired_complete_modules": 458,
+    "repaired_complete_audit_declarations": 87185,
+    "repaired_native_validation_run": "20261016T200519-b3b644edcb13",
+    "repaired_native_provenance_sha256": "af2522a3bec4ace16e420dfd6e735059e458b7f6a2f665c7e35957107bcce2e3",
+    "repaired_native_audit": {
+      "state": "passed",
+      "units": 74,
+      "entities": 991,
+      "flow_checks": 1283,
+      "proof_checks": 13800,
+      "limitation_notes": 290,
+      "imported_entities": 17,
+      "trusted_math_notes": 6236,
+      "vendor_spec_entities": 62
+    },
+    "findings_disposition": "#48/#49 repaired and validated; original full suite failed only on #50 snapshots, repaired by the successful root focused run and verified native snapshot sync; all findings repaired and validated; closure is tracked by the coordinated completion-commit references",
+    "native_build_run": "20261016T200635-f7611c4d608c",
+    "native_build_state": "passed",
+    "full_test_run": "20261016T200650-91510d356211",
+    "full_test_state": "failure_preserved_four_known_subcases_repaired_by_focused_run"
+  },
+  "certificate_snapshot_refresh_addendum": {
+    "issue": 50,
+    "severity": "low",
+    "state": "repaired_validated",
+    "implementation_commit": "62f472c35dd245e5c9b980788bcc033301b20abd",
+    "original_diagnosis": "initially attributed to isolated native-lane snapshots outside an earlier sync set",
+    "corrected_diagnosis": "all four failing snapshots already equalled root checked-in 4cd2fe8aae; Output snapshots lagged existing Ada source and ScalarExpression snapshots differed only in generator-comment curly-to-ASCII apostrophe",
+    "source_or_authoritative_proof_input_change": false,
+    "validated_workspace_change": false,
+    "refresh_manifest_sha256": "64a979056a0813884fdba4d27c0ddcf1fa792b7afb4241178dca81d9e7f16447",
+    "preserved_complete_lean_run": "20261016T200453-9fe1b554e036",
+    "preserved_shared_input_digest_sha256": "15412eec1ffa7bf87e2b8aa0abac38474261f68cb85bd9f366ae9f530fbf0ff8",
+    "candidate_capture_rule": "capture_shared_inputs excludes CANDIDATES; capture_workspace_inputs records generated bytes",
+    "independent_regeneration": "root reports exact four-file equality with native-lane regeneration",
+    "files": [
+      {
+        "file": "proof/Silver/OutputSpecCertificate.lean",
+        "old_sha256": "2a7ca793bf33163f2d1f9af25a3ce86173a1d71c85ad081ff4c71341bf12bea0",
+        "checked_workspace_sha256": "451d312789c08d4a6d6b87defe9c7d1107363c046aa493f53fb694014c493e2f"
+      },
+      {
+        "file": "proof/Silver/OutputBodyCertificate.lean",
+        "old_sha256": "a4d161e7ef8f395137782ac93b95abce328ba209bb8babdcc756137aa72d434c",
+        "checked_workspace_sha256": "7dde174216e97a6b562e12e2bed02b6367d10ebd36309c50fdfa512a428577f2"
+      },
+      {
+        "file": "proof/Silver/ScalarExpressionSpecCertificate.lean",
+        "old_sha256": "0ed6ae2dc6746614b76b206eeaf0b9c7a7a046bc6d61cce07ce4a9d9f7186f70",
+        "checked_workspace_sha256": "76488f26a227cf58a867d047e5f62644cf5116a70ad0bef79320d77fdfd1a645"
+      },
+      {
+        "file": "proof/Silver/ScalarExpressionBodyCertificate.lean",
+        "old_sha256": "6210af408d9a1bbe9c590ee85a598731cf90b78a7e66cef3c3410305e46c8e54",
+        "checked_workspace_sha256": "098c75a7025a7c03acf08ade5e152a8fbd9e2b3c44707bee371a4c3cb99dbf42"
+      }
+    ],
+    "native_or_lean_rerun_required": false,
+    "native_or_lean_rerun_performed": false,
+    "focused_recheck": {
+      "run_id": "20261016T202127-4facdb2ce8b3",
+      "state": "passed",
+      "scope": "focused",
+      "worktree": ".",
+      "method": "CompilerSourcePolicyTests.test_checked_in_certificates_equal_regeneration",
+      "test_methods": 1,
+      "certificate_source_pairs": 26,
+      "test_runner_elapsed_seconds": 2.163,
+      "managed_elapsed_seconds": 2.918603201,
+      "retained_run": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261016T202127-4facdb2ce8b3",
+      "retained_artifact_sha256": {
+        "events.jsonl": "cd6254af1dca20d0190e98a323cd29ba5cfe4fb3fcceefe7922751ebb15a463e",
+        "native.log": "b8b58ea71c25a1787bce48008822464b99acffa3fef24f244d0a7e5324a1d578"
+      },
+      "single_clean_full_suite_claim": false
+    },
+    "native_snapshot_sync": {
+      "state": "passed",
+      "manifest_sha256": "704dcdf7ef492a5af88a4074730fc4d4789d088724bc6ad9bdca6c6a6ffea008",
+      "recorded_manifest": "tmp/for-loops-predicate-source/tmp/native-audit-repair-20261016/certificate-sync/manifest.json",
+      "utc": "2026-10-16T20:30:13.807611+00:00",
+      "root_head": "62f472c35dd245e5c9b980788bcc033301b20abd",
+      "original_full_suite_run": "20261016T200650-91510d356211",
+      "root_affected_recheck_run": "20261016T202127-4facdb2ce8b3",
+      "native_manifest_sha256": "af2522a3bec4ace16e420dfd6e735059e458b7f6a2f665c7e35957107bcce2e3",
+      "files": [
+        {
+          "module": "OutputSpecCertificate",
+          "source": "silver_output_profile.ads",
+          "before_sha256": "2a7ca793bf33163f2d1f9af25a3ce86173a1d71c85ad081ff4c71341bf12bea0",
+          "generated_sha256": "451d312789c08d4a6d6b87defe9c7d1107363c046aa493f53fb694014c493e2f"
+        },
+        {
+          "module": "OutputBodyCertificate",
+          "source": "silver_output_profile.adb",
+          "before_sha256": "a4d161e7ef8f395137782ac93b95abce328ba209bb8babdcc756137aa72d434c",
+          "generated_sha256": "7dde174216e97a6b562e12e2bed02b6367d10ebd36309c50fdfa512a428577f2"
+        },
+        {
+          "module": "ScalarExpressionSpecCertificate",
+          "source": "silver_scalar_expressions.ads",
+          "before_sha256": "0ed6ae2dc6746614b76b206eeaf0b9c7a7a046bc6d61cce07ce4a9d9f7186f70",
+          "generated_sha256": "76488f26a227cf58a867d047e5f62644cf5116a70ad0bef79320d77fdfd1a645"
+        },
+        {
+          "module": "ScalarExpressionBodyCertificate",
+          "source": "silver_scalar_expressions.adb",
+          "before_sha256": "6210af408d9a1bbe9c590ee85a598731cf90b78a7e66cef3c3410305e46c8e54",
+          "generated_sha256": "098c75a7025a7c03acf08ade5e152a8fbd9e2b3c44707bee371a4c3cb99dbf42"
+        }
+      ],
+      "all26_snapshots_match_regeneration_and_root": true,
+      "all204_native_inputs_match_root": true,
+      "preserved_predicate_hashes": {
+        "proof/Silver/PredicateAdmission.lean": "58f9d80630b935d4a8e33b9da9fef38a7c48cc4b003168df971e007b7c586846",
+        "proof/Silver/PredicateBodyAdmission.lean": "db5676335db6fe7be272905e17b6e40bfb534260546df7792f4748784ac53b2a",
+        "proof/Silver/PredicateConditionBounds.lean": "1f20aae26190b52341d4f0e0e385699d3ebdcdc2fea68e364c07786d904f4dfa",
+        "proof/Silver/PredicateConditionReadings.lean": "9b7f0fcbe7ff2c7c85bc450e576c7c8ef908c0b04645c0e3594222c7edb390c7",
+        "proof/Silver/PredicateConditionSound.lean": "15d4d1c8e47ce98a2add7aa95e19fd271ba9a52096ea2cf3f4a456bc9d355d59"
+      }
+    },
+    "native_focused_recheck_required": false,
+    "recheck_rationale": "root focused run already passed the exact affected method/all26pairs at final snapshot; do not duplicate success",
+    "original_full_suite_outcome": "failure",
+    "original_full_suite_test_methods": 450,
+    "original_full_suite_failed_subtests": 4,
+    "original_full_suite_other_failures_or_errors": []
+  },
+  "final_delivery_implementation_commit": "62f472c35dd245e5c9b980788bcc033301b20abd",
+  "native_and_complete_lean_executed_snapshot": "4cd2fe8aaebfe84e0c9f4a644e562b6bd8b1e26e",
+  "final_validation_state": "validated_with_full_suite_and_targeted_repair"
+}

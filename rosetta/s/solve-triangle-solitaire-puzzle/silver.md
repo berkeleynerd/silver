@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an index or counter bounded by declared subtypes and guards, there is no function-level loop or recursion, and the search runs in a procedure, so no annotation is needed. The risk is only that the loop-carried stack depth and cursor need careful guard placement.
 
-Position 724 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 724 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program stores the board as a 15-element Boolean array and the 36 legal jump
 - **termination**: The backtracking search is a while loop inside a procedure, which gets no termination check, and the search space is finite anyway.
 - **other**: Failure to find a solution (for example if a different empty starting hole were used) needs a specified printed outcome, which the fixed-start design reports with an explicit no-solution message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops and procedures.
 

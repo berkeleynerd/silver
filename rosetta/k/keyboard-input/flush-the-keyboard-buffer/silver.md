@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task is to drain already-buffered keyboard input without waiting, a loop around a non-blocking immediate-read operation; this needs a stdin/terminal library operation with specified non-blocking behavior but breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops.
 

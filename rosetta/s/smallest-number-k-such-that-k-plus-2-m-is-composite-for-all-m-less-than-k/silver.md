@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is small bounded integer arithmetic with for loops over array ranges and one while loop in a procedure, so no annotation is needed, but shape-dependent range typing of residues and the 5000-bit numbers avoided via small-prime witnesses make discharge plausible rather than routine.
 
-Position 241 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 241 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Build a constant-size prime table with a sieve in a Boolean array, then for each
 - **termination**: The search for the fifth element is a while loop inside a procedure (no termination check), and it stops at a declared candidate limit that rejects further search visibly.
 - **other**: Compositeness is witnessed by a divisor among a fixed table of small primes rather than a full primality test, so a true element lacking such a witness would be missed; the table bound must be documented and sized so the five known elements (773 to 5101) are covered.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

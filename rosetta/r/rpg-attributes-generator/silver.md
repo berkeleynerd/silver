@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The checks reduce to modular wraparound arithmetic, a mod 6 result converted into 1..6, attribute bounds that follow from comparisons made just before each use, and fixed-size sums. The only unbounded loop is in a procedure, so nothing needs an annotation.
 
-Position 1274 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1274 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A linear congruential generator on a mod 2**32 state yields each die as (State /
 - **overflow**: The total and the count of values of 15 or more are computed as straight-line expressions over the six fixed array elements, so no loop-carried accumulator can appear to overflow.
 - **termination**: The reroll-until-acceptable loop lives in Main, a procedure, so it gets no termination check, and with a fixed seed the deterministic generator reaches an acceptable roll after a fixed number of tries.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, arrays, for loops, while loops and 'Image of scalars.
 

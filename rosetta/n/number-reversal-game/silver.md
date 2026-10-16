@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the array's static bounds, a validated 1..9 subtype for the player's count and a capped counter, and the only unbounded loop sits in a procedure, so no annotation is needed. The one faithfulness cost is a fixed starting permutation instead of a shuffle, which a deterministic generator could replace.
 
-Position 1225 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1225 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The board is a constrained array of 9 digits of a 1..9 subtype, initialised from
 - **index**: The swap indexes N+1-I are safe because N is parsed into a 1..9 subtype with invalid input re-prompted, and I runs only over 1..N/2.
 - **termination**: The play loop is a while loop inside a procedure, which gets no termination check, and the sortedness test is a plain function using a for loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, string building, 'Image of scalars, text parsing, standard input, Put without a newline and characters.
 

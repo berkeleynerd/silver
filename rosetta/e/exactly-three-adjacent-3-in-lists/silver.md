@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes come from for-loop ranges over the array bounds (I+2 is at most 9 because I is at most 7), and loop-carried state is only Boolean, so every check follows from static bounds and no invariant or variant is needed.
 
-Position 1544 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1544 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
 The five lists are embedded as a constant 5 by 9 Integer array aggregate, and a procedure loops over rows with for loops. For each row, a for loop over run starts 1..7 checks that the three cells at I, I+1, I+2 equal 3, then an inner for loop over 1..9 clears an Ok flag if any cell outside that window equals 3, and the row prints true if any window passes. Only Boolean flags are carried through loops, with no counters or accumulators. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, for loops, procedures and membership tests.
 

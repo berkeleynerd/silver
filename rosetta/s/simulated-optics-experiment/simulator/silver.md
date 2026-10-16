@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for loop over a fixed pulse count with a wraparound generator and constant integer thresholds, so every check follows from types and static bounds. The only extra is the documented fixed-point precision replacing floating-point trigonometry.
 
-Position 1285 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1285 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A 64-bit modular linear congruential generator is advanced in a procedure; each 
 - **floating point**: The program avoids floating point by embedding the fixed cosine-squared and sine-squared intensities as integer thresholds on a 2**24 scale, so no elementary functions or float checks arise.
 - **range**: Table indices are small subtypes (source setting, splitter setting) set from comparisons with the random value, so each index is in range by construction.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, integers, integer division, arrays, for loops, procedures, functions, string building, 'Image of scalars and case statements.
 

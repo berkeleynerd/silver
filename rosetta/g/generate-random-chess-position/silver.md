@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array index and arithmetic result is bounded by ranged subtypes, mod reductions and a capacity-bounded buffer, and the only unbounded loops are while loops in procedures, so no annotation is needed, though the LCG arithmetic and buffer-length tracking need careful shaping.
 
-Position 715 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 715 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ An 8x8 Character board array is cleared, a deterministic LCG with a fixed seed (
 - **index**: Row and column values come from the generator reduced by mod 8 into 0..7 subtypes, and the FEN buffer index is guarded by capacity because at most 64 squares plus 8 separators plus the suffix fit in a fixed 80-character buffer.
 - **range**: Empty-square run counts in 0..8 are converted to digit characters with a guard-free 'Val on a bounded subtype, and the adjacent-kings test uses abs differences of 0..7 values that cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string building, for loops, while loops, procedures, functions, Boolean objects and Put without a newline.
 

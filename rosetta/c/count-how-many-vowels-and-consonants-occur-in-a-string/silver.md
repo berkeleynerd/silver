@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index range over the string, a counter subtype bounded by the documented maximum length, and a length guard on the input, with no loop invariants needed.
 
-Position 766 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 766 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Take the first argument via First_Or_Default, reject it if it exceeds a document
 - **overflow**: Counters are Natural subtypes bounded by the string's fixed maximum length, so a range subtype capped at that length (or a guard before the increment) discharges the increment checks.
 - **length**: The input is rejected if longer than a documented bound (e.g. 1024), so the output buffer is sized from the bound and concatenation lengths are statically known.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, 'Image of scalars, for loops, case statements, string building and Put without a newline.
 

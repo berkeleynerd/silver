@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over ranged integers and a fixed digit array, so no annotations are needed, but carry/length checks in loop-carried digit arithmetic and the search limit require careful guards. Extra credit d of 7 to 9 is optional and omitted.
 
-Position 1374 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1374 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ For each d from 2 to 6, a procedure iterates n upward (bounded by a documented l
 - **termination**: The search for 10 hits is a while loop in a procedure (no termination check), with an explicit upper limit on n and a specified Reject-style outcome if fewer than 10 are found.
 - **range**: Loop-carried carry and length values need type ranges or guards before use because no invariants can be written, which constrains program shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, big numbers, 'Image of scalars and Put without a newline.
 

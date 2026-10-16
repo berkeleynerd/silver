@@ -1,0 +1,27 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput.ads",
+    "path": "sinput.ads",
+    "sha256": "48657f3ca583b754d10f2798fb61c54d85b556c2cd6f10036acff685d57a682b"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput.adb",
+    "path": "sinput.adb",
+    "sha256": "0f91bb7890e87f6d23bfa97375a0b36e37cd2c38921f93bc2fec2daeb39243e8"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sinput-l.adb",
+    "path": "sinput-l.adb",
+    "sha256": "ecafb23271ccde16bdfc282afb4a8787f4d04a736154e2e83c27acfb3c4a01fd"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/fname.adb",
+    "path": "fname.adb",
+    "sha256": "979b585c09db7c4c0565cc551f1495cfeae00e0b1efc116eee52ddea26201d0a"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/fname.ads",
+    "path": "fname.ads",
+    "sha256": "5d7860ebb6dfc48fa6bb47dc82b25522ba585aa83573684938bfc7aa9a030c36"
+  }
+]

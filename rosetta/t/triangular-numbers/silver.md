@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The tables are simple bounded integer prefix sums that discharge with range guards, but the real-valued roots need floating-point arithmetic and formatting that depend on careful range guarding, so the outlook is plausible rather than likely.
 
-Position 1098 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1098 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a 31-element array of a 64-bit range subtype; build triangular, tetrahedral
 - **termination**: Root-finding iterations use for loops with a fixed iteration count or while loops inside procedures only, so no function needs a variant.
 - **range**: Converting the large integers and float results to text needs explicit range guards before 'Image or a hand-written digit-building routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

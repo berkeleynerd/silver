@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed 10x10 bounds and guards before each stack or board access, and all unbounded looping sits in procedures, so no annotation should be needed, though several loop-carried counters and indices demand careful guard placement.
 
-Position 1197 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1197 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Boards are fixed 10x10 Boolean and small-integer arrays with N a ranged subtype 
 - **termination**: The search runs in procedures with while loops, which get no termination check, while the helper functions use only for loops over fixed ranges.
 - **other**: Knights on 10x10 need an exhaustive search of roughly 16 pieces that is slow at run time, which is a performance matter and not a proof obligation.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

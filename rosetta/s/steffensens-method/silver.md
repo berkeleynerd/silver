@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded floating-point arithmetic in a procedure-driven loop with explicit guards for the Aitken denominator and divergence, so no annotation is needed, but proving float overflow and division freedom through the loop-carried iterate depends on careful guard placement and float provers.
 
-Position 1101 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1101 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Use a bounded Long_Float subtype for the iterate, small functions for de Castelj
 - **termination**: The Steffensen iteration is a while loop with an iteration counter, which is acceptable only because it lives in a procedure (no termination check), with the Aitken step as a function containing no loops.
 - **floating point**: Float-to-integer conversion for printing needs the scaled value range-guarded, and the tolerance comparisons must not hide NaN or infinity, which the bounded subtype and guards exclude.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, integers, Boolean objects, for loops, while loops, procedures, functions, conditional expressions, floating-point images, string building and Put without a newline.
 

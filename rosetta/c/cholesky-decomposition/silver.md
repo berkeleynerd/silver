@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is three nested for loops over constant bounds, so index and termination checks are routine, but float overflow on loop-carried sums and the square-root precondition need explicit guards and an admitted Sqrt, which makes discharge depend on careful program shape.
 
-Position 1084 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1084 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store each matrix as a fixed-size two-dimensional array of a bounded float subty
 - **other**: Sqrt must come from an admitted library operation with a verified contract, since Silver authors cannot write one and the Ada elementary-functions package is not yet available.
 - **index**: The matrix indexes are loop variables over a fixed constrained range, with the inner index K-1 guarded by running J only over 1 .. K-1, so index checks follow from the declared bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, floating-point images, arrays, multidimensional arrays, for loops, procedures and Put without a newline.
 

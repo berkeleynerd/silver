@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values for the first 10 factorial primes (up to 87178291199) fit in 64-bit integers, and every check follows from subtype ranges and a guard before the multiply, so no annotation is needed. Plausible rather than likely because of the guarded loop-carried factorial and the nonlinear square in trial division.
 
-Position 377 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 377 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Iterate n from 1 to 20 in a for loop, keeping the factorial in a subtype ranged 
 - **termination**: Primality uses a for loop with an early exit (no while inside a function), and the outer search is a bounded for loop over 1..20 with exit once ten primes are found.
 - **other**: Count reaching 10 relies on Count being a bounded subtype incremented only after a guard, since no invariant ties it to the loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, for loops, 'Image of scalars, procedures and while loops.
 

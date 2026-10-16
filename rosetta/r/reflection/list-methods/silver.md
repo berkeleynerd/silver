@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task is listing an object's methods through reflection. Ada/SPARK cannot inspect program structure this way, so no future Silver can cover it. The FreeBASIC solution admits it lacks reflection and only prints a hard-coded table.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Tagged types and string operations.
 

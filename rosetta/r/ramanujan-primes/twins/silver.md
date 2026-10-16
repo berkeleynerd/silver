@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over bounded ranges with guards before each loop-carried index or increment, and nothing needs a variant or invariant, but the large array and many loop-carried values make discharge depend on careful program shape.
 
-Position 251 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 251 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Sieve of Eratosthenes into a fixed-capacity Boolean array, then a prefix prime-c
 - **termination**: All while loops live in procedures, which get no termination check, and the floating-point log bound is replaced by a literal constant so no floating point is needed.
 - **other**: The scan for each Ramanujan prime must stop after exactly one million found; the counter is guarded and a visible Reject-style message is printed if the fixed limit is exhausted before then.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars and string building.
 

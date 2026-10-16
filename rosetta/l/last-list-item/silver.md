@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from ranged subtypes, for-loops over the array's own range and one explicit sum guard, with the outer while loop in a procedure, but the text-building of each step line is the fiddly part. Nothing needs an annotation, so discharge is plausible rather than certain.
 
-Position 262 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 262 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep the list in a nine-element array of a ranged integer subtype with a separat
 - **termination**: The outer while loop sits in a procedure, which gets no termination check, and it strictly shrinks the length each pass.
 - **length**: Each printed line is assembled in a bounded buffer sized for nine items of the maximum digit width, and the line-building code needs guards before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is an index or length computation on bounded buffers that explicit guards before each splice can discharge, and non-halting rulesets are handled by a visible step-limit and capacity rejection, so no annotation is needed. It is plausible rather than likely because the nested matching and splicing loops carry many loop-carried indices that each need a guard.
 
-Position 863 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 863 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Rules are held in a fixed array of records (pattern and replacement as fixed-cap
 - **termination**: A Markov algorithm can run forever (Ruleset 3's W -> WW grows without bound), so the interpreter is a procedure with a documented step limit and buffer capacity, and exceeding either gives a visible Rejected outcome rather than silent truncation.
 - **length**: Rule text and replacement are stored in fixed-capacity buffers with explicit lengths, and any rule line longer than the capacity or lacking the ' -> ' separator is rejected with a specified message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, for loops, while loops, procedures, functions and case statements.
 

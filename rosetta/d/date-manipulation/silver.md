@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer and string work with guards before each index and rollover step, so the checks should discharge without annotations, though the parser and calendar rollover need careful shape; no task requirement conflicts with the Oracle.
 
-Position 1140 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1140 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the input string "March 7 2009 7:30pm EST" as a constant and parse it with
 - **range**: Adding 12 hours rolls over the day, month and year using range-guarded comparisons against a days-in-month table with a leap-year test, so each result is checked against its subtype before assignment.
 - **length**: The output line is built by bounded concatenation of fixed-width fields (zero-padded numbers, month name from a constant table) into a buffer sized for the longest possible result.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions and Put without a newline.
 

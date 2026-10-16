@@ -2,7 +2,7 @@
 
 **Excluded from Silver: terminal control.** The task reads the character shown at a fixed screen position into a variable, which needs a terminal positional-read facility that Silver lacks today. Ada/SPARK can express this through a future admitted terminal library operation, so it breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters and string operations.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are index and capacity bounds on loop-carried positions that can be guarded explicitly in procedures without invariants, but carry/borrow normalization and the multiplication and division tables need careful shaping, so discharge is plausible rather than routine.
 
-Position 475 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 475 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Zeckendorf number is a fixed-capacity array of 0..1 digits (about 40 positions
 - **termination**: Normalization is written as while loops inside procedures only, which get no termination check, and any function uses for loops only.
 - **initialization**: Every digit array is fully initialized by aggregate or a for loop before use, and out parameters are assigned on all paths.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, functions and string building.
 

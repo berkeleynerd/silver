@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index, division and range check follows from the embedded array bounds, the byte subtype and guards placed before each use, and the only loop-carried arithmetic is the guarded argument parsing, so the proofs should discharge without annotations. The program needs no function loops or recursion, only procedures and for loops.
 
-Position 1445 in the [progression](../../progression.md#stage-28), in stage 28.
+Position 1445 in the [progression](../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The 104 UTF-16 example bytes are an embedded constant array of a byte subtype 0 
 - **index**: Offset and length are checked against the 104-byte embedded array before the for loops index it, and an out-of-range offset is rejected rather than clamped.
 - **range**: Hex digit lookups use value / 16 and value mod 16 on a byte subtype 0 .. 255, which stay within the 16-character digit table, and the offset is formatted from a bounded integer type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, procedures, string indexing, string building, text parsing, further arguments, Put without a newline and exit status.
 

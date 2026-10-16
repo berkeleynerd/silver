@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are bounded by declared subtypes (day count 0..146096, year 0..399, month 1..12), and loops use for-loop indexes with guards before each subtraction, so every check follows from types and local guards with no variant or invariant needed.
 
-Position 525 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 525 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the three example day counts in a constant array of a ranged subtype 0..14
 - **initialization**: Year, month and day outputs are initialized to defaults before the search loops, and a found flag guards each assignment so no path leaves them unset.
 - **index**: Month-length table lookups use a for-loop index over the table's own range, and zero-padded digit output indexes a fixed two- or four-character buffer by constants derived from values bounded by subtypes.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, 'Image of scalars, string building, string indexing and characters.
 

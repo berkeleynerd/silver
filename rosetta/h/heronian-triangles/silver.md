@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, fixed array capacity with a guard, and for loops or procedure-only while loops, so no annotation is needed. The risk is moderate because the nonlinear product, the sort indexing and the manual padded text formatting all depend on careful program shape.
 
-Position 426 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 426 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Triple for loops over a<=b<=c<=200 with c<a+b call a GCD procedure and a Hero fu
 - **index**: Insertion sort shifts with a while loop whose index is guarded by J > 1 before every array access, since no invariant can be written.
 - **range**: Loop-carried values such as the Euclid remainders and the sort key are declared with ranged subtypes so type bounds alone make later arithmetic safe.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars and string building.
 

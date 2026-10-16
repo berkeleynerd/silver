@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** The task (marked 'requires First class functions') asks for a variadic combinator that takes functionals and returns their fixed points as new function values. That needs closures or run-time function construction, which Ada/SPARK cannot express. Writing the mutual recursion directly, as the FreeBASIC entry does, does not implement the combinator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Subprograms, recursion, generics, integers and arrays.
 

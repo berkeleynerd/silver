@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The O(n) recurrence needs only a for loop and a bounded mod, so every check follows from declared ranges and the loop index with no annotation needed.
 
-Position 111 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 111 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed N = 41 and K = 3 as constants and compute the survivor with the iterative 
 - **range**: The loop-carried survivor index is a subtype 0 .. 40 and the assignment (J + K) mod I is bounded by I - 1 <= 40 because I is a for-loop index in 2 .. 41, which the provers handle without an invariant.
 - **division**: The mod divisor I is the for-loop index starting at 2, so it is statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops and 'Image of scalars.
 

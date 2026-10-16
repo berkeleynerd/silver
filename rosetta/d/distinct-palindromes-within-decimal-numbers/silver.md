@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges with small fixed bounds and the only arithmetic is on three-digit values, so every check follows from types and guards just before indexing, with no loop-carried value needing an invariant.
 
-Position 987 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 987 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Task 1 turns each integer 100..125 into a three-character String using digit ext
 - **index**: Palindrome checks index a String parameter with loop variables, discharged by iterating over S'Range and testing I + 2 <= S'Last just before reading S (I + 2).
 - **length**: Output lines are assembled in a fixed 80-character buffer, so a guard on the remaining capacity precedes each append, and the sizes are small enough (at most six substrings of at most three digits) that the guard never fires for the required data.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, Boolean objects, unconstrained arrays, string indexing, string building, for loops, procedures, functions, Put without a newline and 'Image of scalars.
 

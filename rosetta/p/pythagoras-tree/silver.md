@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs only integer vector arithmetic over a fixed binary tree of 255 squares, which can be built iteratively into an array and output as text or a character grid, so proofs depend on bounded coordinate ranges and index guards rather than annotations. The original SDL window and recursion are replaced by text output and an iterative loop.
 
-Position 623 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 623 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use integer coordinates (base square side 128 times a scale) and store each squa
 - **index**: Child indices are computed as 2*i and 2*i+1 for i within the level bounds, which needs an explicit guard against the array capacity before each store.
 - **range**: Halving the side length with integer vectors only works if the base side is a multiple of 2**7, which the embedded constants satisfy but the prover must see through loop-carried values via type ranges or guards.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

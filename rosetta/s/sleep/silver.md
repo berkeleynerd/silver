@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay.** The task reads a sleep duration, prints \"Sleeping...\", delays, then prints \"Awake!\". It needs only integer parsing with input validation plus stdin, console-output and delay effects, so it breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

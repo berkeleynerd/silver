@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every access is a for-loop index over the constant text's own range or is preceded by an explicit length guard, and all work is in procedures with no function loops, so no variant or invariant is needed.
 
-Position 544 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 544 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The sample plain text is an embedded String constant with LF-separated paragraph
 - **index**: Paragraph start and end positions are loop-carried, so the program keeps them in a subtype bounded by the text's own range and guards each look-ahead (such as the character after a digit) with an explicit length test just before the access.
 - **overflow**: Position counters are bounded by the fixed constant text length, so +1 steps are protected by the declared subtype range and a guard against the last index.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, for loops, procedures and Put without a newline.
 

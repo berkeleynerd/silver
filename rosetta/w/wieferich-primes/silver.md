@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every operand is bounded by declared subtypes (N below 5000, residue below 25 million), so the overflow, range and division checks follow from types and loop bounds with no invariant needed.
 
-Position 763 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 763 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The Main procedure loops N over 2 .. 4999, tests primality with a nested for loo
 - **overflow**: The loop-carried residue Q is declared in a subtype 0 .. 25_000_000 and the modulus is a variable at most 4999*4999, so 2*Q stays within Integer and the mod result is provably below the modulus.
 - **division**: The modulus N*N is only used after the loop index N is known to be at least 2, so mod by zero is excluded by the loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and case statements.
 

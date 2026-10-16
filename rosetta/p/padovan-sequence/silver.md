@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops over fixed arrays and buffers in procedures, with the only non-routine checks being guarded integer additions, a guarded float power accumulation with a rounding conversion, and a capacity guard on string building, so no annotation is needed.
 
-Position 878 in the [progression](../../progression.md#stage-16), in stage 16.
+Position 878 in the [progression](../../progression.md#stage-15), in stage 15.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed arrays of 64 capped-range integers hold the recurrence terms (for loop wit
 - **range**: Converting the rounded floating value to the integer term type needs a range guard just before the conversion, with a visible 'differ' outcome rather than silent clamping.
 - **termination**: All iteration uses for loops in procedures, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, floating point, arrays, string indexing, string building, 'Image of scalars, for loops, procedures, functions, case statements and Put without a newline.
 

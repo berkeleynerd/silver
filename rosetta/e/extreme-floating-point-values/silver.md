@@ -2,7 +2,7 @@
 
 **Excluded from Silver: run-time error.** Excluded: the task's core requirement is to produce NaN and plus and minus infinity by arithmetic on normal floats, which needs a floating-point overflow or a division by zero. Under Oracle rule 2, every such check must be proved never to fail, so no future Silver program can meet the task.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point.
 

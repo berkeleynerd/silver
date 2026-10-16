@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Replacing the Double coordinates with bounded integers makes every arithmetic result fit its declared subtype, and all loops are for loops over array ranges, so no annotation is needed.
 
-Position 612 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 612 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Vertices are records of two ranged-subtype integer coordinates held in a constra
 - **overflow**: Coordinates are a documented subtype such as -1000..1000, so edge components, dot products and the min/max accumulators stay far below the Integer limit and the checks follow from types alone.
 - **index**: The wrap-around next-vertex index is computed by an explicit if guard and every loop ranges over the array's own bounds, so index checks are routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, records, for loops, functions and procedures.
 

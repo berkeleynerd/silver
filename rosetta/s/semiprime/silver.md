@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range, so the functions terminate without variants, and all arithmetic is bounded by a small declared subtype so overflow, range and division checks follow from types and loop ranges. No loop-carried value feeds a later check, so no invariant is required.
 
-Position 336 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 336 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a subtype Candidate of Integer range 1 .. 2000, a Boolean function Is_Pr
 - **termination**: Functions contain only for loops, which terminate on their own, so no variant is needed and no while loop or recursion is used.
 - **division**: Divisors come from a for loop over 2 .. N so the divisor is never zero, and the quotient stays within the bounded Candidate subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and Put without a newline.
 

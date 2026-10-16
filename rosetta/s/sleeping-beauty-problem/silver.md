@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer arithmetic over fixed loop bounds with ranged types and guards, but loop-carried counters need explicit guards because no invariant can be written, so discharge depends on program shape.
 
-Position 170 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 170 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program keeps a ranged-subtype LCG state advanced by (state*A + C) mod M ins
 - **overflow**: The linear congruential generator multiplies a state by a constant, which discharges because the state is a ranged subtype bounded so the product fits in 64 bits and the mod result restores the range.
 - **division**: The percentage divides by the awakening count, which is guarded to be nonzero before the division.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and string building.
 

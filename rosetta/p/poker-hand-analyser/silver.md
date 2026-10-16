@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and counters can be bounded by ranged types or by guards placed immediately before use, and no recursion or functions with while loops are needed, so no annotation is required, though the parser's loop-carried cursor and counters make the program shape matter.
 
-Position 1147 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1147 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The nine example hands are embedded as fixed-capacity strings and parsed by a pr
 - **range**: Face and suit values derived from parsed characters are converted to ranged subtypes only after a membership-style comparison that rejects anything outside 2..14 or the four suits.
 - **termination**: The tokenising loop is a while loop kept inside a procedure so no termination check applies, and everything else uses for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, arrays, for loops, while loops, procedures, functions, Boolean objects, string indexing, case statements, text parsing and Put without a newline.
 

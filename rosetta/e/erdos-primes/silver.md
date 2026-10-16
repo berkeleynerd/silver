@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size with static bounds and the only loop-carried arithmetic is the factorial product, which a simple guard against the small limit keeps within range, so no annotation is needed but the nonlinear sieve index and product need careful shape.
 
-Position 226 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 226 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A Boolean array 0 .. 2499 is filled by a sieve of Eratosthenes using for loops, 
 - **index**: Lookups of C(I - Fact) are guarded by Fact < I, which gives an index of at least 1, and the result array of 25 entries is guarded by a count check before each store.
 - **termination**: All while loops live in the main procedure body, which gets no termination check, and the sieve uses for loops.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, Put without a newline and string building.
 

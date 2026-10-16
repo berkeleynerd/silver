@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are on small fixed-range arrays and ranged counters with guards before each push and increment, and the iterative DFS avoids recursion and function variants, but the loop-carried stack and finish-order indices need careful guards, so discharge is plausible rather than routine.
 
-Position 721 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 721 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the graph as an 8x8 Boolean adjacency matrix aggregate, and run the first 
 - **termination**: The while loops live only in procedures, which get no termination check, and the DFS is iterative so no recursion or variant is needed.
 - **initialization**: All arrays (visited, order, component, stack) are filled by aggregates or for loops before use so flow analysis sees them initialized.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

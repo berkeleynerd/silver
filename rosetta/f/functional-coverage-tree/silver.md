@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for-loop work over fixed arrays with ranged integers and no recursion, so checks follow from types and a single division guard, but string building and nonlinear weighted sums need careful range shaping.
 
-Position 639 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 639 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the tree in preorder as parallel constant arrays of padded fixed-length na
 - **index**: Parent indexes are a ranged subtype of node numbers and bottom-up accumulation runs a reverse for loop over the array's own range, but each parent must be guarded to precede its child.
 - **length**: Output lines are built in a fixed-capacity buffer with a position guarded before each character write, and indentation depth is bounded by a declared range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, records, for loops, procedures, string indexing, string building, 'Image of scalars, characters and Put without a newline.
 

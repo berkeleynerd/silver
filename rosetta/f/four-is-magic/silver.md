@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from a range-typed number split by div and mod and from guards before appends to a bounded buffer, with the only loop-carried state being the buffer position and the current number, so discharge depends on program shape but needs no annotation. No recursion, heap or function-side loops are needed, because the iteration lives in procedures.
 
-Position 579 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 579 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program keeps constant tables of number words (0..19, tens, thousand) padded
 - **overflow**: The count of letters is bounded by the Length of a bounded text buffer subtype, so the next number stays inside the 0..999999 range type without nonlinear arithmetic.
 - **termination**: The loop that runs until the number is four sits in a procedure, so there is no termination check, and a fixed iteration cap with a visible reject outcome also bounds it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, string indexing, string building, for loops, while loops, procedures and functions.
 

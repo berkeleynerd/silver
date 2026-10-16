@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Small integer arrays, exact rational arithmetic and for loops with bounded ranges let every check follow from types and guards, but accumulator guards and decimal formatting need careful shape, so plausible rather than likely.
 
-Position 412 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 412 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the two examples as constant integer arrays (estimates in a ranged subtype
 - **range**: Computing five decimal digits with integer scaling (value times 100000 divided by n squared) multiplies bounded squares, which needs the operand ranges kept small enough that the product fits in 64 bits.
 - **length**: Formatted output strings are built in fixed-size bounded buffers whose capacity must be shown sufficient for the maximum digit count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, functions, string building, 'Image of scalars and Put without a newline.
 

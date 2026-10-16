@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is small bounded integer work on a fixed 52-element array, so checks reduce to types and guards before each index, but loop-carried cursors need careful shaping without invariants.
 
-Position 468 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 468 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The deck is a constant-size array of 52 card indices with a second output array,
 - **termination**: The overhand while loop lives in a procedure, which gets no termination check, and each pass takes at least one card so it ends anyway.
 - **range**: Remaining-card counts are loop-carried and must stay inside 0..52 and be guarded before subtraction, and the group size is clamped to at least 1 and at most the remaining count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, string building and Put without a newline.
 

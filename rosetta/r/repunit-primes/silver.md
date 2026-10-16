@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task needs no recursion, annotations or unavailable effects, only console output and fixed-capacity big-number arithmetic of up to about 4000 bits, which is loop-heavy but expressible with range-bounded limbs and for loops. The proof burden lies in carry and index checks across many nested big-number loops, so it is plausible but not routine.
 
-Position 1410 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1410 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A sieve of Eratosthenes over a constant array yields the 168 prime digit counts 
 - **termination**: Modular exponentiation, trial division and the sieve use for loops, and the only while loops (digit-count search and compare/subtract normalisation) sit in procedures, which get no termination check.
 - **other**: Primality is decided by Miller-Rabin with fixed bases (probabilistic like the existing solution), and the work of roughly 168 primes times 15 bases of 4000-bit modular exponentiations is large though not a proof matter.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, big numbers, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

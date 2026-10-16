@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task is an HTTP service with a POST endpoint that shortens a URL and a GET endpoint that redirects, so it needs network access, which Silver lacks today. The rest is in-memory bounded string and array handling with a deterministic key generator, which fits Silver once admitted library operations for bounded strings, tables and networking exist. No Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays, records, loops, subprograms, characters and integers.
 

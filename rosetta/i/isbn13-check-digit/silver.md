@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the fixed string length, the digit guard before Character'Pos, and the mod-10-reduced sum in a small subtype, so no loop invariant is needed. The loop is a for loop inside a function, which terminates by itself.
 
-Position 509 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 509 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The four test codes are embedded as constants of a fixed-length 14-character Str
 - **overflow**: The running sum is a loop-carried value, so it is kept in a 0..9 subtype by reducing mod 10 after each addition, which preserves the final mod-10 result and makes every addition provably in range.
 - **range**: The digit value is computed from Character'Pos only after a guard that the character lies between '0' and '9', so it is provably in 0..9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string indexing, for loops, procedures and functions.
 

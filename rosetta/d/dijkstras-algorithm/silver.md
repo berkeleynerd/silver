@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Dijkstra on a fixed 6-vertex graph needs only bounded for loops, small arrays and range-typed distances, so every check follows from types and local guards, though the nested loop-carried distance arithmetic needs careful shaping.
 
-Position 704 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 704 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The graph is a 6x6 constant matrix of Natural weights with 0 meaning no edge, an
 - **range**: Loop-carried distances and predecessors are written only with values of their own subtype, with guards before each relaxation, so range checks follow from types.
 - **length**: The path text is built in a fixed-capacity buffer sized for 6 vertices with separators, and the written length is bounded by the loop count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

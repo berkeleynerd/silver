@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over array ranges or bounded integer ranges inside a procedure, with no loop-carried arithmetic, so every check follows from types and static bounds.
 
-Position 958 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 958 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a bounded index subtype (1 .. 100) and an unconstrained Integer array ty
 
 - **overflow**: The candidate Nums'Length + 1 cannot overflow because the array index type is a declared range such as 1 .. 100 that bounds the length.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, for loops, procedures and 'Image of scalars.
 

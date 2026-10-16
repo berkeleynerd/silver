@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small declared ranges and a guard before each text index, and the only unbounded loop is a while loop in a procedure, so no annotation is needed, but the tree-building shape with loop-carried node numbers and the capacity guard needs care.
 
-Position 706 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 706 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The string "eertree" is a constant; node tables (length, suffix link, start posi
 - **termination**: The suffix-link while loop lives in a procedure, which gets no termination check, so no variant is needed.
 - **initialization**: The node tables (length, link, next edges) are fully initialized by aggregates with others so flow analysis sees every element defined.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

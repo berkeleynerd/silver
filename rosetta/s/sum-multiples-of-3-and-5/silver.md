@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The closed-form series sum needs only bounded integer arithmetic on ranged subtypes and one fixed output line, so every check follows from declared types with no loops or annotations. The optional 1e20 extra credit is omitted, and the required n = 1000 case is covered faithfully.
 
-Position 300 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 300 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a ranged subtype Limit_Range (1 .. 10**9) and a function Multiples_Sum (
 
 - **overflow**: The closed-form arithmetic k*(k+1)*step is bounded by a declared Limit range of at most 10**9 in a 64-bit integer type, so every intermediate fits and the checks follow from types alone, with no loop-carried accumulator.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, functions and 'Image of scalars.
 

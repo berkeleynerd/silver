@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is fixed-size for loops over constant arrays with wraparound modular arithmetic, so no loop-carried value needs an invariant and no run-time check can fail. The cost is only the surface growth (modular types, 2-D arrays, image output), not any proof difficulty.
 
-Position 1287 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1287 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed both programs as constant two-dimensional arrays of 32-bit modular values 
 - **overflow**: All hash mixing, subtraction of the salt and Lemire reduction use 32-bit and 64-bit modular types where wraparound is defined and carries no check, and the 32x32 product is formed in a 64-bit modular type so it cannot lose bits.
 - **index**: Program rows are read only through for loops over the constant array's own range and output bit positions run over 0..63, so shift amounts and indices are statically in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, ranged subtypes, integers, integer division, arrays, multidimensional arrays, for loops, functions, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is bounded nested for loops over fixed arrays with GF(2) arithmetic, so every check follows from types and index guards, though the loop-carried L and shift offsets need careful guards without invariants. The optional nth-term computation is omitted.
 
-Position 230 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 230 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The 7-element binary sequence is embedded as a constant array, and C, B and a te
 - **range**: The linear complexity L and shift m change inside the loop without an invariant, so they are typed as subtypes bounded by the sequence capacity and each update is guarded to stay within that bound.
 - **overflow**: All coefficients and discrepancies are GF(2) values in 0..1 with mod 2 applied, so sums of at most capacity-many products stay far below the Integer limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, string building, 'Image of scalars and Put without a newline.
 

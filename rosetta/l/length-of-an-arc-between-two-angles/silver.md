@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded integer arithmetic over declared ranged subtypes with no loops or recursion, so every overflow, range and division check follows from the types; the only extra surface is decimal text formatting of a scaled integer.
 
-Position 306 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 306 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use ranged subtypes for angles in degrees (0..360) and radius (0..1000), and a f
 - **overflow**: Scaled integer products such as 360 * 3141593 * Radius stay far below 2**63 because Angle (0..360) and Radius (0..1000) are declared subtypes, so the checks follow from the type ranges.
 - **range**: The absolute angle difference is at most 360 and the major angle 360 - diff is within 0..360 because the angle subtypes bound it, so no guard is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, functions, 'Image of scalars, string building and Put without a newline.
 

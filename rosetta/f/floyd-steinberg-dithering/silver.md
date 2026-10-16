@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is under-specified, so a small embedded grayscale image with text-art output is faithful, and everything is for loops over fixed bounds with integer arithmetic clamped by guards. Discharge depends on careful clamping of loop-carried error values since there are no invariants, hence plausible rather than likely.
 
-Position 814 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 814 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds a small fixed-size grayscale gradient as a constrained 2D arr
 - **range**: Error shares are computed with integer division by 16 on an error bounded by 255 times 16, so the sums stay within the declared cell range once clamped.
 - **length**: Each text row is built in a fixed-length String buffer of image width, filled by a for loop over the buffer's own index range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, procedures, functions, string building, Put without a newline and case statements.
 

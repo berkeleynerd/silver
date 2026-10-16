@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and length is bounded by declared subtypes and explicit capacity guards, and all while loops are in procedures, so no annotation is needed, though the file-reading loop and binary-search bounds need careful shaping.
 
-Position 1486 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1486 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ The program reads unixdict.txt into a fixed-capacity array of records (a bounded
 - **overflow**: Loop-carried search bounds and the word count stay within declared subtypes, so low+high and the 2*(i-1) position arithmetic fit the type range without invariants.
 - **termination**: The binary-search and read-loop whiles sit in procedures, which get no termination check, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, string ordering, for loops, while loops, procedures, file input and Put without a newline.
 

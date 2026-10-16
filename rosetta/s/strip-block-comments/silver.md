@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check is an index or counter bound that follows from the for-loop range, one lookahead guard and one capacity guard, with no loop-carried arithmetic beyond a guarded counter, so the proofs should discharge without annotations. The program needs only a few Character and String indexing constructs beyond today's Silver.
 
-Position 523 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 523 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The sample program text is embedded as a constant String built by concatenating 
 - **index**: Reading the character after the current one is guarded by a test that the current index is below Text'Last, and the loop index runs over Text'Range.
 - **range**: The output length counter is a subtype bounded by Text'Length and is incremented only after a guard that it is below that bound, with Reject as the visible outcome otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, for loops and Boolean objects.
 

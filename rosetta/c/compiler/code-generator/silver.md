@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can follow from ranged index subtypes plus capacity and digit-overflow guards placed just before each push, append or multiply. Nothing needs an annotation, but the many loop-carried counters and explicit stacks make discharge depend on careful program shape, so the outlook is plausible rather than likely.
 
-Position 1260 in the [progression](../../../progression.md#stage-22), in stage 22.
+Position 1260 in the [progression](../../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program reads the flattened AST from standard input into a fixed-size node p
 - **other**: Replacing recursive AST loading and code generation with explicit stacks of pending-child slots and phase-tagged work items for If and While must still produce exactly the reference byte offsets and backpatched jumps, which is a correctness burden rather than a proof one.
 - **termination**: The line-reading, tree-building, generation and listing loops are while loops kept inside procedures, and the pool lookups in functions use for loops, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions and standard input.
 

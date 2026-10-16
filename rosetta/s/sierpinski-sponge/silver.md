@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is satisfied by text art, and every loop is a bounded for loop over ranged subtypes with a pure solid-voxel function, so all checks follow from declared ranges and no invariant or variant is needed. The only mild care is keeping the buffer indices statically within the row length.
 
-Position 456 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 456 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Render a level-2 Menger sponge (27x27x27 voxels) as an oblique-projection text p
 - **index**: The row buffer index is computed from loop variables of declared ranged subtypes, so a static bound on the buffer length lets it discharge without a loop invariant.
 - **overflow**: Voxel coordinates and base-3 digit extraction use small ranged integers (0..26) with mod and / by 3, so every intermediate stays far inside Integer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, string building, for loops, procedures, functions and arrays.
 

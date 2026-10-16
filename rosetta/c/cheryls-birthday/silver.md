@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a fixed ten-element array scanned by for loops over its own index range, so index and range checks follow from types; only counters need a Boolean flag or a guard to avoid overflow, so no annotation is required.
 
-Position 1166 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1166 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The ten dates sit in constant arrays of month (an enumeration) and day (a 1..31 
 - **overflow**: Candidate counters carried through loops are replaced by Boolean found-another flags or a counter in a 0..10 subtype guarded by a test just before each increment, so no invariant is needed.
 - **length**: Concatenating the month image and day image for output is bounded by the enumeration and day subtype ranges, which should let the string length check discharge from types alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, for loops, 'Image of scalars, string building and Put without a newline.
 

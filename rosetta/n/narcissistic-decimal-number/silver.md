@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded by types and explicit saturation or limit guards on loop-carried values, so no annotation is needed, but the accumulators and the unbounded-looking search loop need careful shaping.
 
-Position 374 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 374 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure loops over candidates from 0 up to a documented limit of 10_000_000 
 - **range**: The candidate counter increments in a loop, so an explicit guard against the limit before incrementing keeps it inside its subtype, with a visible failure message if the limit is reached before 25 are found.
 - **index**: The results array has capacity 25 and storing is guarded by Count < 25 just before the write, which the prover can see locally.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, functions, 'Image of scalars, Put without a newline and string building.
 

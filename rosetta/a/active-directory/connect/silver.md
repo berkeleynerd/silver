@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** Fits the Oracle's rules (a candidate): the task only needs a connection and bind to an LDAP/AD server. That fits the Oracle's rules as long as an admitted network/LDAP library operation exists with specified failure outcomes. Silver has no such operation today, so this is a missing effect, not a fixed-rule conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, integers, records and packages.
 

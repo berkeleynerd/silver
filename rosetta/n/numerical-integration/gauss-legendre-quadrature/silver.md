@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded, uses a fixed 5-point rule and float arithmetic over small ranges, so it needs no annotations, but proving no overflow or division-by-zero through loop-carried floats and Newton updates depends on careful subtype bounds and guards. Float formatting and an admitted elementary-function library (Exp, Cos) are new surface that makes it plausible rather than likely.
 
-Position 1093 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1093 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Fixed constant N=5 with arrays of Long_Float for the Legendre coefficients, root
 - **range**: Computed values stored back into range-limited Long_Float subtypes (the iterate x, the polynomial values) need clamping guards or wide subtypes, otherwise the loop-carried values only have type-range knowledge and each store checks against that range.
 - **index**: Legendre coefficient table indices 0..5 come from for-loops over the array's own range, but expressions like n-2 need loop bounds starting at 2 to stay in range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, ranged subtypes, arrays, for loops, while loops, procedures, functions, Put without a newline, string building, integers, integer division and Boolean objects.
 

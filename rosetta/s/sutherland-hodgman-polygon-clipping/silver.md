@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed-capacity arrays and the arithmetic is bounded integer math, so checks follow from types plus a few guards (capacity, nonzero denominator, range), though the nonlinear scaled-integer intersection needs careful bounds to discharge. Extra credit graphics are optional and skipped.
 
-Position 632 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 632 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent points as records of bounded integer coordinates (fixed-point scaled b
 - **range**: Intersection results computed by division are not provably inside the coordinate subtype, so they are range-guarded before being stored, with rejection if out of range.
 - **length**: Decimal text for the fractional coordinates is built in a fixed-size buffer whose maximum length follows from the bounded coordinate range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, string building, 'Image of scalars, for loops, procedures, functions and Put without a newline.
 

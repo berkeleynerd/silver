@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is on small ranged integers with a fixed three-iteration for loop instead of a while loop, so no termination or invariant facts are needed and only the Count increment needs a guard.
 
-Position 120 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 120 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main loops N over 1 .. 500 with a ranged-subtype copy C, and an inner for loop o
 
 - **overflow**: The loop-carried Count is declared with a range and incremented only under a guard just before the increment, so the range check discharges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and string building.
 

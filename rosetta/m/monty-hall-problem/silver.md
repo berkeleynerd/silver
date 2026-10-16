@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over fixed ranges with a modular-type generator, so every check follows from types, static bounds and a type with headroom for the counters; no annotations or recursion are needed.
 
-Position 1282 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1282 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A deterministic modular-type LCG yields door indices via mod 3; a procedure play
 - **range**: Door values come from a mod 3 reduction converted to a 1..3 subtype, so the conversion is in range by construction.
 - **overflow**: Win counters only have their type range inside the loop, so they use an integer type with headroom far above the fixed game count of 10000.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, enumerations, arrays, for loops, procedures, 'Image of scalars and string building.
 

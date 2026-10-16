@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every numeric check follows from guards placed just before Arcsin, Arccos, \"**\" and the cube, and from the elementary-function postconditions. The outlook is plausible rather than likely because the program relies on SPARK's access-to-subprogram and generic-instantiation support, with float guards in every wrapper.
 
-Position 1574 in the [progression](../../progression.md#stage-38), in stage 38.
+Position 1574 in the [progression](../../progression.md#stage-37), in stage 37.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each \"function of a real\" is a not-null access-to-function from Float to a (Va
 - **range**: The cube root calls "**" (Left, 1.0/3.0) only on a strictly positive Left, handling zero and negative values in separate if branches, so its library precondition holds.
 - **termination**: The generic Compose function calls F and G through access values, and its termination check relies on GNATprove treating the loop-free, non-recursive designated functions as terminating.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, floating-point images, records, Boolean objects, functions, access types, generics, arrays, for loops, block statements and 'Image of scalars.
 

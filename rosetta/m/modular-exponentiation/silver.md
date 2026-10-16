@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks derive from digit and carry subtypes and array-range for loops, but nested carry arithmetic and nonlinear digit products need careful range shaping, and the modulus is fixed at 10^40 as a documented limit, so discharge is plausible rather than certain.
 
-Position 561 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 561 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Numbers are fixed arrays of decimal digits of subtype 0..9: a reduced to its low
 - **range**: Each digit and carry assignment after a division or mod by 10 must be proven in its subtype, which needs the solvers to handle small nonlinear bounds.
 - **termination**: The exponent is consumed by a for loop of fixed 240 halvings in a procedure, avoiding any while loop or variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops, procedures and Put without a newline.
 

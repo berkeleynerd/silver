@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories.** The task is to create a directory path with the same behavior as mkdir -p, succeeding if it already exists. This needs a directory-creation effect that Silver does not yet have, plus string handling to split the path, but it breaks no fixed Oracle rule. Bounded path length and a specified failure outcome (non-zero exit status) fit Silver.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and loops.
 

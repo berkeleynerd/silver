@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index checks discharge from the reverse for loop over Coeffs'Range. The only non-routine checks are overflow and range checks on the loop-carried accumulator's nonlinear multiply-add, and a guard on the accumulator placed just before each step makes them provable without an invariant.
 
-Position 999 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 999 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Coefficients are an unconstrained array of a bounded coefficient subtype (for ex
 - **overflow**: The loop-carried accumulator product Res * X is nonlinear, so it discharges only because a guard checks that Res is within a documented bound just before each step and declared ranges bound X and every coefficient; if the guard fails, the routine sets Ok to False instead of computing.
 - **range**: Assigning Res * X + Coeffs (I) back to the bounded accumulator subtype needs the guarded bound on Res combined with the coefficient and X ranges, so the bound constants must be chosen so the worst-case result fits the accumulator subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, unconstrained arrays, for loops, procedures and 'Image of scalars.
 

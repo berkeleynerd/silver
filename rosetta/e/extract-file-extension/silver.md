@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the for-loop index over the parameter's own range, so slicing and indexing discharge without invariants, and for loops need no variant in a function. The only novelty for Silver is unconstrained String parameters, returns and slices, plus Character comparisons.
 
-Position 1546 in the [progression](../../progression.md#stage-34), in stage 34.
+Position 1546 in the [progression](../../progression.md#stage-33), in stage 33.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A function Extension (S : String) return String walks S backward with a for loop
 - **index**: The backward scan uses a reverse for loop over the parameter's own S'Range and slices S (I .. S'Last) only with I taken from that loop, so empty and one-character inputs are covered without invariants.
 - **range**: The Character comparisons for letters and digits are plain range tests on loop-indexed characters, and the result slice bounds come straight from the loop index, so nothing is computed across iterations.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, Boolean objects, functions, procedures, unconstrained arrays, string indexing, string building, for loops, while loops, integers, ranged subtypes and membership tests.
 

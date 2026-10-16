@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded buffers, subtype-ranged counters and an explicit guard before each lookahead, and the scanner is a procedure so termination is not checked, but the many loop-carried positions, counters and buffers need careful guard placement. Nothing requires an annotation, and the exception-based error reporting of the existing solution is replaced by specified diagnostics.
 
-Position 1569 in the [progression](../../../progression.md#stage-37), in stage 37.
+Position 1569 in the [progression](../../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 
@@ -22,7 +22,7 @@ Read the whole source into a fixed-capacity Character array with a length, rejec
 - **termination**: The scanner is a procedure with a while loop, so no termination check applies, and the position advances on every state transition.
 - **initialization**: The buffers and the output token fields are fully initialized by declaration, and every case branch sets them before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions, records, Put without a newline, standard input, file input, exit status, standard error and membership tests.
 

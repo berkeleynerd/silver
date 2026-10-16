@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, constant loop bounds over a fixed 1000-character string and a constant-modulus generator, with no loop-carried value needing an invariant. Comparing digit strings lexicographically avoids loop-carried numeric accumulation entirely.
 
-Position 1478 in the [progression](../../progression.md#stage-30), in stage 30, which adds string ordering.
+Position 1478 in the [progression](../../progression.md#stage-29), in stage 29, which adds string ordering.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A 1000-character String of digit characters is filled in a for loop from a deter
 - **overflow**: The generator state is a ranged subtype updated by a small multiply and a mod by a constant, so the product fits and the result stays in range from types alone.
 - **index**: Window slices Line (I .. I + 4) use a for loop over 1 .. 996, so bounds follow from the loop range and the fixed 1000-length string.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string ordering, for loops and unconstrained arrays.
 

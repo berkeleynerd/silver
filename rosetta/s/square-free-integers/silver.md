@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared integer ranges, for-loop indexes over array ranges and a guard before each window store, but 64-bit nonlinear products and the string and 'Image output machinery make it depend on careful program shape. No annotation is needed because all loops are for loops or sit inside procedures.
 
-Position 404 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 404 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Two Boolean arrays are used, one of 1_000_001 entries for 1..10^6 and one of 146
 - **division**: Every divisor d*d is at least 4 because d is a loop index over a range starting at 2.
 - **termination**: All loops are for loops, or while loops inside procedures, so no termination check arises.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

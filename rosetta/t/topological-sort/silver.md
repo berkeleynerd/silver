@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All data is embedded and the graph is tiny and fixed, so every index and range check follows from loop ranges over the arrays and a guard on the placed count, and no recursion or while loop is required.
 
-Position 807 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 807 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The 15 library names (including ieee and std, which appear only as dependencies)
 - **index**: The placed-count is a range-typed loop-carried value, so the program guards that it is below the node count before writing the next order slot.
 - **initialization**: Order, Placed and the dependency matrix are fully initialized by aggregates (others => False or 0) before any read.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, multidimensional arrays, case statements, for loops, procedures and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks are bounded by declared element ranges and for-loop indexes, with only the loop-carried running sum needing a guard, so no annotation is required but the program shape must be careful.
 
-Position 63 in the [progression](../../progression.md#stage-5), in stage 5.
+Position 63 in the [progression](../../progression.md#stage-4), in stage 4.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the example sequence as a constant array of 11 elements of a bounded integ
 - **initialization**: Start and end indexes are set to an empty-subsequence marker before the loops and updated only on improvement, so nothing is read uninitialized and the all-negative case yields the empty result.
 - **index**: Slice bounds are printed with a for loop over the recorded Start..Finish indexes that lie in the array's own index subtype, so index checks follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline and procedures.
 

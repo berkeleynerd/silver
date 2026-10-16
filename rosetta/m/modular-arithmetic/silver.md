@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is on a modular type whose arithmetic wraps by definition, so no run-time check can fail and there are no loops or recursion to need annotations; the only wrinkle is bounded text building for the output line.
 
-Position 1264 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1264 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare type Mod13 is mod 13 and a function F (X : Mod13) return Mod13 returning
 
 - **length**: The concatenation of the 'Image text with literals needs a static length bound, which the modulus 13 gives because the image is at most 3 characters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, functions and 'Image of scalars.
 

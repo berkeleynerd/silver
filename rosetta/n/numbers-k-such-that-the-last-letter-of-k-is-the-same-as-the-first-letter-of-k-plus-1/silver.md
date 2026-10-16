@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from small constant tables, range subtypes and division/mod on a bounded k, but the carried counters and the 10-million-iteration scan need careful guard placement without invariants, so discharge depends on program shape.
 
-Position 854 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 854 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute the first and last letter of the English name of any n below 100,000,000
 - **range**: Letter lookups decompose a bounded number (below 100,000,000) with division and mod into subtype-ranged parts that index constant name tables, which discharges from the subtype bounds.
 - **length**: Output lines are built in fixed-capacity buffers sized for the largest value, with padding computed from 'Image lengths that the bounded number range limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

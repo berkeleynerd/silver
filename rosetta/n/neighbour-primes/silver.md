@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is bounded by declared subtypes (p, q at most 600, r at most about 253,000), all loops are for loops or in procedures, and the only non-routine part is guarded string padding, so checks discharge from types and guards.
 
-Position 362 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 362 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Define a function Is_Prime(N) over a bounded subtype that loops for D in 2..500 
 - **termination**: Primality testing uses a for loop with exit over a fixed divisor range, and the outer scan over p is a for loop, so no while-loop variant is needed in functions.
 - **index**: Right-justified padding writes into a fixed 80-character buffer using Image text whose length is bounded by the subtype, discharged with explicit length guards before each slice.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, procedures, for loops, while loops, 'Image of scalars, string building and Put without a newline.
 

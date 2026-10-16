@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded element ranges, a fixed maximum length and a for loop over the array's own range, so no annotation is needed.
 
-Position 965 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 965 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare a bounded element subtype (-1000..1000), a vector type indexed 1..100 as
 
 - **overflow**: The accumulator is loop-carried, so element subtypes bounded to +/-1000 and a sum subtype sized for 100 elements keep each product and partial sum within Integer, with a length guard rejecting longer vectors.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, unconstrained arrays, for loops, functions and 'Image of scalars.
 

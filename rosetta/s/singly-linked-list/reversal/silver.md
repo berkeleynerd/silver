@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Index-based linked lists in a bounded array are plain SPARK: every access is bounded by the index subtype or an explicit Null guard, and no loop carries a fact that needs an invariant. The task is trivial and the loops sit in procedures, so proofs should discharge automatically.
 
-Position 606 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 606 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Represent the singly-linked list as a fixed-capacity array of node records (a wo
 - **index**: Link traversal indexes a fixed-capacity node pool; links use a subtype with a Null value 0 and each dereference is guarded by a test against Null, so index checks discharge from types and guards.
 - **termination**: The traversal and in-place reversal loops live in procedures, which get no termination check, and a for loop bounded by the pool capacity could replace the while loop.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, arrays, records, for loops, while loops, procedures, Put without a newline, string building, integers and Boolean objects.
 

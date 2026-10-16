@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and guards placed just before pointer increments and stores, with no recursion or while loops, but the loop-carried pointers and capped values make discharge depend on careful program shape.
 
-Position 101 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 101 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep a constant-size array of 1691 values of a capped 64-bit integer subtype, in
 - **overflow**: Multiplying a stored value by 2, 3 or 5 is safe because the element subtype is capped well below 2**60, so the product fits a 64-bit integer from types alone.
 - **initialization**: The whole Values array is initialized with an aggregate before the loop so reads at pointer positions are always of initialized data.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, Put without a newline, procedures and Boolean objects.
 

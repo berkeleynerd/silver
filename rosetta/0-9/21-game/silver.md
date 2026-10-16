@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from a 0..21 subtype, a 1..3 amount validated from input, and a guard placed just before the addition, and the only loop is a while loop in a procedure. The task's random option is optional, so a deterministic computer strategy and a user-chosen first player satisfy it with no annotations needed.
 
-Position 1224 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1224 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -17,7 +17,7 @@ A Main procedure holds a Total of subtype 0..21 and a two-value Player enumerati
 - **range**: Total is a 0..21 subtype and the sum is computed only after an explicit guard that Total plus the chosen amount is at most 21, with an over-limit choice answered by an error message and re-prompt.
 - **termination**: The turn loop is a while loop inside a procedure, which gets no termination check, and it ends on a win, a quit command or end of input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, enumerations, case statements, while loops, procedures, 'Image of scalars, Put without a newline, standard input and string building.
 

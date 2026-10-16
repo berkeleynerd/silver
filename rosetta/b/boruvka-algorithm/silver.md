@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All indexes and values come from small declared subtypes and for-loops over fixed bounds, so checks mostly follow from types, but the loop-carried parent links, counters and weight accumulator need careful subtype and guard shaping. No annotations are required once recursion and while loops are replaced by bounded for loops.
 
-Position 928 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 928 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 4-vertex, 5-edge example graph as a constant array of edge records wit
 - **other**: Find with path compression is recursive, so the program uses an iterative find in a procedure with a for loop bounded by the vertex count and no path compression, which still discharges without a variant.
 - **other**: Facts like 'num_trees stays at least 1' are not known to the prover after loop iteration, so the tree counter must be a range subtype (1..V) with a guard before each decrement.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, records, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building, Boolean objects and conditional expressions.
 

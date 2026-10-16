@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged integers and for-loop bounds with guards before table writes, but the nested enumeration, multiplication of bounded values and several loop-carried counters need careful program shape and a long runtime in the prover-friendly style.
 
-Position 950 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 950 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -17,7 +17,7 @@ Key parameters: tables are fixed arrays of 50 plus four result pairs. About 170 
 - **range**: Counters for the 50-entry tables and the running index (up to about 766505) are bounded by guards before each increment and by a ranged index subtype.
 - **index**: Result-table writes are guarded by count < 50 just before the store, and digit extraction uses mod 10 on bounded values.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building, Put without a newline and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The program is bounded integer array filling with for loops over static ranges, so almost every check follows from types and loop bounds, with only the loop-carried sums needing explicit guards. The 15-row limit keeps all values at most 16384, so the guards are unreachable but cheap.
 
-Position 906 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 906 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a 15 by 15 array of a ranged subtype 0..16384 filled row by row with for loo
 - **index**: Row and column indexes are for-loop variables over the array's own ranges, with the k-1 neighbour only used when k is at least 1, so index checks follow from the loop bounds and a guard.
 - **other**: Image conversion and spacing for values up to five digits need a bounded output buffer or Put of 'Image, whose length checks must be provable from the element range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, Put without a newline and conditional expressions.
 

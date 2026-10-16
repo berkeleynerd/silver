@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK.** Excluded: the task asks a program to report where its own module or function is defined, or to return that source, which is reflection on program structure. Standard Ada/SPARK cannot express this; only GNAT's non-standard Source_Info intrinsics come close.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and subprograms.
 

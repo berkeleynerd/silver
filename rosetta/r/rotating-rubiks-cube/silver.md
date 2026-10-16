@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task has only the one-line requirement to show a rotating Rubik's cube, so text-art frames computed with bounded integer trigonometry fit Silver and every check follows from declared ranges and guards before grid writes. The work is mostly new surface (arrays, records, loops, procedures) rather than hard proof.
 
-Position 1473 in the [progression](../../progression.md#stage-29), in stage 29.
+Position 1473 in the [progression](../../progression.md#stage-28), in stage 28.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The cube is 8 vertex records with small integer coordinates held in a constant a
 - **index**: Projecting vertices onto the character grid needs the computed row and column to be guarded against the grid bounds before each store, with out-of-range points simply skipped, which is visible clipping rather than a behavior change.
 - **termination**: All loops are for loops over fixed frame, vertex and grid ranges inside procedures, so no loop variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, for loops, procedures, functions, string building, 'Image of scalars, Put without a newline and packages.
 

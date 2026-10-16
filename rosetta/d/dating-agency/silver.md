@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The scenario is a small fixed-size data model with trivial integer and Character arithmetic over static ranges, and only for loops, so every check follows from types and bounds. It needs no recursion, while loops or heap.
 
-Position 527 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 527 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Ten ladies' names are stored as fixed-length (padded) String constants in an arr
 - **index**: Each name is a fixed-length String padded to a constant width and indexed only at its first character with static bounds, so the access is routine.
 - **range**: Digit root of a character position (at most 255) is computed with a for loop over a fixed three-digit decomposition, so every value stays within declared integer ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, ranged subtypes, Boolean objects, arrays, for loops, integers, integer division, procedures, functions, string indexing, string building and Put without a newline.
 

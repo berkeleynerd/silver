@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything except the Pell primes fits in bounded 64-bit integer loops, but the 10th Pell prime needs about 116-bit primality testing, which forces big-number modular arithmetic whose checks are bounded by types and guards without annotations, so success depends on careful program shape.
 
-Position 1413 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1413 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Compute Pell and Pell-Lucas numbers for indices 0..89 in a fixed-capacity big-nu
 - **termination**: Shift-and-subtract division and the Miller-Rabin loops are while loops that must live in procedures, which get no termination check, and any helper that cannot be a for loop must not be a function.
 - **range**: Decimal digits of the approximations are produced by integer long division with a fixed digit count, and the 20 or so Pell values used there stay within Long_Long_Integer by declared bounds on the term count.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, big numbers, 'Image of scalars, string building and Put without a newline.
 

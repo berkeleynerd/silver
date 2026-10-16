@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared subtypes, the array's own index ranges and a bounds guard before each move, and the task's exception-based exit is replaced by an explicit guard, so no annotation is needed.
 
-Position 772 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 772 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Keep a 100x100 Boolean array, ant X and Y in a 1..100 subtype, and a heading in 
 - **index**: Ant coordinates are declared in 1..100 and the next position is computed in a wider Integer and tested against 1..100 before assignment, so every grid access is within bounds and leaving the region ends the loop as the task specifies.
 - **termination**: The ant loop is a while loop in the Main procedure, which gets no termination check, so no variant is required, although halting rests on the known behavior of the automaton rather than on a proof.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, for loops, while loops and case statements.
 

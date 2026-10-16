@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing needs an annotation because recursion and pointers are replaced by index arrays and explicit stacks inside procedures, but the many loop-carried indices and stack pointers each need careful guards, so discharge depends on program shape.
 
-Position 1117 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1117 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Points are stored in fixed arrays of integer coordinates (1000-point capacity, a
 - **floating point**: Only the final square root of a bounded non-negative integer distance is floating point, kept to a range-guarded conversion.
 - **termination**: Tree building and nearest search run as while loops in procedures over an explicit stack, which get no termination check, whereas any function must avoid while loops and recursion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, floating-point images, 'Image of scalars, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, Boolean objects, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check derives from the string's own index range and a 0..255 character position, with no loop-carried arithmetic beyond a Natural index, so it should discharge without annotations. Silver just needs strings with indexing, for loops, procedures, and Put plus 'Image output.
 
-Position 776 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 776 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure takes a String parameter and scans with a for loop from S'First+1 to
 - **index**: Loop index runs over the string's own range from First+1 to Last and element 'First is read only when the loop executes, so checks discharge.
 - **length**: Output lines are built in a bounded buffer sized for the longest test string plus fixed message text, so concatenation lengths are static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, case statements, for loops, procedures and Put without a newline.
 

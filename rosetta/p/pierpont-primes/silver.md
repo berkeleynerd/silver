@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay under about 30 million, so ranged integers and explicit guards on the candidate counter and array counts discharge every check, with loops placed in procedures to avoid termination checks; only the optional big-number part is skipped.
 
-Position 264 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 264 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Two procedures use while loops: one tests whether a number is of the form 2^u*3^
 - **range**: If the limit is reached before 50 primes are found the program must reject visibly rather than print a short list, which a guard after the loop covers.
 - **other**: The optional 250th-prime part needs fixed-capacity big numbers with primality testing of numbers with hundreds of digits, which is left out as optional.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, procedures, for loops, while loops, 'Image of scalars, Put without a newline and string building.
 

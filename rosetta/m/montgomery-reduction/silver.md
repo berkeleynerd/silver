@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Small fixed-radix integer arithmetic in a for loop is checkable from types and a pre-addition guard on the one loop-carried accumulator, so no annotation is needed, though a 100-bit big-number version like the existing solution would need fixed-capacity digit arrays and be harder.
 
-Position 385 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 385 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use the task's radix-10 example (m = 72639, b = 10, n = 5, m' = 1, T = 7118368) 
 - **range**: The digit u_i = (a_i * m') mod b is bounded by the radix type, and the power b^i comes from a constant table indexed by the loop variable, so these are routine once A is guarded.
 - **division**: The divisions by b^i and b^n use table entries that are static positive constants, so nonzero divisors follow from the array's declared range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, string building, procedures and functions.
 

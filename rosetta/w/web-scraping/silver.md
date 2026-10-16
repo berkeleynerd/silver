@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The Silver-friendly solution is an admitted network-fetch library operation that returns a bounded body, followed by a loop over bounded lines and a fixed-pattern search for "UTC" to print the time fragment. The existing AWS solution uses a status-code check and string search, which fits the Oracle's rules once the fetch has a specified failure outcome. Nothing in the task requires an exception, assertion or unsafe construct, so there are no fixed-rule conflicts; only the network effect is missing from Silver today.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, string operations, loops and arrays.
 

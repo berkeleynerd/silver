@@ -231,6 +231,81 @@ Genuine matching executables, stable installations, Alire's environment and
 GNATprove's relative support-tool lookup remain external premises. The generated
 digest is evidence of selected configuration, not a runtime binary attestation.
 
+The [producer/schema record](for-loops-image-schema.md) identifies the pinned
+serialization and consumer field order. The selected-schema argument uses the
+existing GNATprove/Why3 JSON parser-faithfulness boundary through the explicit
+`JSON.ParserSound` contract: every successful parse of an independently valid
+ASCII JSON spelling has its semantic projection, preserving decoded strings,
+ordered array fields and integer values. Parsing success with its specified
+meaning is required for the finite selected template encodings. The argument
+makes no universal parsing-success claim for unbounded integer tokens. Equal
+independently derived normalized bytes then yield equal semantic projections;
+unrestricted raw-number serialization is not assumed injective. Numeric fields
+consumed as OCaml integers must be representable, while arbitrary-precision
+producer numbers retain their quoted-string representation. Parser soundness
+assumes no matcher success, selected template identity, insertion position or
+desired Image theorem; those remain independently established premises or
+conclusions of the composition.
+
+Completeness additionally requires a precise pinned-producer contract for all
+admitted source forms: each selected Integer, String or Image theory has its
+fixed normalized content whenever emitted; selected names occur at most once;
+and Image's Integer and String dependencies are present. The contract describes
+producer output without assuming scanner success, matcher state or refinement.
+The complete source-route review below supplies these external properties;
+generic well-typed JSON and faithful parsing do not imply them.
+`ProducerSchemas.envelope`, `producer_finishes` and
+`FilesSource.native_producer_finishes` derive successful initialized traversal
+of the entire document and the appropriate `Finish` result. Absence of Image
+alone does not establish acceptance: the scanner still checks any selected
+Integer or String theory. Final combined validation is recorded in the
+[capability checkpoint](for-loops-integers.md#stable-delivery-evidence).
+
+The [complete producer review](for-loops-image-producer-review.md) records exact
+constructor/template parity and the array-head argument across fixed vendor
+sources as well as Main. Faithful serialization includes the intended Natural
+occurrence-counter domain without wrap for the configured inputs. This is an
+explicit frontend format/capacity premise: binary inspection found an unchecked
+increment, so the source subtype is not a runtime enforcement proof. Stable
+regular model-file length within the signed-64-bit filesystem representation
+separately supplies the scanner's byte/depth room. No invented per-node sizing
+theorem or additional membership limit is used.
+
+`ImageModelRefinement` and `ImageRefinementEndpoint` derive scanner
+normalization, complete selected schemas, original insertion offsets, exact
+payloads, fresh node identities and recovery of every original byte.
+`ImageModelTemplateValidity` provides finite valid-spelling evidence for all
+three theories and both clone values. Numeric schema meanings use semantic
+integer projection; the inserted clone has separately fixed exact lexemes.
+`ImageModelConsumerBoundary`'s finite external interpretation applies to the
+actual checked `Clone.substitutions` and the reviewed qualified primitives;
+`ImageConsumerEndpoint.RefinedDocument.consumer_instance` joins the resulting
+signature and Image assertion to the actual inserted occurrence. Neither
+arbitrary raw numeric strings nor arbitrary trees with the same decoded role
+rows are assumed to be accepted by the consumer. The
+[delivery checkpoint](for-loops-integers.md#stable-delivery-evidence) records the
+final input-specific audits and independent source/semantic review.
+
+The reviewed producer serializes a `Natural` occurrence counter, whose maximum
+on the selected hosts is 2147483647, rather than internal `Why_Node_Id` values.
+The adapter checks that full input range and reserves 2147483648 through
+2147483670 for its 23 nodes. The 64-bit OCaml consumer retains signed 63-bit
+integers; all inserted values fit its 4611686018427387903 maximum. Complete
+schema matching also fixes clone alias/import scope; ID freshness alone does
+not establish name resolution or semantic validity. Faithful external typed
+conversion, qualified-name resolution and predefined primitive meanings remain
+part of the existing frontend/tool boundary, without exempting Silver-owned
+source or transformations from verification.
+
+The finite consumer composition must also interpret the actual clone/include
+constructors, five substitutions, alias scopes and qualified names under the
+[reviewed consumer routes](for-loops-image-producer-review.md#finite-consumer-constructor-and-name-interpretation).
+Its primitive-meaning contract refers to those exact predefined symbols and
+contains no Image assertion, matcher/adapter acceptance or proof-success fact.
+Silver derives the returned signature's equality with the predefined signature
+and then applies the independent size-12 theorem. A role decoder over fixed
+syntax is only one input to that composition.
+
 The adapter uses the same direct-spawn ABI and immutable argument vector as
 `Run_Application`. Native Static loop invariants and the assertion immediately
 before `Spawn` establish the exact forwarded vector: every original argument is
@@ -460,6 +535,23 @@ dependency references to reviewed vendor operations. This is neither a proof of
 the vendor implementation nor permission to assume a Silver-owned obligation.
 Other validity messages, source suppressions and unproved checks remain rejected.
 
+`Silver_Image_Files.Counts` instantiates the same vendor
+`SPARK.Big_Integers.Signed_Conversions (Model.Byte_Count)` for Static byte-splice
+observations and contracts. Its `To_Big_Integer` and `From_Big_Integer`
+operations inherit the pinned vendor mathematical-integer interpretation; Silver
+does not claim to prove their runtime bodies. The evidence classifier must check
+the actual `Counts` source instance and type argument, then match the exact
+qualified entity names and both declaration origins: `a-nbnbin.ads:82:16` and
+`a-nbnbin.ads:85:16`, each instantiated at `silver_image_files.ads:16:4`.
+Only these exact vendor operations receive the existing `spec` treatment;
+`Counts` itself and all Silver-owned observations, helpers and bodies retain
+`all` coverage and complete obligation/diagnostic checks. This documents
+completeness of the existing SPARKlib classifier, not a new trust exception or
+Oracle amendment. The missing classification found by the original native audit
+is tracked in [#48](https://github.com/berkeleynerd/silver/issues/48), with its
+repair and validation disposition in the
+[delivery review](reviews/review-410ed2c.md#native-audit-findings-and-repaired-validation).
+
 All actual flow/proof checks must be discharged. The audit rejects skipped
 analysis, `pragma Assume`, justified checks, unproved checks, missing coverage,
 failed invocations, and source-suppressed diagnostics. The source-policy lexer
@@ -653,7 +745,8 @@ arbitrary JSON or replaces trusted GNATprove completeness and provenance.
 source grammar used for admission: static, argument, assigned or selected
 output. Its independent ghost policy and executable traversal require completed
 Main analysis, full Main coverage and no skipped/assumed/suppressed checks. Every
-emitted safety record must be proved/info `VC_RANGE_CHECK` or `VC_LENGTH_CHECK`,
+emitted safety record must be proved/info `VC_RANGE_CHECK`, `VC_LENGTH_CHECK` or
+`VC_OVERFLOW_CHECK`,
 with prover completion, Main filename/entity and a positive location. Static
 folding may leave no safety checks. Static/assigned report shapes contain Main
 with neither, either or both of Put and Put_Line. Argument/selected shapes additionally
@@ -680,13 +773,13 @@ Repeated-output advisories are restricted to the exact `INEFFECTIVE` message
 rejected; all provenance and suppression checks also apply to these eight messages.
 
 No-output sequences and static elimination can produce Main alone with or
-without assignment length/range checks or advisories. The checker retains complete
+without length/range/overflow checks or advisories. The checker retains complete
 Main coverage, all emitted check requirements and approved dependency references.
 The external producer premise, rather than accepting arbitrary entity omissions,
 justifies this finite set of report shapes. The Python evidence helper applies
 the same policies and cross-checks SARIF records and totals.
 
-Automatic completion relies on faithful and complete range/length obligation
+Automatic completion relies on faithful and complete range/length/overflow obligation
 generation and the accepted entity/advisory/check shapes. Applicable static
 elimination remains a frontend premise, but elimination of every satisfied
 assignment length check is no longer required: emitted length checks need their
@@ -694,11 +787,14 @@ own semantic/discharge argument and successful solver records. Matching fields
 alone cannot establish that no obligation was omitted. An unexpected genuine
 shape or unproved check for admitted source is an implementation/toolchain
 defect, not permission to weaken membership or suppress obligations. Native
-binding discovery corroborates these classes; the [current delivery record](branches.md)
-tracks implementation and source-correspondence validation.
+binding discovery corroborates these classes. The [branch record](branches.md)
+retains the earlier String/path evidence; the
+[scalar/loop/Image delivery record](for-loops-integers.md) tracks the extended
+schemas, implementation and source-correspondence validation.
 
 Application proof uses `-U --mode=all --report=all --checks-as-errors=on --level=2
---prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0`. All output
+--prover=cvc5,z3,altergo --steps=100000 --timeout=0 --memlimit=1000 -j0
+--no-loop-unrolling`. All output
 routes use `--warnings=continue` to classify their exact permitted advisories
 from complete reports; null retains `--warnings=error`. Unexpected audited
 diagnostics prevent publication, and all selected library reports remain strict.
@@ -716,9 +812,10 @@ seen in compiler audits has not been proved impossible for application runs.
 Such a tool failure prevents publication and is reported as a defect, never as
 nonmembership or successful verification. Prover step limits do not bound
 frontend/flow work, operating-system delays or total elapsed time. The bounded
-composition argument must establish the generated range and exact-length
-schemas for every permitted declaration, expression, assignment and control-flow
-path. It does not prove that the bundled proof portfolio automatically
+composition argument must establish the generated range, exact-length and
+overflow schemas for every permitted declaration, expression, assignment and
+control-flow path, including scalar intermediate intervals, Integer Image length
+and loop bounds, indexes and body composition. It does not prove that the bundled proof portfolio automatically
 discharges every source schema accepted by Lean's endpoint-discharge checker.
 Completion within the 100,000
 normalized steps and 1,000 MiB per-prover-process memory cap, with sufficient
@@ -791,9 +888,11 @@ these contracts do not constitute verification of libc or GNAT itself.
 
 ## Source correspondence and semantic assumptions
 
-Handwritten modules fix the source bindings for both actual recognizer
-specifications/bodies, the lexical, context/name and integer-literal helpers, the path-fact
-specification and the six selected runtime library files. The `Silver.AuthoritativeSource` facade imports
+Handwritten modules fix the source bindings for the actual recognizer
+specifications/bodies, lexical and context/name helpers, bounded and scalar
+integer literals, scalar expressions, length intervals, path facts, Image theory,
+scanner, templates and file transformation, and the six selected runtime library
+files. The `Silver.AuthoritativeSource` facade imports
 all bindings; each certificate imports only its own binding. The certificate
 generator emits candidate reconstruction data and cannot select replacement bindings. Lean
 checks that every source byte, including comments and literals, belongs to
@@ -923,8 +1022,9 @@ are not full hermeticity: native environment and toolchain integrity remain
 external assumptions.
 
 The Lean proof tree is private to the host and reads the authoritative `src/`
-through a checked link. Seventeen generated source-certificate modules, Lake
-artifacts and manifests are written there. Shared proof inputs are fingerprinted
+through a checked link. The generated source-certificate modules, Lake artifacts
+and manifests are written there; the final audit records the actual imported
+scope for its exact inputs. Shared proof inputs are fingerprinted
 and must remain unchanged throughout a run; tools and protected workspace
 copies are also checked for stability. Routine evidence contains an aggregate
 input digest, scope, modules, tool version and identities, timings and replay
@@ -957,8 +1057,8 @@ for hostile metaprograms or forged artifacts.
 for toolchain/cache investigations or explicit audits. It cannot be combined
 with `--target`. `--clean` discards the local proof workspace without implying
 replay. The Oracle requires complete proofs and correspondence, not this
-additional standalone recheck. Each of the seventeen
-embedded Ada files is a binary input dependency of its own handwritten binding
+additional standalone recheck. Each embedded Ada source file is a binary input
+dependency of its own handwritten binding
 module, rehashed on each invocation. Changing one file invalidates that binding,
 its certificate and transitive importers. Unrelated certificates and models can
 remain cached; changes to their shared Lean dependencies still invalidate them.
@@ -971,7 +1071,8 @@ paths and tool selections cannot redirect it. Artifact restoration is disabled
 for proof checking; this does not disable the local Lake build cache.
 
 The handwritten import facade is protected like other proof inputs; only the
-seventeen enumerated candidate modules may be regenerated. After generation and
+candidate modules enumerated in [the Lean runner](../scripts/check_lean.py) may
+be regenerated. After generation and
 again after checking, noncandidate workspace modules and
 project/toolchain files must equal the captured shared bytes. Files and their
 workspace parents may not be symlinks. A candidate generator therefore cannot

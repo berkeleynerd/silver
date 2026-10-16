@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs bounded line buffers, character scanning and Put_Line output over embedded data, and every index and length check can be guarded in procedures with bounded loops, but many loop-carried positions make careful guard placement necessary.
 
-Position 645 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 645 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The sample file is embedded as a fixed-capacity array of line records (a bounded
 - **overflow**: Line counts and buffer lengths are declared ranged subtypes with a capped line count, and the forced values 1024 and 62000 are constants, so counters cannot exceed their ranges.
 - **termination**: All loops run in a procedure, using for loops or while loops over bounded positions, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

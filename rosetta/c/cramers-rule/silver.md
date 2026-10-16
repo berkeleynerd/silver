@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Integer coefficients with ranged types make Cramer's rule a bounded straight-line computation with for loops only, so overflow and division checks should discharge from type ranges and a nonzero-denominator guard, though nonlinear products make provers need careful bounds.
 
-Position 700 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 700 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a ranged Integer subtype for a constant 4x4 matrix and right-hand side vecto
 - **range**: Cramer's rule gives a rational result, so the program checks the remainder is zero before dividing and otherwise prints the numerator and denominator, which avoids silently truncating results.
 - **index**: Minor extraction indexes a 4x4 array with for-loop variables over its own ranges, which is routine, but skipping a row or column needs guarded index arithmetic.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, 'Image of scalars, string building, for loops, procedures and functions.
 

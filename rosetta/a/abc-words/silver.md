@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from the bounded buffer type, for-loop indexes over 1 .. Length and comparisons of stored positions with no arithmetic, so no loop-carried value needs an invariant. The only non-routine parts are the library read operation and the guard rejecting over-long lines.
 
-Position 1349 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1349 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -19,7 +19,7 @@ A main procedure loops while a line-reading library procedure reports a line, fi
 - **length**: A line longer than the buffer capacity is rejected with a specified outcome by an explicit guard, so no length check can fail.
 - **termination**: The read-until-end-of-input while loop lives in a procedure, which gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, for loops, while loops, procedures, standard input and exit status.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded integer subtypes and guards before each buffer access and digit accumulation, but the hand-written parser with loop-carried values needs careful guard placement, and Silver needs stdin line reading plus text parsing first.
 
-Position 1357 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1357 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ A procedure reads the first line into a bounded line buffer and parses it as a c
 - **termination**: Parsing loops live in procedures, which get no termination check, and the pair loop is a for loop over the parsed count.
 - **length**: Line buffers are fixed-capacity with a stated maximum, and over-long lines are rejected rather than truncated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, for loops, while loops, procedures, string indexing, string building, 'Image of scalars, text parsing, standard input, conditional expressions and exit status.
 

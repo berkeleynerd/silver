@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task only needs text-art output of bounded integer arithmetic, with indices guarded and loops all for loops, so nothing requires an annotation, but the fixed-point bounds and the line-stepping coordinates need careful typing and guards.
 
-Position 824 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 824 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The cube's 8 vertices are stored in a constant array of integer triples, and a c
 - **range**: Line drawing between two vertices uses a step loop with loop-carried interpolated coordinates whose types bound them, and a clamp guard before indexing is needed because no invariant can be written.
 - **termination**: All loops are for loops or live in procedures, so the frame loop is a fixed count and no termination check can fail.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, string building, Put without a newline and case statements.
 

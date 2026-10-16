@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded types, array ranges and capacity guards, but the quadratic grouping with loop-carried counters and the buffer-append guards demand careful program shape, and no annotation is needed.
 
-Position 862 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 862 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each number 0..10000 is spelled into a bounded 64-character buffer by a non-recu
 - **overflow**: The ten-thousand-by-twenty-six signature table and the quadratic pairwise grouping use only for loops over the arrays' own ranges, so index and counter checks follow from types.
 - **termination**: All loops are for loops or while loops inside procedures, and the number-to-words logic uses case and division on bounded values with no recursion.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

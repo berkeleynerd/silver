@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** No Oracle rule is broken and no annotation is needed because every stack, index, arithmetic and parsing check can be guarded just before use with a visible fault outcome, but the many loop-carried values (sp, pc, accumulators) and the wide-type overflow handling make careful program shape necessary.
 
-Position 1570 in the [progression](../../../progression.md#stage-37), in stage 37.
+Position 1570 in the [progression](../../../progression.md#stage-36), in stage 36.
 
 ## Failure paths to test
 
@@ -23,7 +23,7 @@ The listing is read from stdin line by line into fixed-capacity tables: a string
 - **length**: String-pool entries and input lines live in fixed-capacity buffers with explicit lengths, and over-long lines or escape expansions are rejected at append time.
 - **termination**: All loops are in procedures, which get no termination check, so the interpreter loop needs no variant, though a guest program that loops forever simply runs forever by specification.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline, standard error, exit status and standard input.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound.** The task asks for an audible, continuous tone whose frequency and volume can be changed, plus a hardware availability check and a clean silence on exit. Silver will need an admitted audio library with specified failure outcomes to do this. No fixed Oracle rule is broken: adjustment commands can come from standard input, frequency and volume can be bounded integer ranges with visible rejection at the limits, and the optional waveform selector is an enumeration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, integers, loops, subprograms and enumerations.
 

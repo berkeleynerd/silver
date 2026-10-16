@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task fits the Oracle with no conflicts, but iterative floating-point linear algebra with loop-carried accumulators and parsing of real numbers makes automatic proof of overflow, NaN and division checks depend on careful range guards, and exact output matching is only approximate.
 
-Position 1247 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1247 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Store A, U and V in fixed-capacity two-dimensional Long_Float arrays (say up to 
 - **index**: Matrices are fixed-capacity two-dimensional arrays with m and n validated against the capacity before use, and loops run over declared ranges.
 - **overflow**: Loop-carried float accumulators for dot products lose their bounds after the first iteration, so entries must be range-limited by a type such as a bounded float subtype and validated on input, which GNATprove may still struggle to carry through nested sums.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, floating-point images, text parsing, arrays, multidimensional arrays, for loops, while loops, procedures, functions, standard input, Put without a newline, Boolean objects and conditional expressions.
 

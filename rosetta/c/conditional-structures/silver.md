@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The program only branches on a constant of an enumeration type and prints literal strings, so it has no run-time check that could fail beyond what types and static case coverage already settle. The task's "select" demonstration needs tasking, which the task does not require, so it is left out.
 
-Position 1160 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1160 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
 Main declares an enumeration type Day and an embedded example constant Today, then shows each conditional structure Ada/SPARK offers in turn: an if/elsif/else chain, a case statement with an alternation choice and a when others default, a full-coverage case statement without others, an if expression and a case expression. Each one passes a String literal to Put_Line. No arithmetic, indexing or loops are involved, so the only checks are the trivial ones on discrete choices that the compiler has already shown to be complete. About 45 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, case statements and conditional expressions.
 

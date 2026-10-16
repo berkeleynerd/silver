@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded integer arithmetic and array indexing with guards placed immediately before use, in a procedure so no loop variants are needed, but several loop-carried indexes and counters need careful guarding and the nested loops make the proof shape delicate. Larger sample indices (10000, 100000) only raise the fixed capacity, not the proof difficulty.
 
-Position 245 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 245 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure keeps an array of the first Max_N Ulam numbers and a Boolean members
 - **termination**: The generator is a procedure (no termination check) and its candidate loop is a for loop over 3..Limit with a flag for completion, so no variant is required.
 - **range**: Candidate values and list contents are held in a ranged subtype, and subtraction results are tested to lie in that range before conversion or indexing.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

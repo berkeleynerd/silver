@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound, delay.** The task asks for a 5-second sine wave at a chosen frequency, played as sound. A bounded loop can fill a fixed-size sample array using a bounded-range or fixed-point sine, so no Oracle rule is broken. Playing the audio is an external sound effect that Silver does not have yet.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, loops, subprograms and floating point.
 

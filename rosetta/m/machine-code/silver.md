@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations, OS services.** Excluded: the task requires writing machine-code opcodes into memory and executing them. That needs unchecked address-to-subprogram conversion, foreign calls to allocate executable memory, and running unverified machine code, all of which break the Oracle's ban on unsafe constructs.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, access types and subprograms.
 

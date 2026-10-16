@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program needs only a String constant, bounded concatenation of static-length operands and Put_Line, all of which today's Silver supports, so every check is static and discharges trivially.
 
-Position 11 in the [progression](../../progression.md#stage-1), in stage 1.
+Position 12 in the [progression](../../progression.md#stage-1), in stage 1.
 
 ## Approach
 

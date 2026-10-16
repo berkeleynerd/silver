@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from fixed array bounds, small ranged subtypes and guards before each increment or parse, with no annotation required, but many loop-carried counters need careful guarding and stdin parsing support is needed.
 
-Position 1552 in the [progression](../../../progression.md#stage-34), in stage 34.
+Position 1552 in the [progression](../../../progression.md#stage-33), in stage 33.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Candidates are 3024 four-digit records with distinct digits 1..9 held in a fixed
 - **termination**: The guess loop is a while loop in a procedure, which gets no termination check, and is also bounded by at most 3024 guesses.
 - **range**: Parsing the typed bulls and cows into 0..4 digits requires explicit validation of length and character range, with invalid or inconsistent input (bulls+cows above 4) rejected visibly.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, string building, text parsing, for loops, while loops, procedures, functions, Put without a newline, standard input, exit status and membership tests.
 

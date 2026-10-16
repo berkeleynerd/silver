@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop with static bounds and all values are bounded by declared subtypes under a documented 31-exponent limit, so checks discharge without annotations; the task explicitly permits stopping at the implementation's maximum precision, so the 47th prime is not required.
 
-Position 313 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 313 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a subtype for exponents 2..31 and a 64-bit signed integer subtype for re
 - **overflow**: S*S-2 stays within 64-bit signed because S is a subtype bounded below 2**31 and the exponent is limited to 31, so the bound follows from declared ranges, though the mod result must be shown to fit the subtype.
 - **range**: The modulus 2**P-1 is built by a bounded for-loop of doublings (or a constant table) so no variable-exponent ** is needed, keeping the nonlinear step easy for the provers.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, functions, procedures, 'Image of scalars, Put without a newline and Boolean objects.
 

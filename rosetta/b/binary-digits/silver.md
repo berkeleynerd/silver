@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every arithmetic result is bounded by the subtype, so overflow, range and index checks follow from types and the loop index, with no loop invariant needed. Only the slice bounds need a small guard, which the loop index and the zero branch provide.
 
-Position 957 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 957 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure Show takes a value of a subtype Natural range 0 .. 2**31-1, fills a 
 - **range**: Character'Val(48 + N mod 2) is routine because N mod 2 is provably 0 or 1, so the position stays in 48..49.
 - **index**: Slicing from the first '1' position to the buffer end needs a guard that the position lies in the buffer, supplied by the for-loop index range and an explicit zero-value branch.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, unconstrained arrays, for loops, procedures and Put without a newline.
 

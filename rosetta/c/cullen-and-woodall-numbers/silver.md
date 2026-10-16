@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is computed fresh from a loop index whose range is declared, so overflow and range checks follow from types and static bounds, needing no invariants. Only the plain Put and 'Image surface are new.
 
-Position 1504 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1504 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -12,7 +12,7 @@ A main procedure with two for loops over a subtype N_Range is 1 .. 20, each comp
 
 - **overflow**: n * 2**n + 1 with n declared in 1 .. 20 stays below 2**25, so it fits Integer; the prover needs the bounded exponent and product, which the loop range supplies without any loop-carried value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, exponentiation, ranged subtypes, for loops, 'Image of scalars and Put without a newline.
 

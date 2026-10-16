@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything can be bounded integer arithmetic over fixed arrays with for loops and guards, so no annotation is needed, but 64-bit sums, loop-carried indexes and the LCG need careful typing; floating point is avoided by using integer coordinates.
 
-Position 1438 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1438 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Points are integer-coordinate records in a fixed array of 30,000 with a cluster-
 - **overflow**: The deterministic LCG uses a modular type, and draws are reduced with mod by a nonzero constant before conversion to a ranged subtype.
 - **termination**: The Lloyd iteration is a procedure with a for loop over a fixed maximum iteration count, so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, arrays, records, for loops, procedures, functions, Boolean objects, 'Image of scalars, string building, Put without a newline, file output and multidimensional arrays.
 

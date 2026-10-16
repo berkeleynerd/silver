@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small constant bases, a 0 .. 15 array range, a for-loop bound and a guarded counter, and the while loop lives in a procedure so no variant is needed; the main work is just the new integer, array and string-building surface.
 
-Position 342 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 342 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Two Boolean arrays indexed 0 .. 15 are filled by a procedure Fill_Digits (N, Bas
 - **index**: Set (Nn mod Base) is indexed by a value in 0 .. 15, which holds because Base is a constant 10 or 16 (or a subtype 10 .. 16) so the mod result is within the array range.
 - **overflow**: The Count increment is bounded because Count is a subtype of 0 .. 100_000 and is only incremented once per iteration of a 100_000-iteration loop, so a guard before the increment (Count < 100_000) is needed since the loop-carried value is otherwise unbounded in the prover's view.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Widening to 64 bits plus a zero-divisor guard discharges all the basic operations routinely. Only the guarded multiply in the power loop relies on nonlinear reasoning, so proof depends on careful program shape rather than annotations, which makes the outlook plausible.
 
-Position 1447 in the [progression](../../../progression.md#stage-28), in stage 28.
+Position 1447 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Main reads the first two arguments, validates and parses them to Integer, and re
 - **range**: The accumulator is declared in a symmetric range -Limit .. Limit so abs P cannot overflow, and a negative exponent gets a visible 'undefined' line instead of evaluating the power.
 - **other**: Parsing the arguments must go through an admitted validating operation so that malformed or out-of-range text leads to Reject rather than a Constraint_Error from 'Value.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, 'Image of scalars, text parsing, further arguments and for loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over ranged integers and fixed ten-element arrays, so index, range and overflow checks follow from types plus a trivial guard on the tally increments, with no need for annotations.
 
-Position 1509 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1509 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function takes a number in a ranged subtype 0..10**10-1, extracts up to ten di
 - **index**: Digit values come from mod 10 on a non-negative bounded value and positions come from a for loop over 0..9, so every array index is within 0..9 by type.
 - **overflow**: The tested number is a ranged subtype below 10**10 within 64-bit range, and the scan loop variable is bounded by the same subtype, so the arithmetic is bounded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, arrays, for loops, functions and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: directories, processes, environment.** The task asks for a launcher that compiles a script when its source is newer than a cached binary, then execs the binary. This needs argument, file, directory-metadata, environment and process effects that Silver lacks today, but nothing breaks a fixed Oracle rule. Ada can express it with bounded path strings and iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations.
 

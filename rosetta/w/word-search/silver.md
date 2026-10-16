@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is a bounded grid cell or fixed-capacity buffer slot that can be guarded just before use, and no recursion, heap or annotation is needed. The risk is the nonlinear generator and the loop-carried placement cursors, so careful guard placement is needed but no invariant.
 
-Position 1202 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1202 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds about 40 lowercase words of 3 to 9 letters taken from unixdic
 - **termination**: The retry and placement loops are while loops in procedures, which get no termination check, and each is also bounded by an explicit attempt counter so the program ends with a specified outcome.
 - **other**: Packing at least 25 words and leaving exactly 11 free cells depends on the deterministic search succeeding, so the program must reject or report failure in a visible way after its attempt budget is spent rather than shrinking the requirements.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions and Put without a newline.
 

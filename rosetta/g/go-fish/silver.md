@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Fixed-size count arrays, a bounded deck and procedure-based while loops mean every check follows from types and guards, but several loop-carried counters need explicit guards because no invariant can state that each rank has at most 4 cards.
 
-Position 1253 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1253 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Hands are two arrays of per-rank card counts (13 ranks, small ranged counts), th
 - **termination**: The game loop and the input retry loop are while loops inside procedures, which get no termination check, so none is needed.
 - **other**: Rank-parsing and the AI's choice among held ranks need loops over the 13 ranks with guards, and end-of-input must be handled as a specified outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, case statements, Put without a newline and standard input.
 

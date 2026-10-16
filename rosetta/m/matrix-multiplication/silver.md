@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indices come from the arrays' own ranges and the bounded element subtype makes every product sum overflow-free without an invariant, so the checks are routine; the open work is admitting multidimensional arrays and number formatting.
 
-Position 656 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 656 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare a ranged element subtype, constrained 2x3 and 3x2 matrix constants embed
 - **overflow**: Elements are a subtype of -1000..1000 and the 3-term inner product is written as one unrolled expression, so no loop-carried accumulator is needed and the sum stays far below Integer'Last.
 - **length**: Each output row is built in a bounded buffer sized for the worst-case image widths, with the length known from the fixed element range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, multidimensional arrays, for loops, 'Image of scalars and string building.
 

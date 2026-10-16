@@ -2,7 +2,7 @@
 
 **Excluded from Silver: annotations, run-time error.** The nested-call propagation requires author-written exceptional contracts, and the deliberate uncaught U1 outcome cannot satisfy the required proof obligations; local handlers alone are not a conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Subprograms.
 

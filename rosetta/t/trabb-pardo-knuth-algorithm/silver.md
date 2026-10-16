@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The control flow is simple for loops and every check follows from ranged types and guards, but it depends on admitted floating-point parsing, Sqrt and formatting operations with verified contracts, so discharge hinges on careful range guards.
 
-Position 1234 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1234 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Store eleven values in a Float array with a bounded range subtype, read each thr
 - **index**: The eleven-element array is filled and read back with for loops over its own range, so indexes are routine.
 - **other**: Parsing decimal text into floats and formatting results depends on an admitted library with specified failure outcomes; unparsable or out-of-range input must be rejected visibly, not clamped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, floating point, arrays, for loops, procedures, functions, text parsing, floating-point images, standard input, Put without a newline, Boolean objects and string building.
 

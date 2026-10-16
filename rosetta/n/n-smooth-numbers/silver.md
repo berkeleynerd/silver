@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged digit, carry and index subtypes plus guards, but the fixed-capacity big-number arithmetic in loops and the guarded table indices make discharge depend on careful program shape rather than being routine.
 
-Position 1383 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1383 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each number as a fixed 32-digit little-endian decimal array in a 3002-
 - **range**: Decimal conversion of 32-digit numbers and the 3000th 3-smooth value (about 9.4e28) need a digit capacity chosen with margin, and the table size 3002 is a fixed documented limit.
 - **termination**: All loops are for loops or live in procedures (the merge loop is a for loop over table positions), so no termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, big numbers, Put without a newline, string building, 'Image of scalars and records.
 

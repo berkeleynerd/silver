@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges, for-loop bounds, a Count guard and fixed string positions, and no loop carries a value needing an invariant. The fixed year bound 2200 is a documented resource limit that covers all 15 required results.
 
-Position 532 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 532 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Nested for loops over Year 2020..2200, Month 1..12 and Day 1..Days_In_Month(Year
 - **index**: Digit characters are written to fixed positions 1..10 of a 10-character String, which are static bounds.
 - **range**: Digit extraction via /, mod and Character'Val is bounded by year, month and day subtypes, but the provers must see the quotient is 0..9, which is routine for small ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, for loops, functions, procedures, string indexing, string building and Put without a newline.
 

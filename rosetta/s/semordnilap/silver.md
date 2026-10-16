@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded array types, capacity guards and for-index ranges, and the only while loop is a binary search in a procedure, but it needs careful shape for the loop-carried bounds and depends on the missing file-input operation.
 
-Position 1364 in the [progression](../../progression.md#stage-25), in stage 25.
+Position 1364 in the [progression](../../progression.md#stage-24), in stage 24.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ Load the file line by line into a bounded array of fixed-width rows (about 26000
 - **overflow**: The pair counter is bounded by the word capacity subtype, and the loop-carried count is guarded to stay below capacity before each increment.
 - **other**: Binary search is only correct on sorted input, so the program verifies sortedness while loading and rejects an unsorted file with a message rather than assuming it.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File input, standard input, integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, Put without a newline and exit status.
 

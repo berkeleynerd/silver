@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a bounded for loop over fixed-size strings with output-position guards and character-class case mapping, so all checks follow from types and local guards and no annotation is needed. The code-run rule Ashcraft/Tymczak needs only a small previous-code state variable of a small enumeration or digit subtype.
 
-Position 793 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 793 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the sample names as String constants and encode each in a procedure writin
 - **index**: The scan index and output position are loop-carried, so the program uses a for loop over the name's own range and guards the output position (opos <= 4) just before each store, with the lookahead index checked against the bounds.
 - **range**: Soundex digits are derived from a case statement over upper-cased letters mapped to a small digit subtype, so conversions are bounded by the type and an explicit non-letter guard that skips such characters.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures, functions, Boolean objects, integers, case statements and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes, for-loop indexes over fixed arrays and capacity guards before buffer writes, and the repeat-detection loop lives in a procedure so no variant is needed, but loop-carried buffer positions need careful guard placement.
 
-Position 742 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 742 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Each term is a bounded digit buffer (a record holding a fixed-capacity Character
 - **termination**: The sequence-until-repeat loop is a while loop inside a procedure, so no termination check is generated, and a history-capacity guard ends it with a visible outcome anyway.
 - **other**: Counts of 10 or more would widen a term beyond two characters per digit, so the buffer capacity guard must cover this case and report overflow rather than assume single-digit counts.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, records, for loops, while loops, procedures, string building, 'Image of scalars, Put without a newline, Boolean objects and functions.
 

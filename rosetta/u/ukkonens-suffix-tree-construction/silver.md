@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task needs Ukkonen suffix tree construction over a bounded alphabet. This fits arrays of node records with integer indices and iterative loops, with no recursion or pointers. It also needs pi digits to 100000 places, which needs fixed-capacity big-number arithmetic (or an embedded or file-read digit source), console output and a clock for timing. No fixed Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, characters, arrays, records, enumerations, loops, subprograms and big numbers.
 

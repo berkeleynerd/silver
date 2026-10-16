@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every loop is a for loop over static ranges with array indices bounded by declared subtypes, so the only non-routine obligation is the bounded nonlinear product I * J in the sieve. No annotations or termination variants are needed, and there are no conflicts.
 
-Position 165 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 165 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a constant-bounded Boolean array Composite (0 .. 999_999) as a sieve of Erat
 - **overflow**: I * J and the gap subtraction stay within Integer because I is at most 1000, J is at most 1_000_000 / I, and the last-prime value is always a declared-range index.
 - **length**: The result line concatenates the 'Image text of four integers, whose maximum lengths follow from the declared integer subtype ranges and fit a fixed-size buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and string building.
 

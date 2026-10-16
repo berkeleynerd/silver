@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task needs several sorting routines (bubble, insertion, shell and so on) run over bounded arrays of ones, ascending and pseudo-randomly shuffled values. It also needs a clock to time them and text output of the timings, with a text-art plot or data file for the plot. Iterative sorts on bounded arrays and a deterministic generator are all provable, and nothing in the task breaks an Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, floating point, arrays, loops, subprograms and string operations.
 

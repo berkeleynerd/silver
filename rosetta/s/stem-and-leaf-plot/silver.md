@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index comes from a subtype-bounded element or a for-loop range, and the only loop-carried value (the count) gets a guard before its increment, so no annotation is needed. Output is plain text through procedures with only for loops, so there are no termination or recursion issues.
 
-Position 457 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 457 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the 120 data values in a constant array whose element subtype is 0..149, t
 - **overflow**: The per-value count increment inside a loop has no invariant, so a guard just before the increment (reject if the count is at its subtype maximum) discharges it.
 - **range**: Converting stem and leaf digits to Character via 'Val is safe because the stem is declared 0..14 and the leaf 0..9, so the digit arithmetic stays within range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, Put without a newline and procedures.
 

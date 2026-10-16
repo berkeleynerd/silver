@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The program produces actual coloured bars in an image file, rather than replacing colour with labels, and needs file output that Silver has not admitted.
 
-Position 1419 in the [progression](../../../progression.md#stage-27), in stage 27.
+Position 1419 in the [progression](../../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -12,7 +12,7 @@ Position 1419 in the [progression](../../../progression.md#stage-27), in stage 2
 
 Write a fixed P3 PPM header for an 80 by 8 image, then repeat eight rows of ten black, red, green, blue, magenta, cyan, yellow and white pixels in that order using fixed RGB text and bounded loops. Close the file and report any creation, partial-write or close failure through the specified file-output outcome; a viewer displays the resulting coloured image. About 35 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 For loops and file output.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: system randomness.** The task needs true-random pad generation, file reading and writing, and letter-wise modular addition on bounded strings. None of that breaks an Oracle rule, because invalid or exhausted pads can be rejected with a specified outcome. The management sub-task is optional and is left out.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, loops, string operations, subprograms, characters and integers.
 

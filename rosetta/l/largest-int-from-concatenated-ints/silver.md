@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from the Item subtype bound and for-loop ranges with no loop-carried accumulators, and there are no while loops or recursion, so no annotation is needed. Arithmetic comparison of cross-concatenations avoids building strings and keeps overflow trivially bounded.
 
-Position 979 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 979 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Elements are a subtype Item range 1 .. 999 stored in a fixed array of 8, with th
 - **overflow**: Cross-concatenation values X*Scale(Y)+Y stay below 10**6 because elements are a subtype capped at 999 and Scale is 10, 100 or 1000, so the bounds follow from types alone.
 - **index**: Bubble-sort swaps index A(J) and A(J+1) with J ranging 1 .. N-1 over a fixed-size array, and the Image slice starts at S'First+1 of a nonempty result, both following from loop ranges and types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, procedures, functions, Boolean objects, 'Image of scalars, string indexing, unconstrained arrays and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Excluded from Silver: OS services, processes.** The task needs a COM/OLE automation server and an out-of-process client exchanging variant values. That is an operating-system service and inter-process effect that a future admitted library could specify, so it is an effect gap rather than a fixed-rule conflict. Variants can be modelled as a discriminated record, so no Oracle rule is broken.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Records, subprograms and enumerations.
 

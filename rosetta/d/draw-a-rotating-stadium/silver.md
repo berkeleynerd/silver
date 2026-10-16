@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The picture is rendered as text art frames with integer-only math over small fixed ranges and for loops in procedures, so every check follows from declared types and loop bounds with no annotations needed.
 
-Position 536 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 536 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A constant array holds integer cosine and sine values (scaled by 1000) for a fix
 - **overflow**: The rotated-coordinate and squared-distance arithmetic is nonlinear, but grid coordinates, the scaled sine/cosine table and the stadium dimensions are all small declared ranges, so products stay far below the Integer limits.
 - **index**: Row buffer writes use the for-loop variable over the buffer's own range and frame indexes iterate the constant table's range, so index checks follow from loop bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, for loops and procedures.
 

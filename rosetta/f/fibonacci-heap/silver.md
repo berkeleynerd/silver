@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Index-based linked structures in a fixed pool keep every check within subtype ranges and null guards, and iterative cascading cut and consolidation avoid recursion, though rank and degree-table bounds need careful guards with a rejecting outcome and a fixed pool capacity.
 
-Position 648 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 648 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Nodes live in a fixed-capacity pool of parallel arrays or a record array (key, p
 - **termination**: Circular-list walks and consolidation loops are written as while loops inside procedures (no termination check), or as for loops bounded by the node capacity, with no recursion.
 - **initialization**: The node pool and degree table are fully initialized by whole-array aggregates or initialization loops before use, and out parameters are assigned on every path.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

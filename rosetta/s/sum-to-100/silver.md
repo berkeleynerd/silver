@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops or while loops inside procedures (no termination check), arrays are statically sized, and every arithmetic step is bounded by wide subtypes plus explicit guards, so nothing needs an annotation; the main burden is guarded loop-carried arithmetic and the new integer, array, string-building and Put surface.
 
-Position 473 in the [progression](../../progression.md#stage-11), in stage 11.
+Position 473 in the [progression](../../progression.md#stage-10), in stage 10.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Enumerate all 2*3^8 operator choices with a counter loop, decoding the base-3 op
 - **length**: The expression text buffer is sized to the longest string (17 characters for digits plus signs plus leading minus) and the write position is guarded before each append, so no overflow of the bounded buffer occurs.
 - **range**: Base-3 pattern decoding by mod and / on a loop counter bounded by a declared subtype keeps operator choices in 0..2 and the digit-to-Character conversion within 0..9.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, procedures, functions, Boolean objects, string building, 'Image of scalars and Put without a newline.
 

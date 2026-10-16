@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and every cell value is bounded by a ranged subtype, so index and overflow checks follow from types and guards without invariants.
 
-Position 654 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 654 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Use a procedure Main with a fixed-size 2D array (0..16, 0..16) of a ranged subty
 - **index**: Matrix indices I-1 and J-1 are safe because for loops run over 1..Length of constant strings inside a matrix declared 0..Max.
 - **overflow**: Each cell is a ranged subtype wider than the longest string, and a loop-carried cell read after the first iteration is only known by type, so a guard before the +1 keeps the cell within range while still computing the true minimum.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, 'Image of scalars and for loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from index subtype ranges and a capacity guard before allocation, with for loops and procedures only, so no annotation is needed. The no-circular-loops requirement is met structurally by only linking fresh nodes.
 
-Position 609 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 609 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The list is a fixed-capacity pool of nodes in arrays (or an array of records) ho
 - **index**: Node links are a ranged index subtype whose range includes the 0 null sentinel as an array bound, so every Prev/Next access is within the array by type alone.
 - **range**: The node count increment is guarded by a Count < Capacity test that rejects insertion with a visible 'list full' message, and links are assigned only values of the index subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, procedures, for loops, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are array indexes and a bounded length counter protected by guards placed just before each use inside for loops in Main, so no invariant or variant is needed and the outlook is likely.
 
-Position 978 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 978 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The ten poem lines are embedded as an array of 40-character space-padded String 
 - **index**: Reads of Line (I - 1) are guarded by I > Line'First with and then, and writes to Buffer (Out_Len + 1) are guarded by Out_Len < Buffer'Last immediately before the write.
 - **range**: The loop-carried output length Out_Len is a Natural range 0 .. 40 that is only incremented under the Out_Len < 40 guard, whose else branch prints a visible over-capacity message that cannot occur because the output never exceeds the 40-character input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, Boolean objects, characters, arrays, for loops, string indexing, string building and unconstrained arrays.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded for loops over fixed ranges with small Boolean arrays and bounded counters, so checks follow from types and simple guards and no variants or invariants are needed. The only non-routine parts are loop-carried counters and quotients, which need guards or subtype bounds.
 
-Position 408 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 408 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Enumerate all 4096 truth assignments with a for loop over a ranged integer, deco
 - **index**: Statement indexes are constants 1..12 or for-loop variables over the table's own range, so every access is statically in bounds.
 - **range**: Decoding each assignment number 0..4095 into bits uses rem and division by the literal 2 on a loop-carried quotient, which stays in range only through its subtype bound.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, procedures, functions, Put without a newline and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded buffers, small ranged subtypes and explicit guards with visible rejection outcomes, and no function needs a loop variant because the loops live in procedures. The main care points are the guarded value accumulator and the fixed-capacity tables and sorts.
 
-Position 1339 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1339 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read unixdict.txt line by line in a procedure into a bounded 32-character buffer
 - **termination**: The insertion-sort and read loops are while loops inside procedures, which get no termination check, so no variant is needed.
 - **other**: The digital root uses the closed form 1 + (V - 1) mod 9 for V > 0 so no recursion or digit loop is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, string indexing, string building, 'Image of scalars, for loops, while loops, procedures, functions, file input and Put without a newline.
 

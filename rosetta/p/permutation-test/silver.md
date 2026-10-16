@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from array ranges, constant divisors and bounded sums with guards, with no recursion or heap, but the loop-carried sums and counters and the bit-extraction arithmetic need careful guard placement.
 
-Position 177 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 177 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 19 effect values in a constant array (treatment first), and for each m
 - **division**: Bit extraction by division and mod uses constant nonzero divisors, and the percentage divides by a total that is guarded to be nonzero before use.
 - **range**: The one-decimal percentage 1000*count/total stays in range if counts are held in a subtype bounded by 524288.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, string building, procedures and Boolean objects.
 

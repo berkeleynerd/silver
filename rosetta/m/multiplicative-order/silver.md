@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from range subtypes capping moduli at 10_000 and a bounded for loop with incremental modular multiplication, but nonlinear mod arithmetic and LCM overflow guards require careful shape, and no annotation is needed.
 
-Position 263 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 263 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the task's example pairs (element, modulus, and coprime factor lists) in s
 - **termination**: The GCD loop is a while loop, so it lives in a procedure (no termination check), while the order search uses a bounded for loop.
 - **other**: An element not coprime to the modulus has no order, so the search loop ends without a hit and the program prints a specified 'no order' outcome rather than raising Program_Error.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

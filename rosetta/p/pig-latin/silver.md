@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded index subtypes and guards placed just before each buffer access, with no loop-carried fact needing an invariant, though the guard-heavy shape of the scanning loops needs care.
 
-Position 554 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 554 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ An embedded sentence constant is scanned by a while loop in a procedure that cop
 - **overflow**: Position and length counters are bounded subtypes of small capacity so increments are guarded and cannot overflow.
 - **termination**: The word-scanning loops are in a procedure, which has no termination check, and each advances the position by at least one.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, string indexing, string building, for loops, while loops, procedures, functions and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic on small subtypes with guards before each string index and digit accumulation, so no annotation is needed, but the hand-written parser's loop-carried position and value need careful guard placement.
 
-Position 1137 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1137 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The five example CIDR strings are embedded as an array of fixed-length padded St
 - **division**: Masking divides by a power of two taken from a constant table indexed by the bit count 0..8, so the divisor is statically nonzero.
 - **termination**: Scanning uses while loops only inside procedures, which get no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, 'Image of scalars, text parsing, for loops, while loops, procedures, Put without a newline and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, fixed array bounds and explicit input guards, and all unbounded loops sit in procedures where no termination proof is demanded. The main cost is new surface (stdin parsing, 2D arrays, string building), not proof difficulty.
 
-Position 1232 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1232 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Settings and guesses are read as bounded lines, parsed with validation into rang
 - **termination**: The no-repeat color selection and the read-until-valid-input loops are while loops inside procedures, which get no termination check, and the guess loop is bounded by the guess limit.
 - **length**: Typed guess lines are bounded by a fixed-capacity buffer and rejected by an explicit length guard before copying into the code array.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, text parsing, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

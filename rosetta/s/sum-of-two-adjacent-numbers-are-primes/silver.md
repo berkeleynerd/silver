@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Fixed small ranges, for loops and a guarded counter mean every overflow, range and division check follows from types and static bounds with no loop invariant needed.
 
-Position 137 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 137 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Main procedure loops n over the constant range 1..40 (the 20th qualifying n is
 - **overflow**: All values are bounded by the declared range 1..40 for n and 81 for the sum, so every addition and multiplication discharges from types.
 - **length**: Each output line is built from three Integer'Image texts with fixed literals, whose maximum length is bounded by the declared subtype ranges so concatenation fits the bounded buffer.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, 'Image of scalars and string building.
 

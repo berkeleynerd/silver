@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks are index checks over the String's own range and enumeration-valued assignments, so no loop-carried value needs an invariant and the for loop terminates by itself. Embedding the input script avoids stdin and keeps the program deterministic, with invalid signals handled explicitly.
 
-Position 1162 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1162 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
 An enumeration State (Ready, Waiting, Dispensing, Refunding, Done) holds the current state, and the demo input signals are an embedded constant String such as "dsrdrq" walked by a for loop over Script'Range. Each iteration first runs the implicit transition (Refunding to Ready) if applicable, then a case on the state with a nested case on the Character signal either advances the state or prints an invalid-input message and stays put, exiting the loop at Done. Signals left over after Done or an exhausted script have a specified outcome (stop, with a final state line). About 50 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, characters, string indexing, case statements, for loops, while loops, 'Image of scalars and Put without a newline.
 

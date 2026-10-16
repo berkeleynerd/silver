@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only requires creating and using a small map, which maps cleanly to a fixed-capacity array of key/value entries with for-loop lookup, so every index and range check follows from types and guards.
 
-Position 597 in the [progression](../../../progression.md#stage-13), in stage 13.
+Position 597 in the [progression](../../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The map is a fixed-capacity record holding a Count, an array of key records (a 1
 - **index**: Entry count is a subtype ranged 0..Capacity, insertion is guarded by Count < Capacity, and lookup uses a for loop over the array's own index range.
 - **length**: Keys are stored in fixed 16-character buffers with a length field, and a guard rejects keys longer than the buffer with a visible failure outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, for loops, procedures, functions, Boolean objects, string indexing, string building and 'Image of scalars.
 

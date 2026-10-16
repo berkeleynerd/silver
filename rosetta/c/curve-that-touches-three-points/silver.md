@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task asks only for a drawn curve, which text art satisfies, and a fixed-coefficient integer parabola over a ranged x with for loops and a bounded grid gives every check from types and a guard. Nothing needs an invariant, recursion or floating point.
 
-Position 652 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 652 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The curve is the unique parabola y = 10 + 19*(x-10)*(200-x)/900 through the thre
 - **index**: The computed row index is clamped to the grid range by an explicit guard just before the grid store, so the index check discharges from the guard.
 - **overflow**: The product 19*(x-10)*(200-x) is bounded by the declared range of x (at most 171,475), so the integer arithmetic cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, for loops, string building and procedures.
 

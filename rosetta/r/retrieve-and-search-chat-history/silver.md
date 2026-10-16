@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network, clock.** The task fetches dated chat log files over HTTP, splits them into lines and prints the lines that contain a command-line substring. No fixed Oracle rule gets in the way: what it needs is a network library operation and a clock, plus bounded date arithmetic and substring search, all of which a future Silver could admit with documented size limits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, string operations, loops, arrays, subprograms and records.
 

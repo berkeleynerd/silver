@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task is bounded (1023 candidates, at most 10 digits) with no recursion or heap, so every check follows from types and for-loop bounds, but the loop-carried number construction and 64-bit arithmetic need careful guards.
 
-Position 368 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 368 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Enumerate every non-empty subset of the digits 0..9 as a mask from 1 to 1023, us
 - **termination**: Trial division uses a for loop with an early exit and a fixed divisor ceiling of 99999, so the function needs no variant.
 - **overflow**: The square test d*d is safe because d is bounded by the for-loop range, so the product fits in 64 bits.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, functions, 'Image of scalars, string building and Put without a newline.
 

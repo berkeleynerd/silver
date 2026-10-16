@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every operation is bounded integer arithmetic on a fixed 16-bit array with loop-carried values confined by ranged subtypes and guards, so no annotation is needed but the shifted-scale arithmetic needs careful shaping.
 
-Position 1516 in the [progression](../../../progression.md#stage-31), in stage 31.
+Position 1516 in the [progression](../../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store the example word 0000110111011101 as a constant array of 16 bit values (0.
 - **range**: The regime run length k and the combined scale k*2**es+e are loop-carried values bounded only by their declared subtypes (-16..16 and -128..128), which must be chosen wide enough for the checks to discharge.
 - **termination**: All scanning uses for loops with an exit or a flag in a procedure, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, exponentiation, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

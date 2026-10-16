@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The totient-sieve formula needs only bounded arrays, for loops and small integer arithmetic, so no annotation is needed, but the loop-carried sum and number formatting require guards and careful shaping.
 
-Position 176 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 176 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Compute phi(1..1000) with a sieve in a fixed array, using nested for loops over 
 - **index**: All array indexes come from for loops over the array's own range, and the sieve's multiples are stepped through by a for loop over a quotient range, so no computed index is loop-carried.
 - **length**: Number formatting into fixed-width buffers needs each integer's text to be guaranteed to fit its field, which follows from the bounded value subtype but takes careful shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, procedures, 'Image of scalars, string building and Put without a newline.
 

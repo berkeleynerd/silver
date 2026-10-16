@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The program reads the current date from the clock and prints it as 2007-11-23 and as Friday, November 23, 2007. A clock operation that returns a validated year, month and day would make this provable, and the day-of-week and month names are fixed lookups. Nothing in the task breaks an Oracle rule; the clock is an effect Silver does not have yet.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, enumerations, string operations and subprograms.
 

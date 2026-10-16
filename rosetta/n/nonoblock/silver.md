@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from small ranged subtypes, fixed bounds and guards before each use, but the odometer loop carries several positions with no invariant, so discharge depends on careful guard placement. No recursion or annotation is needed since the enumeration is iterative inside procedures.
 
-Position 571 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 571 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the five cases as constant arrays (block lengths, up to 4 entries, plus a 
 - **termination**: The odometer enumeration uses a while loop, which is acceptable only because it sits in a procedure that gets no termination check.
 - **range**: The count of positions is bounded by a declared cap of the largest required answer (15 rows) and a visible overflow-reject outcome if exceeded, rather than silently truncating.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, for loops, while loops, procedures, string indexing, string building and 'Image of scalars.
 

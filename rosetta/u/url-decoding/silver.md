@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks come from ranged subtypes and guards placed just before each index or conversion, and the loop is in a procedure so no variant is needed; the loop-carried indices need careful guarding, hence plausible rather than likely.
 
-Position 1019 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1019 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure Decode takes an input String and fills a fixed-capacity output Strin
 - **range**: Hex digits are converted by explicit comparisons to values 0..15 so Hi*16+Lo lies in 0..255 and Character'Val cannot fail, with a non-hex digit giving a visible reject outcome.
 - **termination**: The while loop sits in a procedure, which gets no termination check, and Position strictly advances on every branch.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, string building, for loops, while loops, procedures, case statements and Boolean objects.
 

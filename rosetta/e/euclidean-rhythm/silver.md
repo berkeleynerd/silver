@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic and indexing is over small ranged integers and fixed-capacity buffers, so each check can be discharged by types and guards placed before the use, but the loop-carried group indices and lengths make it depend on careful program shape rather than being routine.
 
-Position 622 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 622 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program stores each group as a fixed-capacity Character buffer plus a length
 - **overflow**: Index increments like a_pos + 1 and b_pos + 1 are discharged by ranged subtype bounds plus a guard against the capacity limit, since only the types are known after the first iteration.
 - **termination**: The nested while loops live in a procedure, so no termination check is generated.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, records, for loops, while loops, procedures, string building and string indexing.
 

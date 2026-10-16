@@ -2,7 +2,7 @@
 
 **Excluded from Silver: delay, clock, sound.** A metronome needs a configurable tempo and beat pattern, a timed loop with delays, a text visual indicator and optionally sound; none of this breaks an Oracle rule. It needs the delay, clock, sound, arguments and console-output effects, with validated bounded tempo and pattern input.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops, integers, enumerations, string operations and arrays.
 

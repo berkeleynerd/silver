@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from bounded index subtypes, for loops and explicit range guards, with no recursion or function loops, but the loop-carried distances, bounded route-string building and nonlinear jump arithmetic need careful program shape.
 
-Position 868 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 868 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -17,7 +17,7 @@ The map is embedded as 23 String constants decoded into a 0..22 by 0..22 array o
 - **length**: Route text is built in a bounded buffer sized for the longest route, with a guard before each append that rejects or truncates visibly when capacity would be exceeded.
 - **initialization**: All distance, predecessor and next-hop arrays are filled by aggregate or full for loops before use, so flow analysis can see them initialized.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string indexing, string building, 'Image of scalars, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

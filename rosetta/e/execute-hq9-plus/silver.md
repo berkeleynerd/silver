@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every loop is a for loop over a static range and all values are bounded by types, so the checks follow from declarations, with only the verse string building needing careful buffer sizing. No recursion, annotations or non-trivial effects are involved.
 
-Position 777 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 777 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The HQ9+ program is an embedded String constant and the accumulator is an intege
 - **length**: The 99 bottles verses are assembled from fixed phrases and the 'Image of a count in 1..99 into a bounded buffer, so every concatenation length is statically bounded.
 - **index**: The interpreter uses a for loop over the program string's own range, so each character index is within bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, string indexing, string building, 'Image of scalars, for loops, case statements and procedures.
 

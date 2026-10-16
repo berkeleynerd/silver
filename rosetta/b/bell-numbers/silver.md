@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay far below 2**61 so a guard before each addition discharges overflow and range checks with only for loops and fixed array bounds, though loop-carried array contents need that guard to be placed carefully.
 
-Position 683 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 683 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Use a constrained 2D array (rows 1..15, columns 1..15) of a bounded integer subt
 - **range**: The stored sum is range-checked against the element subtype, which the guard before the assignment discharges even though loop-carried array contents are known only by type.
 - **index**: Indexes come from for loops over the array's own bounds, with the previous row and next column computed from loop variables that are provably within range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, Put without a newline and procedures.
 

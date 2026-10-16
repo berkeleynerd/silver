@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from loop-index subtype ranges and one guard before the array write, so no loop invariant is needed; the only cost is about 15 million cheap iterations of the triple loop, which is not a proof issue.
 
-Position 84 in the [progression](../../progression.md#stage-7), in stage 7.
+Position 84 in the [progression](../../progression.md#stage-6), in stage 6.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Boolean array indexed 8 .. 999 starts all True; three nested for loops over 1 
 - **index**: The array write Areas (Area) is preceded by an explicit if Area <= 999 guard, so the index check discharges from the guard and the array's declared bounds.
 - **overflow**: Loop indexes are subtypes limited to 1 .. 249, so every product and sum of three products stays far below Integer'Last without any invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, arrays, for loops, 'Image of scalars and Put without a newline.
 

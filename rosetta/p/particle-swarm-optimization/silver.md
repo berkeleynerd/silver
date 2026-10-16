@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-bound for loops over constant array ranges with no recursion, so only the floating-point range bounds and elementary-function contracts are non-routine, making discharge plausible but dependent on careful float subtypes.
 
-Position 1519 in the [progression](../../progression.md#stage-31), in stage 31.
+Position 1519 in the [progression](../../progression.md#stage-30), in stage 30.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use fixed-size constrained arrays (1000 particles by 2 dimensions) of a bounded 
 - **overflow**: The deterministic generator is a modular LCG whose wraparound is by type, with a bounded division to a float in [0,1), which is routine.
 - **index**: All loops run over constant particle and dimension ranges, so indexing is by the arrays' own ranges and is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, arrays, multidimensional arrays, records, for loops, procedures, functions, ranged subtypes, integers, integer division, modular types, exponentiation, floating-point images, 'Image of scalars, string building, Put without a newline and Boolean objects.
 

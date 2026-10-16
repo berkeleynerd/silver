@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is straight-line floating-point code with no loop-carried values, so every check depends only on declared input ranges and guards, but float nonlinear arithmetic, elementary-function contracts and 10-decimal formatting make discharge dependent on careful program shape.
 
-Position 1107 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1107 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Test colors are embedded in a constant two-dimensional Long_Float array of range
 - **other**: The program needs an admitted Sqrt, Sin, Exp and Arctan library with verified preconditions, which Silver does not yet provide.
 - **overflow**: Converting the result times 1e10 to an integer for the 10-decimal text is guarded by a range check before conversion, and rounding must match the required 10 decimals.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, multidimensional arrays, for loops, functions, procedures, floating-point images, string building, 'Image of scalars, integer division, Put without a newline and Boolean objects.
 

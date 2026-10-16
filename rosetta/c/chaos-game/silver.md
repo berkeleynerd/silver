@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from ranged subtypes, constant array bounds and for loops, with a bounded-seed deterministic generator replacing system randomness, so proofs should discharge without annotations.
 
-Position 765 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 765 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program keeps a fixed-size grid of characters (for example 32 rows by 64 col
 - **overflow**: The linear congruential generator state lives in a bounded integer subtype small enough that seed*multiplier+increment cannot overflow, with a mod reducing it back into range.
 - **range**: The midpoint (X + Vx) / 2 of two in-range coordinates stays in range, which linear arithmetic with division by a constant lets the prover show without a loop invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, string indexing, for loops, procedures and case statements.
 

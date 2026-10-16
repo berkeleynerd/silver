@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The task asks for parallel processes but allows coroutines, so a deterministic interleaved state-machine simulation avoids tasking and every check follows from subtypes, array ranges and bounded for loops. Outlook is plausible rather than likely because the many state transitions and trace string lengths need careful range sizing.
 
-Position 830 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 830 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Real tasks are avoided by modelling each of a few processes as a coroutine-like 
 - **length**: Trace lines concatenate 'Image text of small ranged values into bounded strings, so lengths are statically bounded but need careful sizing.
 - **termination**: Interleaving is driven by a for loop over a fixed step budget, so no while loop or variant is needed, though the trace shows only a bounded prefix of execution rather than the algorithm running forever.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, case statements, for loops, procedures, functions, 'Image of scalars and string building.
 

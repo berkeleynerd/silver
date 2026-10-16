@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All checks follow from small declared coefficient and position ranges plus explicit capacity guards on the loop-carried buffer index, with only for loops and no recursion, but the string-building shape needs care to discharge without invariants.
 
-Position 1021 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1021 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The ten example scalar lists are embedded as constant arrays of a ranged Coeffic
 - **overflow**: Negating or taking abs of a coefficient is safe because the coefficient type is a small declared range that excludes Integer'First.
 - **range**: Digit extraction by repeated division of a ranged coefficient needs the digit count bounded, which the small coefficient range and a fixed digit loop provide.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, unconstrained arrays, string indexing, string building, 'Image of scalars, for loops, procedures and functions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over bounded ranges and every index comes from a 0..25 subtype or a loop variable, so the checks follow from types and loop ranges without invariants. The recursion in the existing solution is replaced by iteration and everything sits in procedures.
 
-Position 534 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 534 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -14,7 +14,7 @@ One procedure Encode_Check(S) with fixed-capacity arrays: a 26-element Character
 - **range**: The found position is stored in a subtype 0..25 assigned only inside the loop at the matching index, and an explicit Found flag rejects any symbol outside a..z with a visible message.
 - **length**: Input, output and decoded buffers use a fixed capacity (e.g. 16) with an explicit length, and each embedded string is checked against that capacity before copying.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, procedures, string indexing, 'Image of scalars, Put without a newline and Boolean objects.
 

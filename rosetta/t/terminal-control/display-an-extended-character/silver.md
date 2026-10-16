@@ -2,13 +2,13 @@
 
 **Candidate: proofs likely to discharge automatically.** The program is straight-line code over constants with a single output call, so every check follows from static values and the only new surface is Character'Val with Character values.
 
-Position 431 in the [progression](../../../progression.md#stage-11), in stage 11, which adds characters.
+Position 431 in the [progression](../../../progression.md#stage-10), in stage 10, which adds characters.
 
 ## Approach
 
 Declare a constant two-character String made of Character'Val (194) and Character'Val (163), the UTF-8 encoding of the GBP sign, concatenated using the existing bounded String concatenation, and print it with Silver_IO.Put_Line. There are no loops, no input and no data-dependent control flow. About 8 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters.
 

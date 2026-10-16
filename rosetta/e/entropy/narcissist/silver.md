@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every integer check follows from range-limited types and an explicit size cap, but the floating-point entropy sum needs Log preconditions and accumulator bounds to be shown through guards alone, which makes discharge depend on careful program shape rather than being routine.
 
-Position 1448 in the [progression](../../../progression.md#stage-28), in stage 28.
+Position 1448 in the [progression](../../../progression.md#stage-27), in stage 27.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program takes its own source file name as the first argument, reads it chara
 - **division**: The division by total length is guarded by rejecting an empty file before the entropy loop.
 - **floating point**: Float(V)/Length lies in (0,1] only by invariant reasoning, so the program instead relies on the bounded count type and a clamped term range, which the provers must handle with nonlinear float reasoning.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, for loops, while loops, procedures, functions, floating point, floating-point images, 'Image of scalars, string building, file input, further arguments and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is digit-array max/min work with fixed capacity and for-loop indexes, so index and range checks follow from types and capacity guards, though the shift-and-add indexing and bounded conversions need careful guarding. No annotation is needed because the loops can be for loops or live in procedures.
 
-Position 848 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 848 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent each lunar number as a fixed-capacity array of 24 decimal digits (subt
 - **termination**: Search loops for distinct evens and the stretch case live in the main procedure (no termination check) or are for loops with fixed upper bounds like 1 to 20000.
 - **length**: Building output text from digits needs a bounded buffer sized to the maximum digit count, with its length tracked and guarded before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, Put without a newline, 'Image of scalars, string building, string indexing and case statements.
 

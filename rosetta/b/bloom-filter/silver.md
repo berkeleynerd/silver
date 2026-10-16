@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is a bounded for loop over ranged integers with mod reduction, so all checks follow from types and static bounds with no unbounded loop-carried value, and no annotation is needed. The memory comparison is computed arithmetic on declared sizes, which avoids files, floats and system memory queries.
 
-Position 991 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 991 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The filter is a fixed-capacity array of 8192 Boolean bits with a deterministic p
 - **index**: Each bit index is the result of mod by the fixed bit count, so it is statically within the bit array's range.
 - **range**: The k-th probe index (h1 + k*h2) mod M uses h1 and h2 bounded below 2**20 and k at most 7, so the sum stays in range before the mod.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, unconstrained arrays, string indexing, for loops, procedures, functions and 'Image of scalars.
 

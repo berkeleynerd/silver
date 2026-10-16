@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every array access is by a ranged room subtype, arithmetic is bounded by types, and all loops live in procedures, so checks should discharge from types and guards, but the pile of loop-carried game state, input parsing and the PRNG need careful shape. No annotation is required and the Ada solution's exception handlers are replaced by explicit input validation.
 
-Position 1254 in the [progression](../../progression.md#stage-22), in stage 22.
+Position 1254 in the [progression](../../progression.md#stage-21), in stage 21.
 
 ## Failure paths to test
 
@@ -21,7 +21,7 @@ The program keeps the dodecahedron as a constant 20x3 array of room numbers and 
 - **initialization**: Game state (positions, arrow count, seed) is held in local variables of Main and every one is assigned before first use, passed as in out parameters to helper procedures.
 - **length**: Command lines and numeric tokens are read into bounded String buffers with explicit length guards, and over-long or non-numeric input is rejected with a printed message.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline and standard input.
 

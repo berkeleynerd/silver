@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arrays and ranges are static and every loop-carried value (strike index, counters) can be guarded just before use, with no recursion or functions needing variants, but several loop-carried guards and a large Boolean array make careful shape necessary.
 
-Position 294 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 294 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Sieve of Eratosthenes over a Boolean array 2..999999 using for loops for candida
 - **index**: Pattern scan reads P(i+k) for k up to 3, so the for-loop upper bound is the prime count minus the pattern length, with an explicit guard that the count is at least the pattern length.
 - **length**: Group lines are assembled from scalar images of up to four 6-digit numbers into a bounded buffer sized for the worst case, so concatenation lengths are static.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Exact arithmetic in fixed-capacity decimal digit arrays handles the 10^100 and 2^120 multipliers without floating point, and every check follows from digit and carry subtypes plus guards before each shift or append, though the many loop-carried positions need careful shaping.
 
-Position 1412 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1412 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the 27 test strings in a constant array of bounded strings; a procedure sc
 - **termination**: All parsing and arithmetic loops live in procedures or are for loops over the buffer range, so no variant is needed.
 - **length**: Output lines are built in a bounded String buffer sized for the longest result (about 120 digits with commas and fraction), with length guards before each append.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, unconstrained arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, big numbers and Put without a newline.
 

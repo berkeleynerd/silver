@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** This task can be included in Silver. The program calls a bounded procedure directly (no access-to-subprogram value is needed), reads a CPU-time or monotonic clock before and after the call, and prints the difference. That needs a clock library operation that Silver has not admitted yet, but it breaks no fixed Oracle rule.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, loops, subprograms and string operations.
 

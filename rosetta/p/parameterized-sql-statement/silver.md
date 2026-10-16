@@ -2,7 +2,7 @@
 
 **Excluded from Silver: other.** The task binds four values (a text name, an integer score, a boolean flag and an integer jersey number) to a parameterized UPDATE and executes it. Nothing in it breaks an Oracle rule. It needs an admitted database library operation, which is a new external effect, and the program itself is plain bounded strings and integers.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations and integers.
 

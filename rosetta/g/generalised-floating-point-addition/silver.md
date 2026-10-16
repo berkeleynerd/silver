@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is fixed-capacity digit-array arithmetic with for loops and ranged digit types, so checks follow from types and guards with no annotations needed. Outlook is plausible rather than likely because carry and alignment indexes are loop-carried and need guards, and the task asks for a generic package.
 
-Position 1529 in the [progression](../../progression.md#stage-32), in stage 32.
+Position 1529 in the [progression](../../progression.md#stage-31), in stage 31.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent a number as a fixed-capacity array of digits (about 300 positions, to 
 - **range**: Loop-carried carry and exponent values have no invariant, so they are kept in subtypes wide enough to hold all results, with a visible overflow outcome if capacity is exceeded.
 - **other**: Generic instantiation over the base (decimal, plus balanced ternary as the optional bonus) must keep the base as a bounded generic formal so that digit-range checks prove per instance.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, records, for loops, while loops, procedures, functions, generics, packages, string building, 'Image of scalars and Put without a newline.
 

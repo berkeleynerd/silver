@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Modular Unsigned_64 arithmetic has no overflow checks and the floor(next_float*5) step can be done in exact integer arithmetic, so only the loop-carried count increments and the bucket index need simple guards. No loop invariant, recursion or floating point is required.
 
-Position 1276 in the [progression](../../../progression.md#stage-23), in stage 23.
+Position 1276 in the [progression](../../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A Main procedure declares Unsigned_64 state and a small Natural count array inde
 - **overflow**: The 100000-iteration bucket increments are loop-carried, so they use a guard before the add (or a modular counter) because only the type range is known after the first iteration.
 - **index**: The bucket index is derived by shifts and multiplies, so the program guards it with an explicit test against 4 before indexing and takes a visible Reject-style outcome otherwise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Modular types, integers, ranged subtypes, arrays, for loops, procedures, 'Image of scalars and integer division.
 

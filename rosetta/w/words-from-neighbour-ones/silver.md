@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-capacity typed ranges, for-loop indexes over the table and guards before use, with all while loops in procedures, but file reading, bounded line handling and the 2D table add shape-dependent work. No annotation is needed, so it is plausible rather than likely.
 
-Position 1334 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1334 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ Read unixdict.txt in a procedure with a bounded line buffer, keeping only words 
 - **termination**: The line-reading and lookup loops are while loops inside procedures (no termination check), and the lookup is a for loop over the fixed word table.
 - **initialization**: The word table and result list must be fully initialized by aggregate or loop before reads, which is routine but costs a nested initialization loop that flow analysis must accept.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, Boolean objects, arrays, multidimensional arrays, string indexing, string building, for loops, while loops, procedures, functions, file input and Put without a newline.
 

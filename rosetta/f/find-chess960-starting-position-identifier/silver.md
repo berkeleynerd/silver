@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is small bounded integer arithmetic over an 8-character string with for loops, and all counters are ranged subtypes with explicit guards, so no annotation is needed and invalid arrays get a visible rejection.
 
-Position 799 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 799 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the four example arrays (QNRBBNKR, RNBQKBNR, RQNBBKRN, RNQBBKRN) as 8-char
 - **range**: The per-piece position counters and rank values are loop-carried, so each is declared with a small ranged subtype and incremented only under an explicit guard (for example count below 2), with an overflow-free final 96N+16Q+4D+L bounded by 0..959.
 - **index**: Position arrays are indexed by counters that are guarded before each store, and the 8-character input is indexed by a for loop over its own range, so no index check depends on an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, 'Image of scalars, for loops, procedures, functions, Boolean objects and case statements.
 

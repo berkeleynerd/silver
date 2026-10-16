@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The first 32 terms peak near 1.3e12, so a 64-bit ranged type with a pre-store guard lets every overflow, range and division check discharge without annotations, with only the loop-carried recurrence needing careful shape.
 
-Position 164 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 164 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Store a(0..31) in a constrained array of a 64-bit-range subtype, fill a(0)=1 and
 - **range**: The quotient stored back into the array is not provably within the element subtype, so an explicit guard before the store rejects with a visible outcome if it would exceed the bound, which the first 32 terms never reach.
 - **division**: The divisor i+1 is at least 3 for every loop index, which follows directly from the for-loop range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars and string building.
 

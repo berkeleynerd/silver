@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** This should prove automatically (outlook likely). The program only declares static floating-point constants and prints them, so no run-time check can fail and none needs an annotation. All it adds to today's Silver is floating-point types and float-to-text formatting.
 
-Position 1036 in the [progression](../../../progression.md#stage-19), in stage 19.
+Position 1036 in the [progression](../../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Main declares Float constants written in each literal form Ada allows: plain dec
 
 - **floating point**: All values are static constants written as literals well within Float's range, so the compiler checks their range statically, no arithmetic happens at run time and the only operation is formatting them as text.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point and floating-point images.
 

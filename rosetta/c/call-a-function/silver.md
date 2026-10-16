@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from small declared operand ranges, for-loop indexes over the array's own range, and one overflow guard placed just before the accumulator update, so no annotation is needed. First-class functions and partial application are optional items and are covered by printed statements rather than access-to-subprogram types.
 
-Position 982 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 982 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Main declares a parameterless function, a function with a fixed parameter list a
 - **overflow**: The variadic-style Sum over an unconstrained array of small-range items carries an accumulator through a for loop, so each addition is preceded by a guard against Integer'Last minus the item that sets an out Ok flag to False, which Main reports visibly.
 - **range**: Functions with fixed, optional (defaulted) and named parameters take operands of a declared small subtype so their sums and products fit Integer by type alone.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, unconstrained arrays, arrays, for loops, functions, procedures and 'Image of scalars.
 

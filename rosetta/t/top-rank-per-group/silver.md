@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is bounded for loops over fixed arrays with index and salary types that bound all loop-carried values, so no annotation is needed. The only mild concern is the length check on concatenated output lines, which is bounded by the subtype ranges.
 
-Position 1165 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1165 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Employees are an array of 13 records (fixed-length Name and ID strings, a bounde
 - **range**: Salary is a bounded subtype and the best-candidate index has a declared index subtype, so no loop-carried value needs an invariant.
 - **length**: Concatenating 'Image of a bounded salary with fixed-length name and ID strings has a statically bounded length that fits the Put_Line argument limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, enumerations, arrays, records, for loops and 'Image of scalars.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All data is fixed-size with bounded float components and for-loop indexing, so index and finiteness checks follow from types and no recursion, while-loop or inverse is needed; the plausible rating reflects floating-point accumulation in matrix products that needs range guards or unrolling.
 
-Position 1103 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1103 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent a complex number as a record of two bounded Float components and matri
 - **index**: Nested for loops run over the matrix's own constrained index ranges, so index checks for M(i,j) and its transpose M(j,i) follow from the declared square bounds.
 - **other**: Formatting floats to four decimals for output needs a bounded-buffer float-to-text routine whose own internal checks must be provable (an admitted library operation would be ideal).
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, records, multidimensional arrays, arrays, for loops, procedures, functions, Boolean objects, 'Image of scalars, floating-point images, string building and Put without a newline.
 

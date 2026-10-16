@@ -2,7 +2,7 @@
 
 **Excluded from Silver: network.** The task is a scraper that fetches the category pages, follows each task link, and extracts the text between the infobox div and the toc div. A Silver-friendly version can do this with a bounded list of task URLs, a loop over them, substring search for the two markers, and a text file as output. The only conflicts are effects Silver lacks (network, files), which are not fixed-rule conflicts. The existing Phix solution's deliberate divide-by-zero crash on a missing marker is not a task requirement, so it is not reported as a runtime-error conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Loops, arrays, string operations, characters and integers.
 

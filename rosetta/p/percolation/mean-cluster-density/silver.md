@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from subtype ranges and explicit bounds guards before each neighbour access, and the only unbounded loop is a while loop in a procedure, so no annotation is needed; the main care is shaping the stack and counter ranges and avoiding floating point by using scaled integers.
 
-Position 741 in the [progression](../../../progression.md#stage-14), in stage 14.
+Position 741 in the [progression](../../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Fixed-capacity 1000x1000 Boolean grid (sized by a constant, with n from the tabl
 - **termination**: The flood-fill while loop lives in a procedure, which GNATprove does not check for termination, and the outer scans are for loops.
 - **stack**: A 1000x1000 grid plus a million-entry stack is a fixed-size resource limit that is outside the proof and relies on the environmental memory premise.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, for loops, while loops, procedures, 'Image of scalars, string building and Put without a newline.
 

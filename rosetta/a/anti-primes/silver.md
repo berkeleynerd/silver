@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is for loops and mod on guarded ranged integers with a fixed-size result array, so no annotation is needed, but the loop-carried counters need careful guards and the scan limit must be big enough to reach the twentieth anti-prime (7560).
 
-Position 371 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 371 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A procedure scans candidates with a for loop over 1 .. 7560 (a documented limit)
 - **division**: The mod operand comes from a for-loop index over 1 .. Candidate, whose type range excludes zero, so the check discharges.
 - **length**: The output line is built in a fixed-capacity buffer sized for twenty values of at most five digits plus separators, with writes guarded by the remaining capacity.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, 'Image of scalars, string building, Put without a newline, procedures and functions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All arithmetic is bounded by declared ranges and the iteration uses for loops with fixed caps inside a procedure, so no annotation is needed; the new surface is just integers, division, loops, a procedure and integer-to-text.
 
-Position 197 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 197 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A subtype Small is range 0..999; procedure Is_Happy takes N and an out Boolean, 
 - **overflow**: The digit-square sum is computed straight-line over three digits of a number typed 0..999, so the sum is bounded by 243 from types alone.
 - **termination**: The per-number iteration is a for loop over a fixed step cap (for example 20 steps) with early exit, so no variant is needed; every candidate up to 100 reaches 1 or the 4-cycle well within the cap.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures and 'Image of scalars.
 

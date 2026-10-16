@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded-range integer and float arithmetic in for/while loops inside a procedure, with a fixed-capacity digit array whose growth is guarded, so no annotation is needed, but loop-carried carry, length and float sum need careful typing and guards.
 
-Position 1069 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1069 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Store n! as a fixed-capacity array of decimal digits (least significant first, c
 - **floating point**: The running sum of ratios is a loop-carried float, so it is a bounded float subtype and each addition is guarded against exceeding that bound, while the digit count divisor is a positive ranged integer.
 - **range**: Zero-digit and digit counters are ranged integers capped at Capacity, which the for-loop over the array range keeps within bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, floating point, arrays, for loops, while loops, 'Image of scalars, floating-point images and string building.
 

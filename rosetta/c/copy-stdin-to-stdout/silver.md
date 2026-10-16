@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The only state is one Character with no arithmetic, indexing or accumulator, and a while loop in a procedure gets no termination check, so nothing needs an annotation. The proof burden lies in the admitted stdin and output library contracts, not in the program.
 
-Position 1212 in the [progression](../../progression.md#stage-22), in stage 22, which adds standard input.
+Position 1212 in the [progression](../../progression.md#stage-21), in stage 21, which adds standard input.
 
 ## Failure paths to test
 
@@ -12,7 +12,7 @@ Position 1212 in the [progression](../../progression.md#stage-22), in stage 22, 
 
 The Main procedure holds one Character variable and loops with a while loop until an admitted end-of-input test reports no more input. Each iteration reads one character through an admitted stdin operation and writes it with Put, so the copy is exact and needs no buffer or length limit. Read failures have a specified outcome in the library operation (for example end of input or rejection). About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Characters, while loops, standard input and Put without a newline.
 

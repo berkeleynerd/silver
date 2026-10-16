@@ -2,7 +2,7 @@
 
 **Excluded from Silver: unsafe operations, outside SPARK, OS services.** The task asks a program to unload part of its own code from memory. In Ada/SPARK that can only be done through loader or OS calls that work on code addresses, which means foreign calls and address arithmetic that SPARK and the Oracle forbid. The task itself lets languages without this facility be omitted, so it should be excluded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Access types.
 

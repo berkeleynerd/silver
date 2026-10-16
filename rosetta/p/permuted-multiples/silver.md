@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from fixed-range for loops, bounded subtypes and small guards on the loop-carried counts, with no annotations or recursion, though the guard shape needs care; the answer 142857 lies well within the documented limit.
 
-Position 912 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 912 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A Digit_Counts array indexed by 0..9 holds the digit histogram of a value, compu
 - **range**: The search runs n over a for loop bounded to 1 .. 1_000_000 so 6*n fits a declared subtype, and an explicit not-found line is the visible outcome when no n exists in the limit.
 - **termination**: All loops are for loops with fixed ranges (digit extraction uses a fixed 8-position loop rather than a while loop on the value), so no variant is needed even inside functions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and conditional expressions.
 

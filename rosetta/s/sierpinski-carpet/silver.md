@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every index and value is bounded by static ranges and for loops over constant bounds, so all run-time checks follow from types and no loop-carried fact needs an invariant. The only added surface is integers, mod/div, a character buffer and for/procedure support, all with routine checks.
 
-Position 499 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 499 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The program fixes order 3 (size 27), loops over each row R and column C in 0..26
 - **index**: Cell tests use mod 3 on digits of row and column, with indexes taken from for-loop ranges over the fixed 27 by 27 bounds, so no index check can fail.
 - **overflow**: Row, column and quotient values stay within a declared range 0..26, so the arithmetic is bounded by types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, string indexing, string building, for loops, while loops, procedures, Put without a newline, arrays and Boolean objects.
 

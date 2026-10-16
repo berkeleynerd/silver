@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from range types and explicit guards just before the arithmetic and array store, and the unannotatable termination question is avoided by using a procedure, so no annotation is needed but several loop-carried values need careful guards.
 
-Position 233 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 233 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A Hailstone procedure takes a start value in a 1..100_000 subtype and fills a fi
 - **index**: The element counter and array index are loop-carried, so a guard that the count is below the fixed array capacity (512, above the 351 maximum) precedes each store and its failure rejects visibly.
 - **termination**: The Collatz while loop has no variant, so it is placed in a procedure, which gets no termination check.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every value is a small bounded integer and every loop is a for loop over fixed ranges, so all checks follow from subtype ranges and a few length guards; the only care needed is the string-building buffer and fixed-width number formatting.
 
-Position 794 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 794 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Headings are held as integer hundredths of a degree (i*1125 plus or minus 562 by
 - **range**: Computing the point index from hundredths of a degree uses division and mod on an integer bounded by the declared heading range, so the result stays within 0..32 and mod 32 gives a valid array index.
 - **overflow**: Heading arithmetic in hundredths (at most 35999 times 2 plus 1125) is tiny against Integer, so the nonlinear products are bounded by the heading subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, 'Image of scalars, for loops, case statements, procedures, functions and Put without a newline.
 

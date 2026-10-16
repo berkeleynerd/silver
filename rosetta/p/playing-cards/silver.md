@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from bounded array index types, for-loop ranges and a range-typed LCG state, with only for loops and no recursion, so no annotation is needed; the empty-deck case is a guarded visible outcome rather than an exception.
 
-Position 1174 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1174 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Declare enumerations Pips (Two..Ace) and Suits, a Card record, and a Deck record
 - **overflow**: The linear congruential generator multiplies a seed bounded to a 31-bit range type by a constant, so the product stays under 2**63 and the type range discharges it without any loop-carried reasoning.
 - **index**: The Fisher-Yates swap index is computed as a generator value mod the remaining count plus the loop index, which the provers show in range from the mod bound and the loop index range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, enumerations, arrays, records, for loops, procedures, functions, Boolean objects, 'Image of scalars and string building.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The simple rule-based textual boids simulation uses only bounded integer coordinates, a fixed grid and for loops with explicit bounds guards before each array access, so every check follows from types and guards. The optional vector-based flocking with floating point is left out, and the task accepts the textual simulation.
 
-Position 796 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 796 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The program stores the cave as a constant 16x86 Character grid of walls and free
 - **overflow**: Frame counters and coordinates are subtypes bounded by the grid size and a fixed frame count, so loop-carried values stay in type range without invariants.
 - **termination**: All iteration is for loops or while loops inside procedures with a fixed frame count, so no function needs a variant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, multidimensional arrays, records, string building, for loops, while loops, procedures, functions, case statements and Put without a newline.
 

@@ -2,9 +2,20 @@
 
 This source review supports [assurance #15](https://github.com/berkeleynerd/silver/issues/15)
 for [For loops and integers](for-loops-integers.md). It identifies the external
-typed-JSON boundary used by the adapter proofs. The complete scanner/schema
-composition and stable milestone validation remain outstanding; this review
-does not replace them.
+typed-JSON boundary used by the adapter proofs. The
+[capability record](for-loops-integers.md#delivery-assurance-chain) names the
+complete scanner/schema and consumer endpoints and links the final combined
+milestone validation and review. This record preserves the earlier source and
+ID-correction checkpoints; their focused results do not replace complete
+capability validation.
+
+The [complete producer/consumer review](for-loops-image-producer-review.md)
+extends this record with constructor-directed comparison of every field in the
+three selected templates, their applicability to Main and fixed-library models,
+the complete array-head/filename argument, and the precise external format and
+consumer-name contracts. The forward scanner guarantee must use those
+independent producer facts; it cannot assume acceptance to establish that every
+admitted program's generated model is handled.
 
 The reviewed producer is `spark2014` fsf-16 at
 [`42554fc241fcd1fdf08d3a2feccb3f86912acbc0`](https://github.com/AdaCore/spark2014/tree/42554fc241fcd1fdf08d3a2feccb3f86912acbc0),
@@ -47,7 +58,7 @@ with strings:
 | Non-node array | Why its first string does not begin with `W_` |
 | --- | --- |
 | `Ureal` | Its first field is a quoted decimal numerator. |
-| `Source_Ptr` | The selected application and library filenames are `main.adb` and fixed lowercase `silver_*` names. Silver excludes source-location override pragmas. |
+| `Source_Ptr` | The serializer reads a simple filename, excluding directory prefixes. Main uses `main.adb`; owned sources use lowercase `silver_*` names; every basename in the reviewed installed runtime/GNATprove Ada-source inventory is lowercase. Source-reference pragmas affect display references, not this filename field. |
 | Symbol and string sets | Source names receive `name:` or `model_trace:` prefixes. Other generated labels use fixed prefixes/constants, including `GP_`, `model_`, `vc:annotation`, `branch_id=`, `RAC:assume`, `mlw:proxy_symbol`, and `introduced`. |
 
 The relevant label construction is in
@@ -69,6 +80,13 @@ Review found that the earlier half-range justification used the wrong type.
 `Print_Ada_Why_Node_To_Json` declares `Why_Node_Counter : Natural := 0`, increments
 it once per serialized occurrence, and writes `Integer'Image (Why_Node_Counter)`.
 The relevant producer bound on the pinned platforms is therefore **2147483647**.
+
+This is the intended serialization domain under the faithful external
+producer-format contract. The installed producer's increment is unchecked;
+the source subtype does not prove that its compiled counter cannot wrap. The
+complete review separates that trusted format/capacity behavior from the
+scanner's independently checked incoming-ID bound and from physical model-file
+representability. No universal per-node or full-model sizing theorem is claimed.
 
 The correction admits that complete producer counter domain and reserves
 **2147483648 through 2147483670** for the adapter's 23 inserted nodes. The
@@ -99,9 +117,10 @@ Linux x86-64 validation in the isolated native worktree passed:
 | `20261016T171734-718c72a90318` | Compiler and adapter build. |
 | `20261016T171752-35f93cacc45b` | Twelve flow checks and seven selected runtime checks covering changed ID initialization, maximum tracking and decimal arithmetic. |
 
-These results validate the changed native boundary. Integrated Lean source
-checks, complete scanner/schema composition and the milestone's stable full
-validation remain required.
+These results validate the changed native boundary at that checkpoint.
+Subsequent integrated Lean source checks, complete scanner/schema composition
+and stable full validation are recorded in the
+[capability delivery](for-loops-integers.md#stable-delivery-evidence).
 
 ## Clone interpretation
 

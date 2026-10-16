@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All indexes and lengths are bounded by constant string lengths and for-loop ranges, so every check follows from types and guards without invariants. The separator is a Character constant and the whole computation can sit in the main procedure or a plain procedure with no recursion.
 
-Position 506 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 506 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -13,7 +13,7 @@ The three embedded paths are String constants of fixed bounds, and the program k
 - **index**: Each comparison position is guarded by a bound against both path lengths and a for loop over the shortest length, so String indexing and the final slice copy discharge from the guards.
 - **length**: The result goes into a fixed buffer of the maximum path length with a length counter whose type range is that bound, so the copy cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, string indexing, string building, for loops, while loops, procedures and Put without a newline.
 

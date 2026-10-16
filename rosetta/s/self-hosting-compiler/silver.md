@@ -14,7 +14,7 @@ The compiler is a set of packages: a lexer that fills a fixed-capacity token arr
 - **termination**: Lexing, explicit-stack parsing and tree walks use while loops, so they must sit in procedures, because functions cannot carry the variants that would justify them.
 - **other**: A faithful Silver compiler must decide whether a program discharges its Silver-level proofs, so it would have to embed a verification-condition generator and a decision procedure, and no unannotated proof of that would plausibly discharge automatically.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, enumerations, arrays, unconstrained arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures, functions, packages, further arguments, exit status, standard error, file input and file output.
 

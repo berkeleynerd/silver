@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded buffers, guarded indexes and procedure-only loops, so no annotation should be needed, but loop-carried cursors and lengths each need a guard placed just before use, which makes discharge depend on careful program shape.
 
-Position 1338 in the [progression](../../progression.md#stage-24), in stage 24.
+Position 1338 in the [progression](../../progression.md#stage-23), in stage 23.
 
 ## Failure paths to test
 
@@ -20,7 +20,7 @@ The program holds the source and clipboard in fixed-capacity character buffers w
 - **index**: The line cursor is a loop-carried value in a while loop, so each line scan is guarded by explicit bounds tests against the program length just before every character read.
 - **termination**: The interpreter loop is a procedure with a strictly advancing cursor, so no termination check applies.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, text parsing, case statements, for loops, while loops, procedures, functions, Put without a newline and file input.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and length check follows from bounded subtypes and explicit capacity guards in procedures, and the only loops are a scanner while loop in a procedure and for loops printing the stack, so no annotations are needed, but many loop-carried lengths make the shape delicate.
 
-Position 1030 in the [progression](../../../progression.md#stage-18), in stage 18.
+Position 1030 in the [progression](../../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the two RPN strings as constants and, in a procedure, scans e
 - **termination**: The token scanner uses a while loop with a pointer advanced each iteration, which is acceptable only because it lives in a procedure; it must not be placed in a function.
 - **initialization**: Stack entries and buffers are fully initialized by declaration aggregates, so flow analysis is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, records, unconstrained arrays, string indexing, string building, case statements, for loops, while loops, procedures and Put without a newline.
 

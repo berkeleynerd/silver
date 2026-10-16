@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task is a single library call with constant data and no loops or arithmetic, so every check is trivial and the only missing piece is an admitted file-writing operation with specified failure outcomes. The Ada solution's exception handler for Name_Error is replaced by the library's status result.
 
-Position 1417 in the [progression](../../progression.md#stage-27), in stage 27, which adds file output.
+Position 1417 in the [progression](../../progression.md#stage-26), in stage 26, which adds file output.
 
 ## Failure paths to test
 
@@ -12,7 +12,7 @@ Position 1417 in the [progression](../../progression.md#stage-27), in stage 27, 
 
 Main holds a fixed file name constant and an embedded String constant (the task text), then calls an admitted library procedure that overwrites the file with that string and reports a success flag. An if statement on the flag prints a visible failure message and sets a nonzero exit status when the write fails, so no exception handler is needed. About 12 lines.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 File output and procedures.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every operation is bounded integer arithmetic inside static-range for loops with small declared subtypes, so overflow, range and division checks follow from types and guards without annotations. The only integer-to-text conversion and no recursion or while loops make it plain for the provers.
 
-Position 351 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 351 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A fixed exponent constant 929 with K ranging over 1..17 forms candidates q = 2*K
 - **range**: The result of mod q is assigned back to the bounded Square subtype, which discharges because q is a bounded loop-derived value and mod gives 0..q-1.
 - **termination**: All loops are for loops over static ranges (K 1..17, 11 exponent bits, trial divisors 2..1500 guarded by d*d <= q), so no variant is needed inside the functions.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, functions, 'Image of scalars and string building.
 

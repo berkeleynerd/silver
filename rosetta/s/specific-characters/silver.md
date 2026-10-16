@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every index and bound follows from Character-indexed tables and for loops, with no while loops or recursion, so the only non-routine checks are loop-carried tallies and counters, which saturating guards bound without altering results.
 
-Position 1011 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 1011 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Embed the three example strings as constants and use a procedure that fills a co
 - **overflow**: Per-character tallies and distinct-character counters are loop-carried, so each increment is guarded (tally saturates at 3, which cannot change the exactly-twice test; counters are guarded against their 0..256 type bound).
 - **index**: Counts are indexed by Character over its full type range and strings are walked with for loops over S'Range, so every index follows from the types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, arrays, unconstrained arrays, string indexing, 'Image of scalars, for loops, procedures and Boolean objects.
 

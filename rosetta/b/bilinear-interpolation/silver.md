@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over fixed ranges with no loop-carried values, and every index, overflow and division check follows from ranged subtypes plus a clamp guard, but the nonlinear integer interpolation arithmetic needs careful bounding so the outlook is plausible rather than likely. The embedded image and text PPM output stand in for opening and saving an image file, which keeps it free of file effects.
 
-Position 702 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 702 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The program embeds a small constant RGB image (for example 8x6) as a two-dimensi
 - **division**: Divisors are the output width/height, declared as subtypes of positive range, so non-zero follows from types.
 - **length**: Each PPM output line is built in a fixed bounded buffer sized for three 3-digit samples per pixel, with the pixel count capped.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, multidimensional arrays, for loops, 'Image of scalars, string building, Put without a newline, procedures and Boolean objects.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check comes from declared grid bounds, modular hash arithmetic and explicit capacity guards, and all loops sit in procedures so no termination variants are needed, but the many loop-carried queue indexes and large arrays make the shape demanding.
 
-Position 1319 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1319 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -17,7 +17,7 @@ The 8-row by 7-column level is embedded as an array of strings, converted to a w
 - **range**: Solution reconstruction walks the parent chain into a bounded character buffer, and the walk depth is capped by a guard on the buffer length with a visible overflow outcome.
 - **stack**: A multi-megabyte queue declared in the main procedure leaves stack size as an unproven environmental premise, though the capacity is a fixed documented limit.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, Boolean objects, characters, enumerations, arrays, multidimensional arrays, records, string indexing, string building, case statements, for loops, while loops, procedures, functions and Put without a newline.
 

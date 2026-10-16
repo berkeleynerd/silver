@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from ranged subtypes, for-loop indexes and one divide guard, but the nested base and trial-division loops and the unrolled digit evaluation need careful shaping, so discharge is plausible rather than routine.
 
-Position 418 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 418 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Embed the limit 1000 and loop n over 3..1000, splitting n into up to four digits
 - **index**: Result arrays of 40 entries are filled only after a guard that the stored count is below the capacity, otherwise the loop stops collecting.
 - **termination**: Primality testing is kept in a function using only for loops, which terminate on their own, so no variant is required.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

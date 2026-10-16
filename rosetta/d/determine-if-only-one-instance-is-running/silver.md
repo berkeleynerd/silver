@@ -10,7 +10,7 @@ Main calls an admitted library procedure that tries to atomically create a lock 
 
 - **other**: Whether the program really detects a second instance rests on the admitted lock operation's environmental assumptions (atomic create, stale-lock handling), which proof cannot establish; the program's own checks are trivial.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Boolean objects and file output.
 

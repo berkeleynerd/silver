@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are bounded for loops over ranged subtypes and every index is guarded by a length comparison just before use, so the checks follow from types and guards without any annotation. The new needs are small: records, arrays of records, character indexing, slices and non-terminating Put output.
 
-Position 615 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 615 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Each word is a record holding a fixed-capacity String (1 .. 16) and a Length in 
 - **index**: Character reads from the end of each word use Data (Len - P + 1), which is discharged by for-loop bounds P in 1 .. K where K is a ranged count never exceeding the word's Len, plus an explicit guard just before the read.
 - **range**: The loop-carried common-suffix length is declared with the subtype 0 .. 16 and only ever assigned a value from a guarded for-loop index, so its range check follows from its type.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, characters, Boolean objects, arrays, records, string indexing, for loops, procedures and Put without a newline.
 

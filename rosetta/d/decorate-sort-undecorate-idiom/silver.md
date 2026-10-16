@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over fixed array ranges and all indexes and slice bounds follow from declared subtypes, so no loop invariant is needed; the new surface is only arrays, records, slicing and unterminated output.
 
-Position 594 in the [progression](../../progression.md#stage-13), in stage 13.
+Position 594 in the [progression](../../progression.md#stage-12), in stage 12.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Define a 12-character padded word record with a key field of subtype 1..12, and 
 
 - **index**: Adjacent-swap indexes come from for loops over the array's own range and the printed slice Word(1..Len) is bounded by Len's subtype 1..12, so these checks follow from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, records, string indexing, for loops, procedures, Put without a newline and while loops.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** The algorithm is simple loops over fixed array ranges, so index checks are routine, but the float arithmetic carried through loops needs magnitude guards with visible rejection to discharge overflow and division checks, hence plausible rather than likely.
 
-Position 1096 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1096 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -15,7 +15,7 @@ The 3x4 example matrix is embedded as a constrained two-dimensional Float array 
 - **index**: The pivot-search while loop advances the row and lead column indexes, which are guarded against the matrix bounds before each use and are otherwise known only by their subtype range.
 - **overflow**: Products of two bounded elements stay far below the float limit by choice of the bound, but the nonlinear arithmetic needs the provers to bound it from the subtype ranges.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Floating point, ranged subtypes, multidimensional arrays, for loops, while loops, procedures, floating-point images, Put without a newline, integers, Boolean objects and conditional expressions.
 

@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Nothing requires an annotation because parsing and serialization can be written as iterative loops in procedures with explicit-stack nesting and guards before every index, though the many loop-carried cursors and table links make discharge depend on careful program shape.
 
-Position 1203 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1203 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the example JSON text as a String constant and parses it with
 - **initialization**: Node tables and buffers are fully initialized by aggregates so flow analysis in loops stays routine.
 - **termination**: All parsing and serializing loops live in procedures, which get no termination check, and each advances the cursor.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, records, string indexing, string building, 'Image of scalars, text parsing, case statements, for loops, while loops, procedures and functions.
 

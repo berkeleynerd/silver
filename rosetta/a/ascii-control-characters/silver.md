@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Everything is a static enumeration walked by a for loop with a small ranged code value, so all checks follow from types and static bounds with no loop-carried state. Only the string-length check on the printed line needs care.
 
-Position 1153 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1153 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Declare an enumeration type with the 32 control names, SP and DEL, and loop over
 
 - **length**: The concatenation of a name image, separator and code image must fit the bounded String limit, which holds because the enumeration images and a 0..127 code subtype have small static maximum lengths.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Enumerations, for loops, 'Image of scalars, integers and ranged subtypes.
 

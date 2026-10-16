@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The task only needs a deterministic pseudo-random index into a fixed array, and the index is bounded by mod on a modular type, so every check follows from types and static bounds with no loop-carried facts.
 
-Position 1272 in the [progression](../../progression.md#stage-23), in stage 23.
+Position 1272 in the [progression](../../progression.md#stage-22), in stage 22.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Constant fixed-bound Character arrays hold the vowels, consonants and punctuatio
 - **overflow**: The deterministic generator state is a modular type, so wraparound in the update is defined and raises no overflow check.
 - **index**: The picked index is the generator value reduced with mod by the array length, so it lies within the array's constrained index range by type and guard.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, modular types, ranged subtypes, characters, arrays, for loops, procedures, functions and Put without a newline.
 

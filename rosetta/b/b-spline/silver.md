@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All loops are for loops over static ranges and arithmetic is integer with ranged operands, so most checks follow from types, with only the computed grid index needing a guard before the write.
 
-Position 689 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 689 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Embed the 12 control points in a constant array of coordinate records, and evalu
 - **index**: The computed grid cell is derived from a sum of nonlinear weighted terms that the prover cannot bound without an invariant, so an explicit guard just before the write skips points outside the grid, which is safe because coordinates are in range by construction and the guard is visible in the code.
 - **range**: Control point indices i to i+3 inside the segment loop are covered by a for loop over 0 .. 8 on a 12-element array, so they are static bounds.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, multidimensional arrays, records, for loops, procedures, string building, string indexing and Put without a newline.
 

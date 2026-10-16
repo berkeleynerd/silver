@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is bounded loops over a fixed array with no recursion or annotations needed, but the float accumulator and the Log call require careful range guards, so discharge is plausible rather than certain.
 
-Position 1048 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1048 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -14,7 +14,7 @@ Sieve of Eratosthenes over a fixed Boolean array of about one million entries us
 - **range**: The Log argument must be positive, which holds because p is at least 2 and the argument is computed from a range-typed Long_Float value.
 - **overflow**: The sieve's inner index i*k is nonlinear, so it is guarded against the array limit before use.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, floating point, floating-point images, arrays and for loops.
 

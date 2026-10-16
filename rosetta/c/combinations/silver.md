@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check is an array index from a for-loop range or an increment of a small ranged value under a just-before guard, and the loop lives in a procedure so no variant is needed; the shape needs careful guards on loop-carried element values, so it is plausible rather than likely.
 
-Position 551 in the [progression](../../progression.md#stage-12), in stage 12.
+Position 551 in the [progression](../../progression.md#stage-11), in stage 11.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed m=3 and n=5 as constants, hold the combination in a three-element array of
 - **termination**: The outer enumeration is a while loop confined to the Main procedure, which gets no termination check, so no variant is needed.
 - **overflow**: Digit-to-Character conversion uses a value bounded by the 0..4 subtype so 48 plus the digit stays within Character range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Ranged subtypes, arrays, characters, for loops, while loops, string indexing, string building, integers, Boolean objects and procedures.
 

@@ -64,17 +64,24 @@ For each authorized increment:
 3. Audit all required obligations and coverage. The application-unit safety-obligation set
    follows the source-selected static/argument/assigned/selected policy; finite exact entity
    alternatives cover sequences without output and producer elimination.
-   Under the shared-binding policy, every emitted Main safety check must be a
-   proved range or length check; applicable static elimination may leave an
-   empty list. All output forms precisely classify initializer advisories;
+   The shared-binding checkpoint admitted proved range and length checks. The
+   scalar/loop policy also admits proved overflow checks, supported by the
+   scalar intermediate-interval, Image-length and loop-composition schemas;
+   report classification alone does not establish discharge. Every emitted Main
+   safety check must be proved with the exact required provenance; applicable
+   static elimination may leave an empty list. All output forms precisely classify initializer advisories;
    assignment-bearing forms additionally classify the exact unused-assignment
    advisory. All sequence policies classify the exact ineffective-statement
    and unreachable-statement advisories for constant equality, and the four
    exact overwritten ghost-output advisories for each of Put and Put_Line.
+   The scalar/Image policy also classifies the exact pinned Image advisory under
+   its own complete warning/provenance rules; it never waives a safety check.
    Other diagnostics remain rejected. A new accepted obligation class
    needs a corresponding semantic/discharge argument, not just report handling.
    The [shared-binding checkpoint](docs/shared-bindings.md) records the completed
-   assurance and validation for this policy. Every output form
+   assurance and validation for that earlier policy; the
+   [scalar/loop delivery record](docs/for-loops-integers.md#delivery-assurance-chain)
+   records its extension. Every output form
    still requires the complete nonempty selected library reports.
    Extend report handling when new
    obligation classes or selected units require it. Keep [assurance claims](docs/assurance.md) and
@@ -184,7 +191,7 @@ memory pressure. Worker
 pools can multiply across modules; these settings are not strict OS-thread caps
 or a promise that every proof uses every core. The
 [concurrency record](docs/lean-concurrency.md) measures the selected settings and
-explains the remaining serial certificate and kernel work. The seventeen independent
+explains the remaining serial certificate and kernel work. Independent per-file
 source-certificate modules can still build concurrently. The runner re-elaborates
 Lake configuration
 so each invocation actually applies its requested thread and memory settings.

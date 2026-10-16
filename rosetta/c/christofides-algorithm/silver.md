@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every step can be written iteratively over fixed-capacity arrays with typed ranges and explicit guards before each index, so no annotations are needed, but many loop-carried counters (stack pointer, adjacency counts, edge totals) make discharge depend on careful program shape.
 
-Position 759 in the [progression](../../progression.md#stage-14), in stage 14.
+Position 759 in the [progression](../../progression.md#stage-13), in stage 13.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Embed the 100 points as a constant array of coordinate records, compute an integ
 - **termination**: The Hierholzer and integer square root loops are while loops inside procedures (no termination check), and the Prim and shortcut passes are for loops.
 - **other**: True minimum-weight perfect matching (blossom) is far too heavy for annotation-free proof, so the program uses a greedy matching, which costs the 3/2 guarantee but keeps the pipeline faithful in shape.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, arrays, multidimensional arrays, records, for loops, while loops, procedures, functions, 'Image of scalars, string building and Put without a newline.
 

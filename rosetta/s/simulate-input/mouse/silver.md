@@ -2,7 +2,7 @@
 
 **Excluded from Silver: GUI, OS services.** The only requirement is to inject a mouse-button click into a GUI target, which needs windowing and OS input-injection services that Silver does not provide yet. No Oracle rule is broken: an admitted library operation could give the click, with its failure outcomes specified, so the task is a candidate for future Silver coverage.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

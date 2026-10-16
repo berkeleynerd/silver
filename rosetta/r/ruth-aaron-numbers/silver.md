@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything is integer trial division inside procedures with static bounds and guards, so checks are routine except the loop-carried sum accumulator and number formatting, which need careful guards but no annotations.
 
-Position 267 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 267 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ A procedure Prime_Sum(N, Distinct, S) trial-divides by F in a for loop over 2..2
 - **index**: Result storage is an array of 30 entries indexed only after a count < 30 guard, and trial factors run over a static for range 2..224 covering the square root of the limit.
 - **division**: Divisors are loop indexes starting at 2, so mod and / are statically nonzero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, 'Image of scalars, Put without a newline, string building and arrays.
 

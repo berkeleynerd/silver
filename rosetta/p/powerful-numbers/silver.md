@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Only four primes can contribute, so the generation is a small bounded enumeration whose arithmetic is protected by ranged subtypes and division guards, and the only loop-carried index work is the array fill and the insertion sort in procedures.
 
-Position 289 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 289 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -16,7 +16,7 @@ For each k in 2..10 the limit is 10**k, and since p**k <= 10**k forces p <= 10 o
 - **termination**: All while loops sit in procedures, which get no termination check, and the exponent enumeration is nested for loops over fixed ranges.
 - **range**: Image conversions of values up to 10**10 into bounded line buffers need declared maximum lengths large enough for 11-digit numbers, which static type ranges provide.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, arrays, for loops, while loops, procedures, 'Image of scalars, string building and Boolean objects.
 

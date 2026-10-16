@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check can be tied to array bounds, ranged counters and pre-use guards with no annotation, but the bounded floating-point arithmetic and several loop-carried counters make discharge depend on careful program shape.
 
-Position 1120 in the [progression](../../progression.md#stage-19), in stage 19.
+Position 1120 in the [progression](../../progression.md#stage-18), in stage 18.
 
 ## Approach
 
@@ -16,7 +16,7 @@ The program embeds the cube (8 vertices, 6 quad faces) in constrained arrays of 
 - **range**: The edge count and new-vertex numbers grow across loop iterations with no invariant, so they must be typed to the capacity range and guarded before each increment, with overflow of capacity giving a specified rejection outcome.
 - **initialization**: Arrays of points, edges and face tables must be fully initialized by aggregate before the loops fill them, since partial fills cannot be proven by flow analysis.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, floating point, floating-point images, 'Image of scalars, arrays, multidimensional arrays, records, for loops, procedures, functions, Put without a newline, string building and conditional expressions.
 

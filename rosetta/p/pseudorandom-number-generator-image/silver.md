@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** The checks that matter are the modular arithmetic, which wraps and never overflows, the mod-256 conversion, which has a static range, and the for loops, which have static bounds, so every proof obligation is routine. What Silver lacks is surface, chiefly modular types and named-file output, not provability.
 
-Position 1421 in the [progression](../../progression.md#stage-27), in stage 27.
+Position 1421 in the [progression](../../progression.md#stage-26), in stage 26.
 
 ## Failure paths to test
 
@@ -18,7 +18,7 @@ A Main procedure keeps a fixed-seed linear congruential generator in a 32-bit mo
 - **range**: Each color byte is (State / 2**16) mod 256 converted to a 0..255 subtype, and the static mod bound makes the conversion provably in range.
 - **other**: Failure to create or write the output file must be a specified outcome of the admitted file library, reported to the console, rather than an exception.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, modular types, integer division, ranged subtypes, for loops, 'Image of scalars and file output.
 

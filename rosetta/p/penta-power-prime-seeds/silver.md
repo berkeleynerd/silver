@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from types and bounded for loops, but the 25-digit primality test needs fixed-capacity big-number arithmetic carried through nested loops, so discharge depends on careful program shape and the solver handling limb arithmetic, with no annotation required.
 
-Position 1406 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1406 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Use a fixed-size Boolean sieve (bounded to the search limit of about 1.6 million
 - **range**: The Miller-Rabin modular multiplication is done by bounded double-and-add over a fixed number of bits, so each intermediate stays below twice the modulus and fits the fixed capacity without an invariant.
 - **index**: Limb loops iterate over the array's own range and the sieve index is guarded by an explicit bound check that rejects with a visible outcome.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, modular types, Boolean objects, arrays, for loops, while loops, procedures, functions, big numbers, 'Image of scalars, string building and Put without a newline.
 

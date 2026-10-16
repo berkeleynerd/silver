@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All values stay below 2**31 and every index comes from for-loop ranges, so only the loop-carried row additions need explicit overflow guards, which makes discharge plausible rather than trivially likely.
 
-Position 1370 in the [progression](../../../progression.md#stage-25), in stage 25.
+Position 1370 in the [progression](../../../progression.md#stage-24), in stage 24.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Keep one Pascal row as an array of Natural indexed 0..30, initialised to row 0, 
 - **range**: Element subtype Natural makes the subtraction of adjacent central entries safe, though the prover must see that both operands are non-negative from the type alone.
 - **length**: Integer'Image results are bounded by the type, so appending them to a fixed-size line buffer or printing directly is routine.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, arrays, for loops, 'Image of scalars, string building, procedures and exit status.
 

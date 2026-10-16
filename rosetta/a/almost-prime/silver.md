@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are small (at most 176), every divisor is a for-loop index of at least 2, and the only loop-carried arithmetic needs simple guards, with no annotation needed because loops live in procedures.
 
-Position 199 in the [progression](../../progression.md#stage-9), in stage 9.
+Position 199 in the [progression](../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ A procedure counts prime factors with multiplicity by trial division, using a fo
 - **overflow**: The loop-carried prime-factor count is only known by its type after the first iteration, so the increment is guarded by a test that the count is below a small limit or uses a subtype whose range is large enough.
 - **division**: The divisor is a for-loop index over a range starting at 2, so mod and division by it are never by zero.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, for loops, while loops, procedures, Put without a newline and 'Image of scalars.
 

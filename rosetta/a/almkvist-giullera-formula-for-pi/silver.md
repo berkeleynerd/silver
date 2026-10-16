@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Everything follows from fixed-capacity limb arrays, bounded for loops and small-multiplier ranged types, but the multi-limb carry chains, big-by-big multiplication and digit-by-digit square root need careful shaping so every check discharges without invariants.
 
-Position 1402 in the [progression](../../progression.md#stage-26), in stage 26.
+Position 1402 in the [progression](../../progression.md#stage-25), in stage 25.
 
 ## Approach
 
@@ -16,7 +16,7 @@ Represent big non-negative integers as fixed-length arrays of base-10^9 limbs in
 - **termination**: The square root and division are done digit-by-digit with for loops over fixed digit counts inside procedures, avoiding Newton iteration whose while loop would need a variant.
 - **range**: Each digit search (trial digit 0..9 by repeated compare-and-subtract) is a bounded for loop, so no loop-carried value escapes its subtype.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, for loops, while loops, procedures, big numbers, string building, 'Image of scalars and Put without a newline.
 

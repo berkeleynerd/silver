@@ -2,7 +2,7 @@
 
 **Excluded from Silver: sound, processes, delay.** The task needs a fixed text split into words, each word printed (the permitted fallback to cursor highlighting) and then spoken through an external speech engine. That requires sound and process effects Silver lacks today, but no Oracle rule is broken. Word splitting can use bounded strings and iteration.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 String operations, arrays and loops.
 

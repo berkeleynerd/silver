@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every access is into fixed arrays indexed by guarded or ranged values and the only loop-carried cursor is guarded before each use, so no annotation is needed, but the decrypt cursor and buffer lengths make the program shape-sensitive.
 
-Position 845 in the [progression](../../progression.md#stage-15), in stage 15.
+Position 845 in the [progression](../../progression.md#stage-14), in stage 14.
 
 ## Approach
 
@@ -15,7 +15,7 @@ Represent the board as constant arrays: a 10-entry digit row for the first row, 
 - **range**: Mapping characters and digits to board positions needs the lookup tables typed as ranged subtypes and a guard that the character or digit is in the board, with unmapped input producing a specified rejection.
 - **termination**: Decrypt's while loop sits in a procedure, which gets no termination check, and the cursor strictly advances anyway.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, arrays, string indexing, string building, for loops, while loops, procedures and case statements.
 

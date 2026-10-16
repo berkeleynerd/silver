@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All loops are for loops over static ranges and the only loop-carried value, the product, is range-typed and guarded before each multiplication, so every check follows from types and guards.
 
-Position 123 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 123 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -12,7 +12,7 @@ Two nested for loops: n from 2 to 499 and m from 2 to n-1, keeping a product in 
 
 - **overflow**: The running product of proper divisors is a ranged subtype and is multiplied only after a guard that it stays at most n (checked as pro <= n / m), so the bound holds without an invariant.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, 'Image of scalars and Boolean objects.
 

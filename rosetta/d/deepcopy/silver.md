@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Ada array and record assignment is already a deep copy, and index-based links keep cycles without access types. Every check follows from ranged index subtypes and static bounds, so proof should discharge without annotations.
 
-Position 1164 in the [progression](../../progression.md#stage-21), in stage 21.
+Position 1164 in the [progression](../../progression.md#stage-20), in stage 20.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The program models a heterogeneous, cyclic graph as a fixed array of node record
 
 - **index**: Cycle links are stored as a Node_Index subtype over the array's own bounds, so following a link with a fixed-count for loop always indexes within range.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, enumerations, arrays, records, 'Image of scalars and for loops.
 

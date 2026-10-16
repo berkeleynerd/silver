@@ -2,7 +2,7 @@
 
 **Excluded from Silver: outside SPARK, environment.** Excluded: the task needs a running program to test whether the variable bloop and the function abs exist, and to read its own compiler or runtime version. Both are introspection that Ada/SPARK cannot express, because names are resolved at compile time. The existing Ada solution admits this and prints target type limits instead.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers.
 

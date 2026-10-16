@@ -2,7 +2,7 @@
 
 **Excluded from Silver: annotations, other.** The task asks for Peano naturals and addition to be defined in the language, and for theorems about every natural number to be proved constructively by the type checker or proof assistant, including attempted false proofs that must be rejected. Silver forbids author-written contracts and lemmas, and it only admits programs that prove, so no future Silver can express these proofs. The sample is excluded.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, subprograms and recursion.
 

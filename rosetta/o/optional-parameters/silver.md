@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All checks follow from declared ranges: indexes come from for loops over static bounds or from a parameter of the index subtype, and a cell's trimmed length is bounded by the cell size. No while loop or recursion is needed, so nothing requires an annotation.
 
-Position 1484 in the [progression](../../progression.md#stage-30), in stage 30.
+Position 1484 in the [progression](../../progression.md#stage-29), in stage 29.
 
 ## Approach
 
@@ -12,7 +12,7 @@ The table is a constrained array of rows, and each row is a constrained array of
 
 - **index**: The column parameter has a declared subtype equal to the row's index range, and the bubble-sort loops run over static subranges of the table's index type, so every index check follows from types.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, ranged subtypes, Boolean objects, characters, enumerations, arrays, string indexing, string ordering, case statements, for loops, procedures and functions.
 

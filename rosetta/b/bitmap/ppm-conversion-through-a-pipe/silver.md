@@ -2,7 +2,7 @@
 
 **Excluded from Silver: processes.** The task needs a bounded in-memory bitmap (an array of RGB pixels) written as PPM to a pipe feeding an external JPEG converter. That is a process and pipe effect Silver lacks today, but no fixed Oracle rule forbids it, so there is no conflict.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Arrays, records, loops, subprograms and integers.
 

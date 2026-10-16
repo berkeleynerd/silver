@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** Every check follows from declared ranges and for-loop indexes except the loop-carried divisor sum and the comma-formatting buffer, which need careful guards but no annotation. The prime-count loop is heavy at runtime but not a proof concern.
 
-Position 929 in the [progression](../../progression.md#stage-17), in stage 17.
+Position 929 in the [progression](../../progression.md#stage-16), in stage 16.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A function Chowla (N in 1 .. 35_000_000) returns a Long_Long_Integer sum by a fo
 - **index**: Comma-formatted number text is built in a fixed 16-character buffer with a position counter that must be guarded before each write.
 - **range**: The perfect-number triangular generator K and Kk values grow in a loop, so they need a type wide enough plus an exit guard before multiplication.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, functions, procedures, 'Image of scalars, string building, characters, string indexing, arrays and conditional expressions.
 

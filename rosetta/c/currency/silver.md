@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** All values are constant-bounded integers in straight-line code, so overflow checks follow from the type ranges once the tax multiplication is split to stay within 64 bits. Needed beyond today's Silver are integer arithmetic, scalar image and bounded string building for the output.
 
-Position 140 in the [progression](../../progression.md#stage-8), in stage 8.
+Position 140 in the [progression](../../progression.md#stage-7), in stage 7.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Amounts are held as exact integer cents in a 64-bit signed range type, with embe
 - **overflow**: Multiplying the 2.2e18-cent total by 765 would exceed 64 bits, so the program splits the total into quotient and remainder by 10000 and multiplies the quotient and the small remainder separately, keeping every product within a 64-bit cents type.
 - **range**: Image of a cents amount must be padded to two digits, which the program does with a guarded if on the remainder from mod 100 before concatenating bounded strings.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, 'Image of scalars, string building, procedures and Put without a newline.
 

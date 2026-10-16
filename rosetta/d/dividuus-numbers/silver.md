@@ -2,7 +2,7 @@
 
 **Candidate: proofs plausibly discharge automatically.** All arithmetic is bounded integer work whose checks follow from subtype ranges and nonzero guards, and no loop in a function needs a variant, but the loop-carried digit product and the roughly ten-million-iteration stretch search need careful typing and shape.
 
-Position 406 in the [progression](../../progression.md#stage-10), in stage 10.
+Position 406 in the [progression](../../progression.md#stage-9), in stage 9.
 
 ## Approach
 
@@ -15,7 +15,7 @@ A subtype of 0..10**10 holds candidates, digit sums and products; functions digi
 - **termination**: Digit extraction and the repeated digital-root reductions use for loops with fixed iteration counts (ten digits, a fixed number of reduction rounds) inside functions, avoiding while loops that would need a variant.
 - **range**: The search counters in the main procedure's while loops are loop-carried and need loop conditions bounding them (found below 50, candidate below 10**9) so that increments cannot overflow.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, functions, procedures, for loops, while loops, 'Image of scalars and Put without a newline.
 

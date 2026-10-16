@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from character-range guards, a length guard before indexing, and a sum that stays in a 0..9 subtype, with only for loops and no recursion, so no annotation is needed; the main gaps are Silver surface (functions, loops, character and string indexing, unconstrained String parameters).
 
-Position 983 in the [progression](../../progression.md#stage-18), in stage 18.
+Position 983 in the [progression](../../progression.md#stage-17), in stage 17.
 
 ## Approach
 
@@ -14,7 +14,7 @@ A function Is_Valid_ISIN takes an unconstrained String, returns False unless its
 - **index**: Indexing S(S'First+11) and the reverse scan over S'Range are safe because a guard on S'Length = 12 precedes any access and the loop ranges over the string's own bounds.
 - **range**: Letter values come from Character'Pos(C) - Character'Pos('A') + 10 and are computed only after a C in 'A'..'Z' comparison guard, so the 10..35 range is evident and the two digits come from /10 and mod 10.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, Boolean objects, characters, for loops, procedures, functions, unconstrained arrays, string indexing and arrays.
 

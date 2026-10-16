@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from subtype ranges and a bounded LCG step, and the endless-loop semantics live in a procedure, which gets no termination check. The seeded generator is deterministic, so the "loop forever if 10 never appears" behavior is faithful, though for a fixed seed the run may either stop or cycle forever, which is a visible outcome of the specification.
 
-Position 188 in the [progression](../../../progression.md#stage-9), in stage 9.
+Position 188 in the [progression](../../../progression.md#stage-8), in stage 8.
 
 ## Approach
 
@@ -13,7 +13,7 @@ Keep a deterministic linear congruential generator state in a bounded integer su
 - **overflow**: The LCG state is a modular or range-bounded value, so the multiply-and-add is guarded by a bound on the state and cannot overflow.
 - **termination**: A procedure's loop gets no termination check, but the program is a main procedure so no variant is needed.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, for loops, while loops, procedures, 'Image of scalars and Put without a newline.
 

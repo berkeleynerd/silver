@@ -2,7 +2,7 @@
 
 **Excluded from Silver: clock.** The task needs a 320x240 bounded pixel array filled from a deterministic pseudo-random generator, written to an image file, with FPS measured from the clock and printed. No fixed Oracle rule is broken. Bounded loops, fixed-size arrays and modular-integer arithmetic suffice, and a bounded frame count can stand in for running forever.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, arrays, loops, subprograms, enumerations and floating point.
 

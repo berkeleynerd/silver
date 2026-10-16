@@ -2,7 +2,7 @@
 
 **Candidate: proofs likely to discharge automatically.** Every check follows from fixed array bounds, bounded millisecond subtypes and a guard on the shifted value, and all loops are for loops in procedures, so no annotations are needed.
 
-Position 1133 in the [progression](../../progression.md#stage-20), in stage 20.
+Position 1133 in the [progression](../../progression.md#stage-19), in stage 19.
 
 ## Approach
 
@@ -14,7 +14,7 @@ The 12 cue timestamps (start and end) and text lines of the example are embedded
 - **range**: A negative result after rolling back is rejected by an explicit guard that prints a specified error line, rather than wrapping around midnight.
 - **index**: Digit extraction and formatting use fixed 12-character timestamp strings indexed with static constants, and the digit-to-Character conversion follows from a 0..9 subtype produced by mod 10.
 
-## Language surface beyond today's Silver
+## Language surface recorded by this assessment
 
 Integers, integer division, ranged subtypes, characters, arrays, string indexing, string building, text parsing, for loops, procedures, functions and Put without a newline.
 
