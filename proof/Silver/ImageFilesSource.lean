@@ -1,6 +1,7 @@
 module
 
 public import Silver.ImageFilesTrace
+public import Silver.ImageModelInitialSource
 public import Silver.ImageFilesSplice
 public import Silver.ImageFilesCapture
 public import Silver.ImageFilesSourceShape
@@ -73,7 +74,9 @@ theorem actual_source : ActualSource := by
   · exact refine_block
 
 /-- Full finite executions of either checked native loop determine the scanner
-state from the exact observed input bytes, including partial failed reads. -/
+state from the exact recorded consumed prefix, including failed iterations.
+A successful C_Get followed by a failed insertion contributes no Consume and
+therefore no recorded Read_Bytes entry. -/
 theorem loop_model (command : Command) (selected : command = snapshot ∨ command = refine)
     (tables : Native.Tables) (nativeHelpers : Core.Helpers)
     (helpers : SourceBridge.NativeHelperBodies tables nativeHelpers)
@@ -100,5 +103,22 @@ theorem loop_plan (command : Command) (selected : command = snapshot ∨ command
       (after.read.foldl (ScannerNative.consume (Core.modelHelpers tables)) before.current).finishView := by
   rw [SourceBridge.interpreted_finish runFinish finish,
     loop_model command selected tables nativeHelpers helpers runStructural runConsume scanner before after empty execution]
+
+/-- The checked procedure prefixes initialize Current from the actual
+Initial_State and reset Read_Bytes before entering the loop. Consequently the
+final Plan is computed from the recorded consumed prefix and the empty scanner. -/
+theorem initialized_plan (command : Command) (selected : command = snapshot ∨ command = refine)
+    (tables : Native.Tables) (nativeHelpers : Core.Helpers)
+    (helpers : SourceBridge.NativeHelperBodies tables nativeHelpers)
+    (runStructural runConsume : Core.State → Nat → Core.State)
+    (scanner : SourceBridge.InterpretedScanner (SourceBridge.totalizedHelpers tables nativeHelpers) runStructural runConsume)
+    (runFinish : FinishNative.Input → FinishNative.Plan) (finish : SourceBridge.InterpretedFinish runFinish)
+    (initial : Core.State) (initialSource : SourceBridge.InterpretedInitial initial)
+    (before after : Frame) (empty : before.read = []) (started : before.current = initial)
+    (execution : LoopRun command runConsume before after) :
+    runFinish after.current.finishView = FinishNative.model
+      (after.read.foldl (ScannerNative.consume (Core.modelHelpers tables)) {}).finishView := by
+  rw [loop_plan command selected tables nativeHelpers helpers runStructural runConsume scanner runFinish finish before after empty execution,
+    started, SourceBridge.actual_initial initial initialSource]
 
 end Silver.ImageModel.FilesSource

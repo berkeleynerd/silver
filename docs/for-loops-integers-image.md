@@ -413,7 +413,9 @@ contracts; it does not infer execution semantics from a matching hash.
 
 `ImageFilesTrace` proves that every finite execution of either loop produces
 an operational `NativeScan` of its exact accumulated `Read_Bytes`. An insertion
-failure exits before Consume; an output failure exits after Consume. Each
+failure exits before Consume, even if C_Get has already returned a byte; that
+byte is absent from both the recorded prefix and scanner state. An output
+failure exits after Consume. Each
 iteration therefore either preserves the input/scanner pair or appends one
 Character byte and performs exactly one Consume call. The state-typing
 premises are the native types checked by SPARK. Together with the existing
@@ -436,3 +438,14 @@ capture and earlier scanner objects. The existing source-binding/Lake-dependency
 regression also passed (`#15-image-file-bindings`). This is a focused result;
 initial-state/schema/template composition, the complete integrated audit and
 milestone validation remain outstanding.
+
+
+The follow-on initial-state composition checked at 16:30:15 UTC with a fresh
+11,136-declaration audit (`#15-image-file-initial`). The independently checked
+native record-default interpretation now fixes the Files loop's initial scanner
+to the empty mathematical state. A read-only review of `ce5ae46ff8` found no
+correctness issue in the Files trace, splice or source interpretation; its
+wording clarification distinguishes the recorded consumed prefix from a byte
+returned by C_Get immediately before a failed insertion. Successful full-file
+claims continue to rely on the native successful-I/O postconditions. Scanner to
+selected-schema and concrete template/clone composition remain outstanding.
