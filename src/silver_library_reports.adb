@@ -505,6 +505,161 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         or else Text (Object.Last) /= '}' then Malformed
       else Field_From (Text, Object, Name, Object.First + 1));
 
+   --  Projection congruence is stated over the scanner's actual byte-derived
+   --  members, including their order and duplicate names. The relation permits
+   --  a different value only for an immediate raw check_tree member. It does
+   --  not equate objects merely because a selected policy already accepts them.
+   Projection_Tree_Name : constant String := "check_tree";
+
+   function Equal_Content
+     (Left : String; L : Span; Right : String; R : Span) return Boolean is
+     (Left'First = 1 and then Right'First = 1
+      and then Valid (Left, L) and then Valid (Right, R)
+      and then Left (L.First .. L.Last) = Right (R.First .. R.Last))
+     with Ghost => Static;
+
+   function Equivalent_Field
+     (Left : String; L : Span; Right : String; R : Span) return Boolean is
+     (if L = Missing then R = Missing
+      elsif L = Malformed then R = Malformed
+      else Equal_Content (Left, L, Right, R))
+     with Ghost => Static;
+
+   function Equivalent_Members
+     (Left : String; L : Span; LP : Offset;
+      Right : String; R : Span; RP : Offset; Erase_Tree : Boolean) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Left'First = 1 and then Left'Length <= Max_Report_Length
+         and then Right'First = 1 and then Right'Length <= Max_Report_Length
+         and then Valid (Left, L) and then Valid (Right, R)
+         and then LP in L.First + 1 .. Left'Length + 1
+         and then RP in R.First + 1 .. Right'Length + 1,
+       Subprogram_Variant => (Decreases => (Left'Length + 1) - LP);
+
+   function Equivalent_Members
+     (Left : String; L : Span; LP : Offset;
+      Right : String; R : Span; RP : Offset; Erase_Tree : Boolean) return Boolean is
+     (declare LM : constant Member := Member_Spec (Left, L, LP);
+              RM : constant Member := Member_Spec (Right, R, RP);
+      begin
+        LM.State = RM.State and then
+          (case LM.State is
+             when Broken | Finished => True,
+             when Present =>
+               Equal_Content (Left, LM.Key, Right, RM.Key)
+               and then
+                 ((Erase_Tree and then String_Equal (Left, LM.Key, Projection_Tree_Name))
+                  or else Equal_Content (Left, LM.Value, Right, RM.Value))
+               and then Equivalent_Members
+                 (Left, L, LM.Next, Right, R, RM.Next, Erase_Tree)));
+
+   procedure String_Content_Congruence
+     (Left : String; L : Span; Right : String; R : Span; Expected : String)
+     with Ghost => Static, Global => null,
+       Pre => Left'First = 1 and then Left'Length <= Max_Report_Length
+         and then Right'First = 1 and then Right'Length <= Max_Report_Length
+         and then Equal_Content (Left, L, Right, R),
+       Post => String_Equal (Left, L, Expected) = String_Equal (Right, R, Expected)
+   is
+   begin
+      pragma Assert (L.Last - L.First = R.Last - R.First);
+      pragma Assert (Left (L.First) = Right (R.First));
+      pragma Assert (Left (L.Last) = Right (R.Last));
+      if L.Last > L.First then
+         pragma Assert
+           (Left (L.First + 1 .. L.Last - 1) = Right (R.First + 1 .. R.Last - 1));
+      end if;
+   end String_Content_Congruence;
+
+   procedure String_Name_Unique
+     (Text : String; Key : Span; First, Second : String)
+     with Ghost => Static, Global => null,
+       Pre => Text'First = 1 and then Text'Length <= Max_Report_Length
+         and then String_Equal (Text, Key, First)
+         and then String_Equal (Text, Key, Second),
+       Post => First = Second
+   is
+   begin
+      pragma Assert (First'Length = Second'Length);
+      for I in 1 .. First'Length loop
+         pragma Loop_Invariant
+           (for all J in 1 .. I - 1 =>
+              First (First'First + (J - 1)) = Second (Second'First + (J - 1)));
+         pragma Assert (First (First'First + (I - 1)) = Text (Key.First + I));
+         pragma Assert (Second (Second'First + (I - 1)) = Text (Key.First + I));
+      end loop;
+   end String_Name_Unique;
+
+   procedure Merge_Field_Congruence
+     (Left : String; L1, L2 : Span; Right : String; R1, R2 : Span)
+     with Ghost => Static, Global => null,
+       Pre => Equivalent_Field (Left, L1, Right, R1)
+         and then Equivalent_Field (Left, L2, Right, R2),
+       Post => Equivalent_Field
+         (Left, Merge_Field (L1, L2), Right, Merge_Field (R1, R2))
+   is
+   begin
+      null;
+   end Merge_Field_Congruence;
+
+   procedure Member_Field_Congruence
+     (Left : String; L : Span; LP : Offset;
+      Right : String; R : Span; RP : Offset; Erase_Tree : Boolean; Name : String)
+     with Ghost => Static, Global => null,
+       Pre => Left'First = 1 and then Left'Length <= Max_Report_Length
+         and then Right'First = 1 and then Right'Length <= Max_Report_Length
+         and then Valid (Left, L) and then Valid (Right, R)
+         and then LP in L.First + 1 .. Left'Length + 1
+         and then RP in R.First + 1 .. Right'Length + 1
+         and then Equivalent_Members (Left, L, LP, Right, R, RP, Erase_Tree)
+         and then (not Erase_Tree or else Name /= Projection_Tree_Name),
+       Post => Equivalent_Field
+         (Left, Field_From (Left, L, Name, LP), Right, Field_From (Right, R, Name, RP)),
+       Subprogram_Variant => (Decreases => (Left'Length + 1) - LP)
+   is
+      LM : constant Member := Member_Spec (Left, L, LP);
+      RM : constant Member := Member_Spec (Right, R, RP);
+   begin
+      if LM.State = Present then
+         Member_Field_Congruence
+           (Left, L, LM.Next, Right, R, RM.Next, Erase_Tree, Name);
+         String_Content_Congruence (Left, LM.Key, Right, RM.Key, Name);
+         if String_Equal (Left, LM.Key, Name) then
+            if Erase_Tree and then String_Equal (Left, LM.Key, Projection_Tree_Name) then
+               String_Name_Unique (Left, LM.Key, Name, Projection_Tree_Name);
+            end if;
+            pragma Assert (not Erase_Tree
+              or else not String_Equal (Left, LM.Key, Projection_Tree_Name));
+            pragma Assert (Equal_Content (Left, LM.Value, Right, RM.Value));
+         end if;
+         Merge_Field_Congruence
+           (Left, (if String_Equal (Left, LM.Key, Name) then LM.Value else Missing),
+            Field_From (Left, L, Name, LM.Next),
+            Right, (if String_Equal (Right, RM.Key, Name) then RM.Value else Missing),
+            Field_From (Right, R, Name, RM.Next));
+      end if;
+   end Member_Field_Congruence;
+
+   procedure Object_Field_Congruence
+     (Left : String; L : Span; Right : String; R : Span;
+      Erase_Tree : Boolean; Name : String)
+     with Ghost => Static, Global => null,
+       Pre => Left'First = 1 and then Left'Length <= Max_Report_Length
+         and then Right'First = 1 and then Right'Length <= Max_Report_Length
+         and then Valid (Left, L) and then Valid (Right, R)
+         and then Left (L.First) = '{' and then Left (L.Last) = '}'
+         and then Right (R.First) = '{' and then Right (R.Last) = '}'
+         and then Equivalent_Members
+           (Left, L, L.First + 1, Right, R, R.First + 1, Erase_Tree)
+         and then (not Erase_Tree or else Name /= Projection_Tree_Name),
+       Post => Equivalent_Field
+         (Left, Field_Spec (Left, L, Name), Right, Field_Spec (Right, R, Name))
+   is
+   begin
+      Member_Field_Congruence
+        (Left, L, L.First + 1, Right, R, R.First + 1, Erase_Tree, Name);
+   end Object_Field_Congruence;
+
    --  Unique immediate-member lookup refines the recursive byte relation.
    function Field (Text : String; Object : Span; Name : String) return Span
      with Pre => Text'First = 1 and then Text'Length <= Max_Report_Length,
