@@ -194,10 +194,10 @@ def LibraryEvidence {Artifact : Type} (tools : Tools Artifact) : Program → Pro
   | .sequence _ => ∃ steps, tools.verifyFixedLibrary steps
 
 /-- Generic external-tool contracts, without arbitrary-SPARK solver
-completeness. Declaration obligations retain the uniform range/exact-length
-fragment. Executable-body obligations normalize to source-derived affine range,
-affine length and input-validity schemas under the exact refined path context.
-The endpoint certificate is checked in Lean. Generation may omit or repeat
+completeness. Declaration and executable-body obligations normalize to the
+source-derived range, exact/affine length, scalar arithmetic, Integer Image,
+loop and input-validity schemas under the exact refined path context.
+Their endpoint certificates are checked in Lean. Generation may omit or repeat
 schemas; its coverage of every native Bronze/Silver obligation remains a
 trusted GNATprove premise audited through complete reports.
 
