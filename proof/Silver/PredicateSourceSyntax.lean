@@ -47,7 +47,7 @@ mutual
   def SourceStatement.execute (input : Source) (valid : Bool) (values : Values) (item : SourceStatement)
       (integers : Integer.Store := Integer.emptyStore) : Execution :=
     match item with
-    | .simple item => item.execute input values
+    | .simple item => executeSimpleStatement input values item integers
     | .reject => ⟨values, [.reject]⟩
     | .choice condition yes tail =>
         if condition.evaluate values input valid integers then executeSourceStatements input valid values yes integers
