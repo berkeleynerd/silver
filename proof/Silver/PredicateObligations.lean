@@ -15,6 +15,7 @@ open Bindings Compose PathFacts
 
 inductive Obligation
   | range (context : Context) (summary : Summary)
+  | stringRange (context : Context) (summary : LengthSummary)
   | length (context : Context) (left right : Summary)
   | intervalLength (context : Context) (left : LengthSummary) (right : Summary)
   | validInput (context : Context)
@@ -24,6 +25,7 @@ inductive Obligation
 
 def Obligation.discharge : Obligation → Bool
   | .range context summary => fitsSummary context summary
+  | .stringRange context summary => fitsLengthSummary context summary
   | .length context left right => equalSummary context left right
   | .intervalLength context left right => equalLengthSummary context left right
   | .validInput context => !context.invalidReachable
@@ -33,6 +35,9 @@ def Obligation.discharge : Obligation → Bool
 def Obligation.Valid : Obligation → Prop
   | .range context summary => ∀ valid length rejected,
       context.Allows valid length rejected → summary.length length ≤ maxSourceLength
+  | .stringRange context summary => summary.staticLength ≤ maxSourceLength ∧
+      ∀ valid length rejected actualLength, context.Allows valid length rejected →
+        summary.Contains length actualLength → summary.upper.length length ≤ maxSourceLength
   | .length context left right => ∀ valid length rejected,
       context.Allows valid length rejected → left.length length = right.length length
   | .intervalLength context left right => ∀ valid inputLength rejected actualLength,
@@ -46,6 +51,9 @@ def Obligation.Valid : Obligation → Prop
 theorem Obligation.discharge_sound {check : Obligation} (checked : check.discharge = true) : check.Valid := by
   cases check with
   | range context summary => exact fun _ _ _ allowed => fitsSummary_sound allowed checked
+  | stringRange context summary =>
+      exact ⟨fitsLengthSummary_static checked, fun _ _ _ _ allowed within =>
+        fitsLengthSummary_sound allowed within checked⟩
   | length context left right => exact fun _ _ _ allowed => equalSummary_sound allowed checked
   | intervalLength context left right =>
       exact fun _ _ _ _ allowed within => equalLengthSummary_sound allowed within checked
@@ -95,7 +103,7 @@ def Condition.obligations (shape : Shape) (condition : Condition) (context : Con
   | .stringCompare _ left right =>
       imageObligations left ranges ++ imageObligations right ranges ++
         match left.inferLength shape ranges, right.inferLength shape ranges with
-        | some a, some b => [.range context a.upper, .range context b.upper]
+        | some a, some b => [.stringRange context a, .stringRange context b]
         | _, _ => [.impossible]
   | .lengthCompare _operator left right =>
       match shape left, right.bound shape with
@@ -143,12 +151,12 @@ def simpleObligations (shape : Shape) (context : Context) (item : Sequence.Simpl
   | .null => []
   | .assign update => imageObligations update.value ranges ++
       match shape update.target, update.value.inferLength shape ranges with
-      | some ⟨bound, true⟩, some summary => [.range context summary.upper,
+      | some ⟨bound, true⟩, some summary => [.stringRange context summary,
           .intervalLength context summary bound.summary]
       | _, _ => [.impossible]
   | .output expression | .put expression => imageObligations expression ranges ++
       match expression.inferLength shape ranges with
-      | some summary => [.range context summary.upper, .validInput context]
+      | some summary => [.stringRange context summary, .validInput context]
       | none => [.impossible]
 
 theorem simple_obligations_exact (shape : Shape) (context : Context) (item : Sequence.SimpleStatement)

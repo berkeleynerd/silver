@@ -347,12 +347,31 @@ theorem fitsSummary_sound {context : Context} {summary : Summary} {length : Nat}
             simpa only [found, decide_eq_true_eq] using checked.1
           exact Interval.fits_sound fits allowed
 
+def fitsLengthSummary (context : Context) (summary : LengthSummary) : Bool :=
+  decide (summary.staticLength ≤ maxSourceLength) &&
+    (summary.empty || fitsSummary context summary.upper)
+
+theorem fitsLengthSummary_static {context : Context} {summary : LengthSummary}
+    (checked : fitsLengthSummary context summary = true) : summary.staticLength ≤ maxSourceLength := by
+  simp only [fitsLengthSummary, Bool.and_eq_true] at checked
+  exact of_decide_eq_true checked.1
+
+theorem fitsLengthSummary_sound {context : Context} {summary : LengthSummary}
+    {length actualLength : Nat} {valid rejected : Bool}
+    (allowed : context.Allows valid length rejected) (within : summary.Contains length actualLength)
+    (checked : fitsLengthSummary context summary = true) :
+    summary.upper.length length ≤ maxSourceLength := by
+  simp only [fitsLengthSummary, Bool.and_eq_true] at checked
+  have bound := checked.2
+  simp only [within.1, Bool.false_or] at bound
+  exact fitsSummary_sound allowed bound
+
 def Condition.checkBounds (shape : Shape) (condition : Condition) (context : Context)
     (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
   match condition with
   | .stringCompare _ left right =>
       match left.inferLength shape ranges, right.inferLength shape ranges with
-      | some a, some b => fitsSummary context a.upper && fitsSummary context b.upper
+      | some a, some b => fitsLengthSummary context a && fitsLengthSummary context b
       | _, _ => false
   | .lengthCompare _ left right =>
       match shape left, right.bound shape with
@@ -382,9 +401,9 @@ theorem Condition.checkBounds_sound {condition : Condition} {shape : Shape} {has
       · rename_i a b leftFound rightFound
         simp only [Bool.and_eq_true] at checked
         exact ⟨Expression.inferLength_runtimeSafe leftFound state scalarState
-            (fitsSummary_sound allowed checked.1) (Nat.le_refl _),
+            (fitsLengthSummary_sound allowed (Expression.inferLength_sound leftFound state scalarState).1 checked.1) (Nat.le_refl _),
           Expression.inferLength_runtimeSafe rightFound state scalarState
-            (fitsSummary_sound allowed checked.2) (Nat.le_refl _)⟩
+            (fitsLengthSummary_sound allowed (Expression.inferLength_sound rightFound state scalarState).1 checked.2) (Nat.le_refl _)⟩
       · contradiction
   | lengthCompare operator left right =>
       simp only [checkBounds] at checked

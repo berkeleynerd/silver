@@ -109,7 +109,7 @@ theorem equalLengthSummary_sound {context : Context} {left : LengthSummary} {rig
 def checkAssignment (shape : Shape) (context : Context) (update : Assignment)
     (ranges : Integer.Ranges := Integer.emptyRanges) : Bool :=
   match shape update.target, update.value.inferLength shape ranges with
-  | some ⟨bound, true⟩, some summary => fitsSummary context summary.upper &&
+  | some ⟨bound, true⟩, some summary => fitsLengthSummary context summary &&
       equalLengthSummary context summary bound.summary
   | _, _ => false
 
@@ -120,7 +120,7 @@ def checkSimple (shape : Shape) (context : Context) (item : Sequence.SimpleState
   | .assign update => checkAssignment shape context update ranges
   | .output expression | .put expression =>
       match expression.inferLength shape ranges with
-      | some summary => fitsSummary context summary.upper && !context.invalidReachable
+      | some summary => fitsLengthSummary context summary && !context.invalidReachable
       | none => false
 
 def loopContext (context : Context) (bounds : Integer.Interval) : Context :=
@@ -165,10 +165,10 @@ theorem expression_safe_on_path {shape : Shape} {context : Context} {expression 
     (known : expression.inferLength shape ranges = some summary)
     (state : Fits shape input values) (scalarState : Integer.Fits ranges integers)
     (allowed : context.Allows valid input.length rejected)
-    (checked : fitsSummary context summary.upper = true) :
+    (checked : fitsLengthSummary context summary = true) :
     expression.RuntimeSafe values input integers :=
   Expression.inferLength_runtimeSafe known state scalarState
-    (fitsSummary_sound allowed checked) (Nat.le_refl _)
+    (fitsLengthSummary_sound allowed (Expression.inferLength_sound known state scalarState).1 checked) (Nat.le_refl _)
 
 def executeAssignment (update : Assignment) (values : Values) (input : Source)
     (integers : Integer.Store) : Values :=
