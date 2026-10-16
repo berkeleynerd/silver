@@ -371,9 +371,22 @@ def main(arguments: list[str] | None = None) -> None:
             result["notes"] = result["notes"][-20:]
             # Keep detailed event streams/input hashes in each durable record;
             # this is the concise readout used at resume.
-            result["runs"] = [{key: value for key, value in run.items()
-                               if key not in ("events", "inputs")}
-                              for run in result["runs"]]
+            summaries = []
+            for run in result["runs"]:
+                finish = run.get("finish") or {}
+                summaries.append({
+                    **{key: run[key] for key in ("run_id", "task", "kind", "scope", "state", "active",
+                                                "workers", "directory", "fingerprint", "command", "reason")},
+                    "worktree": run["worktree"]["resolved"],
+                    "resources": [item["resolved"] for item in run["resources"]],
+                    "started_at": run["utc"], "finished_at": finish.get("utc"),
+                    "duration_seconds": finish.get("duration_seconds"),
+                    "returncode": finish.get("returncode"),
+                    "error": finish.get("error"), "failure_keys": finish.get("failure_keys", []),
+                    "evidence": [item["resolved"] for item in finish.get("evidence", run["evidence"])],
+                    "retained_report_count": len(finish.get("retained_reports", [])),
+                })
+            result["runs"] = summaries
         elif args.operation == "diagnose":
             result = diagnose(host, args.run_id, args.summary, args.next_step)
         else:
@@ -430,7 +443,8 @@ def main(arguments: list[str] | None = None) -> None:
                "mode": "cold" if proof_run and proof_run.cold else "full" if proof_run and proof_run.full else args.action}
     with ManagedRun(host, kind, command, initial, resources,
                     workers=0 if query else jobs or None, task=args.task, reason=args.reason,
-                    evidence=[reports] if reports else [], failure_reports=[reports] if reports else
+                    evidence=[reports] if reports and args.action != "build" else [],
+                    failure_reports=[reports] if reports and args.action != "build" else
                     [Path(path).resolve() for path in args.workspace] if args.action == "tool" else []) as run:
         print(f"Managed run: {run.run_id} ({run.directory})", flush=True)
         if args.action != "test" and (not host.alr.is_file() or not (host.context / "alire.toml").is_file()):
@@ -486,11 +500,11 @@ def main(arguments: list[str] | None = None) -> None:
                 if proof_run.cold:
                     extra = [f"--subdirs={reports.parent.name}"]
             else:
-                options = ["-p", "-j", str(run.workers)]
+                options = ["-p", f"-j{run.workers}"]
             command = ["gnatprove" if proof_run else "gprbuild", "-P", "../../../silver.gpr",
                        *options, *extra, f"-XSILVER_HOST={host.key}"]
         elif args.action == "tool" and Path(command[0]).name in ("gnatprove", "gprbuild") and not query:
-            command += ["-j", str(run.workers)]
+            command += [f"-j{run.workers}"]
         actual = command if args.action == "test" else alire_command(host, "exec", "--", *command)
         run.event("command", command=actual, cwd=str(host.root if args.action == "test" else host.context))
         if proof_run:

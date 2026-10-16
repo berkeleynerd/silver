@@ -87,6 +87,13 @@ class DevRunTests(unittest.TestCase):
                 mock.patch.object(dev, "audit_sources"):
             yield invoke
 
+    def test_build_uses_attached_native_worker_flag(self) -> None:
+        with mock.patch.object(dev, "invoke") as invoke:
+            dev.main(["build", "--task", "#39", "--jobs", "2"])
+        command = invoke.call_args.args[1]
+        self.assertIn("-j2", command)
+        self.assertNotIn("-j", command)
+
     def test_full_success_requires_reason_before_replacing_evidence(self):
         arguments = ["prove", "--full", "--jobs", "2", "--task", "#39"]
         with self.simulated_proof() as invoke:
@@ -225,7 +232,7 @@ class DevRunTests(unittest.TestCase):
         self.assertEqual(record["inputs"]["executable"],
                          {"path": str(self.custom_tool), "sha256": proof_provenance.digest(self.custom_tool)})
         command = invoke.call_args.args[1]
-        self.assertEqual(command[-2:], ["-j", "2"])
+        self.assertEqual(command[-1:], ["-j2"])
         self.assertTrue(invoke.call_args.kwargs["pass_fds"])
 
     def test_custom_cli_requires_both_input_and_workspace_declarations(self):
