@@ -14,7 +14,8 @@ package body Silver_Image_Files with SPARK_Mode => On is
      with Global => (Output => (Read_Bytes, Copied_Bytes, Written_Bytes,
        Read_Ended, Files_Closed, Rechecked)),
        Post => (Static => Read_Bytes = Copied_Bytes
-         and then Read_Bytes = Written_Bytes)
+         and then Read_Bytes = Written_Bytes
+         and then Bytes.Length (Read_Bytes) = 0)
    is
    begin
       Read_Bytes := Bytes.Empty_Sequence;
@@ -40,11 +41,26 @@ package body Silver_Image_Files with SPARK_Mode => On is
 
    procedure Put_Insertion
      (File : System.Address; Kind : Model.Insertion_Kind; Success : out Boolean)
-     with Global => (In_Out => (Ada.Text_IO.File_System, Written_Bytes))
+     with Global => (In_Out => (Ada.Text_IO.File_System, Written_Bytes)),
+       Post => (Static => (if Success then
+         Written_Bytes'Old <= Written_Bytes
+         and then Bytes.Length (Written_Bytes) = Bytes.Length (Written_Bytes'Old)
+           + To_Big_Integer (Model.Insertion_Length (Kind))
+         and then (for all I in 1 .. Model.Insertion_Length (Kind) =>
+           Bytes.Get (Written_Bytes, Bytes.Length (Written_Bytes'Old)
+             + To_Big_Integer (I)) = Model.Insertion_Byte (Kind, I))))
    is
+      Before : constant Bytes.Sequence := Written_Bytes with Ghost => Static;
    begin
       Success := True;
       for Position in 1 .. Model.Insertion_Length (Kind) loop
+         pragma Loop_Invariant (Static => Before <= Written_Bytes);
+         pragma Loop_Invariant (Static => Bytes.Length (Written_Bytes)
+           = Bytes.Length (Before) + To_Big_Integer (Position - 1));
+         pragma Loop_Invariant (Static =>
+           (for all I in 1 .. Position - 1 =>
+             Bytes.Get (Written_Bytes, Bytes.Length (Before) + To_Big_Integer (I))
+               = Model.Insertion_Byte (Kind, I)));
          Put_Byte (File, Model.Insertion_Byte (Kind, Position), Success);
          exit when not Success;
       end loop;
@@ -122,6 +138,10 @@ package body Silver_Image_Files with SPARK_Mode => On is
       end if;
       loop
          pragma Loop_Invariant (Static => Read_Bytes = Copied_Bytes);
+         pragma Loop_Invariant (Static =>
+           Spliced_Prefix (Read_Bytes, Written_Bytes, Plan, Position));
+         pragma Loop_Invariant (Declarations_Done = (Position > Plan.Declarations_Offset));
+         pragma Loop_Invariant (Includes_Done = (Position > Plan.Includes_Offset));
          Item := C_Get (Input);
          if Item = -1 then
             Read_Ended := True;

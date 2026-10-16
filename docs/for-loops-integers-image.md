@@ -381,3 +381,21 @@ native model parsing without requesting new application proof searches.
 Production bootstrap/routing, complete scanner/schema and file-transform source
 correspondence, report-capacity derivation and capability-wide validation remain
 unfinished. These focused results do not yet admit Integer Image as supported.
+
+### Exact streaming splice contract
+
+`Silver_Image_Files.Spliced_Prefix` now states the complete successful output:
+its length is the original length plus the two fragment lengths, every original
+byte occurs at its prescribed shifted index, and both inserted spans contain
+exactly `Insertion_Byte` at the selected offsets. The loop establishes this
+predicate incrementally; `Put_Insertion` proves prefix preservation and every
+appended fragment byte. These are static ghost observations, with no finite
+buffer added to the executable stream.
+
+Focused native Linux run `20261016T155411-55909276ecd7`, task
+`#15-image-file-splice`, passed for `silver_image_files.adb`. Its current report
+contains 129 proved proof records and 65 flow records; the command reports 311
+checks including retained unchanged unit reports. This establishes the byte
+transform contract. Connecting the complete observed read sequence to the
+scanner's source interpretation, then to the selected JSON schema and Lean
+splice theorem, remains required.
