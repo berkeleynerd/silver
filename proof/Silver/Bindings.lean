@@ -1,6 +1,8 @@
 module
 
 public import Silver.ArgumentsRuntime
+public import Silver.IntegerExpressions
+public import Silver.IntegerImage
 
 @[expose] public section
 
@@ -118,17 +120,24 @@ inductive Value
   | literal (bytes : Source)
   | reference (index : Nat)
   | argument
+  | image (expression : Integer.Expr)
   deriving DecidableEq, Repr
 
-def Value.evaluate (values : Values) (input : Source) : Value → Source
+def Value.evaluate (values : Values) (input : Source) (value : Value)
+    (integers : Integer.Store := Integer.emptyStore) : Source :=
+  match value with
   | .literal bytes => bytes
   | .reference index => values index
   | .argument => input
+  | .image expression => Integer.Image.bytes (expression.evaluate integers)
 
+/-- Exact object-bound inference. Scalar-dependent Image operands use the
+current integer ranges in `Compose.Operand.inferLength`. -/
 def Value.infer (shape : Shape) : Value → Option Bound
   | .literal bytes => some (.fixed bytes.length)
   | .reference index => (shape index).map CellInfo.bound
   | .argument => some .argument
+  | .image _ => none
 
 def Value.PrintableLiterals : Value → Prop
   | .literal bytes => Printable bytes
@@ -141,6 +150,7 @@ theorem value_length {shape : Shape} {input : Source} {values : Values}
   cases value with
   | literal bytes => cases inferred; rfl
   | argument => cases inferred; rfl
+  | image _ => cases inferred
   | reference index =>
       simp only [Value.infer, Option.map_eq_some_iff] at inferred
       obtain ⟨info, found, same⟩ := inferred
@@ -154,6 +164,7 @@ theorem value_printable {shape : Shape} {input : Source} {values : Values}
   cases value with
   | literal bytes => exact literals
   | argument => exact inputPrintable
+  | image _ => cases inferred
   | reference index =>
       simp only [Value.infer, Option.map_eq_some_iff] at inferred
       obtain ⟨info, found, _⟩ := inferred
@@ -186,9 +197,11 @@ def Operand.staticLength (shape : Shape) (atom : Operand) : Nat :=
 def Operand.dynamicCount (shape : Shape) (atom : Operand) : Nat :=
   Bound.dynamicPart (atom.bound shape)
 
-def Expression.evaluate (values : Values) (input : Source) : Expression → Source
+def Expression.evaluate (values : Values) (input : Source) (expression : Expression)
+    (integers : Integer.Store := Integer.emptyStore) : Source :=
+  match expression with
   | [] => []
-  | atom :: rest => atom.evaluate values input ++ Expression.evaluate values input rest
+  | atom :: rest => atom.evaluate values input integers ++ Expression.evaluate values input rest integers
 
 def Expression.staticLength (shape : Shape) : Expression → Nat
   | [] => 0
@@ -228,24 +241,28 @@ theorem Expression.evaluate_length {expression : Expression} {shape : Shape}
         staticLength, dynamicCount, Nat.add_mul]
       omega
 
-theorem Expression.evaluate_append (left right : Expression) (values : Values) (input : Source) :
-    (left ++ right).evaluate values input = left.evaluate values input ++ right.evaluate values input := by
+theorem Expression.evaluate_append (left right : Expression) (values : Values) (input : Source)
+    (integers : Integer.Store := Integer.emptyStore) :
+    (left ++ right).evaluate values input integers = left.evaluate values input integers ++ right.evaluate values input integers := by
   induction left with
   | nil => rfl
   | cons atom rest ih => simp [evaluate, ih, List.append_assoc]
 
-def Expression.evaluateLeft (expression : Expression) (values : Values) (input : Source) : Source :=
-  expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) []
+def Expression.evaluateLeft (expression : Expression) (values : Values) (input : Source)
+    (integers : Integer.Store := Integer.emptyStore) : Source :=
+  expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input integers) []
 
-theorem Expression.foldl_evaluate (expression : Expression) (values : Values) (input initial : Source) :
-    expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input) initial =
-      initial ++ expression.evaluate values input := by
+theorem Expression.foldl_evaluate (expression : Expression) (values : Values) (input initial : Source)
+    (integers : Integer.Store := Integer.emptyStore) :
+    expression.foldl (fun accumulated atom => accumulated ++ atom.evaluate values input integers) initial =
+      initial ++ expression.evaluate values input integers := by
   induction expression generalizing initial with
   | nil => simp [evaluate]
   | cons atom rest ih => simp [List.foldl_cons, ih, evaluate, List.append_assoc]
 
-theorem Expression.left_association (expression : Expression) (values : Values) (input : Source) :
-    expression.evaluateLeft values input = expression.evaluate values input := by
+theorem Expression.left_association (expression : Expression) (values : Values) (input : Source)
+    (integers : Integer.Store := Integer.emptyStore) :
+    expression.evaluateLeft values input integers = expression.evaluate values input integers := by
   simp only [evaluateLeft, foldl_evaluate, List.nil_append]
 
 theorem Expression.evaluate_printable {expression : Expression} {shape : Shape}
