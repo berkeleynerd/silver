@@ -29,17 +29,22 @@ The common runner controls, native/Lean integration, focused regressions and
 independent review are complete. The record identifies the final Linux evidence
 and repaired review findings. These are parts of one work package, with no
 remaining owner policy decision. Required assurance stays
-unchanged; no language construct or Oracle amendment is included. For loops and
-integers remains preserved separately, and its harness stays paused.
+unchanged; no language construct or Oracle amendment is included. The owner has
+now separately resumed the existing For loops and integers goal below.
 
 ### For loops and integers
 
-**Selected; current-language review repairs complete.** The owner resumed
-the milestone on 2026-10-15 with standard Integer `'Image`, then requested the
-selected [review repairs](docs/review-343c2f8-repairs.md) before proceeding.
-Those eleven findings are repaired and validated for the currently admitted
-language. This repair delivery performs no language-feature work.
-[Session memory](docs/session-memory.md) records both instructions on `main`.
+**Resumed on 2026-10-16; integration and scope reconciliation first.** The owner
+explicitly resumed the same unfinished goal, retaining the settled standard
+Integer `'Image` scope. The eleven selected
+[review repairs](docs/review-343c2f8-repairs.md) and the
+[proof-iteration controls](docs/proof-iteration.md) are complete prerequisites.
+Reconcile the preserved feature work with current `main`, then finish the
+scope/automatic-proof boundary and continue implementation and assurance in the
+order below. Apply the managed proof workflow throughout.
+[Session memory](docs/session-memory.md) records this instruction and distinguishes
+it from the harness record, which still reports paused because the available
+tool has no resume operation. No replacement goal or scope expansion is needed.
 [Milestone 1](https://github.com/berkeleynerd/silver/milestone/1) and
 [stage #10](https://github.com/berkeleynerd/silver/issues/10) track delivery;
 unfinished implementation and proof work remain preserved, not supported.
