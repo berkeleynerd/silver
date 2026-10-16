@@ -1,12 +1,27 @@
-# Silver handoff
+# Silver local recovery notes
 
-Updated on 2026-10-16 on Linux x86-64. Read [AGENTS.md](AGENTS.md),
+This file preserves local installation/recovery guidance and historical
+handoffs. Current authorization lives in [session memory](docs/session-memory.md),
+direction in [roadmap.md](roadmap.md), and live status in the
+[Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
+For loops and integers was delivered through PR #47; its separate
+[review remediation](docs/review-b8f1d0b9a8-repairs.md) is authorized through
+PR #65. Historical paused/unfinished statements below describe earlier
+checkpoints and do not override that delivery or the live harness state.
+
+The delivered Rosetta baseline includes `integer-for-loops`,
+`immutable-integers` and `integer-image`. Their three loop drivers are in
+stage 1; broader scalar/loop/subtype forms remain stage 2 on #11, procedures
+stage 3, and arrays stage 4 on #12. Consult the generated
+[progression](rosetta/progression.md) for the current mapping.
+
+Read [AGENTS.md](AGENTS.md),
 [oracle.md](oracle.md), [language.md](language.md),
 [development.md](development.md), [roadmap.md](roadmap.md), and the newest
 [session memory](docs/session-memory.md) before substantial work. Inspect Git
 status and the live harness goal; historical goal states are not current instructions.
 
-## Proof iteration controls
+## Historical handoff: proof iteration controls
 
 The owner authorized the [proof-iteration controls](docs/proof-iteration.md) with
 “Make it so” on 2026-10-16. [PR #40](https://github.com/berkeleynerd/silver/pull/40)
@@ -37,13 +52,13 @@ check. The [runner interface](docs/proof-iteration.md#managed-interface) describ
 task labels, rerun reasons, diagnostic notes and the durable checkpoint command.
 No ledger entry substitutes for required assurance or authorizes new work.
 
-For loops and integers remains unfinished and preserved separately, with its
-harness **paused**. This tooling work does not resume or complete it. No Oracle
-or language change is included. Publication remains authorized, hosted CI stays
+At this historical tooling checkpoint, For loops and integers remained
+unfinished and preserved separately, with its harness **paused**. That tooling
+work did not resume or complete it and included no Oracle or language change. Publication remains authorized, hosted CI stays
 disabled, and native macOS validation remains independent and nonblocking.
 CLI memory tools were unavailable and were not updated.
 
-## Selected review repairs complete
+## Historical handoff: selected review repairs complete
 
 The eleven owner-selected findings from
 [review `e2c4fc2..343c2f8`](docs/reviews/review-343c2f8.md) are repaired: #17–#21
@@ -62,11 +77,12 @@ passed. The record distinguishes the full suite from the affected recheck after
 the final Python-only provenance repair. No macOS rerun, hosted CI or independent
 kernel replay is claimed.
 
-No feature work was performed in this repair delivery. For loops and integers
-remains unfinished under its existing authorization and settled Integer `'Image`
-scope. Canonical feature work is preserved and unadmitted. Its harness goal remains
-**paused**, separately from that authorization, and is not resumed or completed
-by these repairs. Read the live objective/status before goal work.
+No feature work was performed in that historical repair delivery. At that
+checkpoint, For loops and integers remained unfinished under its existing
+authorization and settled Integer `'Image` scope; canonical feature work was
+preserved and unadmitted, and the harness was **paused**. Those repairs did not
+resume or complete it; the subsequent delivery above did. Read the live
+objective/status before goal work.
 
 Recovery is `tmp/review-repairs-active.json`; the repair record locates retained
 evidence in the integration worktree. Preserve worktrees, caches, reports,

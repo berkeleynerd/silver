@@ -76,8 +76,10 @@ Integer constants, fully grouped `+`, `-` and `*`, comparisons, scoped
 forward/reverse loops and standard Integer `'Image`, including Ada's leading
 space. These compose with the existing String, input, path and output rules.
 The [delivery evidence](docs/for-loops-integers.md#stable-delivery-evidence)
-records complete native proof/build/tests, the complete cached Lean build and
-fresh audit, source/semantic review and the exact validation inputs.
+records the complete cached native audit and build, the retained full-suite
+failure with its focused snapshot repair/recheck, and the complete cached Lean
+build with a fresh audit. It distinguishes actual input scopes and independent
+review; the regression evidence is not one clean passing full-suite run.
 
 The owner resumed this same unfinished goal on 2026-10-16 after the selected
 [review repairs](docs/review-343c2f8-repairs.md) and

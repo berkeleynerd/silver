@@ -6,8 +6,10 @@ records scope; [milestone 3](https://github.com/berkeleynerd/silver/milestone/3)
 holds live status. The original review target is `b8f1d0b9a8` (tree equal to
 `65de28b64e`), not a remediation implementation commit. The
 [review and appended disposition](reviews/review-b8f1d0b9a8.md#appended-disposition--2026-10-16)
-retain the evidence and corrections. No repair or new validation is claimed
-by this planning record.
+retain the evidence and corrections. The authorization reached `main` through [PR #65](https://github.com/berkeleynerd/silver/pull/65),
+commit `f4d2f35083c5e2eb96b33ee03eea0bd26e80d458`, merged as
+`cd7c033beb1143143cf72b3dcdddbcca5781da86`. Implementation and validation
+progress are distinguished below.
 
 ## Ordered scope and completion
 
@@ -75,3 +77,30 @@ handoffs cite that commit and name isolated worktrees/owners. Subsequent
 completion handoffs distinguish implementation and documentation commits,
 reviewed inputs, successful and failed validation, remaining work and the next
 authorized step. CLI memory was unavailable and was not updated.
+
+
+## Record-correction implementation
+
+The documentation batch for L2–L9/L13 corrects the original delivery manifest
+and capability/review summaries, records the regression lane's older proof
+tree, separates execution content from base commits, and defines the limited
+synchronization evidence. L4 now includes a one-time retrospective
+[cache inventory](evidence/for-loops-integers/delivery-cache-inventory.json),
+captured before remediation proof runs, with compile-origin traces and object
+hashes. It adds no general provenance framework or new proof run. Existing
+review checks retain their exact reported outcomes and skips.
+
+The assurance description links the authoritative source-binding list, and
+the producer/invocation boundary names the size-12 translation and argument,
+lookup, proof-directory and result-protocol premises with pinned source
+citations. README links the delivered constructs and presents RESUME as local
+recovery/history, with old paused/unfinished statements marked historical.
+The roadmap now distinguishes the retained failed suite from its focused
+repair. Prospective review discipline is recorded in development.md.
+
+These are record corrections, awaiting integration review; they do not claim
+L1, L10/L12, L14, L11 or L15 implemented or validated. The operational boundary now reflects the implementation owner's confirmed
+retention/cleanup, environment-query and diagnostic behavior; its native
+validation remains pending. The capacity repair record follows the validated
+scanner handoff. Original review evidence and prior native/Lean/test run artifacts
+remain untouched.

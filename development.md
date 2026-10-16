@@ -328,6 +328,15 @@ source binding is part of correspondence, not deferred binary attestation.
 
 ## Goal and review bookkeeping
 
+Consolidate candidate findings before verification, merging duplicates and
+checking the governing requirement and actual evidence scope. Use additional
+independent verification for blocker claims or unresolved disagreements,
+proportionate to impact. Before repeated broad review or validation, make a
+whole-team cost checkpoint that includes all subthreads, existing successes
+and the smallest remaining check. Do not prescribe a fixed verifier count or
+repeat an expensive success solely to obtain a new record. Required obligation
+discharge, source correspondence and independent review remain unchanged.
+
 - When resuming goal-driven work, read the live harness objective and status and
   reconcile them with the owner's current authorization. For an explicitly
   requested new goal, record its scope and completion/stop conditions and keep

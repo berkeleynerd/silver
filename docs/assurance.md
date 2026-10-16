@@ -100,6 +100,11 @@ unchanged or refinement, as appropriate. The
 [complete producer review](for-loops-image-producer-review.md) establishes the
 pinned source routes for exact selected templates whenever emitted, unique
 selected names, Image's Integer/String dependencies and broad document syntax.
+Complete automatic discharge also requires every admitted Main Integer Image
+occurrence to use the pinned size-12 `Standard_String__Img.to_string`
+translation. The scanner checks templates, not Main occurrences; this
+[producer applicability premise](trusted-boundary.md#image-proof-adapter-boundary)
+is rechecked when the producer pin or admitted Image form changes.
 `ProducerSchemas.envelope` derives scanner requirements using finite template
 validity and source-interpreted table bytes. `producer_finishes` and
 `FilesSource.native_producer_finishes` derive successful initialized scanning
@@ -392,10 +397,11 @@ startup remain trusted dependencies.
 A correct separate model or a matching source pin alone does not establish the
 required correspondence. The checked chain has these distinct parts:
 
-1. Seventeen handwritten source-binding modules fix `include_str` paths for the
-   specifications and bodies of both recognizers, both lexical-helper units,
-   the context/name and integer-literal helpers, the path-fact specification,
-   and the six selected runtime files.
+1. Handwritten source-binding modules fix `include_str` paths for the
+   authoritative recognizer, lexical/name/path, scalar/interval/Image, adapter
+   and runtime units. [AuthoritativeSource.lean](../proof/Silver/AuthoritativeSource.lean)
+   is the normative import list (32 bindings at the For loops and integers
+   delivery), paired with the lakefile's binary source dependencies.
    Generated candidates reconstruct their exact included bytes and checked
    tokens. The generator cannot select replacement source bindings. Source
    alphabet checks include comments and literals.

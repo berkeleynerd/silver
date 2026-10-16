@@ -25,9 +25,13 @@ rechecked as recorded below. The native snapshot sync/hash handoff also passed. 
 [capability checkpoint](../for-loops-integers.md#stable-delivery-evidence) and
 [durable validation record](../evidence/for-loops-integers/delivery-validation.json)
 keep original results separate from repaired inputs. The final reviewed
-implementation is `62f472c35d` after the four-snapshot #50 refresh; the native
-and complete Lean executed snapshot is `4cd2fe8aae`. The coordinated delivery
-inputs and original review snapshot remain separately identified.
+implementation base is `62f472c35d` after the four-snapshot #50 refresh.
+Native and complete Lean runs used base `4cd2fe8aae` plus coordinated
+working-tree changes, including the catalogue source committed in delivery
+`65de28b64e` (merge `b8f1d0b9a8`). Their retained input hashes/digests, not the
+base commit alone, identify what was executed. The original review snapshot
+remains separately identified; the input-scope correction below is subsequent
+review bookkeeping.
 
 ## Review method and scope
 
@@ -163,7 +167,11 @@ The following assumptions remain explicit in the
 
 - The faithful pinned producer supplies Standard metadata, complete selected
   schemas, unique selected names, dependencies and the independent broad
-  serialization grammar. Its occurrence counter stays in the intended Natural
+  serialization grammar. Complete automatic discharge additionally requires
+  every admitted Main Integer Image occurrence to use the reviewed
+  `Standard_String__Img.to_string` translation at size 12. The scanner does
+  not inspect Main occurrences; the [pinned translation routes](../trusted-boundary.md#image-proof-adapter-boundary)
+  state this applicability premise and its producer-change recheck trigger. Its occurrence counter stays in the intended Natural
   domain for the configured scope. Binary inspection found an unchecked
   increment; the source subtype is not a runtime enforcement proof, and no
   universal per-node or generated-model size theorem is claimed.
@@ -318,12 +326,17 @@ final-diff review. Focused run `20261016T200038-4ff6886d5c6a` passed all 53
 `test_evidence.py` tests in 1.403 seconds (managed elapsed 2.038 seconds).
 Both repairs are integrated. Complete repaired root Lean run
 `20261016T200453-9fe1b554e036` passed all 458 modules and a fresh
-87,185-declaration audit at `4cd2fe8aae` plus the coordinated metadata. It used
+87,185-declaration audit with base `4cd2fe8aae` plus coordinated working-tree
+content, including the delivered catalogue source. It used
 Lean 4.34.1, four workers and one thread per process: build 17.115 seconds,
 audit 4.279 seconds, evidence elapsed 25.420 seconds (ledger 25.113 seconds).
-Five exact source-matched artifact groups were reused after comparing 462 proof
-inputs and 32 bound-native sources; this is a cached build with a fresh audit,
-not a clean rebuild or independent kernel replay. Its input digest and evidence
+Five source-matched artifact groups were manually reused in the final
+restoration step after comparing 462 proof inputs and 32 bound-native sources.
+That step does not describe all objects previously assembled from other
+workspaces. Lake's dependency traces selected reuse; the final run elaborated
+11 modules. The [cache inventory](../evidence/for-loops-integers/delivery-cache-inventory.json)
+and correction below retain the origins and trust boundary. This is a cached
+build with a fresh audit, not a clean rebuild or independent kernel replay. Its input digest and evidence
 hash are in the durable record. The scalar/native lane owns repaired native run
 `20261016T200519-b3b644edcb13`, which completed successfully at 20:05:59 UTC.
 The cached native run took 40.299 seconds overall (native phase 31.587 seconds,
@@ -339,7 +352,8 @@ remains part of the coordinated delivery commit after full regression/sample
 results. Compiler/adapter build `20261016T200635-f7611c4d608c` passed in
 3.899 seconds. Full test run `20261016T200650-91510d356211` completed with four workers; its
 failed original result and focused repair are recorded below. The original failed run is never relabelled.
-The final repair target is `4cd2fe8aae`; root's final-diff review and the separate
+The #48/#49 repair target is `4cd2fe8aae`; its coordinated execution inputs
+are distinguished above. Root's final-diff review and the separate
 independent diagnosis/approach review retain their actual scopes.
 
 ## Certificate snapshot finding and focused recheck
@@ -381,7 +395,11 @@ its exact file hashes are retained in the durable validation record. Root alread
 passed the exact affected
 method at the final snapshot; no duplicate native-lane test is required. This
 full-suite/focused-repair combination establishes the repaired regression
-coverage and is not a single clean passing full-suite run. #50 is repaired and validated; closure follows through the coordinated delivery
+coverage for its recorded input scopes and is not a single clean passing
+full-suite run. The suite used the lane's older proof tree, while the root
+certificate recheck and complete Lean run covered their separately recorded
+delivered inputs; the later review checks below address proof-tree-sensitive
+tests. #50 is repaired and validated; closure follows through the coordinated delivery
 commit, together with #48/#49 and the milestone work packages.
 
 Delivery updates the language, catalogue, samples, roadmap and Rosetta stage
@@ -389,3 +407,39 @@ records together and closes the tracked work through the completion commit.
 Native macOS validation remains independent and nonblocking; no hosted CI
 result or clean rebuild is inferred from these checks. CLI memory was
 unavailable and was not updated.
+
+
+## Subsequent input-record correction — review b8f1d0b9a8
+
+The [independent post-delivery review](review-b8f1d0b9a8.md) confirmed the
+native and complete Lean evidence applies to delivered content, while finding
+the base-commit labels and full-suite proof-tree disclosure incomplete. The
+[corrected manifest](../evidence/for-loops-integers/delivery-validation.json)
+retains the original outcomes and hashes. Native `silver_catalogue.adb` was
+already the delivered version during execution; base `4cd2fe8aae` contains an
+older version and does not alone reproduce the native or Lean input digest.
+
+The regression lane recorded 343 proof-directory files (340 `.lean`), versus
+462 (459 `.lean`) in delivery: 39 differed and 119 modules were absent.
+Its native/test/sample inputs matched delivery. The 204-file sync consists
+of 128 `src/`, nine `scripts/`, 44 `tests/`, 22 `samples/` and one
+`catalogue/` file; it excludes `proof/`. The review independently ran the
+affected proof-tree-sensitive tests on the delivered tree with documented
+native-Lean skips. Those results are retained as review evidence, not
+relabeled as a managed full-suite pass or repeated for this correction.
+
+Artifact reuse was manual and accumulated over several workspaces; the final
+five-group restoration was not the whole history. The review's all-trace
+inventory identified 255 foreign-origin modules and reported matching hashes
+for 457 closure objects and 847 import entries. A later
+[retrospective inventory](../evidence/for-loops-integers/delivery-cache-inventory.json)
+records origins, trace hashes and retained object hashes for the final run's
+458-module list, before remediation proof work. Its different scope and
+collection time are explicit. Neither inventory is an execution-time import
+log. Lake matching and honest local cache records remain assumptions; these
+records add no claim of a clean build, kernel replay or binary attestation.
+
+Original finding aliases are #48/L1 (vendor conversion), #49/L2 (grouping)
+and #50/L3 (certificate snapshots). They are separate from L1–L15 in the
+post-delivery review. [The remediation record](../review-b8f1d0b9a8-repairs.md)
+tracks that later disposition without reopening the completed milestone.

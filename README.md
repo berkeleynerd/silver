@@ -20,7 +20,7 @@ The root documents provide the main review entry points:
 - [roadmap.md](roadmap.md): proposed capabilities and their dependencies.
 - [development.md](development.md): the workflow for admitting a capability.
 - [AGENTS.md](AGENTS.md): context and working rules for agent sessions.
-- [RESUME.md](RESUME.md): current handoff, local tools and recovery guidance.
+- [RESUME.md](RESUME.md): local recovery guidance and historical handoff records.
 
 Migration restored local evidence, caches and toolchains into the ignored
 `.silver/` and `.tools/` directories used by development. After verified recovery,
@@ -83,8 +83,9 @@ The [common-expression increment](docs/common-expressions.md) shares literals,
 initialized names, concatenation and parentheses across declarations, assignments,
 comparisons and output. Repeated argument references are allowed when the guard
 bounds every intermediate value to 4096 bytes. The [Larger Expressions milestone](docs/larger-expressions.md)
-extends the budget to sixty-four leaves per expression and sixty-three
-concatenation operators across the program. The
+extended the then-current String-expression budget to sixty-four leaves per
+expression and sixty-three concatenations per program. The current shared
+budget also counts scalar operators as [language.md](language.md) specifies. The
 [release-report sample](samples/release_report.adb) formats nine fields in one
 18-leaf expression, with an explicit argument-length guard.
 
@@ -104,6 +105,13 @@ justified by an exact-length branch. Path facts bound each expression and ensure
 every invalid-input execution rejects without output. Reject returns, so later
 statements still need their own safety facts. These additions complete the
 5a–5c milestone. See [language.md](language.md) for exact rules.
+
+The completed [For loops and integers milestone](docs/for-loops-integers.md)
+adds immutable signed-32-bit Integer constants, fully grouped arithmetic and
+comparisons, scoped forward/reverse loops and standard `Integer'Image`,
+including Ada's leading space. These compose with the String, input, path and
+output rules above. The [current remediation](docs/review-b8f1d0b9a8-repairs.md)
+tracks reviewed implementation and record corrections.
 
 Small source files can still be expensive to compile. In a Linux review, a
 4096-byte program with 800 assignments took **36.4 minutes and 8.89 GiB peak
@@ -271,6 +279,15 @@ its byte-identical `main.adb` snapshot and selected library sources, checks thei
 proof reports, and builds those same snapshots. It prints the snapshot,
 proof-report, and executable paths.
 `run` additionally executes the resulting program. No annotations are inserted.
+
+The Image proof adapter creates separate `imagews-XXXXXX` scratch directories
+under the same host artifact root. Successful calls remove their own scratch
+after the vendor process finishes; failed calls retain it for diagnosis. Set
+`SILVER_KEEP_IMAGE_WORKSPACES=1` to retain successful adapter scratch too.
+Caller-supplied proof directories and historical workspaces are preserved.
+A cleanup failure leaves remaining files and reports on stderr without
+changing the native result. This policy does not remove the compile workspace
+and executable paths printed above.
 Separate application arguments from the source path with `--`:
 
 ```sh
