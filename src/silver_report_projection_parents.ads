@@ -1,3 +1,4 @@
+with SPARK.Big_Integers;
 with Silver_Report_Projection_Types;
 with Silver_Report_Projection_Model;
 with Silver_Report_Projection_Structure;
@@ -7,8 +8,10 @@ package Silver_Report_Projection_Parents
   with SPARK_Mode => On, Ghost => Static
 is
    use Silver_Report_Projection_Types;
+   use SPARK.Big_Integers;
    package Model renames Silver_Report_Projection_Model;
    package Structure renames Silver_Report_Projection_Structure;
+   package Bytes renames Model.Byte_Sequences;
 
    function Same (Left, Right : State; Base : Depth_Range) return Boolean is
      (Left.Depth >= Base and then Right.Depth >= Base
@@ -22,6 +25,26 @@ is
    function Whole (Left, Right : State; Base : Depth_Range) return Boolean is
      (Left.Depth >= Base and then Right.Depth >= Base
       and then (for all I in 1 .. Base => Left.Stack (I) = Right.Stack (I)));
+
+   procedure Same_Transitive (Left, Middle, Right : State; Base : Depth_Range)
+     with Global => null, Pre => Same (Left, Middle, Base) and then Same (Middle, Right, Base),
+       Post => Same (Left, Right, Base);
+
+   procedure Whole_Transitive (Left, Middle, Right : State; Base : Depth_Range)
+     with Global => null, Pre => Whole (Left, Middle, Base) and then Whole (Middle, Right, Base),
+       Post => Whole (Left, Right, Base);
+
+   procedure Lift_Whole
+     (Raw : Bytes.Sequence; First, Last : Big_Natural;
+      Left, Middle : State; Base : Depth_Range)
+     with Global => null,
+       Pre => First >= 1 and then First <= Last + 1 and then Last <= Bytes.Length (Raw)
+         and then Whole (Left, Middle, Base)
+         and then (for all I in Raw =>
+           (if First <= I and then I <= Last then Whole (Middle, Model.Scan_State (Raw, I - 1), Base))),
+       Post => (for all I in Raw =>
+         (if First <= I and then I <= Last then Whole (Left, Model.Scan_State (Raw, I - 1), Base))),
+       Subprogram_Variant => (Decreases => Last + 1 - First);
 
    function Value_Starter (Item : Character) return Boolean is
      (Item in '{' | '[' | '"' | '-' | '0' .. '9' | 't' | 'f' | 'n');
