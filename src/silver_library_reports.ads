@@ -1,3 +1,5 @@
+with Silver_Report_Observations;
+
 package Silver_Library_Reports with SPARK_Mode => On is
    --  Source-bounded application sequences can produce many proved checks and
    --  exact ghost-output advisories. This capacity uses the documented pinned
@@ -15,6 +17,16 @@ package Silver_Library_Reports with SPARK_Mode => On is
      with Ghost => Static, Global => null;
    function Application_Report_Policy
      (Report : String; Kind : Application_Kind := Argument_Output) return Boolean
+     with Ghost => Static, Global => null;
+
+   --  The complete audit policy over mathematical original-report bytes.
+   --  Its definition has no report-storage guard and invokes no projector.
+   function Unbounded_Runtime_Report_Policy
+     (Report : Silver_Report_Observations.Bytes.Sequence; Kind : Report_Kind) return Boolean
+     with Ghost => Static, Global => null;
+   function Unbounded_Application_Report_Policy
+     (Report : Silver_Report_Observations.Bytes.Sequence;
+      Kind : Application_Kind := Argument_Output) return Boolean
      with Ghost => Static, Global => null;
 
    --  Source-specific GNATprove 16.1 report policy for the selected runtime.

@@ -1,3 +1,6 @@
+with SPARK.Big_Integers;
+with Silver_Report_Observations;
+
 package body Silver_Library_Reports with SPARK_Mode => On is
    type Audit_Kind is
      (IO_Body, Libc_Interface, Argument_Body, Argv_Interface,
@@ -1561,6 +1564,515 @@ package body Silver_Library_Reports with SPARK_Mode => On is
         begin
           Last /= 0 and then Space_End (Text, Last + 1) = Text'Length + 1
             and then Object_Policy (Text, (Start, Last), Kind)));
+
+   --  Uncapped audit observations are functions of the original byte sequence.
+   --  Their definitions do not call projection, bounded acceptance, or an
+   --  executable audit loop. Only the projected representation has a capacity.
+   package Raw_Scan renames Silver_Report_Observations;
+   package Raw_Bytes renames Raw_Scan.Bytes;
+   use type SPARK.Big_Integers.Big_Integer;
+   use type Raw_Scan.Span;
+   use type Raw_Scan.Member_State;
+
+   function Raw_String_Equal
+     (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span; Expected : String) return Boolean is
+     (Raw_Scan.Valid (Text, Item)
+      and then Item.Last - Item.First = SPARK.Big_Integers.To_Big_Integer (Expected'Length) + 1
+      and then Raw_Bytes.Get (Text, Item.First) = '"'
+      and then Raw_Bytes.Get (Text, Item.Last) = '"'
+      and then (for all I in Expected'Range =>
+        Raw_Bytes.Get (Text, Item.First + 1 + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) =
+          Expected (I)))
+     with Ghost => Static;
+
+   function Raw_Merge_Field (Left, Right : Raw_Scan.Span) return Raw_Scan.Span is
+     (if Left = Raw_Scan.Malformed or else Right = Raw_Scan.Malformed then Raw_Scan.Malformed
+      elsif Left = Raw_Scan.Missing then Right
+      elsif Right = Raw_Scan.Missing then Left else Raw_Scan.Malformed)
+     with Ghost => Static;
+
+   function Raw_Field_From
+     (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Name : String;
+      Position : Raw_Scan.Offset) return Raw_Scan.Span
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Text, Object)
+         and then Position >= Object.First + 1
+         and then Position <= Raw_Bytes.Length (Text) + 1,
+       Post => Raw_Field_From'Result = Raw_Scan.Missing
+         or else Raw_Field_From'Result = Raw_Scan.Malformed
+         or else Raw_Scan.Valid (Text, Raw_Field_From'Result),
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Text) + 1 - Position);
+
+   function Raw_Field_From
+     (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Name : String;
+      Position : Raw_Scan.Offset) return Raw_Scan.Span is
+     (declare M : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Text, Object, Position);
+      begin
+        (case M.State is
+           when Raw_Scan.Broken => Raw_Scan.Malformed,
+           when Raw_Scan.Finished => Raw_Scan.Missing,
+           when Raw_Scan.Present => Raw_Merge_Field
+             ((if Raw_String_Equal (Text, M.Key, Name) then M.Value else Raw_Scan.Missing),
+              Raw_Field_From (Text, Object, Name, M.Next))));
+
+   function Raw_Field
+     (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Name : String) return Raw_Scan.Span is
+     (if not Raw_Scan.Valid (Text, Object)
+        or else Raw_Bytes.Get (Text, Object.First) /= '{'
+        or else Raw_Bytes.Get (Text, Object.Last) /= '}' then Raw_Scan.Malformed
+      else Raw_Field_From (Text, Object, Name, Object.First + 1))
+     with Ghost => Static;
+
+   --  Dynamic entity identifiers stay raw byte spans, even when their source
+   --  position or length cannot be represented by a machine-sized String.
+   function Raw_Name_Range (Text : Raw_Bytes.Sequence; Name : Raw_Scan.Span) return Boolean is
+     (Name.First >= 1 and then Name.First <= Name.Last + 1
+      and then Name.Last <= Raw_Bytes.Length (Text))
+     with Ghost => Static;
+
+   function Raw_Key_Equal
+     (Text : Raw_Bytes.Sequence; Key, Name : Raw_Scan.Span; Padded : Boolean) return Boolean is
+     (Raw_Scan.Valid (Text, Key) and then Raw_Name_Range (Text, Name)
+      and then Key.Last - Key.First = Name.Last + 1 - Name.First + SPARK.Big_Integers.To_Big_Integer (if Padded then 2 else 1)
+      and then Raw_Bytes.Get (Text, Key.First) = '"'
+      and then Raw_Bytes.Get (Text, Key.Last) = '"'
+      and then (not Padded or else Raw_Bytes.Get (Text, Key.First + 1) = ' ')
+      and then (for all I in Text =>
+        (if I >= Name.First and then I <= Name.Last then
+           Raw_Bytes.Get (Text, Key.First + SPARK.Big_Integers.To_Big_Integer (if Padded then 2 else 1) + I - Name.First) =
+             Raw_Bytes.Get (Text, I))))
+     with Ghost => Static;
+
+   function Raw_Field_Key_From
+     (Text : Raw_Bytes.Sequence; Object, Name : Raw_Scan.Span;
+      Padded : Boolean; Position : Raw_Scan.Offset) return Raw_Scan.Span
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Text, Object) and then Raw_Name_Range (Text, Name)
+         and then Position >= Object.First + 1
+         and then Position <= Raw_Bytes.Length (Text) + 1,
+       Post => Raw_Field_Key_From'Result = Raw_Scan.Missing
+         or else Raw_Field_Key_From'Result = Raw_Scan.Malformed
+         or else Raw_Scan.Valid (Text, Raw_Field_Key_From'Result),
+       Subprogram_Variant => (Decreases => Raw_Bytes.Length (Text) + 1 - Position);
+
+   function Raw_Field_Key_From
+     (Text : Raw_Bytes.Sequence; Object, Name : Raw_Scan.Span;
+      Padded : Boolean; Position : Raw_Scan.Offset) return Raw_Scan.Span is
+     (declare M : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Text, Object, Position);
+      begin
+        (case M.State is
+           when Raw_Scan.Broken => Raw_Scan.Malformed,
+           when Raw_Scan.Finished => Raw_Scan.Missing,
+           when Raw_Scan.Present => Raw_Merge_Field
+             ((if Raw_Key_Equal (Text, M.Key, Name, Padded) then M.Value else Raw_Scan.Missing),
+              Raw_Field_Key_From (Text, Object, Name, Padded, M.Next))));
+
+   function Raw_Field_Key
+     (Text : Raw_Bytes.Sequence; Object, Name : Raw_Scan.Span;
+      Padded : Boolean := False) return Raw_Scan.Span is
+     (if not Raw_Scan.Valid (Text, Object) or else not Raw_Name_Range (Text, Name)
+        or else Raw_Bytes.Get (Text, Object.First) /= '{'
+        or else Raw_Bytes.Get (Text, Object.Last) /= '}' then Raw_Scan.Malformed
+      else Raw_Field_Key_From (Text, Object, Name, Padded, Object.First + 1))
+     with Ghost => Static;
+
+   function Raw_Empty_Array (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Item) and then Raw_Bytes.Get (Text, Item.First) = '['
+      and then Raw_Bytes.Get (Text, Item.Last) = ']'
+      and then Raw_Scan.Space_End (Text, Item.First + 1) = Item.Last)
+     with Ghost => Static;
+
+   function Raw_Location
+     (Text : Raw_Bytes.Sequence; Entity : Raw_Scan.Span; Name : Entity_Kind) return Boolean is
+     (Name /= Unknown and then
+       (declare Locations : constant Raw_Scan.Span := Raw_Field (Text, Entity, JSON_sloc);
+        begin
+          Raw_Scan.Valid (Text, Locations) and then Raw_Bytes.Get (Text, Locations.First) = '['
+            and then Raw_Bytes.Get (Text, Locations.Last) = ']'
+            and then
+              (declare P : constant Raw_Scan.Offset := Raw_Scan.Space_End (Text, Locations.First + 1);
+                       L : constant Raw_Scan.Offset := Raw_Scan.Value_Spec (Text, P);
+               begin L /= 0 and then L < Locations.Last
+                 and then Raw_Scan.Space_End (Text, L + 1) = Locations.Last
+                 and then Raw_String_Equal
+                   (Text, Raw_Field (Text, (P, L), JSON_file), Entity_File (Name)))))
+     with Ghost => Static;
+
+   function Raw_Main_Spelling (Text : Raw_Bytes.Sequence; Name : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Name) and then Name.Last - Name.First = 5
+      and then Raw_Bytes.Get (Text, Name.First) = '"' and then Raw_Bytes.Get (Text, Name.Last) = '"'
+      and then Raw_Bytes.Get (Text, Name.First + 1) in 'm' | 'M'
+      and then Raw_Bytes.Get (Text, Name.First + 2) in 'a' | 'A'
+      and then Raw_Bytes.Get (Text, Name.First + 3) in 'i' | 'I'
+      and then Raw_Bytes.Get (Text, Name.First + 4) in 'n' | 'N')
+     with Ghost => Static;
+
+   function Raw_Entity_Name (Text : Raw_Bytes.Sequence; Entity : Raw_Scan.Span) return Entity_Kind
+     with Ghost => Static, Global => null;
+
+   function Raw_Entity_Name (Text : Raw_Bytes.Sequence; Entity : Raw_Scan.Span) return Entity_Kind is
+     (declare Name : constant Raw_Scan.Span := Raw_Field (Text, Entity, JSON_name);
+              Kind : constant Entity_Kind := (
+          if Raw_Main_Spelling (Text, Name) then Main_Entity
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_IO) then IO_Package
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_IO_Put_Line) then Put_Line
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_IO_Put) then Put
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Output_Libc) then Libc_Package
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Output_Libc_Put_Byte) then Put_Byte
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Output_Libc_Flush) then Flush
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Output_Libc_Set_Exit_Status) then Set_Exit_Status
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Arguments) then Arguments_Package
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Arguments_Input_Is_Valid) then Input_Is_Valid
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Arguments_First_Or_Default) then First_Or_Default
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Arguments_Reject) then Reject
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Arguments_Is_Message) then Is_Message
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime) then Runtime_Package
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Argument_Count) then Argument_Count
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Argument) then Argument
+          elsif Raw_String_Equal (Text, Name, Atom_Silver_Runtime_Set_Exit_Status) then Runtime_Exit_Status
+          else Unknown);
+      begin (if Raw_Location (Text, Entity, Kind) then Kind else Unknown));
+
+   function Raw_Digits (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Item)
+      and then (for all I in Text =>
+        (if I >= Item.First and then I <= Item.Last then Raw_Bytes.Get (Text, I) in '0' .. '9')))
+     with Ghost => Static;
+
+   function Raw_Positive_Number (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_Digits (Text, Item)
+      and then (for some I in Text =>
+        I >= Item.First and then I <= Item.Last and then Raw_Bytes.Get (Text, I) /= '0'))
+     with Ghost => Static;
+
+   function Raw_Nonempty_String (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Item) and then Item.Last - Item.First > 1
+      and then Raw_Bytes.Get (Text, Item.First) = '"'
+      and then Raw_Bytes.Get (Text, Item.Last) = '"')
+     with Ghost => Static;
+
+   function Raw_Referenced_Entity
+     (Text : Raw_Bytes.Sequence; Entities, Arg : Raw_Scan.Span) return Raw_Scan.Span is
+     (if not Raw_Digits (Text, Arg) then Raw_Scan.Missing
+      else (declare Padded : constant Raw_Scan.Span := Raw_Field_Key (Text, Entities, Arg, True);
+            begin (if Padded = Raw_Scan.Missing then Raw_Field_Key (Text, Entities, Arg) else Padded)))
+     with Ghost => Static;
+
+   function Raw_Literal_At
+     (Text : Raw_Bytes.Sequence; First : Raw_Scan.Offset; Expected : String) return Boolean is
+     (First >= 1
+      and then First - 1 + SPARK.Big_Integers.To_Big_Integer (Expected'Length) <= Raw_Bytes.Length (Text)
+      and then (for all I in Expected'Range =>
+        Raw_Bytes.Get (Text, First + SPARK.Big_Integers.To_Big_Integer (I - Expected'First)) = Expected (I)))
+     with Ghost => Static;
+
+   function Raw_Initializer_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (declare Prefix : constant String := """initialization of \""";
+              Suffix : constant String := "\"" has no effect""";
+              PL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Prefix'Length);
+              SL : constant Raw_Scan.Offset := SPARK.Big_Integers.To_Big_Integer (Suffix'Length);
+      begin Raw_Scan.Valid (Text, Item)
+        and then Item.Last - Item.First + 1 > PL + SL
+        and then Item.Last - Item.First + 1 <= PL + SL + 4_096
+        and then Raw_Literal_At (Text, Item.First, Prefix)
+        and then Raw_Literal_At (Text, Item.Last - SL + 1, Suffix)
+        and then Raw_Bytes.Get (Text, Item.First + PL) in 'A' .. 'Z' | 'a' .. 'z'
+        and then Raw_Bytes.Get (Text, Item.Last - SL) /= '_'
+        and then (for all I in Text =>
+          (if I >= Item.First + PL and then I <= Item.Last - SL then
+             Raw_Bytes.Get (Text, I) in 'A' .. 'Z' | 'a' .. 'z' | '0' .. '9' | '_'
+             and then (if Raw_Bytes.Get (Text, I) = '_' then Raw_Bytes.Get (Text, I - 1) /= '_'))))
+     with Ghost => Static;
+
+   function Raw_Reference_Policy (Text : Raw_Bytes.Sequence; Entities, Reference : Raw_Scan.Span) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Reference_Policy (Text : Raw_Bytes.Sequence; Entities, Reference : Raw_Scan.Span) return Boolean is
+     ((Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_POST)
+       or else Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_AORTE)
+       or else Raw_String_Equal (Text, Raw_Field (Text, Reference, JSON_predicate), Atom_CLAIM_EFFECTS))
+      and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+        (Text, Entities, Raw_Field (Text, Reference, JSON_arg))) /= Unknown);
+
+   function Raw_Output_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Output_Message (Text : Raw_Bytes.Sequence; Item : Raw_Scan.Span) return Boolean is
+     (Raw_String_Equal (Text, Item, Atom_unused_Written_Count)
+      or else Raw_String_Equal (Text, Item, Atom_unused_Flushed)
+      or else Raw_String_Equal (Text, Item, Atom_unused_Succeeded)
+      or else Raw_String_Equal (Text, Item, Atom_unused_Written_Bytes)
+      or else Raw_String_Equal (Text, Item, Atom_put_unused_Written_Count)
+      or else Raw_String_Equal (Text, Item, Atom_put_unused_Flushed)
+      or else Raw_String_Equal (Text, Item, Atom_put_unused_Succeeded)
+      or else Raw_String_Equal (Text, Item, Atom_put_unused_Written_Bytes));
+
+   function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind)
+     return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Record_Policy (Text : Raw_Bytes.Sequence; Item, Entities : Raw_Scan.Span; Kind : List_Kind)
+     return Boolean is
+     (if Kind = References then Raw_Reference_Policy (Text, Entities, Item)
+      elsif Kind in Main_Diagnostics then
+        Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_warning)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
+        and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+          (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
+        and then
+          ((Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_INEFFECTIVE)
+            and then
+              (Raw_Initializer_Message (Text, Raw_Field
+                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
+               or else Raw_Output_Message (Text, Raw_Field
+                 (Text, Raw_Field (Text, Item, JSON_message), JSON_text))
+               or else (Kind in Assignment_Diagnostics | Selected_Diagnostics
+                 and then Raw_String_Equal (Text, Raw_Field
+                   (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_unused_assignment))
+               or else (Raw_String_Equal (Text, Raw_Field
+                   (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_statement_no_effect))))
+           or else (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_DEAD_CODE)
+             and then Raw_String_Equal (Text, Raw_Field
+               (Text, Raw_Field (Text, Item, JSON_message), JSON_text), Atom_statement_unreachable)))
+        and then Raw_Field (Text, Item, JSON_justification) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justified) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_suppressed) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_annot_kind) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing
+      elsif Kind in Postconditions | Put_Postconditions | Argument_Postconditions then
+        Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_POSTCONDITION)
+        and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+          (Text, Entities, Raw_Field (Text, Item, JSON_entity))) =
+            (if Kind = Postconditions then Put_Line
+             elsif Kind = Put_Postconditions then Put else First_Or_Default)
+      else
+        Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_severity), Atom_info)
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_line))
+        and then Raw_Positive_Number (Text, Raw_Field (Text, Item, JSON_col))
+        and then Raw_Field (Text, Item, JSON_justification) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justified) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_suppressed) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_annot_kind) = Raw_Scan.Missing
+        and then Raw_Field (Text, Item, JSON_justif_msg) = Raw_Scan.Missing
+        and then
+          (if Kind = Main_Checks then
+             Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
+             and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_RANGE_CHECK)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_rule), Atom_VC_LENGTH_CHECK))
+             and then Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_main_adb)
+             and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+               (Text, Entities, Raw_Field (Text, Item, JSON_entity))) = Main_Entity
+           else
+             (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), JSON_flow)
+              or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_prover)
+              or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_how_proved), Atom_trivial))
+             and then Raw_Nonempty_String (Text, Raw_Field (Text, Item, JSON_rule))
+             and then (Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_io_ads)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_io_adb)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_output_libc_ads)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_arguments_ads)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_arguments_adb)
+               or else Raw_String_Equal (Text, Raw_Field (Text, Item, JSON_file), Atom_silver_runtime_ads))
+             and then Raw_Entity_Name (Text, Raw_Referenced_Entity
+               (Text, Entities, Raw_Field (Text, Item, JSON_entity))) /= Unknown));
+
+   function Raw_List_From
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind; Position : Raw_Scan.Offset)
+     return List_Summary
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Text, Items)
+         and then Position >= Items.First + 1 and then Position <= Raw_Bytes.Length (Text) + 1,
+       Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Text) + 1) - Position);
+
+   function Raw_List_From
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind; Position : Raw_Scan.Offset)
+     return List_Summary is
+     (declare M : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Text, Items, Position);
+      begin
+        (case M.State is
+           when Raw_Scan.Broken => (False, False, False),
+           when Raw_Scan.Finished => (True, True, False),
+           when Raw_Scan.Present =>
+             (declare Rest : constant List_Summary :=
+                 Raw_List_From (Text, Items, Entities, Kind, M.Next);
+                      Good : constant Boolean := Raw_Record_Policy (Text, M.Value, Entities, Kind);
+              begin (Rest.Well_Formed, Good and Rest.Every_OK, Good or Rest.Has_OK))));
+
+   function Raw_List_Spec
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_List_Spec
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Kind : List_Kind) return Boolean is
+     (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '['
+        and then Raw_Bytes.Get (Text, Items.Last) = ']'
+        and then List_Policy (Raw_List_From (Text, Items, Entities, Kind, Items.First + 1), Kind));
+
+   function Raw_Dependencies_From
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Position : Raw_Scan.Offset) return Boolean
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Text, Items)
+         and then Position >= Items.First + 1 and then Position <= Raw_Bytes.Length (Text) + 1,
+       Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Text) + 1) - Position);
+
+   function Raw_Dependencies_From
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; Position : Raw_Scan.Offset) return Boolean is
+     (declare M : constant Raw_Scan.Member := Raw_Scan.Item_Spec (Text, Items, Position);
+      begin
+        (case M.State is
+           when Raw_Scan.Broken => False,
+           when Raw_Scan.Finished => True,
+           when Raw_Scan.Present =>
+             Raw_Reference_Policy (Text, Entities, Raw_Field (Text, M.Value, JSON_claim))
+             and then Raw_List_Spec
+               (Text, Raw_Field (Text, M.Value, JSON_assumptions), Entities, References)
+             and then Raw_Dependencies_From (Text, Items, Entities, M.Next)));
+
+   function Raw_Dependencies_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Dependencies_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span) return Boolean is
+     (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '['
+      and then Raw_Bytes.Get (Text, Items.Last) = ']'
+      and then Raw_Dependencies_From (Text, Items, Entities, Items.First + 1));
+
+   function Raw_Map_Name
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; M : Raw_Scan.Member;
+      Kind : Audit_Kind; Coverage : Boolean) return Entity_Kind
+     with Ghost => Static, Global => null,
+       Pre => M.State = Raw_Scan.Present and then Raw_Scan.Valid (Text, M.Key)
+         and then Raw_Scan.Valid (Text, M.Value);
+
+   function Raw_Map_Name
+     (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span; M : Raw_Scan.Member;
+      Kind : Audit_Kind; Coverage : Boolean) return Entity_Kind is
+     (if M.Key.Last - M.Key.First < 1 then Unknown
+      elsif Coverage then
+        (declare Name : constant Entity_Kind := Raw_Entity_Name
+            (Text, Raw_Field_Key (Text, Entities, (M.Key.First + 1, M.Key.Last - 1)));
+         begin
+           (if Expected_Coverage (Name, Kind)'Length = 0
+              or else not Raw_String_Equal (Text, M.Value, Expected_Coverage (Name, Kind))
+            then Unknown else Name))
+      elsif Raw_Field_Key (Text, Items, (M.Key.First + 1, M.Key.Last - 1)) /= M.Value
+      then Unknown
+      else Raw_Entity_Name (Text, M.Value));
+
+   function Raw_Map_From (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
+                      Kind : Audit_Kind; Coverage : Boolean; Position : Raw_Scan.Offset)
+     return Entity_Summary
+     with Ghost => Static, Global => null,
+       Pre => Raw_Scan.Valid (Text, Items)
+         and then Position >= Items.First + 1 and then Position <= Raw_Bytes.Length (Text) + 1,
+       Subprogram_Variant => (Decreases => (Raw_Bytes.Length (Text) + 1) - Position);
+
+   function Raw_Map_From (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
+                      Kind : Audit_Kind; Coverage : Boolean; Position : Raw_Scan.Offset)
+     return Entity_Summary is
+     (declare M : constant Raw_Scan.Member := Raw_Scan.Member_Spec (Text, Items, Position);
+      begin
+        (case M.State is
+           when Raw_Scan.Broken => (False, False, No_Entities),
+           when Raw_Scan.Finished => (True, True, No_Entities),
+           when Raw_Scan.Present =>
+             (declare Name : constant Entity_Kind := Raw_Map_Name (Text, Items, Entities, M, Kind, Coverage);
+                      Rest : constant Entity_Summary := Raw_Map_From (Text, Items, Entities, Kind, Coverage, M.Next);
+              begin
+                (Rest.Well_Formed and Name /= Unknown,
+                 Rest.Unique and not Rest.Seen (Name),
+                 Remember (Rest.Seen, Name)))));
+
+   function Raw_Map_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
+                      Kind : Audit_Kind; Coverage : Boolean) return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Map_Spec (Text : Raw_Bytes.Sequence; Items, Entities : Raw_Scan.Span;
+                      Kind : Audit_Kind; Coverage : Boolean) return Boolean is
+     (Raw_Scan.Valid (Text, Items) and then Raw_Bytes.Get (Text, Items.First) = '{'
+      and then Raw_Bytes.Get (Text, Items.Last) = '}'
+      and then Map_Policy
+        (No_Entities, Raw_Map_From (Text, Items, Entities, Kind, Coverage, Items.First + 1), Kind, Coverage));
+
+   function Raw_Object_Policy (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Kind : Audit_Kind)
+     return Boolean
+     with Ghost => Static, Global => null;
+
+   function Raw_Object_Policy (Text : Raw_Bytes.Sequence; Object : Raw_Scan.Span; Kind : Audit_Kind)
+     return Boolean is
+     (declare Entities : constant Raw_Scan.Span := Raw_Field (Text, Object, JSON_entities);
+      begin
+        Raw_String_Equal (Text, Raw_Field (Text, Object, JSON_progress), Atom_PROGRESS_PROOF)
+        and then Raw_String_Equal (Text, Raw_Field (Text, Object, JSON_stop_reason), Atom_STOP_REASON_NONE)
+        and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_flow_proof))
+        and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_skip_proof))
+        and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_pragma_assume))
+        and then Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_warn_error))
+        and then Raw_Map_Spec (Text, Entities, Entities, Kind, False)
+        and then Raw_Map_Spec (Text, Raw_Field (Text, Object, JSON_spark), Entities, Kind, True)
+        and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_flow), Entities,
+          (if Kind in Main_Body | Main_Put | Main_Mixed | Argument_Effects | Argument_Binding_Main
+                 | Argument_Without_Query | Argument_Put_Without_Query | Argument_Mixed_Without_Query
+                 | Argument_Effects_Without_Query then Argument_Diagnostics
+           elsif Kind in Selected_Main | Selected_Put | Selected_Mixed | Selected_Effects | Selected_Binding_Main
+                 | Selected_Without_Query | Selected_Put_Without_Query | Selected_Mixed_Without_Query
+                 | Selected_Effects_Without_Query then Selected_Diagnostics
+           elsif Kind in Mutable_Audit then Assignment_Diagnostics
+           elsif Kind in Application_Audit then Binding_Diagnostics else Checks))
+        and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_proof), Entities,
+                           (if Kind in Application_Audit then Main_Checks else Checks))
+        and then Raw_Dependencies_Spec (Text, Raw_Field (Text, Object, JSON_assumptions), Entities)
+        and then (Kind in Libc_Interface | Argv_Interface | Application_Audit or else
+          (not Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_flow))
+           and then not Raw_Empty_Array (Text, Raw_Field (Text, Object, JSON_proof))
+           and then Raw_List_Spec (Text, Raw_Field (Text, Object, JSON_proof), Entities,
+             (if Kind = IO_Body then Postconditions else Argument_Postconditions))
+           and then (if Kind = IO_Body then Raw_List_Spec
+             (Text, Raw_Field (Text, Object, JSON_proof), Entities, Put_Postconditions)))));
+
+   function Raw_Report_Policy (Report : Raw_Bytes.Sequence; Kind : Audit_Kind) return Boolean is
+     (declare Start : constant Raw_Scan.Offset := Raw_Scan.Space_End (Report, 1);
+              Last : constant Raw_Scan.Offset := Raw_Scan.Value_Spec (Report, Start);
+      begin Last /= 0
+        and then Raw_Scan.Space_End (Report, Last + 1) = Raw_Bytes.Length (Report) + 1
+        and then Raw_Object_Policy (Report, (Start, Last), Kind))
+     with Ghost => Static;
+
+   function Unbounded_Runtime_Report_Policy
+     (Report : Raw_Bytes.Sequence; Kind : Report_Kind) return Boolean is
+     (Raw_Report_Policy (Report, Audit_Of (Kind)));
+
+   function Unbounded_Application_Report_Policy
+     (Report : Raw_Bytes.Sequence; Kind : Application_Kind := Argument_Output) return Boolean is
+     (case Kind is
+        when Static_Output => Raw_Report_Policy (Report, Binding_Main)
+          or else Raw_Report_Policy (Report, Static_Main)
+          or else Raw_Report_Policy (Report, Static_Put)
+          or else Raw_Report_Policy (Report, Static_Mixed),
+        when Argument_Output => Raw_Report_Policy (Report, Argument_Binding_Main)
+          or else Raw_Report_Policy (Report, Argument_Effects)
+          or else Raw_Report_Policy (Report, Main_Body)
+          or else Raw_Report_Policy (Report, Main_Put)
+          or else Raw_Report_Policy (Report, Main_Mixed)
+          or else Raw_Report_Policy (Report, Argument_Without_Query)
+          or else Raw_Report_Policy (Report, Argument_Put_Without_Query)
+          or else Raw_Report_Policy (Report, Argument_Mixed_Without_Query)
+          or else Raw_Report_Policy (Report, Argument_Effects_Without_Query),
+        when Assigned_Output => Raw_Report_Policy (Report, Assignment_Main)
+          or else Raw_Report_Policy (Report, Assignment_Effects)
+          or else Raw_Report_Policy (Report, Assignment_Put)
+          or else Raw_Report_Policy (Report, Assignment_Mixed),
+        when Selected_Output => Raw_Report_Policy (Report, Selected_Binding_Main)
+          or else Raw_Report_Policy (Report, Selected_Effects)
+          or else Raw_Report_Policy (Report, Selected_Main)
+          or else Raw_Report_Policy (Report, Selected_Put)
+          or else Raw_Report_Policy (Report, Selected_Mixed)
+          or else Raw_Report_Policy (Report, Selected_Without_Query)
+          or else Raw_Report_Policy (Report, Selected_Put_Without_Query)
+          or else Raw_Report_Policy (Report, Selected_Mixed_Without_Query)
+          or else Raw_Report_Policy (Report, Selected_Effects_Without_Query));
 
    function Runtime_Report_Policy (Report : String; Kind : Report_Kind)
      return Boolean is
