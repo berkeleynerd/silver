@@ -204,3 +204,43 @@ matching native and universal/source proofs.
 
 No admission, proof backend, selected source, installed toolchain, Oracle or
 language specification was changed by this diagnostic lane.
+
+## Review of the native extension point
+
+A read-only review on 2026-10-16 found that driver rules for
+`main.Standard__integer` and `main.Standard_String__Img` do not provide a simple
+configuration hook for the actual generated symbols. In the retained producer
+source, `why3/src/gnat/gnat_checks.ml:396` creates the controller before line 399
+adds the generated input file. `why3/src/session/controller_itp.ml:114–135`
+loads prover drivers during controller creation, and
+`why3/src/driver/driver.ml:239–241` immediately resolves driver theory names
+through `Env.read_theory`. The application's local modules have not been parsed
+at that point.
+
+There is also a symbol-identity distinction. `why3/src/core/env.ml:162–164`
+stores the current parsed file under the empty library path, while
+`Env.read_theory` at lines 219–222 resolves a named library path or the builtin
+`why3` path. Placing a copy of `main.gnat-json` in `_theories` would load a
+separate library with separately created symbols; its driver rules would not
+thereby bind to the symbols in the actual application task. At the later SMT
+stage the captured task erases module qualification:
+`Standard__integer.attr__ATTRIBUTE_IMAGE` becomes `attr__ATTRIBUTE_IMAGE`, and
+the String conversion becomes `to_string`. Bare names and compatible SMT types
+are insufficient evidence of the primitive's origin.
+
+The more direct candidate is a verified SPARK adapter before the original
+`gnatwhy3` parser, refining the typed JSON while exact module and type identity
+are still available. An isolated tool overlay could select that adapter without
+changing the installed toolchain. This remains a design finding, not an
+implemented or validated remedy. The adapter must retain all original
+declarations, obligations and source labels, establish the recognized native
+schema's correspondence, and bind the refinement and original input to the
+resulting evidence. Its theorem strengthens the model to match Ada semantics;
+it is not derivable from the existing weaker axioms alone.
+
+The length refinement must specifically cover the generated size argument
+`12`, or carry an appropriate sufficient-size guard. An unconditional exact
+length assertion for every `s` would contradict the existing
+`to_string__length` axiom at `s = 0`, making the proof context inconsistent.
+The intended fact is guarded by the signed 32-bit range and concerns
+`length (to_string (Standard__integer.attr__ATTRIBUTE_IMAGE v) 12)`.
