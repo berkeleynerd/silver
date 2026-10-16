@@ -135,9 +135,9 @@ def loopHeader (text : Source) (context : ParseContext) (scan : BodyScan) : Loop
 def loopNameAllowed (text : Source) (context : ParseContext) (header : LoopHeader) : Bool :=
   decide (header.first ≠ 0 ∧ header.first < header.after) &&
     (!Named.forbiddenName text header.first header.after ||
-      decide (fixedAfter text header.first "string" true = header.after)) &&
+      Named.nameIs text header.first header.after ("string".toList.map Char.toNat)) &&
     (!context.hasArguments ||
-      decide (fixedAfter text header.first "silver_arguments" true ≠ header.after)) &&
+      !Named.nameIs text header.first header.after ("silver_arguments".toList.map Char.toNat)) &&
     decide (context.scalarNames.length ≠ ScalarExpression.maxBindings)
 
 def loopInner (context : ParseContext) (header : LoopHeader) : ParseContext :=
