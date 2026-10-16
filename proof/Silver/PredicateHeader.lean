@@ -1,7 +1,8 @@
 module
 
 public import Silver.PredicateShell
-public import Silver.ComposeDecode
+public import Silver.PredicateHeaderDecode
+public import Silver.SequenceScalarTrace
 
 @[expose] public section
 
@@ -76,39 +77,15 @@ theorem prefix_arguments {source form events}
       subst rest
       rfl
 
-def decodePrefix (form : Form) (events : List Event) (items : List SourceStatement) : Option Program :=
-  match form, events with
-  | .direct, [.declarations values names] => some ⟨values, names, [], false, lowerStatements items⟩
-  | .argument, [.argument fallback, .declarations values names] =>
-      some ⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items⟩
-  | _, _ => none
-
-theorem prefix_decoded_valid (form : Form) (events : List Event) (items : List SourceStatement)
-    (shape : events.map Event.kind = form.prefix.filterMap ShellToken.eventKind)
-    (stream : StreamValid emptyShape maxSourceLength events)
-    (nonempty : items ≠ [])
-    (body : SourceStatementsWellFormed form.hasArguments
-      (Sequence.eventsContext (emptyShape, maxSourceLength) events).1 items)
-    (checked : ∃ after, checkStatements (Sequence.eventsContext (emptyShape, maxSourceLength) events).1
-      (initialFacts form.hasArguments) (lowerStatements items) = some after ∧ completed after = true) :
-    ∃ program, decodePrefix form events items = some program ∧ program.Valid := by
-  cases form with
-  | direct =>
-      change events.map Event.kind = [.declarations] at shape
-      obtain ⟨values, names, rest, rfl, shape0⟩ := (declarations_event_shape _ _).mp shape
-      have empty := List.map_eq_nil_iff.mp shape0
-      subst rest
-      refine ⟨⟨values, names, [], false, lowerStatements items⟩, rfl, ?_⟩
-      exact ⟨stream.1, by simp [Bindings.Printable], by simp [maxSourceLength],
-        lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, checked⟩
-  | argument =>
-      change events.map Event.kind = [.argument, .declarations] at shape
-      obtain ⟨fallback, rest, rfl, shape0⟩ := (argument_event_shape _ _).mp shape
-      obtain ⟨values, names, rest, rfl, shape1⟩ := (declarations_event_shape _ _).mp shape0
-      have empty := List.map_eq_nil_iff.mp shape1
-      subst rest
-      refine ⟨⟨argumentDeclaration :: values, names, fallback, true, lowerStatements items⟩, rfl, ?_⟩
-      exact ⟨prepend_argument stream.2.2.1, stream.1, stream.2.1,
-        lowerStatements_nonempty nonempty, lowerStatements_wellFormed body, checked⟩
+theorem prefix_scalar_checked {source form values}
+    (trace : Sequence.ScalarTokensAt source form.helper form.prefix initialState values
+      (prefixScan source form).state) :
+    Integer.checkDeclarations [] values =
+        some (ScalarExpression.constants (prefixScan source form).state.scalarNames) ∧
+      ScalarExpression.StaticEnvironment (prefixScan source form).state.scalarNames ∧
+      ScalarExpression.ranges (prefixScan source form).state.scalarNames =
+        Integer.Constants.ranges (ScalarExpression.constants (prefixScan source form).state.scalarNames) := by
+  have checked := Sequence.scalar_tokens_checked trace ScalarExpression.static_empty
+  exact ⟨checked.1, checked.2, ScalarExpression.static_ranges checked.2⟩
 
 end Silver.Predicate

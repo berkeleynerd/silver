@@ -26,7 +26,8 @@ def Member (source : Source) : Prop := ∃ form, FormMember source form
 
 private theorem initial_ranges (source : Source) : Compose.Expressions.ValidState source initialState := by
   simp [Compose.Expressions.ValidState, Compose.Expressions.ValidCursor, Compose.Expressions.ValidNames,
-    Named.NameState.Valid, initialState, maxSourceLength, maxBindings]
+    Named.NameState.Valid, initialState, maxSourceLength, maxBindings,
+    ScalarExpression.ValidEnvironment, ScalarExpression.maxBindings]
 
 private theorem initialFacts_bounded (arguments : Bool) : (initialFacts arguments).Bounded := by
   cases arguments
@@ -80,29 +81,40 @@ instance memberDecidable (source : Source) : Decidable (Member source) :=
 
 theorem form_reading_valid {source : Source} {form : Form} {events : List Event} {items : List SourceStatement}
     (domain : SourceDomain source) (parsed : FormReading source form events items) :
-    ∃ program, decodePrefix form events items = some program ∧ program.Valid := by
+    ∃ scalars program,
+      Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
+      decodePrefix form events items scalars
+        (ScalarExpression.constants (prefixScan source form).state.scalarNames) = some program ∧ program.Valid := by
+  obtain ⟨scalars, scalarTrace⟩ := Sequence.tokens_scalar_trace parsed.header
+  have scalarChecked := prefix_scalar_checked scalarTrace
   obtain ⟨valid, stream⟩ := Sequence.tokens_valid domain.2.1 parsed.header Compose.initial_valid
   have ranges := scanTokens_ranges source form.helper form.prefix initialScan ⟨domain.1, domain.2.1⟩ (initial_ranges source)
   have bodyValid := body_meaning valid.1 ranges.2.1 (initialFacts_bounded _) parsed.statements
   have context := Sequence.tokens_context parsed.header
   simp only [initialState, empty_names_shape] at context
   have arguments := prefix_arguments parsed.header
-  apply prefix_decoded_valid form events items (Sequence.tokens_kinds parsed.header)
-  · simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial
-  · exact body_nonempty parsed.statements
-  · rw [context, ← arguments]
-    exact bodyValid.1
-  · refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
-    rw [context, ← arguments]
-    exact bodyValid.2.1
+  obtain ⟨program, decoded, programValid⟩ := prefix_decoded_valid form events items scalars
+    (ScalarExpression.constants (prefixScan source form).state.scalarNames) (Sequence.tokens_kinds parsed.header)
+    (by simpa only [initialState, empty_names_shape, List.append_nil] using stream [] trivial)
+    (body_nonempty parsed.statements)
+    (by rw [context, ← arguments]; exact bodyValid.1)
+    (by
+      refine ⟨(rawBody source form).facts, ?_, parsed.completed⟩
+      rw [context, ← arguments, ← scalarChecked.2.2]
+      exact bodyValid.2.1)
+    scalarChecked.1
+  exact ⟨scalars, program, scalarTrace, decoded, programValid⟩
 
 def SourceMeaning (source : Source) (program : Program) : Prop :=
-  ∃ form events items, SourceDomain source ∧ selectedForm source = some form ∧
-    FormReading source form events items ∧ decodePrefix form events items = some program
+  ∃ form events items scalars, SourceDomain source ∧ selectedForm source = some form ∧
+    FormReading source form events items ∧
+    Sequence.ScalarTokensAt source form.helper form.prefix initialState scalars (prefixScan source form).state ∧
+    decodePrefix form events items scalars
+      (ScalarExpression.constants (prefixScan source form).state.scalarNames) = some program
 
 theorem meaning_member {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : Member source := by
-  obtain ⟨form, events, items, domain, _, parsed, _⟩ := meaning
+  obtain ⟨form, events, items, _, domain, _, parsed, _, _⟩ := meaning
   exact ⟨form, domain, events, items, parsed⟩
 
 theorem member_has_meaning {source : Source} (member : Member source) :
@@ -112,25 +124,29 @@ theorem member_has_meaning {source : Source} (member : Member source) :
   have success := List.find?_some selected
   have formMember := form_reading_sound (of_decide_eq_true success)
   obtain ⟨domain, events, items, parsed⟩ := formMember
-  obtain ⟨program, decoded, _⟩ := form_reading_valid domain parsed
-  exact ⟨program, form, events, items, domain, selected, parsed, decoded⟩
+  obtain ⟨scalars, program, scalarTrace, decoded, _⟩ := form_reading_valid domain parsed
+  exact ⟨program, form, events, items, scalars, domain, selected, parsed, scalarTrace, decoded⟩
 
 theorem meaning_unique {source : Source} {left right : Program}
     (first : SourceMeaning source left) (second : SourceMeaning source right) : left = right := by
-  obtain ⟨form, events, items, _, selected, parsed, decoded⟩ := first
-  obtain ⟨otherForm, otherEvents, otherItems, _, otherSelected, other, otherDecoded⟩ := second
+  obtain ⟨form, events, items, scalars, _, selected, parsed, scalarTrace, decoded⟩ := first
+  obtain ⟨otherForm, otherEvents, otherItems, otherScalars, _, otherSelected, other, otherTrace, otherDecoded⟩ := second
   have formSame : form = otherForm := Option.some.inj (selected.symm.trans otherSelected)
   subst otherForm
   have eventsSame := (Sequence.tokens_unique parsed.header other.header).1
   have itemsSame := body_unique parsed.statements other.statements
+  have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
   subst otherEvents
   subst otherItems
+  subst otherScalars
   exact Option.some.inj (decoded.symm.trans otherDecoded)
 
 theorem meaning_valid {source : Source} {program : Program}
     (meaning : SourceMeaning source program) : program.Valid := by
-  obtain ⟨_, _, _, domain, _, parsed, decoded⟩ := meaning
-  obtain ⟨other, same, valid⟩ := form_reading_valid domain parsed
+  obtain ⟨_, _, _, scalars, domain, _, parsed, scalarTrace, decoded⟩ := meaning
+  obtain ⟨otherScalars, other, otherTrace, same, valid⟩ := form_reading_valid domain parsed
+  have scalarsSame := (Sequence.scalar_tokens_unique scalarTrace otherTrace).1
+  subst otherScalars
   have equal := Option.some.inj (same.symm.trans decoded)
   simpa only [equal] using valid
 
