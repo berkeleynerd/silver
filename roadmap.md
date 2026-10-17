@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Frontend representation research authorized; implementation not authorized.** The
+**Representation research reports an implementation stop; independent review pending.** The
 [scope](docs/unbounded-programs.md) and
 [milestone 5](https://github.com/berkeleynerd/silver/milestone/5) pursue removal of
 unnecessary Silver capacity limits. The operational objective is resource-driven
@@ -52,15 +52,29 @@ The owner resolved [decision #112](https://github.com/berkeleynerd/silver/issues
 by [authorizing research](docs/session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
 into wider or deferred/lazy semantics-preserving frontend representations.
 One cohesive [work package #113](https://github.com/berkeleynerd/silver/issues/113)
-first inspects available upstream/off-the-shelf alternatives, then compares
-concrete storage designs and the actual Ada/C++/GNATprove interfaces, static
-semantics, same-source assurance, ownership and Linux/Alire/macOS constraints.
-Parallel analyses contribute to one independently reviewed recommendation:
-a concrete candidate and reasoned tractability assessment, or a precise full stop.
-No candidate's tractability, tool adoption or implementation is presumed.
+has a [concrete comparison and result](docs/research/frontend-representation-result.md).
+Checked 64-bit String-pool widening and matching Ada/C descriptors are the
+preferred smaller frontend design, together with the zero-mantissa scanner
+optimization. Deferred storage would avoid some early materialization but has
+a broader consumer and assurance surface. Neither is implemented or establishes
+tractability for the whole proposed language.
+
+The implementation stop is explicit: no inspected external GNAT/GNATprove pair
+supplies the changes, no fully verified SPARK-owned route has been demonstrated
+for all affected interfaces, and the separate GNATprove producer still expands
+literal content per character. Renaming a private compiler fork or making confirmation non-gating
+does not settle those requirements. Independent review and publication of #113
+remain pending.
+
+The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition)
+retains the unchanged Oracle and seeks actually externally maintained paired
+frontend/producer support before commissioning implementation, using bounded
+widening as the concrete minimum frontend requirement. Report this stop rather
+than automatically beginning further research or contacting maintainers.
 
 The [research scope](docs/unbounded-programs.md#frontend-representation-feasibility-research)
-keeps this investigation ahead of implementation #88–#94, which remains Backlog.
+keeps this result and owner disposition ahead of implementation #88–#94, which
+remains Backlog and unauthorized.
 Retaining the pin with a source-sensitive rule and explicit aggregate restrictions
 is a comparison alternative; no lower cap is selected. Research completion does
 not complete the parent implementation packages or milestone 5.

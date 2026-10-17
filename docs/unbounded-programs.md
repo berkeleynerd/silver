@@ -7,7 +7,10 @@ current [frontend representation research authorization](session-memory.md#2026-
 selects [#113](https://github.com/berkeleynerd/silver/issues/113), scoped
 [below](#frontend-representation-feasibility-research), after the reviewed
 frontend stop. It authorizes research and publication, not production changes
-or implementation of #88–#94. The earlier
+or implementation of #88–#94. Its [concrete result](research/frontend-representation-result.md)
+now reports an implementation stop; independent review and publication remain
+pending. The [owner disposition below](#frontend-representation-result-and-owner-disposition)
+preserves that boundary. The earlier
 [planning-correction authorization](session-memory.md#2026-10-17--unbounded-programs-planning-corrections-authorized)
 authorized correction and publication. The subsequent
 [research-only authorization](session-memory.md#2026-10-17--unbounded-programs-feasibility-research-authorized)
@@ -176,6 +179,45 @@ Production toolchain/compiler/runtime/proof changes, pin or membership adoption,
 lower-cap selection, Oracle amendments and implementation #88–#94 are excluded.
 Any next implementation needs its own recorded instruction after the research
 result is concrete and reviewable. No new harness goal was requested.
+
+## Frontend representation result and owner disposition
+
+The [#113 result](research/frontend-representation-result.md) identifies checked
+64-bit shared String-pool storage, matching Ada/C descriptors and a zero-mantissa
+scanner optimization as the smaller concrete frontend candidate. It preserves
+the existing static-evaluation route. Deferred immutable storage can share
+repeated values earlier, but needs a wider interface and assurance redesign.
+Neither design is implemented, and the component arithmetic does not establish
+complete source/phase accounting or whole-language tractability.
+
+**Implementation is at a full stop.** No inspected externally maintained
+GNAT/GNATprove pair supplies the necessary changes. The designs touch compiler
+bodies and the C/C++ interface, and no fully verified SPARK-owned route has been
+demonstrated for every required body and interface. Calling a private maintained
+fork external does not exempt it from the Oracle. GNATprove separately constructs
+per-character nodes for the inspected literal route, so wider frontend storage
+alone cannot remove that producer's representation limit. Non-gating confirmation
+may report a reliably detected incomplete run; it cannot supply missing universal
+assurance or make a known finite representation bound a resource assumption.
+
+The recommendation for owner disposition is to **retain the unchanged Oracle and
+seek actually externally maintained paired frontend/producer support before
+commissioning implementation**, using the bounded widening design as the minimum
+frontend requirement. An unmodified suitable external release can fit the
+existing trust boundary; a version change alone is not an Oracle amendment.
+An upstream-maintained change is conditional on actual acceptance, integration
+and maintenance, not a patch submission or Alire manifest. If that support cannot
+be obtained, report the need for a different permissible route rather than
+silently maintaining unverified compiler bodies or lowering the domain.
+
+Independent review and publication of #113 remain pending. The next owner
+decision concerns the ownership route and producer scope; the research result
+does not authorize another open-ended investigation, maintainer contact, patch
+submission, production changes, a new tool pin, an Oracle amendment or a smaller
+language domain. Packages #88–#94 remain Backlog, and milestone 5 remains incomplete.
+The result's dependency outline is not a set of Ready implementation packages;
+any later split must record all actual increments and completion criteria in the
+same planning step.
 
 ## Design
 

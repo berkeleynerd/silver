@@ -5,17 +5,24 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-The owner selected [frontend representation feasibility research #113](https://github.com/berkeleynerd/silver/issues/113)
-by saying “Proceed” to decision #112. The
-[dated authorization](docs/session-memory.md#2026-10-17--frontend-representation-feasibility-research-authorized)
-and [scope](docs/unbounded-programs.md#frontend-representation-feasibility-research)
-cover upstream/off-the-shelf alternatives, concrete wider/deferred designs,
-actual Ada/C++/GNATprove interfaces, static semantics and same-source assurance,
-ownership and Linux/Alire/macOS constraints. Record authorization on `main`
-before claiming the research. Its one deliverable is an independently reviewed
-concrete recommendation and tractability assessment or precise full stop.
-Implementation #88–#94, production toolchain changes and rule adoption remain
-outside this instruction. Preserve the prior evidence and installations.
+[Frontend representation research #113](https://github.com/berkeleynerd/silver/issues/113)
+now has a [concrete result](docs/research/frontend-representation-result.md)
+at an implementation stop; independent review and publication remain pending.
+Checked widening of the shared String pool and Ada/C descriptors is the preferred
+smaller frontend candidate, with a zero-mantissa scanner optimization. No inspected
+external GNAT/GNATprove pair supplies the changes, no fully verified SPARK-owned
+route has been demonstrated, and the separate GNATprove producer still expands
+literal content per character. Neither non-gating confirmation nor calling a
+private compiler fork external resolves these obligations.
+
+The recommended [owner disposition](docs/unbounded-programs.md#frontend-representation-result-and-owner-disposition)
+retains the unchanged Oracle and seeks actually externally maintained paired
+frontend/producer support before commissioning implementation. Report this stop;
+do not automatically launch more research, contact maintainers, adopt a tool or
+lower the language domain. Research authorization reached `main` through
+[PR #114](https://github.com/berkeleynerd/silver/pull/114), merge `b8e618c545`.
+Implementation #88–#94 remains Backlog and unauthorized. Preserve the evidence,
+installations and all prior worktrees.
 
 The owner authorized continuation of the unfinished
 [Unbounded programs research](docs/research/unbounded-feasibility-handoff.md)
