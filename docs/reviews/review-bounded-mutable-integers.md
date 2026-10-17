@@ -219,3 +219,21 @@ function's three checks without that warning. This source review and focused
 result do not replace the pending final native audit, refreshed source
 certificate, complete Lean run or integrated tests. Final support wording should
 also identify the native aggregate and finite reference loop accurately.
+
+## Selector completion found by integrated validation
+
+The complete Lean attempt `20261017T021003-1cc505ed3a9d` exposed missing
+`scalarAssign` cases in `PredicateSelectors.Flag.statement` and
+`source_lower_flags`. Reviewed repair `768ce4d4ed` adds exactly those two cases.
+Its assignment/output classification matches the existing `Flag.source` case,
+and lowering preserves the scalar update. Branch and loop composition retain
+the existing syntactic assignment selector; it does not assert that an
+assignment executes or establish a new mutability or value-flow fact.
+
+The downstream `meaning_selectors` and executable correspondence endpoints
+retain their statements and premises. Adjacent checking, execution and
+obligation definitions already handle scalar assignments. Source review found
+no additional defect or scope change. This is a proof integration repair with
+no native code change. The failed complete attempt remains distinct from the
+required focused repair check and resumed complete validation; no such checks
+were run by this reviewer.
