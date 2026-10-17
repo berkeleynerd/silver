@@ -46,7 +46,10 @@ def Expr.Legal (calls : Calls) (locals : Locals) : Expr ty → Prop
   | .count x => x.Legal calls locals
   | .scalarCount x => x.Legal calls locals
   | .operatorByte x => x.Legal calls locals
-  | .scalarBinding a b c d => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals
+  | .fullInterval | .emptyInterval => True
+  | .interval a b | .integerNe a b | .integerLt a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .constraint a b => a.Legal calls locals ∧ b.Legal calls locals
+  | .scalarBinding a b c d e f => a.Legal calls locals ∧ b.Legal calls locals ∧ c.Legal calls locals ∧ d.Legal calls locals ∧ e.Legal calls locals ∧ f.Legal calls locals
   | .stateScalar s p names => s.Legal calls locals ∧ p.Legal calls locals ∧ names.Legal calls locals
   | .item x i => x.Legal calls locals ∧ i.Legal calls locals
   | .add x y => x.Legal calls locals ∧ y.Legal calls locals
@@ -301,14 +304,24 @@ theorem Expr.eval_lexical (calls : Calls) (meaning : Compose.Lexical.Meaning cal
     rw [h0]
     all_goals rfl
 
-  | .scalarBinding a b c d, legal => by
+  | .fullInterval, _ | .emptyInterval, _ => rfl
+  | .interval a b, legal | .integerNe a b, legal | .integerLt a b, legal | .constraint a b, legal => by
+    have h0 := Expr.eval_lexical calls meaning locals a legal.1
+    have h1 := Expr.eval_lexical calls meaning locals b legal.2
+    dsimp only [Expr.eval, lexical]
+    rw [h0, h1]
+    all_goals rfl
+
+  | .scalarBinding a b c d e f, legal => by
     dsimp only [Expr.Legal] at legal
     have h0 := Expr.eval_lexical calls meaning locals a legal.1
     have h1 := Expr.eval_lexical calls meaning locals b legal.2.1
     have h2 := Expr.eval_lexical calls meaning locals c legal.2.2.1
-    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2
+    have h3 := Expr.eval_lexical calls meaning locals d legal.2.2.2.1
+    have h4 := Expr.eval_lexical calls meaning locals e legal.2.2.2.2.1
+    have h5 := Expr.eval_lexical calls meaning locals f legal.2.2.2.2.2
     dsimp only [Expr.eval, lexical]
-    rw [h0, h1, h2, h3]
+    rw [h0, h1, h2, h3, h4, h5]
     all_goals rfl
 
   | .stateScalar s p names, legal => by
@@ -818,6 +831,9 @@ structure LegalHelpers (calls : Calls) : Prop where
   stringDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     stringDeclarationBody.Legal calls (Context.locals {text,state,arguments})
+  scalarConstraint : ∀ text, ValidText text → ∀ position scalarNames,
+    ValidCursor text position → ScalarExpression.ValidEnvironment text scalarNames →
+    scalarConstraintBody.Legal calls (Context.locals {text,position,scalarNames})
   scalarDeclaration : ∀ text, ValidText text → ∀ state arguments,
     ValidState text state →
     scalarDeclarationBody.Legal calls (Context.locals {text,state,arguments})
@@ -974,6 +990,12 @@ theorem normalized_helpers (calls : Calls)
     · apply source.stringDeclaration <;> assumption
     · apply Expr.eval_lexical calls meaning
       apply legal.stringDeclaration <;> assumption
+  scalarConstraint := by
+    intros
+    apply Eq.trans
+    · apply source.scalarConstraint <;> assumption
+    · apply Expr.eval_lexical calls meaning
+      apply legal.scalarConstraint <;> assumption
   scalarDeclaration := by
     intros
     apply Eq.trans

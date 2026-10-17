@@ -27,31 +27,31 @@ structure Primitives where
   allowed : Source → Bool
 
 inductive Ty
-  | number | truth | source | spelling | token | form | operation
+  | number | integer | truth | source | spelling | token | form | operation
   | binding | names | state | value | result | scan | decimal
-  | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval
+  | scalarNames | scalarBinding | scalarResult | scalarLiteral | interval | scalarConstraint
   | arrow (domain codomain : Ty)
   deriving DecidableEq, Repr
 
 @[reducible] def Ty.meaning : Ty → Type
-  | .number => Nat | .truth => Bool | .source => Source | .spelling => String
+  | .number => Nat | .integer => Int | .truth => Bool | .source => Source | .spelling => String
   | .token => ShellToken | .form => Form | .operation => Names.Operation | .binding => BindingInfo
   | .names => BindingEnvironment | .state => ParserState
   | .value => ValueResult | .result => ExpressionResult | .scan => ExpressionState
   | .decimal => Guarded.DecimalResult
   | .scalarNames => ScalarExpression.Environment | .scalarBinding => ScalarExpression.Binding
   | .scalarResult => ScalarExpression.Result | .scalarLiteral => ScalarLiteral.Result
-  | .interval => Integer.Interval
+  | .interval => Integer.Interval | .scalarConstraint => ScalarConstraintResult
   | .arrow a b => a.meaning → b.meaning
 
 def Ty.default : (ty : Ty) → ty.meaning
-  | Ty.number => 0 | Ty.truth => false | Ty.source => [] | Ty.spelling => ""
+  | Ty.number => 0 | Ty.integer => 0 | Ty.truth => false | Ty.source => [] | Ty.spelling => ""
   | Ty.token => .symbol ";" | Ty.form => .direct | Ty.operation => .output | Ty.binding => {}
   | Ty.names => [] | Ty.state => invalidState | Ty.value => invalidValue
   | Ty.result => invalidExpression | Ty.scan => invalidExpressionState | Ty.decimal => ⟨0, 0⟩
   | Ty.scalarNames => [] | Ty.scalarBinding => ScalarExpression.emptyBinding
   | Ty.scalarResult => ScalarExpression.invalid | Ty.scalarLiteral => ScalarLiteral.invalid
-  | Ty.interval => Integer.Interval.empty
+  | Ty.interval => Integer.Interval.empty | Ty.scalarConstraint => ⟨0, Integer.Interval.empty⟩
   | Ty.arrow _ b => fun _ => b.default
 
 inductive Function
@@ -81,7 +81,7 @@ inductive Function
   | newName
   | addBinding
   | declaration
-  | stringDeclaration | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
+  | stringDeclaration | scalarConstraint | scalarDeclaration | scalarLookup | scalarRead | scalarAppend | scalarEmpty | scalarLiteral | nameIs
   | argument
   | declarations
   | readDeclarations
@@ -136,6 +136,7 @@ def Function.name : Function → String
   | .addBinding => "add_binding"
   | .declaration => "declaration_at"
   | .stringDeclaration => "string_declaration_at"
+  | .scalarConstraint => "scalar_constraint_at"
   | .scalarDeclaration => "scalar_declaration_at"
   | .scalarLookup => "scalar_expressions.lookup"
   | .scalarRead => "scalar_expressions.read_expression"
@@ -195,6 +196,7 @@ def Function.name : Function → String
   | .addBinding => .arrow .state (.arrow .number (.arrow .number (.arrow .value (.arrow .truth (.arrow .number (.state))))))
   | .declaration => .arrow .source (.arrow .state (.arrow .truth (.state)))
   | .stringDeclaration | .scalarDeclaration => .arrow .source (.arrow .state (.arrow .truth .state))
+  | .scalarConstraint => .arrow .source (.arrow .number (.arrow .scalarNames .scalarConstraint))
   | .scalarLookup => .arrow .source (.arrow .scalarNames (.arrow .number (.arrow .number .number)))
   | .scalarRead => .arrow .source (.arrow .number (.arrow .scalarNames .scalarResult))
   | .scalarAppend => .arrow .scalarNames (.arrow .scalarBinding .scalarNames)
@@ -261,6 +263,7 @@ def Calls.get (calls : Calls) : (symbol : Function) → symbol.type.meaning
   | .addBinding => calls.function .addBinding
   | .declaration => calls.function .declaration
   | .stringDeclaration => calls.function .stringDeclaration
+  | .scalarConstraint => calls.function .scalarConstraint
   | .scalarDeclaration => calls.function .scalarDeclaration
   | .scalarLookup => calls.function .scalarLookup
   | .scalarRead => calls.function .scalarRead
@@ -305,6 +308,10 @@ inductive Field : Ty → Ty → Type
   | statePosition : Field .state .number
   | stateNames : Field .state .names
   | stateScalarNames : Field .state .scalarNames
+  | constraintAfter : Field .scalarConstraint .number
+  | constraintBounds : Field .scalarConstraint .interval
+  | intervalLower : Field .interval .integer
+  | intervalUpper : Field .interval .integer
   | scalarAfter : Field .scalarResult .number
   | scalarBounds : Field .scalarResult .interval
   | scalarStatic : Field .scalarResult .truth
@@ -350,6 +357,8 @@ def Field.name : Field a b → String
   | .statePosition => "position"
   | .stateNames => "names"
   | .stateScalarNames => "scalar_names"
+  | .constraintAfter => "after" | .constraintBounds => "bounds"
+  | .intervalLower => "lower" | .intervalUpper => "upper"
   | .scalarAfter => "after" | .scalarBounds => "bounds" | .scalarStatic => "static"
   | .scalarLiteralAfter => "after"
   | .stateDynamicFirst => "dynamic_first"
@@ -393,6 +402,8 @@ def Field.get : Field a b → a.meaning → b.meaning
   | .statePosition, value => value.position
   | .stateNames, value => value.names
   | .stateScalarNames, value => value.scalarNames
+  | .constraintAfter, value => value.after | .constraintBounds, value => value.bounds
+  | .intervalLower, value => value.lower | .intervalUpper, value => value.upper
   | .scalarAfter, value => value.after | .scalarBounds, value => value.bounds
   | .scalarStatic, value => value.isStatic | .scalarLiteralAfter, value => value.after
   | .stateDynamicFirst, value => value.dynamicFirst
@@ -444,7 +455,13 @@ inductive Expr : Ty → Type
   | word (value : String) : Expr .spelling
   | operatorByte : Expr .number → Expr .truth
   | maxScalarBindings : Expr .number
-  | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .scalarBinding
+  | fullInterval : Expr .interval
+  | emptyInterval : Expr .interval
+  | interval : Expr .integer → Expr .integer → Expr .interval
+  | integerNe : Expr .integer → Expr .integer → Expr .truth
+  | integerLt : Expr .integer → Expr .integer → Expr .truth
+  | constraint : Expr .number → Expr .interval → Expr .scalarConstraint
+  | scalarBinding : Expr .number → Expr .number → Expr .interval → Expr .truth → Expr .interval → Expr .truth → Expr .scalarBinding
   | stateScalar : Expr .state → Expr .number → Expr .scalarNames → Expr .state
   | item : Expr .names → Expr .number → Expr .binding
   | add : Expr .number → Expr .number → Expr .number
@@ -543,7 +560,7 @@ def tokenName : ShellToken → String
     | "/=" => "not_equal" | "<" => "less" | ">" => "greater" | ">=" => "greater_equal" | "'" => "apostrophe" | "length" => "length_name"
     | "<=" => "less_equal" | "null" => "null_keyword" | "integer" => "integer_name"
     | "for" => "for_keyword" | "in" => "in_keyword" | "reverse" => "reverse_keyword"
-    | "loop" => "loop_keyword" | ".." => "range_delimiter" | _ => "equal"
+    | "range" => "range_keyword" | "loop" => "loop_keyword" | ".." => "range_delimiter" | _ => "equal"
 
 def spelling : ShellToken → String
   | .fixed word _ => word
@@ -597,7 +614,13 @@ def Expr.render : Expr ty → List String
   | .word spellingValue => ["\"" ++ spellingValue ++ "\""]
   | .operatorByte x => x.render ++ ["in", "'&'", "|", "'+'", "|", "'-'", "|", "'*'"]
   | .maxScalarBindings => ["scalar_expressions", ".", "max_bindings"]
-  | .scalarBinding a b c d => ["("] ++ a.render ++ [","] ++ b.render ++ [","] ++ c.render ++ [","] ++ d.render ++ [")"]
+  | .fullInterval => ["scalars", ".", "full"]
+  | .emptyInterval => ["scalars", ".", "empty"]
+  | .interval a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
+  | .integerNe a b => a.render ++ ["/="] ++ b.render
+  | .integerLt a b => a.render ++ ["<"] ++ b.render
+  | .constraint a b => ["("] ++ a.render ++ [","] ++ b.render ++ [")"]
+  | .scalarBinding a b c d e f => ["("] ++ a.render ++ [","] ++ b.render ++ [","] ++ c.render ++ [","] ++ d.render ++ [","] ++ e.render ++ [","] ++ f.render ++ [")"]
   | .stateScalar state position names => updated state.render [("position",position.render),("scalar_names",names.render)]
   | .count x => x.render ++ [".", "count"]
   | .item x i => x.render ++ [".", "items", "("] ++ i.render ++ [")"]
@@ -703,7 +726,13 @@ def Expr.eval (calls : Calls) (locals : Locals) : Expr ty → ty.meaning
   | .word spellingValue => spellingValue
   | .operatorByte x => decide (x.eval calls locals ∈ [38, 43, 45, 42])
   | .maxScalarBindings => ScalarExpression.maxBindings
-  | .scalarBinding a b c d => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals⟩
+  | .fullInterval => Integer.Interval.full
+  | .emptyInterval => Integer.Interval.empty
+  | .interval a b => ⟨a.eval calls locals, b.eval calls locals⟩
+  | .integerNe a b => decide (a.eval calls locals ≠ b.eval calls locals)
+  | .integerLt a b => decide (a.eval calls locals < b.eval calls locals)
+  | .constraint a b => ⟨a.eval calls locals, b.eval calls locals⟩
+  | .scalarBinding a b c d e f => ⟨a.eval calls locals, b.eval calls locals, c.eval calls locals, d.eval calls locals, e.eval calls locals, f.eval calls locals⟩
   | .stateScalar state position names => {state.eval calls locals with position := position.eval calls locals, scalarNames := names.eval calls locals}
   | .count x => (x.eval calls locals).length
   | .item x i => ((x.eval calls locals).get (i.eval calls locals)).getD {}
@@ -909,12 +938,40 @@ def stringDeclarationBody : Expr .state :=
           (.eq (.field .resultDynamic value) (.number 1)) (.field .resultNamed value) (.field .resultEmpty value) (.number 0)))
         (.eq (.variable "constant_after") (.number 0))) (.variable "following"))
 
+def scalarConstraintBody : Expr .scalarConstraint :=
+  let text : Expr .source := .variable "text"
+  let position : Expr .number := .variable "position"
+  let names : Expr .scalarNames := .variable "scalar_names"
+  let rangeAfter : Expr .number := .variable "range_after"
+  let low : Expr .scalarResult := .variable "low"
+  let high : Expr .scalarResult := .variable "high"
+  let take (p : Expr .number) (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) p) (.token t)
+  let read (p : Expr .number) := Expr.app (.app (.app (.function .scalarRead) text) p) names
+  let lower (v : Expr .scalarResult) := Expr.field .intervalLower (.field .scalarBounds v)
+  let upper (v : Expr .scalarResult) := Expr.field .intervalUpper (.field .scalarBounds v)
+  .locals <| .local "range_after" "literal_position" (take position (.word "range")) <|
+    .local "low" "scalar_expressions.expression_result" (read rangeAfter) <|
+    .local "high" "scalar_expressions.expression_result" (read (take (.field .scalarAfter low) (.symbol ".."))) <|
+    .group <| .ite (.eq rangeAfter (.number 0)) (.constraint position .fullInterval) <|
+      .elsif
+        (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+          (.eq (.field .scalarAfter low) (.number 0))
+          (.eq (.field .scalarAfter high) (.number 0)))
+          (.not (.field .scalarStatic low))) (.not (.field .scalarStatic high)))
+          (.app (.function .scalarEmpty) (.field .scalarBounds low)))
+          (.app (.function .scalarEmpty) (.field .scalarBounds high)))
+          (.integerNe (lower low) (upper low))) (.integerNe (lower high) (upper high)))
+          (.integerLt (lower high) (lower low)))
+        (.constraint (.number 0) .emptyInterval)
+        (.constraint (.field .scalarAfter high) (.interval (lower low) (lower high)))
+
 def scalarDeclarationBody : Expr .state :=
   let text : Expr .source := .variable "text"
   let state : Expr .state := .variable "state"
   let first : Expr .number := .variable "first"
   let after : Expr .number := .variable "after"
   let value : Expr .scalarResult := .variable "value"
+  let constraint : Expr .scalarConstraint := .variable "constraint"
   let following : Expr .number := .variable "following"
   let take (p : Expr .number) (t : ShellToken) := Expr.app (.app (.app (.function .takeToken) text) p) (.token t)
   let skip (p : Expr .number) := Expr.app (.app (.function .skip) text) p
@@ -922,25 +979,35 @@ def scalarDeclarationBody : Expr .state :=
     Expr.app (.app (.app (.app f text) (.field .stateScalarNames state)) (.variable "type_first")) (.variable "type_after")
   .locals <| .local "first" "literal_position" (skip (.field .statePosition state)) <|
     .local "after" "literal_position" (.app (.app (.function .nameAfter) text) first) <|
-    .local "type_first" "literal_position" (skip (take (take after (.symbol ":")) (.word "constant"))) <|
+    .local "colon_after" "literal_position" (take after (.symbol ":")) <|
+    .local "constant_after" "literal_position" (take (.variable "colon_after") (.word "constant")) <|
+    .local "type_first" "literal_position" (skip (.group <| .ite (.ne (.variable "constant_after") (.number 0))
+      (.variable "constant_after") (.variable "colon_after"))) <|
     .local "type_after" "literal_position" (take (.variable "type_first") (.word "integer")) <|
+    .local "constraint" "scalar_constraint_result"
+      (.app (.app (.app (.function .scalarConstraint) text) (.variable "type_after")) (.field .stateScalarNames state)) <|
     .local "value" "scalar_expressions.expression_result"
-      (.app (.app (.app (.function .scalarRead) text) (take (.variable "type_after") (.symbol ":="))) (.field .stateScalarNames state)) <|
+      (.app (.app (.app (.function .scalarRead) text) (take (.field .constraintAfter constraint) (.symbol ":="))) (.field .stateScalarNames state)) <|
     .local "following" "literal_position" (take (.field .scalarAfter value) (.symbol ";")) <|
     .group <| .ite
-      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
+      (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse (.orElse
         (.not <| .app (.app (.app (.app (.app (.function .newName) text) state) first) after) (.variable "arguments"))
         (.eq (.variable "type_after") (.number 0)))
+        (.eq (.field .constraintAfter constraint) (.number 0)))
         (.le following (.field .statePosition state)))
         (.eq (.scalarCount (.field .stateScalarNames state)) .maxScalarBindings))
-        (.not (.field .scalarStatic value)))
         (.app (.function .scalarEmpty) (.field .scalarBounds value)))
+        (.integerNe (.field .intervalLower (.field .scalarBounds value)) (.field .intervalUpper (.field .scalarBounds value))))
+        (.integerLt (.field .intervalLower (.field .scalarBounds value)) (.field .intervalLower (.field .constraintBounds constraint))))
+        (.integerLt (.field .intervalUpper (.field .constraintBounds constraint)) (.field .intervalUpper (.field .scalarBounds value))))
         (.app (.app (.app (.app (.function .nameIs) text) first) after) (.word "integer")))
         (.ne (.app (.app (.app (.app (.function .lookupName) text) (.field .stateNames state)) (.variable "type_first")) (.variable "type_after")) (.number 0)))
         (.ne (hidden (.function .scalarLookup)) (.number 0)))
       .invalid
       (.stateScalar state following (.app (.app (.function .scalarAppend) (.field .stateScalarNames state))
-        (.scalarBinding first after (.field .scalarBounds value) (.truth true))))
+        (.scalarBinding first after (.field .scalarBounds value)
+          (.andThen (.ne (.variable "constant_after") (.number 0)) (.field .scalarStatic value))
+          (.field .constraintBounds constraint) (.eq (.variable "constant_after") (.number 0)))))
 
 def declarationBody : Expr .state :=
   let text : Expr .source := .variable "text"
@@ -1167,7 +1234,7 @@ def Function.isLexical : Function → Bool
 /-- Ada 2022 expression categories. Renderers preserve explicit grouping;
 these checks prevent a flattened tree from changing precedence or association. -/
 def Expr.primary : Expr ty → Bool
-  | .add _ _ | .sub _ _ | .mul _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
+  | .integerNe _ _ | .integerLt _ _ | .add _ _ | .sub _ _ | .mul _ _ | .eq _ _ | .ne _ _ | .boolNe _ _ | .lt _ _ | .le _ _ | .gt _ _
   | .operatorByte _ | .range _ _ _ | .andThen _ _ | .orElse _ _ | .not _ | .ite _ _ _ | .elsif _ _ _
   | .local _ _ _ _ | .locals _ | .someForm _ | .firstForm _ _ => false
   | _ => true
@@ -1203,6 +1270,7 @@ def Expr.functionSpine : Expr ty → Bool
 def localType : (ty : Ty) → String → Bool
   | .number, name => decide (name ∈ ["literal_position", "binding_count", "capacity_value", "operand_count"])
   | .state, name => name == "parser_state"
+  | .scalarConstraint, name => name == "scalar_constraint_result"
   | .scalarResult, name => name == "scalar_expressions.expression_result"
   | .scalarLiteral, name => name == "silver_scalar_literals.literal_result"
   | .truth, name => name == "boolean"
@@ -1241,7 +1309,10 @@ def Expr.wellFormed : Expr ty → Bool
   | .scalarCount x => x.wellFormed
   | .word _ | .maxScalarBindings => true
   | .operatorByte x => x.wellFormed && x.simple
-  | .scalarBinding a b c d => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed
+  | .fullInterval | .emptyInterval => true
+  | .interval a b | .integerNe a b | .integerLt a b => a.wellFormed && b.wellFormed
+  | .constraint a b => a.wellFormed && b.wellFormed
+  | .scalarBinding a b c d e f => a.wellFormed && b.wellFormed && c.wellFormed && d.wellFormed && e.wellFormed && f.wellFormed
   | .stateScalar a b c => a.wellFormed && b.wellFormed && c.wellFormed
   | .count x => x.wellFormed
   | .item x i => x.wellFormed && i.wellFormed
@@ -1322,6 +1393,7 @@ abbrev WellFormedTrees : Prop :=
   addBindingBody.wellFormed = true ∧
   declarationBody.wellFormed = true ∧
   stringDeclarationBody.wellFormed = true ∧
+  scalarConstraintBody.wellFormed = true ∧
   scalarDeclarationBody.wellFormed = true ∧
   argumentBody.wellFormed = true ∧
   declarationsBody.wellFormed = true ∧
@@ -1370,7 +1442,10 @@ def Expr.scoped (scope : Scope) : Expr ty → Bool
   | .scalarCount x => x.scoped scope
   | .word _ | .maxScalarBindings => true
   | .operatorByte x => x.scoped scope
-  | .scalarBinding a b c d => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope
+  | .fullInterval | .emptyInterval => true
+  | .interval a b | .integerNe a b | .integerLt a b => a.scoped scope && b.scoped scope
+  | .constraint a b => a.scoped scope && b.scoped scope
+  | .scalarBinding a b c d e f => a.scoped scope && b.scoped scope && c.scoped scope && d.scoped scope && e.scoped scope && f.scoped scope
   | .stateScalar a b c => a.scoped scope && b.scoped scope && c.scoped scope
   | .count x => x.scoped scope
   | .item x i => x.scoped scope && i.scoped scope
@@ -1447,6 +1522,7 @@ abbrev WellScopedTrees : Prop :=
   newNameBody.scoped [("text", .source), ("state", .state), ("first", .number), ("after", .number), ("arguments", .truth)] = true ∧
   addBindingBody.scoped [("state", .state), ("first", .number), ("after", .number), ("value", .value), ("mutable", .truth), ("following", .number)] = true ∧
   stringDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
+  scalarConstraintBody.scoped [("text", .source), ("position", .number), ("scalar_names", .scalarNames)] = true ∧
   scalarDeclarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   declarationBody.scoped [("text", .source), ("state", .state), ("arguments", .truth)] = true ∧
   argumentBody.scoped [("text", .source), ("state", .state)] = true ∧
