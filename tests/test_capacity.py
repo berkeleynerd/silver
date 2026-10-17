@@ -25,6 +25,29 @@ def dense_source() -> bytes:
     return source + b' ' * (SOURCE_BYTES - len(source))
 
 
+def dense_mutable_source() -> tuple[bytes, int]:
+    """Fill the source domain with static subtypes and overwritten initializers."""
+    header = (b'with Silver_IO;procedure Main is pragma SPARK_Mode(On);'
+              b'L:constant Integer:=0;H:constant Integer:=9;')
+    footer = b"Silver_IO.Put_Line(Integer'Image(A0));end Main;"
+    declarations = b''
+    assignments = b''
+    count = 0
+    while True:
+        name = f'A{count}'.encode()
+        declaration = name + b':Integer range L..H:=0;'
+        assignment = name + b':=H;'
+        candidate = (header + declarations + declaration + b'begin '
+                     + assignments + assignment + footer)
+        if len(candidate) > SOURCE_BYTES:
+            break
+        declarations += declaration
+        assignments += assignment
+        count += 1
+    source = header + declarations + b'begin ' + assignments + footer
+    return source + b' ' * (SOURCE_BYTES - len(source)), count
+
+
 def maximal_retained_record(*, flow: bool = False, runtime: bool = False) -> dict:
     # Natural-width coordinates account for tab-expanded columns and generated
     # message counters. Float32 stats fit within64 decimal bytes even using
@@ -83,7 +106,7 @@ def main_envelope() -> int:
     # declaration sites and loop-bound conversions. Producer/frontend routes,
     # rather than example report counts, justify them in the capacity record.
     checks = (SOURCE_BYTES // 5 + SOURCE_BYTES // 3 + 63
-              + 63 + SOURCE_BYTES // 22 + 2 * (SOURCE_BYTES // 18))
+              + 63 + SOURCE_BYTES // 13 + 2 * (SOURCE_BYTES // 18))
     image_warnings = 2 * (SOURCE_BYTES // 16)
     return (checks * MAIN_RECORD_BYTES + (2 * SOURCE_BYTES + image_warnings) * FLOW_RECORD_BYTES
             + 2 * SOURCE_BYTES + METADATA_BYTES)
@@ -131,7 +154,7 @@ class CapacityEnvelopeTests(unittest.TestCase):
         self.assertLessEqual(embedded_record_bytes(maximal_retained_record(flow=True, runtime=True)),
                              FLOW_RECORD_BYTES)
         self.assertLessEqual(embedded_record_bytes(maximal_image_advisory()), FLOW_RECORD_BYTES)
-        self.assertEqual(main_envelope(), 15_028_224)
+        self.assertEqual(main_envelope(), 15_292_416)
         self.assertEqual(metadata_envelope(), 55_712)
         self.assertLessEqual(metadata_envelope(), METADATA_BYTES)
         specification = (ROOT / "src/silver_library_reports.ads").read_text()
@@ -157,3 +180,18 @@ class CapacityEnvelopeTests(unittest.TestCase):
         report = dense_report()
         self.assertGreater(len(report), 2_097_152)
         self.assertLess(len(report), main_envelope())
+
+    def test_dense_static_subtypes_and_mutable_assignments_are_admitted(self) -> None:
+        import tempfile
+        source, declarations = dense_mutable_source()
+        self.assertEqual(len(source), SOURCE_BYTES)
+        self.assertGreater(declarations, 100)
+        # The extra declaration allowance must cover the new 13-byte minimum;
+        # the assignment allowance already covers both scalar and String forms.
+        self.assertEqual(len(b'A:Integer:=0;'), 13)
+        self.assertEqual(len(b'A:=B;'), 5)
+        with tempfile.TemporaryDirectory(prefix='silver-mutable-capacity-') as directory:
+            path = Path(directory) / 'main.adb'
+            path.write_bytes(source)
+            checked = test_silver.invoke('check', path)
+            self.assertEqual(checked.returncode, 0, checked.stdout)

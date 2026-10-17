@@ -42,6 +42,7 @@ class MutableIntegerTests(unittest.TestCase):
     def test_admission_requires_static_nonempty_constraints_and_legal_names(self) -> None:
         for declarations in (
             b'A:Integer;', b'A:Integer range 0..9;',
+            b'A:Integer range 0 9:=0;', b'A:Integer range 0..:=0;',
             b'A:Integer range 9..0:=0;', b'A:Integer range 0..9:=10;',
             b'A:Integer:=A;', b'A:Integer:=B;B:Integer:=0;',
             b'A:Integer:=0;a:Integer:=1;', b'A:Integer:=0;A:String:="";',
@@ -154,3 +155,17 @@ class MutableIntegerTests(unittest.TestCase):
         executable, report = self.compile_retained(program(declarations, body))
         self.run_program(executable, b' 501\n 3 1 7\n')
         self.assertTrue(report['proof'])
+
+    def test_native_dense_static_subtypes_and_initializer_advisories(self) -> None:
+        from tests.test_capacity import dense_mutable_source
+
+        source, declarations = dense_mutable_source()
+        executable, report = self.compile_retained(source)
+        self.run_program(executable, b' 9\n')
+        initializers = [item for item in report['flow']
+                        if item['rule'] == 'INEFFECTIVE'
+                        and item['message']['text'].startswith('initialization of ')]
+        self.assertEqual(len(initializers), declarations)
+        entities = {item['name'] for item in report['entities'].values()}
+        self.assertIn('Main', entities)
+        self.assertLessEqual(entities, {'Main', 'Silver_IO.Put_Line'})

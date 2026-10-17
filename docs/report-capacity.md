@@ -288,14 +288,51 @@ bound. The [L1/#51 repair](review-b8f1d0b9a8-repairs.md) restores the shared
 source certificate, semantic equations and focused regressions are recorded
 separately from this original source-review argument.
 
-`tests/test_capacity.py` guards the extended formula and maximal fixed
-record schemas. The formula does not by itself establish automatic proof
+`tests/test_capacity.py` guarded this extended formula and maximal fixed
+record schemas before the bounded-mutable extension below. The formula does not by itself establish automatic proof
 discharge. Both original focused capacity tests passed on Linux x86_64 in
 managed run `20261016T163411-7b14b45862de`, including the existing dense-source admission
 regression. No unchanged compiler or Lean proof was repeated for this
 source-review and test-fixture update. Those tests did not detect the later
 confirmed token-boundary defect and do not establish the repaired scanner
 premise by themselves.
+
+## Bounded mutable Integer extension
+
+The [producer/frontend review](bounded-mutable-report-capacity.md) extends the
+same retained-record envelope to the selected bounded mutable Integer grammar.
+It keeps the inherited tool premises and record field sizes. The declaration
+root allowance changes from `floor(S/22)` to `floor(S/13)` because
+`A:Integer:=0;` is now the shortest scalar declaration. Scalar and String
+assignments jointly remain in the existing `floor(S/5)` root bucket; each
+selected scalar assignment adds at most one final range check. The new static
+object-local constraint route adds no constraint-root records.
+
+The frontend creates an explicit generated static subtype, relocating its
+constraint without copying the object initializer. The producer adds neither
+type VCs, vacuous type claims, coverage, dependencies nor per-type timings for
+these subtypes. Therefore generated names do not enlarge the fixed metadata
+ledger. Mutable initializer warnings reuse the existing exact advisory policy
+and source-bounded name charge; the `2*S` flow allowance still covers the union
+of both object kinds. Mutable values in `Integer'Image` do not change its
+predefined prefix type or the maximum two source traversals. The detailed
+review records the call chains and exclusions, separately from native probes.
+
+The combined Main bound is:
+
+```text
+13,064,192
+  + (63 + floor(4096/13) + 2*floor(4096/18))*2048
+  + 2*floor(4096/16)*1024
+= 15,292,416 < 16,777,216 bytes.
+```
+
+This leaves **1,484,800 bytes** of headroom; no storage increase is needed.
+The runtime envelopes remain unchanged. `tests/test_capacity.py` guards the
+combined formula, maximal fixed schemas and a dense 4,096-byte source with
+static constrained declarations and mutable assignments. The source-review
+bound is separate from complete obligation discharge and actual-source
+correspondence, which the capability's delivery evidence must establish.
 
 ## Storage placement and validation
 
