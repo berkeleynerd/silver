@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-10-17 — Unbounded programs feasibility research authorized
+
+The owner replied "Proceed." to the recommendation to run a **research-only pass**
+on the unresolved source-capacity question in
+[#91](https://github.com/berkeleynerd/silver/issues/91) and static-data/build
+feasibility question in [#93](https://github.com/berkeleynerd/silver/issues/93),
+publish the evidence and obtain independent review. This authorization includes
+routine research issue tracking, documentation, commits, pull requests, merges
+and publication of that research and its review.
+
+The source-capacity work must establish sound coverage of pinned GNAT source
+positions and internal tables and compare a uniform byte envelope with a plausible
+more expansive source-sensitive rule. The large-value work must investigate
+compilation/linking of the intended near-Integer'Last static String domain and
+any semantics-preserving representation alternative. Use pinned-source inspection
+and cheap targeted probes first; preserve existing evidence, use guarded experiments
+only for concrete unresolved hypotheses, and report any full stop with alternatives.
+
+Record this authorization on `main` before claiming the research. Track the two
+research subphases separately from their parent implementation packages. The
+owner did **not** authorize implementation of #88–#94, adoption of new membership
+rules, runtime/compiler changes or an Oracle amendment. Those implementation
+packages remain Backlog, including #91 and #93; only their explicitly scoped
+research subissues may advance. A research result is not a supported capability
+or an implementation checkpoint. Current language/proof artifacts and unrelated
+shared work remain unchanged.
+
 ## 2026-10-17 — Unbounded programs planning corrections published
 
 The [full independent review](reviews/review-ec82b4e5f2.md) of PR #95 was
