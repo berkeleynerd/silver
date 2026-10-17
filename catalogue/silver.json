@@ -688,7 +688,7 @@
         "target": "visible initialized mutable Integer object; constants and loop indexes excluded, including in empty loops and unreachable arms",
         "value": "integer_expression",
         "evaluation": "RHS reads the pre-assignment scalar store; update only the target",
-        "interval_inclusion": "every RHS intermediate fits Integer; whole RHS interval lies in target declared range",
+        "interval_inclusion": "every RHS intermediate fits Integer; whole RHS interval is nonempty and lies in target declared range",
         "body_interval": "whole declared range at every mutable read; assignment and guards never narrow it",
         "self_assignment": true,
         "preserves_input_length_facts": true,
@@ -730,7 +730,7 @@
         "interval_arithmetic": "endpoint addition/subtraction/negation and min/max of four endpoint products; every intermediate fits Integer",
         "correlated_operands_refined": false,
         "scalar_guards_refine_intervals": false,
-        "empty_index_interval": "index-dependent safety vacuous; out-of-range static subexpressions still excluded",
+        "empty_index_interval": "index-dependent safety vacuous except Integer assignment requires nonempty RHS; out-of-range static subexpressions still excluded",
         "positions": [
           "integer_object_initializer",
           "static_range_bound",
