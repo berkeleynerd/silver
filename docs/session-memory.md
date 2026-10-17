@@ -1,5 +1,32 @@
 # Session memory
 
+## 2026-10-17 — Unbounded programs planning corrections authorized
+
+The owner instructed: "Proceed with the planning-only corrective pass. Publish
+the full review and corrected scope, update the affected issues and records, and
+independently review the changes. Do not start implementation of #88–#94."
+
+This authorizes publication of the [independent review](reviews/review-ec82b4e5f2.md),
+planning-document and evidence corrections, finding dispositions, affected issue
+and milestone records, and independent review of those corrections. Record this
+entry on `main` before claiming the corrective issues, as
+[planning](planning.md#the-board) requires. Routine commits, pull requests,
+merging and publication of this planning-only pass are authorized.
+
+This is **not** the implementation "proceed" in the
+[scope](unbounded-programs.md). Implementation of #88–#94 remains unauthorized
+and those packages remain Backlog. This pass does not execute their proposed
+research experiments either; it specifies the remaining research and its
+conditional stops. It does not amend the Oracle, change current language support,
+or authorize unrelated local changes. Preserve the original scoping entry below
+as history and correct its claims in the new scope and repair record.
+
+The review is published as completed against `ec82b4e5f2`; its untracked-file and
+local-artifact descriptions record the review-time state. Publishing the report
+does not claim that its original local probe artifacts or omitted research
+sessions have become checked-in evidence. The verified original research is
+available on the [evidence branch](https://github.com/berkeleynerd/silver/tree/0cd253d05b2cb650cc8fca81255e9a711765e16a/tmp).
+
 ## 2026-10-17 — Unbounded programs scoping requested
 
 The owner directed Silver toward a language and compiler "without unadjustable
