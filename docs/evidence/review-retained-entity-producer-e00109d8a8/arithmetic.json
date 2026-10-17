@@ -1,0 +1,13 @@
+{
+  "builtin_integer_type": 2,
+  "identifier_with_module": 5,
+  "normalized_mutable_identifier": 11,
+  "binary_core_excluding_children": 8,
+  "unary_minus_core_excluding_child": 7,
+  "overflow_wrapper_excluding_child": 12,
+  "binary_with_overflow_excluding_children": 20,
+  "unary_minus_with_overflow_excluding_child": 19,
+  "static_subtype_boundary_excluding_child": 15,
+  "left_chain_compositions_checked": 64,
+  "scope": "Independent AST child-occurrence arithmetic only; source caller review establishes applicability. This is not a compiler or proof execution."
+}

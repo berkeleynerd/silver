@@ -1,0 +1,26 @@
+[
+  {
+    "name": "frontend",
+    "exit_code": 0,
+    "stdout": "Verified 17 pinned source files; wrote excerpts and manifest\n",
+    "stderr": "",
+    "outputs_equal_frozen_commit": true,
+    "output_hashes": {
+      "docs/evidence/unbounded-programs/retained-frontend-entities-20261017/source-manifest.json": "948405397318bd4412520ed17832157a456481a4106970ea1558c3232234672d",
+      "docs/evidence/unbounded-programs/retained-frontend-entities-20261017/source-excerpts.md": "0fa9c5c6569767216b7032e0d434b3cbef40d7c7f956d99d278e89caf77b5fd1"
+    }
+  },
+  {
+    "name": "producer",
+    "exit_code": 0,
+    "stdout": "{\"retained_modules_checked\": 3, \"checks\": \"/tmp/retained-entity-producer-review-e00109d8a8/docs/evidence/retained-producer-capacity-20261017/checks.json\"}\n",
+    "stderr": "",
+    "outputs_equal_frozen_commit": true,
+    "output_hashes": {
+      "docs/evidence/retained-producer-capacity-20261017/source-manifest.json": "91867cd47bc1b929c8600d4c94c4968eb030a2da23d0b829de9da1b68753934a",
+      "docs/evidence/retained-producer-capacity-20261017/source-excerpts.md": "a01411eb150136e404eef492b486fdfba0aaf1dc6d69ed88746a1c0e21b37252",
+      "docs/evidence/retained-producer-capacity-20261017/checks.json": "900df8a1de66ca946cdb0291c1b6dabee734e5311948f7a7db6757569902fcfe",
+      "docs/evidence/retained-producer-capacity-20261017/source-archive-check.json": "ad14e78d433cf537e2582e1c199ee9a571b19457c733f395ca33ae8b505134e6"
+    }
+  }
+]
