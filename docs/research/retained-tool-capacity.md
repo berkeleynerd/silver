@@ -111,19 +111,23 @@ The current derivation has six reusable component records:
 
 | Component | Established contribution | Still required for whole-source capacity |
 | --- | --- | --- |
-| [Source ranges](retained-source-closure.md) | Physical-loader/allocation inventory, complete pinned runtime union and identified fixed virtual templates | Phase/configuration/request-name closure and all virtual multiplicities |
-| [Values and parsing](retained-value-capacity.md) | Local String/Uint charges; at most two scans per source literal in a valid Main parse | Fixed dependency parsing, semantic reentry and generated value events |
-| [Tables and nodes](retained-table-capacity.md) | Checked allocator transitions, a demand-only backing-capacity envelope, Main line/column charges, exact pinned-source node layout and node/slot/list coupling | Other source-to-demand bounds and auxiliary representation coverage |
+| [Source ranges](retained-source-closure.md), [fixed support](retained-fixed-support.md) | Physical-loader inventory, runtime union, conditional fixed virtual-template and binder-source bounds | Complete grammar-to-runtime-helper coverage and effective invocation/search premises |
+| [Values and parsing](retained-value-capacity.md) | Main lexical/static String totals, at most two scans per literal, local Uint arithmetic and range-query costs | Fixed dependency parsing, generated value events and query multiplicities |
+| [Tables and nodes](retained-table-capacity.md) | Allocator demand envelope, Main line/column/name charges, exact node layout and slot/list coupling | Remaining generated-name/source-to-demand bounds and auxiliary representations |
 | [Main entities](retained-frontend-entities.md) | Source-sensitive generated entity/type/literal multiplicities under GNATprove light expansion | Fixed dependency entities, native expansion and actual allocation event counts |
-| [Native expansion](retained-native-expansion.md) | Direct String concatenation emitter node/entity/list/Uint charges and source-spine multiplicity | Recursive copying, side-effect removal, generated-action analysis and native helper closure |
-| [GNATprove producer](retained-producer-capacity.md) | Literal node/list/serialization charges, child/declaration/type multiplicities and entity/file/module-count components | Generated entity/type bounds, helper/lifetime costs and complete source correspondence |
+| [Native expansion](retained-native-expansion.md) | Direct scalar/concat costs, conditional decorated-copy and analyzed pointer-capture transfers; secondary-stack allocator dispatch | Grammar-to-copy-shape coverage, remaining generated declarations/actions and helper closure |
+| [GNATprove producer](retained-producer-capacity.md), [control](retained-producer-control.md), [objects](retained-producer-objects.md) | Scalar/String expression and declaration wrappers, ordinary object/loop theory setup, array-representation cache miss, imports and serialization components | Type completion, executable loops, generated/dependency setup, remaining auxiliary limits and caller coverage |
 
 These are source-derived components with their own premises and review scope.
 They do not yet select a safe whole-program threshold or unlock production
 admission changes. The independent literal-scan and generic-table envelope
 reviews, and the [entity/scalar review](../reviews/review-retained-entity-producer-e00109d8a8.md),
-cover their named frozen components. They do not establish complete soundness
-of the integrated predicate or later additions.
+cover their named frozen components. The
+[later frontend/native review](../reviews/review-retained-capacity-components-63b0c9671f.md)
+and [producer review](../reviews/review-retained-producer-4073ab0820.md)
+found no material issue in their respective frozen targets. They do not
+establish complete soundness of the integrated predicate or later additions;
+the review reports specify the included and excluded components.
 
 Every grammar production and permitted composition needs a transfer with pinned
 source references or a justified reduction to another transfer. A coverage table
@@ -205,9 +209,13 @@ each virtual copy. Image reaches `System.Img_Int` and `Image_I(Integer)` through
 therefore does not close virtual counts. GNATprove inlining has a separate
 dispatch (`sem_ch6.adb:4436–4448`), but `inline.adb:1970–2030` excludes the
 current exported package APIs and expression-function helper from that route.
-The next exact missing step is to bound reachable generic spec/body copies,
-remaining generated/runtime inline copies (`inline.adb:3839`) and inherited
-contract copies (`sem_prag.adb:32997`) per phase. No closed inventory is claimed.
+The [fixed-support derivation](retained-fixed-support.md) now bounds generic,
+inline and inherited-contract source contributions for the selected helper
+seeds, including the text-buffer contract path and Image generic body. It also
+bounds generated binder sources from the retained ALI closure. The remaining
+source-range dependency is complete grammar-to-helper seed coverage, plus
+establishing the effective invocation/search premises in production #89.
+These source-range results do not bound the helpers' AST, value or backend costs.
 
 ## Comparison and next derivation
 
