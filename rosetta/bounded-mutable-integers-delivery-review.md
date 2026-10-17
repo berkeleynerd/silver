@@ -45,3 +45,16 @@ discrete loops, other scalar images, scalar guard refinement or assignment
 refinement. Adding it to `supported` and updating the assessment prompt are
 delivery edits. The original integrated evidence is linked above; restored
 capability completion awaits the subsequently authorized repair checkpoint.
+
+
+## Review repair synchronization — 2026-10-17
+
+B1's explicit nonempty Integer-assignment RHS rule is reflected in the
+`bounded-mutable-integers` description and current-language assessment prompt
+in [assess.js](assess.js). `python3 rosetta/refresh.py --render` completed using
+the retained manifest and coverage; every rendered file was byte-unchanged.
+The narrow supported identifier, Find square difference's stage-1 position 15,
+the 35 baseline tasks and stage #11's ten remaining broader tasks are unchanged.
+No corpus reassessment or new construct was performed. The metadata edit is
+outside native/Lean provenance inputs; the renderer tests read the unchanged
+manifest/coverage and renderer, not the assessment prompt.
