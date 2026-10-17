@@ -2559,7 +2559,7 @@
   1460:
 ```
 
-## src/why/gnat2why-expr.adb:1621-1809
+## src/why/gnat2why-expr.adb:1621-1831
 
 ```ada
   1621:
@@ -2751,6 +2751,65 @@
   1807:                                       New_Assume_Statement
   1808:                                         (Ada_Node => N, Pred => Eq)));
   1809:                            end;
+  1810:                         end if;
+  1811:                      end;
+  1812:
+  1813:                   when Subp                      =>
+  1814:                      raise Program_Error;
+  1815:                end case;
+  1816:
+  1817:                --  Add bindings for the validity wrapper if any
+  1818:
+  1819:                Res :=
+  1820:                  +Bindings_For_Ref_Context
+  1821:                     (Expr => +Res, Context => Context, Domain => EW_Prog);
+  1822:
+  1823:                --  Init value at end of local borrowers. This assumes the
+  1824:                --  dynamic invariant of the value of the borrowed object at the
+  1825:                --  end of the borrow, so it should be done after all checks at
+  1826:                --  performed for the assignment so that we do not create an
+  1827:                --  inconsistency.
+  1828:
+  1829:                if Is_Local_Borrower (Lvalue) then
+  1830:                   Append
+  1831:                     (Res,
+```
+
+## src/why/gnat2why-expr.adb:2329-2360
+
+```ada
+  2329:    function Assume_Dynamic_Invariant
+  2330:      (Expr          : W_Term_Id;
+  2331:       Ty            : Type_Kind_Id;
+  2332:       Initialized   : Boolean := True;
+  2333:       Valid         : W_Term_Id := Why_Empty;
+  2334:       Only_Var      : Boolean := True;
+  2335:       Top_Predicate : Boolean := True) return W_Prog_Id
+  2336:    is
+  2337:       Init  : constant W_Term_Id :=
+  2338:         (if Initialized then True_Term else False_Term);
+  2339:       O_Var : constant W_Term_Id :=
+  2340:         (if Only_Var then True_Term else False_Term);
+  2341:       T     : constant W_Pred_Id :=
+  2342:         Compute_Dynamic_Inv_And_Initialization
+  2343:           (Expr          => Expr,
+  2344:            Ty            => Ty,
+  2345:            Valid         => Valid,
+  2346:            Initialized   => Init,
+  2347:            Only_Var      => O_Var,
+  2348:            Top_Predicate => Top_Predicate,
+  2349:            Params        => Body_Params);
+  2350:    begin
+  2351:       if T /= True_Pred then
+  2352:          return New_Assume_Statement (Ada_Node => Ty, Pred => T);
+  2353:       else
+  2354:          return +Void;
+  2355:       end if;
+  2356:    end Assume_Dynamic_Invariant;
+  2357:
+  2358:    --------------------------------------------
+  2359:    -- Assume_Dynamic_Invariant_For_Variables --
+  2360:    --------------------------------------------
 ```
 
 ## src/why/gnat2why-expr.adb:2669-2805
@@ -2895,6 +2954,459 @@
   2805:       return Res;
 ```
 
+## src/why/gnat2why-expr.adb:6396-6524
+
+```ada
+  6396:    function Compute_Dynamic_Inv_And_Initialization
+  6397:      (Expr           : W_Term_Id;
+  6398:       Ty             : Type_Kind_Id;
+  6399:       Params         : Transformation_Params;
+  6400:       Initialized    : W_Term_Id := True_Term;
+  6401:       Valid          : W_Term_Id := Why_Empty;
+  6402:       Only_Var       : W_Term_Id := True_Term;
+  6403:       Top_Predicate  : Boolean := True;
+  6404:       All_Global_Inv : Boolean := True) return W_Pred_Id
+  6405:    is
+  6406:       Dyn_Pred : W_Pred_Id :=
+  6407:         Compute_Dynamic_Invariant
+  6408:           (Expr           => Expr,
+  6409:            Ty             => Ty,
+  6410:            Valid          => Valid,
+  6411:            Initialized    => Initialized,
+  6412:            Params         => Params,
+  6413:            Only_Var       => Only_Var,
+  6414:            Top_Predicate  => (if Top_Predicate then True_Term else False_Term),
+  6415:            All_Global_Inv => All_Global_Inv);
+  6416:
+  6417:    begin
+  6418:       --  If Expr has relaxed initialization and Initialized is True, assume
+  6419:       --  the initialization of objects which are ultimately scalar and the
+  6420:       --  predicate of Ty if any.
+  6421:       --  For now, objects with relaxed initialization are always valid.
+  6422:
+  6423:       if Is_Init_Wrapper_Type (Get_Type (+Expr)) then
+  6424:          declare
+  6425:             Init_Pred : W_Pred_Id := True_Pred;
+  6426:          begin
+  6427:             if Has_Scalar_Full_View (Ty) then
+  6428:
+  6429:                --  Inputs of scalar types do not use the init wrapper
+  6430:                pragma Assert (Top_Predicate);
+  6431:
+  6432:                Init_Pred :=
+  6433:                  +Compute_Is_Initialized
+  6434:                     (Ty,
+  6435:                      +Expr,
+  6436:                      Params,
+  6437:                      EW_Pred,
+  6438:                      Exclude_Components => Relaxed);
+  6439:             elsif Has_Predicates (Ty) then
+  6440:                Init_Pred :=
+  6441:                  Compute_Dynamic_Predicate
+  6442:                    (Expr          => Expr,
+  6443:                     Ty            => Ty,
+  6444:                     Top_Predicate =>
+  6445:                       (if Top_Predicate then True_Term else False_Term));
+  6446:             end if;
+  6447:
+  6448:             if Has_Mutable_Discriminants (Ty) or else Is_Access_Type (Ty) then
+  6449:                Init_Pred :=
+  6450:                  New_And_Pred
+  6451:                    (Left  => Init_Pred,
+  6452:                     Right =>
+  6453:                       Pred_Of_Boolean_Term
+  6454:                         (New_Init_Attribute_Access (Ty, +Expr)));
+  6455:             end if;
+  6456:
+  6457:             if not Is_True_Boolean (+Init_Pred) then
+  6458:                Dyn_Pred :=
+  6459:                  New_And_Pred
+  6460:                    (Dyn_Pred,
+  6461:                     New_Conditional
+  6462:                       (Condition => Pred_Of_Boolean_Term (Initialized),
+  6463:                        Then_Part => Init_Pred));
+  6464:             end if;
+  6465:          end;
+  6466:       end if;
+  6467:
+  6468:       return Dyn_Pred;
+  6469:    end Compute_Dynamic_Inv_And_Initialization;
+  6470:
+  6471:    -------------------------------
+  6472:    -- Compute_Dynamic_Invariant --
+  6473:    -------------------------------
+  6474:
+  6475:    function Compute_Dynamic_Invariant
+  6476:      (Expr           : W_Term_Id;
+  6477:       Ty             : Type_Kind_Id;
+  6478:       Params         : Transformation_Params;
+  6479:       Initialized    : W_Term_Id := True_Term;
+  6480:       Valid          : W_Term_Id := Why_Empty;
+  6481:       Only_Var       : W_Term_Id := True_Term;
+  6482:       Top_Predicate  : W_Term_Id := True_Term;
+  6483:       All_Global_Inv : Boolean := True;
+  6484:       Use_Pred       : Boolean := True) return W_Pred_Id
+  6485:    is
+  6486:       T                 : W_Pred_Id;
+  6487:       New_Incompl_Acc   : Ada_To_Why_Ident.Map;
+  6488:       New_Incompl_Acc_R : Ada_To_Why_Ident.Map;
+  6489:    begin
+  6490:       --  Current_Subp is used as a scope to determine which local invariants
+  6491:       --  should be included in the dynamic invariant. It should be set.
+  6492:
+  6493:       pragma Assert (Present (Current_Subp));
+  6494:
+  6495:       Compute_Dynamic_Invariant
+  6496:         (Expr              => Expr,
+  6497:          Ty                => Ty,
+  6498:          Params            => Params,
+  6499:          Initialized       => Initialized,
+  6500:          Valid             => Valid,
+  6501:          Only_Var          => Only_Var,
+  6502:          Top_Predicate     => Top_Predicate,
+  6503:          All_Global_Inv    =>
+  6504:            (if All_Global_Inv then True_Term else False_Term),
+  6505:          Inv_Scop          => Current_Subp,
+  6506:          Inv_Subp          => (if All_Global_Inv then Empty else Current_Subp),
+  6507:          Use_Pred          => Use_Pred,
+  6508:          New_Preds_Module  => Why_Empty,
+  6509:          T                 => T,
+  6510:          Loc_Incompl_Acc   => Ada_To_Why_Ident.Empty_Map,
+  6511:          New_Incompl_Acc   => New_Incompl_Acc,
+  6512:          Loc_Incompl_Acc_R => Ada_To_Why_Ident.Empty_Map,
+  6513:          New_Incompl_Acc_R => New_Incompl_Acc_R,
+  6514:          Expand_Incompl    => True);
+  6515:
+  6516:       pragma Assert (New_Incompl_Acc.Is_Empty);
+  6517:       pragma Assert (New_Incompl_Acc_R.Is_Empty);
+  6518:       return T;
+  6519:    end Compute_Dynamic_Invariant;
+  6520:
+  6521:    procedure Compute_Dynamic_Invariant
+  6522:      (Expr              : W_Term_Id;
+  6523:       Ty                : Type_Kind_Id;
+  6524:       Params            : Transformation_Params;
+```
+
+## src/why/gnat2why-expr.adb:6730-6824
+
+```ada
+  6730:            Invariant_For_Absent_Comp);
+  6731:
+  6732:       --  If Ty's fullview is in SPARK, go to its underlying type to check its
+  6733:       --  kind.
+  6734:
+  6735:       Ty_Spec      : constant Entity_Id :=
+  6736:         (if Is_Class_Wide_Type (Ty)
+  6737:          then Get_Specific_Type_From_Classwide (Ty)
+  6738:          else Ty);
+  6739:       Ty_Ext       : constant Entity_Id := Retysp (Ty_Spec);
+  6740:       Relaxed_Init : constant Boolean := Get_Relaxed_Init (Get_Type (+Expr));
+  6741:       Pred_Main_Ty : constant W_Type_Id :=
+  6742:         (if Relaxed_Init
+  6743:          then EW_Abstract (Ty_Ext, Relaxed_Init => True)
+  6744:          else Type_Of_Node (Ty_Ext));
+  6745:
+  6746:       Variables : Flow_Id_Sets.Set;
+  6747:
+  6748:       --  Start of processing for Compute_Dynamic_Invariant
+  6749:
+  6750:    begin
+  6751:       --  If Use_Pred is true, then we already have generated a predicate
+  6752:       --  for the dynamic invariant of elements of type Ty_Ext, except if the
+  6753:       --  type is an itype or if it is standard boolean. We also avoid using
+  6754:       --  the predicate for objects in split form as it would introduce an
+  6755:       --  unnecessary conversion harmful to provers.
+  6756:       --  Never use the predicate if there is a validity flag.
+  6757:
+  6758:       if Use_Pred
+  6759:         and then not Is_Itype (Ty_Ext)
+  6760:         and then not Is_Standard_Boolean_Type (Ty_Ext)
+  6761:         and then Eq_Base (Pred_Main_Ty, Get_Type (+Expr))
+  6762:         and then No (Valid)
+  6763:       then
+  6764:
+  6765:          --  The generated predicate uses an empty scope for type invariants
+  6766:
+  6767:          Variables_In_Dynamic_Invariant (Ty_Ext, Variables, Scop => Empty);
+  6768:
+  6769:          declare
+  6770:             Vars  : constant W_Expr_Array :=
+  6771:               Get_Args_From_Variables (Variables, Params.Ref_Allowed);
+  6772:             Num_B : constant Positive := 5 + Vars'Length;
+  6773:             Args  : W_Expr_Array (1 .. Num_B);
+  6774:
+  6775:          begin
+  6776:             Args (1) := +Expr;
+  6777:             Args (2) := +Initialized;
+  6778:             Args (3) := +Only_Var;
+  6779:             Args (4) := +Top_Predicate;
+  6780:             Args (5) := +All_Global_Inv;
+  6781:             Args (6 .. Num_B) := Vars;
+  6782:
+  6783:             T :=
+  6784:               New_Call
+  6785:                 (Name =>
+  6786:                    E_Symb
+  6787:                      (E            => Ty_Ext,
+  6788:                       S            => WNE_Dynamic_Invariant,
+  6789:                       Relaxed_Init => Relaxed_Init),
+  6790:                  Args => Args,
+  6791:                  Typ  => EW_Bool_Type);
+  6792:
+  6793:             --  If Inv_Scop is set, add possible locally assumed type
+  6794:             --  invariants. If Inv_Subp is also set, add globally assumed type
+  6795:             --  invariants as they won't be included in the predicate (as
+  6796:             --  All_Global_Inv is False). Include components as the traversal
+  6797:             --  stops here.
+  6798:
+  6799:             if Present (Inv_Scop) then
+  6800:                T :=
+  6801:                  New_And_Pred
+  6802:                    (Left  => T,
+  6803:                     Right =>
+  6804:                       Compute_Type_Invariant
+  6805:                         (Expr,
+  6806:                          Ty_Ext,
+  6807:                          Locally_Assumed,
+  6808:                          Params,
+  6809:                          Use_Pred => Use_Pred,
+  6810:                          Scop     => Inv_Scop,
+  6811:                          Subp     => Inv_Subp));
+  6812:             end if;
+  6813:
+  6814:             return;
+  6815:          end;
+  6816:       end if;
+  6817:
+  6818:       --  Dynamic property of the type itself
+  6819:
+  6820:       if Type_Is_Modeled_As_Base (Ty_Ext)
+  6821:         or else
+  6822:           (Use_Split_Form_For_Type (Ty_Ext)
+  6823:            and then Get_Type_Kind (Get_Type (+Expr)) /= EW_Abstract)
+  6824:       then
+```
+
+## src/why/gnat2why-expr.adb:8782-8916
+
+```ada
+  8782:    function Compute_Type_Invariant
+  8783:      (Expr         : W_Term_Id;
+  8784:       Ty           : Type_Kind_Id;
+  8785:       Kind         : Invariant_Kind;
+  8786:       Params       : Transformation_Params := Body_Params;
+  8787:       Scop         : Entity_Id := Empty;
+  8788:       Subp         : Entity_Id := Empty;
+  8789:       Include_Comp : Boolean := True;
+  8790:       Use_Pred     : Boolean := True) return W_Pred_Id
+  8791:    is
+  8792:       function Include_Inv (Ty : Type_Kind_Id) return Boolean
+  8793:       with Pre => Has_Invariants_In_SPARK (Ty);
+  8794:       --  Return True if the top-level invariant of Ty shall be considered
+  8795:
+  8796:       function Comp_Has_Included_Inv (Ty : Type_Kind_Id) return Test_Result;
+  8797:       --  Return Pass if Ty or one of its ancestors has a considered invariant
+  8798:
+  8799:       function Invariant_For_Comp
+  8800:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id;
+  8801:       --  @param C_Expr expression for a component
+  8802:       --  @param C_Ty component type
+  8803:       --  @param E not referenced
+  8804:       --  @return predicate for individual components
+  8805:
+  8806:       function Invariant_For_Comp
+  8807:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; Dummy : W_Expr_Array)
+  8808:          return W_Pred_Id
+  8809:       is (Invariant_For_Comp (C_Expr, C_Ty, Empty));
+  8810:
+  8811:       ---------------------------
+  8812:       -- Comp_Has_Included_Inv --
+  8813:       ---------------------------
+  8814:
+  8815:       function Comp_Has_Included_Inv (Ty : Type_Kind_Id) return Test_Result is
+  8816:          Current : Entity_Id := Ty;
+  8817:          Parent  : Entity_Id;
+  8818:       begin
+  8819:          loop
+  8820:             if Has_Invariants_In_SPARK (Current) and then Include_Inv (Current)
+  8821:             then
+  8822:                return Pass;
+  8823:             end if;
+  8824:
+  8825:             Parent := Retysp (Etype (Current));
+  8826:             exit when Current = Parent;
+  8827:             Current := Parent;
+  8828:          end loop;
+  8829:          return Continue;
+  8830:       end Comp_Has_Included_Inv;
+  8831:
+  8832:       -----------------
+  8833:       -- Include_Inv --
+  8834:       -----------------
+  8835:
+  8836:       function Include_Inv (Ty : Type_Kind_Id) return Boolean
+  8837:       is (if Invariant_Assumed_In_Main (Ty)
+  8838:           then
+  8839:             Kind = Globally_Assumed
+  8840:             or else
+  8841:               (Present (Subp)
+  8842:                and then Kind = Locally_Assumed
+  8843:                and then not Invariant_Relaxed_For_Subprogram (Ty, Subp))
+  8844:           elsif Present (Scop) and then Invariant_Assumed_In_Scope (Ty, Scop)
+  8845:           then Kind = Locally_Assumed
+  8846:           else
+  8847:             Kind = For_Check
+  8848:             and then
+  8849:               (No (Subp)
+  8850:                or else not Invariant_Relaxed_For_Subprogram (Ty, Subp)));
+  8851:
+  8852:       ------------------------
+  8853:       -- Invariant_For_Comp --
+  8854:       ------------------------
+  8855:
+  8856:       function Invariant_For_Comp
+  8857:         (C_Expr : W_Term_Id; C_Ty : Entity_Id; E : Entity_Id) return W_Pred_Id
+  8858:       is (Compute_Type_Invariant
+  8859:             (C_Expr, C_Ty, Kind, Params, Scop => Scop, Subp => Subp));
+  8860:
+  8861:       function Invariant_For_Array is new
+  8862:         Build_Predicate_For_Array (Invariant_For_Comp);
+  8863:
+  8864:       function Invariant_For_Record is new
+  8865:         Build_Predicate_For_Record (Invariant_For_Comp, Invariant_For_Comp);
+  8866:
+  8867:       function Type_Contains_Included_Inv is new
+  8868:         Traverse_Subcomponents (Comp_Has_Included_Inv);
+  8869:
+  8870:       Rep_Ty : constant Entity_Id := Retysp (Ty);
+  8871:       --  If Ty's fullview is in SPARK, go to its underlying type to check its
+  8872:       --  kind.
+  8873:
+  8874:       Pred : W_Pred_Id := True_Pred;
+  8875:
+  8876:       --  Start of processing for Compute_Type_Invariant
+  8877:
+  8878:    begin
+  8879:       --  Check for invariants on the type and its ancestors
+  8880:
+  8881:       declare
+  8882:          Current : Entity_Id := Rep_Ty;
+  8883:          Parent  : Entity_Id;
+  8884:       begin
+  8885:          loop
+  8886:             if Has_Invariants_In_SPARK (Current) and then Include_Inv (Current)
+  8887:             then
+  8888:                Pred :=
+  8889:                  New_And_Pred
+  8890:                    (Left  => Pred,
+  8891:                     Right =>
+  8892:                       Compute_Top_Level_Type_Invariant
+  8893:                         (Insert_Simple_Conversion
+  8894:                            (Expr => Expr, To => Type_Of_Node (Current)),
+  8895:                          Current,
+  8896:                          Params,
+  8897:                          Use_Pred => Use_Pred));
+  8898:             end if;
+  8899:
+  8900:             Parent := Retysp (Etype (Current));
+  8901:             exit when Current = Parent;
+  8902:             Current := Parent;
+  8903:          end loop;
+  8904:       end;
+  8905:
+  8906:       --  Check for invariants on components
+  8907:
+  8908:       if Include_Comp then
+  8909:
+  8910:          --  For array types, produce:
+  8911:          --  (forall i1, i2 .... in_range1 (i1) /\ inrange2 (i2) /\ ... ->
+  8912:          --      invariant (a (i1, i2, ...)))
+  8913:
+  8914:          if Is_Array_Type (Rep_Ty) then
+  8915:
+  8916:             Pred :=
+```
+
+## src/why/gnat2why-expr.adb:11961-12034
+
+```ada
+ 11961:       end Collect_Moved_Objects;
+ 11962:
+ 11963:       -----------------
+ 11964:       -- Tmp_Of_Expr --
+ 11965:       -----------------
+ 11966:
+ 11967:       function Tmp_Of_Expr (Expr : W_Expr_Id) return W_Identifier_Id is
+ 11968:          Typ : constant W_Type_Id := Get_Type (+Expr);
+ 11969:       begin
+ 11970:          return New_Temp_Identifier (Typ => Typ, Base_Name => "for_move");
+ 11971:       end Tmp_Of_Expr;
+ 11972:
+ 11973:       --  Local variables
+ 11974:
+ 11975:       Nested_Moved : Node_Sets.Set;
+ 11976:       Checks       : W_Prog_Id := +Void;
+ 11977:       Tmp          : constant W_Identifier_Id := Tmp_Of_Expr (+Expr);
+ 11978:       Init         : constant W_Prog_Id := Expr;
+ 11979:
+ 11980:       --  Start of processing for Insert_Move_Of_Deep_Parts
+ 11981:
+ 11982:    begin
+ 11983:       --  There is no move at all for a borrow or observe
+ 11984:
+ 11985:       if Is_Anonymous_Access_Type (Lhs_Typ) then
+ 11986:          Do_Move := False;
+ 11987:
+ 11988:       --  If Rhs can be moved, do it
+ 11989:
+ 11990:       elsif Can_Be_Moved (Rhs) then
+ 11991:          Do_Move := True;
+ 11992:          Expr := Sequence (Move_Expression (Rhs, Tmp), +Tmp);
+ 11993:
+ 11994:       --  Otherwise, collect all deep objects potentially moved inside an
+ 11995:       --  aggregate.
+ 11996:
+ 11997:       else
+ 11998:          Collect_Moved_Objects (Rhs, Set => Nested_Moved, Checks => Checks);
+ 11999:          Do_Move := not Nested_Moved.Is_Empty;
+ 12000:
+ 12001:          if Do_Move then
+ 12002:             Expr := +Tmp;
+ 12003:
+ 12004:             for Obj of Nested_Moved loop
+ 12005:                declare
+ 12006:                   Obj_Expr : constant W_Expr_Id :=
+ 12007:                     Transform_Expr (Obj, EW_Term, Body_Params);
+ 12008:                   Obj_Tmp  : constant W_Identifier_Id :=
+ 12009:                     Tmp_Of_Expr (Obj_Expr);
+ 12010:                begin
+ 12011:                   Expr :=
+ 12012:                     New_Binding
+ 12013:                       (Name    => +Obj_Tmp,
+ 12014:                        Def     => +Obj_Expr,
+ 12015:                        Context =>
+ 12016:                          Sequence (Move_Expression (Obj, Obj_Tmp), Expr),
+ 12017:                        Typ     => Get_Type (+Expr));
+ 12018:                end;
+ 12019:             end loop;
+ 12020:          end if;
+ 12021:
+ 12022:          Expr := Sequence (Checks, Expr);
+ 12023:       end if;
+ 12024:
+ 12025:       if Do_Move then
+ 12026:          Expr :=
+ 12027:            New_Binding
+ 12028:              (Name    => Tmp,
+ 12029:               Def     => Init,
+ 12030:               Context => Expr,
+ 12031:               Typ     => Get_Type (+Expr));
+ 12032:       end if;
+ 12033:    end Insert_Move_Of_Deep_Parts;
+ 12034:
+```
+
 ## src/why/gnat2why-expr.adb:2864-2894
 
 ```ada
@@ -2952,6 +3464,121 @@
  12054:              (if Is_Float then VC_FP_Overflow_Check else VC_Overflow_Check),
  12055:            Typ      => Get_Type (T));
  12056:    end Insert_Overflow_Check;
+```
+
+## src/why/gnat2why-expr.adb:12286-12368
+
+```ada
+ 12286:    function New_Assignment
+ 12287:      (Ada_Node    : Node_Id := Empty;
+ 12288:       Lvalue      : N_Subexpr_Id;
+ 12289:       Expr        : W_Prog_Id;
+ 12290:       Do_Check    : Do_Check_Kind := All_Checks;
+ 12291:       Preserv_Tag : Boolean := True;
+ 12292:       Index_Map   : Ada_Node_To_Why_Id.Map := Ada_Node_To_Why_Id.Empty_Map)
+ 12293:       return W_Prog_Id
+ 12294:    is
+ 12295:       --  Here, we deal with assignment statements. In SPARK, the general form
+ 12296:       --  of an assignment is
+ 12297:       --
+ 12298:       --    Lvalue := Expr;
+ 12299:       --
+ 12300:       --  where Lvalue is a mix of array and record accesses. If we adopt the
+ 12301:       --  same notation for both, we obtain the general form
+ 12302:       --
+ 12303:       --    Prefix.Acc1.Acc2.(...).Accn := Expr;
+ 12304:       --
+ 12305:       --  where the Acc(i) are either array accesses using an index (or
+ 12306:       --  several indices in the multidimensional case) or record accesses
+ 12307:       --  using a field name.
+ 12308:       --
+ 12309:       --  Here, we generate Why code of the form
+ 12310:       --
+ 12311:       --    Prefix := Upd (Prefix, Acc1,
+ 12312:       --                   (Upd (Prefix.Acc1, Acc2,
+ 12313:       --                         Upd (..., Accn, Expr))));
+ 12314:
+ 12315:       Left_Side   : Node_Id := Lvalue;
+ 12316:       Right_Side  : W_Expr_Id := +Expr;
+ 12317:       Last_Access : Node_Id := Empty;
+ 12318:       Result      : W_Prog_Id := +Void;
+ 12319:       Domain      : constant EW_Domain :=
+ 12320:         (if Do_Check = No_Checks then EW_Pterm else EW_Prog);
+ 12321:
+ 12322:       --  Start of processing for New_Assignment
+ 12323:
+ 12324:    begin
+ 12325:       --  If Preserv_Tag is set, preserve the tag and extension of objects if
+ 12326:       --  they have a specific tagged type.
+ 12327:
+ 12328:       if Preserv_Tag
+ 12329:         and then Is_Tagged_Type (Etype (Left_Side))
+ 12330:         and then not Is_Class_Wide_Type (Etype (Left_Side))
+ 12331:       then
+ 12332:          declare
+ 12333:             Typ      : constant Entity_Id := Etype (Left_Side);
+ 12334:             Old_Left : constant W_Expr_Id :=
+ 12335:               Transform_Expr (Left_Side, EW_Pterm, Body_Params);
+ 12336:          begin
+ 12337:             Right_Side :=
+ 12338:               New_Tag_And_Ext_Update
+ 12339:                 (Ada_Node  => Ada_Node,
+ 12340:                  Domain    => Domain,
+ 12341:                  Name      => Right_Side,
+ 12342:                  From_Expr => Old_Left,
+ 12343:                  Ty        => Typ);
+ 12344:          end;
+ 12345:       end if;
+ 12346:
+ 12347:       while not (Nkind (Left_Side) in N_Identifier | N_Expanded_Name) loop
+ 12348:          Shift_Rvalue
+ 12349:            (Left_Side,
+ 12350:             Right_Side,
+ 12351:             Last_Access,
+ 12352:             Domain,
+ 12353:             Check_Prefix => Do_Check = All_Checks,
+ 12354:             Index_Map    => Index_Map);
+ 12355:       end loop;
+ 12356:
+ 12357:       --  In those cases where the left-hand side is type converted, the type
+ 12358:       --  of the Left_Side and Right_Side may not coincide here. Convert the
+ 12359:       --  Right_Side to the type of the Left_Side. Possible checks were taken
+ 12360:       --  into account before.
+ 12361:
+ 12362:       Right_Side :=
+ 12363:         Insert_Simple_Conversion
+ 12364:           (Domain => EW_Pterm,
+ 12365:            To     => Type_Of_Node (Left_Side),
+ 12366:            Expr   => Right_Side);
+ 12367:
+ 12368:       --  In the case of protected components, we have to generate the record
+```
+
+## src/why/gnat2why-expr.adb:12402-12423
+
+```ada
+ 12402:               Ada_Ent_To_Why.Element (Symbol_Table, Entity (Left_Side));
+ 12403:          begin
+ 12404:             case Binder.Kind is
+ 12405:                when Regular                =>
+ 12406:                   Append
+ 12407:                     (Result,
+ 12408:                      New_Assignment
+ 12409:                        (Ada_Node => Ada_Node,
+ 12410:                         Name     => Binder.Main.B_Name,
+ 12411:                         Labels   => Symbol_Sets.Empty_Set,
+ 12412:                         Value    => +Right_Side,
+ 12413:                         Typ      => Get_Typ (Binder.Main.B_Name)));
+ 12414:
+ 12415:                when UCArray                =>
+ 12416:                   Append
+ 12417:                     (Result,
+ 12418:                      New_Assignment
+ 12419:                        (Ada_Node => Ada_Node,
+ 12420:                         Name     => Binder.Content.B_Name,
+ 12421:                         Labels   => Symbol_Sets.Empty_Set,
+ 12422:                         Value    =>
+ 12423:                           +Array_Convert_To_Base
 ```
 
 ## src/why/gnat2why-expr.adb:14857-14920
@@ -3127,6 +3754,119 @@
  19140:                   Context  => +T);
  19141:          end;
  19142:
+```
+
+## src/why/gnat2why-expr.adb:19238-19345
+
+```ada
+ 19238:               +Binding_For_Temp
+ 19239:                  (Ada_Node => Empty,
+ 19240:                   Domain   => EW_Prog,
+ 19241:                   Tmp      => Lval,
+ 19242:                   Context  => +T);
+ 19243:          end;
+ 19244:       end if;
+ 19245:
+ 19246:       --  T might not have type Type_Of_Node (Lvalue) for several reasons:
+ 19247:       --    * Type_Of_Node (Lvalue) uses the Actual_Subtype
+ 19248:       --    * Type_Of_Node (Lvalue) may have relaxed init even though T is
+ 19249:       --      a scalar.
+ 19250:       --  In both cases, the conversion can be done without checks.
+ 19251:
+ 19252:       if Do_Valid then
+ 19253:
+ 19254:          --  For array types, it might be necessary to slide the validity
+ 19255:          --  tree.
+ 19256:
+ 19257:          if Has_Array_Type (Etype (Lvalue))
+ 19258:            and then Needs_Slide (Typ, Get_Ada_Node (+Type_Of_Node (Lvalue)))
+ 19259:          then
+ 19260:             Valid_Flag :=
+ 19261:               +New_Validity_Tree_Slide
+ 19262:                  (Tree   => +Valid_Flag,
+ 19263:                   Expr   => Tmp,
+ 19264:                   To     => Type_Of_Node (Lvalue),
+ 19265:                   Domain => EW_Prog,
+ 19266:                   Params => Params);
+ 19267:          end if;
+ 19268:       end if;
+ 19269:
+ 19270:       T :=
+ 19271:         +Binding_For_Temp
+ 19272:            (Empty,
+ 19273:             EW_Prog,
+ 19274:             Tmp,
+ 19275:             Insert_Simple_Conversion
+ 19276:               (Domain => EW_Pterm, Expr => +T, To => Type_Of_Node (Lvalue)));
+ 19277:
+ 19278:       declare
+ 19279:          Do_Move : Boolean;
+ 19280:       begin
+ 19281:          Insert_Move_Of_Deep_Parts
+ 19282:            (Rhs     => Expression (Stmt),
+ 19283:             Lhs_Typ => Typ,
+ 19284:             Expr    => T,
+ 19285:             Do_Move => Do_Move);
+ 19286:
+ 19287:          --  If a move may be needed, force the use of a temporary to hold
+ 19288:          --  the value of the expression including any moves. This is because
+ 19289:          --  New_Assignment does not expect the rhs expression to modify the
+ 19290:          --  target of the assignment.
+ 19291:
+ 19292:          declare
+ 19293:             Tmp : constant W_Expr_Id := New_Temp_For_Expr (+T, Do_Move);
+ 19294:          begin
+ 19295:             T :=
+ 19296:               Gnat2Why.Expr.New_Assignment
+ 19297:                 (Ada_Node => Stmt,
+ 19298:                  Lvalue   => Lvalue,
+ 19299:                  Expr     => +Tmp,
+ 19300:                  Do_Check =>
+ 19301:                    (if Has_Target_Names (Stmt)
+ 19302:                     then Only_Vars
+ 19303:                     else All_Checks));
+ 19304:
+ 19305:             --  Check that the assignment does not cause a resource leak. This
+ 19306:             --  is done after moves, so that we properly handle the case where
+ 19307:             --  the target of the assignment is moved by the expression of the
+ 19308:             --  assignment, e.g. an aggregate with the target as element. This
+ 19309:             --  also deals with the special case X:=X so that we avoid issuing
+ 19310:             --  a message here.
+ 19311:
+ 19312:             if Is_Deep (Typ) and then not Is_Anonymous_Access_Type (Typ) then
+ 19313:                T := +Sequence (Check_No_Memory_Leaks (Stmt, Lvalue), T);
+ 19314:             end if;
+ 19315:
+ 19316:             T := +Binding_For_Temp (Empty, EW_Prog, Tmp, +T);
+ 19317:          end;
+ 19318:       end;
+ 19319:
+ 19320:       --  Handle the propagation of the validity flag if any
+ 19321:
+ 19322:       if Do_Valid then
+ 19323:          declare
+ 19324:             Index_Map : Ada_Node_To_Why_Id.Map;
+ 19325:
+ 19326:          begin
+ 19327:             --  Collect indexes for Lvalue before the assignment. No need to
+ 19328:             --  generate checks.
+ 19329:
+ 19330:             Collect_Index_Expressions
+ 19331:               (Lvalue, EW_Pterm, Params, Context, Index_Map);
+ 19332:
+ 19333:             T :=
+ 19334:               Sequence
+ 19335:                 (T,
+ 19336:                  New_Validity_Tree_Assignment
+ 19337:                    (LHS       => Lvalue,
+ 19338:                     New_Tree  => +Valid_Flag,
+ 19339:                     Params    => Params,
+ 19340:                     Index_Map => Index_Map));
+ 19341:
+ 19342:             T := +Bindings_For_Ref_Context (+T, Context, EW_Prog);
+ 19343:          end;
+ 19344:       end if;
+ 19345:
 ```
 
 ## src/why/gnat2why-expr.adb:21817-21972
@@ -3724,9 +4464,23 @@
  22638:                      --  of the overlay for all values of the root object.
 ```
 
-## src/why/gnat2why-expr.adb:23201-23215
+## src/why/gnat2why-expr.adb:23187-23215
 
 ```ada
+ 23187:                begin
+ 23188:                   R := +Sequence (New_Ignore (Prog => +Why_Expr), R);
+ 23189:                end;
+ 23190:             end if;
+ 23191:          end;
+ 23192:       end if;
+ 23193:
+ 23194:       return +Insert_Cnt_Loc_Label (Decl, +R);
+ 23195:    end Transform_Declaration;
+ 23196:
+ 23197:    ----------------------------
+ 23198:    -- Transform_Declarations --
+ 23199:    ----------------------------
+ 23200:
  23201:    function Transform_Declarations
  23202:      (L : List_Id; Params : Transformation_Params) return W_Prog_Id
  23203:    is
@@ -4413,6 +5167,53 @@
  27088:       --  instead.
 ```
 
+## src/why/gnat2why-expr.adb:29520-29561
+
+```ada
+ 29520:          --  Transform_Assignment_Statement.
+ 29521:
+ 29522:          when N_Assignment_Statement                              =>
+ 29523:             declare
+ 29524:                Lvalue : constant Entity_Id := Name (Stmt_Or_Decl);
+ 29525:                W_Ty   : constant W_Type_Id := Type_Of_Node (Lvalue);
+ 29526:                T      : W_Prog_Id;
+ 29527:
+ 29528:             begin
+ 29529:                --  Sanity checking, the global state should be clean
+ 29530:
+ 29531:                pragma Assert (Target_Name = Why_Empty);
+ 29532:
+ 29533:                --  Create an identifier for references to the target name in
+ 29534:                --  the assigned expression.
+ 29535:
+ 29536:                Target_Name :=
+ 29537:                  New_Temp_Identifier (Typ => W_Ty, Base_Name => "target");
+ 29538:
+ 29539:                T := Transform_Assignment_Statement (Stmt_Or_Decl, Params);
+ 29540:
+ 29541:                --  Only introduce a binding for Target_Name if it was actually
+ 29542:                --  used in the assignment.
+ 29543:
+ 29544:                if Has_Target_Names (Stmt_Or_Decl) then
+ 29545:                   T :=
+ 29546:                     New_Binding
+ 29547:                       (Ada_Node => Stmt_Or_Decl,
+ 29548:                        Name     => Target_Name,
+ 29549:                        Def      =>
+ 29550:                          Transform_Prog
+ 29551:                            (Expr          => Lvalue,
+ 29552:                             Expected_Type => W_Ty,
+ 29553:                             Params        => Params),
+ 29554:                        Context  => T,
+ 29555:                        Typ      => W_Ty);
+ 29556:                end if;
+ 29557:
+ 29558:                --  Clean up global state
+ 29559:
+ 29560:                Target_Name := Why_Empty;
+ 29561:
+```
+
 ## src/why/gnat2why-expr.adb:29733-29862
 
 ```ada
@@ -4997,6 +5798,196 @@
  30664:
  30665:       return T;
  30666:    end Transform_String_Literal;
+```
+
+## src/why/gnat2why-expr.adb:30936-31120
+
+```ada
+ 30936:    procedure Variables_In_Dynamic_Invariant
+ 30937:      (Ty : Type_Kind_Id; Variables : in out Flow_Id_Sets.Set; Scop : Entity_Id)
+ 30938:    is
+ 30939:
+ 30940:       procedure Variables_In_Dynamic_Invariant
+ 30941:         (Ty          : Entity_Id;
+ 30942:          Variables   : in out Flow_Id_Sets.Set;
+ 30943:          Incompl_Acc : in out Entity_Sets.Set);
+ 30944:       --  Auxiliary function with an additional parameter storing access
+ 30945:       --  types to incomplete types already encountered (to avoid looping
+ 30946:       --  on recursive data-structures).
+ 30947:
+ 30948:       ------------------------------------
+ 30949:       -- Variables_In_Dynamic_Invariant --
+ 30950:       ------------------------------------
+ 30951:
+ 30952:       procedure Variables_In_Dynamic_Invariant
+ 30953:         (Ty          : Entity_Id;
+ 30954:          Variables   : in out Flow_Id_Sets.Set;
+ 30955:          Incompl_Acc : in out Entity_Sets.Set)
+ 30956:       is
+ 30957:          Spec_Ty : constant Entity_Id :=
+ 30958:            (if Is_Class_Wide_Type (Ty)
+ 30959:             then Get_Specific_Type_From_Classwide (Ty)
+ 30960:             else Ty);
+ 30961:          Ty_Ext  : constant Entity_Id := Retysp (Spec_Ty);
+ 30962:
+ 30963:       begin
+ 30964:          --  Dynamic property of the type itself
+ 30965:
+ 30966:          if Type_Is_Modeled_As_Base (Ty_Ext) then
+ 30967:
+ 30968:             --  If a scalar type is not modeled as base, then its bounds are
+ 30969:             --  constants.
+ 30970:             --  Otherwise, variables may occur in their expressions.
+ 30971:
+ 30972:             declare
+ 30973:                Rng : constant Node_Id := Get_Range (Ty_Ext);
+ 30974:             begin
+ 30975:                Variables.Union
+ 30976:                  (Get_Variables_For_Proof (Low_Bound (Rng), Ty_Ext));
+ 30977:                Variables.Union
+ 30978:                  (Get_Variables_For_Proof (High_Bound (Rng), Ty_Ext));
+ 30979:             end;
+ 30980:          elsif Is_Array_Type (Ty_Ext)
+ 30981:            and then not Is_Static_Array_Type (Ty_Ext)
+ 30982:          then
+ 30983:
+ 30984:             --  Variables coming from the bounds of the index types
+ 30985:
+ 30986:             declare
+ 30987:                Index : Node_Id := First_Index (Ty_Ext);
+ 30988:             begin
+ 30989:                while Present (Index) loop
+ 30990:                   if Type_Is_Modeled_As_Base (Etype (Index)) then
+ 30991:                      declare
+ 30992:                         Rng : constant Node_Id := Get_Range (Etype (Index));
+ 30993:                      begin
+ 30994:                         Variables.Union
+ 30995:                           (Get_Variables_For_Proof (Low_Bound (Rng), Ty_Ext));
+ 30996:                         Variables.Union
+ 30997:                           (Get_Variables_For_Proof (High_Bound (Rng), Ty_Ext));
+ 30998:                      end;
+ 30999:                   end if;
+ 31000:                   Next_Index (Index);
+ 31001:                end loop;
+ 31002:             end;
+ 31003:
+ 31004:             --  If the array is constrained, also assume the value of its
+ 31005:             --  bounds.
+ 31006:
+ 31007:             if Is_Constrained (Ty_Ext) then
+ 31008:                declare
+ 31009:                   Index : Node_Id := First_Index (Ty_Ext);
+ 31010:                begin
+ 31011:                   while Present (Index) loop
+ 31012:                      declare
+ 31013:                         Rng : constant Node_Id := Get_Range (Index);
+ 31014:                      begin
+ 31015:                         Variables.Union
+ 31016:                           (Get_Variables_For_Proof (Low_Bound (Rng), Ty_Ext));
+ 31017:                         Variables.Union
+ 31018:                           (Get_Variables_For_Proof (High_Bound (Rng), Ty_Ext));
+ 31019:                      end;
+ 31020:                      Next_Index (Index);
+ 31021:                   end loop;
+ 31022:                end;
+ 31023:             end if;
+ 31024:
+ 31025:          elsif Has_Discriminants (Ty_Ext) then
+ 31026:
+ 31027:             --  Variables coming from the record's discriminants
+ 31028:
+ 31029:             declare
+ 31030:                Discr : Entity_Id := First_Discriminant (Ty_Ext);
+ 31031:                Elmt  : Elmt_Id :=
+ 31032:                  (if Is_Constrained (Ty_Ext)
+ 31033:                   then First_Elmt (Discriminant_Constraint (Ty_Ext))
+ 31034:                   else No_Elmt);
+ 31035:             begin
+ 31036:                while Present (Discr) loop
+ 31037:                   if Is_Constrained (Ty_Ext) then
+ 31038:                      Variables.Union
+ 31039:                        (Get_Variables_For_Proof (Node (Elmt), Ty_Ext));
+ 31040:                      Next_Elmt (Elmt);
+ 31041:                   end if;
+ 31042:
+ 31043:                   Variables_In_Dynamic_Invariant
+ 31044:                     (Etype (Discr), Variables, Incompl_Acc);
+ 31045:                   Next_Discriminant (Discr);
+ 31046:                end loop;
+ 31047:             end;
+ 31048:          end if;
+ 31049:
+ 31050:          --  Variables in the predicate of the type
+ 31051:
+ 31052:          if Has_Predicates (Ty_Ext) then
+ 31053:             Variables_In_Dynamic_Predicate (Ty_Ext, Variables);
+ 31054:          end if;
+ 31055:
+ 31056:          --  Dynamic Invariant of Ty_Ext's components
+ 31057:
+ 31058:          if Is_Array_Type (Ty_Ext)
+ 31059:            and then Ekind (Ty_Ext) /= E_String_Literal_Subtype
+ 31060:          then
+ 31061:
+ 31062:             Variables_In_Dynamic_Invariant
+ 31063:               (Component_Type (Ty_Ext), Variables, Incompl_Acc);
+ 31064:
+ 31065:          elsif Is_Record_Type (Ty_Ext)
+ 31066:            or else Is_Incomplete_Or_Private_Type (Ty_Ext)
+ 31067:          then
+ 31068:
+ 31069:             for Field of Get_Component_Set (Ty_Ext) loop
+ 31070:                if not Is_Type (Field) then
+ 31071:                   Variables_In_Dynamic_Invariant
+ 31072:                     (Etype (Field), Variables, Incompl_Acc);
+ 31073:                end if;
+ 31074:             end loop;
+ 31075:          elsif Is_Access_Type (Ty_Ext)
+ 31076:            and then not Is_Access_Subprogram_Type (Ty_Ext)
+ 31077:            and then
+ 31078:              (not Designates_Incomplete_Type (Repr_Pointer_Type (Ty_Ext))
+ 31079:               or else not Incompl_Acc.Contains (Repr_Pointer_Type (Ty_Ext)))
+ 31080:          then
+ 31081:             if Designates_Incomplete_Type (Repr_Pointer_Type (Ty_Ext)) then
+ 31082:                Incompl_Acc.Insert (Repr_Pointer_Type (Ty_Ext));
+ 31083:             end if;
+ 31084:
+ 31085:             Variables_In_Dynamic_Invariant
+ 31086:               (Directly_Designated_Type (Ty_Ext), Variables, Incompl_Acc);
+ 31087:          end if;
+ 31088:
+ 31089:          --  Assumed type invariant of Ty_Ext and its parents if any
+ 31090:
+ 31091:          declare
+ 31092:             Current : Entity_Id := Ty_Ext;
+ 31093:             Parent  : Entity_Id;
+ 31094:          begin
+ 31095:             loop
+ 31096:                if Has_Invariants_In_SPARK (Current)
+ 31097:                  and then
+ 31098:                    (Invariant_Assumed_In_Main (Current)
+ 31099:                     or else
+ 31100:                       (Present (Scop)
+ 31101:                        and then Invariant_Assumed_In_Scope (Current, Scop)))
+ 31102:                then
+ 31103:                   Variables_In_Type_Invariant (Current, Variables);
+ 31104:                end if;
+ 31105:
+ 31106:                Parent := Retysp (Etype (Current));
+ 31107:                exit when Current = Parent;
+ 31108:                Current := Parent;
+ 31109:             end loop;
+ 31110:          end;
+ 31111:       end Variables_In_Dynamic_Invariant;
+ 31112:
+ 31113:       --  Local variables
+ 31114:
+ 31115:       Incompl_Acc : Entity_Sets.Set;
+ 31116:
+ 31117:       --  Start of processing for Variables_In_Dynamic_Invariant
+ 31118:
+ 31119:    begin
+ 31120:       Variables_In_Dynamic_Invariant (Ty, Variables, Incompl_Acc);
 ```
 
 ## src/why/gnat2why-expr.adb:31162-31211
@@ -6138,6 +7129,41 @@
   1047:    function Init_Array_1_Bool_Op_Module
 ```
 
+## src/why/why-atree-modules.adb:3693-3722
+
+```ada
+  3693:          --  Add symbol for the predicate used to assume the dynamic invariant
+  3694:          --  of a type. This symbol is registered in the axiom module, so that
+  3695:          --  the function can be directly defined there instead of being first
+  3696:          --  declared in the entity module and then axiomatized in the axiom
+  3697:          --  module (to have visibility over constants/functions in the
+  3698:          --  definition).
+  3699:
+  3700:          if not Is_Itype (E) then
+  3701:             Insert_Symbol
+  3702:               (E,
+  3703:                WNE_Dynamic_Invariant,
+  3704:                New_Identifier
+  3705:                  (Symb   => NID ("dynamic_invariant"),
+  3706:                   Module => AM,
+  3707:                   Domain => EW_Term,
+  3708:                   Typ    => EW_Bool_Type));
+  3709:
+  3710:             if Has_Init_Wrapper (E) then
+  3711:                Insert_Symbol
+  3712:                  (E,
+  3713:                   WNE_Dynamic_Invariant,
+  3714:                   New_Identifier
+  3715:                     (Symb   => NID ("dynamic_invariant_r"),
+  3716:                      Module => AM,
+  3717:                      Domain => EW_Term,
+  3718:                      Typ    => EW_Bool_Type),
+  3719:                   Relaxed_Init => True);
+  3720:             end if;
+  3721:          end if;
+  3722:
+```
+
 ## src/why/why-atree-modules.adb:3962-4006
 
 ```ada
@@ -7112,7 +8138,7 @@
    157:       end if;
 ```
 
-## src/why/why-gen-expr.adb:311-348
+## src/why/why-gen-expr.adb:311-381
 
 ```ada
    311:    function Binding_For_Temp
@@ -7153,6 +8179,39 @@
    346:          return Context;
    347:       end if;
    348:    end Binding_For_Temp;
+   349:
+   350:    ------------------------------
+   351:    -- Bindings_For_Ref_Context --
+   352:    ------------------------------
+   353:
+   354:    function Bindings_For_Ref_Context
+   355:      (Expr : W_Expr_Id; Context : Ref_Context; Domain : EW_Domain)
+   356:       return W_Expr_Id
+   357:    is
+   358:       Res : W_Expr_Id := Expr;
+   359:    begin
+   360:       for J of reverse Context loop
+   361:          if J.Mutable then
+   362:             pragma Assert (Domain in EW_Prog | EW_Pterm);
+   363:             Res :=
+   364:               New_Binding_Ref
+   365:                 (Name    => J.Name,
+   366:                  Def     => +J.Value,
+   367:                  Context => +Res,
+   368:                  Typ     => Get_Type (+Res));
+   369:          else
+   370:             Res :=
+   371:               New_Typed_Binding
+   372:                 (Name    => J.Name,
+   373:                  Def     => +J.Value,
+   374:                  Context => Res,
+   375:                  Domain  => Domain);
+   376:          end if;
+   377:       end loop;
+   378:       return Res;
+   379:    end Bindings_For_Ref_Context;
+   380:
+   381:    --------------------------
 ```
 
 ## src/why/why-gen-expr.adb:1518-1648
@@ -8029,9 +9088,58 @@
   3050:       Need_Check : Boolean := False;
 ```
 
-## src/why/why-gen-expr.adb:3533-3569
+## src/why/why-gen-expr.adb:3484-3569
 
 ```ada
+  3484:
+  3485:    function New_And_Expr
+  3486:      (Left, Right : W_Expr_Id; Domain : EW_Domain) return W_Expr_Id is
+  3487:    begin
+  3488:       if Is_True_Boolean (+Left) then
+  3489:          return Right;
+  3490:       elsif Is_True_Boolean (+Right) then
+  3491:          return Left;
+  3492:       elsif Domain = EW_Pred then
+  3493:          return
+  3494:            New_Connection
+  3495:              (Domain => Domain, Op => EW_And, Left => +Left, Right => +Right);
+  3496:       else
+  3497:          return
+  3498:            New_Call
+  3499:              (Domain => Domain,
+  3500:               Name   => M_Boolean.Andb,
+  3501:               Args   => (1 => +Left, 2 => +Right),
+  3502:               Typ    => EW_Bool_Type);
+  3503:       end if;
+  3504:    end New_And_Expr;
+  3505:
+  3506:    function New_And_Expr
+  3507:      (Left, Right : W_Expr_Id; Domain : EW_Domain; Base : W_Type_Id)
+  3508:       return W_Expr_Id is
+  3509:    begin
+  3510:       if Base = EW_BitVector_8_Type
+  3511:         or else Base = EW_BitVector_16_Type
+  3512:         or else Base = EW_BitVector_32_Type
+  3513:         or else Base = EW_BitVector_64_Type
+  3514:         or else Base = EW_BitVector_128_Type
+  3515:       then
+  3516:          return
+  3517:            New_Call
+  3518:              (Domain => Domain,
+  3519:               Name   => MF_BVs (Base).BW_And,
+  3520:               Args   => (1 => +Left, 2 => +Right),
+  3521:               Typ    => Base);
+  3522:       elsif Base = EW_Bool_Type then
+  3523:          return New_And_Expr (Left, Right, Domain);
+  3524:       else
+  3525:          raise Program_Error;
+  3526:       end if;
+  3527:    end New_And_Expr;
+  3528:
+  3529:    ------------------
+  3530:    -- New_And_Pred --
+  3531:    ------------------
+  3532:
   3533:    function New_And_Pred (Conjuncts : W_Pred_Array) return W_Pred_Id is
   3534:       Filtered : W_Pred_Array (1 .. Conjuncts'Length);
   3535:       Count    : Natural := 0;
@@ -8591,6 +9699,21 @@
   5323:    end New_VC_Expr;
 ```
 
+## src/why/why-gen-expr.ads:96-105
+
+```ada
+    96:
+    97:    function New_And_Term (Left, Right : W_Term_Id) return W_Term_Id
+    98:    is (+New_And_Expr (+Left, +Right, EW_Term));
+    99:
+   100:    function New_And_Pred (Left, Right : W_Pred_Id) return W_Pred_Id
+   101:    is (+New_And_Expr (+Left, +Right, EW_Pred));
+   102:
+   103:    function New_And_Expr
+   104:      (Left, Right : W_Expr_Id; Domain : EW_Domain; Base : W_Type_Id)
+   105:       return W_Expr_Id
+```
+
 ## src/why/why-gen-expr.ads:305-311
 
 ```ada
@@ -8799,7 +9922,7 @@
    352:    end Conversion_Name;
 ```
 
-## src/why/why-gen-names.adb:786-832
+## src/why/why-gen-names.adb:786-870
 
 ```ada
    786:    function New_Identifier
@@ -8849,6 +9972,44 @@
    830:    begin
    831:       return New_Module (Ada_Node, File, S);
    832:    end New_Module;
+   833:
+   834:    -------------------------
+   835:    -- New_Temp_Identifier --
+   836:    -------------------------
+   837:
+   838:    New_Temp_Identifier_Counter : Natural := 0;
+   839:
+   840:    function New_Temp_Identifier (Base_Name : String := "") return String is
+   841:       Counter_Img   : constant String :=
+   842:         Natural'Image (New_Temp_Identifier_Counter);
+   843:       Use_Base_Name : constant String :=
+   844:         (if Base_Name = "" then "" else Base_Name & "_");
+   845:    begin
+   846:       New_Temp_Identifier_Counter := New_Temp_Identifier_Counter + 1;
+   847:       return "temp___" & Use_Base_Name & Trim (Counter_Img, Ada.Strings.Left);
+   848:    end New_Temp_Identifier;
+   849:
+   850:    function New_Temp_Identifier
+   851:      (Ada_Node  : Node_Id := Empty;
+   852:       Typ       : W_Type_Id := Why_Empty;
+   853:       Base_Name : String := "") return W_Identifier_Id
+   854:    is
+   855:
+   856:       Temp_Labels : String_Utils.String_Sets.Set :=
+   857:         String_Utils.String_Sets.Empty_Set;
+   858:    begin
+   859:       String_Utils.String_Sets.Insert
+   860:         (Container => Temp_Labels, New_Item => "mlw:proxy_symbol");
+   861:       String_Utils.String_Sets.Insert (Temp_Labels, "introduced");
+   862:       return
+   863:         New_Identifier
+   864:           (Ada_Node => Ada_Node,
+   865:            Name     => New_Temp_Identifier (Base_Name),
+   866:            Typ      => Typ,
+   867:            Attrs    => Temp_Labels);
+   868:    end New_Temp_Identifier;
+   869:
+   870:    function New_Generated_Identifier
 ```
 
 ## src/why/why-gen-names.adb:1182-1220
@@ -8893,6 +10054,37 @@
   1218:    ---------------------
   1219:    -- Range_Pred_Name --
   1220:    ---------------------
+```
+
+## src/why/why-gen-progs.adb:38-45
+
+```ada
+    38:    ------------
+    39:    -- Append --
+    40:    ------------
+    41:
+    42:    procedure Append (Left : in out W_Prog_Id; Right : W_Prog_Id) is
+    43:    begin
+    44:       Left := Sequence (Left, Right);
+    45:    end Append;
+```
+
+## src/why/why-gen-progs.adb:168-180
+
+```ada
+   168:    function New_Assume_Statement
+   169:      (Ada_Node : Node_Id := Empty; Pred : W_Pred_Id) return W_Prog_Id is
+   170:    begin
+   171:       if Is_True_Boolean (+Pred) then
+   172:          return +Void;
+   173:       else
+   174:          return
+   175:            New_Assert
+   176:              (Ada_Node => Ada_Node, Pred => Pred, Assert_Kind => EW_Assume);
+   177:       end if;
+   178:    end New_Assume_Statement;
+   179:
+   180:    -------------------------
 ```
 
 ## src/why/why-gen-progs.adb:275-280
@@ -8945,6 +10137,89 @@
    362:    -------------------
    363:    -- Void_Sequence --
    364:    -------------------
+```
+
+## src/why/why-gen-records.adb:5048-5125
+
+```ada
+  5048:    function New_Tag_And_Ext_Update
+  5049:      (Ada_Node  : Node_Id := Empty;
+  5050:       Domain    : EW_Domain;
+  5051:       Name      : W_Expr_Id;
+  5052:       From_Expr : W_Expr_Id := Why_Empty;
+  5053:       Ty        : Entity_Id) return W_Expr_Id
+  5054:    is
+  5055:       Has_Tag : constant Boolean :=
+  5056:         (Is_Tagged_Type (Retysp (Ty))
+  5057:          and then
+  5058:            (From_Expr /= Why_Empty or else not Is_Class_Wide_Type (Ty)));
+  5059:       --  If Ty is tagged, its 'Tag attribute should be preserved except for
+  5060:       --  defaults of classwide types.
+  5061:
+  5062:    begin
+  5063:       if Has_Tag then
+  5064:          declare
+  5065:             Pre_Ty    : constant Node_Id :=
+  5066:               Get_Ada_Node (+Get_Type (From_Expr));
+  5067:             Tmp_Name  : constant W_Expr_Id := New_Temp_For_Expr (Name);
+  5068:             Ext_Value : constant W_Expr_Id :=
+  5069:               (if From_Expr = Why_Empty
+  5070:                then +E_Symb (Ty, WNE_Null_Extension)
+  5071:                else
+  5072:                  New_Ext_Access
+  5073:                    (Name =>
+  5074:                       New_Fields_Access (Name => From_Expr, Ty => Pre_Ty),
+  5075:                     Ty   => Pre_Ty));
+  5076:             Tag_Value : constant W_Expr_Id :=
+  5077:               (if From_Expr = Why_Empty
+  5078:                then +E_Symb (E => Ty, S => WNE_Tag)
+  5079:                else
+  5080:                  New_Tag_Access
+  5081:                    (Domain => Domain, Name => From_Expr, Ty => Pre_Ty));
+  5082:          begin
+  5083:             return
+  5084:               Binding_For_Temp
+  5085:                 (Domain  => Domain,
+  5086:                  Tmp     => Tmp_Name,
+  5087:                  Context =>
+  5088:                    New_Record_Update
+  5089:                      (Ada_Node => Ada_Node,
+  5090:                       Name     => Tmp_Name,
+  5091:                       Updates  =>
+  5092:                         (1 =>
+  5093:                            New_Field_Association
+  5094:                              (Domain => Domain,
+  5095:                               Field  =>
+  5096:                                 +New_Attribute_Expr
+  5097:                                    (Ty     => Ty,
+  5098:                                     Domain => Domain,
+  5099:                                     Attr   => Attribute_Tag),
+  5100:                               Value  => Tag_Value),
+  5101:                          2 =>
+  5102:                            New_Field_Association
+  5103:                              (Domain => Domain,
+  5104:                               Field  => E_Symb (Ty, WNE_Rec_Split_Fields),
+  5105:                               Value  =>
+  5106:                                 New_Record_Update
+  5107:                                   (Ada_Node => Ada_Node,
+  5108:                                    Name     =>
+  5109:                                      New_Fields_Access
+  5110:                                        (Name => Tmp_Name, Ty => Ty),
+  5111:                                    Updates  =>
+  5112:                                      (1 =>
+  5113:                                         New_Field_Association
+  5114:                                           (Domain => Domain,
+  5115:                                            Field  =>
+  5116:                                              E_Symb (Ty, WNE_Rec_Extension),
+  5117:                                            Value  => Ext_Value))))),
+  5118:                       Typ      => Get_Type (Name)));
+  5119:          end;
+  5120:       else
+  5121:          return Name;
+  5122:       end if;
+  5123:    end New_Tag_And_Ext_Update;
+  5124:
+  5125:    -------------------------------------
 ```
 
 ## src/why/why-inter.adb:354-379
@@ -10154,6 +11429,64 @@
    438:       -- W_Record_Update --
    439:       ---------------------
    440:
+```
+
+## src/why/xgen/xtree_sinfo.adb:470-486
+
+```ada
+   470:                  "Labels", "Symbol_Set");
+   471:
+   472:       ------------------
+   473:       -- W_Assignment --
+   474:       ------------------
+   475:
+   476:       New_Field (W_Assignment,
+   477:                  "Name", "W_Identifier", Id_One);
+   478:       New_Field (W_Assignment,
+   479:                  "Value", "W_Prog", Id_One);
+   480:       New_Field (W_Assignment,
+   481:                  "Typ", "W_Type", Id_One);
+   482:       New_Field (W_Assignment,
+   483:                  "Labels", "Symbol_Set");
+   484:
+   485:       -------------------
+   486:       -- W_Binding_Ref --
+```
+
+## src/why/xgen/xtree_sinfo.adb:528-558
+
+```ada
+   528:       -- W_Statement_Sequence --
+   529:       --------------------------
+   530:
+   531:       Set_Mutable (W_Statement_Sequence);
+   532:       New_Field (W_Statement_Sequence,
+   533:                  "Statements", "W_Prog", Id_Some);
+   534:
+   535:       ---------------------
+   536:       -- W_Abstract_Expr --
+   537:       ---------------------
+   538:
+   539:       Set_Domain (W_Abstract_Expr, EW_Prog);
+   540:       New_Field (W_Abstract_Expr,
+   541:                 "Expr", "W_Prog", Id_One);
+   542:       New_Field (W_Abstract_Expr,
+   543:                  "Post", "W_Pred", Id_One);
+   544:       New_Field (W_Abstract_Expr,
+   545:                  "Typ", "W_Type", Id_Lone);
+   546:
+   547:       --------------
+   548:       -- W_Assert --
+   549:       --------------
+   550:
+   551:       New_Field (W_Assert,
+   552:                  "Pred", "W_Pred", Id_One);
+   553:       New_Field (W_Assert,
+   554:                  "Assert_Kind", "EW_Assert_Kind");
+   555:
+   556:       -------------
+   557:       -- W_Raise --
+   558:       -------------
 ```
 
 ## src/why/xgen/xtree_sinfo.adb:580-615

@@ -22,7 +22,7 @@ The [manifest](../evidence/retained-producer-capacity-20261017/source-manifest.j
 hashes complete source files; the
 [excerpts](../evidence/retained-producer-capacity-20261017/source-excerpts.md)
 retain numbered LF-based source ranges. References below are paths relative to
-that pinned source tree. All twenty-eight complete files in the current manifest
+that pinned source tree. Every complete file in the current manifest
 hash-match their copies in the previously retained source archive, checked by
 [`source-archive-check.json`](../evidence/retained-producer-capacity-20261017/source-archive-check.json).
 No compiler invocation, proof invocation, installation,
@@ -372,6 +372,73 @@ the static-subtype boundary charge when the expected type requires it. This
 closes the admitted scalar-expression core, not declaration wrappers, scalar
 comparison wrappers, String attributes or fixed-library translations.
 
+### Ordinary Integer declaration and assignment wrappers
+
+For an initialized source Integer object, its type is `Standard.Integer` or
+the non-itype subtype generated for the explicit nonempty static range. Its
+regular binder has no initialization, validity or move-tree flag. Exclude
+the initializer/RHS translation and its expected-subtype boundary charge,
+initial binder/symbol creation, outer entity theories and enclosing sequence
+construction from the following wrapper costs.
+
+There is an allocation that is invisible in the emitted result:
+`Insert_Move_Of_Deep_Parts` eagerly creates a temporary identifier before
+deciding whether any move occurs. On the admitted scalar expressions no move
+occurs, but the identifier and name still cost **two fresh nodes**
+(`src/why/gnat2why-expr.adb:11961–12034`;
+`src/why/why-gen-names.adb:786–808, 838–870`). Both object initialization and
+assignment call that helper once. The temporary-name counter is also advanced;
+its call count must be included if bounding that counter separately.
+
+The ordinary mutable initializer then adds one assignment: at most eight
+emitted occurrences excluding its RHS (assignment, identifier/name/module,
+two copies of the two-occurrence split type). The immutable case creates one
+temporary identifier/name, an equality call, an assumption and a binding,
+with at most twenty-four emitted occurrences excluding its initializer.
+`New_Tag_And_Ext_Update` returns the input for untagged Integer
+(`src/why/gnat2why-expr.adb:1756–1831`;
+`src/why/why-gen-records.adb:5048–5125`). Starting with `Void`, `Append`
+returns the nonvoid result without allocating a sequence.
+
+`Transform_Declaration` then assumes the object's dynamic invariant
+(`src/why/gnat2why-expr.adb:22591–22638`). For these non-itype static Integer
+types, the existing `dynamic_invariant` predicate is called with the object
+and four boolean flags. There are no additional variables in the type's
+dynamic invariant (`:6730–6824, 30936–31120`). The local type-invariant
+traversal returns `True` because Integer and its subtype parents have no
+user invariant (`:8782–8916`). The boolean conjunction simplifier returns
+the other child without a new node. Allow at most five fresh nodes for this
+declaration suffix: optional mutable dereference, eagerly constructed split
+type, predicate call, assume statement and sequence; two lists with seven
+elements. Its emitted cost is at most thirty, including the object's read,
+four flags (at most three occurrences each), call, assumption and sequence.
+The final declaration location label adds at most one node/occurrence
+(`:23187–23195`).
+
+Combining the larger allowances above, a source Integer declaration adds at
+most **thirteen fresh nodes, three lists, nine list elements and fifty-five
+emitted occurrences**, excluding the separately charged initializer and
+boundary. This deliberately combines maxima from mutable and immutable paths.
+The eager move temporary is charged even though it is never serialized.
+
+For an Integer assignment, `Transform_Statement_Or_Declaration` also eagerly
+creates an unused target-name identifier/name: the language has no `@` target
+names, but this costs another two fresh nodes
+(`src/why/gnat2why-expr.adb:29520–29561`).
+`Transform_Assignment_Statement` creates one split expected-type node, calls
+the RHS once, then reaches the regular assignment helper; its array, tag,
+discriminant, validity and move conditions are false
+(`:19042–19142, 19238–19345`). The conversions back to the existing target
+binder type compare equal Ada subtype identities and allocate nothing
+(`:12286–12368, 12402–12423`). Thus this assignment wrapper adds at most
+**six fresh nodes, zero lists/elements and eight emitted occurrences**,
+excluding the RHS/boundary and any enclosing statement-list location label.
+
+These bounds cover source Integer objects/assignments. Generated loop subtype
+declarations, loop framing, String declarations and fixed library bodies still
+need their own costs; the source Integer range's separate subtype declaration
+is not included merely by pricing its object wrapper.
+
 ## Declaration, type and module caller closure
 
 The following additional results close invocation multiplicities. They remain
@@ -499,9 +566,9 @@ an independent admission calculation from authoritative Silver source.
 | Missing term | Concrete caller closure required |
 | --- | --- |
 | Frontend-to-producer inputs | Bound generated entities, anonymous types, range captures and static/folded literal nodes for the admitted Main grammar and fixed dependencies; link these to source-derived quantities. |
-| Declaration/helper cost | The ordinary initializer child multiplicities and object outer-theory count are closed above. Price their identifier, dynamic-invariant and assignment wrappers and handle the frontend-generated declarations/types. |
+| Declaration/helper cost | The ordinary initializer child multiplicities, source Integer declaration/assignment wrappers and object outer-theory count are closed above. Price String wrappers and handle frontend-generated declarations/types. |
 | Type/module cost | The ordinary itype outer-theory and memoized entity-module counts are closed above. Price the declarations emitted inside those theories, fixed initialization and remaining directly created modules. |
-| Expression helper overhead | Price reachable scalar conversions/checks, dynamic String reconstruction, comparisons, Image and assignment helpers, including lazily initialized symbols. Child-once properties do not make these costs zero. |
+| Expression helper overhead | The normalized scalar-expression core and static Integer boundaries are closed above. Price dynamic String reconstruction, comparisons, Image and String assignment helpers, including lazily initialized symbols. Child-once properties do not make these costs zero. |
 | Loop per-entity overhead | Close `H` and `K_loop` for the Integer/String shapes and actual library write-global set, retaining the two endpoint domains and snapshot accounting. |
 | Fixed libraries at call sites | Separate one-time fixed library theories from per-call argument binding, contract/check substitution, globals and any permitted inlining. Fixed library source size does not imply constant total call-site cost. |
 | Printing-plan source bound | The coarse `F <= E_list` bound is closed above. Supply the frontend/dependency bound on `E_list`; sharpening Main to one file would require closing generated-entity and type-VC guards. |

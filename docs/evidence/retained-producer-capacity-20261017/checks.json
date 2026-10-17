@@ -75,6 +75,23 @@
     "static_boundary_overhead_max": 15,
     "type_label_overhead": 3
   },
+  "ordinary_integer_wrappers": {
+    "assignment": {
+      "elements_max": 0,
+      "lists_max": 0,
+      "nodes_max": 6,
+      "occurrence_overhead_max": 8
+    },
+    "declaration": {
+      "elements_max": 9,
+      "lists_max": 3,
+      "nodes_max": 13,
+      "occurrence_overhead_max": 55
+    },
+    "eager_assignment_target_temporary_nodes": 2,
+    "eager_move_temporary_nodes": 2,
+    "excludes": "RHS/init translation and boundary, binder/symbol setup, outer theories, enclosing sequence"
+  },
   "representation_maxima": {
     "Why_Node_Counter_Last": 2147483647,
     "Why_Node_Id_Last": 1073741823
