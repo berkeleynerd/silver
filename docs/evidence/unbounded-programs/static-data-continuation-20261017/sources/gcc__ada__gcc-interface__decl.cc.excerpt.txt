@@ -1,0 +1,136 @@
+1404: 	  }
+1405: 
+1406: 	/* If we are at top level and this object is of variable size, make
+1407: 	   the actual type a reference to the real type and the initializer
+1408: 	   be a memory allocation and initialization.  Likewise for an object
+1409: 	   that we aren't defining or is imported (presumed to be an external
+1410: 	   reference from another package), but in this case we do not set up
+1411: 	   an initialization.  Likewise if the object's size is constant but
+1412: 	   too large.  In either case, this will also cause Storage_Error to
+1413: 	   be raised if the size ends up overflowing.  Note that we will never
+1414: 	   free such memory, but it will be allocated only at top level.  */
+1415: 	if (!allocatable_size_p (TYPE_SIZE_UNIT (gnu_type),
+1416: 				 global_bindings_p ()
+1417: 				 || !definition
+1418: 				 || static_flag)
+1419: 	    || (gnu_size
+1420: 		&& !allocatable_size_p (convert (sizetype,
+1421: 						 size_binop
+1422: 						 (EXACT_DIV_EXPR, gnu_size,
+1423: 						  bitsize_unit_node)),
+1424: 					global_bindings_p ()
+1425: 					|| !definition
+1426: 					|| static_flag)))
+1427: 	  {
+1428: 	    /* Give a warning if the size is constant.  */
+1429: 	    if ((TREE_CODE (TYPE_SIZE_UNIT (gnu_type)) == INTEGER_CST
+1430: 		 || (gnu_size && TREE_CODE (gnu_size) == INTEGER_CST))
+1431: 		&& definition)
+1432: 	      {
+1433: 		if (imported_p)
+1434: 		  {
+1435: 		    post_error
+1436: 		      ("??too large object cannot be imported directly",
+1437: 		       gnat_entity);
+1438: 		    post_error ("\\??indirect import will be used instead",
+1439: 				gnat_entity);
+1440: 		  }
+1441: 		else if (global_bindings_p () || static_flag)
+1442: 		  {
+1443: 		    post_error
+1444: 		      ("??too large object cannot be allocated statically",
+1445: 		       gnat_entity);
+1446: 		    post_error ("\\??dynamic allocation will be used instead",
+1447: 				gnat_entity);
+1448: 		  }
+1449: 	      }
+1450: 
+1451: 	    if (volatile_flag && !TYPE_VOLATILE (gnu_type))
+1452: 	      gnu_type = change_qualified_type (gnu_type, TYPE_QUAL_VOLATILE);
+1453: 	    gnu_type = build_reference_type (gnu_type);
+1454: 	    used_by_ref = true;
+1455: 	    const_flag = true;
+1456: 	    volatile_flag = false;
+1457: 	    gnu_size = NULL_TREE;
+1458: 
+1459: 	    /* In case this was an aliased object whose nominal subtype is
+1460: 	       unconstrained, the pointer above will be a thin pointer and
+1461: 	       build_allocator will automatically make the template.
+1462: 
+1463: 	       If we have a template initializer only (that we made above),
+1464: 	       pretend there is none and rely on what build_allocator creates
+1465: 	       again anyway.  Otherwise (if we have a full initializer), get
+1466: 	       the data part and feed that to build_allocator.
+1467: 
+1468: 	       If we are elaborating a mutable object, tell build_allocator to
+1469: 	       ignore a possibly simpler size from the initializer, if any, as
+1470: 	       we must allocate the maximum possible size in this case.  */
+1471: 	    if (definition && !imported_p)
+1472: 	      {
+1473: 		tree gnu_alloc_type = TREE_TYPE (gnu_type);
+1474: 
+1475: 		if (TREE_CODE (gnu_alloc_type) == RECORD_TYPE
+1476: 		    && TYPE_CONTAINS_TEMPLATE_P (gnu_alloc_type))
+1477: 		  {
+1478: 		    gnu_alloc_type
+1479: 		      = TREE_TYPE (DECL_CHAIN (TYPE_FIELDS (gnu_alloc_type)));
+1480: 
+1481: 		    if (TREE_CODE (gnu_expr) == CONSTRUCTOR
+1482: 			&& CONSTRUCTOR_NELTS (gnu_expr) == 1)
+1483: 		      gnu_expr = NULL_TREE;
+1484: 		    else
+1485: 		      gnu_expr
+1486: 			= build_component_ref
+1487: 			    (gnu_expr,
+1488: 			     DECL_CHAIN (TYPE_FIELDS (TREE_TYPE (gnu_expr))),
+1489: 			     false);
+1490: 		  }
+1491: 
+1492: 		/* Give a warning if the size is constant but too large.  */
+1493: 		if (TREE_CODE (TYPE_SIZE_UNIT (gnu_alloc_type)) == INTEGER_CST
+1494: 		    && !valid_constant_size_p (TYPE_SIZE_UNIT (gnu_alloc_type)))
+1495: 		  post_error ("??Storage_Error will be raised at run time!",
+1496: 			      gnat_entity);
+1497: 
+1498: 		gnu_expr
+1499: 		  = build_allocator (gnu_alloc_type, gnu_expr, gnu_type,
+1500: 				     Empty, Empty, gnat_entity, mutable_p);
+1501: 	      }
+1502: 	    else
+1503: 	      gnu_expr = NULL_TREE;
+
+1552: 
+1553: 	/* If this is an aggregate constant initialized to a constant, force it
+1554: 	   to be statically allocated.  This saves an initialization copy.  */
+1555: 	if (!static_flag
+1556: 	    && const_flag
+1557: 	    && gnu_expr
+1558: 	    && TREE_CONSTANT (gnu_expr)
+1559: 	    && AGGREGATE_TYPE_P (gnu_type)
+1560: 	    && tree_fits_uhwi_p (TYPE_SIZE_UNIT (gnu_type))
+1561: 	    && !(TYPE_IS_PADDING_P (gnu_type)
+1562: 		 && !tree_fits_uhwi_p (TYPE_SIZE_UNIT
+1563: 				       (TREE_TYPE (TYPE_FIELDS (gnu_type))))))
+1564: 	  static_flag = true;
+1565: 
+1566: 	/* If this is an array allocated with its bounds, we make its type a
+
+7111: /* Return true if the size in units represented by GNU_SIZE can be handled by
+7112:    an allocation.  If STATIC_P is true, consider only what can be done with a
+7113:    static allocation.  */
+7114: 
+7115: static bool
+7116: allocatable_size_p (tree gnu_size, bool static_p)
+7117: {
+7118:   /* We can allocate a fixed size if it is a valid for the middle-end but, for
+7119:      a static allocation, we do not allocate more than 2 GB because this would
+7120:      very likely be unintended and problematic for usual code models.  */
+7121:   if (TREE_CODE (gnu_size) == INTEGER_CST)
+7122:     return valid_constant_size_p (gnu_size)
+7123: 	   && (!static_p || tree_to_uhwi (gnu_size) <= INT_MAX);
+7124: 
+7125:   /* We can allocate a variable size if this isn't a static allocation.  */
+7126:   else
+7127:     return !static_p;
+7128: }
+7129: 

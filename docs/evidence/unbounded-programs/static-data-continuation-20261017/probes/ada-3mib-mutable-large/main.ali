@@ -1,0 +1,79 @@
+V "GNAT Lib v16"
+M P W=b
+A -O0
+A -gnat2022
+A -gnata
+A -gnato
+A -mcmodel=large
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U main%b		main.adb		cb5d1685 NE OO SU
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W silver_io%s		silver_io.adb		silver_io.ali
+
+D ada.ads		20260430083320 76789da1 ada%s
+D a-except.ads		20260430083320 8699d7ff ada.exceptions%s
+D a-ioexce.ads		20260430083320 40018c65 ada.io_exceptions%s
+D a-stream.ads		20260430083320 cb01a8f8 ada.streams%s
+D a-string.ads		20260430083320 90ac6797 ada.strings%s
+D a-sttebu.ads		20260430083320 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20260430083320 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20260430083320 2dbf449c ada.tags%s
+D a-textio.ads		20260430083320 34ef47de ada.text_io%s
+D a-unccon.ads		20260430083320 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20260430083320 9111f9c1 interfaces%s
+D i-cstrea.ads		20260430083320 ffd01b9d interfaces.c_streams%s
+D main.adb		20261017203431 11b61f23 main%b
+D silver_io.ads		20261017203026 daeb09a6 silver_io%s
+D system.ads		20260430083320 e2b7c99d system%s
+D s-crtl.ads		20260430083320 823b6536 system.crtl%s
+D s-exctab.ads		20260430083320 91bef6ef system.exception_table%s
+D s-ficobl.ads		20260430083320 dc5161d4 system.file_control_block%s
+D s-parame.ads		20260430083320 a1aeab5c system.parameters%s
+D s-putima.ads		20260430083320 1b989439 system.put_images%s
+D s-secsta.ads		20260430083320 578279f5 system.secondary_stack%s
+D s-soflin.ads		20260430083320 5d88fdea system.soft_links%s
+D s-stache.ads		20260430083320 0b81c1fe system.stack_checking%s
+D s-stalib.ads		20260430083320 1c9580f6 system.standard_library%s
+D s-stoele.ads		20260430083320 ccded4e8 system.storage_elements%s
+D s-traent.ads		20260430083320 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20260430083320 fa2a7f59 system.unsigned_types%s
+D s-wchcon.ads		20260430083320 d9032363 system.wch_con%s
+G a e
+G c Z b b [main standard 2 11 none]
+G r c none [main standard 2 11 none] [put_line silver_io 18 14 none]
+X 13 main.adb
+2U11*Main 2b11 35l5 35t9
+4a4 A0{string} 5r28 5r33
+5a4 A1{string} 6r28 6r33
+6a4 A2{string} 7r28 7r33
+7a4 A3{string} 8r28 8r33
+8a4 A4{string} 9r28 9r33
+9a4 A5{string} 10r28 10r33
+10a4 A6{string} 11r28 11r33
+11a4 A7{string} 12r28 12r33
+12a4 A8{string} 13r28 13r33
+13a4 A9{string} 14r29 14r34
+14a4 A10{string} 15r29 15r35
+15a4 A11{string} 16r29 16r35
+16a4 A12{string} 17r29 17r35
+17a4 A13{string} 18r29 18r35
+18a4 A14{string} 19r29 19r35
+19a4 A15{string} 20r29 20r35
+20a4 A16{string} 21r29 21r35
+21a4 A17{string} 22r29 22r35
+22a4 A18{string} 23r29 23r35
+23a4 A19{string} 24r29 24r35
+24a4 A20{string} 25r19 26r19 27r19 31r10
+25a4 V1{string} 29m4 32r24
+26a4 V2{string} 29r10 30m4 33r24
+27a4 V3{string} 30r10 31m4 34r24
+X 14 silver_io.ads
+2K9*Silver_IO 13|1w6 32r4 33r4 34r4 14|37e14
+18U14*Put_Line 13|32s14 33s14 34s14
+

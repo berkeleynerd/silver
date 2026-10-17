@@ -1,0 +1,36 @@
+[
+  {
+    "started_utc": "2026-10-17T20:34:38.931013+00:00",
+    "elapsed_seconds": 0.4421382380023715,
+    "exit_status": 0,
+    "guard_trigger": null,
+    "max_aggregate_sampled_rss_kib": 52344,
+    "child_maxrss_native_units": 49516,
+    "child_maxrss_unit": "KiB",
+    "case": "ada-1mib-link-medium",
+    "executable_bytes": 3485344
+  },
+  {
+    "started_utc": "2026-10-17T20:34:39.445314+00:00",
+    "elapsed_seconds": 0.4436622650027857,
+    "exit_status": 0,
+    "guard_trigger": null,
+    "max_aggregate_sampled_rss_kib": 45572,
+    "child_maxrss_native_units": 50172,
+    "child_maxrss_unit": "KiB",
+    "case": "ada-1mib-link-large",
+    "executable_bytes": 3489488
+  },
+  {
+    "started_utc": "2026-10-17T20:34:39.954947+00:00",
+    "elapsed_seconds": 0.16491005099669565,
+    "exit_status": 0,
+    "guard_trigger": null,
+    "max_aggregate_sampled_rss_kib": 43040,
+    "child_maxrss_native_units": 57340,
+    "child_maxrss_unit": "KiB",
+    "case": "ada-3mib-mutable-large",
+    "assembly_bytes": 3728735,
+    "stack_reservation_bytes": 3145760
+  }
+]

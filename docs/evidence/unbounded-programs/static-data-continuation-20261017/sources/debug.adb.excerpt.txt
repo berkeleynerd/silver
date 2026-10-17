@@ -1,0 +1,10 @@
+728:    --  d.e  Enable atomic synchronization for all atomic variable references.
+729:    --       Pragma Disable_Atomic_Synchronization is ignored, and also the
+730:    --       compiler switch -gnated is ignored.
+731: 
+732:    --  d.f  Suppress folding of static expressions. This of course results
+733:    --       in seriously non-conforming behavior, but is useful sometimes
+734:    --       when tracking down handling of complex expressions.
+735: 
+736:    --  d.g  Enables conversion of a raise statement into a goto when the
+737:    --       relevant handler is statically determinable. For now we only try

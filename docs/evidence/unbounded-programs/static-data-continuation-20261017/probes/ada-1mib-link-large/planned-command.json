@@ -1,0 +1,16 @@
+[
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/gnatmake",
+  "-v",
+  "-f",
+  "main.adb",
+  "-o",
+  "main",
+  "-cargs",
+  "-O0",
+  "-gnat2022",
+  "-gnata",
+  "-gnato",
+  "-mcmodel=large",
+  "-largs",
+  "-mcmodel=large"
+]
