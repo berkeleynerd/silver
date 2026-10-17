@@ -1,0 +1,1006 @@
+{
+  "schema_version": 1,
+  "review": "docs/reviews/review-b79b986403.md",
+  "review_target": "b79b98640373056b71e396eb8e7741b0b9c233b5",
+  "original_delivery_evidence": "docs/evidence/bounded-mutable-integers/delivery-validation.json",
+  "date": "2026-10-17",
+  "state": "pending_complete_checkpoint",
+  "native_platform": "linux-x86_64",
+  "authorization": {
+    "pull_request": 85,
+    "commit": "ae94476179",
+    "merge": "e21331303cd9898b6b6aa91595d9792a6a1885fe"
+  },
+  "implementation": {
+    "final_source_proof_test_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+    "B1_native": "77a5582549",
+    "B1_followup": "188ab21408",
+    "M1": "78cf419452"
+  },
+  "runs": {
+    "build": {
+      "run_id": "20261017T120957-554f233972c7",
+      "kind": "build",
+      "task": "#77",
+      "scope": [
+        "compiler"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 4,
+      "reason": "Rebuild explicit nonempty Integer-assignment admission and matching catalogue for focused regressions.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver",
+      "started_at": "2026-10-17T12:09:58.527841+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:10:05.681171+00:00",
+      "managed_elapsed_seconds": 7.153134853,
+      "failure_keys": [],
+      "command": [
+        "gprbuild"
+      ],
+      "fingerprint": "479abfb41039549522b59e627bce37bb3340db28a4db2cc9af5b8ecdb903132f",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T120957-554f233972c7/native.log",
+          "sha256": "8638df3b16c01a60e7b1436550926f40a28c10295a7e94cd72cc9cb62b9a8d39",
+          "bytes": 356
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T120957-554f233972c7/events.jsonl",
+          "sha256": "e655791e48b72f472419fa88a6e5cd44e306cd0212b6b081defbbb53874d047c",
+          "bytes": 433171
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 2519,
+        "repository_input_count": 141,
+        "recorded_repository_inventory_digest_sha256": "d25fded54813b8745bd77977c8f509568adc75b3c624ec379429b22e7940a036",
+        "mismatches": [],
+        "all_recorded_repository_inputs_match_reference": true,
+        "excluded_input_count": 2378,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "result_lines": []
+    },
+    "focused_empty_loop_regressions": {
+      "run_id": "20261017T121032-e6be9bb4248e",
+      "kind": "test",
+      "task": "#77",
+      "scope": [
+        "-p",
+        "test_mutable_integers.py",
+        "-k",
+        "empty"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 4,
+      "reason": "Focused rejected and retained empty-loop assignment regressions after frontend admission repair.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver",
+      "started_at": "2026-10-17T12:10:32.896226+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:10:56.772023+00:00",
+      "managed_elapsed_seconds": 23.87555015,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_mutable_integers.py",
+        "-k",
+        "empty"
+      ],
+      "fingerprint": "f947cc1b128c6ba1eb49bf15751e975c205a811c43b67862279ad4a1288520ac",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121032-e6be9bb4248e/native.log",
+          "sha256": "a42bc5dd00cfb0390dddf9e67f5c6bc67e26f7585c9b73fc02cb79dda405f142",
+          "bytes": 50033
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121032-e6be9bb4248e/events.jsonl",
+          "sha256": "1b341b622d500c1c1e2afa0c8823fc9088a2c476e936d3c32525af30b2ae7c26",
+          "bytes": 108236
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "recorded_repository_inventory_digest_sha256": "d96fe3aac1be18dece8ea8180973cea4f267d5ac239a03445dd2db5384476910",
+        "mismatches": [
+          {
+            "path": "proof/Silver/ComposeScalarDeclarations.lean",
+            "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+            "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+          },
+          {
+            "path": "proof/Silver/ComposeScalarTrace.lean",
+            "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+            "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+          },
+          {
+            "path": "proof/Silver/ComposeStateBounds.lean",
+            "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+            "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+          },
+          {
+            "path": "proof/Silver/IntegerChecks.lean",
+            "recorded_sha256": "66388c1fc9b44b8e958706fd9f62b6c73c4a7259dce23f67e8c9401fbbf9e879",
+            "reference_sha256": "541067aeebb2845c1af61336a91c5509b6567dd009e177ea9c6625d14738845a"
+          },
+          {
+            "path": "proof/Silver/IntegerMutable.lean",
+            "recorded_sha256": "782421731933f43438f38bae88affa970d091fd71f00f28736848ace0374d4f6",
+            "reference_sha256": "60a2a3799b02a5fa41f0ad9878fd36da15054f157523907ff409c05dcf23c5a5"
+          },
+          {
+            "path": "proof/Silver/OutputBodyCertificate.lean",
+            "recorded_sha256": "c0ef5d7235a66dab54a76a25dd3342e7d7f5f241195c85d3012a9059c8bef94e",
+            "reference_sha256": "85f9d7a598a6e431a3646473cfe002f9842f7cbcd1d1b4763c42a0b219d7f87d"
+          },
+          {
+            "path": "proof/Silver/PredicateBasicReadings.lean",
+            "recorded_sha256": "6938cd72dc9e11ea0d45c26bdd2562a2c1ac0847b980e50320a2825ba38bc81b",
+            "reference_sha256": "e480666263754323075bce928613c25d9dd746b6936dcf751f8b3377130c88b8"
+          },
+          {
+            "path": "proof/Silver/PredicateBodyAdmission.lean",
+            "recorded_sha256": "12dfb705bdd5bc23731d91d79a046cfe0d8b89d02d3d6dd38a84ae11d17be271",
+            "reference_sha256": "e8adea0a08f9e5dfc2bfa8322182c4035e4bd94447b50b33d45d6d83dc6dddab"
+          },
+          {
+            "path": "proof/Silver/PredicateGrammar.lean",
+            "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+            "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+          },
+          {
+            "path": "proof/Silver/PredicateScalarBodyNative.lean",
+            "recorded_sha256": "4e184b8ab4c699db3be4c27fed9701f706ad0d7ba2b6d72fad8ae6abdeea33ee",
+            "reference_sha256": "51d418c2f507d836edbf5100d22667552ba50c6daf91721f95a60ef43bc21fbb"
+          },
+          {
+            "path": "proof/Silver/PredicateScalarBodySource.lean",
+            "recorded_sha256": "c8a68bcfb5c9fd0bcecf764a64dc52fcafb0ed509402c7908eb315129ef5567d",
+            "reference_sha256": "cae9226b41e81e83b17e6505012c4647819c90d33e6a61cfaa4f5e94e2fe3710"
+          },
+          {
+            "path": "proof/Silver/ReviewedOutputShape.lean",
+            "recorded_sha256": "b2218815f08b0322d43d870934437382d402854c23f5cd6b3d3c330b8fa40cf5",
+            "reference_sha256": "eb2fa6fc2cf7ce9fa435cac1be0b1c51f1ea7257ab03d685d588c093e3a01562"
+          },
+          {
+            "path": "proof/Silver/SequenceScalarTrace.lean",
+            "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+            "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 8,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "result_lines": [
+        "Success: all checks proved (71 checks).",
+        "Success: all checks proved (71 checks).",
+        "Ran 3 tests in 22.925s",
+        "OK"
+      ]
+    },
+    "focused_source_policy": {
+      "run_id": "20261017T121248-2052f84dda64",
+      "kind": "test",
+      "task": "#77",
+      "scope": [
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "CompilerSourcePolicyTests"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 2,
+      "reason": "Check regenerated B1 source certificate snapshots before the stable full regression checkpoint.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver",
+      "started_at": "2026-10-17T12:12:49.153401+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:12:54.603588+00:00",
+      "managed_elapsed_seconds": 5.449986474,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v",
+        "-p",
+        "test_lean_source.py",
+        "-k",
+        "CompilerSourcePolicyTests"
+      ],
+      "fingerprint": "61cfa2690088b828d5252c6f7ff17fa02b1f7a3640976db9ef9d6800dbbc24fe",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121248-2052f84dda64/native.log",
+          "sha256": "934ed873580149ffa25758bb47b7872f9d73ab8d2f655fefdf36d279b0847051",
+          "bytes": 1685
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121248-2052f84dda64/events.jsonl",
+          "sha256": "d40e4e367782dbd2a23f3e4d22bab9ab2a3317fe50fd646510cb5a8e18385cb0",
+          "bytes": 108356
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "recorded_repository_inventory_digest_sha256": "f3afc94cd3b590f5d3e541ef7efb62ae27f2611240a084f1c5c36a4edf5fc1e5",
+        "mismatches": [
+          {
+            "path": "proof/Silver/ComposeScalarDeclarations.lean",
+            "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+            "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+          },
+          {
+            "path": "proof/Silver/ComposeScalarTrace.lean",
+            "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+            "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+          },
+          {
+            "path": "proof/Silver/ComposeStateBounds.lean",
+            "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+            "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+          },
+          {
+            "path": "proof/Silver/PredicateGrammar.lean",
+            "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+            "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+          },
+          {
+            "path": "proof/Silver/SequenceScalarTrace.lean",
+            "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+            "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 8,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "result_lines": [
+        "Ran 10 tests in 4.290s",
+        "OK"
+      ]
+    },
+    "focused_B1_initial_failure": {
+      "run_id": "20261017T120951-b4fbf15724a7",
+      "kind": "lean",
+      "task": "#77",
+      "scope": [
+        "Silver.IntegerChecks",
+        "Silver.PredicateBasicReadings",
+        "Silver.PredicateScalarBodyCandidate"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 3,
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+      "started_at": "2026-10-17T12:09:51.900493+00:00",
+      "state": "failure",
+      "finished_at": "2026-10-17T12:10:58.480617+00:00",
+      "managed_elapsed_seconds": 66.579919619,
+      "failure_keys": [
+        "lean:build:Silver/PredicateScalarBodyNative.lean:195:30:This simp argument is unused:"
+      ],
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#77",
+        "--target",
+        "Silver.IntegerChecks",
+        "--target",
+        "Silver.PredicateBasicReadings",
+        "--target",
+        "Silver.PredicateScalarBodyCandidate",
+        "--workers",
+        "3",
+        "--threads",
+        "2",
+        "--provenance"
+      ],
+      "fingerprint": "99cbf120e3c564bff7817fe718a52209740401369fb8b012ef5044acd392fc25",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T120951-b4fbf15724a7/events.jsonl",
+          "sha256": "84d9e59afb0c43e2de070c1726f17555f2faaa91d5e226666afa2b3cc41af06e",
+          "bytes": 67292
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "recorded_repository_inventory_digest_sha256": "9b96ef22f54c5070893e27ae8f94d8af02e63a86ee635aac8a8fd303b8de6fa4",
+        "mismatches": [
+          {
+            "path": "proof/Silver/ComposeScalarDeclarations.lean",
+            "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+            "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+          },
+          {
+            "path": "proof/Silver/ComposeScalarTrace.lean",
+            "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+            "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+          },
+          {
+            "path": "proof/Silver/ComposeStateBounds.lean",
+            "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+            "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+          },
+          {
+            "path": "proof/Silver/PredicateGrammar.lean",
+            "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+            "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+          },
+          {
+            "path": "proof/Silver/PredicateScalarBodyNative.lean",
+            "recorded_sha256": "b19183007be8e67220a39f451e36c1c2075c01f30ab192c169878a702f102ae1",
+            "reference_sha256": "51d418c2f507d836edbf5100d22667552ba50c6daf91721f95a60ef43bc21fbb"
+          },
+          {
+            "path": "proof/Silver/SequenceScalarTrace.lean",
+            "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+            "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+          },
+          {
+            "path": "src/silver_catalogue.adb",
+            "recorded_sha256": "d76b2e7a714d4fdba7a77d146ed7ecd69cf4b0375b913a345576d0970523910e",
+            "reference_sha256": "8f5188d9151a76c0b7f5c5e17b9f6c62adef779b64910c76fcfd547474321381"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 0,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      }
+    },
+    "focused_B1_repair": {
+      "run_id": "20261017T121106-3330dbaba9cd",
+      "kind": "lean",
+      "task": "#77",
+      "scope": [
+        "Silver.IntegerChecks",
+        "Silver.PredicateBasicReadings",
+        "Silver.PredicateScalarBodyCandidate"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 3,
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+      "started_at": "2026-10-17T12:11:07.245159+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:11:40.291352+00:00",
+      "managed_elapsed_seconds": 33.045923176,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#77",
+        "--target",
+        "Silver.IntegerChecks",
+        "--target",
+        "Silver.PredicateBasicReadings",
+        "--target",
+        "Silver.PredicateScalarBodyCandidate",
+        "--workers",
+        "3",
+        "--threads",
+        "2",
+        "--provenance"
+      ],
+      "fingerprint": "a20e0abcf54c0a50f70e8e68ac0857d6c1db1e5aaa6941fe3a5f7cbb50b45820",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121106-3330dbaba9cd/lean-focused-evidence.json",
+          "sha256": "7b5a1b597c734469c38bdd4655f185367c17e1697528fe2961f0b4ef3d72e608",
+          "bytes": 507680
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121106-3330dbaba9cd/events.jsonl",
+          "sha256": "9b8a7b907c960b1dc5b22139e95991674723ee88a72f8bde1ba36de4612c2dac",
+          "bytes": 68733
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121106-3330dbaba9cd/lean-focused.log",
+          "sha256": "db81c81c3ade579061a271a12c42228e6c441aee2c47c92173db9eec920faf9b",
+          "bytes": 5037
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "recorded_repository_inventory_digest_sha256": "5d5a0abfcf298554f2ac2ce08324ab77ecffc4c5ed9c7c8f7b7c6c5923f6184c",
+        "mismatches": [
+          {
+            "path": "proof/Silver/ComposeScalarDeclarations.lean",
+            "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+            "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+          },
+          {
+            "path": "proof/Silver/ComposeScalarTrace.lean",
+            "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+            "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+          },
+          {
+            "path": "proof/Silver/ComposeStateBounds.lean",
+            "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+            "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+          },
+          {
+            "path": "proof/Silver/PredicateGrammar.lean",
+            "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+            "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+          },
+          {
+            "path": "proof/Silver/SequenceScalarTrace.lean",
+            "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+            "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+          },
+          {
+            "path": "src/silver_catalogue.adb",
+            "recorded_sha256": "d76b2e7a714d4fdba7a77d146ed7ecd69cf4b0375b913a345576d0970523910e",
+            "reference_sha256": "8f5188d9151a76c0b7f5c5e17b9f6c62adef779b64910c76fcfd547474321381"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 0,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "lean": {
+        "scope": "focused",
+        "targets": [
+          "Silver.IntegerChecks",
+          "Silver.PredicateBasicReadings",
+          "Silver.PredicateScalarBodyCandidate"
+        ],
+        "mode": "focused",
+        "clean_build": false,
+        "axiom_audit": "passed",
+        "kernel_recheck": null,
+        "threads_per_process": 2,
+        "lake_workers": 3,
+        "elapsed_seconds": 33.574,
+        "inputs_digest_sha256": "dbfebebb07f2b51ad587f82a9d3345985ca6970d39c757d1cbcc8f789fc8c143",
+        "phases": [
+          {
+            "phase": "build",
+            "started_at": "2026-10-17T12:11:10.225357+00:00",
+            "finished_at": "2026-10-17T12:11:30.877759+00:00",
+            "elapsed_seconds": 20.652,
+            "exit_code": 0
+          },
+          {
+            "phase": "audit",
+            "started_at": "2026-10-17T12:11:32.606981+00:00",
+            "finished_at": "2026-10-17T12:11:37.607129+00:00",
+            "elapsed_seconds": 5.0,
+            "exit_code": 0
+          }
+        ],
+        "tools_sha256": {
+          ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+          ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+        },
+        "module_count": 99,
+        "workspace_input_count": 468,
+        "artifact_count": 2800,
+        "inputs_digest_recomputed_equal": true,
+        "workspace_comparison": {
+          "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+          "recorded_input_count": 468,
+          "repository_input_count": 468,
+          "recorded_repository_inventory_digest_sha256": "afbc7f7541f151febc888c3f42562f28967bc6bb2f447c336568279fc1024862",
+          "mismatches": [
+            {
+              "path": "proof/Silver/ComposeScalarDeclarations.lean",
+              "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+              "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+            },
+            {
+              "path": "proof/Silver/ComposeScalarTrace.lean",
+              "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+              "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+            },
+            {
+              "path": "proof/Silver/ComposeStateBounds.lean",
+              "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+              "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+            },
+            {
+              "path": "proof/Silver/PredicateGrammar.lean",
+              "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+              "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+            },
+            {
+              "path": "proof/Silver/SequenceScalarTrace.lean",
+              "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+              "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+            }
+          ],
+          "all_recorded_repository_inputs_match_reference": false,
+          "excluded_input_count": 0,
+          "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+        }
+      },
+      "result_lines": [
+        "Silver axiom audit passed: 16557 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    "focused_M1": {
+      "run_id": "20261017T121341-ac959d5a4cbb",
+      "kind": "lean",
+      "task": "#78",
+      "scope": [
+        "Silver.ComposeScalarTrace",
+        "Silver.ComposeStateBounds",
+        "Silver.PredicateGrammar",
+        "Silver.SequenceScalarTrace"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 3,
+      "reason": "",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-m1",
+      "started_at": "2026-10-17T12:13:42.142520+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:14:03.230050+00:00",
+      "managed_elapsed_seconds": 21.087243017,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-m1/scripts/check_lean.py",
+        "--target",
+        "Silver.ComposeScalarTrace",
+        "--target",
+        "Silver.SequenceScalarTrace",
+        "--target",
+        "Silver.ComposeStateBounds",
+        "--target",
+        "Silver.PredicateGrammar",
+        "--workers",
+        "3",
+        "--threads",
+        "2",
+        "--task",
+        "#78"
+      ],
+      "fingerprint": "ceb4e3022eb9469f2286e66ecb8f539e1bb9cd484d0aadb722d602e247730b33",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121341-ac959d5a4cbb/lean-focused-evidence.json",
+          "sha256": "bf0adc4345f0858cff43a66b2d92319d35194b328f085ede3161940d14608af0",
+          "bytes": 4685
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121341-ac959d5a4cbb/events.jsonl",
+          "sha256": "a077974b892a212d5b62b0e02a51abcb3061bb8a7540dee47fabcd666025d4d2",
+          "bytes": 68700
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121341-ac959d5a4cbb/lean-focused.log",
+          "sha256": "07e89bf2a244b406154ae72769b1e9b202cec6fe6d75f37de8b060103619b0be",
+          "bytes": 5288
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "recorded_repository_inventory_digest_sha256": "e9f7935c5efa17a2fa349d509a189c167e1c3c7fdcaa29617ab212b275497abf",
+        "mismatches": [
+          {
+            "path": "proof/Silver/IntegerChecks.lean",
+            "recorded_sha256": "66388c1fc9b44b8e958706fd9f62b6c73c4a7259dce23f67e8c9401fbbf9e879",
+            "reference_sha256": "541067aeebb2845c1af61336a91c5509b6567dd009e177ea9c6625d14738845a"
+          },
+          {
+            "path": "proof/Silver/IntegerMutable.lean",
+            "recorded_sha256": "782421731933f43438f38bae88affa970d091fd71f00f28736848ace0374d4f6",
+            "reference_sha256": "60a2a3799b02a5fa41f0ad9878fd36da15054f157523907ff409c05dcf23c5a5"
+          },
+          {
+            "path": "proof/Silver/PredicateBasicReadings.lean",
+            "recorded_sha256": "6938cd72dc9e11ea0d45c26bdd2562a2c1ac0847b980e50320a2825ba38bc81b",
+            "reference_sha256": "e480666263754323075bce928613c25d9dd746b6936dcf751f8b3377130c88b8"
+          },
+          {
+            "path": "proof/Silver/PredicateBodyAdmission.lean",
+            "recorded_sha256": "12dfb705bdd5bc23731d91d79a046cfe0d8b89d02d3d6dd38a84ae11d17be271",
+            "reference_sha256": "e8adea0a08f9e5dfc2bfa8322182c4035e4bd94447b50b33d45d6d83dc6dddab"
+          },
+          {
+            "path": "proof/Silver/PredicateScalarBodyNative.lean",
+            "recorded_sha256": "4e184b8ab4c699db3be4c27fed9701f706ad0d7ba2b6d72fad8ae6abdeea33ee",
+            "reference_sha256": "51d418c2f507d836edbf5100d22667552ba50c6daf91721f95a60ef43bc21fbb"
+          },
+          {
+            "path": "proof/Silver/PredicateScalarBodySource.lean",
+            "recorded_sha256": "c8a68bcfb5c9fd0bcecf764a64dc52fcafb0ed509402c7908eb315129ef5567d",
+            "reference_sha256": "cae9226b41e81e83b17e6505012c4647819c90d33e6a61cfaa4f5e94e2fe3710"
+          },
+          {
+            "path": "proof/Silver/ReviewedOutputShape.lean",
+            "recorded_sha256": "b2218815f08b0322d43d870934437382d402854c23f5cd6b3d3c330b8fa40cf5",
+            "reference_sha256": "eb2fa6fc2cf7ce9fa435cac1be0b1c51f1ea7257ab03d685d588c093e3a01562"
+          },
+          {
+            "path": "src/silver_catalogue.adb",
+            "recorded_sha256": "d76b2e7a714d4fdba7a77d146ed7ecd69cf4b0375b913a345576d0970523910e",
+            "reference_sha256": "8f5188d9151a76c0b7f5c5e17b9f6c62adef779b64910c76fcfd547474321381"
+          },
+          {
+            "path": "src/silver_output_profile.adb",
+            "recorded_sha256": "26469465f522a89d7452554c3133870db62a05351173b126fe78b841d5f03a5d",
+            "reference_sha256": "f5a781bc19caea091d8b352e2c43a8672e11c5524182d27539ffa58296caf715"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 0,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "lean": {
+        "scope": "focused",
+        "targets": [
+          "Silver.ComposeScalarTrace",
+          "Silver.SequenceScalarTrace",
+          "Silver.ComposeStateBounds",
+          "Silver.PredicateGrammar"
+        ],
+        "mode": "focused",
+        "clean_build": false,
+        "axiom_audit": "passed",
+        "kernel_recheck": null,
+        "threads_per_process": 2,
+        "lake_workers": 3,
+        "elapsed_seconds": 21.519,
+        "inputs_digest_sha256": "6462f42cf6432f5156fde14f3b382b91700e63147acb10a41d0572b1566c604a",
+        "phases": [
+          {
+            "phase": "build",
+            "started_at": "2026-10-17T12:13:45.330548+00:00",
+            "finished_at": "2026-10-17T12:13:58.236835+00:00",
+            "elapsed_seconds": 12.906,
+            "exit_code": 0
+          },
+          {
+            "phase": "audit",
+            "started_at": "2026-10-17T12:13:58.690481+00:00",
+            "finished_at": "2026-10-17T12:14:02.360279+00:00",
+            "elapsed_seconds": 3.67,
+            "exit_code": 0
+          }
+        ],
+        "tools_sha256": {
+          ".tools/linux-x86_64/lean/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+          ".tools/linux-x86_64/lean/bin/lake": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d"
+        },
+        "module_count": 102,
+        "workspace_input_count": 0,
+        "artifact_count": 0,
+        "inputs_digest_recomputed_equal": true
+      },
+      "result_lines": [
+        "Silver axiom audit passed: 13537 declarations; foundations: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    "native_full_audit": {
+      "run_id": "20261017T121201-b6d6ef10643e",
+      "kind": "prove",
+      "task": "#77",
+      "scope": [
+        "compiler"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 4,
+      "reason": "Stable B1 native admission and catalogue changed; complete audit at original validation path to retain solver-cache reuse. Inputs match root 8fc233ad7f; original dirty files preserved in root tmp/review-b79-native-before.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native",
+      "started_at": "2026-10-17T12:12:02.503448+00:00",
+      "state": "success",
+      "finished_at": "2026-10-17T12:28:25.801499+00:00",
+      "managed_elapsed_seconds": 983.368622188,
+      "failure_keys": [],
+      "command": [
+        "gnatprove"
+      ],
+      "fingerprint": "26ff093d6756b7ef28cb57ac85752f7015ecac1aa473035d5a68caba9d29acf0",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121201-b6d6ef10643e/native.log",
+          "sha256": "c93d6fd4b96e988eada66fe88b43e4bd5e745a89c7431f3a9ff3546626485234",
+          "bytes": 1188164
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121201-b6d6ef10643e/events.jsonl",
+          "sha256": "6237d48a5c2b00bd129f3ff66916f551be01b2425bc782fe6ce740b3b6c52065",
+          "bytes": 436750
+        }
+      ],
+      "native_provenance": {
+        "manifest": {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121201-b6d6ef10643e/proof-evidence/proof-inputs.json",
+          "sha256": "35f655d1aaff8356fca3a907b4b31b9cd88f4b3059082e4b2b4e9b9a1cbe0024",
+          "bytes": 446320
+        },
+        "provenance": {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121201-b6d6ef10643e/proof-evidence/proof-provenance.json",
+          "sha256": "2fead10dbfeb9021e1ee4e7b23b18d9670ce9a7272b1adda3672a69a7ffacdc9",
+          "bytes": 454617
+        },
+        "complete": true,
+        "initial_state": {
+          "sessions_present": true,
+          "cache_entries_present": true
+        },
+        "command": [
+          "gnatprove",
+          "-P",
+          "../../../silver.gpr",
+          "-U",
+          "--mode=all",
+          "--report=all",
+          "--warnings=error",
+          "--checks-as-errors=on",
+          "--level=2",
+          "--prover=cvc5,z3,altergo",
+          "--timeout=30",
+          "-j",
+          "4",
+          "--memcached-server=file:/home/canto/src/github.com/berkeleynerd/silver/tmp/bounded-mutable-integers-native/.silver/linux-x86_64/proof-cache/gnatprove/ea6aba21eca447a9c8473fc1c3ea0300b03a95ce919d8a326f68a67989029329",
+          "-f",
+          "-XSILVER_HOST=linux-x86_64"
+        ],
+        "report_count": 77,
+        "report_inventory_digest_sha256": "ad5db4172422af734363c75b6e576055d22c24f7f41454b0b520da6700516598",
+        "retained_report_mismatches": [],
+        "input_comparison": {
+          "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+          "recorded_input_count": 2519,
+          "repository_input_count": 141,
+          "recorded_repository_inventory_digest_sha256": "d25fded54813b8745bd77977c8f509568adc75b3c624ec379429b22e7940a036",
+          "mismatches": [],
+          "all_recorded_repository_inputs_match_reference": true,
+          "excluded_input_count": 2378,
+          "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+        },
+        "tool_count": 12,
+        "tools_inventory_digest_sha256": "e6bac6948d67cc9e5fa1b4008f44ae054a39ce6db1eae55a6c6669f9d3b80eb2"
+      },
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 2519,
+        "repository_input_count": 141,
+        "recorded_repository_inventory_digest_sha256": "d25fded54813b8745bd77977c8f509568adc75b3c624ec379429b22e7940a036",
+        "mismatches": [],
+        "all_recorded_repository_inputs_match_reference": true,
+        "excluded_input_count": 2378,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "result_lines": [
+        "Success: all checks proved (15149 checks).",
+        "Complete GNATprove evidence: 75 units, 1000 entities, 1295 flow_checks, 13854 proof_checks, 290 limitation_notes, 18 imported_entities, 6236 trusted_math_notes, 62 vendor_spec_entities"
+      ]
+    },
+    "full_tests": {
+      "run_id": "20261017T121442-e0df446200f8",
+      "kind": "test",
+      "task": "#77 #78",
+      "scope": [
+        "all-tests"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 4,
+      "reason": "Stable integrated repair78cf419452: run full regression and sample suite once against delivered source/proof tree.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver",
+      "started_at": "2026-10-17T12:14:43.049767+00:00",
+      "state": "pending",
+      "finished_at": null,
+      "managed_elapsed_seconds": null,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "fingerprint": "e4091c3cb61585e5c4cb56e5e5aeba0bb129b5bb4b0922a5a7cd2c8818537bce",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121442-e0df446200f8/native.log",
+          "sha256": "86a3aec8d1363fd0cb2f8e28de73a016bad0626c525a39019ae4c3bdd69b4bf8",
+          "bytes": 1719586
+        },
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121442-e0df446200f8/events.jsonl",
+          "sha256": "01aedf1c9bee7fc00b6773b9c05f80b89cf9f0568ebb89f0fd6e3a793b5214af",
+          "bytes": 107226
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 687,
+        "repository_input_count": 679,
+        "recorded_repository_inventory_digest_sha256": "4ae07571df6e6b4eaecd46fedb02f30adb125a7366ca1611ad511981e7d2cd4f",
+        "mismatches": [],
+        "all_recorded_repository_inputs_match_reference": true,
+        "excluded_input_count": 8,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      },
+      "result_lines": [
+        "Success: all checks proved (70 checks).",
+        "Success: all checks proved (66 checks).",
+        "Success: all checks proved (68 checks).",
+        "Success: all checks proved (71 checks).",
+        "Success: all checks proved (71 checks)."
+      ]
+    },
+    "source_correspondence": {
+      "run_id": "20261017T121424-bdf9ff7af233",
+      "kind": "lean",
+      "task": "#77",
+      "scope": [
+        "Silver.ComposeSourceChecks"
+      ],
+      "host": "linux-x86_64",
+      "machine": "codex-silver",
+      "workers": 4,
+      "reason": "Required actual-source correspondence for the stable B1 native and reviewed shape; source dependency closure excludes all five M1 edited modules, so retain this expensive successful work while M1 finishes independently.",
+      "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean",
+      "started_at": "2026-10-17T12:14:25.035022+00:00",
+      "state": "pending",
+      "finished_at": null,
+      "managed_elapsed_seconds": null,
+      "failure_keys": [],
+      "command": [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-b79-b1-lean/scripts/check_lean.py",
+        "--task",
+        "#77",
+        "--target",
+        "Silver.ComposeSourceChecks",
+        "--workers",
+        "4",
+        "--threads",
+        "2",
+        "--provenance",
+        "--reason",
+        "Required actual-source correspondence for the stable B1 native and reviewed shape; source dependency closure excludes all five M1 edited modules, so retain this expensive successful work while M1 finishes independently."
+      ],
+      "fingerprint": "d0d9910326d884c4e32330e94291cddeaf1d79d29e7c6c0a37573dd5b026958e",
+      "artifacts": [
+        {
+          "path": ".git/silver-runs/linux-x86_64/d140f139bb2e1ef1/runs/20261017T121424-bdf9ff7af233/events.jsonl",
+          "sha256": "9a3f0f24d557ebef536484a323f5320769f68e94e4af4d464091d43605ba08bb",
+          "bytes": 66038
+        }
+      ],
+      "input_comparison": {
+        "reference_commit": "78cf41945219e103aa1e486c79e2d63c0cd7f324",
+        "recorded_input_count": 581,
+        "repository_input_count": 581,
+        "recorded_repository_inventory_digest_sha256": "c381bdf843c79a4dd5cbe2a0f31570cc1ddf6358b43ebdf5ba8f4dbc311f2134",
+        "mismatches": [
+          {
+            "path": "proof/Silver/ComposeScalarDeclarations.lean",
+            "recorded_sha256": "03710aaecb8b90d61481fe243124581e071dec0d93ee190756d7e65a31f6af3c",
+            "reference_sha256": "47096c6d1cf5604572d4a4d93e3bfeb3e5a66aaf22e6ee30e359af1fc17a206c"
+          },
+          {
+            "path": "proof/Silver/ComposeScalarTrace.lean",
+            "recorded_sha256": "e570837f767038f982d24e013b85797ec06a1ad545008fc25abde4ee6c4e2ab4",
+            "reference_sha256": "2aa0be48ee24dbc10af96a1a816184bd366425d31a8d8121003a89e9fa3e9705"
+          },
+          {
+            "path": "proof/Silver/ComposeStateBounds.lean",
+            "recorded_sha256": "2830e81501d1869280cacf395d61ec2bf0b3fbb2fc2b3ca715e979ca1d5edaf3",
+            "reference_sha256": "bd4decdc384a23ae29ae55458112b0321b8b74d0427480a33108e1c1bdbd14e7"
+          },
+          {
+            "path": "proof/Silver/PredicateGrammar.lean",
+            "recorded_sha256": "4114ee80a5d869be115173e07328765f7f4f88480f1c4cb8839b3d3c55f7b19f",
+            "reference_sha256": "495b4db1d8cbe22027a4911197278eef74b89f537b8430287298ca93edc0f20f"
+          },
+          {
+            "path": "proof/Silver/SequenceScalarTrace.lean",
+            "recorded_sha256": "2901690efa01fe8df764fcdbcf136591b3806196576910105ffc7efc0d9d9a4c",
+            "reference_sha256": "c081f090a3f8252150f83ddefe8c00b4ced79aa5e6512c7eeee1ff4b80134ce7"
+          }
+        ],
+        "all_recorded_repository_inputs_match_reference": false,
+        "excluded_input_count": 0,
+        "scope": "Normalizes captured paths relative to the executed worktree and hashes that recorded run map filtered to tracked paths; comparison is against the named tree. It is not a digest of the reference tree. Generated installation-specific files and external tools retain their separate captured identities."
+      }
+    }
+  },
+  "inventory_digest_encoding": {
+    "recorded_repository_inventory_digest_sha256": "sha256(json.dumps(mapping, sort_keys=True, separators=(\",\", \":\")).encode())",
+    "lean_inputs_digest_sha256": "sha256(json.dumps(mapping, sort_keys=True).encode()) with default separators"
+  },
+  "supplemental_evidence": [
+    {
+      "path": "tmp/review-b79-all-74-mismatches-recheck.json",
+      "sha256": "85c1e1389da7064bed26c175f78d8e4b4941705b921b52409ed92f3f9aca40ef",
+      "bytes": 15845
+    },
+    {
+      "path": "tmp/review-b79-doc-checks.json",
+      "sha256": "46d661b2ef1e676cc63744156a2530aeab6758f3110007688b965da705723d19",
+      "bytes": 480
+    },
+    {
+      "path": "tmp/review-b79-native-final-input-comparison.json",
+      "sha256": "7fb46c0e833e0f18a6e5719916403c6d7ae53ede75ef4b1261e6c6427089c866",
+      "bytes": 287271
+    },
+    {
+      "path": "tmp/review-b79-m1/tmp/m1-handoff.json",
+      "sha256": "3f9c52d1557f26f11b88713d2ed9ebfa60b71814464e3a594cdb4ace4ae37fc5",
+      "bytes": 1389
+    },
+    {
+      "path": "tmp/review-b79-b1-lean/tmp/native-m1-review.md",
+      "sha256": "c9b2d406ac7d0c7e0125971325d638525faa35833004467b6d7373106f91045c",
+      "bytes": 1830
+    },
+    {
+      "path": "tmp/review-b79-m1/tmp/b1-independent-review.md",
+      "sha256": "e49be3bc57cdd7cb1c04448a9cfc3056eda287060427687745de5ac15bb42181",
+      "bytes": 3246
+    }
+  ],
+  "claims_not_made": [
+    "clean build",
+    "independent kernel replay",
+    "native macOS validation",
+    "hosted CI execution"
+  ],
+  "record_preparation": "Read retained ledger/log/manifest data and compare file hashes only; no new proof, build, audit or test run is performed to prepare this record.",
+  "independent_review": {
+    "scope": "Bidirectional source review, separate from validation. B1 reviewer checked native admission/tests and M1; M1 reviewer checked B1 native/model/source changes. Root reviewed both proof diffs and documentation. No material finding remains; one language wording nit repaired by 188ab21408.",
+    "B1_reviewer_target": "Native and M1 working diff, including root 78cf419452; see retained review note for exact commits.",
+    "M1_reviewer_target": "e21331303c..78cf419452",
+    "source_review_is_not_complete_validation": true
+  },
+  "failure_disposition": {
+    "20261017T120951-b4fbf15724a7": "Focused B1 build failed because Bool.and_eq_true became an unused simp argument. Remove the redundant argument; focused repair passed in 20261017T121106-3330dbaba9cd. Failure remains retained."
+  },
+  "focused_input_scope": "Focused lane-wide recorded inventories include files outside their selected target closures. B1 focused success predates five M1 proof changes and the native catalogue change; M1 focused success predates seven B1 proof changes and two native files. Those differences remain listed. The focused ComposeSourceChecks lane also predates the five M1 files. Focused evidence is not complete validation of the final combined tree.",
+  "original_review_preserved": {
+    "original": {
+      "path": "tmp/review-b79-original-report.md",
+      "sha256": "c6c8867a442b79b1a58851f6cdda7ef18b4a787013f4b92cd043de3d62e6cfbc",
+      "bytes": 43211
+    },
+    "published": {
+      "path": "docs/reviews/review-b79b986403.md",
+      "sha256": "c6c8867a442b79b1a58851f6cdda7ef18b4a787013f4b92cd043de3d62e6cfbc",
+      "bytes": 43211
+    },
+    "bytes_equal": true
+  }
+}

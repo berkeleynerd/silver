@@ -98,8 +98,26 @@ executed workspaces were identical; captured input inventories remain authoritat
 
 ## Validation and handoff
 
-Repair implementation, independent review and validation are pending. The
+Repair implementation and bidirectional independent source review are complete.
+The integrated validation checkpoint remains pending. The
 original review's targeted checks are review evidence, not a repair checkpoint.
 No clean rebuild, independent kernel replay, native macOS run or hosted CI is
 required or claimed. The original report is preserved verbatim; this record
 corrects its B1 recipe without rewriting the review.
+
+
+### Native repair checkpoint — 2026-10-17
+
+Complete native run `20261017T121201-b6d6ef10643e` passed strict auditing of
+75 units and 1,000 entities: 1,295 flow checks and 13,854 proof checks, totaling
+15,149. Its managed elapsed time was 983.369 seconds. It reused the original
+native validation workspace and solver cache; this is a complete cached audit,
+not a cold-proof measurement. All 141 captured tracked repository inputs match
+frozen implementation/proof/test commit `78cf419452`. The other 2,378 captured
+generated, vendor and tool inputs retain their native-workspace identities.
+All 77 retained reports hash-match the completed provenance manifest.
+
+The [repair evidence](evidence/bounded-mutable-integers/review-remediation-validation.json)
+records those manifests and exact comparisons. Complete regression and combined
+Lean/source validation are still pending; native success alone does not restore
+capability completion. The original PR #76 delivery evidence remains separate.
